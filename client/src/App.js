@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
+import { getMovies } from './actions/movies';
 import Movies from './components/Movies/Movies'
-import Form from './components/Forms/Form'
+import Form from './components/Form/Form'
 import jb from './images/jb.jpeg';
+import useStyles from './styles';
 
 
 const App = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+      dispatch(getMovies());
+  }, [dispatch])
+
   return (
     <Container maxidth='lg'>
-      <AppBar postion="static" color="inherit">
-        <Typography variant="h2" align="center">Justin Bieber</Typography>
-        <img src={jb} alt="jb" height="60" />
-      </AppBar>
         <Grow in>
           <Container>
             <Grid container justify="space-between" alignItems="stretch" spacing={3} >
