@@ -7,6 +7,7 @@ import Movies from './components/Movies/Movies'
 import Form from './components/Form/Form'
 import jb from './images/jb.jpeg';
 import useStyles from './styles';
+import Home1 from './pages/Home1';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
                 <Form />
               </Grid>
             </Grid>
+            <Home1 />
           </Container>
 
       </Grow>
