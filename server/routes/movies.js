@@ -1,10 +1,18 @@
-import express from 'express';
+import express from "express";
+import multer from "multer";
 
-import { getMovies, createMovie } from '../controllers/movies.js'
+const upload = multer({ dest: "images/" });
+
+import {
+  getMovies,
+  createMovie,
+  getMovieImage,
+} from "../controllers/movies.js";
 
 const router = express.Router();
 
-router.get('/',  getMovies);
-router.post('/',  createMovie);
+router.get("/", getMovies);
+router.post("/", createMovie);
+router.post("/image", upload.single("file"), getMovieImage);
 
 export default router;

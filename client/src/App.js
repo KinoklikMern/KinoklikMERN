@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { getMovies } from "./actions/movies";
 import Movies from "./components/Movies/Movies";
-import Form from "./components/Form/Form";
+import Form from "./components/Forms/Form";
 import jb from "./images/jb.jpeg";
 import useStyles from "./styles";
 

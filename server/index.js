@@ -17,6 +17,10 @@ app.use("/movies", movieRoutes);
 app.use("/users", userRoutes);
 app.use("/epk", epkRoutes);
 app.listen(8000, () => console.log(`App Running on PORT ${PORT}`));
+// app.listen(port, (err) => {
+  //   if (err) return console.log(err);
+  //   console.log('Server running on port: ', port)
+  // });
 
 const CONNECTION_URL =
   "mongodb+srv://kinoklik:KinoKlik99!!@kinoklik.sk2izbk.mongodb.net/?retryWrites=true&w=majority";
