@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import './Header.css';
+import "./Header.css";
 
 function Header() {
   return (
@@ -17,10 +17,16 @@ function Header() {
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-
+        <Link class="navbar-brand text-headers-style" to="/home">
+          <img
+            src={require("../images/logo.png")}
+            alt="Logo"
+            class="navbar-logo"
+          />
+        </Link>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-3">
-          <li class="nav-item">
+            <li class="nav-item">
               <button class=" anim-whatsnew whats-new">
                 <span class="circle" aria-hidden="true">
                   <span class="whatsnew-icon arrow"></span>
@@ -54,7 +60,7 @@ function Header() {
 
                 <span>
                   <Link class="whatsnew-text" to="/upload">
-                  &nbsp;&nbsp;&nbsp;&nbsp;Upload movie
+                    &nbsp;&nbsp;&nbsp;&nbsp;Upload movie
                   </Link>
                 </span>
               </button>
@@ -68,7 +74,7 @@ function Header() {
 
                 <span>
                   <Link class="whatsnew-text" to="/dashboard">
-                  &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
+                    &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
                   </Link>
                 </span>
               </button>
