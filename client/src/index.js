@@ -8,6 +8,7 @@ import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { BrowserRouter } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
 
 import reducers from "./reducers";
 
