@@ -28,10 +28,11 @@ export async function uploadFileToS3(fileObj) {
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,
-    Key: fileObj.filename + ext, // use uuid generator  for key
+    Key: "image/" + fileObj.filename + ext, // use uuid generator  for key
   };
 
   const uploadData = await s3.upload(uploadParams).promise();
+  console.log(uploadData);
   return uploadData;
 }
 

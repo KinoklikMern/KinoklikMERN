@@ -31,7 +31,6 @@ const Form = () => {
       file.type === "image/jpg" ||
       file.type === "image/png"
     ) {
-      debugger;
       http
         .post("/movies/image", formData, {
           headers: {
@@ -41,6 +40,9 @@ const Form = () => {
         .then((response) => {
           console.log(response.data.key);
           console.log("*************");
+        })
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       setMessage("File must be a image(jpeg or png)");
