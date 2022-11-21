@@ -1,5 +1,22 @@
 #home{
-    background: rgb(0, 12, 24);
-    background: linear-gradient(90deg, rgb(0,101,219) 50%, rgba(0, 212, 255, 1) 100%);
-    min-height: 500px;
+    background-image: url("/images/home/joker.jpg");
+    /* background: linear-gradient(90deg, rgb(0,101,219) 50%, rgba(0, 212, 255, 1) 100%); */
+    min-height: 600px;
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
+.c-row1{
+    padding-top: 390px;
+    
+}
+.movieTitle{
+    color: white;
+    text-align: center;
+    
+}
+
+.movieIntro{
+    color:white;
+    text-align: center;
 }
