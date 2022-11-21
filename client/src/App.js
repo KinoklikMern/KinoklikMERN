@@ -1,6 +1,10 @@
-import React, { useEffect } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { Navigate, Route, Link, Routes } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import UploadMovie from "./pages/UploadMovie";
+import Home from "./pages/Home";
+import MyList from "./pages/MyList";
+import Dashboard from "./pages/Dashboard";
 
 import { getMovies } from "./actions/movies";
 import Movies from "./components/Movies/Movies";
@@ -8,35 +12,21 @@ import Form from "./components/Forms/Form";
 import jb from "./images/jb.jpeg";
 import useStyles from "./styles";
 
-const App = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getMovies());
-  }, [dispatch]);
-
+function App() {
   return (
-    <Container maxidth="lg">
-      <Grow in>
-        <Container>
-          <Grid
-            container
-            justify="space-between"
-            alignItems="stretch"
-            spacing={3}
-          >
-            <Grid item xs={12} sm={7}>
-              <Movies />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
-    </Container>
+    <>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="upload" element={<UploadMovie />} />
+          <Route path="my_list" element={<MyList />} />
+          <Route path="edit_profile" element={<Home />} />
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   );
-};
+}
 
 export default App;
