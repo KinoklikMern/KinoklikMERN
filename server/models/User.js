@@ -20,7 +20,16 @@ const UserSchema = mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum: ["USER", "ADMIN", "FILM_MAKER", "ACTOR"],
+    enum: [
+      "USER",
+      "ADMIN",
+      "FILM_MAKER",
+      "ACTOR",
+      "Sales_Agent",
+      "Distributor",
+      "Film_Festival",
+      "Viewer",
+    ],
   },
   movies: [
     {

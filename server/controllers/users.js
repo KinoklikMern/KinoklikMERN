@@ -124,7 +124,15 @@ export const login = async (request, response) => {
             .status(400)
             .json({ message: "Invalid credentials. Please try again" });
         }
-        const token = generateToken({ id: user._id.toString() }, "7d");
+        const token = generateToken({ id: user._id.toString() }, "1d");
+
+        response.cookie("token", token, {
+          path: "/",
+          httpOnly: true,
+          expires: new Date(Date.now() + 1000 * 86400), // 1 day
+          sameSite: "none",
+          secure: true,
+        });
         if (isSame) {
           response.send({
             id: user._id,
@@ -143,6 +151,17 @@ export const login = async (request, response) => {
   } catch (error) {
     response.status(500).json({ message: error.message });
   }
+};
+
+export const logout = async (req, res) => {
+  res.cookie("token", "", {
+    path: "/",
+    httpOnly: true,
+    expires: new Date(0),
+    sameSite: "none",
+    secure: true,
+  });
+  return res.status(200).json({ message: "Successfully Logged Out" });
 };
 
 export const getUser = async (req, res) => {
