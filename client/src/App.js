@@ -7,6 +7,7 @@ import Movies from './components/Movies/Movies'
 import Form from './components/Form/Form'
 import jb from './images/jb.jpeg';
 import useStyles from './styles';
+import Home from './pages/Home'
 
 
 const App = () => {
@@ -14,25 +15,16 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      dispatch(getMovies());
+    dispatch(getMovies());
   }, [dispatch])
 
   return (
-    <Container maxidth='lg'>
-        <Grow in>
-          <Container>
-            <Grid container justify="space-between" alignItems="stretch" spacing={3} >
-              <Grid item xs={12} sm={7} >
-                <Movies />
-              </Grid>
-              <Grid item xs={12} sm={4} >
-                <Form />
-              </Grid>
-            </Grid>
-          </Container>
+    < >
+      <Grid>
+        <Home />
+      </Grid>
+    </>
 
-      </Grow>
-    </Container>
   );
 
 }
