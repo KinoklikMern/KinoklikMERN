@@ -17,4 +17,5 @@
 .listItem:hover {
     width: 355px;
     height: 380px;
+    transition: all 1s ease;
 }
