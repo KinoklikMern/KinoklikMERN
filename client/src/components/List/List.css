@@ -3,13 +3,7 @@
     /* width: 1440px; */
     margin-top: 10px;
 }
-.list .listTitle {
-    color: white;
-    font-size: 40px;
-    font-weight: 500;
-    margin-left: 50px;
-    /* background-color: #2E1F3B; */
-}
+
 .list .wrapper {
     position: relative;
 }

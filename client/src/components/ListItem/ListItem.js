@@ -1,8 +1,8 @@
 import React from 'react';
 import "./ListItem.css";
-import IMAGES from "../../images/index.js";
-export default function ListItem({ }) {
+import IMAGES from "../../images/itemlistindex.js";
 
+export default function ListItem() {
     return (
         <>
             {
