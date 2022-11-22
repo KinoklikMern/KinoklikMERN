@@ -1,19 +1,11 @@
 import React from "react";
+import Home1 from "./Home1";
 
 function Home() {
   return (
     <>
       <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        HOME PAGE!!!
-        <br />
-        <br />
-        <br />
-        <br />
+        <Home1 />
         <br />
       </div>
     </>
