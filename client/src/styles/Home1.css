@@ -20,3 +20,23 @@
     color:white;
     text-align: center;
 }
+
+.menu-icon{
+    font-size: 2.5rem;
+    color: white;
+    display: grid;
+    grid-gap: 30px;
+    position: absolute;
+    left: 16px;
+    top: 20vmax;
+}
+
+.menu-icon1{
+    font-size: 2.5rem;
+    color: white;
+    display: grid;
+    grid-gap: 30px;
+    position: absolute;
+    right: 16px;
+    top: 8vmax;
+}

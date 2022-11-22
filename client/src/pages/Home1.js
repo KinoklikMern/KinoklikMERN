@@ -14,8 +14,19 @@ import { fas, faCoffee, faHouse, faSackDollar, faBookBookmark, faBookmark, faSha
 const Home = () => {
     return (
         <div>
-            
             <section id="home">
+            <div className="menu-icon">
+                <FontAwesomeIcon icon={faBookmark} />
+                <FontAwesomeIcon icon={faSackDollar} />
+                <FontAwesomeIcon icon={faShareNodes} />
+            </div>
+            <div className="menu-icon1">
+                <FontAwesomeIcon icon={faBars} />
+                <FontAwesomeIcon icon={faWindowRestore} />
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                <FontAwesomeIcon icon={faFilm} />
+                <FontAwesomeIcon icon={faVolumeHigh} />
+            </div>
                 <div className='c-row1'>
                     <h1 className="movieTitle">JOKER</h1> 
                     <p className="movieIntro">Dramatic film about a sad who goes through shit in life. "Joker" centers
@@ -23,26 +34,7 @@ const Home = () => {
                     before on the big screen.</p>
                 </div>
                 <HomeMainFilm />
-            </section>
-            <div>
-            {/* <svg data-testid="DeleteIcon"></svg> */}
-                {/* <LocalMallIcon  /> */}
-                {/* <p>Your is hot and ready!</p>
-                <Icon baseClassName="material-icons-two-tone">add_circle</Icon> */}
-            </div>
-            <br></br>
-            <div className="menu-icon">
-                <FontAwesomeIcon icon={faSackDollar} />
-                <FontAwesomeIcon icon={faBookmark} />
-                <FontAwesomeIcon icon={faShareNodes} />
-                <FontAwesomeIcon icon={faBars} />
-                <FontAwesomeIcon icon={faWindowRestore} />
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-                <FontAwesomeIcon icon={faFilm} />
-                <FontAwesomeIcon icon={faVolumeHigh} />
-                <p>test</p>
-            </div>
-            
+            </section>            
         </div>
          
     )
