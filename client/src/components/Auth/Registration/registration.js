@@ -1,12 +1,20 @@
 import React, { useState, setState } from "react";
 import "./style.css";
+import axios from "axios";
 function RegistrationForm() {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [website, setWebsite] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [role, setRole] = useState("Viewer");
   const [confirmPassword, setConfirmPassword] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState("");
+
   const options = [
     {
       label: "Viewer",
@@ -46,25 +54,45 @@ function RegistrationForm() {
     if (id === "confirmPassword") {
       setConfirmPassword(value);
     }
+    if (id === "website") {
+      setWebsite(value);
+    }
+    if (id === "phone") {
+      setPhone(value);
+    }
   };
 
-  const handleSubmit = () => {
-    console.log(firstName, lastName, email, password, confirmPassword);
-    fetch("http://localhost:8000/users/register", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        role: role,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((data) => data.json())
-      .then((json) => alert(JSON.stringify(json)));
+  const handleSubmit = async () => {
+    console.log(
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      phone,
+      website,
+      role
+    );
+    try {
+      const { data } = await axios.post(
+        "${process.env.REACT_APP_BACKEND_URL}/users/register",
+        {
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          website: website,
+          role: role,
+        }
+      );
+      setError("");
+      setSuccess(data.message);
+      const { message, ...rest } = data;
+    } catch (error) {
+      setSuccess("");
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -110,8 +138,7 @@ function RegistrationForm() {
             placeholder="Email"
           />
         </div>
-
-        <div className="password">
+        <div className="role">
           <label className="form__label" for="password">
             Role{" "}
           </label>
@@ -121,6 +148,38 @@ function RegistrationForm() {
             ))}
           </select>
         </div>
+
+        {role != "Viewer" && (
+          <div>
+            please enter extra information
+            <div className="phone">
+              <label className="form__label" for="phone">
+                phone number{" "}
+              </label>
+              <input
+                className="form__input"
+                type="text"
+                id="phone"
+                value={phone}
+                onChange={(e) => handleInputChange(e)}
+                placeholder="phone number"
+              />
+            </div>
+            <div className="website">
+              <label className="form__label" for="website">
+                Website{" "}
+              </label>
+              <input
+                className="form__input"
+                type="text"
+                id="website"
+                value={website}
+                onChange={(e) => handleInputChange(e)}
+                placeholder="website"
+              />
+            </div>
+          </div>
+        )}
         <div className="password">
           <label className="form__label" for="password">
             Password{" "}
@@ -148,7 +207,8 @@ function RegistrationForm() {
           />
         </div>
       </div>
-
+      {error && <div className="error_text">{error}</div>}
+      {success && <div className="success_text">{success}</div>}
       <button onClick={() => handleSubmit()} type="submit" class="btn">
         Register
       </button>

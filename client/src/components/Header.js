@@ -1,8 +1,26 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((user) => ({ ...user }));
+  const logout = () => {
+    Cookies.set("user", null);
+    console.log(user);
+    console.log("log out");
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+    console.log(user);
+    navigate("/");
+  };
   return (
     <>
       <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
@@ -57,7 +75,6 @@ function Header() {
                 <span class="circle" aria-hidden="true">
                   <span class="whatsnew-icon arrow"></span>
                 </span>
-
                 <span>
                   <Link class="whatsnew-text" to="/upload">
                     &nbsp;&nbsp;&nbsp;&nbsp;Upload movie
@@ -71,13 +88,41 @@ function Header() {
                 <span class="circle" aria-hidden="true">
                   <span class="whatsnew-icon arrow"></span>
                 </span>
-
                 <span>
-                  <Link class="whatsnew-text" to="/dashboard">
-                    &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
+                  <Link class="whatsnew-text" to="/registeration">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Register
                   </Link>
                 </span>
               </button>
+            </li>
+
+            <li class="nav-item">
+              {!user && (
+                <button class=" anim-whatsnew whats-new">
+                  <span class="circle" aria-hidden="true">
+                    <span class="whatsnew-icon arrow"></span>
+                  </span>
+
+                  <span>
+                    <Link class="whatsnew-text" to="/Login">
+                      &nbsp;&nbsp;&nbsp;&nbsp;log in
+                    </Link>
+                  </span>
+                </button>
+              )}
+              {user && (
+                <button class=" anim-whatsnew whats-new" onClick={logout}>
+                  <span class="circle" aria-hidden="true">
+                    <span class="whatsnew-icon arrow"></span>
+                  </span>
+
+                  <span>
+                    <Link class="whatsnew-text" to="/RegistrationForm">
+                      &nbsp;&nbsp;&nbsp;&nbsp;logout
+                    </Link>
+                  </span>
+                </button>
+              )}
             </li>
 
             <li class="search__wrapper">
