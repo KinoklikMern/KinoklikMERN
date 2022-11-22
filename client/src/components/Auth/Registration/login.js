@@ -6,8 +6,8 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
@@ -51,42 +51,40 @@ function Login() {
   };
 
   return (
-    <div className="form">
-      <div className="form-body">
-        <div className="email">
-          <label className="form__label" for="email">
-            Email{" "}
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="form__input"
-            value={email}
-            onChange={(e) => handleInputChange(e)}
-            placeholder="Email"
-          />
-        </div>
+    <>
+      <div className="form">
+        <div className="form-body">
+          <div className="email">
+            <label className="form__label">Email </label>
+            <input
+              type="email"
+              id="email"
+              className="form__input"
+              value={email}
+              onChange={(e) => handleInputChange(e)}
+              placeholder="Email"
+            />
+          </div>
 
-        <div className="password">
-          <label className="form__label" for="password">
-            Password{" "}
-          </label>
-          <input
-            className="form__input"
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => handleInputChange(e)}
-            placeholder="Password"
-          />
+          <div className="password">
+            <label className="form__label">Password </label>
+            <input
+              className="form__input"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => handleInputChange(e)}
+              placeholder="Password"
+            />
+          </div>
         </div>
+        {error && <div className="error_text">{error}</div>}
+        {success && <div className="success_text">{success}</div>}
+        <button onClick={() => handleSubmit()} type="submit" className="btn">
+          Login
+        </button>
       </div>
-      {error && <div className="error_text">{error}</div>}
-      {success && <div className="success_text">{success}</div>}
-      <button onClick={() => handleSubmit()} type="submit" class="btn">
-        Login
-      </button>
-    </div>
+    </>
   );
 }
 
