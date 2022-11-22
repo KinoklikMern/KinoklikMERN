@@ -23,3 +23,8 @@ export const createMovie = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 }
+
+export const greeting = async (req, res) => {  
+   res.status(200).json("hello");
+
+ }

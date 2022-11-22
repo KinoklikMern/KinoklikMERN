@@ -3,7 +3,8 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import movieRoutes from './routes/movies.js';
+import movieRoutes from './routes/movie.js';
+import epkRoutes from './routes/epk.js';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
 app.use(cors());
 
 app.use('/movies', movieRoutes);
+app.use("/epk", epkRoutes);
 
 app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`),
