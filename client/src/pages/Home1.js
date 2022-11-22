@@ -4,14 +4,15 @@ import HomeMainFilm from "../components/HomeMainFilm";
 import '../styles/Home1.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faBars, faComment } from "@fortawesome/free-solid-svg-icons";
-import { fas, faCoffee, faHouse, faSackDollar, faBookBookmark, faBookmark, faShare, faShareFromSquare, faShareNodes, faBars, faMagnifyingGlass, faFilm, faVolumeHigh, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
+import { fas, faSackDollar, faBookBookmark, faBookmark, faShareNodes, faBars, faMagnifyingGlass, faFilm, faVolumeHigh, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 //import { Icon } from '@mui/material';
 //import LocalMallIcon from '@mui/icons-material';
 // import DeleteIcon from '@mui/icons-material/Delete';
 // import Icon from '@mui/material/Icon';
+import HomeBottom from "../components/HomeBottom";
 
 
-const Home = () => {
+const Home1 = () => {
     return (
         <div>
             <section id="home">
@@ -34,10 +35,12 @@ const Home = () => {
                     before on the big screen.</p>
                 </div>
                 <HomeMainFilm />
-            </section>            
+            </section>
+            <br />
+            <HomeBottom />          
         </div>
          
     )
 }
 
-export default Home;
+export default Home1;

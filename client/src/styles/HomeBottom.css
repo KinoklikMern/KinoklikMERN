@@ -1,0 +1,42 @@
+.upload {
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(95, 27, 163);
+}
+
+.uploadtext {
+    position: relative;
+    flex: 1;
+    margin: 0.01px;
+    font-size: x-large;
+    left: 70px;
+    color: white;
+}
+.uploadFilm{
+    font-size: 4.5rem;
+    color: white;
+    display: grid;
+    grid-gap: 30px;
+    position: absolute;
+    
+}
+
+.c-col img {
+    width: 85%;
+}
+
+@media screen and (max-width:700px) {
+    .c-row {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .c-col{
+        width: 280px;
+        height: auto;
+        flex: unset;
+        margin: 20px 0;
+    }
+}
