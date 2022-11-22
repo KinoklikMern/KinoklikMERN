@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import HomeMainFilm from "../components/HomeMainFilm";
 import '../styles/Home1.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +16,7 @@ const Home = () => {
         <div>
             <section id="home">
             <div className="menu-icon">
-                <FontAwesomeIcon icon={faBookmark} />
+                <Link to="/bookmark"> <FontAwesomeIcon icon={faBookmark} /> </Link>
                 <FontAwesomeIcon icon={faSackDollar} />
                 <FontAwesomeIcon icon={faShareNodes} />
             </div>
