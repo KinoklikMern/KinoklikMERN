@@ -1,9 +1,9 @@
 import React from 'react';
-import "./Homewuzhe.css";
+import "./Home2.css";
 import List from "../components/List/List";
 import Sponsored from '../components/Sponsored/Sponsored';
 
-const Home = () => {
+const Home2 = () => {
     return (
         <div className="home">
             <div className="listTitle">
@@ -39,4 +39,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Home2;
