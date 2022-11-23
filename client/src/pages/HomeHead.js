@@ -37,7 +37,7 @@ const HomeHead = () => {
                 <HomeMainFilm />
             </section>
             <br />
-            <HomeBottom />          
+            {/* <HomeBottom />           */}
         </div>
          
     )
