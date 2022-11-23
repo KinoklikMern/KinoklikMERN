@@ -29,11 +29,14 @@ const movieSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  traile: {
+  traile: String,
+  poster: String,
+
+  productionCompany: {
     type: String,
     required: true,
   },
-  poster: {
+  distributionCompany: {
     type: String,
     required: true,
   },
