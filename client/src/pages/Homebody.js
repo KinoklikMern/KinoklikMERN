@@ -1,9 +1,9 @@
 import React from 'react';
-import "./Home2.css";
+import "../styles/Homebody.css";
 import List from "../components/List/List";
 import Sponsored from '../components/Sponsored/Sponsored';
 
-const Home2 = () => {
+const Homebody = () => {
     return (
         <div className="home">
             <div className="listTitle">
@@ -39,4 +39,4 @@ const Home2 = () => {
     );
 };
 
-export default Home2;
+export default Homebody;
