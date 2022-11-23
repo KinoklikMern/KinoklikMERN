@@ -1,22 +1,23 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import HomeMainFilm from "../components/HomeMainFilm";
-import '../styles/Home1.css';
+import '../styles/HomeHead.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faBars, faComment } from "@fortawesome/free-solid-svg-icons";
-import { fas, faCoffee, faHouse, faSackDollar, faBookBookmark, faBookmark, faShare, faShareFromSquare, faShareNodes, faBars, faMagnifyingGlass, faFilm, faVolumeHigh, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
+import { fas, faSackDollar, faBookBookmark, faBookmark, faShareNodes, faBars, faMagnifyingGlass, faFilm, faVolumeHigh, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 //import { Icon } from '@mui/material';
 //import LocalMallIcon from '@mui/icons-material';
 // import DeleteIcon from '@mui/icons-material/Delete';
 // import Icon from '@mui/material/Icon';
+import HomeBottom from "../components/HomeBottom";
 
 
-const Home = () => {
+const HomeHead = () => {
     return (
         <div>
             <section id="home">
             <div className="menu-icon">
-                <FontAwesomeIcon icon={faBookmark} />
+                <Link to="/bookmark"> <FontAwesomeIcon icon={faBookmark} /> </Link>
                 <FontAwesomeIcon icon={faSackDollar} />
                 <FontAwesomeIcon icon={faShareNodes} />
             </div>
@@ -34,10 +35,12 @@ const Home = () => {
                     before on the big screen.</p>
                 </div>
                 <HomeMainFilm />
-            </section>            
+            </section>
+            <br />
+            <HomeBottom />          
         </div>
          
     )
 }
 
-export default Home;
+export default HomeHead;
