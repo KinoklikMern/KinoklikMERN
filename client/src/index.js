@@ -8,7 +8,7 @@ import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { BrowserRouter } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 
 import reducers from "./reducers";
 
@@ -31,11 +31,9 @@ export const persistor = persistStore(store);
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <React.StrictMode>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </PersistGate>
   </Provider>,
   document.getElementById("root")

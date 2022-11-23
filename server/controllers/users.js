@@ -4,51 +4,10 @@ import { generateToken } from "../helpers/tokens.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-/* export const register = async (request, response) => {
-  const email = request.body.email;
-  const password = request.body.password;
-  const firstName = request.body.firstName;
-  const lastName = request.body.lastName;
-
-  try {
-    // Check to see if the user already exists. If not, then create it.
-
-    const user = await User.findOne({ email: email });
-
-    if (user) {
-      console.log("Invalid registration - email " + email + " already exists.");
-
-      response.send({ message: " email  already exists." });
-
-      return;
-    } else {
-      hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      console.log("Registering username " + email);
-
-      const userToSave = {
-        email: email,
-        password: hashedPassword,
-        firstName: firstName,
-        lastName: lastName,
-      };
-
-      await User.create(userToSave);
-
-      response.send({ success: true });
-
-      return;
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-
-  response.send({ success: false });
-}; */
-
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, role, password } = req.body;
+    const { firstName, lastName, email, role, password, phone, website } =
+      req.body;
 
     if (!validateEmail(email)) {
       return res.status(400).json({
@@ -86,6 +45,8 @@ export const register = async (req, res) => {
       lastName,
       role,
       email,
+      phone,
+      website,
       password: cryptedPassword,
     }).save();
     const token = generateToken({ id: user._id.toString() }, "7d");
@@ -95,6 +56,8 @@ export const register = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
+      phone: user.phone,
+      website: user.website,
       token: token,
       message: "User was registered successfully!",
     });

@@ -1,13 +1,31 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((user) => ({ ...user }));
+  const logout = () => {
+    Cookies.set("user", null);
+    console.log(user);
+    console.log("log out");
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+    console.log(user);
+    navigate("/");
+  };
   return (
     <>
-      <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+      <div className="navbar navbar-expand-sm navbar-light navbar-lewagon">
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -15,106 +33,136 @@ function Header() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <Link class="navbar-brand text-headers-style" to="/home">
+        <Link className="navbar-brand text-headers-style" to="/home">
           <img
             src={require("../images/logo.png")}
             alt="Logo"
-            class="navbar-logo"
+            className="navbar-logo"
           />
         </Link>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-3">
-            <li class="nav-item">
-              <button class=" anim-whatsnew whats-new">
-                <span class="circle" aria-hidden="true">
-                  <span class="whatsnew-icon arrow"></span>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mx-3">
+            <li className="nav-item">
+              <button className=" anim-whatsnew whats-new">
+                <span className="circle" aria-hidden="true">
+                  <span className="whatsnew-icon arrow"></span>
                 </span>
 
                 <span>
-                  <Link class="whatsnew-text" to="/home">
+                  <Link className="whatsnew-text" to="/home">
                     HOME
                   </Link>
                 </span>
               </button>
             </li>
-            <li class="nav-item">
-              <button class=" anim-whatsnew whats-new">
-                <span class="circle" aria-hidden="true">
-                  <span class="whatsnew-icon arrow"></span>
+            <li className="nav-item">
+              <button className=" anim-whatsnew whats-new">
+                <span className="circle" aria-hidden="true">
+                  <span className="whatsnew-icon arrow"></span>
                 </span>
 
                 <span>
-                  <Link class="whatsnew-text" to="/my_list">
+                  <Link className="whatsnew-text" to="/my_list">
                     My list
                   </Link>
                 </span>
               </button>
             </li>
-            <li class="nav-item">
-              <button class=" anim-whatsnew whats-new">
-                <span class="circle" aria-hidden="true">
-                  <span class="whatsnew-icon arrow"></span>
+            <li className="nav-item">
+              <button className=" anim-whatsnew whats-new">
+                <span className="circle" aria-hidden="true">
+                  <span className="whatsnew-icon arrow"></span>
                 </span>
-
                 <span>
-                  <Link class="whatsnew-text" to="/upload">
+                  <Link className="whatsnew-text" to="/upload">
                     &nbsp;&nbsp;&nbsp;&nbsp;Upload movie
                   </Link>
                 </span>
               </button>
             </li>
 
-            <li class="nav-item">
-              <button class=" anim-whatsnew whats-new">
-                <span class="circle" aria-hidden="true">
-                  <span class="whatsnew-icon arrow"></span>
+            <li className="nav-item">
+              <button className=" anim-whatsnew whats-new">
+                <span className="circle" aria-hidden="true">
+                  <span className="whatsnew-icon arrow"></span>
                 </span>
-
                 <span>
-                  <Link class="whatsnew-text" to="/userDashboard">
-                    &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
+                  <Link className="whatsnew-text" to="/registeration">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Register
                   </Link>
                 </span>
               </button>
             </li>
 
-            <li class="search__wrapper">
+            <li className="nav-item">
+              {!user && (
+                <button className=" anim-whatsnew whats-new">
+                  <span className="circle" aria-hidden="true">
+                    <span className="whatsnew-icon arrow"></span>
+                  </span>
+
+                  <span>
+                    <Link className="whatsnew-text" to="/Login">
+                      &nbsp;&nbsp;&nbsp;&nbsp;log in
+                    </Link>
+                  </span>
+                </button>
+              )}
+              {user && (
+                <button className=" anim-whatsnew whats-new" onClick={logout}>
+                  <span className="circle" aria-hidden="true">
+                    <span className="whatsnew-icon arrow"></span>
+                  </span>
+
+                  <span>
+                    <Link className="whatsnew-text" to="/RegistrationForm">
+                      &nbsp;&nbsp;&nbsp;&nbsp;logout
+                    </Link>
+                  </span>
+                </button>
+              )}
+            </li>
+
+            <li className="search__wrapper">
               <input
                 type="text"
                 name=""
                 placeholder="  Search here..."
-                class="search__field"
+                className="search__field"
               ></input>
-              <button type="submit" class="fa fa-search search__icon"></button>
+              <button
+                type="submit"
+                className="fa fa-search search__icon"
+              ></button>
             </li>
           </ul>
-          <div class="nav-item dropdown">
+          <div className="nav-item dropdown">
             <a
               href="#"
               id="dlabel"
               data-toggle="dropdown"
               role="button"
-              class=" dropdown-toggle nav-item nav-link  user-action navi-dropdown"
+              className=" dropdown-toggle nav-item nav-link  user-action navi-dropdown"
               data-target="#"
             >
-              <b class="caret"></b>
+              <b className="caret"></b>
             </a>
-            <div class="dropdown-menu">
-              <Link class="dropdown-item" to="/dashboard">
+            <div className="dropdown-menu">
+              <Link className="dropdown-item" to="/dashboard">
                 Dashboard
               </Link>
 
-              <Link class="dropdown-item" to="/edit_profile">
+              <Link className="dropdown-item" to="/edit_profile">
                 {" "}
                 Edit Profile{" "}
               </Link>
 
-              <Link class="dropdown-item" to="/upload">
+              <Link className="dropdown-item" to="/upload">
                 Upload a movie
               </Link>
-              <div class="divider dropdown-divider"></div>
+              <div className="divider dropdown-divider"></div>
             </div>
           </div>
         </div>
