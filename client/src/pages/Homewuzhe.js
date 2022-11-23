@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Home.css";
+import "./Homewuzhe.css";
 import List from "../components/List/List";
 import Sponsored from '../components/Sponsored/Sponsored';
 
