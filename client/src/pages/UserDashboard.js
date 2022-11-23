@@ -1,5 +1,5 @@
 import React from "react";
-import "./UserDashboard.css";
+import "./UserDashboard.scss";
 
 function Dashboard() {
   return (
