@@ -9,22 +9,43 @@
 .uploadtext {
     position: relative;
     flex: 1;
-    margin: 0.01px;
+    margin: 30px;
     font-size: x-large;
-    left: 70px;
+    left: 120px;
     color: white;
 }
 .uploadFilm{
     font-size: 4.5rem;
     color: white;
     display: grid;
-    grid-gap: 30px;
+    grid-gap: 40px;
+    left: 500px;
     position: absolute;
     
 }
-
-.c-col img {
-    width: 85%;
+.uploadNow{
+    background-color: rgb(57, 4, 110);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 120px;
+    cursor: pointer;
+}
+.howWork{
+    background-color: rgb(57, 4, 110);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 120px;
+    cursor: pointer;
 }
 
 @media screen and (max-width:700px) {

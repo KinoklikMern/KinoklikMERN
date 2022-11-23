@@ -1,11 +1,11 @@
 import React from "react";
-import Home1 from "./Home1";
+import HomeHead from "./HomeHead";
 
 function Home() {
   return (
     <>
       <div>
-        <Home1 />
+        <HomeHead />
         <br />
       </div>
     </>
