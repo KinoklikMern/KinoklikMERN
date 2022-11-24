@@ -7,7 +7,6 @@ import MyList from "./pages/MyList";
 import Dashboard from "./pages/Dashboard";
 import Bookmark from "./pages/Bookmark";
 
-
 function App() {
   return (
     <>

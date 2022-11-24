@@ -1,0 +1,37 @@
+.festival-container {
+    height: 100vh;
+    border: 1px solid black;
+}
+.festivalLogo{
+    height: 30vh;
+}
+.logo1,.logo2,.logo3{
+    margin-left: 240px;
+    margin-right: 240px;
+}
+
+.festival-row {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    position: relative;
+    display: flex;
+    height: 50%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.c-col.odd {
+    margin-bottom: 20px;
+    bottom: 35px;
+}
+
+.c-col.even{
+    margin-top: 20px;
+    align-items:bottom;
+    top: 55px;
+}
+
+.c-col img {
+    width:90%;
+}
