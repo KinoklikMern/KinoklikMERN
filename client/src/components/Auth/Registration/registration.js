@@ -75,7 +75,7 @@ function RegistrationForm() {
     );
     try {
       const { data } = await axios.post(
-        "${process.env.REACT_APP_BACKEND_URL}/users/register",
+        "http://localhost:8000/users/register",
         {
           email: email,
           password: password,
