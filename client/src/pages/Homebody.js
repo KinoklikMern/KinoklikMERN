@@ -2,6 +2,7 @@ import React from 'react';
 import "../styles/Homebody.css";
 import List from "../components/List/List";
 import Sponsored from '../components/Sponsored/Sponsored';
+import Festival from '../components/Festival';
 
 const Homebody = () => {
     return (
@@ -34,7 +35,7 @@ const Homebody = () => {
                 <span>SPONSORED RELEASED</span>
             </div>
             <Sponsored />
-
+            <Festival />
         </div>
     );
 };
