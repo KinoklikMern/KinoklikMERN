@@ -12,8 +12,9 @@ export const getMovies = async (req, res) => {
 };
 
 export const createMovie = async (req, res) => {
+  const { firstName, lastName, email, role, password } = req.body;
   const movie = req.body;
-
+  console.log(movie);
   const newMovie = new Movie(movie);
 
   try {

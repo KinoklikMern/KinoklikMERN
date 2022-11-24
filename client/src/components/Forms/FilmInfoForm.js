@@ -3,7 +3,7 @@ import http from "../../http-common.js";
 
 function FilmInfoForm() {
   const [movieData, setMovieData] = useState({
-    title: "",
+    title: "Sara",
     description: "",
     language: "",
     genre: "",
@@ -57,7 +57,7 @@ function FilmInfoForm() {
     "mockumentary",
   ];
   const makeGenreItem = (X) => {
-    return <option>{X}</option>;
+    return <option value={X}> {X}</option>;
   };
 
   let minOffset = -3,
@@ -67,13 +67,19 @@ function FilmInfoForm() {
   for (let x = minOffset; x <= maxOffset; x++) {
     allYears.push(thisYear - x);
   }
-  const yearList = allYears.map((y) => {
-    return <option key={y}> {y}</option>;
-  });
+  const yearList = (y) => {
+    return <option value={y}> {y}</option>;
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setMovieData({ ...movieData, [name]: value });
+  };
 
   const saveFilmInfo = () => {
+    debugger;
     http
-      .post("/movies")
+      .post("/movies", movieData)
       .then((response) => {
         console.log(response.data);
         console.log("*************");
@@ -84,7 +90,7 @@ function FilmInfoForm() {
   };
 
   return (
-    <div>
+    <form className="form" onSubmit={saveFilmInfo}>
       <div
         className="modal fade"
         id="filmInfoModal"
@@ -110,8 +116,10 @@ function FilmInfoForm() {
                 <div className="control form-control my-1">
                   <input
                     className="movie-input"
-                    value={movieData.title}
+                    defaultValue={movieData.title}
                     placeholder="Enter Film Title"
+                    onChange={handleInputChange}
+                    name="title"
                   />
                 </div>
               </div>
@@ -119,8 +127,10 @@ function FilmInfoForm() {
                 <div className="control form-control my-1">
                   <input
                     className="movie-input"
-                    value={movieData.running_length}
+                    defaultValue={movieData.running_length}
                     placeholder="Enter Running Length"
+                    onChange={handleInputChange}
+                    name="running_length"
                   />
                 </div>
               </div>
@@ -128,16 +138,20 @@ function FilmInfoForm() {
                 <div className="control form-control my-1">
                   <input
                     className="movie-input"
-                    value={movieData.language}
+                    defaultValue={movieData.language}
                     placeholder="language"
+                    onChange={handleInputChange}
+                    name="language"
                   />
                 </div>
                 <div className="field">
                   <div className="control form-control my-1">
                     <input
                       className="movie-input"
-                      value={movieData.productionCompany}
+                      defaultValue={movieData.productionCompany}
                       placeholder="Enter Production Company"
+                      onChange={handleInputChange}
+                      name="productionCompany"
                     />
                   </div>
                 </div>
@@ -145,8 +159,10 @@ function FilmInfoForm() {
                   <div className="control form-control my-1">
                     <input
                       className="{styleForm.movie-input}"
-                      value={movieData.distributionCompany}
+                      defaultValue={movieData.distributionCompany}
                       placeholder="Enter Distribution Company"
+                      onChange={handleInputChange}
+                      name="distributionCompany"
                     />
                   </div>
                 </div>
@@ -155,28 +171,39 @@ function FilmInfoForm() {
                   <div className="control form-control my-1">
                     <input
                       className="movie-input"
-                      value={movieData.description}
+                      defaultValue={movieData.description}
                       placeholder="Enter Synopsis/Description"
+                      onChange={handleInputChange}
+                      name="description"
                     />
                   </div>
                 </div>
                 <div className="field">
                   <div className="control form-control my-1">
-                    <select placeholder="Select Genre">
+                    <select
+                      placeholder="Select Genre"
+                      name="genre"
+                      onChange={handleInputChange}
+                    >
                       {movieGenre.map(makeGenreItem)}
                     </select>
                   </div>
                 </div>
                 <div className="field">
                   <div className="control form-control">
-                    <select>{yearList}</select>
+                    <select
+                      name="releaseDate"
+                      onChange={handleInputChange}
+                      defaultValue={new Date().getFullYear()}
+                    >
+                      {allYears.map(yearList)}
+                    </select>
                   </div>
                 </div>
               </div>
               <div className="modal-footer">
                 <button
-                  type="button"
-                  onClick={saveFilmInfo}
+                  type="submit"
                   className="{styles.btn-purple}"
                   data-bs-dismiss="modal"
                 >
@@ -187,7 +214,7 @@ function FilmInfoForm() {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

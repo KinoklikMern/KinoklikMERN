@@ -29,6 +29,8 @@ const MovieForm = () => {
 
 
 
+
+
   const fileSelected = (event) => {
     const file = event.target.files[0];
     setFile(file);
