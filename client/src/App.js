@@ -5,7 +5,7 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import Dashboard from "./pages/Dashboard";
-
+import Epks from "./pages/Epks";
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="epks" element={<Epks />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
