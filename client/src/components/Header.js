@@ -73,7 +73,7 @@ function Header() {
                 </span>
 
                 <span>
-                  <Link class="whatsnew-text" to="/dashboard">
+                  <Link class="whatsnew-text" to="/userDashboard">
                     &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
                   </Link>
                 </span>
