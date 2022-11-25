@@ -13,9 +13,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import http from "../../http-common.js";
 import useStyles from "./styles";
 import FilmInfoForm from "./FilmInfoForm.js";
+import FilmUploadForm from "./FilmUploadForm.js";
 
 const MovieForm = () => {
-  
   const classes = useStyles();
   const [file, setFile] = useState();
   const inputFileRef = useRef(null);
@@ -27,10 +27,6 @@ const MovieForm = () => {
     thumbnail: "",
   });
 
-
-
-
-
   const fileSelected = (event) => {
     const file = event.target.files[0];
     setFile(file);
@@ -38,7 +34,7 @@ const MovieForm = () => {
 
   const handleSubmit = () => {
     let formData = new FormData();
-    console.log("----------");
+
     console.log(file);
     formData.append("file", file);
     if (
@@ -122,7 +118,9 @@ const MovieForm = () => {
       </div>
       <div>
         <FilmInfoForm />
+        <FilmUploadForm />
       </div>
+
       <div
         class="modal fade"
         id="uploadImageModal"
@@ -134,87 +132,7 @@ const MovieForm = () => {
           <div class="modal-content modal-form">
             <div class="modal-header">
               <h5 class="modal-title" id="uploadImageModal">
-                Upload
-              </h5>
-              <button
-                type="button"
-                class="btn btn-close btn-purple"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="field">
-                <div class="control">
-                  <div class="file">
-                    <label class="file-label card-file-upload m-2 p-3">
-                      <span class="file-cta">
-                        <div class="file-icon">
-                          <i class="fas fa-video"></i> Choose a Movie
-                        </div>
-                      </span>
-                    </label>
-                    <input
-                      className="file-input"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="file"
-                      accept="images/*"
-                    ></input>
-                  </div>
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <div class="file">
-                    <label class="file-label card-file-upload m-2 p-3">
-                      {/* <%= f.input :trailer, label: false, as: :file, input_html: { class: "file-input", type: "file" } %> */}
-                      <span class="file-cta">
-                        <span class="file-icon">
-                          <i class="fas fa-video"></i>
-                        </span>
-                        <span class="file-label">Choose a trailer</span>
-                      </span>
-                    </label>
-                    <input
-                      className="file-input"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="file"
-                      accept="images/*"
-                    ></input>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                className="{styles.btn-purple }"
-                data-bs-dismiss="modal"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="modal fade"
-        id="uploadModal"
-        tabindex="-1"
-        aria-labelledby="filmUploadModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content modal-form">
-            <div class="modal-header">
-              <h5 class="modal-title" id="filmUploadModalLabel">
-                Upload
+                Upload Images
               </h5>
               <button
                 type="button"

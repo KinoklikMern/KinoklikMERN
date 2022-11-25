@@ -1,13 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import http from "../../http-common.js";
 
 function FilmInfoForm() {
+  const [movieId, setMovieId] = useState("");
   const [movieData, setMovieData] = useState({
-    title: "Sara",
+    title: "",
     description: "",
     language: "",
-    genre: "",
     releaseDate: "",
+    genre: "",
     running_length: "",
     productionCompany: "",
     distributionCompany: "",
@@ -76,17 +77,24 @@ function FilmInfoForm() {
     setMovieData({ ...movieData, [name]: value });
   };
 
+  useEffect(() => {
+    console.log(movieId);
+  }, [movieId]);
+
   const saveFilmInfo = () => {
-    debugger;
     http
-      .post("/movies", movieData)
+      .post("movies", movieData)
       .then((response) => {
-        console.log(response.data);
+        setMovieId(response.data.id);
         console.log("*************");
+        console.log(response.data.id);
       })
       .catch((err) => {
         console.log(err);
       });
+    debugger;
+    console.log(movieId);
+    debugger;
   };
 
   return (
@@ -175,6 +183,17 @@ function FilmInfoForm() {
                       placeholder="Enter Synopsis/Description"
                       onChange={handleInputChange}
                       name="description"
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="control form-control my-1">
+                    <input
+                      className="movie-input"
+                      defaultValue={movieData.dollarAmount}
+                      placeholder="Enter Dollar Amount"
+                      onChange={handleInputChange}
+                      name="dollarAmount"
                     />
                   </div>
                 </div>

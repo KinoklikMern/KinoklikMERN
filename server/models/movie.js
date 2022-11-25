@@ -24,7 +24,7 @@ const movieSchema = mongoose.Schema({
     default: new Date(),
   },
   releaseDate: Date,
-  dollarAmount: Number,
+
   genre: {
     type: String,
     required: true,
@@ -40,6 +40,8 @@ const movieSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+
+  dollarAmount: Number,
 });
 
 const Movie = mongoose.model("movie", movieSchema);

@@ -16,12 +16,16 @@ const s3 = new S3({
 });
 
 // upload a file to s3
-export async function uploadFileToS3(fileObj) {
+export async function uploadImageFileToS3(fileObj) {
+  console.log("****************************");
+  console.log(fileObj);
+
   const fileStream = fs.createReadStream(fileObj.path);
   const mimetype = fileObj.mimetype;
   console.log(mimetype);
   let ext = "";
   if (mimetype === "image/png") ext = ".png";
+  else if (mimetype === "image/gif") ext = ".gif";
   else if (mimetype === "image/jpg" || mimetype === "image/jpeg") ext = ".jpg";
   else throw new Error("File extention not supported");
 
@@ -29,6 +33,31 @@ export async function uploadFileToS3(fileObj) {
     Bucket: bucketName,
     Body: fileStream,
     Key: "image/" + fileObj.filename + ext, // use uuid generator  for key
+  };
+
+  const uploadData = await s3.upload(uploadParams).promise();
+  console.log(uploadData);
+  return uploadData;
+}
+
+export async function uploadMediaFileToS3(fileObj) {
+  const fileStream = fs.createReadStream(fileObj.path);
+  const mimetype = fileObj.mimetype;
+  console.log(mimetype);
+  let ext = "";
+  if (mimetype === "video/mp4") ext = ".mp4";
+  else if (mimetype === "video/mpeg") ext = ".mpeg";
+  else if (mimetype === "video/quicktime") ext = ".mov";
+  else if (mimetype === "video/x-ms-wmv") ext = ".wmv";
+  else if (mimetype === "video/ogg") ext = ".ogg";
+  else if (mimetype === "video/3gpp") ext = ".3gp";
+  else if (mimetype === "	video/x-msvideo") ext = ".avi";
+  else throw new Error("File extention not supported");
+
+  const uploadParams = {
+    Bucket: bucketName,
+    Body: fileStream,
+    Key: "movie/" + fileObj.filename + ext, // use uuid generator  for key
   };
 
   const uploadData = await s3.upload(uploadParams).promise();
