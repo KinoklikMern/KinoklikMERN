@@ -77,7 +77,7 @@ function Header() {
                 </span>
                 <span>
                   <Link className="whatsnew-text" to="/upload">
-                    &nbsp;&nbsp;&nbsp;&nbsp;Upload Film EPK
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload EPK
                   </Link>
                 </span>
               </button>
