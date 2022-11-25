@@ -5,7 +5,9 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import Dashboard from "./pages/Dashboard";
-
+import RegistrationForm from "./components/Auth/Registration/registration";
+import Login from "./components/Auth/Registration/login";
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="registeration" element={<RegistrationForm />} />
+          <Route path="login" element={<Login />} />
+          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
