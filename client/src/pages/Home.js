@@ -1,15 +1,18 @@
 import React from "react";
 import HomeHead from "./HomeHead";
-import Homebody from "./Homebody";
+import HomeBody from "../components/HomeBody/HomeBody";
+import HomeBottom from "../components/HomeBottom";
+import Festival from '../components/Festival/Festival';
 
 
 function Home() {
   return (
     <>
       <div>
-        {/* <HomeHead /> */}
-        <Homebody />
-        <br />
+        <HomeHead />
+        <HomeBody />
+        <Festival />
+        <HomeBottom />
       </div>
     </>
   );

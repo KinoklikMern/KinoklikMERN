@@ -1,16 +1,15 @@
 import React from 'react';
-import "../styles/Homebody.css";
-import List from "../components/List/List";
-import Sponsored from '../components/Sponsored/Sponsored';
-import Festival from '../components/Festival/Festival';
+import "./HomeBody.css";
+import List from "../List/List";
+import Sponsored from '../Sponsored/Sponsored';
 
 
-const Homebody = () => {
+const HomeBody = () => {
     return (
         <>
-            {/* <div className="home">
+            <div className="home">
                 <div className="listTitle">
-                    <span>MY PURCHASES</span>
+                    <span>MY FAVOURITES</span>
                 </div>
                 <List />
 
@@ -37,20 +36,9 @@ const Homebody = () => {
                     <span>SPONSORED RELEASED</span>
                 </div>
                 <Sponsored />
-
-                <div className="listTitle">
-                    <span>From The Festivals</span>
-                </div>
-                <div className='kk'></div>
-            </div> */}
-
-            <div>
-                <Festival />
             </div>
-
         </>
-
     );
 };
 
-export default Homebody;
+export default HomeBody;

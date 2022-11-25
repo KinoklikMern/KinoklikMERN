@@ -1,37 +1,83 @@
 .festival-container {
-    height: 100vh;
-    border: 1px solid black;
+    width: 100%;
+    /* height: 100vh; */
+    background-color: #2E1F3B;
 }
+
+.festivalTitle {
+    height: auto;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Roboto';
+    text-indent: 50px;
+    background-color: #2E1F3B;
+    display: flex;
+    align-items: center;
+}
+
 .festivalLogo{
-    height: 30vh;
+    width: 100%;
+    background-color: #160625;
+
 }
-.logo1,.logo2,.logo3{
-    margin-left: 240px;
-    margin-right: 240px;
+
+  
+.first {
+    width: 25%;
+    display: inline-block;
+    margin-left: 7%;
+    margin-right: 5%;
+    margin-top: 10px;
+}
+
+.second {
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.third {
+    width: 25%;
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 12%;
+}
+
+
+@media screen  and (max-width: 992px) {
+    .festivalLogo {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .first img,
+    .second img,
+    .third img{
+        width: 50%;
+        height: 50%;
+
+    }
+
 }
 
 .festival-row {
     display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    position: relative;
-    display: flex;
-    height: 50%;
     margin-left: 1rem;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 }
 
 .c-col.odd {
-    margin-bottom: 20px;
-    bottom: 35px;
+    display: inline-block;
+    margin-top: 0.5rem;
+
 }
 
 .c-col.even{
-    margin-top: 20px;
-    align-items:bottom;
-    top: 55px;
-}
+    display: inline-block;
+    margin-top: 15%;
+    margin-bottom: 0.5rem;
 
-.c-col img {
-    width:90%;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fas, faFilm, faPhotoFilm, faUpload, faFolderPlus } from "@fortawesome/free-solid-svg-icons";
+import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import "../styles/HomeBottom.css";
 
 const HomeBottom = () => {
@@ -11,8 +11,7 @@ const HomeBottom = () => {
             <button className='uploadNow'>Upload Now</button>
             <button className='howWork'>How it Works</button>
         </div>
+
     )
-
 }
-
 export default HomeBottom;
