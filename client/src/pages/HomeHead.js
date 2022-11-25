@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from 'react-router-dom';
 import HomeMainFilm from "../components/HomeMainFilm";
-import '../styles/HomeHead.css';
+import "../styles/Homehead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faBars, faComment } from "@fortawesome/free-solid-svg-icons";
 import { fas, faSackDollar, faBookBookmark, faBookmark, faShareNodes, faBars, faMagnifyingGlass, faFilm, faVolumeHigh, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
