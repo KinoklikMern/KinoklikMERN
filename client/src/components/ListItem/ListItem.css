@@ -1,0 +1,21 @@
+.listItem {
+    width: 296px;
+    height: 357px;
+    background-color: var(--main-color);
+    margin-right: 52px;
+    flex-shrink: 0;
+    overflow: hidden;
+    cursor: pointer;
+    color: white;
+}
+.listItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listItem:hover {
+    width: 355px;
+    height: 380px;
+    transition: all 1s ease;
+}

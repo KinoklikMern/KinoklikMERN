@@ -1,0 +1,42 @@
+#home{
+    background-image: url("/images/home/joker.jpg");
+    /* background: linear-gradient(90deg, rgb(0,101,219) 50%, rgba(0, 212, 255, 1) 100%); */
+    /* min-height: 600px; */
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+
+.c-row1{
+    padding-top: 300px;
+    
+}
+.movieTitle{
+    color: white;
+    text-align: center;
+    
+}
+
+.movieIntro{
+    color:white;
+    text-align: center;
+}
+
+.menu-icon{
+    font-size: 2.5rem;
+    color: white;
+    display: grid;
+    grid-gap: 30px;
+    position: absolute;
+    left: 16px;
+    top: 18vmax;
+}
+
+.menu-icon1{
+    font-size: 2.5rem;
+    color: white;
+    display: grid;
+    grid-gap: 30px;
+    position: absolute;
+    right: 16px;
+    top: 8vmax;
+}
