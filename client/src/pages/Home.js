@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import HomeHead from "./HomeHead";
-import Homebody from "./Homebody";
+import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBottom from "../components/HomeBottom";
+import Festival from '../components/Festival/Festival';
 
 
 function Home() {
@@ -17,9 +18,9 @@ function Home() {
           {user?.firstName} {user?.lastName}
         </h2>
         <HomeHead />
-        <Homebody />
+        <HomeBody />
+        <Festival />
         <HomeBottom />
-        <br />
       </div>
     </>
   );

@@ -10,7 +10,6 @@ import Login from "./components/Auth/Registration/login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import Bookmark from "./pages/Bookmark";
 
-
 function App() {
   return (
     <>

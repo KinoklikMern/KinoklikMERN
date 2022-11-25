@@ -6,6 +6,7 @@
 
 .list .wrapper {
     position: relative;
+    height: 105%;
 }
 .list .wrapper .sliderArrow {
     width: 50px;
@@ -27,6 +28,7 @@
 }
 .list .wrapper .container {
     /* width: 1440px; */
+    height: 385px;
     margin-left: 50px;
     display: flex;
     margin-top: 10px;

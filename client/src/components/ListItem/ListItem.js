@@ -1,6 +1,6 @@
 import React from 'react';
 import "./ListItem.css";
-import IMAGES from "../../images/itemlistindex.js";
+import IMAGES from "../Itemlist.js";
 
 export default function ListItem() {
     return (

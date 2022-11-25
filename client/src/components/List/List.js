@@ -1,4 +1,4 @@
-import {ArrowBackIosOutlined, ArrowForwardIosOutlined,} from "@material-ui/icons";
+import { ArrowBackIosOutlined, ArrowForwardIosOutlined, } from "@material-ui/icons";
 import { useRef, useState } from "react";
 import ListItem from "../ListItem/ListItem";
 import "./List.css";
@@ -12,7 +12,7 @@ export default function List() {
 
     const handleClick = (direction) => {
         setIsMoved(true);
-        let distance = listRef.current.getBoundingClientRect().x - 58;
+        let distance = listRef.current.getBoundingClientRect().x - 62;
         if (direction === "left" && slideNumber > 0) {
             setSlideNumber(slideNumber - 1);
             listRef.current.style.transform = `translateX(${1391 + distance}px)`;

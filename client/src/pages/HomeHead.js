@@ -9,37 +9,34 @@ import { fas, faSackDollar, faBookBookmark, faBookmark, faShareNodes, faBars, fa
 //import LocalMallIcon from '@mui/icons-material';
 // import DeleteIcon from '@mui/icons-material/Delete';
 // import Icon from '@mui/material/Icon';
-import HomeBottom from "../components/HomeBottom";
 
 
 const HomeHead = () => {
     return (
         <div>
             <section id="home">
-            <div className="menu-icon">
-                <Link to="/bookmark"> <FontAwesomeIcon icon={faBookmark} /> </Link>
-                <FontAwesomeIcon icon={faSackDollar} />
-                <FontAwesomeIcon icon={faShareNodes} />
-            </div>
-            <div className="menu-icon1">
-                <FontAwesomeIcon icon={faBars} />
-                <FontAwesomeIcon icon={faWindowRestore} />
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-                <FontAwesomeIcon icon={faFilm} />
-                <FontAwesomeIcon icon={faVolumeHigh} />
-            </div>
+                <div className="menu-icon">
+                    <Link to="/bookmark"> <FontAwesomeIcon icon={faBookmark} /> </Link>
+                    <FontAwesomeIcon icon={faSackDollar} />
+                    <FontAwesomeIcon icon={faShareNodes} />
+                </div>
+                <div className="menu-icon1">
+                    <FontAwesomeIcon icon={faBars} />
+                    <FontAwesomeIcon icon={faWindowRestore} />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <FontAwesomeIcon icon={faFilm} />
+                    <FontAwesomeIcon icon={faVolumeHigh} />
+                </div>
                 <div className='c-row1'>
-                    <h1 className="movieTitle">JOKER</h1> 
+                    <h1 className="movieTitle">JOKER</h1>
                     <p className="movieIntro">Dramatic film about a sad who goes through shit in life. "Joker" centers
-                    around the iconic arch-nemesis and is an original, standalone story not seen 
-                    before on the big screen.</p>
+                        around the iconic arch-nemesis and is an original, standalone story not seen
+                        before on the big screen.</p>
                 </div>
                 <HomeMainFilm />
             </section>
-            <br />
-            {/* <HomeBottom />           */}
         </div>
-         
+
     )
 }
 
