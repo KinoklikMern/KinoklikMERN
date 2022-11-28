@@ -62,7 +62,7 @@ const Stills = () => {
   return ( 
    
       <div>  
-        <h3>Still:</h3>
+        <h3>Stills:</h3>
         <form onSubmit={onSubmit}>
      
         {stills.map((still, key) => (

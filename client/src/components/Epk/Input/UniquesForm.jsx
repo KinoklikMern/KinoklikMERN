@@ -39,9 +39,9 @@ const Uniques = () => {
         return;
       }
   
-      
+      console.log("before" + uniques.length);
       setUniques(record[0].uniques); 
-      console.log(uniques.length);
+      console.log("after" +uniques.length);
       //if (uniques.length <=2 ){     
       //  setUniques([...uniques, {}])
       //}
@@ -79,33 +79,47 @@ const Uniques = () => {
       <div>  
         <h3>Uniques:</h3>
         <form onSubmit={onSubmit}>
-     
+
+        <div class="container text-center">
+        <div class="row">
         {uniques.map((unique, key) => (
-          <div className="unique" key={key}>
-              <p>header:{unique.header}</p>
+          <div className="unique" key={key} class = "col">         
               <input
                     type="text"
+                    placeholder = "Title"
                     className="form-control"        
                     value={unique.header}  
                     onChange={(e) => {
                         unique.header = e.target.value;                  
                         setUniques([...uniques]); 
-                      } }  
-                        
-                    />
-              <p>content:{unique.context}</p>
+                      } }                          
+                    />   
+              <br/>        
               <input
-                    type="text"
+                    type="text"                
+                    placeholder = "Description"
                     className="form-control"        
                     value={unique.content}  
                     onChange={(e) => {
                         unique.content = e.target.value;
                         setUniques([...uniques]);                    
                        } }       
-                    />
-              <p>img_url:{unique.img_url}</p>
+                    />   
+               <br/> 
+               <textarea 
+                    class="form-control" 
+                    rows="3"
+                    placeholder = "Description"
+                    onChange={(e) => {
+                        unique.content = e.target.value;
+                        setUniques([...uniques]);                    
+                       } }       
+                    />  
+              
+               <br/>            
               <input
                     type="text"
+                    placeholder = "Upload Image"
                     className="form-control"        
                     value={unique.img_url}  
                     onChange={(e) => {
@@ -115,11 +129,17 @@ const Uniques = () => {
                     />
           </div>
         ) )}
+
+        </div>
+      </div>
+
+     
+      
      
         <div className="form-group">
         <input
           type="submit"
-          value="Save Uniques"
+          value="Save"
           className="btn btn-primary"
         />
       </div>

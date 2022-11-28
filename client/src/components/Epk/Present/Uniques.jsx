@@ -68,22 +68,32 @@ const UniquesPreview = () => {
         },
       });
     
-      navigate("/movies");
+      //navigate("/movies");
     }
   
   
   
+
+  
     return ( 
      
         <div>  
-          <h3>Uniques:</h3>             
+               
           {uniques.map((unique, key) => (
+            <>
+               
             <div className="unique" key={key}>
-                <p>header:{unique.header}</p>
-                <p>content:{unique.content}</p>
-                <p>img_url:{unique.img_url}</p>
-                
+                {unique.header || unique.content || unique.img_url?    
+                <>
+                 <h3>Uniques:</h3>    
+                  <p>header:{unique.header}</p>
+                  <p>content:{unique.content}</p>
+              
+                  <img src={unique.img_url} width="500" ></img>
+                </>
+                : <br/>}
             </div>
+            </>
           ) )}      
        </div>      
     )

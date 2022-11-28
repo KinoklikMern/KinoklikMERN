@@ -46,11 +46,14 @@ const StillPreview = () => {
     return ( 
      
         <div>  
-          <h3>Stills:</h3>             
+               
           {stills.map((still, key) => (
+            <>
+            <h3>Stills:</h3>   
             <div className="still" key={key}>
                 <p>img_url:{still.img_url}</p>
             </div>
+            </>
           ) )}      
        </div>      
     )
