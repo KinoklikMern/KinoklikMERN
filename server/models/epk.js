@@ -40,8 +40,12 @@ const epkSchema = mongoose.Schema({
   uniques:[
     {header: String,
     content: String,
-    img_url: String}
-  
+    img_url: String}  
+  ],
+  stills:[
+    {header: String,
+    content: String,
+    img_url: String}  
   ],
   synopses:[
     {content: String,

@@ -1,8 +1,29 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
+import { Component } from "react";
+import UserAccountSetting from "../components/Dashboard/UserAccountSetting"
 
-function Header() {
+//function Header() {
+
+  class Header extends Component {
+    constructor() {
+      super();
+      this.state = {
+        show: false
+      };
+      this.showModal = this.showModal.bind(this);
+      this.hideModal = this.hideModal.bind(this);
+    }
+  
+    showModal = () => {
+      this.setState({ show: true });
+    };
+  
+    hideModal = () => {
+      this.setState({ show: false });
+    };
+  render() {
   return (
     <>
       <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
@@ -73,9 +94,48 @@ function Header() {
                 </span>
 
                 <span>
+                  <Link class="whatsnew-text" to="/epk/637cf1ccd6eadcb0ee8e2d82/epkdashboard">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Uniques
+                  </Link>
+                </span>
+              </button>
+            </li>
+
+
+
+
+
+
+
+            <li class="nav-item">
+              <button class=" anim-whatsnew whats-new">
+                <span class="circle" aria-hidden="true">
+                  <span class="whatsnew-icon arrow"></span>
+                </span>
+
+                <span>
                   <Link class="whatsnew-text" to="/dashboard">
                     &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
                   </Link>
+                </span>
+              </button>
+            </li>
+
+
+            <li class="nav-item">
+            <UserAccountSetting show={this.state.show} handleClose={this.hideModal}>             
+            </UserAccountSetting >
+          
+
+             <button class=" anim-whatsnew whats-new"  type="button" onClick={this.showModal}>
+                <span class="circle" aria-hidden="true">
+                  <span class="whatsnew-icon arrow"></span>
+                </span>
+
+                <span>                
+                   <Link class="whatsnew-text" >
+                    &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
+                  </Link>              
                 </span>
               </button>
             </li>
@@ -105,11 +165,15 @@ function Header() {
               <Link class="dropdown-item" to="/dashboard">
                 Dashboard
               </Link>
+             
+       
+    
 
               <Link class="dropdown-item" to="/edit_profile">
                 {" "}
                 Edit Profile{" "}
               </Link>
+
 
               <Link class="dropdown-item" to="/upload">
                 Upload a movie
@@ -122,5 +186,6 @@ function Header() {
     </>
   );
 }
+  }
 
-export default Header;
+export default Header
