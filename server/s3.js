@@ -17,9 +17,6 @@ const s3 = new S3({
 
 // upload a file to s3
 export async function uploadImageFileToS3(fileObj) {
-  console.log("****************************");
-  console.log(fileObj);
-
   const fileStream = fs.createReadStream(fileObj.path);
   const mimetype = fileObj.mimetype;
   console.log(mimetype);
@@ -36,7 +33,14 @@ export async function uploadImageFileToS3(fileObj) {
   };
 
   const uploadData = await s3.upload(uploadParams).promise();
+
   console.log(uploadData);
+  try {
+    fs.unlinkSync("./images/" + fileObj.filename);
+    //file removed
+  } catch (err) {
+    console.error(err);
+  }
   return uploadData;
 }
 
@@ -62,6 +66,12 @@ export async function uploadMediaFileToS3(fileObj) {
 
   const uploadData = await s3.upload(uploadParams).promise();
   console.log(uploadData);
+  try {
+    fs.unlinkSync("./images/" + fileObj.filename);
+    //file removed
+  } catch (err) {
+    console.error(err);
+  }
   return uploadData;
 }
 

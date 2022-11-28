@@ -53,8 +53,6 @@ export const getMovieMedia = async (req, res) => {
   if (!result2) {
     res.status(406).send({ message: "File extention not supported!" });
   } else {
-    console.log(result2.Key);
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$");
     console.log(totalResult);
     totalResult["keyTrailer"] = result2.Key;
   }

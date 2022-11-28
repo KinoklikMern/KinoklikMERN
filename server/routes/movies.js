@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/", getMovies);
 router.post("/", createMovie);
 router.post(
-  "/movie",
+  "/uploadMedia",
   upload.fields([{ name: "fileFilm" }, { name: "fileTrailer" }]),
   getMovieMedia
 );

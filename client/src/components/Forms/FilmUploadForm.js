@@ -36,11 +36,12 @@ function FilmUploadForm() {
     console.log(formData);
     debugger;
     if (
-      fileFilm.type === "image/jpeg" ||
-      fileFilm.type === "image/jpg" ||
-      fileFilm.type === "image/png"
+      fileFilm.type === "video/mp4" || fileFilm.type === "video/x-ms-wmv" || 
+      fileFilm.type === "video/mpeg" || fileFilm.type === "video/3gpp" ||
+      fileFilm.type === "video/quicktime" || fileFilm.type === "video/ogg" || fileFilm.type === "video/x-msvideo" 
     ) {
-   http.post("movie", formData, {
+      http
+        .post("movies/uploadMedia", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -50,7 +51,7 @@ function FilmUploadForm() {
           console.log("*************");
         })
         .catch((err) => {
-            console.log()
+          console.log();
           console.log(err);
         });
     } else {
