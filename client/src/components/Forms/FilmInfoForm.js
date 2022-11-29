@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import http from "../../http-common.js";
+import "./form.css";
 
 function FilmInfoForm() {
   const [movieId, setMovieId] = useState("");

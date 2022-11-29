@@ -13,6 +13,7 @@ import Movies from "./components/Movies/Movies";
 import Form from "./components/Forms/Form";
 import jb from "./images/jb.jpeg";
 import useStyles from "./styles";
+import EpkCoverForm from "./components/Epk/Input/EpkCoverForm.js";
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ function App() {
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
+          <Route path="epkCover" element={<EpkCoverForm />} />
           <Route path="userDashboard" element={<UserDashboard />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import http from "../http-common";
 
 const UploadFile = () => {
   const [file, setFile] = useState(undefined);
@@ -12,21 +13,31 @@ const UploadFile = () => {
   async function uploadService(file) {
     let formData = new FormData();
     formData.append("file", file);
-    console.log("hello ");
-    console.log(file.type);
     if (
-      file.type === "image/jpg" ||
-      file.type === "image/png" ||
-      file.type === "image/gif" ||
-      file.type === "image/jpeg"
+      file.type === "video/mp4" ||
+      file.type === "video/x-ms-wmv" ||
+      file.type === "video/mpeg" ||
+      file.type === "video/3gpp" ||
+      file.type === "video/quicktime" ||
+      file.type === "video/ogg" ||
+      file.type === "video/x-msvideo"
     ) {
-      return http.post("api/cvs", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      http
+        .post("movies/uploadMedia", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data.key);
+          console.log("*************");
+        })
+        .catch((err) => {
+          console.log();
+          console.log(err);
+        });
     } else {
-      setMessage("File must be a image");
+      setMessage("File must be a image(jpeg or png)");
     }
   }
 
