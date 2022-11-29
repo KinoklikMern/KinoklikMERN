@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import './Uniques.css';
 
 const UniquesPreview = () => {
 
@@ -77,24 +78,30 @@ const UniquesPreview = () => {
   
     return ( 
      
-        <div>  
-               
+        <div class = "container" >  
+          <h1 class="unique-section-title">Uniqueness</h1>      
+ 
           {uniques.map((unique, key) => (
-            <>
-               
+            <>               
             <div className="unique" key={key}>
                 {unique.header || unique.content || unique.img_url?    
-                <>
-                 <h3>Uniques:</h3>    
-                  <p>header:{unique.header}</p>
-                  <p>content:{unique.content}</p>
-              
-                  <img src={unique.img_url} width="500" ></img>
+                <>            
+
+                    <div class ="unique-container"   >
+                        <img src={unique.img_url}  class="img-fluid "/>
+                        <div  class = "unique-title">{unique.header}</div>
+                        <div class = "unique-description">{unique.content}</div>    
+                        <br/>
+                    </div> 
                 </>
-                : <br/>}
+                :<br/>}
             </div>
             </>
-          ) )}      
+          ) )}   
+
+
+        
+   
        </div>      
     )
   }

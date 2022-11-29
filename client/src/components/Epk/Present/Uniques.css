@@ -1,0 +1,37 @@
+
+.unique-container {
+  position: relative;
+  text-align: center;
+  background-color: black;  
+  width: 100%;
+}
+
+
+
+.unique-section-title{
+    color:blueviolet;
+    text-align:center;
+    
+}
+
+.unique-title{
+    position: absolute;
+    color :black;
+    font-size: 60px;
+    top: 10%;
+    left: 50%;
+    max-width:50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.unique-description {
+  position: absolute;
+  color : black;
+  font-size: 35px;
+  top: 40%;
+  left: 50%;
+  max-width:50%;
+  transform: translate(-50%, -50%);
+}
+

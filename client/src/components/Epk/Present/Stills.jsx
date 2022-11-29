@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import './Stills.css';
 
 const StillPreview = () => {
 
@@ -46,15 +47,38 @@ const StillPreview = () => {
     return ( 
      
         <div>  
-               
+
+                    <div class="container text-center">
+                    <div  >
+                   
+                  
+                         <div   class="grid">  
+                         <img src="https://mediafiles.cineplex.com/Central/Film/Posters/32004_320_470.jpg" ></img>
+                         <img src="https://api.time.com/wp-content/uploads/2015/07/southpaw-jake-gyllenhaal.jpg" ></img>
+                         <img src="https://mediafiles.cineplex.com/Central/Film/Posters/32004_320_470.jpg" ></img>
+                         <img src="https://api.time.com/wp-content/uploads/2015/07/southpaw-jake-gyllenhaal.jpg" ></img>
+                         <img src="https://api.time.com/wp-content/uploads/2015/07/southpaw-jake-gyllenhaal.jpg" ></img>
+                         </div>
+                        
+                       
+
+                      </div>
+                      </div>
+
+        
+        <div class="container text-center" >
+        <div  class = "grid">
+            
           {stills.map((still, key) => (
             <>
-            <h3>Stills:</h3>   
-            <div className="still" key={key}>
-                <p>img_url:{still.img_url}</p>
+            <div className="still" key={key}  >
+                <img src={still.img_url}  class="img-fluid"></img>
             </div>
             </>
-          ) )}      
+          ) )}  
+
+          </div>
+          </div>
        </div>      
     )
   }

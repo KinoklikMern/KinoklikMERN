@@ -63,6 +63,7 @@ const Stills = () => {
    
       <div>  
         <h3>Stills:</h3>
+        <input type="file" class="form-control-file"/>
         <form onSubmit={onSubmit}>
      
         {stills.map((still, key) => (

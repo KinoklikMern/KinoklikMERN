@@ -1,0 +1,16 @@
+
+
+  .grid { 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    align-items: center;   
+    background-color: gray;    
+    }
+  .grid img {
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+    margin:auto;
+    max-width: 100%;
+    max-height:100%;
+    align-items:center;
+  }

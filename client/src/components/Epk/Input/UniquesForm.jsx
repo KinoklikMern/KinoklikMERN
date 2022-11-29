@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-
+//import UploadImage from "./uploadImage";
 
 
 const Uniques = () => {
@@ -77,7 +77,7 @@ const Uniques = () => {
   return ( 
    
       <div>  
-        <h3>Uniques:</h3>
+        <h3 >Uniqueness:</h3>
         <form onSubmit={onSubmit}>
 
         <div class="container text-center">
@@ -95,21 +95,12 @@ const Uniques = () => {
                       } }                          
                     />   
               <br/>        
-              <input
-                    type="text"                
-                    placeholder = "Description"
-                    className="form-control"        
-                    value={unique.content}  
-                    onChange={(e) => {
-                        unique.content = e.target.value;
-                        setUniques([...uniques]);                    
-                       } }       
-                    />   
-               <br/> 
+        
                <textarea 
                     class="form-control" 
                     rows="3"
                     placeholder = "Description"
+                    value={unique.content}  
                     onChange={(e) => {
                         unique.content = e.target.value;
                         setUniques([...uniques]);                    
@@ -126,7 +117,11 @@ const Uniques = () => {
                         unique.img_url = e.target.value;
                         setUniques([...uniques]);   
                        } }       
-                    />
+              />
+              <img src={unique.img_url} width="100" ></img>
+              <input type="file" class="form-control-file" />
+           
+       
           </div>
         ) )}
 
