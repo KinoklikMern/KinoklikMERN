@@ -11,11 +11,22 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/styles": "^4.11.5",
     "@reduxjs/toolkit": "^1.9.0",
+<<<<<<< Updated upstream
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "axios": "^1.2.0",
     "bootstrap": "^5.2.3",
+=======
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "antd": "^5.0.1",
+    "axios": "^0.19.2",
+    "bootstrap": "^5.2.2",
+    "formik": "^2.2.9",
+    "js-cookie": "^3.0.1",
+>>>>>>> Stashed changes
     "jwt-decode": "^3.1.2",
     "material-ui-chip-input": "^1.1.0",
     "moment": "^2.29.4",
