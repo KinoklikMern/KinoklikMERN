@@ -6,8 +6,8 @@ const upload = multer({ dest: "images/" });
 import {
   getMovies,
   createMovie,
-  getMovieImage,
-  getMovieMedia,
+  uploadMovieFile,
+  uploadMovieFiles,
 } from "../controllers/movies.js";
 
 const router = express.Router();
@@ -15,11 +15,11 @@ const router = express.Router();
 router.get("/", getMovies);
 router.post("/", createMovie);
 router.post(
-  "/uploadMedia",
-  upload.fields([{ name: "fileFilm" }, { name: "fileTrailer" }]),
-  getMovieMedia
+  "/uploadFiles",
+  upload.fields([{ name: "file1" }, { name: "file2" }]),
+  uploadMovieFiles
 );
 
-router.post("/image", upload.single("file"), getMovieImage);
+router.post("/uploadFile", upload.single("file"), uploadMovieFile);
 
 export default router;

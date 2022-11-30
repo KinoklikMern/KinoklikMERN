@@ -1,16 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import http from "../../../http-common";
-import UploadFile from "../../FileUpload";
 
 function EpkCoverForm() {
-  const [movieId, setMovieId] = useState("");
+  //const [movieId, setMovieId] = useState("");
+  const [file1, setFile1] = useState("");
+  const [file2, setFile2] = useState("");
+  const inputFile1Ref = useRef(null);
+  const inputFile2Ref = useRef(null);
+  const [message, setMessage] = useState("");
+
+  const file1Selected = (event) => {
+    const file = event.target.files[0];
+    setFile1(file);
+  };
+
+  const file2Selected = (event) => {
+    const file = event.target.files[0];
+    setFile2(file);
+  };
+
   const [epkCoverData, setEpkCoverData] = useState({
     title: "",
     logLine: "",
     genre: "",
     minutes: "",
-    banner: "",
-    trailer: "",
+    banner_url: "",
+    trailer_url: "",
   });
   const movieGenre = [
     "Genre...",
@@ -64,8 +79,71 @@ function EpkCoverForm() {
     setEpkCoverData({ ...epkCoverData, [name]: value });
   };
 
+  const checkFileMimeType = (file) => {
+    if (file !== "") {
+      if (
+        file.type === "video/mp4" ||
+        file.type === "video/mpeg" ||
+        file.type === "video/quicktime" ||
+        file.type === "video/x-ms-wmv" ||
+        file.type === "video/ogg" ||
+        file.type === "video/3gpp" ||
+        file.type === "	video/x-msvideo" ||
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg"
+      )
+        return true;
+      else return false;
+    } else return true;
+  };
+
+  const saveEpkCover = (e) => {
+    debugger;
+    e.preventDefault();
+    let formData = new FormData();
+    console.log(file1);
+    console.log(file2);
+
+    formData.append("file1", file1);
+
+    formData.append("file2", file2);
+    console.log(formData);
+    debugger;
+    if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
+      http
+        .post("epks/uploadFiles", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          if (response.data.file1 !== undefined) {
+            epkCoverData.banner_url = response.data.file1;
+          }
+          if (response.data.file2 !== undefined) {
+            epkCoverData.trailer_url = response.data.file2;
+          }
+          http
+            .post("epks/epkcover", epkCoverData)
+            .then((res) => {
+              console.log("saved");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log();
+          console.log(err);
+        });
+    } else {
+      setMessage("File must be a image(jpeg or png)");
+    }
+  };
+
   return (
-    <div>
+    <form className="form">
       <div class="card">
         <div class="card-header">
           <div class="row align-items-start">
@@ -97,7 +175,7 @@ function EpkCoverForm() {
                 />
               </div>
               <div className="row">
-                <div className="col-md-2 my-2">
+                <div className="col-md-3 my-2">
                   <select
                     className="form-select form-select-sm "
                     name="genre"
@@ -106,7 +184,7 @@ function EpkCoverForm() {
                     {movieGenre.map(makeGenreItem)}
                   </select>
                 </div>
-                <div className="col-md-2 my-1">
+                <div className="col-md-3 my-1">
                   <input
                     className="form-control"
                     defaultValue={epkCoverData.minutes}
@@ -118,12 +196,55 @@ function EpkCoverForm() {
               </div>
             </div>
             <div className="col-md-6 border border-2">
-              <UploadFile />
+              <div className="row gx-5">
+                <div className="col-5">
+                  <label for="fileBanner" class="form-label">
+                    {" "}
+                    Upload Banner
+                  </label>
+                  <input
+                    className="form-control form-control-sm"
+                    filename={file1}
+                    onChange={file1Selected}
+                    ref={inputFile1Ref}
+                    type="file"
+                    id="fileBanner"
+                    name="files"
+                    accept="image/*"
+                  ></input>
+                </div>
+                <div className="col-5">
+                  <label for="fileTrailer" class="form-label">
+                    {" "}
+                    Upload Trailer
+                  </label>
+                  <input
+                    className="form-control form-control-sm"
+                    filename={file2}
+                    ref={inputFile2Ref}
+                    onChange={file2Selected}
+                    type="file"
+                    id="fileTrailer"
+                    name="files"
+                    accept="video/*"
+                  ></input>
+                </div>
+              </div>
+            </div>
+            <div className="d-flex justify-content-end">
+              <button
+                type="submit"
+                className="btn btn-secondary"
+                onClick={saveEpkCover}
+              >
+                {" "}
+                Save{" "}
+              </button>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 
