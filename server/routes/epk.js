@@ -18,7 +18,7 @@ router.put("/:id", updateEpkById);
 
 //for uniques section
 router.get("/:id/uniques",getEpkUniquesById);
-router.patch("/:id/uniques",updateEpkUniquesById);
+router.put("/:id/uniques",updateEpkUniquesById);
 router.post(
   "/uploadFiles",
   upload.fields([{ name: "file1" }, { name: "file2" }]),
@@ -27,7 +27,7 @@ router.post(
 
 //for stills section
 router.get("/:id/stills",getEpkStillsById);
-router.patch("/:id/stills",updateEpkStillsById);
+router.put("/:id/stills",updateEpkStillsById);
 router.post(
   "/uploadStills",
   upload.fields([{ name: "file1" }, { name: "file2" },

@@ -55,7 +55,7 @@ const StillPreview = () => {
         
           */
         http
-        .get(`epks/${params.id.toString()}/uniques`)
+        .get(`epks/${params.id.toString()}/stills`)
         .then((response) => {
           console.log("response");
           console.log(response);
@@ -67,22 +67,22 @@ const StillPreview = () => {
           }
       
           const record = response.data;
-          console.log("record");
+          console.log("still");
           console.log(record);
           if (!record) {
             window.alert(`epk Record with id ${id} not found`);
             navigate("/movies");
             return;
           }
-  
-        stillData.still_img1_url=record[0].still_img1_url
+          setStillData(record[0]); 
+        /*stillData.still_img1_url=record[0].still_img1_url
         stillData.still_img2_url=record[0].still_img2_url
         stillData.still_img3_url=record[0].still_img3_url
         stillData.still_img4_url=record[0].still_img4_url
         stillData.still_img5_url=record[0].still_img5_url
         stillData.still_img6_url=record[0].still_img6_url
         stillData.still_img7_url=record[0].still_img7_url
-        stillData.still_img8_url=record[0].still_img8_url
+        stillData.still_img8_url=record[0].still_img8_url*/
         
         }  ) 
             

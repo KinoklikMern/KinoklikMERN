@@ -59,8 +59,8 @@ const UniquesPreview = () => {
         http
         .get(`epks/${params.id.toString()}/uniques`)
         .then((response) => {
-          console.log("response");
-          console.log(response);
+          //console.log("response");
+          //console.log(response);
           if (!(response.statusText) ==="OK") {
             console.log("error");
             const message = `An error has occurred: ${response.statusText}`;
@@ -69,8 +69,8 @@ const UniquesPreview = () => {
           }
       
           const record = response.data;
-          console.log("record");
-          console.log(record);
+          //console.log("record");
+          //console.log(record);
           if (!record) {
             window.alert(`epk Record with id ${id} not found`);
             navigate("/movies");
@@ -78,20 +78,20 @@ const UniquesPreview = () => {
           }
   
        
-           console.log("before set");
-           console.log(uniqueData);
+           //console.log("before set");
+           //console.log(uniqueData);
            setUniqueData(record[0]); 
         
           
-          //setUniqueData(uniqueData.unique1_title : record[0].unique1_title);
-          uniqueData.unique1_title=record[0].unique1_title
+         
+          /*uniqueData.unique1_title=record[0].unique1_title
           uniqueData.unique2_title=record[0].unique2_title
           uniqueData.unique1_description=record[0].unique1_description
           uniqueData.unique2_description=record[0].unique2_description
           uniqueData.unique1_poster_url=record[0].unique1_poster_url
-          uniqueData.unique2_poster_url=record[0].unique2_poster_url
-          console.log("after set");
-          console.log(uniqueData);
+          uniqueData.unique2_poster_url=record[0].unique2_poster_url*/
+          //console.log("after set");
+          //console.log(uniqueData);
         }  ) 
       }
     

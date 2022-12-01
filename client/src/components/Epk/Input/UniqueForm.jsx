@@ -79,20 +79,20 @@ function UniqueForm() {
         }
 
      
-         console.log("before set");
-         console.log(uniqueData);
+         //console.log("before set");
+         //console.log(uniqueData);
          setUniqueData(record[0]); 
       
         
-        //setUniqueData(uniqueData.unique1_title : record[0].unique1_title);
-        uniqueData.unique1_title=record[0].unique1_title
+     
+        /*uniqueData.unique1_title=record[0].unique1_title
         uniqueData.unique2_title=record[0].unique2_title
         uniqueData.unique1_description=record[0].unique1_description
         uniqueData.unique2_description=record[0].unique2_description
         uniqueData.unique1_poster_url=record[0].unique1_poster_url
-        uniqueData.unique2_poster_url=record[0].unique2_poster_url
-        console.log("after set");
-        console.log(uniqueData);
+        uniqueData.unique2_poster_url=record[0].unique2_poster_url*/
+        //console.log("after set");
+        //console.log(uniqueData);
       }  ) 
 
 
@@ -142,7 +142,7 @@ function UniqueForm() {
           }
       
           http
-            .post("epks/${params.id}/uniques", uniqueData)
+            .put("epks/${params.id}/uniques", uniqueData)
             .then((res) => {
               console.log("saved");
             })
