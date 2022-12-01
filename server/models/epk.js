@@ -37,34 +37,52 @@ const epkSchema = mongoose.Schema({
   genre: {
     type: String,
   },
-  uniques:[
-    {header: String,
-    content: String,
-    img_url: String}  
-  ],
-  stills:[
-    {header: String,
-    content: String,
-    img_url: String}  
-  ],
-  synopses:[
-    {content: String,
-    img_url: String},
-    {content: String,
-    img_url: String},
-    {content: String,
-    img_url: String}
-  ],
-  leadactors:[
-    {name: String,
-    biography:String,
-    img_url: String}
-  ],
-  supportingactors:[
-    {name: String,
-    biography:String,
-    img_url: String}
-  ],
+
+  unique1_title:{
+    type:String,
+  },
+  unique1_description:{
+    type:String,
+  },
+  unique1_poster_url:{
+    type:String,
+  },
+  
+  unique2_title:{
+    type:String,
+  },
+  unique2_description:{
+    type:String,
+  },
+  unique2_poster_url:{
+    type:String,
+  },
+  still_img1_url:{
+    type:String,
+  },
+  still_img2_url:{
+    type:String,
+  },
+  still_img3_url:{
+    type:String,
+  },
+  still_img4_url:{
+    type:String,
+  },
+  still_img5_url:{
+    type:String,
+  },
+  still_img6_url:{
+    type:String,
+  },
+  still_img7_url:{
+    type:String,
+  },
+  still_img8_url:{
+    type:String,
+  },
+  
+
 
 });
 

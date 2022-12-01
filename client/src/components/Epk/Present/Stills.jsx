@@ -5,12 +5,21 @@ import './Stills.css';
 const StillPreview = () => {
 
   
-    const [stills, setStills] = useState([]);
+    //const [stills, setStills] = useState([]);
    
     const params = useParams();
     const navigate = useNavigate();
  
-  
+    const [stillData, setStillData] = useState({
+        still_img1_url: "",
+        still_img2_url: "",
+        still_img3_url: "",
+        still_img4_url: "",
+        still_img5_url: "",
+        still_img6_url: "",
+        still_img7_url: "",
+        still_img8_url: "",
+      });
   
     useEffect(() => {
       async function fetchData() {
@@ -32,8 +41,17 @@ const StillPreview = () => {
         }
     
         
-        setStills(record[0].stills); 
-        console.log(stills.length);
+        //setStills(record[0].stills); 
+        //console.log(stills.length);
+        stillData.still_img1_url=record[0].still_img1_url
+        stillData.still_img2_url=record[0].still_img2_url
+        stillData.still_img3_url=record[0].still_img3_url
+        stillData.still_img4_url=record[0].still_img4_url
+        stillData.still_img5_url=record[0].still_img5_url
+        stillData.still_img6_url=record[0].still_img6_url
+        stillData.still_img7_url=record[0].still_img7_url
+        stillData.still_img8_url=record[0].still_img8_url
+        
            
       }
     
@@ -46,40 +64,31 @@ const StillPreview = () => {
   
     return ( 
      
-        <div>  
-
-                    <div class="container text-center">
-                    <div  >
-                   
-                  
-                         <div   class="grid">  
-                         <img src="https://mediafiles.cineplex.com/Central/Film/Posters/32004_320_470.jpg" ></img>
-                         <img src="https://api.time.com/wp-content/uploads/2015/07/southpaw-jake-gyllenhaal.jpg" ></img>
-                         <img src="https://mediafiles.cineplex.com/Central/Film/Posters/32004_320_470.jpg" ></img>
-                         <img src="https://api.time.com/wp-content/uploads/2015/07/southpaw-jake-gyllenhaal.jpg" ></img>
-                         <img src="https://api.time.com/wp-content/uploads/2015/07/southpaw-jake-gyllenhaal.jpg" ></img>
-                         </div>
-                        
-                       
-
-                      </div>
-                      </div>
-
-        
-        <div class="container text-center" >
-        <div  class = "grid">
-            
-          {stills.map((still, key) => (
-            <>
-            <div className="still" key={key}  >
-                <img src={still.img_url}  class="img-fluid"></img>
+     
+        <div  class = "container">
+            <div class="container text-center" >
+                <div  class = "grid">
+                
+                    {stillData.still_img1_url? 
+                        <img src={stillData.still_img1_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img2_url? 
+                        <img src={stillData.still_img2_url}  class="img-fluid"></img>:<></>}
+                    {stillData.still_img3_url? 
+                        <img src={stillData.still_img3_url}  class="img-fluid"></img>:<></>}
+                    {stillData.still_img4_url?
+                        <img src={stillData.still_img4_url}  class="img-fluid"></img>:<></>}
+                    {stillData.still_img5_url? 
+                        <img src={stillData.still_img5_url}  class="img-fluid"></img>:<></>}
+                    {stillData.still_img6_url? 
+                        <img src={stillData.still_img6_url}  class="img-fluid"></img>:<></>}
+                    {stillData.still_img7_url? 
+                        <img src={stillData.still_img7_url}  class="img-fluid"></img>:<></>}
+                    {stillData.still_img8_url? 
+                        <img src={stillData.still_img8_url}  class="img-fluid"></img>:<></>}
+                </div>
             </div>
-            </>
-          ) )}  
-
-          </div>
-          </div>
-       </div>      
+        </div>
+         
     )
   }
 

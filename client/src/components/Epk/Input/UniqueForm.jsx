@@ -1,0 +1,263 @@
+import React, { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
+
+import http from "../../../http-common";
+
+function UniqueForm() {
+ 
+  const [file1, setFile1] = useState("");
+  const [file2, setFile2] = useState("");
+  
+  const inputFile1Ref = useRef(null);
+  const inputFile2Ref = useRef(null);
+ 
+  const [message, setMessage] = useState("");
+
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const file1Selected = (event) => {
+    const file = event.target.files[0];
+    setFile1(file);
+  };
+
+  const file2Selected = (event) => {
+    const file = event.target.files[0];
+    setFile2(file);
+  };
+
+   const [uniqueData, setUniqueData] = useState({
+    unique1_title: "",
+    unique1_description: "",
+    unique1_poster_url: "",
+    unique2_title: "",
+    unique2_description: "",
+    unique2_poster_url: "",  
+  });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUniqueData({ ...uniqueData, [name]: value });
+  };
+
+  const checkFileMimeType = (file) => {
+    if (file !== "") {
+      if (  
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg"
+      )
+        return true;
+      else return false;
+    } else return true;
+  };
+
+
+  
+  useEffect(() => {
+    async function fetchData() {
+      const id = params.id.toString();;
+      const response = await fetch(`http://127.0.0.1:8000/epk/${params.id.toString()}/uniques`);
+         
+  
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+  
+      const record = await response.json();
+      if (!record) {
+        window.alert(`epk Record with id ${id} not found`);
+        navigate("/movies");
+        return;
+      }
+  
+      //console.log(record[0]) 
+      //if (record[0].uniques.length >0 ){     
+        // setUniqueData(record);   
+         //console.log("after" +uniques.length);
+         //setUniqueData({ ...uniqueData, unique1_title: record[0].unique1_title})
+         console.log("before set");
+         console.log(uniqueData);
+         setUniqueData(record[0]); 
+      
+        
+        //setUniqueData(uniqueData.unique1_title : record[0].unique1_title);
+        uniqueData.unique1_title=record[0].unique1_title
+        uniqueData.unique2_title=record[0].unique2_title
+        uniqueData.unique1_description=record[0].unique1_description
+        uniqueData.unique2_description=record[0].unique2_description
+        uniqueData.unique1_poster_url=record[0].unique1_poster_url
+        uniqueData.unique2_poster_url=record[0].unique2_poster_url
+        console.log("after set");
+        console.log(uniqueData);
+        
+      //}
+  
+    }
+  
+    fetchData();
+  
+    return;
+  }, [params.id, navigate]);
+
+
+
+  const saveUnique = (e) => {
+    debugger;
+    e.preventDefault();
+    let formData = new FormData();
+    console.log(file1);
+    console.log(file2);
+
+    formData.append("file1", file1);
+    formData.append("file2", file2);
+
+
+
+    console.log(formData);
+    debugger;
+    if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
+      http
+        .post("epks/uploadFiles", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          if (response.data.file1 !== undefined) {
+            uniqueData.unique1_poster_url = response.data.file1;
+          }
+          if (response.data.file2 !== undefined) {           
+            uniqueData.unique2_poster_url = response.data.file1;
+          }
+        
+
+
+       
+
+          http
+            .post("epks/${params.id}/uniques", uniqueData)
+            .then((res) => {
+              console.log("saved");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log();
+          console.log(err);
+        });
+    } else {
+      setMessage("File must be a image(jpeg or png)");
+    }
+  };
+
+  return (
+    <form className="form">
+    <div class="card">
+      <div class="card-header">
+        <div class="row align-items-start">
+          <div class="col align-items-start">EPK Page Upload</div>
+          <div class="col align-items-end">link to view</div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">Uniqueness</h5>
+        <form className="row g-3">      
+      
+              <div className="col-6">
+              <input
+                    type="text"
+                    placeholder = "Title"
+                    className="form-control"        
+                    value={uniqueData.unique1_title}
+                    onChange={handleInputChange}
+                    name="unique1_title"                         
+                    />   
+              <br/> 
+
+               <textarea 
+                    class="form-control" 
+                    rows="3"
+                    placeholder = "Description"
+                    value={uniqueData.unique1_description}
+                 
+                    onChange={handleInputChange}
+                    name="unique1_description"  
+                    />  
+              
+               <br/>   
+                <input
+                  className="form-control form-control-sm"
+                  filename={file1}
+                  onChange={file1Selected}
+                  ref={inputFile1Ref}
+                  type="file"                 
+                  name="files"
+                  accept="image/*"
+                ></input>
+
+                 <img src={uniqueData.unique1_poster_url}  class="img-fluid "/>   
+              </div>
+              <div className="col-6">
+              <input
+                    type="text"
+                    placeholder = "Title"
+                    className="form-control"        
+                    value={uniqueData.unique2_title}
+                    onChange={handleInputChange}
+                    name="unique2_title"                         
+                    />   
+              <br/> 
+
+               <textarea 
+                    class="form-control" 
+                    rows="3"
+                    placeholder = "Description"
+                    value={uniqueData.unique2_description}
+                 
+                    onChange={handleInputChange}
+                    name="unique2_description"  
+                    />  
+              
+               <br/> 
+                <input
+                  className="form-control form-control-sm"
+                  filename={file2}
+                  onChange={file2Selected}
+                  ref={inputFile2Ref}
+                  type="file"               
+                  name="files"
+                  accept="image/*"
+                ></input>
+
+                 <img src={uniqueData.unique2_poster_url}  class="img-fluid "/>   
+              </div>
+             
+            
+           
+          
+
+          
+            
+          <div className="d-flex justify-content-end">
+            <button
+              type="submit"
+              className="btn btn-secondary"
+              onClick={saveUnique}
+            >
+              {" "}
+              Save{" "}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </form>
+)
+}
+
+export default UniqueForm;

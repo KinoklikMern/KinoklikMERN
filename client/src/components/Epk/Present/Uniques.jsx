@@ -6,19 +6,20 @@ const UniquesPreview = () => {
 
 
   
-    const [uniques, setUniques] = useState([{},{}]);
-  
-    //const [uniques, setUniques] = useState<{header: string, content: string,img_url:string}[]>([]);
-   
-    //setUniques(epkuniques);
-    //console.log(epkuniques);
-  
   
     const params = useParams();
     const navigate = useNavigate();
   
-    console.log(uniques);
-  
+    
+
+    const [uniqueData, setUniqueData] = useState({
+        unique1_title: "",
+        unique1_description: "",
+        unique1_poster_url: "",
+        unique2_title: "",
+        unique2_description: "",
+        unique2_poster_url: "",  
+      });
   
     useEffect(() => {
       async function fetchData() {
@@ -40,11 +41,19 @@ const UniquesPreview = () => {
         }
     
         
-        setUniques(record[0].uniques); 
-        console.log(uniques.length);
+        //setUniques(record[0].uniques); 
+        //console.log(uniques.length);
         //if (uniques.length <=2 ){     
         //  setUniques([...uniques, {}])
         //}
+        uniqueData.unique1_title=record[0].unique1_title
+        uniqueData.unique2_title=record[0].unique2_title
+        uniqueData.unique1_description=record[0].unique1_description
+        uniqueData.unique2_description=record[0].unique2_description
+        uniqueData.unique1_poster_url=record[0].unique1_poster_url
+        uniqueData.unique2_poster_url=record[0].unique2_poster_url
+        console.log("present");
+        console.log(uniqueData);
     
       }
     
@@ -53,24 +62,7 @@ const UniquesPreview = () => {
       return;
     }, [params.id, navigate]);
   
-    async function onSubmit(e) {
-      e.preventDefault();
-      setUniques([...uniques]);   
-      //console.log(uniques);
-      //console.log(JSON.stringify({ uniques }));
-      //console.log(JSON.stringify({ uniques:uniques }));
-    
-      // This will send a put request to update the data in the database.
-      await fetch(`http://127.0.0.1:8000/epk/${params.id}/uniques`, {
-        method: 'PATCH',      
-        body: JSON.stringify({ uniques:uniques }),     
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-    
-      //navigate("/movies");
-    }
+ 
   
   
   
@@ -81,27 +73,38 @@ const UniquesPreview = () => {
         <div class = "container" >  
           <h1 class="unique-section-title">Uniqueness</h1>      
  
-          {uniques.map((unique, key) => (
-            <>               
-            <div className="unique" key={key}>
-                {unique.header || unique.content || unique.img_url?    
+         
+            <div >
+                {  uniqueData.unique1_title || uniqueData.unique1_description || uniqueData.unique1_poster_url?      
                 <>            
 
                     <div class ="unique-container"   >
-                        <img src={unique.img_url}  class="img-fluid "/>
-                        <div  class = "unique-title">{unique.header}</div>
-                        <div class = "unique-description">{unique.content}</div>    
+                        <p >uniqueness</p>
+                        <img src={uniqueData.unique1_poster_url}  class="img-fluid "/>                      
+                        <div  class = "unique-title">{uniqueData.unique1_title}</div>
+                        <div class = "unique-description">{uniqueData.unique1_description}</div>    
                         <br/>
                     </div> 
                 </>
                 :<br/>}
             </div>
-            </>
-          ) )}   
 
+            <div >
+                {  uniqueData.unique2_title || uniqueData.unique2_description || uniqueData.unique2_poster_url?      
+                <>            
 
-        
-   
+                    <div class ="unique-container"   >
+                    <p >uniqueness</p>
+                        <img src={uniqueData.unique2_poster_url}  class="img-fluid "/>
+                       
+                        <div  class = "unique-title">{uniqueData.unique2_title}</div>
+                        <div class = "unique-description">{uniqueData.unique2_description}</div>    
+                        <br/>
+                    </div> 
+                </>
+                :<br/>}
+            </div>
+          
        </div>      
     )
   }

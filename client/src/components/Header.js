@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import { Component } from "react";
-import UserAccountSetting from "../components/Dashboard/UserAccountSetting"
+
 
 //function Header() {
 
@@ -94,7 +94,7 @@ import UserAccountSetting from "../components/Dashboard/UserAccountSetting"
                 </span>
 
                 <span>
-                  <Link class="whatsnew-text" to="/epk/637cf1ccd6eadcb0ee8e2d82/epkdashboard">
+                  <Link class="whatsnew-text" to="/epk/6388018da4804501a63bbe5a/epkdashboard">
                     &nbsp;&nbsp;&nbsp;&nbsp;Uniques
                   </Link>
                 </span>
@@ -124,23 +124,6 @@ import UserAccountSetting from "../components/Dashboard/UserAccountSetting"
             </li>
 
 
-            <li class="nav-item">
-            <UserAccountSetting show={this.state.show} handleClose={this.hideModal}>             
-            </UserAccountSetting >
-          
-
-             <button class=" anim-whatsnew whats-new"  type="button" onClick={this.showModal}>
-                <span class="circle" aria-hidden="true">
-                  <span class="whatsnew-icon arrow"></span>
-                </span>
-
-                <span>                
-                   <Link class="whatsnew-text" >
-                    &nbsp;&nbsp;&nbsp;&nbsp;Dashboard
-                  </Link>              
-                </span>
-              </button>
-            </li>
 
             <li class="search__wrapper">
               <input
