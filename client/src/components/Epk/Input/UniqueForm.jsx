@@ -56,27 +56,29 @@ function UniqueForm() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();;
-      const response = await fetch(`http://127.0.0.1:8000/epk/${params.id.toString()}/uniques`);
-         
-  
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-  
-      const record = await response.json();
-      if (!record) {
-        window.alert(`epk Record with id ${id} not found`);
-        navigate("/movies");
-        return;
-      }
-  
-      //console.log(record[0]) 
-      //if (record[0].uniques.length >0 ){     
-        // setUniqueData(record);   
-         //console.log("after" +uniques.length);
-         //setUniqueData({ ...uniqueData, unique1_title: record[0].unique1_title})
+      //const response = await fetch(`http://127.0.0.1:8000/epk/${params.id.toString()}/uniques`);
+      http
+      .get(`epks/${params.id.toString()}/uniques`)
+      .then((response) => {
+        console.log("response");
+        console.log(response);
+        if (!(response.statusText) ==="OK") {
+          console.log("error");
+          const message = `An error has occurred: ${response.statusText}`;
+          window.alert(message);
+          return;
+        }
+    
+        const record = response.data;
+        console.log("record");
+        console.log(record);
+        if (!record) {
+          window.alert(`epk Record with id ${id} not found`);
+          navigate("/movies");
+          return;
+        }
+
+     
          console.log("before set");
          console.log(uniqueData);
          setUniqueData(record[0]); 
@@ -91,6 +93,13 @@ function UniqueForm() {
         uniqueData.unique2_poster_url=record[0].unique2_poster_url
         console.log("after set");
         console.log(uniqueData);
+      }  ) 
+
+
+  
+    
+  
+  
         
       //}
   
@@ -131,11 +140,7 @@ function UniqueForm() {
           if (response.data.file2 !== undefined) {           
             uniqueData.unique2_poster_url = response.data.file1;
           }
-        
-
-
-       
-
+      
           http
             .post("epks/${params.id}/uniques", uniqueData)
             .then((res) => {

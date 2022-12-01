@@ -128,7 +128,9 @@ export const updateEpkStillsById = async (req,res) =>{
 
 
 // upload 8 image for as stills
+
 export const uploadEpkStills = async (req, res) => {
+  
   let totalResult = {};
   console.log(req.files);
   if ("file1" in req.files) {
@@ -213,6 +215,37 @@ export const uploadEpkStills = async (req, res) => {
         totalResult["file8"] = result8.Key;
       }
     }
+
+  console.log(totalResult);
+  res.send(totalResult);
+};
+
+
+export const uploadEpkFiles = async (req, res) => {
+  let totalResult = {};
+  console.log(req.files);
+  if ("file1" in req.files) {
+    const file1 = req.files.file1[0];
+    const result1 = await uploadFileToS3(file1);
+    if (!result1) {
+      res.status(406).send({ message: "File extention not supported!" });
+    } else {
+      console.log(result1);
+      totalResult["file1"] = result1.Key;
+    }
+  }
+
+  console.log("file2" in req.files);
+  if ("file2" in req.files) {
+    const file2 = req.files.file2[0];
+    const result2 = await uploadFileToS3(file2);
+    if (!result2) {
+      res.status(406).send({ message: "File extention not supported!" });
+    } else {
+      console.log(totalResult);
+      totalResult["file2"] = result2.Key;
+    }
+  }
 
   console.log(totalResult);
   res.send(totalResult);

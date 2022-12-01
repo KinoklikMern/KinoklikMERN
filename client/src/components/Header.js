@@ -94,7 +94,7 @@ import { Component } from "react";
                 </span>
 
                 <span>
-                  <Link class="whatsnew-text" to="/epk/6388018da4804501a63bbe5a/epkdashboard">
+                  <Link class="whatsnew-text" to="/epks/6388018da4804501a63bbe5a/epkdashboard">
                     &nbsp;&nbsp;&nbsp;&nbsp;Uniques
                   </Link>
                 </span>

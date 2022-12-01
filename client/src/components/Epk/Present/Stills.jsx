@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import './Stills.css';
+import http from "../../../http-common";
 
 const StillPreview = () => {
 
@@ -24,7 +25,7 @@ const StillPreview = () => {
     useEffect(() => {
       async function fetchData() {
         const id = params.id.toString();;
-        const response = await fetch(`http://127.0.0.1:8000/epk/${params.id.toString()}/stills`);
+        /*const response = await fetch(`http://127.0.0.1:8000/epks/${params.id.toString()}/stills`);
            
     
         if (!response.ok) {
@@ -52,7 +53,39 @@ const StillPreview = () => {
         stillData.still_img7_url=record[0].still_img7_url
         stillData.still_img8_url=record[0].still_img8_url
         
-           
+          */
+        http
+        .get(`epks/${params.id.toString()}/uniques`)
+        .then((response) => {
+          console.log("response");
+          console.log(response);
+          if (!(response.statusText) ==="OK") {
+            console.log("error");
+            const message = `An error has occurred: ${response.statusText}`;
+            window.alert(message);
+            return;
+          }
+      
+          const record = response.data;
+          console.log("record");
+          console.log(record);
+          if (!record) {
+            window.alert(`epk Record with id ${id} not found`);
+            navigate("/movies");
+            return;
+          }
+  
+        stillData.still_img1_url=record[0].still_img1_url
+        stillData.still_img2_url=record[0].still_img2_url
+        stillData.still_img3_url=record[0].still_img3_url
+        stillData.still_img4_url=record[0].still_img4_url
+        stillData.still_img5_url=record[0].still_img5_url
+        stillData.still_img6_url=record[0].still_img6_url
+        stillData.still_img7_url=record[0].still_img7_url
+        stillData.still_img8_url=record[0].still_img8_url
+        
+        }  ) 
+            
       }
     
       fetchData();
@@ -63,15 +96,14 @@ const StillPreview = () => {
      
   
     return ( 
-     
-     
+        <>
         <div  class = "container">
             <div class="container text-center" >
                 <div  class = "grid">
                 
                     {stillData.still_img1_url? 
                         <img src={stillData.still_img1_url}  class="img-fluid"></img>:<></>}
-                {stillData.still_img2_url? 
+                    {stillData.still_img2_url? 
                         <img src={stillData.still_img2_url}  class="img-fluid"></img>:<></>}
                     {stillData.still_img3_url? 
                         <img src={stillData.still_img3_url}  class="img-fluid"></img>:<></>}
@@ -88,7 +120,7 @@ const StillPreview = () => {
                 </div>
             </div>
         </div>
-         
+        </>
     )
   }
 

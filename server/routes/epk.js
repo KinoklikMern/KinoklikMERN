@@ -1,21 +1,29 @@
 import express from "express";
+import multer from "multer";
 
-import { getEpkByMovieId, createEpk, updateEpkById} from "../controllers/epk.js";
+
+import { getEpkByMovieId, createEpk, updateEpkById,uploadEpkFiles} from "../controllers/epk.js";
 // For unique section
 import { getEpkUniquesById , updateEpkUniquesById} from "../controllers/epk.js";
 // For still section
 import { getEpkStillsById,updateEpkStillsById , uploadEpkStills} from "../controllers/epk.js";
 
 const router = express.Router();
+const upload = multer({ dest: "images/" });
 
 router.get("/:id", getEpkByMovieId);
 router.post("/:id", createEpk);
-router.put("/:id", updateEpkByMovieId);
+router.put("/:id", updateEpkById);
 
 
 //for uniques section
 router.get("/:id/uniques",getEpkUniquesById);
 router.patch("/:id/uniques",updateEpkUniquesById);
+router.post(
+  "/uploadFiles",
+  upload.fields([{ name: "file1" }, { name: "file2" }]),
+  uploadEpkFiles
+);
 
 //for stills section
 router.get("/:id/stills",getEpkStillsById);
