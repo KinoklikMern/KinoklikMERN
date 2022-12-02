@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import http from "../http-common";
 
-const UploadFile = () => {
+const UploadFile = (props) => {
   const [file, setFile] = useState(undefined);
   const [message, setMessage] = useState("");
   const [image, setImage] = useState(null);
@@ -27,6 +27,10 @@ const UploadFile = () => {
         console.log(response);
         console.log(response.data);
         setImage(response.data.key);
+        props.setImage(
+          "https://kinomovie.s3.amazonaws.com/" + response.data.key
+        );
+
         console.log("*************");
       })
       .catch((err) => {
@@ -60,13 +64,13 @@ const UploadFile = () => {
         <div className="alert alert-light" role="alert">
           {/*   {message} */}
         </div>
-        {image && (
+        {/*       {image && (
           <img
             src={"https://kinomovie.s3.amazonaws.com/" + image}
             alt="hey"
             style={{ height: "350px", width: "300px" }}
           />
-        )}
+        )} */}
       </form>
     </div>
   );
