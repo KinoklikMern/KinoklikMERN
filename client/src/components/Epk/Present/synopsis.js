@@ -8,7 +8,7 @@ function Synopsis(synopsFile) {
   return (
     <div className="container">
       <img
-        src={synopsFile.synopsFile.photo}
+        src={synopsFile.synopsFile.image}
         alt="hey"
         style={{ height: "100%" }}
       />

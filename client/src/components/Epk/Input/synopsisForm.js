@@ -15,52 +15,48 @@ const SynopsisForm = () => {
   const [medium, setMedium] = useState(null);
   const [long, setslong] = useState(null);
   const [synopsisList, setSynopsisList] = useState(null);
-
+  const epkID = 3;
   const submit = () => {
-    const shortSynopsis = {
-      epk: 1,
+    /*     const shortSynopsis = {
+      epk: epkID,
       image: image1,
       text: short,
       type: "short",
     };
     const mediumSynopsis = {
-      epk: 1,
+      epk: epkID,
       image: image2,
       text: medium,
       type: "medium",
     };
     const longSynopsis = {
-      epk: 1,
+      epk: epkID,
       image: image3,
       text: long,
       type: "long",
-    };
-    createEpkSynopsis(shortSynopsis, mediumSynopsis, longSynopsis);
+    }; */
+    const synopsisList1 = [
+      { epk: epkID, image: image1, text: short, type: "short" },
+      { epk: epkID, image: image2, text: medium, type: "medium" },
+      { epk: epkID, image: image3, text: long, type: "long" },
+    ];
+    console.log(synopsisList1);
+    createEpkSynopsis(synopsisList1);
 
-    async function createEpkSynopsis(
-      shortSynopsis,
-      mediumSynopsis,
-      longSynopsis
-    ) {
-      const response = await fetch(
-        "http://localhost:8000/epk/createEpkSynopsis",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            shortSynopsis: shortSynopsis,
-            mediumSynopsis: mediumSynopsis,
-            longSynopsis: longSynopsis,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
+    async function createEpkSynopsis(synopsisList1) {
+      const response = await fetch("http://localhost:8000/epk/EpkSynopsis", {
+        method: "POST",
+        body: JSON.stringify({
+          synopsisList: synopsisList1,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
       const synopsisList = await response.json();
 
-      console.log(synopsisList.shortSynopsis);
       setSynopsisList(synopsisList);
-      localStorage.setItem("synopsisList", synopsisList);
+      // localStorage.setItem("epk", 1);
       window.location = "/epk";
 
       /*  console.log(shortSynopsis);
