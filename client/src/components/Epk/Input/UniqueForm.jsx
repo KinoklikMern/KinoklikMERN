@@ -1,22 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import UploadFile from "../../FileUpload";
 
 import http from "../../../http-common";
 
+
 function UniqueForm() {
- 
-  const [file1, setFile1] = useState("");
-  const [file2, setFile2] = useState("");
+  const [image1, setImage1] = useState("");
+  const [image2, setImage2] = useState("");
+
+
+  //const [file1, setFile1] = useState("");
+  //const [file2, setFile2] = useState("");
   
-  const inputFile1Ref = useRef(null);
-  const inputFile2Ref = useRef(null);
+  //const inputFile1Ref = useRef(null);
+  //const inputFile2Ref = useRef(null);
  
   const [message, setMessage] = useState("");
 
   const params = useParams();
   const navigate = useNavigate();
 
-  const file1Selected = (event) => {
+  /*const file1Selected = (event) => {
     const file = event.target.files[0];
     setFile1(file);
   };
@@ -24,7 +29,7 @@ function UniqueForm() {
   const file2Selected = (event) => {
     const file = event.target.files[0];
     setFile2(file);
-  };
+  };*/
 
    const [uniqueData, setUniqueData] = useState({
     unique1_title: "",
@@ -82,14 +87,21 @@ function UniqueForm() {
          //console.log("before set");
          //console.log(uniqueData);
          setUniqueData(record[0]); 
-      
+         console.log("image1+imag2");
+         console.log(uniqueData.unique1_poster_url);
+         console.log(uniqueData.unique2_poster_url);
+         setImage1( record[0].unique1_poster_url);
+         setImage2( record[0].unique2_poster_url);
+        console.log("image1+imag2");
+        console.log(image1);
+        console.log(image2);
         
      
         /*uniqueData.unique1_title=record[0].unique1_title
         uniqueData.unique2_title=record[0].unique2_title
         uniqueData.unique1_description=record[0].unique1_description
         uniqueData.unique2_description=record[0].unique2_description
-        uniqueData.unique1_poster_url=record[0].unique1_poster_url
+        uniqueData.unique1_poster_url=ecord[0].unique1_poster_urlr
         uniqueData.unique2_poster_url=record[0].unique2_poster_url*/
         //console.log("after set");
         //console.log(uniqueData);
@@ -113,22 +125,23 @@ function UniqueForm() {
 
 
   const saveUnique = (e) => {
-    debugger;
+    //;
     e.preventDefault();
     let formData = new FormData();
-    console.log(file1);
-    console.log(file2);
+    //console.log(file1);
+    //console.log(file2);
 
-    formData.append("file1", file1);
-    formData.append("file2", file2);
+    //formData.append("file1", file1);
+    //formData.append("file2", file2);
 
 
 
     console.log(formData);
-    debugger;
-    if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
+    //debugger;
+    /*if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
       http
         .post("epks/uploadFiles", formData, {
+      
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -142,7 +155,8 @@ function UniqueForm() {
           }
       
           http
-            .put("epks/${params.id}/uniques", uniqueData)
+            .put(`epks/${params.id.toString()}}/uniques`, uniqueData)
+      
             .then((res) => {
               console.log("saved");
             })
@@ -156,7 +170,27 @@ function UniqueForm() {
         });
     } else {
       setMessage("File must be a image(jpeg or png)");
-    }
+    }*/
+    console.log("before");
+    console.log(uniqueData.unique1_poster_url);
+    uniqueData.unique1_poster_url=image1;
+    uniqueData.unique2_poster_url=image2;
+    http 
+            .put(`epks/${params.id.toString()}/uniques`, uniqueData)
+      
+            .then((res) => {
+              console.log("saved");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+           
+           
+            console.log("after");
+            
+            console.log(uniqueData.unique1_poster_url);
+            
   };
 
   return (
@@ -195,17 +229,15 @@ function UniqueForm() {
                     />  
               
                <br/>   
-                <input
-                  className="form-control form-control-sm"
-                  filename={file1}
-                  onChange={file1Selected}
-                  ref={inputFile1Ref}
-                  type="file"                 
-                  name="files"
-                  accept="image/*"
-                ></input>
-
-                 <img src={uniqueData.unique1_poster_url}  class="img-fluid "/>   
+               <UploadFile setImage={setImage1} />
+                {image1 && (
+                  <img
+                    src={image1}
+                    alt="hey"
+                    style={{ height: "350px", width: "300px" }}
+                    class="img-fluid "
+                  />
+                )}
               </div>
               <div className="col-6">
               <input
@@ -229,17 +261,16 @@ function UniqueForm() {
                     />  
               
                <br/> 
-                <input
-                  className="form-control form-control-sm"
-                  filename={file2}
-                  onChange={file2Selected}
-                  ref={inputFile2Ref}
-                  type="file"               
-                  name="files"
-                  accept="image/*"
-                ></input>
-
-                 <img src={uniqueData.unique2_poster_url}  class="img-fluid "/>   
+               <UploadFile setImage={setImage2} />
+              {image2 && (
+                <img
+                  src={image2}
+                  alt="hey"
+                  style={{ height: "350px", width: "300px" }}
+                  class="img-fluid "
+                />
+              )}
+                 
               </div>
              
             

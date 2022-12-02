@@ -1,0 +1,31 @@
+
+
+.home{
+    background-color: #160625;
+    overflow: hidden;
+    /* width: 1440px; */
+}
+
+.home .listTitle {
+    height: 82px;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Roboto';
+    text-indent: 50px;
+    background-color: #2E1F3B;
+    display: flex;
+    align-items: center;
+}
+
+.home .sponsTitle {
+    height: 82px;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Roboto';
+    text-indent: 50px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}

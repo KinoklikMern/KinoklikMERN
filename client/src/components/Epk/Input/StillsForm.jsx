@@ -153,7 +153,7 @@ function StillsForm() {
             stillData.img8_url = response.data.file8;
           }
           http
-            .put("epks/${params.id}/stills", stillData)
+            .put(`epks/${params.id.toString()}}/stills`, stillData)
             .then((res) => {
               console.log("saved");
             })

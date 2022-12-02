@@ -4,9 +4,16 @@ import MainLayout from "./layouts/MainLayout";
 import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
+import Dashboard from "./pages/Dashboard";
+import RegistrationForm from "./components/Auth/Registration/registration";
+import Login from "./components/Auth/Registration/login";
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import Bookmark from "./pages/Bookmark";
+import SynopsisForm from "./components/Epk/Input/SynopsisForm";
+import Synopsis from "./components/Epk/Present/synopsis";
+import EPK from "./pages/Epk";
 
 import EpkDashboard from "./pages/EpkDashboardPage";
-
 
 function App() {
   return (
@@ -16,7 +23,15 @@ function App() {
           <Route index element={<Home />} />
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
-          <Route path="edit_profile" element={<Home />} />        
+          <Route path="edit_profile" element={<Home />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="registeration" element={<RegistrationForm />} />
+          <Route path="login" element={<Login />} />
+          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+          <Route path="bookmark" element={<Bookmark />} />
+          <Route path="synopsis" element={<Synopsis />} />
+          <Route path="synopsisForm" element={<SynopsisForm />} />
+          <Route path="epk" element={<EPK />} />
           <Route path="epks/:id/epkdashboard" element={<EpkDashboard/>} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
