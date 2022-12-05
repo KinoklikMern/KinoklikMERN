@@ -11,6 +11,11 @@ import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import Bookmark from "./pages/Bookmark";
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
+
+import DirectorForm from "./components/Epk/Input/directorForm";
+import Director from "./components/Epk/Present/director";
+
+
 import EPK from "./pages/Epk";
 
 function App() {
@@ -27,8 +32,13 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="bookmark" element={<Bookmark />} />
+
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
+
+          <Route path="dirctor" element={<Director />} />
+          <Route path="directorForm" element={<DirectorForm />} />
+
           <Route path="epk" element={<EPK />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

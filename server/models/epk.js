@@ -12,6 +12,12 @@ const epkSchema = mongoose.Schema({
       },
     },
   ],
+
+  director: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "epkDirector",
+  },
+
 });
 
 const epk = mongoose.model("epk", epkSchema);

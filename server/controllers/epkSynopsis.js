@@ -6,25 +6,8 @@ export const createEpkSynopsis = async (req, res) => {
   const synopsisList = req.body.synopsisList;
   const epkFromDb = await epk.findOne({ title: title });
 
-  /*   const shortSynopsis = req.body.shortSynopsis;
-  const mediumSynopsis = req.body.mediumSynopsis;
-  const longSynopsis = req.body.longSynopsis; */
-
   try {
-    /*     const newShortSynopsis = new epkSynopsis(shortSynopsis);
-    const newMediumSynopsis = new epkSynopsis(mediumSynopsis);
-    const newLongSynopsis = new epkSynopsis(longSynopsis);
-    await newShortSynopsis?.save();
-    newMediumSynopsis?.save();
-    newLongSynopsis?.save();
 
-    const synopsis = {
-      shortSynopsis: newShortSynopsis,
-      mediumSynopsis: newMediumSynopsis,
-      longSynopsis: newLongSynopsis,
-    }; */
-    // epk.synopsis = synopsis;
-    // epk.save();
     const savedSynopsis = [];
     for (let i = 0; i < synopsisList.length; i++) {
       console.log(synopsisList[i]);
