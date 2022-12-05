@@ -15,6 +15,9 @@ import Synopsis from "./components/Epk/Present/synopsis";
 import DirectorForm from "./components/Epk/Input/directorForm";
 import Director from "./components/Epk/Present/director";
 
+import CinematographerForm from "./components/Epk/Input/cinematographerForm";
+import Cinematographer from "./components/Epk/Present/cinematographer";
+
 
 import EPK from "./pages/Epk";
 
@@ -36,8 +39,11 @@ function App() {
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
 
-          <Route path="dirctor" element={<Director />} />
+          <Route path="director" element={<Director />} />
           <Route path="directorForm" element={<DirectorForm />} />
+
+          <Route path="cinematographer" element={<Cinematographer />} />
+          <Route path="cinematographerForm" element={<CinematographerForm />} />
 
           <Route path="epk" element={<EPK />} />
         </Route>

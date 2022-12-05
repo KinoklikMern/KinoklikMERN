@@ -18,6 +18,11 @@ const epkSchema = mongoose.Schema({
     ref: "epkDirector",
   },
 
+  cinematographer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "epkCinematographer",
+  },
+
 });
 
 const epk = mongoose.model("epk", epkSchema);
