@@ -111,14 +111,13 @@ const UniquesPreview = () => {
         <div class = "container" >  
           <h1 class="unique-section-title">Uniqueness</h1>      
  
-         
             <div >
                 {  uniqueData.unique1_title || uniqueData.unique1_description || uniqueData.unique1_poster_url?      
                 <>           
                   
                     <div class ="unique-container"   >
                        <p></p>
-                        <img src={uniqueData.unique1_poster_url}  class="img-fluid "/>                      
+                        <img src={uniqueData.unique1_poster_url}  class="img-fluid " width="100%"/>                      
                         <div  class = "unique-title">{uniqueData.unique1_title}</div>
                         <div class = "unique-description">{uniqueData.unique1_description}</div>    
                         <br/>
@@ -133,7 +132,7 @@ const UniquesPreview = () => {
                    
                     <div class ="unique-container"   >
                     <p></p>
-                        <img src={uniqueData.unique2_poster_url}  class="img-fluid "/>
+                        <img src={uniqueData.unique2_poster_url}  class="img-fluid " width="100%"/>
                      
                         <div  class = "unique-title">{uniqueData.unique2_title}</div>
                         <div class = "unique-description">{uniqueData.unique2_description}</div>    

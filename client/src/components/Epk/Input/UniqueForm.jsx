@@ -8,28 +8,13 @@ import http from "../../../http-common";
 function UniqueForm() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
-
-
-  //const [file1, setFile1] = useState("");
-  //const [file2, setFile2] = useState("");
-  
-  //const inputFile1Ref = useRef(null);
-  //const inputFile2Ref = useRef(null);
  
-  const [message, setMessage] = useState("");
+  //const [message, setMessage] = useState("");
 
   const params = useParams();
   const navigate = useNavigate();
 
-  /*const file1Selected = (event) => {
-    const file = event.target.files[0];
-    setFile1(file);
-  };
 
-  const file2Selected = (event) => {
-    const file = event.target.files[0];
-    setFile2(file);
-  };*/
 
    const [uniqueData, setUniqueData] = useState({
     unique1_title: "",
@@ -44,17 +29,7 @@ function UniqueForm() {
     setUniqueData({ ...uniqueData, [name]: value });
   };
 
-  const checkFileMimeType = (file) => {
-    if (file !== "") {
-      if (  
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg"
-      )
-        return true;
-      else return false;
-    } else return true;
-  };
+
 
 
   
@@ -84,27 +59,13 @@ function UniqueForm() {
         }
 
      
-         //console.log("before set");
-         //console.log(uniqueData);
-         setUniqueData(record[0]); 
-         console.log("image1+imag2");
-         console.log(uniqueData.unique1_poster_url);
-         console.log(uniqueData.unique2_poster_url);
+       
+         setUniqueData(record[0]);       
          setImage1( record[0].unique1_poster_url);
          setImage2( record[0].unique2_poster_url);
-        console.log("image1+imag2");
-        console.log(image1);
-        console.log(image2);
+     
         
      
-        /*uniqueData.unique1_title=record[0].unique1_title
-        uniqueData.unique2_title=record[0].unique2_title
-        uniqueData.unique1_description=record[0].unique1_description
-        uniqueData.unique2_description=record[0].unique2_description
-        uniqueData.unique1_poster_url=ecord[0].unique1_poster_urlr
-        uniqueData.unique2_poster_url=record[0].unique2_poster_url*/
-        //console.log("after set");
-        //console.log(uniqueData);
       }  ) 
 
 
@@ -125,54 +86,12 @@ function UniqueForm() {
 
 
   const saveUnique = (e) => {
-    //;
+
     e.preventDefault();
     let formData = new FormData();
-    //console.log(file1);
-    //console.log(file2);
-
-    //formData.append("file1", file1);
-    //formData.append("file2", file2);
-
-
-
-    console.log(formData);
-    //debugger;
-    /*if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
-      http
-        .post("epks/uploadFiles", formData, {
-      
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          if (response.data.file1 !== undefined) {
-            uniqueData.unique1_poster_url = response.data.file1;
-          }
-          if (response.data.file2 !== undefined) {           
-            uniqueData.unique2_poster_url = response.data.file1;
-          }
-      
-          http
-            .put(`epks/${params.id.toString()}}/uniques`, uniqueData)
-      
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log();
-          console.log(err);
-        });
-    } else {
-      setMessage("File must be a image(jpeg or png)");
-    }*/
-    console.log("before");
-    console.log(uniqueData.unique1_poster_url);
+   
+    //console.log("before");
+    //console.log(uniqueData.unique1_poster_url);
     uniqueData.unique1_poster_url=image1;
     uniqueData.unique2_poster_url=image2;
     http 
@@ -194,7 +113,8 @@ function UniqueForm() {
   };
 
   return (
-    <form className="form">
+   
+      
     <div class="card">
       <div class="card-header">
         <div class="row align-items-start">
@@ -205,7 +125,7 @@ function UniqueForm() {
 
       <div class="card-body">
         <h5 class="card-title">Uniqueness</h5>
-        <form className="row g-3">      
+        <form className="row ">      
       
               <div className="col-6">
               <input
@@ -234,7 +154,7 @@ function UniqueForm() {
                   <img
                     src={image1}
                     alt="hey"
-                    style={{ height: "350px", width: "300px" }}
+                    style={{ height: "350px" }}
                     class="img-fluid "
                   />
                 )}
@@ -266,18 +186,13 @@ function UniqueForm() {
                 <img
                   src={image2}
                   alt="hey"
-                  style={{ height: "350px", width: "300px" }}
+                  style={{ height: "350px" }}
                   class="img-fluid "
                 />
               )}
                  
               </div>
              
-            
-           
-          
-
-          
             
           <div className="d-flex justify-content-end">
             <button
@@ -292,7 +207,8 @@ function UniqueForm() {
         </form>
       </div>
     </div>
-  </form>
+ 
+ 
 )
 }
 

@@ -97,29 +97,39 @@ const StillPreview = () => {
   
     return ( 
         <>
-        <div  class = "container">
-            <div class="container text-center" >
-                <div  class = "grid">
+
+
+
+
+        <div class = "container" > 
+            <div class ="still-container"   >
+            <div id="images-wrapper">
                 
-                    {stillData.still_img1_url? 
-                        <img src={stillData.still_img1_url}  class="img-fluid"></img>:<></>}
-                    {stillData.still_img2_url? 
-                        <img src={stillData.still_img2_url}  class="img-fluid"></img>:<></>}
-                    {stillData.still_img3_url? 
-                        <img src={stillData.still_img3_url}  class="img-fluid"></img>:<></>}
-                    {stillData.still_img4_url?
-                        <img src={stillData.still_img4_url}  class="img-fluid"></img>:<></>}
-                    {stillData.still_img5_url? 
-                        <img src={stillData.still_img5_url}  class="img-fluid"></img>:<></>}
-                    {stillData.still_img6_url? 
-                        <img src={stillData.still_img6_url}  class="img-fluid"></img>:<></>}
-                    {stillData.still_img7_url? 
-                        <img src={stillData.still_img7_url}  class="img-fluid"></img>:<></>}
-                    {stillData.still_img8_url? 
-                        <img src={stillData.still_img8_url}  class="img-fluid"></img>:<></>}
-                </div>
+                {stillData.still_img1_url? 
+                    <img src={stillData.still_img1_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img2_url? 
+                    <img src={stillData.still_img2_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img3_url? 
+                    <img src={stillData.still_img3_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img4_url?
+                    <img src={stillData.still_img4_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img5_url? 
+                    <img src={stillData.still_img5_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img6_url? 
+                    <img src={stillData.still_img6_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img7_url? 
+                    <img src={stillData.still_img7_url}  class="img-fluid"></img>:<></>}
+                {stillData.still_img8_url? 
+                    <img src={stillData.still_img8_url}  class="img-fluid"></img>:<></>}
             </div>
-        </div>
+           
+      
+            </div>
+       </div>     
+          
+    
+      
+     
         </>
     )
   }
