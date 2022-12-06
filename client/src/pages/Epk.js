@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Synopsis from "../components/Epk/Present/synopsis";
 import Cast from "../components/Epk/Present/cast";
 import Director from "../components/Epk/Present/director";
+import Producer from "../components/Epk/Present/producer";
 import Cinematographer from "../components/Epk/Present/cinematographer";
 
 function EPK() {
@@ -69,6 +70,26 @@ function EPK() {
     setDirectorList(directorList1);
   }
 
+    //Producer
+    const [producerList, setProducerList] = useState(null);
+    useEffect(() => {
+      getEpktProducer(id);
+    }, []);
+    async function getEpktProducer(id) {
+      const response = await fetch(
+        "http://localhost:8000/epk/EpkProducer/" + id,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+      const producerList1 = await response.json();
+      console.log(producerList1);
+      setProducerList(producerList1);
+    }
+
     //Cinematographer
     const [cinematographerList, setCinematographerList] = useState(null);
     useEffect(() => {
@@ -92,11 +113,21 @@ function EPK() {
 
   return (
     <>
+    <div className="Container">
       {/* {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)} */}
-      {castList && castList.map((s) => <Cast castFile={s} />)}
-      {/* {directorList && directorList.map((s) => <Director directorFile={s} />)}
-      {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)} */}
-
+      {/* <div>
+        {castList && castList.map((s) => <Cast castFile={s} />)}
+      </div> */}
+      <div>
+        {directorList && directorList.map((s) => <Director directorFile={s} />)}
+      </div>
+      <div>
+        {producerList && producerList.map((s) => <Producer producerFile={s} />)}
+      </div>
+      <div>
+        {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
+      </div>
+    </div>
     </>
 
   );

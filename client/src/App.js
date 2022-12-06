@@ -18,6 +18,9 @@ import Cast from "./components/Epk/Present/cast";
 import DirectorForm from "./components/Epk/Input/directorForm";
 import Director from "./components/Epk/Present/director";
 
+import ProducerForm from "./components/Epk/Input/producerForm";
+import Producer from "./components/Epk/Present/producer";
+
 import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
 
@@ -47,6 +50,9 @@ function App() {
 
           <Route path="director" element={<Director />} />
           <Route path="directorForm" element={<DirectorForm />} />
+
+          <Route path="producer" element={<Producer />} />
+          <Route path="producerForm" element={<ProducerForm />} />
 
           <Route path="cinematographer" element={<Cinematographer />} />
           <Route path="cinematographerForm" element={<CinematographerForm />} />

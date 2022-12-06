@@ -27,7 +27,7 @@ const epkCastSchema = mongoose.Schema({
     },
     
     supportingActor1Name:{
-        name: String,
+        type: String,
     },
     supportingActor1Biography:{
         type: String
@@ -37,28 +37,14 @@ const epkCastSchema = mongoose.Schema({
     },
     
     supportingActor2Name:{
-        name: String,
+        type: String,
     },
     supportingActor2Biography:{
         type: String
     },
     supportingActor2Img_url: {
         type: String
-    },
-    
-    cinematographerName:{
-        type: String,
-    },
-    cinematographerHeader:{
-        type: String
-    },
-    cinematographerBiography:{
-        type: String
-    },
-    cinematographerImg_url: {
-        type: String
-    },
-      
+    },     
 
 });
 
