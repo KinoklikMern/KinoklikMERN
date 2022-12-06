@@ -77,7 +77,7 @@ const CastForm = () => {
                 justify="space-around"
                 className="text-center "
             >
-                <Col span={4} className="m-2 bg-light">
+                <Col span={16} className="m-2 bg-light">
                     <div className="row">
                     <div className="col">
                     <h3> Lead Actor</h3>

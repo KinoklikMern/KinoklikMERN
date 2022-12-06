@@ -115,9 +115,9 @@ function EPK() {
     <>
     <div className="Container">
       {/* {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)} */}
-      {/* <div>
+      <div>
         {castList && castList.map((s) => <Cast castFile={s} />)}
-      </div> */}
+      </div>
       <div>
         {directorList && directorList.map((s) => <Director directorFile={s} />)}
       </div>
