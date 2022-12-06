@@ -1,0 +1,47 @@
+
+.producer-container {
+  position: relative;
+  text-align: center;
+  background-color: black;  
+  width: 100%;
+}
+
+.producer-section-title{
+    color:blueviolet;
+    text-align:center;
+    font-size: 35px;
+    margin-top: 350px;
+}
+
+.producer-header{
+    position: absolute;
+    color :purple;
+    font-size: 100px;
+    top: 20%;
+    left: 10%;
+    max-width:50%;
+    transform: translate(-50%, -50%);
+
+}
+.producer-name{
+  position: absolute;
+  color :purple;
+  font-size: 100px;
+  top: 30%;
+  left: 10%;
+  max-width:50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.producer-description {
+  position: absolute;
+  color : purple;
+  font-size: 25px;
+  top: 50%;
+  left: 10%;
+  max-width:50%;
+  transform: translate(-50%, -50%);
+}
+
+

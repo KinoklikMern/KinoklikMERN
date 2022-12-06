@@ -8,6 +8,10 @@ import { createEpkSynopsis } from "../controllers/epkSynopsis.js";
 import { getEpkUniquesById , updateEpkUniquesById} from "../controllers/epk.js";
 // For still section
 import { getEpkStillsById,updateEpkStillsById } from "../controllers/epk.js";
+// For logline section
+import { getEpkLoglineById,updateEpkLoglineById } from "../controllers/epk.js";
+// For producer section
+import { getEpkProducerById,updateEpkProducerById } from "../controllers/epk.js";
 
 
 const router = express.Router();
@@ -35,6 +39,14 @@ router.post(
 //for stills section
 router.get("/:id/stills",getEpkStillsById);
 router.put("/:id/stills",updateEpkStillsById);
+
+//for logline section
+router.get("/:id/loglines",getEpkLoglineById);
+router.put("/:id/loglines",updateEpkLoglineById);
+
+//for producer section
+router.get("/:id/producers",getEpkProducerById);
+router.put("/:id/producers",updateEpkProducerById);
 
 /*
 router.post(

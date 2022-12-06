@@ -128,3 +128,75 @@ epk.updateOne({ _id: ObjectId(req.params.id)}, {$set:{ still_img1_url:newstill1,
   res.status(200).json(epk);       
 });
 }
+
+// get logline of epk by Id
+export const getEpkLoglineById = (req,res) =>{
+  const id = req.params.id;
+epk.find({ _id: ObjectId(req.params.id)  }, {log_lines:1,
+  log_line_poster_urls:1},(err, epk) => {
+   console.log(req.params.id);
+  if (err) {
+    res.status(500).send({ message: err });
+    return;
+  }
+  console.log(epk);
+  res.status(200).json(epk);      
+});
+}
+
+//update logline of epk by Id
+//example: db.employees.updateMany({_id:5},{$set:{ skills:["Sales Tax"]}})
+export const updateEpkLoglineById = async (req,res) =>{
+const newlogline = req.body.log_lines;
+const newloglineposterurl = req.body.log_line_poster_urls;
+console.log(req);
+console.log("before id");
+console.log(req.params.id);
+console.log("after id");
+epk.updateOne({ _id: ObjectId(req.params.id)}, {$set:{ log_lines:newlogline,
+  log_line_poster_urls:newloglineposterurl }},(err, epk) => {
+   
+  if (err) {
+    res.status(500).send({ message: err });
+    return;
+  }
+  res.status(200).json(epk);       
+});
+}
+
+// get producer of epk by Id
+export const getEpkProducerById = (req,res) =>{
+  const id = req.params.id;
+epk.find({ _id: ObjectId(req.params.id)  }, {producer_name:1, producer_header:1,producer_photo_url:1,
+  producer_biography:1},(err, epk) => {
+   console.log(req.params.id);
+  if (err) {
+    res.status(500).send({ message: err });
+    return;
+  }
+  console.log(epk);
+  res.status(200).json(epk);      
+});
+}
+
+//update producer of epk by Id
+//example: db.employees.updateMany({_id:5},{$set:{ skills:["Sales Tax"]}})
+export const updateEpkProducerById = async (req,res) =>{
+const newproducername = req.body.producer_name;
+const newproducerheader = req.body.producer_header;
+const newproducerphotourl = req.body.producer_photo_url;
+const newproducerbiography = req.body.producer_biography;
+console.log(req);
+console.log("before id");
+console.log(req.params.id);
+console.log("after id");
+epk.updateOne({ _id: ObjectId(req.params.id)}, {$set:{ producer_name:newproducername, producer_header:newproducername,
+  producer_photo_url:newproducerphotourl, producer_biography:newproducerbiography }},(err, epk) => {
+   
+  if (err) {
+    res.status(500).send({ message: err });
+    return;
+  }
+  res.status(200).json(epk);       
+});
+}

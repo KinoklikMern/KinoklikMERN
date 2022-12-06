@@ -1,0 +1,41 @@
+
+.logline-container {
+  position: relative;
+  text-align: center;
+  background-color: black;  
+  width: 100%;
+}
+
+.logline-section-title{
+    color:blueviolet;
+    text-align:center;
+    margin-bottom: 75px;
+}
+
+.logline-title{
+    position: absolute;
+    color :purple;
+    font-size: 20px;
+    text-decoration: solid;
+    top: -6%;
+    left: 50%;
+    max-width:50%;
+    transform: translate(-50%, -50%);
+    margin-top: 10px;
+    margin-bottom: 120px;
+}
+.lgoline-image{
+  height: 200px;
+  margin: 50px;
+}
+
+/* .unique-description {
+  position: absolute;
+  color : black;
+  font-size: 35px;
+  top: 50%;
+  left: 50%;
+  max-width:50%;
+  transform: translate(-50%, -50%);
+} */
+

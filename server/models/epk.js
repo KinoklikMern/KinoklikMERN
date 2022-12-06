@@ -55,6 +55,24 @@ const epkSchema = mongoose.Schema({
   },
   still_img8_url:{
     type:String,
+  },
+  log_lines:{
+    type:String,
+  },
+  log_line_poster_urls:{
+    type:String,
+  },
+  producer_name:{
+    type:String,
+  },
+  producer_header:{
+    type:String,
+  },
+  producer_photo_url:{
+    type:String,
+  },
+  producer_biography:{
+    type:String,
   }
   
 });
