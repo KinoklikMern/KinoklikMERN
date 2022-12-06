@@ -6,7 +6,7 @@ function EPK() {
   const [synopsisList, setSynopsisList] = useState(null);
   const { user } = useSelector((user) => ({ ...user }));
   // const id = JSON.parse(localStorage.getItem("epk"));
-  const id = 3;
+  const id = 4;
   useEffect(() => {
     getEpkSynopsis(id);
   }, []);

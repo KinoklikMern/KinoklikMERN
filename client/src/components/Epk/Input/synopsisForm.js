@@ -15,7 +15,7 @@ const SynopsisForm = () => {
   const [medium, setMedium] = useState(null);
   const [long, setslong] = useState(null);
   const [synopsisList, setSynopsisList] = useState(null);
-  const epkID = 3;
+  const epkID = 4;
   const submit = () => {
     /*     const shortSynopsis = {
       epk: epkID,
@@ -96,16 +96,25 @@ const SynopsisForm = () => {
             onChange={handleShort}
           />
           <UploadFile setImage={setImage1} />
-          {image1 && (
-            <img
-              src={image1}
-              alt="hey"
-              style={{ height: "350px", width: "300px" }}
-            />
-          )}
+          <div
+            style={{
+              height: "320px",
+              width: "300px",
+              border: "solid 1px",
+              borderColor: "blue",
+            }}
+          >
+            {image1 && (
+              <img
+                src={image1}
+                alt="hey"
+                style={{ height: "320px", width: "300px" }}
+              />
+            )}
+          </div>
         </Col>
         <Col span={6} className="m-2 bg-light">
-          <h4>long synopsis</h4>
+          <h4>medium synopsis</h4>
           <textarea
             name="medium"
             style={{ height: "200px", width: "300px" }}
@@ -113,16 +122,25 @@ const SynopsisForm = () => {
             onChange={handleMedium}
           ></textarea>
           <UploadFile setImage={setImage2} />
-          {image2 && (
-            <img
-              src={image2}
-              alt="hey"
-              style={{ height: "350px", width: "300px" }}
-            />
-          )}
+          <div
+            style={{
+              height: "320px",
+              width: "300px",
+              border: "solid 1px",
+              borderColor: "blue",
+            }}
+          >
+            {image2 && (
+              <img
+                src={image2}
+                alt="hey"
+                style={{ height: "320px", width: "300px" }}
+              />
+            )}
+          </div>
         </Col>
         <Col span={6} className="m-2 bg-light">
-          <h4>medium synopsis</h4>
+          <h4>long synopsis</h4>
           <textarea
             name="long"
             style={{ height: "200px", width: "300px" }}
@@ -130,17 +148,35 @@ const SynopsisForm = () => {
             onChange={handleLong}
           ></textarea>
           <UploadFile setImage={setImage3} />
-          {image3 && (
-            <img
-              src={image3}
-              alt="hey"
-              style={{ height: "350px", width: "300px" }}
-            />
-          )}
+          <div
+            style={{
+              height: "320px",
+              width: "300px",
+              border: "solid 1px",
+              borderColor: "blue",
+            }}
+          >
+            {image3 && (
+              <img
+                src={image3}
+                alt="hey"
+                style={{ height: "320px", width: "300px" }}
+              />
+            )}
+          </div>
         </Col>
       </Row>
-      <Row>
-        <button className="btn btn-primary" onClick={submit} value="save" />
+      <Row justify="space-around" className="text-center ">
+        <div
+          style={{
+            height: "50px",
+            width: "120px",
+          }}
+        >
+          <Button type="primary" block onClick={submit} value="save">
+            save
+          </Button>
+        </div>
       </Row>
     </>
   );

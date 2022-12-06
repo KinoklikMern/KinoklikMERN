@@ -4,6 +4,12 @@ const epkSchema = mongoose.Schema({
   title: {
     type: String,
   },
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   synopsis: [
     {
       epkSynopsis: {
