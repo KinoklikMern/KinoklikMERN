@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import './Producers.css';
 import http from "../../../http-common";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faContactBook, faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 
 const ProducersPreview = () => {
     const params = useParams();
@@ -15,8 +17,7 @@ const ProducersPreview = () => {
   
     useEffect(() => {
       async function fetchData() {
-        const id = params.id.toString();;
-        
+        const id = params.id.toString();
         http
         .get(`epk/${params.id.toString()}/producers`)
         .then((response) => {
@@ -42,18 +43,35 @@ const ProducersPreview = () => {
       return;
     }, [params.id, navigate]);
   
- 
-  
-  
-  
-
-  
     return ( 
     
-        <div class = "container" >  
-          <h1 class="producer-section-title">Producers</h1>      
- 
-         
+        <div class = "container" >
+          <div className="row" style={{background: "#1F0439"}}>
+            <div className="col-sm m-4">
+                    <h1 className="text-center mt-5">PRODUCER</h1>
+                    <div style={{margin: 0, position: 'relative', top: '5%'}}>
+                      <h3 className= "text-center" style={{color:'#4F2C73', fontWeight: 'bold'}}>
+                      {producerData.producer_header}
+                      </h3>
+                      <br/>
+                      <h2 className= "text-center" style={{color:'#4F2C73', fontWeight: 'bold'}}>
+                      {producerData.producer_name}
+                      </h2>
+                      <h2 className="text-center mx-4">          
+                      {producerData.producer_biography}
+                      </h2>
+                      <FontAwesomeIcon className="mediaIcon" icon={faContactBook} />
+                    </div>
+              </div>
+              <div className="col-sm m-4">
+                    <img 
+                        src={producerData.producer_photo_url}  alt="Image"
+                        style={{width: "100%"}}
+                    ></img>
+              </div>
+          </div>
+            
+          {/* <h1 class="producer-section-title">Producers</h1>      
             <div >
                 {  producerData.producer_name || producerData.producer_header || producerData.producer_photo_url || 
                 producerData.producer_biography ?      
@@ -69,8 +87,8 @@ const ProducersPreview = () => {
                     </div> 
                 </>
                 :<br/>}
-            </div>
-          
+            </div> */}
+          {/* </div>    */}
        </div>      
        
     )
