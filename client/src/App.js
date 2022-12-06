@@ -12,6 +12,9 @@ import Bookmark from "./pages/Bookmark";
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
 
+import CastForm from "./components/Epk/Input/castForm";
+import Cast from "./components/Epk/Present/cast";
+
 import DirectorForm from "./components/Epk/Input/directorForm";
 import Director from "./components/Epk/Present/director";
 
@@ -38,6 +41,9 @@ function App() {
 
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
+
+          <Route path="cast" element={<Cast />} />
+          <Route path="castForm" element={<CastForm />} />
 
           <Route path="director" element={<Director />} />
           <Route path="directorForm" element={<DirectorForm />} />

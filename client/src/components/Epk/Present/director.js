@@ -45,7 +45,7 @@ function Director(directorFile) {
         <div className="row" style={{background: "#630330"}}>
             <div className="col-sm m-4">
                     <h1 className="text-center mt-5">DIRECTOR</h1>
-                    <div style={{margin: 0, position: 'relative', top: '5%'}}>
+                    <div >
                       <h3 className= "text-center" style={{color:'#7F00FF', fontWeight: 'bold'}}>
                       {directorFile.directorFile.header}
                       </h3>

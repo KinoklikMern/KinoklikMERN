@@ -30,7 +30,7 @@ function Cinematographer(cinematographerFile) {
                       </div>
                       <div className="col-sm">
                         <h1 className="text-center mt-5">CINEMATOGRAPHY</h1>
-                        <div style={{margin: 0, position: 'relative', top: '5%'}}>
+                        <div>
                           <h3 className= "text-center" style={{color:'#7F00FF', fontWeight: 'bold'}}>
                           {cinematographerFile.cinematographerFile.header}
                           </h3>

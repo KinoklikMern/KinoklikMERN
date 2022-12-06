@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Synopsis from "../components/Epk/Present/synopsis";
+import Cast from "../components/Epk/Present/cast";
 import Director from "../components/Epk/Present/director";
 import Cinematographer from "../components/Epk/Present/cinematographer";
 
 function EPK() {
+
+  //Synopsis
   const [synopsisList, setSynopsisList] = useState(null);
   const { user } = useSelector((user) => ({ ...user }));
   const id = 3;
@@ -25,6 +28,26 @@ function EPK() {
     console.log(synopsisList1);
     setSynopsisList(synopsisList1);
   }
+
+    //Cast
+    const [castList, setCastList] = useState(null);
+    useEffect(() => {
+      getEpktCast(id);
+    }, []);
+    async function getEpktCast(id) {
+      const response = await fetch(
+        "http://localhost:8000/epk/EpkCast/" + id,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+      const castList1 = await response.json();
+      console.log(castList1);
+      setCastList(castList1);
+    }
 
   //Director
   const [directorList, setDirectorList] = useState(null);
@@ -70,8 +93,9 @@ function EPK() {
   return (
     <>
       {/* {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)} */}
-      {directorList && directorList.map((s) => <Director directorFile={s} />)}
-      {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
+      {castList && castList.map((s) => <Cast castFile={s} />)}
+      {/* {directorList && directorList.map((s) => <Director directorFile={s} />)}
+      {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)} */}
 
     </>
 
