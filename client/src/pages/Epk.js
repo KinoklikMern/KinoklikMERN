@@ -70,6 +70,7 @@ function EPK() {
   return (
     <>
       {/* {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)} */}
+      {directorList && directorList.map((s) => <Director directorFile={s} />)}
       {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
 
     </>

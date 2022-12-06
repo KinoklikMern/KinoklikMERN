@@ -1,6 +1,8 @@
 import express from "express";
 import { getEpk, createEpk, updateEpk } from "../controllers/epk.js";
 import { createEpkSynopsis, getEpkSynopsis } from "../controllers/epkSynopsis.js";
+
+import { createEpkCast, getEpkCast } from "../controllers/epkCast.js";
 import { createEpkDirector, getEpkDirector } from "../controllers/epkDirector.js";
 import { createEpkCinematographer, getEpkCinematographer } from "../controllers/epkCinematographer.js";
 
@@ -15,6 +17,9 @@ router.get("/EpkSynopsis/:id", getEpkSynopsis);
 /* router.get("/", authUser, getEpk);
 router.post("/", authUser, createEpk);
 router.put("/", authUser, updateEpk); */
+
+router.post("/EpkCast", createEpkCast);
+router.get("/EpkCast/:id", getEpkCast);
 
 router.post("/EpkDirector", createEpkDirector);
 router.get("/EpkDirector/:id", getEpkDirector);

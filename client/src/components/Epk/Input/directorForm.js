@@ -5,12 +5,14 @@ import { Button, Col, Row } from "antd";
 const DirectorForm = () => {
     const [image, setImage] = useState(null);
     const [biography, setBiography] = useState(null);
+    const [header, setHeader] = useState(null);
+    const [name, setName] = useState(null);
     const [directorList, setDirectorList] = useState(null);
     const epkID = 3;
     const submit = () => {
 
         const directorList1 = [
-            { epk: epkID, image: image, text: biography },
+            { epk: epkID, image: image, header: header, name: name, biography: biography },
         ];
         console.log(directorList1);
         createEpkDirector(directorList1);
@@ -31,6 +33,17 @@ const DirectorForm = () => {
             window.location = "/epk";
         }
     };
+
+    const handleHeader = (event) => {
+        setHeader(event.target.value);
+        console.log(header);
+    };
+
+    const handleName = (event) => {
+        setName(event.target.value);
+        console.log(name);
+    };
+    
     const handleBiography = (event) => {
         setBiography(event.target.value);
         console.log(biography);
@@ -48,10 +61,22 @@ const DirectorForm = () => {
             >
                 <Col span={6} className="m-2 bg-light">
                     <h4>Director</h4>
+                    <input
+                        name="name"
+                        style={{ height: "20px", width: "300px" }}
+                        placeholder="Enter Cinematographer's Name here."
+                        onChange={handleName}
+                    />
+                    <input
+                        name="header"
+                        style={{ height: "20px", width: "300px" }}
+                        placeholder="Enter Cinematographer's Header here."
+                        onChange={handleHeader}
+                    />
                     <textarea
                         name="biography"
                         style={{ height: "200px", width: "300px" }}
-                        placeholder="Enter Director's Biography here."
+                        placeholder="Enter Cinematographer's Biography here."
                         onChange={handleBiography}
                     />
                     <UploadFile setImage={setImage} />
@@ -65,7 +90,7 @@ const DirectorForm = () => {
                 </Col>
             </Row>
             <Row>
-                <button className="btn btn-primary" onClick={submit} value="save" />
+                    <button className="btn btn-primary" style={{marginLeft: "75%"}} onClick={submit} value="save">Save</button>
             </Row>
         </>
     );
