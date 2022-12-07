@@ -117,9 +117,7 @@ function EPK() {
 
   return (
     <>
-    <div style={{
-    width: "70%",
-    marginLeft: "15%"}}>
+    <div className="container">
       {/* {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)} */}
       {castList && castList.map((s) => <Cast castFile={s} />)}
       {directorList && directorList.map((s) => <Director directorFile={s} />)}
