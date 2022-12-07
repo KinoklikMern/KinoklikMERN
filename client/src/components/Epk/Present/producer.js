@@ -6,13 +6,13 @@ function Producer(producerFile) {
     console.log(producerFile);
 
     return (
-        <div className = "container">
+        <div >
         <div style={{backgroundColor: "#7F00FF", height: 15}}/>
-            <div className = "container">
+            <div >
             {/* Dark Blue: #170B3B Burgundy: #630330*/}
                 <div className="row" style={{background: "#170B3B"}}>
                     <div className="col-sm m-4">
-                        <h1 className="text-center mt-5">PRODUCER</h1>
+                        <h1 className="text-center mt-5" style={{color:'#ffffff', fontWeight: 'normal'}}>PRODUCER</h1>
                         <div >
                             <h3 className= "text-center" style={{color:'#7F00FF', fontWeight: 'bold'}}>
                                 {producerFile.producerFile.header}
@@ -21,7 +21,7 @@ function Producer(producerFile) {
                             <h2 className= "text-center" style={{color:'#7F00FF', fontWeight: 'bold'}}>
                                 {producerFile.producerFile.name}
                             </h2>
-                            <h2 className="text-center mx-4" style={{fontWeight: 'normal'}}>          
+                            <h2 className="text-center mx-4" style={{color:'#ffffff', fontWeight: 'normal'}}>          
                                 {producerFile.producerFile.biography}
                             </h2>
                         </div>

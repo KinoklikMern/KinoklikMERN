@@ -60,7 +60,7 @@ const ProducerForm = () => {
                 className="text-center "
             >
                 <Col span={6} className="m-2 bg-light">
-                    <h4>Producer</h4>
+                    {/* <h4>Producer</h4> */}
                     <input
                         name="name"
                         style={{ height: "20px", width: "300px" }}

@@ -8,7 +8,7 @@ function Cast(castFile) {
   return (
 
 
-    <div className = "container">
+    <div >
 
       <div style={{backgroundColor: "#7F00FF", height: 15}}/>
 
@@ -100,8 +100,6 @@ function Cast(castFile) {
         </div>
       </div>
       
-      <div style={{backgroundColor: "#7F00FF", height: 15}}/> 
-
     </div>
 
    );

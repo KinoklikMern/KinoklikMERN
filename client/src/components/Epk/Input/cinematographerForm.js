@@ -60,7 +60,7 @@ const CinematographerForm = () => {
                 className="text-center "
             >
                 <Col span={6} className="m-2 bg-light">
-                    <h4>Cinematographer</h4>
+                    {/* <h4>Cinematographer</h4> */}
                     <input
                         name="name"
                         style={{ height: "20px", width: "300px" }}

@@ -5,6 +5,7 @@ import Cast from "../components/Epk/Present/cast";
 import Director from "../components/Epk/Present/director";
 import Producer from "../components/Epk/Present/producer";
 import Cinematographer from "../components/Epk/Present/cinematographer";
+import { renderCloseIcon } from "antd/es/modal/PurePanel";
 
 function EPK() {
 
@@ -111,26 +112,22 @@ function EPK() {
     }
 
 
+
+
+
   return (
     <>
-    <div className="Container">
+    <div style={{
+    width: "70%",
+    marginLeft: "15%"}}>
       {/* {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)} */}
-      <div>
-        {castList && castList.map((s) => <Cast castFile={s} />)}
-      </div>
-      <div>
-        {directorList && directorList.map((s) => <Director directorFile={s} />)}
-      </div>
-      <div>
-        {producerList && producerList.map((s) => <Producer producerFile={s} />)}
-      </div>
-      <div>
-        {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
-      </div>
+      {castList && castList.map((s) => <Cast castFile={s} />)}
+      {directorList && directorList.map((s) => <Director directorFile={s} />)}
+      {producerList && producerList.map((s) => <Producer producerFile={s} />)}
+      {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
     </div>
     </>
-
-  );
+    );
 }
 
 export default EPK;

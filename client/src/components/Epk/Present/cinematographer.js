@@ -6,9 +6,9 @@ function Cinematographer(cinematographerFile) {
     console.log(cinematographerFile);
 
     return (
-      <div className = "container">
+      <div >
         <div style={{backgroundColor: "#7F00FF", height: 15}}/>  
-        <div className = "container">
+        <div >
           <div className="row" style={{background: '#D3D3D3'}}>
             <div className="col-sm m-4">
               <img 

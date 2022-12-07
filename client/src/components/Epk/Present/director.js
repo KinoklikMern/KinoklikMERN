@@ -6,9 +6,9 @@ function Director(directorFile) {
     console.log(directorFile);
 
     return (
-      <div className = "container">
+      <div >
         <div style={{backgroundColor: "#7F00FF", height: 15}}/>  
-        <div className = "container">
+        <div >
           <div className="row" style={{background: '#ffffff'}}>
             <div className="col-sm m-4">
               <img 
@@ -26,7 +26,7 @@ function Director(directorFile) {
                 <h2 className= "text-center" style={{color:'#000000', fontWeight: 'bold'}}>
                   {directorFile.directorFile.name}
                 </h2>
-                <h2 className="text-center mx-4" style={{color: '#000000'}}>          
+                <h2 className="text-center mx-4" style={{color: '#000000', fontWeight: 'normal'}}>          
                   {directorFile.directorFile.biography}
                 </h2>
               </div>
