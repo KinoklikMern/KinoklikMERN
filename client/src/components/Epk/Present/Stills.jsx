@@ -102,6 +102,7 @@ const StillPreview = () => {
 
 
         <div class = "container" > 
+           <div class="still-section-title "></div>    
             <div class ="still-container"   >
             <div id="images-wrapper">
                 
@@ -123,7 +124,7 @@ const StillPreview = () => {
                     <img src={stillData.still_img8_url}  class="img-fluid"></img>:<></>}
             </div>
            
-      
+            <div class="still-section-title "></div>    
             </div>
        </div>     
           

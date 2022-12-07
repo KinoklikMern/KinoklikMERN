@@ -109,39 +109,41 @@ const UniquesPreview = () => {
     return ( 
     
         <div class = "container" >  
-          <h1 class="unique-section-title">Uniqueness</h1>      
+          <div class="unique-section-title "></div>      
  
-            <div >
+            <div class= "row">  
                 {  uniqueData.unique1_title || uniqueData.unique1_description || uniqueData.unique1_poster_url?      
-                <>           
-                  
-                    <div class ="unique-container"   >
-                       <p></p>
-                        <img src={uniqueData.unique1_poster_url}  class="img-fluid " width="100%"/>                      
-                        <div  class = "unique-title">{uniqueData.unique1_title}</div>
-                        <div class = "unique-description">{uniqueData.unique1_description}</div>    
-                        <br/>
-                    </div> 
+                <>     
+                   <h1 class="text-center">{uniqueData.unique1_title}</h1>      
+                    <div class="col">
+                    <img src={uniqueData.unique1_poster_url}  class="img-fluid " width="100%"/>   
+                    </div>
+                    <div class="col">
+                    <div class="p-5 ">
+                    < h2 class="text-center">{uniqueData.unique1_description}</h2>   
+                    </div>
+                    </div>
                 </>
                 :<br/>}
             </div>
 
-            <div >
+            <div  class= "row">
                 {  uniqueData.unique2_title || uniqueData.unique2_description || uniqueData.unique2_poster_url?      
                 <>            
-                   
-                    <div class ="unique-container"   >
-                    <p></p>
-                        <img src={uniqueData.unique2_poster_url}  class="img-fluid " width="100%"/>
-                     
-                        <div  class = "unique-title">{uniqueData.unique2_title}</div>
-                        <div class = "unique-description">{uniqueData.unique2_description}</div>    
-                        <br/>
+                    <h1 class="text-center">{uniqueData.unique2_title}</h1>   
+                    <div class="col">
+                    <img src={uniqueData.unique2_poster_url}  class="img-fluid " width="100%"/>   
+                    </div>
+                    <div class="col">
+                    <div class="p-5 ">
+                    < h2 class="text-center">{uniqueData.unique2_description}</h2>   
+                    </div>
                     </div> 
+                   
                 </>
                 :<br/>}
             </div>
-          
+            <div class="unique-section-title "></div>     
        </div>      
        
     )

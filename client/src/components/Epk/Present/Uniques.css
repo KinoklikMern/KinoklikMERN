@@ -1,14 +1,21 @@
 
+
+.unique-section-title{  
+    height:10px;
+    background-color: blueviolet;
+}
+
+/*
+.unique-section-title{
+    color:blueviolet;
+    text-align:center;
+  
+}
 .unique-container {
   position: relative;
   text-align: center;
   background-color: black;  
   width: 100%;
-}
-
-.unique-section-title{
-    color:blueviolet;
-    text-align:center;
 }
 
 .unique-title{
@@ -30,7 +37,7 @@
   left: 50%;
   max-width:80%;
   transform: translate(-50%, -50%);
-}
+}*/
 
 
 

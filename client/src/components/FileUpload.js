@@ -11,6 +11,7 @@ const UploadFile = (props) => {
     setFile(file);
   };
 
+
   async function uploadService(file) {
     let formData = new FormData();
     formData.append("file", file);
@@ -61,6 +62,7 @@ const UploadFile = (props) => {
         <button type="submit" className="btn btn-success" disabled={!file}>
           Upload
         </button>
+    
         <div className="alert alert-light" role="alert">
           {/*   {message} */}
         </div>

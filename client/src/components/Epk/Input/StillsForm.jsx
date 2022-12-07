@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect  } from "react";
 import http from "../../../http-common";
 import { useParams, useNavigate } from "react-router";
 import UploadFile from "../../FileUpload";
+import toast, { Toaster } from 'react-hot-toast';
 
 function StillsForm() {
  
@@ -56,6 +57,7 @@ function StillsForm() {
     .put(`epks/${params.id.toString()}/stills`, stillData)
     .then((res) => {
       console.log("saved");
+      toast.success('Successfully saveed.')
     })
     .catch((err) => {
       console.log(err);
@@ -109,21 +111,25 @@ function StillsForm() {
 
   return (
    
-     
+     <>
+       <div><Toaster/></div>
     <div class="card">
       <div class="card-header">
         <div class="row align-items-start">
           <div class="col align-items-start">EPK Page Upload</div>
-          <div class="col align-items-end">link to view</div>
+          <div class="col align-items-center">View EPK Page</div>
         </div>
       </div>
 
       <div class="card-body">
         <h5 class="card-title">Stills</h5>
+        <h5 class=" text-center text-wrap  bg-white"  >Upload film stills here</h5>
+       
         <form className="row ">      
       
               <div className="col-3">                
                 <UploadFile setImage={setImage1} />
+            
                   {image1 && (
                     <img
                       src={image1}
@@ -131,6 +137,7 @@ function StillsForm() {
                       style={{ height: "350px" }}
                       class="img-fluid "
                     /> )}
+               
                 </div>
 
               <div className="col-3">              
@@ -223,7 +230,7 @@ function StillsForm() {
         </form>
       </div>
     </div>
-  
+  </>
 )
 }
 

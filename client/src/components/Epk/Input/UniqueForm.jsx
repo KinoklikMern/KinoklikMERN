@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import UploadFile from "../../FileUpload";
 
 import http from "../../../http-common";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function UniqueForm() {
@@ -50,8 +51,8 @@ function UniqueForm() {
         }
     
         const record = response.data;
-        console.log("record");
-        console.log(record);
+        //console.log("record");
+        //console.log(record);
         if (!record) {
           window.alert(`epk Record with id ${id} not found`);
           navigate("/movies");
@@ -62,18 +63,8 @@ function UniqueForm() {
        
          setUniqueData(record[0]);       
          setImage1( record[0].unique1_poster_url);
-         setImage2( record[0].unique2_poster_url);
-     
-        
-     
-      }  ) 
-
-
-  
-    
-  
-  
-        
+         setImage2( record[0].unique2_poster_url);    
+      }  )         
       //}
   
     }
@@ -98,29 +89,31 @@ function UniqueForm() {
             .put(`epks/${params.id.toString()}/uniques`, uniqueData)
       
             .then((res) => {
-              console.log("saved");
+              //console.log("saved");
+              toast.success('Successfully saveed.')
             })
             .catch((err) => {
               console.log(err);
             });
-
-           
-           
-            console.log("after");
-            
-            console.log(uniqueData.unique1_poster_url);
+            //console.log("after");            
+            //console.log(uniqueData.unique1_poster_url);
             
   };
 
   return (
    
-      
+     <>
+     <div><Toaster/></div>
     <div class="card">
       <div class="card-header">
         <div class="row align-items-start">
           <div class="col align-items-start">EPK Page Upload</div>
-          <div class="col align-items-end">link to view</div>
-        </div>
+          <div class="col align-items-center">View EPK Page</div>
+          <div class="col align-items-end"> 
+               Tell the world what makes your film and production so special. This is where you sell the world(and the media) your film.Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?
+          </div>
+
+          </div>
       </div>
 
       <div class="card-body">
@@ -208,7 +201,7 @@ function UniqueForm() {
       </div>
     </div>
  
- 
+    </> 
 )
 }
 

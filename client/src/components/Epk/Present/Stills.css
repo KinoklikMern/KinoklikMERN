@@ -1,5 +1,8 @@
 
-
+.still-section-title{  
+  height:10px;
+  background-color: blueviolet;
+}
 
 .still-container {
   position: relative;
