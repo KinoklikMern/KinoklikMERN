@@ -24,8 +24,9 @@ import Producer from "./components/Epk/Present/producer";
 import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
 
-
 import EPK from "./pages/Epk";
+
+import EPKDashboard from "./pages/EpkDashboard";
 
 function App() {
   return (
@@ -58,6 +59,9 @@ function App() {
           <Route path="cinematographerForm" element={<CinematographerForm />} />
 
           <Route path="epk" element={<EPK />} />
+
+          <Route path="epkDashboard" element={<EPKDashboard />} />
+
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

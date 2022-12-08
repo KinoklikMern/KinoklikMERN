@@ -6,6 +6,7 @@
   height: 85vh;
   width: 100%;
 }
+
 /* img {
   opacity: 0.8;
 }
@@ -26,4 +27,23 @@ h3 {
   color: #f1f1f1; /* Grey text */
 
   padding: 20px; /* Some padding */
+}
+
+.capitalize-me::first-letter {
+  text-transform: capitalize;
+}
+
+.article {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+}
+
+.header {
+  font-size: 80px;
+  color: white;
+  text-align: center;
 }

@@ -10,8 +10,9 @@ function Cast(castFile) {
 
     <div >
 
-      <div style={{backgroundColor: "#7F00FF", height: 15}}/>
+      <div style={{backgroundColor: "#170B3B", height: 15}}/>
 
+      <h1 style={{color: "#000000", fontWeight: "normal"}}>Starring</h1>
       {/* Lead Actor 1 */}
       <div className="row">
         <div className="col-sm m-4">
@@ -22,7 +23,7 @@ function Cast(castFile) {
         </div>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: "15%"}}>
-            <h1 className= "text-center" style={{color: "#7F00FF", fontWeight: "bold"}}>
+            <h1 className= "text-center" style={{color: "#000000", fontWeight: "bold"}}>
             {castFile.castFile.leadActor1Name}
             </h1>
             <h2 className="text-center mx-4" style={{color: "#000000", fontWeight: 'normal'}}>          
@@ -39,7 +40,7 @@ function Cast(castFile) {
       <div className="row mx-1" style={{background: "#170B3B"}}>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: '15%'}}>
-            <h1 className= "text-center" style={{color: "#7F00FF", fontWeight: "bold"}}>
+            <h1 className= "text-center" style={{color: "#ffffff", fontWeight: "bold"}}>
               {castFile.castFile.leadActor2Name}
             </h1>
             <h2 className="text-center mx-5" style={{color: "#ffffff", fontWeight: 'normal'}}>          
@@ -67,7 +68,7 @@ function Cast(castFile) {
         </div>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: "15%"}}>
-            <h1 className= "text-center" style={{color: "#7F00FF", fontWeight: "bold"}}>
+            <h1 className= "text-center" style={{color: "#000000", fontWeight: "bold"}}>
               {castFile.castFile.supportingActor1Name}
             </h1>
             <h2 className="text-center mx-4" style={{color: "#000000", fontWeight: 'normal'}}>          
@@ -84,7 +85,7 @@ function Cast(castFile) {
       <div className="row mx-1" style={{background: "#170B3B"}}>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: "15%"}}>
-            <h1 className= "text-center" style={{color: "#7F00FF", fontWeight: "bold"}}>
+            <h1 className= "text-center" style={{color: "#ffffff", fontWeight: "bold"}}>
               {castFile.castFile.supportingActor2Name}
             </h1>
             <h2 className="text-center mx-5" style={{color: "#ffffff", fontWeight: 'normal'}}>

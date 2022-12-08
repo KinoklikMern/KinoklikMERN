@@ -49,15 +49,11 @@
   }
   
   .footer-container {
-    position:absolute;
-    /* left:0;
-    bottom:0;
-    right:0; */
-    /* position: relative;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; */
+    flex-direction: column;
   }
   
   .footer-columns {
@@ -65,5 +61,12 @@
     flex-direction: column;
     width: fit-content;
     margin: 1rem;
+  }
+
+  .footer-bottom {
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
   }
   

@@ -7,18 +7,18 @@ function Producer(producerFile) {
 
     return (
         <div >
-        <div style={{backgroundColor: "#7F00FF", height: 15}}/>
+        {/* <div style={{backgroundColor: "#170B3B", height: 15}}/> */}
             <div >
             {/* Dark Blue: #170B3B Burgundy: #630330*/}
                 <div className="row" style={{background: "#170B3B"}}>
                     <div className="col-sm m-4">
                         <h1 className="text-center mt-5" style={{color:'#ffffff', fontWeight: 'normal'}}>PRODUCER</h1>
                         <div >
-                            <h3 className= "text-center" style={{color:'#7F00FF', fontWeight: 'bold'}}>
+                            <h3 className= "text-center" style={{color:'#ffffff', fontWeight: 'bold'}}>
                                 {producerFile.producerFile.header}
                             </h3>
                             <br/>
-                            <h2 className= "text-center" style={{color:'#7F00FF', fontWeight: 'bold'}}>
+                            <h2 className= "text-center" style={{color:'#ffffff', fontWeight: 'bold'}}>
                                 {producerFile.producerFile.name}
                             </h2>
                             <h2 className="text-center mx-4" style={{color:'#ffffff', fontWeight: 'normal'}}>          

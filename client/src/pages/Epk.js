@@ -12,7 +12,8 @@ function EPK() {
   //Synopsis
   const [synopsisList, setSynopsisList] = useState(null);
   const { user } = useSelector((user) => ({ ...user }));
-  const id = 4;
+  const id = 5
+;
   useEffect(() => {
     getEpkSynopsis(id);
   }, []);
