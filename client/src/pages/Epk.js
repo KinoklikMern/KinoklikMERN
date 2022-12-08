@@ -12,7 +12,7 @@ function EPK() {
   //Synopsis
   const [synopsisList, setSynopsisList] = useState(null);
   const { user } = useSelector((user) => ({ ...user }));
-  const id = 3;
+  const id = 4;
   useEffect(() => {
     getEpkSynopsis(id);
   }, []);
@@ -112,13 +112,10 @@ function EPK() {
     }
 
 
-
-
-
   return (
     <>
     <div className="container">
-      {/* {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)} */}
+      {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}
       {castList && castList.map((s) => <Cast castFile={s} />)}
       {directorList && directorList.map((s) => <Director directorFile={s} />)}
       {producerList && producerList.map((s) => <Producer producerFile={s} />)}
