@@ -4,6 +4,7 @@ import HomeHead from "./HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBottom from "../components/HomeBottom";
 import Festival from '../components/Festival/Festival';
+import Landing1 from "../components/LandingPage/Landing1";
 
 
 function Home() {
@@ -17,10 +18,11 @@ function Home() {
           {" "}
           {user?.firstName} {user?.lastName}
         </h2>
-        <HomeHead />
+        {/* <HomeHead />
         <HomeBody />
         <Festival />
-        <HomeBottom />
+        <HomeBottom /> */}
+        <Landing1 />
       </div>
     </>
   );
