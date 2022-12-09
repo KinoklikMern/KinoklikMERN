@@ -59,7 +59,9 @@ const CinematographerForm = () => {
                 justify="space-around"
                 className="text-center "
             >
-                <Col span={6} className="m-2 bg-light">
+                <Col style={{width: "1000px"}} className="m-2 bg-light">
+                <div className="row">
+                    <div className="col">
                     {/* <h4>Cinematographer</h4> */}
                     <input
                         name="name"
@@ -80,18 +82,32 @@ const CinematographerForm = () => {
                         onChange={handleBiography}
                     />
                     <UploadFile setImage={setImage} />
+                    </div>
+                    <div className="col">
                     {image && (
                         <img
                             src={image}
                             alt="dir"
-                            style={{ height: "350px", width: "300px" }}
+                            style={{ height: "300px"}}
                         />
                     )}
+                    </div>
+                    </div>
                 </Col>
             </Row>
-            <Row>
-                    <button className="btn btn-primary" style={{marginLeft: "75%"}} onClick={submit} value="save">Save</button>
-            </Row>
+            <Row justify="space-around" className="text-center ">
+        <div
+          style={{
+            height: "50px",
+            width: "120px",
+            marginLeft: "1200px"
+          }}
+        >
+          <Button type="primary" block onClick={submit} value="save">
+            Save
+          </Button>
+        </div>
+      </Row>
 
         </>
     );

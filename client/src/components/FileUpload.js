@@ -55,16 +55,16 @@ const UploadFile = (props) => {
   return (
     <div>
       <form onSubmit={upload}>
-        <label className="btn btn-default">
+        <label style={{width: "250px"}} className="btn btn-default">
           <input type="file" onChange={fileSelected} name="file" />
         </label>
         <button type="submit" className="btn btn-success" disabled={!file}>
           Upload
         </button>
-        <div className="alert alert-light" role="alert">
-          {/*   {message} */}
+        {/* <div className="alert alert-light" role="alert">
+            {message}
         </div>
-        {/*       {image && (
+              {image && (
           <img
             src={"https://kinomovie.s3.amazonaws.com/" + image}
             alt="hey"

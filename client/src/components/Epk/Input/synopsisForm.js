@@ -76,14 +76,16 @@ const SynopsisForm = () => {
   return (
     <>
       {" "}
-      <h1 className="text-center text-primary">synopsis</h1>
+      <h1 className="text-center text-primary">Synopsis</h1>
       <br />
       <Row
         justify="space-around"
         className="text-center "
         /*  style={{height: "70vh" }}*/
       >
-        <Col span={6} className="m-2 bg-light">
+        <Col style={{width: "1300px", height: "500px"}} className="m-2 bg-light">
+        <div className="row">
+          <div className="col">
           <h4>Short Synopsis</h4>
           <textarea
             name="short"
@@ -92,24 +94,17 @@ const SynopsisForm = () => {
             onChange={handleShort}
           />
           <UploadFile setImage={setImage1} />
-          <div
-            style={{
-              width: "200px",
-              height: "300px",
-              border: "solid 1px",
-              borderColor: "blue",
-            }}
-          >
+
             {image1 && (
               <img
                 src={image1}
                 alt="hey"
-                style={{ width: "200px" }}
+                style={{ height: "200px" }}
               />
             )}
           </div>
-        </Col>
-        <Col span={6} className="m-2 bg-light">
+
+          <div className="col">
           <h4>Medium Synopsis</h4>
           <textarea
             name="medium"
@@ -118,24 +113,16 @@ const SynopsisForm = () => {
             onChange={handleMedium}
           ></textarea>
           <UploadFile setImage={setImage2} />
-          <div
-            style={{
-              width: "200px",
-              height: "300px",
-              border: "solid 1px",
-              borderColor: "blue",
-            }}
-          >
+
             {image2 && (
               <img
                 src={image2}
                 alt="hey"
-                style={{width: "200px" }}
+                style={{ height: "200px" }}
               />
             )}
           </div>
-        </Col>
-        <Col span={6} className="m-2 bg-light">
+          <div className="col">
           <h4>Long Synopsis</h4>
           <textarea
             name="long"
@@ -144,22 +131,16 @@ const SynopsisForm = () => {
             onChange={handleLong}
           ></textarea>
           <UploadFile setImage={setImage3} />
-          <div 
-            style={{
-              width: "200px",
-              height: "300px",
-              border: "solid 1px",
-              borderColor: "blue",
-            }}
-          >
+
             {image3 && (
               <img
                 src={image3}
                 alt="hey"
-                style={{ width: "200px" }}
+                style={{ height: "200px" }}
               />
             )}
           </div>
+        </div>
         </Col>
       </Row>
       <Row justify="space-around" className="text-center ">
@@ -167,10 +148,11 @@ const SynopsisForm = () => {
           style={{
             height: "50px",
             width: "120px",
+            marginLeft: "1200px"
           }}
         >
           <Button type="primary" block onClick={submit} value="save">
-            save
+            Save
           </Button>
         </div>
       </Row>
