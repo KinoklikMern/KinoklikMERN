@@ -5,6 +5,7 @@ import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBottom from "../components/HomeBottom";
 import Festival from '../components/Festival/Festival';
 import Landing1 from "../components/LandingPage/Landing1";
+import Landing2 from "../components/LandingPage/Landing2";
 
 
 function Home() {
@@ -23,6 +24,7 @@ function Home() {
         <Festival />
         <HomeBottom /> */}
         <Landing1 />
+        <Landing2 />
       </div>
     </>
   );
