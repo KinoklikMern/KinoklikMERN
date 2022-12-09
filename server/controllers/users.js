@@ -4,58 +4,10 @@ import { generateToken } from "../helpers/tokens.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-<<<<<<< HEAD
 export const register = async (req, res) => {
   try {
     const { firstName, lastName, email, role, password, phone, website } =
       req.body;
-=======
-/* export const register = async (request, response) => {
-  const email = request.body.email;
-  const password = request.body.password;
-  const firstName = request.body.firstName;
-  const lastName = request.body.lastName;
-
-  try {
-    // Check to see if the user already exists. If not, then create it.
-
-    const user = await User.findOne({ email: email });
-
-    if (user) {
-      console.log("Invalid registration - email " + email + " already exists.");
-
-      response.send({ message: " email  already exists." });
-
-      return;
-    } else {
-      hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      console.log("Registering username " + email);
-
-      const userToSave = {
-        email: email,
-        password: hashedPassword,
-        firstName: firstName,
-        lastName: lastName,
-      };
-
-      await User.create(userToSave);
-
-      response.send({ success: true });
-
-      return;
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-
-  response.send({ success: false });
-}; */
-
-export const register = async (req, res) => {
-  try {
-    const { firstName, lastName, email, role, password } = req.body;
->>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
 
     if (!validateEmail(email)) {
       return res.status(400).json({
@@ -93,11 +45,8 @@ export const register = async (req, res) => {
       lastName,
       role,
       email,
-<<<<<<< HEAD
       phone,
       website,
-=======
->>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
       password: cryptedPassword,
     }).save();
     const token = generateToken({ id: user._id.toString() }, "7d");
@@ -107,11 +56,8 @@ export const register = async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
-<<<<<<< HEAD
       phone: user.phone,
       website: user.website,
-=======
->>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
       token: token,
       message: "User was registered successfully!",
     });
@@ -141,7 +87,6 @@ export const login = async (request, response) => {
             .status(400)
             .json({ message: "Invalid credentials. Please try again" });
         }
-<<<<<<< HEAD
         const token = generateToken({ id: user._id.toString() }, "1d");
 
         response.cookie("token", token, {
@@ -151,9 +96,6 @@ export const login = async (request, response) => {
           sameSite: "none",
           secure: true,
         });
-=======
-        const token = generateToken({ id: user._id.toString() }, "7d");
->>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
         if (isSame) {
           response.send({
             id: user._id,
@@ -174,7 +116,6 @@ export const login = async (request, response) => {
   }
 };
 
-<<<<<<< HEAD
 export const logout = async (req, res) => {
   res.cookie("token", "", {
     path: "/",
@@ -186,8 +127,6 @@ export const logout = async (req, res) => {
   return res.status(200).json({ message: "Successfully Logged Out" });
 };
 
-=======
->>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
 export const getUser = async (req, res) => {
   const id = req.body.id;
   try {

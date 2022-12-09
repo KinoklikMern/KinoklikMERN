@@ -24,25 +24,10 @@ const movieSchema = mongoose.Schema({
     default: new Date(),
   },
   releaseDate: Date,
-<<<<<<< HEAD
-  dollarAmount: Number,
-=======
-
->>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
   genre: {
     type: String,
     required: true,
   },
-<<<<<<< HEAD
-  traile: {
-    type: String,
-    required: true,
-  },
-  poster: {
-    type: String,
-    required: true,
-  },
-=======
   traile: String,
   poster: String,
 
@@ -56,7 +41,6 @@ const movieSchema = mongoose.Schema({
   },
 
   dollarAmount: Number,
->>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
 });
 
 const Movie = mongoose.model("movie", movieSchema);
