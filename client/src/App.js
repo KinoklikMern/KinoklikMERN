@@ -30,7 +30,7 @@ function App() {
           <Route path="bookmark" element={<Bookmark />} />
      
       
-          <Route path="epks/:id/epkdashboard" element={<EpkDashboard/>} />
+          <Route path="epk/:id/epkdashboard" element={<EpkDashboard/>} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

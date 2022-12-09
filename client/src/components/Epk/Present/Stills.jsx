@@ -55,7 +55,7 @@ const StillPreview = () => {
         
           */
         http
-        .get(`epks/${params.id.toString()}/stills`)
+        .get(`epk/${params.id.toString()}/stills`)
         .then((response) => {
           console.log("response");
           console.log(response);
@@ -102,9 +102,14 @@ const StillPreview = () => {
 
 
         <div class = "container" > 
-           <div class="still-section-title "></div>    
-            <div class ="still-container"   >
-            <div id="images-wrapper">
+
+        {  stillData.still_img1_url || stillData.still_img2_url || stillData.still_img3_url||
+         stillData.still_img4_url || stillData.still_img5_url || stillData.still_img6_url||
+         stillData.still_img7_url || stillData.still_img8_url ?      
+                <>  
+              <div class="still-section-title "></div>   
+              <div class ="still-container"   >
+              <div id="images-wrapper">
                 
                 {stillData.still_img1_url? 
                     <img src={stillData.still_img1_url}  class="img-fluid"></img>:<></>}
@@ -122,15 +127,14 @@ const StillPreview = () => {
                     <img src={stillData.still_img7_url}  class="img-fluid"></img>:<></>}
                 {stillData.still_img8_url? 
                     <img src={stillData.still_img8_url}  class="img-fluid"></img>:<></>}
-            </div>
+             </div>
            
-            <div class="still-section-title "></div>    
+             <div class="still-section-title "></div>    
             </div>
-       </div>     
-          
-    
-      
-     
+                   
+                </>
+                :<br/>}            
+       </div>  
         </>
     )
   }

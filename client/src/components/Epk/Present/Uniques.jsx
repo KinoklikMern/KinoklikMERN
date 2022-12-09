@@ -57,7 +57,7 @@ const UniquesPreview = () => {
         console.log(uniqueData);
     */
         http
-        .get(`epks/${params.id.toString()}/uniques`)
+        .get(`epk/${params.id.toString()}/uniques`)
         .then((response) => {
           //console.log("response");
           //console.log(response);
@@ -109,11 +109,12 @@ const UniquesPreview = () => {
     return ( 
     
         <div class = "container" >  
-          <div class="unique-section-title "></div>      
+            
  
             <div class= "row">  
                 {  uniqueData.unique1_title || uniqueData.unique1_description || uniqueData.unique1_poster_url?      
                 <>     
+                 <div class="unique-section-title "></div>   
                    <h1 class="text-center">{uniqueData.unique1_title}</h1>      
                     <div class="col">
                     <img src={uniqueData.unique1_poster_url}  class="img-fluid " width="100%"/>   
@@ -129,7 +130,8 @@ const UniquesPreview = () => {
 
             <div  class= "row">
                 {  uniqueData.unique2_title || uniqueData.unique2_description || uniqueData.unique2_poster_url?      
-                <>            
+                <>   
+                 <div class="unique-section-title "></div>            
                     <h1 class="text-center">{uniqueData.unique2_title}</h1>   
                     <div class="col">
                     <img src={uniqueData.unique2_poster_url}  class="img-fluid " width="100%"/>   
@@ -143,7 +145,7 @@ const UniquesPreview = () => {
                 </>
                 :<br/>}
             </div>
-            <div class="unique-section-title "></div>     
+            
        </div>      
        
     )

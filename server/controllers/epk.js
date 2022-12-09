@@ -48,10 +48,8 @@ export const getEpkUniquesById = (req,res) =>{
   const id = req.params.id;
 epk.find({ _id: ObjectId(req.params.id)  }, {unique1_title:1,
   unique2_title:1, unique1_description:1, unique2_description:1,
-  unique1_poster_url:1, unique2_poster_url:1},(err, epk) => {
-
-  
-   console.log(req.params.id);
+  unique1_poster_url:1, unique2_poster_url:1},(err, epk) => {  
+   //console.log(req.params.id);
   if (err) {
     res.status(500).send({ message: err });
     return;
@@ -74,10 +72,7 @@ const newdescription1 = req.body.unique1_description;
 const newdescription2 = req.body.unique2_description;
 const newposter1 = req.body.unique1_poster_url;
 const newposter2 = req.body.unique2_poster_url;
-console.log(req);
-console.log("before id");
-console.log(req.params.id);
-console.log("after id");
+
 epk.updateOne({ _id: ObjectId(req.params.id)}, {$set:{ unique1_title:newtitle1,
   unique2_title:newtitle2,unique1_description:newdescription1,unique2_description:newdescription2,
   unique1_poster_url:newposter1,unique2_poster_url:newposter2}},(err, epk) => {

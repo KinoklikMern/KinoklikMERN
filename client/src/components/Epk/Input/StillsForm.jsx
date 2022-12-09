@@ -37,6 +37,36 @@ function StillsForm() {
     const { name, value } = event.target;
     setStillData({ ...stillData, [name]: value });
   };
+  const handleClearImage1 = () => {    setImage1(""); stillData.still_img1_url=image1; };
+ 
+  const handleClearImage2 = () => {
+    setImage2("");
+    stillData.still_img2_url=image2; 
+  };
+  
+  const handleClearImage3 = () => {    
+    setImage3(""); 
+    stillData.still_img3_url="";  
+  };
+  const handleClearImage4 = () => {    
+    setImage4(""); 
+    stillData.still_img4_url=""; 
+  };
+  const handleClearImage5 = () => {    
+    setImage5(""); 
+    stillData.still_img5_url=""; 
+  };
+  const handleClearImage6 = () => {    
+    setImage6(""); 
+    stillData.still_img6_url=""; };
+  const handleClearImage7 = () => {    
+    setImage7(""); 
+    stillData.still_img7_url=""; 
+  };
+  const handleClearImage8 = () => { 
+    setImage8("");  
+    stillData.still_img8_url="";  
+};
 
 
   const saveStill = (e) => {
@@ -45,16 +75,9 @@ function StillsForm() {
     let formData = new FormData();
   
 
-    stillData.still_img1_url=image1;
-    stillData.still_img2_url=image2;
-    stillData.still_img3_url=image3;
-    stillData.still_img4_url=image4;
-    stillData.still_img5_url=image5;
-    stillData.still_img6_url=image6;
-    stillData.still_img7_url=image7;
-    stillData.still_img8_url=image8;
+   
     http
-    .put(`epks/${params.id.toString()}/stills`, stillData)
+    .put(`epk/${params.id.toString()}/stills`, stillData)
     .then((res) => {
       console.log("saved");
       toast.success('Successfully saveed.')
@@ -69,7 +92,7 @@ function StillsForm() {
       const id = params.id.toString();
 
       http
-      .get(`epks/${params.id.toString()}/stills`)
+      .get(`epk/${params.id.toString()}/stills`)
       .then((response) => {
         //console.log("response");
         //console.log(response);
@@ -137,8 +160,14 @@ function StillsForm() {
                       style={{ height: "350px" }}
                       class="img-fluid "
                     /> )}
-               
-                </div>
+                 <br/>
+                 { image1?     
+                 <button  type="button" onClick={handleClearImage1} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>}  
+                    <br/>
+              </div>
 
               <div className="col-3">              
                <UploadFile setImage={setImage2} />
@@ -149,6 +178,13 @@ function StillsForm() {
                     style={{ height: "350px" }}
                     class="img-fluid "
                   /> )}
+                    <br/>
+                 { image2?     
+                 <button  type="button" onClick={handleClearImage2} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>}  
+                    <br/>
               </div>
 
               <div className="col-3">
@@ -161,7 +197,16 @@ function StillsForm() {
                     style={{ height: "350px" }}
                     class="img-fluid "
                   /> )}
+                     <br/>
+                 { image3?     
+                 <button  type="button" onClick={handleClearImage3} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>} 
+                    <br/>
               </div>
+
+
               <div className="col-3">
               <UploadFile setImage={setImage4} />
                 {image4 && (
@@ -171,7 +216,16 @@ function StillsForm() {
                     style={{ height: "350px" }}
                     class="img-fluid "
                   /> )}
+                     <br/>
+                 { image4?     
+                 <button  type="button" onClick={handleClearImage4} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>} 
+                    <br/>
               </div>
+
+
               <div className="col-3">
               
               <UploadFile setImage={setImage5} />
@@ -182,7 +236,15 @@ function StillsForm() {
                     style={{ height: "350px" }}
                     class="img-fluid "
                   /> )}
+                     <br/>
+                 { image5?     
+                 <button  type="button" onClick={handleClearImage5} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>} 
+                    <br/>
               </div>
+
               <div className="col-3">
               <UploadFile setImage={setImage6} />
                 {image6 && (
@@ -192,7 +254,15 @@ function StillsForm() {
                     style={{ height: "350px" }}
                     class="img-fluid "
                   /> )}
+                     <br/>
+                 { image6?     
+                 <button  type="button" onClick={handleClearImage6} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>} 
+                    <br/>
               </div>
+
               <div className="col-3">
               <UploadFile setImage={setImage7} />
                 {image7 && (
@@ -202,7 +272,15 @@ function StillsForm() {
                     style={{ height: "350px" }}
                     class="img-fluid "
                   /> )}
+                     <br/>
+                 { image7?     
+                 <button  type="button" onClick={handleClearImage7} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>} 
+                    <br/>
               </div>
+
               <div className="col-3">
               <UploadFile setImage={setImage8} />
                 {image8 && (
@@ -212,6 +290,13 @@ function StillsForm() {
                     style={{ height: "350px" }}
                     class="img-fluid "
                   /> )}
+                     <br/>
+                 { image8?     
+                 <button  type="button" onClick={handleClearImage8} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>} 
+                <br/>
               </div>
 
               

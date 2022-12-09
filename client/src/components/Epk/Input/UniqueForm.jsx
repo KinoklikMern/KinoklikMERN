@@ -30,6 +30,18 @@ function UniqueForm() {
     setUniqueData({ ...uniqueData, [name]: value });
   };
 
+  const handleClearImage1 = () => {
+    setImage1("");
+    uniqueData.unique1_poster_url=image1;
+  };
+  const handleClearImage2 = () => {
+    setImage2("");
+    uniqueData.unique2_poster_url=image2;
+  };
+  
+
+ 
+
 
 
 
@@ -39,7 +51,7 @@ function UniqueForm() {
       const id = params.id.toString();;
       //const response = await fetch(`http://127.0.0.1:8000/epk/${params.id.toString()}/uniques`);
       http
-      .get(`epks/${params.id.toString()}/uniques`)
+      .get(`epk/${params.id.toString()}/uniques`)
       .then((response) => {
         console.log("response");
         console.log(response);
@@ -74,7 +86,10 @@ function UniqueForm() {
     return;
   }, [params.id, navigate]);
 
-
+  //add for clear
+  const handleClear = () => {     
+    setImage1("");
+  };
 
   const saveUnique = (e) => {
 
@@ -86,7 +101,7 @@ function UniqueForm() {
     uniqueData.unique1_poster_url=image1;
     uniqueData.unique2_poster_url=image2;
     http 
-            .put(`epks/${params.id.toString()}/uniques`, uniqueData)
+            .put(`epk/${params.id.toString()}/uniques`, uniqueData)
       
             .then((res) => {
               //console.log("saved");
@@ -143,14 +158,24 @@ function UniqueForm() {
               
                <br/>   
                <UploadFile setImage={setImage1} />
+               
                 {image1 && (
+                 
+
                   <img
                     src={image1}
                     alt="hey"
                     style={{ height: "350px" }}
                     class="img-fluid "
-                  />
+                  />                 
                 )}
+                 <br/>
+                 { image1?      
+                
+                 <button  type="button" onClick={handleClearImage1} className="btn btn-link" >
+                  Clear Image
+                </button>  
+                :<br/>}              
               </div>
               <div className="col-6">
               <input
@@ -175,6 +200,8 @@ function UniqueForm() {
               
                <br/> 
                <UploadFile setImage={setImage2} />
+               
+                
               {image2 && (
                 <img
                   src={image2}
@@ -183,6 +210,15 @@ function UniqueForm() {
                   class="img-fluid "
                 />
               )}
+              <br/>
+              { image2?      
+                
+                <button  type="button" onClick={handleClearImage2} className="btn btn-link" >
+                 Clear Image
+               </button>  
+               :<br/>}  
+             
+                
                  
               </div>
              
@@ -196,6 +232,7 @@ function UniqueForm() {
               {" "}
               Save{" "}
             </button>
+      
           </div>
         </form>
       </div>
