@@ -75,22 +75,25 @@ const SynopsisForm = () => {
 
   return (
     <>
+        <div style={{border: '1px solid #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+                backgroundColor:"white"}}>
       {" "}
-      <h1 className="text-center text-primary">Synopsis</h1>
+      <br />
+      <h1 className="text-center" style={{ color: "#311465" }}>Synopsis</h1>
       <br />
       <Row
         justify="space-around"
         className="text-center "
         /*  style={{height: "70vh" }}*/
       >
-        <Col style={{width: "1300px", height: "500px"}} className="m-2 bg-light">
+        <Col style={{width: "1300px", height: "500px"}} className="m-2">
         <div className="row">
           <div className="col">
-          <h4>Short Synopsis</h4>
+          {/* <h4>Short Synopsis</h4> */}
           <textarea
             name="short"
             style={{ height: "200px", width: "300px" }}
-            placeholder="max 30 words"
+            placeholder="Short Synopsis, max 30 words"
             onChange={handleShort}
           />
           <UploadFile setImage={setImage1} />
@@ -105,11 +108,11 @@ const SynopsisForm = () => {
           </div>
 
           <div className="col">
-          <h4>Medium Synopsis</h4>
+          {/* <h4>Medium Synopsis</h4> */}
           <textarea
             name="medium"
             style={{ height: "200px", width: "300px" }}
-            placeholder="max 70 words"
+            placeholder="Medium Synopsis, max 70 words"
             onChange={handleMedium}
           ></textarea>
           <UploadFile setImage={setImage2} />
@@ -123,11 +126,11 @@ const SynopsisForm = () => {
             )}
           </div>
           <div className="col">
-          <h4>Long Synopsis</h4>
+          {/* <h4>Long Synopsis</h4> */}
           <textarea
             name="long"
             style={{ height: "200px", width: "300px" }}
-            placeholder="max 120 words"
+            placeholder="Long Synopsis, max 120 words"
             onChange={handleLong}
           ></textarea>
           <UploadFile setImage={setImage3} />
@@ -151,11 +154,12 @@ const SynopsisForm = () => {
             marginLeft: "1200px"
           }}
         >
-          <Button type="primary" block onClick={submit} value="save">
+          <Button style={{backgroundColor: "#311465"}} type="primary" block onClick={submit} value="save">
             Save
           </Button>
         </div>
       </Row>
+      </div>
     </>
   );
 };

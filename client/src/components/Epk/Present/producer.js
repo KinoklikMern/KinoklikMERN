@@ -12,6 +12,7 @@ function Producer(producerFile) {
             {/* Dark Blue: #170B3B Burgundy: #630330*/}
                 <div className="row" style={{background: "#170B3B"}}>
                     <div className="col-sm m-4">
+                        <br/>
                         <h2 className="text-center mt-5" style={{color:'#ffffff', fontWeight: 'normal'}}>Producer</h2>
                         <div >
                             <h2 className= "text-center" style={{color:'#ffffff', fontWeight: 'normal'}}>

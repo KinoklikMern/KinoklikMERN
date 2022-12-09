@@ -13,7 +13,7 @@ function Cast(castFile) {
 <br/>
       <div style={{backgroundColor: "#170B3B", height: 15}}/>
 
-      <h1 style={{color: "#000000", fontWeight: "normal"}}>Starring</h1>
+      <h1 style={{color: "#4a3759", fontWeight: "normal"}}>Starring</h1>
       {/* Lead Actor 1 */}
       <div className="row">
         <div className="col-sm m-4">

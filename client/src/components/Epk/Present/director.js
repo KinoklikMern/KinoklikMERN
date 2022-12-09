@@ -21,6 +21,7 @@ function Director(directorFile) {
               </h1>
             </div>
             <div className="col-sm">
+            <br/>
               <h2 className="text-center mt-5" style={{color: '#ffffff', fontWeight: 'normal'}}>Director</h2>
               <div>
                 <h2 className= "text-center" style={{color:'#ffffff', fontWeight: 'normal'}}>

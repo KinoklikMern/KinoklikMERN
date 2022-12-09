@@ -70,16 +70,19 @@ const CastForm = () => {
 
     return (
         <>
+        <div style={{border: '1px solid #311465', marginLeft: "10%", width: "80%", height: "unknown", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+                backgroundColor:"white"}}>
             {" "}
-            <h1 className="text-center text-primary">Cast</h1>
+            <br />
+            <h1 className="text-center" style={{ color: "#311465" }}>Cast</h1>
             <br />
             <Row
-                justify="space-around"                className="text-center "
+                justify="space-around" className="text-center "
             >
-                <Col style={{width: "1700px", height: "650px"}}  className="m-2 bg-light">
+                <Col style={{width: "1400px", height: "600px"}}  className="m-2">
                     <div className="row">
                     <div className="col">
-                    <h3> Lead Actor</h3>
+                    {/* <h3>Lead Actor</h3> */}
 
                     <input
                         name="name"
@@ -109,7 +112,7 @@ const CastForm = () => {
                 )}
             </div>
             <div className="col">
-              <h3> Lead Actor</h3>
+              {/* <h3>Lead Actor</h3> */}
 
               <input
                     name="name"
@@ -137,7 +140,7 @@ const CastForm = () => {
                 )}
             </div>
             <div className="col">
-              <h3> Supporting Actor</h3>
+              {/* <h3>Supporting Actor</h3> */}
 
               <input
                     name="name"
@@ -166,7 +169,7 @@ const CastForm = () => {
                 )}
             </div>
             <div className="col">
-              <h3> Supporting Actor</h3>
+              {/* <h3>Supporting Actor</h3> */}
 
               <input
                     name="name"
@@ -213,12 +216,12 @@ const CastForm = () => {
             marginLeft: "1200px"
           }}
         >
-          <Button type="primary" block onClick={submit} value="save">
+          <Button style={{backgroundColor: "#311465"}} type="primary" block onClick={submit} value="save">
             Save
           </Button>
         </div>
       </Row>
-
+      </div>
         </>
     );
 };

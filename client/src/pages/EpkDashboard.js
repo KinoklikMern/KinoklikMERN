@@ -12,25 +12,15 @@ function EPKDashboard() {
   return (
     <>
     <div>
-        {/* <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        This is Empty
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/> */}
+      <br/>
       <SynopsisForm />
+      <br/>
       <CastForm />
+      <br/>
       <DirectorForm  />
+      <br/>
       <ProducerForm  />
+      <br/>
       <CinematographerForm />
     </div>
     </>

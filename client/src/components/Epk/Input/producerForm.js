@@ -52,33 +52,36 @@ const ProducerForm = () => {
 
     return (
         <>
+        <div style={{border: '1px solid #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+                backgroundColor:"white"}}>
             {" "}
-            <h1 className="text-center text-primary">Producer</h1>
+            <br />
+            <h1 className="text-center" style={{ color: "#311465" }}>Producer</h1>
             <br />
             <Row
                 justify="space-around"
                 className="text-center "
             >
-                <Col style={{width: "1000px"}} className="m-2 bg-light">
+                <Col style={{width: "1000px"}} className="m-2 ">
                 <div className="row">
                     <div className="col">
                     {/* <h4>Producer</h4> */}
                     <input
                         name="name"
                         style={{ height: "20px", width: "300px" }}
-                        placeholder="Enter Cinematographer's Name here."
+                        placeholder="Enter Producer's Name here."
                         onChange={handleName}
                     />
                     <input
                         name="header"
                         style={{ height: "20px", width: "300px" }}
-                        placeholder="Enter Cinematographer's Header here."
+                        placeholder="Enter Producer's Header here."
                         onChange={handleHeader}
                     />
                     <textarea
                         name="biography"
                         style={{ height: "200px", width: "300px" }}
-                        placeholder="Enter Cinematographer's Biography here."
+                        placeholder="Enter Producer's Biography here."
                         onChange={handleBiography}
                     />
                     <UploadFile setImage={setImage} />
@@ -103,11 +106,12 @@ const ProducerForm = () => {
             marginLeft: "1200px"
           }}
         >
-          <Button type="primary" block onClick={submit} value="save">
+          <Button style={{backgroundColor: "#311465"}} type="primary" block onClick={submit} value="save">
             Save
           </Button>
         </div>
       </Row>
+      </div>
         </>
     );
 };
