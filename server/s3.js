@@ -34,7 +34,7 @@ export async function uploadImageFileToS3(fileObj) {
     Key: "image/" + fileObj.filename + ext, // use uuid generator  for key
   };
 
-  const uploadData = await s3.upload(uploadParams).promise();
+  const uploadData = await s3.upload(uploadParams).promise(); -
 
   console.log(uploadData);
   try {
