@@ -11,9 +11,6 @@ import {
 } from "../controllers/movies.js";
 
 const router = express.Router();
-/* 
-router.get("/", authUser, getMovies);
-router.post("/", authUser, createMovie); */
 
 router.get("/", getMovies);
 router.post("/", createMovie);

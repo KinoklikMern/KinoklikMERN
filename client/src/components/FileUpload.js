@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import http from "../http-common";
 
-const UploadFile = () => {
+const UploadFile = (props) => {
   const [file, setFile] = useState(undefined);
   const [message, setMessage] = useState("");
+  const [image, setImage] = useState(null);
 
   const fileSelected = (event) => {
     const file = event.target.files[0];
@@ -13,37 +14,34 @@ const UploadFile = () => {
   async function uploadService(file) {
     let formData = new FormData();
     formData.append("file", file);
-    if (
-      file.type === "video/mp4" ||
-      file.type === "video/x-ms-wmv" ||
-      file.type === "video/mpeg" ||
-      file.type === "video/3gpp" ||
-      file.type === "video/quicktime" ||
-      file.type === "video/ogg" ||
-      file.type === "video/x-msvideo"
-    ) {
-      http
-        .post("movies/uploadMedia", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log(response.data.key);
-          console.log("*************");
-        })
-        .catch((err) => {
-          console.log();
-          console.log(err);
-        });
-    } else {
-      setMessage("File must be a image(jpeg or png)");
-    }
+    console.log(formData);
+
+    await http
+      .post("movies/image", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response.data.key);
+        console.log(response);
+        console.log(response.data);
+        setImage(response.data.key);
+        props.setImage(
+          "https://kinomovie.s3.amazonaws.com/" + response.data.key
+        );
+
+        console.log("*************");
+      })
+      .catch((err) => {
+        console.log();
+        console.log(err);
+      });
   }
 
   const upload = async (event) => {
     event.preventDefault();
-    uploadService(file)
+    await uploadService(file)
       .then((response) => {
         setMessage(response.data.message);
         return file;
@@ -64,8 +62,15 @@ const UploadFile = () => {
           Upload
         </button>
         <div className="alert alert-light" role="alert">
-          {message}
+          {/*   {message} */}
         </div>
+        {/*       {image && (
+          <img
+            src={"https://kinomovie.s3.amazonaws.com/" + image}
+            alt="hey"
+            style={{ height: "350px", width: "300px" }}
+          />
+        )} */}
       </form>
     </div>
   );

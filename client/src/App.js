@@ -19,6 +19,9 @@ import Form from "./components/Forms/Form";
 import jb from "./images/jb.jpeg";
 import useStyles from "./styles";
 import EpkCoverForm from "./components/Epk/Input/EpkCoverForm.js";
+import SynopsisForm from "./components/Epk/Input/synopsisForm";
+import Synopsis from "./components/Epk/Present/synopsis";
+import EPK from "./pages/Epk";
 
 const theme = createTheme({
   palette: {
@@ -44,6 +47,9 @@ function App() {
           <Route path="epkCover" element={<EpkCoverForm />} />
           <Route path="epkCovershow" element={<EpkCover />} />
           <Route path="userDashboard" element={<UserDashboard />} />
+          <Route path="synopsis" element={<Synopsis />} />
+          <Route path="synopsisForm" element={<SynopsisForm />} />
+          <Route path="epk" element={<EPK />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
