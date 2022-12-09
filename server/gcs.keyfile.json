@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "kinoklik-331517",
+  "private_key_id": "fa0f2fa1666aa5582885c00eec3cb2191a665354",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDmy+VccuUq67iJ\nSWCcf3ozJRiH+Z48z/GLgRMRiNkD9yvldgONTjTeySFh5I6wglLgE2RoakUFzqAW\nWVPbJT1VyVnpcjyxcOW4zaqeEHSu8ekgKsbCy/7URcnJh9z8OKAjR7aXs1RJNzrm\npr1BS5aTMF0ozhd5Vr/fE3pjSpMF1IpKMbiFP9PRUoebyBmxi4l+EWq/VKB/C2oO\nyvihdsLR2DekWIX8OeYvMrXw301eHh0E1XkeaUpjFP84BgAakLU0Hmhn0CmcXZrR\nWBqQgXgVl9P8f4XX/FHPEfFeNYBvnTFgPASiupciaEwPtJwCGdE04RYoNcgPOakm\nwML5fYAnAgMBAAECggEARPiP3XXUeGQjLJvKDFqoKRqf3xrAqAm4dGkpSqcru1yl\nOJhw7Ux+zkkq+bc00RjRLXd+HRoM8HRUMPmW7rmNP9LBVNs3ugs0C2si3sOqKxHO\nCjfeWB5gVA1bBSfd6V3+tSxcK6+Cs7KWnpEbo6S0Jd5hKK2WJEPBaSfH/l4t26Kc\nNF5nmqBsfgoGW9KrCMbfba7Bhd5l5rYlVN2EgdGh4iRwGy4Oy0hpiouV4qWJs4Cs\n3dXimRaflYlZCO8nE9v8ek5X4EJ5J8leDMOfVvPByLbVaklnHsnmbk8gitCEaEIc\n8ltsw94iXMnl5pCPF+zPBGgV4QNWl2QWGx5S6RA3yQKBgQD4bra5mQC7v0tp881t\n4BtscSBXcjpIcZVMZHCoQtbHUZjtSPg8VmBiiSYheaAWOK2QA2QdfPLjitYqKlWe\nzCd0M+lc1emn1uIaIGxsyUoJODoeeKDz692VqODWpojdgs8CjH+Uwnrnn6h6oS08\nXddWOUeJF9GOYB89hdwnQqqfSwKBgQDt06forNnDqdflufOnXjq2/wgQo7oaf61a\ntTrixquKkYlIjt/nBV8awKkW1c/OBuMkNPkLcGc+TwmjUFLa9cY5o0ycOKiYndSf\n3T/bLhyqqM/Hq2LYc8KKbGqN6jusBoktXrsMxB7tE8VqqOLFp//Uuh/rZdXVIW2q\nIeaA0lLtFQKBgCYxBwAzSEyUlOhd5ZfdmvmpznoDAni+lWAgFL2ZQOF1ZtgbnqXP\n9ZNQWD9PLlAcOHpqOwrZeZGHd3MV/QGjivEvRdHSxM/blfjEQUbcDvip3y1uB/hX\nq0Hlq2L0SRgckuxmYvqghzpybfkkLAsatg74UUn/EmUb29GecYDLm+VPAoGBAL/o\nIb6D8/iKDbfG1BDC3ZgatNRQeXS2gBkI0mp5q6RWCbQt7giJ8hMxUYAmqddzAUiP\nIkMTwYuq1Xkd8K3U0s5hsgkBQzJbcV5KdyOS0vj23SseZdWJm3p9P4Iid2I5p+mf\nXkpP2zCs2olVnB+oj6yFQAqAEws3PTmiv1BF5zp9AoGBAMTxAwpT1CMuvV1XuGXH\nUEG60L9JSqujdcakfUIHWcTiSkDdAr4LRUqijJdlXHVuo4cQju14OPxU3JxLgwyT\nCMO5sRo9NIVNbGSBF7JnWzTT6H1UkbdFdR7I7LIhauJETzq6F6+5Q3wrixJSWxT2\n+4mhdfrg2OJTH2PhJ2ExvhMp\n-----END PRIVATE KEY-----\n",
+  "client_email": "movie-streaming@kinoklik-331517.iam.gserviceaccount.com",
+  "client_id": "113702542150819028589",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/movie-streaming%40kinoklik-331517.iam.gserviceaccount.com"
+}

@@ -5,12 +5,15 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+<<<<<<< HEAD
   phone: {
     type: String,
   },
   website: {
     type: String,
   },
+=======
+>>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
   password: {
     type: String,
     required: true,
@@ -26,6 +29,7 @@ const UserSchema = mongoose.Schema({
   role: {
     type: String,
     required: true,
+<<<<<<< HEAD
     enum: [
       "USER",
       "ADMIN",
@@ -36,6 +40,9 @@ const UserSchema = mongoose.Schema({
       "Film_Festival",
       "Viewer",
     ],
+=======
+    enum: ["USER", "ADMIN", "FILM_MAKER", "ACTOR"],
+>>>>>>> 5ecf8abf87b218fea273c4d2672ed328ed64c53b
   },
   movies: [
     {

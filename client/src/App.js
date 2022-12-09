@@ -9,10 +9,29 @@ import RegistrationForm from "./components/Auth/Registration/registration";
 import Login from "./components/Auth/Registration/login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import Bookmark from "./pages/Bookmark";
+import { ThemeProvider } from "@material-ui/core";
+import { createTheme } from "@material-ui/core/styles";
+import UserDashboard from "./pages/UserDashboard";
+import EpkCover from "./components/Epk/Present/EpkCover";
+
+import { getMovies } from "./actions/movies";
+import Movies from "./components/Movies/Movies";
+import Form from "./components/Forms/Form";
+import jb from "./images/jb.jpeg";
+import useStyles from "./styles";
+import EpkCoverForm from "./components/Epk/Input/EpkCoverForm.js";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#591398",
+    },
+  },
+});
 
 function App() {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
@@ -24,10 +43,13 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="bookmark" element={<Bookmark />} />
+          <Route path="epkCover" element={<EpkCoverForm />} />
+          <Route path="epkCovershow" element={<EpkCover />} />
+          <Route path="userDashboard" element={<UserDashboard />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 
