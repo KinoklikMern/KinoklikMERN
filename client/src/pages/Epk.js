@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import AllSynopsis from "../components/Epk/Present/allSynopsis";
 import Synopsis from "../components/Epk/Present/synopsis";
+import EpkCover from "../components/Epk/Present/EpkCover";
 function EPK() {
   const [synopsisList, setSynopsisList] = useState(null);
   const { user } = useSelector((user) => ({ ...user }));
@@ -31,7 +32,10 @@ function EPK() {
   }
 
   return (
-    <>{synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}</>
+    <>
+      <EpkCover />
+      {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}
+    </>
   );
 }
 

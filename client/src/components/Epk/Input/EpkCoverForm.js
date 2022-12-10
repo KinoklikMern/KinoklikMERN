@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import http from "../../../http-common";
 
 function EpkCoverForm() {
@@ -26,6 +27,7 @@ function EpkCoverForm() {
     minutes: "",
     banner_url: "",
     trailer_url: "",
+    kickstarter_url: "",
   });
   const movieGenre = [
     "Genre...",
@@ -143,108 +145,119 @@ function EpkCoverForm() {
   };
 
   return (
-    <form className="form">
-      <div class="card">
-        <div class="card-header">
-          <div class="row align-items-start">
-            <div class="col align-items-start">EPK Page Upload</div>
-            <div class="col align-items-end">link to view</div>
+    <div className="container">
+      <form>
+        <div className="card">
+          <div className="row card-header">
+            <h2 className="col align-items-start text-dark">EPK Upload Page</h2>
+            <Link className="col align-items-end" to="/Epk">
+              Show EPK
+            </Link>
           </div>
-        </div>
 
-        <div class="card-body">
-          <h5 class="card-title">EPK Cover Section</h5>
-          <form className="row g-3">
-            <div className="col-md-5 ms-">
-              <div className="col-md-3 my-1">
-                <input
-                  className="form-control m-10"
-                  defaultValue={epkCoverData.title}
-                  placeholder="Title"
-                  onChange={handleInputChange}
-                  name="title"
-                />
-              </div>
-              <div className="col-md-3 my-1">
-                <input
-                  className="form-control mt-10"
-                  defaultValue={epkCoverData.LogLine}
-                  placeholder="Log Line"
-                  onChange={handleInputChange}
-                  name="logLine"
-                />
-              </div>
-              <div className="row">
-                <div className="col-md-3 my-2">
-                  <select
-                    className="form-select form-select-sm "
-                    name="genre"
+          <div className="card-body">
+            <h5 className="card-title text-dark">EPK Cover Section</h5>
+            <form className="row g-3">
+              <div className="col ms-">
+                <div className="col my-1">
+                  <input
+                    className="form-control m-10"
+                    defaultValue={epkCoverData.title}
+                    placeholder="Title"
                     onChange={handleInputChange}
-                  >
-                    {movieGenre.map(makeGenreItem)}
-                  </select>
+                    name="title"
+                  />
                 </div>
-                <div className="col-md-3 my-1">
+                <div className="col my-1">
+                  <input
+                    className="form-control mt-10"
+                    defaultValue={epkCoverData.LogLine}
+                    placeholder="Log Line"
+                    onChange={handleInputChange}
+                    name="logLine"
+                  />
+                </div>
+                <div className="row mt-2">
+                  <div className="col my-2">
+                    <select
+                      className="form-select form-select-sm "
+                      name="genre"
+                      onChange={handleInputChange}
+                    >
+                      {movieGenre.map(makeGenreItem)}
+                    </select>
+                  </div>
+                  <div className="col my-1">
+                    <input
+                      className="form-control"
+                      defaultValue={epkCoverData.minutes}
+                      placeholder="Minutes"
+                      onChange={handleInputChange}
+                      name="minutes"
+                    />
+                  </div>
+                </div>
+                <div>
                   <input
                     className="form-control"
-                    defaultValue={epkCoverData.minutes}
-                    placeholder="Minutes"
+                    defaultValue={epkCoverData.kickstarter_url}
+                    placeholder="KickStarter URL"
                     onChange={handleInputChange}
-                    name="minutes"
+                    name="kickstarter_url"
                   />
                 </div>
               </div>
-            </div>
-            <div className="col-md-6 border border-2">
-              <div className="row gx-5">
-                <div className="col-5">
-                  <label for="fileBanner" class="form-label">
-                    {" "}
-                    Upload Banner
-                  </label>
-                  <input
-                    className="form-control form-control-sm"
-                    filename={file1}
-                    onChange={file1Selected}
-                    ref={inputFile1Ref}
-                    type="file"
-                    id="fileBanner"
-                    name="files"
-                    accept="image/*"
-                  ></input>
-                </div>
-                <div className="col-5">
-                  <label for="fileTrailer" class="form-label">
-                    {" "}
-                    Upload Trailer
-                  </label>
-                  <input
-                    className="form-control form-control-sm"
-                    filename={file2}
-                    ref={inputFile2Ref}
-                    onChange={file2Selected}
-                    type="file"
-                    id="fileTrailer"
-                    name="files"
-                    accept="video/*"
-                  ></input>
+              <div className="col border border-2">
+                <div className="row gx-5">
+                  <div className="col mt-5">
+                    <label for="fileBanner" class="form-label text-dark">
+                      {" "}
+                      Upload Banner
+                    </label>
+                    <input
+                      className="form-control form-control-sm"
+                      filename={file1}
+                      onChange={file1Selected}
+                      ref={inputFile1Ref}
+                      type="file"
+                      id="fileBanner"
+                      name="files"
+                      accept="image/*"
+                    ></input>
+                  </div>
+                  <div className="col mt-5">
+                    <label for="fileTrailer" class="form-label text-dark">
+                      {" "}
+                      Upload Trailer
+                    </label>
+                    <input
+                      className="form-control form-control-sm"
+                      filename={file2}
+                      ref={inputFile2Ref}
+                      onChange={file2Selected}
+                      type="file"
+                      id="fileTrailer"
+                      name="files"
+                      accept="video/*"
+                    ></input>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="d-flex justify-content-end">
-              <button
-                type="submit"
-                className="btn btn-secondary"
-                onClick={saveEpkCover}
-              >
-                {" "}
-                Save{" "}
-              </button>
-            </div>
-          </form>
+              <div className="d-flex justify-content-end">
+                <button
+                  type="submit"
+                  className="btn btn-secondary"
+                  onClick={saveEpkCover}
+                >
+                  {" "}
+                  Save{" "}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

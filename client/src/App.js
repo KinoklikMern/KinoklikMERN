@@ -21,6 +21,7 @@ import useStyles from "./styles";
 import EpkCoverForm from "./components/Epk/Input/EpkCoverForm.js";
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
+import UploadEpk from "./pages/UploadEpk";
 import EPK from "./pages/Epk";
 
 const theme = createTheme({
@@ -50,6 +51,7 @@ function App() {
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
           <Route path="epk" element={<EPK />} />
+          <Route path="uploadEpk" element={<UploadEpk />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

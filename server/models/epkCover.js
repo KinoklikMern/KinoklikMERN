@@ -24,6 +24,9 @@ const epkCoverSchema = mongoose.Schema({
   trailer_url: {
     type: String,
   },
+  kickstarter_url: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: new Date(),
