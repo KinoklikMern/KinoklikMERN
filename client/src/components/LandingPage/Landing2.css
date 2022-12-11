@@ -8,6 +8,7 @@
     color: black;
     padding: 25px;
     text-align: center;
+    font-size: 40px;
   }
 
 .landing2leftColumn {   
@@ -20,18 +21,32 @@
     float: right;
     width: 45%;
     margin-top: 25px;
+
     /* height: auto; */
     /* background-color: #f1f1f1; */
     /* padding-left: 5px; */
   }
 
-  .landing2introText{
-    width: 55%;
-    text-align: center;
+  .landing1introText{
+    width: 60%;
+    /* text-align: center; */
     padding: 15px;
-    font-size: larger;
-    margin-left: 150px;
+    font-size: 25px;
+    margin-left: 0px;
   }
+
+  .landing2introText{
+    /* width: 55%; */
+    /* text-align: center; */
+    padding: 15px;
+    font-size: 30px;
+    /* margin-left: 150px; */
+  }
+
+
+
+
+  
 
 .landing2EPKImg{
     /* border-radius: 5%; */
@@ -42,7 +57,7 @@
 
 /* .createFilmPagePart{
     height: 40px;
-} */
+} */ 
 
 .landing2leftColumn1 {   
     float: left;
@@ -63,11 +78,12 @@
 
   .CreateFilmPage{
     position: relative;
-    margin-left: 45%;
-    font-size: large;
+    margin-left: 40%;
+    font-size: 25px;
     background-color: #1F0439;
     color: white;
   }
+
 
   .landing2CreateImg{
     border-radius: 8%;

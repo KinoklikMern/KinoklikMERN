@@ -1,0 +1,34 @@
+
+.landing4 {
+    position: relative;
+    text-align: center;
+    background-color: #1F0439;
+    width: auto;
+    margin-top: 60px;
+    
+  }
+  
+  .section-title{
+    padding-top: 30px;
+    color:white;
+    text-align:center;
+    margin-bottom: 75px;
+  }
+  
+  
+  .section-image{
+    width: 80%;
+    height: 80%;
+    padding-bottom: 60px;
+    margin: 0 auto;
+    border-radius: 50px;
+
+  }
+
+  .section-image img{
+    border-radius: 50px;
+  }
+  
+
+  
+  
