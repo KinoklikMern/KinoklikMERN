@@ -3,15 +3,15 @@
     position: relative;
     text-align: center;
     background-color: #1F0439;
+    padding-top: 50px;
     width: auto;
     
   }
   
   .sectionTitle{
-    padding-top: 130px;
+    padding-top: 10px;
     color:white;
     text-align:center;
-    margin-bottom: 75px;
   }
   
   

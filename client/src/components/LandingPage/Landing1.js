@@ -1,7 +1,7 @@
 import React from 'react';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
-import img from '../../images/sponsored.png'
+import img from '../../images/landing.png'
 import "./landing1.css";
 import { newFilm } from './landingCategory';
 import { popularFilm } from './landingCategory';
