@@ -1,25 +1,14 @@
 import express from "express";
-import multer from "multer";
+import { authUser } from "../middlwares/auth.js";
 
-const upload = multer({ dest: "images/" });
-
-import {
-  getMovies,
-  createMovie,
-  getMovieImage,
-  getMovieMedia,
-} from "../controllers/movies.js";
+import { getMovies, createMovie } from "../controllers/movies.js";
 
 const router = express.Router();
+/* 
+router.get("/", authUser, getMovies);
+router.post("/", authUser, createMovie); */
 
 router.get("/", getMovies);
 router.post("/", createMovie);
-router.post(
-  "/uploadMedia",
-  upload.fields([{ name: "fileFilm" }, { name: "fileTrailer" }]),
-  getMovieMedia
-);
-
-router.post("/image", upload.single("file"), getMovieImage);
 
 export default router;

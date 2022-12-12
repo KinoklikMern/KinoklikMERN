@@ -10,11 +10,11 @@ function MyList() {
         <br />
         <br />
         This is the My List
-        import SynopsisForm from "../components/Epk/Insert/synopsisForm";
-import CastForm from "../components/Epk/Insert/castForm";
-import DirectorForm from "../components/Epk/Insert/directorForm";
-import ProducerForm from "../components/Epk/Insert/producerForm";
-import CinematographerForm from "../components/Epk/Insert/cinematographerForm";
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </>
   );

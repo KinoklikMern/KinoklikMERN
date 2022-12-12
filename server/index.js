@@ -16,7 +16,6 @@ app.use(cors());
 app.use("/movies", movieRoutes);
 app.use("/users", userRoutes);
 app.use("/epk", epkRoutes);
-
 app.listen(8000, () => console.log(`App Running on PORT ${PORT}`));
 
 const CONNECTION_URL =

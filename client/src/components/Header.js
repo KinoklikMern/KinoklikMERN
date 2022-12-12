@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import Login from "./Auth/Registration/login";
-import Register from "./Auth/Registration/register";
 
 function Header() {
   const dispatch = useDispatch();
@@ -91,9 +89,9 @@ function Header() {
                   <span className="whatsnew-icon arrow"></span>
                 </span>
                 <span>
-                  <span className="whatsnew-text">
-                    <Register />
-                  </span>
+                  <Link className="whatsnew-text" to="/registeration">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Register
+                  </Link>
                 </span>
               </button>
             </li>
@@ -105,8 +103,10 @@ function Header() {
                     <span className="whatsnew-icon arrow"></span>
                   </span>
 
-                  <span className="whatsnew-text">
-                    <Login />
+                  <span>
+                    <Link className="whatsnew-text" to="/Login">
+                      &nbsp;&nbsp;&nbsp;&nbsp;log in
+                    </Link>
                   </span>
                 </button>
               )}
