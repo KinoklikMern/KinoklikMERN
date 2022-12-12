@@ -12,7 +12,7 @@ function Home() {
   return (
     <>
       <div>
-        {user && <h3>wellcome back</h3>}
+        {user && <h3>Welcome back</h3>}
         <h2>
           {" "}
           {user?.firstName} {user?.lastName}
