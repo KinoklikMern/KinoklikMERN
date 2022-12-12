@@ -75,7 +75,7 @@ const SynopsisForm = () => {
 
   return (
     <>
-        <div style={{border: '1px solid #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+        <div style={{boxShadow: '1px 2px 9px #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
                 backgroundColor:"white"}}>
       {" "}
       <br />
@@ -92,8 +92,14 @@ const SynopsisForm = () => {
           {/* <h4>Short Synopsis</h4> */}
           <textarea
             name="short"
-            style={{ height: "200px", width: "300px" }}
-            placeholder="Short Synopsis, max 30 words"
+            style={{ 
+              height: "200px", 
+              width: "300px", 
+              borderRadius: "5px", 
+              marginBottom: "5px",
+              boxShadow: '1px 2px 9px #311465',
+              textAlign: 'center'}}
+              placeholder="Short Synopsis, max 30 words"
             onChange={handleShort}
           />
           <UploadFile setImage={setImage1} />
@@ -102,7 +108,7 @@ const SynopsisForm = () => {
               <img
                 src={image1}
                 alt="hey"
-                style={{ height: "200px" }}
+                style={{ height: "200px", boxShadow: '1px 2px 9px #000000'}}
               />
             )}
           </div>
@@ -111,7 +117,13 @@ const SynopsisForm = () => {
           {/* <h4>Medium Synopsis</h4> */}
           <textarea
             name="medium"
-            style={{ height: "200px", width: "300px" }}
+            style={{ 
+              height: "200px", 
+              width: "300px", 
+              borderRadius: "5px", 
+              marginBottom: "5px",
+              boxShadow: '1px 2px 9px #311465',
+              textAlign: 'center'}}
             placeholder="Medium Synopsis, max 70 words"
             onChange={handleMedium}
           ></textarea>
@@ -121,7 +133,7 @@ const SynopsisForm = () => {
               <img
                 src={image2}
                 alt="hey"
-                style={{ height: "200px" }}
+                style={{ height: "200px", boxShadow: '1px 2px 9px #000000'}}
               />
             )}
           </div>
@@ -129,7 +141,13 @@ const SynopsisForm = () => {
           {/* <h4>Long Synopsis</h4> */}
           <textarea
             name="long"
-            style={{ height: "200px", width: "300px" }}
+            style={{ 
+              height: "200px", 
+              width: "300px", 
+              borderRadius: "5px", 
+              marginBottom: "5px",
+              boxShadow: '1px 2px 9px #311465',
+              textAlign: 'center'}}
             placeholder="Long Synopsis, max 120 words"
             onChange={handleLong}
           ></textarea>
@@ -139,8 +157,8 @@ const SynopsisForm = () => {
               <img
                 src={image3}
                 alt="hey"
-                style={{ height: "200px" }}
-              />
+                style={{ height: "200px", boxShadow: '1px 2px 9px #000000'}}
+                />
             )}
           </div>
         </div>
@@ -154,7 +172,7 @@ const SynopsisForm = () => {
             marginLeft: "1200px"
           }}
         >
-          <Button style={{backgroundColor: "#311465"}} type="primary" block onClick={submit} value="save">
+          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={submit} value="save">
             Save
           </Button>
         </div>

@@ -70,12 +70,11 @@ const CastForm = () => {
 
     return (
         <>
-        <div style={{border: '1px solid #311465', marginLeft: "10%", width: "80%", height: "unknown", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+        <div style={{boxShadow: '1px 2px 9px #311465', marginLeft: "10%", width: "80%", height: "unknown", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
                 backgroundColor:"white"}}>
             {" "}
             <br />
             <h1 className="text-center" style={{ color: "#311465" }}>Cast</h1>
-            <br />
             <Row
                 justify="space-around" className="text-center "
             >
@@ -86,8 +85,15 @@ const CastForm = () => {
 
                     <input
                         name="name"
-                        style={{ height: "20px", width: "300px" }}
-                        placeholder="Enter Lead Actor's Name here."
+                        style={{ 
+                            height: "20px", 
+                            width: "300px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Lead Actor Name"
                     onChange={(event) => {
                     setLeadActor1Name(event.target.value);
                 }}
@@ -95,7 +101,12 @@ const CastForm = () => {
 
                 <textarea
                         name="biography"
-                        style={{ height: "200px", width: "300px" }}
+                        style={{ 
+                            height: "200px", 
+                            width: "300px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465'}}
                         placeholder="Enter Lead Actor's Biography here."
                     onChange={(event) => {
                     setLeadActor1Biography(event.target.value);
@@ -107,7 +118,7 @@ const CastForm = () => {
                     <img
                         src={leadActor1Img_url}
                         alt="dir"
-                        style={{ height: "300px" }}
+                        style={{ height: "300px", boxShadow: '1px 2px 9px #000000'}}
                     />
                 )}
             </div>
@@ -116,17 +127,30 @@ const CastForm = () => {
 
               <input
                     name="name"
-                    style={{ height: "20px", width: "300px" }}
-                    placeholder="Enter Lead Actor's Name here."
+                    style={{ 
+                        height: "20px", 
+                        width: "300px", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'center'
+                    }}
+                    placeholder="Lead Actor Name"
                     onChange={(event) => {
                     setLeadActor2Name(event.target.value);
                 }}
               />
+
                 <textarea
-                        name="biography"
-                        style={{ height: "200px", width: "300px" }}
-                        placeholder="Enter Lead Actor's Biography here."
-                        onChange={(event) => {
+                    name="biography"
+                    style={{ 
+                        height: "200px", 
+                        width: "300px", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465'}}
+                    placeholder="Enter Lead Actor's Biography here."
+                    onChange={(event) => {
                   setLeadActor2Biography(event.target.value);
                 }}
               />
@@ -135,7 +159,7 @@ const CastForm = () => {
                     <img
                         src={leadActor2Img_url}
                         alt="dir"
-                        style={{ height: "300px" }}
+                        style={{ height: "300px", boxShadow: '1px 2px 9px #000000'}}
                     />
                 )}
             </div>
@@ -144,8 +168,15 @@ const CastForm = () => {
 
               <input
                     name="name"
-                    style={{ height: "20px", width: "300px" }}
-                    placeholder="Enter Suporting Actor's Name here."
+                    style={{ 
+                        height: "20px", 
+                        width: "300px", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'center'
+                    }}
+                    placeholder="Suporting Actor Name"
                 onChange={(event) => {
                   setSupportingActor1Name(event.target.value);
                 }}
@@ -153,8 +184,13 @@ const CastForm = () => {
 
             <textarea
                 name="biography"
-                style={{ height: "200px", width: "300px" }}
-                placeholder="Enter Suporting Actor's Biography here."
+                style={{ 
+                    height: "200px", 
+                    width: "300px", 
+                    borderRadius: "5px", 
+                    marginBottom: "5px",
+                    boxShadow: '1px 2px 9px #311465'}}
+                placeholder="Enter Suporting Actor Biography here."
                 onChange={(event) => {
                   setSupportingActor1Biography(event.target.value);
                 }}
@@ -164,7 +200,7 @@ const CastForm = () => {
                     <img
                         src={supportingActor1Img_url}
                         alt="dir"
-                        style={{ height: "300px" }}
+                        style={{ height: "300px", boxShadow: '1px 2px 9px #000000'}}
                     />
                 )}
             </div>
@@ -173,8 +209,15 @@ const CastForm = () => {
 
               <input
                     name="name"
-                    style={{ height: "20px", width: "300px" }}
-                    placeholder="Enter Suporting Actor's Name here."
+                    style={{ 
+                        height: "20px", 
+                        width: "300px", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'center'
+                    }}
+                    placeholder="Suporting Actor Name"
                     onChange={(event) => {
                     setSupportingActor2Name(event.target.value);
                 }}
@@ -182,7 +225,12 @@ const CastForm = () => {
 
             <textarea
                 name="biography"
-                style={{ height: "200px", width: "300px" }}
+                style={{ 
+                    height: "200px", 
+                    width: "300px", 
+                    borderRadius: "5px", 
+                    marginBottom: "5px",
+                    boxShadow: '1px 2px 9px #311465'}}
                 placeholder="Enter Suporting Actor's Biography here."
                 onChange={(event) => {
                   setSupportingActor2Biography(event.target.value);
@@ -193,7 +241,7 @@ const CastForm = () => {
                     <img
                         src={supportingActor2Img_url}
                         alt="dir"
-                        style={{ height: "300px" }}
+                        style={{ height: "300px", boxShadow: '1px 2px 9px #000000'}}
                     />
                 )}
             </div>
@@ -216,7 +264,7 @@ const CastForm = () => {
             marginLeft: "1200px"
           }}
         >
-          <Button style={{backgroundColor: "#311465"}} type="primary" block onClick={submit} value="save">
+          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={submit} value="save">
             Save
           </Button>
         </div>

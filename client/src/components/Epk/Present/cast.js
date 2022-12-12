@@ -28,9 +28,7 @@ function Cast(castFile) {
         </div>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: "15%"}}>
-            <h2 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
-              Starring
-            </h2>
+          <br/>
             <br/>
             <h2 className="text-center mx-4" style={{color: "#000000", fontWeight: 'normal'}}>          
             {castFile.castFile.leadActor1Biography}
@@ -46,9 +44,7 @@ function Cast(castFile) {
       <div className="row mx-1" style={{background: "#ffffff"}}>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: '15%'}}>
-            <h2 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
-              Starring
-            </h2>
+          <br/>
             <br/>
             <h2 className="text-center mx-5" style={{color: "#000000", fontWeight: 'normal'}}>          
               {castFile.castFile.leadActor2Biography}
@@ -84,9 +80,7 @@ function Cast(castFile) {
         </div>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: "15%"}}>
-            <h2 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
-              Starring
-            </h2>
+          <br/>
             <br/>
             <h2 className="text-center mx-4" style={{color: "#000000", fontWeight: 'normal'}}>          
               {castFile.castFile.supportingActor1Biography}
@@ -102,9 +96,7 @@ function Cast(castFile) {
       <div className="row mx-1" style={{background: "#ffffff"}}>
         <div className="col-sm">
           <div style={{margin: 0, position: "relative", top: "15%"}}>
-          <h2 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
-              Starring
-            </h2>
+          <br/>
             <br/>
             <h2 className="text-center mx-5" style={{color: "#000000", fontWeight: 'normal'}}>
               {castFile.castFile.supportingActor2Biography}

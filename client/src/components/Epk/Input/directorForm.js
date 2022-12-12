@@ -52,7 +52,7 @@ const DirectorForm = () => {
 
     return (
         <>
-        <div style={{border: '1px solid #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+        <div style={{boxShadow: '1px 2px 9px #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
                 backgroundColor:"white"}}>
             {" "}
             <br />
@@ -68,19 +68,39 @@ const DirectorForm = () => {
                     {/* <h4>Director</h4> */}
                     <input
                         name="name"
-                        style={{ height: "20px", width: "300px" }}
-                        placeholder="Enter Director's Name here."
+                        style={{ 
+                            height: "20px", 
+                            width: "300px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Director's Name"
                         onChange={handleName}
                     />
                     <input
                         name="header"
-                        style={{ height: "20px", width: "300px" }}
-                        placeholder="Enter Director's Header here."
+                        style={{ 
+                            height: "20px", 
+                            width: "300px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}                        placeholder="Header"
                         onChange={handleHeader}
                     />
                     <textarea
                         name="biography"
-                        style={{ height: "200px", width: "300px" }}
+                        style={{ 
+                            height: "200px", 
+                            width: "300px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465'
+,
+                        }}
                         placeholder="Enter Director's Biography here."
                         onChange={handleBiography}
                     />
@@ -91,7 +111,7 @@ const DirectorForm = () => {
                             <img
                                 src={image}
                                 alt="dir"
-                                style={{ height: "300px"}}
+                                style={{ height: "300px", boxShadow: '1px 2px 9px #000000'}}
                             />
                         )}
                     </div>
@@ -106,7 +126,7 @@ const DirectorForm = () => {
             marginLeft: "1200px"
           }}
         >
-          <Button style={{backgroundColor: "#311465"}} type="primary" block onClick={submit} value="save">
+          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={submit} value="save">
             Save
           </Button>
         </div>
