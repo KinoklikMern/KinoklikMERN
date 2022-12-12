@@ -1,0 +1,38 @@
+.list {
+    width: 100%;
+    /* width: 1440px; */
+    margin-top: 10px;
+}
+
+.list .wrapper {
+    position: relative;
+    height: 105%;
+}
+.list .wrapper .sliderArrow {
+    width: 50px;
+    height: 100%;
+    background-color: transparent;
+    color: white;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
+}
+.list .wrapper .sliderArrow.left {
+    left: 0;
+}
+.list .wrapper .sliderArrow.right {
+    right: 0;
+}
+.list .wrapper .container {
+    /* width: 1440px; */
+    height: 385px;
+    margin-left: 50px;
+    display: flex;
+    margin-top: 10px;
+    width: max-content;
+    transform: translateX(0px);
+    transition: all 1s ease;
+}

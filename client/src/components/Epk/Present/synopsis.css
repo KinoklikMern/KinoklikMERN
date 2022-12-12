@@ -1,0 +1,111 @@
+.container {
+  margin-bottom: 25px;
+  position: relative;
+  text-align: center;
+  color: white;
+  height: 85vh;
+  width: 100%;
+}
+
+/* img {
+  opacity: 0.8;
+}
+h3 {
+  opacity: 1;
+} */
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(26, 7, 56, 0.4); /* Black background with 0.5 opacity */
+  color: #f1f1f1; /* Grey text */
+
+  padding: 20px; /* Some padding */
+}
+
+.capitalize-me::first-letter {
+  text-transform: capitalize;
+}
+
+.article {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+}
+
+.header {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.accordion {
+  max-width: 400px;
+  margin: 100px auto 0;
+  border-radius: 3px;
+  background: #f1f1f1;
+}
+
+.accordion-visible {
+  background: #170B3B;
+  width: 100%;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #474d9b;;
+  align-items: center;
+  font-weight: bold;
+
+}
+
+.accordion-visible span {
+  padding: 15px 0;
+  font-size: 20px;
+}
+.accordion-visible img {
+  width: 20px;
+  transform: rotate(-90deg);
+  transition: transform 0.2s ease-in-out;
+}
+.accordion-visible img.active {
+  transform: rotate(0deg)
+}
+
+.accordion-visible h2 {
+  font-size: 20px;
+}
+
+.accordion-toggle {
+  height: 0px;
+  font-size: 18px;
+  opacity: 0;
+  transition:  
+  opacity 0.3s ease-in-out,
+  height 0.3s 0.3s ease-in-out;
+  color: #333;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.animated {
+  opacity: 1;
+  transition:  
+  height 0.3s ease-in-out,
+  opacity 0.3s 0.3s ease-in-out;
+}
+
+.accordion-toggle p {
+  margin: 0;
+  padding: 22px 15px;
+  pointer-events: none;
+  line-height: 1.3;
+}

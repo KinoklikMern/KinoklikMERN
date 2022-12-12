@@ -1,0 +1,15 @@
+.sponsored {
+    width: 100%;
+    /* height: 100vh; */
+}
+
+.sponsored .warp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sponsored .warp img {
+    flex-shrink: 0;
+    width: 100%;
+}

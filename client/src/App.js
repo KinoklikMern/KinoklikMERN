@@ -8,6 +8,25 @@ import UserDashboard from "./pages/Dashboard";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import Login from "./components/Auth/Registration/login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import Bookmark from "./pages/Bookmark";
+import SynopsisForm from "./components/Epk/Input/synopsisForm";
+import Synopsis from "./components/Epk/Present/synopsis";
+
+import CastForm from "./components/Epk/Input/castForm";
+import Cast from "./components/Epk/Present/cast";
+
+import DirectorForm from "./components/Epk/Input/directorForm";
+import Director from "./components/Epk/Present/director";
+
+import ProducerForm from "./components/Epk/Input/producerForm";
+import Producer from "./components/Epk/Present/producer";
+
+import CinematographerForm from "./components/Epk/Input/cinematographerForm";
+import Cinematographer from "./components/Epk/Present/cinematographer";
+
+import EPK from "./pages/Epk";
+
+import EPKDashboard from "./pages/EpkDashboard";
 
 function App() {
   return (
@@ -22,6 +41,27 @@ function App() {
           <Route path="registeration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+          <Route path="bookmark" element={<Bookmark />} />
+
+          <Route path="synopsis" element={<Synopsis />} />
+          <Route path="synopsisForm" element={<SynopsisForm />} />
+
+          <Route path="cast" element={<Cast />} />
+          <Route path="castForm" element={<CastForm />} />
+
+          <Route path="director" element={<Director />} />
+          <Route path="directorForm" element={<DirectorForm />} />
+
+          <Route path="producer" element={<Producer />} />
+          <Route path="producerForm" element={<ProducerForm />} />
+
+          <Route path="cinematographer" element={<Cinematographer />} />
+          <Route path="cinematographerForm" element={<CinematographerForm />} />
+
+          <Route path="epk" element={<EPK />} />
+
+          <Route path="epkDashboard" element={<EPKDashboard />} />
+
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
