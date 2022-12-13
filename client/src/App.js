@@ -9,6 +9,13 @@ import RegistrationForm from "./components/Auth/Registration/registration";
 import Login from "./components/Auth/Registration/login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import Bookmark from "./pages/Bookmark";
+
+import CoverForm from "./components/Epk/Input/coverForm";
+import Cover from "./components/Epk/Present/cover";
+
+import LoglineForm from "./components/Epk/Input/loglineForm";
+import Logline from "./components/Epk/Present/logline";
+
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
 
@@ -42,6 +49,12 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="bookmark" element={<Bookmark />} />
+
+          <Route path="coverForm" element={<CoverForm />} />
+          <Route path="cover" element={<Cover />} />
+
+          <Route path="logline" element={<Logline />} />
+          <Route path="loglineForm" element={<LoglineForm />} />
 
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />

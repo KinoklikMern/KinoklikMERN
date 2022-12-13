@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import LoglineForm from "../components/Epk/Input/loglineForm";
 import SynopsisForm from "../components/Epk/Input/synopsisForm";
 import CastForm from "../components/Epk/Input/castForm";
 import DirectorForm from "../components/Epk/Input/directorForm";
@@ -12,6 +13,9 @@ function EPKDashboard() {
   return (
     <>
     <div>
+    <br/>
+      <LoglineForm />
+      <br/>
       <br/>
       <SynopsisForm />
       <br/>

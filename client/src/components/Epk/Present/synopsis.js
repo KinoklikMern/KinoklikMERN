@@ -41,7 +41,7 @@ function Synopsis(synopsFile) {
           alt="hey"
           style={{ width: "100%", borderRadius: "35px" }}
         />
-          <h3 className="centered" style={{width: "60%", position: "absolute", justifyContent: "center"}}>{synopsFile.synopsFile.text}</h3>
+          <h3 className="centered" style={{width: "60%", position: "relative", justifyContent: "center"}}>{synopsFile.synopsFile.text}</h3>
           <br/>
     </div>
 

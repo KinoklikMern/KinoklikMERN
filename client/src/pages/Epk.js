@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import EpkCover from "../components/Epk/Present/cover";
+import Logline from "../components/Epk/Present/logline";
 import Synopsis from "../components/Epk/Present/synopsis";
 import Cast from "../components/Epk/Present/cast";
 import Director from "../components/Epk/Present/director";
@@ -8,6 +10,46 @@ import Cinematographer from "../components/Epk/Present/cinematographer";
 import { renderCloseIcon } from "antd/es/modal/PurePanel";
 
 function EPK() {
+
+        //Cover
+        const [coverList, setCoverList] = useState(null); 
+        useEffect(() => {
+          getEpktCover(id);
+        }, []);
+        async function getEpktCover(id) {
+          const response = await fetch(
+            "http://localhost:8000/epk/EpkCover/" + id,
+            {
+              method: "GET",
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            }
+          );
+          const coverList1 = await response.json();
+          console.log(coverList1);
+          setCoverList(coverList1);
+        }
+
+      //Logline
+      const [loglineList, setLoglineList] = useState(null);
+      useEffect(() => {
+        getEpktLogline(id);
+      }, []);
+      async function getEpktLogline(id) {
+        const response = await fetch(
+          "http://localhost:8000/epk/EpkLogline/" + id,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
+        const loglineList1 = await response.json();
+        console.log(loglineList1);
+        setLoglineList(loglineList1);
+      }
 
   //Synopsis
   const [synopsisList, setSynopsisList] = useState(null);
@@ -116,6 +158,9 @@ function EPK() {
   return (
     <>
     <div className="container">
+      < EpkCover />
+      {/* {coverList && coverList.map((s) => <Cover coverFile={s} />)} */}
+      {loglineList && loglineList.map((s) => <Logline loglineFile={s} />)}
       {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}
       {castList && castList.map((s) => <Cast castFile={s} />)}
       {directorList && directorList.map((s) => <Director directorFile={s} />)}
