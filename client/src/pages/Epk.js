@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import AllSynopsis from "../components/Epk/Present/allSynopsis";
 import Synopsis from "../components/Epk/Present/synopsis";
 import Resources from "../components/Epk/Present/Resources";
+import EpkCover from "../components/Epk/Present/EpkCover";
 
 function EPK() {
   const [synopsisList, setSynopsisList] = useState(null);
@@ -61,7 +62,12 @@ function EPK() {
   }
 
   return (
-    <>{synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}{resourcesList && resourcesList.map((s) => <Resources resFile={s} />)}</>
+
+    <>
+    <EpkCover />
+    {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}{resourcesList && resourcesList.map((s) => <Resources resFile={s} />)}</>
+
+    </>
   );
 }
 

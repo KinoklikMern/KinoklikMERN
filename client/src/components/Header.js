@@ -79,7 +79,19 @@ function Header() {
                 </span>
                 <span>
                   <Link className="whatsnew-text" to="/upload">
-                    &nbsp;&nbsp;&nbsp;&nbsp;Upload movie
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload Movie
+                  </Link>
+                </span>
+              </button>
+            </li>
+            <li className="nav-item">
+              <button className=" anim-whatsnew whats-new">
+                <span className="circle" aria-hidden="true">
+                  <span className="whatsnew-icon arrow"></span>
+                </span>
+                <span>
+                  <Link className="whatsnew-text" to="/uploadEpk">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload FILM EPK
                   </Link>
                 </span>
               </button>

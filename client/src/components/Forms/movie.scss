@@ -1,0 +1,577 @@
+// Place all the styles related to the Movies controller here.
+.container-fluid {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.bg-medium-grey {
+  background-color: #160625;
+}
+
+.bg-dark-grey {
+  background-color: #0d131f;
+}
+.text-pink {
+  color: #ff2a55;
+}
+.text-white {
+  color: white;
+}
+.movie-cate-row {
+  overflow: scroll;
+  // width: 100%;
+  // height: 100vh;
+  margin-left: 25px;
+}
+.row__inner {
+  transition: 450ms transform;
+  // font-size: 0;
+  white-space: nowrap;
+  margin: 70.3125px 0;
+  padding-bottom: 10px;
+}
+.tile {
+  position: relative;
+  display: inline-block;
+
+  margin-right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 450ms all;
+  transform-origin: center left;
+}
+.tile__img {
+  // width: 250px;
+  // height: 140.625px;
+  width: 22vw;
+  height: 13vw;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.tile__details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-size: 10px;
+  opacity: 0;
+  transition: 450ms opacity;
+}
+.tile__details:after,
+.tile__details:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: white;
+}
+.tile__details:after {
+  margin-top: -25px;
+  margin-left: -25px;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #ecf0f1;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 100%;
+  // background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.tile__details:before {
+  content: "▶";
+  left: 0;
+  width: 100%;
+  color: red;
+  font-size: 25px;
+  margin-left: 3px;
+  margin-top: -18px;
+  text-align: center;
+  z-index: 2;
+}
+.tile:hover .tile__details {
+  opacity: 4;
+  transition: 0.4s;
+  transition-delay: 0.4s;
+}
+.tile__title {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  align-self: flex-start;
+  font-size: 0.6vw;
+  margin-bottom: 1rem;
+}
+.tile__buttons {
+  align-items: flex-end;
+  position: absolute;
+  right: 0;
+}
+.icon-set {
+  display: flex;
+  flex-direction: column;
+  margin: 5vw 0 0 0;
+  i {
+    margin: 0 1vw 0.5vw 1vw;
+    font-size: 0.5vw;
+    border-radius: 50%;
+    padding: 0.6vw;
+    color: #f1f1f1;
+    background: rgba(0, 0, 0, 0.5);
+    border: 0.1em solid rgba(255, 255, 255, 0.5);
+    &:hover {
+      font-size: 1.1vw;
+      border-color: #fff;
+      background: rgba(0, 0, 0, 0.7);
+      transition: 0.4s;
+    }
+  }
+}
+.row__inner:hover {
+  transform: translate3d(-125px, 0, 0);
+}
+.row__inner:hover .tile {
+  opacity: 0.3;
+}
+.row__inner:hover .tile:hover {
+  transform: scale(2);
+  opacity: 1;
+}
+.tile:hover ~ .tile {
+  transform: translate3d(250px, 0, 0);
+}
+
+.bottom-vids {
+  height: 230px;
+  display: inline-block;
+  color: #f1f1f1;
+  position: relative;
+  left: 0;
+  right: 0;
+  margin-top: 40%;
+  overflow-x: auto;
+  overflow-y: auto;
+  width: 100%;
+}
+#bottom-vids {
+  height: 230px;
+  width: 250px;
+  display: inline-block;
+  transition: transform 0.4s;
+}
+#bottom-vids:hover {
+  transform: scale(1.3);
+}
+
+// new movie designs in index page (movie)
+
+// show.html.erb
+
+.btniconstyle {
+  background-color: transparent; /* Blue background */
+  border: 2px solid #591398; /* Remove borders */
+  color: white;
+  padding: 10px 14px; /* Some padding */
+  font-size: 17px;
+  float: left;
+  text-align: center;
+  line-height: 1rem;
+  margin-left: 3rem;
+  border-radius: 5px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+.btniconstyle:hover {
+  color: #591398;
+  display: block;
+  background-color: white;
+}
+.btniconstyle:hover::after {
+  content: attr(data-title);
+  padding-left: 0.25em;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: -1em;
+  right: 50%;
+  transform: translateX(-50%);
+  font-size: 1em;
+  color: #ff2a55;
+}
+.movieshow-banner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.movieshow-btns {
+  position: absolute;
+  top: 80%;
+  left: 0;
+}
+.movieshow-title {
+  font-size: 3rem;
+  position: absolute;
+  top: 70%;
+}
+.movieshow-genre {
+  left: 0;
+  color: white;
+  font-size: 1.5rem;
+}
+.left-box {
+  width: 550px;
+  height: 250px;
+  border: 2px solid #591398;
+  color: black;
+  border-radius: 8px;
+  margin-top: 60px;
+}
+
+.row_poster {
+  width: 100%;
+  object-fit: contain;
+  max-height: 150px;
+  margin-right: 10px;
+  transition: transform 450ms;
+}
+.row_poster:hover {
+  transform: scale(1.1);
+}
+.row_posters {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding: 40px;
+}
+.row_posters::-webkit-scrollbar {
+  display: none;
+}
+.row_posterLarge {
+  max-height: 200px;
+}
+// carousel
+.carousel-container {
+  overflow: hidden;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  margin: 0 !important;
+}
+.mySlides img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 448px;
+  margin: 0 !important;
+  background-position: top center;
+  background-size: cover;
+}
+.mySlides-title {
+  margin: 0;
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+
+  font-size: 3rem;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+p.mySlides-desc {
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  font-size: 18px;
+  position: absolute;
+  bottom: 1%;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.mySlides-buttons {
+  float: left;
+}
+.mySlides-btn {
+  float: right;
+}
+i.mySlides-btnbell {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  right: 1%;
+  top: 50%;
+}
+i.mySlides-btnupload {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  right: 1%;
+  top: 70%;
+}
+i.mySlides-btnvolume {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  right: 1%;
+  top: 60%;
+}
+i.mySlides-btnsearch {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  right: 1%;
+  top: 40%;
+}
+i.mySlides-btnsave {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  left: 1%;
+  top: 50%;
+}
+i.mySlides-btnbuy {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  left: 1%;
+  top: 60%;
+}
+i.mySlides-btnshare {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  left: 1%;
+  top: 70%;
+}
+.banner--fadeBottom {
+  height: 7.4rem;
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    rgba(37, 37, 37, 0.61),
+    #111
+  );
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 35%;
+  transform: translate(0, -50%);
+  width: auto;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 20px;
+  visibility: hidden;
+  border-radius: 0 4px 4px 0;
+  // background: rgba(173, 216, 230, 0.1);
+  user-select: none;
+}
+.next {
+  right: 0;
+  border-radius: 6px 0 0 6px;
+}
+.prev:hover,
+.next:hover {
+  background-color: rgba(173, 216, 230, 0.3);
+}
+
+/* Caption text */
+// .caption-text {
+//   color: #f2f2f2;
+//   background-color: rgba(10, 10, 20, 0.1);
+//   backdrop-filter: blur(6px);
+//   border-radius: 10px;
+//   font-size: 18px;
+//   padding: 8px 12px;
+//   position: absolute;
+//   bottom: 100px;
+//   left: 10%;
+//   transform: translate(-50%);
+//   text-align: center;
+// }
+
+/* Number text (1/3 etc) */
+.number {
+  font-size: 16px;
+  background-color: rgba(173, 216, 230, 0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 20px;
+  left: 40px;
+}
+.dots-container {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+/* The dots/bullets/indicators */
+.dots {
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+  margin: 0 4px;
+  background-color: rgba(173, 216, 230, 0.2);
+  backdrop-filter: blur(2px);
+  border-radius: 50%;
+  visibility: hidden;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+// .active,
+// .dots:hover {
+//   background-color: rgba(173, 216, 230, 0.8);
+// }
+
+/* transition animation */
+.animate {
+  -webkit-animation-name: animate;
+  -webkit-animation-duration: 1s;
+  animation-name: animate;
+  animation-duration: 2s;
+}
+
+@keyframes animate {
+  from {
+    transform: scale(1.1) rotateY(10deg);
+  }
+  to {
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+// comedy movie category
+
+// back btn
+#hero-back-btn {
+  z-index: 4;
+  position: absolute;
+  top: 5px;
+  left: 30px;
+  font-size: 2em;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#hero-back-btn:hover {
+  opacity: 1;
+}
+// CAST & CREW
+.movie-cast-box {
+  display: flex;
+  // width: 100%;
+  width: 80px;
+  border-radius: 50%;
+  // min-height: 200px;
+  height: 100px;
+
+  vertical-align: middle;
+}
+.number-category {
+  color: red;
+  font-size: 16px;
+  background-color: rgba(173, 216, 230, 0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  padding: 8px 12px;
+  position: absolute;
+}
+.movie-categories span {
+  background-color: rgba(10, 10, 20, 0.1);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  font-size: 14px;
+  padding: 6px 10px;
+  position: absolute;
+  bottom: 60px;
+  left: 5%;
+  transform: translate(-50%);
+  text-align: center;
+}
+.movie-categories .movie-cate-2 {
+  left: 12%;
+}
+.movie-categories .movie-cate-3 {
+  left: 17%;
+}
+// netflix original styles
+.net-row {
+  // margin-left: 20px;
+  color: white;
+}
+.net-title {
+  padding-left: 20px;
+  margin-left: 20px;
+}
+.net-slider {
+  position: relative;
+}
+.net__posters {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding: 20px 0 20px 20px;
+  scroll-behavior: smooth;
+}
+.net__posters::-webkit-scrollbar {
+  display: none;
+}
+.net__posters .net__poster {
+  object-fit: contain;
+  width: 100%;
+  max-height: 250px;
+  margin-right: 10px;
+  transition: transform 450ms;
+  border-radius: 4px;
+}
+.net__poster:hover {
+  transform: scale(1.08);
+}
+center {
+  visibility: hidden;
+}
+
+i .fa-angle-left {
+  background-clip: content-box;
+  padding: 20px 0;
+  box-sizing: border-box;
+  transition: 400ms all ease-in-out;
+  cursor: pointer;
+  width: 80px;
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrow {
+  transition: 400ms all ease-in-out;
+}
+.awardsection {
+  position: relative;
+  text-align: center;
+}
+.awardbox_one {
+  position: absolute;
+}
+.awardsection-img {
+  background-size: cover;
+  background: url(DEFAULT.PNG);
+  width: 100px;
+  height: 70px;
+}

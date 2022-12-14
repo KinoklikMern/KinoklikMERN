@@ -15,9 +15,9 @@ const UploadFile = (props) => {
     let formData = new FormData();
     formData.append("file", file);
     console.log(formData);
-
+    debugger;
     await http
-      .post("movies/image", formData, {
+      .post("movies/uploadFile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

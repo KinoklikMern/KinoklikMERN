@@ -1,0 +1,84 @@
+abbr {
+  visibility: hidden;
+}
+
+.upload-img {
+  color: white;
+  width: 80%;
+  margin-top: 1rem;
+}
+
+.movie-image {
+  color: white;
+  width: 80%;
+  margin-top: 1rem;
+}
+
+.edit-movie {
+  margin-top: 1rem;
+}
+
+.modal-form {
+  background-color: rgba(128, 128, 128, 0.404);
+  border-radius: 10px;
+}
+
+#user_password {
+  width: 100%;
+}
+
+#user_email {
+  width: 100%;
+}
+
+#user_name {
+  width: 100%;
+}
+
+#user_password_confirmation {
+  width: 100%;
+}
+
+.user-desc {
+  color: white;
+  margin-bottom: -0.15rem;
+}
+
+.movie-input {
+  background-color: white;
+  border-style: none;
+  color: black;
+  padding: 0.5rem;
+  width: inherit;
+}
+
+.border-right {
+  border-right: solid 3px;
+  border-color: #591398;
+}
+
+.upload-header {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.affiliate-links {
+  display: flex;
+  align-items: center;
+}
+
+.vertical-line {
+  height: 150px;
+  border-left: solid 2px;
+  border-color: #591398;
+  margin-left: 2.4rem;
+}
+
+@media only screen and (max-width: 1050px) {
+  .vertical-line {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=form.css.map */

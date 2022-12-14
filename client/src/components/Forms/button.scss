@@ -1,0 +1,56 @@
+.btn-container {
+  display: flex;
+  margin-top: 1rem;
+  justify-content: space-around;
+  padding-top: 1rem;
+}
+
+.btn-purple {
+  background-color: #591398;
+  color: white;
+  border-radius: 10px;
+  border-style: none;
+  padding: 10px;
+}
+
+.btn-purple:hover {
+  background-color: rgba(128, 128, 128, 0.137);
+  color: #591398;
+}
+
+.btn-grey {
+  background-color: rgba(128, 128, 128, 0.068);
+  color: #591398;
+  border-radius: 10px;
+}
+
+.btn-grey:hover {
+  background-color: rgba(128, 128, 128, 0.137);
+  color: #5a1398d8;
+}
+
+.btn-purple-two {
+  background-color: #41314E;
+  color: white;
+}
+
+.btn-purple-two:hover {
+  background-color: white;
+  color: #41314E;
+}
+
+.toggler {
+  color: black;
+  font-size: 2rem;
+  color: #591398;
+}
+
+.toggler:hover {
+  background-color: rgba(128, 128, 128, 0.137);
+  color: #5a1398d8;
+}
+
+.toggle-icon {
+  display: flex;
+  align-items: center;
+}
