@@ -23,6 +23,10 @@ import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
 import UploadEpk from "./pages/UploadEpk";
 import EPK from "./pages/Epk";
+import ResourcesForm from "./components/Epk/Input/ResourcesForm";
+import TrailerForm from "./components/Epk/Input/TrailerForm";
+import Resources from "./components/Epk/Present/Resources";
+import Trailer from "./components/Epk/Present/Trailer";
 
 const theme = createTheme({
   palette: {
@@ -52,6 +56,10 @@ function App() {
           <Route path="synopsisForm" element={<SynopsisForm />} />
           <Route path="epk" element={<EPK />} />
           <Route path="uploadEpk" element={<UploadEpk />} />
+          <Route path="trailerForm" element={<TrailerForm/>} />
+          <Route path="resourcesForm" element={<ResourcesForm/>} />
+          <Route path="trailer" element={<Trailer/>} />
+          <Route path="resources" element={<Resources/>} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -6,6 +6,10 @@ import {
   createEpkSynopsis,
   getEpkSynopsis,
 } from "../controllers/epkSynopsis.js";
+import {
+  createEpkResources,
+  getEpkResources,
+} from "../controllers/epkResource.js";
 const router = express.Router();
 
 router.get("/", getEpk);
@@ -13,7 +17,8 @@ router.post("/", createEpk);
 router.put("/", updateEpk);
 router.post("/EpkSynopsis", createEpkSynopsis);
 router.get("/EpkSynopsis/:id", getEpkSynopsis);
-
+router.post("/epkResources", createEpkResources);
+router.get("/epkResources/:id", getEpkResources);
 /* router.get("/", authUser, getEpk);
 router.post("/", authUser, createEpk);
 router.put("/", authUser, updateEpk); */
