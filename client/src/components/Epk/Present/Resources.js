@@ -13,6 +13,8 @@ import {
 function Resources(resFile) {
   return (
     <>
+      <br />
+
       <Container class="container-fluid resourcesCard">
         <div class="row">
           <img

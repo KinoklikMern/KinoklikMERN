@@ -3,8 +3,8 @@ import epk from "../models/epk.js";
 
 export const createEpkResources = async (req, res) => {
   const title = req.body.title;
-  const ResourcesList = req.body.ResourcesList;
-  const epkFromDb = await epk.findOne({ title: title });
+  const Resource = req.body.resource;
+  // const epkFromDb = await epk.findOne({ title: title });
 
   /*   const shortResources = req.body.shortResources;
   const mediumResources = req.body.mediumResources;
@@ -25,16 +25,14 @@ export const createEpkResources = async (req, res) => {
     }; */
     // epk.Resources = Resources;
     // epk.save();
-    const savedResources = [];
-    for (let i = 0; i < ResourcesList.length; i++) {
-      console.log(ResourcesList[i]);
-      const newResources = new epkResources(ResourcesList[i]);
-      newResources.save();
-      savedResources.push(newResources);
-      // epkFromDb.Resources.push(newResources);
-    }
+
+    const newResources = new epkResources(Resource);
+    newResources.save();
+    //savedResources.push(newResources);
+    // epkFromDb.Resources.push(newResources);
+    // }
     // epkFromDb.save();
-    res.status(201).json(savedResources);
+    res.status(201).json(newResources);
   } catch (error) {
     res.status(409).json({ message: error.message });
   }

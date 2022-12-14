@@ -14,23 +14,21 @@ const ResourcesForm = () => {
   const [resourcesList, setResourcesList] = useState(null);
   const epkID = 4;
   const submit = () => {
-    const resourcesList1 = [
-      {
-        epk: epkID,
-        image: image,
-        title: title,
-        time: time,
-        description: description,
-      },
-    ];
-    console.log(resourcesList1);
-    createEpkResources(resourcesList1);
+    const resource = {
+      epk: epkID,
+      image: image,
+      title: title,
+      time: time,
+      description: description,
+    };
+    console.log(resource);
+    createEpkResources(resource);
 
-    async function createEpkResources(resourcesList1) {
+    async function createEpkResources(resource) {
       const response = await fetch("http://localhost:8000/epk/epkResources", {
         method: "POST",
         body: JSON.stringify({
-          resourcesList: resourcesList1,
+          resource: resource,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -39,6 +37,7 @@ const ResourcesForm = () => {
       const resourcesList = await response.json();
 
       setResourcesList(resourcesList);
+      console.log(resourcesList);
       // localStorage.setItem("epk", 1);
       //window.location = "/epk";
 

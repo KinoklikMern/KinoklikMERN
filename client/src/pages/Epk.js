@@ -43,7 +43,7 @@ function EPK() {
   }, []);
   async function getEpkResources(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkSynopsis/" + id,
+      "http://localhost:8000/epk/EpkResources/" + id,
       {
         method: "GET",
         headers: {
@@ -54,7 +54,7 @@ function EPK() {
     const resourcesList1 = await response.json();
 
     console.log(resourcesList1);
-    setSynopsisList(resourcesList1);
+    setResourcesList(resourcesList1);
 
     /*  console.log(shortSynopsis);
       console.log(mediumSynopsis);
