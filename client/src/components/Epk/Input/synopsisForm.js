@@ -5,8 +5,7 @@ import UploadImage from "../../uploadImage";
 import Upload1 from "../../Upload1";
 import UploadFile from "../../FileUpload";
 import { Button, Form, Input, Col, Upload, Row } from "antd";
-oimport AllSynopsis from "../Present/allSynopsis";
-import { Link } from "react-router-dom";
+import AllSynopsis from "../Present/allSynopsis";
 
 const SynopsisForm = () => {
   const [image1, setImage1] = useState(null);
