@@ -159,7 +159,7 @@ function EPK() {
     <>
     <div className="container">
       < EpkCover />
-      {/* {coverList && coverList.map((s) => <Cover coverFile={s} />)} */}
+      {/* {coverList && coverList.map((s) => <EpkCover coverFile={s} />)} */}
       {loglineList && loglineList.map((s) => <Logline loglineFile={s} />)}
       {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}
       {castList && castList.map((s) => <Cast castFile={s} />)}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
+import { Link } from "react-router-dom";
 
 const CinematographerForm = () => {
     const [image, setImage] = useState(null);
@@ -54,9 +55,28 @@ const CinematographerForm = () => {
         <>
         <div style={{boxShadow: '1px 2px 9px #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
                 backgroundColor:"white"}}>
-            {" "}
-            <br />
-            <h1 className="text-center" style={{ color: "#311465" }}>Cinematographer</h1>
+        <div className="row">
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
+              <img
+                src={require("../../../images/logo.png")}
+                alt="Logo"
+                className="navbar-logo"
+              />
+            </Link>
+          </div>
+          <div className="col-3  m-3">
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Page Upload</h2>
+          </div>
+          <div className="col-2 m-3">
+          <Link className="col align-items-end" to="/Epk"  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+                View EPK Page
+              </Link>
+          </div>
+          <div className="col">            
+          </div>
+        </div>
+        <h5 className="card-title " style={{marginLeft: '10%', color: "#ffffff", fontWeight: 'normal' }}>Cinematographer</h5>
             <br />
             <Row
                 justify="space-around"
@@ -69,7 +89,7 @@ const CinematographerForm = () => {
                     <input
                         name="name"
                         style={{ 
-                            height: "20px", 
+                            height: "30px", 
                             width: "300px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
@@ -82,7 +102,7 @@ const CinematographerForm = () => {
                     <input
                         name="header"
                         style={{ 
-                            height: "20px", 
+                            height: "30px", 
                             width: "300px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
@@ -123,7 +143,7 @@ const CinematographerForm = () => {
           style={{
             height: "50px",
             width: "120px",
-            marginLeft: "1200px"
+            marginLeft: "80%"
           }}
         >
           <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={submit} value="save">

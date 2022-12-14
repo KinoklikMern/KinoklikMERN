@@ -1,6 +1,6 @@
 import express from "express";
 import { getEpk, createEpk, updateEpk } from "../controllers/epk.js";
-
+import { createEpkCover, getEpkCover } from "../controllers/epkCover.js";
 import { createEpkLogline, getEpkLogline } from "../controllers/epkLogline.js";
 import { createEpkSynopsis, getEpkSynopsis } from "../controllers/epkSynopsis.js";
 import { createEpkCast, getEpkCast } from "../controllers/epkCast.js";
@@ -13,6 +13,10 @@ const router = express.Router();
 router.get("/", getEpk);
 router.post("/", createEpk);
 router.put("/", updateEpk);
+
+router.post("/EpkCover", createEpkCover);
+router.get("/EpkCover/:id", getEpkCover);
+
 router.post("/EpkSynopsis", createEpkSynopsis);
 router.get("/EpkSynopsis/:id", getEpkSynopsis);
 
