@@ -19,6 +19,9 @@ import Logline from "./components/Epk/Present/logline";
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
 
+import UniquenessForm from "./components/Epk/Input/uniquenessForm";
+import Uniqueness from "./components/Epk/Present/uniqueness";
+
 import CastForm from "./components/Epk/Input/castForm";
 import Cast from "./components/Epk/Present/cast";
 
@@ -30,6 +33,9 @@ import Producer from "./components/Epk/Present/producer";
 
 import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
+
+import StillsForm from "./components/Epk/Input/stillsForm";
+import Stills from "./components/Epk/Present/stills";
 
 import EPK from "./pages/Epk";
 
@@ -59,6 +65,9 @@ function App() {
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
 
+          <Route path="uniqueness" element={<Uniqueness/>} />
+          <Route path="uniquenessForm" element={<UniquenessForm />} />
+
           <Route path="cast" element={<Cast />} />
           <Route path="castForm" element={<CastForm />} />
 
@@ -70,6 +79,9 @@ function App() {
 
           <Route path="cinematographer" element={<Cinematographer />} />
           <Route path="cinematographerForm" element={<CinematographerForm />} />
+
+          <Route path="stills" element={<Stills />} />
+          <Route path="stillsForm" element={<StillsForm />} />
 
           <Route path="epk" element={<EPK />} />
 
