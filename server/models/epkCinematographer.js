@@ -7,19 +7,19 @@ const epkCinematographerSchema = mongoose.Schema({
     },
     image: {
         type: String,
-        required: true,
+
     },
     name: {
         type: String,
-        required: true,
+
     },
     header: {
         type: String,
-        required: true,
+
     },
     biography: {
         type: String,
-        required: true,
+
     },
 
 });

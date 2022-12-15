@@ -36,7 +36,7 @@ function Synopsis(synopsFile) {
     ref={refHeight}
     >
     <br/>
-    <img
+      <img
           src={synopsFile.synopsFile.image}
           alt="hey"
           style={{ width: "100%", borderRadius: "35px" }}

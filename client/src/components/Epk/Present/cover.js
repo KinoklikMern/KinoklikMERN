@@ -57,13 +57,13 @@ function EpkCover() {
           // src="https://kinomovie.s3.amazonaws.com/f50bdadce1b7dfd47202491a2a4d6d61.jpg"
           src={image1}
           alt="hey"
-          style={{left: "120px", position: 'relative'}}
+          style={{ position: 'relative'}}
         />
-        <img
+        {/* <img
           src="https://m.media-amazon.com/images/I/A1bQ6XxJhkL._AC_SY679_.jpg"
           alt="hey"
           style={{width: "250px", position: 'relative', left: "-850px"}}
-        />
+        /> */}
 
         <div className="centered"  >
           <h1>{epkCoverData.title}</h1>

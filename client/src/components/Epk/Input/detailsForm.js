@@ -12,8 +12,8 @@ const DetailsForm = () => {
     const [editor, setEditor] = useState(null);
     const [sound, setSound] = useState(null);
     const [productionCo, setProductionCo] = useState(null);
-    const [distributionCo, setDdistributionCo] = useState(null);
-    const [leadActor1, setLeadAcngtor1] = useState(null);
+    const [distributionCo, setDistributionCo] = useState(null);
+    const [leadActor1, setLeadActor1] = useState(null);
     const [leadActor2, setLeadActor2] = useState(null);
     const [supportingActor1, setSupportingActor1] = useState(null);
     const [supportingActor2, setSupportingActor2] = useState(null);
@@ -64,20 +64,20 @@ const DetailsForm = () => {
         }
     };
 
-    const handleHeader = (event) => {
-        setHeader(event.target.value);
-        console.log(header);
-    };
+    // const handleHeader = (event) => {
+    //     setHeader(event.target.value);
+    //     console.log(header);
+    // };
 
-    const handleName = (event) => {
-        setName(event.target.value);
-        console.log(name);
-    };
+    // const handleName = (event) => {
+    //     setName(event.target.value);
+    //     console.log(name);
+    // };
     
-    const handleBiography = (event) => {
-        setBiography(event.target.value);
-        console.log(biography);
-    };
+    // const handleBiography = (event) => {
+    //     setBiography(event.target.value);
+    //     console.log(biography);
+    // };
 
 
     return (
@@ -105,21 +105,33 @@ const DetailsForm = () => {
           <div className="col">            
           </div>
         </div>
-        <h5 className="card-title " style={{marginLeft: '10%', color: "#ffffff", fontWeight: 'normal' }}>Details</h5>
+        <h5 className="card-title " style={{marginLeft: '10%', color: "#ffffff", fontWeight: 'normal' }}>Film Details</h5>
         <br/>
             <Row
                 justify="space-around"
                 className="text-center "
             >
-                <Col style={{width: "1000px"}} className="m-2">
-                    <div className="row">
+                <Col style={{width: "1200px", height: "400px"}} >
+                <div className="row">
                     <div className="col">
-                    {/* <h4>Details</h4> */}
+                    <UploadFile setImage={setImage} />
+                    {/* </div>
+                    <div className="col"> */}
+                        {image && (
+                            <img
+                                src={image}
+                                alt="dir"
+                                style={{ height: "350px", boxShadow: '1px 2px 9px #000000'}}
+                            />
+                        )}
+                    </div>
+                    <div className="col">
+                    <h4 style={{color: "#ffffff", fontWeight: 'normal', marginBottom: "25px" }}>Key Crew</h4>
                     <input
                         name="director"
                         style={{ 
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -134,7 +146,7 @@ const DetailsForm = () => {
                         name="producer"
                         style={{ 
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -149,7 +161,7 @@ const DetailsForm = () => {
                         name="writer"
                         style={{ 
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -160,11 +172,13 @@ const DetailsForm = () => {
                             setWriter(event.target.value);
                         }}
                     />
+                    
                     <input
                         name="cinematographer"
                         style={{ 
+                            marginTop: "20px",
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -179,7 +193,7 @@ const DetailsForm = () => {
                         name="Editor"
                         style={{ 
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -194,7 +208,7 @@ const DetailsForm = () => {
                         name="sound"
                         style={{ 
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -208,8 +222,9 @@ const DetailsForm = () => {
                     <input
                         name="productionCo"
                         style={{ 
+                            marginTop: "20px",
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -224,7 +239,7 @@ const DetailsForm = () => {
                         name="distributionCo"
                         style={{ 
                             height: "30px", 
-                            width: "300px", 
+                            width: "250px", 
                             borderRadius: "5px", 
                             marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
@@ -235,18 +250,107 @@ const DetailsForm = () => {
                             setDistributionCo(event.target.value);
                         }}
                     />
-                    <UploadFile setImage={setImage} />
                     </div>
-                    <div className="col">
-                        {image && (
-                            <img
-                                src={image}
-                                alt="dir"
-                                style={{ height: "300px", boxShadow: '1px 2px 9px #000000'}}
-                            />
-                        )}
+
+                    <div className="col ">
+                    <h4 style={{color: "#ffffff", fontWeight: 'normal', marginBottom: "25px"  }}>Starring</h4>
+                    <input
+                        name="leadActor1"
+                        style={{ 
+                            height: "30px", 
+                            width: "250px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Lead Actor Name:"
+                        onChange={(event) => {
+                            setLeadActor1(event.target.value);
+                        }}
+                    />
+                    <input
+                        name="leadActor2"
+                        style={{ 
+                            height: "30px", 
+                            width: "250px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Lead Actor Name:"
+                        onChange={(event) => {
+                            setLeadActor2(event.target.value);
+                        }}
+                    />
+                    <br/>
+                    <input
+                        name="supportingActor1"
+                        style={{ 
+                            marginTop: "20px",
+                            height: "30px", 
+                            width: "250px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Supporting Actor Name:"
+                        onChange={(event) => {
+                            setSupportingActor1(event.target.value);
+                        }}
+                    />
+                    <input
+                        name="supportingActor2"
+                        style={{ 
+                            height: "30px", 
+                            width: "250px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Supporting Actor Name:"
+                        onChange={(event) => {
+                            setSupportingActor2(event.target.value);
+                        }}
+                    />
+                    <br/>                     
+                    <input
+                        name="productionYear"
+                        style={{ 
+                            marginTop: "90px",
+                            height: "30px", 
+                            width: "200px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Production Year"
+                        onChange={(event) => {
+                            setProductionYear(event.target.value);
+                        }}
+                    />
+                     <input
+                        name="durationMin"
+                        style={{ 
+                            height: "30px", 
+                            width: "200px", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'center'
+                        }}
+                        placeholder="Duration Minutes"
+                        onChange={(event) => {
+                            setDurationMin(event.target.value);
+                        }}
+                    />
                     </div>
-                    </div>
+
+                </div>
                 </Col>
             </Row>
             <Row justify="space-around" className="text-center ">

@@ -31,7 +31,7 @@ const ProducerForm = () => {
             const producerList = await response.json();
 
             setProducerList(producerList);
-            window.location = "/epk";
+            // window.location = "/epk";
         }
     };
 

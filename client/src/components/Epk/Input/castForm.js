@@ -54,7 +54,7 @@ const CastForm = () => {
             const castList = await response.json();
 
             setCastList(castList);
-            window.location = "/epk";
+            // window.location = "/epk";
         }
     };
 

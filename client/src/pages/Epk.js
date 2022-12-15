@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import EpkCover from "../components/Epk/Present/cover";
+import Details from "../components/Epk/Present/details";
 import Logline from "../components/Epk/Present/logline";
 import Synopsis from "../components/Epk/Present/synopsis";
 import Uniqueness from "../components/Epk/Present/uniqueness";
@@ -9,6 +10,7 @@ import Director from "../components/Epk/Present/director";
 import Producer from "../components/Epk/Present/producer";
 import Cinematographer from "../components/Epk/Present/cinematographer";
 import Stills from "../components/Epk/Present/stills";
+import Review from "../components/Epk/Present/review";
 import { renderCloseIcon } from "antd/es/modal/PurePanel";
 
 function EPK() {
@@ -35,6 +37,26 @@ function EPK() {
       console.log(coverList1);
       setCoverList(coverList1);
     }
+
+        //Details
+        const [detailsList, setDetailsList] = useState(null); 
+        useEffect(() => {
+          getEpktDetails(id);
+        }, []);
+        async function getEpktDetails(id) {
+          const response = await fetch(
+            "http://localhost:8000/epk/EpkDetails/" + id,
+            {
+              method: "GET",
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            }
+          );
+          const detailsList1 = await response.json();
+          console.log(detailsList1);
+          setDetailsList(detailsList1);
+        }
 
   //Logline
   const [loglineList, setLoglineList] = useState(null);
@@ -195,11 +217,33 @@ function EPK() {
     console.log(stillsList1);
     setStillsList(stillsList1);
   }
+
+  //Review
+  const [reviewList, setReviewList] = useState(null);
+  useEffect(() => {
+    getEpktReview(id);
+  }, []);
+  async function getEpktReview(id) {
+    const response = await fetch(
+      "http://localhost:8000/epk/EpkReview/" + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const reviewList1 = await response.json();
+    console.log(reviewList1);
+    setReviewList(reviewList1);
+  }
+  
   return (
     <>
     <div className="container">
       < EpkCover />
       {/* {coverList && coverList.map((s) => <EpkCover coverFile={s} />)} */}
+      {detailsList && detailsList.map((s) => <Details detailsFile={s} />)}
       {loglineList && loglineList.map((s) => <Logline loglineFile={s} />)}
       {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}
       {uniquenessList && uniquenessList.map((s) => <Uniqueness uniquenessFile={s} />)}
@@ -208,6 +252,7 @@ function EPK() {
       {producerList && producerList.map((s) => <Producer producerFile={s} />)}
       {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
       {stillsList && stillsList.map((s) => <Stills stillsFile={s} />)}
+      {reviewList && reviewList.map((s) => <Review reviewFile={s} />)}
     </div>
     </>
     );

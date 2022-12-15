@@ -10,6 +10,9 @@ import Login from "./components/Auth/Registration/login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import Bookmark from "./pages/Bookmark";
 
+import DetailsForm from "./components/Epk/Input/detailsForm";
+import Details from "./components/Epk/Present/details";
+
 import CoverForm from "./components/Epk/Input/coverForm";
 import Cover from "./components/Epk/Present/cover";
 
@@ -37,6 +40,9 @@ import Cinematographer from "./components/Epk/Present/cinematographer";
 import StillsForm from "./components/Epk/Input/stillsForm";
 import Stills from "./components/Epk/Present/stills";
 
+import ReviewForm from "./components/Epk/Input/reviewForm";
+import Review from "./components/Epk/Present/review";
+
 import EPK from "./pages/Epk";
 
 import EPKDashboard from "./pages/EpkDashboard";
@@ -58,6 +64,9 @@ function App() {
 
           <Route path="coverForm" element={<CoverForm />} />
           <Route path="cover" element={<Cover />} />
+
+          <Route path="detailsForm" element={<DetailsForm />} />
+          <Route path="details" element={<Details />} />
 
           <Route path="logline" element={<Logline />} />
           <Route path="loglineForm" element={<LoglineForm />} />
@@ -82,6 +91,9 @@ function App() {
 
           <Route path="stills" element={<Stills />} />
           <Route path="stillsForm" element={<StillsForm />} />
+
+          <Route path="review" element={<Review />} />
+          <Route path="reviewForm" element={<ReviewForm />} />
 
           <Route path="epk" element={<EPK />} />
 

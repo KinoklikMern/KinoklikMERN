@@ -31,7 +31,7 @@ const DirectorForm = () => {
             const directorList = await response.json();
 
             setDirectorList(directorList);
-            window.location = "/epk";
+            // window.location = "/epk";
         }
     };
 
