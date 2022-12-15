@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import './Stills.css';
 import http from "../../../http-common";
@@ -44,16 +44,8 @@ const StillPreview = () => {
         
         //setStills(record[0].stills); 
         //console.log(stills.length);
-        stillData.still_img1_url=record[0].still_img1_url
-        stillData.still_img2_url=record[0].still_img2_url
-        stillData.still_img3_url=record[0].still_img3_url
-        stillData.still_img4_url=record[0].still_img4_url
-        stillData.still_img5_url=record[0].still_img5_url
-        stillData.still_img6_url=record[0].still_img6_url
-        stillData.still_img7_url=record[0].still_img7_url
-        stillData.still_img8_url=record[0].still_img8_url
+        //stillData.still_img1_url=record[0].still_img1_url
         
-          */
         http
         .get(`epk/${params.id.toString()}/stills`)
         .then((response) => {
@@ -75,14 +67,8 @@ const StillPreview = () => {
             return;
           }
           setStillData(record[0]); 
-        /*stillData.still_img1_url=record[0].still_img1_url
-        stillData.still_img2_url=record[0].still_img2_url
-        stillData.still_img3_url=record[0].still_img3_url
-        stillData.still_img4_url=record[0].still_img4_url
-        stillData.still_img5_url=record[0].still_img5_url
-        stillData.still_img6_url=record[0].still_img6_url
-        stillData.still_img7_url=record[0].still_img7_url
-        stillData.still_img8_url=record[0].still_img8_url*/
+        //stillData.still_img1_url=record[0].still_img1_url
+      
         
         }  ) 
             
@@ -140,6 +126,56 @@ const StillPreview = () => {
   }
 
 export default StillPreview
+*/
+
+import React, { useState } from "react";
+
+import "./Stills.css";
+
+function Stills(stillsFile) {
+  console.log("stillfile:" + stillsFile);
+  console.log("stillfile.stillfile:"+ stillsFile.stillsFile);
+  return (
+    <>
+
+    <div class = "container" > 
+
+    {  stillsFile.stillsFile.image1 || stillsFile.stillsFile.image2 || stillsFile.stillsFile.image3||
+     stillsFile.stillsFile.image4 || stillsFile.stillsFile.image5|| stillsFile.stillsFile.image6||
+     stillsFile.stillsFile.image7 || stillsFile.stillsFile.image8 ?      
+            <>  
+          <div class="still-section-title "></div>   
+          <div class ="still-container"   >
+          <div id="images-wrapper">
+            
+            {stillsFile.stillsFile.image1? 
+                <img src={stillsFile.stillsFile.image1}  class="img-fluid"></img>:<></>}
+            {stillsFile.stillsFile.image2? 
+                <img src={stillsFile.stillsFile.image2}  class="img-fluid"></img>:<></>}
+            {stillsFile.stillsFile.image3? 
+                <img src={stillsFile.stillsFile.image3}  class="img-fluid"></img>:<></>}
+            {stillsFile.stillsFile.image4?
+                <img src={stillsFile.stillsFile.image4}  class="img-fluid"></img>:<></>}
+            {stillsFile.stillsFile.image5? 
+                <img src={stillsFile.stillsFile.image5}  class="img-fluid"></img>:<></>}
+            {stillsFile.stillsFile.image6? 
+                <img src={stillsFile.stillsFile.image6}  class="img-fluid"></img>:<></>}
+            {stillsFile.stillsFile.image7? 
+                <img src={stillsFile.stillsFile.image7}  class="img-fluid"></img>:<></>}
+            {stillsFile.stillsFile.image8? 
+                <img src={stillsFile.stillsFile.image8}  class="img-fluid"></img>:<></>}
+         </div>
+       
+         <div class="still-section-title "></div>    
+        </div>
+               
+            </>
+            :<br/>}            
+   </div>  
+    </>
+ );
+}
+export default Stills;
 
 
 

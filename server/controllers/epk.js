@@ -41,7 +41,7 @@ export const updateEpk = async (req, res) => {
 
 
 
-
+/*
 
 // get uniques of epk by Id
 export const getEpkUniquesById = (req,res) =>{
@@ -123,3 +123,5 @@ epk.updateOne({ _id: ObjectId(req.params.id)}, {$set:{ still_img1_url:newstill1,
   res.status(200).json(epk);       
 });
 }
+*/
+

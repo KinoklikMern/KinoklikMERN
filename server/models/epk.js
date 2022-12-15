@@ -12,7 +12,7 @@ const epkSchema = mongoose.Schema({
       },
     },
   ],
-
+/*
   unique1_title:{
     type:String,
   },
@@ -56,6 +56,7 @@ const epkSchema = mongoose.Schema({
   still_img8_url:{
     type:String,
   }
+  */
   
 });
 

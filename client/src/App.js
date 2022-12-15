@@ -9,10 +9,14 @@ import RegistrationForm from "./components/Auth/Registration/registration";
 import Login from "./components/Auth/Registration/login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import Bookmark from "./pages/Bookmark";
+import UniquenessForm from "./components/Epk/Input/UniquenessForm";
+import Uniqueness from "./components/Epk/Present/Uniqueness";
+import StillsForm from "./components/Epk/Input/StillsForm";
+import Stills from "./components/Epk/Present/Stills";
+import EPK from "./pages/Epk";
+import UploadEpk from "./pages/UploadEpk";
 
-
-
-import EpkDashboard from "./pages/EpkDashboardPage";
+import EPKDashboard from "./pages/EpkDashboard";
 
 function App() {
   return (
@@ -30,7 +34,13 @@ function App() {
           <Route path="bookmark" element={<Bookmark />} />
      
       
-          <Route path="epk/:id/epkdashboard" element={<EpkDashboard/>} />
+          <Route path="uniqueness" element={<Uniqueness />} />
+          <Route path="uniquenessForm" element={<UniquenessForm />} />
+          <Route path="stills" element={<Stills />} />
+          <Route path="stillsForm" element={<StillsForm />} />
+          <Route path="epk" element={<EPK />} />
+          <Route path="uploadEpk" element={<UploadEpk />} />
+          <Route path="epkDashboard" element={<EPKDashboard />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect  } from "react";
+/*import React, { useState, useRef, useEffect  } from "react";
 import http from "../../../http-common";
 import { useParams, useNavigate } from "react-router";
 import UploadFile from "../../FileUpload";
@@ -319,4 +319,211 @@ function StillsForm() {
 )
 }
 
+export default StillsForm;
+*/
+
+
+
+import React, { useState, useEffect } from "react";
+//import UploadImage from "../../upload";
+import UploadFile from "../../FileUpload";
+import { Button, Form, Input, Col, Upload, Row } from "antd";
+import toast, { Toaster } from 'react-hot-toast';
+
+const StillsForm = () => {
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
+  const [image4, setImage4] = useState(null);
+  const [image5, setImage5] = useState(null);
+  const [image6, setImage6] = useState(null);
+  const [image7, setImage7] = useState(null);
+  const [image8, setImage8] = useState(null);
+
+  const [stillsList, setStillsList] = useState(null);
+  const epkID = 4;
+
+  const submit = () => {
+  
+    const stillsList1 = {
+       epk: epkID, image:image1 ,image:image2,image:image3,image:image4,image:image5,image:image6,image:image7,image:image8
+ 
+  };
+    
+    createEpkStills(stillsList1);
+
+    async function createEpkStills(stillsList1) {
+      const response = await fetch("http://localhost:8000/epk/EpkStills", {
+        method: "POST",
+        body: JSON.stringify({
+          stillsList: stillsList1,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const stillsList = await response.json();
+
+      setStillsList(stillsList);
+      // localStorage.setItem("epk", 1);
+      toast.success('Successfully saveed.')
+      window.location = "/epk";
+
+      /*  console.log(shortSynopsis);
+      console.log(mediumSynopsis);
+      console.log(longSynopsis);*/
+    }
+  };
+  
+
+ 
+  return (
+   
+    <>
+    <div><Toaster/></div>
+ <div class="card">
+   <div class="card-header">
+     <div class="row align-items-start">
+       <div class="col align-items-start">EPK Page Upload</div>
+       <div class="col align-items-center">View EPK Page</div>
+     </div>
+   </div>
+
+   <div class="card-body">
+     <h5 class="card-title">Stills</h5>
+     <h5 class=" text-center text-wrap  bg-white"  >Upload film stills here</h5>
+    
+     <form className="row ">      
+   
+           <div className="col-3">                
+             <UploadFile setImage={setImage1} />
+         
+               {image1 && (
+                 <img
+                   src={image1}
+                   alt="hey"
+                   style={{ height: "350px" }}
+                   class="img-fluid "
+                 /> )}
+              <br/>
+              
+                
+           </div>
+
+           <div className="col-3">              
+            <UploadFile setImage={setImage2} />
+             {image2 && (
+               <img
+                 src={image2}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               /> )}
+                 <br/>
+
+           </div>
+
+           <div className="col-3">
+            
+           <UploadFile setImage={setImage3} />
+             {image3 && (
+               <img
+                 src={image3}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               /> )}
+                  <br/>
+             
+           </div>
+
+
+           <div className="col-3">
+           <UploadFile setImage={setImage4} />
+             {image4 && (
+               <img
+                 src={image4}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               /> )}
+                  <br/>
+             
+           </div>
+
+
+           <div className="col-3">
+           
+           <UploadFile setImage={setImage5} />
+             {image5 && (
+               <img
+                 src={image5}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               /> )}
+                  <br/>
+             
+           </div>
+
+           <div className="col-3">
+           <UploadFile setImage={setImage6} />
+             {image6 && (
+               <img
+                 src={image6}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               /> )}
+                  <br/>
+             
+           </div>
+
+           <div className="col-3">
+           <UploadFile setImage={setImage7} />
+             {image7 && (
+               <img
+                 src={image7}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               /> )}
+                  <br/>
+             
+           </div>
+
+           <div className="col-3">
+           <UploadFile setImage={setImage8} />
+             {image8 && (
+               <img
+                 src={image8}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               /> )}
+                  <br/>
+             
+           </div>
+
+           
+             
+         
+           <Row justify="space-around" className="text-center ">
+        <div
+          style={{
+            height: "50px",
+            width: "120px",
+          }}
+        >
+          <Button type="primary" block onClick={submit} value="save">
+            save
+          </Button>
+        </div>
+      </Row>
+     </form>
+   </div>
+ </div>
+</>
+  );
+};
 export default StillsForm;

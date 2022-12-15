@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+/*import React, { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import UploadFile from "../../FileUpload";
 
@@ -243,3 +243,189 @@ function UniqueForm() {
 }
 
 export default UniqueForm;
+*/
+
+
+import React, { useState, useEffect } from "react";
+//import UploadImage from "../../upload";
+import UploadFile from "../../FileUpload";
+import { Button, Form, Input, Col, Upload, Row } from "antd";
+import toast, { Toaster } from 'react-hot-toast';
+
+const UniquenessForm = () => {
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  
+  const [title1, setTitle1] = useState(null);
+  const [title2, setTitle2] = useState(null);
+
+  const [description1, setDescription1] = useState(null);
+  const [description2, setDescription2] = useState(null);
+
+  const [uniquenessList, setUniquenessList] = useState(null);
+  const epkID = 4;
+
+  const submit = () => {
+  
+    const uniqueness = {
+       epk: epkID, text:title1,  text: description1,image:image1 , text:title2,  text: description2,image:image2
+    
+    };
+   
+    
+    createEpkUniqueness(uniqueness);
+
+    async function createEpkUniqueness(uniqueness) {
+      const response = await fetch("http://localhost:8000/epk/EpkUniqueness", {
+        method: "POST",
+        body: JSON.stringify({
+          uniquenessList: uniqueness,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const uniquenessList = await response.json();
+
+      setUniquenessList(uniquenessList);
+      // localStorage.setItem("epk", 1);
+      toast.success('Successfully saveed.')
+      window.location = "/epk";
+
+      /*  console.log(shortSynopsis);
+      console.log(mediumSynopsis);
+      console.log(longSynopsis);*/
+    }
+  };
+  const handleTitle1 = (event) => {
+    setTitle1(event.target.value);   
+  };
+  const handleTitle2 = (event) => {
+    setDescription2(event.target.value);   
+  };
+  const handleDescription1 = (event) => {
+    setTitle1(event.target.value);   
+  };
+  const handleDescription2 = (event) => {
+    setDescription2(event.target.value);   
+  };
+
+ 
+  return (
+       
+    <>
+    <div><Toaster/></div>
+   <div class="card">
+     <div class="card-header">
+       <div class="row align-items-start">
+         <div class="col align-items-start">EPK Page Upload</div>
+         <div class="col align-items-center">View EPK Page</div>
+         <div class="col align-items-end"> 
+              Tell the world what makes your film and production so special. This is where you sell the world(and the media) your film.Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?
+         </div>
+
+         </div>
+     </div>
+
+     <div class="card-body">
+       <h5 class="card-title">Uniqueness</h5>
+       <form className="row ">      
+     
+             <div className="col-6">
+             <input
+                   type="text"
+                   placeholder = "Title"
+                   className="form-control"        
+                  
+                   onChange={handleTitle1}
+                   name="unique1_title"                         
+                   />   
+             <br/> 
+
+              <textarea 
+                   class="form-control" 
+                   rows="3"
+                   placeholder = "Description"
+                 
+                
+                   onChange={handleDescription1}
+                   name="unique1_description"  
+                   />  
+             
+              <br/>   
+              <UploadFile setImage={setImage1} />
+              
+               {image1 && (
+                
+
+                 <img
+                   src={image1}
+                   alt="hey"
+                   style={{ height: "350px" }}
+                   class="img-fluid "
+                 />                 
+               )}
+                          
+             </div>
+             <div className="col-6">
+             <input
+                   type="text"
+                   placeholder = "Title"
+                   className="form-control"        
+                 
+                   onChange={handleTitle2}
+                   name="unique2_title"                         
+                   />   
+             <br/> 
+
+              <textarea 
+                   class="form-control" 
+                   rows="3"
+                   placeholder = "Description"
+                   
+                
+                   onChange={handleDescription2}
+                   name="unique2_description"  
+                   />  
+             
+              <br/> 
+              <UploadFile setImage={setImage2} />
+              
+               
+             {image2 && (
+               <img
+                 src={image2}
+                 alt="hey"
+                 style={{ height: "350px" }}
+                 class="img-fluid "
+               />
+             )}
+             <br/>
+             
+            
+               
+                
+             </div>
+            
+           
+             <Row justify="space-around" className="text-center ">
+        <div
+          style={{
+            height: "50px",
+            width: "120px",
+          }}
+        >
+          <Button type="primary" block onClick={submit} value="save">
+            save
+          </Button>
+        </div>
+      </Row>
+       </form>
+     </div>
+   </div>
+
+   </> 
+  );
+};
+export default UniquenessForm;
+

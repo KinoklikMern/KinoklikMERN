@@ -5,9 +5,11 @@ import { getEpk, createEpk, updateEpk } from "../controllers/epk.js";
 import { createEpkSynopsis } from "../controllers/epkSynopsis.js";
 
 // For unique section
-import { getEpkUniquesById , updateEpkUniquesById} from "../controllers/epk.js";
+//import { getEpkUniquesById , updateEpkUniquesById} from "../controllers/epk.js";
+import { createEpkUniqueness, getEpkUniqueness } from "../controllers/epkUniqueness.js";
 // For still section
-import { getEpkStillsById,updateEpkStillsById } from "../controllers/epk.js";
+//import { getEpkStillsById,updateEpkStillsById } from "../controllers/epk.js";
+import { createEpkStills, getEpkStills } from "../controllers/epkStills.js";
 
 
 const router = express.Router();
@@ -17,17 +19,20 @@ router.post("/", createEpk);
 router.put("/", updateEpk);
 router.post("/createEpkSynopsis", createEpkSynopsis);
 
-/* router.get("/", authUser, getEpk);
-router.post("/", authUser, createEpk);
-router.put("/", authUser, updateEpk); */
+
 
 
 //for uniques section
-router.get("/:id/uniques",getEpkUniquesById);
-router.put("/:id/uniques",updateEpkUniquesById);
+//router.get("/:id/uniques",getEpkUniquesById);
+//router.put("/:id/uniques",updateEpkUniquesById);
+router.post("/EpkUniqueness", createEpkUniqueness);
+router.get("/EpkUniqueness/:id", getEpkUniqueness);
 
 //for stills section
-router.get("/:id/stills",getEpkStillsById);
-router.put("/:id/stills",updateEpkStillsById);
+//router.get("/:id/stills",getEpkStillsById);
+//router.put("/:id/stills",updateEpkStillsById);
+router.post("/EpkStills", createEpkStills);
+router.get("/EpkStills/:id", getEpkStills);
+
 
 export default router;
