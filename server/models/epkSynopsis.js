@@ -7,15 +7,15 @@ const epkSynopsisSchema = mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
+
   },
   text: {
     type: String,
-    required: true,
+
   },
   type: {
     type: String,
-    required: true,
+
   },
 });
 

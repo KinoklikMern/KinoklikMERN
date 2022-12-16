@@ -1,6 +1,7 @@
 import Movie from "../models/movie.js";
 import Epk from "../models/epkCover.js";
-import { uploadFileToS3 } from "../s3.js";
+import { uploadImageFileToS3 } from "../s3.js";
+import { uploadMediaFileToS3 } from "../s3.js";
 
 export const getEpkCover = async (req, res) => {
   const id = req.body.id;

@@ -5,6 +5,9 @@ const epkCoverSchema = mongoose.Schema({
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: "movie",
   // },
+  epk: {
+    type: String,
+  },
   title: {
     type: String,
   },
