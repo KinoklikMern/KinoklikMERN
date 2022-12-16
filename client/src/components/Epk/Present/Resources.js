@@ -27,11 +27,11 @@ function Resources(resFile) {
           />
           <div class="col-6">
             <div class="col-12">
-              <p class="resourcesTitle">{resFile.resFile.title}</p>
-              <p class="resourcesTime">{resFile.resFile.time}</p>
-              <p class="resourcesDescription">
+              <h2 class="resourcesTitle">{resFile.resFile.title}</h2>
+              <h3 class="resourcesTime">{resFile.resFile.time}</h3>
+              <h4 class="resourcesDescription">
               {resFile.resFile.description}
-              </p>
+              </h4>
             </div>
             <div class="col-12 resourcesIcons">
               <a href="#" class="fa fa-facebook">
