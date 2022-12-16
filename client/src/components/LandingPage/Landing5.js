@@ -21,7 +21,7 @@ const Landing5 = () => {
                         Step 2.
                     </div>
                     <div className='stepRight'>
-                        Upload your film infoto the EPK Page.
+                        Upload your film info to the EPK Page.
                     </div>
 
                 </div>
