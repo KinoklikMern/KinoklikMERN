@@ -12,6 +12,7 @@ import CinematographerForm from "../components/Epk/Input/cinematographerForm";
 import StillsForm from "../components/Epk/Input/stillsForm";
 import ReviewForm from "../components/Epk/Input/reviewForm";
 import { renderCloseIcon } from "antd/es/modal/PurePanel";
+import ResourcesForm from "../components/Epk/Input/ResourcesForm";
 
 function EPKDashboard() {
 
@@ -38,6 +39,8 @@ function EPKDashboard() {
       <CinematographerForm />
       <br/>
       <StillsForm/>
+      <br/>
+      <ResourcesForm/>
       <br/>
       <ReviewForm/>
       <br/>

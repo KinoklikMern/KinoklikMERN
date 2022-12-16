@@ -1,5 +1,5 @@
 #home{
-    background-image: url("/images/home/joker.jpg");
+    background-image: url("../../public/images/home/joker.jpg");
     /* background: linear-gradient(90deg, rgb(0,101,219) 50%, rgba(0, 212, 255, 1) 100%); */
     /* min-height: 600px; */
     background-size:cover;

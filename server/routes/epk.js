@@ -11,6 +11,7 @@ import { createEpkProducer, getEpkProducer } from "../controllers/epkProducer.js
 import { createEpkCinematographer, getEpkCinematographer } from "../controllers/epkCinematographer.js";
 import { createEpkStills, getEpkStills } from "../controllers/epkStills.js";
 import { createEpkReview, getEpkReview } from "../controllers/epkReview.js";
+import { createEpkResources, getEpkResources } from "../controllers/epkResource.js";
 
 const router = express.Router();
 
@@ -54,5 +55,8 @@ router.get("/EpkStills/:id", getEpkStills);
 
 router.post("/EpkReview", createEpkReview);
 router.get("/EpkReview/:id", getEpkReview);
+
+router.post("/epkResources", createEpkResources);
+router.get("/epkResources/:id", getEpkResources);
 
 export default router;

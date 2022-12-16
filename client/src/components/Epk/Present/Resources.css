@@ -1,0 +1,35 @@
+.resourcesCard{
+    background-color: #D2CCD6;
+    width: auto;
+    display: inline-block; 
+    padding: 5%;
+    margin: 5%;
+    border-radius: 25px;
+}
+
+.resourcesCard:nth-child(4n+3), .list:nth-child(4n+4){
+  display: inline-block;
+  width: 50px;
+}
+
+.resourcesImg{
+
+  border-radius: 40px;
+}
+
+.resourcesTitle{
+  text-align: center;
+  font-weight: bold;
+}
+
+.resourcesTime{
+  text-align: center;
+}
+
+.resourcesDescription{
+  text-align: center;
+}
+
+.resourcesIcons{
+  text-align: center;
+}

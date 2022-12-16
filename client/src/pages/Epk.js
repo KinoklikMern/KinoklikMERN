@@ -11,6 +11,7 @@ import Producer from "../components/Epk/Present/producer";
 import Cinematographer from "../components/Epk/Present/cinematographer";
 import Stills from "../components/Epk/Present/stills";
 import Review from "../components/Epk/Present/review";
+import Resources from "../components/Epk/Present/Resources";
 import { renderCloseIcon } from "antd/es/modal/PurePanel";
 
 function EPK() {
@@ -238,6 +239,32 @@ function EPK() {
     setReviewList(reviewList1);
   }
   
+  //Resources
+  const [resourcesList, setResourcesList] = useState(null);
+  useEffect(() => {
+    getEpkResources(id);
+  }, []);
+  async function getEpkResources(id) {
+    const response = await fetch(
+      "http://localhost:8000/epk/EpkResources/" + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const resourcesList1 = await response.json();
+
+    console.log(resourcesList1);
+    setResourcesList(resourcesList1);
+
+    /*  console.log(shortSynopsis);
+      console.log(mediumSynopsis);
+      console.log(longSynopsis);*/
+  }
+
+
   return (
     <>
     <div className="container">
@@ -252,7 +279,9 @@ function EPK() {
       {producerList && producerList.map((s) => <Producer producerFile={s} />)}
       {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
       {stillsList && stillsList.map((s) => <Stills stillsFile={s} />)}
+      {resourcesList && resourcesList.map((s) => <Resources resFile={s} />)}
       {reviewList && reviewList.map((s) => <Review reviewFile={s} />)}
+
     </div>
     </>
     );

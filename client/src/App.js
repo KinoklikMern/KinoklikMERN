@@ -43,6 +43,10 @@ import Stills from "./components/Epk/Present/stills";
 import ReviewForm from "./components/Epk/Input/reviewForm";
 import Review from "./components/Epk/Present/review";
 
+import Resources from "./components/Epk/Present/Resources";
+import Trailer from "./components/Epk/Present/Trailer";
+import ResourcesForm from "./components/Epk/Input/ResourcesForm";
+
 import EPK from "./pages/Epk";
 
 import EPKDashboard from "./pages/EpkDashboard";
@@ -94,6 +98,9 @@ function App() {
 
           <Route path="review" element={<Review />} />
           <Route path="reviewForm" element={<ReviewForm />} />
+
+          <Route path="resourcesForm" element={<ResourcesForm/>} />
+          <Route path="resources" element={<Resources/>} />
 
           <Route path="epk" element={<EPK />} />
 
