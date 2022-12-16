@@ -21,7 +21,7 @@ const HomeHead = () => {
                     <FontAwesomeIcon icon={faShareNodes} />
                 </div>
                 <div className="menu-icon1">
-                    <FontAwesomeIcon icon={faBars} />
+                <Link to="/filmMakerDashboard"><FontAwesomeIcon icon={faBars} /></Link>
                     <FontAwesomeIcon icon={faWindowRestore} />
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                     <FontAwesomeIcon icon={faFilm} />
