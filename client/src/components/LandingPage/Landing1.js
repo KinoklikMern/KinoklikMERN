@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import img from '../../images/landing.png'
@@ -13,7 +14,9 @@ const Landing1 = () => {
                 <div className='landing1Button'>
                     <button className='landing1Signin'>SIGN IN</button>
                     <button className='landing1Signup'>SIGN UP</button>
-                    <button className='landing1FilmEPK'>UPLOAD FILM EPK</button>
+                    <button className='landing1FilmEPK'><Link class="landing1FilmEPK" to="/uploadEpk">
+                    UPLOAD EPK
+                  </Link></button>
                 </div>
                 <div className='leftColumn'>
                     <h2 className='landing1Title'>Promote your film to the world, for free</h2>
