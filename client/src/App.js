@@ -46,10 +46,20 @@ import Resources from "./components/Epk/Present/Resources";
 import Trailer from "./components/Epk/Present/Trailer";
 import ResourcesForm from "./components/Epk/Input/ResourcesForm";
 import EPK from "./pages/Epk";
-import ResourcesForm from "./components/Epk/Input/ResourcesForm";
+import CastForm from "./components/Epk/Input/castForm";
+import Cast from "./components/Epk/Present/cast";
+
+import DirectorForm from "./components/Epk/Input/directorForm";
+import Director from "./components/Epk/Present/director";
+
+import ProducerForm from "./components/Epk/Input/producerForm";
+import Producer from "./components/Epk/Present/producer";
+
+import CinematographerForm from "./components/Epk/Input/cinematographerForm";
+import Cinematographer from "./components/Epk/Present/cinematographer";
 import TrailerForm from "./components/Epk/Input/TrailerForm";
-import Resources from "./components/Epk/Present/Resources";
-import Trailer from "./components/Epk/Present/Trailer";
+
+
 
 const theme = createTheme({
   palette: {
@@ -98,7 +108,6 @@ function App() {
 
           <Route path="producer" element={<Producer />} />
           <Route path="producerForm" element={<ProducerForm />} />
-
           <Route path="cinematographer" element={<Cinematographer />} />
           <Route path="cinematographerForm" element={<CinematographerForm />} />
 
