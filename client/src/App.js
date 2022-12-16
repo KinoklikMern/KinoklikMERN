@@ -7,6 +7,12 @@ import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import Login from "./components/Auth/Registration/login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import FilmMakerSelectedFilm from "./pages/FlimMaker/filmMakerSelectedMovie";
+import FilmMakerDashboardSecurity from "./pages/FlimMaker/filmMakerDashboardSecurity";
+import FilmMakerDashboardSecurityCompany from "./pages/FlimMaker/filmMakerDashboardSecurityCompany";
+import FilmMakerDashboardSecurityPassword from "./pages/FlimMaker/filmMakerDashboardSecurityPassword";
+import FilmMakerDashboardSecurityAccount from "./pages/FlimMaker/filmMakerDashboardSecurityAccount";
+import FilmMakerDashboardSecurityProfile from "./pages/FlimMaker/filmMakerDashboardSecurityProfile";
 import Bookmark from "./pages/Bookmark";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
@@ -48,6 +54,13 @@ function App() {
           <Route path="registeration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+          <Route path="filmMakerSelectedMovie" element={<FilmMakerSelectedFilm />} />
+          <Route path="filmMakerDashboardSecurity" element={<FilmMakerDashboardSecurity />} />
+          <Route path="filmMakerDashboardSecurityCompany" element={<FilmMakerDashboardSecurityCompany />} />
+          <Route path="filmMakerDashboardSecurityPassword" element={<FilmMakerDashboardSecurityPassword />} />
+          <Route path="filmMakerDashboardSecurityAccount" element={<FilmMakerDashboardSecurityAccount />} />
+          <Route path="filmMakerDashboardSecurityProfile" element={<FilmMakerDashboardSecurityProfile />} />
           <Route path="bookmark" element={<Bookmark />} />
           <Route path="epkCover" element={<EpkCoverForm />} />
           <Route path="epkCovershow" element={<EpkCover />} />

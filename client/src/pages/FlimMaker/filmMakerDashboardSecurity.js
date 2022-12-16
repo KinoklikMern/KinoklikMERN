@@ -24,13 +24,11 @@ import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './filmMakerDashboard.scss'
-import movie6 from '../../images/movies/movie6.jpg';
-import movie2 from '../../images/movies/movie2.jpeg';
-import movie5 from '../../images/movies/movie5.jpg';
+
 
 export default function Filmmaker() {
-  return (
-    
+    return (
+
 <div class="filmmakerdash-container container-fluid">
   <div class="sidebar-container"> 
     <div class="sidebar-left">
@@ -55,7 +53,7 @@ export default function Filmmaker() {
           <li class="nav-item" role="presentation">
             <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#inbox" role="tab" >
             <div class="sidebarnav-icon side-button">
-            <Link to="/filmMakerDashboard" class="links"><FontAwesomeIcon icon={faHome}/></Link>   
+            <Link to="/filmMakerDashboard" class="links"><FontAwesomeIcon icon={faHome}/></Link>    
             </div>
             </div>
           </li>
@@ -86,9 +84,7 @@ export default function Filmmaker() {
 
           <li class="nav-link" role="tab" data-li="UserProfile">
           <div class="sidebarnav-icon side-button">
-            
-            <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
-            
+          <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
             </div>
           </li>
         </ul>
@@ -99,71 +95,42 @@ export default function Filmmaker() {
     <article class="tab-pane fade show active" role="tabpanel" aria-labelledby="llanfairpwllgwyngyll-left-tab" id="dashboard">
 <div class=" sidebar-rightcontainer">
     <div class="item Dashboard">
-    <h1>Filmmaker Dashboard</h1>
+    
         <div class="row row-cols-1 row-cols-md-3 g-4">
             
+        <ul id="settingsbar">
+          <li><Link to="/filmMakerDashboardSecurityProfile" class="security-links">Profile</Link></li>
+          <li><Link to="/filmMakerDashboardSecurityCompany" class="security-links">Company</Link></li>
+          <li><Link to="/filmMakerDashboardSecurityPassword" class="security-links">Password</Link></li>
+          <li><Link to="/filmMakerDashboardSecurityAccount" class="security-links">Account</Link></li>
+        </ul>
+
+        
             
-            <div class="col">
-            <Link to="/filmMakerSelectedMovie" class="links">
-              
-              <div class="card movie-card">
-              
-              <img src={movie6} alt="movie 6"/>         
-                <div class="card-body">
-                  
-                <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  </div>
-                  
-                  <div class="d-flex justify-content-between align-items-center pb-1">
-                    
-                    
-                    <FontAwesomeIcon icon={faDollarSign} />
-                    <FontAwesomeIcon icon={faStar} />  
-                    <FontAwesomeIcon icon={faBookmark} /> 
-                    <FontAwesomeIcon icon={faShareNodes} /> 
-                    
-                    
-                  </div>
-                </div>
-              </div></Link>
-            </div>
             
-            <div class="col">
-              <div class="card movie-card">
-              <img src={movie2} alt="movie 2"/>
-                <div class="card-body">
-                  
-
-
-                <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                </div>
-                  
-                  
-                <div class="d-flex justify-content-between align-items-center pb-1">
-                    
-                    <FontAwesomeIcon icon={faDollarSign} />
-                    <FontAwesomeIcon icon={faStar} />  
-                    <FontAwesomeIcon icon={faBookmark} /> 
-                    <FontAwesomeIcon icon={faShareNodes} /> 
-                    
-
-                  </div>
-                </div>
-              </div>
-            </div>
+            
             
             
 
             
           </div>
+          <div class="profile-inputs">
+            
+            <input type="text" id="" name="" placeholder="First Name"></input>
+            <input type="text" id="" name="" placeholder="Last Name"></input>
+            <input type="text" id="" name="" placeholder="Email"></input>
+            <input type="text" id="" name="" placeholder="Phone"></input>
+            <input type="text" id="" name="" placeholder="City"></input>
+            <input type="text" id="" name="" placeholder="Province"></input>
+            <input type="text" id="" name="" placeholder="Country"></input>
+            
+          </div>
+          <div class="side-id-2">
+            <h4>Upload</h4>
+            <FontAwesomeIcon icon={faUser}/> 
+          </div>
+          
+          
           <div class="side-id">
             <FontAwesomeIcon icon={faUser}/> 
             </div>
@@ -172,13 +139,14 @@ export default function Filmmaker() {
         
     </div>
 
-    
 </article>
 
 
-  
     </div>
-  </div>
+
+
+
+    </div>
 </div>
-  );
+    );
 }

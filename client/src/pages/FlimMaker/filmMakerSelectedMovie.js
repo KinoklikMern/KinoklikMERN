@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -21,16 +20,14 @@ import { faImage } from '@fortawesome/free-solid-svg-icons'
 import { faFilm } from '@fortawesome/free-solid-svg-icons'
 import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
-import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './filmMakerDashboard.scss'
 import movie6 from '../../images/movies/movie6.jpg';
-import movie2 from '../../images/movies/movie2.jpeg';
-import movie5 from '../../images/movies/movie5.jpg';
+import { Link, NavLink } from 'react-router-dom';
+
 
 export default function Filmmaker() {
-  return (
-    
+    return (
 <div class="filmmakerdash-container container-fluid">
   <div class="sidebar-container"> 
     <div class="sidebar-left">
@@ -55,7 +52,7 @@ export default function Filmmaker() {
           <li class="nav-item" role="presentation">
             <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#inbox" role="tab" >
             <div class="sidebarnav-icon side-button">
-            <Link to="/filmMakerDashboard" class="links"><FontAwesomeIcon icon={faHome}/></Link>   
+            <Link to="/filmMakerDashboard" class="links"><FontAwesomeIcon icon={faHome}/></Link>    
             </div>
             </div>
           </li>
@@ -86,9 +83,7 @@ export default function Filmmaker() {
 
           <li class="nav-link" role="tab" data-li="UserProfile">
           <div class="sidebarnav-icon side-button">
-            
-            <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
-            
+          <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
             </div>
           </li>
         </ul>
@@ -99,67 +94,73 @@ export default function Filmmaker() {
     <article class="tab-pane fade show active" role="tabpanel" aria-labelledby="llanfairpwllgwyngyll-left-tab" id="dashboard">
 <div class=" sidebar-rightcontainer">
     <div class="item Dashboard">
-    <h1>Filmmaker Dashboard</h1>
+    
         <div class="row row-cols-1 row-cols-md-3 g-4">
             
             
             <div class="col">
-            <Link to="/filmMakerSelectedMovie" class="links">
-              
-              <div class="card movie-card">
-              
-              <img src={movie6} alt="movie 6"/>         
-                <div class="card-body">
+              <div class="card movie-card-selected">
+              <img src={movie6} alt="movie 6"/>              
+                <div class="card-body-selected">
                   
-                <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  </div>
                   
-                  <div class="d-flex justify-content-between align-items-center pb-1">
+                  
                     
-                    
-                    <FontAwesomeIcon icon={faDollarSign} />
-                    <FontAwesomeIcon icon={faStar} />  
-                    <FontAwesomeIcon icon={faBookmark} /> 
-                    <FontAwesomeIcon icon={faShareNodes} /> 
-                    
-                    
-                  </div>
+                  
                 </div>
-              </div></Link>
-            </div>
-            
-            <div class="col">
-              <div class="card movie-card">
-              <img src={movie2} alt="movie 2"/>
-                <div class="card-body">
+                
                   
-
-
-                <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                </div>
-                  
-                  
-                <div class="d-flex justify-content-between align-items-center pb-1">
-                    
-                    <FontAwesomeIcon icon={faDollarSign} />
-                    <FontAwesomeIcon icon={faStar} />  
-                    <FontAwesomeIcon icon={faBookmark} /> 
-                    <FontAwesomeIcon icon={faShareNodes} /> 
-                    
-
-                  </div>
-                </div>
               </div>
+                <div class="vertical-icons">  
+                   <ul> 
+                    <li><FontAwesomeIcon icon={faDollarSign} /></li>
+                    <li><FontAwesomeIcon icon={faStar} /></li>
+                    <li><FontAwesomeIcon icon={faBookmark} /></li>
+                    <li><FontAwesomeIcon icon={faShareNodes} /></li>
+                    </ul>
+                </div>
+
+                <div class="vertical-numbers">  
+                   <ul> 
+                    <li>200</li>
+                    <li>200</li>
+                    <li>200</li>
+                    <li>200</li>
+                    </ul>
+                </div>
+            
+              
+
             </div>
             
+            
+              <div class="side-info">
+                
+                <FontAwesomeIcon icon={faImage}/>
+                <br/>
+                <FontAwesomeIcon icon={faFilm}/>
+                <h3>Alberto Tihan - Distributor</h3>
+                <h3>alberto@tihanfilms.com</h3>
+                <h3>www.tihanfilms.com</h3>
+
+                <FontAwesomeIcon icon={faImage}/>
+                <br/>
+                <FontAwesomeIcon icon={faPeopleGroup}/>
+                <h3>Shadia Ali - Sales Agent</h3>
+                <h3>info@alifilms.com</h3>
+                <h3>www.AliFilms.com</h3>
+
+                <FontAwesomeIcon icon={faImage}/>
+                <br/>
+                <FontAwesomeIcon icon={faCrown}/>
+                <h3>Elisa Atristan - Film Festival</h3>
+                <h3>Elisa.Atristan@tiff.net</h3>
+                <h3>www.tiff.net</h3>
+
+              </div>
+
+              
+          
             
 
             
@@ -176,9 +177,12 @@ export default function Filmmaker() {
 </article>
 
 
-  
     </div>
-  </div>
+
+
+
+    </div>
 </div>
-  );
+
+    );
 }
