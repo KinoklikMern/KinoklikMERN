@@ -58,8 +58,7 @@ import Producer from "./components/Epk/Present/producer";
 import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
 import TrailerForm from "./components/Epk/Input/TrailerForm";
-
-
+import EpkDashboard from "./pages/EpkDashboard";
 
 const theme = createTheme({
   palette: {
@@ -97,7 +96,7 @@ function App() {
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
 
-          <Route path="uniqueness" element={<Uniqueness/>} />
+          <Route path="uniqueness" element={<Uniqueness />} />
           <Route path="uniquenessForm" element={<UniquenessForm />} />
 
           <Route path="cast" element={<Cast />} />
@@ -117,15 +116,15 @@ function App() {
           <Route path="review" element={<Review />} />
           <Route path="reviewForm" element={<ReviewForm />} />
 
-          <Route path="resourcesForm" element={<ResourcesForm/>} />
-          <Route path="resources" element={<Resources/>} />
+          <Route path="resourcesForm" element={<ResourcesForm />} />
+          <Route path="resources" element={<Resources />} />
 
           <Route path="epk" element={<EPK />} />
-          <Route path="uploadEpk" element={<UploadEpk />} />
-          <Route path="trailerForm" element={<TrailerForm/>} />
-          <Route path="resourcesForm" element={<ResourcesForm/>} />
-          <Route path="trailer" element={<Trailer/>} />
-          <Route path="resources" element={<Resources/>} />
+          <Route path="uploadEpk" element={<EpkDashboard />} />
+          <Route path="trailerForm" element={<TrailerForm />} />
+          <Route path="resourcesForm" element={<ResourcesForm />} />
+          <Route path="trailer" element={<Trailer />} />
+          <Route path="resources" element={<Resources />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -59,20 +59,22 @@ function Header() {
                 </span>
               </button>
             </li>
-            <li className="nav-item">
-              <button className=" anim-whatsnew whats-new">
-                <span className="circle" aria-hidden="true">
-                  <span className="whatsnew-icon arrow"></span>
-                </span>
+            {!user && (
+              <li className="nav-item">
+                <button className=" anim-whatsnew whats-new">
+                  <span className="circle" aria-hidden="true">
+                    <span className="whatsnew-icon arrow"></span>
+                  </span>
 
-                <span>
-                  <Link className="whatsnew-text" to="/my_list">
-                    My list
-                  </Link>
-                </span>
-              </button>
-            </li>
-            <li className="nav-item">
+                  <span>
+                    <Link className="whatsnew-text" to="/my_list">
+                      My list
+                    </Link>
+                  </span>
+                </button>
+              </li>
+            )}
+            {/*         <li className="nav-item">
               <button className=" anim-whatsnew whats-new">
                 <span className="circle" aria-hidden="true">
                   <span className="whatsnew-icon arrow"></span>
@@ -83,21 +85,21 @@ function Header() {
                   </Link>
                 </span>
               </button>
-            </li>
-
-            <li className="nav-item">
-              <button className=" anim-whatsnew whats-new">
-                <span className="circle" aria-hidden="true">
-                  <span className="whatsnew-icon arrow"></span>
-                </span>
-                <span>
-                  <span className="whatsnew-text">
-                    <Register />
+            </li> */}
+            {!user && (
+              <li className="nav-item">
+                <button className=" anim-whatsnew whats-new">
+                  <span className="circle" aria-hidden="true">
+                    <span className="whatsnew-icon arrow"></span>
                   </span>
-                </span>
-              </button>
-            </li>
-
+                  <span>
+                    <span className="whatsnew-text">
+                      <Register />
+                    </span>
+                  </span>
+                </button>
+              </li>
+            )}
             <li className="nav-item">
               {!user && (
                 <button className=" anim-whatsnew whats-new">
@@ -124,7 +126,6 @@ function Header() {
                 </button>
               )}
             </li>
-
             <li className="search__wrapper">
               <input
                 type="text"
