@@ -1,11 +1,15 @@
+
+
 .footer {
     background: #4a3759;
     width: 100% !important;
     display: flex;
     color: rgba(0, 0, 0, 0.4);
     overflow: hidden;
-    position: absolute;
-    bottom: 0px;
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
   }
   
   .footer-links {
