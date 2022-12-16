@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 //import UploadImage from "../../upload";
-import DragUpload from "../../dragUpload";
-import UploadImage from "../../uploadImage";
-import Upload1 from "../../Upload1";
 import UploadFile from "../../FileUpload";
 import { Button, Form, Input, Col, Upload, Row } from "antd";
-import AllSynopsis from "../Present/allSynopsis";
+import { Link } from "react-router-dom";
 
 const SynopsisForm = () => {
   const [image1, setImage1] = useState(null);
@@ -15,7 +12,7 @@ const SynopsisForm = () => {
   const [medium, setMedium] = useState(null);
   const [long, setslong] = useState(null);
   const [synopsisList, setSynopsisList] = useState(null);
-  const epkID = 4;
+  const epkID = 5;
   const submit = () => {
     /*     const shortSynopsis = {
       epk: epkID,
@@ -79,91 +76,112 @@ const SynopsisForm = () => {
 
   return (
     <>
-      {" "}
-      <h1 className="text-center text-primary">synopsis</h1>
-      <br />
+        <div style={{boxShadow: '1px 2px 9px #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+                backgroundColor:"white"}}>
+        <div className="row">
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
+              <img
+                src={require("../../../images/logo.png")}
+                alt="Logo"
+                className="navbar-logo"
+              />
+            </Link>
+          </div>
+          <div className="col-3  m-3">
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Dashboard</h2>
+          </div>
+          <div className="col-2 m-3">
+          <Link className="col align-items-end" to="/Epk"  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+                View EPK Page
+              </Link>
+          </div>
+          <div className="col">            
+          </div>
+        </div>
+        <h5 className="card-title " style={{marginLeft: '10%', color: "#ffffff", fontWeight: 'normal' }}>Synopsis</h5>
+
       <Row
         justify="space-around"
         className="text-center "
         /*  style={{height: "70vh" }}*/
       >
-        <Col span={6} className="m-2 bg-light">
-          <h4>short synopsis</h4>
+        <Col style={{width: "1300px", height: "500px"}} className="m-2">
+        <div className="row">
+          <div className="col">
+          {/* <h4>Short Synopsis</h4> */}
           <textarea
             name="short"
-            style={{ height: "200px", width: "300px" }}
-            placeholder="max 30 words"
+            style={{ 
+              height: "200px", 
+              width: "300px", 
+              borderRadius: "5px", 
+              marginBottom: "5px",
+              boxShadow: '1px 2px 9px #311465',
+              textAlign: 'center'}}
+              placeholder="Short Synopsis, max 30 words"
             onChange={handleShort}
           />
           <UploadFile setImage={setImage1} />
-          <div
-            style={{
-              height: "320px",
-              width: "300px",
-              border: "solid 1px",
-              borderColor: "blue",
-            }}
-          >
+
             {image1 && (
               <img
                 src={image1}
                 alt="hey"
-                style={{ height: "320px", width: "300px" }}
+                style={{ height: "200px", boxShadow: '1px 2px 9px #000000'}}
               />
             )}
           </div>
-        </Col>
-        <Col span={6} className="m-2 bg-light">
-          <h4>medium synopsis</h4>
+
+          <div className="col">
+          {/* <h4>Medium Synopsis</h4> */}
           <textarea
             name="medium"
-            style={{ height: "200px", width: "300px" }}
-            placeholder="max 70 words"
+            style={{ 
+              height: "200px", 
+              width: "300px", 
+              borderRadius: "5px", 
+              marginBottom: "5px",
+              boxShadow: '1px 2px 9px #311465',
+              textAlign: 'center'}}
+            placeholder="Medium Synopsis, max 70 words"
             onChange={handleMedium}
           ></textarea>
           <UploadFile setImage={setImage2} />
-          <div
-            style={{
-              height: "320px",
-              width: "300px",
-              border: "solid 1px",
-              borderColor: "blue",
-            }}
-          >
+
             {image2 && (
               <img
                 src={image2}
                 alt="hey"
-                style={{ height: "320px", width: "300px" }}
+                style={{ height: "200px", boxShadow: '1px 2px 9px #000000'}}
               />
             )}
           </div>
-        </Col>
-        <Col span={6} className="m-2 bg-light">
-          <h4>long synopsis</h4>
+          <div className="col">
+          {/* <h4>Long Synopsis</h4> */}
           <textarea
             name="long"
-            style={{ height: "200px", width: "300px" }}
-            placeholder="max 120 words"
+            style={{ 
+              height: "200px", 
+              width: "300px", 
+              borderRadius: "5px", 
+              marginBottom: "5px",
+              boxShadow: '1px 2px 9px #311465',
+              textAlign: 'center'}}
+            placeholder="Long Synopsis, max 120 words"
             onChange={handleLong}
           ></textarea>
           <UploadFile setImage={setImage3} />
-          <div
-            style={{
-              height: "320px",
-              width: "300px",
-              border: "solid 1px",
-              borderColor: "blue",
-            }}
-          >
+
             {image3 && (
               <img
                 src={image3}
                 alt="hey"
-                style={{ height: "320px", width: "300px" }}
-              />
+                style={{ height: "200px", boxShadow: '1px 2px 9px #000000'}}
+                />
             )}
           </div>
+        </div>
         </Col>
       </Row>
       <Row justify="space-around" className="text-center ">
@@ -171,13 +189,15 @@ const SynopsisForm = () => {
           style={{
             height: "50px",
             width: "120px",
+            marginLeft: "80%"
           }}
         >
-          <Button type="primary" block onClick={submit} value="save">
-            save
+          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={submit} value="save">
+            Save
           </Button>
         </div>
       </Row>
+      </div>
     </>
   );
 };
