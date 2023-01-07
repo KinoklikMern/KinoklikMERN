@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 import movieRoutes from "./routes/movies.js";
 import userRoutes from "./routes/users.js";
@@ -19,8 +21,7 @@ app.use("/epk", epkRoutes);
 
 app.listen(8000, () => console.log(`App Running on PORT ${PORT}`));
 
-const CONNECTION_URL =
-  "mongodb+srv://kinoklik:KinoKlik99!!@kinoklik.sk2izbk.mongodb.net/?retryWrites=true&w=majority";
+const CONNECTION_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 8000;
 
 mongoose.connect(
