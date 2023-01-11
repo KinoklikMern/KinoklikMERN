@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../models/user.js";
 import { validateEmail, validateLength } from "../helpers/validation.js";
 import { generateToken } from "../helpers/tokens.js";
 import jwt from "jsonwebtoken";

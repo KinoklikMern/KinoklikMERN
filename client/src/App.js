@@ -66,6 +66,8 @@ import Cinematographer from "./components/Epk/Present/cinematographer";
 import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
 
+import FilmInfoForm from "./components/Forms/FilmInfoForm";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -75,19 +77,21 @@ const theme = createTheme({
 });
 
 function App() {
-  return (
-    <ThemeProvider theme={theme}>
+  return (  
+    
+   <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
-          <Route path="registeration" element={<RegistrationForm />} />
+          <Route path="registration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="filmMakerSelectedMovie" element={<FilmMakerSelectedFilm />} />
+          <Route path="film" element={<FilmInfoForm />}/>
           <Route path="filmMakerDashboardSecurity" element={<FilmMakerDashboardSecurity />} />
           <Route path="filmMakerDashboardSecurityCompany" element={<FilmMakerDashboardSecurityCompany />} />
           <Route path="filmMakerDashboardSecurityPassword" element={<FilmMakerDashboardSecurityPassword />} />
@@ -141,7 +145,7 @@ function App() {
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </ThemeProvider>
+  </ThemeProvider> 
   );
 }
 

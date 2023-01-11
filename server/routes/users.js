@@ -1,5 +1,5 @@
 import express from "express";
-import { authUser } from "../middlwares/auth.js";
+//import { authUser } from "../middlwares/auth.js";
 
 import {
   register,
@@ -15,5 +15,5 @@ router.post("/register", register);
 router.post("/login", login);
 router.get("/login", logout);
 router.post("/getuser", getUser);
-router.get("/getProfile/:email", authUser, getProfile);
+//router.get("/getProfile/:email", authUser, getProfile);
 export default router;
