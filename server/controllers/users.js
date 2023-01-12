@@ -72,12 +72,14 @@ export const login = async (request, response) => {
 
   try {
     if (email && password) {
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({
+        $or: [{ email: email }, { username: email }],
+      });
 
       if (!user) {
         return response.status(400).json({
           message:
-            "The email address you entered is not connected to an account",
+            "The username/email address you entered is not connected to an account",
         });
       } else {
         const isSame = await bcrypt.compare(password, user.password);

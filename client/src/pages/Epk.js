@@ -26,7 +26,7 @@ function EPK() {
     }, []);
     async function getEpktCover(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkCover/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCover/` + id,
         {
           method: "GET",
           headers: {
@@ -46,7 +46,7 @@ function EPK() {
         }, []);
         async function getEpktDetails(id) {
           const response = await fetch(
-            "http://localhost:8000/epk/EpkDetails/" + id,
+            `${process.env.REACT_APP_BACKEND_URL}/epk/EpkDetails/` + id,
             {
               method: "GET",
               headers: {
@@ -66,7 +66,7 @@ function EPK() {
   }, []);
   async function getEpktLogline(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkLogline/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkLogline/` + id,
       {
         method: "GET",
         headers: {
@@ -86,7 +86,7 @@ function EPK() {
   }, []);
   async function getEpkSynopsis(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkSynopsis/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkSynopsis/` + id,
       {
         method: "GET",
         headers: {
@@ -106,7 +106,7 @@ function EPK() {
     }, []);
     async function getEpkUniqueness(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkUniqueness/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkUniqueness/` + id,
         {
           method: "GET",
           headers: {
@@ -126,7 +126,7 @@ function EPK() {
     }, []);
     async function getEpktCast(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkCast/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCast/` + id,
         {
           method: "GET",
           headers: {
@@ -146,7 +146,7 @@ function EPK() {
   }, []);
   async function getEpktDirector(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkDirector/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkDirector/` + id,
       {
         method: "GET",
         headers: {
@@ -166,7 +166,7 @@ function EPK() {
     }, []);
     async function getEpktProducer(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkProducer/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkProducer/` + id,
         {
           method: "GET",
           headers: {
@@ -186,7 +186,7 @@ function EPK() {
     }, []);
     async function getEpktCinematographer(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkCinematographer/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCinematographer/` + id,
         {
           method: "GET",
           headers: {
@@ -206,7 +206,7 @@ function EPK() {
   }, []);
   async function getEpktStills(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkStills/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkStills/` + id,
       {
         method: "GET",
         headers: {
@@ -226,7 +226,7 @@ function EPK() {
   }, []);
   async function getEpktReview(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkReview/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkReview/` + id,
       {
         method: "GET",
         headers: {
@@ -246,7 +246,7 @@ function EPK() {
   }, []);
   async function getEpkResources(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkResources/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkResources/` + id,
       {
         method: "GET",
         headers: {

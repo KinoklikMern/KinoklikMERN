@@ -34,7 +34,7 @@ const StillsForm = () => {
         createEpkStills(stillsList1);
 
         async function createEpkStills(stillsList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkStills", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkStills`, {
                 method: "POST",
                 body: JSON.stringify({
                     stillsList: stillsList1,

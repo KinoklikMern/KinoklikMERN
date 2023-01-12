@@ -48,7 +48,7 @@ function Login() {
         >
           <Form.Item
             name="username"
-            label="User Name"
+            label="Username/Email"
             rules={[
               {
                 required: true,
@@ -67,6 +67,7 @@ function Login() {
                 message: "Please enter password!",
               },
             ]}
+            cla
           >
             <Input type="password" />
           </Form.Item>

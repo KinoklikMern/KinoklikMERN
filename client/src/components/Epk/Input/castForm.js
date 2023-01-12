@@ -42,7 +42,7 @@ const CastForm = () => {
         createEpkCast(castList1);
 
         async function createEpkCast(castList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkCast", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkCast`, {
                 method: "POST",
                 body: JSON.stringify({
                     castList: castList1,

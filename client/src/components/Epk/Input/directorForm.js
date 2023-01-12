@@ -19,7 +19,7 @@ const DirectorForm = () => {
         createEpkDirector(directorList1);
 
         async function createEpkDirector(directorList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkDirector", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkDirector`, {
                 method: "POST",
                 body: JSON.stringify({
                     directorList: directorList1,
