@@ -27,7 +27,6 @@ function Register() {
       console.log(`selected ${value}`);
       setRole(value);
       console.log(role);
-      setOpen(true);
     };
     return (
       <Modal
@@ -72,11 +71,11 @@ function Register() {
                     value: "Viewer",
                   },
                   {
-                    label: "FILM_MAKER",
+                    label: "Filmmaker",
                     value: "FILM_MAKER",
                   },
                   {
-                    label: "Sales_Agent",
+                    label: "Sales Agent",
                     value: "Sales_Agent",
                   },
                   {
@@ -84,7 +83,7 @@ function Register() {
                     value: "Distributor",
                   },
                   {
-                    label: "Film_Festival",
+                    label: "Film Festival",
                     value: "Film_Festival",
                   },
                 ]}
@@ -139,7 +138,7 @@ function Register() {
               <Input type="password" />
             </Form.Item>
 
-            {role != "Viewer" && (
+            {role !== "Viewer" && (
               <>
                 <Form.Item name="phone" label="Phone Number">
                   <Input />

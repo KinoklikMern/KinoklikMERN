@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //Adding antd modules and style
-import { Button, Modal, Form, Input } from "antd";
+import { Modal, Form, Input } from "antd";
 
 function Login() {
   const [open, setOpen] = useState(false);
@@ -72,6 +72,8 @@ function Login() {
             <Input type="password" />
           </Form.Item>
         </Form>
+        {error && <div className="error_text">{error}</div>}
+        {success && <div className="success_text">{success}</div>}
       </Modal>
     );
   };
