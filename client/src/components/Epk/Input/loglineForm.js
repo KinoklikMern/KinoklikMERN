@@ -17,7 +17,7 @@ const LoglineForm = () => {
         createEpkLogline(loglineList1);
 
         async function createEpkLogline(loglineList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkLogline", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkLogline`, {
                 method: "POST",
                 body: JSON.stringify({
                     loglineList: loglineList1,

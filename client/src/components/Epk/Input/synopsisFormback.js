@@ -43,7 +43,7 @@ const SynopsisForm = () => {
       longSynopsis
     ) {
       const response = await fetch(
-        "http://localhost:8000/epk/createEpkSynopsis",
+        `${process.env.REACT_APP_BACKEND_URL}/epk/createEpkSynopsis`,
         {
           method: "POST",
           body: JSON.stringify({
