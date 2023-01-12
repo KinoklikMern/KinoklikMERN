@@ -23,3 +23,16 @@
 .form_input {
   width: 60%;
 }
+
+/* Registration and Login popup */
+.ant-col{
+  width: 120px;
+}
+.ant-col{
+  display: table-cell;
+  vertical-align: top;
+}
+.ant-modal-body{
+  display: table;
+  width: 100%;
+}

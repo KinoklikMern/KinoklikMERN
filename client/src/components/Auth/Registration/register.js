@@ -27,7 +27,6 @@ function Register() {
       console.log(`selected ${value}`);
       setRole(value);
       console.log(role);
-      setOpen(true);
     };
     return (
       <Modal
@@ -72,11 +71,11 @@ function Register() {
                     value: "Viewer",
                   },
                   {
-                    label: "FILM_MAKER",
+                    label: "Filmmaker",
                     value: "FILM_MAKER",
                   },
                   {
-                    label: "Sales_Agent",
+                    label: "Sales Agent",
                     value: "Sales_Agent",
                   },
                   {
@@ -84,7 +83,7 @@ function Register() {
                     value: "Distributor",
                   },
                   {
-                    label: "Film_Festival",
+                    label: "Film Festival",
                     value: "Film_Festival",
                   },
                 ]}
@@ -96,7 +95,7 @@ function Register() {
               rules={[
                 {
                   required: true,
-                  message: "Please enter username!",
+                  message: "Please enter your first name!",
                 },
               ]}
             >
@@ -108,19 +107,19 @@ function Register() {
               rules={[
                 {
                   required: true,
-                  message: "Please enter username!",
+                  message: "Please enter your last name!",
                 },
               ]}
             >
               <Input />
             </Form.Item>
             <Form.Item
-              name="username"
-              label="User Name"
+              name="email"
+              label="Email"
               rules={[
                 {
                   required: true,
-                  message: "Please enter username!",
+                  message: "Please enter your email!",
                 },
               ]}
             >
@@ -139,7 +138,7 @@ function Register() {
               <Input type="password" />
             </Form.Item>
 
-            {role != "Viewer" && (
+            {role !== "Viewer" && (
               <>
                 <Form.Item name="phone" label="Phone Number">
                   <Input />
@@ -153,8 +152,6 @@ function Register() {
         )}
         {error && <div className="error_text">{error}</div>}
         {success && <div className="success_text">{success}</div>}
-
-        <Login />
       </Modal>
     );
   };
@@ -168,6 +165,7 @@ function Register() {
     const handleSubmit = async (values) => {
       console.log(
         values.username,
+        values.email,
         values.password,
         values.firstName,
         values.lastName,
@@ -177,9 +175,10 @@ function Register() {
       );
       try {
         const { data } = await axios.post(
-          "http://localhost:8000/users/register",
+          `${process.env.REACT_APP_BACKEND_URL}/users/register`,
           {
-            email: values.username,
+            email: values.email,
+            username: values.username,
             password: values.password,
             firstName: values.firstName,
             lastName: values.lastName,

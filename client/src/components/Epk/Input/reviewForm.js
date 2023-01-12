@@ -42,7 +42,7 @@ const ReviewForm = () => {
         createEpkReview(reviewList1);
 
         async function createEpkReview(reviewList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkReview", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkReview`, {
                 method: "POST",
                 body: JSON.stringify({
                     reviewList: reviewList1,
