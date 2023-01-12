@@ -5,7 +5,8 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
-import Login from "./components/Auth/Registration/login";
+//import Login from "./components/Auth/Registration/login";
+import Login from "./pages/Login";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import FilmMakerSelectedFilm from "./pages/FlimMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./pages/FlimMaker/filmMakerDashboardSecurity";
@@ -83,7 +84,7 @@ function App() {
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
-          <Route path="registeration" element={<RegistrationForm />} />
+          <Route path="registration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
