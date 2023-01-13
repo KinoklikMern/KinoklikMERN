@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, role, password, phone, website } =
+    const { firstName, lastName, email, username, role, password, phone, website } =
       req.body;
 
     if (!validateEmail(email)) {
@@ -14,12 +14,19 @@ export const register = async (req, res) => {
         message: "invalid email address",
       });
     }
-    const check = await User.findOne({ email });
-    if (check) {
+    const emailCheck = await User.findOne({ email });
+    if (emailCheck) {
       return res.status(400).json({
         message:
           "This email address already exists. Try with a different email address",
       });
+    }
+    const usernameCheck = await User.findOne({ username: username });
+    console.log(usernameCheck)
+    if(usernameCheck){
+      return res.status(400).json({
+        message: "This username is already taken, please use a different username, or login."
+      })
     }
 
     if (!validateLength(firstName, 3, 30)) {
@@ -45,6 +52,7 @@ export const register = async (req, res) => {
       lastName,
       role,
       email,
+      username,
       phone,
       website,
       password: cryptedPassword,
