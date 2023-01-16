@@ -19,7 +19,7 @@ const ProducerForm = () => {
         createEpkProducer(producerList1);
 
         async function createEpkProducer(producerList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkProducer", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkProducer`, {
                 method: "POST",
                 body: JSON.stringify({
                     producerList: producerList1,

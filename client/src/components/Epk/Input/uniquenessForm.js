@@ -30,7 +30,7 @@ const UniquenessForm = () => {
         createEpkUniqueness(uniquenessList1);
 
         async function createEpkUniqueness(uniquenessList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkUniqueness", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkUniqueness`, {
                 method: "POST",
                 body: JSON.stringify({
                     uniquenessList: uniquenessList1,
