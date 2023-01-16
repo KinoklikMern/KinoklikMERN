@@ -86,7 +86,7 @@ function App() {
           <Route path="registeration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
-          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+     
           <Route path="filmMakerSelectedMovie" element={<FilmMakerSelectedFilm />} />
           <Route path="filmMakerDashboardSecurity" element={<FilmMakerDashboardSecurity />} />
           <Route path="filmMakerDashboardSecurityCompany" element={<FilmMakerDashboardSecurityCompany />} />
