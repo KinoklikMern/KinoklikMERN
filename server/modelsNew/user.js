@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const bcrypt = require("bcrypt");
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -26,6 +27,11 @@ const UserSchema = mongoose.Schema({
     type: String,
     trim: true,
     required: true,
+  },
+  isVerified: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
   role: {
     type: String,
@@ -74,6 +80,20 @@ const UserSchema = mongoose.Schema({
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+
+  next();
+});
+
+userSchema.methods.comparePassword = async function (password) {
+  const result = await bcrypt.compare(password, this.password);
+  return result;
+};
+
+
 const User = mongoose.model("User", UserSchema);
 
 export default User;
