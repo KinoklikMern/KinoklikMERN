@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faComments} from '@fortawesome/free-solid-svg-icons'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faHome} from '@fortawesome/free-solid-svg-icons'
 import { faInbox } from '@fortawesome/free-solid-svg-icons'
 import { faBell} from '@fortawesome/free-solid-svg-icons'
@@ -97,41 +98,48 @@ export default function Filmmaker() {
 
     <div class="sidebar-right">
     <article class="tab-pane fade show active" role="tabpanel" aria-labelledby="llanfairpwllgwyngyll-left-tab" id="dashboard">
-<div class=" sidebar-rightcontainer">
-    <div class="item Dashboard">
-    <h1>Filmmaker Dashboard</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            
-            
+
+      <div class=" sidebar-rightcontainer">
+      
+        <div class="item Dashboard">
+          <h1>Filmmaker Dashboard</h1>
+
+          <h1> <Link to="/uploadEpk" class="icon-plus"> <FontAwesomeIcon icon={faPlus} /> </Link></h1>
+          
+          <div>
+              <p class="icon-plus">
+                You don`t have any EPK created.To start promoting your film right away.
+              </p>
+
+              <Button> Create your free film EPK now! </Button>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
-            <Link to="/filmMakerSelectedMovie" class="links">
-              
-              <div class="card movie-card">
-              
-              <img src={movie6} alt="movie 6"/>         
-                <div class="card-body">
-                  
-                <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  </div>
-                  
-                  <div class="d-flex justify-content-between align-items-center pb-1">
+              <Link to="/filmMakerSelectedMovie" class="links">
+                <div class="card movie-card">
+                
+                  <img src={movie6} alt="movie 6"/>         
+                  <div class="card-body">
                     
+                    <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
+                      <p>200</p>
+                      <p>200</p>
+                      <p>200</p>
+                      <p>200</p>
+                    </div>
                     
-                    <FontAwesomeIcon icon={faDollarSign} />
-                    <FontAwesomeIcon icon={faStar} />  
-                    <FontAwesomeIcon icon={faBookmark} /> 
-                    <FontAwesomeIcon icon={faShareNodes} /> 
-                    
-                    
+                    <div class="d-flex justify-content-between align-items-center pb-1">
+                      <FontAwesomeIcon icon={faDollarSign} />
+                      <FontAwesomeIcon icon={faStar} />  
+                      <FontAwesomeIcon icon={faBookmark} /> 
+                      <FontAwesomeIcon icon={faShareNodes} /> 
+                    </div>
                   </div>
                 </div>
-              </div></Link>
+              </Link>
             </div>
-            
+              
             <div class="col">
               <div class="card movie-card">
               <img src={movie2} alt="movie 2"/>
@@ -159,21 +167,18 @@ export default function Filmmaker() {
                 </div>
               </div>
             </div>
-            
-            
-
-            
           </div>
+          
           <div class="side-id">
             <FontAwesomeIcon icon={faUser}/> 
-            </div>
-          
+          </div>
+              
         </div>  
-        
-    </div>
+            
+      </div>
 
     
-</article>
+    </article>
 
 
   
