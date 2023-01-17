@@ -1,5 +1,10 @@
+/////////////////////////////
+// edit by Tony
+// 2023-01-15 
+// //////////////////////////
 import { useSelector } from "react-redux";
-import React from 'react'
+import { React, useEffect, useState } from 'react'
+import Axios from "axios"
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -30,160 +35,123 @@ import movie2 from '../../images/movies/movie2.jpeg';
 import movie5 from '../../images/movies/movie5.jpg';
 
 export default function Filmmaker() {
+  const [epkList, setEpkList] = useState([]);
+  useEffect(() => {
+    try {
+      //Axios.get(process.env.REACT_APP_BACKEND_URL + "epk/filmMakerDashboard").then((rs) => {
+      Axios.get("http://localhost:8000/epk/filmMakerDashboard").then((rs) => {
+        //alert(process.env.REACT_APP_BACKEND_URL);
+        setEpkList(rs.data);
+      });
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }, []);
+
   return (
-    
-<div class="filmmakerdash-container container-fluid">
-  <div class="sidebar-container"> 
-    <div class="sidebar-left">
-      <div class="filmmaker-navbar px-1">   
-        <ul class="nav nav-tabs filmmaker-dash-ul" role="tablist">
+    <div class="filmmakerdash-container container-fluid">
+      <div class="sidebar-container"> 
+        <div class="sidebar-left">
+          
+          <ul class="nav nav-tabs filmmaker-dash-ul">
 
-          <li class="nav-link" role="tab" data-li="UploadMovie">
-            <div class="sidebarnav-icon side-button">
-            <a href="/Notification.js">
-            <FontAwesomeIcon icon={faNewspaper} />  
-            </a>
-            </div>
-          </li>
-          <li class="nav-item" role="presentation">
-            <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#dashboard" role="tab" >
-            <div class="sidebarnav-icon side-button">
-            <FontAwesomeIcon icon={faPhotoFilm} />  
-            </div>  
-            </div>
-          </li>
-
-          <li class="nav-item" role="presentation">
-            <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#inbox" role="tab" >
-            <div class="sidebarnav-icon side-button">
-            <Link to="/filmMakerDashboard" class="links"><FontAwesomeIcon icon={faHome}/></Link>   
-            </div>
-            </div>
-          </li>
-
-          <li class="nav-item" role="presentation">
-            <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#notifications" role="tab" >
-            <div class="sidebarnav-icon side-button">
-            <FontAwesomeIcon icon={faBell} />   
-            </div>
-             </div>
-          </li>
-
-          <li class="nav-item" role="presentation">
-             <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#filmList" role="tab" >
-             <div class="sidebarnav-icon side-button">
-             <br/>
-             </div>
-              </div>
-          </li>
-
-          <li class="nav-item" role="presentation">
-              <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#settings" role="tab" >
+            <li>
               <div class="sidebarnav-icon side-button">
-              <br/>    
+                <a href="/Notification.js">
+                  <FontAwesomeIcon icon={faNewspaper} />  
+                </a>
               </div>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#dashboard" role="tab" >
+                <div class="sidebarnav-icon side-button">
+                  <FontAwesomeIcon icon={faPhotoFilm} />  
+                </div>  
               </div>
-          </li>
+            </li>
 
-          <li class="nav-link" role="tab" data-li="UserProfile">
-          <div class="sidebarnav-icon side-button">
-            
-            <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
-            
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+            <li class="nav-item" role="presentation">
+              <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#inbox" role="tab" >
+                <div class="sidebarnav-icon side-button">
+                  <Link to="/filmMakerDashboard" class="links"><FontAwesomeIcon icon={faHome}/></Link>   
+                </div>
+              </div>
+            </li>
 
-    <div class="sidebar-right">
-    <article class="tab-pane fade show active" role="tabpanel" aria-labelledby="llanfairpwllgwyngyll-left-tab" id="dashboard">
+            <li class="nav-item" role="presentation">
+              <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#notifications" role="tab" >
+                <div class="sidebarnav-icon side-button">
+                  <FontAwesomeIcon icon={faBell} />   
+                </div>
+              </div>
+            </li>
 
-      <div class=" sidebar-rightcontainer">
-      
-        <div class="item Dashboard">
-          <h1>Filmmaker Dashboard</h1>
 
-          <h1> <Link to="/uploadEpk" class="icon-plus"> <FontAwesomeIcon icon={faPlus} /> </Link></h1>
+
+
+
+            <li class="nav-link" role="tab" data-li="UserProfile">
+              <div class="sidebarnav-icon side-button">
+                <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
+              </div>
+            </li>
+          </ul>
           
-          <div>
-              <p class="icon-plus">
-                You don`t have any EPK created.To start promoting your film right away.
-              </p>
+        </div>
 
-              <Button> Create your free film EPK now! </Button>
-          </div>
-
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-              <Link to="/filmMakerSelectedMovie" class="links">
-                <div class="card movie-card">
+        <div class="sidebar-right">
+          <article class="tab-pane fade show active" role="tabpanel" aria-labelledby="llanfairpwllgwyngyll-left-tab" id="dashboard">
+            <div class=" sidebar-rightcontainer">
+              <div class="item Dashboard">
+                <h1>Filmmaker Dashboard</h1>
+                <h1> <Link to="/uploadEpk" class="icon-plus"> <FontAwesomeIcon icon={faPlus} /> </Link></h1>
                 
-                  <img src={movie6} alt="movie 6"/>         
-                  <div class="card-body">
-                    
-                    <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                      <p>200</p>
-                      <p>200</p>
-                      <p>200</p>
-                      <p>200</p>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-center pb-1">
-                      <FontAwesomeIcon icon={faDollarSign} />
-                      <FontAwesomeIcon icon={faStar} />  
-                      <FontAwesomeIcon icon={faBookmark} /> 
-                      <FontAwesomeIcon icon={faShareNodes} /> 
-                    </div>
+                { (!epkList) ? ( () => (    
+                  <div>
+                    <p class="icon-plus">
+                      You don`t have any EPK created.To start promoting your film right away.
+                    </p>
+                    <Button> Create your free film EPK now! </Button>
                   </div>
+                )) : null }
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                  {epkList.map((epk) => (
+                    <div class="col">
+                      <Link to="/filmMakerSelectedMovie" class="links">
+                        <div class="card movie-card">
+                        
+                          <img src={movie6} alt="movie 6"/>         
+                          <div class="card-body">
+                            
+                            <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
+                              <p>200</p>
+                              <p>200</p>
+                              <p>200</p>
+                              <p>200</p>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center pb-1">
+                              <FontAwesomeIcon icon={faDollarSign} />
+                              <FontAwesomeIcon icon={faStar} />  
+                              <FontAwesomeIcon icon={faBookmark} /> 
+                              <FontAwesomeIcon icon={faShareNodes} /> 
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
-              </Link>
+                <div class="side-id">
+                  <FontAwesomeIcon icon={faUser}/> 
+                </div>
+              </div>  
             </div>
-              
-            <div class="col">
-              <div class="card movie-card">
-              <img src={movie2} alt="movie 2"/>
-                <div class="card-body">
-                  
-
-
-                <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                  <p>200</p>
-                </div>
-                  
-                  
-                <div class="d-flex justify-content-between align-items-center pb-1">
-                    
-                    <FontAwesomeIcon icon={faDollarSign} />
-                    <FontAwesomeIcon icon={faStar} />  
-                    <FontAwesomeIcon icon={faBookmark} /> 
-                    <FontAwesomeIcon icon={faShareNodes} /> 
-                    
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="side-id">
-            <FontAwesomeIcon icon={faUser}/> 
-          </div>
-              
-        </div>  
-            
+          </article>
+        </div>
       </div>
-
-    
-    </article>
-
-
-  
     </div>
-  </div>
-</div>
   );
 }

@@ -1,6 +1,8 @@
 import express from "express";
 import { authUser } from "../middlwares/auth.js";
-
+// edit by Tony ///////
+import { getMyEpks } from "../controllers/epk.js";
+// end ////////////////
 import { getEpk, createEpk, updateEpk } from "../controllers/epk.js";
 import { createEpkCover, getEpkCover } from "../controllers/epkCover.js";
 import { createEpkDetails, getEpkDetails } from "../controllers/epkDetails.js";
@@ -16,7 +18,9 @@ import { createEpkReview, getEpkReview } from "../controllers/epkReview.js";
 import { createEpkResources, getEpkResources } from "../controllers/epkResource.js";
 
 const router = express.Router();
-
+// edit by Tony ///////
+router.get("/filmMakerDashboard", getMyEpks);
+// end ////////////////
 router.get("/", getEpk);
 router.post("/", createEpk);
 router.put("/", updateEpk);
