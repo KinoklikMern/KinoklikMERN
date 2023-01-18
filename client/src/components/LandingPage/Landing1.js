@@ -32,8 +32,7 @@ const Landing1 = () => {
     <>
       <div className="landing1">
         <div className="landing1Button">
-          <button className="landing1Signin">SIGN IN</button>
-          <button className="landing1Signup">SIGN UP</button>
+        
           {user && user.role === "FILM_MAKER" && (
             <button className="landing1FilmEPK" onClick={createEpk}>
               UPLOAD EPK
@@ -43,7 +42,7 @@ const Landing1 = () => {
             </button>
           )}
         </div>
-        <div className="leftColumn">
+        <div className="leftColumn ">
           <h2 className="landing1Title">
             Promote your film to the world, for free
           </h2>
@@ -57,7 +56,7 @@ const Landing1 = () => {
           <button className="createProject">Create Film Project</button>
           <button className="browseFilm">Browse Films</button>
         </div>
-        <div className="rightColumn">
+        <div className="rightColumn ">
           <img className="landing1Img" src={img} alt=""></img>
         </div>
       </div>
