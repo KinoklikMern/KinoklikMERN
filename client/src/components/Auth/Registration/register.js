@@ -33,7 +33,7 @@ function Register() {
         className="modalStyle"
         open={open}
         title="Sign Up"
-        okText="sign up"
+        okText="Sign Up"
         cancelText="Cancel"
         onCancel={onCancel}
         onOk={() => {
@@ -97,6 +97,14 @@ function Register() {
                   required: true,
                   message: "Please enter your first name!",
                 },
+                {
+                  min: 3,
+                  message: "First Name must be at least 3 characters long!"
+                },
+                {
+                  max: 30,
+                  message: "First Name must be at most 30 characters long!"
+                }
               ]}
             >
               <Input />
@@ -109,6 +117,14 @@ function Register() {
                   required: true,
                   message: "Please enter your last name!",
                 },
+                {
+                  min: 3,
+                  message: "Last Name must be at least 3 characters long!"
+                },
+                {
+                  max: 30,
+                  message: "Last Name must be at most 30 characters long!"
+                }
               ]}
             >
               <Input />
@@ -133,6 +149,14 @@ function Register() {
                   required: true,
                   message: "Please enter password!",
                 },
+                {
+                  min: 6,
+                  message: "Password must be at least 6 characters long!"
+                },
+                {
+                  max: 40,
+                  message: "First Name must be at most 40 characters long!"
+                }
               ]}
             >
               <Input type="password" />

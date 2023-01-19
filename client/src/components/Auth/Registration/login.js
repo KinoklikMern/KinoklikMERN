@@ -47,12 +47,12 @@ function Login() {
           }}
         >
           <Form.Item
-            name="username"
-            label="Username/Email"
+            name="email"
+            label="Email"
             rules={[
               {
                 required: true,
-                message: "Please enter username!",
+                message: "Please enter email!",
               },
             ]}
           >
@@ -88,7 +88,7 @@ function Login() {
       /*     console.log(email, password); */
       try {
         const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
-          email: values.username,
+          email: values.email,
           password: values.password,
         });
         setError("");
