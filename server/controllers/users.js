@@ -6,8 +6,15 @@ import bcrypt from "bcrypt";
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, username, role, password, phone, website } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      role,
+      password,
+      phone,
+      website,
+    } = req.body;
 
     if (!validateEmail(email)) {
       return res.status(400).json({
@@ -20,13 +27,6 @@ export const register = async (req, res) => {
         message:
           "This email address already exists. Try with a different email address",
       });
-    }
-    const usernameCheck = await User.findOne({ username: username });
-    console.log(usernameCheck)
-    if(usernameCheck){
-      return res.status(400).json({
-        message: "This username is already taken, please use a different username, or login."
-      })
     }
 
     if (!validateLength(firstName, 3, 30)) {
@@ -52,7 +52,6 @@ export const register = async (req, res) => {
       lastName,
       role,
       email,
-      username,
       phone,
       website,
       password: cryptedPassword,
@@ -81,13 +80,13 @@ export const login = async (request, response) => {
   try {
     if (email && password) {
       const user = await User.findOne({
-        $or: [{ email: email }, { username: email }],
+        email: email,
       });
 
       if (!user) {
         return response.status(400).json({
           message:
-            "The username/email address you entered is not connected to an account",
+            "The email address you entered is not connected to an account",
         });
       } else {
         const isSame = await bcrypt.compare(password, user.password);

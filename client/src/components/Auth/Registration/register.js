@@ -142,26 +142,6 @@ function Register() {
               <Input />
             </Form.Item>
             <Form.Item
-              name="username"
-              label="Username"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your username!",
-                },
-                {
-                  min: 3,
-                  message: "Username must be at least 3 characters long!"
-                },
-                {
-                  max: 20,
-                  message: "Username must be at most 20 characters long!"
-                }
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
               name="password"
               label="Password"
               rules={[
