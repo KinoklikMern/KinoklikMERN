@@ -27,7 +27,6 @@ import Logline from "./components/Epk/Present/logline";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import UserDashboard from "./pages/UserDashboard";
-import EpkCover from "./components/Epk/Present/EpkCover";
 
 import { getMovies } from "./actions/movies";
 import Movies from "./components/Movies/Movies";
@@ -104,7 +103,6 @@ function App() {
           <Route path="logline" element={<Logline />} />
           <Route path="loglineForm" element={<LoglineForm />} />
           <Route path="epkCover" element={<EpkCoverForm />} />
-          <Route path="epkCovershow" element={<EpkCover />} />
           <Route path="userDashboard" element={<UserDashboard />} />
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
