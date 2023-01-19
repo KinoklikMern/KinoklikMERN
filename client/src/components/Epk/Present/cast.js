@@ -1,120 +1,91 @@
+import { stepLabelClasses } from "@mui/material";
 import React, { useState } from "react";
 
-import "./cast.css";
+import style from"./cast.module.css";
 
 function Cast(castFile) {
   console.log(castFile);
 
   return (
+    <div className={style.container}>
+     
 
+      <div className={style.title}>
+      <p >Starring</p>
+      </div>
 
-    <div style={{position: "relative"}}>
-
-<br/>
-      <div style={{backgroundColor: "#170B3B", height: 15}}/>
-
-      <h1 style={{color: "#4a3759", fontWeight: "normal"}}>Starring</h1>
-      {/* Lead Actor 1 */}
-      <div className="row">
-        <div className="col-sm m-4">
+      <div className={style.starcontainer}>
+        <div className={style.el1}>
           <img 
-            src={castFile.castFile.leadActor1Img_url} alt="Image"
-            style={{width: "75%", borderRadius: "20px"}}
+            src={castFile.castFile.leadActor1Img_url} alt="actor pic"
+            className={style.img}
             ></img>
-          <br/>
-          <h1 className= "text-center" style={{color: "#000000", fontWeight: "bold"}}>
+          <h1 >
             {castFile.castFile.leadActor1Name}
           </h1>
         </div>
-        <div className="col-sm">
-          <div style={{margin: 0, position: "relative", top: "15%"}}>
-          <br/>
-            <br/>
-            <h2 className="text-center mx-4" style={{color: "#000000", fontWeight: 'normal'}}>          
+        
+          <div className={style.el2}>
+            <p className={style.biography}>          
             {castFile.castFile.leadActor1Biography}
-            </h2>
-          </div>
+            </p>  
         </div>
-      </div>
     
-      {/* <div style={{backgroundColor: "#7F00FF", height: 15}}/>  */}
-
-      {/* Lead Actor 2 */}
-      {/* Dark Blue: #170B3B Burgundy: #630330*/}
-      <div className="row mx-1" style={{background: "#ffffff"}}>
-        <div className="col-sm">
-          <div style={{margin: 0, position: "relative", top: '15%'}}>
-          <br/>
-            <br/>
-            <h2 className="text-center mx-5" style={{color: "#000000", fontWeight: 'normal'}}>          
+      <div className={style.el3}>
+            <p className={style.biography}>          
               {castFile.castFile.leadActor2Biography}
-            </h2>
+            </p>
           </div>
-        </div>
-        <div className="col-sm m-4">
+        
+        <div className={style.el4}>
           <img 
-            src={castFile.castFile.leadActor2Img_url} alt="Image"
-            style={{width: "75%", borderRadius: "20px"}}
-
-          ></img>
-          <br/>
-          <h1 className= "text-center" style={{color: "#000000", fontWeight: "bold"}}>
+            src={castFile.castFile.leadActor2Img_url} 
+            alt="actorpic"
+            className={style.img}  
+          />
+          <h1>
             {castFile.castFile.leadActor2Name}
           </h1>
         </div>
-      </div>
-
-      {/* <div style={{backgroundColor: "#7F00FF", height: 15}}/>  */}
-
-      {/* Supporting Actor 1 */}
-      <div className="row">
-        <div className="col-sm m-4">
+     
+        <div className={style.el5}>
           <img 
-            src={castFile.castFile.supportingActor1Img_url} alt="Image"
-            style={{width: "75%", borderRadius: "20px"}}
-          ></img>
-          <br/>
-          <h1 className= "text-center" style={{color: "#000000", fontWeight: "bold"}}>
+            src={castFile.castFile.supportingActor1Img_url} 
+            alt="actorpic" 
+            className={style.img}
+          />
+          <h1>
               {castFile.castFile.supportingActor1Name}
             </h1>
         </div>
-        <div className="col-sm">
-          <div style={{margin: 0, position: "relative", top: "15%"}}>
-          <br/>
-            <br/>
-            <h2 className="text-center mx-4" style={{color: "#000000", fontWeight: 'normal'}}>          
+
+        <div className={style.el6}>
+            <p className={style.biography}>          
               {castFile.castFile.supportingActor1Biography}
-            </h2>
+            </p>
           </div>
-        </div>
-      </div>
-
-      {/* <div style={{backgroundColor: "#7F00FF", height: 15}}/>  */}
-
-      {/* Supporting Actor 2 */}
-      {/* Dark Blue: #170B3B Burgundy: #630330*/}
-      <div className="row mx-1" style={{background: "#ffffff"}}>
-        <div className="col-sm">
-          <div style={{margin: 0, position: "relative", top: "15%"}}>
-          <br/>
-            <br/>
-            <h2 className="text-center mx-5" style={{color: "#000000", fontWeight: 'normal'}}>
+        
+    
+      <div clasName={style.el7}>
+            <p className={style.biography}>
               {castFile.castFile.supportingActor2Biography}
-            </h2>
+            </p>
           </div>
-        </div>
-        <div className="col-sm m-4">
+        
+        <div className={style.el8}>
           <img 
-            src={castFile.castFile.supportingActor2Img_url} alt="Image"
-            style={{width: "75%", borderRadius: "20px"}}
-          ></img>
-          <br/>
-          <h1 className= "text-center" style={{color: "#000000", fontWeight: "bold"}}>
+            src={castFile.castFile.supportingActor2Img_url} 
+            alt="actor pics"
+            className={style.img}
+          
+          />
+         
+          <h1 >
             {castFile.castFile.supportingActor2Name}
           </h1>
         </div>
-      </div>
       
+      </div>
     </div>
 
    );

@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import "./Trailer.css";
+import style from "./Trailer.module.css";
+import trailer from"./movie2.jpeg";
 
 function Trailer() {
 
     return (
-        <>
-            <img src="..." alt="..." height="" width="" />
-            <p>Text text text...</p>
+        <div className={style.container}>
+            
+         
+            <img 
+                src={trailer}  
+                alt="poster"  
+                className={style.img}      
+                />
+            <p className={style.text}>Text text text...</p>
 
-            <img src="..." alt="..." height="" width="" />
-            <p>Text text text...</p>
-
-            <img src="..." alt="..." height="" width="" />
-            <p>Text text text...</p>
-        </>
+        </div>
+        
     )
 
 }
