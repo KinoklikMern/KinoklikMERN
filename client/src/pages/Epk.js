@@ -12,7 +12,9 @@ import Cinematographer from "../components/Epk/Present/cinematographer";
 import Stills from "../components/Epk/Present/stills";
 import Review from "../components/Epk/Present/review";
 import Resources from "../components/Epk/Present/Resources";
+import Trailer from "../components/Epk/Present/Trailer"
 import { renderCloseIcon } from "antd/es/modal/PurePanel";
+import Footer from"../components/Footer"
 
 function EPK() {
 
@@ -259,6 +261,27 @@ function EPK() {
     console.log(resourcesList1);
     setResourcesList(resourcesList1);
 
+    // // trailer
+    // const [trailerList, setTrailerList] = useState(null);
+    // useEffect(() => {
+    //   getEpkTrailer(id);
+    // }, []);
+    // async function getTrailer(id) {
+    //   const response = await fetch(
+    //     "http://localhost:8000/epk/EpkTrialer/" + id,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-type": "application/json; charset=UTF-8",
+    //       },
+    //     }
+    //   );
+    //   const trailerList1 = await response.json();
+  
+    //   console.log(trailerList1);
+    //   setResourcesList(trailerList1);
+
+
     /*  console.log(shortSynopsis);
       console.log(mediumSynopsis);
       console.log(longSynopsis);*/
@@ -280,8 +303,11 @@ function EPK() {
       {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
       {stillsList && stillsList.map((s) => <Stills stillsFile={s} />)}
       {resourcesList && resourcesList.map((s) => <Resources resFile={s} />)}
+      <Trailer/>
       {reviewList && reviewList.map((s) => <Review reviewFile={s} />)}
-
+      {/* {trailerList && trailerList.map((s) => <Trailer trailerFile={s} />)} */}
+      
+      <Footer/>
     </div>
     </>
     );
