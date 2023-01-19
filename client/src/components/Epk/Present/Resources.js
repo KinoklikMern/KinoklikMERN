@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import "./Resources.css";
+import style from "./Resources.module.css";
 import { Container } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,51 +9,51 @@ import {
   faTwitter,
   faReadme,
 } from "@fortawesome/free-brands-svg-icons";
+import { SyncOutlined } from "@material-ui/icons";
 
 function Resources(resFile) {
   return (
-    <>
-      <br />
+    <div className={style.container}>
+      
 
-      <Container class="container-fluid resourcesCard">
-        <div class="row">
+      <div className={style.resourcesCard}>
+        <div >
           <img
             src={resFile.resFile.image}
-            alt="..."
-            height=""
-            width=""
-            class="col-6 resourcesImg"
+            alt="resource pics"
+          
+            className={style.img}
           />
-          <div class="col-6">
-            <div class="col-12">
-              <p class="resourcesTitle">{resFile.resFile.title}</p>
-              <p class="resourcesTime">{resFile.resFile.time}</p>
-              <p class="resourcesDescription">
-              {resFile.resFile.description}
-              </p>
-            </div>
-            <div class="col-12 resourcesIcons">
-              <a href="#" class="fa fa-facebook">
+          </div>
+
+          <div className={style.text}>
+              <p >{resFile.resFile.title}</p>
+              <p >{resFile.resFile.time}</p>
+              <p > {resFile.resFile.description} </p>
+            
+           <div className={style.icon}>
+              <a href="#" >
                 {" "}
                 <FontAwesomeIcon icon={faInstagram} size="2x" />
               </a>
-              <a href="#" class="fa fa-facebook">
+              <a href="#" >
                 {" "}
                 <FontAwesomeIcon icon={faFacebook} size="2x" /> 
               </a>
-              <a href="#" class="fa fa-facebook">
+              <a href="#" >
                 {" "}
                 <FontAwesomeIcon icon={faTwitter} size="2x" />
               </a>
-              <a href="#" class="fa fa-facebook">
+              <a href="#" >
                 {" "}
                 <FontAwesomeIcon icon={faReadme} size="2x" />
               </a>
+              </div>
             </div>
           </div>
         </div>
-      </Container>
-    </>
+      
+   
   );
 }
 

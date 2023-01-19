@@ -1,0 +1,57 @@
+
+  *{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+  }
+  body{
+    font-family: san-serf;
+    line-height: 1;
+    font-weight: 400;
+    color: #555;
+    padding:3rem;
+  }
+  html{
+    font-size: 62.5%;
+  }
+  .container{
+    max-width: 120rem;
+    margin:0 auto;
+    max-height:95vh;
+  }
+
+  .detailContainer{
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+  }
+
+
+  .img{
+    height: 45rem; 
+    width: 40rem;
+    border-radius: 4rem;
+  }
+
+  .el2{
+    align-self: center;
+    justify-self:start;
+    line-height: 1.5;
+ 
+  }
+   .detailContainer p {
+   color:#000;
+   font-size: 2.4rem;
+  }
+  .el3{
+  
+    align-self: center;
+    justify-self: start;
+    line-height: 1.5;
+  }
+
+
+
+
+  
