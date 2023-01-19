@@ -1,14 +1,21 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import http from "../../../http-common";
-import style from "./cover.css";
-import image1 from "../../../images/movies/imageSouthpaw.jpeg";
-import saveIcon from "../../../images/Save.ico";
+import style from "./cover.module.css";
+import headerimage from "../../../images/movies/imageSouthpaw.jpeg";
+import logo from "../../../images/logo.png";
+import avatar from"../../../images/avatar1.jpeg";
+import poster from"../../../images/poster.jpg";
 import kikSatr from "../../../images/Kickstarter-icon.png";
+
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
   faSave,
+  faShareAlt,
+  faPlusCircle,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,21 +26,19 @@ function EpkCover() {
     logLine: "They told him revenge was not the answer. They were severely wrong.",
     genre: "Drama",
     minutes: "",
+    createdAt:"December 8th, 2002",
     banner_url: "https://postimg.cc/FkfWC4N0",
     trailer_url: "",
   });
 
-  const divStyles = {
-    container: {
-      backgroundImage:
-        "url( 'https://kinomovie.s3.amazonaws.com/f50bdadce1b7dfd47202491a2a4d6d61.jpg' )",
-      backgroundPosition: "center",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      width: "100vw",
-      height: "100vh",
-    },
-  };
+
+
+  // const[isLogin, setIsLogin]=useState(false);
+
+  // const checkisLoginHndler=()=>{
+
+  //   setIsLogin(true);
+  // }
 
   //   useEffect(() => {
   //     console.log(id);
@@ -50,55 +55,104 @@ function EpkCover() {
   //   }, [id]);
 
   return (
-    <div >
+
+    <div className={style.container}>  
+      <div style={{
+          backgroundImage:`url(${headerimage})`,
+          backgroundSize:'cover',
+          backgroundPosition:'bottom',
+          height:'65vh',
+          position:'relative',
+          
+        }}>
+
+      {/* navbar section */}
+      <div className={style.navContainer}>
       <div >
+        <img 
+        className={style.logo}
+        src={logo}
+        alt='logo'/>
+      </div>
 
-        <img
-          // src="https://kinomovie.s3.amazonaws.com/f50bdadce1b7dfd47202491a2a4d6d61.jpg"
-          src={image1}
-          alt="hey"
-          style={{ position: 'relative'}}
-        />
-        {/* <img
-          src="https://m.media-amazon.com/images/I/A1bQ6XxJhkL._AC_SY679_.jpg"
-          alt="hey"
-          style={{width: "250px", position: 'relative', left: "-850px"}}
-        /> */}
+        <div>
+          <p className={style.centered}>{epkCoverData.title}</p>
+        </div>
 
-        <div className="centered"  >
-          <h1>{epkCoverData.title}</h1>
+      <div>
+        <img 
+        className={style.avatar}
+        src={avatar}
+        alt='logo'/>
+      </div>
+      </div>
+
+      {/* posterContainer */}
+
+      <div className={style.posterContainer}> 
+
+      <div >
+      <img 
+                src={poster}  
+                alt="poster"  
+                className={style.img}      
+                ></img>
+      </div>
+        <div className={style.logline}>
+          <p >{epkCoverData.logLine}</p>
         </div>
-        <div className="bottomCenter">
-          <h5>{epkCoverData.logLine}</h5>
         </div>
-        <div className="bottomLeft">
-          <h4>{epkCoverData.genre}</h4>
+
+        {/* corner section */}
+
+        <div className={style.flexContainer}>
+          <p className={style.el1} >Preproduction</p> 
+          <p className={style.el2}>{epkCoverData.genre}</p>
+          <p className={style.el3} >Posted:{epkCoverData.createdAt}</p> 
+  
         </div>
       </div>
 
-      <div className="navbarEpk" >
-        <ul className="">
-          <li className="">
-            <a className="" href="#">
-              <FontAwesomeIcon icon={faDollarSign} />
+      {/* icon-bar section */}
+
+      <div className={style.iconContainer} >
+        
+          <div>
+            <a  href="#">
+              <FontAwesomeIcon icon={faDollarSign} size ="lg"/>
             </a>
-          </li>
-          <li className="">
-            <a className="" href="#">
-              <FontAwesomeIcon icon={faStar} />
+          </div>
+          <div >
+            <a  href="#">
+            <FontAwesomeIcon icon={faPlusCircle} size ="lg" />
+              {/* <img className="icon" src={plusIcon} alt="save" /> */}
             </a>
-          </li>
-          <li className="">
-            <a className="" href="#">
-              <img className="icon" src={saveIcon} alt="save" />
+          </div>
+          <div >
+            <a  href="#">
+              <FontAwesomeIcon icon={faStar} size ="lg"/>
             </a>
-          </li>
-          <li className="">
-            <a className="" href="#">
-              <img className="icon" src={kikSatr} alt="save" />
+          </div>
+          <div >
+            <a  href="#">
+            <FontAwesomeIcon icon={faSave} size ="lg" />
+              {/* <img className={style.icon} src={saveIcon} alt="save" /> */}
             </a>
-          </li>
-        </ul>
+          </div>
+          
+          <div >
+            <a  href="#">
+              <img className={style.icon} src={kikSatr} alt="save" />
+            </a>
+          </div>
+          <div >
+            <a  href="#">
+            <FontAwesomeIcon icon={faShareAlt} size ="lg" />
+             
+            </a>
+          </div>
+
+        
       </div>
     </div>
   );

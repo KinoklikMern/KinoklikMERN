@@ -36,3 +36,11 @@
   display: table;
   width: 100%;
 }
+.success_text{
+  color: green;
+  text-align: center;
+}
+.error_text{
+  color: red;
+  text-align: center;
+}
