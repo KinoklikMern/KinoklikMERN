@@ -1,8 +1,5 @@
 import express from "express";
 import multer from "multer";
-
-const upload = multer({ dest: "images/" });
-
 import {
   getMovies,
   createMovie,
@@ -10,6 +7,7 @@ import {
   uploadMovieFiles,
 } from "../controllers/movies.js";
 
+const upload = multer({ dest: "images/" });
 const router = express.Router();
 
 router.get("/", getMovies);
