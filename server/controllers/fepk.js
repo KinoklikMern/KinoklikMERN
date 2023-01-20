@@ -17,7 +17,7 @@ export const getFepks = async (req, res) => {
     }
 };
 
-// fetch all Fepk by Film maker ID
+// fetch all Fepks by Film maker ID
 export const getFepksByFilmmakerId = async (req, res) => {
   const id = req.params.id;
   try {
@@ -34,6 +34,25 @@ export const getFepksByFilmmakerId = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+// fetch all Fepks by User in Favourites "My list"
+export const getFepksByUser = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const fepks = await fepk.find()
+    .where({favourites: id})
+    .populate("film_maker") // includes all fields of this object
+    .populate("crew.crewId") // includes all fields of this object
+    .populate("likes") // includes all fields of this object
+    .populate("favourites") // includes all fields of this object
+    .where("deleted")
+    .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 
 // fetch Fepk by Id
 export const getFepkbyId = async (req, res) => {
