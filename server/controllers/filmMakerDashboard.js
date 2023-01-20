@@ -4,7 +4,6 @@
 // On Jan 20, 2023
 ////////////////////////////////////////////////
 
-//import fepk from "../models/fepk0120.js";
 import fepk from "../models/fepk.js";
 
 export const getMyEpks = async (req, res) => {
