@@ -4,8 +4,8 @@ import http from "../../../http-common";
 import style from "./cover.module.css";
 import headerimage from "../../../images/movies/imageSouthpaw.jpeg";
 import logo from "../../../images/logo.png";
-import avatar from"../../../images/avatar1.jpeg";
-import poster from"../../../images/poster.jpg";
+import avatar from"../../../images/avatar.jpeg";
+import poster from"../../../images/jb.jpeg";
 import kikSatr from "../../../images/Kickstarter-icon.png";
 
 
