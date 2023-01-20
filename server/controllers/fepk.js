@@ -15,7 +15,25 @@ export const getFepks = async (req, res) => {
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
-  };
+};
+
+// fetch all Fepk by Film maker ID
+export const getFepksByFilmmakerId = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const fepks = await fepk.find()
+    .where({film_maker: id})
+    .populate("film_maker") // includes all fields of this object
+    .populate("crew.crewId") // includes all fields of this object
+    .populate("likes") // includes all fields of this object
+    .populate("favourites") // includes all fields of this object
+    .where("deleted")
+    .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 // fetch Fepk by Id
 export const getFepkbyId = async (req, res) => {
@@ -63,6 +81,68 @@ export const updateFepk = async (req, res) => {
       await fepkOne.updateOne({ updatedAt: new Date()},{ where: {_id: id} });
       const fepkUpdated = await fepk.findOne({ _id: id });
       res.status(200).json(fepkUpdated);
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
+// adding user who liked Fepk
+export const getFepkLiked = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const userId = req.params.userid;
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = fepkOne.likes.includes(userId);
+      if(exists === false)
+      {
+        await fepkOne.likes.push(userId);
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
+// adding user to  favourite list
+export const getFepkFavourite = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const userId = req.params.userid;
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = fepkOne.favourites.includes(userId);
+      if(exists === false)
+      {
+        await fepkOne.favourites.push(userId);
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
     }
   }
   catch (error) {
