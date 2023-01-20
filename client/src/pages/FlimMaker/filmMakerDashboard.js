@@ -38,9 +38,7 @@ export default function Filmmaker() {
   const [epkList, setEpkList] = useState([]);
   useEffect(() => {
     try {
-      //Axios.get(process.env.REACT_APP_BACKEND_URL + "epk/filmMakerDashboard").then((rs) => {
-      Axios.get("http://localhost:8000/epk/filmMakerDashboard").then((rs) => {
-        //alert(process.env.REACT_APP_BACKEND_URL);
+      Axios.get(process.env.REACT_APP_BACKEND_URL + "/filmMakerDashboard").then((rs) => {
         setEpkList(rs.data);
       });
     } catch (error) {
@@ -122,7 +120,7 @@ export default function Filmmaker() {
                       <Link to="/filmMakerSelectedMovie" class="links">
                         <div class="card movie-card">
                         
-                          <img src={movie6} alt="movie 6"/>         
+                          <img src={epkList.banner_url} alt="movie banner"/>         
                           <div class="card-body">
                             
                             <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
