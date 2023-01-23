@@ -10,6 +10,18 @@ import { popularFilm } from "./landingCategory";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import {
+  Button,
+  Grid,
+  Typography,
+  Card,
+  Container,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CardActionArea,
+  Box,
+} from "@material-ui/core";
 
 const Landing1 = () => {
   const dispatch = useDispatch();
@@ -44,17 +56,30 @@ const Landing1 = () => {
         </div>
         <div className="leftColumn ">
           <h2 className="landing1Title">
-            Promote your film to the world, for free
+            Promote your film to the world, for free!
           </h2>
+          <Typography>
           <p className="introText">
             Whether you have just an idea for a movie, shot the trailer, or your
             film's in the can, use our free
             <b> Electronic Press Kit Software</b> to promote your film directly
             to industry professionals and your audience！
           </p>
+        </Typography>
           {/* <FontAwesomeIcon className="uploadFilm" icon={faFolderPlus} /> */}
-          <button className="createProject">Create Film Project</button>
-          <button className="browseFilm">Browse Films</button>
+          
+          <Grid container spacing={3} justify="center">
+            <Grid item>
+              <Button href="#" variant="contained" color="primary">
+                Create Film Project
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button href="#" variant="contained" color="primary">
+                Browse Films
+              </Button>
+            </Grid>
+          </Grid>
         </div>
         <div className="rightColumn ">
           <img className="landing1Img" src={img} alt=""></img>
