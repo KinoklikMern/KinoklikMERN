@@ -3,6 +3,9 @@ import { validateEmail, validateLength } from "../helpers/validation.js";
 import { generateToken } from "../helpers/tokens.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+// Nada
+import PasswordResetToken from "../models/passwordResetToken.js";
+// const PasswordResetToken = require("../models/passwordResetToken");
 
 export const register = async (req, res) => {
   try {
@@ -10,7 +13,7 @@ export const register = async (req, res) => {
       req.body;
 
     if (!validateEmail(email)) {
-      return res.status(400).json({
+      return res.status(400).json({ 
         message: "invalid email address",
       });
     }
@@ -151,4 +154,41 @@ export const getProfile = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+// Nada
+export const forgetPassword = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) return sendError(res, "email is missing!");
+
+  const user = await User.findOne({ email });
+  if (!user) return sendError(res, "User not found!", 404);
+
+  const alreadyHasToken = await PasswordResetToken.findOne({ owner: user._id });
+  if (alreadyHasToken)
+    return sendError(
+      res,
+      "Only after one hour you can request for another token!"
+    );
+
+  const token = await generateRandomByte();
+  const newPasswordResetToken = await PasswordResetToken({
+    owner: user._id,
+    token,
+  });
+  await newPasswordResetToken.save();
+
+  const resetPasswordUrl = `http://localhost:3000/auth/reset-password?token=${token}&id=${user._id}`;
+
+  transport.sendMail({
+    from: "security@reviewapp.com",
+    to: user.email,
+    subject: "Reset Password Link",
+    html: `
+        <p>Click here to reset password</p>
+        <a href='${resetPasswordUrl}'>Change Password</a>
+      `,
+  });
+
+  res.json({ message: "Link sent to your email!" });
 };
