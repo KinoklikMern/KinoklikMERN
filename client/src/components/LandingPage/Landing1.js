@@ -44,7 +44,6 @@ const Landing1 = () => {
     <>
       <div className="landing1">
         <div className="landing1Button">
-        
           {user && user.role === "FILM_MAKER" && (
             <button className="landing1FilmEPK" onClick={createEpk}>
               UPLOAD EPK
@@ -54,47 +53,65 @@ const Landing1 = () => {
             </button>
           )}
         </div>
-        <div className="leftColumn ">
-          <h2 className="landing1Title">
-            Promote your film to the world, for free!
-          </h2>
-          <Typography>
-          <p className="introText">
-            Whether you have just an idea for a movie, shot the trailer, or your
-            film's in the can, use our free
-            <b> Electronic Press Kit Software</b> to promote your film directly
-            to industry professionals and your audience！
-          </p>
-        </Typography>
-          {/* <FontAwesomeIcon className="uploadFilm" icon={faFolderPlus} /> */}
-          
-          <Grid container spacing={3} justify="center">
-            <Grid item>
-              <Button href="#" variant="contained" color="primary">
-                Create Film Project
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button href="#" variant="contained" color="primary">
-                Browse Films
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
-        <div className="rightColumn ">
-          <img className="landing1Img" src={img} alt=""></img>
-        </div>
+
+        <Grid item  >
+          <div className="leftColumn ">
+            <h2 className="landing1Title">
+              Promote your film to the world, for free!
+            </h2>
+            <Box paddingX={10}>
+              <Typography
+                variant="h6"
+                component="h3"
+                style={{ color: "#FFFFFF" }}
+              >
+                {/* <p className="introText"> */}
+                Whether you have just an idea for a movie, shot the trailer, or
+                your film's in the can, use our free
+                <b> Electronic Press Kit Software</b> to promote your film
+                directly to industry professionals and your audience！
+                {/*</p> */}
+              </Typography>
+            </Box>
+            {/* <FontAwesomeIcon className="uploadFilm" icon={faFolderPlus} /> */}
+            <Box paddingY={5}>
+              <Grid container spacing={3} justify="center">
+                <Grid item>
+                  <Button href="#" variant="contained" color="primary">
+                    Create Film Project
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button href="#" variant="contained" color="primary">
+                    Browse Films
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </div>
+        </Grid>
+        <Grid item >
+        <div className="rightColumn"> 
+            <img className="landing1Img" src={img} alt=""></img>
+          </div> 
+        </Grid>
       </div>
 
       <div className="landing12">
-        <h2 className="landing1NewFilms"> NEW FILMS </h2>
-        <div className="landing1FilmImg">
-          {newFilm.map((item) => (
-            <div className="c-col" key={item._id}>
-              <img className="filmImg" src={item.image} alt={item.title} />
+      
+      
+          <h2 className="landing1NewFilms"> NEW FILMS </h2>
+      
+            <div className="landing1FilmImg">
+              {newFilm.map((item) => (
+                <div className="c-col" key={item._id} sm={6}>
+                  <img className="filmImg" src={item.image} alt={item.title} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          
+        
+
         <h2 className="landing1MostPopular"> MOST POPULAR </h2>
         <div className="landing1FilmImg">
           {popularFilm.map((item) => (
