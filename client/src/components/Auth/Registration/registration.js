@@ -1,6 +1,7 @@
 import React, { useState, setState } from "react";
 import "./style.css";
 import axios from "axios";
+
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -15,6 +16,7 @@ function RegistrationForm() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
 
+  //individual registration form
   const options = [
     {
       label: "Viewer",
@@ -54,12 +56,6 @@ function RegistrationForm() {
     if (id === "confirmPassword") {
       setConfirmPassword(value);
     }
-    if (id === "website") {
-      setWebsite(value);
-    }
-    if (id === "phone") {
-      setPhone(value);
-    }
   };
 
   const handleSubmit = async () => {
@@ -69,8 +65,6 @@ function RegistrationForm() {
       email,
       password,
       confirmPassword,
-      phone,
-      website,
       role
     );
     try {
@@ -81,8 +75,6 @@ function RegistrationForm() {
           password: password,
           firstName: firstName,
           lastName: lastName,
-          phone: phone,
-          website: website,
           role: role,
         }
       );
@@ -142,33 +134,6 @@ function RegistrationForm() {
             </select>
           </div>
 
-          {role != "Viewer" && (
-            <div>
-              please enter extra information
-              <div className="phone">
-                <label className="form__label">phone number </label>
-                <input
-                  className="form__input"
-                  type="text"
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => handleInputChange(e)}
-                  placeholder="phone number"
-                />
-              </div>
-              <div className="website">
-                <label className="form__label">Website </label>
-                <input
-                  className="form__input"
-                  type="text"
-                  id="website"
-                  value={website}
-                  onChange={(e) => handleInputChange(e)}
-                  placeholder="website"
-                />
-              </div>
-            </div>
-          )}
           <div className="password">
             <label className="form__label">Password </label>
             <input
@@ -194,7 +159,11 @@ function RegistrationForm() {
         </div>
         {error && <div className="error_text">{error}</div>}
         {success && <div className="success_text">{success}</div>}
-        <button onClick={() => handleSubmit()} type="submit" className="btn">
+        <button
+          onClick={() => handleSubmit()}
+          type="submit"
+          className="primary-btn"
+        >
           Register
         </button>
       </div>

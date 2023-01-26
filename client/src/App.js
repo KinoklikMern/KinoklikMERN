@@ -5,7 +5,7 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
-import Login from "./components/Auth/Registration/login";
+import LoginForm from "./components/Auth/Registration/loginform";
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import FilmMakerSelectedFilm from "./pages/FlimMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./pages/FlimMaker/filmMakerDashboardSecurity";
@@ -82,16 +82,34 @@ function App() {
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
-          <Route path="registeration" element={<RegistrationForm />} />
-          <Route path="login" element={<Login />} />
+          <Route path="registration" element={<RegistrationForm />} />
+          <Route path="login" element={<LoginForm />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
-          
-          <Route path="filmMakerSelectedMovie" element={<FilmMakerSelectedFilm />} />
-          <Route path="filmMakerDashboardSecurity" element={<FilmMakerDashboardSecurity />} />
-          <Route path="filmMakerDashboardSecurityCompany" element={<FilmMakerDashboardSecurityCompany />} />
-          <Route path="filmMakerDashboardSecurityPassword" element={<FilmMakerDashboardSecurityPassword />} />
-          <Route path="filmMakerDashboardSecurityAccount" element={<FilmMakerDashboardSecurityAccount />} />
-          <Route path="filmMakerDashboardSecurityProfile" element={<FilmMakerDashboardSecurityProfile />} />
+
+          <Route
+            path="filmMakerSelectedMovie"
+            element={<FilmMakerSelectedFilm />}
+          />
+          <Route
+            path="filmMakerDashboardSecurity"
+            element={<FilmMakerDashboardSecurity />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityCompany"
+            element={<FilmMakerDashboardSecurityCompany />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityPassword"
+            element={<FilmMakerDashboardSecurityPassword />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityAccount"
+            element={<FilmMakerDashboardSecurityAccount />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityProfile"
+            element={<FilmMakerDashboardSecurityProfile />}
+          />
           <Route path="bookmark" element={<Bookmark />} />
 
           <Route path="coverForm" element={<CoverForm />} />
