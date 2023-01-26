@@ -1,6 +1,7 @@
-const crypto = require("crypto");
+//const crypto = require("crypto");
+import crypto from "crypto";
 
-exports.generateRandomByte = () => {
+export const generateRandomByte = () => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(30, (err, buff) => {
         if (err) reject(err);
@@ -10,3 +11,9 @@ exports.generateRandomByte = () => {
       });
     });
   };
+
+  // exports.sendError = (res, error, statusCode = 401) =>
+  // res.status(statusCode).json({ error });
+
+  export const sendError = (res, error, statusCode = 401) =>
+  res.status(statusCode).json({ error });

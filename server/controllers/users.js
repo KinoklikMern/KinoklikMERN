@@ -13,7 +13,7 @@ export const register = async (req, res) => {
       req.body;
 
     if (!validateEmail(email)) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         message: "invalid email address",
       });
     }
@@ -177,11 +177,12 @@ export const forgetPassword = async (req, res) => {
     token,
   });
   await newPasswordResetToken.save();
-
+  // the token will expire in 1 hour.
   const resetPasswordUrl = `http://localhost:3000/auth/reset-password?token=${token}&id=${user._id}`;
 
   transport.sendMail({
-    from: "security@reviewapp.com",
+    // from: "security@reviewapp.com",
+    from: "info@kinoklik.com",
     to: user.email,
     subject: "Reset Password Link",
     html: `
@@ -191,4 +192,42 @@ export const forgetPassword = async (req, res) => {
   });
 
   res.json({ message: "Link sent to your email!" });
+};
+
+export const sendResetPasswordTokenStatus = (req, res) => {
+  res.json({ valid: true });
+};
+
+export const resetPassword = async (req, res) => {
+  const { newPassword, userId } = req.body;
+
+  const user = await User.findById(userId);
+  const matched = await user.comparePassword(newPassword);
+  if (matched)
+    return sendError(
+      res,
+      "The new password must be different from the old one!"
+    );
+
+  user.password = newPassword;
+  await user.save();
+
+  await PasswordResetToken.findByIdAndDelete(req.resetToken._id);
+
+  const transport = generateMailTransporter();
+
+  transport.sendMail({
+    from: "info@kinoklik.com",
+    to: user.email,
+    subject: "Password Reset Successfully",
+    html: `
+      <h1>Password Reset Successfully</h1>
+      <p>Now you can use the new password.</p>
+
+    `,
+  });
+
+  res.json({
+    message: "Password reset successfully, now you can use your new password.",
+  });
 };

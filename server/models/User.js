@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -70,6 +71,11 @@ const UserSchema = mongoose.Schema({
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).
+userSchema.methods.comparePassword = async function (password) {
+  const result = await bcrypt.compare(password, this.password);
+  return result;
+};
+
 const User = mongoose.model("User", UserSchema);
 
 export default User;
