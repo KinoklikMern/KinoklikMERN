@@ -111,6 +111,22 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
+  // "$" sign front end
+  wishes_to_buy: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
+  // sharing sign front end
+  sharings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
   // Soft-deletion of documents in databases is an operation in which a flag is used 
   // to mark documents as deleted without erasing the data from the database.
   deleted: {
