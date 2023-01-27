@@ -195,6 +195,68 @@ export const getFepkFavourite = async (req, res) => {
   } 
 };
 
+// adding user who wishes to buy $
+export const getFepkWishedToBuy = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const userId = req.params.userid;
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = fepkOne.wishes_to_buy.includes(userId);
+      if(exists === false)
+      {
+        await fepkOne.wishes_to_buy.push(userId);
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
+// adding user who shared the link
+export const getFepkSharings = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const userId = req.params.userid;
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = fepkOne.sharings.includes(userId);
+      if(exists === false)
+      {
+        await fepkOne.sharings.push(userId);
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
 //upload a file to S3
 export const uploadFepkFile = async (req, res) => {
     const file = req.file;
