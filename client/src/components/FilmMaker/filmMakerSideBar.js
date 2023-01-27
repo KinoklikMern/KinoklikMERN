@@ -6,96 +6,57 @@ import {
   faHome,
   faBell,
   faCog,
+  faHandshake,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function FilmmakerSideBar() {
   return (
-    <div class="sidebar-left">
-      <div class="filmmaker-navbar px-1">
-        <ul class="nav nav-tabs filmmaker-dash-ul" role="tablist">
-          <li class="nav-link" role="tab" data-li="UploadMovie">
-            <div class="sidebarnav-icon side-button">
-              <a href="/Notification.js">
-                <FontAwesomeIcon icon={faNewspaper} />
-              </a>
-            </div>
-          </li>
-          <li class="nav-item" role="presentation">
-            <div
-              class="nav-link tab-clickable"
-              data-bs-toggle="tab"
-              data-bs-target="#dashboard"
-              role="tab"
-            >
+    <>
+      <div class="sidebar-left">
+        <div class="filmmaker-navbar px-1">
+          <ul class="nav nav-tabs filmmaker-dash-ul" role="tablist">
+            <li class="nav-link">
               <div class="sidebarnav-icon side-button">
-                <FontAwesomeIcon icon={faPhotoFilm} />
-              </div>
-            </div>
-          </li>
-
-          <li class="nav-item" role="presentation">
-            <div
-              class="nav-link tab-clickable"
-              data-bs-toggle="tab"
-              data-bs-target="#inbox"
-              role="tab"
-            >
-              <div class="sidebarnav-icon side-button">
-                <Link to="/filmMakerDashboard" class="links">
-                  <FontAwesomeIcon icon={faHome} />
+                <Link to="/filmMakerDashboard">
+                  <FontAwesomeIcon icon={faPlus} />
                 </Link>
               </div>
-            </div>
-          </li>
-
-          <li class="nav-item" role="presentation">
-            <div
-              class="nav-link tab-clickable"
-              data-bs-toggle="tab"
-              data-bs-target="#notifications"
-              role="tab"
-            >
+            </li>
+            <li class="nav-item" role="presentation">
               <div class="sidebarnav-icon side-button">
-                <FontAwesomeIcon icon={faBell} />
+                <Link to="/filmMakerMovies">
+                  <FontAwesomeIcon icon={faPhotoFilm} />
+                </Link>
               </div>
-            </div>
-          </li>
+            </li>
 
-          <li class="nav-item" role="presentation">
-            <div
-              class="nav-link tab-clickable"
-              data-bs-toggle="tab"
-              data-bs-target="#filmList"
-              role="tab"
-            >
+            <li class="nav-item" role="presentation">
               <div class="sidebarnav-icon side-button">
-                <br />
+                <Link to="/filmMakerConnect">
+                  <FontAwesomeIcon icon={faHandshake} />
+                </Link>
               </div>
-            </div>
-          </li>
+            </li>
 
-          <li class="nav-item" role="presentation">
-            <div
-              class="nav-link tab-clickable"
-              data-bs-toggle="tab"
-              data-bs-target="#settings"
-              role="tab"
-            >
+            <li class="nav-item" role="presentation">
               <div class="sidebarnav-icon side-button">
-                <br />
+                <Link to="/filmMakerNotifications">
+                  <FontAwesomeIcon icon={faBell} />
+                </Link>
               </div>
-            </div>
-          </li>
+            </li>
 
-          <li class="nav-link" role="tab" data-li="UserProfile">
-            <div class="sidebarnav-icon side-button">
-              <Link to="/filmMakerDashboardSecurity" class="links">
-                <FontAwesomeIcon icon={faCog} />
-              </Link>
-            </div>
-          </li>
-        </ul>
+            <li class="nav-link" role="tab" data-li="UserProfile">
+              <div class="sidebarnav-icon side-button">
+                <Link to="/filmMakerDashboardSecurityAccount">
+                  <FontAwesomeIcon icon={faCog} />
+                </Link>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -13,6 +13,9 @@ import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerD
 import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMakerDashboardSecurityPassword";
 import FilmMakerDashboardSecurityAccount from "./components/FilmMaker/filmMakerDashboardSecurityAccount";
 import FilmMakerDashboardSecurityProfile from "./components/FilmMaker/filmMakerDashboardSecurityProfile";
+import FilmMakerMovies from "./components/FilmMaker/filmMakerMovies";
+import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotifications";
+import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
 import Bookmark from "./pages/Bookmark";
 
 import DetailsForm from "./components/Epk/Input/detailsForm";
@@ -90,6 +93,12 @@ function App() {
             path="filmMakerSelectedMovie"
             element={<FilmMakerSelectedFilm />}
           />
+          <Route path="filmMakerMovies" element={<FilmMakerMovies />} />
+          <Route
+            path="filmMakerNotifications"
+            element={<FilmMakerNotifications />}
+          />
+          <Route path="filmMakerConnect" element={<FilmMakerConnect />} />
           <Route
             path="filmMakerDashboardSecurity"
             element={<FilmMakerDashboardSecurity />}
