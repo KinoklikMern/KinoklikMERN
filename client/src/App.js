@@ -67,6 +67,8 @@ import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
 import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
+import FepkUploadDashboard from "./pages/FepkUploadDashboard";
+import FepkEditDashboard from "./pages/FepkEditDashboard";
 
 const theme = createTheme({
   palette: {
@@ -157,8 +159,10 @@ function App() {
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="resources" element={<Resources />} />
 
-          <Route path="epk" element={<EPK />} />
+          <Route path="epk/:title" element={<EPK />} />
           <Route path="uploadEpk" element={<EpkDashboard />} />
+          <Route path="uploadFepk" element={<FepkUploadDashboard />} />
+          <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
           <Route path="trailerForm" element={<TrailerForm />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
