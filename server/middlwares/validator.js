@@ -1,4 +1,5 @@
 
+import { check, validationResult} from "express-validator";
 
 export const validatePassword = [
     check("newPassword")
