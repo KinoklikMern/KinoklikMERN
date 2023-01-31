@@ -6,7 +6,8 @@ import { Button, Col, Row } from "antd";
 import FepkEditCoverForm from "../components/Epk/Input/fepkEditCoverForm";
 import LoglineForm from "../components/Epk/Input/loglineFepkForm";
 import DetailsForm from "../components/Epk/Input/detailsFepkForm";
-
+import SynopsisForm from "../components/Epk/Input/fepkSynopsisForm";
+import UniquenessForm from "../components/Epk/Input/fepkUniquenessForm";
 
 function FepkEditDashboard() {
     return (
@@ -20,6 +21,10 @@ function FepkEditDashboard() {
       <DetailsForm />
       <br/>
       <LoglineForm />
+      <br/>
+      <SynopsisForm />
+      <br/>
+      <UniquenessForm />
       <br/>
     </div>
     
