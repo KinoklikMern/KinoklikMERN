@@ -10,6 +10,9 @@ import { popularFilm } from "./landingCategory";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useSelector } from "react-redux";
+// testing
+import Landing1N from "../LandingNewPage/Landing1N";
+
 import {
   Button,
   Grid,
@@ -42,6 +45,7 @@ const Landing1 = () => {
   };
   return (
     <>
+    <Landing1N/>
       <div className="landing1">
         <div className="landing1Button">
           {user && user.role === "FILM_MAKER" && (
