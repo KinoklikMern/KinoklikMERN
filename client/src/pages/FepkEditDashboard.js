@@ -8,6 +8,7 @@ import LoglineForm from "../components/Epk/Input/loglineFepkForm";
 import DetailsForm from "../components/Epk/Input/detailsFepkForm";
 import SynopsisForm from "../components/Epk/Input/fepkSynopsisForm";
 import UniquenessForm from "../components/Epk/Input/fepkUniquenessForm";
+import StillsForm from "../components/Epk/Input/fepkStills";
 
 function FepkEditDashboard() {
     return (
@@ -25,6 +26,8 @@ function FepkEditDashboard() {
       <SynopsisForm />
       <br/>
       <UniquenessForm />
+      <br/>
+      <StillsForm />
       <br/>
     </div>
     
