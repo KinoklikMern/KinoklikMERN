@@ -11,13 +11,19 @@ const fepkSchema = mongoose.Schema({
   // Cover
   title: {
     type: String,
+    unique: true,
     required: true
   },
-
+  logLine_short: {type: String},
   genre: {type: String},
   banner_url: {type: String},
   trailer_url: {type: String},
   kickstarter_url: {type: String},
+  status: {
+    type: String,
+    enum: ['preproduction', 'production', 'postproduction'],
+    required: true
+  },
   createdAt: {
     type: Date,
     default: new Date()
@@ -29,7 +35,6 @@ const fepkSchema = mongoose.Schema({
 
   // Film Details
   image_details: {type: String},
-  sound:{type: String},
   productionCo:{type: String},
   distributionCo: {type: String},
   productionYear: {type: String},
@@ -37,7 +42,7 @@ const fepkSchema = mongoose.Schema({
 
   // Logline
   image_logline: {type: String},
-  logLine: {type: String},
+  logLine_long: {type: String},
 
   // Synopsis
   image_synopsis: {type: String},
@@ -59,7 +64,7 @@ const fepkSchema = mongoose.Schema({
       },
       epkRole: {
         type: String,
-        enum: ['lead_actor', 'supporting_actor', 'director', 'producer', 'cinematographer', 'editor', 'writer']
+        enum: ['lead_actor', 'supporting_actor', 'director', 'producer', 'cinematographer', 'editor', 'writer', 'sound']
       }   
     }
   ],
@@ -106,11 +111,22 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
-  // Status
-  status: {
-    type: Boolean,
-    default: true
-  },
+  // "$" sign front end
+  wishes_to_buy: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
+  // sharing sign front end
+  sharings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
   // Soft-deletion of documents in databases is an operation in which a flag is used 
   // to mark documents as deleted without erasing the data from the database.
   deleted: {
