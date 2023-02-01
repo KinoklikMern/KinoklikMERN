@@ -71,7 +71,7 @@ const UserSchema = mongoose.Schema({
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).
-userSchema.methods.comparePassword = async function (password) {
+UserSchema.methods.comparePassword = async function (password) {
   const result = await bcrypt.compare(password, this.password);
   return result;
 };

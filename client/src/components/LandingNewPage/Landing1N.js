@@ -17,7 +17,7 @@ const Landing1N = () => {
             <h1 className="mt-6 text-2xl font-bold text-white-900 sm:mt-8 sm:text-4xl lg:text-3xl xl:text-4xl">
               Promote your film to the world, for free ?!
             </h1>
-            <h4 className="mt-2  text-white sm:mt-4 sm:text-xl">
+            <h4 className="mt-2  text-white text-justify sm:mt-4 sm:text-xl">
               Whether you have just an idea for a movie, shot the trailer, or
               your film's in the can, use our free
               <b> Electronic Press Kit Software</b> to promote your film
@@ -39,9 +39,9 @@ const Landing1N = () => {
             </div>
           </div>
         </div>
-        <div className=" hidden relative lg:block 2xl:col-span-3">
+        <div className=" hidden relative lg:block 2xl:col-span-3 ">
           <img
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center "
             src={moviesPhoto}
             alt="Movies"
           />

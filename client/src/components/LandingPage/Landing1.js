@@ -45,15 +45,13 @@ const Landing1 = () => {
   };
   return (
     <>
-    <Landing1N/>
-      <div className="landing1">
+      <Landing1N />
+      {/*<div className="landing1">
         <div className="landing1Button">
           {user && user.role === "FILM_MAKER" && (
             <button className="landing1FilmEPK" onClick={createEpk}>
               UPLOAD EPK
-              {/*    <Link class="landing1FilmEPK" to="/uploadEpk">
-              UPLOAD EPK
-            </Link> */}
+            
             </button>
           )}
         </div>
@@ -69,15 +67,15 @@ const Landing1 = () => {
                 component="h3"
                 style={{ color: "#FFFFFF" }}
               >
-                {/* <p className="introText"> */}
+                
                 Whether you have just an idea for a movie, shot the trailer, or
                 your film's in the can, use our free
                 <b> Electronic Press Kit Software</b> to promote your film
                 directly to industry professionals and your audience！
-                {/*</p> */}
+             
               </Typography>
             </Box>
-            {/* <FontAwesomeIcon className="uploadFilm" icon={faFolderPlus} /> */}
+     
             <Box paddingY={5}>
               <Grid container spacing={3} justify="center">
                 <Grid item>
@@ -99,28 +97,41 @@ const Landing1 = () => {
             <img className="landing1Img" src={img} alt=""></img>
           </div> 
         </Grid>
-      </div>
+          </div> */}
 
-      <div className="landing12">
-      
-      
-          <h2 className="landing1NewFilms"> NEW FILMS </h2>
-      
-            <div className="landing1FilmImg">
-              {newFilm.map((item) => (
-                <div className="c-col" key={item._id} sm={6}>
-                  <img className="filmImg" src={item.image} alt={item.title} />
-                </div>
-              ))}
+      <div className="bg-midnight ">
+        <h2 className="text-white text-3xl font-bold  ml-10 ">
+          NEW FILMS
+        </h2>
+        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-2 py-4 sm:px-1">
+          {newFilm.map((item) => (
+            <div
+              className="shadow-md shadow-gray-600 rounded-lg"
+              key={item._id}
+            >
+              <img
+                className="rounded-md w-full h-64 duration-200 hover:scale-105"
+                src={item.image}
+                alt={item.title}
+              />
             </div>
-          
-        
+          ))}
+        </div>
 
-        <h2 className="landing1MostPopular"> MOST POPULAR </h2>
-        <div className="landing1FilmImg">
+        <h2 className="text-white text-3xl font-bold mb-10 ml-10 ">
+          MOST POPULAR
+        </h2>
+        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-2 sm:px-0">
           {popularFilm.map((item) => (
-            <div className="c-col" key={item._id}>
-              <img className="filmImg" src={item.image} alt={item.title} />
+            <div
+              className="shadow-md shadow-gray-600 rounded-lg"
+              key={item._id}
+            >
+              <img
+                className="rounded-md w-full h-64 duration-200 hover:scale-105"
+                src={item.image}
+                alt={item.title}
+              />
             </div>
           ))}
         </div>
