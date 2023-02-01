@@ -22,7 +22,7 @@ function LoginForm() {
       setPassword(value);
     }
   };
- //add some validation
+
   const handleSubmit = async () => {
     console.log(email, password);
     try {
