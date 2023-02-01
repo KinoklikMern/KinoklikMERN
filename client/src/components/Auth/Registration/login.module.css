@@ -1,0 +1,46 @@
+.btn {
+    background: #712CB0;
+    color: white;
+    border: 10px solid var(#712CB0);
+    padding: 4px 50px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
+    width: 50%;
+    float: left;
+    margin: 100px 100px 50px 50px;
+}
+
+.form {
+    width: 50%;
+    padding: 100px 100px 100px 100px;
+    margin: 0 auto;
+}
+
+
+.form_input {
+    background: white;
+    color: 712CB0;
+    width: 300px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(#712CB0),
+        0 6px 20px 0 rgba(#712CB0);
+    border: 10px solid var(#712CB0);
+    font-size: 20px;
+    font-weight: 500;
+
+}
+
+.bg {
+    background-image: url(../../../images/login/Curtains.png);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}

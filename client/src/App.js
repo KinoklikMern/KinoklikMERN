@@ -5,7 +5,7 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
-import Login from "./components/Auth/Registration/login";
+import LoginForm from "./components/Auth/Registration/loginform";
 import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";

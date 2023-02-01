@@ -1,6 +1,7 @@
 import React, { useState, setState } from "react";
-import "./style.css";
 import axios from "axios";
+import Logincss from "./login.module.css";
+
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -43,14 +44,14 @@ function LoginForm() {
 
   return (
     <>
-      <div className="form">
-        <div className="form-body">
+      <div className={Logincss.form}>
+        <div className={Logincss.formbody}>
           <div className="email">
             <label className="form__label">Email </label>
             <input
               type="email"
               id="email"
-              className="form__input"
+              className={Logincss.form_input}
               value={email}
               onChange={(e) => handleInputChange(e)}
               placeholder="Email"
@@ -59,7 +60,7 @@ function LoginForm() {
           <div className="password">
             <label className="form__label">Password </label>
             <input
-              className="form__input"
+              className={Logincss.form_input}
               type="password"
               id="password"
               value={password}
@@ -70,8 +71,12 @@ function LoginForm() {
         </div>
         {error && <div className="error_text">{error}</div>}
         {success && <div className="success_text">{success}</div>}
-        <button onClick={() => handleSubmit()} type="submit" className="primary-btn">
-          Login
+        <button
+          onClick={() => handleSubmit()}
+          type="submit"
+          className={Logincss.btn}
+        >
+          Sign In
         </button>
       </div>
     </>
