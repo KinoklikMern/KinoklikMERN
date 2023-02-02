@@ -121,14 +121,15 @@ export default function Filmmaker() {
                       <Link to="/filmMakerSelectedMovie" class="links">
                         <div class="card movie-card">
                         
-                          <img src={epkList.banner_url} alt="movie banner"/>         
+                          <img src={epkList.banner_url} alt="movie banner"/>
+                                
                           <div class="card-body">
                             
                             <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
-                              <p>200</p>
-                              <p>200</p>
-                              <p>200</p>
-                              <p>200</p>
+                              <p>{epk.wishes_to_buy.length}</p>
+                              <p>{epk.favourites.length}</p>
+                              <p>{epk.likes.length}</p>
+                              <p>{epk.sharings.length}</p>
                             </div>
                             
                             <div class="d-flex justify-content-between align-items-center pb-1">
