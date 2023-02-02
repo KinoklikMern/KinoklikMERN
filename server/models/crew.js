@@ -19,6 +19,11 @@ const crewSchema = mongoose.Schema({
         type: Date,
         default: new Date()
     },
+    film_maker: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
     // Soft-deletion of documents in databases is an operation in which a flag is used 
     // to mark documents as deleted without erasing the data from the database.
     deleted: {
