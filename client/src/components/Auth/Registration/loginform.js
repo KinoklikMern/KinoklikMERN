@@ -44,40 +44,42 @@ function LoginForm() {
 
   return (
     <>
-      <div className={Logincss.form}>
-        <div className={Logincss.formbody}>
-          <div className="email">
-            <label className="form__label">Email </label>
-            <input
-              type="email"
-              id="email"
-              className={Logincss.form_input}
-              value={email}
-              onChange={(e) => handleInputChange(e)}
-              placeholder="Email"
-            />
+      <div className={Logincss.bg}>
+        <div className={Logincss.form}>
+          <div className={Logincss.formbody}>
+            <div className="email">
+              {/* <label className="form__label">Email </label> */}
+              <input
+                type="email"
+                id="email"
+                className={Logincss.form_input}
+                value={email}
+                onChange={(e) => handleInputChange(e)}
+                placeholder="Email"
+              />
+            </div>
+            <div className="password">
+              {/* <label className="form__label">Password </label> */}
+              <input
+                className={Logincss.form_input}
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => handleInputChange(e)}
+                placeholder="Password"
+              />
+            </div>
           </div>
-          <div className="password">
-            <label className="form__label">Password </label>
-            <input
-              className={Logincss.form_input}
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => handleInputChange(e)}
-              placeholder="Password"
-            />
-          </div>
+          {error && <div className="error_text">{error}</div>}
+          {success && <div className="success_text">{success}</div>}
+          <button
+            onClick={() => handleSubmit()}
+            type="submit"
+            className={Logincss.btn}
+          >
+            Sign In
+          </button>
         </div>
-        {error && <div className="error_text">{error}</div>}
-        {success && <div className="success_text">{success}</div>}
-        <button
-          onClick={() => handleSubmit()}
-          type="submit"
-          className={Logincss.btn}
-        >
-          Sign In
-        </button>
       </div>
     </>
   );

@@ -87,7 +87,7 @@ function App() {
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
-          <Route path="registration" element={<RegistrationForm />} />
+          <Route path="signup" element={<RegistrationForm />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
 
