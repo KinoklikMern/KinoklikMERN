@@ -100,10 +100,8 @@ const Landing1 = () => {
           </div> */}
 
       <div className="bg-midnight ">
-        <h2 className="text-white text-3xl font-bold  ml-10 ">
-          NEW FILMS
-        </h2>
-        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-2 py-4 sm:px-1">
+        <h2 className="text-white text-3xl font-bold  ml-10 ">NEW FILMS</h2>
+        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 px-2 py-4 sm:px-1">
           {newFilm.map((item) => (
             <div
               className="shadow-md shadow-gray-600 rounded-lg"
@@ -121,7 +119,7 @@ const Landing1 = () => {
         <h2 className="text-white text-3xl font-bold mb-10 ml-10 ">
           MOST POPULAR
         </h2>
-        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-2 sm:px-0">
+        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 px-2 sm:px-0">
           {popularFilm.map((item) => (
             <div
               className="shadow-md shadow-gray-600 rounded-lg"
@@ -135,8 +133,13 @@ const Landing1 = () => {
             </div>
           ))}
         </div>
-        <div>
-          <button className="browseFilmProject">Browse Film Projects</button>
+        <div className="flex justify-center  p-6 items-center">
+          <a
+            className="inline-block px-4 py-2 rounded-lg bg-white hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-xl text-midnight  shadow-lg sm:text-base mr-4"
+            href="/"
+          >
+            Browse Film Projects
+          </a>
         </div>
       </div>
     </>

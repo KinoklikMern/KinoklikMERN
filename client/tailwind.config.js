@@ -8,7 +8,7 @@ module.exports = {
         current: "currentColor",
         white: "#ffffff",
         purple: "#3f3cbb",
-        midnight: "#1f003d",
+        midnight: "#1F0439",
       },
     },
   },

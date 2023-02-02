@@ -5,11 +5,12 @@ import img from '../../images/EPK.jpg'
 import img1 from '../../images/CreateLOGO.jpg'
 import "./Landing2.css";
 import { landingFilm } from './landingCategory';
+import Landing2N from '../LandingNewPage/Landing2N';
 
 const Landing2 = () => {
     return (
-        <>
-            <div className="landing2">
+        <>   <Landing2N/>
+          {/*  <div className="landing2">
                 <h2 className='landing2Title'><b>Promoting and selling your film doesn't absolutely,
                     necessarily have to be complicated...</b></h2>
                 <div className='landing2leftColumn'>
@@ -33,7 +34,7 @@ const Landing2 = () => {
                     </div>
                     <br />
                 </div>
-            </div>
+    </div> */}
         </>
     )
 }

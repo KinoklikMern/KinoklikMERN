@@ -25,16 +25,16 @@ const Landing1N = () => {
             </h4>
             <div className="mt-4 sm:mt-6 grid-cols-2">
               <a
-                className="inline-block px-4 py-2 rounded-lg bg-violet-800 hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none  uppercase tracking-wider font-semibold text-sm text-white shadow-lg sm:text-base mr-4"
+                className="inline-block px-4 py-2 rounded-lg bg-violet-800 hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-xl text-white shadow-lg sm:text-base mr-4"
                 href="/"
               >
-                Create Film Project
+                Create EPK
               </a>
               <a
-                className="inline-block px-4 py-2 rounded-lg bg-violet-800 hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none uppercase tracking-wider font-semibold text-sm text-white shadow-lg sm:text-base"
+                className="inline-block px-4 py-2 rounded-lg bg-violet-800 hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none tracking-wider font-bold text-xl text-white shadow-lg sm:text-base"
                 href="/"
               >
-                Browse Films
+                Browse EPKs
               </a>
             </div>
           </div>
