@@ -94,11 +94,7 @@ const fepkSchema = mongoose.Schema({
         image: {type: String},
         title: {type: String, required: true},
         time: {type: String},
-        description: {type: String},
-        instagram: {type: String},
-        facebook: {type: String},
-        twitter: {type: String},
-        email: {type: String}
+        description: {type: String}
     }
   ],
   

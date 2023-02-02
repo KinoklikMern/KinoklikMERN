@@ -17,11 +17,7 @@ function ResourcesForm () {
   const [resource, setResource] = useState({
     title: "", 
     time: "", 
-    description: "",
-    instagram: "",
-    facebook: "",
-    twitter: "",
-    email: ""
+    description: ""
     });
   const [epkResourcesData, setEpkResourcesData] = useState({
     resources: fepk.resources
@@ -166,7 +162,7 @@ function ResourcesForm () {
             <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Resources</h5>
             <form>
                 <div className="row">
-                    <div className="col-2 my-2">
+                    <div className="col-4 my-4">
                         <input
                             style={{ 
                             height: "30px", 
@@ -209,65 +205,10 @@ function ResourcesForm () {
                             onChange={handleResourceChange}
                             name="description"
                         />
-                        <input
-                            style={{ 
-                            height: "30px", 
-                            width: "100%", 
-                            borderRadius: "5px", 
-                            marginBottom: "5px",
-                            boxShadow: '1px 2px 9px #311465',
-                            textAlign: 'left'
-                            }}
-                            className="form-control m-10"
-                            placeholder="Instagram"
-                            onChange={handleResourceChange}
-                            name="instagram"
-                        />
-                        <input
-                            style={{ 
-                            height: "30px", 
-                            width: "100%", 
-                            borderRadius: "5px", 
-                            marginBottom: "5px",
-                            boxShadow: '1px 2px 9px #311465',
-                            textAlign: 'left'
-                            }}
-                            className="form-control m-10"
-                            placeholder="Facebook"
-                            onChange={handleResourceChange}
-                            name="facebook"
-                        />
-                        <input
-                            style={{ 
-                            height: "30px", 
-                            width: "100%", 
-                            borderRadius: "5px", 
-                            marginBottom: "5px",
-                            boxShadow: '1px 2px 9px #311465',
-                            textAlign: 'left'
-                            }}
-                            className="form-control m-10"
-                            placeholder="Twitter"
-                            onChange={handleResourceChange}
-                            name="twitter"
-                        />
-                        <input
-                            style={{ 
-                            height: "30px", 
-                            width: "100%", 
-                            borderRadius: "5px", 
-                            marginBottom: "5px",
-                            boxShadow: '1px 2px 9px #311465',
-                            textAlign: 'left'
-                            }}
-                            className="form-control m-10"
-                            placeholder="Email"
-                            onChange={handleResourceChange}
-                            name="email"
-                        />
+                        
                         <label for="fileAwardLogo" class="form-label text-dark">
                             {" "}
-                            <h6>Upload Image</h6>
+                            <h4>Upload Image</h4>
                         </label>
                         <input
                             className="form-control form-control-sm"
@@ -291,17 +232,13 @@ function ResourcesForm () {
                         </Button>
                         )}
                     </div>
-                    <div className="col-9 my-2">
+                    <div className="col-7 my-4">
                         <table className="table table-striped table-bordered" style={{fontSize:"8px", textAlign:"center"}}>
                             <thead className="thead-dark">
                                 <tr>
                                     <th>Title</th>
                                     <th>Time</th>
                                     <th>Description</th>
-                                    <th>Insta</th>
-                                    <th>Facebook</th>
-                                    <th>Twitter</th>
-                                    <th>Email</th>
                                     <th>Image</th>
                                     <th>ACTION</th>
                                 </tr>
@@ -313,10 +250,6 @@ function ResourcesForm () {
                                     <td>{resource.title}</td>
                                     <td>{resource.time}</td>
                                     <td>{resource.description}</td>
-                                    <td><a href={resource.instagram} target="_blank">{resource.instagram}</a></td>
-                                    <td><a href={resource.facebook} target="_blank">{resource.facebook}</a></td>
-                                    <td><a href={resource.twitter} target="_blank">{resource.twitter}</a></td>
-                                    <td>{resource.email}</td>
                                     <td>
                                         <img src={`https://kinomovie.s3.amazonaws.com/${resource.image}`} style={{height:"60px", width:"auto"}}/>
                                     </td>
