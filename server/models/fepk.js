@@ -76,6 +76,9 @@ const fepkSchema = mongoose.Schema({
     }
   ],
 
+  // Film Trailer
+  trailer: {type: String},
+
   // Reviews
   reviews: [
     {
