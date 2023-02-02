@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const crewSchema = mongoose.Schema({
-    name: {type: String},
+    name: {type: String, required: true},
     biography:{type: String},
     image: {type: String},
     facebook_url: {type: String},
@@ -9,8 +9,7 @@ const crewSchema = mongoose.Schema({
     twitter_url: {type: String},
     role: {
         type: String,
-        enum: ['actor', 'director', 'producer', 'cinematographer', 'editor', 'writer'],
-        default: 'actor'
+        enum: ['actor', 'director', 'producer', 'cinematographer', 'editor', 'writer']
     },
     createdAt: {
         type: Date,
