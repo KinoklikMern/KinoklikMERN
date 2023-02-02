@@ -126,19 +126,10 @@ function TrailerForm () {
             <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Film Trailer</h5>
             <form>
                 <div  className="row">
-                    <div className="col-1 mt-5"></div>
-                    <div className="col-10 mt-5" style={{textAlign: "center"}}>
-                        <video src={`https://kinomovie.s3.amazonaws.com/${fepk.trailer}`} width="100%" height="220px" controls>
-                        </video>
-                    </div>
-                    <div className="col-1 mt-5"></div>
-                </div>
-                <div  className="row">
-                    <div className="col-1 mt-5"></div>
-                    <div className="col-10 mt-5">
-                        <label for="fileTrailer" class="form-label text-dark">
+                    <div className="col-2 mt-3">
+                      <label for="fileTrailer" class="form-label text-dark">
                         {" "}
-                        <h4>Upload Video</h4>
+                        <h6>Upload Video</h6>
                         </label>
                         <input
                         className="form-control form-control-sm"
@@ -151,13 +142,19 @@ function TrailerForm () {
                         accept="video/*"
                         />
                     </div>
-                    <div className="col-1"
+                    <div className="col-9 mt-3" style={{textAlign: "center"}}>
+                        <video src={`https://kinomovie.s3.amazonaws.com/${fepk.trailer}`} width="100%" height="400px" controls>
+                        </video>
+                    </div>
+                    <div className="col-1">
+                      <div
                         style={{
                         height: "50px",
-                        width: "120px",
+                        width: "100px",
                         marginLeft: "100%",
+                        marginTop: "400px"
                         }}
-                    >
+                      >
                         {disabled===true ? 
                         (
                         <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
@@ -169,6 +166,7 @@ function TrailerForm () {
                             Save
                         </Button>
                         )}
+                      </div>
                     </div>
                 </div>
             </form>

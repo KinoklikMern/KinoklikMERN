@@ -11,6 +11,7 @@ import UniquenessForm from "../components/Epk/Input/fepkUniquenessForm";
 import StillsForm from "../components/Epk/Input/fepkStills";
 import TrailerForm from "../components/Epk/Input/fepkTrailerForm"; 
 import ReviewsForm from "../components/Epk/Input/fepkReviewsForm";
+import ResourcesForm from "../components/Epk/Input/fepkResourcesForm";
 
 function FepkEditDashboard() {
     return (
@@ -30,6 +31,8 @@ function FepkEditDashboard() {
       <UniquenessForm />
       <br/>
       <StillsForm />
+      <br/>
+      <ResourcesForm />
       <br/>
       <TrailerForm />
       <br/>

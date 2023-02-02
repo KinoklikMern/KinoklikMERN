@@ -188,7 +188,7 @@ function StillsForm () {
                         <div
                             style={{
                             height: "50px",
-                            width: "120px",
+                            width: "100px",
                             marginLeft: "100%",
                             marginTop: "350px"
                             }}
