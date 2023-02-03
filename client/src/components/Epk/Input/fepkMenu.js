@@ -23,7 +23,7 @@ export default function BasicMenu() {
         setFepk(response.data);
         console.log(response.data.title);
     });
-  }, []);
+  }, [fepkId]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
