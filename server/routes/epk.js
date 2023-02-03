@@ -1,5 +1,5 @@
 import express from "express";
-import { authUser } from "../middlwares/auth.js";
+import { authUser } from "../middlewares/auth.js";
 
 import { getEpk, createEpk, updateEpk } from "../controllers/epk.js";
 import { createEpkCover, getEpkCover } from "../controllers/epkCover.js";

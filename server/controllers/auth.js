@@ -6,36 +6,37 @@ import bcrypt from "bcrypt";
 import { response } from "express";
 
 export const register = async (req, res) => {
+  //Required Fields
+  const { firstName, lastName, email, role, password, phone, website } =
+    req.body;
+  if (!firstName || !lastName || !email || !role || !password)
+    return res.status(400).json({ message: "Invalid request: Missing fields" });
+  if (!validateEmail(email)) {
+    return res.status(400).json({
+      message: "invalid email address",
+    });
+  }
+  if (!validateLength(firstName, 3, 30)) {
+    return res.status(400).json({
+      message: "First name must be between 3 and 30 characters long.",
+    });
+  }
+  if (!validateLength(lastName, 3, 30)) {
+    return res.status(400).json({
+      message: "Last name must be between 3 and 30 characters long.",
+    });
+  }
+  if (!validateLength(password, 6, 40)) {
+    return res.status(400).json({
+      message: "Password must be between 6 and 40 characters long.",
+    });
+  }
   try {
-    const { firstName, lastName, email, role, password, phone, website } =
-      req.body;
-
-    if (!validateEmail(email)) {
-      return res.status(400).json({
-        message: "invalid email address",
-      });
-    }
     const emailCheck = await User.findOne({ email });
     if (emailCheck) {
       return res.status(400).json({
         message:
           "This email address already exists. Try with a different email address",
-      });
-    }
-
-    if (!validateLength(firstName, 3, 30)) {
-      return res.status(400).json({
-        message: "First name must be between 3 and 30 characters long.",
-      });
-    }
-    if (!validateLength(lastName, 3, 30)) {
-      return res.status(400).json({
-        message: "Last name must be between 3 and 30 characters long.",
-      });
-    }
-    if (!validateLength(password, 6, 40)) {
-      return res.status(400).json({
-        message: "Password must be between 6 and 40 characters long.",
       });
     }
 
@@ -104,6 +105,8 @@ export const login = async (request, response) => {
 
       response.cookie("jwt", refreshToken, {
         httpOnly: true,
+        sameSite: "None",
+        secure: true,
         expires: new Date(Date.now() + 1000 * 86400), // 1 day
         maxAge: 24 * 60 * 60 * 1000,
       });
@@ -141,6 +144,8 @@ export const logout = async (req, res) => {
   if (!foundUser) {
     response.clearCookie("jwt", {
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
       expires: new Date(Date.now() + 1000 * 86400), // 1 day
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -166,30 +171,4 @@ export const logout = async (req, res) => {
   //   secure: true,
   // });
   // return res.status(200).json({ message: "Successfully Logged Out" });
-};
-
-export const getUser = async (req, res) => {
-  const id = req.body.id;
-  try {
-    const user = await User.findOne({ _id: id });
-    res.send(user);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-export const getProfile = async (req, res) => {
-  try {
-    const { email } = req.params;
-    const profile = await User.findOne({ email }).select("-password");
-    if (!profile) {
-      return res.json({ ok: false });
-    }
-    const movies = await Movie.find({ user: profile._id }).sort({
-      createdAt: -1,
-    });
-    res.json({ ...profile.toObject(), movies });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 };

@@ -10,17 +10,20 @@ import userRoutes from "./routes/users.js";
 import epkRoutes from "./routes/epk.js";
 import fepkRoutes from "./routes/fepk.js";
 import crewRoutes from "./routes/crew.js";
+import tokenRoutes from "./routes/token.js"
 
 import cookieParser from 'cookie-parser';
+import corsOptions from "./config/corsOptions.js";
 const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use("/movies", movieRoutes);
 app.use("/users", userRoutes);
+app.use("/refresh", tokenRoutes);
 app.use("/epk", epkRoutes);
 app.use("/fepks", fepkRoutes);
 app.use("/crews", crewRoutes);

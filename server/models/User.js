@@ -79,6 +79,9 @@ const UserSchema = mongoose.Schema({
   updatedAt:{
     type: Date,
     default: () => Date.now(),
+  },
+  refreshToken:{
+    type: String,
   }
 });
 
