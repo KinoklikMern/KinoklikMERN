@@ -18,6 +18,9 @@ import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotification
 import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
 import Bookmark from "./pages/Bookmark";
 
+import ForFilmMakers from "./components/ForFilmMakers";
+import ForIndustryProf from "./components/ForIndustryProf";
+
 import DetailsForm from "./components/Epk/Input/detailsForm";
 import Details from "./components/Epk/Present/details";
 
@@ -90,7 +93,7 @@ function App() {
           <Route path="registeration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
-
+          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route
             path="filmMakerSelectedMovie"
             element={<FilmMakerSelectedFilm />}
@@ -123,6 +126,8 @@ function App() {
           />
           <Route path="bookmark" element={<Bookmark />} />
 
+          <Route path="forFilmMakers" element={<ForFilmMakers />} />
+          <Route path="forIndustryProf" element={<ForIndustryProf />} />
           <Route path="coverForm" element={<CoverForm />} />
           <Route path="cover" element={<Cover />} />
 
