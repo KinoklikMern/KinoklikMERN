@@ -76,6 +76,9 @@ const fepkSchema = mongoose.Schema({
     }
   ],
 
+  // Film Trailer
+  trailer: {type: String},
+
   // Reviews
   reviews: [
     {
@@ -89,9 +92,9 @@ const fepkSchema = mongoose.Schema({
   resources: [
     {
         image: {type: String},
-        title: {type: String},
+        title: {type: String, required: true},
         time: {type: String},
-        description: {type: String},
+        description: {type: String}
     }
   ],
   
