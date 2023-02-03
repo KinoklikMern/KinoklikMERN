@@ -6,13 +6,16 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import Login from "./components/Auth/Registration/login";
-import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
-import FilmMakerSelectedFilm from "./pages/FlimMaker/filmMakerSelectedMovie";
-import FilmMakerDashboardSecurity from "./pages/FlimMaker/filmMakerDashboardSecurity";
-import FilmMakerDashboardSecurityCompany from "./pages/FlimMaker/filmMakerDashboardSecurityCompany";
-import FilmMakerDashboardSecurityPassword from "./pages/FlimMaker/filmMakerDashboardSecurityPassword";
-import FilmMakerDashboardSecurityAccount from "./pages/FlimMaker/filmMakerDashboardSecurityAccount";
-import FilmMakerDashboardSecurityProfile from "./pages/FlimMaker/filmMakerDashboardSecurityProfile";
+import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
+import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
+import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
+import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
+import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMakerDashboardSecurityPassword";
+import FilmMakerDashboardSecurityAccount from "./components/FilmMaker/filmMakerDashboardSecurityAccount";
+import FilmMakerDashboardSecurityProfile from "./components/FilmMaker/filmMakerDashboardSecurityProfile";
+import FilmMakerMovies from "./components/FilmMaker/filmMakerMovies";
+import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotifications";
+import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
 import Bookmark from "./pages/Bookmark";
 
 import DetailsForm from "./components/Epk/Input/detailsForm";
@@ -64,6 +67,8 @@ import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
 import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
+import FepkUploadDashboard from "./pages/FepkUploadDashboard";
+import FepkEditDashboard from "./pages/FepkEditDashboard";
 
 const theme = createTheme({
   palette: {
@@ -85,13 +90,37 @@ function App() {
           <Route path="registeration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
-          
-          <Route path="filmMakerSelectedMovie" element={<FilmMakerSelectedFilm />} />
-          <Route path="filmMakerDashboardSecurity" element={<FilmMakerDashboardSecurity />} />
-          <Route path="filmMakerDashboardSecurityCompany" element={<FilmMakerDashboardSecurityCompany />} />
-          <Route path="filmMakerDashboardSecurityPassword" element={<FilmMakerDashboardSecurityPassword />} />
-          <Route path="filmMakerDashboardSecurityAccount" element={<FilmMakerDashboardSecurityAccount />} />
-          <Route path="filmMakerDashboardSecurityProfile" element={<FilmMakerDashboardSecurityProfile />} />
+
+          <Route
+            path="filmMakerSelectedMovie"
+            element={<FilmMakerSelectedFilm />}
+          />
+          <Route path="filmMakerMovies" element={<FilmMakerMovies />} />
+          <Route
+            path="filmMakerNotifications"
+            element={<FilmMakerNotifications />}
+          />
+          <Route path="filmMakerConnect" element={<FilmMakerConnect />} />
+          <Route
+            path="filmMakerDashboardSecurity"
+            element={<FilmMakerDashboardSecurity />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityCompany"
+            element={<FilmMakerDashboardSecurityCompany />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityPassword"
+            element={<FilmMakerDashboardSecurityPassword />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityAccount"
+            element={<FilmMakerDashboardSecurityAccount />}
+          />
+          <Route
+            path="filmMakerDashboardSecurityProfile"
+            element={<FilmMakerDashboardSecurityProfile />}
+          />
           <Route path="bookmark" element={<Bookmark />} />
 
           <Route path="coverForm" element={<CoverForm />} />
@@ -130,8 +159,10 @@ function App() {
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="resources" element={<Resources />} />
 
-         
+          <Route path="epk/:title" element={<EPK />} />
           <Route path="uploadEpk" element={<EpkDashboard />} />
+          <Route path="uploadFepk" element={<FepkUploadDashboard />} />
+          <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
           <Route path="trailerForm" element={<TrailerForm />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
