@@ -1,0 +1,19 @@
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+  max-height: 95vh;
+  margin-top: 5rem;
+}
+.container p {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: rgb(72, 8, 8);
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+}
+.img {
+  height: 50%;
+  width: 70%;
+  border-radius: 3rem;
+}

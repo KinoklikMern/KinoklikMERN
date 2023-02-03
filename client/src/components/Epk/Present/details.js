@@ -1,91 +1,86 @@
 import React, { useState } from "react";
 
-import "./details.css";
+import style from "./details.module.css";
 
 function Details(detailsFile) {
-    console.log(detailsFile);
+    // console.log(detailsFile);
 
     return (
-      <div style={{position: "relative"}}>
-        {/* <div style={{backgroundColor: "#7F00FF", height: 15}}/>   */}
-        <div >
-          <div className="row" style={{background: "#ffffff"}}>
-            <div className="col-sm m-4">
+      <div className={style.container}>
+      <div className={style.detailContainer}> 
+            <div className={style.el1}>
               <img 
-                src={detailsFile.detailsFile.image}  alt="Image"
-                style={{height: "500px", borderRadius: "20px"}}
+                src={detailsFile.detailsFile.image}  alt="poster"
+                className={style.img}
                 ></img>
-              <br/>
             </div>
-            <div className="col-sm">
-            <h4 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
-                
-              </h4>
-              <br/>
-                <h4  style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
-                  Directed by {detailsFile.detailsFile.director}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
-                  Produced by {detailsFile.detailsFile.producer}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
+            <div className={style.el2}>
+                <p>
+                  Directed by: {detailsFile.detailsFile.director}
+                </p>
+               
+                <p>
+                  Produced by: {detailsFile.detailsFile.producer}
+                </p>
+             
+                <p >
                   Writer: {detailsFile.detailsFile.writer}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+                
+                <p>
                   Cinematographer: {detailsFile.detailsFile.cinematographer}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+               
+                <p >
                   Editor: {detailsFile.detailsFile.editor}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+           
+                <p >
                   Sound: {detailsFile.detailsFile.sound}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+              
+                <p >
                   Studio: {detailsFile.detailsFile.productionCo}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "left", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+                
+                <p >
                   Distributed by: {detailsFile.detailsFile.distributionCo}
-                </h4>
+                </p>
             </div>
-            <div className="col-sm">
-              <h4 style={{textAlign: "center", color:'#000000', fontWeight: 'normal'}}>
+            <div className={style.el3}>
+              <p>
                 Starring:
-              </h4>
-                <br/>
-                <h4 style={{textAlign: "center", color:'#000000', fontWeight: 'normal'}}>
+              </p>
+                
+                <p>
                   {detailsFile.detailsFile.leadActor1}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "center", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+                
+                <p >
                   {detailsFile.detailsFile.leadActor2}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "center", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+               
+                <p>
                   {detailsFile.detailsFile.supportingActor1}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "center", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+                
+                <p>
                   {detailsFile.detailsFile.supportingActor2}
-                </h4>
-                <br/><br/><br/><br/>
-                <h4 style={{textAlign: "center", color:'#000000', fontWeight: 'normal'}}>
+                  <br/><br/>
+                </p>
+               
+                <p >
                   Production Year: {detailsFile.detailsFile.productionYear}
-                </h4>
-                <br/>
-                <h4 style={{textAlign: "center", color:'#000000', fontWeight: 'normal'}}>
+                </p>
+                
+                <p>
                   Duration: {detailsFile.detailsFile.durationMin} Minutes
-                </h4>
+                </p>
             </div>
           </div>
-        </div>
-      </div>
+          </div>
+        
+     
    );
 }
 export default Details;

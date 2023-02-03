@@ -1,41 +1,40 @@
 import React, { useState } from "react";
 
-import "./cinematographer.css";
+import style from"./cinematographer.module.css";
 
 function Cinematographer(cinematographerFile) {
     console.log(cinematographerFile);
 
     return (
-      <div style={{position: "relative"}}>
-        {/* <div style={{backgroundColor: "#7F00FF", height: 15}}/>   */}
-        <div >
-          <div className="row" style={{background: "#170B3B"}}>
-            <div className="col-sm m-4">
+     
+        <div className={style.container}>
+          <div className={style.graphercontainer}>
+            <div className={style.el}>
               <img 
-                src={cinematographerFile.cinematographerFile.image}  alt="Image"
-                style={{width: "75%", borderRadius: "20px"}}
-              ></img>
-              <br/>
-                <h1 className= "text-center" style={{color:'#ffffff', fontWeight: 'bold'}}>
+                src={cinematographerFile.cinematographerFile.image}  
+                alt="photographyer"
+                className={style.img}
+              />
+              
+                <h1 >
                   {cinematographerFile.cinematographerFile.name}
                 </h1>
             </div>
-            <div className="col-sm">
-              <br/>
-              <h2 className="text-center mt-5" style={{color:'#ffffff', fontWeight: 'normal'}}>Cinematographer</h2>
-              <div>
-                <h2 className= "text-center" style={{color:'#ffffff', fontWeight: 'normal'}}>
+            <div  className={style.el2}>
+              
+              <h1 >Cinematographer</h1>
+                <p >
                   {cinematographerFile.cinematographerFile.header}
-                </h2>
-                <br/>
-                <h2 className="text-center mx-4" style={{color:'#ffffff', fontWeight: 'normal'}}>          
+                </p>
+                
+                <p>          
                 {cinematographerFile.cinematographerFile.biography}
-                </h2>
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+       
+  
    );
 }
 export default Cinematographer;
