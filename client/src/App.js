@@ -130,13 +130,14 @@ function App() {
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="resources" element={<Resources />} />
 
-          <Route path="epk" element={<EPK />} />
+         
           <Route path="uploadEpk" element={<EpkDashboard />} />
           <Route path="trailerForm" element={<TrailerForm />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
           <Route path="resources" element={<Resources />} />
         </Route>
+        <Route path="epk" element={<EPK />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
