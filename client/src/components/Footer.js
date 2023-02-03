@@ -15,13 +15,13 @@ function Footer() {
               <img
                 src={require("../images/logo.png")}
                 alt="Logo"
-                className="logo"
+                className="logo "
               />
             </div>
             <div className="col-md-2 px-4 py-3 footer-columns">
-              <ul className="footer-ul">
+              <ul className="footer-ul ">
                 <li>
-                  <h5 className="footer-header mb-4 text-lg">KinoKlik APK</h5>
+                  <h5 className="footer-header mb-4 text-lg ">KinoKlik APK</h5>
                 </li>
                 <li className="footer-li">
                 <Link to="/forFilmMakers">For Filmmakers</Link>
@@ -69,26 +69,26 @@ function Footer() {
   </li> */}
               </ul>
             </div>
-            <div className="col-md-2 px-4 py-3 footer-columns mt-20">
+            <div className="col-md-2 px-4 py-3 footer-columns text-center mt-20">
               {/* <h5 className="footer-header">Follow us on:</h5> */}
 
-              <div className="footer-links  mt-8 ">
+              <div className="footer-links text-center sm:mt-0  lg:mt-8 sm:ml-48 lg:ml-0 ">
             
-                <a href="https://www.facebook.com/kinoklikcanada">
-                  <FontAwesomeIcon icon={faFacebook} size="2x" />
+                <a  href="https://www.facebook.com/kinoklikcanada">
+                   {/* <FontAwesomeIcon icon={faFacebook} size="2x"/> */}
 
-                  {/*<i className="fab fa-instagram"></i> */}
+                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faFacebook} /></i>
                 </a>
                 <a href="https://www.instagram.com/kinoklik">
-                  <FontAwesomeIcon icon={faInstagram} size="2x" />
+                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faInstagram}  /></i>
                 </a>
                 <a href="https://www.linkedin.com/company/kinoklik/?viewAsMember=true">
-                  <FontAwesomeIcon icon={faLinkedin} size="2x" />
+                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faLinkedin} /></i>
                 </a>
                 <a href="https://twitter.com/kinoklik_canada">
                   {/*  <a href="https://www.youtube.com/channel/UCt2KiIE6jFI0UIa_9olo3Uw"> */}
 
-                  <FontAwesomeIcon icon={faTwitter} size="2x" />
+                  <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faTwitter} /></i>
                 </a>
               </div>
             </div>

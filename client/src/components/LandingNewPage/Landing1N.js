@@ -1,6 +1,4 @@
 import React from "react";
-//import vacation from "../img/vacation.jpg"
-//import logo from "../img/logo.png"
 import moviesPhoto from "../../images/landing.png";
 
 const Landing1N = () => {
@@ -39,9 +37,9 @@ const Landing1N = () => {
             </div>
           </div>
         </div>
-        <div className=" hidden relative lg:block 2xl:col-span-3 ">
+        <div className=" hidden relative  ml-20 mr-20 lg:block 2xl:col-span-3 ">
           <img
-            className="absolute inset-0 w-full h-full object-cover object-center "
+            className="absolute inset-5  lg:w-4/5 h-full object-cover object-center "
             src={moviesPhoto}
             alt="Movies"
           />
