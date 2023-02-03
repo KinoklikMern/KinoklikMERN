@@ -24,98 +24,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./filmMakerDashboard.scss";
 import movie6 from "../../images/movies/movie6.jpg";
 import { Link, NavLink } from "react-router-dom";
+import FilmmakerSideBar from "./filmMakerSideBar";
 
 export default function Filmmaker() {
   return (
     <div class="filmmakerdash-container container-fluid">
       <div class="sidebar-container">
-        <div class="sidebar-left">
-          <div class="filmmaker-navbar px-1">
-            <ul class="nav nav-tabs filmmaker-dash-ul" role="tablist">
-              <li class="nav-link" role="tab" data-li="UploadMovie">
-                <div class="sidebarnav-icon side-button">
-                  <a href="/Notification.js">
-                    <FontAwesomeIcon icon={faNewspaper} />
-                  </a>
-                </div>
-              </li>
-              <li class="nav-item" role="presentation">
-                <div
-                  class="nav-link tab-clickable"
-                  data-bs-toggle="tab"
-                  data-bs-target="#dashboard"
-                  role="tab"
-                >
-                  <div class="sidebarnav-icon side-button">
-                    <FontAwesomeIcon icon={faPhotoFilm} />
-                  </div>
-                </div>
-              </li>
-
-              <li class="nav-item" role="presentation">
-                <div
-                  class="nav-link tab-clickable"
-                  data-bs-toggle="tab"
-                  data-bs-target="#inbox"
-                  role="tab"
-                >
-                  <div class="sidebarnav-icon side-button">
-                    <Link to="/filmMakerDashboard" class="links">
-                      <FontAwesomeIcon icon={faHome} />
-                    </Link>
-                  </div>
-                </div>
-              </li>
-
-              <li class="nav-item" role="presentation">
-                <div
-                  class="nav-link tab-clickable"
-                  data-bs-toggle="tab"
-                  data-bs-target="#notifications"
-                  role="tab"
-                >
-                  <div class="sidebarnav-icon side-button">
-                    <FontAwesomeIcon icon={faBell} />
-                  </div>
-                </div>
-              </li>
-
-              <li class="nav-item" role="presentation">
-                <div
-                  class="nav-link tab-clickable"
-                  data-bs-toggle="tab"
-                  data-bs-target="#filmList"
-                  role="tab"
-                >
-                  <div class="sidebarnav-icon side-button">
-                    <br />
-                  </div>
-                </div>
-              </li>
-
-              <li class="nav-item" role="presentation">
-                <div
-                  class="nav-link tab-clickable"
-                  data-bs-toggle="tab"
-                  data-bs-target="#settings"
-                  role="tab"
-                >
-                  <div class="sidebarnav-icon side-button">
-                    <br />
-                  </div>
-                </div>
-              </li>
-
-              <li class="nav-link" role="tab" data-li="UserProfile">
-                <div class="sidebarnav-icon side-button">
-                  <Link to="/filmMakerDashboardSecurity" class="links">
-                    <FontAwesomeIcon icon={faCog} />
-                  </Link>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <FilmmakerSideBar />
 
         <div class="sidebar-right">
           <article
@@ -167,19 +82,19 @@ export default function Filmmaker() {
                     <h3>alberto@tihanfilms.com</h3>
                     <h3>www.tihanfilms.com</h3>
 
-                    {/* <FontAwesomeIcon icon={faImage}/>
-                <br/>
-                <FontAwesomeIcon icon={faPeopleGroup}/>
-                <h3>Shadia Ali - Sales Agent</h3>
-                <h3>info@alifilms.com</h3>
-                <h3>www.AliFilms.com</h3>
+                    <FontAwesomeIcon icon={faImage} />
+                    <br />
+                    <FontAwesomeIcon icon={faPeopleGroup} />
+                    <h3>Shadia Ali - Sales Agent</h3>
+                    <h3>info@alifilms.com</h3>
+                    <h3>www.AliFilms.com</h3>
 
-                <FontAwesomeIcon icon={faImage}/>
-                <br/>
-                <FontAwesomeIcon icon={faCrown}/>
-                <h3>Elisa Atristan - Film Festival</h3>
-                <h3>Elisa.Atristan@tiff.net</h3>
-                <h3>www.tiff.net</h3> */}
+                    <FontAwesomeIcon icon={faImage} />
+                    <br />
+                    <FontAwesomeIcon icon={faCrown} />
+                    <h3>Elisa Atristan - Film Festival</h3>
+                    <h3>Elisa.Atristan@tiff.net</h3>
+                    <h3>www.tiff.net</h3>
                   </div>
                 </div>
                 <div class="side-id">
