@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import {getFepks, getFepkbyId, createFepk, updateFepk, uploadFepkFile, deleteFepk, getFepksByFilmmakerId, getFepkLiked, getFepkFavourite, getFepksByUser, getFepksByTitle, uploadFepkFiles, getFepkSharings, getFepkWishedToBuy} from "../controllers/fepk.js";
+import {getFepks, getFepkbyId, createFepk, updateFepk, uploadFepkFile, deleteFepk, getFepksByFilmmakerId, getFepkLiked, getFepkFavourite, getFepksByUser, getFepkByTitle, uploadFepkFiles, getFepkSharings, getFepkWishedToBuy} from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get("/favourite/byuser/:id", getFepksByUser);
 router.get("/:id", getFepkbyId);
 
 // This api is for FEPK view Page
-router.get("/byTitle/:title", getFepksByTitle);
+router.get("/byTitle/:title", getFepkByTitle);
 
 // Create FEPK
 router.post("/", createFepk);
