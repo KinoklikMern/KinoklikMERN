@@ -8,21 +8,65 @@ import {faUser,faPlus, faTrashCan, faUserPlus} from "@fortawesome/free-solid-svg
 
 function FepkDetailsForm () {
   const [file, setFile] = useState("");
+  const [fileCrew, setFileCrew] = useState("");
   const [message, setMessage] = useState("");
-  const [fepk, setFepk] = useState([]);
+  const [messageGood, setMessageGood] = useState("");
+  const [messageBad, setMessageBad] = useState("");
+  const [fepk, setFepk] = useState({});
   const [disabled, setDisabled] = useState(true);
   const [disabledAdd, setDisabledAdd] = useState(true);
   const inputFileRef = useRef(null);
+  const inputFileCrewRef = useRef(null);
   const [allCrewList, setAllCrewList] = useState([]);
   const [crewList, setCrewList] = useState([]); 
   const [filteredData, setFilteredData] = useState([]);
-  
+  const [newCrewName, setNewCrewName] = useState("");
+
   let { fepkId } = useParams();
   const filmmaker_id = "63c0e3bb40253f49b94edd11";
+
+
+  let newCrew = {
+    name: "",
+    biography: "",
+    image: "",
+    facebook_url: "",
+    instagram_url: "",
+    twitter_url: "",
+    film_maker: filmmaker_id
+  };
   
   const fileSelected = (event) => {
     setFile(event.target.files[0]);
     setDisabled(false);
+  };
+
+  const fileCrewSelected = (event) => {
+    let formData = new FormData();
+    console.log(event.target.files[0]);
+    formData.append("file", event.target.files[0]);
+    console.log(formData);
+    if (checkFileMimeType(event.target.files[0])) {
+      if(event.target.files[0]){
+        http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          if (response.data !== undefined) {
+            setCrewData({ ...crewData, image: response.data.key});
+            //crewData.image = response.data.key;
+            console.log(crewData);
+          }
+        })
+        .catch((err) => {
+          console.log();
+          console.log(err);
+        });
+      }
+    }
   };
 
   const epkRoles = [
@@ -44,7 +88,6 @@ function FepkDetailsForm () {
     http.get(`/fepks/${fepkId}`).then((response) =>{
         setFepk(response.data);
         setCrewList(response.data.crew);
-        console.log(response.data.title);
     });
     http.get("/crews/").then((res) =>{
       setAllCrewList(res.data);
@@ -58,16 +101,6 @@ function FepkDetailsForm () {
     productionYear: fepk.productionYear,
     durationMin: fepk.durationMin,
     crew: fepk.crew
-  });
-
-  const [crewFromCrew, setCrewFromCrew] = useState({
-    _id: "",
-    name: "",
-    biography: "",
-    image: "",
-    facebook_url: "",
-    instagram_url: "",
-    twitter_url: ""
   });
 
   const [crewData, setCrewData] = useState({
@@ -93,6 +126,7 @@ function FepkDetailsForm () {
   function addCrewToTable(){
     if(
         crewData.crewId._id !== "" && 
+        crewData.crewId.name !== "" &&
         crewData.epkRole !== "" && 
         crewData.biography !== "" &&
         crewData.image !== "" &&
@@ -105,10 +139,51 @@ function FepkDetailsForm () {
       setEpkFilmDetailsData({ ...epkFilmDetailsData, crew: crewList });
       setDisabledAdd(true);
       setDisabled(false);
+      setCrewData({ ...crewData,
+        crewId: {
+          _id: "",
+          name: ""
+        },
+        epkRole: "",
+        biography: "",
+        image: "",
+        facebook_url: "",
+        instagram_url: "",
+        twitter_url: ""
+      });
     }
   }
 
+  const createNewCrew = () => {
+      http.get(`/crews/byName/${newCrewName}`).then((response) =>{
+        if(response.data){
+          setMessageBad("Error, the name already exists!");
+          setMessageGood("");
+        }
+        else{
+          //setNewCrew({ ...newCrew, name: newCrewName});
+          newCrew.name = newCrewName;
+          http.post("/crews/", newCrew).then((response) =>{
+            if(response.data.name === newCrewName){
+              setMessageGood("Successfully created!");
+              setMessageBad("");
+              http.get("/crews/").then((res) =>{
+                setAllCrewList(res.data);
+              });
+            }
+            else{
+              setMessageBad("Error, something went wrong!");
+              setMessageGood("");
+            }    
+          });
+        }
+      });
+  }
+
   const handleSearch = (event) => {
+    setMessageGood("");
+    setMessageBad("");
+    setNewCrewName(event.target.value);
     const searchWord = event.target.value;
     const newFilter = allCrewList.filter((value) => {
       return value.name.toLowerCase().includes(searchWord.toLowerCase());
@@ -117,55 +192,28 @@ function FepkDetailsForm () {
       setFilteredData([]);
     } else {
       setFilteredData(newFilter);
+      console.log(newFilter);
     }
   };
 
-  const addToCrewFromCrew = (crew) => {
-    if(crew._id && crew.name){
-      setCrewFromCrew({ ...crewFromCrew, _id: crew._id});
-      setCrewFromCrew({ ...crewFromCrew, name: crew.name});
-      setCrewData({ ...crewData, crewId: {
-                                           _id: crew._id,
-                                          name: crew.name
-                                         } 
-      });
-    }
-    if(crew.biography){
-      setCrewFromCrew({ ...crewFromCrew, biography: crew.biography});
-      setCrewData({ ...crewData, biography: crew.biography});
-    }
-    if(crew.image){
-      setCrewFromCrew({ ...crewFromCrew, image: crew.image});
-      setCrewData({ ...crewData, image: crew.image});
-    }
-    if(crew.facebook_url){
-      setCrewFromCrew({ ...crewFromCrew, facebook_url: crew.facebook_url});
-      setCrewData({ ...crewData, facebook_url: crew.facebook_url});
-    }
-    if(crew.instagram_url){
-      setCrewFromCrew({ ...crewFromCrew, instagram_url: crew.instagram_url});
-      setCrewData({ ...crewData, instagram_url: crew.instagram_url});
-    }
-    if(crew.twitter_url){
-      setCrewFromCrew({ ...crewFromCrew, twitter_url: crew.twitter_url});
-      setCrewData({ ...crewData, twitter_url: crew.twitter_url});
-    }
+  const addToCrewData = (crew) => {
+    setCrewData({ ...crewData,
+      crewId: {
+        _id: crew._id,
+        name: crew.name
+      },
+      biography: crew.biography,
+      image: crew.image,
+      facebook_url: crew.facebook_url,
+      instagram_url: crew.instagram_url,
+      twitter_url: crew.twitter_url
+    });
   };
 
   const handleDetailsChange = (event) => {
     const { name, value } = event.target;
     setEpkFilmDetailsData({ ...epkFilmDetailsData, [name]: value });
     setDisabled(false);
-  };
-
-  const handleCrewIdChange = (event) => {
-    let combined = event.target.value.split(':');
-    setCrewData({ ...crewData, crewId: {
-                                                _id: combined[0],
-                                                name: combined[1]
-                                             } 
-    });
-    setDisabledAdd(false);
   };
 
   const handleCrewChange = (event) => {
@@ -281,194 +329,8 @@ function FepkDetailsForm () {
           <div className="card-body" style={{height: "500px"}}>
             <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Film Details</h5>
             <form>
-              <div className="row g-3">
-                <div className="col-2 mt-3">
-                    <label for="filePoster" class="form-label text-dark">
-                      {" "}
-                      <h6>Upload Poster / Thumbnail</h6>
-                    </label>
-                    <input
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="fileDetails"
-                      name="files"
-                      accept="image/*"
-                    ></input>
-                    <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_details}`} style={{height:"60px", width:"auto", marginTop: "5px"}} alt="no image"/>
-                </div>
-                <div className="col-9 mt-2">
-                  <table className="table table-striped table-bordered" style={{fontSize:"10px"}}>
-                    <thead className="thead-dark">
-                      <tr>
-                          <th>CREW NAME</th>
-                          <th>EPK ROLE</th>
-                          <th>BIOGRAPHY</th>
-                          <th>IMAGE</th>
-                          <th>FACEBOOK</th>
-                          <th>INSTAGRAM</th>
-                          <th>TWITTER</th>
-                          <th>ACTION</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {crewList.map((crew) => {
-                        return (
-                          <tr>
-                            <td>{crew.crewId.name}</td>
-                            <td>{crew.epkRole}</td>
-                            <td>{crew.biography}</td>
-                            <td>
-                                <img src={`https://kinomovie.s3.amazonaws.com/${crew.image}`} style={{height:"30px", width:"auto"}}/>
-                            </td>
-                            <td>{crew.facebook_url}</td>
-                            <td>{crew.instagram_url}</td>
-                            <td>{crew.twitter_url}</td>
-                            <td style={{textAlign: "center"}} onClick={() => deleteFromCrewList(crew)}><FontAwesomeIcon icon={faTrashCan} /></td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="col-1 mt-2"></div>
-              </div>
               <div className="row">
-                <div className="col-2 mt-5">
-                      <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={""}
-                        placeholder="Search..."
-                        onChange={handleSearch}
-                      />
-                      {filteredData.map((crew) => {
-                        return (
-                            <p style={{fontSize:"12px"}} onClick={() => addToCrewFromCrew(crew)}><img src={crew.image} style={{height:"30px", width:"auto"}}/>{crew.name}</p>
-                        );
-                      })}
-                </div>
-                <div className="col-5 mt-5">
-                    <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={crewFromCrew.name}
-                        placeholder="Crew Name"
-                        onChange={handleDetailsChange}
-                        name="name"
-                        readOnly
-                    />
-                    <select
-                        style={{ 
-                            height: "30px", 
-                            width: "100%", 
-                            borderRadius: "5px", 
-                            marginBottom: "5px",
-                            boxShadow: '1px 2px 9px #311465',
-                        }}
-                        className="form-select form-select-sm "
-                        name="epkRole"
-                        onChange={handleCrewChange}
-                        >
-                        <option value="">Epk role...</option>
-                        {epkRoles.map(makeEpkRole)}
-                    </select>
-                    <textarea
-                      style={{ 
-                        height: "40px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left'
-                        }}
-                        className="form-control mt-10"
-                        defaultValue={crewFromCrew.biography}
-                        placeholder="Biography"
-                        onChange={handleCrewChange}
-                        name="biography"
-                    />
-                    <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={crewFromCrew.facebook_url}
-                        placeholder="Facebook"
-                        onChange={handleCrewChange}
-                        name="facebook_url"
-                    />
-                    <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={crewFromCrew.instagram_url}
-                        placeholder="Instagram"
-                        onChange={handleCrewChange}
-                        name="instagram_url"
-                    />
-                    <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={crewFromCrew.twitter_url}
-                        placeholder="Twitter"
-                        onChange={handleCrewChange}
-                        name="twitter_url"
-                    />
-
-                      {disabledAdd===true ? 
-                      (
-                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "115px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
-                          Add to Table
-                      </Button>
-                      ) :
-                      (
-                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", width: "115px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
-                          Add to Table
-                      </Button>
-                      )}
-                    
-                </div>
-                <div className="col-4 mt-5">
+                <div className="col-3 mt-4">
                     <input
                         style={{ 
                         height: "30px", 
@@ -501,40 +363,252 @@ function FepkDetailsForm () {
                         onChange={handleDetailsChange}
                         name="distributionCo"
                     />
+                    <div className="row">
+                      <div className="col-6 mt-3">
+                        <input
+                          style={{ 
+                          height: "30px", 
+                          width: "100%", 
+                          borderRadius: "5px", 
+                          marginBottom: "5px",
+                          boxShadow: '1px 2px 9px #311465',
+                          textAlign: 'left',
+                          fontSize: "14px"
+                          }}
+                          type="number" min="1895"
+                          className="form-control m-10"
+                          defaultValue={fepk.productionYear}
+                          placeholder="Year"
+                          onChange={handleDetailsChange}
+                          name="productionYear"
+                        />
+                      </div>
+                      <div className="col-6 mt-3">
+                        <input
+                          style={{ 
+                          height: "30px", 
+                          width: "100%", 
+                          borderRadius: "5px", 
+                          marginBottom: "5px",
+                          boxShadow: '1px 2px 9px #311465',
+                          textAlign: 'left',
+                          fontSize: "14px"
+                          }}
+                          type="number" min="0"
+                          className="form-control m-10"
+                          defaultValue={fepk.durationMin}
+                          placeholder="Min."
+                          onChange={handleDetailsChange}
+                          name="durationMin"
+                        />
+                      </div>
+                    </div>
+                        <label for="filePoster" class="form-label text-dark">
+                         {" "}
+                          <h6>Upload Poster</h6>
+                        </label>
+                        <input
+                          className="form-control form-control-sm"
+                          filename={file}
+                          onChange={fileSelected}
+                          ref={inputFileRef}
+                          type="file"
+                          id="fileDetails"
+                          name="files"
+                          accept="image/*"
+                        ></input>
+                        <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_details}`} style={{height:"40px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                        <br/>
+                        <hr/>
+                        <label for="filePoster" class="form-label text-dark">
+                         {" "}
+                          <h6>Upload Crew Image</h6>
+                        </label>
+                        <input
+                          className="form-control form-control-sm"
+                          filename={fileCrew}
+                          onChange={fileCrewSelected}
+                          ref={inputFileCrewRef}
+                          type="file"
+                          id="fileDetails"
+                          name="files"
+                          accept="image/*"
+                        ></input>
+                        <img src={`https://kinomovie.s3.amazonaws.com/${crewData.image}`} style={{height:"40px", width:"auto", marginTop: "5px"}}/>
+                </div>
+                <div className="col-3 mt-3">
+                    <div className="row">
+                      <div className="col-9 mt-2">
+                        <input
+                            style={{ 
+                            height: "30px", 
+                            width: "100%", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'left',
+                            fontSize: "14px"
+                            }}
+                            className="form-control"
+                            defaultValue={""}
+                            placeholder="Search..."
+                            onChange={handleSearch}
+                        />
+                        {filteredData.length !== 0 && (
+                          <div className="dataResult">
+                            {filteredData.map((crewObj) => {
+                              return (
+                                <p className="dataItem" style={{fontSize:"12px"}} onClick={() => addToCrewData(crewObj)}><img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`} style={{height:"30px", width:"auto"}}/> {crewObj.name}</p>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-3" style={{textAlign:"left"}}>
+                        <FontAwesomeIcon icon={faUserPlus} style={{height: "20px", paddingBottom:"8px"}} onClick={() => createNewCrew()}/>
+                      </div>
+                      <span style={{color:"green", fontSize:"12px"}}>{messageGood}</span>
+                      <span style={{color:"red", fontSize:"12px"}}>{messageBad}</span>
+                    </div>
+                    <br/>
                     <input
                         style={{ 
                         height: "30px", 
-                        width: "50%", 
+                        width: "100%", 
                         borderRadius: "5px", 
                         marginBottom: "5px",
                         boxShadow: '1px 2px 9px #311465',
                         textAlign: 'left',
                         fontSize: "14px"
                         }}
-                        type="number" min="1895"
                         className="form-control m-10"
-                        defaultValue={fepk.productionYear}
-                        placeholder="Year"
-                        onChange={handleDetailsChange}
-                        name="productionYear"
+                        defaultValue={crewData.crewId.name}
+                        placeholder="Crew Name"
+                        name="name"
+                        readOnly
+                    />
+                    <select
+                        style={{ 
+                            height: "30px", 
+                            width: "100%", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                        }}
+                        className="form-select form-select-sm "
+                        name="epkRole"
+                        onChange={handleCrewChange}
+                        >
+                        <option value="">Epk role...</option>
+                        {epkRoles.map(makeEpkRole)}
+                    </select>
+                    <textarea
+                      style={{ 
+                        height: "60px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'left'
+                        }}
+                        className="form-control mt-10"
+                        defaultValue={crewData.biography}
+                        placeholder="Biography"
+                        onChange={handleCrewChange}
+                        name="biography"
                     />
                     <input
                         style={{ 
                         height: "30px", 
-                        width: "50%", 
+                        width: "100%", 
                         borderRadius: "5px", 
                         marginBottom: "5px",
                         boxShadow: '1px 2px 9px #311465',
                         textAlign: 'left',
                         fontSize: "14px"
                         }}
-                        type="number" min="0"
                         className="form-control m-10"
-                        defaultValue={fepk.durationMin}
-                        placeholder="Min."
-                        onChange={handleDetailsChange}
-                        name="durationMin"
+                        defaultValue={crewData.facebook_url}
+                        placeholder="Facebook"
+                        onChange={handleCrewChange}
+                        name="facebook_url"
                     />
+                    <input
+                        style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'left',
+                        fontSize: "14px"
+                        }}
+                        className="form-control m-10"
+                        defaultValue={crewData.instagram_url}
+                        placeholder="Instagram"
+                        onChange={handleCrewChange}
+                        name="instagram_url"
+                    />
+                    <input
+                        style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'left',
+                        fontSize: "14px"
+                        }}
+                        className="form-control m-10"
+                        defaultValue={crewData.twitter_url}
+                        placeholder="Twitter"
+                        onChange={handleCrewChange}
+                        name="twitter_url"
+                    />
+
+                      {disabledAdd===true ? 
+                      (
+                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "115px", marginTop: "60px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                          Add to Table
+                      </Button>
+                      ) :
+                      (
+                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", width: "115px", marginTop: "60px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                          Add to Table
+                      </Button>
+                      )}
+                </div>
+                <div className="col-5 mt-2">
+                  <table className="table table-striped table-bordered"  style={{fontSize:"10px"}}>
+                    <thead className="thead-dark">
+                      <tr>
+                          <th>NAME</th>
+                          <th>EPK ROLE</th>
+                          <th>IMAGE</th>
+                          <th>FACE</th>
+                          <th>INSTA</th>
+                          <th>TWIT</th>
+                          <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {crewList.map((crew) => {
+                        return (
+                          <tr>
+                            <td>{crew.crewId.name}</td>
+                            <td>{crew.epkRole}</td>
+                            <td>
+                                <img src={`https://kinomovie.s3.amazonaws.com/${crew.image}`} style={{height:"15px", width:"auto"}}/>
+                            </td>
+                            <td><a href={crew.facebook_url} target="_blank">link</a></td>
+                            <td><a href={crew.instagram_url} target="_blank">link</a></td>
+                            <td><a href={crew.twitter_url} target="_blank">link</a></td>
+                            <td style={{textAlign: "center"}} onClick={() => deleteFromCrewList(crew)}><FontAwesomeIcon icon={faTrashCan} /></td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
                 <div className="col-1">
                     <div
@@ -542,7 +616,7 @@ function FepkDetailsForm () {
                       height: "50px",
                       width: "100px",
                       marginLeft: "100%",
-                      marginTop: "250px"
+                      marginTop: "400px"
                       }}
                       
                       >

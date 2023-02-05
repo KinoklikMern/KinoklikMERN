@@ -23,8 +23,6 @@ function FepkEditDashboard() {
       <br/>
       <FepkEditCoverForm />
       <br/>
-      <DetailsForm />
-      <br/>
       <FepkDetailsForm />
       <br/>
       <LoglineForm />
