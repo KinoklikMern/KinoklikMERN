@@ -4,14 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faUser,faPlus, faTrashCan, faUserPlus} from "@fortawesome/free-solid-svg-icons";
+import {faUser,faPlus, faTrashCan, faUserPlus, faUserCheck} from "@fortawesome/free-solid-svg-icons";
 
 function FepkDetailsForm () {
   const [file, setFile] = useState("");
   const [fileCrew, setFileCrew] = useState("");
   const [message, setMessage] = useState("");
-  const [messageGood, setMessageGood] = useState("");
-  const [messageBad, setMessageBad] = useState("");
+  const [status, setStatus] = useState(false);
   const [fepk, setFepk] = useState({});
   const [disabled, setDisabled] = useState(true);
   const [disabledAdd, setDisabledAdd] = useState(true);
@@ -26,7 +25,7 @@ function FepkDetailsForm () {
   const filmmaker_id = "63c0e3bb40253f49b94edd11";
 
 
-  let newCrew = {
+  let newCrew = {  
     name: "",
     biography: "",
     image: "",
@@ -35,10 +34,40 @@ function FepkDetailsForm () {
     twitter_url: "",
     film_maker: filmmaker_id
   };
-  
+
   const fileSelected = (event) => {
-    setFile(event.target.files[0]);
-    setDisabled(false);
+    let formData = new FormData();
+    console.log(event.target.files[0]);
+    formData.append("file", event.target.files[0]);
+    console.log(formData);
+    if (checkFileMimeType(event.target.files[0])) {
+        http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          if (response.data !== undefined) {
+            epkFilmDetailsData.image_details = response.data.key;
+          }
+          http
+            .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
+            .then((res) => {
+              console.log("saved");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log();
+          console.log(err);
+        }); 
+        setDisabled(false);
+    } else {
+      setMessage("File must be a image(jpeg or png)");
+    }
   };
 
   const fileCrewSelected = (event) => {
@@ -57,7 +86,6 @@ function FepkDetailsForm () {
         .then((response) => {
           if (response.data !== undefined) {
             setCrewData({ ...crewData, image: response.data.key});
-            //crewData.image = response.data.key;
             console.log(crewData);
           }
         })
@@ -139,41 +167,47 @@ function FepkDetailsForm () {
       setEpkFilmDetailsData({ ...epkFilmDetailsData, crew: crewList });
       setDisabledAdd(true);
       setDisabled(false);
-      setCrewData({ ...crewData,
-        crewId: {
-          _id: "",
-          name: ""
-        },
-        epkRole: "",
-        biography: "",
-        image: "",
-        facebook_url: "",
-        instagram_url: "",
-        twitter_url: ""
-      });
+      epkFilmDetailsData.crew = crewList;
+      http
+          .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
+          .then((res) => {
+              console.log("saved");
+          })
+            .catch((err) => {
+              console.log(err);
+            });
+      window.location.reload();
     }
   }
 
   const createNewCrew = () => {
       http.get(`/crews/byName/${newCrewName}`).then((response) =>{
         if(response.data){
-          setMessageBad("Error, the name already exists!");
-          setMessageGood("");
+          setStatus(false);
         }
         else{
-          //setNewCrew({ ...newCrew, name: newCrewName});
           newCrew.name = newCrewName;
           http.post("/crews/", newCrew).then((response) =>{
             if(response.data.name === newCrewName){
-              setMessageGood("Successfully created!");
-              setMessageBad("");
+              setStatus(true);
               http.get("/crews/").then((res) =>{
                 setAllCrewList(res.data);
               });
+              setCrewData({ ...crewData,
+                crewId: {
+                  _id: response.data._id,
+                  name: response.data.name
+                },
+                biography: "",
+                image: "",
+                facebook_url: "",
+                instagram_url: "",
+                twitter_url: ""
+              });
+              console.log(crewData);
             }
             else{
-              setMessageBad("Error, something went wrong!");
-              setMessageGood("");
+              setStatus(false);
             }    
           });
         }
@@ -181,8 +215,7 @@ function FepkDetailsForm () {
   }
 
   const handleSearch = (event) => {
-    setMessageGood("");
-    setMessageBad("");
+    setStatus(false);
     setNewCrewName(event.target.value);
     const searchWord = event.target.value;
     const newFilter = allCrewList.filter((value) => {
@@ -192,7 +225,6 @@ function FepkDetailsForm () {
       setFilteredData([]);
     } else {
       setFilteredData(newFilter);
-      console.log(newFilter);
     }
   };
 
@@ -208,6 +240,7 @@ function FepkDetailsForm () {
       instagram_url: crew.instagram_url,
       twitter_url: crew.twitter_url
     });
+    setFilteredData([]);
   };
 
   const handleDetailsChange = (event) => {
@@ -241,57 +274,20 @@ function FepkDetailsForm () {
     } else return true;
   };
 
-  const saveEpkDetails = (e) => {
-    debugger;
-    e.preventDefault();
-    let formData = new FormData();
-    console.log(file);
-    formData.append("file", file);
-    console.log(formData);
-    debugger;
-    if (checkFileMimeType(file)) {
-      if(file){
-        http
-        .post("fepks/uploadFile", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          if (response.data !== undefined) {
-            epkFilmDetailsData.image_details = response.data.key;
-          }
-          http
-            .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
-            .then((res) => {
+  function saveEpkDetails(){
+    http
+        .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
+        .then((res) => {
               console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
         })
-        .catch((err) => {
-          console.log();
-          console.log(err);
-        });
-      }
-      else{
-        http
-            .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-      }
-      
-    } else {
-      setMessage("File must be a image(jpeg or png)");
-    }
+          .catch((err) => {
+            console.log(err);
+          });
+        
     setDisabled(true);
+    window.location.reload();
   };
-
+  
   return (
     <>
       <div style={{
@@ -434,7 +430,15 @@ function FepkDetailsForm () {
                           name="files"
                           accept="image/*"
                         ></input>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${crewData.image}`} style={{height:"40px", width:"auto", marginTop: "5px"}}/>
+                        {crewData.image === "" ?
+                        (
+                            <FontAwesomeIcon icon={faUser} style={{height: "30px", marginRight: "10px"}}/>
+                        ) :
+                        (
+                          <img src={`https://kinomovie.s3.amazonaws.com/${crewData.image}`} style={{height:"40px", width:"auto", marginTop: "5px"}}/>
+                        )
+                        } 
+                        
                 </div>
                 <div className="col-3 mt-3">
                     <div className="row">
@@ -444,7 +448,6 @@ function FepkDetailsForm () {
                             height: "30px", 
                             width: "100%", 
                             borderRadius: "5px", 
-                            marginBottom: "5px",
                             boxShadow: '1px 2px 9px #311465',
                             textAlign: 'left',
                             fontSize: "14px"
@@ -454,23 +457,54 @@ function FepkDetailsForm () {
                             placeholder="Search..."
                             onChange={handleSearch}
                         />
-                        {filteredData.length !== 0 && (
-                          <div className="dataResult">
+                        {filteredData.length !== 0 ? 
+                        (
+                          <div style={{
+                            height: "100px", 
+                            width: "100%",
+                            backgroundColor: "white",
+                            borderRadius: "5px",
+                            marginBottom: "5px",
+                            overflow:"auto"
+                            }}
+                          >
                             {filteredData.map((crewObj) => {
-                              return (
-                                <p className="dataItem" style={{fontSize:"12px"}} onClick={() => addToCrewData(crewObj)}><img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`} style={{height:"30px", width:"auto"}}/> {crewObj.name}</p>
+                              return ( 
+                                  <p style={{fontSize:"12px", padding: "5px", margin:"0px"}} onClick={() => addToCrewData(crewObj)}>
+                                    {crewObj.image === "" ?
+                                    (
+                                      <FontAwesomeIcon icon={faUser} style={{height: "27px", marginRight: "10px"}}/>
+                                    ) :
+                                    (
+                                      <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`} style={{height:"30px", width:"auto", marginRight: "10px"}}/>
+                                    )
+                                    } 
+                                      {crewObj.name}
+                                  </p>
                               );
                             })}
-                          </div>
+                          </div>   
+                        ) :
+                        (
+                          <div style={{
+                            height: "100px", 
+                            width: "100%",
+                            marginBottom: "5px"
+                            }}
+                          >
+                          </div>   
                         )}
                       </div>
                       <div className="col-3" style={{textAlign:"left"}}>
-                        <FontAwesomeIcon icon={faUserPlus} style={{height: "20px", paddingBottom:"8px"}} onClick={() => createNewCrew()}/>
+                          {status===false ? 
+                          (
+                            <FontAwesomeIcon icon={faUserPlus} style={{height: "20px", paddingBottom:"8px"}} onClick={() => createNewCrew()}/>
+                          ) :
+                          (
+                            <FontAwesomeIcon icon={faUserCheck} style={{height: "20px", paddingBottom:"8px", color:"green"}}/>
+                          )}
                       </div>
-                      <span style={{color:"green", fontSize:"12px"}}>{messageGood}</span>
-                      <span style={{color:"red", fontSize:"12px"}}>{messageBad}</span>
                     </div>
-                    <br/>
                     <input
                         style={{ 
                         height: "30px", 
@@ -568,17 +602,17 @@ function FepkDetailsForm () {
 
                       {disabledAdd===true ? 
                       (
-                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "115px", marginTop: "60px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "115px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
                           Add to Table
                       </Button>
                       ) :
                       (
-                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", width: "115px", marginTop: "60px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", width: "115px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
                           Add to Table
                       </Button>
                       )}
                 </div>
-                <div className="col-5 mt-2">
+                <div className="col-5 mt-2" style={{overflow: "auto", height:"440px", scrollbarWidth:"none"}}>
                   <table className="table table-striped table-bordered"  style={{fontSize:"10px"}}>
                     <thead className="thead-dark">
                       <tr>
