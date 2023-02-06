@@ -11,9 +11,9 @@ import myEpk from "../models/myEpk.js";
 
 export const getMyEpks = async (req, res) => {
   //const id = req.params.id;
-  const id = "63d34d1219b17ba1c0f22e2f";
+  const film_maker_id = "63c0e3bb40253f49b94edd11";
   try {
-    const myEpks = await fepk.find().where({_id: id});
+    const myEpks = await fepk.find().where({film_maker: film_maker_id});
     res.status(200).json(myEpks);
   } catch (error) {
     res.status(404).json({ message: error.message });
