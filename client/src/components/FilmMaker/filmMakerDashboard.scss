@@ -18,7 +18,6 @@
 // .filmdash-heading {
 //   visibility: hidden;
 // }
-
 .sidebar-container {
   max-width: 70%;
   height: 95%;
@@ -35,6 +34,7 @@
 }
 
 
+
 h1{
   color: white;
   margin-bottom: 50px;
@@ -44,11 +44,11 @@ h2 {
   color: black;
 }
 
-.sidebar-left {
+.sidebar-container .sidebar-left {
   position: relative;
   display: flex;
   height: 88%;
-  width: 10em;
+  width: 7%;
   border-radius: 20px;
   margin-left: 2em;
   margin-top: 2em;
@@ -68,7 +68,7 @@ h2 {
   /* background: linear-gradient(180deg, #fc9c7f, #f69d8d, #f09e9b); */
 }
 
-.sidebar-left ul li {
+.sidebar-container .sidebar-left ul li {
   position: relative;
   display: flex;
   height: 50px;
@@ -86,6 +86,19 @@ h2 {
 
 .filmmaker-dash-li {
   padding-top: 1rem;
+}
+
+
+.sidebar-container .sidebar-left ul li a {
+  -webkit-transition: all 0.1s linear;
+  // transition: all 0.1s linear;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  border-radius: 15px;
+  white-space: nowrap;
 }
 
 .upload-icon {
@@ -127,6 +140,8 @@ h2 {
   
 }
 
+
+
 .sidebarnav-avatar {
   padding-top: 25px;
   padding-bottom: 25px;
@@ -140,8 +155,7 @@ h2 {
   color: rgb(244,234,239);
   // letter-spacing: 1px;
 }
-
-.sidebar-right {
+.sidebar-container .sidebar-right {
   //width: 1300px;
   //width: 80%;
 
@@ -150,7 +164,9 @@ h2 {
   border-radius: 20px;
 }
 
-.sidebarnav-item {
+
+
+.sidebar-left .sidebarnav-item {
   position: relative;
 }
 
@@ -202,8 +218,9 @@ h2 {
   // height: 20em;
   margin-left: 60px;
   margin-right: 250px;
-}
+  
 
+}
 img{
   height: 10em;
 }
@@ -223,6 +240,8 @@ img{
   transition-delay: 0.1s;
   transition-timing-function: ease-in;
   border: 5px solid white;
+  
+  
   
 }
 
@@ -356,6 +375,8 @@ img{
   width: 50px;
   border-radius: 50%;
 }
+
+
 
 .chat-online {
   color: #34ce57
@@ -590,8 +611,3 @@ text-decoration: none;
 
 .links:active { text-decoration: none; }
 
-// edit by Tony ////////////
-.icon-plus {
-  color: #fff;
-}
-// end /////////////////////
