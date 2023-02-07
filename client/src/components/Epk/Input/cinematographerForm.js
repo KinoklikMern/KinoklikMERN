@@ -19,7 +19,7 @@ const CinematographerForm = () => {
         createEpkCinematographer(cinematographerList1);
 
         async function createEpkCinematographer(cinematographerList1) {
-            const response = await fetch("http://localhost:8000/epk/EpkCinematographer", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/EpkCinematographer`, {
                 method: "POST",
                 body: JSON.stringify({
                     cinematographerList: cinematographerList1,

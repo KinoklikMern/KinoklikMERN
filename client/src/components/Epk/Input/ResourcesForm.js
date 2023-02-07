@@ -24,7 +24,7 @@ const ResourcesForm = () => {
     createEpkResources(resource);
 
     async function createEpkResources(resource) {
-      const response = await fetch("http://localhost:8000/epk/epkResources", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/epk/epkResources`, {
         method: "POST",
         body: JSON.stringify({
           resource: resource,

@@ -7,24 +7,21 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //Adding antd modules and style
-import { Button, Modal, Form, Input } from "antd";
+import { Modal, Form, Input } from "antd";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //popup and form code
-  const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+  const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
     const [form] = Form.useForm();
     return (
       <Modal
-        visible={visible}
+        open={open}
         title="Login"
         okText="Login"
         cancelText="Cancel"
@@ -50,12 +47,12 @@ function Login() {
           }}
         >
           <Form.Item
-            name="username"
-            label="User Name"
+            name="email"
+            label="Email"
             rules={[
               {
                 required: true,
-                message: "Please enter username!",
+                message: "Please enter email!",
               },
             ]}
           >
@@ -70,27 +67,28 @@ function Login() {
                 message: "Please enter password!",
               },
             ]}
+            cla
           >
             <Input type="password" />
           </Form.Item>
         </Form>
+        {error && <div className="error_text">{error}</div>}
+        {success && <div className="success_text">{success}</div>}
       </Modal>
     );
   };
 
   const CollectionsPage = () => {
-    const [visible, setVisible] = useState(false); //
-
     const onCreate = (values) => {
       console.log("Received values of form: ", values);
       handleSubmit(values);
-      setVisible(false);
+      setOpen(false);
     };
     const handleSubmit = async (values) => {
       /*     console.log(email, password); */
       try {
-        const { data } = await axios.post("http://localhost:8000/users/login", {
-          email: values.username,
+        const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
+          email: values.email,
           password: values.password,
         });
         setError("");
@@ -112,16 +110,16 @@ function Login() {
       <div>
         <span
           onClick={() => {
-            setVisible(true);
+            setOpen(true);
           }}
         >
           Login
         </span>
         <CollectionCreateForm
-          visible={visible}
+          open={open}
           onCreate={onCreate}
           onCancel={() => {
-            setVisible(false);
+            setOpen(false);
           }}
         />
       </div>

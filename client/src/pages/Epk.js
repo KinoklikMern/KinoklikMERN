@@ -12,7 +12,9 @@ import Cinematographer from "../components/Epk/Present/cinematographer";
 import Stills from "../components/Epk/Present/stills";
 import Review from "../components/Epk/Present/review";
 import Resources from "../components/Epk/Present/Resources";
+import Trailer from "../components/Epk/Present/Trailer"
 import { renderCloseIcon } from "antd/es/modal/PurePanel";
+import Footer from"../components/Footer"
 
 function EPK() {
 
@@ -26,7 +28,7 @@ function EPK() {
     }, []);
     async function getEpktCover(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkCover/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCover/` + id,
         {
           method: "GET",
           headers: {
@@ -46,7 +48,7 @@ function EPK() {
         }, []);
         async function getEpktDetails(id) {
           const response = await fetch(
-            "http://localhost:8000/epk/EpkDetails/" + id,
+            `${process.env.REACT_APP_BACKEND_URL}/epk/EpkDetails/` + id,
             {
               method: "GET",
               headers: {
@@ -66,7 +68,7 @@ function EPK() {
   }, []);
   async function getEpktLogline(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkLogline/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkLogline/` + id,
       {
         method: "GET",
         headers: {
@@ -86,7 +88,7 @@ function EPK() {
   }, []);
   async function getEpkSynopsis(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkSynopsis/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkSynopsis/` + id,
       {
         method: "GET",
         headers: {
@@ -106,7 +108,7 @@ function EPK() {
     }, []);
     async function getEpkUniqueness(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkUniqueness/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkUniqueness/` + id,
         {
           method: "GET",
           headers: {
@@ -126,7 +128,7 @@ function EPK() {
     }, []);
     async function getEpktCast(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkCast/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCast/` + id,
         {
           method: "GET",
           headers: {
@@ -146,7 +148,7 @@ function EPK() {
   }, []);
   async function getEpktDirector(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkDirector/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkDirector/` + id,
       {
         method: "GET",
         headers: {
@@ -166,7 +168,7 @@ function EPK() {
     }, []);
     async function getEpktProducer(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkProducer/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkProducer/` + id,
         {
           method: "GET",
           headers: {
@@ -186,7 +188,7 @@ function EPK() {
     }, []);
     async function getEpktCinematographer(id) {
       const response = await fetch(
-        "http://localhost:8000/epk/EpkCinematographer/" + id,
+        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCinematographer/` + id,
         {
           method: "GET",
           headers: {
@@ -206,7 +208,7 @@ function EPK() {
   }, []);
   async function getEpktStills(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkStills/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkStills/` + id,
       {
         method: "GET",
         headers: {
@@ -226,7 +228,7 @@ function EPK() {
   }, []);
   async function getEpktReview(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkReview/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkReview/` + id,
       {
         method: "GET",
         headers: {
@@ -246,7 +248,7 @@ function EPK() {
   }, []);
   async function getEpkResources(id) {
     const response = await fetch(
-      "http://localhost:8000/epk/EpkResources/" + id,
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkResources/` + id,
       {
         method: "GET",
         headers: {
@@ -258,6 +260,27 @@ function EPK() {
 
     console.log(resourcesList1);
     setResourcesList(resourcesList1);
+
+    // // trailer
+    // const [trailerList, setTrailerList] = useState(null);
+    // useEffect(() => {
+    //   getEpkTrailer(id);
+    // }, []);
+    // async function getTrailer(id) {
+    //   const response = await fetch(
+    //     "http://localhost:8000/epk/EpkTrialer/" + id,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-type": "application/json; charset=UTF-8",
+    //       },
+    //     }
+    //   );
+    //   const trailerList1 = await response.json();
+  
+    //   console.log(trailerList1);
+    //   setResourcesList(trailerList1);
+
 
     /*  console.log(shortSynopsis);
       console.log(mediumSynopsis);
@@ -280,8 +303,11 @@ function EPK() {
       {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
       {stillsList && stillsList.map((s) => <Stills stillsFile={s} />)}
       {resourcesList && resourcesList.map((s) => <Resources resFile={s} />)}
+      <Trailer/>
       {reviewList && reviewList.map((s) => <Review reviewFile={s} />)}
-
+      {/* {trailerList && trailerList.map((s) => <Trailer trailerFile={s} />)} */}
+      
+      <Footer/>
     </div>
     </>
     );

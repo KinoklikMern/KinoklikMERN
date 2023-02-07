@@ -1,36 +1,37 @@
 import React, { useState } from "react";
 import { Button, Col, Row } from "antd";
 
-import "./review.css";
+import style from"./review.module.css";
 
 function Review(reviewFile) {
     console.log(reviewFile);
 
 
     return (
-      <div className="App" style={{position: "relative"}}>
-        {/* <div style={{backgroundColor: "#7F00FF", height: 15}}/>   */}
-
-          <div style={{background: "#ffffff"}}>
-            <Col>
-            <Row className="justify-content">
-              <Col md="auto">
-                  <h4 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
-                    {reviewFile.reviewFile.review1Review}
-                  </h4>
-                  <h4 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
+      <div className={style.container}>
+    
+          <div className={style.reviewcontainer}>
+          <div >
+            <p className={style.el1}>
+                {reviewFile.reviewFile.review1Review}
+            </p>
+            </div>
+            {/* <div className={style.el1}>
+                  <p>
                     {reviewFile.reviewFile.review1Magazine}
-                  </h4>
-                </Col>
-                <Col md="auto" >
-                  <h4 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
+                  </p>
+            </div>
+              <div className={style.el1}>
+                  <p className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
                     {reviewFile.reviewFile.review2Review}
-                  </h4>
-                  <h4 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
+                  </p>
+                  </div>
+                  <div>
+                  <p className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
                     {reviewFile.reviewFile.review2Magazine}
-                  </h4>
-                  </Col>
-                  <Col md="auto">
+                  </p>
+                  </div> */}
+                  {/* <Col md="auto">
                   <h4 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
                     {reviewFile.reviewFile.review3Review}
                   </h4>
@@ -46,9 +47,9 @@ function Review(reviewFile) {
                     {reviewFile.reviewFile.review4Magazine}
                   </h4>
                   </Col>
-              </Row>
+             */}
 
-              <Row>
+              {/* <Row>
               <Col md="auto">
                   <img 
                     src={reviewFile.reviewFile.review1Award}  alt="Image"
@@ -76,7 +77,7 @@ function Review(reviewFile) {
                     ></img>
           </Col>
               </Row>
-          </Col>
+          </Col> */}
         </div>
       </div>
    );

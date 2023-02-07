@@ -32,7 +32,7 @@ const Landing1 = () => {
   const { user } = useSelector((user) => ({ ...user }));
   const createEpk = async () => {
     try {
-      const { data } = await axios.post("http://localhost:8000/epk", {
+      const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/epk`, {
         user: user.id,
       });
       //dispatch({ type: "LOGIN", payload: data });

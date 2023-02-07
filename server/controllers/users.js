@@ -9,16 +9,23 @@ import PasswordResetToken from "../models/passwordResetToken.js";
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, role, password, phone, website } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      role,
+      password,
+      phone,
+      website,
+    } = req.body;
 
     if (!validateEmail(email)) {
       return res.status(400).json({
         message: "invalid email address",
       });
     }
-    const check = await User.findOne({ email });
-    if (check) {
+    const emailCheck = await User.findOne({ email });
+    if (emailCheck) {
       return res.status(400).json({
         message:
           "This email address already exists. Try with a different email address",
@@ -75,7 +82,9 @@ export const login = async (request, response) => {
 
   try {
     if (email && password) {
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({
+        email: email,
+      });
 
       if (!user) {
         return response.status(400).json({

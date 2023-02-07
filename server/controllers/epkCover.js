@@ -1,7 +1,6 @@
 import Movie from "../models/movie.js";
 import Epk from "../models/epkCover.js";
-import { uploadImageFileToS3 } from "../s3.js";
-import { uploadMediaFileToS3 } from "../s3.js";
+import { uploadFileToS3, uploadImageFileToS3, uploadMediaFileToS3 } from "../s3.js";
 
 export const getEpkCover = async (req, res) => {
   const id = req.body.id;
@@ -35,6 +34,7 @@ export const updateEpkCover = async (req, res) => {
   //
 };
 
+//upload 1 file to S3
 export const uploadEpkFile = async (req, res) => {
   const file = req.file;
   const result = await uploadFileToS3(file);
@@ -42,8 +42,8 @@ export const uploadEpkFile = async (req, res) => {
     res.status(406).send({ message: "File extention not supported!" });
   } else {
     console.log(result);
-
     res.status(200).send({ key: result.Key });
+    //res.status(200).send({ Location: result.Location });
   }
 };
 

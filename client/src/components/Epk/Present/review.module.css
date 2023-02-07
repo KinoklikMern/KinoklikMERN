@@ -1,0 +1,33 @@
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.reviewcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 3rem;
+}
+.img {
+  width: 25rem;
+  height: 35rem;
+  border-radius: 2rem;
+  box-shadow: 3px 3px rgb(237, 235, 240);
+}
+
+.el1,
+.el2 {
+  justify-self: center;
+  align-self: center;
+}
+
+h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 3.6rem;
+}
+.el1 {
+  color: white;
+  font-size: 1.8;
+}

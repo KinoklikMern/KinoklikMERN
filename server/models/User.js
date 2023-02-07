@@ -19,10 +19,14 @@ const UserSchema = mongoose.Schema({
   firstName: {
     type: String,
     required: true,
+    maxlength: 30,
+    minlength: 3,
   },
   lastName: {
     type: String,
     required: true,
+    maxlength: 30,
+    minlength: 3,
   },
   role: {
     type: String,
@@ -68,6 +72,15 @@ const UserSchema = mongoose.Schema({
     default:
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
+  createdAt:{
+    type: Date,
+    immutable: true,
+    default: () => Date.now(),
+  },
+  updatedAt:{
+    type: Date,
+    default: () => Date.now(),
+  }
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).
