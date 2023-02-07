@@ -13,57 +13,14 @@
  
  .hero {
    max-width: 130rem;
-   background-image: url("../../../images/movies/imageSouthpaw.jpeg");
+   /* background-image: url("../../../images/movies/imageSouthpaw.jpeg"); */
    background-repeat: none;
    background-size: cover;
    background-position: bottom;
    margin: 0 auto;
    position:relative;
  }
- /* .navContainer {
-   display: flex;
-   align-items: flex-start;
-   justify-content: space-between;
-   padding:.5rem .5rem;
- }
- 
- .logo {
-   width:3rem;
-   height: auto;
- }
- .searchBar{
- 
-   padding-top: 0.5rem;
-   display: flex;
-   gap:.3rem;
- }
-  .searchTerm{
-   width: 100%;
-   height: auto;
-   color: transparent;
-   background-color: transparent;
-   border:none;
-   border-bottom: 1px solid #fff;
-   font-size: 1rem;
-   cursor: pointer;
-    
- }
- .searchButton {
-   width: 1rem;
-   height: auto;
-   text-align: center;
-   color: #fff;
-   cursor: pointer;
-   font-size: 1rem;
-   align-self: flex-end;
- }
- 
- .avatar {
-   width:3rem;
-  
-   height: auto;
-   border-radius: 50%;
- } */
+
  
  /* poster section */
  .posterContainer {
@@ -99,7 +56,10 @@
  
  
  /* corner section */
- 
+ .bottomeLine{
+  display: flex;
+  justify-content: space-between;
+ }
  .flexContainer {
    width: 40%;
    display: flex;
@@ -149,6 +109,9 @@
    z-index: -1;
    max-height: 0;
    transition: opacity 0.1s, z-index 0.1s, max-height 5s;
+ }
+ .dropdownContainer{
+  position: relative;
  }
  
  .dropdownContainer:focus {
@@ -277,3 +240,48 @@
   }
   
  }
+
+  /* .navContainer {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   padding:.5rem .5rem;
+ }
+ 
+ .logo {
+   width:3rem;
+   height: auto;
+ }
+ .searchBar{
+ 
+   padding-top: 0.5rem;
+   display: flex;
+   gap:.3rem;
+ }
+  .searchTerm{
+   width: 100%;
+   height: auto;
+   color: transparent;
+   background-color: transparent;
+   border:none;
+   border-bottom: 1px solid #fff;
+   font-size: 1rem;
+   cursor: pointer;
+    
+ }
+ .searchButton {
+   width: 1rem;
+   height: auto;
+   text-align: center;
+   color: #fff;
+   cursor: pointer;
+   font-size: 1rem;
+   align-self: flex-end;
+ }
+ 
+ .avatar {
+   width:3rem;
+  
+   height: auto;
+   border-radius: 50%;
+ } */

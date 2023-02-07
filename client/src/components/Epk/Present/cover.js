@@ -101,7 +101,7 @@ function EpkCover() {
         </div>
 
         {/* corner section */}
-
+        <div className={style.bottomeLine}>
         <div className={style.flexContainer}>
           <p className={style.el1} >Preproduction</p> 
           <p className={style.el2}>{epkCoverData.genre}</p>
@@ -110,9 +110,10 @@ function EpkCover() {
         </div>
         <div class={style.dropdownContainer} >
           <div class={style.threedots}></div>
-          <div class={style.dropdown}>
+         
+    </div>
+    <div class={style.dropdown}>
             <a className={style.dotAnkor} href="#"><div>report</div></a>
-    
           </div>
         </div>
 

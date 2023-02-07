@@ -61,6 +61,10 @@
 .content{
   filter: blur(8px);
 }
+.content1{
+  opacity: 1;
+
+}
 
 
 .none{
