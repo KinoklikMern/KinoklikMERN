@@ -101,14 +101,14 @@ const Landing1 = () => {
 
       <div className="bg-midnight ">
         <h2 className="text-white text-3xl font-bold  ml-10 ">NEW FILMS</h2>
-        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 px-2 py-4 sm:px-1">
+        <div className="slide-right-left grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 px-2 py-4 sm:px-1 ">
           {newFilm.map((item) => (
             <div
               className="shadow-md shadow-gray-600 rounded-lg"
               key={item._id}
             >
               <img
-                className="rounded-md w-full h-64 duration-200 hover:scale-105"
+                className="rounded-md w-full h-64 "
                 src={item.image}
                 alt={item.title}
               />
@@ -119,7 +119,7 @@ const Landing1 = () => {
         <h2 className="text-white text-3xl font-bold mb-10 ml-10 ">
           MOST POPULAR
         </h2>
-        <div className="grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 px-2 sm:px-0">
+        <div className="slide-left-right grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 px-2 sm:px-0">
           {popularFilm.map((item) => (
             <div
               className="shadow-md shadow-gray-600 rounded-lg"

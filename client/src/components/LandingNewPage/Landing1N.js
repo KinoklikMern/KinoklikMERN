@@ -1,5 +1,6 @@
 import React from "react";
 import moviesPhoto from "../../images/landing.png";
+import TvPhoto from "../../images/TV.png";
 
 const Landing1N = () => {
   return (
@@ -8,7 +9,7 @@ const Landing1N = () => {
         <div className="px-8 py-12 max-w-md mx-auto sm:max-w-xl lg:px-12 lg:py-24 lg:max-w-full xl:mr-2 2xl:col-span-2">
           <div className="xl:max-w-xl">
             <img
-              className="h-64 mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-64 sm:w-full sm:object-cover object-center lg:hidden"
+              className="sm:bg-TvImage sm:bg-no-repeat sm:bg-cover h-64 mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-64   object-center lg:hidden"
               src={moviesPhoto}
               alt="Movies"
             />
@@ -23,7 +24,7 @@ const Landing1N = () => {
             </h4>
             <div className="mt-4 sm:mt-6 grid-cols-2">
               <a
-                className="inline-block px-4 py-2 rounded-lg bg-violet-800 hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-xl text-white shadow-lg sm:text-base mr-4"
+                className="inline-block px-4 py-2 rounded-lg bg-white hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-xl text-midnight shadow-lg sm:text-base mr-4"
                 href="/"
               >
                 Create EPK
@@ -37,9 +38,9 @@ const Landing1N = () => {
             </div>
           </div>
         </div>
-        <div className=" hidden relative  ml-20 mr-20 lg:block 2xl:col-span-3 ">
+        <div className="bg-TvImage bg-no-repeat bg-cover hidden relative  ml-20 p-10   lg:block 2xl:col-span-3 ">
           <img
-            className="absolute inset-5  lg:w-4/5 h-full object-cover object-center "
+            className="  lg:p-20 m-x-14 h-full object-cover object-center  p-x-8 pt-0 "
             src={moviesPhoto}
             alt="Movies"
           />

@@ -7,9 +7,9 @@ export default function SingleQuestion({ question, answer }) {
 
   return (
     <>
-      <div className="ml-20 mr-20">
+      <div className=" ml-20 mr-20 ">
         <div
-          className="flex justify-between border-b border-gray-500 p-3 my-2 rounded-md text-2xl font-bold lg:text-3xl"
+          className=" border-b border-gray-500 p-3 my-2 rounded-md text-2xl font-bold lg:text-3xl"
           style={{ color: "white" }}
         >
           <h2
@@ -19,25 +19,21 @@ export default function SingleQuestion({ question, answer }) {
             {question}
             &nbsp;&nbsp;&nbsp;
             {showAnswer ? (
-              <div className=" ">
-                <button>
-                  <FontAwesomeIcon icon={faMinus} />
-                </button>
-              </div>
+              <button className="!important justify-end">
+                <FontAwesomeIcon icon={faMinus} />
+              </button>
             ) : (
-              <div className=" ">
-                <button
-                  className=" "
-                  onClick={() => setShowAnswer(!showAnswer)}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                </button>
-              </div>
+              <button
+                className="!important justify-end"
+                onClick={() => setShowAnswer(!showAnswer)}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </button>
             )}
           </h2>
         </div>
         <div
-          className="px-6 text-justify  mr-20 sm:text-l lg:text-xl"
+          className="px-6 text-justify  sm:text-l lg:text-xl"
           style={{ color: "white" }}
         >
           {showAnswer && <p>{answer}</p>}

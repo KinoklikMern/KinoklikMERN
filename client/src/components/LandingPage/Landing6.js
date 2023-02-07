@@ -10,7 +10,7 @@ const Landing6 = () => {
     return (
         <>
             <div className="bg-midnight" >
-                <div className="  text-2xl font-bold text-center text-white-900   lg:text-3xl xl:text-4xl">
+                <div className=" pt-10 text-2xl font-bold text-center text-white-900   lg:text-3xl xl:text-4xl">
                     <h1>FREQUENTLY ASKED QUESTIONS:</h1>
                 </div>
                 <div className="p-2">

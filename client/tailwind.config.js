@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      backgroundImage: {
+        'TvImage': "url('../public/images/TV.png')",
+      },
       colors: {
         transparent: "transparent",
         current: "currentColor",
