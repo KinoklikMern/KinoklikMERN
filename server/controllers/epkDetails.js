@@ -11,7 +11,7 @@ export const createEpkDetails = async (req, res) => {
         const savedDetails = [];
         for (let i = 0; i < detailsList.length; i++) {
             console.log(detailsList[i]);
-            const newDetails = new epkDetails(detailsList[i]);
+            const newDetails = new epkDetails(detailsList[0]);
             newDetails.save();
 
             savedDetails.push(newDetails);
