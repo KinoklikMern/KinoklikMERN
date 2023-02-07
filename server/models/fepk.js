@@ -65,7 +65,12 @@ const fepkSchema = mongoose.Schema({
       epkRole: {
         type: String,
         enum: ['lead_actor', 'supporting_actor', 'director', 'producer', 'cinematographer', 'editor', 'writer', 'sound']
-      }   
+      },
+      biography:{type: String},
+      image: {type: String},
+      facebook_url: {type: String},
+      instagram_url: {type: String},
+      twitter_url: {type: String}
     }
   ],
   

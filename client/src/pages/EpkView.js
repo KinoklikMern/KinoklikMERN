@@ -36,13 +36,25 @@ function EpkView() {
      
       }, []);
 
-      console.log(fepkData);
-      console.log(fepkData.image_details);
+      const createdTime = fepkData.createdAt;
+      const formatedDate = new Date(createdTime).toLocaleString(
+        "en-US",
+          {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          }
+      );
+
+    
+      
 
   return (
     
-    <Fragment className={style.container}>
-    <div className={style.hero} style={{backgroundImage: `url(${fepkData.banner_url})`}}>  
+    
+    <div className={style.wholeContainer} >
+    <div className={style.hero} style={{backgroundImage: `url(https://kinomovie.s3.amazonaws.com/${fepkData.banner_url})`}}> 
+   
  
       <div className={style.posterContainer}> 
 
@@ -61,22 +73,14 @@ function EpkView() {
         </div>
 
         {/* corner section */}
-        <div className={style.bottomeLine}>
+        
         <div className={style.flexContainer}>
-          <p className={style.el1} >Preproduction</p> 
-          <p className={style.el2}>{fepkData.genre}</p>
-          <p className={style.el3} >Posted:{fepkData.createdAt}</p> 
+          <p className={style.pre} >Preproduction</p> 
+          <p className={style.genre}>{fepkData.genre}</p>
+          <p className={style.date} >Posted:&nbsp;{formatedDate }</p> 
   
         </div>
-        <div class={style.dropdownContainer} >
-          <div class={style.threedots}></div>
-          <div class={style.dropdown}>
-            <a className={style.dotAnkor} href="#"><div>report</div></a>
-    
-        </div>
-          </div>
-        </div>
-
+       
       </div>
 
       {/* icon-bar section */}
@@ -118,8 +122,102 @@ function EpkView() {
             </a>
           </div>
 
-        
+       
       </div>
+
+       {/* details section */}
+
+       <div className={style.detailContainer}> 
+            <div className={style.el1}>
+              <img 
+                src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_details}`}  alt="poster"
+                className={style.imgDetail}
+                ></img>
+            </div>
+            <div className={style.el2}>
+                {/* <p>
+                  Directed by: {detailsFile.detailsFile.director}
+                </p>
+               
+                <p>
+                  Produced by: {detailsFile.detailsFile.producer}
+                </p>
+             
+                <p >
+                  Writer: {detailsFile.detailsFile.writer}
+                </p>
+                
+                <p>
+                  Cinematographer: {detailsFile.detailsFile.cinematographer}
+                </p>
+               
+                <p >
+                  Editor: {detailsFile.detailsFile.editor}
+                </p>
+           
+                <p >
+                  Sound: {detailsFile.detailsFile.sound}
+                </p>
+               */}
+                <p >
+                  Studio: {fepkData.productionCo}
+                </p>
+                
+                <p >
+                  Distributed by: {fepkData.distributionCo}
+                </p>
+            </div>
+
+            <div className={style.el3}>
+              <p>
+                Starring:
+              </p>
+  
+                {/* <p>
+                  {detailsFile.detailsFile.leadActor1}
+                </p>
+                
+                <p >
+                  {detailsFile.detailsFile.leadActor2}
+                </p>
+                  
+                <p>
+                  {detailsFile.detailsFile.supportingActor1}
+                </p>
+                
+                <p>
+                  {detailsFile.detailsFile.supportingActor2}
+                  <br/><br/>
+                </p> */}
+               
+                <p className={style.bottom}>
+                  Production Year: {fepkData.productionYear}
+                </p>
+                
+                <p className={style.bottom}>
+                  Duration: {fepkData.durationMin} Minutes
+                </p>
+            </div>
+            </div>
+            {/* logline section */}
+
+            <div className={style.logline}>
+                <div>
+                <p >{fepkData.logLine_short}</p>
+            </div>
+            <div>
+            <img 
+            src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_logline}`}  alt="logline"
+            className={style.imgLogline}>
+
+            </img>
+
+             </div>
+             </div>
+          
+
+
+
     
 
       {/* < EpkCover />
@@ -139,7 +237,8 @@ function EpkView() {
   {trailerList && trailerList.map((s) => <Trailer trailerFile={s} />)}*/}
       
       <Footer/> 
-    </Fragment>
+    </div>
+    
     
     );
 }

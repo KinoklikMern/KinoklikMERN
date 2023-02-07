@@ -3,50 +3,52 @@
     padding:0;
    
  }
- .container{
-   max-width: 120rem;
+ .wholeContainer{
    font-size: 62.5%;  
    font-weight: 400;
    color:#fff;
+   margin: 0 auto;
    box-sizing: border-box;
  }
  
  .hero {
-   max-width: 130rem;
-   /* background-image: url("../../../images/movies/imageSouthpaw.jpeg"); */
+   /* max-width: 130rem; */
+   
    background-repeat: none;
+   width:100%;
+   
    background-size: cover;
-   background-position: bottom;
-   margin: 0 auto;
-   position:relative;
+   background-position: top;
  }
 
  
  /* poster section */
  .posterContainer {
    display: flex;
-   justify-content: space-between;
    margin: 0 3rem;
    padding-top:2rem;
-   gap:2rem;
  }
  
  .img {
-   width: 100%;
-   height: auto;
+   width: 70%;
+   height: 60vh;
    border-radius: 4rem;
    box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
  }
  
  .description{
+   flex-basis: 50rem;
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: space-between;
+  
  }
  .centered {
    font-size: 3.6rem;
    letter-spacing: 3px;
+   
+   
    
  }
  .logline {
@@ -56,75 +58,34 @@
  
  
  /* corner section */
- .bottomeLine{
-  display: flex;
-  justify-content: space-between;
- }
+
  .flexContainer {
    width: 40%;
    display: flex;
    padding: 0;
    margin-top:3rem;
    align-items: flex-end;
-   justify-content: space-between;
-   gap: 1rem;
+   /* justify-content: space-between; */
+   gap: 5rem;
    margin-left:.5rem;
+   color:#fff;
+   font-weight: 500;
  }
  
- .el1 {
-   color: rgb(225, 204, 11);
- }
- .el1,
- .el2,
- .el3 {
-   font-size: 1rem;
-   margin-bottom: 0;
- }
- 
- /* three dot section */
- .threedots:after {
-   cursor: pointer;
-   color: #444;
-   content: '\2807';
-   font-size: 20px;
-   padding: 0 5px;
- }
- 
- .dotAnkor {
-   text-decoration: none;
-   color: white;
- }
- 
- .dotAnkor div {
-   padding: 2px;
- }
- 
- .dropdown {
-   position: absolute;
-   right: 10px;
-   background-color: #66D;
+ .pre {
+   color: rgb(225, 204, 11);   
    
-   outline: none;
-   opacity: 0;
-   z-index: -1;
-   max-height: 0;
-   transition: opacity 0.1s, z-index 0.1s, max-height 5s;
  }
- .dropdownContainer{
-  position: relative;
- }
- 
- .dropdownContainer:focus {
-   outline: none;
+ .pre,
+ .genre,
+ .date {
+   
+  font-size: 1rem;
+  margin-bottom: 0;
+   
  }
  
- .dropdownContainer:focus .dropdown {
-   opacity: 1;
-   z-index: 100;
-   max-height: 100vh;
-   transition: opacity 0.2s, z-index 0.2s, max-height 0.2s;
- }
- 
+
  /* icon-bar section */
  
  .iconContainer {
@@ -159,6 +120,57 @@
    height: 1rem; */
    background-color: #ddd;
  }
+
+ /* details section */
+
+ .detailContainer {
+  margin: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:3rem;
+  color:#000;
+}
+
+.imgDetail {
+  height: 60vh;
+  width:30vw;
+  border-radius: 4rem;
+}
+
+.el2 {
+  line-height: 1.5;
+  font-size: 1.8rem;
+  
+  
+}
+.el3{ 
+  line-height: 1.5;
+  font-size: 1.8rem;
+ text-align: center;
+}
+/* logline section */
+
+
+.logline p {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgb(72, 8, 8);
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+}
+.imgLogline {
+  height: 40vh;
+  width: 50%;
+  border-radius: 3rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
  
  /* 1rem =1em=16px */
  /* below 1344px (smaller desktops) */

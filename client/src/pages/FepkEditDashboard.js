@@ -12,6 +12,7 @@ import StillsForm from "../components/Epk/Input/fepkStills";
 import TrailerForm from "../components/Epk/Input/fepkTrailerForm"; 
 import ReviewsForm from "../components/Epk/Input/fepkReviewsForm";
 import ResourcesForm from "../components/Epk/Input/fepkResourcesForm";
+import FepkDetailsForm from "../components/Epk/Input/fepkDetailsForm";
 
 function FepkEditDashboard() {
     return (
@@ -22,7 +23,7 @@ function FepkEditDashboard() {
       <br/>
       <FepkEditCoverForm />
       <br/>
-      <DetailsForm />
+      <FepkDetailsForm />
       <br/>
       <LoglineForm />
       <br/>
