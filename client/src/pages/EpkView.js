@@ -23,18 +23,50 @@ function EpkView() {
     // const id = 5;
 
     let { title } = useParams();
+    let userId = "63c979256535716c94b963bd";
     console.log(title);
     const [fepkData, setFepkData] = useState({});
-  
+    const [crewList, setCrewList] = useState([]);
+    const [usersWishesToBuy, setUsersWishesToBuy] = useState(0);
+    const [usersFavourites, setUsersFavourites] = useState(0);
+    const [usersLikes, setUsersLikes] = useState(0);
+    const [counter, setCounter] = useState(0);
 
+    let count = 0;
+  
     useEffect(() => {
         http.get("/fepks/byTitle/Avatar").then((response) =>{
             setFepkData(response.data); 
+            setCrewList(response.data.crew);
+            setUsersWishesToBuy(response.data.wishes_to_buy.length);
+            setUsersFavourites(response.data.favourites.length);
+            setUsersLikes(response.data.likes.length);
             console.log(response.data.title);
             
         });
      
       }, []);
+      
+      // user is added to the list of $
+      function addUserToWishesToBuy(){
+        http.get(`fepks/wishestobuy/${fepkData._id}/${userId}`).then((response) =>{
+          setUsersWishesToBuy(response.data.wishes_to_buy.length);
+        });
+      }
+
+      // user is added to the list of +
+      function addUserToFavourites(){
+        http.get(`fepks/favourite/${fepkData._id}/${userId}`).then((response) =>{
+          setUsersFavourites(response.data.favourites.length);
+        });
+      }
+
+      // user is added to the list of star(likes)
+      function addUserToLikes(){
+        http.get(`fepks/like/${fepkData._id}/${userId}`).then((response) =>{
+          setUsersLikes(response.data.likes.length);
+        });
+      }
 
       const createdTime = fepkData.createdAt;
       const formatedDate = new Date(createdTime).toLocaleString(
@@ -75,7 +107,7 @@ function EpkView() {
         {/* corner section */}
         
         <div className={style.flexContainer}>
-          <p className={style.pre} >Preproduction</p> 
+          <p className={style.pre} >{fepkData.status}</p> 
           <p className={style.genre}>{fepkData.genre}</p>
           <p className={style.date} >Posted:&nbsp;{formatedDate }</p> 
   
@@ -89,19 +121,22 @@ function EpkView() {
         
           <div>
             <a  href="#">
-              <FontAwesomeIcon icon={faDollarSign} size ="lg"/>
+              <FontAwesomeIcon icon={faDollarSign} size ="lg" onClick={() => addUserToWishesToBuy()}/>
             </a>
+            <span style={{fontSize:"15px"}}>{usersWishesToBuy}</span>
           </div>
           <div >
             <a  href="#">
-            <FontAwesomeIcon icon={faPlusCircle} size ="lg" />
+            <FontAwesomeIcon icon={faPlusCircle} size ="lg" onClick={() => addUserToFavourites()}/>
               {/* <img className="icon" src={plusIcon} alt="save" /> */}
             </a>
+            <span style={{fontSize:"15px"}}>{usersFavourites}</span>
           </div>
           <div >
             <a  href="#">
-              <FontAwesomeIcon icon={faStar} size ="lg"/>
+              <FontAwesomeIcon icon={faStar} size ="lg" onClick={() => addUserToLikes()}/>
             </a>
+            <span style={{fontSize:"15px"}}>{usersLikes}</span>
           </div>
           <div >
             <a  href="#">
@@ -127,7 +162,7 @@ function EpkView() {
 
        {/* details section */}
 
-       <div className={style.detailContainer}> 
+        <div className={style.detailContainer}> 
             <div className={style.el1}>
               <img 
                 src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_details}`}  alt="poster"
@@ -135,30 +170,27 @@ function EpkView() {
                 ></img>
             </div>
             <div className={style.el2}>
-                {/* <p>
-                  Directed by: {detailsFile.detailsFile.director}
-                </p>
-               
-                <p>
-                  Produced by: {detailsFile.detailsFile.producer}
-                </p>
-             
-                <p >
-                  Writer: {detailsFile.detailsFile.writer}
-                </p>
-                
-                <p>
-                  Cinematographer: {detailsFile.detailsFile.cinematographer}
-                </p>
-               
-                <p >
-                  Editor: {detailsFile.detailsFile.editor}
-                </p>
-           
-                <p >
-                  Sound: {detailsFile.detailsFile.sound}
-                </p>
-               */}
+                {crewList.map((crewObj) => {
+                  return ( 
+                    <>
+                        {crewObj.epkRole === "director" &&
+                          <p>Directed by: {crewObj.crewId.name}</p>
+                        } 
+                        {crewObj.epkRole === "producer" &&
+                          <p>Produced by: {crewObj.crewId.name}</p>
+                        } 
+                        {crewObj.epkRole === "writer" &&
+                          <p>Writer: {crewObj.crewId.name}</p>
+                        } 
+                        {crewObj.epkRole === "cinematographer" &&
+                          <p>Cinematographer: {crewObj.crewId.name}</p>
+                        } 
+                        {crewObj.epkRole === "editor" &&
+                          <p>Editor: {crewObj.crewId.name}</p>
+                        } 
+                    </>
+                  );
+                })}
                 <p >
                   Studio: {fepkData.productionCo}
                 </p>
@@ -172,23 +204,18 @@ function EpkView() {
               <p>
                 Starring:
               </p>
-  
-                {/* <p>
-                  {detailsFile.detailsFile.leadActor1}
-                </p>
-                
-                <p >
-                  {detailsFile.detailsFile.leadActor2}
-                </p>
-                  
-                <p>
-                  {detailsFile.detailsFile.supportingActor1}
-                </p>
-                
-                <p>
-                  {detailsFile.detailsFile.supportingActor2}
-                  <br/><br/>
-                </p> */}
+              {crewList.map((crewObj) => {
+                  return ( 
+                    <>
+                        {crewObj.epkRole === "lead_actor" &&
+                          <p>{crewObj.crewId.name}</p>
+                        } 
+                        {crewObj.epkRole === "supporting_actor" &&
+                          <p>{crewObj.crewId.name}</p>
+                        } 
+                    </>
+                  );
+                })}
                
                 <p className={style.bottom}>
                   Production Year: {fepkData.productionYear}
@@ -198,22 +225,56 @@ function EpkView() {
                   Duration: {fepkData.durationMin} Minutes
                 </p>
             </div>
-            </div>
+        </div>
             {/* logline section */}
 
             <div className={style.logline}>
-                <div>
-                <p >{fepkData.logLine_short}</p>
+              <div>
+                <p >{fepkData.logLine_long}</p>
+              </div>
+              <div>
+                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_logline}`}  alt="logline"
+                  className={style.imgLogline}>
+                </img>
+              </div>
             </div>
-            <div>
-            <img 
-            src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_logline}`}  alt="logline"
-            className={style.imgLogline}>
 
-            </img>
+            {/* Starring / Cast section */}
+            <div className={style.starring}>
+              {crewList.map((crewObj) => {
+                  return ( 
+                    <>
+                        {((crewObj.epkRole === "lead_actor" || crewObj.epkRole === "supporting_actor") && (++count)%2 !== 0) &&
+                        <div className="row">
+                          <div className="col-6">
+                            <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}  alt="starring">
+                            </img>
+                            <p style={{fontSize:"15px", color:"black"}}>{crewObj.crewId.name}</p>
+                            <p style={{fontSize:"15px", color:"black"}}>{crewObj.instagram_url} / {crewObj.facebook_url} / {crewObj.twitter_url}</p>
+                          </div>
+                          <div className="col-6">
+                            <p style={{fontSize:"20px", color:"black"}}>{crewObj.biography}</p>
+                          </div>
+                        </div>
+                        } 
 
-             </div>
-             </div>
+                        {((crewObj.epkRole === "lead_actor" || crewObj.epkRole === "supporting_actor") && count%2 === 0) &&
+                        <div className="row">
+                          <div className="col-6">
+                            <p style={{fontSize:"20px", color:"black"}}>{crewObj.biography}</p>
+                          </div>
+                          <div className="col-6">
+                            <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}  alt="starring">
+                            </img>
+                            <p style={{fontSize:"15px", color:"black"}}>{crewObj.crewId.name}</p>
+                            <p style={{fontSize:"15px", color:"black"}}>{crewObj.instagram_url} / {crewObj.facebook_url} / {crewObj.twitter_url}</p>
+                          </div>
+                        </div>
+                        } 
+                    </>
+                  );
+                })}
+            </div>
           
 
 
