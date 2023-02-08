@@ -24,8 +24,8 @@ function RegistrationForm() {
       value: "Viewer",
     },
     {
-      label: "FILM_MAKER",
-      value: "FILM_MAKER",
+      label: "Film_Maker",
+      value: "Film_Maker",
     },
     {
       label: "Sales_Agent",
@@ -38,6 +38,10 @@ function RegistrationForm() {
     {
       label: "Film_Festival",
       value: "Film_Festival",
+    },
+    {
+      label: "Investor",
+      value: "Investor",
     },
   ];
   const handleInputChange = (e) => {
@@ -91,12 +95,20 @@ function RegistrationForm() {
   return (
     <>
       <div className={SignupCss.bg}>
-        <div className="form">
-          <div className="form-body">
-            <div className="username">
-              <label className="form__label">First Name </label>
+        <div className={SignupCss.form}>
+          <div className={SignupCss.form_body}>
+            <div className={SignupCss.form_input}>
+              {/* <label className="form__label">Role </label> */}
+              <select value={role} onChange={(e) => setRole(e.target.value)}>
+                {options.map((option) => (
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className={SignupCss.form_input}>
+              {/* <label className="form__label">First Name </label> */}
               <input
-                className="form__input"
+                className={SignupCss.form_input}
                 type="text"
                 value={firstName}
                 onChange={(e) => handleInputChange(e)}
@@ -104,42 +116,33 @@ function RegistrationForm() {
                 placeholder="First Name"
               />
             </div>
-            <div className="lastname">
-              <label className="form__label">Last Name </label>
+            <div className={SignupCss.form_input}>
+              {/* <label className="form__label">Last Name </label> */}
               <input
+                className={SignupCss.form_input}
                 type="text"
-                name=""
-                id="lastName"
                 value={lastName}
-                className="form__input"
                 onChange={(e) => handleInputChange(e)}
+                id="lastName"
                 placeholder="LastName"
               />
             </div>
-            <div className="email">
-              <label className="form__label">Email </label>
+            <div className={SignupCss.form_input}>
+              {/* <label className="form__label">Email </label> */}
               <input
-                type="email"
+                className={SignupCss.form_input}
+                type="text"
                 id="email"
-                className="form__input"
                 value={email}
                 onChange={(e) => handleInputChange(e)}
                 placeholder="Email"
               />
             </div>
-            <div className="role">
-              <label className="form__label">Role </label>
-              <select value={role} onChange={(e) => setRole(e.target.value)}>
-                {options.map((option) => (
-                  <option value={option.value}>{option.label}</option>
-                ))}
-              </select>
-            </div>
 
-            <div className="password">
-              <label className="form__label">Password </label>
+            <div className={SignupCss.form_input}>
+              {/* <label className="form__label">Password </label> */}
               <input
-                className="form__input"
+                className={SignupCss.form_input}
                 type="password"
                 id="password"
                 value={password}
@@ -147,10 +150,10 @@ function RegistrationForm() {
                 placeholder="Password"
               />
             </div>
-            <div className="confirm-password">
-              <label className="form__label">Confirm Password </label>
+            <div className={SignupCss.form_input}>
+              {/* <label className="form__label">Confirm Password </label> */}
               <input
-                className="form__input"
+                className={SignupCss.form_input}
                 type="password"
                 id="confirmPassword"
                 value={confirmPassword}
@@ -164,9 +167,9 @@ function RegistrationForm() {
           <button
             onClick={() => handleSubmit()}
             type="submit"
-            className="primary-btn"
+            className={SignupCss.btn}
           >
-            Register
+            Sign Up
           </button>
         </div>
       </div>

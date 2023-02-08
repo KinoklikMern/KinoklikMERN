@@ -8,6 +8,51 @@
     position: relative;
     top: 0;
     left: 0;
-    background-repeat: no-repeat;
+    margin:0 auto;
+    background-repeat: none;
+    background-size: cover;
+    background-position: center;
     background: linear-gradient(rgba(238, 238, 238, 0.823), rgba(219, 219, 222, 0.856)), url(../../../images/login/VIP.png);
+}
+
+.form {
+position: absolute;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form_body {
+    text-align: center;
+}
+
+.form_input {
+    background: white;
+    color: #712CB0;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(#712CB0),
+        0 6px 20px 0 rgba(#712CB0);
+    border: 10px solid var(#712CB0);
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #712CB0;
+    color: white;
+    border: 10px solid var(#712CB0);
+    /* padding: 4px 50px; */
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
+    width: 200px;
+    text-align: center;
+    margin-left: 110px;
+
 }
