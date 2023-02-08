@@ -85,9 +85,9 @@ function FepkCoverForm() {
   };
   const movieStatus = [
     "Status...",
-    "preproduction",
-    "production",
-    "postproduction"
+    "Preproduction",
+    "Production",
+    "Postproduction"
   ];
   const makeStatusItem = (Y) => {
     return <option value={Y}> {Y}</option>;

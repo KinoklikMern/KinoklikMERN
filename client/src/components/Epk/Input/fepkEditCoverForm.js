@@ -37,7 +37,7 @@ function FepkEditCoverForm() {
   }, []);
 
   const [epkCoverData, setEpkCoverData] = useState({
-    film_maker: filmmaker_id,
+    film_maker: fepk.film_maker,
     title: fepk.title,
     logLine_short: fepk.logLine_short,
     genre: fepk.genre,
@@ -93,9 +93,9 @@ function FepkEditCoverForm() {
     return <option value={X}> {X}</option>;
   };
   const movieStatus = [
-    "preproduction",
-    "production",
-    "postproduction"
+    "Preproduction",
+    "Production",
+    "Postproduction"
   ];
   const makeStatusItem = (Y) => {
     return <option value={Y}> {Y}</option>;
@@ -214,7 +214,7 @@ function FepkEditCoverForm() {
           <div className="col-1 m-3">        
           </div>
           <div className="col-2 m-3">
-            <Link className="col align-items-end" to={`/Epk/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+            <Link className="col align-items-end" to={`/epkview/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
                 View EPK Page
             </Link>
           </div>

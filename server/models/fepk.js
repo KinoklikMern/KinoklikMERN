@@ -21,7 +21,7 @@ const fepkSchema = mongoose.Schema({
   kickstarter_url: {type: String},
   status: {
     type: String,
-    enum: ['preproduction', 'production', 'postproduction'],
+    enum: ['Preproduction', 'Production', 'Postproduction'],
     required: true
   },
   createdAt: {
