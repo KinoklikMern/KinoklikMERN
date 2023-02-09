@@ -1,10 +1,11 @@
 import React from "react";
 import moviesPhoto from "../../images/landing.png";
 import TvPhoto from "../../images/TV.png";
+import Landing2N from "./Landing2N";
 
 const Landing1N = () => {
   return (
-    <div className="bg-gray-300">
+    <div className="bg-midnight pb-20">
       <div className="bg-midnight grid lg:grid-cols-2 2xl:grid-cols-5">
         <div className="px-8 py-12 max-w-md mx-auto sm:max-w-xl lg:px-12 lg:py-24 lg:max-w-full xl:mr-2 2xl:col-span-2">
           <div className="xl:max-w-xl">
@@ -38,7 +39,7 @@ const Landing1N = () => {
             </div>
           </div>
         </div>
-        <div className="bg-TvImage bg-no-repeat bg-cover hidden relative  ml-20 p-10   lg:block 2xl:col-span-3 ">
+        <div className="bg-TvImage bg-no-repeat bg-cover hidden relative  ml-20 p-10  lg:block 2xl:col-span-3 ">
           <img
             className="  lg:p-20 m-x-14 h-full object-cover object-center  p-x-8 pt-0 "
             src={moviesPhoto}
@@ -46,7 +47,11 @@ const Landing1N = () => {
           />
         </div>
       </div>
+      <div className="bg-white"> <Landing2N/></div>
+     
     </div>
+    
+
   );
 };
 

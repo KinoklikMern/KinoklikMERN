@@ -32,9 +32,12 @@ const Landing1 = () => {
   const { user } = useSelector((user) => ({ ...user }));
   const createEpk = async () => {
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/epk`, {
-        user: user.id,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/epk`,
+        {
+          user: user.id,
+        }
+      );
       //dispatch({ type: "LOGIN", payload: data });
 
       console.log(data);
@@ -99,7 +102,11 @@ const Landing1 = () => {
         </Grid>
           </div> */}
 
-      <div className="bg-midnight ">
+      <div className="bg-midnight  ">
+        <h1 className=" mb-20 pt-0 text-2xl font-bold text-center text-white sm:mt-8 sm:text-4xl lg:text-3xl xl:text-4xl">
+          Are you a Distributor, a Film Festival, Sales Agent <br/>or Investor
+          searching for new upcoming film projects?
+        </h1> 
         <h2 className="text-white text-3xl font-bold  ml-10 ">NEW FILMS</h2>
         <div className="slide-right-left grid ml-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 px-2 py-4 sm:px-1 ">
           {newFilm.map((item) => (
@@ -108,7 +115,7 @@ const Landing1 = () => {
               key={item._id}
             >
               <img
-                className="rounded-md w-full h-64 "
+                className="rounded-md w-full h-64 duration-200 hover:scale-105 "
                 src={item.image}
                 alt={item.title}
               />

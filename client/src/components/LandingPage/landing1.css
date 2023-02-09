@@ -134,11 +134,9 @@
     transform: translateX(10%);
   }
 
-  90% {
-    transform: translateX(-10%);
-  }
+
   100% {
-    transform: translateX(-20%);
+    transform: translateX(-10%);
   }
 }
 .slide-left-right {
@@ -153,10 +151,8 @@
     transform: translateX(-10%);
   }
 
-  90% {
-    transform: translateX(10%);
-  }
+  
   100% {
-    transform: translateX(20%);
+    transform: translateX(10%);
   }
 }

@@ -36,21 +36,22 @@ const Landing5 = () => {
               </p>
             </div>
           </div>
-          <div className="flex justify-center mt-20 sm:mt-6 grid-cols-2 ">
-            <a
-              className="inline-block px-4 py-4 rounded-lg bg-black hover:bg-violet-900 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-2xl text-white shadow-lg sm:text-base mr-4 "
-              href="/"
-            >
-              Create EPK
-            </a>
-          </div>
-          <div className="text-4xl font-semibold flex justify-center mt-20">
-            Are you ready to create{" "}
+         
+          <div className="text-4xl font-semibold flex justify-center mt-20 ">
+           <p className='pt-3'> Are you ready to create</p> 
             <div className="mx-5 align:middle bg-white text-black border-2 border-black rounded-xl p-4  rotate-12">
               Amazing
             </div>
-            film EPKs?
+            <p className='pt-3'> film EPKs? </p>
           </div>
+          <div className="flex justify-center mt-20 mb-20 sm:mt-6 grid-cols-2 ">
+          <a
+            className="inline-block px-5 py-2 rounded-lg bg-black hover:bg-violet-900 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-2xl text-white shadow-lg sm:text-base mr-4 "
+            href="/"
+          >
+            Create EPK
+          </a>
+        </div>
         </div>
       </div>
         </>
