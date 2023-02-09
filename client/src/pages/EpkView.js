@@ -4,6 +4,9 @@ import http from "../http-common";
 import { useParams } from "react-router-dom";
 import style from"./EpkView.module.css";
 import kikSatr from "../images/Kickstarter-icon.png";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
 
 import Footer from"../components/Footer"
 
@@ -30,22 +33,39 @@ function EpkView() {
     const [usersWishesToBuy, setUsersWishesToBuy] = useState(0);
     const [usersFavourites, setUsersFavourites] = useState(0);
     const [usersLikes, setUsersLikes] = useState(0);
-    const [counter, setCounter] = useState(0);
+    const [mediumSynopsis, setMediumSynopsis] = useState([]);
+    const [longSynopsis, setLongSynopsis] = useState([]);
 
     let count = 0;
   
     useEffect(() => {
-        http.get("/fepks/byTitle/Avatar").then((response) =>{
+        http.get(`/fepks/byTitle/${title}`).then((response) =>{
             setFepkData(response.data); 
             setCrewList(response.data.crew);
             setUsersWishesToBuy(response.data.wishes_to_buy.length);
             setUsersFavourites(response.data.favourites.length);
             setUsersLikes(response.data.likes.length);
+            setMediumSynopsis(response.data.mediumSynopsis);
+            setLongSynopsis(response.data.longSynopsis);
             console.log(response.data.title);
             
         });
      
       }, []);
+
+      // user is added to request list for medium Synopsis
+      function addtoMediumSynopsis(){
+        http.get(`fepks/mediumSynopsis/${fepkData._id}/${userId}`).then((response) =>{
+          setMediumSynopsis(response.data.mediumSynopsis);
+        });
+      }
+
+      // user is added to request list for long Synopsis
+      function addtoLongSynopsis(){
+        http.get(`fepks/longSynopsis/${fepkData._id}/${userId}`).then((response) =>{
+          setLongSynopsis(response.data.longSynopsis);
+        });
+      }
       
       // user is added to the list of $
       function addUserToWishesToBuy(){
@@ -66,6 +86,18 @@ function EpkView() {
         http.get(`fepks/like/${fepkData._id}/${userId}`).then((response) =>{
           setUsersLikes(response.data.likes.length);
         });
+      }
+
+      // user is added to the list of sharings
+      function addUserToSharings(){
+        http.get(`fepks/sharing/${fepkData._id}/${userId}`);
+        /*
+          here will be the code for sharing 
+        */
+      }
+
+      function openUrl(url){
+        window.open(url);
       }
 
       const createdTime = fepkData.createdAt;
@@ -147,12 +179,12 @@ function EpkView() {
           
           <div >
             <a  href="#">
-              <img className={style.icon} src={kikSatr} alt="save" />
+              <img className={style.icon} src={kikSatr} alt="save" onClick={() => openUrl(fepkData.kickstarter_url)}/>
             </a>
           </div>
           <div >
             <a  href="#">
-            <FontAwesomeIcon icon={faShareAlt} size ="lg" />
+            <FontAwesomeIcon icon={faShareAlt} size ="lg" onClick={() => addUserToSharings()}/>
              
             </a>
           </div>
@@ -250,7 +282,10 @@ function EpkView() {
                             <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}  alt="starring">
                             </img>
                             <p style={{fontSize:"15px", color:"black"}}>{crewObj.crewId.name}</p>
-                            <p style={{fontSize:"15px", color:"black"}}>{crewObj.instagram_url} / {crewObj.facebook_url} / {crewObj.twitter_url}</p>
+                            <p style={{fontSize:"10px"}}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            </p>
                           </div>
                           <div className="col-6">
                             <p style={{fontSize:"20px", color:"black"}}>{crewObj.biography}</p>
@@ -267,7 +302,10 @@ function EpkView() {
                             <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}  alt="starring">
                             </img>
                             <p style={{fontSize:"15px", color:"black"}}>{crewObj.crewId.name}</p>
-                            <p style={{fontSize:"15px", color:"black"}}>{crewObj.instagram_url} / {crewObj.facebook_url} / {crewObj.twitter_url}</p>
+                            <p style={{fontSize:"10px"}}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            </p>
                           </div>
                         </div>
                         } 
