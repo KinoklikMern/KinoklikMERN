@@ -20,13 +20,13 @@
     height: 100%;
     display: inline-block;
     padding: 20em;
+    margin-left: 100px;
 
 }
 
 
 .form_input {
     background: white;
-    color: #712CB0;
     width: 400px;
     border-radius: 10px;
     box-shadow: 0 8px 16px 0 rgba(#712CB0),
@@ -39,6 +39,7 @@
 
 .formbody {
     text-align: center;
+    
 }
 
 .bg {
@@ -50,4 +51,16 @@
     left: 0;
     background-repeat: no-repeat;
         background: linear-gradient(rgba(238, 238, 238, 0.823), rgba(219, 219, 222, 0.856)), url(../../../images/login/Curtains.png);
+}
+
+.link {
+    margin-left: 420px;
+}
+
+.form_title {
+    font-size: 60px;
+    font-weight: 400;
+    text-align: center;
+    color: #712CB0;
+
 }

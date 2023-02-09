@@ -1,6 +1,8 @@
 import React, { useState, setState } from "react";
 import axios from "axios";
 import SignupCss from "./signup.module.css";
+import LoginForm from "../../Auth/Registration/loginform";
+import { Link } from "react-router-dom";
 
 
 function RegistrationForm() {
@@ -19,21 +21,21 @@ function RegistrationForm() {
 
   //individual registration form
   const options = [
-    {
-      label: "Viewer",
-      value: "Viewer",
-    },
+    // {
+    //   label: "Viewer",
+    //   value: "Viewer",
+    // },
     {
       label: "Film_Maker",
       value: "Film_Maker",
     },
     {
-      label: "Sales_Agent",
-      value: "Sales_Agent",
-    },
-    {
       label: "Distributor",
       value: "Distributor",
+    },
+    {
+      label: "Sales_Agent",
+      value: "Sales_Agent",
     },
     {
       label: "Film_Festival",
@@ -95,16 +97,29 @@ function RegistrationForm() {
   return (
     <>
       <div className={SignupCss.bg}>
+        <div className={SignupCss.form_title}>Sign up for KinoKlik </div>
         <div className={SignupCss.form}>
           <div className={SignupCss.form_body}>
-            <div className={SignupCss.form_input}>
+            <div className={SignupCss.form_input1}>
               {/* <label className="form__label">Role </label> */}
-              <select value={role} onChange={(e) => setRole(e.target.value)}>
+              {/* <select value={role} onChange={(e) => setRole(e.target.value)}>
                 {options.map((option) => (
                   <option value={option.value}>{option.label}</option>
                 ))}
-              </select>
+              </select> */}
+              <div
+                className={SignupCss.form_input1}
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                {options.map((option) => (
+                  <button className={SignupCss.btn1} value={option.value}>
+                    {option.label}
+                  </button>
+                ))}
+              </div>
             </div>
+            <br />
             <div className={SignupCss.form_input}>
               {/* <label className="form__label">First Name </label> */}
               <input
@@ -139,10 +154,11 @@ function RegistrationForm() {
               />
             </div>
 
-            <div className={SignupCss.form_input}>
+            <div>
+              {/* className={SignupCss.form_input} */}
               {/* <label className="form__label">Password </label> */}
               <input
-                className={SignupCss.form_input}
+                className={SignupCss.form_input2}
                 type="password"
                 id="password"
                 value={password}
@@ -150,10 +166,11 @@ function RegistrationForm() {
                 placeholder="Password"
               />
             </div>
-            <div className={SignupCss.form_input}>
+            <div>
+              {/* className={SignupCss.form_input} */}
               {/* <label className="form__label">Confirm Password </label> */}
               <input
-                className={SignupCss.form_input}
+                className={SignupCss.form_input2}
                 type="password"
                 id="confirmPassword"
                 value={confirmPassword}
@@ -162,6 +179,11 @@ function RegistrationForm() {
               />
             </div>
           </div>
+          <br />
+          <br />
+          <p>
+            already signed up? <Link to="/login">Login</Link>
+          </p>
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}
           <button

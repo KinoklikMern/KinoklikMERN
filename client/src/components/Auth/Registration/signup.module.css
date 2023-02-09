@@ -1,6 +1,4 @@
 
-
-
 .bg {
     /* background-image: url(../../../images/login/Curtains.png); */
     height: 100vh;
@@ -18,7 +16,7 @@
 .form {
 position: absolute;
     color: #fff;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -29,16 +27,54 @@ position: absolute;
 
 .form_input {
     background: white;
-    color: #712CB0;
-    width: 400px;
+    width: 500px;
     border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(#712CB0),
-        0 6px 20px 0 rgba(#712CB0);
-    border: 10px solid var(#712CB0);
+   
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 20px;
 }
+
+.form_input1 {
+   width: 500px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background-color: #fff; 
+   border-radius: 10px;
+        /* box-shadow: 0 8px 16px 0 rgba(#712CB0),
+            0 6px 20px 0 rgba(#712CB0); */
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+
+}
+
+.form_input2 {
+background: white;
+    width: 500px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.btn1 {
+    background: #712CB0;
+    color: white;
+    border: 10px solid var(#712CB0);
+    /* padding: 4px 50px; */
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
+    width: 200px;
+    text-align: center;
+   
+}
+
 
 .btn {
     background: #712CB0;
@@ -53,6 +89,14 @@ position: absolute;
     box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
     width: 200px;
     text-align: center;
-    margin-left: 110px;
+    margin-left: 150px;
 
+}
+
+.form_title {
+    font-size: 60px;
+    font-weight: 400;
+   text-align: center;
+   color: #712CB0;
+   
 }

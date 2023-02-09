@@ -45,6 +45,7 @@ function LoginForm() {
   return (
     <>
       <div className={Logincss.bg}>
+        <div className={Logincss.form_title}>Sign in</div>
         <div className={Logincss.form}>
           <div className={Logincss.formbody}>
             <div className="email">
@@ -58,6 +59,7 @@ function LoginForm() {
                 placeholder="Email"
               />
             </div>
+            <br />
             <div className="password">
               {/* <label className="form__label">Password </label> */}
               <input
@@ -69,6 +71,8 @@ function LoginForm() {
                 placeholder="Password"
               />
             </div>
+            <br />
+            <br />
           </div>
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}
@@ -79,6 +83,17 @@ function LoginForm() {
           >
             Sign In
           </button>
+
+          <div className={Logincss.link}>
+            <br />
+            <br />
+            <p>
+              Don't have an account? <a href="/signup">Sign Up</a>
+            </p>
+            <p>
+              Forgot password? <a href="/reset">Reset my Password</a>
+            </p>
+          </div>
         </div>
       </div>
     </>
