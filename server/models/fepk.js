@@ -135,6 +135,34 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
+  // Medium Synopsis approval
+  mediumSynopsis: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
+  // Long Synopsis approval
+  longSynopsis: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
   // Soft-deletion of documents in databases is an operation in which a flag is used 
   // to mark documents as deleted without erasing the data from the database.
   deleted: {
