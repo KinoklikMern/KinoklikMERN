@@ -1,6 +1,10 @@
 import express from "express";
 import multer from "multer";
-import {getFepks, getFepksByTitle, getFepkbyId, createFepk, updateFepk, uploadFepkFile, deleteFepk, getFepksByFilmmakerId, getFepkLiked, getFepkFavourite, getFepksByUser, getFepkByTitle, uploadFepkFiles, getFepkSharings, getFepkWishedToBuy} from "../controllers/fepk.js";
+import {
+    getFepks, getFepksByTitle, getFepkbyId, 
+    createFepk, updateFepk, uploadFepkFile, deleteFepk, getFepksByFilmmakerId, 
+    getFepkLiked, getFepkFavourite, getFepksByUser, getFepkByTitle, uploadFepkFiles, 
+    getFepkSharings, getFepkWishedToBuy, getMediumSynopsis, getLongSynopsis} from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
 const router = express.Router();
@@ -34,6 +38,10 @@ router.get("/like/:fepkid/:userid", getFepkLiked);
 router.get("/favourite/:fepkid/:userid", getFepkFavourite);
 router.get("/sharing/:fepkid/:userid", getFepkSharings);
 router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
+
+// Calling these APIs will create the requests for medium and long synopsises
+router.get("/mediumSynopsis/:fepkid/:userid", getMediumSynopsis);
+router.get("/longSynopsis/:fepkid/:userid", getLongSynopsis);
 
 // Uploads 1 file to AWS S3
 router.post("/uploadFile", upload.single("file"), uploadFepkFile);
