@@ -77,7 +77,11 @@ function EpkView() {
             year: "numeric",
           }
       );
-
+      const [toggle, setToggle] = useState(false);
+      const toggleState = () => {
+        setToggle(!toggle);
+      }
+    
     
       
 
@@ -238,6 +242,69 @@ function EpkView() {
                 </img>
               </div>
             </div>
+
+            {/* synopsis section */}
+
+            <div className={style.synopsis}>
+           <div >
+           <h2  className={style.type}>Short Synopsis</h2>  
+           </div>
+
+           <div className={style.content}>
+           <img
+          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+          alt="hey"
+          className={style.imgSynopsis}
+        />
+          <h3 className={style.text}>{fepkData.text_short}</h3>
+
+      </div>
+      </div>
+
+      <div className={style.synopsis}>
+           <div >
+           <h2  className={style.type}>Medium Synopsis</h2>  
+           </div>
+
+           <div className={style.position}> 
+        <button onClick={toggleState}
+      > Request Access </button>
+       </div>
+
+           <div className={style.content1}>
+           <img
+          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+          alt="hey"
+          className={style.imgSynopsis}
+        />
+          <h3 className={style.text}>{fepkData.text_medium}</h3>
+
+      </div>
+
+      <div className={style.synopsis}>
+           <div >
+           <h2  className={style.type}>Long Synopsis</h2>  
+           </div>
+
+           <div className={style.position}> 
+        <button onClick={toggleState}
+      > Request Access </button>
+       </div>
+
+           <div className={style.content1}>
+           <img
+          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+          alt="hey"
+          className={style.imgSynopsis}
+        />
+          <h3 className={style.text}>{fepkData.text_long}</h3>
+
+      </div>
+      </div>
+  
+    </div>
+
+
 
             {/* Starring / Cast section */}
             <div className={style.starring}>
