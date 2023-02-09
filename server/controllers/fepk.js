@@ -71,7 +71,24 @@ export const getFepkbyId = async (req, res) => {
     }
 };
 
-// fetch Fepks by Title
+// fetch Fepk by Title
+export const getFepkByTitle = async (req, res) => {
+  const title = req.params.title;
+  try {
+    const fepkOne = await fepk.findOne({ title : { $regex : new RegExp(`^${title}$`, "i")}})
+    .populate("film_maker") // includes all fields of this object
+    .populate("crew.crewId") // includes all fields of this object
+    .populate("likes") // includes all fields of this object
+    .populate("favourites") // includes all fields of this object
+    .where("deleted")
+    .equals(false);
+    res.status(200).json(fepkOne);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// fetch Fepks by Title (check if title exists)
 export const getFepksByTitle = async (req, res) => {
   const title = req.params.title;
   try {

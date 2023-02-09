@@ -1,11 +1,18 @@
 .container {
   max-width: 120rem;
-  margin: 0 auto;
-  max-height: 95vh;
-  margin-top: 5rem;
+  font-size: 62.5%;  
+  font-weight: 400;
+  color:#fff;
+  box-sizing: border-box;
 }
-.container p {
-  font-size: 2.4rem;
+
+.logline {
+  max-width: 130rem;
+  margin: 0 auto;
+  
+}
+.logline p {
+  font-size: 1.8rem;
   font-weight: 700;
   color: rgb(72, 8, 8);
   margin-left: 25%;
@@ -13,7 +20,10 @@
   text-align: center;
 }
 .img {
-  height: 50%;
-  width: 70%;
+  height: auto;
+  width: 60%;
   border-radius: 3rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

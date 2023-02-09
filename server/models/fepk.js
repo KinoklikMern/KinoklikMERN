@@ -21,7 +21,7 @@ const fepkSchema = mongoose.Schema({
   kickstarter_url: {type: String},
   status: {
     type: String,
-    enum: ['preproduction', 'production', 'postproduction'],
+    enum: ['Preproduction', 'Production', 'Postproduction'],
     required: true
   },
   createdAt: {
@@ -65,7 +65,12 @@ const fepkSchema = mongoose.Schema({
       epkRole: {
         type: String,
         enum: ['lead_actor', 'supporting_actor', 'director', 'producer', 'cinematographer', 'editor', 'writer', 'sound']
-      }   
+      },
+      biography:{type: String},
+      image: {type: String},
+      facebook_url: {type: String},
+      instagram_url: {type: String},
+      twitter_url: {type: String}
     }
   ],
   
@@ -75,6 +80,9 @@ const fepkSchema = mongoose.Schema({
         image: {type: String}
     }
   ],
+
+  // Film Trailer
+  trailer: {type: String},
 
   // Reviews
   reviews: [
@@ -89,9 +97,9 @@ const fepkSchema = mongoose.Schema({
   resources: [
     {
         image: {type: String},
-        title: {type: String},
+        title: {type: String, required: true},
         time: {type: String},
-        description: {type: String},
+        description: {type: String}
     }
   ],
   

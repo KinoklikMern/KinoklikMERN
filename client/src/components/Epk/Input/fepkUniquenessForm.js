@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 
-function LoglineForm () {
+function UniquenessForm () {
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -26,14 +26,15 @@ function LoglineForm () {
     });
   }, []);
 
-  const [epkLoglineData, setEpkLoglineData] = useState({
-    image_logline: fepk.image_logline,
-    logLine_long: fepk.logLine_long
+  const [epkUniquenessData, setEpkUniquenessData] = useState({
+    image_uniqueness: fepk.image_uniqueness,
+    title_uniqueness: fepk.title_uniqueness,
+    description_uniqueness: fepk.description_uniqueness
   });
   
-  const handleLoglineChange = (event) => {
+  const handleUniquenessChange = (event) => {
     const { name, value } = event.target;
-    setEpkLoglineData({ ...epkLoglineData, [name]: value });
+    setEpkUniquenessData({ ...epkUniquenessData, [name]: value });
     setDisabled(false);
   };
 
@@ -56,7 +57,7 @@ function LoglineForm () {
     } else return true;
   };
 
-  const saveEpkLogline = (e) => {
+  const saveEpkUniqueness = (e) => {
     debugger;
     e.preventDefault();
     let formData = new FormData();
@@ -74,10 +75,10 @@ function LoglineForm () {
         })
         .then((response) => {
           if (response.data !== undefined) {
-            epkLoglineData.image_logline = response.data.key;
+            epkUniquenessData.image_uniqueness = response.data.key;
           }
           http
-            .put(`fepks/update/${fepkId}`, epkLoglineData)
+            .put(`fepks/update/${fepkId}`, epkUniquenessData)
             .then((res) => {
               console.log("saved");
             })
@@ -92,7 +93,7 @@ function LoglineForm () {
       }
       else{
         http
-            .put(`fepks/update/${fepkId}`, epkLoglineData)
+            .put(`fepks/update/${fepkId}`, epkUniquenessData)
             .then((res) => {
               console.log("saved");
             })
@@ -142,13 +143,35 @@ function LoglineForm () {
         </div>
         <div style={{marginLeft: '10%', marginRight: '15%', color: "#311465", fontWeight: 'normal' }}>
           <div className="card-body" style={{height: "500px"}}>
-            <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Log Line</h5>
-            <form className="row g-3">
-              <div className="col ms-">
-                <div className="col my-1">
+            <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Uniqueness</h5>
+            <form>
+              <div className="row g-3">
+                <div className="col my-3"></div>
+                <div className="col my-6">
+                    <input
+                      style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'left'
+                        }}
+                        className="form-control m-10"
+                        defaultValue={fepk.title_uniqueness}
+                        placeholder="Title"
+                        onChange={handleUniquenessChange}
+                        name="title_uniqueness"
+                    />
+                </div>
+                <div className="col my-3"></div>
+              </div>
+              <div className="row g-3">
+                <div className="col my-3"></div>
+                <div className="col my-6">
                   <textarea
                       style={{ 
-                        height: "60px", 
+                        height: "120px", 
                         width: "100%", 
                         borderRadius: "5px", 
                         marginBottom: "5px",
@@ -156,49 +179,54 @@ function LoglineForm () {
                         textAlign: 'left'
                     }}
                     className="form-control mt-10"
-                    defaultValue={fepk.logLine_long}
-                    placeholder="Log Line Long"
-                    onChange={handleLoglineChange}
-                    name="logLine_long"
+                    defaultValue={fepk.description_uniqueness}
+                    placeholder="Description"
+                    onChange={handleUniquenessChange}
+                    name="description_uniqueness"
                   />
                 </div>
-                <div className="col mt-5">
-                    <label for="filePoster" class="form-label text-dark">
-                      {" "}
-                      <h4>Upload Poster</h4>
-                    </label>
-                    <input
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="filePoster"
-                      name="files"
-                      accept="image/*"
-                    ></input>
-                    <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_logline}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
-                </div>
+                <div className="col my-3"></div>
               </div>
-              <div
-                style={{
-                  height: "50px",
-                  width: "120px",
-                  marginLeft: "100%",
-                  marginTop: "120px"
-                }}
-              >
-                {disabled===true ? 
-                (
-                  <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkLogline} value="save">
-                    Save
-                  </Button>
-                ) :
-                (
-                  <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkLogline} value="save">
-                    Save
-                  </Button>
-                )}
+              <div className="row g-3">
+                <div className="col my-3"></div>
+                <div className="col my-6">
+                        <label for="filePoster" class="form-label text-dark">
+                        {" "}
+                        <h4>Upload Picture</h4>
+                        </label>
+                        <input
+                        className="form-control form-control-sm"
+                        filename={file}
+                        onChange={fileSelected}
+                        ref={inputFileRef}
+                        type="file"
+                        id="filePoster"
+                        name="files"
+                        accept="image/*"
+                        ></input>
+                        <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_uniqueness}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                </div>
+                <div className="col my-3"></div>
+                <div
+                    style={{
+                    height: "50px",
+                    width: "120px",
+                    marginLeft: "100%",
+                    marginTop: "85px"
+                    }}
+                >
+                    {disabled===true ? 
+                    (
+                    <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkUniqueness} value="save">
+                        Save
+                    </Button>
+                    ) :
+                    (
+                    <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkUniqueness} value="save">
+                        Save
+                    </Button>
+                    )}
+                </div>
               </div>
             </form>
           </div>
@@ -208,4 +236,4 @@ function LoglineForm () {
   </>
   );
 }
-export default LoglineForm;
+export default UniquenessForm;

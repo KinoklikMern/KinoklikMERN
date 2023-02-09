@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 
-function LoglineForm () {
+function TrailerForm () {
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -26,16 +26,9 @@ function LoglineForm () {
     });
   }, []);
 
-  const [epkLoglineData, setEpkLoglineData] = useState({
-    image_logline: fepk.image_logline,
-    logLine_long: fepk.logLine_long
+  const [epkTrailerData, setEpkTrailerData] = useState({
+    trailer: fepk.trailer
   });
-  
-  const handleLoglineChange = (event) => {
-    const { name, value } = event.target;
-    setEpkLoglineData({ ...epkLoglineData, [name]: value });
-    setDisabled(false);
-  };
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -56,7 +49,7 @@ function LoglineForm () {
     } else return true;
   };
 
-  const saveEpkLogline = (e) => {
+  const saveEpkTrailer = (e) => {
     debugger;
     e.preventDefault();
     let formData = new FormData();
@@ -65,7 +58,6 @@ function LoglineForm () {
     console.log(formData);
     debugger;
     if (checkFileMimeType(file)) {
-      if(file){
         http
         .post("fepks/uploadFile", formData, {
           headers: {
@@ -74,10 +66,10 @@ function LoglineForm () {
         })
         .then((response) => {
           if (response.data !== undefined) {
-            epkLoglineData.image_logline = response.data.key;
+            epkTrailerData.trailer = response.data.key;
           }
           http
-            .put(`fepks/update/${fepkId}`, epkLoglineData)
+            .put(`fepks/update/${fepkId}`, epkTrailerData)
             .then((res) => {
               console.log("saved");
             })
@@ -89,17 +81,6 @@ function LoglineForm () {
           console.log();
           console.log(err);
         });
-      }
-      else{
-        http
-            .put(`fepks/update/${fepkId}`, epkLoglineData)
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-      }
       
     } else {
       setMessage("File must be a image(jpeg or png)");
@@ -142,64 +123,52 @@ function LoglineForm () {
         </div>
         <div style={{marginLeft: '10%', marginRight: '15%', color: "#311465", fontWeight: 'normal' }}>
           <div className="card-body" style={{height: "500px"}}>
-            <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Log Line</h5>
-            <form className="row g-3">
-              <div className="col ms-">
-                <div className="col my-1">
-                  <textarea
-                      style={{ 
-                        height: "60px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left'
-                    }}
-                    className="form-control mt-10"
-                    defaultValue={fepk.logLine_long}
-                    placeholder="Log Line Long"
-                    onChange={handleLoglineChange}
-                    name="logLine_long"
-                  />
+            <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Film Trailer</h5>
+            <form>
+                <div  className="row">
+                    <div className="col-2 mt-3">
+                      <label for="fileTrailer" class="form-label text-dark">
+                        {" "}
+                        <h6>Upload Video</h6>
+                        </label>
+                        <input
+                        className="form-control form-control-sm"
+                        filename={file}
+                        onChange={fileSelected}
+                        ref={inputFileRef}
+                        type="file"
+                        id="fileTrailer"
+                        name="files"
+                        accept="video/*"
+                        />
+                    </div>
+                    <div className="col-9 mt-3" style={{textAlign: "center"}}>
+                        <video src={`https://kinomovie.s3.amazonaws.com/${fepk.trailer}`} width="100%" height="400px" controls>
+                        </video>
+                    </div>
+                    <div className="col-1">
+                      <div
+                        style={{
+                        height: "50px",
+                        width: "100px",
+                        marginLeft: "100%",
+                        marginTop: "400px"
+                        }}
+                      >
+                        {disabled===true ? 
+                        (
+                        <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
+                            Save
+                        </Button>
+                        ) :
+                        (
+                        <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
+                            Save
+                        </Button>
+                        )}
+                      </div>
+                    </div>
                 </div>
-                <div className="col mt-5">
-                    <label for="filePoster" class="form-label text-dark">
-                      {" "}
-                      <h4>Upload Poster</h4>
-                    </label>
-                    <input
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="filePoster"
-                      name="files"
-                      accept="image/*"
-                    ></input>
-                    <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_logline}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
-                </div>
-              </div>
-              <div
-                style={{
-                  height: "50px",
-                  width: "120px",
-                  marginLeft: "100%",
-                  marginTop: "120px"
-                }}
-              >
-                {disabled===true ? 
-                (
-                  <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkLogline} value="save">
-                    Save
-                  </Button>
-                ) :
-                (
-                  <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkLogline} value="save">
-                    Save
-                  </Button>
-                )}
-              </div>
             </form>
           </div>
         </div>
@@ -208,4 +177,4 @@ function LoglineForm () {
   </>
   );
 }
-export default LoglineForm;
+export default TrailerForm;

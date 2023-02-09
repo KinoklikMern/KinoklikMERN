@@ -3,39 +3,36 @@ import { Button, Col, Row} from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faUser,faPlus, faTrashCan, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 
-function LoglineForm () {
+function StillsForm () {
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
+  const [stillsList, setStillsList] = useState([]); 
 
   let { fepkId } = useParams();
   const filmmaker_id = "63c0e3bb40253f49b94edd11";
   
   const fileSelected = (event) => {
     setFile(event.target.files[0]);
-    setDisabled(false);
+    //setDisabled(false);
   };
 
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) =>{
         setFepk(response.data);
+        setStillsList(response.data.stills);
         console.log(response.data.title);
     });
   }, []);
 
-  const [epkLoglineData, setEpkLoglineData] = useState({
-    image_logline: fepk.image_logline,
-    logLine_long: fepk.logLine_long
+  const [epkStillsData, setEpkStillsData] = useState({
+    stills: fepk.stills
   });
-  
-  const handleLoglineChange = (event) => {
-    const { name, value } = event.target;
-    setEpkLoglineData({ ...epkLoglineData, [name]: value });
-    setDisabled(false);
-  };
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -56,14 +53,11 @@ function LoglineForm () {
     } else return true;
   };
 
-  const saveEpkLogline = (e) => {
-    debugger;
-    e.preventDefault();
+  function addImage(){
     let formData = new FormData();
     console.log(file);
     formData.append("file", file);
     console.log(formData);
-    debugger;
     if (checkFileMimeType(file)) {
       if(file){
         http
@@ -74,36 +68,40 @@ function LoglineForm () {
         })
         .then((response) => {
           if (response.data !== undefined) {
-            epkLoglineData.image_logline = response.data.key;
-          }
-          http
-            .put(`fepks/update/${fepkId}`, epkLoglineData)
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+            const key = response.data.key;
+            console.log(key);
+            stillsList.push({ image: key });
+            setEpkStillsData({ ...epkStillsData, stills: stillsList});
+            console.log(epkStillsData);
+            setDisabled(false);
+         }
         })
         .catch((err) => {
           console.log();
           console.log(err);
-        });
+        }); 
       }
-      else{
-        http
-            .put(`fepks/update/${fepkId}`, epkLoglineData)
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-      }
-      
     } else {
       setMessage("File must be a image(jpeg or png)");
     }
+  }
+
+  function deleteFromStillsList(deletedImage){
+    const newStillsList = stillsList.filter((imageObject) => imageObject !== deletedImage);
+    setStillsList(newStillsList);
+    setEpkStillsData({ ...epkStillsData, stills: newStillsList });
+    setDisabled(false);
+  }
+
+  function saveEpkStills(){
+    http
+        .put(`fepks/update/${fepkId}`, epkStillsData)
+        .then((res) => {
+            console.log("saved");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     setDisabled(true);
   };
 
@@ -142,30 +140,12 @@ function LoglineForm () {
         </div>
         <div style={{marginLeft: '10%', marginRight: '15%', color: "#311465", fontWeight: 'normal' }}>
           <div className="card-body" style={{height: "500px"}}>
-            <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Log Line</h5>
-            <form className="row g-3">
-              <div className="col ms-">
-                <div className="col my-1">
-                  <textarea
-                      style={{ 
-                        height: "60px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left'
-                    }}
-                    className="form-control mt-10"
-                    defaultValue={fepk.logLine_long}
-                    placeholder="Log Line Long"
-                    onChange={handleLoglineChange}
-                    name="logLine_long"
-                  />
-                </div>
-                <div className="col mt-5">
+            <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Film Stills</h5>
+            <form className="row">
+                <div className="col-4 mt-5">
                     <label for="filePoster" class="form-label text-dark">
                       {" "}
-                      <h4>Upload Poster</h4>
+                      <h4>Upload Picture</h4>
                     </label>
                     <input
                       className="form-control form-control-sm"
@@ -176,30 +156,56 @@ function LoglineForm () {
                       id="filePoster"
                       name="files"
                       accept="image/*"
-                    ></input>
-                    <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_logline}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                    />
                 </div>
-              </div>
-              <div
-                style={{
-                  height: "50px",
-                  width: "120px",
-                  marginLeft: "100%",
-                  marginTop: "120px"
-                }}
-              >
-                {disabled===true ? 
-                (
-                  <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkLogline} value="save">
-                    Save
-                  </Button>
-                ) :
-                (
-                  <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkLogline} value="save">
-                    Save
-                  </Button>
-                )}
-              </div>
+                <div className="col-1 mt-5">
+                    <br/>
+                    <FontAwesomeIcon icon={faPlus} onClick={addImage} />
+                </div>
+                <div className="col-6 mt-3">
+                    <table className="table table-striped table-bordered" style={{fontSize:"12px", textAlign:"center"}}>
+                        <thead className="thead-dark">
+                        <tr>
+                            <th>IMAGE</th>
+                            <th>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {stillsList.map((still) => {
+                            return (
+                            <tr>
+                                <td>
+                                    <img src={`https://kinomovie.s3.amazonaws.com/${still.image}`} style={{height:"60px", width:"auto"}}/>
+                                </td>
+                                <td style={{textAlign: "center"}} onClick={() => deleteFromStillsList(still)}><FontAwesomeIcon icon={faTrashCan} /></td>
+                            </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="col-1 mt-5">
+                        <div
+                            style={{
+                            height: "50px",
+                            width: "100px",
+                            marginLeft: "100%",
+                            marginTop: "350px"
+                            }}
+                        >
+                        {disabled===true ? 
+                        (
+                        <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkStills} value="save">
+                            Save
+                        </Button>
+                        ) :
+                        (
+                        <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkStills} value="save">
+                            Save
+                        </Button>
+                        )}
+                    </div>
+                </div>
             </form>
           </div>
         </div>
@@ -208,4 +214,4 @@ function LoglineForm () {
   </>
   );
 }
-export default LoglineForm;
+export default StillsForm;
