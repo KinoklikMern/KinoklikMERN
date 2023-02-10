@@ -1,9 +1,7 @@
 import React from 'react';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import img from '../../images/EPK.jpg'
 import img1 from '../../images/CreateLOGO.jpg'
-import "./Landing2.css";
+
 import { landingFilm } from './landingCategory';
 import Landing2N from '../LandingNewPage/Landing2N';
 

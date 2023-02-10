@@ -3,13 +3,13 @@ import { useState } from "react";
 
 import SingleQuestion from "./SingleQuestion";
 import { data } from "./data";
-import "./Landing6.css";
+//import "./Landing6.css";
 
-const Landing6 = () => {
+const Landing10 = () => {
     const [questions, setQuestions] = useState(data);
     return (
         <>
-            <div className="bg-midnight" >
+            <div className="landing10 bg-midnight" >
                 <div className=" pt-10 text-2xl font-bold text-center text-white-900   lg:text-2xl xl:text-2xl">
                     <h1>FREQUENTLY ASKED QUESTIONS:</h1>
                 </div>
@@ -22,4 +22,4 @@ const Landing6 = () => {
         </>
     )
 }
-export default Landing6;
+export default Landing10;

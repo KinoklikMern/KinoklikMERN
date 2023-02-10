@@ -1,6 +1,4 @@
 import React from "react";
-//import vacation from "../img/vacation.jpg"
-//import logo from "../img/logo.png"
 import starPhoto from "../../images/star.png";
 import movie2 from "../../images/movies/movie2.jpeg";
 import movie5 from "../../images/movies/movie5.jpg"
@@ -12,10 +10,10 @@ import img from "../../images/EPK.jpg";
 
 const Landing2N = () => {
   return (
-    <div className="max-w-full m-auto pt-20 pb-16 px-10 flex lg:grid-cols-2 gap-4 space-x-10">
+    <div className="landing2 max-w-full m-auto pt-20 pb-16 px-10 flex flex-col md:flex-row lg:grid-cols-2 gap-4 space-x-10">
       {/* Left Side */}
-      <div className=" grid grid-cols-3 grid-rows-6 h-[60vh] pr-2 mt-14">
-        <div className="pt-8 pl-8 ml-24">
+      <div className=" grid grid-cols-3 grid-rows-6 h-[60vh] pr-0 mt-14">
+        <div className="pt-8 pl-11 md:ml-24">
           <img
             className="row-span-1 object-right w-42 h-32    pb-16 "
             src={starPhoto}
@@ -28,7 +26,7 @@ const Landing2N = () => {
           alt="/"
         />
         <img
-          className="row-span-2 object-center w-full h-full pr-4 pt-10 "
+          className="row-span-2 object-center w-full h-full  pt-10 "
           src={comingSoon}
           alt="/"
         />
@@ -44,18 +42,18 @@ const Landing2N = () => {
         />
       </div>
       {/* Right Side */}
-      <div className="flex flex-col h-full text-center  mr-14 ml-14">
+      <div className="flex flex-col h-full  w-4/5 text-center ">
         <h3 className=" text-5xl md:text-6xl font-bold mb-10">
           Film.Marketing.Refined.
         </h3>
 
-        <p className=" text-3xl text-center mt-10 pb-6 mr-14 ml-14">
+        <p className=" text-3xl text-center mt-10 pb-6  mr-20 ml-20 mb-20 ">
           KinoKlik EPK is your film’s online hub, like a digital flyer, allowing
           you to promote your film to producers, distributors, film festivals
           and investors <br /> (for free).
         </p>
         <div className="text-center">
-          <button className="bg-black  text-white border-black hover:shadow-xl p-4">
+          <button className="bg-black  text-white border-black rounded-xl hover:shadow-xl p-3">
             Create EPK
           </button>
         </div>

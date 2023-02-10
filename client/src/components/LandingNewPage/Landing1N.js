@@ -5,7 +5,7 @@ import Landing2N from "./Landing2N";
 
 const Landing1N = () => {
   return (
-    <div className="bg-midnight pb-20">
+    <div className=" landing1  bg-midnight pb-20">
       <div className="bg-midnight grid lg:grid-cols-2 2xl:grid-cols-5">
         <div className="px-8 py-12 max-w-md mx-auto sm:max-w-xl lg:px-12 lg:py-24 lg:max-w-full xl:mr-2 2xl:col-span-2">
           <div className="xl:max-w-xl">
@@ -47,7 +47,7 @@ const Landing1N = () => {
           />
         </div>
       </div>
-      <div className="bg-white"> <Landing2N/></div>
+     {/* <div className="bg-white"> <Landing2N/></div> */}
      
     </div>
     

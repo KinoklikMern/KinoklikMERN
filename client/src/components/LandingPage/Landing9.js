@@ -1,11 +1,11 @@
 import React from 'react';
-import "./Landing5.css";
+//import "./Landing5.css";
 
-const Landing5 = () => {
+const Landing9 = () => {
     return (
         <>
         <div>
-        <div className=" !important flex justify-center mt-20">
+        <div className="landing9 !important flex justify-center mt-20">
           <a className="text-2xl ">
             A good EPK helps you communicate your vision.
             <br /><br/>
@@ -57,4 +57,4 @@ const Landing5 = () => {
         </>
     )
 }
-export default Landing5;
+export default Landing9;

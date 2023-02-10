@@ -1,10 +1,7 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import img from "../../images/landing.png";
 import { useNavigate } from "react-router-dom";
-import "./landing1.css";
 import { newFilm } from "./landingCategory";
 import { popularFilm } from "./landingCategory";
 import { useDispatch } from "react-redux";
@@ -13,18 +10,7 @@ import { useSelector } from "react-redux";
 // testing
 import Landing1N from "../LandingNewPage/Landing1N";
 
-import {
-  Button,
-  Grid,
-  Typography,
-  Card,
-  Container,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-  Box,
-} from "@material-ui/core";
+
 
 const Landing1 = () => {
   const dispatch = useDispatch();
@@ -102,7 +88,7 @@ const Landing1 = () => {
         </Grid>
           </div> */}
 
-      <div className="bg-midnight  ">
+    {/*  <div className="bg-midnight  ">
         <h1 className=" mb-20 pt-0 text-2xl font-bold text-center text-white sm:mt-8 sm:text-4xl lg:text-3xl xl:text-4xl">
           Are you a Distributor, a Film Festival, Sales Agent <br/>or Investor
           searching for new upcoming film projects?
@@ -148,7 +134,7 @@ const Landing1 = () => {
             Browse Film Projects
           </a>
         </div>
-      </div>
+          </div> */}
     </>
   );
 };

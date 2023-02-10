@@ -1,34 +1,34 @@
+.slide-right-left {
+  animation: slide-right-left 10s linear infinite;
+}
 
-.landing4 {
-    position: relative;
-    text-align: center;
-    background-color: #1F0439;
-    width: auto;
-    margin-top: 60px;
-    
+@keyframes slide-right-left {
+  0% {
+    transform: translateX(0);
   }
-  
-  .section-title{
-    padding-top: 30px;
-    color:white;
-    text-align:center;
-    margin-bottom: 75px;
-  }
-  
-  
-  .section-image{
-    width: 80%;
-    height: 80%;
-    padding-bottom: 60px;
-    margin: 0 auto;
-    border-radius: 50px;
-
+  10% {
+    transform: translateX(10%);
   }
 
-  .section-image img{
-    border-radius: 50px;
+
+  100% {
+    transform: translateX(-10%);
   }
-  
+}
+.slide-left-right {
+  animation: slide-left-right 10s infinite;
+}
+
+@keyframes slide-left-right {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-10%);
+  }
 
   
-  
+  100% {
+    transform: translateX(10%);
+  }
+}
