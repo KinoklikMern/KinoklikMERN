@@ -1,8 +1,8 @@
-*{
+/* *{
     margin:0; 
     padding:0;
    
- }
+ } */
  .wholeContainer{
    font-size: 62.5%;  
    font-weight: 400;
@@ -30,7 +30,7 @@
  }
  
  .img {
-   width: 70%;
+   width: 100%;
    height: 60vh;
    border-radius: 4rem;
    box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
@@ -204,7 +204,7 @@
   padding:.5rem;
 }
 
-.button{
+.btnSy{
   position: absolute;
   top:3rem;
   transform: translate(-50%, 10%);
@@ -230,6 +230,44 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.none{
+  display: none;
+}
+
+/* uniqueness section */
+.unique{
+  border-top: 1.5rem solid rgb(23, 11, 59);
+  margin-top: .5rem;
+}
+.titleUnique {
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: #000;
+  margin-top: 2rem;
+  text-align: center;
+}
+.uniqueContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin:2rem 3rem;
+  padding:2rem;
+  
+  gap: 10rem;
+}
+.imgUnique {
+  height:40vh;
+  width:30vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.textUnique {
+  font-size: 2.4rem;
+  color: #000;
+}
+
 
 
  

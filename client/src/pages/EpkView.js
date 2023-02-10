@@ -26,7 +26,7 @@ function EpkView() {
     // const id = 5;
 
     let { title } = useParams();
-    let userId = "63c979256535716c94b963bd";
+    let userId = "6380cb85cb21551c7e735231";
     console.log(title);
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
@@ -35,6 +35,7 @@ function EpkView() {
     const [usersLikes, setUsersLikes] = useState(0);
     const [mediumSynopsis, setMediumSynopsis] = useState([]);
     const [longSynopsis, setLongSynopsis] = useState([]);
+    
 
     let count = 0;
   
@@ -109,10 +110,20 @@ function EpkView() {
             year: "numeric",
           }
       );
-      const [toggle, setToggle] = useState(false);
-      const toggleState = () => {
-        setToggle(!toggle);
+      const [isClick1, setIsClick1] = useState(false);
+      const clickState1 = () => {
+        setIsClick1(true);
+        
       }
+      const [isClick2, setIsClick2] = useState(false);
+      const clickState2 = () => {
+        setIsClick2(true);
+        
+      }
+
+
+
+      // setIsClick(false);
     
     
       
@@ -299,10 +310,10 @@ function EpkView() {
            </div>
 
            <div className={style.position}> 
-        <button onClick={toggleState}
-      > Request Access </button>
+        <button onClick={()=>{addtoMediumSynopsis();clickState1()}} className={isClick1===true ? style.none :style.btnSy }
+        > Request Access </button>
        </div>
-
+          
            <div className={style.content1}>
            <img
           src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
@@ -319,8 +330,8 @@ function EpkView() {
            </div>
 
            <div className={style.position}> 
-        <button onClick={toggleState}
-      > Request Access </button>
+           <button onClick={()=>{addtoMediumSynopsis();clickState2()}} className={isClick2===true ?  style.none: style.btnSy}
+        > Request Access </button>
        </div>
 
            <div className={style.content1}>
@@ -335,6 +346,31 @@ function EpkView() {
       </div>
   
     </div>
+
+    {/* uniqueness section */}
+    
+    <div className={style.unique}>
+         <p className={style.titleUnique}>
+            {fepkData.title_uniqueness}
+         </p>
+          </div>
+
+        <div className={style.uniqueContainer}>
+          <div>
+          <img 
+            src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness
+          }`} alt="uniqueness"
+            className={style.imgUnique}
+            />
+        </div>
+        <div >
+            <p className={style.textUnique}>          
+            {fepkData.description_uniqueness}
+            </p>
+          </div>
+        </div>
+
+
 
 
 
