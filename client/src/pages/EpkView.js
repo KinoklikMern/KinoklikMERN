@@ -7,9 +7,7 @@ import kikSatr from "../images/Kickstarter-icon.png";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-
 import Footer from"../components/Footer"
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
@@ -19,14 +17,11 @@ import {
   faStar,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import Login from "../components/Auth/Registration/loginFromViewPage";
 
 function EpkView() {
-
-    // const { user } = useSelector((user) => ({ ...user }));
-    // const id = 5;
-
     let { title } = useParams();
-    let userId = "6380cb85cb21551c7e735231";
+    const [userId, setUserId] = useState("0");
     console.log(title);
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
@@ -35,7 +30,21 @@ function EpkView() {
     const [usersLikes, setUsersLikes] = useState(0);
     const [mediumSynopsis, setMediumSynopsis] = useState([]);
     const [longSynopsis, setLongSynopsis] = useState([]);
-    
+    const [uniqueness, setUniqueness] = useState([]);
+
+    let mediumFakeText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"+ 
+                          "sed do eiusmod tempor incididunt ut labore et dolore magna"+ 
+                          "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"+ 
+                          "laboris nisi ut aliquip ex ea commodo consequat."
+
+    let longFakeText =   "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"+ 
+                          "sed do eiusmod tempor incididunt ut labore et dolore magna"+ 
+                          "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"+ 
+                          "laboris nisi ut aliquip ex ea commodo consequat."+
+                          "sed do eiusmod tempor incididunt ut labore et dolore magna"+ 
+                          "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"+ 
+                          "laboris nisi ut aliquip ex ea commodo consequat."
+                          
 
     let count = 0;
   
@@ -48,6 +57,8 @@ function EpkView() {
             setUsersLikes(response.data.likes.length);
             setMediumSynopsis(response.data.mediumSynopsis);
             setLongSynopsis(response.data.longSynopsis);
+            setUniqueness(response.data.uniqueness);
+            setUserId("0");
             console.log(response.data.title);
             
         });
@@ -67,6 +78,14 @@ function EpkView() {
           setLongSynopsis(response.data.longSynopsis);
         });
       }
+
+      // user is added to request list for uniqueness
+      function addtoUniqueness(){
+        http.get(`fepks/uniqueness/${fepkData._id}/${userId}`).then((response) =>{
+          setUniqueness(response.data.uniqueness);
+        });
+      }
+      
       
       // user is added to the list of $
       function addUserToWishesToBuy(){
@@ -101,6 +120,10 @@ function EpkView() {
         window.open(url);
       }
 
+      function login() {
+        document.getElementById('login').click();
+      }
+
       const createdTime = fepkData.createdAt;
       const formatedDate = new Date(createdTime).toLocaleString(
         "en-US",
@@ -121,17 +144,15 @@ function EpkView() {
         
       }
 
-
-
-      // setIsClick(false);
-    
-    
-      
+      const [isClick3, setIsClick3] = useState(false);
+      const clickState3 = () => {
+        setIsClick3(true);
+        
+      } 
 
   return (
-    
-    
-    <div className={style.wholeContainer} >
+
+  <div className={style.wholeContainer} >
     <div className={style.hero} style={{backgroundImage: `url(https://kinomovie.s3.amazonaws.com/${fepkData.banner_url})`}}> 
    
  
@@ -168,20 +189,29 @@ function EpkView() {
         
           <div>
             <a  href="#">
-              <FontAwesomeIcon icon={faDollarSign} size ="lg" onClick={() => addUserToWishesToBuy()}/>
+            {userId === "0" ?
+            (<FontAwesomeIcon icon={faDollarSign} size ="lg" onClick={() => login()}/>):
+            (<FontAwesomeIcon icon={faDollarSign} size ="lg" onClick={() => addUserToWishesToBuy()}/>)
+            }
             </a>
             <span style={{fontSize:"15px"}}>{usersWishesToBuy}</span>
           </div>
           <div >
             <a  href="#">
-            <FontAwesomeIcon icon={faPlusCircle} size ="lg" onClick={() => addUserToFavourites()}/>
+            {userId === "0" ?
+            (<FontAwesomeIcon icon={faPlusCircle} size ="lg" onClick={() => login()}/>):
+            (<FontAwesomeIcon icon={faPlusCircle} size ="lg" onClick={() => addUserToFavourites()}/>)
+            }
               {/* <img className="icon" src={plusIcon} alt="save" /> */}
             </a>
             <span style={{fontSize:"15px"}}>{usersFavourites}</span>
           </div>
           <div >
             <a  href="#">
-              <FontAwesomeIcon icon={faStar} size ="lg" onClick={() => addUserToLikes()}/>
+            {userId === "0" ?
+            (<FontAwesomeIcon icon={faStar} size ="lg" onClick={() => login()}/>):
+            (<FontAwesomeIcon icon={faStar} size ="lg" onClick={() => addUserToLikes()}/>)
+            }
             </a>
             <span style={{fontSize:"15px"}}>{usersLikes}</span>
           </div>
@@ -206,6 +236,8 @@ function EpkView() {
 
        
       </div>
+
+      <Login />
 
        {/* details section */}
 
@@ -304,76 +336,360 @@ function EpkView() {
       </div>
       </div>
 
-      <div className={style.synopsis}>
-           <div >
-           <h2  className={style.type}>Medium Synopsis</h2>  
-           </div>
+      {/* MEDIUM SYNOPSIS */}
 
-           <div className={style.position}> 
-        <button onClick={()=>{addtoMediumSynopsis();clickState1()}} className={isClick1===true ? style.none :style.btnSy }
-        > Request Access </button>
-       </div>
+      {/* the case when user not logged in and if logged in not requested yet*/}
+      {userId === "0" ?
+      (
+        <div className={style.synopsis}>
+          <div >
+            <h2  className={style.type}>Medium Synopsis</h2>  
+          </div>
+          <div className={style.position}> 
+            <button onClick={()=>{login();clickState1()}} className={isClick1===true ? style.none :style.btnSy }
+          > Request Access </button>
+          </div>
+          <div className={style.content1}>
+            <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`} alt="hey" className={style.imgSynopsis}/>
+            <h3 className={style.text}>{mediumFakeText}</h3>
+          </div>
+        </div>
+      ):
+      (
+        (mediumSynopsis.length === 0 || mediumSynopsis.filter(e => e.user._id === userId).length === 0) && 
+        <div className={style.synopsis}>
+            <div >
+              <h2  className={style.type}>Medium Synopsis</h2>  
+            </div>
+            <div className={style.position}> 
+              <button onClick={()=>{addtoMediumSynopsis();clickState1()}} className={isClick1===true ? style.none :style.btnSy }
+              > Request Access </button>
+            </div>
           
-           <div className={style.content1}>
-           <img
-          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-          alt="hey"
-          className={style.imgSynopsis}
-        />
-          <h3 className={style.text}>{fepkData.text_medium}</h3>
+            <div className={style.content1}>
+              <img
+                  src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                  alt="hey"
+                  className={style.imgSynopsis}
+              />
+              <h3 className={style.text}>{mediumFakeText}</h3>
+            </div>
+        </div>
+      ) 
+      }
 
-      </div>
+      {/* the case when user logged in and requested the approval */}
+      {mediumSynopsis.map((medium) => {
+          return ( 
+            <>
+              {medium.user._id === userId && medium.status === "pending" &&
+                <div className={style.synopsis}>
+                    <div >
+                        <h2  className={style.type}>Medium Synopsis</h2>  
+                    </div>
+                    <div className={style.position}> 
+                        <button> Awaiting approval </button>
+                    </div>
+                    <div className={style.content1}>
+                      <img
+                          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                          alt="hey"
+                          className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{mediumFakeText}</h3>
+                    </div>
+                </div>
+              } 
+            </>
+          )
+      })}
 
-      <div className={style.synopsis}>
-           <div >
-           <h2  className={style.type}>Long Synopsis</h2>  
-           </div>
+      {/* the case when user logged in and got the approval */}
+      {mediumSynopsis.map((medium) => {
+          return ( 
+            <>
+              {medium.user._id === userId && medium.status === "approved" &&
+                <div className={style.synopsis}>
+                    <div >
+                        <h2  className={style.type}>Medium Synopsis</h2>  
+                    </div>
+                    <div>
+                      <img
+                          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                          alt="hey"
+                          className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{fepkData.text_medium}</h3>
+                    </div>
+                </div>
+              } 
+            </>
+          )
+      })}
 
-           <div className={style.position}> 
-           <button onClick={()=>{addtoMediumSynopsis();clickState2()}} className={isClick2===true ?  style.none: style.btnSy}
-        > Request Access </button>
-       </div>
+      {/* the case when user logged in and got refused */}
+      {mediumSynopsis.map((medium) => {
+          return ( 
+            <>
+              {medium.user._id === userId && medium.status === "refused" &&
+                <div className={style.synopsis}>
+                  <div >
+                    <h2  className={style.type}>Medium Synopsis</h2>  
+                  </div>
+                  <div className={style.position}> 
+                    <button> Refused </button>
+                  </div>
+                  <div className={style.content1}>
+                    <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                    />
+                    <h3 className={style.text}>{mediumFakeText}</h3>
+                  </div>
+                </div>
+              } 
+            </>
+          )
+      })}
 
-           <div className={style.content1}>
-           <img
-          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-          alt="hey"
-          className={style.imgSynopsis}
-        />
-          <h3 className={style.text}>{fepkData.text_long}</h3>
 
-      </div>
-      </div>
-  
-    </div>
+      {/* LONG SYNOPSIS */}
 
-    {/* uniqueness section */}
+      {/* the case when user not logged in and if logged in not requested yet*/}
+      {userId === "0" ?
+      (
+        <div className={style.synopsis}>
+          <div >
+            <h2  className={style.type}>Long Synopsis</h2>  
+          </div>
+          <div className={style.position}> 
+            <button onClick={()=>{login();clickState2()}} className={isClick2===true ? style.none :style.btnSy }
+          > Request Access </button>
+          </div>
+          <div className={style.content1}>
+            <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`} alt="hey" className={style.imgSynopsis}/>
+            <h3 className={style.text}>{longFakeText}</h3>
+          </div>
+        </div>
+      ):
+      (
+        (longSynopsis.length === 0 || longSynopsis.filter(e => e.user._id === userId).length === 0) && 
+        <div className={style.synopsis}>
+            <div >
+              <h2  className={style.type}>Long Synopsis</h2>  
+            </div>
+            <div className={style.position}> 
+              <button onClick={()=>{addtoLongSynopsis();clickState2()}} className={isClick2===true ? style.none :style.btnSy }
+              > Request Access </button>
+            </div>
+          
+            <div className={style.content1}>
+              <img
+                  src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                  alt="hey"
+                  className={style.imgSynopsis}
+              />
+              <h3 className={style.text}>{longFakeText}</h3>
+            </div>
+        </div>
+      ) 
+      }
+
+      {/* the case when user logged in and requested the approval */}
+      {longSynopsis.map((long) => {
+          return ( 
+            <>
+              {long.user._id === userId && long.status === "pending" &&
+                <div className={style.synopsis}>
+                    <div >
+                        <h2  className={style.type}>Long Synopsis</h2>  
+                    </div>
+                    <div className={style.position}> 
+                        <button> Awaiting approval </button>
+                    </div>
+                    <div className={style.content1}>
+                      <img
+                          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                          alt="hey"
+                          className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{longFakeText}</h3>
+                    </div>
+                </div>
+              } 
+            </>
+          )
+      })}
+
+      {/* the case when user logged in and got the approval */}
+      {longSynopsis.map((long) => {
+          return ( 
+            <>
+              {long.user._id === userId && long.status === "approved" &&
+                <div className={style.synopsis}>
+                    <div >
+                        <h2  className={style.type}>Long Synopsis</h2>  
+                    </div>
+                    <div>
+                      <img
+                          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                          alt="hey"
+                          className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{fepkData.text_long}</h3>
+                    </div>
+                </div>
+              } 
+            </>
+          )
+      })}
+
+      {/* the case when user logged in and got refused */}
+      {longSynopsis.map((long) => {
+          return ( 
+            <>
+              {long.user._id === userId && long.status === "refused" &&
+                <div className={style.synopsis}>
+                  <div >
+                    <h2  className={style.type}>Long Synopsis</h2>  
+                  </div>
+                  <div className={style.position}> 
+                    <button> Refused </button>
+                  </div>
+                  <div className={style.content1}>
+                    <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                    />
+                    <h3 className={style.text}>{longFakeText}</h3>
+                  </div>
+                </div>
+              } 
+            </>
+          )
+      })}
+
+
+    {/* UNIQUENESS section */}
+
+      {/* the case when user not logged in and if logged in not requested yet*/}
+      {userId === "0" ?
+      (
+        <div>
+          <div className={style.unique}>
+            <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
+          </div>
+          <div className={style.uniqueContainer}>
+              <div className={style.position}> 
+                <button onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
+              </div>
+              <div className={style.content1}>
+                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+              </div>
+              <div className={style.content1}>
+                <p className={style.textUnique}>{mediumFakeText}</p>
+              </div>
+          </div>
+        </div>
+      ):
+      (
+        (uniqueness.length === 0 || uniqueness.filter(u => u.user === userId).length === 0) && 
+        <div>
+          <div className={style.unique}>
+            <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
+          </div>
+          <div className={style.uniqueContainer}>
+              <div className={style.position}> 
+                <button onClick={()=>{addtoUniqueness(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
+              </div>
+              <div className={style.content1}>
+                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+              </div>
+              <div className={style.content1}>
+                <p className={style.textUnique}>{mediumFakeText}</p>
+              </div>
+          </div>
+        </div>
+      ) 
+      }
+
+      {/* the case when user logged in and requested the approval */}
+      {uniqueness.map((unique) => {
+          return ( 
+            <>
+              {unique.user === userId && unique.status === "pending" &&
+                <div>
+                  <div className={style.unique}>
+                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
+                  </div>
+                  <div className={style.uniqueContainer}>
+                      <div className={style.position}> 
+                        <button> Awaiting approval </button>
+                      </div>
+                      <div className={style.content1}>
+                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+                      </div>
+                      <div className={style.content1}>
+                        <p className={style.textUnique}>{mediumFakeText}</p>
+                      </div>
+                  </div>
+                </div>
+              } 
+            </>
+          )
+      })}
+
+      {/* the case when user logged in and got the approval */}
+      {uniqueness.map((unique) => {
+          return ( 
+            <>
+              {unique.user === userId && unique.status === "approved" &&
+                <div>
+                  <div className={style.unique}>
+                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
+                  </div>
+                  <div className={style.uniqueContainer}>
+                      <div>
+                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+                      </div>
+                      <div>
+                        <p className={style.textUnique}>{fepkData.description_uniqueness}</p>
+                      </div>
+                  </div>
+                </div>
+              } 
+            </>
+          )
+      })}
+
+      {/* the case when user logged in and got refused */}
+      {uniqueness.map((unique) => {
+          return ( 
+            <>
+              {unique.user === userId && unique.status === "refused" &&
+                <div>
+                  <div className={style.unique}>
+                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
+                  </div>
+                  <div className={style.uniqueContainer}>
+                      <div className={style.position}> 
+                        <button> Refused </button>
+                      </div>
+                      <div className={style.content1}>
+                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+                      </div>
+                      <div className={style.content1}>
+                        <p className={style.textUnique}>{mediumFakeText}</p>
+                      </div>
+                  </div>
+                </div>
+              } 
+            </>
+          )
+      })}
     
-    <div className={style.unique}>
-         <p className={style.titleUnique}>
-            {fepkData.title_uniqueness}
-         </p>
-          </div>
-
-        <div className={style.uniqueContainer}>
-          <div>
-          <img 
-            src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness
-          }`} alt="uniqueness"
-            className={style.imgUnique}
-            />
-        </div>
-        <div >
-            <p className={style.textUnique}>          
-            {fepkData.description_uniqueness}
-            </p>
-          </div>
-        </div>
-
-
-
-
-
             {/* Starring / Cast section */}
             <div className={style.starring}>
               {crewList.map((crewObj) => {
@@ -418,10 +734,6 @@ function EpkView() {
             </div>
           
 
-
-
-    
-
       {/* < EpkCover />
       {coverList && coverList.map((s) => <EpkCover coverFile={s} />)}
       {detailsList && detailsList.map((s) => <Details detailsFile={s} />)}
@@ -437,7 +749,6 @@ function EpkView() {
       <Trailer/>
       {reviewList && reviewList.map((s) => <Review reviewFile={s} />)}
   {trailerList && trailerList.map((s) => <Trailer trailerFile={s} />)}*/}
-      
       <Footer/> 
     </div>
     
