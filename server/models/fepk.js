@@ -163,6 +163,20 @@ const fepkSchema = mongoose.Schema({
     }
   ],
 
+  // Uniqueness approval
+  uniqueness: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
   // Soft-deletion of documents in databases is an operation in which a flag is used 
   // to mark documents as deleted without erasing the data from the database.
   deleted: {
