@@ -149,7 +149,7 @@ function ReviewsForm () {
           <div className="col-1 m-3">        
           </div>
           <div className="col-2 m-3">
-            <Link className="col align-items-end" to={`/Epk/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+            <Link className="col align-items-end" to={`/epkview/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
                 View EPK Page
             </Link>
           </div>

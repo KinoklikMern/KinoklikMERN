@@ -9,6 +9,10 @@ export const getFepks = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
       .where("deleted")
       .equals(false);
       res.status(200).json(fepks);
@@ -24,9 +28,13 @@ export const getFepksByFilmmakerId = async (req, res) => {
     const fepks = await fepk.find()
     .where({film_maker: id})
     .populate("film_maker") // includes all fields of this object
-    .populate("crew.crewId") // includes all fields of this object
-    .populate("likes") // includes all fields of this object
-    .populate("favourites") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
     .where("deleted")
     .equals(false);
     res.status(200).json(fepks);
@@ -42,9 +50,13 @@ export const getFepksByUser = async (req, res) => {
     const fepks = await fepk.find()
     .where({favourites: id})
     .populate("film_maker") // includes all fields of this object
-    .populate("crew.crewId") // includes all fields of this object
-    .populate("likes") // includes all fields of this object
-    .populate("favourites") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
     .where("deleted")
     .equals(false);
     res.status(200).json(fepks);
@@ -63,6 +75,10 @@ export const getFepkbyId = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
       .where("deleted")
       .equals(false);
       res.status(200).json(fepkOne);
@@ -71,7 +87,28 @@ export const getFepkbyId = async (req, res) => {
     }
 };
 
-// fetch Fepks by Title
+// fetch Fepk by Title
+export const getFepkByTitle = async (req, res) => {
+  const title = req.params.title;
+  try {
+    const fepkOne = await fepk.findOne({ title : { $regex : new RegExp(`^${title}$`, "i")}})
+      .populate("film_maker") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
+    .where("deleted")
+    .equals(false);
+    res.status(200).json(fepkOne);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// fetch Fepks by Title (check if title exists)
 export const getFepksByTitle = async (req, res) => {
   const title = req.params.title;
   try {
@@ -243,6 +280,120 @@ export const getFepkSharings = async (req, res) => {
       if(exists === false)
       {
         await fepkOne.sharings.push(userId);
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
+// adding user who makes request for Synopsis medium part
+export const getMediumSynopsis = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const user = req.params.userid;
+  const status = "pending";
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = false;
+      fepkOne.mediumSynopsis.forEach(element => {
+        if(element.user == user){
+          exists = true;
+        }
+      });
+
+      if(exists === false)
+      {
+        await fepkOne.mediumSynopsis.push({user, status});
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
+// adding user who makes request for Synopsis long part
+export const getLongSynopsis = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const user = req.params.userid;
+  const status = "pending";
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = false;
+      fepkOne.longSynopsis.forEach(element => {
+        if(element.user == user){
+          exists = true;
+        }
+      });
+
+      if(exists === false)
+      {
+        await fepkOne.longSynopsis.push({user, status});
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
+// adding user who makes request for Uniqueness part
+export const getUniqueness = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const user = req.params.userid;
+  const status = "pending";
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = false;
+      fepkOne.uniqueness.forEach(element => {
+        if(element.user == user){
+          exists = true;
+        }
+      });
+
+      if(exists === false)
+      {
+        await fepkOne.uniqueness.push({user, status});
         await fepkOne.save();
         const fepkUpdated = await fepk.findOne({ _id: fepkId });
         res.status(200).json(fepkUpdated);

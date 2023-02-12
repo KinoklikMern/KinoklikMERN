@@ -26,6 +26,19 @@ export const getCrewbyId = async (req, res) => {
     }
 };
 
+// fetch Crew by Name
+export const getCrewByName = async (req, res) => {
+  const name = req.params.name;
+  try {
+    const crewOne = await crew.findOne({ name: { $regex : new RegExp(`^${name}$`, "i")} })
+    .where("deleted")
+    .equals(false);
+    res.status(200).json(crewOne);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 // create Crew
 export const createCrew = async (req, res) => {
   try {
