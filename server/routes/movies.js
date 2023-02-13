@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import {
   getMovies,
+  getMoviesByFilmmakerId,
   createMovie,
   uploadMovieFile,
   uploadMovieFiles,
@@ -10,7 +11,14 @@ import {
 const upload = multer({ dest: "images/" });
 const router = express.Router();
 
-router.get("/", getMovies);
+router.get("/movies", getMovies);
+
+// Gets all Movies of certain film maker
+router.get("/movies/byfilmmaker/:id", getMoviesByFilmmakerId);
+
+// Gets all Movies of certain user
+router.get("/movies/byuser/:userid", getMoviesByUserId);
+
 router.post("/", createMovie);
 router.post(
   "/uploadFiles",

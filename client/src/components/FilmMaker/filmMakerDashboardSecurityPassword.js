@@ -91,10 +91,6 @@ export default function Filmmaker() {
                     placeholder="Retype New Password"
                   ></input>
                 </div>
-
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser} />
-                </div>
               </div>
             </div>
           </article>

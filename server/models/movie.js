@@ -5,6 +5,10 @@ const movieSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  coverPicture: {
+    name: String,
+    image: Buffer,
+  },
   description: {
     type: String,
     required: true,
@@ -28,7 +32,7 @@ const movieSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  traile: String,
+  trailer: String,
   poster: String,
 
   productionCompany: {

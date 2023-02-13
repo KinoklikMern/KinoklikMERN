@@ -110,10 +110,6 @@ export default function Filmmaker() {
                   <h4>Upload</h4>
                   <FontAwesomeIcon icon={faUser} />
                 </div>
-
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser} />
-                </div>
               </div>
             </div>
           </article>

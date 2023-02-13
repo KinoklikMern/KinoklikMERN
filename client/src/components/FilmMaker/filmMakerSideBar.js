@@ -9,7 +9,8 @@ import {
   faHandshake,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import fmDashIcon from "../../images/Icons/Dashboard Full.svg";
+// import fmDashIcon from "../../images/Icons/Dashboard Full.svg";
+import fmDashIcon from "../../images/Icons/Dashboard.svg";
 
 export default function FilmmakerSideBar() {
   return (
@@ -35,8 +36,8 @@ export default function FilmmakerSideBar() {
             <li class="nav-item" role="presentation">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerConnect" className="disabled-link">
-                  {/* <img src={fmDashIcon} /> */}
-                  <FontAwesomeIcon icon={faHandshake} />
+                  <img class="icon-image" src={fmDashIcon} />
+                  {/* <FontAwesomeIcon icon={fmDashIcon} /> */}
                 </Link>
               </div>
             </li>

@@ -90,10 +90,6 @@ export default function Filmmaker() {
                     <input type="button" value="Delete Account" />
                   </div>
                 </div>
-
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser} />
-                </div>
               </div>
             </div>
           </article>

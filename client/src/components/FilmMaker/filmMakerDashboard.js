@@ -40,9 +40,7 @@ export default function Filmmaker() {
         <div class="sidebar-right">
           <div class=" sidebar-rightcontainer">
             <div class="filmmaker-title">Filmmaker Dashboard</div>
-            <div class="side-id">
-              <FontAwesomeIcon icon={faUser} />
-            </div>
+
             <div class="upload-text">
               <div class="upload-button-text">
                 You don't have any EPK created. Start promoting your film right

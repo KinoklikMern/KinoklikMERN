@@ -121,10 +121,6 @@ export default function Filmmaker() {
                     placeholder="Studio Country"
                   ></input>
                 </div>
-
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser} />
-                </div>
               </div>
             </div>
           </article>

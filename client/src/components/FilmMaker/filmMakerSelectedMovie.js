@@ -25,6 +25,9 @@ import "./filmMakerDashboard.scss";
 import movie6 from "../../images/movies/movie6.jpg";
 import { Link, NavLink } from "react-router-dom";
 import FilmmakerSideBar from "./filmMakerSideBar";
+import FilmMakerRequest from "./filmMakerRequest";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 export default function Filmmaker() {
   return (
@@ -33,7 +36,33 @@ export default function Filmmaker() {
         <FilmmakerSideBar />
 
         <div class="sidebar-right">
-          <article
+          <div class="selected-movie-card">
+            <h1 class="selectedMovieHeader">The Shining</h1>
+            <img class="selectedMoviePhoto" src={movie6} alt="movie6" />
+          </div>
+          <div class="selected-movie"></div>
+          <div class="selected-movie-dash">
+            <nav class="nav-tabs navbar navbar-expand-lg navbar-light bg-light">
+              <Tabs
+                defaultActiveKey="profile"
+                id="fill-tab-example"
+                className="mb-3"
+                fill
+              >
+                <Tab eventKey="Stars" title="Stars & Likes">
+                  Stars & Likes
+                </Tab>
+                <Tab eventKey="EPK" title="EPK Requests">
+                  <FilmMakerRequest />
+                </Tab>
+                <Tab eventKey="longer-tab" title="Edit Information">
+                  Edit Information
+                </Tab>
+              </Tabs>
+            </nav>
+          </div>
+
+          {/* <article
             class="tab-pane fade show active"
             role="tabpanel"
             aria-labelledby="llanfairpwllgwyngyll-left-tab"
@@ -97,12 +126,10 @@ export default function Filmmaker() {
                     <h3>www.tiff.net</h3>
                   </div>
                 </div>
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser} />
-                </div>
               </div>
             </div>
           </article>
+  */}
         </div>
       </div>
     </div>

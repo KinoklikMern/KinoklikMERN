@@ -85,9 +85,6 @@ export default function FilmmakerMovies() {
                     </div>
                   </div>
                 </div>
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser} />
-                </div>
               </div>
             </div>
           </article>

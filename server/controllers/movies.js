@@ -11,6 +11,24 @@ export const getMovies = async (req, res) => {
   }
 };
 
+// fetch all Movies by Film maker ID
+export const getMoviesByFilmmakerId = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const fepks = await fepk
+      .find()
+      .where({ film_maker: id })
+      .populate("movies") // includes all fields of this object
+      .populate("movies.title") // includes all fields of this object
+      .populate("movies.coverPicture") // includes all fields of this object
+      .where("deleted")
+      .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const createMovie = async (req, res) => {
   const movie = req.body;
   try {
