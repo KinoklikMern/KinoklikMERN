@@ -137,6 +137,13 @@
   width:30vw;
   border-radius: 4rem;
 }
+.imgProfile{
+  float: "right"; 
+  width:"40px";
+  height:"40px";
+  margin: "10px";
+  border-radius: "50%";
+}
 
 .el2 {
   line-height: 1.5;
@@ -177,8 +184,6 @@
   margin-top:.5rem;
   position: relative;
   /* border-top: 1.5rem solid rgb(23, 11, 59); */
-
-
 }
 
 .position{
@@ -186,6 +191,13 @@
   top: 4rem;
   right: 7rem;
 }
+
+.position1{
+  position: absolute;
+  top: 207rem;
+  right: 7rem;
+}
+
 .content{
   position: relative;
   text-align: center;
@@ -266,6 +278,13 @@
 .textUnique {
   font-size: 2.4rem;
   color: #000;
+}
+
+.starring{
+  margin: "10px";
+}
+.director{
+  margin: "10px";
 }
 
 
