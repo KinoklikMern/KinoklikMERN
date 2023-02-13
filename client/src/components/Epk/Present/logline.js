@@ -7,7 +7,8 @@ function Logline(loglineFile) {
 
     return (
         <div className={style.container}>
-            <div >
+            <div className={style.logline}>
+                <div>
                 <p >{loglineFile.loglineFile.message}</p>
             </div>
             <div>
@@ -16,6 +17,8 @@ function Logline(loglineFile) {
             className={style.img}>
 
             </img>
+
+             </div>
              </div>
          </div>
                   

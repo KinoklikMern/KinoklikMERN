@@ -1,7 +1,10 @@
-.container {
+.container{
   max-width: 120rem;
   margin: 0 auto;
-  max-height: 95vh;
+  font-size: 62.5%;  
+  font-weight: 400;
+  color:#000;
+  box-sizing: border-box;
 }
 
 .detailContainer {
@@ -9,25 +12,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap:3rem;
 }
 
 .img {
-  height: 45rem;
-  width: 40rem;
+  height: 80%;
+  width: auto;
   border-radius: 4rem;
 }
 
 .el2 {
-  align-self: center;
-  justify-self: start;
   line-height: 1.5;
+  font-size: 1.8rem;
+  
+  
 }
-.detailContainer p {
-  color: #000;
-  font-size: 2.4rem;
-}
-.el3 {
-  align-self: center;
-  justify-self: start;
+.el3{ 
   line-height: 1.5;
+  font-size: 1.8rem;
+ text-align: center;
 }
+
+
+

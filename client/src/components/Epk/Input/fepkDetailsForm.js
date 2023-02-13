@@ -316,7 +316,7 @@ function FepkDetailsForm () {
           <div className="col-1 m-3">        
           </div>
           <div className="col-2 m-3">
-            <Link className="col align-items-end" to={`/Epk/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+            <Link className="col align-items-end" to={`/epkview/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
                 View EPK Page
             </Link>
           </div>
@@ -476,7 +476,7 @@ function FepkDetailsForm () {
                                       <FontAwesomeIcon icon={faUser} style={{height: "27px", marginRight: "10px"}}/>
                                     ) :
                                     (
-                                      <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`} style={{height:"30px", width:"auto", marginRight: "10px"}}/>
+                                      <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`} style={{width:"25px", height:"auto", marginRight: "10px"}}/>
                                     )
                                     } 
                                       {crewObj.name}

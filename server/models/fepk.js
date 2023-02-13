@@ -21,7 +21,7 @@ const fepkSchema = mongoose.Schema({
   kickstarter_url: {type: String},
   status: {
     type: String,
-    enum: ['preproduction', 'production', 'postproduction'],
+    enum: ['Preproduction', 'Production', 'Postproduction'],
     required: true
   },
   createdAt: {
@@ -133,6 +133,48 @@ const fepkSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+  ],
+
+  // Medium Synopsis approval
+  mediumSynopsis: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
+  // Long Synopsis approval
+  longSynopsis: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
+  // Uniqueness approval
+  uniqueness: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
   ],
 
   // Soft-deletion of documents in databases is an operation in which a flag is used 

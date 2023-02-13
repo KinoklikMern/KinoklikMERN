@@ -72,6 +72,8 @@ import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
 
+import EpkView from "./pages/EpkView";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -170,6 +172,8 @@ function App() {
           <Route path="trailer" element={<Trailer />} />
           <Route path="resources" element={<Resources />} />
         </Route>
+        <Route path="epk" element={<EPK />} />
+        <Route path="epkview/:title" element={<EpkView />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
