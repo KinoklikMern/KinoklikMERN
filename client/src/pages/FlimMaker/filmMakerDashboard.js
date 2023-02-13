@@ -29,11 +29,9 @@ import { faFilm } from '@fortawesome/free-solid-svg-icons'
 import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { Link, NavLink } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 //import './filmMakerDashboard.scss'
-import movie6 from '../../images/movies/movie6.jpg';
-import movie2 from '../../images/movies/movie2.jpeg';
-import movie5 from '../../images/movies/movie5.jpg';
+import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
 
 export default function Filmmaker() {
   const [epkList, setEpkList] = useState([]);
@@ -50,57 +48,15 @@ export default function Filmmaker() {
   return (
     <div class="filmmakerdash-container container-fluid">
       <div class="sidebar-container"> 
-        <div class="sidebar-left">
-          
-          <ul class="nav nav-tabs filmmaker-dash-ul">
 
-            <li>
-              <div class="sidebarnav-icon side-button">
-                <a href="/Notification.js">
-                  <FontAwesomeIcon icon={faNewspaper} />  
-                </a>
-              </div>
-            </li>
-
-            <li class="nav-item" role="presentation">
-              <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#dashboard" role="tab" >
-                <div class="sidebarnav-icon side-button">
-                  <FontAwesomeIcon icon={faPhotoFilm} />  
-                </div>  
-              </div>
-            </li>
-
-            <li class="nav-item" role="presentation">
-              <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#inbox" role="tab" >
-                <div class="sidebarnav-icon side-button">
-                  <Link to="/filmMakerDashboard" class="links"><FontAwesomeIcon icon={faHome}/></Link>   
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-item" role="presentation">
-              <div class="nav-link tab-clickable" data-bs-toggle="tab" data-bs-target="#notifications" role="tab" >
-                <div class="sidebarnav-icon side-button">
-                  <FontAwesomeIcon icon={faBell} />   
-                </div>
-              </div>
-            </li>
-
-            <li class="nav-link" role="tab" data-li="UserProfile">
-              <div class="sidebarnav-icon side-button">
-                <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
-              </div>
-            </li>
-          </ul>
-          
-        </div>
+        <FilmMakerSideBar />
 
         <div class="sidebar-right">
           <article class="tab-pane fade show active" role="tabpanel" aria-labelledby="llanfairpwllgwyngyll-left-tab" id="dashboard">
-            <div class=" sidebar-rightcontainer">
+            <div class="sidebar-rightcontainer">
               <div class="item Dashboard">
                 <h1>Filmmaker Dashboard</h1>
-                <h1> <Link to="/uploadEpk" class="icon-plus"> <FontAwesomeIcon icon={faPlus} /> </Link></h1>
+                <h1> <Link to="/uploadFepk" class="icon-plus"> <FontAwesomeIcon icon={faPlus} /> </Link></h1>
                 
                 { (!epkList) ? ( () => (    
                   <div>
@@ -111,7 +67,7 @@ export default function Filmmaker() {
                   </div>
                 )) : null }
 
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="row row-cols-md-3 g-5">
                   {epkList.map((epk) => (
                     <div class="col">
                       <Link to="/filmMakerSelectedMovie" class="links">

@@ -19,7 +19,7 @@ export default function FilmmakerSideBar() {
             <li class="nav-link">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerDashboard">
-                  <FontAwesomeIcon icon={faPlus} />
+                  <FontAwesomeIcon icon={faNewspaper} />
                 </Link>
               </div>
             </li>
