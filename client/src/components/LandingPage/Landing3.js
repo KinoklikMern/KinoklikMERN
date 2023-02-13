@@ -3,9 +3,9 @@ import React from "react";
 const Landing3 = () => {
   return (
     <>
-      <div className="landing3 justify-center items-center ">
+      <div className="landing3 justify-center items-center mb-30 h-[50vh]">
         <div className="text-5xl font-bold text-center"> What is a film EPK?</div>
-        <div className="text-2xl text-center pl-32 pr-32 py-10 mx-32">
+        <div className="text-2xl  text-justify lg:pl-40 lg:pr-40 py-10 mx-32">
           
           <p>
             Traditionally, an EPK a PDF document displaying information such as
@@ -14,9 +14,9 @@ const Landing3 = () => {
             following:
           </p>
         </div>
-        <div>
-          <ul className="text-2xl font-bold pl-40 text-start mx-28">
-            <li className="list-disc"> Poster</li>
+        <div className="mx-32">
+          <ul className="text-2xl font-bold lg:pl-40 text-start mx-32">
+            <li className="list-disc "> Poster</li>
             <li className="list-disc">Logline</li>
             <li className="list-disc">Synopsis</li>
             <li className="list-disc">Actors pictures and bios</li>
