@@ -86,10 +86,6 @@ export default function Filmmaker() {
               </div>
             </li>
 
-
-
-
-
             <li class="nav-link" role="tab" data-li="UserProfile">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerDashboardSecurity" class="links"><FontAwesomeIcon icon={faCog}/></Link>
@@ -121,8 +117,8 @@ export default function Filmmaker() {
                       <Link to="/filmMakerSelectedMovie" class="links">
                         <div class="card movie-card">
                         
-                          <img src={epkList.banner_url} alt="movie banner"/>
-                                
+                          <img src={`${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`} alt="movie banner"/>
+
                           <div class="card-body">
                             
                             <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
