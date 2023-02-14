@@ -42,24 +42,21 @@ export default function Filmmaker() {
           </div>
           <div class="selected-movie"></div>
           <div class="selected-movie-dash">
-            <nav class="nav-tabs navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark">
               <Tabs
                 defaultActiveKey="profile"
                 id="fill-tab-example"
                 className="mb-3"
                 fill
               >
-                <Tab eventKey="Stars" title="Stars & Likes">
-                  Stars & Likes
-                </Tab>
-                <Tab eventKey="EPK" title="EPK Requests">
-                  <FilmMakerRequest />
-                </Tab>
-                <Tab eventKey="longer-tab" title="Edit Information">
-                  Edit Information
-                </Tab>
+                <Tab eventKey="Stars" title="Stars & Likes"></Tab>
+                <Tab eventKey="EPK" title="EPK Requests"></Tab>
+                <Tab eventKey="longer-tab" title="Edit Information"></Tab>
               </Tabs>
             </nav>
+            <div class="displayContent">
+              <FilmMakerRequest />
+            </div>
           </div>
 
           {/* <article

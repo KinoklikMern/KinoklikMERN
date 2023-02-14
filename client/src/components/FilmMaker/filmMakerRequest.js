@@ -1,4 +1,4 @@
-export default function FilmMakerRequest() {
+export default function filmMakerRequest() {
   <>
     <div class="requests-container">
       <div class="inbox_msg">
@@ -33,5 +33,6 @@ export default function FilmMakerRequest() {
         </div>
       </div>
     </div>
+    ;
   </>;
 }

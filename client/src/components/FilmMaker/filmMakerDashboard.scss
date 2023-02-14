@@ -752,6 +752,7 @@ img {max-width: 100%;}
       height: 40vh;
       margin-top: 25vh;
       margin-left: 20px;
+      margin-right: 20px;
     }
     .selectedMoviePhoto{
       width: 100%;
@@ -763,4 +764,7 @@ img {max-width: 100%;}
        font-weight: bold;
     }
 
-    
+    .selected-movie-dash{
+      width: 70%;
+      height:100%;
+    }
