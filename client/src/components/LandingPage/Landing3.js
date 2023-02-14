@@ -3,7 +3,7 @@ import React from "react";
 const Landing3 = () => {
   return (
     <>
-      <div className="landing3 justify-center items-center mb-30 h-[50vh]">
+      <div className="landing3 justify-center items-center mb-30 h-[45vh]">
         <div className="text-5xl font-bold text-center"> What is a film EPK?</div>
         <div className="text-2xl  text-justify lg:pl-40 lg:pr-40 py-10 mx-32">
           

@@ -10,7 +10,7 @@ import img from "../../images/EPK.jpg";
 
 const Landing2N = () => {
   return (
-    <div className="landing2 max-w-full m-auto pt:4 pb:4 lg:pt-20 lg:pb-16 px-10 flex flex-col md:flex-row lg:grid-cols-2 gap-4 space-x-10">
+    <div className="landing2 max-w-full m-auto pt:4 pb:4 lg:pt-20 lg:pb-5 px-10 flex flex-col md:flex-row lg:grid-cols-2 gap-4 space-x-10">
       {/* Left Side */}
       <div className=" grid grid-cols-3 grid-rows-6 h-[60vh] pr-0 mt-14">
         <div className="pt-8 pl-11 md:ml-24">
@@ -43,7 +43,7 @@ const Landing2N = () => {
       </div>
       {/* Right Side */}
       <div className="flex flex-col h-full  w-4/5 text-center ">
-        <h3 className=" text-5xl md:text-6xl font-bold mb-0 md:mb-10">
+        <h3 className=" text-5xl md:text-6xl font-bold mb-0 ">
           Film.Marketing.Refined.
         </h3>
 

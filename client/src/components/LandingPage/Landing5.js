@@ -4,8 +4,8 @@ import TvImage from "../../images/TV.png";
 
 const Landing5 = () => {
   return (
-    <div className=" bg-midnight">
-      <div className="text-6xl font-bold text-white  text-center p-20">
+    <div className=" bg-midnight pt-72 pb-10 ">
+      <div className="text-6xl font-bold text-white  p-20  text-center ">
         <div className=" "> One EPK.</div>
         <div className=" ">All Film Details.</div>
       </div>

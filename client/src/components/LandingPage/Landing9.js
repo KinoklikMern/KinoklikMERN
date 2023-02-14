@@ -5,7 +5,7 @@ const Landing9 = () => {
     return (
         <>
         <div>
-        <div className="landing9 !important flex justify-center mt-20">
+        <div className="landing9  flex justify-center mt-20">
           <a className="text-2xl ">
             A good EPK helps you communicate your vision.
             <br /><br/>
