@@ -21,6 +21,7 @@ export const getMyEpks = async (req, res) => {
 };
 
 // create Fepk
+/*
 export const createMyEpk = async (req, res) => {
   try {
     const newMyEpk = new myEpk({
@@ -52,5 +53,5 @@ export const createMyEpk = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
-
+*/
 
