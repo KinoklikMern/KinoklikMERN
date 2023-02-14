@@ -10,7 +10,9 @@ import userRoutes from "./routes/users.js";
 import epkRoutes from "./routes/epk.js";
 import fepkRoutes from "./routes/fepk.js";
 import crewRoutes from "./routes/crew.js";
-
+// Edit by Tony On Jan 20, 2023
+import filmMakerDashboard from "./routes/filmMakerDashboard.js";
+// end ////
 const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -22,6 +24,9 @@ app.use("/users", userRoutes);
 app.use("/epk", epkRoutes);
 app.use("/fepks", fepkRoutes);
 app.use("/crews", crewRoutes);
+// Edit by Tony On Jan 20, 2023
+app.use("/filmMakerDashboard", filmMakerDashboard);
+// end ////
 
 app.listen(8000, () => console.log(`App Running on PORT ${PORT}`));
 
