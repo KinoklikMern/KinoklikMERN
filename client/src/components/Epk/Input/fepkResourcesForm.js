@@ -251,7 +251,7 @@ function ResourcesForm () {
                                     <td>{resource.time}</td>
                                     <td>{resource.description}</td>
                                     <td>
-                                        <img src={`https://kinomovie.s3.amazonaws.com/${resource.image}`} style={{height:"60px", width:"auto"}}/>
+                                        <img src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`} style={{height:"60px", width:"auto"}}/>
                                     </td>
                                     <td style={{textAlign: "center"}} onClick={() => deleteFromResourcesList(resource)}><FontAwesomeIcon icon={faTrashCan} /></td>
                                 </tr>

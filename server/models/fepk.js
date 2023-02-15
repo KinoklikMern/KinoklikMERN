@@ -77,7 +77,11 @@ const fepkSchema = mongoose.Schema({
   // Film Stills
   stills: [
     {
-        image: {type: String}
+        image: {type: String},
+        status :{
+          type: String,
+          enum: ['pending', 'approved', 'refused']
+        }
     }
   ],
 
