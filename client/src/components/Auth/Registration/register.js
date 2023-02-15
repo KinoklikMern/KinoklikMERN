@@ -236,7 +236,7 @@ function Register({ spanText }) {
             setOpen(true);
           }}
         >
-          {spanText}
+          {spanText ? spanText : "SIGN UP"}
         </span>
 
         <CollectionCreateForm

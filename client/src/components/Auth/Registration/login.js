@@ -113,7 +113,7 @@ function Login({spanText}) {
             setOpen(true);
           }}
         >
-          {spanText}
+          {spanText ? spanText : "SIGN IN"}
         </span>
         <CollectionCreateForm
           open={open}
