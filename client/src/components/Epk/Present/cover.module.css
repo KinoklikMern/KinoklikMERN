@@ -89,13 +89,13 @@
 }
 
 /* Change the color of links on hover */
-a:hover {
+/* a:hover {
   background-color: #a263da;
   color: black;
 }
 a:active {
   color: white;
-}
+} */
 
 .icon {
   font-size: 0.7rem;

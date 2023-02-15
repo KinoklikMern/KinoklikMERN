@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import http from "../../../http-common";
-import style from "./cover.module.css";
+import style from "./Cover.module.css";
 import headerimage from "../../../images/movies/imageSouthpaw.jpeg";
 import logo from "../../../images/logo.png";
 import avatar from"../../../images/avatar.jpeg";
