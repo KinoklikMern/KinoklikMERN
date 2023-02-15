@@ -7,6 +7,7 @@ function Details(detailsFile) {
 
     return (
       <div className={style.container}>
+   
       <div className={style.detailContainer}> 
             <div className={style.el1}>
               <img 
@@ -47,6 +48,7 @@ function Details(detailsFile) {
                   Distributed by: {detailsFile.detailsFile.distributionCo}
                 </p>
             </div>
+
             <div className={style.el3}>
               <p>
                 Starring:
@@ -69,16 +71,17 @@ function Details(detailsFile) {
                   <br/><br/>
                 </p>
                
-                <p >
+                <p className={style.bottom}>
                   Production Year: {detailsFile.detailsFile.productionYear}
                 </p>
                 
-                <p>
+                <p className={style.bottom}>
                   Duration: {detailsFile.detailsFile.durationMin} Minutes
                 </p>
             </div>
           </div>
           </div>
+         
         
      
    );

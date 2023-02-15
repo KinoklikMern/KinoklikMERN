@@ -4,8 +4,8 @@ import http from "../../../http-common";
 import style from "./Cover.module.css";
 import headerimage from "../../../images/movies/imageSouthpaw.jpeg";
 import logo from "../../../images/logo.png";
-import avatar from"../../../images/avatar.jpeg";
-import poster from"../../../images/jb.jpeg";
+import avatar from"../../../images/avatar1.jpeg";
+import poster from"../../../images/poster.jpg";
 import kikSatr from "../../../images/Kickstarter-icon.png";
 
 
@@ -17,6 +17,7 @@ import {
   faShareAlt,
   faPlusCircle,
   faStar,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 
 function EpkCover() {
@@ -56,17 +57,12 @@ function EpkCover() {
 
   return (
 
-    <div className={style.container}>  
-      <div style={{
-          backgroundImage:`url(${headerimage})`,
-          backgroundSize:'cover',
-          backgroundPosition:'bottom',
-          height:'65vh',
-          position:'relative',
-          
-        }}>
 
-      {/* navbar section */}
+    <div className={style.container}>
+    <div className={style.hero}>  
+ 
+     {/* navbar section */}
+{/* 
       <div className={style.navContainer}>
       <div >
         <img 
@@ -74,18 +70,18 @@ function EpkCover() {
         src={logo}
         alt='logo'/>
       </div>
-
-        <div>
-          <p className={style.centered}>{epkCoverData.title}</p>
-        </div>
-
+      <div className={style.searchBar}>
+        <input type="text" className={style.searchTerm}/>
+         <FontAwesomeIcon icon={faSearch} size ="2x"   className={style.searchButton}/> 
+         
+</div>
       <div>
         <img 
         className={style.avatar}
         src={avatar}
         alt='logo'/>
       </div>
-      </div>
+      </div> */}
 
       {/* posterContainer */}
 
@@ -98,19 +94,29 @@ function EpkCover() {
                 className={style.img}      
                 ></img>
       </div>
-        <div className={style.logline}>
-          <p >{epkCoverData.logLine}</p>
+      <div className={style.description}>
+          <p className={style.centered}>{epkCoverData.title}</p>
+          <p className={style.logline}>{epkCoverData.logLine}</p>
         </div>
         </div>
 
         {/* corner section */}
-
+        <div className={style.bottomeLine}>
         <div className={style.flexContainer}>
           <p className={style.el1} >Preproduction</p> 
           <p className={style.el2}>{epkCoverData.genre}</p>
           <p className={style.el3} >Posted:{epkCoverData.createdAt}</p> 
   
         </div>
+        <div class={style.dropdownContainer} >
+          <div class={style.threedots}></div>
+         
+    </div>
+    <div class={style.dropdown}>
+            <a className={style.dotAnkor} href="#"><div>report</div></a>
+          </div>
+        </div>
+
       </div>
 
       {/* icon-bar section */}
@@ -155,6 +161,7 @@ function EpkCover() {
         
       </div>
     </div>
+    
   );
 }
 
