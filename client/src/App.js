@@ -10,6 +10,9 @@ import Login from "./components/Auth/Registration/login";
 
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
+// add by Tony on Feb 15
+import FilmMakerSelectedEpk from "./pages/FlimMaker/filmMakerSelectedEpk";
+// end
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
 import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMakerDashboardSecurityPassword";
@@ -94,6 +97,11 @@ function App() {
           <Route path="registeration" element={<RegistrationForm />} />
           <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+
+          <Route
+            path="FilmMakerSelectedEpk"
+            element={<FilmMakerSelectedEpk />}
+          />
 
           <Route
             path="filmMakerSelectedMovie"

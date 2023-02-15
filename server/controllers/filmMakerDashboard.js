@@ -20,6 +20,17 @@ export const getMyEpks = async (req, res) => {
   }
 };
 
+export const getEpkbyId = async (req, res) => {
+  const epkId = req.params.id;
+  try {
+    const myEpk = await fepk.findOne({ _id: epkId })
+      .populate("likes") // includes all fields of this object
+    res.status(200).json(myEpk);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 // create Fepk
 /*
 export const createMyEpk = async (req, res) => {
