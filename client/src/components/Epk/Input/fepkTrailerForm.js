@@ -143,7 +143,7 @@ function TrailerForm () {
                         />
                     </div>
                     <div className="col-9 mt-3" style={{textAlign: "center"}}>
-                        <video src={`https://kinomovie.s3.amazonaws.com/${fepk.trailer}`} width="100%" height="400px" controls>
+                        <video src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer}`} width="100%" height="400px" controls>
                         </video>
                     </div>
                     <div className="col-1">

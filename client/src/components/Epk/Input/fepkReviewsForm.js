@@ -231,7 +231,7 @@ function ReviewsForm () {
                                     <td>{review.magazine}</td>
                                     <td>{review.text}</td>
                                     <td>
-                                        <img src={`https://kinomovie.s3.amazonaws.com/${review.award_logo}`} style={{height:"60px", width:"auto"}}/>
+                                        <img src={`${process.env.REACT_APP_AWS_URL}/${review.award_logo}`} style={{height:"60px", width:"auto"}}/>
                                     </td>
                                     <td style={{textAlign: "center"}} onClick={() => deleteFromReviewsList(review)}><FontAwesomeIcon icon={faTrashCan} /></td>
                                 </tr>

@@ -24,7 +24,6 @@ function FepkDetailsForm () {
   let { fepkId } = useParams();
   const filmmaker_id = "63c0e3bb40253f49b94edd11";
 
-
   let newCrew = {  
     name: "",
     biography: "",
@@ -413,7 +412,7 @@ function FepkDetailsForm () {
                           name="files"
                           accept="image/*"
                         ></input>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_details}`} style={{height:"40px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                        <img src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`} style={{height:"40px", width:"auto", marginTop: "5px"}} alt="no image"/>
                         <br/>
                         <hr/>
                         <label for="filePoster" class="form-label text-dark">
@@ -435,7 +434,7 @@ function FepkDetailsForm () {
                             <FontAwesomeIcon icon={faUser} style={{height: "30px", marginRight: "10px"}}/>
                         ) :
                         (
-                          <img src={`https://kinomovie.s3.amazonaws.com/${crewData.image}`} style={{height:"40px", width:"auto", marginTop: "5px"}}/>
+                          <img src={`${process.env.REACT_APP_AWS_URL}/${crewData.image}`} style={{height:"40px", width:"auto", marginTop: "5px"}}/>
                         )
                         } 
                         
@@ -476,7 +475,7 @@ function FepkDetailsForm () {
                                       <FontAwesomeIcon icon={faUser} style={{height: "27px", marginRight: "10px"}}/>
                                     ) :
                                     (
-                                      <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`} style={{width:"25px", height:"auto", marginRight: "10px"}}/>
+                                      <img src={`${process.env.REACT_APP_AWS_URL}/${crewObj.image}`} style={{width:"25px", height:"auto", marginRight: "10px"}}/>
                                     )
                                     } 
                                       {crewObj.name}
@@ -632,7 +631,7 @@ function FepkDetailsForm () {
                             <td>{crew.crewId.name}</td>
                             <td>{crew.epkRole}</td>
                             <td>
-                                <img src={`https://kinomovie.s3.amazonaws.com/${crew.image}`} style={{height:"15px", width:"auto"}}/>
+                                <img src={`${process.env.REACT_APP_AWS_URL}/${crew.image}`} style={{height:"15px", width:"auto"}}/>
                             </td>
                             <td><a href={crew.facebook_url} target="_blank">link</a></td>
                             <td><a href={crew.instagram_url} target="_blank">link</a></td>
