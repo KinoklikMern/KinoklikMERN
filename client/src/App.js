@@ -1,5 +1,8 @@
 import React from "react";
 import { Navigate, Route, Link, Routes } from "react-router-dom";
+
+import './styles/tailwind.css' //Tailwind
+
 import MainLayout from "./layouts/MainLayout";
 import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";

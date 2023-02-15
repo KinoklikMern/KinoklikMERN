@@ -1,10 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  prefix: "tw-",
   theme: {
     extend: {
       backgroundImage: {
-        'TvImage': "url('../public/images/TV.png')",
+        'TvImage': "url('../../public/images/TV.png')",
       },
       colors: {
        
@@ -12,9 +13,12 @@ module.exports = {
       },
     },
   },
-
+  corePlugins: {
+    preflight: false
+  },
   plugins: [
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/forms"),
+    "prettier-plugin-tailwindcss",
   ],
 };
