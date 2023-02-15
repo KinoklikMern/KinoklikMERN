@@ -21,7 +21,7 @@ const fepkSchema = mongoose.Schema({
   kickstarter_url: {type: String},
   status: {
     type: String,
-    enum: ['preproduction', 'production', 'postproduction'],
+    enum: ['Preproduction', 'Production', 'Postproduction'],
     required: true
   },
   createdAt: {
@@ -65,14 +65,23 @@ const fepkSchema = mongoose.Schema({
       epkRole: {
         type: String,
         enum: ['lead_actor', 'supporting_actor', 'director', 'producer', 'cinematographer', 'editor', 'writer', 'sound']
-      }   
+      },
+      biography:{type: String},
+      image: {type: String},
+      facebook_url: {type: String},
+      instagram_url: {type: String},
+      twitter_url: {type: String}
     }
   ],
   
   // Film Stills
   stills: [
     {
-        image: {type: String}
+        image: {type: String},
+        status :{
+          type: String,
+          enum: ['pending', 'approved', 'refused']
+        }
     }
   ],
 
@@ -128,6 +137,48 @@ const fepkSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+  ],
+
+  // Medium Synopsis approval
+  mediumSynopsis: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
+  // Long Synopsis approval
+  longSynopsis: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
+  // Uniqueness approval
+  uniqueness: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
   ],
 
   // Soft-deletion of documents in databases is an operation in which a flag is used 

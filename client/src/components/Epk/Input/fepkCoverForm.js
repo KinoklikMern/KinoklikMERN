@@ -85,9 +85,9 @@ function FepkCoverForm() {
   };
   const movieStatus = [
     "Status...",
-    "preproduction",
-    "production",
-    "postproduction"
+    "Preproduction",
+    "Production",
+    "Postproduction"
   ];
   const makeStatusItem = (Y) => {
     return <option value={Y}> {Y}</option>;
@@ -98,7 +98,7 @@ function FepkCoverForm() {
 
     if(name === "title"){
         http
-        .get(`fepks/byTitle/${event.target.value}`)
+        .get(`fepks/byTitles/${event.target.value}`)
         .then((response) => {
           if (response.data.length>0) {
             setMessageTitleNo("This title exists! Choose another one!");
@@ -208,7 +208,7 @@ function FepkCoverForm() {
           </div>
           <div className="col-3 m-3">
           <Link className="col align-items-end" to="/filmMakerDashboard"  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
-                Filmmaker Dashboard
+                EPK Dashboard
               </Link>
           </div>
         </div>

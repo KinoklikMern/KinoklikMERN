@@ -1,3 +1,8 @@
+////////////////////////////////////////////////
+// Create FilmmakerSideBar component
+// Edit by Tony 
+// On Feb 11, 2023
+////////////////////////////////////////////////
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +24,7 @@ export default function FilmmakerSideBar() {
             <li class="nav-link">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerDashboard">
-                  <FontAwesomeIcon icon={faPlus} />
+                  <FontAwesomeIcon icon={faNewspaper} />
                 </Link>
               </div>
             </li>

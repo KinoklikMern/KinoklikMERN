@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //Adding antd modules and style
 import { Modal, Form, Input } from "antd";
 
-function Login({spanText}) {
+function Login() {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState("");
@@ -97,9 +97,8 @@ function Login({spanText}) {
         dispatch({ type: "LOGIN", payload: data });
         Cookies.set("user", JSON.stringify(data));
         console.log(data);
-        if (data.role === "FILM_MAKER") {
-          navigate("/filmMakerDashboard");
-        }
+        navigate("");
+        window.location.reload();
       } catch (error) {
         setSuccess("");
         setError(error.response.data.message);
@@ -108,12 +107,11 @@ function Login({spanText}) {
 
     return (
       <div>
-        <span
+        <span  id="login"
           onClick={() => {
             setOpen(true);
           }}
         >
-          {spanText ? spanText : "SIGN IN"}
         </span>
         <CollectionCreateForm
           open={open}

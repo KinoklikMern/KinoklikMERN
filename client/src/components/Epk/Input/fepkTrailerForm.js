@@ -116,7 +116,7 @@ function TrailerForm () {
           <div className="col-1 m-3">        
           </div>
           <div className="col-2 m-3">
-            <Link className="col align-items-end" to={`/Epk/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+            <Link className="col align-items-end" to={`/epkview/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
                 View EPK Page
             </Link>
           </div>
@@ -143,7 +143,7 @@ function TrailerForm () {
                         />
                     </div>
                     <div className="col-9 mt-3" style={{textAlign: "center"}}>
-                        <video src={`https://kinomovie.s3.amazonaws.com/${fepk.trailer}`} width="100%" height="400px" controls>
+                        <video src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer}`} width="100%" height="400px" controls>
                         </video>
                     </div>
                     <div className="col-1">

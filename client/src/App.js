@@ -9,7 +9,9 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import Login from "./components/Auth/Registration/login";
-import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
+//import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
+
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
@@ -28,7 +30,7 @@ import DetailsForm from "./components/Epk/Input/detailsForm";
 import Details from "./components/Epk/Present/details";
 
 import CoverForm from "./components/Epk/Input/coverForm";
-import Cover from "./components/Epk/Present/cover";
+import Cover from "./components/Epk/Present/Cover";
 
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
@@ -75,6 +77,9 @@ import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
+import InstaFollowers from "./pages/instagram";
+
+import EpkView from "./pages/EpkView";
 
 const theme = createTheme({
   palette: {
@@ -175,7 +180,10 @@ function App() {
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
           <Route path="resources" element={<Resources />} />
+          <Route path="instagram" element={<InstaFollowers />} />
         </Route>
+        <Route path="epk" element={<EPK />} />
+        <Route path="epkview/:title" element={<EpkView />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
