@@ -106,11 +106,11 @@
  }
  
  /* Change the color of links on hover */
-  a:hover {
+  .iconContainer a:hover {
    background-color: #a263da;
    color: black;
  }
- a:active {
+ .iconContainer a:active {
    color: white;
  }
  

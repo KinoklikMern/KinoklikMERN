@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import http from "../http-common";
 import { useParams } from "react-router-dom";
-import style from"./EpkView.module.css";
+import style from "./EpkView.module.css";
 import kikSatr from "../images/Kickstarter-icon.png";
 
 import Footer from"../components/Footer"
