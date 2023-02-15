@@ -9,12 +9,12 @@ export default function SingleQuestion({ question, answer }) {
     <>
       <div className=" ml-20 mr-20 ">
         <div
-          className=" border-b border-gray-500 p-3 my-2 rounded-md text-2xl font-bold lg:text-3xl"
+          className=" flex items-center justify-between border-b border-gray-500 p-3 my-2 rounded-md text-2xl font-bold lg:text-3xl"
           style={{ color: "white" }}
         >
           <h2
             onClick={() => setShowAnswer(!showAnswer)}
-            className=" flex   text-white  sm:text-xl  lg:text-3xl font-semibold cursor-pointer"
+            className="   text-white  sm:text-xl  lg:text-3xl font-semibold cursor-pointer"
           >
             {question}
             &nbsp;&nbsp;&nbsp;

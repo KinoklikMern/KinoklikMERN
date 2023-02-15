@@ -14,7 +14,7 @@ const Landing3 = () => {
             following:
           </p>
         </div>
-        <div className="mx-32">
+        <div className="mx-32 ">
           <ul className="text-2xl font-bold lg:pl-40 text-start mx-32">
             <li className="list-disc "> Poster</li>
             <li className="list-disc">Logline</li>
