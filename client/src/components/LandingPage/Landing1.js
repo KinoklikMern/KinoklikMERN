@@ -32,7 +32,7 @@ const Landing1 = () => {
   };
   return (
     <>
-      <div className="landing1  tw-bg-midnight tw-pb-20">
+      <div className="landing11  tw-bg-midnight tw-pb-20">
         <div className="tw-grid tw-bg-midnight lg:tw-grid-cols-2 2xl:tw-grid-cols-5">
           <div className="tw-mx-auto tw-max-w-md tw-px-8 tw-py-12 sm:tw-max-w-xl lg:tw-max-w-full lg:tw-px-12 lg:tw-py-24 xl:tw-mr-2 2xl:tw-col-span-2">
             <div className=" xl:tw-max-w-xl">
