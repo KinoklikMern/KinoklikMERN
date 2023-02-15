@@ -9,11 +9,11 @@ const Landing10 = () => {
     const [questions, setQuestions] = useState(data);
     return (
         <>
-            <div className="landing10 bg-midnight" >
-                <div className=" pt-10 text-2xl font-bold text-center text-white-900   lg:text-2xl xl:text-2xl">
+            <div className="landing10 tw-bg-midnight" >
+                <div className="tw-pt-10 tw-text-2xl tw-font-bold tw-text-center tw-text-white-900 lg:tw-text-2xl xl:tw-text-2xl">
                     <h1>FREQUENTLY ASKED QUESTIONS:</h1>
                 </div>
-                <div className="p-2">
+                <div className="tw-p-2">
                     {questions.map((question) => (
                         <SingleQuestion {...question} />
                     ))}

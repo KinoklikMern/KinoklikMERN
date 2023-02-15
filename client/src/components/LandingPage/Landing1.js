@@ -10,8 +10,6 @@ import { useSelector } from "react-redux";
 
 import moviesPhoto from "../../images/landing.png";
 
-
-
 const Landing1 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,55 +32,54 @@ const Landing1 = () => {
   };
   return (
     <>
-    <div className=" landing1  bg-midnight pb-20">
-    <div className="bg-midnight grid lg:grid-cols-2 2xl:grid-cols-5">
-      <div className="px-8 py-12 max-w-md mx-auto sm:max-w-xl lg:px-12 lg:py-24 lg:max-w-full xl:mr-2 2xl:col-span-2">
-        <div className=" xl:max-w-xl">
-        <div className="bg-TvImage bg-no-repeat">
-        <img
-            className=" h-64 mt-6 rounded-lg shadow-xl sm:mt-8 sm:h-64   object-center lg:hidden"
-            src={moviesPhoto}
-            alt="Movies"
-          />
-        </div>
-          
-          <h1 className="mt-6 text-2xl font-bold text-white-900 sm:mt-8 sm:text-3xl lg:text-4xl xl:text-5xl">
-          What if you could promote your film to the world, for free?
-          </h1>
-          <h4 className="mt-2  text-white text-justify sm:mt-4 sm:text-xl">
-            Whether you have just an idea for a movie, shot the trailer, or
-            your film's in the can, use our free
-            <b> Electronic Press Kit Software</b> to promote your film
-            directly to industry professionals and your audience！
-          </h4>
-          <div className="mt-4 sm:mt-6 grid-cols-2">
-            <a
-              className="inline-block px-4 py-2 rounded-lg bg-white hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-xl text-midnight shadow-lg sm:text-base mr-4"
-              href="/"
-            >
-              Create EPK
-            </a>
-            <a
-              className="inline-block px-4 py-2 rounded-lg bg-violet-800 hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none tracking-wider font-bold text-xl text-white shadow-lg sm:text-base"
-              href="/"
-            >
-              Browse EPKs
-            </a>
+      <div className="landing1  tw-bg-midnight tw-pb-20">
+        <div className="tw-grid tw-bg-midnight lg:tw-grid-cols-2 2xl:tw-grid-cols-5">
+          <div className="tw-mx-auto tw-max-w-md tw-px-8 tw-py-12 sm:tw-max-w-xl lg:tw-max-w-full lg:tw-px-12 lg:tw-py-24 xl:tw-mr-2 2xl:tw-col-span-2">
+            <div className=" xl:tw-max-w-xl">
+              <div className="tw-bg-TvImage tw-bg-no-repeat">
+                <img
+                  className=" tw-mt-6 tw-h-64 tw-rounded-lg tw-object-center tw-shadow-xl sm:tw-mt-8 sm:tw-h-64 lg:tw-hidden"
+                  src={moviesPhoto}
+                  alt="Movies"
+                />
+              </div>
+
+              <h1 className="tw-mt-6 tw-text-2xl tw-font-bold tw-text-white sm:tw-mt-8 sm:tw-text-3xl lg:tw-text-4xl xl:tw-text-5xl">
+                What if you could promote your film to the world, for free?
+              </h1>
+              <h4 className="tw-mt-2  tw-text-justify tw-text-white sm:tw-mt-4 sm:tw-text-xl">
+                Whether you have just an idea for a movie, shot the trailer, or
+                your film's in the can, use our free
+                <b> Electronic Press Kit Software</b> to promote your film
+                directly to industry professionals and your audience!
+              </h4>
+              <div className="tw-mt-4 tw-grid-cols-2 sm:tw-mt-6">
+                <a
+                  className="tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-white tw-px-4 tw-py-2 tw-text-xl tw-font-bold  tw-tracking-wider tw-text-midnight tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base"
+                  href="/"
+                >
+                  Create EPK
+                </a>
+                <a
+                  className="tw-inline-block tw-rounded-lg tw-bg-violet-800 tw-px-4 tw-py-2 tw-text-xl tw-font-bold tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base"
+                  href="/"
+                >
+                  Browse EPKs
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="tw-relative tw-ml-20 tw-hidden tw-bg-TvImage tw-bg-cover  tw-bg-no-repeat tw-p-10  lg:tw-block 2xl:tw-col-span-3 ">
+            <img
+              className="  tw-mx-1 tw-h-full tw-object-cover tw-object-center tw-px-8  tw-pt-0 lg:tw-p-20 "
+              src={moviesPhoto}
+              alt="Movies"
+            />
           </div>
         </div>
+        {/* <div className="tw-bg-white"> <Landing2N/></div> */}
       </div>
-      <div className="bg-TvImage bg-no-repeat bg-cover hidden relative  ml-20 p-10  lg:block 2xl:col-span-3 ">
-        <img
-          className="  lg:p-20 m-x-14 h-full object-cover object-center  p-x-8 pt-0 "
-          src={moviesPhoto}
-          alt="Movies"
-        />
-      </div>
-    </div>
-   {/* <div className="bg-white"> <Landing2N/></div> */}
-   
-  </div>
-  
+
       {/*<div className="landing1">
         <div className="landing1Button">
           {user && user.role === "FILM_MAKER" && (
@@ -136,7 +133,7 @@ const Landing1 = () => {
         </Grid>
           </div> */}
 
-    {/*  <div className="bg-midnight  ">
+      {/*  <div className="bg-midnight  ">
         <h1 className=" mb-20 pt-0 text-2xl font-bold text-center text-white sm:mt-8 sm:text-4xl lg:text-3xl xl:text-4xl">
           Are you a Distributor, a Film Festival, Sales Agent <br/>or Investor
           searching for new upcoming film projects?

@@ -11,50 +11,50 @@ import comingSoon from "../../images/comingSoon.png";
 const Landing2 = () => {
   return (
     <>
-      <div className="landing2 max-w-full m-auto pt:4 pb:4 lg:pt-20 lg:pb-5 px-10 flex flex-col md:flex-row lg:grid-cols-2 gap-4 space-x-10">
+      <div className="landing2 tw-m-auto tw-flex tw-max-w-full tw-flex-col tw-gap-4 tw-space-x-10 tw-px-10 tw-pt-4 tw-pb-4 md:tw-flex-row lg:tw-grid-cols-2 lg:tw-pt-20 lg:tw-pb-5">
         {/* Left Side */}
-        <div className=" grid grid-cols-3 grid-rows-6 h-[60vh] pr-0 mt-14">
-          <div className="pt-8 pl-11 md:ml-24">
+        <div className=" tw-mt-14 tw-grid tw-h-[60vh] tw-grid-cols-3 tw-grid-rows-6 tw-pr-0">
+          <div className="tw-pt-8 tw-pl-11 md:tw-ml-24">
             <img
-              className="row-span-1 sm:mr-8 object-right lg:w-42 h-32    pb-16 "
+              className="tw-row-span-1 tw-h-32 tw-object-right tw-pb-16 sm:tw-mr-8 lg:tw-w-44 "
               src={starPhoto}
               alt="/"
             />
           </div>
           <img
-            className="row-span-1 object-cover w-full h-full p-2"
+            className="tw-row-span-1 tw-h-full tw-w-full tw-object-cover tw-p-2"
             src={movie5}
             alt="/"
           />
           <img
-            className="row-span-2 object-center w-full h-full  pt-10 "
+            className="tw-row-span-2 tw-h-full tw-w-full tw-object-center tw-pt-10 "
             src={comingSoon}
             alt="/"
           />
           <img
-            className="row-span-3 object-cover w-full h-1/2 pt-8 p-2"
+            className="tw-row-span-3 tw-h-1/2 tw-w-full tw-object-cover tw-p-2 tw-pt-8"
             src={avatar2}
             alt="/"
           />
           <img
-            className="row-span-3 object-cover w-full h-full p-2"
+            className="tw-row-span-3 tw-h-full tw-w-full tw-object-cover tw-p-2"
             src={avatar}
             alt="/"
           />
         </div>
         {/* Right Side */}
-        <div className="flex flex-col h-full  w-4/5 text-center ">
-          <h3 className=" text-5xl md:text-6xl font-bold mb-0 ">
+        <div className="tw-flex tw-h-full tw-w-4/5  tw-flex-col tw-text-center ">
+          <h3 className=" tw-mb-0 tw-text-5xl tw-font-bold md:tw-text-6xl ">
             Film.Marketing.Refined.
           </h3>
 
-          <p className=" text-3xl text-center mt-10 pb-6  mr-20 ml-20  lg:mb-20 ">
-            KinoKlik EPK is your film’s online hub, like a digital flyer,
+          <p className=" tw-mt-10 tw-mr-20 tw-ml-20 tw-pb-6  tw-text-center tw-text-3xl  lg:tw-mb-20 ">
+            KinoKlik EPK is your film's online hub, like a digital flyer,
             allowing you to promote your film to producers, distributors, film
             festivals and investors <br /> (for free).
           </p>
-          <div className="text-center">
-            <button className="bg-black   text-white border-black rounded-xl hover:shadow-xl p-3">
+          <div className="tw-text-center">
+            <button className="tw-rounded-xl tw-border-black tw-bg-black tw-p-3 tw-text-white hover:tw-shadow-xl">
               Create EPK
             </button>
           </div>
