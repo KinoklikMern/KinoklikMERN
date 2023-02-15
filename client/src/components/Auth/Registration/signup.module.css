@@ -16,10 +16,11 @@ link for registration is /signup */
 
 .form {
 position: absolute;
-    color: #fff;
+    color: black;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
+   
 }
 
 .form_body {
@@ -34,6 +35,11 @@ position: absolute;
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 20px;
+    outline-color: transparent;
+    box-shadow: 0 0 .4em #844fb0;
+        /* outline-style: ridge; */
+        
+      
 }
 
 .form_input1 {
@@ -48,6 +54,8 @@ position: absolute;
         font-size: 16px;
         font-weight: 500;
         color: black;
+        outline-color: transparent;
+            box-shadow: 0 0 .4em #844fb0;
 
 }
 
@@ -58,11 +66,13 @@ background: white;
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 20px;
+    outline-color: transparent;
+        box-shadow: 0 0 .4em #844fb0;
 }
 
 .btn1 {
-    background: #712CB0;
-    color: white;
+    background: white;
+    color: black;
     border: 10px solid var(#712CB0);
     /* padding: 4px 50px; */
     font-size: 16px;
@@ -75,6 +85,14 @@ background: white;
     text-align: center;
    
 }
+
+.btn1:hover {
+    background-color: #712CB0;
+    color: white;
+   
+}
+
+
 
 
 .btn {

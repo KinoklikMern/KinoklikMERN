@@ -31,11 +31,11 @@ link for registration is /login */
     background: white;
     width: 400px;
     border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(#712CB0),
-        0 6px 20px 0 rgba(#712CB0);
     border: 10px solid var(#712CB0);
     font-size: 20px;
     font-weight: 500;
+    outline-color: transparent;
+        box-shadow: 0 0 .4em #844fb0;
 
 }
 
