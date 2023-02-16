@@ -408,6 +408,44 @@ export const getUniqueness = async (req, res) => {
   } 
 };
 
+// adding user who makes request for Stills part
+export const getStills = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const user = req.params.userid;
+  const status = "pending";
+  try {
+    const fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let exists = false;
+      fepkOne.stillsApproval.forEach(element => {
+        if(element.user == user){
+          exists = true;
+        }
+      });
+
+      if(exists === false)
+      {
+        await fepkOne.stillsApproval.push({user, status});
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      }
+      else{
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
 //upload a file to S3
 export const uploadFepkFile = async (req, res) => {
     const file = req.file;
