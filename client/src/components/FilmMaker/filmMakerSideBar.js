@@ -1,3 +1,8 @@
+////////////////////////////////////////////////
+// Create FilmmakerSideBar component
+// Edit by Tony 
+// On Feb 11, 2023
+////////////////////////////////////////////////
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
