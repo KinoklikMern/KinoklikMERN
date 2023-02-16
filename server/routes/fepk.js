@@ -54,10 +54,11 @@ router.get("/favourite/:fepkid/:userid", getFepkFavourite);
 router.get("/sharing/:fepkid/:userid", getFepkSharings);
 router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
 
-// Calling these APIs will create the requests for medium and long synopsises, and uniqueness
+// Calling these APIs will create the requests for medium and long synopsises, uniqueness, and stills
 router.get("/mediumSynopsis/:fepkid/:userid", getMediumSynopsis);
 router.get("/longSynopsis/:fepkid/:userid", getLongSynopsis);
 router.get("/uniqueness/:fepkid/:userid", getUniqueness);
+router.get("/stills/:fepkid/:userid", getStills);
 
 // Uploads 1 file to AWS S3
 router.post("/uploadFile", upload.single("file"), uploadFepkFile);

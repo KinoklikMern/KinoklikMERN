@@ -177,7 +177,7 @@ function LoglineForm () {
                       name="files"
                       accept="image/*"
                     ></input>
-                    <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_logline}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                    <img src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_logline}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
                 </div>
               </div>
               <div

@@ -208,7 +208,7 @@ function FepkCoverForm() {
           </div>
           <div className="col-3 m-3">
           <Link className="col align-items-end" to="/filmMakerDashboard"  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
-                Filmmaker Dashboard
+                EPK Dashboard
               </Link>
           </div>
         </div>

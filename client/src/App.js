@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate, Route, Link, Routes } from "react-router-dom";
+import './styles/tailwind.css'
 import MainLayout from "./layouts/MainLayout";
 import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
@@ -24,7 +25,7 @@ import DetailsForm from "./components/Epk/Input/detailsForm";
 import Details from "./components/Epk/Present/details";
 
 import CoverForm from "./components/Epk/Input/coverForm";
-import Cover from "./components/Epk/Present/cover";
+import Cover from "./components/Epk/Present/Cover";
 
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
@@ -71,6 +72,7 @@ import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
+import InstaFollowers from "./pages/instagram";
 
 import EpkView from "./pages/EpkView";
 
@@ -171,6 +173,7 @@ function App() {
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
           <Route path="resources" element={<Resources />} />
+          <Route path="instagram" element={<InstaFollowers />} />
         </Route>
         <Route path="epk" element={<EPK />} />
         <Route path="epkview/:title" element={<EpkView />} />

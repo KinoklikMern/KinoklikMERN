@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import http from "../http-common";
-import { useParams, Link } from "react-router-dom";
-import style from"./EpkView.module.css";
+
+import { useParams } from "react-router-dom";
+import style from "./EpkView.module.css";
 import kikSatr from "../images/Kickstarter-icon.png";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
