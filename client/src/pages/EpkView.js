@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import http from "../http-common";
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import style from "./EpkView.module.css";
 import kikSatr from "../images/Kickstarter-icon.png";
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -50,6 +50,7 @@ function EpkView() {
     const [mediumSynopsis, setMediumSynopsis] = useState([]);
     const [longSynopsis, setLongSynopsis] = useState([]);
     const [uniqueness, setUniqueness] = useState([]);
+    const [followers, setFollowers] = useState({});
 
     let mediumFakeText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"+ 
                           "sed do eiusmod tempor incididunt ut labore et dolore magna"+ 
@@ -77,6 +78,9 @@ function EpkView() {
             setMediumSynopsis(response.data.mediumSynopsis);
             setLongSynopsis(response.data.longSynopsis);
             setUniqueness(response.data.uniqueness);
+            http.get(`/fepks/followers/${response.data._id}`).then((res) =>{
+              setFollowers(res.data);
+            });
         });
      
       }, []);
@@ -228,6 +232,9 @@ function EpkView() {
           <p className={style.date} >Posted:&nbsp;{formatedDate }</p> 
   
         </div>
+        <InstagramIcon style={{color:"red"}} /> {followers.facebook}
+        <FacebookIcon style={{color:"blue"}} /> {followers.instagram}
+        <TwitterIcon style={{color:"lightblue"}} /> {followers.twitter}
        
       </div>
 

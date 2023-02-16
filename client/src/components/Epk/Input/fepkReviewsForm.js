@@ -190,7 +190,7 @@ function ReviewsForm () {
                         />
                         <label for="fileAwardLogo" class="form-label text-dark">
                             {" "}
-                            <h4>Upload Film Festival Awards Logo</h4>
+                            <h4 style={{fontSize:"20px"}}>Upload Film Festival Awards Logo</h4>
                         </label>
                         <input
                             className="form-control form-control-sm"

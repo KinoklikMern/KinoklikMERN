@@ -4,7 +4,8 @@ import {
     getFepks, getFepksByTitle, getFepkbyId, 
     createFepk, updateFepk, uploadFepkFile, deleteFepk, getFepksByFilmmakerId, 
     getFepkLiked, getFepkFavourite, getFepksByUser, getFepkByTitle, uploadFepkFiles, 
-    getFepkSharings, getFepkWishedToBuy, getMediumSynopsis, getLongSynopsis, getUniqueness, getStills} from "../controllers/fepk.js";
+    getFepkSharings, getFepkWishedToBuy, getMediumSynopsis, getLongSynopsis, 
+    getUniqueness, getStills, getFollowers} from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
 const router = express.Router();
@@ -26,6 +27,9 @@ router.get("/byTitle/:title", getFepkByTitle);
 
 // this is for Upload FPK page checks if title already exists
 router.get("/byTitles/:title", getFepksByTitle);
+
+// Calling this route you will get the total count of followers in facebook, instagram and twitter
+router.get("/followers/:id", getFollowers);
 
 // Create FEPK
 router.post("/", createFepk);

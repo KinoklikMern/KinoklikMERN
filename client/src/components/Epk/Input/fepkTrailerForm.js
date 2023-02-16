@@ -129,7 +129,7 @@ function TrailerForm () {
                     <div className="col-2 mt-3">
                       <label for="fileTrailer" class="form-label text-dark">
                         {" "}
-                        <h6>Upload Video</h6>
+                        <h6 style={{fontSize:"20px"}}>Upload Video</h6>
                         </label>
                         <input
                         className="form-control form-control-sm"
