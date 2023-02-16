@@ -25,7 +25,7 @@ import DetailsForm from "./components/Epk/Input/detailsForm";
 import Details from "./components/Epk/Present/details";
 
 import CoverForm from "./components/Epk/Input/coverForm";
-import Cover from "./components/Epk/Present/Cover";
+import Cover from "./components/Epk/Present/Cover1";
 
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
