@@ -3,9 +3,9 @@ import React from "react";
 const Landing3 = () => {
   return (
     <>
-      <div className="landing3 tw-mb-32 tw-h-[45vh] tw-items-center tw-justify-center">
+      <div className="landing3 tw-mb-12 tw-h-[45vh] tw-items-center tw-justify-center">
         <div className="tw-text-center tw-text-5xl tw-font-bold">
-          {" "}
+        
           What is a film EPK?
         </div>
         <div className="tw-mx-32 tw-py-10 tw-text-justify tw-text-2xl lg:tw-pl-40 lg:tw-pr-40">

@@ -17,13 +17,13 @@ export const data = [
         question:
             "What if my film is not finished?",
         answer:
-            "333333333333333333333333333333333333333333333333333. "
+            "Answer coming soon... "
     },
     {
         _id: 4,
         question:
             "What happens after my film is done?",
         answer:
-            "4444444444444444444444444444444444  4444444444444444 44444444444444444 444444444444444444444 4444444444 444 4444 44 4 4 4 44444444444444444. "
+            "Answer coming soon... "
     }
 ];
