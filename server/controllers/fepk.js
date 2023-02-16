@@ -125,6 +125,28 @@ export const getFepksByTitle = async (req, res) => {
   }
 };
 
+// fetch followers of facebook, instagram, and twitter
+export const getFollowers = async (req, res) => {
+  const id = req.params.id;
+    try {
+      const fepkOne = await fepk.findOne({ _id: id })
+      .where("deleted")
+      .equals(false);
+      let facebooks = 0;
+      let instagrams = 0;
+      let twitters = 0;
+      fepkOne.crew.forEach(element => {
+        if(element.facebook_followers){facebooks += parseInt(element.facebook_followers)} 
+        if(element.instagram_followers){instagrams += parseInt(element.instagram_followers)}
+        if(element.twitter_followers){twitters += parseInt(element.twitter_followers)}
+      });
+      //res.status(200).json(fepkOne);
+      res.status(200).json({facebook: facebooks, instagram: instagrams, twitter: twitters});
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+};
+
 // create Fepk
 export const createFepk = async (req, res) => {
   try {

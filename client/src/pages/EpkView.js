@@ -56,6 +56,7 @@ function EpkView() {
     const[stillsImg,setStillsImg]=useState([]);
     const [resources, setResources] = useState([]);
     const [trailer, setTrailer] = useState([]);
+    const [followers, setFollowers] = useState({});
 
     let mediumFakeText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"+ 
                           "sed do eiusmod tempor incididunt ut labore et dolore magna"+ 
@@ -83,10 +84,13 @@ function EpkView() {
             setMediumSynopsis(response.data.mediumSynopsis);
             setLongSynopsis(response.data.longSynopsis);
             setUniqueness(response.data.uniqueness);
-            setStills(response.data.stillsApproval)
-            setStillsImg(response.data.stills)
-            setResources(response.data.resources)
-            setTrailer(response.data.trailer)
+            setStills(response.data.stillsApproval);
+            setStillsImg(response.data.stills);
+            setResources(response.data.resources);
+            setTrailer(response.data.trailer);
+            http.get(`/fepks/followers/${response.data._id}`).then((res) =>{
+              setFollowers(res.data);
+            });
         });
      
       }, []);
@@ -225,8 +229,12 @@ function EpkView() {
           )
       )
       } 
+      <div style={{margin:"100px 20px 0 0", float: "right"}}>
+            <InstagramIcon style={{color:"red"}} /> {followers.facebook}<br/>
+            <FacebookIcon style={{color:"blue"}} /> {followers.instagram}<br/>
+            <TwitterIcon style={{color:"lightblue"}} /> {followers.twitter}
+      </div>
       <div className={style.posterContainer}> 
-
       <div >
       <img 
                  src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_details}`} 
@@ -247,9 +255,7 @@ function EpkView() {
           <p className={style.pre} >{fepkData.status}</p> 
           <p className={style.genre}>{fepkData.genre}</p>
           <p className={style.date} >Posted:&nbsp;{formatedDate }</p> 
-  
         </div>
-       
       </div>
 
       {/* icon-bar section */}
