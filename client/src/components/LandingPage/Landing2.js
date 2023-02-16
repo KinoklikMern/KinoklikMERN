@@ -16,7 +16,7 @@ const Landing2 = () => {
         <div className=" tw-mt-14 tw-grid tw-h-[60vh] tw-grid-cols-3 tw-grid-rows-6 tw-pr-0">
           <div className="tw-pt-8 tw-pl-11 md:tw-ml-24">
             <img
-              className="tw-row-span-1 tw-h-32 tw-object-right tw-pb-16 sm:tw-mr-8 lg:tw-w-44 "
+              className="tw-row-span-1 tw-h-32 tw-object-right tw-pb-16 tw-pr-2 sm:tw-mr-8 lg:tw-w-42 "
               src={starPhoto}
               alt="/"
             />
@@ -27,12 +27,12 @@ const Landing2 = () => {
             alt="/"
           />
           <img
-            className="tw-row-span-2 tw-h-full tw-w-full tw-object-center tw-pt-10 "
+            className="tw-row-span-2 tw-h-full tw-w-full tw-object-center tw-pt-10 tw-pl-2"
             src={comingSoon}
             alt="/"
           />
           <img
-            className="tw-row-span-3 tw-h-1/2 tw-w-full tw-object-cover tw-p-2 tw-pt-8"
+            className="tw-row-span-3 tw-h-1/2 tw-w-full tw-object-cover tw-p-2 tw-pt-2"
             src={avatar2}
             alt="/"
           />

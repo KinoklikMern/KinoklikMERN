@@ -3,7 +3,7 @@ import southPaw from "../../images/movies/SouthPaw.png";
 
 const Landing4 = () => {
   return (
-    <div className="landing4 tw-h-[65vh] tw-items-center tw-justify-center lg:tw-pt-32">
+    <div className="landing4 tw-h-[80vh] tw-items-center tw-justify-center lg:tw-pt-32">
       <div className="tw-text-center tw-text-5xl tw-font-bold">
         Introducing KinoKlik EPK
       </div>

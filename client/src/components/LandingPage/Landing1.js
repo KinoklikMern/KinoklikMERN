@@ -69,9 +69,9 @@ const Landing1 = () => {
               </div>
             </div>
           </div>
-          <div className="tw-relative tw-ml-20 tw-hidden tw-bg-TvImage tw-bg-cover  tw-bg-no-repeat tw-p-10  lg:tw-block 2xl:tw-col-span-3 ">
+          <div className="tw-relative tw-ml-20 tw-hidden tw-bg-TvImage tw-bg-cover  tw-bg-no-repeat tw-pl-10 tw-pr-10   lg:tw-block 2xl:tw-col-span-3 ">
             <img
-              className="  tw-mx-1 tw-h-full tw-object-cover tw-object-center tw-px-8  tw-pt-0 lg:tw-p-20 "
+              className="  tw-mx-1 tw-h-[105%] tw-object-cover tw-object-center tw-px-8   lg:tw-pr-24 lg:tw-pl-20 lg:tw-pb-16 lg:tw-pt-4"
               src={moviesPhoto}
               alt="Movies"
             />
