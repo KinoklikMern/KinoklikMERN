@@ -29,8 +29,11 @@ function FepkDetailsForm () {
     biography: "",
     image: "",
     facebook_url: "",
+    facebook_followers: "",
     instagram_url: "",
+    instagram_followers: "",
     twitter_url: "",
+    twitter_followers: "",
     film_maker: filmmaker_id
   };
 
@@ -139,8 +142,11 @@ function FepkDetailsForm () {
     biography: "",
     image: "",
     facebook_url: "",
+    facebook_followers: "",
     instagram_url: "",
-    twitter_url: ""
+    instagram_followers: "",
+    twitter_url: "",
+    twitter_followers: ""
   });
 
   function deleteFromCrewList(deletedCrew){
@@ -158,8 +164,11 @@ function FepkDetailsForm () {
         crewData.biography !== "" &&
         crewData.image !== "" &&
         crewData.facebook_url !== "" &&
+        crewData.facebook_followers !== "" &&
         crewData.instagram_url !== "" &&
-        crewData.twitter_url !== ""
+        crewData.instagram_followers !== "" &&
+        crewData.twitter_url !== "" &&
+        crewData.twitter_followers !== ""
     )
     {
       crewList.push(crewData);
@@ -200,8 +209,11 @@ function FepkDetailsForm () {
                 biography: "",
                 image: "",
                 facebook_url: "",
+                facebook_followers: "",
                 instagram_url: "",
-                twitter_url: ""
+                instagram_followers: "",
+                twitter_url: "",
+                twitter_followers: ""
               });
               console.log(crewData);
             }
@@ -236,8 +248,11 @@ function FepkDetailsForm () {
       biography: crew.biography,
       image: crew.image,
       facebook_url: crew.facebook_url,
+      facebook_followers: crew.facebook_followers,
       instagram_url: crew.instagram_url,
-      twitter_url: crew.twitter_url
+      instagram_followers: crew.instagram_followers,
+      twitter_url: crew.twitter_url,
+      twitter_followers: crew.twitter_followers
     });
     setFilteredData([]);
   };
@@ -400,7 +415,7 @@ function FepkDetailsForm () {
                     </div>
                         <label for="filePoster" class="form-label text-dark">
                          {" "}
-                          <h6>Upload Poster</h6>
+                          <h6 style={{fontSize:"20px"}}>Upload Poster</h6>
                         </label>
                         <input
                           className="form-control form-control-sm"
@@ -417,7 +432,7 @@ function FepkDetailsForm () {
                         <hr/>
                         <label for="filePoster" class="form-label text-dark">
                          {" "}
-                          <h6>Upload Crew Image</h6>
+                          <h6 style={{fontSize:"20px"}}>Upload Crew Image</h6>
                         </label>
                         <input
                           className="form-control form-control-sm"
@@ -469,16 +484,16 @@ function FepkDetailsForm () {
                           >
                             {filteredData.map((crewObj) => {
                               return ( 
-                                  <p style={{fontSize:"12px", padding: "5px", margin:"0px"}} onClick={() => addToCrewData(crewObj)}>
+                                  <p style={{fontSize:"10px", padding: "5px", margin:"0px"}} onClick={() => addToCrewData(crewObj)}>
                                     {crewObj.image === "" ?
                                     (
                                       <FontAwesomeIcon icon={faUser} style={{height: "27px", marginRight: "10px"}}/>
                                     ) :
                                     (
-                                      <img src={`${process.env.REACT_APP_AWS_URL}/${crewObj.image}`} style={{width:"25px", height:"auto", marginRight: "10px"}}/>
+                                      <img src={`${process.env.REACT_APP_AWS_URL}/${crewObj.image}`} style={{width:"20px", height:"auto", marginRight: "10px"}}/>
                                     )
-                                    } 
-                                      {crewObj.name}
+                                    }
+                                    {crewObj.name}
                                   </p>
                               );
                             })}
@@ -550,55 +565,123 @@ function FepkDetailsForm () {
                         onChange={handleCrewChange}
                         name="biography"
                     />
-                    <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={crewData.facebook_url}
-                        placeholder="Facebook"
-                        onChange={handleCrewChange}
-                        name="facebook_url"
-                    />
-                    <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={crewData.instagram_url}
-                        placeholder="Instagram"
-                        onChange={handleCrewChange}
-                        name="instagram_url"
-                    />
-                    <input
-                        style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                        fontSize: "14px"
-                        }}
-                        className="form-control m-10"
-                        defaultValue={crewData.twitter_url}
-                        placeholder="Twitter"
-                        onChange={handleCrewChange}
-                        name="twitter_url"
-                    />
-
+                    <div className="row">
+                      <div className="col-7">
+                        <input
+                          style={{ 
+                          height: "30px", 
+                          width: "100%", 
+                          borderRadius: "5px", 
+                          marginBottom: "5px",
+                          boxShadow: '1px 2px 9px #311465',
+                          textAlign: 'left',
+                          fontSize: "14px"
+                          }}
+                          className="form-control m-10"
+                          defaultValue={crewData.facebook_url}
+                          placeholder="Facebook"
+                          onChange={handleCrewChange}
+                          name="facebook_url"
+                        />
+                      </div>
+                      <div className="col-5">
+                        <input
+                          style={{ 
+                          height: "30px", 
+                          width: "100%", 
+                          borderRadius: "5px", 
+                          marginBottom: "5px",
+                          boxShadow: '1px 2px 9px #311465',
+                          textAlign: 'left',
+                          fontSize: "9px"
+                          }}
+                          type="number" min="0"
+                          className="form-control m-10"
+                          defaultValue={crewData.facebook_followers}
+                          placeholder=""
+                          onChange={handleCrewChange}
+                          name="facebook_followers"
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-7">
+                        <input
+                          style={{ 
+                          height: "30px", 
+                          width: "100%", 
+                          borderRadius: "5px", 
+                          marginBottom: "5px",
+                          boxShadow: '1px 2px 9px #311465',
+                          textAlign: 'left',
+                          fontSize: "14px"
+                          }}
+                          className="form-control m-10"
+                          defaultValue={crewData.instagram_url}
+                          placeholder="Instagram"
+                          onChange={handleCrewChange}
+                          name="instagram_url"
+                        />
+                      </div>
+                      <div className="col-5">
+                        <input
+                            style={{ 
+                            height: "30px", 
+                            width: "100%", 
+                            borderRadius: "5px", 
+                            marginBottom: "5px",
+                            boxShadow: '1px 2px 9px #311465',
+                            textAlign: 'left',
+                            fontSize: "9px"
+                            }}
+                            type="number" min="0"
+                            className="form-control m-10"
+                            defaultValue={crewData.instagram_followers}
+                            placeholder=""
+                            onChange={handleCrewChange}
+                            name="instagram_followers"
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-7">
+                        <input
+                          style={{ 
+                          height: "30px", 
+                          width: "100%", 
+                          borderRadius: "5px", 
+                          marginBottom: "5px",
+                          boxShadow: '1px 2px 9px #311465',
+                          textAlign: 'left',
+                          fontSize: "14px"
+                          }}
+                          className="form-control m-10"
+                          defaultValue={crewData.twitter_url}
+                          placeholder="Twitter"
+                          onChange={handleCrewChange}
+                          name="twitter_url"
+                        />
+                      </div>
+                      <div className="col-5">
+                        <input
+                              style={{ 
+                              height: "30px", 
+                              width: "100%", 
+                              borderRadius: "5px", 
+                              marginBottom: "5px",
+                              boxShadow: '1px 2px 9px #311465',
+                              textAlign: 'left',
+                              fontSize: "9px"
+                              }}
+                              type="number" min="0"
+                              className="form-control m-10"
+                              defaultValue={crewData.twitter_followers}
+                              placeholder=""
+                              onChange={handleCrewChange}
+                              name="twitter_followers"
+                          />
+                      </div>
+                    </div>
                       {disabledAdd===true ? 
                       (
                       <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "115px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
@@ -612,7 +695,7 @@ function FepkDetailsForm () {
                       )}
                 </div>
                 <div className="col-5 mt-2" style={{overflow: "auto", height:"440px", scrollbarWidth:"none"}}>
-                  <table className="table table-striped table-bordered"  style={{fontSize:"10px"}}>
+                  <table className="table table-striped table-bordered"  style={{fontSize:"9px"}}>
                     <thead className="thead-dark">
                       <tr>
                           <th>NAME</th>
@@ -633,9 +716,9 @@ function FepkDetailsForm () {
                             <td>
                                 <img src={`${process.env.REACT_APP_AWS_URL}/${crew.image}`} style={{height:"15px", width:"auto"}}/>
                             </td>
-                            <td><a href={crew.facebook_url} target="_blank">link</a></td>
-                            <td><a href={crew.instagram_url} target="_blank">link</a></td>
-                            <td><a href={crew.twitter_url} target="_blank">link</a></td>
+                            <td><a href={crew.facebook_url} target="_blank">{crew.facebook_followers}</a></td>
+                            <td><a href={crew.instagram_url} target="_blank">{crew.instagram_followers}</a></td>
+                            <td><a href={crew.twitter_url} target="_blank">{crew.twitter_followers}</a></td>
                             <td style={{textAlign: "center"}} onClick={() => deleteFromCrewList(crew)}><FontAwesomeIcon icon={faTrashCan} /></td>
                           </tr>
                         );

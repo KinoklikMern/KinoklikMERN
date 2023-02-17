@@ -69,8 +69,11 @@ const fepkSchema = mongoose.Schema({
       biography:{type: String},
       image: {type: String},
       facebook_url: {type: String},
+      facebook_followers: {type: String},
       instagram_url: {type: String},
-      twitter_url: {type: String}
+      instagram_followers: {type: String},
+      twitter_url: {type: String},
+      twitter_followers: {type: String}
     }
   ],
   
@@ -78,10 +81,6 @@ const fepkSchema = mongoose.Schema({
   stills: [
     {
         image: {type: String},
-        status :{
-          type: String,
-          enum: ['pending', 'approved', 'refused']
-        }
     }
   ],
 
@@ -169,6 +168,20 @@ const fepkSchema = mongoose.Schema({
 
   // Uniqueness approval
   uniqueness: [
+    {
+      user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      status :{
+        type: String,
+        enum: ['pending', 'approved', 'refused']
+      }
+    }
+  ],
+
+  // Stills approval
+  stillsApproval: [
     {
       user:{
         type: mongoose.Schema.Types.ObjectId,
