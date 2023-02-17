@@ -175,7 +175,7 @@ function StillsForm () {
                             return (
                             <tr>
                                 <td>
-                                    <img src={`https://kinomovie.s3.amazonaws.com/${still.image}`} style={{height:"60px", width:"auto"}}/>
+                                    <img src={`${process.env.REACT_APP_AWS_URL}/${still.image}`} style={{height:"60px", width:"auto"}}/>
                                 </td>
                                 <td style={{textAlign: "center"}} onClick={() => deleteFromStillsList(still)}><FontAwesomeIcon icon={faTrashCan} /></td>
                             </tr>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate, Route, Link, Routes } from "react-router-dom";
+import './styles/tailwind.css'
 import MainLayout from "./layouts/MainLayout";
 import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
@@ -7,6 +8,10 @@ import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import LoginForm from "./components/Auth/Registration/loginform";
 import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
+//import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
+
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
@@ -22,7 +27,7 @@ import DetailsForm from "./components/Epk/Input/detailsForm";
 import Details from "./components/Epk/Present/details";
 
 import CoverForm from "./components/Epk/Input/coverForm";
-import Cover from "./components/Epk/Present/cover";
+import Cover from "./components/Epk/Present/Cover";
 
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";

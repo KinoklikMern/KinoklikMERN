@@ -1,6 +1,17 @@
 import epk from "../models/epk.js";
 import Movie from "../models/movie.js";
 
+// edit by Tony /////////////////////////////////////
+export const getMyEpks = async (req, res) => {
+  try {
+    const myEpks = await epk.find();
+    res.status(200).json(myEpks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+// end //////////////////////////////////////////////
+
 export const getEpk = async (req, res) => {
   const title = req.body.title;
   try {

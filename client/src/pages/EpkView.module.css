@@ -1,8 +1,8 @@
-*{
+/* *{
     margin:0; 
     padding:0;
    
- }
+ } */
  .wholeContainer{
    font-size: 62.5%;  
    font-weight: 400;
@@ -16,9 +16,11 @@
    
    background-repeat: none;
    width:100%;
-   
    background-size: cover;
    background-position: top;
+   /* background-size: 100%, auto; */
+ 
+
  }
 
  
@@ -30,8 +32,8 @@
  }
  
  .img {
-   width: 70%;
-   height: 60vh;
+   width: 100%;
+   height: auto;
    border-radius: 4rem;
    box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
  }
@@ -106,11 +108,11 @@
  }
  
  /* Change the color of links on hover */
-  a:hover {
+  .iconContainer a:hover {
    background-color: #a263da;
    color: black;
  }
- a:active {
+ .iconContainer a:active {
    color: white;
  }
  
@@ -134,8 +136,15 @@
 
 .imgDetail {
   height: 60vh;
-  width:30vw;
+  width:25vw;
   border-radius: 4rem;
+}
+.imgProfile{
+  float: "right"; 
+  width:"40px";
+  height:"40px";
+  margin: "10px";
+  border-radius: "50%";
 }
 
 .el2 {
@@ -168,6 +177,245 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* synopsis section */
+
+.synopsis{
+  max-width: 130rem;
+  margin: 0 auto;
+  margin-top:.5rem;
+  position: relative;
+  /* border-top: 1.5rem solid rgb(23, 11, 59); */
+}
+
+.position{
+  position: absolute;
+  top: 4rem;
+  right: 7rem;
+}
+
+.position1{
+  position: absolute;
+  top: 207rem;
+  right: 7rem;
+}
+
+.content{
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.content1{
+  filter: blur(8px)
+}
+
+.type{
+  font-size:1.8rem;
+  font-weight: 600;
+  color:#fff;
+  text-align: center;
+  background-color: rgb(23, 11, 59);
+  padding:.5rem;
+}
+
+.btnSy{
+  position: absolute;
+  top:3rem;
+  transform: translate(-50%, 10%);
+  width: 10rem;
+  height: auto;
+  font-size:1rem;
+  border-radius: 2rem;
+  
+  z-index: 2;
+}
+.imgSynopsis{
+  height:60vh;
+  width:80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text{
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.none{
+  display: none;
+}
+
+/* uniqueness section */
+.unique{
+  border-top: 1.5rem solid rgb(23, 11, 59);
+  margin-top: .5rem;
+}
+.titleUnique {
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: #000;
+  margin-top: 2rem;
+  text-align: center;
+}
+.uniqueContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin:2rem 3rem;
+  padding:2rem;
+  
+  gap: 10rem;
+}
+.imgUnique {
+  height:40vh;
+  width:30vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.textUnique {
+  font-size: 2.4rem;
+  color: #000;
+}
+
+.starring{
+  border-top: 1.5rem solid rgb(23, 11, 59);
+  margin-top: 4rem;
+  text-align: center;
+  margin-left:3rem;
+  margin-right:3rem;
+
+}
+
+/* starring/cast section */
+
+.starTitle {
+  font-size: 3.6rem;
+  color: #000;
+  margin-top: 2rem;
+  font-weight: 700;
+}
+.starcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rem;
+  padding: 3rem 3rem;
+
+}
+
+h1 {
+  color: rgb(23, 11, 59);
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+.biography {
+  color: rgb(23, 11, 59);
+  font-size: 2.4rem;
+  line-height: 1.5;
+  
+}
+.starimg {
+  width: 15vw;
+  height: auto;
+  border-radius: 2rem;
+  box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
+}
+
+/* Director/proudcer section */
+.directorcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #170b3b;
+  gap: 20rem;
+  padding: 3rem 3rem;
+}
+.producerimg {
+  width: 15vw;
+  height: auto;
+  border-radius: 2rem;
+  box-shadow: 3px 3px rgb(237, 235, 240);
+}
+
+.left {
+  justify-self: center;
+  align-self: center;
+}
+.right {
+  align-self: flex-start;
+  justify-self: center;
+}
+ .left h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 1.8rem;
+  text-align: center;
+}
+.right p {
+  color: white;
+  font-size: 2.4rem;
+  line-height: 1.5;
+}
+.right h3{
+  text-align: center;
+  font-size: 3.6rem;
+}
+
+/* resources section */
+
+.resourcesCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #d2ccd6;
+  border-radius: 25px;
+  gap: 10rem;
+  padding:2rem;
+}
+.imgResource {
+  width: 35rem;
+  height: 30rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.3rem;
+  padding: 4rem;
+  
+}
+.textResource {
+  color: rgb(23, 11, 59);
+  font-size: 2.4rem;
+  text-align: center;
+  margin: 2rem 3rem;
+  align-self: flex-start;
+}
+
+.textResource h1{
+  font-size: 3.6rem;
+}
+
+/* trailer section */
+
+video {
+  width: 60%;
+  height: 30%;
+  margin-bottom: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2rem;
+}
+
+
+
+
+
+
+
+
 
 
 

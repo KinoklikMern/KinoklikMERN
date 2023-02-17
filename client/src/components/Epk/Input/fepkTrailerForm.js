@@ -129,7 +129,7 @@ function TrailerForm () {
                     <div className="col-2 mt-3">
                       <label for="fileTrailer" class="form-label text-dark">
                         {" "}
-                        <h6>Upload Video</h6>
+                        <h6 style={{fontSize:"20px"}}>Upload Video</h6>
                         </label>
                         <input
                         className="form-control form-control-sm"
@@ -143,7 +143,7 @@ function TrailerForm () {
                         />
                     </div>
                     <div className="col-9 mt-3" style={{textAlign: "center"}}>
-                        <video src={`https://kinomovie.s3.amazonaws.com/${fepk.trailer}`} width="100%" height="400px" controls>
+                        <video src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer}`} width="100%" height="400px" controls>
                         </video>
                     </div>
                     <div className="col-1">
