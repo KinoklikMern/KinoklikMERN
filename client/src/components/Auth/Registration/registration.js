@@ -101,12 +101,6 @@ function RegistrationForm() {
         <div className={SignupCss.form}>
           <div className={SignupCss.form_body}>
             <div className={SignupCss.form_input1}>
-              {/* <label className="form__label">Role </label> */}
-              {/* <select value={role} onChange={(e) => setRole(e.target.value)}>
-                {options.map((option) => (
-                  <option value={option.value}>{option.label}</option>
-                ))}
-              </select> */}
               <div className={SignupCss.form_input1}>
                 {options.map((option) => (
                   <button
@@ -182,11 +176,13 @@ function RegistrationForm() {
               />
             </div>
           </div>
-          <br />
-          <br />
-          <p>
+          
+          <p className={SignupCss.link}>
             already signed up? <Link to="/login">Login</Link>
           </p>
+          <br />
+          <br />
+          
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}
           <button

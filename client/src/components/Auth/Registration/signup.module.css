@@ -10,7 +10,7 @@ link for registration is /signup */
     margin:0 auto;
     background-repeat: none;
     background-size: cover;
-    background-position: center;
+    background-position: bottom center;;
     background: linear-gradient(rgba(238, 238, 238, 0.823), rgba(219, 219, 222, 0.856)), url(../../../images/login/VIP.png);
 }
 
@@ -114,7 +114,8 @@ background: white;
     font-weight: 400;
    text-align: center;
    color: #712CB0;
-   
+   padding: 100px;
+ 
 }
 
 
