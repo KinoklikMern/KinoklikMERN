@@ -91,7 +91,10 @@ background: white;
     color: white;
    
 }
-
+.selected {
+    background-color:#712CB0;
+    color: white;
+}
 
 
 

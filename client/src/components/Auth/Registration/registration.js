@@ -107,13 +107,16 @@ function RegistrationForm() {
                   <option value={option.value}>{option.label}</option>
                 ))}
               </select> */}
-              <div
-                className={SignupCss.form_input1}
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-              >
+              <div className={SignupCss.form_input1}>
                 {options.map((option) => (
-                  <button className={SignupCss.btn1} value={option.value}>
+                  <button
+                    key={option.value}
+                    className={`${SignupCss.btn1} ${
+                      role === option.value ? SignupCss.selected : ""
+                    }`}
+                    value={option.value}
+                    onClick={(e) => setRole(e.target.value)}
+                  >
                     {option.label}
                   </button>
                 ))}
