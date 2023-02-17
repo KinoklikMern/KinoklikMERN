@@ -56,7 +56,13 @@ export default function Filmmaker() {
             <div class="sidebar-rightcontainer">
               <div class="item Dashboard">
                 <h1>Filmmaker Dashboard</h1>
-                <h1> <Link to="/uploadFepk" class="icon-plus"> <FontAwesomeIcon icon={faPlus} /> </Link></h1>
+
+                <Link to="/uploadFepk"> 
+                  <Button> 
+                    Create New Film EPK
+                  </Button>
+                  <br /><br />
+                </Link>
                 
                 { (!epkList) ? ( () => (    
                   <div>
@@ -67,9 +73,9 @@ export default function Filmmaker() {
                   </div>
                 )) : null }
 
-                <div class="row row-cols-md-3 g-5">
+                <div class="row g-5">
                   {epkList.map((epk) => (
-                    <div class="col">
+                    <div class="col-4">
                       <Link to={`/filmMakerSelectedEpk?id=${epk._id}`} class="links">
                         <div class="card movie-card">
                         
@@ -95,10 +101,6 @@ export default function Filmmaker() {
                       </Link>
                     </div>
                   ))}
-                </div>
-
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser}/> 
                 </div>
               </div>  
             </div>
