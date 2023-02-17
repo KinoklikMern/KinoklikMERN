@@ -10,7 +10,7 @@ import LoginForm from "./components/Auth/Registration/loginform";
 import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 //import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 
-import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import filmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
