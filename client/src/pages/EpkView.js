@@ -33,28 +33,24 @@ import {
   TwitterIcon
 } from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 
 function EpkView() {
     let { title } = useParams();
-    let user;
-    try{
-      user = JSON.parse(Cookies.get('user'));
-    }catch{
-      user = null;
-    }
+
+    // fetching user details from local storage
+    const user = JSON.parse(localStorage.getItem("persist:root")).user; 
+    console.log(user);
     let userId;
     let userRole;
-    let userPicture;
-    if(!user){
-      userId = "0"; 
-      userPicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-      userRole = "noUser";
+  
+    if(user !== "null"){
+      userId = JSON.parse(user).id; 
+      userRole = JSON.parse(user).role;
     }
     else{
-      userId = user.id; 
-      userPicture = user.picture;
-      userRole = user.role;
+      userId = "0"; 
+      userRole = "noUser";
     }
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
