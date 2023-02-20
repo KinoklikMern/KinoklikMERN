@@ -37,8 +37,8 @@ import Cover from "./components/Epk/Present/Cover";
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
 
-import { ThemeProvider } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import UserDashboard from "./pages/UserDashboard";
 
 import { getMovies } from "./actions/movies";

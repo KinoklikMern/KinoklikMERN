@@ -5,7 +5,7 @@ import {
   Typography,
   Paper,
   Container,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Stack } from "@mui/material";
 
 import UploadFileIcon from "@mui/icons-material/UploadFile";

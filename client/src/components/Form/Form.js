@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Paper } from '@material-ui/core'
+import { TextField, Button, Typography, Paper } from '@mui/material'
 import useStyles from './styles';
 import FileBase from 'react-file-base64'
 
