@@ -30,7 +30,7 @@ import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { Link, NavLink } from 'react-router-dom';
 //import 'bootstrap/dist/css/bootstrap.min.css';
-//import './filmMakerDashboard.scss'
+import './filmMakerDashboard.scss'
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
 
 export default function Filmmaker() {
