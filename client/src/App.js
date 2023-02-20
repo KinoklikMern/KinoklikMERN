@@ -21,8 +21,6 @@ import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMaker
 import FilmMakerDashboardSecurityAccount from "./components/FilmMaker/filmMakerDashboardSecurityAccount";
 import FilmMakerDashboardSecurityProfile from "./components/FilmMaker/filmMakerDashboardSecurityProfile";
 import FilmMakerMovies from "./components/FilmMaker/filmMakerMovies";
-import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotifications";
-import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
 import Bookmark from "./pages/Bookmark";
 
 import ForFilmMakers from "./components/ForFilmMakers";
@@ -75,7 +73,6 @@ import Producer from "./components/Epk/Present/producer";
 
 import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
-import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
@@ -108,11 +105,6 @@ function App() {
             element={<FilmMakerSelectedFilm />}
           />
           <Route path="filmMakerMovies" element={<FilmMakerMovies />} />
-          <Route
-            path="filmMakerNotifications"
-            element={<FilmMakerNotifications />}
-          />
-          <Route path="filmMakerConnect" element={<FilmMakerConnect />} />
           <Route
             path="filmMakerDashboardSecurity"
             element={<FilmMakerDashboardSecurity />}
@@ -177,7 +169,6 @@ function App() {
           <Route path="uploadEpk" element={<EpkDashboard />} />
           <Route path="uploadFepk" element={<FepkUploadDashboard />} />
           <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
-          <Route path="trailerForm" element={<TrailerForm />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
           <Route path="resources" element={<Resources />} />
