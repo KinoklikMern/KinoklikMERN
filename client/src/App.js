@@ -38,7 +38,7 @@ import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
 
 import { ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+//import { createTheme } from "@mui/styles";
 import UserDashboard from "./pages/UserDashboard";
 
 import { getMovies } from "./actions/movies";
@@ -82,17 +82,17 @@ import FepkEditDashboard from "./pages/FepkEditDashboard";
 
 import EpkView from "./pages/EpkView";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#591398",
-    },
-  },
-});
+// const theme = createTheme({
+//   palette: {
+//     primary: {
+//       main: "#591398",
+//     },
+//   },
+// });
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    //<ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
@@ -186,7 +186,7 @@ function App() {
         <Route path="epkview/:title" element={<EpkView />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </ThemeProvider>
+    //</ThemeProvider>
   );
 }
 
