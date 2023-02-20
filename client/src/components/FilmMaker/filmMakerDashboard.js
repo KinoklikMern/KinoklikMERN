@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
-import React from "react";
+import React, { useState } from "react";
+import http from "../http-common";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,7 +33,24 @@ import movie2 from "../../images/movies/movie2.jpeg";
 import movie5 from "../../images/movies/movie5.jpg";
 import FilmmakerSideBar from "./filmMakerSideBar";
 
+
 export default function Filmmaker() {
+  const [fepkData, setFepkData] = useState({});
+
+  useEffect(() => {
+    http.get(`/fepks/byTitle/${title}`).then((response) =>{
+        setFepkData(response.data); 
+
+    });
+ 
+  }, []);
+
+
+
+
+
+
+
   return (
     <div class="filmmakerdash-container container-fluid">
       <div class="sidebar-container">

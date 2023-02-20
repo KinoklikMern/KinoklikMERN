@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import EpkCover from "../components/Epk/Present/Cover";
+import EpkCover from "../components/Epk/Present/cover";
 import Details from "../components/Epk/Present/details";
 import Logline from "../components/Epk/Present/logline";
 import Synopsis from "../components/Epk/Present/synopsis";

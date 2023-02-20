@@ -1,3 +1,6 @@
+import http from "../../http-common";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -23,9 +26,23 @@ import movie6 from "../../images/movies/movie6.jpg";
 import movie2 from "../../images/movies/movie2.jpeg";
 import movie5 from "../../images/movies/movie5.jpg";
 
-import { Link, NavLink } from "react-router-dom";
+
 import FilmmakerSideBar from "./filmMakerSideBar";
 export default function FilmmakerMovies() {
+  let { title } = useParams();
+  const [fepkData, setFepkData] = useState({});
+
+  useEffect(() => {
+    http.get(`/fepks/byTitle/${title}`).then((response) =>{
+        setFepkData(response.data); 
+
+    });
+ 
+  }, []);
+
+
+
+
   return (
     <div class="filmmakerdash-container container-fluid">
       <div class="sidebar-container">
@@ -41,6 +58,13 @@ export default function FilmmakerMovies() {
               <div class="item Dashboard">
                 <h1>Filmmaker Dashboard</h1>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
+                  {fepkData.map((fepkData) => {
+                    return (
+                      <>
+                        {fepkData.image_details}
+                      </>
+                    );
+                  })}
                   <div class="col">
                     <Link to="/filmMakerSelectedMovie" class="links">
                       <div class="card movie-card">
