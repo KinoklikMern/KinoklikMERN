@@ -77,6 +77,7 @@ import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
+import TestApproval from "./pages/TestApproval";
 
 import EpkView from "./pages/EpkView";
 
@@ -182,6 +183,7 @@ function App() {
         </Route>
         <Route path="epk" element={<EPK />} />
         <Route path="epkview/:title" element={<EpkView />} />
+        <Route path="approvals/:fepkId" element={<TestApproval />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
