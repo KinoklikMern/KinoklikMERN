@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import http from "../http-common";
-
+import Navbar from"../components/navbar/Navbar";
 import { useParams, Link } from "react-router-dom";
 import style from "./EpkView.module.css";
 import kikSatr from "../images/Kickstarter-icon.png";
 import InstagramIcon from '@mui/icons-material/Instagram';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcons from '@mui/icons-material/Facebook';
+import TwitterIcons from '@mui/icons-material/Twitter';
 import Footer from"../components/Footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,29 +20,37 @@ import {
   faEnvelope
   
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  EmailShareButton,
+  EmailIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  RedditShareButton,
+  RedditIcon,
+  TwitterShareButton,
+  TwitterIcon
+} from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 
 function EpkView() {
     let { title } = useParams();
-    let user;
-    try{
-      user = JSON.parse(Cookies.get('user'));
-    }catch{
-      user = null;
-    }
+
+    // fetching user details from local storage
+    const user = JSON.parse(localStorage.getItem("persist:root")).user; 
+    console.log(user);
     let userId;
     let userRole;
-    let userPicture;
-    if(!user){
-      userId = "0"; 
-      userPicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-      userRole = "noUser";
+  
+    if(user !== "null"){
+      userId = JSON.parse(user).id; 
+      userRole = JSON.parse(user).role;
     }
     else{
-      userId = user.id; 
-      userPicture = user.picture;
-      userRole = user.role;
+      userId = "0"; 
+      userRole = "noUser";
     }
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
@@ -57,6 +65,9 @@ function EpkView() {
     const [resources, setResources] = useState([]);
     const [trailer, setTrailer] = useState([]);
     const [followers, setFollowers] = useState({});
+    const [reviews, setReviews] = useState([]);
+    const [sharingClicked, setSharingClicked] = useState(false);
+    const urlShare = "https://www.google.com"; ///window.location.href
 
     let mediumFakeText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"+ 
                           "sed do eiusmod tempor incididunt ut labore et dolore magna"+ 
@@ -88,6 +99,7 @@ function EpkView() {
             setStillsImg(response.data.stills);
             setResources(response.data.resources);
             setTrailer(response.data.trailer);
+            setReviews(response.data.reviews);
             http.get(`/fepks/followers/${response.data._id}`).then((res) =>{
               setFollowers(res.data);
             });
@@ -147,9 +159,11 @@ function EpkView() {
       // user is added to the list of sharings
       function addUserToSharings(){
         http.get(`fepks/sharing/${fepkData._id}/${userId}`);
-        /*
-          here will be the code for sharing 
-        */
+        setSharingClicked(true);
+      }
+
+      function closeSharingMenu(){
+        setSharingClicked(false);
       }
 
       function openUrl(url){
@@ -192,11 +206,13 @@ function EpkView() {
       }
 
   return (
-
-  <div className={style.wholeContainer} >
+    <>
+ 
+  <div className={style.wholeContainer} > 
+  <Navbar/>
     <div className={style.hero} style={{backgroundImage: `url(https://kinomovie.s3.amazonaws.com/${fepkData.banner_url})`}}> 
 
-      {/* Profile Picture */}
+      {/* Profile Picture
       {userRole === "FILM_MAKER" ?
       (<Link  to="/filmMakerDashboard"> <img src={userPicture} alt="user" 
                                                               style={{float: "right", 
@@ -228,19 +244,15 @@ function EpkView() {
             </Link>
           )
       )
-      } 
-      <div style={{margin:"100px 20px 0 0", float: "right"}}>
-            <InstagramIcon style={{color:"red"}} /> {followers.facebook}<br/>
-            <FacebookIcon style={{color:"blue"}} /> {followers.instagram}<br/>
-            <TwitterIcon style={{color:"lightblue"}} /> {followers.twitter}
-      </div>
+      }  */}
+    
       <div className={style.posterContainer}> 
       <div >
       <img 
                  src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_details}`} 
                 
                 alt="poster"  
-                className={style.img}      
+                className={style.imgPoster}      
                 ></img>
       </div>
         <div className={style.description}>
@@ -251,12 +263,31 @@ function EpkView() {
 
         {/* corner section */}
         
-        <div className={style.flexContainer}>
+        < div className={style.flexContainer}>
+          <div className={style.textLeft}>
           <p className={style.pre} >{fepkData.status}</p> 
           <p className={style.genre}>{fepkData.genre}</p>
           <p className={style.date} >Posted:&nbsp;{formatedDate }</p> 
+          </div>
+          
+          <div>
+            <p className={style.cornerText}>Total Audience Reach</p>
+          </div>
+          <div>
+           <h2 style={{color:"pink"}}> <InstagramIcon style={{color:"pink",fontSize:40}} /> {followers.facebook}</h2>
+            </div>
+            <div>
+            <h2 style={{color:"blue"}}><FacebookIcons style={{color:"blue",fontSize:40}} /> {followers.instagram}</h2>
+            </div>
+            <div>
+            <h2 style={{color:"lightblue"}}><TwitterIcons style={{color:"lightblue",fontSize:40}}/> {followers.twitter}</h2>
+            </div>
+      
+          </div>
         </div>
-      </div>
+
+
+      
 
       {/* icon-bar section */}
 
@@ -269,7 +300,7 @@ function EpkView() {
             (<FontAwesomeIcon icon={faDollarSign} size ="lg" onClick={() => addUserToWishesToBuy()}/>)
             }
             </a>
-            <span style={{fontSize:"15px"}}>{usersWishesToBuy}</span>
+            <span>{usersWishesToBuy}</span>
           </div>
           <div >
             <a  href="#">
@@ -279,7 +310,7 @@ function EpkView() {
             }
               {/* <img className="icon" src={plusIcon} alt="save" /> */}
             </a>
-            <span style={{fontSize:"15px"}}>{usersFavourites}</span>
+            <span>{usersFavourites}</span>
           </div>
           <div >
             <a  href="#">
@@ -288,13 +319,7 @@ function EpkView() {
             (<FontAwesomeIcon icon={faStar} size ="lg" onClick={() => addUserToLikes()}/>)
             }
             </a>
-            <span style={{fontSize:"15px"}}>{usersLikes}</span>
-          </div>
-          <div >
-            <a  href="#">
-            <FontAwesomeIcon icon={faSave} size ="lg" />
-              {/* <img className={style.icon} src={saveIcon} alt="save" /> */}
-            </a>
+            <span>{usersLikes}</span>
           </div>
           
           <div >
@@ -303,27 +328,44 @@ function EpkView() {
             </a>
           </div>
           <div >
+            {/* Social media sharing Icons */}
+            {sharingClicked === true &&
+                <div style={{float:"left", margin:"5px 5px 0 0"}} onClick={() => closeSharingMenu()}>
+                  <FacebookShareButton url={urlShare}>
+                    <FacebookIcon size={30} round={true} style={{marginRight:"5px"}}/>
+                  </FacebookShareButton>  
+                  <LinkedinShareButton url={urlShare}>
+                    <LinkedinIcon size={30} round={true} style={{marginRight:"5px"}}/>
+                  </LinkedinShareButton>
+                  <TwitterShareButton url={urlShare}>
+                    <TwitterIcon size={30} round={true} style={{marginRight:"5px"}}/> 
+                  </TwitterShareButton>
+                  <RedditShareButton url={urlShare}>
+                    <RedditIcon size={30} round={true} style={{marginRight:"5px"}}/> 
+                  </RedditShareButton>
+                  <EmailShareButton url={urlShare}>
+                    <EmailIcon size={30} round={true} /> 
+                  </EmailShareButton>
+                </div>
+            }    
             <a  href="#">
-            <FontAwesomeIcon icon={faShareAlt} size ="lg" onClick={() => addUserToSharings()}/>
+            <FontAwesomeIcon icon={faShareAlt} size ="lg" onMouseOver={() => addUserToSharings()} onClick={() => closeSharingMenu()}/>
              
             </a>
           </div>
-
-       
       </div>
-
       <Login />
 
        {/* details section */}
 
         <div className={style.detailContainer}> 
-            <div className={style.el1}>
+            <div>
               <img 
                 src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_details}`}  alt="poster"
                 className={style.imgDetail}
-                ></img>
+                />
             </div>
-            <div className={style.el2}>
+            <div className={style.middle}>
                 {crewList.map((crewObj) => {
                   return ( 
                     <>
@@ -354,7 +396,7 @@ function EpkView() {
                 </p>
             </div>
 
-            <div className={style.el3}>
+            <div className={style.leftDetail}>
               <p>
                 Starring:
               </p>
@@ -380,9 +422,10 @@ function EpkView() {
                 </p>
             </div>
         </div>
+
             {/* logline section */}
 
-            <div className={style.logline}>
+            <div className={style.loglineContainer}>
               <div>
                 <p >{fepkData.logLine_long}</p>
               </div>
@@ -397,7 +440,7 @@ function EpkView() {
 
             <div className={style.synopsis}>
            <div >
-           <h2  className={style.type}>Short Synopsis</h2>  
+           <h2 className={style.type}>Short Synopsis</h2>  
            </div>
 
            <div className={style.content}>
@@ -650,16 +693,17 @@ function EpkView() {
     {/* UNIQUENESS section */}
 
       {/* the case when user not logged in and if logged in not requested yet*/}
+      
       {userId === "0" ?
       (
-        <div>
-          <div className={style.unique}>
+        
+        <div className={style.unique}>
+          {/* <div className={style.unique}> */}
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-          </div>
-          <div className={style.uniqueContainer}>
-              <div className={style.position1}> 
-                <button onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
+          <div className={style.position1}> 
+                <button  onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnUni }> Request Access </button>
               </div>
+          <div className={style.uniqueContainer}>
               <div className={style.content1}>
                 <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
               </div>
@@ -668,17 +712,19 @@ function EpkView() {
               </div>
           </div>
         </div>
+        
       ):
       (
         (uniqueness.length === 0 || uniqueness.filter(u => u.user === userId).length === 0) && 
-        <div>
+        
           <div className={style.unique}>
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-          </div>
-          <div className={style.uniqueContainer}>
-              <div className={style.position1}> 
-                <button onClick={()=>{addtoUniqueness(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
+          
+          <div className={style.position1}> 
+                <button onClick={()=>{addtoUniqueness(); clickState3()}} className={isClick3===true ? style.none :style.btnUni }> Request Access </button>
               </div>
+          <div className={style.uniqueContainer}>
+             
               <div className={style.content1}>
                 <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
               </div>
@@ -695,14 +741,14 @@ function EpkView() {
           return ( 
             <>
               {unique.user === userId && unique.status === "pending" &&
-                <div>
-                  <div className={style.unique}>
+                
+                  < div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div className={style.position1}> 
+                  <div className={style.position1}> 
                         <button> Awaiting approval </button>
                       </div>
+                  <div className={style.uniqueContainer}>
+                      
                       <div className={style.content1}>
                         <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
                       </div>
@@ -721,10 +767,10 @@ function EpkView() {
           return ( 
             <>
               {unique.user === userId && unique.status === "approved" &&
-                <div>
+                
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
+                  
                   <div className={style.uniqueContainer}>
                       <div>
                         <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
@@ -744,14 +790,14 @@ function EpkView() {
           return ( 
             <>
               {unique.user === userId && unique.status === "refused" &&
-                <div>
+                
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div className={style.position1}> 
+                   <div className={style.position1}> 
                         <button> Refused </button>
                       </div>
+                  <div className={style.uniqueContainer}>
+                     
                       <div className={style.content1}>
                         <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
                       </div>
@@ -769,6 +815,7 @@ function EpkView() {
 
     
       {/* Starring / Cast section */}
+      
       <div className={style.starring}>
         <p className={style.starTitle}>Starring</p>
               {crewList.map((crewObj) => {
@@ -782,8 +829,8 @@ function EpkView() {
                             
                             <h1>{crewObj.crewId.name}</h1>
                             <p className={style.mediaIcon}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.contentRight}>
@@ -803,8 +850,8 @@ function EpkView() {
                             
                             <h1>{crewObj.crewId.name}</h1>
                             <p className={style.mediaIcon}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -814,7 +861,7 @@ function EpkView() {
                 })}
       </div>     
 
-
+   
 
       {/* Directors Section */}
       <div >
@@ -831,8 +878,8 @@ function EpkView() {
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
                             <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.right}>
@@ -857,8 +904,8 @@ function EpkView() {
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
                             <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -883,8 +930,8 @@ function EpkView() {
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
                             <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                                                          
                             </p>
                           </div>
@@ -910,8 +957,8 @@ function EpkView() {
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
                             <p ><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -937,8 +984,8 @@ function EpkView() {
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
                             <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.right}>
@@ -963,8 +1010,8 @@ function EpkView() {
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
                             <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -979,13 +1026,37 @@ function EpkView() {
     {/* sitlls section */}
 
       {/* the case when user not logged in and if logged in not requested yet*/}
+      {/* <div>
+          <div className={style.unique}>
+            <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
+          </div>
+          <div className={style.uniqueContainer}>
+              <div className={style.position1}> 
+                <button onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
+              </div>
+              <div className={style.content1}>
+                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+              </div>
+              <div className={style.content1}>
+                <p className={style.textUnique}>{mediumFakeText}</p>
+              </div>
+          </div>
+        </div> */}
       {/* {userId === "0" ?
       (
+        <div className={style.stillsContainer}>
         stillsImg.map((still) => {
           return(
-
-          )
-        }
+            <div>
+               <img
+            src={`https://kinomovie.s3.amazonaws.com/${stillsImg.image}`}
+            alt="resource pics"
+          
+            className={style.imgResource}
+              </div>
+          );
+          })}
+        </div>
       ):
       (
         (stills.length === 0 || stills.filter(u => u.user === userId).length === 0) && 
@@ -1108,8 +1179,8 @@ function EpkView() {
               <h3 > {resource.description} </h3>
                <br/>
               <h4 ><InstagramIcon sx={{color:"red", fontSize:40}} onClick={() => openUrl(resource.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:40}} onClick={() => openUrl(resource.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(resource.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(resource.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(resource.twitter_url)} />
                                                          <FontAwesomeIcon icon={faEnvelope} size ="lg" color="white"/>
                                                          
                             </h4>
@@ -1122,19 +1193,52 @@ function EpkView() {
 
       {/* trailer section */}
        
-       <div className={style.directorcontainer}>
+       <div className={style.synopsis}>
        <video src={`https://kinomovie.s3.amazonaws.com/${fepkData.trailer}`}  controls>
                         </video>
 
        </div>
 
        {/* Praise/Awards */}
+ <div className={style.awardContainer}>
+      {reviews.map((award) => {
+        return(
+          
+     
+        
+        <div className={style.award} >
+        <p>{award.text}</p> 
+        <br/>
+        <p>{award.magazine}</p> 
+         </div>
+    
+           );
+          })}
+ </div>
+  
+         {/* award section */}
+         <div className={style.awardContainer}>
+         {reviews.map((award) => {
+        return(
+          
+          <div  >
+          <img
+            src={`https://kinomovie.s3.amazonaws.com/${award.award_logo}`}
+            alt="award pics"
+          
+            className={style.imgAward}
+          />
+          </div>
+         
+         
+         );
+        })}
 
-
-      
+       </div>
  
       <Footer/> 
     </div>
+    </>
     
     
     );
