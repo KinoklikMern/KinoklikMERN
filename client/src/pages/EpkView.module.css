@@ -113,7 +113,7 @@
    margin-top:.5rem;
    position: relative;
  }
- span{
+ .iconContainer span{
   position:absolute;
   top:0;
   font-size: 1.2rem;
