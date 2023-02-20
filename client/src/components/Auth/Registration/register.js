@@ -10,7 +10,7 @@ import Login from "./login";
 import { Button, Modal, Form, Input, Select } from "antd";
 const { Option } = Select;
 
-function Register({ spanText }) {
+function Register() {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [role, setRole] = useState("Viewer");
@@ -99,12 +99,12 @@ function Register({ spanText }) {
                 },
                 {
                   min: 3,
-                  message: "First Name must be at least 3 characters long!",
+                  message: "First Name must be at least 3 characters long!"
                 },
                 {
                   max: 30,
-                  message: "First Name must be at most 30 characters long!",
-                },
+                  message: "First Name must be at most 30 characters long!"
+                }
               ]}
             >
               <Input />
@@ -119,12 +119,12 @@ function Register({ spanText }) {
                 },
                 {
                   min: 3,
-                  message: "Last Name must be at least 3 characters long!",
+                  message: "Last Name must be at least 3 characters long!"
                 },
                 {
                   max: 30,
-                  message: "Last Name must be at most 30 characters long!",
-                },
+                  message: "Last Name must be at most 30 characters long!"
+                }
               ]}
             >
               <Input />
@@ -151,12 +151,12 @@ function Register({ spanText }) {
                 },
                 {
                   min: 6,
-                  message: "Password must be at least 6 characters long!",
+                  message: "Password must be at least 6 characters long!"
                 },
                 {
                   max: 40,
-                  message: "First Name must be at most 40 characters long!",
-                },
+                  message: "First Name must be at most 40 characters long!"
+                }
               ]}
             >
               <Input type="password" />
@@ -236,7 +236,7 @@ function Register({ spanText }) {
             setOpen(true);
           }}
         >
-          {spanText ? spanText : "SIGN UP"}
+          Register
         </span>
 
         <CollectionCreateForm

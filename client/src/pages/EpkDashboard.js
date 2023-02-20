@@ -19,7 +19,6 @@ function EPKDashboard() {
   return (
     <>
     <div>
-      {/* 
       <br/>
       <CoverForm />
       <br/>
@@ -45,7 +44,6 @@ function EPKDashboard() {
       <br/>
       <ReviewForm/>
       <br/>
-      */}
     </div>
     </>
     );

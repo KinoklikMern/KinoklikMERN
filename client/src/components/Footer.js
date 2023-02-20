@@ -1,9 +1,6 @@
 import React from "react";
 import "./Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -15,81 +12,61 @@ function Footer() {
               <img
                 src={require("../images/logo.png")}
                 alt="Logo"
-                className="logo "
+                className="logo"
               />
             </div>
             <div className="col-md-2 px-4 py-3 footer-columns">
-              <ul className="footer-ul ">
+              <ul className="footer-ul">
                 <li>
-                  <h5 className="footer-header mb-4 text-lg ">KinoKlik APK</h5>
+                  <h5 className="footer-header">About us</h5>
                 </li>
                 <li className="footer-li">
-                <Link to="/forFilmMakers">For Filmmakers</Link>
-               
+                  <a href=""></a>Home
                 </li>
                 <li className="footer-li">
-                <Link to="/forIndustryProf"><a>For Industry <br />
-                Professionals</a></Link>
-                 
+                  <a href=""></a>Shows
+                </li>
+                <li className="footer-li">
+                  <a href=""></a>Our Story
                 </li>
               </ul>
             </div>
             <div className="col-md-2 px-4 py-3 footer-columns">
               <ul className="footer-ul">
                 <li>
-                  <h5 className="footer-header mb-4 text-lg">Company</h5>
+                  <h5 className="footer-header">More info</h5>
                 </li>
                 <li className="footer-li">
-                  <a href=""></a>About Us
+                  <a href=""></a>Terms of Service
                 </li>
                 <li className="footer-li">
-                  <a href=""></a>Contact Us
+                  <a href=""></a>Privacy Policy
                 </li>
                 <li className="footer-li">
-                  <a href=""></a>Support
+                  <a href=""></a>More Legal Notices
                 </li>
               </ul>
             </div>
             <div className="col-md-2 px-4 py-3 footer-columns">
               <ul className="footer-ul">
                 <li>
-                  <h5 className="footer-header mb-4 text-lg">Relations</h5>
+                  <h5 className="footer-header">Contact us</h5>
                 </li>
                 <li className="footer-li">
-                  <a href="">Partners</a>
+                  <a href=""></a>Customer Support
                 </li>
                 <li className="footer-li">
-                  <a href="">Investors</a>
+                  <a href=""></a>press@kinoklik.ca
                 </li>
-                <li className="footer-li">
-                  <a href="">Media & Blog</a>
-                </li>
-                {/*  <li className="footer-li">
-                  <a href="press@kinoklik.ca">press@kinoklik.ca</a>
-  </li> */}
               </ul>
             </div>
-            <div className="col-md-2 px-4 py-3 footer-columns text-center mt-20">
-              {/* <h5 className="footer-header">Follow us on:</h5> */}
-
-              <div className="footer-links text-center sm:mt-0  lg:mt-8 sm:ml-48 lg:ml-0 ">
-            
-                <a  href="https://www.facebook.com/kinoklikcanada">
-                   {/* <FontAwesomeIcon icon={faFacebook} size="2x"/> */}
-
-                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faFacebook} /></i>
-                </a>
-                <a href="https://www.instagram.com/kinoklik">
-                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faInstagram}  /></i>
-                </a>
-                <a href="https://www.linkedin.com/company/kinoklik/?viewAsMember=true">
-                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faLinkedin} /></i>
-                </a>
-                <a href="https://twitter.com/kinoklik_canada">
-                  {/*  <a href="https://www.youtube.com/channel/UCt2KiIE6jFI0UIa_9olo3Uw"> */}
-
-                  <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faTwitter} /></i>
-                </a>
+            <div className="col-md-2 px-4 py-3 footer-columns">
+              <h5 className="footer-header">Follow us on:</h5>
+              <div className="footer-links">
+                {/*          <a href="https://www.instagram.com/kinoklik"><i className="fab fa-instagram"></i></a>
+              <a href="https://twitter.com/kinoklik_canada"><FontAwesomeIcon icon="fab fa-twitter" /></a>
+              <a href="https://www.facebook.com/kinoklikcanada"><i className="fab fa-linkedin"></i></a>
+              <a href="https://www.youtube.com/channel/UCt2KiIE6jFI0UIa_9olo3Uw"><i className="fab fa-youtube"></i></a> */}
               </div>
             </div>
           </div>

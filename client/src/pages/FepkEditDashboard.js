@@ -18,12 +18,9 @@ import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess
 function FepkEditDashboard() {
   const [fepk, setFepk] = useState([]);
   const [access, setAccess] = useState(false);
-
-  // fetching user details from local storage
-  const user = JSON.parse(localStorage.getItem("persist:root")).user;
-  const filmmaker_id = JSON.parse(user).id;
-
+  const filmmaker_id = "63c0e3bb40253f49b94edd11";
   let { fepkId } = useParams();
+  //const [email, setEmail] = useState();
 
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) =>{
@@ -31,7 +28,27 @@ function FepkEditDashboard() {
       setFepk(response.data);
     });
   }, []);
-
+/*
+  useEffect(() => {
+    http.get("/users/auth", {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      }
+    }).then((response) => {
+      if (response.data.error) {
+        setAuthState({ ...authState, status: false });
+      } else {
+        setAuthState({
+          email: response.data.email,
+          id: response.data.id,
+          name: response.data.name,
+          role: response.data.role,
+          status: true,
+        });
+      }
+    });
+  }, []);
+  */
     return (
     <>
     {access === true ?

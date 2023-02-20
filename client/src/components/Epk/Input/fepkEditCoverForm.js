@@ -15,6 +15,7 @@ function FepkEditCoverForm() {
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   let { fepkId } = useParams();
+  const filmmaker_id = "63c0e3bb40253f49b94edd11";
   
   const file1Selected = (event) => {
     const file = event.target.files[0];
@@ -205,7 +206,7 @@ function FepkEditCoverForm() {
             </Link>
           </div>
           <div className="col-3  m-3">
-           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal', fontSize:"25px" }}>EPK Dashboard</h2>
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Dashboard</h2>
           </div>
           <div className="col-3 m-3">
             < BasicMenu/>   
@@ -313,13 +314,12 @@ function FepkEditCoverForm() {
               </div>
               <div className="col border border-2">
                 <div className="row gx-6">
-                  <div className="col">
-                    <label for="fileBanner" class="form-label text-dark" style={{fontSize:"25px"}}>
+                  <div className="col mt-5">
+                    <label for="fileBanner" class="form-label text-dark">
                       {" "}
                       <h4>Upload Banner</h4>
                     </label>
                     <input
-                      style={{fontSize:"15px"}}
                       className="form-control form-control-sm"
                       filename={file1}
                       onChange={file1Selected}
@@ -329,15 +329,14 @@ function FepkEditCoverForm() {
                       name="files"
                       accept="image/*"
                     ></input>
-                      <img src={`${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                      <img src={`https://kinomovie.s3.amazonaws.com/${fepk.banner_url}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
                   </div>
-                  <div className="col">
-                    <label for="fileTrailer" class="form-label text-dark" style={{fontSize:"25px"}}>
+                  <div className="col mt-5">
+                    <label for="fileTrailer" class="form-label text-dark">
                       {" "}
                       <h4>Upload Trailer</h4>
                     </label>
                     <input
-                      style={{fontSize:"15px"}}
                       className="form-control form-control-sm"
                       filename={file2}
                       ref={inputFile2Ref}
@@ -347,7 +346,7 @@ function FepkEditCoverForm() {
                       name="files"
                       accept="video/*"
                     ></input>
-                    <video src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`} style={{marginTop: "5px", width:"110px", height:"auto"}} controls>
+                    <video src={`https://kinomovie.s3.amazonaws.com/${fepk.trailer_url}`} width="100" height="auto" style={{marginTop: "5px"}} controls>
                     </video>
                   </div>
                 </div>
@@ -362,12 +361,12 @@ function FepkEditCoverForm() {
         >
           {disabled===true ? 
           (
-            <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkCover} value="save">
+            <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkCover} value="save">
               Save
             </Button>
           ) :
           (
-            <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkCover} value="save">
+            <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkCover} value="save">
               Save
             </Button>
           )}

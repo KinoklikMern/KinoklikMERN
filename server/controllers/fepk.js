@@ -125,28 +125,6 @@ export const getFepksByTitle = async (req, res) => {
   }
 };
 
-// fetch followers of facebook, instagram, and twitter
-export const getFollowers = async (req, res) => {
-  const id = req.params.id;
-    try {
-      const fepkOne = await fepk.findOne({ _id: id })
-      .where("deleted")
-      .equals(false);
-      let facebooks = 0;
-      let instagrams = 0;
-      let twitters = 0;
-      fepkOne.crew.forEach(element => {
-        if(element.facebook_followers){facebooks += parseInt(element.facebook_followers)} 
-        if(element.instagram_followers){instagrams += parseInt(element.instagram_followers)}
-        if(element.twitter_followers){twitters += parseInt(element.twitter_followers)}
-      });
-      //res.status(200).json(fepkOne);
-      res.status(200).json({facebook: facebooks, instagram: instagrams, twitter: twitters});
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
-};
-
 // create Fepk
 export const createFepk = async (req, res) => {
   try {
@@ -416,44 +394,6 @@ export const getUniqueness = async (req, res) => {
       if(exists === false)
       {
         await fepkOne.uniqueness.push({user, status});
-        await fepkOne.save();
-        const fepkUpdated = await fepk.findOne({ _id: fepkId });
-        res.status(200).json(fepkUpdated);
-      }
-      else{
-        res.status(200).json(fepkOne);
-      }
-    }
-  }
-  catch (error) {
-    res.status(404).json({ message: error.message });
-  } 
-};
-
-// adding user who makes request for Stills part
-export const getStills = async (req, res) => {
-  const fepkId = req.params.fepkid;
-  const user = req.params.userid;
-  const status = "pending";
-  try {
-    const fepkOne = await fepk.findOne({ _id: fepkId })
-    .where("deleted")
-    .equals(false);
-    if(!fepkOne){
-      res.json({ error: "No EPK was found!" });
-    }
-    else
-    {
-      let exists = false;
-      fepkOne.stillsApproval.forEach(element => {
-        if(element.user == user){
-          exists = true;
-        }
-      });
-
-      if(exists === false)
-      {
-        await fepkOne.stillsApproval.push({user, status});
         await fepkOne.save();
         const fepkUpdated = await fepk.findOne({ _id: fepkId });
         res.status(200).json(fepkUpdated);

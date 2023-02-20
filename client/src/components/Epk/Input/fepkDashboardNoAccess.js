@@ -33,7 +33,7 @@ function FepkDashboardNoAccess() {
             </Link>
           </div>
           <div className="col-3  m-3">
-           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal', fontSize:"25px" }}>EPK Dashboard</h2>
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Dashboard</h2>
           </div>
           <div className="col-3 m-3">  
           </div>

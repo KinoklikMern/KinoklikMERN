@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //Adding antd modules and style
 import { Modal, Form, Input } from "antd";
 
-function Login({spanText}) {
+function Login() {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState("");
@@ -113,7 +113,7 @@ function Login({spanText}) {
             setOpen(true);
           }}
         >
-          {spanText ? spanText : "SIGN IN"}
+          Login
         </span>
         <CollectionCreateForm
           open={open}

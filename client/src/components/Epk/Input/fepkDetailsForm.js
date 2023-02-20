@@ -22,18 +22,17 @@ function FepkDetailsForm () {
   const [newCrewName, setNewCrewName] = useState("");
 
   let { fepkId } = useParams();
+  const filmmaker_id = "63c0e3bb40253f49b94edd11";
+
 
   let newCrew = {  
     name: "",
     biography: "",
     image: "",
     facebook_url: "",
-    facebook_followers: "",
     instagram_url: "",
-    instagram_followers: "",
     twitter_url: "",
-    twitter_followers: "",
-    film_maker: fepk.film_maker
+    film_maker: filmmaker_id
   };
 
   const fileSelected = (event) => {
@@ -141,11 +140,8 @@ function FepkDetailsForm () {
     biography: "",
     image: "",
     facebook_url: "",
-    facebook_followers: "",
     instagram_url: "",
-    instagram_followers: "",
-    twitter_url: "",
-    twitter_followers: ""
+    twitter_url: ""
   });
 
   function deleteFromCrewList(deletedCrew){
@@ -163,11 +159,8 @@ function FepkDetailsForm () {
         crewData.biography !== "" &&
         crewData.image !== "" &&
         crewData.facebook_url !== "" &&
-        crewData.facebook_followers !== "" &&
         crewData.instagram_url !== "" &&
-        crewData.instagram_followers !== "" &&
-        crewData.twitter_url !== "" &&
-        crewData.twitter_followers !== ""
+        crewData.twitter_url !== ""
     )
     {
       crewList.push(crewData);
@@ -208,11 +201,8 @@ function FepkDetailsForm () {
                 biography: "",
                 image: "",
                 facebook_url: "",
-                facebook_followers: "",
                 instagram_url: "",
-                instagram_followers: "",
-                twitter_url: "",
-                twitter_followers: ""
+                twitter_url: ""
               });
               console.log(crewData);
             }
@@ -247,11 +237,8 @@ function FepkDetailsForm () {
       biography: crew.biography,
       image: crew.image,
       facebook_url: crew.facebook_url,
-      facebook_followers: crew.facebook_followers,
       instagram_url: crew.instagram_url,
-      instagram_followers: crew.instagram_followers,
-      twitter_url: crew.twitter_url,
-      twitter_followers: crew.twitter_followers
+      twitter_url: crew.twitter_url
     });
     setFilteredData([]);
   };
@@ -321,7 +308,7 @@ function FepkDetailsForm () {
             </Link>
           </div>
           <div className="col-3  m-3">
-           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal', fontSize:"25px" }}>EPK Dashboard</h2>
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Dashboard</h2>
           </div>
           <div className="col-3 m-3">
             <BasicMenu />   
@@ -412,12 +399,11 @@ function FepkDetailsForm () {
                         />
                       </div>
                     </div>
-                        <label for="filePoster" class="form-label text-dark" style={{fontSize:"25px"}}>
+                        <label for="filePoster" class="form-label text-dark">
                          {" "}
-                          <h6 style={{fontSize:"20px"}}>Upload Poster</h6>
+                          <h6>Upload Poster</h6>
                         </label>
                         <input
-                          style={{fontSize:"15px"}}
                           className="form-control form-control-sm"
                           filename={file}
                           onChange={fileSelected}
@@ -427,15 +413,14 @@ function FepkDetailsForm () {
                           name="files"
                           accept="image/*"
                         ></input>
-                        <img src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`} style={{height:"40px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                        <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_details}`} style={{height:"40px", width:"auto", marginTop: "5px"}} alt="no image"/>
                         <br/>
                         <hr/>
-                        <label for="filePoster" class="form-label text-dark" style={{fontSize:"25px"}}>
+                        <label for="filePoster" class="form-label text-dark">
                          {" "}
-                          <h6 style={{fontSize:"20px"}}>Upload Crew Image</h6>
+                          <h6>Upload Crew Image</h6>
                         </label>
                         <input
-                          style={{fontSize:"15px"}}
                           className="form-control form-control-sm"
                           filename={fileCrew}
                           onChange={fileCrewSelected}
@@ -450,7 +435,7 @@ function FepkDetailsForm () {
                             <FontAwesomeIcon icon={faUser} style={{height: "30px", marginRight: "10px"}}/>
                         ) :
                         (
-                          <img src={`${process.env.REACT_APP_AWS_URL}/${crewData.image}`} style={{height:"40px", width:"auto", marginTop: "5px"}}/>
+                          <img src={`https://kinomovie.s3.amazonaws.com/${crewData.image}`} style={{height:"40px", width:"auto", marginTop: "5px"}}/>
                         )
                         } 
                         
@@ -485,16 +470,16 @@ function FepkDetailsForm () {
                           >
                             {filteredData.map((crewObj) => {
                               return ( 
-                                  <p style={{fontSize:"10px", padding: "5px", margin:"0px"}} onClick={() => addToCrewData(crewObj)}>
+                                  <p style={{fontSize:"12px", padding: "5px", margin:"0px"}} onClick={() => addToCrewData(crewObj)}>
                                     {crewObj.image === "" ?
                                     (
                                       <FontAwesomeIcon icon={faUser} style={{height: "27px", marginRight: "10px"}}/>
                                     ) :
                                     (
-                                      <img src={`${process.env.REACT_APP_AWS_URL}/${crewObj.image}`} style={{width:"20px", height:"auto", marginRight: "10px"}}/>
+                                      <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`} style={{width:"25px", height:"auto", marginRight: "10px"}}/>
                                     )
-                                    }
-                                    {crewObj.name}
+                                    } 
+                                      {crewObj.name}
                                   </p>
                               );
                             })}
@@ -566,137 +551,69 @@ function FepkDetailsForm () {
                         onChange={handleCrewChange}
                         name="biography"
                     />
-                    <div className="row">
-                      <div className="col-7">
-                        <input
-                          style={{ 
-                          height: "30px", 
-                          width: "100%", 
-                          borderRadius: "5px", 
-                          marginBottom: "5px",
-                          boxShadow: '1px 2px 9px #311465',
-                          textAlign: 'left',
-                          fontSize: "14px"
-                          }}
-                          className="form-control m-10"
-                          defaultValue={crewData.facebook_url}
-                          placeholder="Facebook"
-                          onChange={handleCrewChange}
-                          name="facebook_url"
-                        />
-                      </div>
-                      <div className="col-5">
-                        <input
-                          style={{ 
-                          height: "30px", 
-                          width: "100%", 
-                          borderRadius: "5px", 
-                          marginBottom: "5px",
-                          boxShadow: '1px 2px 9px #311465',
-                          textAlign: 'left',
-                          fontSize: "9px"
-                          }}
-                          type="number" min="0"
-                          className="form-control m-10"
-                          defaultValue={crewData.facebook_followers}
-                          placeholder=""
-                          onChange={handleCrewChange}
-                          name="facebook_followers"
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-7">
-                        <input
-                          style={{ 
-                          height: "30px", 
-                          width: "100%", 
-                          borderRadius: "5px", 
-                          marginBottom: "5px",
-                          boxShadow: '1px 2px 9px #311465',
-                          textAlign: 'left',
-                          fontSize: "14px"
-                          }}
-                          className="form-control m-10"
-                          defaultValue={crewData.instagram_url}
-                          placeholder="Instagram"
-                          onChange={handleCrewChange}
-                          name="instagram_url"
-                        />
-                      </div>
-                      <div className="col-5">
-                        <input
-                            style={{ 
-                            height: "30px", 
-                            width: "100%", 
-                            borderRadius: "5px", 
-                            marginBottom: "5px",
-                            boxShadow: '1px 2px 9px #311465',
-                            textAlign: 'left',
-                            fontSize: "9px"
-                            }}
-                            type="number" min="0"
-                            className="form-control m-10"
-                            defaultValue={crewData.instagram_followers}
-                            placeholder=""
-                            onChange={handleCrewChange}
-                            name="instagram_followers"
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-7">
-                        <input
-                          style={{ 
-                          height: "30px", 
-                          width: "100%", 
-                          borderRadius: "5px", 
-                          marginBottom: "5px",
-                          boxShadow: '1px 2px 9px #311465',
-                          textAlign: 'left',
-                          fontSize: "14px"
-                          }}
-                          className="form-control m-10"
-                          defaultValue={crewData.twitter_url}
-                          placeholder="Twitter"
-                          onChange={handleCrewChange}
-                          name="twitter_url"
-                        />
-                      </div>
-                      <div className="col-5">
-                        <input
-                              style={{ 
-                              height: "30px", 
-                              width: "100%", 
-                              borderRadius: "5px", 
-                              marginBottom: "5px",
-                              boxShadow: '1px 2px 9px #311465',
-                              textAlign: 'left',
-                              fontSize: "9px"
-                              }}
-                              type="number" min="0"
-                              className="form-control m-10"
-                              defaultValue={crewData.twitter_followers}
-                              placeholder=""
-                              onChange={handleCrewChange}
-                              name="twitter_followers"
-                          />
-                      </div>
-                    </div>
+                    <input
+                        style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'left',
+                        fontSize: "14px"
+                        }}
+                        className="form-control m-10"
+                        defaultValue={crewData.facebook_url}
+                        placeholder="Facebook"
+                        onChange={handleCrewChange}
+                        name="facebook_url"
+                    />
+                    <input
+                        style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'left',
+                        fontSize: "14px"
+                        }}
+                        className="form-control m-10"
+                        defaultValue={crewData.instagram_url}
+                        placeholder="Instagram"
+                        onChange={handleCrewChange}
+                        name="instagram_url"
+                    />
+                    <input
+                        style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                        textAlign: 'left',
+                        fontSize: "14px"
+                        }}
+                        className="form-control m-10"
+                        defaultValue={crewData.twitter_url}
+                        placeholder="Twitter"
+                        onChange={handleCrewChange}
+                        name="twitter_url"
+                    />
+
                       {disabledAdd===true ? 
                       (
-                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "235px", padding:"0 110px 0 0"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "115px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
                           Add to Table
                       </Button>
                       ) :
                       (
-                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", width: "235px", padding:"0 110px 0 0"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", width: "115px"}} type="outline-primary" block onClick={addCrewToTable} value="save">
                           Add to Table
                       </Button>
                       )}
                 </div>
                 <div className="col-5 mt-2" style={{overflow: "auto", height:"440px", scrollbarWidth:"none"}}>
-                  <table className="table table-striped table-bordered"  style={{fontSize:"9px"}}>
+                  <table className="table table-striped table-bordered"  style={{fontSize:"10px"}}>
                     <thead className="thead-dark">
                       <tr>
                           <th>NAME</th>
@@ -715,11 +632,11 @@ function FepkDetailsForm () {
                             <td>{crew.crewId.name}</td>
                             <td>{crew.epkRole}</td>
                             <td>
-                                <img src={`${process.env.REACT_APP_AWS_URL}/${crew.image}`} style={{height:"15px", width:"auto"}}/>
+                                <img src={`https://kinomovie.s3.amazonaws.com/${crew.image}`} style={{height:"15px", width:"auto"}}/>
                             </td>
-                            <td><a href={crew.facebook_url} target="_blank">{crew.facebook_followers}</a></td>
-                            <td><a href={crew.instagram_url} target="_blank">{crew.instagram_followers}</a></td>
-                            <td><a href={crew.twitter_url} target="_blank">{crew.twitter_followers}</a></td>
+                            <td><a href={crew.facebook_url} target="_blank">link</a></td>
+                            <td><a href={crew.instagram_url} target="_blank">link</a></td>
+                            <td><a href={crew.twitter_url} target="_blank">link</a></td>
                             <td style={{textAlign: "center"}} onClick={() => deleteFromCrewList(crew)}><FontAwesomeIcon icon={faTrashCan} /></td>
                           </tr>
                         );
@@ -739,12 +656,12 @@ function FepkDetailsForm () {
                       >
                       {disabled===true ? 
                       (
-                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
+                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
                           Save
                       </Button>
                       ) :
                       (
-                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
+                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
                           Save
                       </Button>
                       )}

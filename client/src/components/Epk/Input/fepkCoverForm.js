@@ -14,10 +14,8 @@ function FepkCoverForm() {
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
 
-  // fetching user details from local storage
-  const user = JSON.parse(localStorage.getItem("persist:root")).user;
-  const filmmaker_id = JSON.parse(user).id;
-
+  const filmmaker_id = "63c0e3bb40253f49b94edd11";
+  
   const file1Selected = (event) => {
     const file = event.target.files[0];
     setFile1(file);
@@ -204,13 +202,13 @@ function FepkCoverForm() {
             </Link>
           </div>
           <div className="col-3  m-3">
-           <h1 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Page Upload</h1>
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Page Upload</h2>
           </div>
           <div className="col-3 m-3">     
           </div>
           <div className="col-3 m-3">
-          <Link className="col align-items-end" to="/filmMakerDashboard"  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '25px' }}>
-                EPK Dashboard
+          <Link className="col align-items-end" to="/filmMakerDashboard"  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+                Filmmaker Dashboard
               </Link>
           </div>
         </div>
@@ -234,8 +232,8 @@ function FepkCoverForm() {
                     placeholder="Title"
                     onChange={handleInputChange}
                     name="title"
-                  /><h6 style={{ color: "red", fontSize:"15px" }}>{messageTitleNo}</h6>
-                    <h6 style={{ color: "green", fontSize:"15px" }}>{messageTitleYes}</h6>
+                  /><h6 style={{ color: "red" }}>{messageTitleNo}</h6>
+                    <h6 style={{ color: "green" }}>{messageTitleYes}</h6>
                 </div>
                 <div className="col my-1">
                   <textarea
@@ -308,12 +306,11 @@ function FepkCoverForm() {
               <div className="col border border-2">
                 <div className="row gx-6">
                   <div className="col mt-5">
-                    <label for="fileBanner" class="form-label text-dark" style={{fontSize:"25px"}}>
+                    <label for="fileBanner" class="form-label text-dark">
                       {" "}
                       Upload Banner
                     </label>
                     <input
-                      style={{fontSize:"15px"}}
                       className="form-control form-control-sm"
                       filename={file1}
                       onChange={file1Selected}
@@ -325,12 +322,11 @@ function FepkCoverForm() {
                     ></input>
                   </div>
                   <div className="col mt-5">
-                    <label for="fileTrailer" class="form-label text-dark" style={{fontSize:"25px"}}>
+                    <label for="fileTrailer" class="form-label text-dark">
                       {" "}
                       Upload Trailer
                     </label>
                     <input
-                      style={{fontSize:"15px"}}
                       className="form-control form-control-sm"
                       filename={file2}
                       ref={inputFile2Ref}
@@ -343,17 +339,16 @@ function FepkCoverForm() {
                   </div>
                 </div>
               </div>
-              <h6 style={{color: "red", fontSize:"15px"}}>{submitMessage}</h6>
+              <h6 style={{color: "red"}}>{submitMessage}</h6>
           <div
           style={{
             height: "50px",
             width: "120px",
             marginLeft: "100%",
-            marginTop: "140px",
-            textAlign:"center"
+            marginTop: "140px"
           }}
         >
-          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkCover} value="save">
+          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkCover} value="save">
             Save
           </Button>
             </div>

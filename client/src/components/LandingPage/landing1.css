@@ -1,0 +1,117 @@
+.landing1{
+    background-color: #1F0439;
+    height: 55vh;
+    width: auto;
+}
+.landing1Button{
+    margin-left: 75%;
+    font-size: small;
+    
+}
+.landing1Signin, .landing1Signup{
+    background-color: darkmagenta;
+    color: white;
+    margin-top: 4%;
+    margin-left: 2%;
+}
+
+.landing1FilmEPK{
+    background-color: blueviolet;
+    color: white;
+    margin-left: 2%;
+}
+
+.leftColumn {   
+    float: left;
+    width: 55%;
+    margin-top: 25px;
+    /* height: 70%; */
+  }
+  .rightColumn {
+    float: right;
+    width: 45%;
+    margin-top: 25px;
+    /* height: auto; */
+    /* background-color: #f1f1f1; */
+    /* padding-left: 5px; */
+  }
+  .landing1Title{
+    color: aliceblue;
+    padding: 25px;
+    text-align: center;
+  }
+
+  .introText{
+    color: aliceblue;
+    width: 55%;
+    text-align: center;
+    padding: 15px;
+    font-size: larger;
+    margin-left: 220px;
+  }
+  .createProject{
+    margin-left: 220px;
+    font-size: larger;
+    background-color: violet;
+    color: white;
+  }
+
+  .browseFilm{
+    margin-left: 260px;
+    font-size: larger;
+    background-color: violet;
+    color: white;
+  }
+
+.landing1Img{
+    border-radius: 5%;
+    width: 75%;
+    height: auto;
+}
+
+.landing1FilmImg {
+    background-color: #1F0439;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    height: 130%;
+    
+}
+.filmImg{
+    border-radius: 5%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.landing1NewFilms, .landing1MostPopular{
+    margin-left: 1rem;
+    color: aliceblue;
+}
+.landing12{
+    background-color: #1F0439;
+}
+
+.browseFilmProject{
+    /* justify-content: center; */
+    /* align-items: center; */
+    margin: 1%;
+    position: relative;
+    /* top: 50%; */
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+@media screen and (max-width: 400px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+      
+    }
+  }

@@ -1,19 +1,14 @@
 import React from "react";
 import { Navigate, Route, Link, Routes } from "react-router-dom";
-
-import './styles/tailwind.css' //Tailwind
-
 import MainLayout from "./layouts/MainLayout";
 import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
-import LoginForm from "./components/Auth/Registration/loginform";
-import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
+import Login from "./components/Auth/Registration/login";
 //import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 
-import filmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
-
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 // add by Tony on Feb 15
 import FilmMakerSelectedEpk from "./pages/FlimMaker/filmMakerSelectedEpk";
@@ -28,14 +23,11 @@ import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotification
 import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
 import Bookmark from "./pages/Bookmark";
 
-import ForFilmMakers from "./components/ForFilmMakers";
-import ForIndustryProf from "./components/ForIndustryProf";
-
 import DetailsForm from "./components/Epk/Input/detailsForm";
 import Details from "./components/Epk/Present/details";
 
 import CoverForm from "./components/Epk/Input/coverForm";
-import Cover from "./components/Epk/Present/Cover";
+import Cover from "./components/Epk/Present/cover";
 
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
@@ -102,10 +94,10 @@ function App() {
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
-          <Route path="signup" element={<RegistrationForm />} />
-          <Route path="login" element={<LoginForm />} />
+          <Route path="registeration" element={<RegistrationForm />} />
+          <Route path="login" element={<Login />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
-          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+
           <Route
             path="FilmMakerSelectedEpk"
             element={<FilmMakerSelectedEpk />}
@@ -143,8 +135,6 @@ function App() {
           />
           <Route path="bookmark" element={<Bookmark />} />
 
-          <Route path="forFilmMakers" element={<ForFilmMakers />} />
-          <Route path="forIndustryProf" element={<ForIndustryProf />} />
           <Route path="coverForm" element={<CoverForm />} />
           <Route path="cover" element={<Cover />} />
 
