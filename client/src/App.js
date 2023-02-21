@@ -37,9 +37,6 @@ import Logline from "./components/Epk/Present/logline";
 
 import UserDashboard from "./pages/UserDashboard";
 
-import { getMovies } from "./actions/movies";
-import Movies from "./components/Movies/Movies";
-import Form from "./components/Forms/Form";
 import EpkCoverForm from "./components/Epk/Input/EpkCoverForm.js";
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
