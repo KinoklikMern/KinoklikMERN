@@ -20,8 +20,15 @@ function FepkEditDashboard() {
   const [access, setAccess] = useState(false);
 
   // fetching user details from local storage
-  const user = JSON.parse(localStorage.getItem("persist:root")).user;
-  const filmmaker_id = JSON.parse(user).id;
+  let user = JSON.parse(localStorage.getItem("persist:root")).user;
+  let filmmaker_id;
+  if(user === "null"){
+    filmmaker_id = "0";
+  }
+  else{
+    filmmaker_id = JSON.parse(user).id;
+  }
+  
 
   let { fepkId } = useParams();
 
