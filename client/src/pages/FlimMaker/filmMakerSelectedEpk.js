@@ -37,24 +37,17 @@ export default function Filmmaker() {
 
   const [epk, setEpk] = useState([]);
   const [users, setUsers] = useState([]);
-  const [RequestUsers, setRequestUsers] = useState([]);
   useEffect(() => {
     try {
       Axios.get(process.env.REACT_APP_BACKEND_URL + "/filmMaker/selectedepk/" + epkid).then((rs) => {
         setEpk(rs.data);
         setUsers(epk.favourites);
       });
+      
     } catch (error) {
       alert(error.response.data.message);
     }
   }, []);
-
-  const getRequestUsers = (id) => {
-    Axios.get(process.env.REACT_APP_BACKEND_URL + "/filmMaker/getUserbyId/" + id).then((rs) => {
-      setRequestUsers(epk.longSynopsis);
-    });
-  }
-
 
   return (
     <div class="filmmakerdash-container container-fluid">
@@ -62,7 +55,7 @@ export default function Filmmaker() {
         <FilmMakerSideBar />
 
         <div class="sidebar-right row">
-          <div class="col-4 g-5">
+          <div class="col-6 g-5">
             <div class="row row-cols-md-3 g-5">
               <div class="col">
                 <div class="card movie-card">
@@ -88,42 +81,27 @@ export default function Filmmaker() {
             </div>
           </div>
 
-          <div class="col-8 g-5 white-text">
+          <div class="col-6 g-5 white-text">
+            <div>
               <h3>Stars & Likes | EPK Requests</h3>
               <hr />
-            <div class="row">
-              <div class="col-6">
-                { epk.likes == null ? "No one like it yet." : 
-                  users == null ? setUsers(epk.likes) :
-                  users.map((user) => (
-                    <div class="row">
-                      <div class="col-6 g-3">
-                        <img src= {user.picture} alt="user image"/>
-                      </div>
-                      <div class="col-6 g-3">
-                        <p>{(user.username == null) ? " " : user.username}</p>
-                        <p>{(user.firstName == null) ? " " : user.firstName} {(user.lastName == null) ? "" : user.lastName}</p>
-                        <p>{(user.email == null) ? " " : user.email}</p>
-                      </div>
+            </div>
+            <div>
+              { epk.likes == null ? "No one like it yet." : 
+                users == null ? setUsers(epk.likes) :
+                users.map((user) => (
+                  <div class="row">
+                    <div class="col-6">
+                      <img src= {user.picture} alt="user image"/>
                     </div>
-                ))}
-              </div>
-              <div class="col-6">
-                { epk.longSynopsis == null 
-                  ? "No EPK Requests." 
-                  : epk.longSynopsis.map((item) => (
-                    <div class="row">
-                      <div class="col-6 g-3">
-                        <img src= {item.user.picture} alt="user image"/>
-                      </div>
-                      <div class="col-6 g-3">
-                        <p>{(item.user.username == null) ? "User Name:" : item.user.username}</p>
-                        <p>{(item.user.firstName == null) ? " " : item.user.firstName} {(item.user.lastName == null) ? " " : item.user.lastName}</p>
-                        <p>{(item.user.email == null) ? "Email:" : item.user.email}</p>
-                      </div>
+                    <div class="col-6">
+                      <p>{(user.username == null) ? " " : user.username}</p>
+                      <p>{(user.firstName == null) ? " " : user.firstName} {(user.lastName == null) ? "" : user.lastName}</p>
+                      <p>{(user.email == null) ? " " : user.email}</p>
                     </div>
-                ))}
-              </div>
+                    <hr />
+                  </div>
+              ))}
             </div>
           </div>
         </div>

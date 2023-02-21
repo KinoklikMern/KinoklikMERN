@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-//import EpkCover from "../components/Epk/Present/cover";
+import Epkcover from "../components/Epk/Present/Cover";
 import Details from "../components/Epk/Present/details";
 import Logline from "../components/Epk/Present/logline";
 import Synopsis from "../components/Epk/Present/synopsis";
@@ -291,7 +291,7 @@ function EPK() {
   return (
     <>
     <div className="container">
-     
+      
       {/* {coverList && coverList.map((s) => <EpkCover coverFile={s} />)} */}
       {detailsList && detailsList.map((s) => <Details detailsFile={s} />)}
       {loglineList && loglineList.map((s) => <Logline loglineFile={s} />)}

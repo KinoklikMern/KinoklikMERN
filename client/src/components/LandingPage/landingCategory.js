@@ -24,6 +24,7 @@ export const landingFilm = [
     title: "goal",
     image: "/images/landingfilm/5.jpeg",
   },
+
 ];
 
 export const newFilm = [
@@ -52,6 +53,11 @@ export const newFilm = [
     title: "goal",
     image: "/images/landingfilm/10.png",
   },
+  {
+    _id: 6,
+    title: "goal",
+    image: "/images/landingfilm/3.jpeg",
+  },
 ];
 
 export const popularFilm = [
@@ -79,5 +85,10 @@ export const popularFilm = [
     _id: 5,
     title: "goal",
     image: "/images/landingfilm/15.png",
+  },
+  {
+    _id: 6,
+    title: "goal",
+    image: "/images/landingfilm/2.webp",
   },
 ];
