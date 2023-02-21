@@ -6,8 +6,8 @@ import { useParams, Link } from "react-router-dom";
 import style from "./EpkView.module.css";
 import kikSatr from "../images/Kickstarter-icon.png";
 import InstagramIcon from '@mui/icons-material/Instagram';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcons from '@mui/icons-material/Facebook';
+import TwitterIcons from '@mui/icons-material/Twitter';
 import Footer from"../components/Footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,29 +20,37 @@ import {
   faEnvelope
   
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  EmailShareButton,
+  EmailIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  RedditShareButton,
+  RedditIcon,
+  TwitterShareButton,
+  TwitterIcon
+} from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 
 function EpkView() {
     let { title } = useParams();
-    let user;
-    try{
-      user = JSON.parse(Cookies.get('user'));
-    }catch{
-      user = null;
-    }
+
+    // fetching user details from local storage
+    const user = JSON.parse(localStorage.getItem("persist:root")).user; 
+    console.log(user);
     let userId;
     let userRole;
-    let userPicture;
-    if(!user){
-      userId = "0"; 
-      userPicture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-      userRole = "noUser";
+  
+    if(user !== "null"){
+      userId = JSON.parse(user).id; 
+      userRole = JSON.parse(user).role;
     }
     else{
-      userId = user.id; 
-      userPicture = user.picture;
-      userRole = user.role;
+      userId = "0"; 
+      userRole = "noUser";
     }
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
@@ -58,6 +66,8 @@ function EpkView() {
     const [trailer, setTrailer] = useState([]);
     const [followers, setFollowers] = useState({});
     const [reviews, setReviews] = useState([]);
+    const [sharingClicked, setSharingClicked] = useState(false);
+    const urlShare = "https://www.google.com"; ///window.location.href
 
     let mediumFakeText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"+ 
                           "sed do eiusmod tempor incididunt ut labore et dolore magna"+ 
@@ -149,9 +159,11 @@ function EpkView() {
       // user is added to the list of sharings
       function addUserToSharings(){
         http.get(`fepks/sharing/${fepkData._id}/${userId}`);
-        /*
-          here will be the code for sharing 
-        */
+        setSharingClicked(true);
+      }
+
+      function closeSharingMenu(){
+        setSharingClicked(false);
       }
 
       function openUrl(url){
@@ -265,10 +277,10 @@ function EpkView() {
            <h2 style={{color:"pink"}}> <InstagramIcon style={{color:"pink",fontSize:40}} /> {followers.facebook}</h2>
             </div>
             <div>
-            <h2 style={{color:"blue"}}><FacebookIcon style={{color:"blue",fontSize:40}} /> {followers.instagram}</h2>
+            <h2 style={{color:"blue"}}><FacebookIcons style={{color:"blue",fontSize:40}} /> {followers.instagram}</h2>
             </div>
             <div>
-            <h2 style={{color:"lightblue"}}><TwitterIcon style={{color:"lightblue",fontSize:40}}/> {followers.twitter}</h2>
+            <h2 style={{color:"lightblue"}}><TwitterIcons style={{color:"lightblue",fontSize:40}}/> {followers.twitter}</h2>
             </div>
       
           </div>
@@ -316,15 +328,32 @@ function EpkView() {
             </a>
           </div>
           <div >
+            {/* Social media sharing Icons */}
+            {sharingClicked === true &&
+                <div style={{float:"left", margin:"5px 5px 0 0"}} onClick={() => closeSharingMenu()}>
+                  <FacebookShareButton url={urlShare}>
+                    <FacebookIcon size={30} round={true} style={{marginRight:"5px"}}/>
+                  </FacebookShareButton>  
+                  <LinkedinShareButton url={urlShare}>
+                    <LinkedinIcon size={30} round={true} style={{marginRight:"5px"}}/>
+                  </LinkedinShareButton>
+                  <TwitterShareButton url={urlShare}>
+                    <TwitterIcon size={30} round={true} style={{marginRight:"5px"}}/> 
+                  </TwitterShareButton>
+                  <RedditShareButton url={urlShare}>
+                    <RedditIcon size={30} round={true} style={{marginRight:"5px"}}/> 
+                  </RedditShareButton>
+                  <EmailShareButton url={urlShare}>
+                    <EmailIcon size={30} round={true} /> 
+                  </EmailShareButton>
+                </div>
+            }    
             <a  href="#">
-            <FontAwesomeIcon icon={faShareAlt} size ="lg" onClick={() => addUserToSharings()}/>
+            <FontAwesomeIcon icon={faShareAlt} size ="lg" onMouseOver={() => addUserToSharings()} onClick={() => closeSharingMenu()}/>
              
             </a>
           </div>
-
-       
       </div>
-
       <Login />
 
        {/* details section */}
@@ -821,8 +850,8 @@ function EpkView() {
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
                             <p className={style.mediaIcon}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>

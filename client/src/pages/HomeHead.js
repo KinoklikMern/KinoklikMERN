@@ -13,7 +13,7 @@ import { fas, faSackDollar, faBookBookmark, faBookmark, faShareNodes, faBars, fa
 
 const HomeHead = () => {
     return (
-        <div>
+        <div className="tw-bg-gray-300">
             <section id="home">
                 <div className="menu-icon">
                     <Link to="/bookmark"> <FontAwesomeIcon icon={faBookmark} /> </Link>

@@ -1,15 +1,19 @@
 import React from "react";
 import { Navigate, Route, Link, Routes } from "react-router-dom";
-import './styles/tailwind.css'
+
+import './styles/tailwind.css' //Tailwind
+
 import MainLayout from "./layouts/MainLayout";
 import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
-import Login from "./components/Auth/Registration/login";
+import LoginForm from "./components/Auth/Registration/loginform";
+import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 //import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 
-import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import filmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
@@ -20,6 +24,9 @@ import FilmMakerMovies from "./components/FilmMaker/filmMakerMovies";
 import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotifications";
 import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
 import Bookmark from "./pages/Bookmark";
+
+import ForFilmMakers from "./components/ForFilmMakers";
+import ForIndustryProf from "./components/ForIndustryProf";
 
 import DetailsForm from "./components/Epk/Input/detailsForm";
 import Details from "./components/Epk/Present/details";
@@ -92,10 +99,10 @@ function App() {
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
-          <Route path="registeration" element={<RegistrationForm />} />
-          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<RegistrationForm />} />
+          <Route path="login" element={<LoginForm />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
-
+          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route
             path="filmMakerSelectedMovie"
             element={<FilmMakerSelectedFilm />}
@@ -128,6 +135,8 @@ function App() {
           />
           <Route path="bookmark" element={<Bookmark />} />
 
+          <Route path="forFilmMakers" element={<ForFilmMakers />} />
+          <Route path="forIndustryProf" element={<ForIndustryProf />} />
           <Route path="coverForm" element={<CoverForm />} />
           <Route path="cover" element={<Cover />} />
 

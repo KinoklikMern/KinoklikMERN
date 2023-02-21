@@ -1,0 +1,162 @@
+/* use compomonents way to style for registration page
+link for registration is /signup */
+.bg {
+    /* background-image: url(../../../images/login/Curtains.png); */
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin:0 auto;
+    background-repeat: none;
+    background-size: cover;
+    background-position: bottom center;;
+    background: linear-gradient(rgba(238, 238, 238, 0.823), rgba(219, 219, 222, 0.856)), url(../../../images/login/VIP.png);
+}
+
+.form {
+position: absolute;
+    color: black;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+}
+
+.form_body {
+    text-align: center;
+}
+
+.form_input {
+    background: white;
+    width: 500px;
+    border-radius: 10px;
+   
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    outline-color: transparent;
+    box-shadow: 0 0 .4em #844fb0;
+}
+
+.form_input1 {
+   width: 500px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background-color: #fff; 
+   border-radius: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+        outline-color: transparent;
+            box-shadow: 0 0 .4em #844fb0;
+
+}
+
+.form_input2 {
+background: white;
+    width: 500px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    outline-color: transparent;
+        box-shadow: 0 0 .4em #844fb0;
+}
+
+.btn1 {
+    background: white;
+    color: black;
+    border: 10px solid var(#712CB0);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
+    width: 200px;
+    text-align: center;
+   
+}
+
+.btn1:hover {
+    background-color: #712CB0;
+    color: white;
+   
+}
+.selected {
+    background-color:#712CB0;
+    color: white;
+}
+
+
+
+.btn {
+    background: #712CB0;
+    color: white;
+    border: 10px solid var(#712CB0);
+    /* padding: 4px 50px; */
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
+    width: 200px;
+    text-align: center;
+    margin-left: 150px;
+
+}
+
+.form_title {
+    font-size: 60px;
+    font-weight: 400;
+   text-align: center;
+   color: #712CB0;
+   padding: 100px;
+ 
+}
+
+
+/* responsive */
+@media (max-width: 768px) {
+    .form_input1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .form_input1 button {
+        width: 48%;
+    }
+
+    .form_input {
+        width: 100%;
+    }
+
+    .form_input2 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .form_input1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .form_input1 button {
+        width: 20%;
+    }
+
+    .form_input {
+        width: 100%;
+    }
+
+    .form_input2 {
+        width: 100%;
+    }
+}
+

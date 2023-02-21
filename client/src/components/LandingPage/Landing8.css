@@ -1,0 +1,34 @@
+.slide-right-left {
+  animation: slide-right-left 10s linear infinite;
+}
+
+@keyframes slide-right-left {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(10%);
+  }
+
+
+  100% {
+    transform: translateX(-10%);
+  }
+}
+.slide-left-right {
+  animation: slide-left-right 10s infinite;
+}
+
+@keyframes slide-left-right {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-10%);
+  }
+
+  
+  100% {
+    transform: translateX(10%);
+  }
+}
