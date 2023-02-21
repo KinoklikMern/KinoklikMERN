@@ -8,10 +8,12 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
-import Login from "./components/Auth/Registration/login";
+import LoginForm from "./components/Auth/Registration/loginform";
+import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 //import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
 
-import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import filmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
@@ -19,8 +21,6 @@ import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMaker
 import FilmMakerDashboardSecurityAccount from "./components/FilmMaker/filmMakerDashboardSecurityAccount";
 import FilmMakerDashboardSecurityProfile from "./components/FilmMaker/filmMakerDashboardSecurityProfile";
 import FilmMakerMovies from "./components/FilmMaker/filmMakerMovies";
-import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotifications";
-import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
 import Bookmark from "./pages/Bookmark";
 
 import ForFilmMakers from "./components/ForFilmMakers";
@@ -35,22 +35,14 @@ import Cover from "./components/Epk/Present/Cover";
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
 
-import { ThemeProvider } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
 import UserDashboard from "./pages/UserDashboard";
 
-import { getMovies } from "./actions/movies";
-import Movies from "./components/Movies/Movies";
-import Form from "./components/Forms/Form";
-import jb from "./images/jb.jpeg";
-import useStyles from "./styles";
 import EpkCoverForm from "./components/Epk/Input/EpkCoverForm.js";
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
 
 import UniquenessForm from "./components/Epk/Input/uniquenessForm";
 import Uniqueness from "./components/Epk/Present/uniqueness";
-import UploadEpk from "./pages/UploadEpk";
 
 import StillsForm from "./components/Epk/Input/stillsForm";
 import Stills from "./components/Epk/Present/stills";
@@ -73,32 +65,22 @@ import Producer from "./components/Epk/Present/producer";
 
 import CinematographerForm from "./components/Epk/Input/cinematographerForm";
 import Cinematographer from "./components/Epk/Present/cinematographer";
-import TrailerForm from "./components/Epk/Input/TrailerForm";
 import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
 
 import EpkView from "./pages/EpkView";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#591398",
-    },
-  },
-});
-
 function App() {
   return (
-    <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
-          <Route path="registeration" element={<RegistrationForm />} />
-          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<RegistrationForm />} />
+          <Route path="login" element={<LoginForm />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route
@@ -106,11 +88,6 @@ function App() {
             element={<FilmMakerSelectedFilm />}
           />
           <Route path="filmMakerMovies" element={<FilmMakerMovies />} />
-          <Route
-            path="filmMakerNotifications"
-            element={<FilmMakerNotifications />}
-          />
-          <Route path="filmMakerConnect" element={<FilmMakerConnect />} />
           <Route
             path="filmMakerDashboardSecurity"
             element={<FilmMakerDashboardSecurity />}
@@ -175,7 +152,6 @@ function App() {
           <Route path="uploadEpk" element={<EpkDashboard />} />
           <Route path="uploadFepk" element={<FepkUploadDashboard />} />
           <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
-          <Route path="trailerForm" element={<TrailerForm />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
           <Route path="resources" element={<Resources />} />
@@ -184,7 +160,6 @@ function App() {
         <Route path="epkview/:title" element={<EpkView />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </ThemeProvider>
   );
 }
 

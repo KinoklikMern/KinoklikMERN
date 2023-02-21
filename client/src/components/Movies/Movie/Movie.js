@@ -1,13 +1,7 @@
-import React from 'react';
-
-import useStyles from './styles';
+import React from "react";
 
 const Movie = () => {
-  const classes = useStyles();
-
-  return (
-    <h1>Movie</h1>
-  )
-}
+  return <h1>Movie</h1>;
+};
 
 export default Movie;

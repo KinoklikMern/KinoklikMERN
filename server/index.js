@@ -34,6 +34,7 @@ app.listen(8000, () => console.log(`App Running on PORT ${PORT}`));
 const CONNECTION_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 8000;
 
+mongoose.set('strictQuery', true); //Needs to be set for Mongoose 7, as default is false
 mongoose.connect(
   CONNECTION_URL,
   {

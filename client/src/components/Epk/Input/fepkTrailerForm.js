@@ -12,7 +12,6 @@ function TrailerForm () {
   const inputFileRef = useRef(null);
 
   let { fepkId } = useParams();
-  const filmmaker_id = "63c0e3bb40253f49b94edd11";
   
   const fileSelected = (event) => {
     setFile(event.target.files[0]);
@@ -108,7 +107,7 @@ function TrailerForm () {
             </Link>
           </div>
           <div className="col-3  m-3">
-           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Dashboard</h2>
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal', fontSize:"25px" }}>EPK Dashboard</h2>
           </div>
           <div className="col-3 m-3">
             < BasicMenu/>   
@@ -127,11 +126,12 @@ function TrailerForm () {
             <form>
                 <div  className="row">
                     <div className="col-2 mt-3">
-                      <label for="fileTrailer" class="form-label text-dark">
+                      <label for="fileTrailer" class="form-label text-dark" style={{fontSize:"25px"}}>
                         {" "}
                         <h6 style={{fontSize:"20px"}}>Upload Video</h6>
                         </label>
                         <input
+                        style={{fontSize:"15px"}}
                         className="form-control form-control-sm"
                         filename={file}
                         onChange={fileSelected}
@@ -143,7 +143,7 @@ function TrailerForm () {
                         />
                     </div>
                     <div className="col-9 mt-3" style={{textAlign: "center"}}>
-                        <video src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer}`} width="100%" height="400px" controls>
+                        <video src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer}`} style={{width:"100%", height:"400px"}} controls>
                         </video>
                     </div>
                     <div className="col-1">
@@ -157,12 +157,12 @@ function TrailerForm () {
                       >
                         {disabled===true ? 
                         (
-                        <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
+                        <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
                             Save
                         </Button>
                         ) :
                         (
-                        <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
+                        <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
                             Save
                         </Button>
                         )}
