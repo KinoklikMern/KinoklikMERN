@@ -35,22 +35,17 @@ import Cover from "./components/Epk/Present/Cover";
 import LoglineForm from "./components/Epk/Input/loglineForm";
 import Logline from "./components/Epk/Present/logline";
 
-import { ThemeProvider } from "@mui/material";
-//import { createTheme } from "@mui/styles";
 import UserDashboard from "./pages/UserDashboard";
 
 import { getMovies } from "./actions/movies";
 import Movies from "./components/Movies/Movies";
 import Form from "./components/Forms/Form";
-import jb from "./images/jb.jpeg";
-import useStyles from "./styles";
 import EpkCoverForm from "./components/Epk/Input/EpkCoverForm.js";
 import SynopsisForm from "./components/Epk/Input/synopsisForm";
 import Synopsis from "./components/Epk/Present/synopsis";
 
 import UniquenessForm from "./components/Epk/Input/uniquenessForm";
 import Uniqueness from "./components/Epk/Present/uniqueness";
-import UploadEpk from "./pages/UploadEpk";
 
 import StillsForm from "./components/Epk/Input/stillsForm";
 import Stills from "./components/Epk/Present/stills";
@@ -79,17 +74,8 @@ import FepkEditDashboard from "./pages/FepkEditDashboard";
 
 import EpkView from "./pages/EpkView";
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: "#591398",
-//     },
-//   },
-// });
-
 function App() {
   return (
-    //<ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
@@ -177,7 +163,6 @@ function App() {
         <Route path="epkview/:title" element={<EpkView />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    //</ThemeProvider>
   );
 }
 
