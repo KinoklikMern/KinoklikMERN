@@ -12,7 +12,6 @@ function UniquenessForm () {
   const inputFileRef = useRef(null);
 
   let { fepkId } = useParams();
-  const filmmaker_id = "63c0e3bb40253f49b94edd11";
   
   const fileSelected = (event) => {
     setFile(event.target.files[0]);
@@ -128,7 +127,7 @@ function UniquenessForm () {
             </Link>
           </div>
           <div className="col-3  m-3">
-           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>EPK Dashboard</h2>
+           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal', fontSize:"25px" }}>EPK Dashboard</h2>
           </div>
           <div className="col-3 m-3">
             < BasicMenu/>   
@@ -190,11 +189,12 @@ function UniquenessForm () {
               <div className="row g-3">
                 <div className="col my-3"></div>
                 <div className="col my-6">
-                        <label for="filePoster" class="form-label text-dark">
+                        <label for="filePoster" class="form-label text-dark" style={{fontSize:"25px"}}>
                         {" "}
                         <h4>Upload Picture</h4>
                         </label>
                         <input
+                        style={{fontSize:"15px"}}
                         className="form-control form-control-sm"
                         filename={file}
                         onChange={fileSelected}
@@ -204,7 +204,7 @@ function UniquenessForm () {
                         name="files"
                         accept="image/*"
                         ></input>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepk.image_uniqueness}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
+                        <img src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_uniqueness}`} style={{height:"70px", width:"auto", marginTop: "5px"}} alt="no image"/>
                 </div>
                 <div className="col my-3"></div>
                 <div
@@ -217,12 +217,12 @@ function UniquenessForm () {
                 >
                     {disabled===true ? 
                     (
-                    <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkUniqueness} value="save">
+                    <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkUniqueness} value="save">
                         Save
                     </Button>
                     ) :
                     (
-                    <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkUniqueness} value="save">
+                    <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkUniqueness} value="save">
                         Save
                     </Button>
                     )}

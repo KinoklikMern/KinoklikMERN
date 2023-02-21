@@ -9,35 +9,43 @@
    color:#fff;
    margin: 0 auto;
    box-sizing: border-box;
+   background-color: #170b3b;
+   max-width: 120rem;
+   padding:0 3rem;
  }
  
  .hero {
-   /* max-width: 130rem; */
-   
    background-repeat: none;
    width:100%;
-   
+   height:75vh;
    background-size: cover;
-   background-position: top;
+   background-position: 20% 10%;
+   
  }
 
  
  /* poster section */
  .posterContainer {
    display: flex;
-   margin: 0 3rem;
-   padding-top:2rem;
+   padding:3rem;
+
+   justify-content: flex-start;
+   gap:10rem;  
+   margin-left: auto;
+   margin-right: auto;
  }
  
- .img {
-   width: 100%;
-   height: 60vh;
+ .imgPoster {
+  
+   width: 26vw;
+   height: auto;
    border-radius: 4rem;
    box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
  }
  
  .description{
-   flex-basis: 50rem;
+   flex-basis: 80rem;
+  
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -46,10 +54,7 @@
  }
  .centered {
    font-size: 3.6rem;
-   letter-spacing: 3px;
-   
-   
-   
+   letter-spacing: 3px;  
  }
  .logline {
    font-size: 1.8rem;
@@ -60,16 +65,22 @@
  /* corner section */
 
  .flexContainer {
-   width: 40%;
    display: flex;
-   padding: 0;
-   margin-top:3rem;
-   align-items: flex-end;
-   /* justify-content: space-between; */
+   align-items: center;
+   justify-content: flex-start;
    gap: 5rem;
-   margin-left:.5rem;
    color:#fff;
-   font-weight: 500;
+   padding-left:1rem;
+   background-color: rgba(255,255,255,0.4);
+  
+ }
+
+ .flexContainer h2{
+  font-size: 1.4rem;
+  font-weight: 500;
+ }
+ .textLeft{
+  flex-basis: 15rem;
  }
  
  .pre {
@@ -81,8 +92,13 @@
  .date {
    
   font-size: 1rem;
-  margin-bottom: 0;
+  
    
+ }
+
+ .cornerText{
+  font-size: 1.6rem;
+
  }
  
 
@@ -92,9 +108,15 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-   background-color: #2d0353;
+   background-color: #170b3b;
    width: auto;
    margin-top:.5rem;
+   position: relative;
+ }
+ span{
+  position:absolute;
+  top:0;
+  font-size: 1.2rem;
  }
  
  .iconContainer a {
@@ -106,11 +128,11 @@
  }
  
  /* Change the color of links on hover */
-  a:hover {
+  .iconContainer a:hover {
    background-color: #a263da;
    color: black;
  }
- a:active {
+ .iconContainer a:active {
    color: white;
  }
  
@@ -124,48 +146,49 @@
  /* details section */
 
  .detailContainer {
-  margin: 4rem 2rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap:3rem;
+  justify-content: flex-start;
+  gap:10rem;
+  background-color:#fff;
   color:#000;
+  padding: 2rem;
 }
 
 .imgDetail {
-  height: 60vh;
-  width:30vw;
+  height: 50vh;
+  width:20vw;
   border-radius: 4rem;
 }
-.imgProfile{
-  float: "right"; 
-  width:"40px";
-  height:"40px";
-  margin: "10px";
-  border-radius: "50%";
-}
 
-.el2 {
-  line-height: 1.5;
+
+.middle p {
+  line-height: 1.8;
   font-size: 1.8rem;
   
   
 }
-.el3{ 
-  line-height: 1.5;
+.leftDetail p{ 
+  line-height: 1.8;
   font-size: 1.8rem;
  text-align: center;
 }
+
+
 /* logline section */
+.loglineContainer{
+  background-color: #fff;
+  padding:2rem;
+}
 
-
-.logline p {
-  font-size: 1.8rem;
+.loglineContainer p {
+  font-size: 2.4rem;
   font-weight: 700;
   color: rgb(72, 8, 8);
   margin-left: 25%;
   margin-right: 25%;
   text-align: center;
+  padding-bottom: 1rem;
 }
 .imgLogline {
   height: 40vh;
@@ -179,11 +202,11 @@
 /* synopsis section */
 
 .synopsis{
-  max-width: 130rem;
-  margin: 0 auto;
-  margin-top:.5rem;
+
   position: relative;
-  /* border-top: 1.5rem solid rgb(23, 11, 59); */
+  margin-bottom: 1rem;
+  padding-top:1rem;
+  
 }
 
 .position{
@@ -202,6 +225,7 @@
   position: relative;
   text-align: center;
   color: white;
+  font-size: 2.4rem;
 }
 .content1{
   filter: blur(8px)
@@ -213,22 +237,29 @@
   color:#fff;
   text-align: center;
   background-color: rgb(23, 11, 59);
-  padding:.5rem;
+  padding:1rem;
 }
 
 .btnSy{
   position: absolute;
-  top:3rem;
+  top:-2rem;
+  left:-10rem;
   transform: translate(-50%, 10%);
   width: 10rem;
   height: auto;
   font-size:1rem;
-  border-radius: 2rem;
+  border-radius: 8px;
+  box-shadow: 2px 3px #a263da;
+  color:#000;
+  background-color: #fff;
+  font-weight: 500;
+
   
   z-index: 2;
 }
 .imgSynopsis{
-  height:60vh;
+  
+  height:50vh;
   width:80%;
   display: block;
   margin-left: auto;
@@ -248,28 +279,45 @@
 
 /* uniqueness section */
 .unique{
-  border-top: 1.5rem solid rgb(23, 11, 59);
-  margin-top: .5rem;
+  position: relative;
+  background-color: #fff;
+  padding:2rem;
+  
 }
 .titleUnique {
   font-size: 3.6rem;
   font-weight: 700;
   color: #000;
-  margin-top: 2rem;
   text-align: center;
 }
 .uniqueContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin:2rem 3rem;
-  padding:2rem;
-  
+  justify-content: center;
+  padding:1rem;
   gap: 10rem;
+  
+}
+.btnUni{
+  position: absolute;
+  top:-206rem;
+  left:1rem;
+  transform: translate(-50%, 10%);
+  width: 10rem;
+  height: auto;
+  font-size:1rem;
+  border-radius: 8px;
+  box-shadow: 2px 3px #a263da;
+  color:#000;
+  background-color: #fff;
+  font-weight: 500;
+
+  
+  z-index: 2;
 }
 .imgUnique {
   height:40vh;
-  width:30vw;
+  width:100vw;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -278,14 +326,175 @@
 .textUnique {
   font-size: 2.4rem;
   color: #000;
+  padding:0 3rem;
+  
+  
 }
 
 .starring{
-  margin: "10px";
+  padding:2rem;
+  background-color: #fff;
+  margin-top: 1rem;
+
 }
-.director{
-  margin: "10px";
+
+/* starring/cast section */
+
+.starTitle {
+  font-size: 3.6rem;
+  color: #000;
+  margin-top: 2rem;
+  font-weight: 700;
+  text-align: center;
 }
+.starcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rem;
+  padding: 3rem 3rem;
+
+}
+
+h1 {
+  color: rgb(23, 11, 59);
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+.biography {
+  color: rgb(23, 11, 59);
+  font-size: 2.4rem;
+  line-height: 1.5;
+  
+}
+.starimg {
+  width: 15vw;
+  height: auto;
+  border-radius: 2rem;
+  box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
+}
+
+/* Director/proudcer section */
+.directorcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #170b3b;
+  gap: 20rem;
+  padding: 3rem 3rem;
+}
+.producerimg {
+  width:15vw;
+  height: auto;
+  border-radius: 2rem;
+  box-shadow: 3px 3px rgb(237, 235, 240);
+ 
+}
+
+.left {
+  flex-basis: 50%;
+  justify-self: center;
+  align-self: center;
+}
+.right {
+  align-self: flex-start;
+  justify-self: center;
+}
+ .left h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 1.8rem;
+  text-align: center;
+}
+.right p {
+  color: white;
+  font-size: 2.4rem;
+  line-height: 1.5;
+  text-align: justify;
+}
+.right h3{
+  text-align: center;
+  font-size: 3.6rem;
+}
+
+/* stills section */
+.stillcontainer {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: flex-start;
+  column-gap: 1rem;
+}
+
+/* resources section */
+
+.resourcesCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #d2ccd6;
+  border-radius: 25px;
+  gap: 10rem;
+  padding:2rem;
+}
+.imgResource {
+  width: 35rem;
+  height: 30rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.3rem;
+  padding: 4rem;
+  
+}
+.textResource {
+  color: rgb(23, 11, 59);
+  font-size: 2.4rem;
+  text-align: center;
+  margin: 2rem 3rem;
+  align-self: flex-start;
+}
+
+.textResource h1{
+  font-size: 3.6rem;
+}
+
+/* trailer section */
+
+video {
+  width: 100vw;
+  height: 60vh;
+ 
+  border-radius: 2rem;
+}
+
+/* award section */
+.awardContainer{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 3rem;
+  background-color: #fff;
+  gap:5rem;
+}
+.award{
+  color: #000;
+  font-size:1.8rem;
+  text-align: start;
+  flex-basis: 50rem;
+}
+.imgAward{
+  width:20vw;
+  height: 30vh;
+ 
+  
+
+}
+
+
+
+
+
+
 
 
 
