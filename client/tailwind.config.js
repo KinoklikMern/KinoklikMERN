@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'TvImage': "url('../../public/images/TV.png')",
+        'JokerImage': "url('../../public/images/JokerImage.png')",
       },
       colors: {
        

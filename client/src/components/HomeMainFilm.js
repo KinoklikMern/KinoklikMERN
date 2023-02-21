@@ -8,7 +8,7 @@ const HomeMainFilm = () => {
             
             <div className="c-row">
                 {mainFilm.map((item) =>(
-                    <div className="c-col" key={item._id}>
+                    <div className="c-col  tw-opacity-40" key={item._id}>
                         <img src={item.image} alt={item.title} />
                         {/* <div className="category-content"> */}
                             {/* <p>{item.title}</p>

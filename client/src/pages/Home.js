@@ -21,7 +21,7 @@ function Home() {
   return (
     <>
       <div>
-        {user && (
+        {!user && (
           <>
             <HomeHead />
             <HomeBody />
@@ -29,7 +29,7 @@ function Home() {
             <HomeBottom />
           </>
         )}
-        {!user && (
+        {user && (
           <>
             <Landing1 />
             <Landing2 />

@@ -17,6 +17,11 @@ export const mainFilm = [
     {
         _id: 4,
         title: "goal",
-        image: "/images/mainfilm/4.jpeg",
+        image: "/images/mainfilm/1.jpeg",
+    },
+    {
+      _id: 5,
+      title: "team",
+      image: "/images/mainfilm/2.webp",
     },
   ];
