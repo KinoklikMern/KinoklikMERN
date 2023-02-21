@@ -58,7 +58,7 @@ router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
 router.get("/mediumSynopsis/:fepkid/:userid", getMediumSynopsis);
 router.get("/longSynopsis/:fepkid/:userid", getLongSynopsis);
 router.get("/uniqueness/:fepkid/:userid", getUniqueness);
-router.get("/stills/:fepkid/:userid", getStills);
+// router.get("/stills/:fepkid/:userid", getStills);
 
 // Uploads 1 file to AWS S3
 router.post("/uploadFile", upload.single("file"), uploadFepkFile);

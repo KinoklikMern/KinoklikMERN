@@ -16,8 +16,8 @@ router.get("/movies", getMovies);
 // Gets all Movies of certain film maker
 router.get("/movies/byfilmmaker/:id", getMoviesByFilmmakerId);
 
-// Gets all Movies of certain user
-router.get("/movies/byuser/:userid", getMoviesByUserId);
+// // Gets all Movies of certain user
+// router.get("/movies/byuser/:userid", getMoviesByUserId);
 
 router.post("/", createMovie);
 router.post(
