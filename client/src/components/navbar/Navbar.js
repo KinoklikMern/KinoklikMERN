@@ -20,7 +20,7 @@ function Navbar() {
 
   return (
     <nav className="tw-w-full tw-bg-gradient-to-b tw-from-[#4b1a77] tw-to-[#1f0439] tw-p-2">
-      <div className="tw-mx-auto tw-flex tw-max-w-5xl tw-items-center tw-justify-between ">
+      <div className="tw-mx-auto tw-flex tw-max-w-full tw-items-center tw-justify-between ">
         {/* Logo and brand name */}
         <NavbarBrand />
         {/* Buttons */}

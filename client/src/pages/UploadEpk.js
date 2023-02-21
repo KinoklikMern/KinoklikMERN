@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 import EpkCoverForm from "../components/Epk/Input/EpkCoverForm"
 import SynopsisForm from "../components/Epk/Input/synopsisForm"
