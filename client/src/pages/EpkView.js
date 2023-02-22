@@ -33,14 +33,12 @@ import {
   TwitterIcon
 } from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
-//import Cookies from 'js-cookie';
 
 function EpkView() {
     let { title } = useParams();
 
     // fetching user details from local storage
     const user = JSON.parse(localStorage.getItem("persist:root")).user; 
-    console.log(user);
     let userId;
     let userRole;
   
@@ -60,8 +58,9 @@ function EpkView() {
     const [mediumSynopsis, setMediumSynopsis] = useState([]);
     const [longSynopsis, setLongSynopsis] = useState([]);
     const [uniqueness, setUniqueness] = useState([]);
-    const[stills,setStills]=useState([]);
-    const[stillsImg,setStillsImg]=useState([]);
+    const[stills, setStills] = useState([]);
+    const[stillsImages, setStillsImages] = useState([]);
+    let stillsImg = [];
     const [resources, setResources] = useState([]);
     const [trailer, setTrailer] = useState([]);
     const [followers, setFollowers] = useState({});
@@ -86,7 +85,7 @@ function EpkView() {
     let count = 0;
   
     useEffect(() => {
-        http.get(`/fepks/byTitle/${title}`).then((response) =>{
+        http.get(`fepks/byTitle/${title}`).then((response) =>{
             setFepkData(response.data); 
             setCrewList(response.data.crew);
             setUsersWishesToBuy(response.data.wishes_to_buy.length);
@@ -96,16 +95,20 @@ function EpkView() {
             setLongSynopsis(response.data.longSynopsis);
             setUniqueness(response.data.uniqueness);
             setStills(response.data.stillsApproval);
-            setStillsImg(response.data.stills);
+            setStillsImages(response.data.stills);
             setResources(response.data.resources);
             setTrailer(response.data.trailer);
             setReviews(response.data.reviews);
             http.get(`/fepks/followers/${response.data._id}`).then((res) =>{
               setFollowers(res.data);
             });
-        });
-     
+        });   
       }, []);
+
+      stillsImages.map((still) => {
+        stillsImg.push(still.image);
+      });      
+      
 
       // user is added to request list for medium Synopsis
       function addtoMediumSynopsis(){
@@ -128,7 +131,13 @@ function EpkView() {
         });
       }
 
-   
+      // user is added to request list for Stills
+      function addtoStills(){
+        http.get(`fepks/stills/${fepkData._id}/${userId}`).then((response) =>{
+          setStills(response.data.stillsApproval);
+        });
+      }
+
       // user is added to the list of $
       function addUserToWishesToBuy(){
         http.get(`fepks/wishestobuy/${fepkData._id}/${userId}`).then((response) =>{
@@ -205,41 +214,6 @@ function EpkView() {
   <div className={style.wholeContainer} > 
   <Navbar/>
     <div className={style.hero} style={{backgroundImage: `url(https://kinomovie.s3.amazonaws.com/${fepkData.banner_url})`}}> 
-
-      {/* Profile Picture
-      {userRole === "FILM_MAKER" ?
-      (<Link  to="/filmMakerDashboard"> <img src={userPicture} alt="user" 
-                                                              style={{float: "right", 
-                                                                      width:"50px", 
-                                                                      height:"50px", 
-                                                                      margin:"10px 20px 0 0", 
-                                                                      borderRadius:"50%"}}/>
-        </Link>
-      ):
-      (
-        userRole === "noUser" ?
-          (
-            <img src= {userPicture}
-                onClick={() => login()} 
-                alt="user" 
-                style={{float: "right",                                        
-                width:"50px", 
-                height:"50px", 
-                margin:"10px 20px 0 0", 
-                borderRadius:"50%"}}/>
-          ):
-          (
-            <Link  to="/userDashboard"> <img src={userPicture} alt="user" 
-                                                              style={{float: "right", 
-                                                                      width:"50px", 
-                                                                      height:"50px", 
-                                                                      margin:"10px 20px 0 0", 
-                                                                      borderRadius:"50%"}}/>
-            </Link>
-          )
-      )
-      }  */}
-    
       <div className={style.posterContainer}> 
       <div >
       <img 
@@ -1022,96 +996,88 @@ function EpkView() {
 
   
 
-    {/* sitlls section */}
+    {/* stills section */}
 
       {/* the case when user not logged in and if logged in not requested yet*/}
       {userId === "0" ?
       (
         <div className={style.stills}>
-        <div className={style.position1}> 
+          <div className={style.position1}> 
                 <button  onClick={()=>{login(); clickState4()}} className={isClick4===true ? style.none :style.btnStills }> Request Access </button>
-              </div>
-        <div className={style.stillsContainer}>
-           
+          </div>
+          <div className={style.stillsContainer}>
             <div className={style.content1}>
                <img
-            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
-            alt="resource pics"
-            className={style.imgStills}/>
-              </div>
-              <div className={style.content1}>
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+            </div>
+            <div className={style.content1}>
                <img
-            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
-            alt="resource pics"
-            className={style.imgStills}/>
-              </div>
-              
-        </div>
-        <div className={style.stillsContainer}>
-           
-           <div className={style.content1}>
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+            </div>     
+          </div>
+          <div className={style.stillsContainer}>
+            <div className={style.content1}>
               <img
-           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
-           alt="resource pics"
-           className={style.imgStillsRight}/>
-             </div>
-             <div className={style.content1}>
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+            </div>
+            <div className={style.content1}>
               <img
-           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
-           alt="resource pics"
-           className={style.imgStillsLeft}/>
-             </div>
-             
-       </div>
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+            </div>  
+          </div>
         </div>
       ):
       (
-        (stills.length === 0 || stills.filter(u => u.user === userId).length === 0) && 
-        <div className={style.stills}>
-        <div className={style.position1}> 
-                <button  onClick={()=>{login(); clickState4()}} className={isClick4===true ? style.none :style.btnStills }> Request Access </button>
-              </div>
-        <div className={style.stillsContainer}>
-           
-            <div className={style.content1}>
-               <img
-            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
-            alt="resource pics"
-            className={style.imgStillsLeft}/>
+        (stills.length === 0 || stills.filter(s => s.user._id === userId).length === 0) && 
+          <div className={style.stills}>
+            <div className={style.position1}> 
+                <button  onClick={()=>{addtoStills(); clickState4()}} className={isClick4===true ? style.none :style.btnStills }> Request Access </button>
+            </div>
+            <div className={style.stillsContainer}>
+              <div className={style.content1}>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
               </div>
               <div className={style.content1}>
-               <img
-            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
-            alt="resource pics"
-            className={style.imgStillsRight}/>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
               </div>
-              
-        </div>
-        <div className={style.stillsContainer}>
-           
-           <div className={style.content1}>
-              <img
-           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
-           alt="resource pics"
-           className={style.imgStillsRight}/>
-             </div>
-             <div className={style.content1}>
-              <img
-           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
-           alt="resource pics"
-           className={style.imgStillsLeft}/>
-             </div>
-             
-       </div>
-        </div>
+            </div>
+            <div className={style.stillsContainer}>
+              <div className={style.content1}>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+              </div>
+              <div className={style.content1}>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+              </div>   
+            </div>
+          </div>
       ) 
       }
 
       {/* the case when user logged in and requested the approval */}
-      {/* {stills.map((still) => {
+      {stills.map((still) => {
           return ( 
             <>
-              {still.user === userId && still.status === "pending" &&
+              {still.user._id === userId && still.status === "pending" &&
                    <div className={style.stills}>
                    <div className={style.position1}> 
                    <button className={style.btnStills}> Awaiting approval </button>
@@ -1120,13 +1086,13 @@ function EpkView() {
                       
                        <div className={style.content1}>
                           <img
-                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
                        alt="resource pics"
                        className={style.imgStillsLeft}/>
                          </div>
                          <div className={style.content1}>
                           <img
-                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
                        alt="resource pics"
                        className={style.imgStillsRight}/>
                          </div>
@@ -1136,13 +1102,13 @@ function EpkView() {
                       
                       <div className={style.content1}>
                          <img
-                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
                       alt="resource pics"
                       className={style.imgStillsRight}/>
                         </div>
                         <div className={style.content1}>
                          <img
-                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
                       alt="resource pics"
                       className={style.imgStillsLeft}/>
                         </div>
@@ -1153,13 +1119,13 @@ function EpkView() {
               } 
             </>
           )
-      })} */}
+      })} 
 
       {/* the case when user logged in and got the approval */}
-      {/* {stills.map((still) => {
+      {stills.map((still) => {
           return ( 
             <>
-              {still.user === userId && still.status === "approved" &&
+              {still.user._id === userId && still.status === "approved" &&
                
                <div className={style.stills}>
               
@@ -1167,13 +1133,13 @@ function EpkView() {
                   
                    <div >
                       <img
-                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
                    alt="resource pics"
                    className={style.imgStillsLeft}/>
                      </div>
                      <div >
                       <img
-                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
                    alt="resource pics"
                    className={style.imgStillsRight}/>
                      </div>
@@ -1183,13 +1149,13 @@ function EpkView() {
                   
                   <div >
                      <img
-                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
                   alt="resource pics"
                   className={style.imgStillsRight}/>
                     </div>
                     <div >
                      <img
-                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
                   alt="resource pics"
                   className={style.imgStillsLeft}/>
                     </div>
@@ -1199,12 +1165,13 @@ function EpkView() {
               } 
             </>
           )
-      })} */}
+      })} 
 
       {/* the case when user logged in and got refused */}
-      {/* {stills.map((still) => {
+      {stills.map((still) => {
           return ( 
             <>
+             {still.user._id === userId && still.status === "refused" &&
               <div className={style.stills}>
                    <div className={style.position1}> 
                    <button className={style.btnStills}> Refused </button>
@@ -1213,13 +1180,13 @@ function EpkView() {
                       
                        <div className={style.content1}>
                           <img
-                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
                        alt="resource pics"
                        className={style.imgStillsLeft}/>
                          </div>
                          <div className={style.content1}>
                           <img
-                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
                        alt="resource pics"
                        className={style.imgStillsRight}/>
                          </div>
@@ -1229,23 +1196,23 @@ function EpkView() {
                       
                       <div className={style.content1}>
                          <img
-                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
                       alt="resource pics"
                       className={style.imgStillsRight}/>
                         </div>
                         <div className={style.content1}>
                          <img
-                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
                       alt="resource pics"
                       className={style.imgStillsLeft}/>
                         </div>
                         
                   </div>
                    </div>
-        
+              }
             </>
           )
-      })} */}
+      })}
 
 
       {/* resources section */}
