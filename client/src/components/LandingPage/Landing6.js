@@ -15,7 +15,7 @@ const Landing6 = () => {
                 </div>
                 <div className="p-5">
                     {questions.map((question) => (
-                        <SingleQuestion {...question} />
+                        <SingleQuestion {...question} key={question._id} />
                     ))}
                 </div>
             </div>

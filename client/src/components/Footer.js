@@ -24,10 +24,10 @@ function Footer() {
                   <a href=""></a>Home
                 </li>
                 <li className="footer-li">
-                  <a href=""></a>Shows
-                </li>
-                <li className="footer-li">
-                  <a href=""></a>Our Story
+                  <Link to="/forIndustryProf">
+                    For Industry <br />
+                    Professionals
+                  </Link>
                 </li>
               </ul>
             </div>

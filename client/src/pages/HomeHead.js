@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faBars, faComment } from "@fortawesome/free-solid-svg-icons";
 import { fas, faSackDollar, faBookBookmark, faBookmark, faShareNodes, faBars, faMagnifyingGlass, faFilm, faVolumeHigh, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 //import { Icon } from '@mui/material';
-//import LocalMallIcon from '@mui/icons-material';
-// import DeleteIcon from '@mui/icons-material/Delete';
+//import LocalMallIcon from '@mui/icons-material-material';
+// import DeleteIcon from '@mui/icons-material-material/Delete';
 // import Icon from '@mui/material/Icon';
 
 
