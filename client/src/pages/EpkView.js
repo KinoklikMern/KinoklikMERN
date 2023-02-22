@@ -128,12 +128,6 @@ function EpkView() {
         });
       }
 
-      function addtoStills(){
-        http.get(`fepks/stills/${fepkData._id}/${userId}`).then((response) =>{
-          setStills(response.data.stillsApproval);
-        });
-      }
-
    
       // user is added to the list of $
       function addUserToWishesToBuy(){
@@ -698,7 +692,7 @@ function EpkView() {
       (
         
         <div className={style.unique}>
-          {/* <div className={style.unique}> */}
+        
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
           <div className={style.position1}> 
                 <button  onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnUni }> Request Access </button>
@@ -1026,135 +1020,229 @@ function EpkView() {
                 })}
       </div> 
 
-      
+  
 
     {/* sitlls section */}
 
       {/* the case when user not logged in and if logged in not requested yet*/}
-      {/* <div>
-          <div className={style.unique}>
-            <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-          </div>
-          <div className={style.uniqueContainer}>
-              <div className={style.position1}> 
-                <button onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
-              </div>
-              <div className={style.content1}>
-                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-              </div>
-              <div className={style.content1}>
-                <p className={style.textUnique}>{mediumFakeText}</p>
-              </div>
-          </div>
-        </div> */}
-      {/* {userId === "0" ?
+      {userId === "0" ?
       (
-        <div className={style.stillsContainer}>
-        stillsImg.map((still) => {
-          return(
-            <div>
-               <img
-            src={`https://kinomovie.s3.amazonaws.com/${stillsImg.image}`}
-            alt="resource pics"
-          
-            className={style.imgResource}
+        <div className={style.stills}>
+        <div className={style.position1}> 
+                <button  onClick={()=>{login(); clickState4()}} className={isClick4===true ? style.none :style.btnStills }> Request Access </button>
               </div>
-          );
-          })}
+        <div className={style.stillsContainer}>
+           
+            <div className={style.content1}>
+               <img
+            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+            alt="resource pics"
+            className={style.imgStills}/>
+              </div>
+              <div className={style.content1}>
+               <img
+            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+            alt="resource pics"
+            className={style.imgStills}/>
+              </div>
+              
+        </div>
+        <div className={style.stillsContainer}>
+           
+           <div className={style.content1}>
+              <img
+           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+           alt="resource pics"
+           className={style.imgStillsRight}/>
+             </div>
+             <div className={style.content1}>
+              <img
+           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+           alt="resource pics"
+           className={style.imgStillsLeft}/>
+             </div>
+             
+       </div>
         </div>
       ):
       (
         (stills.length === 0 || stills.filter(u => u.user === userId).length === 0) && 
-        <div>
-          <div className={style.unique}>
-            <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-          </div>
-          <div className={style.uniqueContainer}>
-              <div className={style.position1}> 
-                <button onClick={()=>{addtoUniqueness(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
+        <div className={style.stills}>
+        <div className={style.position1}> 
+                <button  onClick={()=>{login(); clickState4()}} className={isClick4===true ? style.none :style.btnStills }> Request Access </button>
+              </div>
+        <div className={style.stillsContainer}>
+           
+            <div className={style.content1}>
+               <img
+            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+            alt="resource pics"
+            className={style.imgStillsLeft}/>
               </div>
               <div className={style.content1}>
-                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+               <img
+            src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+            alt="resource pics"
+            className={style.imgStillsRight}/>
               </div>
-              <div className={style.content1}>
-                <p className={style.textUnique}>{mediumFakeText}</p>
-              </div>
-          </div>
+              
+        </div>
+        <div className={style.stillsContainer}>
+           
+           <div className={style.content1}>
+              <img
+           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+           alt="resource pics"
+           className={style.imgStillsRight}/>
+             </div>
+             <div className={style.content1}>
+              <img
+           src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+           alt="resource pics"
+           className={style.imgStillsLeft}/>
+             </div>
+             
+       </div>
         </div>
       ) 
-      } */}
+      }
 
       {/* the case when user logged in and requested the approval */}
-      {/* {uniqueness.map((unique) => {
+      {/* {stills.map((still) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "pending" &&
-                <div>
-                  <div className={style.unique}>
-                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div className={style.position1}> 
-                        <button> Awaiting approval </button>
-                      </div>
+              {still.user === userId && still.status === "pending" &&
+                   <div className={style.stills}>
+                   <div className={style.position1}> 
+                   <button className={style.btnStills}> Awaiting approval </button>
+                         </div>
+                   <div className={style.stillsContainer}>
+                      
+                       <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+                       alt="resource pics"
+                       className={style.imgStillsLeft}/>
+                         </div>
+                         <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+                       alt="resource pics"
+                       className={style.imgStillsRight}/>
+                         </div>
+                         
+                   </div>
+                   <div className={style.stillsContainer}>
+                      
                       <div className={style.content1}>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-                      </div>
-                      <div className={style.content1}>
-                        <p className={style.textUnique}>{mediumFakeText}</p>
-                      </div>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+                      alt="resource pics"
+                      className={style.imgStillsRight}/>
+                        </div>
+                        <div className={style.content1}>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+                      alt="resource pics"
+                      className={style.imgStillsLeft}/>
+                        </div>
+                        
                   </div>
-                </div>
+                   </div>
+        
               } 
             </>
           )
       })} */}
 
       {/* the case when user logged in and got the approval */}
-      {/* {uniqueness.map((unique) => {
+      {/* {stills.map((still) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "approved" &&
-                <div>
-                  <div className={style.unique}>
-                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-                      </div>
-                      <div>
-                        <p className={style.textUnique}>{fepkData.description_uniqueness}</p>
-                      </div>
-                  </div>
-                </div>
+              {still.user === userId && still.status === "approved" &&
+               
+               <div className={style.stills}>
+              
+               <div className={style.stillsContainer}>
+                  
+                   <div >
+                      <img
+                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+                   alt="resource pics"
+                   className={style.imgStillsLeft}/>
+                     </div>
+                     <div >
+                      <img
+                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+                   alt="resource pics"
+                   className={style.imgStillsRight}/>
+                     </div>
+                     
+               </div>
+               <div className={style.stillsContainer}>
+                  
+                  <div >
+                     <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+                    </div>
+                    <div >
+                     <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+                    </div>
+                    
+              </div>
+               </div>
               } 
             </>
           )
       })} */}
 
       {/* the case when user logged in and got refused */}
-      {/* {uniqueness.map((unique) => {
+      {/* {stills.map((still) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "refused" &&
-                <div>
-                  <div className={style.unique}>
-                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div className={style.position1}> 
-                        <button> Refused </button>
-                      </div>
+              <div className={style.stills}>
+                   <div className={style.position1}> 
+                   <button className={style.btnStills}> Refused </button>
+                         </div>
+                   <div className={style.stillsContainer}>
+                      
+                       <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0].image}`}
+                       alt="resource pics"
+                       className={style.imgStillsLeft}/>
+                         </div>
+                         <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1].image}`}
+                       alt="resource pics"
+                       className={style.imgStillsRight}/>
+                         </div>
+                         
+                   </div>
+                   <div className={style.stillsContainer}>
+                      
                       <div className={style.content1}>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-                      </div>
-                      <div className={style.content1}>
-                        <p className={style.textUnique}>{mediumFakeText}</p>
-                      </div>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2].image}`}
+                      alt="resource pics"
+                      className={style.imgStillsRight}/>
+                        </div>
+                        <div className={style.content1}>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3].image}`}
+                      alt="resource pics"
+                      className={style.imgStillsLeft}/>
+                        </div>
+                        
                   </div>
-                </div>
-              } 
+                   </div>
+        
             </>
           )
       })} */}
