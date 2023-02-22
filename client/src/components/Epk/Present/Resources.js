@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import style from "./Resources.module.css";
-import { Container } from "@material-ui/core";
+import { Container } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
@@ -9,7 +9,7 @@ import {
   faTwitter,
   faReadme,
 } from "@fortawesome/free-brands-svg-icons";
-import { SyncOutlined } from "@material-ui/icons";
+import { SyncOutlined } from "@mui/icons-material";
 
 function Resources(resFile) {
   return (

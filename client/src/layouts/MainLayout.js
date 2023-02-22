@@ -6,7 +6,7 @@ import "./MainLayout.css";
 
 function MainLayout() {
   return (
-    <div class="mainLayout">
+    <div className="mainLayout">
       <Navbar />
       <Outlet />
       <Footer />
