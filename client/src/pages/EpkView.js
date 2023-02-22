@@ -37,19 +37,19 @@ import Login from "../components/Auth/Registration/loginFromViewPage";
 function EpkView() {
     let { title } = useParams();
 
-    // fetching user details from local storage
-    const user = JSON.parse(localStorage.getItem("persist:root")).user; 
+    // fetching user
+    const { user } = useSelector((user) => ({ ...user }));
     let userId;
     let userRole;
-  
-    if(user !== "null"){
-      userId = JSON.parse(user).id; 
-      userRole = JSON.parse(user).role;
-    }
-    else{
+    if(!user){
       userId = "0"; 
       userRole = "noUser";
     }
+    else{
+      userId = user.id; 
+      userRole = user.role;
+    }
+
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
     const [usersWishesToBuy, setUsersWishesToBuy] = useState(0);
@@ -474,7 +474,7 @@ function EpkView() {
                         <h2  className={style.type}>Medium Synopsis</h2>  
                     </div>
                     <div className={style.position}> 
-                        <button> Awaiting approval </button>
+                        <button className={style.btnSy}> Awaiting approval </button>
                     </div>
                     <div className={style.content1}>
                       <img
@@ -497,7 +497,7 @@ function EpkView() {
               {medium.user._id === userId && medium.status === "approved" &&
                 <div className={style.synopsis}>
                     <div >
-                        <h2  className={style.type}>Medium Synopsis</h2>  
+                        <h2 className={style.type}>Medium Synopsis</h2>  
                     </div>
                     <div>
                       <img
@@ -523,7 +523,7 @@ function EpkView() {
                     <h2  className={style.type}>Medium Synopsis</h2>  
                   </div>
                   <div className={style.position}> 
-                    <button> Refused </button>
+                    <button className={style.btnSy}> Refused </button>
                   </div>
                   <div className={style.content1}>
                     <img
@@ -592,7 +592,7 @@ function EpkView() {
                         <h2  className={style.type}>Long Synopsis</h2>  
                     </div>
                     <div className={style.position}> 
-                        <button> Awaiting approval </button>
+                        <button className={style.btnSy}> Awaiting approval </button>
                     </div>
                     <div className={style.content1}>
                       <img
@@ -641,7 +641,7 @@ function EpkView() {
                     <h2  className={style.type}>Long Synopsis</h2>  
                   </div>
                   <div className={style.position}> 
-                    <button> Refused </button>
+                    <button className={style.btnUni}> Refused </button>
                   </div>
                   <div className={style.content1}>
                     <img
@@ -683,7 +683,7 @@ function EpkView() {
         
       ):
       (
-        (uniqueness.length === 0 || uniqueness.filter(u => u.user === userId).length === 0) && 
+        (uniqueness.length === 0 || uniqueness.filter(u => u.user._id === userId).length === 0) && 
         
           <div className={style.unique}>
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -708,12 +708,12 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "pending" &&
+              {unique.user._id === userId && unique.status === "pending" &&
                 
                   < div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
                   <div className={style.position1}> 
-                        <button> Awaiting approval </button>
+                        <button className={style.btnUni}> Awaiting approval </button>
                       </div>
                   <div className={style.uniqueContainer}>
                       
@@ -734,7 +734,7 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "approved" &&
+              {unique.user._id === userId && unique.status === "approved" &&
                 
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -757,12 +757,12 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "refused" &&
+              {unique.user._id === userId && unique.status === "refused" &&
                 
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
                    <div className={style.position1}> 
-                        <button> Refused </button>
+                        <button className={style.btnUni}> Refused </button>
                       </div>
                   <div className={style.uniqueContainer}>
                      
@@ -796,9 +796,9 @@ function EpkView() {
                             className={style.starimg}/>
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red", fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.contentRight}>
@@ -817,9 +817,9 @@ function EpkView() {
                             className={style.starimg}/>
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -846,9 +846,9 @@ function EpkView() {
                             </img>
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red" ,fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40 }} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.right}>
@@ -873,9 +873,9 @@ function EpkView() {
                             </img>
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -900,9 +900,9 @@ function EpkView() {
                             </img>
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                                                          
                             </p>
                           </div>
@@ -928,9 +928,9 @@ function EpkView() {
                             </img>
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -956,9 +956,9 @@ function EpkView() {
                             </img>
                             <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.right}>
@@ -982,9 +982,9 @@ function EpkView() {
                              className={style.producerimg}>
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:40}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -1239,8 +1239,8 @@ function EpkView() {
               <h3 > {resource.description} </h3>
                <br/>
               <h4 ><InstagramIcon sx={{color:"red", fontSize:40}} onClick={() => openUrl(resource.instagram_url)} />
-                                                         <FacebookIcon style={{color:"blue",fontSize:40}} onClick={() => openUrl(resource.facebook_url)} />
-                                                         <TwitterIcon style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(resource.twitter_url)} />
+                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(resource.facebook_url)} />
+                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(resource.twitter_url)} />
                                                          <FontAwesomeIcon icon={faEnvelope}  color="transparents"/>
                                                          
                             </h4>
@@ -1293,11 +1293,9 @@ function EpkView() {
          
          );
         })}
-
        </div>
    </div>
       <Footer/> 
-  
     </>
     
     

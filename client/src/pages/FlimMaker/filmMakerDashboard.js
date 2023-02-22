@@ -30,14 +30,14 @@ import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { Link, NavLink } from 'react-router-dom';
 //import 'bootstrap/dist/css/bootstrap.min.css';
-//import './filmMakerDashboard.scss'
+import './filmMakerDashboardPage.scss'
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
 
 export default function Filmmaker() {
   const [epkList, setEpkList] = useState([]);
   useEffect(() => {
     try {
-      Axios.get(process.env.REACT_APP_BACKEND_URL + "/filmMakerDashboard").then((rs) => {
+      Axios.get(process.env.REACT_APP_BACKEND_URL + "/filmmaker/").then((rs) => {
         setEpkList(rs.data);
       });
     } catch (error) {
@@ -56,7 +56,13 @@ export default function Filmmaker() {
             <div class="sidebar-rightcontainer">
               <div class="item Dashboard">
                 <h1>Filmmaker Dashboard</h1>
-                <h1> <Link to="/uploadFepk" class="icon-plus"> <FontAwesomeIcon icon={faPlus} /> </Link></h1>
+
+                <Link to="/uploadFepk"> 
+                  <Button> 
+                    Create New Film EPK
+                  </Button>
+                  <br /><br />
+                </Link>
                 
                 { (!epkList) ? ( () => (    
                   <div>
@@ -67,10 +73,10 @@ export default function Filmmaker() {
                   </div>
                 )) : null }
 
-                <div class="row row-cols-md-3 g-5">
+                <div class="row g-5">
                   {epkList.map((epk) => (
-                    <div class="col">
-                      <Link to="/filmMakerSelectedMovie" class="links">
+                    <div class="col-4">
+                      <Link to={`/filmMakerSelectedEpk?id=${epk._id}`} class="links">
                         <div class="card movie-card">
                         
                           <img src={`${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`} alt="movie banner"/>
@@ -79,8 +85,8 @@ export default function Filmmaker() {
                             
                             <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
                               <p>{(epk.wishes_to_buy == null) ? "0" : epk.wishes_to_buy.length}</p>
-                              <p>{(epk.favourites == null) ? "0" : epk.favourites.length}</p>
                               <p>{(epk.likes == null) ? "0" : epk.likes.length}</p>
+                              <p>{(epk.favourites == null) ? "0" : epk.favourites.length}</p>
                               <p>{(epk.sharings == null) ? "0" : epk.sharings.length}</p>
                             </div>
                             
@@ -95,9 +101,6 @@ export default function Filmmaker() {
                       </Link>
                     </div>
                   ))}
-                </div>
-                <div class="side-id">
-                  <FontAwesomeIcon icon={faUser}/> 
                 </div>
               </div>  
             </div>
