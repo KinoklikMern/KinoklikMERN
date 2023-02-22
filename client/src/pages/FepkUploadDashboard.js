@@ -7,9 +7,15 @@ import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess
 
 function FepkUploadDashboard() {
 
-  // fetching user details from local storage
-  const user = JSON.parse(localStorage.getItem("persist:root")).user;
-  const filmmaker_role = JSON.parse(user).role;
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  let filmmaker_role;
+  if(!user){
+    filmmaker_role = "noUser";
+  }
+  else{
+    filmmaker_role = user.role;
+  }
   const access = (filmmaker_role === "FILM_MAKER");
 
   return (
