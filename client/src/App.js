@@ -9,13 +9,10 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import LoginForm from "./components/Auth/Registration/loginform";
-import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
-//import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
-
-import filmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
-
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
-// add by Tony on Feb 15
+
+// add by Tony
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import FilmMakerSelectedEpk from "./pages/FlimMaker/filmMakerSelectedEpk";
 // end
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
