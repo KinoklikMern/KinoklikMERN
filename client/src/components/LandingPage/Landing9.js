@@ -15,21 +15,21 @@ const Landing9 = () => {
         </div>
       
         <div className="tw-mt-12 tw-mr-20 tw-ml-20 ">
-          <div class="tw-flex sm:tw-flex-row-1 lg:tw-flex-col-3 tw-pt-28 tw-pl-28 tw-mt-12 tw-align-middle tw-text-center tw-space-x-8 ">
-            <div class="tw-p-10 tw-border tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
+          <div className="tw-flex sm:tw-flex-row-1 lg:tw-flex-col-3 tw-pt-28 tw-pl-28 tw-mt-12 tw-align-middle tw-text-center tw-space-x-8 ">
+            <div className="tw-p-10 tw-border tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
               <h2 className="tw-text-white tw-text-2xl tw-font-bold tw-mb-4">Step 1. </h2>
               <p className="tw-text-white tw-text-xl">
                 Create a free filmmaker account.
               </p>
             </div>
-            <div class="tw-p-10 tw-border tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
+            <div className="tw-p-10 tw-border tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
               <h2 className="tw-text-white tw-text-2xl tw-font-bold tw-mb-4">Step 2. </h2>
               <p className="tw-text-white tw-text-xl">
                 Upload your film info to the EPK Page.
               </p>
             </div>
   
-            <div class="tw-p-10 tw-border  tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
+            <div className="tw-p-10 tw-border  tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
               <h2 className="tw-text-white tw-text-2xl tw-font-bold tw-mb-4">Step 3. </h2>
               <p className="tw-text-white tw-text-xl">
                 Share your film EPK page with the world and track interest!
