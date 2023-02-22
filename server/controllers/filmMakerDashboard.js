@@ -5,9 +5,6 @@
 ////////////////////////////////////////////////
 
 import fepk from "../models/fepk.js";
-import user from "../models/User.js";
-
-import myEpk from "../models/myEpk.js";
 
 export const getMyEpks = async (req, res) => {
   //const id = req.params.id;
@@ -24,45 +21,21 @@ export const getEpkbyId = async (req, res) => {
   const epkId = req.params.id;
   try {
     const myEpk = await fepk.findOne({ _id: epkId })
-      .populate("likes") // includes all fields of this object
+    .populate("likes") 
+    .populate("mediumSynopsis") 
+    .populate("longSynopsis") 
     res.status(200).json(myEpk);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
-// create Fepk
-/*
-export const createMyEpk = async (req, res) => {
+export const getUserbyId = async (req, res) => {
+  const id = req.params.id;
   try {
-    const newMyEpk = new myEpk({
-
-      user: new user({
-        email: "email@gmail.com", 
-        password: "6372e0d23418019bc445d4f4",
-        firstName: "Tony",
-        lastName: "W",
-        role: "ADMIN"
-      }),
-
-      fepk: new fepk({
-        film_maker: new user({
-          email: "email@gmail.com", 
-          password: "6372e0d23418019bc445d4f4",
-          firstName: "Tony",
-          lastName: "W",
-          role: "ADMIN"
-        }),
-        title:"admin"
-      }),
-      likes: false,
-      favourites: true
-    });
-    await newMyEpk.save();
-    res.status(201).json(newMyEpk);
+    const user = await user.findOne({ _id: id })
+    res.status(200).json(myEpk);
   } catch (error) {
-    res.status(409).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
-*/
-
