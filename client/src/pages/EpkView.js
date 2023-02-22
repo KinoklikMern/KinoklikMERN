@@ -37,19 +37,19 @@ import Login from "../components/Auth/Registration/loginFromViewPage";
 function EpkView() {
     let { title } = useParams();
 
-    // fetching user details from local storage
-    const user = JSON.parse(localStorage.getItem("persist:root")).user; 
+    // fetching user
+    const { user } = useSelector((user) => ({ ...user }));
     let userId;
     let userRole;
-  
-    if(user !== "null"){
-      userId = JSON.parse(user).id; 
-      userRole = JSON.parse(user).role;
-    }
-    else{
+    if(!user){
       userId = "0"; 
       userRole = "noUser";
     }
+    else{
+      userId = user.id; 
+      userRole = user.role;
+    }
+
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
     const [usersWishesToBuy, setUsersWishesToBuy] = useState(0);
@@ -683,7 +683,7 @@ function EpkView() {
         
       ):
       (
-        (uniqueness.length === 0 || uniqueness.filter(u => u.user === userId).length === 0) && 
+        (uniqueness.length === 0 || uniqueness.filter(u => u.user._id === userId).length === 0) && 
         
           <div className={style.unique}>
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -708,7 +708,7 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "pending" &&
+              {unique.user._id === userId && unique.status === "pending" &&
                 
                   < div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -734,7 +734,7 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "approved" &&
+              {unique.user._id === userId && unique.status === "approved" &&
                 
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -757,7 +757,7 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "refused" &&
+              {unique.user._id === userId && unique.status === "refused" &&
                 
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
