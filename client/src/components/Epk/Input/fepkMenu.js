@@ -4,14 +4,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import http from "../../../http-common";
+import { useSelector } from "react-redux";
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  // fetching user details from local storage
-  const user = JSON.parse(localStorage.getItem("persist:root")).user;
-  const filmmaker_id = JSON.parse(user).id;
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  const filmmaker_id = user.id;
 
   let { fepkId } = useParams();
   const navigate = useNavigate();

@@ -157,12 +157,12 @@ function TrailerForm () {
                       >
                         {disabled===true ? 
                         (
-                        <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
+                        <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
                             Save
                         </Button>
                         ) :
                         (
-                        <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
+                        <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkTrailer} value="save">
                             Save
                         </Button>
                         )}
