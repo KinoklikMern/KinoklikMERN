@@ -26,7 +26,7 @@ app.use("/epk", epkRoutes);
 app.use("/fepks", fepkRoutes);
 app.use("/crews", crewRoutes);
 // Edit by Tony On Jan 20, 2023
-app.use("/filmMakerDashboard", filmMakerDashboard);
+app.use("/filmmaker", filmMakerDashboard);
 // end ////
 
 app.listen(8000, () => console.log(`App Running on PORT ${PORT}`));

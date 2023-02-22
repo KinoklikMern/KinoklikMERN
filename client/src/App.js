@@ -9,12 +9,12 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import LoginForm from "./components/Auth/Registration/loginform";
-import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
-//import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
-
-import filmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
-
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
+
+// add by Tony
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import FilmMakerSelectedEpk from "./pages/FlimMaker/filmMakerSelectedEpk";
+// end
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
 import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMakerDashboardSecurityPassword";
@@ -68,6 +68,7 @@ import Cinematographer from "./components/Epk/Present/cinematographer";
 import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
+import TestApproval from "./pages/TestApproval";
 
 import EpkView from "./pages/EpkView";
 
@@ -83,6 +84,11 @@ function App() {
           <Route path="login" element={<LoginForm />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+          <Route
+            path="FilmMakerSelectedEpk"
+            element={<FilmMakerSelectedEpk />}
+          />
+
           <Route
             path="filmMakerSelectedMovie"
             element={<FilmMakerSelectedFilm />}
@@ -158,6 +164,7 @@ function App() {
         </Route>
         <Route path="epk" element={<EPK />} />
         <Route path="epkview/:title" element={<EpkView />} />
+        <Route path="approvals/:fepkId" element={<TestApproval />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
   );
