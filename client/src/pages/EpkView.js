@@ -33,25 +33,23 @@ import {
   TwitterIcon
 } from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
-//import Cookies from 'js-cookie';
 
 function EpkView() {
     let { title } = useParams();
 
-    // fetching user details from local storage
-    const user = JSON.parse(localStorage.getItem("persist:root")).user; 
-    console.log(user);
+    // fetching user
+    const { user } = useSelector((user) => ({ ...user }));
     let userId;
     let userRole;
-  
-    if(user !== "null"){
-      userId = JSON.parse(user).id; 
-      userRole = JSON.parse(user).role;
-    }
-    else{
+    if(!user){
       userId = "0"; 
       userRole = "noUser";
     }
+    else{
+      userId = user.id; 
+      userRole = user.role;
+    }
+
     const [fepkData, setFepkData] = useState({});
     const [crewList, setCrewList] = useState([]);
     const [usersWishesToBuy, setUsersWishesToBuy] = useState(0);
@@ -60,8 +58,9 @@ function EpkView() {
     const [mediumSynopsis, setMediumSynopsis] = useState([]);
     const [longSynopsis, setLongSynopsis] = useState([]);
     const [uniqueness, setUniqueness] = useState([]);
-    const[stills,setStills]=useState([]);
-    const[stillsImg,setStillsImg]=useState([]);
+    const[stills, setStills] = useState([]);
+    const[stillsImages, setStillsImages] = useState([]);
+    let stillsImg = [];
     const [resources, setResources] = useState([]);
     const [trailer, setTrailer] = useState([]);
     const [followers, setFollowers] = useState({});
@@ -86,7 +85,7 @@ function EpkView() {
     let count = 0;
   
     useEffect(() => {
-        http.get(`/fepks/byTitle/${title}`).then((response) =>{
+        http.get(`fepks/byTitle/${title}`).then((response) =>{
             setFepkData(response.data); 
             setCrewList(response.data.crew);
             setUsersWishesToBuy(response.data.wishes_to_buy.length);
@@ -96,16 +95,20 @@ function EpkView() {
             setLongSynopsis(response.data.longSynopsis);
             setUniqueness(response.data.uniqueness);
             setStills(response.data.stillsApproval);
-            setStillsImg(response.data.stills);
+            setStillsImages(response.data.stills);
             setResources(response.data.resources);
             setTrailer(response.data.trailer);
             setReviews(response.data.reviews);
             http.get(`/fepks/followers/${response.data._id}`).then((res) =>{
               setFollowers(res.data);
             });
-        });
-     
+        });   
       }, []);
+
+      stillsImages.map((still) => {
+        stillsImg.push(still.image);
+      });      
+      
 
       // user is added to request list for medium Synopsis
       function addtoMediumSynopsis(){
@@ -128,13 +131,13 @@ function EpkView() {
         });
       }
 
+      // user is added to request list for Stills
       function addtoStills(){
         http.get(`fepks/stills/${fepkData._id}/${userId}`).then((response) =>{
           setStills(response.data.stillsApproval);
         });
       }
 
-   
       // user is added to the list of $
       function addUserToWishesToBuy(){
         http.get(`fepks/wishestobuy/${fepkData._id}/${userId}`).then((response) =>{
@@ -211,41 +214,6 @@ function EpkView() {
   <div className={style.wholeContainer} > 
   <Navbar/>
     <div className={style.hero} style={{backgroundImage: `url(https://kinomovie.s3.amazonaws.com/${fepkData.banner_url})`}}> 
-
-      {/* Profile Picture
-      {userRole === "FILM_MAKER" ?
-      (<Link  to="/filmMakerDashboard"> <img src={userPicture} alt="user" 
-                                                              style={{float: "right", 
-                                                                      width:"50px", 
-                                                                      height:"50px", 
-                                                                      margin:"10px 20px 0 0", 
-                                                                      borderRadius:"50%"}}/>
-        </Link>
-      ):
-      (
-        userRole === "noUser" ?
-          (
-            <img src= {userPicture}
-                onClick={() => login()} 
-                alt="user" 
-                style={{float: "right",                                        
-                width:"50px", 
-                height:"50px", 
-                margin:"10px 20px 0 0", 
-                borderRadius:"50%"}}/>
-          ):
-          (
-            <Link  to="/userDashboard"> <img src={userPicture} alt="user" 
-                                                              style={{float: "right", 
-                                                                      width:"50px", 
-                                                                      height:"50px", 
-                                                                      margin:"10px 20px 0 0", 
-                                                                      borderRadius:"50%"}}/>
-            </Link>
-          )
-      )
-      }  */}
-    
       <div className={style.posterContainer}> 
       <div >
       <img 
@@ -698,7 +666,7 @@ function EpkView() {
       (
         
         <div className={style.unique}>
-          {/* <div className={style.unique}> */}
+        
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
           <div className={style.position1}> 
                 <button  onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnUni }> Request Access </button>
@@ -715,7 +683,7 @@ function EpkView() {
         
       ):
       (
-        (uniqueness.length === 0 || uniqueness.filter(u => u.user === userId).length === 0) && 
+        (uniqueness.length === 0 || uniqueness.filter(u => u.user._id === userId).length === 0) && 
         
           <div className={style.unique}>
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -740,7 +708,7 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "pending" &&
+              {unique.user._id === userId && unique.status === "pending" &&
                 
                   < div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -766,7 +734,7 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "approved" &&
+              {unique.user._id === userId && unique.status === "approved" &&
                 
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -789,7 +757,7 @@ function EpkView() {
       {uniqueness.map((unique) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "refused" &&
+              {unique.user._id === userId && unique.status === "refused" &&
                 
                   <div className={style.unique}>
                     <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -826,11 +794,11 @@ function EpkView() {
                           <div className={style.imgleft}>
                             <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}  alt="starring"
                             className={style.starimg}/>
-                            
+                            <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red", fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.contentRight}>
@@ -847,7 +815,7 @@ function EpkView() {
                           <div className={style.imgleft}>
                             <img src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}  alt="starring"
                             className={style.starimg}/>
-                            
+                            <br/>
                             <h1>{crewObj.crewId.name}</h1>
                             <p className={style.mediaIcon}><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
                                                          <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
@@ -876,10 +844,11 @@ function EpkView() {
                             alt="director"
                             className={style.producerimg}>
                             </img>
+                            <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red" ,fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.right}>
@@ -902,10 +871,11 @@ function EpkView() {
                             alt="starring"
                             className={style.producerimg}>
                             </img>
+                            <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -928,10 +898,11 @@ function EpkView() {
                              alt="director"
                              className={style.producerimg}>
                             </img>
+                            <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
                                                          
                             </p>
                           </div>
@@ -955,10 +926,11 @@ function EpkView() {
                             alt="starring"
                             className={style.producerimg}>
                             </img>
+                            <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p ><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -982,10 +954,11 @@ function EpkView() {
                             className={style.producerimg}
                             >
                             </img>
+                            <br/>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                           <div className={style.right}>
@@ -1009,9 +982,9 @@ function EpkView() {
                              className={style.producerimg}>
                             </img>
                             <h1>{crewObj.crewId.name}</h1>
-                            <p><InstagramIcon style={{color:"red"}} onClick={() => openUrl(crewObj.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue"}} onClick={() => openUrl(crewObj.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue"}} onClick={() => openUrl(crewObj.twitter_url)} />
+                            <p className={style.mediaIcon}><InstagramIcon style={{color:"red",fontSize:25}} onClick={() => openUrl(crewObj.instagram_url)} />
+                                                         <FacebookIcon style={{color:"blue",fontSize:25}} onClick={() => openUrl(crewObj.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:25}} onClick={() => openUrl(crewObj.twitter_url)} />
                             </p>
                           </div>
                         </div>
@@ -1021,143 +994,230 @@ function EpkView() {
                 })}
       </div> 
 
-      
+  
 
-    {/* sitlls section */}
+    {/* stills section */}
 
       {/* the case when user not logged in and if logged in not requested yet*/}
-      {/* <div>
-          <div className={style.unique}>
-            <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-          </div>
-          <div className={style.uniqueContainer}>
-              <div className={style.position1}> 
-                <button onClick={()=>{login(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
-              </div>
-              <div className={style.content1}>
-                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-              </div>
-              <div className={style.content1}>
-                <p className={style.textUnique}>{mediumFakeText}</p>
-              </div>
-          </div>
-        </div> */}
-      {/* {userId === "0" ?
+      {userId === "0" ?
       (
-        <div className={style.stillsContainer}>
-        stillsImg.map((still) => {
-          return(
-            <div>
+        <div className={style.stills}>
+          <div className={style.position1}> 
+                <button  onClick={()=>{login(); clickState4()}} className={isClick4===true ? style.none :style.btnStills }> Request Access </button>
+          </div>
+          <div className={style.stillsContainer}>
+            <div className={style.content1}>
                <img
-            src={`https://kinomovie.s3.amazonaws.com/${stillsImg.image}`}
-            alt="resource pics"
-          
-            className={style.imgResource}
-              </div>
-          );
-          })}
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+            </div>
+            <div className={style.content1}>
+               <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+            </div>     
+          </div>
+          <div className={style.stillsContainer}>
+            <div className={style.content1}>
+              <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+            </div>
+            <div className={style.content1}>
+              <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+            </div>  
+          </div>
         </div>
       ):
       (
-        (stills.length === 0 || stills.filter(u => u.user === userId).length === 0) && 
-        <div>
-          <div className={style.unique}>
-            <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-          </div>
-          <div className={style.uniqueContainer}>
-              <div className={style.position1}> 
-                <button onClick={()=>{addtoUniqueness(); clickState3()}} className={isClick3===true ? style.none :style.btnSy }> Request Access </button>
+        (stills.length === 0 || stills.filter(s => s.user._id === userId).length === 0) && 
+          <div className={style.stills}>
+            <div className={style.position1}> 
+                <button  onClick={()=>{addtoStills(); clickState4()}} className={isClick4===true ? style.none :style.btnStills }> Request Access </button>
+            </div>
+            <div className={style.stillsContainer}>
+              <div className={style.content1}>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
               </div>
               <div className={style.content1}>
-                <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+              </div>
+            </div>
+            <div className={style.stillsContainer}>
+              <div className={style.content1}>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
               </div>
               <div className={style.content1}>
-                <p className={style.textUnique}>{mediumFakeText}</p>
-              </div>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+              </div>   
+            </div>
           </div>
-        </div>
       ) 
-      } */}
+      }
 
       {/* the case when user logged in and requested the approval */}
-      {/* {uniqueness.map((unique) => {
+      {stills.map((still) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "pending" &&
-                <div>
-                  <div className={style.unique}>
-                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div className={style.position1}> 
-                        <button> Awaiting approval </button>
-                      </div>
+              {still.user._id === userId && still.status === "pending" &&
+                   <div className={style.stills}>
+                   <div className={style.position1}> 
+                   <button className={style.btnStills}> Awaiting approval </button>
+                         </div>
+                   <div className={style.stillsContainer}>
+                      
+                       <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                       alt="resource pics"
+                       className={style.imgStillsLeft}/>
+                         </div>
+                         <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                       alt="resource pics"
+                       className={style.imgStillsRight}/>
+                         </div>
+                         
+                   </div>
+                   <div className={style.stillsContainer}>
+                      
                       <div className={style.content1}>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-                      </div>
-                      <div className={style.content1}>
-                        <p className={style.textUnique}>{mediumFakeText}</p>
-                      </div>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                      alt="resource pics"
+                      className={style.imgStillsRight}/>
+                        </div>
+                        <div className={style.content1}>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                      alt="resource pics"
+                      className={style.imgStillsLeft}/>
+                        </div>
+                        
                   </div>
-                </div>
+                   </div>
+        
               } 
             </>
           )
-      })} */}
+      })} 
 
       {/* the case when user logged in and got the approval */}
-      {/* {uniqueness.map((unique) => {
+      {stills.map((still) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "approved" &&
-                <div>
-                  <div className={style.unique}>
-                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-                      </div>
-                      <div>
-                        <p className={style.textUnique}>{fepkData.description_uniqueness}</p>
-                      </div>
-                  </div>
-                </div>
+              {still.user._id === userId && still.status === "approved" &&
+               
+               <div className={style.stills}>
+              
+               <div className={style.stillsContainer}>
+                  
+                   <div >
+                      <img
+                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                   alt="resource pics"
+                   className={style.imgStillsLeft}/>
+                     </div>
+                     <div >
+                      <img
+                   src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                   alt="resource pics"
+                   className={style.imgStillsRight}/>
+                     </div>
+                     
+               </div>
+               <div className={style.stillsContainer}>
+                  
+                  <div >
+                     <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                  alt="resource pics"
+                  className={style.imgStillsRight}/>
+                    </div>
+                    <div >
+                     <img
+                  src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                  alt="resource pics"
+                  className={style.imgStillsLeft}/>
+                    </div>
+                    
+              </div>
+               </div>
               } 
             </>
           )
-      })} */}
+      })} 
 
       {/* the case when user logged in and got refused */}
-      {/* {uniqueness.map((unique) => {
+      {stills.map((still) => {
           return ( 
             <>
-              {unique.user === userId && unique.status === "refused" &&
-                <div>
-                  <div className={style.unique}>
-                    <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-                  </div>
-                  <div className={style.uniqueContainer}>
-                      <div className={style.position1}> 
-                        <button> Refused </button>
-                      </div>
+             {still.user._id === userId && still.status === "refused" &&
+              <div className={style.stills}>
+                   <div className={style.position1}> 
+                   <button className={style.btnStills}> Refused </button>
+                         </div>
+                   <div className={style.stillsContainer}>
+                      
+                       <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                       alt="resource pics"
+                       className={style.imgStillsLeft}/>
+                         </div>
+                         <div className={style.content1}>
+                          <img
+                       src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                       alt="resource pics"
+                       className={style.imgStillsRight}/>
+                         </div>
+                         
+                   </div>
+                   <div className={style.stillsContainer}>
+                      
                       <div className={style.content1}>
-                        <img src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`} alt="uniqueness" className={style.imgUnique}/>
-                      </div>
-                      <div className={style.content1}>
-                        <p className={style.textUnique}>{mediumFakeText}</p>
-                      </div>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                      alt="resource pics"
+                      className={style.imgStillsRight}/>
+                        </div>
+                        <div className={style.content1}>
+                         <img
+                      src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                      alt="resource pics"
+                      className={style.imgStillsLeft}/>
+                        </div>
+                        
                   </div>
-                </div>
-              } 
+                   </div>
+              }
             </>
           )
-      })} */}
+      })}
 
 
       {/* resources section */}
 
-      <div className={style.starring}> 
+      <div className={style.resource}> 
       
       {resources.map((resource) => {
         return(
@@ -1179,9 +1239,9 @@ function EpkView() {
               <h3 > {resource.description} </h3>
                <br/>
               <h4 ><InstagramIcon sx={{color:"red", fontSize:40}} onClick={() => openUrl(resource.instagram_url)} />
-                                                         <FacebookIcons style={{color:"blue",fontSize:40}} onClick={() => openUrl(resource.facebook_url)} />
-                                                         <TwitterIcons style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(resource.twitter_url)} />
-                                                         <FontAwesomeIcon icon={faEnvelope} size ="lg" color="white"/>
+                                                         <FacebookIcon style={{color:"blue",fontSize:40}} onClick={() => openUrl(resource.facebook_url)} />
+                                                         <TwitterIcon style={{color:"lightblue",fontSize:40}} onClick={() => openUrl(resource.twitter_url)} />
+                                                         <FontAwesomeIcon icon={faEnvelope}  color="transparents"/>
                                                          
                             </h4>
             </div>
@@ -1235,9 +1295,9 @@ function EpkView() {
         })}
 
        </div>
- 
+   </div>
       <Footer/> 
-    </div>
+  
     </>
     
     

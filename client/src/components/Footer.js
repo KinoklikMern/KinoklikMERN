@@ -28,8 +28,8 @@ function Footer() {
                
                 </li>
                 <li className="footer-li">
-                <Link to="/forIndustryProf"><a>For Industry <br />
-                Professionals</a></Link>
+                <Link to="/forIndustryProf">For Industry <br />
+                Professionals</Link>
                  
                 </li>
               </ul>

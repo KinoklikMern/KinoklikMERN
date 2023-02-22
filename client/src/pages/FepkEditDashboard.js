@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import http from "../http-common";
 import { Button, Col, Row } from "antd";
@@ -14,14 +13,23 @@ import ReviewsForm from "../components/Epk/Input/fepkReviewsForm";
 import ResourcesForm from "../components/Epk/Input/fepkResourcesForm";
 import FepkDetailsForm from "../components/Epk/Input/fepkDetailsForm";
 import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess";
+import User from "../components/navbar/NavbarButtons";
+import { useDispatch, useSelector } from "react-redux";
 
 function FepkEditDashboard() {
   const [fepk, setFepk] = useState([]);
   const [access, setAccess] = useState(false);
 
-  // fetching user details from local storage
-  const user = JSON.parse(localStorage.getItem("persist:root")).user;
-  const filmmaker_id = JSON.parse(user).id;
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  console.log(user);
+  let filmmaker_id;
+  if(!user){
+    filmmaker_id = "0";
+  }
+  else{
+    filmmaker_id = user.id;
+  }
 
   let { fepkId } = useParams();
 

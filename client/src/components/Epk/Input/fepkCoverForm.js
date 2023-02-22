@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import http from "../../../http-common";
 import { Button, Col, Row } from "antd";
+import { useSelector } from "react-redux";
 
 function FepkCoverForm() {
   const navigate = useNavigate();
@@ -14,9 +15,9 @@ function FepkCoverForm() {
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
 
-  // fetching user details from local storage
-  const user = JSON.parse(localStorage.getItem("persist:root")).user;
-  const filmmaker_id = JSON.parse(user).id;
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  const filmmaker_id = user.id;
 
   const file1Selected = (event) => {
     const file = event.target.files[0];
@@ -353,7 +354,7 @@ function FepkCoverForm() {
             textAlign:"center"
           }}
         >
-          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", padding:"0 40px 0 0"}} type="outline-primary" block onClick={saveEpkCover} value="save">
+          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkCover} value="save">
             Save
           </Button>
             </div>
