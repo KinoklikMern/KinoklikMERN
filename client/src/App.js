@@ -9,12 +9,12 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import LoginForm from "./components/Auth/Registration/loginform";
-import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
-//import FilmMakerDashboard from "./components/FilmMaker/filmMakerDashboard";
-
-import filmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
-
 import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
+
+// add by Tony
+import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
+import FilmMakerSelectedEpk from "./pages/FlimMaker/filmMakerSelectedEpk";
+// end
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
 import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMakerDashboardSecurityPassword";
@@ -84,6 +84,11 @@ function App() {
           <Route path="login" element={<LoginForm />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
+          <Route
+            path="FilmMakerSelectedEpk"
+            element={<FilmMakerSelectedEpk />}
+          />
+
           <Route
             path="filmMakerSelectedMovie"
             element={<FilmMakerSelectedFilm />}
