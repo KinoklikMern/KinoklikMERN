@@ -253,8 +253,6 @@
   color:#000;
   background-color: #fff;
   font-weight: 500;
-
-  
   z-index: 2;
 }
 .imgSynopsis{
@@ -385,6 +383,7 @@ h1 {
 }
 .mediaIcon{
   text-align: center;
+  
 }
 
 /* Director/proudcer section */
