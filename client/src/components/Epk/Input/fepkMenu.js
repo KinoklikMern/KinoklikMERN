@@ -4,11 +4,16 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import http from "../../../http-common";
+import { useSelector } from "react-redux";
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const filmmaker_id = "63c0e3bb40253f49b94edd11";
+
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  const filmmaker_id = user.id;
+
   let { fepkId } = useParams();
   const navigate = useNavigate();
 
@@ -41,7 +46,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <h6 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>Project: <span style={{fontWeight: 'bold' }}>{fepk.title}</span></h6>
+        <h6 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>Project: <span style={{fontWeight: 'bold', margin:"2px 0 0 2px"}}>{fepk.title}</span></h6>
       </Button>
       <Menu
         id="basic-menu"
