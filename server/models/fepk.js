@@ -77,8 +77,11 @@ const fepkSchema = mongoose.Schema({
       biography: { type: String },
       image: { type: String },
       facebook_url: { type: String },
+      facebook_followers: { type: String },
       instagram_url: { type: String },
+      instagram_followers: { type: String },
       twitter_url: { type: String },
+      twitter_followers: { type: String },
     },
   ],
 
@@ -198,6 +201,7 @@ const fepkSchema = mongoose.Schema({
       },
     },
   ],
+
   // Company Information
   company: [
     {
