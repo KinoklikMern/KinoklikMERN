@@ -32,7 +32,7 @@ import {
 
 const HomeHead = () => {
   return (
-    <div className="tw-h-[110vh]  tw-bg-JokerImage tw-bg-cover  tw-bg-no-repeat">
+    <div className="tw-h-[97vh]  tw-bg-JokerImage tw-bg-cover  tw-bg-no-repeat tw-overflow-hidden">
       <section id="home" className="tw-pt-0">
         <div className="menu-icon">
           <Link to="/bookmark">
@@ -52,6 +52,10 @@ const HomeHead = () => {
             src={StarEmptyIcon}
             alt="/"
           />
+          <FontAwesomeIcon
+            className="tw-opacity-50 hover:tw-opacity-100 hover:tw-h-11 hover:tw-w-11"
+            icon={faStar}
+             />
           <img
           className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
           src={KIcon}
@@ -95,10 +99,10 @@ const HomeHead = () => {
             alt="/"
           />
           <img
-            className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
+            className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
             src={VolumeIcon2}
             alt="/"
-          />
+        /> 
         </div>
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">
@@ -116,7 +120,7 @@ const HomeHead = () => {
           <p className="movieIntro tw-text-xl ">
             Dramatic film about a sad man who goes through shit in life. “Joker”
             centers around the iconic arch-nemesis and is an original,
-            standalone story not seen before on the big screen
+            standalone story not seen before on the big screen.
           </p>
         </div>
         <HomeMainFilm />
