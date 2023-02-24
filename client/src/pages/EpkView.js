@@ -217,6 +217,10 @@ function EpkView() {
         
       }
 
+      function makeReport(){
+        alert("test");
+      }
+
   return (
   
  <>
@@ -267,16 +271,26 @@ function EpkView() {
           <div> <p className={style.logline}>{fepkData.logLine_short}</p></div>
           </div>
 
-
           {/* report section */}
-          {isClickDot===false ?
-           <div className={style.dotSection}>
-            <button ><FontAwesomeIcon onClick={clickStateDot()} icon={faEllipsisVertical} /></button>
-          </div>
-          : <div className={style.reportSection}>
-          <button className={style.reportBtn}><FontAwesomeIcon icon={faFlag}/>&nbsp; Report</button> 
-          
-        </div>
+          { isClickDot === false ?
+          (
+            <div className={style.dotSection}>
+              <FontAwesomeIcon onClick={() => clickStateDot()} icon={faEllipsisVertical} style={{marginRight:"10px"}}/>
+            </div>
+          ): 
+          (
+            user === null ?
+            (
+              <div className={style.reportSection}>
+                <button className={style.reportBtn} onClick={() => login()}><FontAwesomeIcon icon={faFlag}/>&nbsp; Report</button>
+              </div>
+            ):
+            (
+              <div className={style.reportSection}>
+                <button className={style.reportBtn} onClick={() => makeReport()}><FontAwesomeIcon icon={faFlag}/>&nbsp; Report</button>
+              </div>
+            )  
+          )
           }
          
         </div>
