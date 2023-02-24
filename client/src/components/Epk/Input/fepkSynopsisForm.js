@@ -121,7 +121,7 @@ function SynopsisForm () {
         <div className="row">
           <div className="col-1">
             <Link className="navbar-brand text-headers-style" to="/home">
-              <img
+              <img style={{width:"100%", height:"80px"}}
                 src={require("../../../images/logo.png")}
                 alt="Logo"
                 className="navbar-logo"

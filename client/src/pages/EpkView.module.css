@@ -11,8 +11,23 @@
    box-sizing: border-box;
    background-color: #170b3b;
    max-width: 120rem;
+   height: auto;
    padding:0 3rem;
  }
+ .socialMedia{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:1rem 2rem;
+  font-weight: 600;
+  font-size: 2rem;
+ }
+
+ .totalNumber{
+   color:#fff;
+   font-size: 2.4rem;
+ }
+ 
  
  .hero {
    background-repeat: none;
@@ -56,22 +71,19 @@
    font-size: 3.6rem;
    letter-spacing: 3px;  
  }
- .logline {
-   font-size: 1.8rem;
-   
- }
+
  
  
  /* corner section */
 
  .flexContainer {
    display: flex;
-   align-items: center;
+   align-items: flex-start;
    justify-content: flex-start;
-   gap: 5rem;
+   gap: 50rem;
    color:#fff;
-   padding-left:1rem;
-   background-color: rgba(255,255,255,0.4);
+   padding-left:.5rem;
+  
   
  }
 
@@ -95,12 +107,38 @@
   
    
  }
+ .logline {
+  font-size: 1.8rem;
+  
+}
 
- .cornerText{
-  font-size: 1.6rem;
 
- }
+ /* report section */
  
+  .dotSection{
+    position: absolute;
+    bottom:3rem;
+    right:3rem;
+    color:#170b3b;
+    font-size: 1.8rem;
+  
+    
+  }
+
+  .reportSection{
+    position: absolute;
+    
+    bottom:3rem;
+    right:3rem;
+    
+    
+  }
+  .reportBtn{
+    color:red;
+    padding:1.5rem .5rem 0rem 1.5rem;
+    font-size: 1.4rem;
+    background-color: rgba(255,255,255,0.4);
+  }
 
  /* icon-bar section */
  
@@ -520,6 +558,8 @@ video {
   padding: 2rem 3rem;
   background-color: #fff;
   gap:5rem;
+  height: auto;
+ 
 }
 .award{
   color: #000;

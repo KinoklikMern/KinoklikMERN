@@ -39,6 +39,7 @@ const UserSchema = mongoose.Schema({
       "Distributor",
       "Film_Festival",
       "Viewer",
+      "Investor"
     ],
   },
   movies: [
