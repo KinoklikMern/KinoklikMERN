@@ -5,6 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import http from "../../../http-common";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -46,7 +48,10 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <h6 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal' }}>Project: <span style={{fontWeight: 'bold', margin:"2px 0 0 2px"}}>{fepk.title}</span></h6>
+        <h6 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal'}}>
+          <FontAwesomeIcon icon={faCaretDown} style={{height: "15px"}}/> Project: 
+          <span style={{fontWeight: 'bold', margin:"2px 0 0 2px"}}>{fepk.title}</span>
+        </h6>
       </Button>
       <Menu
         id="basic-menu"

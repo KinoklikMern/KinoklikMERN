@@ -77,8 +77,11 @@ const fepkSchema = mongoose.Schema({
       biography: { type: String },
       image: { type: String },
       facebook_url: { type: String },
+      facebook_followers: { type: String },
       instagram_url: { type: String },
+      instagram_followers: { type: String },
       twitter_url: { type: String },
+      twitter_followers: { type: String },
     },
   ],
 
@@ -198,6 +201,7 @@ const fepkSchema = mongoose.Schema({
       },
     },
   ],
+
   // Company Information
   company: [
     {
@@ -205,6 +209,36 @@ const fepkSchema = mongoose.Schema({
       ref: "Company",
     },
   ],
+
+  reports: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      reason: {
+        type: String,
+        enum: [
+          "Spam",
+          "Nudity or Sexual Content",
+          "Non-narration content",
+          "Copyrighted Intellectual Property Violation",
+        ],
+      },
+      comment: { type: String },
+      status: {
+        type: String,
+        enum: ["opened", "closed"],
+        default: "opened",
+      },
+    },
+  ],
+
+  // if this status is "true" the EPK will be blured
+  status_pause: {
+    type: Boolean,
+    default: false,
+  },
 
   // Soft-deletion of documents in databases is an operation in which a flag is used
   // to mark documents as deleted without erasing the data from the database.
