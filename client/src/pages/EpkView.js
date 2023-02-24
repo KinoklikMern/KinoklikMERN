@@ -269,12 +269,12 @@ function EpkView() {
 
 
           {/* report section */}
-          {isClickDot===false?
+          {isClickDot===false ?
            <div className={style.dotSection}>
-            <FontAwesomeIcon onClick={clickStateDot()} icon={faEllipsisVertical} />
+            <button ><FontAwesomeIcon onClick={clickStateDot()} icon={faEllipsisVertical} /></button>
           </div>
           : <div className={style.reportSection}>
-          <p><FontAwesomeIcon icon={faFlag}/>&nbsp; Report</p> 
+          <button className={style.reportBtn}><FontAwesomeIcon icon={faFlag}/>&nbsp; Report</button> 
           
         </div>
           }
