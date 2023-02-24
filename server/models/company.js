@@ -24,6 +24,10 @@ const companySchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  create_date: {
+    type: Date,
+    default: Date.now,
+  },
   user: [
     {
       userId: {
@@ -34,6 +38,6 @@ const companySchema = mongoose.Schema({
   ],
 });
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'company' in this case).
-const Company = mongoose.model("Company", UserSchema);
+const Company = mongoose.model("company", UserSchema);
 
 export default Company;

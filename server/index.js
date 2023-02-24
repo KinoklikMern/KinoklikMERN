@@ -10,6 +10,7 @@ import userRoutes from "./routes/users.js";
 import epkRoutes from "./routes/epk.js";
 import fepkRoutes from "./routes/fepk.js";
 import crewRoutes from "./routes/crew.js";
+import companyRoutes from "./routes/company.js";
 
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
@@ -25,6 +26,7 @@ app.use("/users", userRoutes);
 app.use("/epk", epkRoutes);
 app.use("/fepks", fepkRoutes);
 app.use("/crews", crewRoutes);
+app.use("/company", companyRoutes);
 // Edit by Tony On Jan 20, 2023
 app.use("/filmmaker", filmMakerDashboard);
 // end ////
@@ -34,7 +36,7 @@ app.listen(8000, () => console.log(`App Running on PORT ${PORT}`));
 const CONNECTION_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 8000;
 
-mongoose.set('strictQuery', true); //Needs to be set for Mongoose 7, as default is false
+mongoose.set("strictQuery", true); //Needs to be set for Mongoose 7, as default is false
 mongoose.connect(
   CONNECTION_URL,
   {
