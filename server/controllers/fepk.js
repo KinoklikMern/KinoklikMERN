@@ -15,6 +15,7 @@ export const getFepks = async (req, res) => {
       .populate("longSynopsis.user") // includes all fields of this object
       .populate("uniqueness.user") 
       .populate("stillsApproval.user")
+      .populate("reports.user")
       .where("deleted")
       .equals(false);
       res.status(200).json(fepks);
@@ -39,6 +40,7 @@ export const getFepksByFilmmakerId = async (req, res) => {
       .populate("longSynopsis.user") // includes all fields of this object
       .populate("uniqueness.user") 
       .populate("stillsApproval.user")
+      .populate("reports.user")
     .where("deleted")
     .equals(false);
     res.status(200).json(fepks);
@@ -63,6 +65,7 @@ export const getFepksByUser = async (req, res) => {
       .populate("longSynopsis.user") // includes all fields of this object
       .populate("uniqueness.user") 
       .populate("stillsApproval.user")
+      .populate("reports.user")
     .where("deleted")
     .equals(false);
     res.status(200).json(fepks);
@@ -87,6 +90,7 @@ export const getFepkbyId = async (req, res) => {
       .populate("longSynopsis.user") // includes all fields of this object
       .populate("uniqueness.user") 
       .populate("stillsApproval.user")
+      .populate("reports.user")
       .where("deleted")
       .equals(false);
       res.status(200).json(fepkOne);
@@ -110,6 +114,7 @@ export const getFepkByTitle = async (req, res) => {
       .populate("longSynopsis.user") // includes all fields of this object
       .populate("uniqueness.user") 
       .populate("stillsApproval.user")
+      .populate("reports.user")
     .where("deleted")
     .equals(false);
     res.status(200).json(fepkOne);
