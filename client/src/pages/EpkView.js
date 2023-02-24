@@ -17,7 +17,11 @@ import {
   faPlusCircle,
   faStar,
   faSearch,
-  faEnvelope
+  faEnvelope,
+  faEllipsisVertical,
+  faPeopleLine,
+  faFlag
+
   
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -207,12 +211,35 @@ function EpkView() {
         setIsClick4(true);
         
       }
+      const [isClickDot, setIsClickDot] = useState(false);
+      const clickStateDot = () => {
+        setIsClickDot(true);
+        
+      }
 
   return (
-    <>
- 
+  
+ <>
   <div className={style.wholeContainer} > 
-  <Navbar/>
+    <Navbar/>
+    <div className={style.socialMedia}>
+    <div>
+            <p className={style.cornerText}>Total Audience Reach</p>
+          </div>
+          <div> <FontAwesomeIcon icon={faPeopleLine} /></div>
+          <div className={style.totalNumber}><p>{followers.facebook+followers.instagram+followers.twitter}</p></div>
+          <div>
+           <h2 style={{color:"pink"}}> <InstagramIcon style={{color:"pink",fontSize:40}} /> {followers.facebook}</h2>
+            </div>
+            <div>
+            <h2 style={{color:"blue"}}><FacebookIcons style={{color:"blue",fontSize:40}} /> {followers.instagram}</h2>
+            </div>
+            <div>
+            <h2 style={{color:"lightblue"}}><TwitterIcons style={{color:"lightblue",fontSize:40}}/> {followers.twitter}</h2>
+            </div>
+            </div>
+
+
     <div className={style.hero} style={{backgroundImage: `url(https://kinomovie.s3.amazonaws.com/${fepkData.banner_url})`}}> 
       <div className={style.posterContainer}> 
       <div >
@@ -225,7 +252,7 @@ function EpkView() {
       </div>
         <div className={style.description}>
           <p className={style.centered}>{fepkData.title}</p>
-          <p className={style.logline}>{fepkData.logLine_short}</p>
+  
         </div>
         </div>
 
@@ -237,21 +264,21 @@ function EpkView() {
           <p className={style.genre}>{fepkData.genre}</p>
           <p className={style.date} >Posted:&nbsp;{formatedDate }</p> 
           </div>
+          <div> <p className={style.logline}>{fepkData.logLine_short}</p></div>
+          </div>
+
+
+          {/* report section */}
+          {isClickDot===false?
+           <div className={style.dotSection}>
+            <FontAwesomeIcon onClick={clickStateDot()} icon={faEllipsisVertical} />
+          </div>
+          : <div className={style.reportSection}>
+          <p><FontAwesomeIcon icon={faFlag}/>&nbsp; Report</p> 
           
-          <div>
-            <p className={style.cornerText}>Total Audience Reach</p>
-          </div>
-          <div>
-           <h2 style={{color:"pink"}}> <InstagramIcon style={{color:"pink",fontSize:40}} /> {followers.facebook}</h2>
-            </div>
-            <div>
-            <h2 style={{color:"blue"}}><FacebookIcons style={{color:"blue",fontSize:40}} /> {followers.instagram}</h2>
-            </div>
-            <div>
-            <h2 style={{color:"lightblue"}}><TwitterIcons style={{color:"lightblue",fontSize:40}}/> {followers.twitter}</h2>
-            </div>
-      
-          </div>
+        </div>
+          }
+         
         </div>
 
 
@@ -1280,7 +1307,6 @@ function EpkView() {
          <div className={style.awardContainer}>
          {reviews.map((award) => {
         return(
-          
           <div  >
           <img
             src={`https://kinomovie.s3.amazonaws.com/${award.award_logo}`}
@@ -1294,12 +1320,12 @@ function EpkView() {
          );
         })}
        </div>
-   </div>
-      <Footer/> 
-    </>
-    
-    
-    );
+       <br/><br/>
+      
+   </div>  
+   <Footer/>
+   </>
+  )
 }
 
 export default EpkView;
