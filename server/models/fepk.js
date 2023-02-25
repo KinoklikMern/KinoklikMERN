@@ -209,7 +209,7 @@ const fepkSchema = mongoose.Schema({
       ref: "Company",
     },
   ],
-  
+
   reports: [
     {
       user: {
@@ -218,18 +218,23 @@ const fepkSchema = mongoose.Schema({
       },
       reason: {
         type: String,
-        enum: ["Spam", "Nudity or Sexual Content", "Non-narration content", "Copyrighted Intellectual Property Violation"],
+        enum: [
+          "Spam",
+          "Nudity or Sexual Content",
+          "Non-narration content",
+          "Copyrighted Intellectual Property Violation",
+        ],
       },
-      comment: {type: String},
+      comment: { type: String },
       status: {
         type: String,
         enum: ["opened", "closed"],
-        default: "opened", 
-      }
+        default: "opened",
+      },
     },
   ],
 
-  // if this status is "true" the EPK will be blured 
+  // if this status is "true" the EPK will be blured
   status_pause: {
     type: Boolean,
     default: false,
