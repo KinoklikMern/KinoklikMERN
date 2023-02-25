@@ -38,6 +38,6 @@ const companySchema = mongoose.Schema({
   ],
 });
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'company' in this case).
-const Company = mongoose.model("company", UserSchema);
+const Company = mongoose.model("company", companySchema);
 
 export default Company;
