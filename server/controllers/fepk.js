@@ -207,6 +207,54 @@ export const updateFepk = async (req, res) => {
   } 
 };
 
+// update Fepk with new report from user
+export const createReport = async (req, res) => {
+  const fepkId = req.params.fepkId;
+  const userId = req.body.userId;
+  const comment = req.body.comment;
+  const reason = req.body.reason;
+  let exists = false;
+  const report = {
+    user: userId, 
+    reason: reason,
+    comment: comment,
+    status: "opened",
+    createdAt: new Date()
+  };
+  try {
+    let fepkOne = await fepk.findOne({ _id: fepkId })
+    .where("deleted")
+    .equals(false);
+    if(!fepkOne){
+      res.json({ error: "No EPK was found!" });
+    }
+    else
+    {
+      let reports = fepkOne.reports;
+
+      reports.map(report => {
+        if(report.user == userId && report.status == "opened"){
+          exists = true;
+        }
+      });
+
+      if(exists === true){
+        res.json({ error: "This EPK was reported by you earlier!" });
+      }
+      else{
+        reports.push(report);
+        fepkOne.reports = reports;
+        await fepkOne.save();
+        fepkOne = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkOne);
+      }
+    }
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  } 
+};
+
 // adding user who liked Fepk
 export const getFepkLiked = async (req, res) => {
   const fepkId = req.params.fepkid;

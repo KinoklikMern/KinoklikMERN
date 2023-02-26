@@ -5,7 +5,7 @@ import {
     createFepk, updateFepk, uploadFepkFile, deleteFepk, getFepksByFilmmakerId, 
     getFepkLiked, getFepkFavourite, getFepksByUser, getFepkByTitle, uploadFepkFiles, 
     getFepkSharings, getFepkWishedToBuy, getMediumSynopsis, getLongSynopsis, 
-    getUniqueness, getStills, getFollowers} from "../controllers/fepk.js";
+    getUniqueness, getStills, getFollowers, createReport} from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
 const router = express.Router();
@@ -36,6 +36,9 @@ router.post("/", createFepk);
 
 // Modify FEPK
 router.put("/update/:id", updateFepk);
+
+// user sends report on the EPK to Film Maker
+router.put("/report/:fepkId", createReport);
 
 // Calling these APIs will add user to the appropriate list (likes(star), favourites, sharings, wishes_to_buy($))
 router.get("/like/:fepkid/:userid", getFepkLiked);
