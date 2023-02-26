@@ -43,22 +43,6 @@ const UserSchema = mongoose.Schema({
       "Investor"
     ],
   },
-  movies: [
-    {
-      movie: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "movie",
-      },
-    },
-  ],
-  uploaded_movies: [
-    {
-      movie: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "movie",
-      },
-    },
-  ],
   following: {
     type: Array,
     default: [],
