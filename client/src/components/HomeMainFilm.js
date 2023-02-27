@@ -8,7 +8,7 @@ const HomeMainFilm = () => {
             
             <div className="c-row tw-overflow-hidden">
                 {mainFilm.map((item) =>(
-                    <div className="c-col  tw-opacity-50 tw-w-full " key={item._id}>
+                    <div className="c-col tw-rounded-2xl tw-ml-5 tw-opacity-50 " key={item._id}>
                         <img className='' src={item.image} alt={item.title} />
                         {/* <div className="category-content"> */}
                             {/* <p>{item.title}</p>
