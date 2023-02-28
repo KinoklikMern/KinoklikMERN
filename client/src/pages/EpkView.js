@@ -37,6 +37,7 @@ import {
   TwitterIcon,
 } from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
+import Axios from "axios";
 
 function EpkView() {
   let { title } = useParams();
@@ -68,7 +69,11 @@ function EpkView() {
   const [trailer, setTrailer] = useState([]);
   const [followers, setFollowers] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [reports, setReports] = useState([]);
+  const [report, setReport] = useState({
+    userId: userId,
+    reason: "Spam",
+    comment: ""
+  });
   const [sharingClicked, setSharingClicked] = useState(false);
   const urlShare = "https://www.google.com"; ///window.location.href
 
@@ -104,7 +109,6 @@ function EpkView() {
       setResources(response.data.resources);
       setTrailer(response.data.trailer);
       setReviews(response.data.reviews);
-      setReports(response.data.reports);
       http.get(`/fepks/followers/${response.data._id}`).then((res) => {
         setFollowers(res.data);
       });
@@ -223,6 +227,7 @@ function EpkView() {
   const [isClose, setIsClose] = useState(false);
   const clickClose = () => {
     setIsClose(!isClose);
+    window.location.reload();
   };
 
   const [isClickInfoIcon1, setIsClickInfoIcon1] = useState(false);
@@ -240,7 +245,22 @@ function EpkView() {
   };
   const [isClickReport, setIsClickReport] = useState(false);
   const clickReport = () => {
+    http.put(`/fepks/report/${fepkData._id}`, report).then((res) => {
+      if(res.data.error){
+        alert(res.data.error);
+      }
+      console.log("report sent");
+    });
+    console.log(report);
     setIsClickReport(true);
+  };
+  const handleInputChange = (event) => {
+    let comment = event.target.value;
+    setReport({ ...report, comment: comment });
+  
+  };
+  function chooseReason(reason){
+    setReport({ ...report, reason: reason });
   };
 
   return (
@@ -367,7 +387,7 @@ function EpkView() {
                     </p>
                     <form className={style.form1}>
                       <div className={style.inputContainer}>
-                        <input type="text" value="Spam" readOnly></input>
+                        <input type="text" value="Spam" onClick={() => chooseReason("Spam")} readOnly></input>
                         <FontAwesomeIcon
                           className={style.infoIcon}
                           icon={faInfoCircle}
@@ -388,6 +408,7 @@ function EpkView() {
                         <input
                           type="text"
                           value="Nudity or Sexual Content"
+                          onClick={() => chooseReason("Nudity or Sexual Content")}
                           readOnly
                         ></input>
                         <FontAwesomeIcon
@@ -411,7 +432,8 @@ function EpkView() {
                       <div className={style.inputContainer}>
                         <input
                           type="text"
-                          value="Copyrighted Intellectual Propery Violation"
+                          value="Copyrighted Intellectual Property Violation"
+                          onClick={() => chooseReason("Copyrighted Intellectual Property Violation")}
                           readOnly
                         ></input>
                         <FontAwesomeIcon
@@ -436,6 +458,8 @@ function EpkView() {
                         <input
                           className={style.comment}
                           type="text"
+                          name = "comment"
+                          onChange={handleInputChange}
                           placeholder="type here"
                         ></input>
                         <FontAwesomeIcon
@@ -447,7 +471,6 @@ function EpkView() {
                       <button
                         onClick={() => clickReport()}
                         className={style.submitReport}
-                        type="submit"
                       >
                         Report!
                       </button>
