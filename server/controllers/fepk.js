@@ -239,7 +239,7 @@ export const createReport = async (req, res) => {
       });
 
       if(exists === true){
-        res.json({ error: "This EPK was reported by you earlier!" });
+        res.json({ error: "You have already reported this EPK!" });
       }
       else{
         reports.push(report);
