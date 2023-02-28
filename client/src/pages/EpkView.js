@@ -320,6 +320,7 @@ function EpkView() {
           </div>
 
           {/* report section */}
+
           {/* {isClickDot === false || isClose === true ? (
             <div className={style.dotSection}>
               <FontAwesomeIcon
@@ -334,7 +335,7 @@ function EpkView() {
                 &nbsp; Report
               </button>
             </div>
-          ) : (
+          ) : 
             <div className={style.reportSection}>
               <button
                 className={style.reportBtn}
@@ -346,116 +347,117 @@ function EpkView() {
                 <FontAwesomeIcon icon={faFlag} />
                 &nbsp; Report
               </button>
-              <div /> :
-              < div
-                className={
-                  isShow === true || isClose === false
-                    ? style.reportForm
-                    : style.hidden
-                }
-              >
-                <span onClick={() => clickClose()} className={style.closeBtn}>
-                  &times;
-                </span>
-                {isClickReport === false ? (
-                  <>
-                    <p className={style.reportTitle}>
-                      Why are you reporting this EPK?
-                    </p>
-                    <form className={style.form1}>
-                      <div className={style.inputContainer}>
-                        <input type="text" value="Spam" readOnly></input>
-                        <FontAwesomeIcon
-                          className={style.infoIcon}
-                          icon={faInfoCircle}
-                          onClick={() => clickInfoIcon1()}
-                        />
-                        {isClickInfoIcon1 === true ? (
-                          <div className={style.reportMessage}>
-                            This can be unwanted and unauthorized use of content
-                            from another website on third-party websites in
-                            connection with other content, negatively affecting
-                            your experience and reputation on our platform.
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className={style.inputContainer}>
-                        <input
-                          type="text"
-                          value="Nudity or Sexual Content"
-                          readOnly
-                        ></input>
-                        <FontAwesomeIcon
-                          className={style.infoIcon}
-                          icon={faCircleInfo}
-                          onClick={() => clickInfoIcon2()}
-                        />
-                        {isClickInfoIcon2 === true ? (
-                          <div className={style.reportMessage}>
-                            This can be any content that appears to be
-                            pronographic, sexual exploitation or solicitation
-                            and/or content that shows sexual intercourse,
-                            genitals and close-ups of fully-nude buttocks.
-                            Nudity in photos of paintings and sculptures are
-                            permitted.
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className={style.inputContainer}>
-                        <input
-                          type="text"
-                          value="Copyrighted Intellectual Propery Violation"
-                          readOnly
-                        ></input>
-                        <FontAwesomeIcon
-                          className={style.infoIcon}
-                          icon={faCircleInfo}
-                          onClick={() => clickInfoIcon3()}
-                        />
-                        {isClickInfoIcon3 === true ? (
-                          <div className={style.reportMessage}>
-                            This can be unwanted, unauthorized or unethical use
-                            of content from another website, negatively
-                            affecting your experience and the reputation on our
-                            platform.
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </div>
+              <div /> */}
 
-                      <div className={style.inputContainer}>
-                        <label for="Other">Other: </label>
-                        <input
-                          className={style.comment}
-                          type="text"
-                          placeholder="type here"
-                        ></input>
-                        <FontAwesomeIcon
-                          className={style.infoIcon}
-                          icon={faCircleInfo}
-                        />
-                      </div>
+          <div
+            className={
+              isShow === true || isClose === false
+                ? style.reportForm
+                : style.hidden
+            }
+          >
+            <span onClick={() => clickClose()} className={style.closeBtn}>
+              &times;
+            </span>
 
-                      <button
-                        onClick={() => clickReport()}
-                        className={style.submitReport}
-                        type="submit"
-                      >
-                        Report!
-                      </button>
-                    </form>
-                  </>
-                ) : (
-                  <p className={style.reportP}>
-                    Thank you for reporting this film EPK. We are currently
-                    inverstigation and have notified the filmmaker accordingly.
-                  </p>
-                )} */}
+            {isClickReport === false ? (
+              <>
+                <p className={style.reportTitle}>
+                  Why are you reporting this EPK?
+                </p>
+                <form className={style.form1}>
+                  <div className={style.inputContainer}>
+                    <input type="text" value="Spam" readOnly></input>
+                    <FontAwesomeIcon
+                      className={style.infoIcon}
+                      icon={faInfoCircle}
+                      onClick={() => clickInfoIcon1()}
+                    />
+                    {isClickInfoIcon1 === true ? (
+                      <div className={style.reportMessage}>
+                        This can be unwanted and unauthorized use of content
+                        from another website on third-party websites in
+                        connection with other content, negatively affecting your
+                        experience and reputation on our platform.
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className={style.inputContainer}>
+                    <input
+                      type="text"
+                      value="Nudity or Sexual Content"
+                      readOnly
+                    ></input>
+                    <FontAwesomeIcon
+                      className={style.infoIcon}
+                      icon={faCircleInfo}
+                      onClick={() => clickInfoIcon2()}
+                    />
+                    {isClickInfoIcon2 === true ? (
+                      <div className={style.reportMessage}>
+                        This can be any content that appears to be pronographic,
+                        sexual exploitation or solicitation and/or content that
+                        shows sexual intercourse, genitals and close-ups of
+                        fully-nude buttocks. Nudity in photos of paintings and
+                        sculptures are permitted.
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className={style.inputContainer}>
+                    <input
+                      type="text"
+                      value="Copyrighted Intellectual Propery Violation"
+                      readOnly
+                    ></input>
+                    <FontAwesomeIcon
+                      className={style.infoIcon}
+                      icon={faCircleInfo}
+                      onClick={() => clickInfoIcon3()}
+                    />
+                    {isClickInfoIcon3 === true ? (
+                      <div className={style.reportMessage}>
+                        This can be unwanted, unauthorized or unethical use of
+                        content from another website, negatively affecting your
+                        experience and the reputation on our platform.
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+
+                  <div className={style.inputContainer}>
+                    <label for="Other">Other: </label>
+                    <input
+                      className={style.comment}
+                      type="text"
+                      placeholder="type here"
+                    ></input>
+                    <FontAwesomeIcon
+                      className={style.infoIcon}
+                      icon={faCircleInfo}
+                    />
+                  </div>
+
+                  <button
+                    onClick={() => clickReport()}
+                    className={style.submitReport}
+                    type="submit"
+                  >
+                    Report!
+                  </button>
+                </form>
+              </>
+            ) : (
+              <p className={style.reportP}>
+                Thank you for reporting this film EPK. We are currently
+                inverstigation and have notified the filmmaker accordingly.
+              </p>
+            )}
+          </div>
         </div>
         {/* icon-bar section */}
         <div className={style.iconContainer}>
