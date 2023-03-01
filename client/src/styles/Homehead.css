@@ -23,7 +23,7 @@
   font-size: 2rem;
   color: white;
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 65px;
   position: absolute;
   left: 16px;
   top: 8vmax;
@@ -33,7 +33,7 @@
   font-size: 2.5rem;
   color: white;
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 55px;
   position: absolute;
   right: 16px;
   top: 8vmax;
