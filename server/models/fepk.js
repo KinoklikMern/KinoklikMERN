@@ -225,7 +225,11 @@ const fepkSchema = mongoose.Schema({
         type: String,
         enum: ["opened", "closed"],
         default: "opened", 
-      }
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
+      },
     },
   ],
 
