@@ -9,22 +9,22 @@ const HomeBody = () => {
         <>
             <div className="home">
                 <div className="listTitle">
-                    <span>MY FAVOURITES</span>
+                    <span>STARRED</span>
                 </div>
                 <List />
 
                 <div className="listTitle">
-                    <span>HORROR FILMS</span>
+                    <span>FOLLOWED</span>
                 </div>
                 <List />
 
                 <div className="listTitle">
-                    <span>COMEDY FILMS</span>
+                    <span>COMEDY</span>
                 </div>
                 <List />
 
                 <div className="listTitle">
-                    <span>ROMCOM FILMS</span>
+                    <span>ROMCOM</span>
                 </div>
                 <List />
 
