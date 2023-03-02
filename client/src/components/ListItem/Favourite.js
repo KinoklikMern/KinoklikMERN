@@ -19,7 +19,6 @@ export default function Favourite() {
     useEffect(() => {
         http.get(`fepks/favourite/byuser/${id}`).then((response) => {
           setFepks(response.data);
-          console.log(response.data);
         });
       }, []);
     return (

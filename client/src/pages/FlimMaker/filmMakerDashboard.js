@@ -99,6 +99,7 @@ export default function Filmmaker() {
                           </div>
                         </div>
                       </Link>
+                      <Link to={`/editFepk/${epk._id}`} style={{color:"white", float:"right"}}>update</Link>
                     </div>
                   ))}
                 </div>
