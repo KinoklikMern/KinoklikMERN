@@ -1,6 +1,9 @@
 import React, { useState, setState } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 
 function LoginForm() {
@@ -11,6 +14,9 @@ function LoginForm() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
 
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
     
  //individual login form
   const handleInputChange = (e) => {
@@ -27,7 +33,7 @@ function LoginForm() {
     console.log(email, password);
     try {
       const { data } = await axios.post(
-        "${process.env.REACT_APP_BACKEND_URL}/users/login",
+        `${process.env.REACT_APP_BACKEND_URL}/users/login`,
         {
           email: email,
           password: password,
@@ -36,6 +42,12 @@ function LoginForm() {
       setError("");
       setSuccess(data.message);
       const { message, ...rest } = data;
+      dispatch({ type: "LOGIN", payload: data });
+      Cookies.set("user", JSON.stringify(data));
+      console.log(data);
+       if (data.role === "FILM_MAKER") {
+         navigate("/filmMakerDashboard");
+       }
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);
