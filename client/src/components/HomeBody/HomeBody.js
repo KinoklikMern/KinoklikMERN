@@ -1,8 +1,8 @@
 import React from 'react';
 import "./HomeBody.css";
 import List from "../List/List";
+import FavouriteList from "../List/Favourite";
 import Sponsored from '../Sponsored/Sponsored';
-
 
 const HomeBody = () => {
     return (
@@ -11,7 +11,7 @@ const HomeBody = () => {
                 <div className="listTitle">
                     <span>MY FAVOURITES</span>
                 </div>
-                <List />
+                <FavouriteList />
 
                 <div className="listTitle">
                     <span>HORROR FILMS</span>
