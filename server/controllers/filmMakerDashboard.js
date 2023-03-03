@@ -9,6 +9,9 @@ import fepk from "../models/fepk.js";
 const PENDING = "pending";
 const REFUSED = "refused";
 const APPROVED = "approved";
+const DISTRIBUTOR = "Distributor";
+const FILMFESTIVAL = "Film_Festival";
+const SALESAGENT = "Sales_Agent";
 
 export const getEpks = async (req, res) => {
   //const id = req.params.id;
@@ -98,6 +101,57 @@ export const getPendingRequests = async (req, res) => {
 
     epk.longSynopsis.forEach(element => {
       if(element.status == PENDING )
+        rs.push(element);
+    });
+    res.status(200).json(rs);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getDistributorsEpkRequests = async (req, res) => {
+  const epkId = req.params.id;
+  const rs = new Array();
+  try {
+    const epk = await fepk.findOne({ _id: epkId })
+    .populate("longSynopsis")
+
+    epk.longSynopsis.forEach(element => {
+      if(element.role == DISTRIBUTOR )
+        rs.push(element);
+    });
+    res.status(200).json(rs);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getFilmFestivalsEpkRequests = async (req, res) => {
+  const epkId = req.params.id;
+  const rs = new Array();
+  try {
+    const epk = await fepk.findOne({ _id: epkId })
+    .populate("longSynopsis")
+
+    epk.longSynopsis.forEach(element => {
+      if(element.role == FILMFESTIVAL )
+        rs.push(element);
+    });
+    res.status(200).json(rs);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getSalesAgentsEpkRequests = async (req, res) => {
+  const epkId = req.params.id;
+  const rs = new Array();
+  try {
+    const epk = await fepk.findOne({ _id: epkId })
+    .populate("longSynopsis")
+
+    epk.longSynopsis.forEach(element => {
+      if(element.role == SALESAGENT )
         rs.push(element);
     });
     res.status(200).json(rs);
