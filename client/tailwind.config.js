@@ -6,7 +6,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         'TvImage': "url('../../public/images/TV.png')",
-        'JokerImage': "url('../../public/images/JokerImage.png')",
+        'JokerImage2': "url('../../public/images/JokerImage.png')",
+        'JokerImage': "url('process.env.REACT_APP_AWS_URL}/${fepk.banner_url}')",
       },
       colors: {
        
