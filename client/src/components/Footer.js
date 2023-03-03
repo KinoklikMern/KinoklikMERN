@@ -10,15 +10,15 @@ function Footer() {
     <>
       <div className="footer footer-container">
         <div className=" footer-container">
-          <div className="row">
-            <div className="col-md-2 px-4 py-3 footer-container">
+          <div className=" tw-flex tw-flex-row ">
+            <div className="col-md-2  tw-py-3 ">
               <img
                 src={require("../images/logo.png")}
                 alt="Logo"
-                className="logo "
+                className="tw-h-16 "
               />
             </div>
-            <div className="col-md-2 px-4 py-3 footer-columns">
+            <div className="tw-col-md-2 tw-px-4 tw-py-3 footer-columns">
               <ul className="footer-ul ">
                 <li>
                   <h5 className="footer-header mb-4 text-lg ">KinoKlik APK</h5>
@@ -69,10 +69,10 @@ function Footer() {
   </li> */}
               </ul>
             </div>
-            <div className="col-md-2 px-4 py-3 footer-columns text-center mt-20">
+            <div className="col-md-2 tw-px-0 tw-py-3 footer-columns text-center tw-mt-0">
               {/* <h5 className="footer-header">Follow us on:</h5> */}
 
-              <div className="footer-links text-center sm:mt-0  lg:mt-8 sm:ml-48 lg:ml-0 ">
+              <div className="footer-links tw-text-center sm:tw-mt-0  lg:tw-mt-8 sm:tw-ml-48 lg:tw-ml-0 ">
             
                 <a  href="https://www.facebook.com/kinoklikcanada">
                    {/* <FontAwesomeIcon icon={faFacebook} size="2x"/> */}
