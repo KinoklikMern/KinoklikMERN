@@ -36,9 +36,9 @@ const Landing1 = () => {
         <div className="tw-grid tw-bg-midnight lg:tw-grid-cols-2 2xl:tw-grid-cols-5">
           <div className="tw-mx-auto tw-max-w-md tw-px-8 tw-py-12 sm:tw-max-w-xl lg:tw-max-w-full lg:tw-px-12 lg:tw-py-24 xl:tw-mr-2 2xl:tw-col-span-2">
             <div className=" xl:tw-max-w-xl xl:tw-max-h-xl">
-              <div className=" tw-h-[110%] tw-bg-TvImage tw-bg-cover tw-bg-center tw-h-76 tw-bg-no-repeat lg:tw-hidden">
+              <div className=" tw-h-[110%] tw-bg-TvImage tw-bg-cover tw-bg-center sm:tw-pt-4 tw-h-76 tw-bg-no-repeat lg:tw-hidden">
                 <img
-                  className=" tw-mt-6  tw-rounded-lg tw-object-center tw-shadow-xl sm:tw-mt-4 sm:tw-h-64 sm:tw-pb-4 sm:tw-w-full sm:tw-px-16 lg:tw-hidden"
+                  className=" tw-mt-6  tw-rounded-lg tw-object-center tw-shadow-xl sm:tw-mt-4 sm:tw-h-72 sm:tw-pb-8 sm:tw-w-full sm:tw-px-16 lg:tw-hidden"
                   src={moviesPhoto}
                   alt="Movies"
                 />
