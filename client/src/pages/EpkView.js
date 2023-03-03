@@ -4,7 +4,13 @@ import http from "../http-common";
 import Navbar from "../components/navbar/Navbar";
 import { useParams, Link } from "react-router-dom";
 import style from "./EpkView.module.css";
-import kikSatr from "../images/Kickstarter-icon.png";
+import kickStar from "../images/kickstarter.png";
+import People from "../images/People.png";
+import DollarSignEmpty from "../images/DollarSignEMPTY.svg";
+import DollarSignFull from "../images/DollarSignFULL.svg";
+import FullStar from "../images/starfull.svg";
+import EmptyStar from "../images/starempty.svg";
+import Share from "../images/share.ico";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcons from "@mui/icons-material/Facebook";
 import TwitterIcons from "@mui/icons-material/Twitter";
@@ -14,7 +20,7 @@ import {
   faDollarSign,
   faSave,
   faShareAlt,
-  faPlusCircle,
+  faPlus,
   faStar,
   faSearch,
   faEnvelope,
@@ -23,6 +29,7 @@ import {
   faFlag,
   faCircleInfo,
   faInfoCircle,
+  faShareNodes,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   EmailShareButton,
@@ -38,11 +45,11 @@ import {
 } from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
 import Axios from "axios";
+import { triggerFocus } from "antd/es/input/Input";
 
 function EpkView() {
-  let { title } = useParams();
-
   // fetching user
+  let { title } = useParams();
   const { user } = useSelector((user) => ({ ...user }));
   let userId;
   let userRole;
@@ -72,7 +79,7 @@ function EpkView() {
   const [report, setReport] = useState({
     userId: userId,
     reason: "Spam",
-    comment: ""
+    comment: "",
   });
   const [sharingClicked, setSharingClicked] = useState(false);
   const urlShare = "https://www.google.com"; ///window.location.href
@@ -188,6 +195,7 @@ function EpkView() {
 
   function login() {
     document.getElementById("login").click();
+    // setClickStar(!clickStar);
   }
 
   const createdTime = fepkData.createdAt;
@@ -243,10 +251,15 @@ function EpkView() {
   const clickInfoIcon3 = () => {
     setIsClickInfoIcon3(!isClickInfoIcon3);
   };
+
+  const [isClickInfoIcon4, setIsClickInfoIcon4] = useState(false);
+  const clickInfoIcon4 = () => {
+    setIsClickInfoIcon4(!isClickInfoIcon4);
+  };
   const [isClickReport, setIsClickReport] = useState(false);
   const clickReport = () => {
     http.put(`/fepks/report/${fepkData._id}`, report).then((res) => {
-      if(res.data.error){
+      if (res.data.error) {
         alert(res.data.error);
       }
       console.log("report sent");
@@ -254,14 +267,56 @@ function EpkView() {
     console.log(report);
     setIsClickReport(true);
   };
+
+  const [chosen1, setChosen1] = useState(false);
+  const [chosen2, setChosen2] = useState(false);
+  const [chosen3, setChosen3] = useState(false);
+  const [chosen4, setChosen4] = useState(false);
+
   const handleInputChange = (event) => {
     let comment = event.target.value;
     setReport({ ...report, comment: comment });
-  
+    setChosen4(!chosen4);
+    setChosen1(false);
+    setChosen2(false);
+    setChosen3(false);
   };
-  function chooseReason(reason){
+  function chooseReason(reason) {
     setReport({ ...report, reason: reason });
-  };
+    setChosen1(!chosen1);
+    setChosen2(false);
+    setChosen3(false);
+    setChosen4(false);
+  }
+  function chooseReason1(reason) {
+    setReport({ ...report, reason: reason });
+    setChosen2(!chosen2);
+    setChosen1(false);
+    setChosen3(false);
+    setChosen4(false);
+  }
+  function chooseReason2(reason) {
+    setReport({ ...report, reason: reason });
+    setChosen3(!chosen3);
+    setChosen1(false);
+    setChosen2(false);
+    setChosen4(false);
+  }
+  function kFormatter(num) {
+    return Math.abs(num) > 999
+      ? parseFloat(Math.sign(num) * (Math.abs(num) / 1000)).toFixed(2) + "k"
+      : Math.sign(num) * Math.abs(num);
+  }
+  function mFormatter(num) {
+    return Math.abs(num) > 999999
+      ? parseFloat(Math.sign(num) * (Math.abs(num) / 1000000)).toFixed(2) + "M"
+      : kFormatter(num);
+  }
+
+  const [clickStar, setClickStar] = useState(false);
+  // const starClick = () => {
+  //   setClickStar(!clickStar);
+  // };
 
   return (
     <div>
@@ -273,36 +328,42 @@ function EpkView() {
             : style.content1
         }
       >
+        {/* socialMedia icon */}
         <div className={style.socialMedia}>
           <div>
             <p className={style.cornerText}>Total Audience Reach</p>
           </div>
-          <div>
+          <div className={style.iconAmount}>
             {" "}
-            <FontAwesomeIcon icon={faPeopleLine} />
-          </div>
-          <div className={style.totalNumber}>
-            <p>
-              {followers.facebook + followers.instagram + followers.twitter}
+            <img
+              className={style.peopleIcon}
+              src={People}
+              alt="audience icon"
+            />
+            <p className={style.totalNumber}>
+              {mFormatter(
+                followers.facebook + followers.instagram + followers.twitter
+              )}
             </p>
           </div>
+
           <div>
             <h2 style={{ color: "pink" }}>
               {" "}
-              <InstagramIcon style={{ color: "pink", fontSize: 40 }} />{" "}
-              {followers.facebook}
+              <InstagramIcon style={{ color: "pink", fontSize: 60 }} />{" "}
+              {mFormatter(followers.facebook)}
             </h2>
           </div>
           <div>
             <h2 style={{ color: "blue" }}>
-              <FacebookIcons style={{ color: "blue", fontSize: 40 }} />{" "}
-              {followers.instagram}
+              <FacebookIcons style={{ color: "blue", fontSize: 60 }} />{" "}
+              {mFormatter(followers.instagram)}
             </h2>
           </div>
           <div>
             <h2 style={{ color: "lightblue" }}>
-              <TwitterIcons style={{ color: "lightblue", fontSize: 40 }} />{" "}
-              {followers.twitter}
+              <TwitterIcons style={{ color: "lightblue", fontSize: 60 }} />{" "}
+              {mFormatter(followers.twitter)}
             </h2>
           </div>
         </div>
@@ -387,9 +448,22 @@ function EpkView() {
                     </p>
                     <form className={style.form1}>
                       <div className={style.inputContainer}>
-                        <input type="text" value="Spam" onClick={() => chooseReason("Spam")} readOnly></input>
+                        <input
+                          className={
+                            chosen1 === true ? style.selected : style.form1Input
+                          }
+                          type="text"
+                          value="Spam"
+                          onhover="tw-color-red-500"
+                          onClick={() => chooseReason("Spam")}
+                          readOnly
+                        ></input>
                         <FontAwesomeIcon
-                          className={style.infoIcon}
+                          className={
+                            chosen1 === true
+                              ? style.infoIconSelect
+                              : style.infoIcon
+                          }
                           icon={faInfoCircle}
                           onClick={() => clickInfoIcon1()}
                         />
@@ -406,13 +480,22 @@ function EpkView() {
                       </div>
                       <div className={style.inputContainer}>
                         <input
+                          className={
+                            chosen2 === true ? style.selected : style.form1Input
+                          }
                           type="text"
                           value="Nudity or Sexual Content"
-                          onClick={() => chooseReason("Nudity or Sexual Content")}
+                          onClick={() =>
+                            chooseReason1("Nudity or Sexual Content")
+                          }
                           readOnly
                         ></input>
                         <FontAwesomeIcon
-                          className={style.infoIcon}
+                          className={
+                            chosen2 === true
+                              ? style.infoIconSelect
+                              : style.infoIcon
+                          }
                           icon={faCircleInfo}
                           onClick={() => clickInfoIcon2()}
                         />
@@ -431,13 +514,24 @@ function EpkView() {
                       </div>
                       <div className={style.inputContainer}>
                         <input
+                          className={
+                            chosen3 === true ? style.selected : style.form1Input
+                          }
                           type="text"
                           value="Copyrighted Intellectual Property Violation"
-                          onClick={() => chooseReason("Copyrighted Intellectual Property Violation")}
+                          onClick={() =>
+                            chooseReason2(
+                              "Copyrighted Intellectual Property Violation"
+                            )
+                          }
                           readOnly
                         ></input>
                         <FontAwesomeIcon
-                          className={style.infoIcon}
+                          className={
+                            chosen3 === true
+                              ? style.infoIconSelect
+                              : style.infoIcon
+                          }
                           icon={faCircleInfo}
                           onClick={() => clickInfoIcon3()}
                         />
@@ -456,16 +550,31 @@ function EpkView() {
                       <div className={style.inputContainer}>
                         <label for="Other">Other: </label>
                         <input
-                          className={style.comment}
+                          className={
+                            chosen4 === true ? style.selected : style.comment
+                          }
                           type="text"
-                          name = "comment"
+                          name="comment"
                           onChange={handleInputChange}
                           placeholder="type here"
                         ></input>
                         <FontAwesomeIcon
-                          className={style.infoIcon}
+                          className={
+                            chosen4 === true
+                              ? style.infoIconSelect
+                              : style.infoIcon
+                          }
                           icon={faCircleInfo}
+                          onClick={() => clickInfoIcon4()}
                         />
+                        {isClickInfoIcon4 === true ? (
+                          <div className={style.reportMessage}>
+                            Other: any other reason you may want to report this
+                            EPK.
+                          </div>
+                        ) : (
+                          ""
+                        )}
                       </div>
 
                       <button
@@ -486,6 +595,7 @@ function EpkView() {
             </div>
           )}
         </div>
+
         {/* icon-bar section */}
         <div className={style.iconContainer}>
           <div>
@@ -510,14 +620,15 @@ function EpkView() {
             <a href="#">
               {userId === "0" ? (
                 <FontAwesomeIcon
-                  icon={faPlusCircle}
+                  icon={faPlus}
                   size="lg"
                   onClick={() => login()}
                 />
               ) : (
                 <FontAwesomeIcon
-                  icon={faPlusCircle}
+                  icon={faPlus}
                   size="lg"
+                  color="fa-duotone"
                   onClick={() => addUserToFavourites()}
                 />
               )}
@@ -548,8 +659,8 @@ function EpkView() {
             <a href="#">
               <img
                 className={style.icon}
-                src={kikSatr}
-                alt="save"
+                src={kickStar}
+                alt="kstarter"
                 onClick={() => openUrl(fepkData.kickstarter_url)}
               />
             </a>
@@ -596,7 +707,7 @@ function EpkView() {
             )}
             <a href="#">
               <FontAwesomeIcon
-                icon={faShareAlt}
+                icon={faShareNodes}
                 size="lg"
                 onMouseOver={() => addUserToSharings()}
                 onClick={() => closeSharingMenu()}
@@ -1080,7 +1191,7 @@ function EpkView() {
             </>
           );
         })}
-        {/* the case when user logged in and got refused */}/
+        {/* the case when user logged in and got refused */}
         {/* Starring / Cast section */}
         <div className={style.starring}>
           <p className={style.starTitle}>Starring</p>
@@ -1101,15 +1212,15 @@ function EpkView() {
                         <h1>{crewObj.crewId.name}</h1>
                         <p className={style.mediaIcon}>
                           <InstagramIcon
-                            style={{ color: "red", fontSize: 40 }}
+                            style={{ color: "#1e0039", fontSize: 40 }}
                             onClick={() => openUrl(crewObj.instagram_url)}
                           />
                           <FacebookIcons
-                            style={{ color: "blue", fontSize: 40 }}
+                            style={{ color: "#1e0039", fontSize: 40 }}
                             onClick={() => openUrl(crewObj.facebook_url)}
                           />
                           <TwitterIcons
-                            style={{ color: "lightblue", fontSize: 40 }}
+                            style={{ color: "#1e0039", fontSize: 40 }}
                             onClick={() => openUrl(crewObj.twitter_url)}
                           />
                         </p>
@@ -1137,15 +1248,15 @@ function EpkView() {
                         <h1>{crewObj.crewId.name}</h1>
                         <p className={style.mediaIcon}>
                           <InstagramIcon
-                            style={{ color: "red", fontSize: 40 }}
+                            style={{ color: "#1e0039", fontSize: 40 }}
                             onClick={() => openUrl(crewObj.instagram_url)}
                           />
                           <FacebookIcons
-                            style={{ color: "blue", fontSize: 40 }}
+                            style={{ color: "#1e0039", fontSize: 40 }}
                             onClick={() => openUrl(crewObj.facebook_url)}
                           />
                           <TwitterIcons
-                            style={{ color: "lightblue", fontSize: 40 }}
+                            style={{ color: "#1e0039", fontSize: 40 }}
                             onClick={() => openUrl(crewObj.twitter_url)}
                           />
                         </p>
@@ -1173,15 +1284,15 @@ function EpkView() {
                       <h1>{crewObj.crewId.name}</h1>
                       <p className={style.mediaIcon}>
                         <InstagramIcon
-                          style={{ color: "red", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.instagram_url)}
                         />
                         <FacebookIcons
-                          style={{ color: "blue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.facebook_url)}
                         />
                         <TwitterIcons
-                          style={{ color: "lightblue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.twitter_url)}
                         />
                       </p>
@@ -1211,15 +1322,15 @@ function EpkView() {
                       <h1>{crewObj.crewId.name}</h1>
                       <p className={style.mediaIcon}>
                         <InstagramIcon
-                          style={{ color: "red", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.instagram_url)}
                         />
                         <FacebookIcons
-                          style={{ color: "blue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.facebook_url)}
                         />
                         <TwitterIcons
-                          style={{ color: "lightblue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.twitter_url)}
                         />
                       </p>
@@ -1247,15 +1358,15 @@ function EpkView() {
                       <h1>{crewObj.crewId.name}</h1>
                       <p className={style.mediaIcon}>
                         <InstagramIcon
-                          style={{ color: "red", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.instagram_url)}
                         />
                         <FacebookIcons
-                          style={{ color: "blue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.facebook_url)}
                         />
                         <TwitterIcons
-                          style={{ color: "lightblue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.twitter_url)}
                         />
                       </p>
@@ -1285,15 +1396,15 @@ function EpkView() {
                       <h1>{crewObj.crewId.name}</h1>
                       <p className={style.mediaIcon}>
                         <InstagramIcon
-                          style={{ color: "red", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.instagram_url)}
                         />
                         <FacebookIcons
-                          style={{ color: "blue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.facebook_url)}
                         />
                         <TwitterIcons
-                          style={{ color: "lightblue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.twitter_url)}
                         />
                       </p>
@@ -1321,15 +1432,15 @@ function EpkView() {
                       <h1>{crewObj.crewId.name}</h1>
                       <p className={style.mediaIcon}>
                         <InstagramIcon
-                          style={{ color: "red", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.instagram_url)}
                         />
                         <FacebookIcons
-                          style={{ color: "blue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.facebook_url)}
                         />
                         <TwitterIcons
-                          style={{ color: "lightblue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.twitter_url)}
                         />
                       </p>
@@ -1358,15 +1469,15 @@ function EpkView() {
                       <h1>{crewObj.crewId.name}</h1>
                       <p className={style.mediaIcon}>
                         <InstagramIcon
-                          style={{ color: "red", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.instagram_url)}
                         />
                         <FacebookIcons
-                          style={{ color: "blue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.facebook_url)}
                         />
                         <TwitterIcons
-                          style={{ color: "lightblue", fontSize: 40 }}
+                          style={{ color: "white", fontSize: 40 }}
                           onClick={() => openUrl(crewObj.twitter_url)}
                         />
                       </p>
@@ -1637,18 +1748,18 @@ function EpkView() {
                   <br />
                   <h4>
                     <InstagramIcon
-                      sx={{ color: "red", fontSize: 40 }}
+                      sx={{ color: "white", fontSize: 40 }}
                       onClick={() => openUrl(resource.instagram_url)}
                     />
                     <FacebookIcons
-                      style={{ color: "blue", fontSize: 40 }}
+                      sx={{ color: "white", fontSize: 40 }}
                       onClick={() => openUrl(resource.facebook_url)}
                     />
                     <TwitterIcons
-                      style={{ color: "lightblue", fontSize: 40 }}
+                      sx={{ color: "white", fontSize: 40 }}
                       onClick={() => openUrl(resource.twitter_url)}
                     />
-                    <FontAwesomeIcon icon={faEnvelope} color="transparents" />
+                    <FontAwesomeIcon icon={faEnvelope} color="white" />
                   </h4>
                 </div>
               </div>
@@ -1688,8 +1799,6 @@ function EpkView() {
             );
           })}
         </div>
-        <br />
-        <br />
         <Footer />
       </div>
     </div>
