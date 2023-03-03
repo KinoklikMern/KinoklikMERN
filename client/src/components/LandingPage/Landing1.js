@@ -35,10 +35,10 @@ const Landing1 = () => {
       <div className="landing11  tw-bg-midnight tw-pb-20">
         <div className="tw-grid tw-bg-midnight lg:tw-grid-cols-2 2xl:tw-grid-cols-5">
           <div className="tw-mx-auto tw-max-w-md tw-px-8 tw-py-12 sm:tw-max-w-xl lg:tw-max-w-full lg:tw-px-12 lg:tw-py-24 xl:tw-mr-2 2xl:tw-col-span-2">
-            <div className=" xl:tw-max-w-xl">
-              <div className="tw-bg-TvImage tw-bg-no-repeat">
+            <div className=" xl:tw-max-w-xl xl:tw-max-h-xl">
+              <div className=" tw-h-[110%] tw-bg-TvImage tw-bg-cover tw-bg-center sm:tw-pt-4 tw-h-76 tw-bg-no-repeat lg:tw-hidden">
                 <img
-                  className=" tw-mt-6 tw-h-64 tw-rounded-lg tw-object-center tw-shadow-xl sm:tw-mt-8 sm:tw-h-64 lg:tw-hidden"
+                  className=" tw-mt-6  tw-rounded-lg tw-object-center tw-shadow-xl sm:tw-mt-4 sm:tw-h-72 sm:tw-pb-8 sm:tw-w-full sm:tw-px-16 lg:tw-hidden"
                   src={moviesPhoto}
                   alt="Movies"
                 />
@@ -69,9 +69,9 @@ const Landing1 = () => {
               </div>
             </div>
           </div>
-          <div className="tw-relative tw-ml-20 tw-hidden tw-bg-TvImage tw-bg-cover  tw-bg-no-repeat tw-pl-10 tw-pr-10   lg:tw-block 2xl:tw-col-span-3 ">
+          <div className="tw-h-[107%] tw-ml-20 tw-hidden tw-bg-TvImage tw-bg-cover   tw-bg-no-repeat tw-pl-10 tw-pr-10   lg:tw-block  2xl:tw-col-span-3 ">
             <img
-              className="  tw-mx-1 tw-h-[105%] tw-object-cover tw-object-center tw-px-8   lg:tw-pr-24 lg:tw-pl-20 lg:tw-pb-16 lg:tw-pt-4"
+              className="  tw-mx-1 tw-h-[100%] tw-object-cover tw-object-center tw-px-8   lg:tw-pr-24 lg:tw-pl-20 lg:tw-pb-6 lg:tw-pt-4"
               src={moviesPhoto}
               alt="Movies"
             />

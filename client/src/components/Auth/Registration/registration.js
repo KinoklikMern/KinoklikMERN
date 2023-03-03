@@ -26,8 +26,8 @@ function RegistrationForm() {
     //   value: "Viewer",
     // },
     {
-      label: "Film_Maker",
-      value: "Film_Maker",
+      label: "Filmmaker",
+      value: "FILM_MAKER",
     },
     {
       label: "Distributor",
@@ -76,7 +76,7 @@ function RegistrationForm() {
     );
     try {
       const { data } = await axios.post(
-        "${process.env.REACT_APP_BACKEND_URL}/users/register",
+        `${process.env.REACT_APP_BACKEND_URL}/users/register`,
         {
           email: email,
           password: password,

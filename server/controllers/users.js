@@ -156,10 +156,7 @@ export const getProfile = async (req, res) => {
     if (!profile) {
       return res.json({ ok: false });
     }
-    const movies = await Movie.find({ user: profile._id }).sort({
-      createdAt: -1,
-    });
-    res.json({ ...profile.toObject(), movies });
+    res.json({ ...profile.toObject() });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
