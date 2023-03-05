@@ -9,48 +9,61 @@
   color: #fff;
   margin: 0 auto;
   box-sizing: border-box;
-  background-color: #170b3b;
+  background-color: #1e0039;
   max-width: 120rem;
   height: auto;
   padding: 0 3rem;
 }
 .socialMedia {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 1rem 2rem;
   font-weight: 600;
   font-size: 2rem;
+  gap: 5rem;
+}
+.iconAmount {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+.peopleIcon {
+  filter: invert(1);
+  width: 4rem;
+  height: 4.5rem;
 }
 
 .totalNumber {
   color: #fff;
-  font-size: 2.4rem;
+  font-size: 2rem;
 }
 
 .hero {
+  margin-top: 1rem;
   background-repeat: none;
   width: 100%;
   height: 75vh;
   background-size: cover;
   background-position: 20% 10%;
   position: relative;
+  box-shadow: -5px 20px 12px -9px rgba(242, 229, 229, 0.94) inset;
 }
 
 /* poster section */
 .posterContainer {
   display: flex;
   padding: 3rem;
-
   justify-content: flex-start;
-  gap: 10rem;
+  gap: 5rem;
   margin-left: auto;
   margin-right: auto;
 }
 
 .imgPoster {
-  width: 26vw;
-  height: auto;
+  min-width: 20vw;
+  min-height: 50vh;
   border-radius: 4rem;
   box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
 }
@@ -74,7 +87,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 50rem;
+  gap: 10rem;
   color: #fff;
   padding-left: 0.5rem;
 }
@@ -96,7 +109,7 @@
   font-size: 1rem;
 }
 .logline {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
 }
 
 /* report section */
@@ -104,12 +117,9 @@
 .reportForm {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.4);
-  /* top: 50%;
-  left: 50%; */
-  transform: translate(-180%, -110%);
-  min-height: 30rem;
+  transform: translate(-150%, -125%);
+  min-height: 20rem;
   min-width: 30rem;
-
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 10;
@@ -124,25 +134,34 @@
   cursor: pointer;
 }
 .reportTitle {
-  font-size: 1.6rem;
-  padding: 3rem;
+  font-size: 1.2rem;
+  padding: 2rem;
+  text-align: center;
 }
 .hidden {
   display: none;
 }
 
 .form1 {
-  width: 75%;
-  transform: translate(15%, 0%);
+  width: 80%;
+  transform: translate(10%, -10%);
   position: absolute;
 }
-.form1 input {
+.form1Input {
   position: relative;
   width: 100%;
   color: #000;
-  margin-bottom: 1rem;
-  border-radius: 3rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+}
+.selected {
+  position: relative;
+  width: 100%;
+  background-color: #1e0039;
+  color: #fff;
+  margin-bottom: 1rem;
+  border-radius: 5px;
 }
 .form1 label {
   font-size: 1rem;
@@ -154,7 +173,7 @@
 .submitReport {
   color: red;
   font-size: 1.4rem;
-  transform: translate(55%, 0);
+  transform: translate(65%, -40%);
   position: absolute;
   width: 10rem;
   border-radius: 5px;
@@ -163,7 +182,6 @@
 
 .inputContainer {
   position: relative;
-  border-radius: 1rem;
 }
 .infoIcon {
   position: absolute;
@@ -173,8 +191,19 @@
   font-weight: lighter;
   cursor: pointer;
 }
+.infoIconSelect {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  cursor: pointer;
+  color: white;
+}
 .comment {
   padding-left: 4rem;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .dotSection {
@@ -220,10 +249,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #170b3b;
-  width: auto;
-  margin-top: 0.5rem;
+  background-color: #1e0039;
   position: relative;
+  font-size: 2rem;
+  padding: 1rem 1rem;
 }
 .iconContainer span {
   position: absolute;
@@ -231,28 +260,9 @@
   font-size: 1.2rem;
 }
 
-.iconContainer a {
-  color: #f2f2f2;
-  text-decoration: none;
-  font-size: 2rem;
-  padding: 0 1rem;
-  display: inline-block;
-}
-
-/* Change the color of links on hover */
-.iconContainer a:hover {
-  background-color: #a263da;
-  color: black;
-}
-.iconContainer a:active {
-  color: white;
-}
-
 .icon {
-  font-size: 0.25rem;
-  /* width: 1rem;
-   height: 1rem; */
-  background-color: #ddd;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 /* details section */
@@ -271,6 +281,7 @@
   height: 50vh;
   width: 20vw;
   border-radius: 4rem;
+  box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
 }
 
 .middle p {
@@ -299,12 +310,13 @@
   padding-bottom: 1rem;
 }
 .imgLogline {
-  height: 40vh;
-  width: 50%;
+  min-height: 40vh;
+  min-width: 50%;
   border-radius: 3rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
 }
 
 /* synopsis section */
@@ -342,14 +354,14 @@
   font-weight: 600;
   color: #fff;
   text-align: center;
-  background-color: rgb(23, 11, 59);
+  background-color: #1e0039;
   padding: 1rem;
 }
 
 .btnSy {
   position: absolute;
   top: -2rem;
-  left: -10rem;
+  right: -12rem;
   transform: translate(-50%, 10%);
   width: 10rem;
   height: auto;
@@ -362,11 +374,14 @@
   z-index: 2;
 }
 .imgSynopsis {
-  height: 50vh;
-  width: 80%;
+  padding: 1rem;
+  min-height: 70vh;
+  min-width: 90vw;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  /* aspect-ratio: 1/ 2; */
+  border-radius: 3rem;
 }
 
 .text {
@@ -452,14 +467,14 @@
 }
 
 h1 {
-  color: rgb(23, 11, 59);
+  color: #1e0039;
   font-weight: 700;
   font-size: 1.8rem;
   text-align: center;
   margin: 0;
 }
 .biography {
-  color: rgb(23, 11, 59);
+  color: #1e0039;
   font-size: 2.4rem;
   line-height: 1.5;
   padding: 0 8rem;
@@ -485,7 +500,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #170b3b;
+  background-color: #1e0039;
   gap: 20rem;
   padding: 3rem 6rem;
 }
@@ -530,6 +545,7 @@ h1 {
   align-items: center;
   justify-items: flex-start;
   column-gap: 1rem;
+  margin-bottom: 1rem;
 }
 .btnStills {
   position: absolute;
@@ -546,12 +562,14 @@ h1 {
   font-weight: 500;
 }
 .imgStillsLeft {
-  width: 40vw;
-  height: 40vh;
+  min-width: 40vw;
+  min-height: 50vh;
+  aspect-ratio: 1 / 2;
 }
 .imgStillsRight {
-  width: 50vw;
-  height: 40vh;
+  min-width: 45vw;
+  min-height: 50vh;
+  aspect-ratio: 1/ 2;
 }
 
 /* resources section */
@@ -592,8 +610,9 @@ h1 {
 /* trailer section */
 
 video {
+  padding-top: 2rem;
   width: 100vw;
-  height: 60vh;
+  height: auto;
 
   border-radius: 2rem;
 }

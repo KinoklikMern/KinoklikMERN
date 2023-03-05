@@ -6,7 +6,7 @@ import headerimage from "../../../images/movies/imageSouthpaw.jpeg";
 import logo from "../../../images/logo.png";
 import avatar from "../../../images/avatar1.jpeg";
 import poster from "../../../images/poster.jpg";
-import kikSatr from "../../../images/Kickstarter-icon.png";
+import kikSatr from "../../../images/kickstarter.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
