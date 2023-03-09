@@ -87,7 +87,7 @@ export default function Filmmaker() {
         <FilmMakerSideBar />
 
         <div class="sidebar-right row">
-          <div class="col-6 g-5">
+          <div class="col-4">
             <div class="row row-cols-md-3 g-5">
               <div class="col">
                 <div class="card movie-card">
@@ -123,7 +123,7 @@ export default function Filmmaker() {
             </div>
           </div>
 
-          <div class="col-6 g-5 white-text">
+          <div class="col-8 top-50 start-50">
             <h3>
               <button
                 className={activeTab === "Stars" ? "active" : ""}

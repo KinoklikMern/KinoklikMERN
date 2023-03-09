@@ -9,7 +9,6 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import LoginForm from "./components/Auth/Registration/loginform";
-import FilmMakerSelectedFilm from "./components/FilmMaker/filmMakerSelectedMovie";
 
 // add by Tony
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
@@ -20,7 +19,6 @@ import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerD
 import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMakerDashboardSecurityPassword";
 import FilmMakerDashboardSecurityAccount from "./components/FilmMaker/filmMakerDashboardSecurityAccount";
 import FilmMakerDashboardSecurityProfile from "./components/FilmMaker/filmMakerDashboardSecurityProfile";
-import FilmMakerMovies from "./components/FilmMaker/filmMakerMovies";
 import Bookmark from "./pages/Bookmark";
 
 import ForFilmMakers from "./components/ForFilmMakers";
@@ -69,9 +67,7 @@ import EpkDashboard from "./pages/EpkDashboard";
 import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
 import TestApproval from "./pages/TestApproval";
-
 import EpkView from "./pages/EpkView";
-import FmSideBar from "./components/Filmmakers/fmSideBar";
 
 function App() {
   return (
@@ -83,15 +79,9 @@ function App() {
         <Route path="edit_profile" element={<Home />} />
         <Route path="signup" element={<RegistrationForm />} />
         <Route path="login" element={<LoginForm />} />
-        <Route path="filmMakerDash" element={<FmSideBar />} />
+
         <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
         <Route path="FilmMakerSelectedEpk" element={<FilmMakerSelectedEpk />} />
-
-        <Route
-          path="filmMakerSelectedMovie"
-          element={<FilmMakerSelectedFilm />}
-        />
-        <Route path="filmMakerMovies" element={<FilmMakerMovies />} />
         <Route
           path="filmMakerDashboardSecurity"
           element={<FilmMakerDashboardSecurity />}

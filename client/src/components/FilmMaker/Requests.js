@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import http from "../http-common";
+import http from "../../http-common";
+import "./filmMakerDashboard.scss";
+import profileImage from "../../images/avatarDefault.jpeg";
 
 export default function Requests() {
   const [fepk, setFepk] = useState([]);
+  const [user, setUser] = useState([]);
   const [roleFilter, setRoleFilter] = useState([""]);
   const [statusFilter, setStatusFilter] = useState([""]);
   const [mediumSynopsis, setMediumSynopsis] = useState([]);
@@ -13,6 +16,10 @@ export default function Requests() {
   const [stillsApproval, setStillsApproval] = useState([]);
 
   let { fepkId } = useParams();
+
+  // let approved = fepk.filter((e) => e.status === "approved");
+  // let refused = fepk.filter((e) => e.status === "refused");
+  // let pending = fepk.filter((e) => e.status === "pending");
 
   const [approvalData, setApprovalData] = useState({
     mediumSynopsis: fepk.mediumSynopsis,
@@ -113,8 +120,271 @@ export default function Requests() {
 
   return (
     <div>
-      <h2>Request Component</h2>
-      <p>Placeholder text for the EPK Requests</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div className="filtersBar btn-group" id="roleFilter">
+            <button
+              className={`btn filtersBarBtn ${
+                roleFilter === "" ? "active" : ""
+              }`}
+              onClick={() => handleRoleFilterChange("")}
+            >
+              All Users
+            </button>
+            <button
+              className={`btn filtersBarBtn `}
+              onClick={() => handleRoleFilterChange("Investor")}
+            >
+              Investor
+            </button>
+            <button
+              className={`btn filtersBarBtn`}
+              onClick={() => handleRoleFilterChange("Viewer")}
+            >
+              Viewer
+            </button>
+            <button
+              className={`btn filtersBarBtn`}
+              onClick={() => handleRoleFilterChange("Distributor")}
+            >
+              Distributor
+            </button>
+            <button
+              className={`btn filtersBarBtn`}
+              onClick={() => handleRoleFilterChange("Film_Festival")}
+            >
+              Film Festival
+            </button>
+            <button
+              className={`btn filtersBarBtn`}
+              onClick={() => handleRoleFilterChange("Sales_Agent")}
+            >
+              Sales Agent
+            </button>
+          </div>
+
+          <div>
+            <div className="filtersBar btn-group" id="statusFilter">
+              <button
+                className={`btn filtersBarBtn ${
+                  statusFilter === "" ? "active" : ""
+                }`}
+                onClick={() => handleStatusFilterChange("")}
+              >
+                All EPK
+              </button>
+
+              <button
+                className={`btn filtersBarBtn ${
+                  statusFilter === "pending" ? "active" : ""
+                }`}
+                onClick={() => handleStatusFilterChange("pending")}
+              >
+                Pending
+              </button>
+              <button
+                className={`btn filtersBarBtn ${
+                  statusFilter === "approved" ? "active" : ""
+                }`}
+                onClick={() => handleStatusFilterChange("approved")}
+              >
+                Approved
+              </button>
+              <button
+                className={`btn filtersBarBtn ${
+                  statusFilter === "refused" ? "active" : ""
+                }`}
+                onClick={() => handleStatusFilterChange("refused")}
+              >
+                Denied
+              </button>
+            </div>
+            <div className="actionBtn col-md-6">
+              <button classname="btn">Approve All</button>
+              <button classname="btn">Deny All</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="requestFeedContainer">
+        {/* Medium Synopsis requests */}
+        <div>
+          {mediumSynopsis.map((medium) => {
+            return (
+              medium.status === "pending" && (
+                <div style={{ margin: "20px 0 5px 0px" }}>
+                  <h5>
+                    User Name:{" "}
+                    <b>
+                      {medium.user.firstName} {medium.user.lastName}
+                    </b>
+                  </h5>
+                  <p>
+                    <img
+                      src={`${medium.user.picture}`}
+                      style={{ width: "40px", height: "auto" }}
+                    />
+                    medium.comment
+                  </p>
+                  <button
+                    onClick={() =>
+                      mediumSynopsisApproval(medium.user._id, "approved")
+                    }
+                  >
+                    approve
+                  </button>
+                  &nbsp; &nbsp;
+                  <button
+                    onClick={() =>
+                      mediumSynopsisApproval(medium.user._id, "refused")
+                    }
+                  >
+                    refuse
+                  </button>
+                </div>
+              )
+            );
+          })}
+        </div>
+        <hr></hr>
+        <br></br>
+
+        {/* Long Synopsis requests */}
+        <div>
+          {longSynopsis.map((long) => {
+            return (
+              long.status === "" && (
+                <div style={{ margin: "20px 0 5px 0px" }}>
+                  <h5>
+                    User Name:{" "}
+                    <b>
+                      {long.user.firstName} {long.user.lastName}
+                    </b>
+                  </h5>
+                  <p>
+                    <img
+                      src={`${long.user.picture}`}
+                      style={{ width: "40px", height: "auto" }}
+                    />
+                    long.comment
+                  </p>
+                  <button
+                    onClick={() =>
+                      longSynopsisApproval(long.user._id, "approved")
+                    }
+                  >
+                    approve
+                  </button>
+                  &nbsp; &nbsp;
+                  <button
+                    onClick={() =>
+                      longSynopsisApproval(long.user._id, "refused")
+                    }
+                  >
+                    refuse
+                  </button>
+                </div>
+              )
+            );
+          })}
+        </div>
+        <hr></hr>
+        <br></br>
+
+        {/* Uniqueness requests */}
+        <div>
+          {uniqueness.map((unique) => {
+            return (
+              unique.status === "approved" && (
+                <div style={{ margin: "20px 0 5px 0px" }}>
+                  <h5>
+                    User Name:{" "}
+                    <b>
+                      {unique.user.firstName} {unique.user.lastName}
+                    </b>
+                  </h5>
+                  <p>
+                    <img
+                      src={`${unique.user.picture}`}
+                      style={{ width: "40px", height: "auto" }}
+                    />
+                    unique.comment
+                  </p>
+                  <button
+                    onClick={() =>
+                      uniquenessApproval(unique.user._id, "approved")
+                    }
+                  >
+                    approve
+                  </button>
+                  &nbsp; &nbsp;
+                  <button
+                    onClick={() =>
+                      uniquenessApproval(unique.user._id, "refused")
+                    }
+                  >
+                    refuse
+                  </button>
+                </div>
+              )
+            );
+          })}
+        </div>
+        <hr></hr>
+        <br></br>
+
+        {/* Stills requests */}
+        <div>
+          {stillsApproval.map((still) => {
+            return (
+              still.status === "refused" && (
+                <div style={{ margin: "20px 0 5px 0px" }}>
+                  <h5>
+                    User Name:{" "}
+                    <b>
+                      {still.user.firstName} {still.user.lastName}
+                    </b>
+                  </h5>
+                  <p>
+                    <img
+                      src={`${still.user.picture}`}
+                      style={{ width: "40px", height: "auto" }}
+                    />
+                    still.comment
+                  </p>
+                  <button
+                    onClick={() => stillApproval(still.user._id, "approved")}
+                  >
+                    approve
+                  </button>
+                  &nbsp; &nbsp;
+                  <button
+                    onClick={() => stillApproval(still.user._id, "refused")}
+                  >
+                    refuse
+                  </button>
+                </div>
+              )
+            );
+          })}
+        </div>
+
+        <div style={{ margin: "20px 0 5px 0px" }}>
+          <h5>
+            User Name: <b>Moosa Mughal</b>
+          </h5>
+          <p>
+            <img
+              src={`${profileImage}`}
+              style={{ width: "40px", height: "auto" }}
+            />
+            Comment
+          </p>
+          <button>approve</button>
+          &nbsp; &nbsp;
+          <button>refuse</button>
+        </div>
+      </div>
     </div>
   );
 }

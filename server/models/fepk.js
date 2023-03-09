@@ -153,9 +153,17 @@ const fepkSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      comment: {
+        type: String,
+        maxlenght: 500,
+      },
       status: {
         type: String,
         enum: ["pending", "approved", "refused"],
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
       },
     },
   ],
@@ -167,9 +175,17 @@ const fepkSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      comment: {
+        type: String,
+        maxlenght: 500,
+      },
       status: {
         type: String,
         enum: ["pending", "approved", "refused"],
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
       },
     },
   ],
@@ -181,9 +197,17 @@ const fepkSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      comment: {
+        type: String,
+        maxlenght: 500,
+      },
       status: {
         type: String,
         enum: ["pending", "approved", "refused"],
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
       },
     },
   ],
@@ -195,9 +219,17 @@ const fepkSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      comment: {
+        type: String,
+        maxlenght: 500,
+      },
       status: {
         type: String,
         enum: ["pending", "approved", "refused"],
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
       },
     },
   ],
@@ -209,7 +241,7 @@ const fepkSchema = mongoose.Schema({
       ref: "Company",
     },
   ],
-  
+
   reports: [
     {
       user: {
@@ -218,13 +250,18 @@ const fepkSchema = mongoose.Schema({
       },
       reason: {
         type: String,
-        enum: ["Spam", "Nudity or Sexual Content", "Non-narration content", "Copyrighted Intellectual Property Violation"],
+        enum: [
+          "Spam",
+          "Nudity or Sexual Content",
+          "Non-narration content",
+          "Copyrighted Intellectual Property Violation",
+        ],
       },
-      comment: {type: String},
+      comment: { type: String },
       status: {
         type: String,
         enum: ["opened", "closed"],
-        default: "opened", 
+        default: "opened",
       },
       createdAt: {
         type: Date,
@@ -233,7 +270,7 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
-  // if this status is "true" the EPK will be blured 
+  // if this status is "true" the EPK will be blured
   status_pause: {
     type: Boolean,
     default: false,
