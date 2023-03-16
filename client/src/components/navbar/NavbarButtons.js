@@ -1,11 +1,11 @@
 import { React, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import Login from "../Auth/Registration/login";
-import Register from "../Auth/Registration/register";
+//import Login from "../Auth/Registration/login";
+//import Register from "../Auth/Registration/register";
 
 function NavbarButtons({ user, setToggle, toggle }) {
   const [userToggle, setUserToggle] = useState(false);
@@ -47,42 +47,57 @@ function NavbarButtons({ user, setToggle, toggle }) {
       {!user ? (
         <>
           <div className="tw-hidden md:tw-flex">
-            <button className="tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#1e0039] tw-px-4 tw-text-white tw-drop-shadow-lg tw-transition hover:tw-text-gray-400">
+            {/* <button className="tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#1e0039] tw-px-4 tw-text-white tw-drop-shadow-lg tw-transition hover:tw-text-gray-400">
               <Login spanText="SIGN IN" />
-            </button>
+            </button> 
             <button className="tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#1e0039] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400">
               <Register spanText="SIGN UP" />
-            </button>
+            </button> */}
+            <Link
+              to="/login"
+              className="md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400"
+            >
+              SIGN IN
+            </Link>
+
+            <Link
+              to="/signup"
+              className="md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400"
+            >
+              SIGN UP
+            </Link>
             <Link
               to="/uploadFepk"
-              className="tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400 md:ml-10"
+              className="md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400"
             >
               CREATE EPK
             </Link>
           </div>
-          <div className="tw-flex tw-items-center md:tw-hidden" onClick={() => setToggle((prev) => !prev)}>
-          <button className="mobile-menu-button tw-rounded-sm tw-bg-purple-200 tw-p-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="tw-h-6 tw-w-6"
-              
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={
-                  toggle
-                    ? "M6 18L18 6M6 6l12 12" // 3 lines
-                    : "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" // X
-                }
-              />
-            </svg>
-          </button>
-        </div>
+          <div
+            className="tw-flex tw-items-center md:tw-hidden"
+            onClick={() => setToggle((prev) => !prev)}
+          >
+            <button className="mobile-menu-button tw-rounded-sm tw-bg-purple-200 tw-p-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="tw-h-6 tw-w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d={
+                    toggle
+                      ? "M6 18L18 6M6 6l12 12" // 3 lines
+                      : "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" // X
+                  }
+                />
+              </svg>
+            </button>
+          </div>
         </>
       ) : (
         <>
@@ -111,8 +126,9 @@ function NavbarButtons({ user, setToggle, toggle }) {
                   onClick={() => {
                     if (nav.title === "LOGOUT") {
                       logout();
-                    }else{setActive(nav.title)}
-                    ;
+                    } else {
+                      setActive(nav.title);
+                    }
                   }}
                 >
                   <Link to={`${nav.url}`}>{nav.title}</Link>
