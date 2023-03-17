@@ -35,10 +35,10 @@ const Landing1 = () => {
       <div className="landing11  tw-bg-midnight tw-pb-20">
         <div className="tw-grid tw-bg-midnight lg:tw-grid-cols-2 2xl:tw-grid-cols-5">
           <div className="tw-mx-auto tw-max-w-md tw-px-8 tw-py-12 sm:tw-max-w-xl lg:tw-max-w-full lg:tw-px-12 lg:tw-py-24 xl:tw-mr-2 2xl:tw-col-span-2">
-            <div className=" xl:tw-max-w-xl xl:tw-max-h-xl">
-              <div className=" tw-h-[110%] tw-bg-TvImage tw-bg-cover tw-bg-center sm:tw-pt-4 tw-h-76 tw-bg-no-repeat lg:tw-hidden">
+            <div className=" xl:tw-max-h-xl xl:tw-max-w-xl">
+              <div className=" tw-h-76 tw-h-[110%] tw-bg-TvImage tw-bg-cover tw-bg-center tw-bg-no-repeat sm:tw-pt-4 lg:tw-hidden">
                 <img
-                  className=" tw-mt-6  tw-rounded-lg tw-object-center tw-shadow-xl sm:tw-mt-4 sm:tw-h-72 sm:tw-pb-8 sm:tw-w-full sm:tw-px-16 lg:tw-hidden"
+                  className=" tw-mt-6  tw-rounded-lg tw-object-center tw-shadow-xl sm:tw-mt-4 sm:tw-h-72 sm:tw-w-full sm:tw-px-16 sm:tw-pb-8 lg:tw-hidden"
                   src={moviesPhoto}
                   alt="Movies"
                 />
@@ -56,7 +56,7 @@ const Landing1 = () => {
               <div className="tw-mt-4 tw-grid-cols-2 sm:tw-mt-6">
                 <a
                   className="tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-white tw-px-4 tw-py-2 tw-text-xl tw-font-bold  tw-tracking-wider tw-text-midnight tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base"
-                  href="/"
+                  href="/uploadFepk"
                 >
                   Create EPK
                 </a>
@@ -69,7 +69,7 @@ const Landing1 = () => {
               </div>
             </div>
           </div>
-          <div className="tw-h-[107%] tw-ml-20 tw-hidden tw-bg-TvImage tw-bg-cover   tw-bg-no-repeat tw-pl-10 tw-pr-10   lg:tw-block  2xl:tw-col-span-3 ">
+          <div className="tw-ml-20 tw-hidden tw-h-[107%] tw-bg-TvImage tw-bg-cover   tw-bg-no-repeat tw-pl-10 tw-pr-10   lg:tw-block  2xl:tw-col-span-3 ">
             <img
               className="  tw-mx-1 tw-h-[100%] tw-object-cover tw-object-center tw-px-8   lg:tw-pr-24 lg:tw-pl-20 lg:tw-pb-6 lg:tw-pt-4"
               src={moviesPhoto}
