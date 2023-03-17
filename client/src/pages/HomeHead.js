@@ -64,17 +64,20 @@ const HomeHead = () => {
 
   const [fepk, setFepk] = useState({});
   useEffect(() => {
-      http.get(`fepks/`).then((response) => {
-        let last = response.data.length - 1;
-        setFepk(response.data[last]);
-      });
-    }, []);
+    http.get(`fepks/`).then((response) => {
+      let last = response.data.length - 1;
+      setFepk(response.data[last]);
+    });
+  }, []);
   console.log(fepk);
 
-
   return (
-    <div className=" tw-h-[100vh]  tw-overflow-hidden tw-bg-cover tw-bg-center tw-h-screen tw-bg-no-repeat" 
-    style={{backgroundImage:`url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`}}>
+    <div
+      className=" tw-h-[100vh]  tw-h-screen tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
+      style={{
+        backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
+      }}
+    >
       <section id="home" className="tw-pt-0">
         <div className="menu-icon tw-pt-12">
           {/* <Link to="/">   must be linked to /bookmark    */}
@@ -136,8 +139,13 @@ const HomeHead = () => {
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">
             <div>
-          
-              <img className="tw-h-[70vh] " src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`} alt="/" />
+              <a href={`epkview/${fepk.title}`}>
+                <img
+                  className="tw-h-[70vh] "
+                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                  alt="/"
+                />
+              </a>
             </div>
 
             <div>
@@ -147,9 +155,7 @@ const HomeHead = () => {
             </div>
           </div>
 
-          <p className="movieIntro tw-my-8 tw-text-xl ">
-            {fepk.logLine_short}
-          </p>
+          <p className="movieIntro tw-my-8 tw-text-xl ">{fepk.logLine_short}</p>
         </div>
         <HomeMainFilm />
       </section>
