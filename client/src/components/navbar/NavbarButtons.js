@@ -28,7 +28,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
     {
       id: "settings",
       title: "MY SETTINGS",
-      url: "/",
+      url: "/filmMakerDashboardSecurityAccount",
     },
     {
       id: "dashboard",
