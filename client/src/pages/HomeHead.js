@@ -15,6 +15,7 @@ import DollarIcon from "../images/icons/DollarIcon.svg";
 import PlusIcon from "../images/icons/Plus.svg";
 import KIcon from "../images/icons/KickstarterIcon.svg";
 import http from "../http-common";
+import { useSelector } from "react-redux";
 
 import {
   faShareNodes,
@@ -31,30 +32,59 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const HomeHead = () => {
-  const [clicked, setClicked] = useState(false);
+  const [clickedStar, setClickedStar] = useState(false);
   const [clickedShare, setClickedShare] = useState(false);
   const [clickedDollar, setClickedDollar] = useState(false);
   const [clickedKIcon, setClickedKIcon] = useState(false);
   const [clickedPlus, setClickedPlus] = useState(false);
   const [clickedMovie, setClickedMovie] = useState(false);
   const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
+  const [fepk, setFepk] = useState({});
 
-  function handleClick(e) {
-    e.preventDefault();
-    setClicked(true);
+
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  let userId;
+  let userRole;
+  if (!user) {
+    userId = "0";
+    userRole = "noUser";
+  } else {
+    userId = user.id;
+    userRole = user.role;
   }
-  function handleClickShare() {
-    setClickedShare(true);
-  }
+
+  // user is added to the list of $
   function handleClickDollar() {
     setClickedDollar(true);
+    http.get(`fepks/wishestobuy/${fepk._id}/${userId}`)
   }
+
+   // user is added to the list of +
+   function handleClickPlus() {
+    setClickedPlus(true);
+    http.get(`fepks/favourite/${fepk._id}/${userId}`)
+  }
+
+  // user is added to the list of star(likes)
+  function handleStarClick() {
+    setClickedStar(true);
+    http.get(`fepks/like/${fepk._id}/${userId}`)
+  }
+
+  //user click K icon
   function handleClickKIcon() {
     setClickedKIcon(true);
+    window.open(fepk.kickstarter_url)
   }
-  function handleClickPlus() {
-    setClickedPlus(true);
+
+// user is added to the list of sharings
+  function handleClickShare() {
+    setClickedShare(true);
+    http.get(`fepks/sharing/${fepk._id}/${userId}`)
   }
+
+ 
   function handleClickMovie() {
     setClickedMovie(true);
   }
@@ -62,7 +92,7 @@ const HomeHead = () => {
     setClickedVolumeUp(true);
   }
 
-  const [fepk, setFepk] = useState({});
+  //showing the latest added movie
   useEffect(() => {
       http.get(`fepks/`).then((response) => {
         let last = response.data.length - 1;
@@ -97,8 +127,8 @@ const HomeHead = () => {
           <FontAwesomeIcon
             className="tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100"
             icon={faStar}
-            onClick={handleClick}
-            style={{ opacity: clicked ? 1 : 0.5 }}
+            onClick={handleStarClick}
+            style={{ opacity: clickedStar ? 1 : 0.5 }}
           />
           <img
             className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
