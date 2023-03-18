@@ -48,6 +48,9 @@ function LoginForm() {
        if (data.role === "FILM_MAKER") {
          navigate("/filmMakerDashboard");
        }
+       else{
+        navigate("/");
+       }
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);

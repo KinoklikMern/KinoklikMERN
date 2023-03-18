@@ -218,7 +218,8 @@ function Register({ spanText }) {
           setSubmit(true);
           callLogin();
           setOpen(false);
-        }, 5000);
+        }, 1000);
+        navigate("/login");
       } catch (error) {
         console.log(error.response.data.message);
         setSuccess("");
