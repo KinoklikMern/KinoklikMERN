@@ -817,11 +817,60 @@ function EpkView() {
                   login();
                   clickState1();
                 }}
+                type="button"
+                data-toggle="modal"
                 className={isClick1 === true ? style.none : style.btnSy}
               >
                 {" "}
                 Request Access{" "}
               </button>
+
+              <div
+                class="modal fade"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="accessModal"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">
+                        Request Access to Medium Synopsis
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <input
+                          className="form-control"
+                          defaultValue={mediumSynopsis.comment}
+                          name="requestComment"
+                        />
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={style.content1}>
               <img
@@ -945,6 +994,8 @@ function EpkView() {
             </div>
             <div className={style.position}>
               <button
+                type="button"
+                data-toggle="modal"
                 onClick={() => {
                   login();
                   clickState2();
@@ -954,6 +1005,53 @@ function EpkView() {
                 {" "}
                 Request Access{" "}
               </button>
+
+              <div
+                class="modal fade"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="accessModal"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">
+                        Request Access to Long Synopsis
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <input
+                          className="form-control"
+                          defaultValue={longSynopsis.comment}
+                          name="requestComment"
+                        />
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={style.content1}>
               <img
@@ -1078,11 +1176,60 @@ function EpkView() {
                   login();
                   clickState3();
                 }}
+                type="button"
+                data-toggle="modal"
                 className={isClick3 === true ? style.none : style.btnUni}
               >
                 {" "}
                 Request Access{" "}
               </button>
+
+              <div
+                class="modal fade"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="accessModal"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">
+                        Request Access to Uniqueness
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <input
+                          className="form-control"
+                          defaultValue={uniqueness.comment}
+                          name="requestComment"
+                        />
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={style.uniqueContainer}>
               <div className={style.content1}>

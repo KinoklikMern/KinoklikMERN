@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////
 // Create FilmmakerSideBar component
-// Edit by Tony 
+// Edit by Tony
 // On Feb 11, 2023
 ////////////////////////////////////////////////
 import { Link, NavLink } from "react-router-dom";
@@ -14,6 +14,7 @@ import {
   faHandshake,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import DashFull from "../../images/icons/dashFull.svg";
 
 export default function FilmmakerSideBar() {
   return (
@@ -29,7 +30,7 @@ export default function FilmmakerSideBar() {
               </div>
             </li>
             <li class="nav-item" role="presentation">
-              <div class="sidebarnav-icon side-button">
+              <div class="sidebarnav-icon side-button" disabled>
                 <Link to="/filmMakerMovies">
                   <FontAwesomeIcon icon={faPhotoFilm} />
                 </Link>
@@ -40,6 +41,8 @@ export default function FilmmakerSideBar() {
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerConnect">
                   <FontAwesomeIcon icon={faHandshake} />
+
+                  {/* <img src={DashFull} alt="Connect" width="50" height="50" /> */}
                 </Link>
               </div>
             </li>
