@@ -25,3 +25,4 @@ router.put("/update/:id", updateCompany);
 
 //Delete Routes (Make invisible for users)
 router.delete("/delete/:name", deleteCompany);
+export default router;

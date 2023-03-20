@@ -611,3 +611,28 @@ text-decoration: none;
 
 .links:active { text-decoration: none; }
 
+
+
+.filtersBar {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.filtersBarBtn {
+  background-color: white;
+  color: black;
+  // background-color: #712CB0;
+}
+
+.filtersBarBtn:hover {
+  background-color: #712CB0
+}
+
+.filtersBarBtn:active {
+  background-color: #712CB0;
+}
+
+.requestFeedContainer{
+  height: 100%;
+  width: 100%;
+}

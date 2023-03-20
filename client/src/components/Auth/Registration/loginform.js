@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +16,8 @@ function LoginForm() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-    
- //individual login form
+
+  //individual login form
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "email") {
@@ -45,9 +44,11 @@ function LoginForm() {
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
       console.log(data);
-       if (data.role === "FILM_MAKER") {
-         navigate("/filmMakerDashboard");
-       }
+      if (data.role === "FILM_MAKER") {
+        navigate("/filmMakerDashboard");
+      } else if (data.role === "Viewer") {
+        navigate("/");
+      }
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);

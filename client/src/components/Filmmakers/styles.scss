@@ -1,0 +1,60 @@
+
+//Colors Needed
+// Darker Purple: 1E0039
+// Lighter Purple: 712CB0
+
+.fmDash {
+  height: 100vh;
+  width: 100vw;
+  background: #1E0039;
+  margin: 0 auto;
+  }
+
+.fmSidebar {
+  display: flex;
+  flex-direction: column;
+    width: 10%;
+    height: 100vh;
+    background-color: #e5e7eb;
+    padding: 10px;
+    margin-left: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    border-radius: 25px;
+  }
+  
+  .tabs button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    position: absolute;
+  color:rgb(255, 255, 255);
+  left: 50%;
+  font-size: 3rem;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 12px;
+  line-height: 50px;
+  transform: translateX(-50%);
+  text-align: center;
+  stroke: #000000;
+  stroke-width: 20px;
+ 
+}
+
+.tabs button.active {
+border-bottom: 2px solid black;
+}
+
+// .container {
+// display: flex;
+// height: calc(100vh - 20px);
+// }
+
+
+
+// .content {
+// width: 70%;
+// padding: 10px;
+// }
