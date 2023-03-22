@@ -13,10 +13,10 @@ import Landing5 from "../components/LandingPage/Landing5";
 import Landing8 from "../components/LandingPage/Landing8";
 import Landing9 from "../components/LandingPage/Landing9";
 import Landing10 from "../components/LandingPage/Landing10";
+import MainLayout from "../layouts/MainLayout";
 
 function Home() {
   const { user } = useSelector((user) => ({ ...user }));
-
   return (
     <>
       <div>

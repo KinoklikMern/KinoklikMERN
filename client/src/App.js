@@ -71,12 +71,22 @@ import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
 import TestApproval from "./pages/TestApproval";
 import EpkView from "./pages/EpkView";
+import Title from "antd/es/skeleton/Title";
+import { useSelector } from "react-redux";
 
 function App() {
+  const NavbarHomeClass= "tw-bg-opacity-25 tw-absolute";
+  const NavbarDefaultClass = "tw-bg-gradient-to-b tw-from-[#4b1a77] tw-to-[#1f0439]";
+  const KinoKlikTitle = "KinoKlik";
+  const { user } = useSelector((user) => ({ ...user }));
+  const className = user?NavbarHomeClass:NavbarDefaultClass;
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+       <Route path="/" element={<MainLayout className={className}/>}>
         <Route index element={<Home />} />
+      </Route>
+      <Route path="/" element={<MainLayout  className={NavbarDefaultClass} title={KinoKlikTitle}/> }>
+        {/* <Route index element={<Home />} /> */}
         <Route path="upload" element={<UploadMovie />} />
         <Route path="my_list" element={<MyList />} />
         <Route path="edit_profile" element={<Home />} />
