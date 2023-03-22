@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { useDispatch, useSelector } from "react-redux";
+import { SideProfileMenu } from "./SideMenu";
 
 //import Login from "../Auth/Registration/login";
 //import Register from "../Auth/Registration/register";
@@ -101,7 +102,13 @@ function NavbarButtons({ user, setToggle, toggle }) {
         </>
       ) : (
         <>
-          <div
+          <div className="tw-group tw-relative tw-p-4">
+            <img src={user.picture} alt="User Avatar" className="tw-max-h-14 flex" />
+            <SideProfileMenu />
+          </div>
+
+          {/* -------- */}
+          {/* <div
             className="tw-my-auto"
             onClick={() => setUserToggle((prev) => !prev)}
           >
@@ -135,7 +142,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </>
       )}
     </>
