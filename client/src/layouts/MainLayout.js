@@ -4,10 +4,11 @@ import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/Footer";
 import "./MainLayout.css";
 
-function MainLayout() {
+function MainLayout(props) {
+  console.info("main", props.className)
   return (
     <div className="mainLayout">
-      <Navbar />
+      <Navbar className={props.className} title={props.title} />
       <Outlet />
       <Footer />
     </div>

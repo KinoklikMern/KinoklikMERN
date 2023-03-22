@@ -68,12 +68,16 @@ import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
 import TestApproval from "./pages/TestApproval";
 import EpkView from "./pages/EpkView";
+import Title from "antd/es/skeleton/Title";
 
 function App() {
+  const NavbarHomeClass= "tw-bg-opacity-25 tw-absolute";
+  const NavbarDefaultClass = "tw-bg-gradient-to-b tw-from-[#4b1a77] tw-to-[#1f0439]";
+  const KinoKlikTitle = "KinoKlik";
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
+      <Route path="/" element={<MainLayout  className={NavbarDefaultClass} title={KinoKlikTitle}/> }>
+        {/* <Route index element={<Home />} /> */}
         <Route path="upload" element={<UploadMovie />} />
         <Route path="my_list" element={<MyList />} />
         <Route path="edit_profile" element={<Home />} />
@@ -150,11 +154,13 @@ function App() {
         <Route path="trailer" element={<Trailer />} />
         <Route path="resources" element={<Resources />} />
       </Route>
+      <Route path="/" element={<MainLayout className={NavbarHomeClass}/>}>
+        <Route index element={<Home />} />
+      </Route>
       <Route path="epk" element={<EPK />} />
       <Route path="epkview/:title" element={<EpkView />} />
       <Route path="approvals/:fepkId" element={<TestApproval />} />
       <Route path="*" element={<Navigate to="/" />} />
-      
     </Routes>
   );
 }
