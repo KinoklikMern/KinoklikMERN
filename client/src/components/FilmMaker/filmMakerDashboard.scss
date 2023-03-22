@@ -19,7 +19,7 @@
 //   visibility: hidden;
 // }
 .sidebar-container {
-  max-width: 70%;
+  max-width: 95%;
   height: 95%;
   position: relative;
   display: flex;
@@ -47,12 +47,12 @@ h2 {
 .sidebar-container .sidebar-left {
   position: relative;
   display: flex;
-  height: 88%;
+  height: 70%;
   width: 7%;
-  border-radius: 20px;
+  border-radius: 10px;
   margin-left: 2em;
   margin-top: 2em;
-  padding-top: 70px;
+  padding-top: 50px;
   // padding: 40px 50px;
   -webkit-transition: width 0.05s linear;
   transition: width 0.05s linear;
@@ -437,7 +437,7 @@ img{
   opacity:1.0;
   border-style: hidden;
   background-size: 300%;
-  padding-left: 35px;
+  //padding-left: 35px;
 
 }
 

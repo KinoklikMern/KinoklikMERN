@@ -15,34 +15,48 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import DashFull from "../../images/icons/dashFull.svg";
+//import "./filmMakerDashboard.scss";
+import StarIcon from "../../images/icons/star.svg";
+import FlagIcon from "../../images/icons/flag.svg";
+import BellIcon from "../../images/icons/bellEmpty.svg";
+import SettingsIcon from "../../images/icons/settings.svg";
 
 export default function FilmmakerSideBar() {
   return (
     <>
       <div class="sidebar-left">
         <div class="filmmaker-navbar px-1">
-          <ul class="nav nav-tabs filmmaker-dash-ul" role="tablist">
-            <li class="nav-link">
+          {/* <ul class="nav nav-tabs filmmaker-dash-ul" role="tablist"> */}
+          <ul class="nav nav-tabs">
+            {/* <li class="nav-link"> */}
+            <li class="nav-item">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerDashboard">
-                  <FontAwesomeIcon icon={faNewspaper} />
+                  {/* <FontAwesomeIcon icon={faNewspaper} /> */}
+                  <img
+                    src={StarIcon}
+                    alt="/"
+                    style={{ width: 50, height: 50 }}
+                  />
                 </Link>
               </div>
             </li>
-            <li class="nav-item" role="presentation">
+            {/* <li class="nav-item" role="presentation">
               <div class="sidebarnav-icon side-button" disabled>
                 <Link to="/filmMakerMovies">
-                  <FontAwesomeIcon icon={faPhotoFilm} />
+                  <FontAwesomeIcon icon={faPhotoFilm} />                  
                 </Link>
               </div>
-            </li>
-
+            </li> */}
             <li class="nav-item" role="presentation">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerConnect">
-                  <FontAwesomeIcon icon={faHandshake} />
-
-                  {/* <img src={DashFull} alt="Connect" width="50" height="50" /> */}
+                  {/* <FontAwesomeIcon icon={faBell} /> */}
+                  <img
+                    src={BellIcon}
+                    alt="/"
+                    style={{ width: 50, height: 50 }}
+                  />
                 </Link>
               </div>
             </li>
@@ -50,7 +64,12 @@ export default function FilmmakerSideBar() {
             <li class="nav-item" role="presentation">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerNotifications">
-                  <FontAwesomeIcon icon={faBell} />
+                  {/* <FontAwesomeIcon icon={faBell} /> */}
+                  <img
+                    src={FlagIcon}
+                    alt="/"
+                    style={{ width: 50, height: 50 }}
+                  />
                 </Link>
               </div>
             </li>
@@ -58,7 +77,12 @@ export default function FilmmakerSideBar() {
             <li class="nav-link" role="tab" data-li="UserProfile">
               <div class="sidebarnav-icon side-button">
                 <Link to="/filmMakerDashboardSecurityAccount">
-                  <FontAwesomeIcon icon={faCog} />
+                  {/* <FontAwesomeIcon icon={faCog} /> */}
+                  <img
+                    src={SettingsIcon}
+                    alt="/"
+                    style={{ width: 50, height: 50 }}
+                  />
                 </Link>
               </div>
             </li>

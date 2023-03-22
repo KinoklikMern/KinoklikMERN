@@ -21,7 +21,7 @@ function LoginForm() {
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "email") {
-      setEmail(value);
+      setEmail(value.trim());
     }
     if (id === "password") {
       setPassword(value);
