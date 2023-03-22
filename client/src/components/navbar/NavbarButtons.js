@@ -25,23 +25,23 @@ function NavbarButtons({ user, setToggle, toggle }) {
     console.log(user);
     navigate("/");
   };
-  const navLinks = [
-    {
-      id: "settings",
-      title: "MY SETTINGS",
-      url: "/filmMakerDashboardSecurityAccount",
-    },
-    {
-      id: "dashboard",
-      title: "MY DASHBOARD",
-      url: "/filmMakerDashboard",
-    },
-    {
-      id: "logout",
-      title: "LOGOUT",
-      url: "/",
-    },
-  ];
+  // const navLinks = [
+  //   {
+  //     id: "settings",
+  //     title: "MY SETTINGS",
+  //     url: "/filmMakerDashboardSecurityAccount",
+  //   },
+  //   {
+  //     id: "dashboard",
+  //     title: "MY DASHBOARD",
+  //     url: "/filmMakerDashboard",
+  //   },
+  //   {
+  //     id: "logout",
+  //     title: "LOGOUT",
+  //     url: "/",
+  //   },
+  // ];
 
   return (
     <>
@@ -61,12 +61,12 @@ function NavbarButtons({ user, setToggle, toggle }) {
               SIGN IN
             </Link>
 
-            <Link
+            {/* <Link
               to="/signup"
               className="md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400"
             >
               SIGN UP
-            </Link>
+            </Link> */}
             <Link
               to="/uploadFepk"
               className="md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400"
@@ -102,11 +102,11 @@ function NavbarButtons({ user, setToggle, toggle }) {
         </>
       ) : (
         <>
+        {/* ------modified by rucheng-------- */}
           <div className="tw-group tw-relative tw-p-4">
             <img src={user.picture} alt="User Avatar" className="tw-max-h-14 flex" />
             <SideProfileMenu />
           </div>
-
           {/* -------- */}
           {/* <div
             className="tw-my-auto"
