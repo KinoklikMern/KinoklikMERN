@@ -13,8 +13,17 @@ module.exports = {
        
         midnight: "#1E0039",
       },
+      borderRadius:{
+        "side": "5.5rem"
+      },
+
     },
   },
+  variants: {
+    extend: {
+      	visibility: ["group-hover"],
+    },
+   },
   corePlugins: {
     preflight: false
   },

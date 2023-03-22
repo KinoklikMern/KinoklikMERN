@@ -405,6 +405,7 @@ function EpkView() {
           {isClickDot === false || isClose === true ? (
             <div className={style.dotSection}>
               <FontAwesomeIcon
+                color="white"
                 onClick={() => clickStateDot()}
                 icon={faEllipsisVertical}
               />
