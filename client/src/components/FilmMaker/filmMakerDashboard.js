@@ -26,7 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink } from "react-router-dom";
 
-import "./filmMakerDashboard.scss";
+//import "./filmMakerDashboard.scss";
 import movie6 from "../../images/movies/movie6.jpg";
 import movie2 from "../../images/movies/movie2.jpeg";
 import movie5 from "../../images/movies/movie5.jpg";
