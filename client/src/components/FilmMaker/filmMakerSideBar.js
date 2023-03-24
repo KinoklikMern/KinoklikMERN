@@ -97,7 +97,7 @@ export default function FilmmakerSideBar() {
 
             <li class="nav-link" role="tab" data-li="UserProfile">
               <div class="sidebarnav-icon side-button">
-                <Link to="/filmMakerDashboardSecurityAccount">
+                <Link to="/filmMakerDashboardSecurityProfile">
                   {/* <FontAwesomeIcon icon={faCog} /> */}
                   <img
                     src={SettingsIcon}

@@ -3,21 +3,15 @@ import { validateEmail, validateLength } from "../helpers/validation.js";
 import { generateToken } from "../helpers/tokens.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { uploadFileToS3 } from "../s3.js";
 // Nada
 import PasswordResetToken from "../models/passwordResetToken.js";
 // const PasswordResetToken = require("../models/passwordResetToken");
 
 export const register = async (req, res) => {
   try {
-    const {
-      firstName,
-      lastName,
-      email,
-      role,
-      password,
-      phone,
-      website,
-    } = req.body;
+    const { firstName, lastName, email, role, password, phone, website } =
+      req.body;
 
     if (!validateEmail(email)) {
       return res.status(400).json({
@@ -237,3 +231,41 @@ export const resetPassword = async (req, res) => {
     message: "Password reset successfully, now you can use your new password.",
   });
 };
+
+//***************************Created by Zibin*******************************
+export const updateProfile = async (req, res) => {
+  const id = req.params.userId;
+  console.log(id);
+  try {
+    const userOne = await User.findOne({ _id: id });
+    if (!userOne) {
+      res.json({ error: "No User was found!" });
+    } else {
+      const updatedProfile = req.body;
+      console.log(updatedProfile);
+      await userOne.updateOne(updatedProfile);
+      await userOne.updateOne(
+        { updatedAt: new Date() },
+        { where: { _id: id } }
+      );
+      const userUpdated = await User.findOne({ _id: id });
+      res.status(200).json(userUpdated);
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// upload a file to S3
+export const uploadUserAvatar = async (req, res) => {
+  const file = req.file;
+  const result = await uploadFileToS3(file);
+  if (!result) {
+    res.status(406).send({ message: "File extention not supported!" });
+  } else {
+    console.log(result);
+    res.status(200).send({ key: result.Key });
+    //res.status(200).send({ Location: result.Location });
+  }
+};
+//**************************************************************************/
