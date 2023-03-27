@@ -14,7 +14,6 @@ import Register from "../Auth/Registration/register.js";
 
 function Navbar(props) {
   const [toggle, setToggle] = useState(false);
-  console.info('11',props.className)
   const dispatch = useDispatch();
   const { user } = useSelector((user) => ({ ...user }));
 

@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import "./MainLayout.css";
 
 function MainLayout(props) {
-  console.info("main", props.className)
   return (
     <div className="mainLayout">
       <Navbar className={props.className} title={props.title} />

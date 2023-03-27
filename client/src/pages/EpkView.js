@@ -320,7 +320,6 @@ function EpkView() {
 
   return (
     <div>
-      <Navbar />
       <div
         className={
           fepkData.status_pause === false
