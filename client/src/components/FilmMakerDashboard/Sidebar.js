@@ -29,16 +29,17 @@ export default function Sidebar(props) {
         height: 70
       },
     },
-    {
-      Title: "Report",
-      DefaultIcon: FlagIcon,
-      ActiveIcon: FlagIcon,
-      href: "#",
-      size:{
-        width: 60,
-        height: 60
-      },
-    },
+    // report part 
+    // {
+    //   Title: "Report",
+    //   DefaultIcon: FlagIcon,
+    //   ActiveIcon: FlagIcon,
+    //   href: "#",
+    //   size:{
+    //     width: 60,
+    //     height: 60
+    //   },
+    // },
     {
       Title: "Settings",
       DefaultIcon: SettingsIcon,

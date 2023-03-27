@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import UserCard from "../../components/FilmMakerDashboard/UserCard";
-import movieSample from "../../images/movies/movie8.jpg";
+import UserCard from "../../components/FilmMakerDashboard/UserCardDoubleCol";
 import { getFepksByFilmmakerId } from "../../api/epks";
+import NotificationEpkCard from "../../components/FilmMakerDashboard/NotificationEpkCard";
 export default function NotificationPage() {
-
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
-  const [selectedEpk, setSelectedEpk] = useState(1);
   const [epkList, setEpkList] = useState([]);
+  const [selectedEpk, setSelectedEpk] = useState(0);
+  const [likedUserList, setLikedUserList] = useState([]);
+
   useEffect(() => {
-    getFepksByFilmmakerId(user.id).then((res)=>setEpkList(res))
+    getFepksByFilmmakerId(user.id).then((res) => {
+      setEpkList(res);
+      setLikedUserList(res[0].likes);
+    });
   }, []);
-  console.info("bb", epkList)
+
+  console.info("bb", epkList);
+  console.info("like", likedUserList);
 
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
@@ -22,62 +28,32 @@ export default function NotificationPage() {
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-20">
-          <Sidebar selectedTab="Notifications"/>
+          <Sidebar selectedTab="Notifications" />
         </div>
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white">
-          <div className="tw-m-4 tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
-            <div className="tw-overflow-auto tw-bg-gray-500">
-              <a href="#">
-                <img
+          <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
+            <div className="tw-overflow-auto">
+              {epkList?.map((epk, index) => (
+                <div
                   className={
                     "tw-m-12 tw-rounded-lg " +
-                    (selectedEpk === 1
-                      ? "tw-max-h-40"
-                      : "tw-max-h-20 tw-brightness-50")
+                    (selectedEpk === index
+                      ? "tw-h-40 tw-w-60"
+                      : "tw-h-20 tw-w-40 tw-brightness-50")
                   }
                   onClick={(e) => {
                     e.preventDefault();
-                    setSelectedEpk(1);
+                    setSelectedEpk(index);
+                    setLikedUserList(epk.likes);
                   }}
-                  src={movieSample}
-                  alt=""
-                />
-              </a>
-              <a href="#">
-                <img
-                  className={
-                    "tw-m-12 tw-rounded-lg " +
-                    (selectedEpk === 2
-                      ? "tw-max-h-40"
-                      : "tw-max-h-20 tw-brightness-50")
-                  }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedEpk(2);
-                  }}
-                  src={movieSample}
-                  alt=""
-                />
-              </a>
-              <a href="#">
-                <img
-                  className={
-                    "tw-m-12 tw-rounded-lg " +
-                    (selectedEpk === 3
-                      ? "tw-max-h-40"
-                      : "tw-max-h-20 tw-brightness-50")
-                  }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedEpk(3);
-                  }}
-                  src={movieSample}
-                  alt=""
-                />
-              </a>
+                >
+                  <NotificationEpkCard epkInfo={epk} />
+                </div>
+              ))}
             </div>
-            <div className="tw-col-span-2 tw-overflow-auto tw-border-2">
-              <ul className="tw-flex tw-border-b tw-border-gray-200 tw-text-center tw-text-sm tw-font-medium tw-text-gray-500">
+
+            <div className="tw-col-span-2 tw-mt-12 tw-mr-4 tw-overflow-auto">
+              <ul className="tw-sticky tw-top-0 tw-flex tw-border-b tw-border-gray-200 tw-text-center tw-text-sm tw-font-medium tw-text-gray-500">
                 <li
                   className={
                     "tw-w-1/4 tw-grow tw-text-2xl " +
@@ -117,15 +93,10 @@ export default function NotificationPage() {
                   </a>
                 </li>
               </ul>
-              <div>
-                <UserCard />
-                <UserCard />
-                <UserCard />
-                <UserCard />
-                <UserCard />
-                <UserCard />
-                <UserCard />
-                <UserCard />
+              <div className={openTab === 1 ? "visible" : "invisible"}>
+                {likedUserList?.map((user) => (
+                  <UserCard UserInfo={user} />
+                ))}
               </div>
             </div>
           </div>

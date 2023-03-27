@@ -15,7 +15,7 @@ export default function EpkCard(props) {
   return (
     <div className="tw-flex tw-flex-row">
       <div className="tw-m-4 tw-max-w-xs tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">
-        <a href={`/epkview/${epkInfo.title}`}>
+        <a href={`/editFepk/${epkInfo._id}`}>
           <img
             className="tw-max-h-40 tw-w-full tw-rounded-b-none tw-rounded-t-lg"
             src={BANNER_IMG}
@@ -67,11 +67,6 @@ export default function EpkCard(props) {
           </div>
         </a>
       </div>
-      <span className="tw-mb-4 tw--ml-2 tw-flex tw-flex-none tw-items-end tw-text-white">
-        <a  href={`/editFepk/${epkInfo._id}`} className="hover:tw-text-white">
-          <FontAwesomeIcon icon={faPen} className=" hover:tw-scale-150" />
-        </a>
-      </span>
     </div>
   );
 }

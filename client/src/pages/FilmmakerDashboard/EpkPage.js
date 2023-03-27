@@ -20,7 +20,7 @@ export default function EpkPage() {
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
           <Sidebar selectedTab="EPKs"/>
         </div>
-        <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto">
+        <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-scrollbar tw-scrollbar-w-36 tw-scrollbar-thumb-white tw-scrollbar-track-gray-500">
           {/* <div className="tw-mt-48 tw-mb-12 tw-flex tw-justify-center tw-text-white">
             <p className="tw-text-2xl">
               You don’t have any EPK created. Start promoting your film right
