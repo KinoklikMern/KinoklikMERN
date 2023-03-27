@@ -35,25 +35,21 @@ export default function NotificationPage() {
             <div className="tw-overflow-auto">
               {epkList?.map((epk, index) => (
                 <div
-                  className={
-                    "tw-m-12 tw-rounded-lg " +
-                    (selectedEpk === index
-                      ? "tw-h-40 tw-w-60"
-                      : "tw-h-20 tw-w-40 tw-brightness-50")
-                  }
                   onClick={(e) => {
                     e.preventDefault();
                     setSelectedEpk(index);
                     setLikedUserList(epk.likes);
                   }}
                 >
-                  <NotificationEpkCard epkInfo={epk} />
+                  <NotificationEpkCard epkInfo={epk} imgIsSelected={selectedEpk === index
+                      ? true
+                      : false} />
                 </div>
               ))}
             </div>
 
             <div className="tw-col-span-2 tw-mt-12 tw-mr-4 tw-overflow-auto">
-              <ul className="tw-sticky tw-top-0 tw-flex tw-border-b tw-border-gray-200 tw-text-center tw-text-sm tw-font-medium tw-text-gray-500">
+              <ul className="tw-flex tw-border-b tw-border-gray-200 tw-text-center tw-text-sm tw-font-medium tw-text-gray-500">
                 <li
                   className={
                     "tw-w-1/4 tw-grow tw-text-2xl " +

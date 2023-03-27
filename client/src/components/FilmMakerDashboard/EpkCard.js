@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
   faStar,
-  faBookmark,
   faShareNodes,
-  faPen,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function EpkCard(props) {
@@ -46,7 +45,7 @@ export default function EpkCard(props) {
             </div>
             <div className="tw-relative tw-inline-flex">
               <FontAwesomeIcon
-                icon={faBookmark}
+                icon={faPlus}
                 style={{ color: "#1E0039" }}
                 size="2xl"
               />
