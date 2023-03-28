@@ -5,6 +5,7 @@ import BellIcon from "../../images/icons/bellEmpty.svg";
 import BellWhiteIcon from "../../images/icons/bellFull.svg"
 import FlagIcon from "../../images/icons/flag.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
+import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
 export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
   console.info("select", SELECTED_TAB);
@@ -43,8 +44,8 @@ export default function Sidebar(props) {
     {
       Title: "Settings",
       DefaultIcon: SettingsIcon,
-      ActiveIcon: FlagIcon,
-      href: "#",
+      ActiveIcon: SettingsWhiteIcon,
+      href: "/dashboard/settings",
       size:{
         width: 60,
         height: 60

@@ -75,6 +75,8 @@ import Title from "antd/es/skeleton/Title";
 import { useSelector } from "react-redux";
 import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
+import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage"
+import DashboardLayout from "./layouts/DashboardLayout";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -87,10 +89,16 @@ function App() {
     <Routes>
       <Route path="/" element={<MainLayout className={className} />}>
         <Route index element={<Home />} />
+      </Route>
+      <Route path="/" element={<DashboardLayout className={className} />}>
         <Route path="dashboard/epks" element={<DashboardEpks />} />
         <Route
           path="dashboard/notifications"
           element={<DashboardNotification />}
+        />
+         <Route
+          path="dashboard/settings"
+          element={<DashboardSettings />}
         />
       </Route>
       <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
