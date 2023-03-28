@@ -32,7 +32,7 @@ export default function Filmmaker() {
       <div class="sidebar-container">
         <FilmmakerSideBar />
 
-        <div class="sidebar-right">
+        <div class="sidebar-right sidebar-right-setting-container">
           <article
             class="tab-pane fade show active"
             role="tabpanel"
@@ -56,7 +56,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityCompany"
                         class="security-links"
                       >
-                        Company
+                        Studio
                       </Link>
                     </li>
                     <li>
@@ -77,19 +77,19 @@ export default function Filmmaker() {
                     </li>
                   </ul>
                 </div>
-                <div class="profile-inputs">
+                <div class="profile-inputs company-inputs-margin">
                   <input
                     type="text"
                     id=""
                     name=""
                     placeholder="Studio Name"
                   ></input>
-                  <input
+                  {/* <input
                     type="text"
                     id=""
                     name=""
                     placeholder="Studio Website"
-                  ></input>
+                  ></input> */}
                   <input
                     type="text"
                     id=""
@@ -122,8 +122,13 @@ export default function Filmmaker() {
                   ></input>
                 </div>
 
-                <div class="side-id">
+                {/* <div class="side-id">
                   <FontAwesomeIcon icon={faUser} />
+                </div> */}
+                <div className="d-flex justify-content-end settingsSaveBtn">
+                  <button type="submit" className="btn btn-secondary">
+                    Save
+                  </button>
                 </div>
               </div>
             </div>

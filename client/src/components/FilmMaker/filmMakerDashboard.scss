@@ -4,8 +4,8 @@
   // background: -webkit-linear-gradient(180deg, #3C0C66, #5A1299, #097A73);
   // background: linear-gradient(180deg, #3C0C66, #5A1299, #097A73);
   height: 100vh;
-  width: 100vw;
-  background: rgb(0, 0, 0);
+//  width: 100vw;
+  background: #1e0039;
   /*
   background: -webkit-linear-gradient(
       180deg,
@@ -19,16 +19,16 @@
 //   visibility: hidden;
 // }
 .sidebar-container {
-  max-width: 95%;
-  height: 95%;
+//  max-width: 95%;
+  height: 100%;
   position: relative;
   display: flex;
   margin: auto; 
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  border-radius: 25px;
+ // top: 50%;
+ // -webkit-transform: translateY(-50%);
+ // -ms-transform: translateY(-50%);
+ // transform: translateY(-50%);
+ // border-radius: 25px;
   background: rgb(26, 18, 56);
   overflow: auto;
 }
@@ -48,10 +48,12 @@ h2 {
   position: relative;
   display: flex;
   height: 80%;
+  width: 50px;
   //width: 7%;
   border-radius: 10px;
-  margin-left: 2em;
-  margin-top: 2em;
+  margin-left: 20px;
+  margin-top: 20px;
+  // margin:auto;
   padding-top: 50px;
   // padding: 40px 50px;
   -webkit-transition: width 0.05s linear;
@@ -157,11 +159,13 @@ h2 {
 }
 .sidebar-container .sidebar-right {
   //width: 1300px;
-  //width: 80%;
+ width: 100%;
+height: 80%;
 
   // padding: 20px 40px;
   margin: 20px;
   border-radius: 20px;
+//  background-color: #ffffff;
 }
 
 
@@ -479,12 +483,13 @@ img{
 }
 
 .side-id-2 {
-  position: absolute;
+  position:absolute;
+  display: inline;
   top: 250px;
-  right: 400px;
-  color: white;
-  font-size: 5em;
-  opacity: 0.5;
+  left: 500px;
+//  color: white;
+//  font-size: 5em;
+//  opacity: 0.5;
 }
 
 .side-info {
@@ -506,8 +511,7 @@ img{
 ul#settingsbar {
   display:inline;
   margin-top: 6em;
-  margin-left: 4em;
-  
+//  margin-left: 4em;
   /* Any other CSS you want */
 }
 ul#settingsbar li {
@@ -527,11 +531,17 @@ background-color: white;
 color: black;
 border: 1px solid black;
 }
-ul#settingsbar li a:hover{
+ul#settingsbar li a:hover {
 background-color: rgb(39, 10, 83);
 border-color: rgb(255, 255, 255);
 color: white;
 }
+
+ul#settingsbar li a:active {
+  background-color: rgb(39, 10, 83);
+  border-color: rgb(255, 255, 255);
+  color: white;
+  }
 
 .vertical-icons{
 display:inline;
@@ -564,19 +574,33 @@ input[type=text]{
 display: block;
 }
 
-.profile-inputs{
+.profile-inputs-margin{
 margin-top: 3em;
-margin-left: 3em;
-
+margin-left: 1em;
 }
+
+.company-inputs-margin{
+  margin-top: 3em;
+  margin-left: 14em;
+  }
+
+.password-inputs-margin{
+    margin-top: 3em;
+    margin-left: 29em;
+    }
+
+.account-inputs-margin{
+      margin-top: 3em;
+      margin-left: 44em;
+      }
 
 .profile-inputs input{
 border-radius: 10px;
-padding-right: 5em;
+//padding-right: 5em;
 margin-bottom: 1em;
 padding-top: 0.5em;
 padding-bottom: 0.5em;
-box-shadow: 0.3em 0.3em 1em wheat;
+box-shadow: 0.3em 0.3em 1em rgb(26, 18, 56);
 text-align: center;
 }
 
@@ -635,4 +659,17 @@ text-decoration: none;
 .requestFeedContainer{
   height: 100%;
   width: 100%;
+}
+
+.sidebar-right-setting-container
+{
+  background-color: white;
+}
+
+.settingsSaveBtn{
+  position:absolute;
+  display: inline;
+  bottom:150px;
+  right: 100px;
+ // margin: 20px;
 }

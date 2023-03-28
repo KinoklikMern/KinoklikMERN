@@ -11,6 +11,7 @@ import {
   forgetPassword,
   sendResetPasswordTokenStatus,
   resetPassword,
+  updateProfile,
 } from "../controllers/users.js";
 import { validate, validatePassword } from "../middlwares/validator.js";
 
@@ -21,7 +22,6 @@ router.post("/login", login);
 router.get("/login", logout);
 router.post("/getuser", getUser);
 router.get("/getProfile/:email", authUser, getProfile);
-
 
 router.post("/forget-password", forgetPassword);
 router.post(
@@ -37,4 +37,6 @@ router.post(
   isValidPassResetToken,
   resetPassword
 );
+
+router.put("/updateProfile/:userId", updateProfile);
 export default router;
