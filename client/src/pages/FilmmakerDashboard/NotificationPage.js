@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import UserCard from "../../components/FilmMakerDashboard/UserCard";
+import UserCard from "../../components/FilmMakerDashboard/Notifications/UserCard";
 import { getFepksByFilmmakerId } from "../../api/epks";
-import NotificationEpkCard from "../../components/FilmMakerDashboard/NotificationEpkCard";
-import EmptyEpk from "../../components/FilmMakerDashboard/EmptyEpk";
-import RequestCard from "../../components/FilmMakerDashboard/RequestCard";
+import NotificationEpkCard from "../../components/FilmMakerDashboard/Notifications/NotificationEpkCard";
+import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
+import RequestCard from "../../components/FilmMakerDashboard/Notifications/RequestCard";
 export default function NotificationPage() {
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);

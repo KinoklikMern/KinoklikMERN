@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import PlusIcon from "../../images/icons/plus-solid-white.svg";
+import PlusIcon from "../../../images/icons/plus-solid-white.svg";
 
 
 export default function NewEpkBtn() {

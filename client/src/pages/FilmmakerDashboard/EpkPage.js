@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import NewEpkBtn from "../../components/FilmMakerDashboard/NewEpkBtn";
+import NewEpkBtn from "../../components/FilmMakerDashboard/Epks/NewEpkBtn";
 import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import EpkCard from "../../components/FilmMakerDashboard/EpkCard";
+import EpkCard from "../../components/FilmMakerDashboard/Epks/EpkCard";
 import { getFepksByFilmmakerId } from "../../api/epks";
-import EmptyEpk from "../../components/FilmMakerDashboard/EmptyEpk";
+import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
 
 export default function EpkPage() {
   const { user } = useSelector((user) => ({ ...user }));

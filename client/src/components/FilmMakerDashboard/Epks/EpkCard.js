@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import movieSample from "../../images/movies/movie8.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,

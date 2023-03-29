@@ -40,7 +40,7 @@ export const SideProfileMenu = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/filmMakerDashboard");
+            navigate("/dashboard/epks");
           }}
           className="tw-flex tw-items-center tw-gap-2 tw-place-self-end tw-pr-3 hover:tw-cursor-pointer hover:tw-scale-125"
         >
