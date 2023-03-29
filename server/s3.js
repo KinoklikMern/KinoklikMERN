@@ -17,25 +17,24 @@ const s3 = new S3({
 
 // upload a file to s3
 export async function uploadFileToS3(fileObj) {
-    const fileStream = fs.createReadStream(fileObj.path);
-    const mimetype = fileObj.mimetype;
-    console.log(mimetype);
-    let ext = checkMimeType(mimetype);
-    const uploadParams = {
-      Bucket: bucketName,
-      Body: fileStream,
-      Key: fileObj.filename + ext, // use uuid generator  for key
-    };
-    
-    const uploadData = await s3.upload(uploadParams).promise();
-    console.log(uploadData);
-    try {
-      fs.unlinkSync("./images/" + fileObj.filename);
-      //file removed
-    } catch (err) {
-      console.error(err);
-    }
-    return uploadData;
+  const fileStream = fs.createReadStream(fileObj.path);
+  const mimetype = fileObj.mimetype;
+
+  let ext = checkMimeType(mimetype);
+  const uploadParams = {
+    Bucket: bucketName,
+    Body: fileStream,
+    Key: fileObj.filename + ext, // use uuid generator  for key
+  };
+  const uploadData = await s3.upload(uploadParams).promise();
+
+  try {
+    fs.unlinkSync("./images/" + fileObj.filename);
+    //file removed
+  } catch (err) {
+    console.error(err);
+  }
+  return uploadData;
 }
 
 // upload a file to s3
