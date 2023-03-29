@@ -31,5 +31,6 @@ module.exports = {
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/forms"),
     "prettier-plugin-tailwindcss",
+    require('tailwind-scrollbar')
   ],
 };
