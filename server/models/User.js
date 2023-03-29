@@ -32,15 +32,15 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     enum: [
-      "USER",
-      "ADMIN",
-      "FILM_MAKER",
-      "ACTOR",
-      "Sales_Agent",
+      "User",
+      "Admin",
+      "Filmmaker",
+      "Actor",
+      "Sales Agent",
       "Distributor",
-      "Film_Festival",
+      "Film Festival",
       "Viewer",
-      "Investor"
+      "Investor",
     ],
   },
   following: {
@@ -57,15 +57,24 @@ const UserSchema = mongoose.Schema({
     default:
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
-  createdAt:{
+  city: {
+    type: String,
+  },
+  province: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  createdAt: {
     type: Date,
     immutable: true,
     default: () => Date.now(),
   },
-  updatedAt:{
+  updatedAt: {
     type: Date,
     default: () => Date.now(),
-  }
+  },
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).
