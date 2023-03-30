@@ -105,7 +105,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
           {/* ------modified by rucheng-------- */}
           <div className="tw-group tw-relative tw-p-4">
             <img
-              src={user.picture}
+              src={`${process.env.REACT_APP_AWS_URL}/${user.picture}`}
               alt="User Avatar"
               className="flex tw-max-h-14"
             />

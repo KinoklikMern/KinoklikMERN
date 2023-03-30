@@ -1,11 +1,29 @@
 import express from "express";
 import multer from "multer";
 import {
-    getFepks, getFepksByTitle, getFepkbyId, 
-    createFepk, updateFepk, uploadFepkFile, deleteFepk, getFepksByFilmmakerId, 
-    getFepkLiked, getFepkFavourite, getFepksByUser, getFepkByTitle, uploadFepkFiles, 
-    getFepkSharings, getFepkWishedToBuy, getMediumSynopsis, getLongSynopsis, 
-    getUniqueness, getStills, getFollowers, createReport} from "../controllers/fepk.js";
+  getFepks,
+  getFepksByTitle,
+  getFepkbyId,
+  createFepk,
+  updateFepk,
+  uploadFepkFile,
+  deleteFepk,
+  getFepksByFilmmakerId,
+  getFepkLiked,
+  getFepkFavourite,
+  getFepksByUser,
+  getFepkByTitle,
+  uploadFepkFiles,
+  getFepkSharings,
+  getFepkWishedToBuy,
+  getMediumSynopsis,
+  getLongSynopsis,
+  getUniqueness,
+  getStills,
+  getFollowers,
+  createReport,
+  postRequests,
+} from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
 const router = express.Router();
@@ -55,14 +73,17 @@ router.get("/stills/:fepkid/:userid", getStills);
 // Uploads 1 file to AWS S3
 router.post("/uploadFile", upload.single("file"), uploadFepkFile);
 
-// Uploads up to 2 files to AWS S3 
+// Uploads up to 2 files to AWS S3
 router.post(
-    "/uploadFiles",
-    upload.fields([{ name: "file1" }, { name: "file2" }]),
-    uploadFepkFiles
+  "/uploadFiles",
+  upload.fields([{ name: "file1" }, { name: "file2" }]),
+  uploadFepkFiles
 );
 
 // Deletes (makes FEPK invisible for users)
 router.delete("/delete/:id", deleteFepk);
+
+// Add request to fepk
+router.post("/postRequests", postRequests);
 
 export default router;

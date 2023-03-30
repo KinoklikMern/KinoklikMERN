@@ -575,3 +575,47 @@ export const deleteFepk = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+//**************************************Created by Zibin ***************************************** */
+// adding user who makes request mediumSynopsis/Synopsis long/Uniqueness/Stills  part
+export const postRequests = async (req, res) => {
+  const { fepkId, user, comment } = req.body;
+  //const fepkId = req.params.fepkid;
+  //const user = req.params.userid;
+  //console.log(req.body);
+  const status = "pending";
+  const createdAt = new Date();
+  try {
+    const fepkOne = await fepk
+      .findOne({ _id: fepkId })
+      .where("deleted")
+      .equals(false);
+    if (!fepkOne) {
+      res.json({ error: "No EPK was found!" });
+    } else {
+      let exists = false;
+      fepkOne.requests.forEach((element) => {
+        if (element.user == user) {
+          exists = true;
+        }
+      });
+
+      if (exists === false) {
+        console.log(fepkOne.requests);
+        await fepkOne.requests.push({ user, status, comment, createdAt });
+        //await fepkOne.requests.push({ user});
+        await fepkOne.save();
+        console.log(fepkOne.requests);
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+        console.log(fepkUpdated);
+      } else {
+        res.status(200).json(fepkOne);
+        console.log(fepkOne);
+      }
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+//************************************************************************************** */
