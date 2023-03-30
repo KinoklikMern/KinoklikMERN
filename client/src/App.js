@@ -73,20 +73,37 @@ import TestApproval from "./pages/TestApproval";
 import EpkView from "./pages/EpkView";
 import Title from "antd/es/skeleton/Title";
 import { useSelector } from "react-redux";
+import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
+import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
+import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage"
+import DashboardLayout from "./layouts/DashboardLayout";
 
 function App() {
-  const NavbarHomeClass= "tw-bg-opacity-25 tw-absolute";
-  const NavbarDefaultClass = "tw-bg-gradient-to-b tw-from-[#4b1a77] tw-to-[#1f0439]";
-  const KinoKlikTitle = "KinoKlik";
+  const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
+  const NavbarDefaultClass =
+    "tw-bg-gradient-to-b tw-from-[#4b1a77] tw-to-[#1f0439]";
+  // const KinoKlikTitle = "KinoKlik";
   const { user } = useSelector((user) => ({ ...user }));
-  const className = user?NavbarHomeClass:NavbarDefaultClass;
+  const className = user ? NavbarHomeClass : NavbarDefaultClass;
   return (
     <Routes>
-       <Route path="/" element={<MainLayout className={className}/>}>
+      <Route path="/" element={<MainLayout className={className} />}>
         <Route index element={<Home />} />
       </Route>
-      <Route path="/" element={<MainLayout  className={NavbarDefaultClass} title={KinoKlikTitle}/> }>
+      <Route path="/" element={<DashboardLayout className={className} />}>
+        <Route path="dashboard/epks" element={<DashboardEpks />} />
+        <Route
+          path="dashboard/notifications"
+          element={<DashboardNotification />}
+        />
+         <Route
+          path="dashboard/settings"
+          element={<DashboardSettings />}
+        />
+      </Route>
+      <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
         {/* <Route index element={<Home />} /> */}
+
         <Route path="upload" element={<UploadMovie />} />
         <Route path="my_list" element={<MyList />} />
         <Route path="edit_profile" element={<Home />} />
@@ -169,9 +186,9 @@ function App() {
         <Route path="resourcesForm" element={<ResourcesForm />} />
         <Route path="trailer" element={<Trailer />} />
         <Route path="resources" element={<Resources />} />
+        <Route path="epkview/:title" element={<EpkView />} />
       </Route>
       <Route path="epk" element={<EPK />} />
-      <Route path="epkview/:title" element={<EpkView />} />
       <Route path="approvals/:fepkId" element={<TestApproval />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

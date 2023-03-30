@@ -26,7 +26,7 @@ export const SideProfileMenu = () => {
   };
   return (
     <>
-      <div className="tw-invisible tw-absolute  tw-inset-y-0 tw-right-0 tw-flex tw-h-screen tw-w-64 tw-flex-col tw-justify-center tw-gap-6 tw-rounded-l-side tw-bg-[#D9D9D9] tw-bg-opacity-50 group-hover:tw-visible tw-duration-300">
+      <div className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-flex tw-h-screen tw-w-64 tw-flex-col tw-justify-center tw-gap-6 tw-rounded-l-side tw-bg-[#D9D9D9] tw-bg-opacity-50 group-hover:tw-visible tw-duration-300">
         <div
           onClick={() => {
             navigate("/filmMakerDashboardSecurity");
@@ -40,7 +40,7 @@ export const SideProfileMenu = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/filmMakerDashboard");
+            navigate("/dashboard/epks");
           }}
           className="tw-flex tw-items-center tw-gap-2 tw-place-self-end tw-pr-3 hover:tw-cursor-pointer hover:tw-scale-125"
         >

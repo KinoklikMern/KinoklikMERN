@@ -15,7 +15,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import DashFull from "../../images/icons/dashFull.svg";
-//import "./filmMakerDashboard.scss";
+// import "./filmMakerDashboard.scss";
 import StarIcon from "../../images/icons/star.svg";
 import StarFullIcon from "../../images/icons/star.svg";
 import FlagIcon from "../../images/icons/flag.svg";
