@@ -60,7 +60,7 @@ export default function SettingPage() {
               </li>
             ))}
           </ul>
-          <div>
+          <div className="tw-h-5/6">
             {openTab === 1 && (
                 <Profile />
             )}

@@ -104,7 +104,11 @@ function NavbarButtons({ user, setToggle, toggle }) {
         <>
         {/* ------modified by rucheng-------- */}
           <div className="tw-group tw-relative tw-p-4">
-            <img src={user.picture} alt="User Avatar" className="tw-max-h-14 flex" />
+            <img
+              src={user.picture}
+              alt="User Avatar"
+              className="flex tw-max-h-14"
+            />
             <SideProfileMenu />
           </div>
           {/* -------- */}
