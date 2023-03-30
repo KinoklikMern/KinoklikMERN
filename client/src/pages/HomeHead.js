@@ -41,7 +41,6 @@ const HomeHead = () => {
   const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
   const [fepk, setFepk] = useState({});
 
-
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
   let userId;
@@ -57,34 +56,33 @@ const HomeHead = () => {
   // user is added to the list of $
   function handleClickDollar() {
     setClickedDollar(true);
-    http.get(`fepks/wishestobuy/${fepk._id}/${userId}`)
+    http.get(`fepks/wishestobuy/${fepk._id}/${userId}`);
   }
 
-   // user is added to the list of +
-   function handleClickPlus() {
+  // user is added to the list of +
+  function handleClickPlus() {
     setClickedPlus(true);
-    http.get(`fepks/favourite/${fepk._id}/${userId}`)
+    http.get(`fepks/favourite/${fepk._id}/${userId}`);
   }
 
   // user is added to the list of star(likes)
   function handleStarClick() {
     setClickedStar(true);
-    http.get(`fepks/like/${fepk._id}/${userId}`)
+    http.get(`fepks/like/${fepk._id}/${userId}`);
   }
 
   //user click K icon
   function handleClickKIcon() {
     setClickedKIcon(true);
-    window.open(fepk.kickstarter_url)
+    window.open(fepk.kickstarter_url);
   }
 
-// user is added to the list of sharings
+  // user is added to the list of sharings
   function handleClickShare() {
     setClickedShare(true);
-    http.get(`fepks/sharing/${fepk._id}/${userId}`)
+    http.get(`fepks/sharing/${fepk._id}/${userId}`);
   }
 
- 
   function handleClickMovie() {
     setClickedMovie(true);
   }
@@ -97,9 +95,10 @@ const HomeHead = () => {
     http.get(`fepks/`).then((response) => {
       let last = response.data.length - 1;
       setFepk(response.data[last]);
+      console.log(fepk);
     });
   }, []);
-  console.log(fepk);
+  //console.log(fepk);
 
   return (
     <div

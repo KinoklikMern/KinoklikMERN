@@ -102,7 +102,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
         </>
       ) : (
         <>
-        {/* ------modified by rucheng-------- */}
+          {/* ------modified by rucheng-------- */}
           <div className="tw-group tw-relative tw-p-4">
             <img
               src={user.picture}
