@@ -2,15 +2,19 @@ import React from "react";
 import avatarDefault from "../../../images/avatarDefault.jpeg";
 
 export default function RequestCard(props) {
-  const { picture, role, firstName, lastName, email, phone, website } =
-    props.UserInfo;
+  const { role, firstName, lastName, email, phone, website } = props.UserInfo;
+  const picture =
+  props.UserInfo.picture ===
+  "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+    ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+    : `${process.env.REACT_APP_AWS_URL}/${props.UserInfo.picture}`;
   return (
     <div className="tw-py-2 sm:tw-py-4">
       <div className="tw-flex tw-justify-between tw-border-b-2 md:tw-gap-12">
         <div className="tw-relative tw-m-4 tw-flex-shrink-0">
           <img
             className="tw-h-32 tw-w-32 tw-rounded-lg"
-            src={picture ? picture : avatarDefault}
+            src={picture}
             alt="profile image"
           />
           <div className="tw-absolute tw-inset-x-0 tw-bottom-0 tw-flex tw-h-6 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75">
@@ -19,7 +23,7 @@ export default function RequestCard(props) {
             </span>
           </div>
         </div>
-        <div className="tw-m-4 tw-min-w-0 tw-gap-12 tw-items-center md:tw-flex md:tw-flex-row md:tw-overflow-x-auto">
+        <div className="tw-m-4 tw-min-w-0 tw-items-center tw-gap-12 md:tw-flex md:tw-flex-row md:tw-overflow-x-auto">
           <div className="">
             <p className="tw-truncate tw-text-lg tw-font-medium tw-text-gray-900">
               {firstName} {lastName}
@@ -37,11 +41,11 @@ export default function RequestCard(props) {
             </p>
           </div>
         </div>
-        <div className="tw-flex tw-flex-col tw-w-1/3 tw-m-4 tw-items-end">
+        <div className="tw-m-4 tw-flex tw-w-1/3 tw-flex-col tw-items-end">
           <div>
             <p>
               Hello Filmmaker, I’m interested to see your film EPK and possibly
-              purchase the rights. 
+              purchase the rights.
             </p>
           </div>
           <div className="tw-flex tw-items-end">
