@@ -119,6 +119,8 @@ function EpkView() {
       setTrailer(response.data.trailer);
       setReviews(response.data.reviews);
       setRequests(response.data.requests);
+      //console.log(requests);
+      //console.log(userId);
       http.get(`/fepks/followers/${response.data._id}`).then((res) => {
         setFollowers(res.data);
       });
@@ -163,15 +165,17 @@ function EpkView() {
 
   // user is added to request list
   function addtoRequests() {
+    console.log("here");
     http
       .post(`fepks/postRequests`, {
+        fepkId: fepkData._id,
         user: userId,
         comment: "test comment",
-        status: "pending",
-        createdAt: new Date(),
+        // status: "pending",
+        // createdAt: new Date(),
       })
       .then((response) => {
-        //setStills(response.data.stillsApproval);
+        setRequests(response.data.requests);
         alert("Add request successfully!");
       });
   }
@@ -900,9 +904,11 @@ function EpkView() {
             </div>
           </div>
         ) : (
-          (mediumSynopsis.length === 0 ||
-            // mediumSynopsis.filter((e) => e.user._id === userId).length === 0) && (
-            requests.filter((e) => e.user._id === userId).length === 0) && (
+          // (mediumSynopsis.length === 0 ||
+          //   mediumSynopsis.filter((e) => e.user._id === userId).length ===
+          //     0) && (
+          (requests.length === 0 ||
+            requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
               <div>
                 <h2 className={style.type}>Medium Synopsis</h2>
@@ -910,13 +916,14 @@ function EpkView() {
               <div className={style.position}>
                 <button
                   onClick={() => {
-                    addtoMediumSynopsis();
+                    // addtoMediumSynopsis();
+                    addtoRequests();
                     clickState1();
                   }}
                   className={isClick1 === true ? style.none : style.btnSy}
                 >
                   {" "}
-                  Request Access{" "}
+                  Request Access1{" "}
                 </button>
               </div>
 
@@ -932,11 +939,12 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {mediumSynopsis.map((medium) => {
+        {/* {mediumSynopsis.map((medium) => { */}
+        {requests.map((r) => {
           return (
             <>
               {/* {medium.user._id === userId && medium.status === "pending" && ( */}
-              {requests.filter((e) => e.user._id === userId) && (
+              {r.user === userId && r.status === "pending" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
@@ -958,13 +966,12 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got the approval */}
-        {mediumSynopsis.map((medium) => {
+        {/* {mediumSynopsis.map((medium) => { */}
+        {requests.map((r) => {
           return (
             <>
               {/* {medium.user._id === userId && medium.status === "approved" && ( */}
-              {requests.filter(
-                (e) => e.user._id === userId && e.status === "approved"
-              ) && (
+              {r.user._id === userId && r.status === "approved" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
@@ -983,13 +990,12 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got refused */}
-        {mediumSynopsis.map((medium) => {
+        {/* {mediumSynopsis.map((medium) => { */}
+        {requests.map((r) => {
           return (
             <>
               {/* {medium.user._id === userId && medium.status === "refused" && ( */}
-              {requests.filter(
-                (e) => e.user._id === userId && e.status === "refused"
-              ) && (
+              {r.user._id === userId && r.status === "refused" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
@@ -1088,8 +1094,10 @@ function EpkView() {
             </div>
           </div>
         ) : (
-          (longSynopsis.length === 0 ||
-            longSynopsis.filter((e) => e.user._id === userId).length === 0) && (
+          // (longSynopsis.length === 0 ||
+          //   longSynopsis.filter((e) => e.user._id === userId).length === 0) && (
+          (requests.length === 0 ||
+            requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
               <div>
                 <h2 className={style.type}>Long Synopsis</h2>
@@ -1097,7 +1105,8 @@ function EpkView() {
               <div className={style.position}>
                 <button
                   onClick={() => {
-                    addtoLongSynopsis();
+                    // addtoLongSynopsis();
+                    addtoRequests();
                     clickState2();
                   }}
                   className={isClick2 === true ? style.none : style.btnSy}
@@ -1119,10 +1128,11 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {longSynopsis.map((long) => {
+        {/* {longSynopsis.map((long) => { */}
+        {requests.map((long) => {
           return (
             <>
-              {long.user._id === userId && long.status === "pending" && (
+              {long.user === userId && long.status === "pending" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Long Synopsis</h2>
@@ -1144,10 +1154,10 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got the approval */}
-        {longSynopsis.map((long) => {
+        {requests.map((long) => {
           return (
             <>
-              {long.user._id === userId && long.status === "approved" && (
+              {long.user === userId && long.status === "approved" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Long Synopsis</h2>
@@ -1166,10 +1176,10 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got refused */}
-        {longSynopsis.map((long) => {
+        {requests.map((long) => {
           return (
             <>
-              {long.user._id === userId && long.status === "refused" && (
+              {long.user === userId && long.status === "refused" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Long Synopsis</h2>
@@ -1270,15 +1280,16 @@ function EpkView() {
             </div>
           </div>
         ) : (
-          (uniqueness.length === 0 ||
-            uniqueness.filter((u) => u.user._id === userId).length === 0) && (
+          (requests.length === 0 ||
+            requests.filter((u) => u.user === userId).length === 0) && (
             <div className={style.unique}>
               <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
 
               <div className={style.position1}>
                 <button
                   onClick={() => {
-                    addtoUniqueness();
+                    // addtoUniqueness();
+                    addtoRequests();
                     clickState3();
                   }}
                   className={isClick3 === true ? style.none : style.btnUni}
@@ -1303,10 +1314,10 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {uniqueness.map((unique) => {
+        {requests.map((unique) => {
           return (
             <>
-              {unique.user._id === userId && unique.status === "pending" && (
+              {unique.user === userId && unique.status === "pending" && (
                 <div className={style.unique}>
                   <p className={style.titleUnique}>
                     {fepkData.title_uniqueness}
@@ -1335,10 +1346,10 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got the approval */}
-        {uniqueness.map((unique) => {
+        {requests.map((unique) => {
           return (
             <>
-              {unique.user._id === userId && unique.status === "approved" && (
+              {unique.user === userId && unique.status === "approved" && (
                 <div className={style.unique}>
                   <p className={style.titleUnique}>
                     {fepkData.title_uniqueness}
@@ -1710,13 +1721,14 @@ function EpkView() {
             </div>
           </div>
         ) : (
-          (stills.length === 0 ||
-            stills.filter((s) => s.user._id === userId).length === 0) && (
+          (requests.length === 0 ||
+            requests.filter((s) => s.user === userId).length === 0) && (
             <div className={style.stills}>
               <div className={style.position1}>
                 <button
                   onClick={() => {
-                    addtoStills();
+                    addtoRequests();
+                    // addtoStills();
                     clickState4();
                   }}
                   className={isClick4 === true ? style.none : style.btnStills}
@@ -1761,10 +1773,10 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {stills.map((still) => {
+        {requests.map((still) => {
           return (
             <>
-              {still.user._id === userId && still.status === "pending" && (
+              {still.user === userId && still.status === "pending" && (
                 <div className={style.stills}>
                   <div className={style.position1}>
                     <button className={style.btnStills}>
@@ -1810,10 +1822,10 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got the approval */}
-        {stills.map((still) => {
+        {requests.map((still) => {
           return (
             <>
-              {still.user._id === userId && still.status === "approved" && (
+              {still.user === userId && still.status === "approved" && (
                 <div className={style.stills}>
                   <div className={style.stillsContainer}>
                     <div>
@@ -1853,10 +1865,10 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got refused */}
-        {stills.map((still) => {
+        {requests.map((still) => {
           return (
             <>
-              {still.user._id === userId && still.status === "refused" && (
+              {still.user === userId && still.status === "refused" && (
                 <div className={style.stills}>
                   <div className={style.position1}>
                     <button className={style.btnStills}> Refused </button>
