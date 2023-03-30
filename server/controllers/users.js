@@ -235,7 +235,6 @@ export const resetPassword = async (req, res) => {
 //***************************Created by Zibin*******************************
 export const updateProfile = async (req, res) => {
   const id = req.params.userId;
-  //console.log(id);
   try {
     const userOne = await User.findOne({ _id: id });
     if (!userOne) {
@@ -258,17 +257,13 @@ export const updateProfile = async (req, res) => {
 
 // upload user avatar file to S3
 export const uploadUserAvatar = async (req, res) => {
-  //console.log("here");
   const file = req.file;
-  //console.log(file);
   const result = await uploadFileToS3(file);
   if (!result) {
     res.status(406).send({ message: "File extention not supported!" });
   } else {
-    //console.log("controllers:");
     console.log(result);
     res.status(200).send({ key: result.Key });
-    //res.status(200).send({ Location: result.Location });
   }
 };
 //**************************************************************************/

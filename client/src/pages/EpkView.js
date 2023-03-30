@@ -76,6 +76,8 @@ function EpkView() {
   const [trailer, setTrailer] = useState([]);
   const [followers, setFollowers] = useState({});
   const [reviews, setReviews] = useState([]);
+  const [requests, setRequests] = useState([]);
+
   const [report, setReport] = useState({
     userId: userId,
     reason: "Spam",
@@ -116,6 +118,7 @@ function EpkView() {
       setResources(response.data.resources);
       setTrailer(response.data.trailer);
       setReviews(response.data.reviews);
+      setRequests(response.data.requests);
       http.get(`/fepks/followers/${response.data._id}`).then((res) => {
         setFollowers(res.data);
       });
@@ -156,6 +159,21 @@ function EpkView() {
     http.get(`fepks/stills/${fepkData._id}/${userId}`).then((response) => {
       setStills(response.data.stillsApproval);
     });
+  }
+
+  // user is added to request list
+  function addtoRequests() {
+    http
+      .post(`fepks/postRequests`, {
+        user: userId,
+        comment: "test comment",
+        status: "pending",
+        createdAt: new Date(),
+      })
+      .then((response) => {
+        //setStills(response.data.stillsApproval);
+        alert("Add request successfully!");
+      });
   }
 
   // user is added to the list of $
@@ -883,8 +901,8 @@ function EpkView() {
           </div>
         ) : (
           (mediumSynopsis.length === 0 ||
-            mediumSynopsis.filter((e) => e.user._id === userId).length ===
-              0) && (
+            // mediumSynopsis.filter((e) => e.user._id === userId).length === 0) && (
+            requests.filter((e) => e.user._id === userId).length === 0) && (
             <div className={style.synopsis}>
               <div>
                 <h2 className={style.type}>Medium Synopsis</h2>
@@ -917,7 +935,8 @@ function EpkView() {
         {mediumSynopsis.map((medium) => {
           return (
             <>
-              {medium.user._id === userId && medium.status === "pending" && (
+              {/* {medium.user._id === userId && medium.status === "pending" && ( */}
+              {requests.filter((e) => e.user._id === userId) && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
@@ -942,7 +961,10 @@ function EpkView() {
         {mediumSynopsis.map((medium) => {
           return (
             <>
-              {medium.user._id === userId && medium.status === "approved" && (
+              {/* {medium.user._id === userId && medium.status === "approved" && ( */}
+              {requests.filter(
+                (e) => e.user._id === userId && e.status === "approved"
+              ) && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
@@ -964,7 +986,10 @@ function EpkView() {
         {mediumSynopsis.map((medium) => {
           return (
             <>
-              {medium.user._id === userId && medium.status === "refused" && (
+              {/* {medium.user._id === userId && medium.status === "refused" && ( */}
+              {requests.filter(
+                (e) => e.user._id === userId && e.status === "refused"
+              ) && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
