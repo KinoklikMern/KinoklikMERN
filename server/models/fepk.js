@@ -234,6 +234,28 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
+  // Requests approval
+  requests: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      comment: {
+        type: String,
+        maxlenght: 500,
+      },
+      status: {
+        type: String,
+        enum: ["pending", "approved", "refused"],
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
+      },
+    },
+  ],
+
   // Company Information
   company: [
     {

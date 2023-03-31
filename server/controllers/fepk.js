@@ -575,3 +575,39 @@ export const deleteFepk = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+//**************************************Created by Zibin ***************************************** */
+// adding user who makes request mediumSynopsis/Synopsis long/Uniqueness/Stills  part
+export const postRequests = async (req, res) => {
+  const { fepkId, user, comment } = req.body;
+  const status = "pending";
+  const createdAt = new Date();
+  try {
+    const fepkOne = await fepk
+      .findOne({ _id: fepkId })
+      .where("deleted")
+      .equals(false);
+    if (!fepkOne) {
+      res.json({ error: "No EPK was found!" });
+    } else {
+      let exists = false;
+      fepkOne.requests.forEach((element) => {
+        if (element.user == user) {
+          exists = true;
+        }
+      });
+
+      if (exists === false) {
+        await fepkOne.requests.push({ user, status, comment, createdAt });
+        await fepkOne.save();
+        const fepkUpdated = await fepk.findOne({ _id: fepkId });
+        res.status(200).json(fepkUpdated);
+      } else {
+        res.status(200).json(fepkOne);
+      }
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+//************************************************************************************** */
