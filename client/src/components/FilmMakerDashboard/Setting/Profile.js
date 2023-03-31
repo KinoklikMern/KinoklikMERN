@@ -11,6 +11,12 @@ export default function Profile() {
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
 
+  const picture =
+    user.picture ===
+    "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+      ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
+
   let userId;
   let userRole;
   if (!user) {
@@ -77,7 +83,7 @@ export default function Profile() {
       userProfileData
     )
       .then((res) => {
-        // alert("Updated profile successfully!");
+        alert("Updated profile successfully!");
         console.log(res);
       })
       .catch((err) => {
@@ -170,7 +176,7 @@ export default function Profile() {
         <div className="tw-mx-4 tw-my-8 tw-self-center tw-justify-self-center">
           <img
             className="tw-rounded-full"
-            src={user.picture}
+            src={picture}
             alt="profile image"
           />
           <input

@@ -13,6 +13,11 @@ function NavbarButtons({ user, setToggle, toggle }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState("Home");
+  const picture =
+    user.picture ===
+    "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+      ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
 
   const logout = () => {
     Cookies.set("user", null);
@@ -105,7 +110,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
           {/* ------modified by rucheng-------- */}
           <div className="tw-group tw-relative tw-p-4">
             <img
-              src={user.picture}
+              src={picture}
               alt="User Avatar"
               className="flex tw-max-h-14"
             />
