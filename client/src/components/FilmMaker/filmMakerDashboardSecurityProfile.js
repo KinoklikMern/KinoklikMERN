@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./filmMakerDashboard.scss";
 import FilmmakerSideBar from "./filmMakerSideBar";
+import Modal from "react-modal";
+//import Modal from "@material-ui/core/Modal";
+//import "react-modal/styles.css";
 
 export default function FilmMakerDashboardSecurityProfile() {
   const [message, setMessage] = useState([]);
@@ -12,6 +15,7 @@ export default function FilmMakerDashboardSecurityProfile() {
   const [filename, setFilename] = useState("");
   const [userProfileData, setUserProfileData] = useState([]);
   const [disabled, setDisabled] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -85,7 +89,8 @@ export default function FilmMakerDashboardSecurityProfile() {
       userProfileData
     )
       .then((res) => {
-        alert("Updated profile successfully!");
+        setModalIsOpen(true);
+        // alert("Updated profile successfully!");
         console.log(res.data);
       })
       .catch((err) => {
@@ -106,6 +111,14 @@ export default function FilmMakerDashboardSecurityProfile() {
       else return false;
     } else return true;
   };
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   return (
     <div className="filmmakerdash-container container-fluid">
@@ -240,6 +253,49 @@ export default function FilmMakerDashboardSecurityProfile() {
                       name="files"
                       accept="image/*"
                     ></input>
+                  </div>
+                  {/* <div style={{ display: "block", padding: 30 }}> */}
+                  {/* <button onClick={openModal}>Show Modal</button> */}
+                  <div>
+                    <Modal
+                      isOpen={modalIsOpen}
+                      onRequestClose={closeModal}
+                      contentLabel="Example Modal"
+                      appElement={document.getElementById("root")}
+                      style={{
+                        overlay: {
+                          // position: "fixed",
+                          // top: 0,
+                          // left: 0,
+                          // right: 0,
+                          // bottom: 0,
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        },
+                        content: {
+                          position: "absolute",
+                          border: "2px solid #000",
+                          backgroundColor: "white",
+                          boxShadow: "2px solid black",
+                          height: 120,
+                          width: 300,
+                          margin: "auto",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        },
+                      }}
+                    >
+                      <div style={{ textAlign: "center" }}>
+                        <h2>Updated profile successfully!</h2>
+                        <br />
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          onClick={closeModal}
+                        >
+                          Ok
+                        </button>
+                      </div>
+                    </Modal>
                   </div>
                   <div className="d-flex justify-content-end settingsSaveBtn">
                     {disabled === true ? (
