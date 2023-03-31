@@ -1,16 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
+import { useSelector } from "react-redux";
+import { React, useEffect, useState, useRef } from "react";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "./filmMakerDashboard.scss";
+import Modal from "react-modal";
 import avatarDefault from "../../../images/avatar1.jpeg";
-import { useDispatch, useSelector } from "react-redux";
 
-export default function Profile() {
-  const { user } = useSelector((user) => ({ ...user }));
-  const [userProfileData, setUserProfileData] = useState([]);
-  const [disabled, setDisabled] = useState(true);
+export default function FilmMakerDashboardSecurityProfile() {
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
+  const [userProfileData, setUserProfileData] = useState([]);
+  const [disabled, setDisabled] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
   let userId;
   let userRole;
   if (!user) {
@@ -33,6 +38,10 @@ export default function Profile() {
       alert(error.response.data.message);
     }
   }, []);
+
+  if (filename !== "") {
+    userProfileData.picture = filename;
+  }
 
   async function fileSelected(event) {
     const file = event.target.files[0];
@@ -77,8 +86,9 @@ export default function Profile() {
       userProfileData
     )
       .then((res) => {
+        setModalIsOpen(true);
         // alert("Updated profile successfully!");
-        console.log(res);
+        console.log(res.data);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -98,6 +108,14 @@ export default function Profile() {
       else return false;
     } else return true;
   };
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   return (
     <form className="tw-h-full">
@@ -156,6 +174,7 @@ export default function Profile() {
             name="province"
             placeholder="Province"
             defaultValue={userProfileData.province}
+            onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
           <input
@@ -170,8 +189,8 @@ export default function Profile() {
         <div className="tw-mx-4 tw-my-8 tw-self-center tw-justify-self-center">
           <img
             className="tw-rounded-full"
-            src={user.picture}
-            alt="profile image"
+            src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
+            alt="User Avatar"
           />
           <input
             type="file"
@@ -181,7 +200,44 @@ export default function Profile() {
             className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-py-2 file:tw-px-4 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
           />
         </div>
-
+        <div>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Example Modal"
+            appElement={document.getElementById("root")}
+            style={{
+              overlay: {
+                // position: "fixed",
+                // top: 0,
+                // left: 0,
+                // right: 0,
+                // bottom: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+              },
+              content: {
+                position: "absolute",
+                border: "2px solid #000",
+                backgroundColor: "white",
+                boxShadow: "2px solid black",
+                height: 120,
+                width: 300,
+                margin: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+            }}
+          >
+            <div style={{ textAlign: "center" }}>
+              <h2>Updated profile successfully!</h2>
+              <br />
+              <button className="btn btn-secondary btn-sm" onClick={closeModal}>
+                Ok
+              </button>
+            </div>
+          </Modal>
+        </div>
         <div className="tw-col-start-4 tw-place-self-end tw-px-12">
           {disabled === true ? (
             <button
