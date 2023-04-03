@@ -14,10 +14,10 @@ function NavbarButtons({ user, setToggle, toggle }) {
   const navigate = useNavigate();
   const [active, setActive] = useState("Home");
   const picture =
-    user.picture ===
+    user?(user.picture ==
     "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
       ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
+      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`):null;
 
   const logout = () => {
     Cookies.set("user", null);

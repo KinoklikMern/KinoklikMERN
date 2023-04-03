@@ -15,6 +15,9 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcons from "@mui/icons-material/Facebook";
 import TwitterIcons from "@mui/icons-material/Twitter";
 import Footer from "../components/Footer";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
@@ -164,13 +167,13 @@ function EpkView() {
   }
 
   // user is added to request list
-  function addtoRequests() {
-    console.log("here");
+  function addToRequests(message) {
+    console.info("comment", message);
     http
       .post(`fepks/postRequests`, {
         fepkId: fepkData._id,
         user: userId,
-        comment: "test comment",
+        comment: message,
         // status: "pending",
         // createdAt: new Date(),
       })
@@ -339,6 +342,89 @@ function EpkView() {
   // const starClick = () => {
   //   setClickStar(!clickStar);
   // };
+
+  // request button
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const RequestButton = (props) => {
+    let ButtonTxt;
+    let IsDisabled = false;
+    switch (props.status) {
+      case null:
+        ButtonTxt = "Request Access";
+        IsDisabled = false;
+        break;
+
+      case "pending":
+        ButtonTxt = "Awaiting approval";
+        IsDisabled = true;
+        break;
+
+      case "refused":
+        ButtonTxt = "Request refused";
+        IsDisabled = true;
+        break;
+
+      default:
+        ButtonTxt = "Request Access";
+        IsDisabled = false;
+        break;
+    }
+    return (
+      <>
+        <div className="d-flex justify-content-center">
+          <Button variant="light" onClick={handleShow} disabled={IsDisabled}>
+            {ButtonTxt}
+          </Button>
+        </div>
+      </>
+    );
+  };
+
+  const RequestModal = (props) => {
+    const [requestMsg, setRequestMsg] = useState("");
+    const handleChange = (e) => {
+      setRequestMsg(e.target.value);
+    };
+    const handleSubmit = () => {
+      console.info("!!!", requestMsg);
+      addToRequests(requestMsg);
+    };
+    return (
+      <>
+        <Modal show={props.open} onHide={props.show} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Send Your Request</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group
+                className="my-3"
+                controlId="exampleForm.ControlTextarea1"
+                value={requestMsg}
+                onChange={handleChange}
+              >
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  placeholder="Type your message..."
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={props.close}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Send
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  };
 
   return (
     <div>
@@ -848,28 +934,28 @@ function EpkView() {
               </button>
 
               <div
-                class="modal fade"
+                className="modal fade"
                 tabindex="-1"
                 role="dialog"
                 aria-labelledby="accessModal"
                 aria-hidden="true"
               >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLongTitle">
                         Request Access to Medium Synopsis
                       </h5>
                       <button
                         type="button"
-                        class="close"
+                        className="close"
                         data-dismiss="modal"
                         aria-label="Close"
                       >
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       <form>
                         <input
                           className="form-control"
@@ -878,15 +964,15 @@ function EpkView() {
                         />
                       </form>
                     </div>
-                    <div class="modal-footer">
+                    <div className="modal-footer">
                       <button
                         type="button"
-                        class="btn btn-secondary"
+                        className="btn btn-secondary"
                         data-dismiss="modal"
                       >
                         Close
                       </button>
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" className="btn btn-primary">
                         Save changes
                       </button>
                     </div>
@@ -912,20 +998,24 @@ function EpkView() {
             <div className={style.synopsis}>
               <div>
                 <h2 className={style.type}>Medium Synopsis</h2>
+                <RequestButton />
+                {show ? (
+                  <RequestModal close={handleClose} open={handleShow} />
+                ) : null}
               </div>
-              <div className={style.position}>
+              {/* <div className={style.position}>
                 <button
                   onClick={() => {
                     // addtoMediumSynopsis();
-                    addtoRequests();
+                    addToRequests();
                     clickState1();
                   }}
                   className={isClick1 === true ? style.none : style.btnSy}
                 >
                   {" "}
-                  Request Access1{" "}
+                  Request Access{" "}
                 </button>
-              </div>
+              </div> */}
 
               <div className={style.content1}>
                 <img
@@ -948,10 +1038,14 @@ function EpkView() {
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
+                    <RequestButton status={r.status} />
+                    {show ? (
+                      <RequestModal close={handleClose} open={handleShow} />
+                    ) : null}
                   </div>
-                  <div className={style.position}>
+                  {/* <div className={style.position}>
                     <button className={style.btnSy}> Awaiting approval </button>
-                  </div>
+                  </div> */}
                   <div className={style.content1}>
                     <img
                       src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
@@ -999,10 +1093,11 @@ function EpkView() {
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>
+                    <RequestButton status={r.status} />
                   </div>
-                  <div className={style.position}>
+                  {/* <div className={style.position}>
                     <button className={style.btnSy}> Refused </button>
-                  </div>
+                  </div> */}
                   <div className={style.content1}>
                     <img
                       src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
@@ -1038,28 +1133,28 @@ function EpkView() {
               </button>
 
               <div
-                class="modal fade"
+                className="modal fade"
                 tabindex="-1"
                 role="dialog"
                 aria-labelledby="accessModal"
                 aria-hidden="true"
               >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLongTitle">
                         Request Access to Long Synopsis
                       </h5>
                       <button
                         type="button"
-                        class="close"
+                        className="close"
                         data-dismiss="modal"
                         aria-label="Close"
                       >
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       <form>
                         <input
                           className="form-control"
@@ -1068,15 +1163,15 @@ function EpkView() {
                         />
                       </form>
                     </div>
-                    <div class="modal-footer">
+                    <div className="modal-footer">
                       <button
                         type="button"
-                        class="btn btn-secondary"
+                        className="btn btn-secondary"
                         data-dismiss="modal"
                       >
                         Close
                       </button>
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" className="btn btn-primary">
                         Save changes
                       </button>
                     </div>
@@ -1102,11 +1197,15 @@ function EpkView() {
               <div>
                 <h2 className={style.type}>Long Synopsis</h2>
               </div>
-              <div className={style.position}>
+              <RequestButton />
+              {show ? (
+                <RequestModal close={handleClose} open={handleShow} />
+              ) : null}
+              {/* <div className={style.position}>
                 <button
                   onClick={() => {
                     // addtoLongSynopsis();
-                    addtoRequests();
+                    addToRequests();
                     clickState2();
                   }}
                   className={isClick2 === true ? style.none : style.btnSy}
@@ -1114,7 +1213,7 @@ function EpkView() {
                   {" "}
                   Request Access{" "}
                 </button>
-              </div>
+              </div> */}
 
               <div className={style.content1}>
                 <img
@@ -1129,17 +1228,21 @@ function EpkView() {
         )}
         {/* the case when user logged in and requested the approval */}
         {/* {longSynopsis.map((long) => { */}
-        {requests.map((long) => {
+        {requests.map((r) => {
           return (
             <>
-              {long.user === userId && long.status === "pending" && (
+              {r.user === userId && r.status === "pending" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Long Synopsis</h2>
+                    <RequestButton status={r.status} />
+                    {show ? (
+                      <RequestModal close={handleClose} open={handleShow} />
+                    ) : null}
                   </div>
-                  <div className={style.position}>
+                  {/* <div className={style.position}>
                     <button className={style.btnSy}> Awaiting approval </button>
-                  </div>
+                  </div> */}
                   <div className={style.content1}>
                     <img
                       src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
@@ -1176,17 +1279,15 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got refused */}
-        {requests.map((long) => {
+        {requests.map((r) => {
           return (
             <>
-              {long.user === userId && long.status === "refused" && (
+              {r.user === userId && r.status === "refused" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Long Synopsis</h2>
                   </div>
-                  <div className={style.position}>
-                    <button className={style.btnUni}> Refused </button>
-                  </div>
+                  <RequestButton status={r.status} />
                   <div className={style.content1}>
                     <img
                       src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
@@ -1220,28 +1321,28 @@ function EpkView() {
               </button>
 
               <div
-                class="modal fade"
+                className="modal fade"
                 tabindex="-1"
                 role="dialog"
                 aria-labelledby="accessModal"
                 aria-hidden="true"
               >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLongTitle">
                         Request Access to Uniqueness
                       </h5>
                       <button
                         type="button"
-                        class="close"
+                        className="close"
                         data-dismiss="modal"
                         aria-label="Close"
                       >
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       <form>
                         <input
                           className="form-control"
@@ -1250,15 +1351,15 @@ function EpkView() {
                         />
                       </form>
                     </div>
-                    <div class="modal-footer">
+                    <div className="modal-footer">
                       <button
                         type="button"
-                        class="btn btn-secondary"
+                        className="btn btn-secondary"
                         data-dismiss="modal"
                       >
                         Close
                       </button>
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" className="btn btn-primary">
                         Save changes
                       </button>
                     </div>
@@ -1284,12 +1385,15 @@ function EpkView() {
             requests.filter((u) => u.user === userId).length === 0) && (
             <div className={style.unique}>
               <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
-
-              <div className={style.position1}>
+              <RequestButton />
+              {show ? (
+                <RequestModal close={handleClose} open={handleShow} />
+              ) : null}
+              {/* <div className={style.position1}>
                 <button
                   onClick={() => {
                     // addtoUniqueness();
-                    addtoRequests();
+                    addToRequests();
                     clickState3();
                   }}
                   className={isClick3 === true ? style.none : style.btnUni}
@@ -1297,7 +1401,7 @@ function EpkView() {
                   {" "}
                   Request Access{" "}
                 </button>
-              </div>
+              </div> */}
               <div className={style.uniqueContainer}>
                 <div className={style.content1}>
                   <img
@@ -1314,20 +1418,24 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {requests.map((unique) => {
+        {requests.map((r) => {
           return (
             <>
-              {unique.user === userId && unique.status === "pending" && (
+              {r.user === userId && r.status === "pending" && (
                 <div className={style.unique}>
                   <p className={style.titleUnique}>
                     {fepkData.title_uniqueness}
                   </p>
-                  <div className={style.position1}>
+                  <RequestButton status={r.status} />
+                  {show ? (
+                    <RequestModal close={handleClose} open={handleShow} />
+                  ) : null}
+                  {/* <div className={style.position1}>
                     <button className={style.btnUni}>
                       {" "}
                       Awaiting approval{" "}
                     </button>
-                  </div>
+                  </div> */}
                   <div className={style.uniqueContainer}>
                     <div className={style.content1}>
                       <img
@@ -1722,12 +1830,16 @@ function EpkView() {
           </div>
         ) : (
           (requests.length === 0 ||
-            requests.filter((s) => s.user === userId).length === 0) && (
+            requests.filter((r) => r.user === userId).length === 0) && (
             <div className={style.stills}>
-              <div className={style.position1}>
+              <RequestButton />
+              {show ? (
+                <RequestModal close={handleClose} open={handleShow} />
+              ) : null}
+              {/* <div className={style.position1}>
                 <button
                   onClick={() => {
-                    addtoRequests();
+                    addToRequests();
                     // addtoStills();
                     clickState4();
                   }}
@@ -1736,7 +1848,7 @@ function EpkView() {
                   {" "}
                   Request Access{" "}
                 </button>
-              </div>
+              </div> */}
               <div className={style.stillsContainer}>
                 <div className={style.content1}>
                   <img
@@ -1773,17 +1885,21 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {requests.map((still) => {
+        {requests.map((r) => {
           return (
             <>
-              {still.user === userId && still.status === "pending" && (
+              {r.user === userId && r.status === "pending" && (
                 <div className={style.stills}>
-                  <div className={style.position1}>
+                  <RequestButton status={r.status} />
+                  {show ? (
+                    <RequestModal close={handleClose} open={handleShow} />
+                  ) : null}
+                  {/* <div className={style.position1}>
                     <button className={style.btnStills}>
                       {" "}
                       Awaiting approval{" "}
                     </button>
-                  </div>
+                  </div> */}
                   <div className={style.stillsContainer}>
                     <div className={style.content1}>
                       <img
@@ -1822,10 +1938,10 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got the approval */}
-        {requests.map((still) => {
+        {requests.map((r) => {
           return (
             <>
-              {still.user === userId && still.status === "approved" && (
+              {r.user === userId && r.status === "approved" && (
                 <div className={style.stills}>
                   <div className={style.stillsContainer}>
                     <div>
@@ -1865,14 +1981,15 @@ function EpkView() {
           );
         })}
         {/* the case when user logged in and got refused */}
-        {requests.map((still) => {
+        {requests.map((r) => {
           return (
             <>
-              {still.user === userId && still.status === "refused" && (
+              {r.user === userId && r.status === "refused" && (
                 <div className={style.stills}>
-                  <div className={style.position1}>
+                  <RequestButton status={r.status} />
+                  {/* <div className={style.position1}>
                     <button className={style.btnStills}> Refused </button>
-                  </div>
+                  </div> */}
                   <div className={style.stillsContainer}>
                     <div className={style.content1}>
                       <img

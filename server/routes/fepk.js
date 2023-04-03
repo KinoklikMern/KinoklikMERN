@@ -23,6 +23,8 @@ import {
   getFollowers,
   createReport,
   postRequests,
+  approveRequests,
+  refuseRequests,
 } from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
@@ -85,5 +87,12 @@ router.delete("/delete/:id", deleteFepk);
 
 // Add request to fepk
 router.post("/postRequests", postRequests);
+
+//Approve request to fepk
+router.post("/approveRequest", approveRequests)
+
+//Refuse request to fepk
+router.post("/refuseRequest", refuseRequests)
+
 
 export default router;

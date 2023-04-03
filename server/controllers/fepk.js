@@ -17,6 +17,7 @@ export const getFepks = async (req, res) => {
       .populate("uniqueness.user")
       .populate("stillsApproval")
       .populate("reports.user")
+      // .populate("requests.user")
       .where("deleted")
       .equals(false);
     res.status(200).json(fepks);
@@ -43,6 +44,7 @@ export const getFepksByFilmmakerId = async (req, res) => {
       .populate("uniqueness.user")
       .populate("stillsApproval.user")
       .populate("reports.user")
+      // .populate("requests.user")
       .where("deleted")
       .equals(false);
     res.status(200).json(fepks);
@@ -608,6 +610,64 @@ export const postRequests = async (req, res) => {
     }
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+};
+//************************************************************************************** */
+
+//**************************************Created by Rucheng ***************************************** */
+// approve request mediumSynopsis/Synopsis long/Uniqueness/Stills  part
+export const approveRequests = async (req, res) => {
+  const { fepkId, user,comment} = req.body;
+  try {
+
+    const result = await fepk.findOneAndUpdate(
+      {
+        _id: fepkId,
+        "requests.user": user,
+      },
+      {
+        $set: { "requests.$": {
+          user,
+          comment,
+          status: "approved" } },
+      },
+      { new: true }
+    );
+    if(result){
+      res.status(200).json(result)
+    }else{
+      res.status(404).json({error:"something wrong!"})
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+};
+//************************************************************************************** */
+// refused request mediumSynopsis/Synopsis long/Uniqueness/Stills  part
+export const refuseRequests = async (req, res) => {
+  const { fepkId, user, comment} = req.body;
+  try {
+    const result = await fepk.findOneAndUpdate(
+      {
+        _id: fepkId,
+        "requests.user": user,
+      },
+      {
+        $set: { "requests.$": { 
+          user,
+          comment,
+          status: "refused" } },
+      },
+      { new: true }
+    );
+    console.info(result);
+    if(result){
+      res.status(200).json(result)
+    }else{
+      res.status(404).json({error:"something wrong!"})
+    }
+  } catch (error) {
+    console.log(error.message)
   }
 };
 //************************************************************************************** */

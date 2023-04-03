@@ -6,7 +6,7 @@ export default function Account() {
   const { user } = useSelector((user) => ({ ...user }));
   const [disabled, setDisabled] = useState(true);
   return (
-    <form className="tw-h-full">
+    // <form className="tw-h-full">
       <div className="tw-grid tw-grid-cols-4 tw-gap-2 tw-py-4 tw-h-full">
         <div className="tw-mt-8 tw-col-start-4 tw-flex tw-flex-col tw-justify-self-center">
           <input
@@ -42,6 +42,6 @@ export default function Account() {
           )}
         </div>
       </div>
-    </form>
+    // </form>
   );
 }
