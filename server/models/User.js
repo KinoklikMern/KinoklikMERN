@@ -75,6 +75,10 @@ const UserSchema = mongoose.Schema({
     type: Date,
     default: () => Date.now(),
   },
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).

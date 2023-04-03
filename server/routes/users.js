@@ -13,6 +13,8 @@ import {
   resetPassword,
   updateProfile,
   uploadUserAvatar,
+  changePassword,
+  deleteAccount,
 } from "../controllers/users.js";
 import { validate, validatePassword } from "../middlwares/validator.js";
 const upload = multer({ dest: "images/" });
@@ -41,4 +43,6 @@ router.post(
 
 router.put("/updateProfile/:userId", updateProfile);
 router.post("/uploadUserAvatar", upload.single("file"), uploadUserAvatar);
+router.put("/changePassword", changePassword);
+router.delete("/deleteAccount/:userId", deleteAccount);
 export default router;

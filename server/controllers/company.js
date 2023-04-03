@@ -6,6 +6,7 @@ export const getAllCompany = async (req, res) => {
     const companyGet = await company
       .find()
       .populate("name") // includes all fields of this object
+      .populate("website") // includes all fields of this object
       .populate("email") // includes all fields of this object
       .populate("phone") // includes all fields of this object
       .populate("city") // includes all fields of this object
@@ -27,11 +28,13 @@ export const getCompanyByName = async (req, res) => {
       .find()
       .where({ name: name })
       .populate("name") // includes all fields of this object
+      .populate("website") // includes all fields of this object
       .populate("email") // includes all fields of this object
       .populate("phone") // includes all fields of this object
       .populate("city") // includes all fields of this object
       .populate("province") // includes all fields of this object
       .populate("country") // includes all fields of this object
+      .populate("user.userId") // includes all fields of this object
       .where("deleted")
       .equals(false);
     res.status(200).json(companyGet);
@@ -121,6 +124,71 @@ export const deleteCompany = async (req, res) => {
         { where: { _id: id } }
       );
       res.status(200).json("Company was deleted!");
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+//**********Created by Zibin**************** */
+export const getCompanyByUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    //console.log(userId);
+    const companyGet = await company
+      .findOne()
+      .where({ user: { $elemMatch: { userId: userId } } })
+      .populate("name") // includes all fields of this object
+      .populate("website") // includes all fields of this object
+      .populate("email") // includes all fields of this object
+      .populate("phone") // includes all fields of this object
+      .populate("city") // includes all fields of this object
+      .populate("province") // includes all fields of this object
+      .populate("country") // includes all fields of this object
+      .populate("user.userId") // includes all fields of this object
+      .where("deleted")
+      .equals(false);
+    //if (companyGet) {
+    //console.log(companyGet);
+    res.status(200).json(companyGet);
+    // }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const updateCompanyByUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const companyToSave = req.body;
+    const companyGet = await company
+      .findOne()
+      .where({ user: { $elemMatch: { userId: userId } } })
+      .populate("name") // includes all fields of this object
+      .populate("website") // includes all fields of this object
+      .populate("email") // includes all fields of this object
+      .populate("phone") // includes all fields of this object
+      .populate("city") // includes all fields of this object
+      .populate("province") // includes all fields of this object
+      .populate("country") // includes all fields of this object
+      .populate("user.userId") // includes all fields of this object
+      .where("deleted")
+      .equals(false);
+    if (!companyGet) {
+      const newCompany = new company(companyToSave);
+      await newCompany.save();
+      console.log(newCompany);
+      await newCompany.user.push({ userId });
+      await newCompany.save();
+      await newCompany.updateOne({ deleted: "false" });
+      //console.log(newCompany);
+      res.status(200).json(newCompany);
+    } else {
+      await companyGet.updateOne(companyToSave);
+      await companyGet.updateOne({ updatedAt: new Date() });
+      //const companyUpdated = await company.findOne({ _id: id });
+      //console.log(companyGet);
+      res.status(200).json(companyGet);
     }
   } catch (error) {
     res.status(404).json({ message: error.message });
