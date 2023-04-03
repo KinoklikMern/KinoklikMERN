@@ -78,7 +78,9 @@ export const login = async (request, response) => {
     if (email && password) {
       const user = await User.findOne({
         email: email,
-      });
+      })
+        .where("deleted")
+        .equals(false);
 
       if (!user) {
         return response.status(400).json({
@@ -136,7 +138,7 @@ export const logout = async (req, res) => {
 export const getUser = async (req, res) => {
   const id = req.body.id;
   try {
-    const user = await User.findOne({ _id: id });
+    const user = await User.findOne({ _id: id }).where("deleted").equals(false);
     res.send(user);
   } catch (error) {
     console.log(error.message);
@@ -241,7 +243,7 @@ export const updateProfile = async (req, res) => {
       res.json({ error: "No User was found!" });
     } else {
       const updatedProfile = req.body;
-      console.log(updatedProfile);
+      //console.log(updatedProfile);
       await userOne.updateOne(updatedProfile);
       await userOne.updateOne(
         { updatedAt: new Date() },
@@ -262,8 +264,71 @@ export const uploadUserAvatar = async (req, res) => {
   if (!result) {
     res.status(406).send({ message: "File extention not supported!" });
   } else {
-    console.log(result);
+    //console.log(result);
     res.status(200).send({ key: result.Key });
   }
 };
+
+//update user studio
+export const updateStudio = async (req, res) => {
+  const id = req.params.userId;
+  try {
+    const userOne = await User.findOne({ _id: id });
+    if (!userOne) {
+      res.json({ error: "No User was found!" });
+    } else {
+      const updatedProfile = req.body;
+      //console.log(updatedProfile);
+      await userOne.updateOne(updatedProfile);
+      await userOne.updateOne(
+        { updatedAt: new Date() },
+        { where: { _id: id } }
+      );
+      const userUpdated = await User.findOne({ _id: id });
+      res.status(200).json(userUpdated);
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const changePassword = async (req, res) => {
+  const { newPassword, confirmPassword, userId } = req.body;
+  //console.log(req.body);
+  const user = await User.findById(userId);
+  const matched = await user.comparePassword(newPassword);
+  if (matched)
+    res.status(404).json({
+      message: "The new password must be different from the old one!",
+    });
+  else {
+    const cryptedPassword = await bcrypt.hash(newPassword, 12);
+    user.password = cryptedPassword;
+    await user.save();
+    res.status(200).json({
+      message: "Change Password successfully!",
+    });
+  }
+};
+
+export const deleteAccount = async (req, res) => {
+  const id = req.params.userId;
+  //console.log(id);
+  try {
+    const userToDelete = await User.findOne({ _id: id })
+      .where("deleted")
+      .equals(false);
+    //console.log(userToDelete);
+    if (!userToDelete) {
+      res.json({ error: "No User was found!" });
+    } else {
+      await userToDelete.updateOne({ deleted: true }, { where: { _id: id } });
+      //console.log(userToDelete);
+      res.status(200).json({ message: "Account was deleted!" });
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 //**************************************************************************/
