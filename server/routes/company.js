@@ -7,6 +7,8 @@ import {
   updateCompany,
   deleteCompany,
   getCompanyUsers,
+  getCompanyByUser,
+  updateCompanyByUser,
 } from "../controllers/company.js";
 
 const upload = multer({ dest: "images/" });
@@ -25,4 +27,8 @@ router.put("/update/:id", updateCompany);
 
 //Delete Routes (Make invisible for users)
 router.delete("/delete/:name", deleteCompany);
+
+router.get("/getCompanyByUser/:userId", getCompanyByUser);
+router.put("/updateCompanyByUser/:userId", updateCompanyByUser);
+
 export default router;

@@ -5,6 +5,9 @@ const companySchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  website: {
+    type: String,
+  },
   email: {
     type: String,
     required: true,
@@ -24,7 +27,11 @@ const companySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  create_date: {
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
     type: Date,
     default: Date.now,
   },
@@ -36,6 +43,10 @@ const companySchema = mongoose.Schema({
       },
     },
   ],
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'company' in this case).
 const Company = mongoose.model("company", companySchema);
