@@ -23,6 +23,9 @@ import {
   getFollowers,
   createReport,
   postRequests,
+  getStarredFepksByUser,
+  getFollowingFepksByUser,
+  getRequestsFepksByUser,
 } from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
@@ -85,5 +88,14 @@ router.delete("/delete/:id", deleteFepk);
 
 // Add request to fepk
 router.post("/postRequests", postRequests);
+
+// get fepks which are starred by user
+router.get("/getStarredFepksByUser/:userId", getStarredFepksByUser);
+
+// get fepks which are following by user
+router.get("/getFollowingFepksByUser/:userId", getFollowingFepksByUser);
+
+//// get fepks which are requests by user
+router.get("/getRequestsFepksByUser/:userId", getRequestsFepksByUser);
 
 export default router;

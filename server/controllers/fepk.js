@@ -610,4 +610,85 @@ export const postRequests = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+// get fepks which are starred by user
+export const getStarredFepksByUser = async (req, res) => {
+  const userId = req.params.userId;
+  //console.log(userId);
+  try {
+    const fepks = await fepk
+      .find({ likes: userId })
+      .populate("film_maker") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
+      .populate("uniqueness.user")
+      .populate("stillsApproval.user")
+      .populate("reports.user")
+      .populate("requests.user")
+      .where("deleted")
+      .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// get fepks which are following by user
+export const getFollowingFepksByUser = async (req, res) => {
+  const id = req.params.usrId;
+  try {
+    const fepks = await fepk
+      .find()
+      .where({ favourites: { $elemMatch: { userId: userId } } })
+      .populate("film_maker") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
+      .populate("uniqueness.user")
+      .populate("stillsApproval.user")
+      .populate("reports.user")
+      .populate("requests.user")
+      .where("deleted")
+      .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// get fepks which are requests by user
+export const getRequestsFepksByUser = async (req, res) => {
+  const id = req.params.usrId;
+  try {
+    const fepks = await fepk
+      .find()
+      .where({ requests: { $elemMatch: { userId: userId } } })
+      .populate("film_maker") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
+      .populate("uniqueness.user")
+      .populate("stillsApproval.user")
+      .populate("reports.user")
+      .populate("requests.user")
+      .where("deleted")
+      .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 //************************************************************************************** */
