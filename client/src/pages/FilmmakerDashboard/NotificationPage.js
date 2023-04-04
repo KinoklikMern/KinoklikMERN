@@ -6,22 +6,65 @@ import { getFepksByFilmmakerId } from "../../api/epks";
 import NotificationEpkCard from "../../components/FilmMakerDashboard/Notifications/NotificationEpkCard";
 import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
 import RequestCard from "../../components/FilmMakerDashboard/Notifications/RequestCard";
+import { approveRequest, refuseRequest } from "../../api/epks";
+
 export default function NotificationPage() {
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
   const [epkList, setEpkList] = useState([]);
   const [selectedEpk, setSelectedEpk] = useState(0);
   const [likedUserList, setLikedUserList] = useState([]);
+  const [requestList, setRequestList] = useState([]);
+  const [filter, setFilter] = useState("pending");
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     getFepksByFilmmakerId(user.id).then((res) => {
       setEpkList(res);
       setLikedUserList(res[0].likes);
+      setRequestList({ requests: res[0].requests, fepkId: res[0]._id });
     });
-  }, []);
+  }, [count]);
 
   console.info("bb", epkList);
   console.info("like", likedUserList);
+  console.log("request", requestList);
+  console.log("request epk id", requestList.fepkId);
+
+  const handleApprove = (request, fepkId) => {
+
+    const requestToApprove = {
+      fepkId: fepkId,
+      user: request.user,
+      comment: request.comment,
+    };
+    approveRequest(requestToApprove).then((res) => {
+      console.log("res", res);
+      if (res) {
+        setCount(count + 1);
+      } else {
+        console.log(res);
+      }
+    });
+  };
+  
+
+  const handleDeny = (request, fepkId) => {
+
+    const requestToDeny = {
+      fepkId: fepkId,
+      user: request.user,
+      comment: request.comment,
+    };
+    refuseRequest(requestToDeny).then((res) => {
+      console.log("res", res);
+      if (res) {
+        setCount(count + 1);
+      } else {
+        console.log(res);
+      }
+    });
+  };
 
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
@@ -46,6 +89,10 @@ export default function NotificationPage() {
                       e.preventDefault();
                       setSelectedEpk(index);
                       setLikedUserList(epk.likes);
+                      setRequestList({
+                        requests: epk.requests,
+                        fepkId: epk._id,
+                      });
                     }}
                   >
                     <NotificationEpkCard
@@ -104,10 +151,202 @@ export default function NotificationPage() {
                   </div>
                 )}
                 {openTab === 2 && (
-                  <div className="tw-flex tw-flex-col">
-                    {likedUserList?.map((user) => (
-                      <RequestCard UserInfo={user} />
-                    ))}
+                  <div className="tw-mt-2 tw-flex tw-flex-col">
+                    <ul className="tw-font-regular tw-flex tw-w-4/5 tw-border-gray-200 tw-text-center tw-text-sm tw-text-gray-500 ">
+                      <li
+                        className={
+                          "tw-w-1/4 tw-grow tw-rounded-full tw-text-lg " +
+                          (filter === "allRequests"
+                            ? "tw-w-3/4 tw-bg-[#1E0039] tw-text-white"
+                            : "tw-bg-gray-100 tw-text-[#1E0039]")
+                        }
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFilter("allRequests");
+                        }}
+                      >
+                        <a
+                          href="#"
+                          className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
+                        >
+                          All Request
+                        </a>
+                      </li>
+                      <li
+                        className={
+                          "tw-w-1/4  tw-rounded-full tw-text-lg " +
+                          (filter === "pending"
+                            ? "tw-w-3/4 tw-bg-[#1E0039] tw-text-white"
+                            : "tw-bg-gray-100 tw-text-[#1E0039]")
+                        }
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFilter("pending");
+                        }}
+                      >
+                        <a
+                          href="#"
+                          className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
+                        >
+                          Pending
+                        </a>
+                      </li>
+                      <li
+                        className={
+                          "tw-w-1/4 tw-grow tw-rounded-full tw-text-lg " +
+                          (filter === "approved"
+                            ? "tw-w-3/4 tw-bg-[#1E0039] tw-text-white"
+                            : "tw-bg-gray-100 tw-text-[#1E0039]")
+                        }
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFilter("approved");
+                        }}
+                      >
+                        <a
+                          href="#"
+                          className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
+                        >
+                          Approved
+                        </a>
+                      </li>
+                      <li
+                        className={
+                          "tw-w-1/4 tw-grow tw-rounded-full tw-text-lg " +
+                          (filter === "refused"
+                            ? "tw-w-3/4 tw-bg-[#1E0039] tw-text-white"
+                            : "tw-bg-gray-100 tw-text-[#1E0039]")
+                        }
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFilter("refused");
+                        }}
+                      >
+                        <a
+                          href="#"
+                          className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
+                        >
+                          Refused
+                        </a>
+                      </li>
+                    </ul>
+                    {filter === "allRequests" &&
+                      requestList.requests?.map((request) => (
+                        <div className="tw-flex tw-flex-row tw-justify-between tw-border-b-2">
+                          <div className="tw-w-2/3">
+                            <RequestCard Request={request} />
+                          </div>
+                          <div className="tw-mt-4 tw-w-1/3 tw-py-2 sm:tw-py-4">
+                            <div className="tw-m-4 tw-flex tw-flex-col tw-items-center tw-justify-between">
+                              <div className="tw-self-center">
+                                <p>{request.comment}</p>
+                              </div>
+                              <div className="tw-flex tw-items-end">
+                                {request.status == "refused" && (
+                                  <button
+                                    disabled
+                                    className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white "
+                                  >
+                                    Refused
+                                  </button>
+                                )}
+                                {request.status == "approved" && (
+                                  <button
+                                    disabled
+                                    className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white "
+                                  >
+                                    Approved
+                                  </button>
+                                )}
+                                {request.status == "pending" && (
+                                  <>
+                                    <button
+                                      className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white hover:tw-scale-105"
+                                      onClick={() =>
+                                        handleApprove(
+                                          request,
+                                          requestList.fepkId
+                                        )
+                                      }
+                                    >
+                                      Approve
+                                    </button>
+                                    <button
+                                      className="tw-m-8 tw-inline-block  tw-rounded-full tw-bg-[#1E0039] tw-px-4 tw-text-white hover:tw-scale-105"
+                                      onClick={()=>handleDeny(
+                                        request,
+                                        requestList.fepkId
+                                      )}
+                                    >
+                                      Deny
+                                    </button>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    {filter !== "allRequest" &&
+                      requestList.requests?.map(
+                        (request) =>
+                          request.status == filter && (
+                            <div className="tw-flex tw-flex-row tw-justify-between tw-border-b-2">
+                              <div className="tw-w-2/3">
+                                <RequestCard Request={request} />
+                              </div>
+                              <div className="tw-mt-4 tw-w-1/3 tw-py-2 sm:tw-py-4">
+                                <div className="tw-m-4 tw-flex tw-flex-col tw-items-center tw-justify-between">
+                                  <div className="tw-self-center">
+                                    <p>{request.comment}</p>
+                                  </div>
+                                  <div className="tw-flex tw-items-end">
+                                    {request.status == "refused" && (
+                                      <button
+                                        disabled
+                                        className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white "
+                                      >
+                                        Refused
+                                      </button>
+                                    )}
+                                    {request.status == "approved" && (
+                                      <button
+                                        disabled
+                                        className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white"
+                                      >
+                                        Approved
+                                      </button>
+                                    )}
+                                    {request.status == "pending" && (
+                                      <>
+                                        <button
+                                          className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white hover:tw-scale-105"
+                                          onClick={() =>
+                                            handleApprove(
+                                              request,
+                                              requestList.fepkId
+                                            )
+                                          }
+                                        >
+                                          Approve
+                                        </button>
+                                        <button
+                                          className="tw-m-8 tw-inline-block  tw-rounded-full tw-bg-[#1E0039] tw-px-4 tw-text-white hover:tw-scale-105"
+                                          onClick={()=>handleDeny(
+                                            request,
+                                            requestList.fepkId
+                                          )}
+                                        >
+                                          Deny
+                                        </button>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                      )}
                   </div>
                 )}
               </div>
