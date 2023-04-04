@@ -75,8 +75,13 @@ import Title from "antd/es/skeleton/Title";
 import { useSelector } from "react-redux";
 import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
-import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage"
+import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage";
 import DashboardLayout from "./layouts/DashboardLayout";
+
+import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
+import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
+import UserDashboardSettings from "./pages/UserDashboard/SettingPage";
+import UserDashboardRequests from "./pages/UserDashboard/RequestsPage";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -96,11 +101,26 @@ function App() {
           path="dashboard/notifications"
           element={<DashboardNotification />}
         />
-         <Route
-          path="dashboard/settings"
-          element={<DashboardSettings />}
+        <Route path="dashboard/settings" element={<DashboardSettings />} />
+
+        <Route
+          path="userdashboard/starred"
+          element={<UserDashboardStarred />}
+        />
+        <Route
+          path="userdashboard/following"
+          element={<UserDashboardFollowing />}
+        />
+        <Route
+          path="userdashboard/requests"
+          element={<UserDashboardRequests />}
+        />
+        <Route
+          path="userdashboard/settings"
+          element={<UserDashboardSettings />}
         />
       </Route>
+
       <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
         {/* <Route index element={<Home />} /> */}
 
