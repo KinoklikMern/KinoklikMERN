@@ -148,22 +148,43 @@ const HomeHead = () => {
           />
         </div>
         <div className="menu-icon1">
-          <img
-            className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
-            src={UploadFilmIcon}
-            alt="/"
-            onClick={handleClickMovie}
-            style={{ opacity: clickedMovie ? 1 : 0.5 }}
-          />
+          {userRole === "Filmmaker" ? (
+            <>
+              <a href={`/uploadFepk`}>
+                <img
+                  className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
+                  src={UploadFilmIcon}
+                  alt="/"
+                  onClick={handleClickMovie}
+                  style={{ opacity: clickedMovie ? 1 : 0.5 }}
+                />
+              </a>
+              <img
+                className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
+                src={VolumeIcon2}
+                alt="/"
+                onClick={handleClickVolumeUp}
+                style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
+              />
+            </>
+          ) : (
+            <img
+              className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
+              src={VolumeIcon2}
+              alt="/"
+              onClick={handleClickVolumeUp}
+              style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
+            />
+          )}
           {/*}  </Link> */}
 
-          <img
+          {/* <img
             className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
             src={VolumeIcon2}
             alt="/"
             onClick={handleClickVolumeUp}
             style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
-          />
+          /> */}
         </div>
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">

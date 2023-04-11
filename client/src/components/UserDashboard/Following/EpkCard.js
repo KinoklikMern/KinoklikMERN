@@ -1,11 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDollarSign,
-  faStar,
-  faShareNodes,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 export default function EpkCard(props) {
   const epkInfo = props.EpkInfo;
@@ -21,7 +14,7 @@ export default function EpkCard(props) {
           />
           <div className="text-center tw-flex tw-flex-row tw-justify-between tw-p-5">
             <span className={"tw-w-1/4 tw-grow tw-text-2xl  "}>
-              {epkInfo.title}
+              {epkInfo.title}{" "}
             </span>
           </div>
         </a>

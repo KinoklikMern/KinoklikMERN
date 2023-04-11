@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import NewEpkBtn from "../../components/FilmMakerDashboard/Epks/NewEpkBtn";
+import { useSelector } from "react-redux";
 import Sidebar from "../../components/UserDashboard/Sidebar";
-import EpkCard from "../../components/FilmMakerDashboard/Epks/EpkCard";
-import { getFepksByFilmmakerId } from "../../api/epks";
-import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
+import EpkCard from "../../components/UserDashboard/Following/EpkCard";
+import EmptyEpk from "../../components/UserDashboard/Following/EmptyEpk";
+import Axios from "axios";
 
-export default function EpkPage() {
-  const { user } = useSelector((user) => ({ ...user }));
+export default function FollowingPage() {
   const [epkList, setEpkList] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  let userId;
+  if (!user) {
+    userId = "0";
+  } else {
+    userId = user.id;
+  }
+
   useEffect(() => {
-    // setTimeout(() => setLoading(false), 100)
-    getFepksByFilmmakerId(user.id).then((res) => setEpkList(res));
+    try {
+      Axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/fepks/getFollowingFepksByUser/${userId}`
+      ).then((rs) => {
+        setEpkList(rs.data);
+        console.log(epkList);
+      });
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   }, []);
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
@@ -29,9 +44,6 @@ export default function EpkPage() {
               <EmptyEpk />
             ) : (
               <>
-                <div className="tw-my-16 tw-mb-4 tw-flex tw-justify-center">
-                  <NewEpkBtn />
-                </div>
                 <div className="tw-ml-16 tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 ">
                   {epkList.map((epk) => (
                     <EpkCard EpkInfo={epk} />
