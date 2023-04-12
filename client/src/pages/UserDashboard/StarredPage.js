@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Sidebar from "../../components/UserDashboard/Sidebar";
 import EpkCard from "../../components/UserDashboard/Starred/EpkCard";
 import EmptyEpk from "../../components/UserDashboard/Starred/EmptyEpk";
 import Axios from "axios";
-export default function EpkPage() {
+export default function StarredPage() {
   const [epkList, setEpkList] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));

@@ -642,11 +642,10 @@ export const getStarredFepksByUser = async (req, res) => {
 
 // get fepks which are following by user
 export const getFollowingFepksByUser = async (req, res) => {
-  const id = req.params.usrId;
+  const userId = req.params.userId;
   try {
     const fepks = await fepk
-      .find()
-      .where({ favourites: { $elemMatch: { userId: userId } } })
+      .find({ favourites: userId })
       .populate("film_maker") // includes all fields of this object
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
@@ -669,11 +668,13 @@ export const getFollowingFepksByUser = async (req, res) => {
 
 // get fepks which are requests by user
 export const getRequestsFepksByUser = async (req, res) => {
-  const id = req.params.usrId;
+  const userId = req.params.userId;
+  const status = req.params.status;
+  console.log(userId, status);
   try {
     const fepks = await fepk
       .find()
-      .where({ requests: { $elemMatch: { userId: userId } } })
+      .where({ requests: { $elemMatch: { user: userId, status: status } } })
       .populate("film_maker") // includes all fields of this object
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
@@ -698,35 +699,37 @@ export const getRequestsFepksByUser = async (req, res) => {
 //**************************************Created by Rucheng ***************************************** */
 // approve request mediumSynopsis/Synopsis long/Uniqueness/Stills  part
 export const approveRequests = async (req, res) => {
-  const { fepkId, user,comment} = req.body;
+  const { fepkId, user, comment } = req.body;
   try {
-
     const result = await fepk.findOneAndUpdate(
       {
         _id: fepkId,
         "requests.user": user,
       },
       {
-        $set: { "requests.$": {
-          user,
-          comment,
-          status: "approved" } },
+        $set: {
+          "requests.$": {
+            user,
+            comment,
+            status: "approved",
+          },
+        },
       },
       { new: true }
     );
-    if(result){
-      res.status(200).json(result)
-    }else{
-      res.status(404).json({error:"something wrong!"})
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ error: "something wrong!" });
     }
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
 };
 //************************************************************************************** */
 // refused request mediumSynopsis/Synopsis long/Uniqueness/Stills  part
 export const refuseRequests = async (req, res) => {
-  const { fepkId, user, comment} = req.body;
+  const { fepkId, user, comment } = req.body;
   try {
     const result = await fepk.findOneAndUpdate(
       {
@@ -734,21 +737,24 @@ export const refuseRequests = async (req, res) => {
         "requests.user": user,
       },
       {
-        $set: { "requests.$": { 
-          user,
-          comment,
-          status: "refused" } },
+        $set: {
+          "requests.$": {
+            user,
+            comment,
+            status: "refused",
+          },
+        },
       },
       { new: true }
     );
     console.info(result);
-    if(result){
-      res.status(200).json(result)
-    }else{
-      res.status(404).json({error:"something wrong!"})
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ error: "something wrong!" });
     }
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
 };
 //************************************************************************************** */

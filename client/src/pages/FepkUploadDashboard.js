@@ -14,7 +14,7 @@ function FepkUploadDashboard() {
   } else {
     filmmaker_role = user.role;
   }
-  const access = filmmaker_role === "FILM_MAKER";
+  const access = filmmaker_role === "Filmmaker";
 
   return (
     <>
