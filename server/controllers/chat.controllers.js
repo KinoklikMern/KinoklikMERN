@@ -1,51 +1,76 @@
-import User from "../models/User";
-import Chat from "../models/chatModel";
+import User from "../models/User.js";
+import Chat from "../models/chatModel.js";
 
-
+//@description     Get access Chat/ create new chat
+//@route           post /chat
+//@access          Protected
 const accessChat = async (req, res) => {
-    const { userId } = req.body;
-  
-    if (!userId) {
-      console.log("UserId param not sent with request");
-      return res.sendStatus(400);
-    }
-    let isChat = await Chat.find({
-      isGroupChat: false,
-      $and: [
-        { users: { $elemMatch: { $eq: req.user._id } } },
-        { users: { $elemMatch: { $eq: userId } } },
-      ],
-    })
-      .populate("users", "-password")
-      .populate("latestMessage");
-  
-    isChat = await User.populate(isChat, {
-      path: "latestMessage.sender",
-      select: "firstName lastName role picture email",
-    });
-  
-    if (isChat.length > 0) {
-      res.send(isChat[0]);
-    } else {
-      var chatData = {
-        chatName: "sender",
-        isGroupChat: false,
-        users: [req.user._id, userId],
-      };
-  
-      try {
-        const createdChat = await Chat.create(chatData);
-        const FullChat = await Chat.findOne({ _id: createdChat._id }).populate(
-          "users",
-          "-password"
-        );
-  
-        res.status(200).send(FullChat);
-      } catch (error) {
-        res.status(400);
-        throw new Error(error.message);
-      }
-    }
-  };
+  const { userId } = req.body;
+  console.log("req", req.user)
 
-  export {accessChat};
+  if (!userId) {
+    console.log("UserId param not sent with request");
+    return res.sendStatus(400);
+  }
+  let isChat = await Chat.find({
+    isGroupChat: false,
+    $and: [
+      { users: { $elemMatch: { $eq: req.user.id } } },
+      { users: { $elemMatch: { $eq: userId } } },
+    ],
+  })
+    .populate("users", "firstName lastName role picture email")
+    .populate("latestMessage");
+
+  isChat = await User.populate(isChat, {
+    path: "latestMessage.sender",
+    select: "firstName lastName role picture email",
+  });
+
+  if (isChat.length > 0) {
+    res.send(isChat[0]);
+  } else {
+    var chatData = {
+      chatName: "sender",
+      isGroupChat: false,
+      users: [req.user.id, userId],
+    };
+
+    try {
+      const createdChat = await Chat.create(chatData);
+      const FullChat = await Chat.findOne({ _id: createdChat._id }).populate(
+        "users",
+        "-password"
+      );
+
+      res.status(200).send(FullChat);
+    } catch (error) {
+      res.status(400);
+      throw new Error(error.message);
+    }
+  }
+};
+
+//@description     fetch all chat
+//@route           get /chat
+//@access          Protected
+const fetchChats = async (req, res) => {
+  try {
+    Chat.find({ users: { $elemMatch: { $eq: req.user.id } } })
+      .populate("users", "firstName lastName role picture email")
+      .populate("latestMessage")
+      .sort({ updateAt: -1 })
+      .then(async (results) => {
+        results = await User.populate(results, {
+          path: "latestMessage.sender",
+          select: "firstName lastName role picture email",
+        });
+        res.status(200).send(results);
+      });
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+};
+
+export { accessChat, fetchChats };

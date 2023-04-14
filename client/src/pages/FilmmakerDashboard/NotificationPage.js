@@ -26,11 +26,6 @@ export default function NotificationPage() {
     });
   }, [count]);
 
-  console.info("bb", epkList);
-  console.info("like", likedUserList);
-  console.log("request", requestList);
-  console.log("request epk id", requestList.fepkId);
-
   const handleApprove = (request, fepkId) => {
 
     const requestToApprove = {

@@ -76,6 +76,7 @@ import { useSelector } from "react-redux";
 import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
 import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage"
+import DashboardChat from "./pages/FilmmakerDashboard/ChatPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 
 function App() {
@@ -99,6 +100,10 @@ function App() {
          <Route
           path="dashboard/settings"
           element={<DashboardSettings />}
+        />
+        <Route
+          path="dashboard/chat"
+          element={<DashboardChat />}
         />
       </Route>
       <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
