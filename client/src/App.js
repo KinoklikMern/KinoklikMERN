@@ -9,6 +9,10 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import LoginForm from "./components/Auth/Registration/loginform";
+import SendResetPasswordLinkPage from "./pages/login/SendResetPasswordLinkPage";
+import CheckEmailPage from "./pages/login/CheckEmailPage";
+import ResetPasswordPage from "./pages/login/ResetPasswordPage";
+import ResetPasswordSuccessPage from "./pages/login/ResetPasswordSuccessPage";
 
 // add by Tony
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
@@ -129,6 +133,16 @@ function App() {
         <Route path="edit_profile" element={<Home />} />
         <Route path="signup" element={<RegistrationForm />} />
         <Route path="login" element={<LoginForm />} />
+        <Route
+          path="sendresetpasswordlink"
+          element={<SendResetPasswordLinkPage />}
+        />
+        <Route path="checkemail/:email" element={<CheckEmailPage />} />
+        <Route path="resetpassword" element={<ResetPasswordPage />} />
+        <Route
+          path="resetpasswordsuccesss"
+          element={<ResetPasswordSuccessPage />}
+        />
 
         <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
         <Route path="FilmMakerSelectedEpk" element={<FilmMakerSelectedEpk />} />

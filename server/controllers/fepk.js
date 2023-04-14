@@ -670,7 +670,7 @@ export const getFollowingFepksByUser = async (req, res) => {
 export const getRequestsFepksByUser = async (req, res) => {
   const userId = req.params.userId;
   const status = req.params.status;
-  console.log(userId, status);
+  //console.log(userId, status);
   try {
     const fepks = await fepk
       .find()

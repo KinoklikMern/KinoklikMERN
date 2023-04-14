@@ -102,10 +102,11 @@ function LoginForm() {
             <br />
             <br />
             <p>
-              Don't have an account? <a href="/signup">Sign Up</a>
+              Don't have an account yet? <a href="/signup">Create Account</a>
             </p>
             <p>
-              Forgot password? <a href="/reset">Reset my Password</a>
+              Forgot password?{" "}
+              <a href="/sendresetpasswordlink">Reset my Password</a>
             </p>
           </div>
         </div>
