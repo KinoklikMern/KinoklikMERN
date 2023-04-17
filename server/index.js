@@ -76,9 +76,6 @@ io.on("connection", (socket) => {
     console.log(`user joined chat: ${chat}`);
   });
 
-  // socket.on("typing", (chat) => {
-  //   socket.in(chat).emit("typing");
-  // });
 
   socket.on("new message", (newMessageRecieved) => {
     // console.log("222", newMessageRecieved.chat);

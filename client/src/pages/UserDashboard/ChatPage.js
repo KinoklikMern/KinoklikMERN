@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
+import Sidebar from "../../components/UserDashboard/Sidebar";
 import avatarDemo from "../../images/avatarDefault.jpeg";
 import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
 import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
+import ChatProvider from "../../context/ChatProvider";
 
 export default function ChatPage() {
   const [fetchAgain, setFetchAgain] = useState(false);
   return (
+    <ChatProvider>
       <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
         <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white">
-          <p className="tw-text-4xl">Filmmaker Dashboard</p>
+          <p className="tw-text-4xl">User Dashboard</p>
         </div>
         <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
           <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
@@ -43,5 +45,6 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
+    </ChatProvider>
   );
 }

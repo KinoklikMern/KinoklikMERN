@@ -1,5 +1,5 @@
 import React from "react";
-import {createRoot} from "react-dom/client"
+import { createRoot } from "react-dom/client";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { persistReducer } from "redux-persist";
@@ -16,6 +16,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import reducers from "./reducers";
 
 import App from "./App";
+import ChatProvider from "./context/ChatProvider";
 const persistConfig = {
   key: "root",
   storage,
@@ -36,8 +37,10 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <ChatProvider>
+          <App />
+        </ChatProvider>
       </BrowserRouter>
     </PersistGate>
-  </Provider>  
+  </Provider>
 );

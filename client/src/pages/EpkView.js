@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import http from "../http-common";
+import axios from "axios";
 import Navbar from "../components/navbar/Navbar";
 import { useParams, Link } from "react-router-dom";
 import style from "./EpkView.module.css";
@@ -19,6 +20,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import io from "socket.io-client";
+import { ChatState } from "../context/ChatProvider";
 import {
   faDollarSign,
   faSave,
@@ -49,7 +52,7 @@ import {
 import Login from "../components/Auth/Registration/loginFromViewPage";
 import Axios from "axios";
 import { triggerFocus } from "antd/es/input/Input";
-
+let socket;
 function EpkView() {
   // fetching user
   let { title } = useParams();
@@ -390,11 +393,67 @@ function EpkView() {
     const handleSubmit = () => {
       console.info("!!!", requestMsg);
       addToRequests(requestMsg);
+      addToChat(requestMsg);
     };
+
+    console.log("fepk", fepkData);
+    //create a new chat after submit a request
+
+    const addToChat = async (message) => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/chat`,
+          {
+            userId: fepkData.film_maker._id,
+          },
+          config
+        );
+        //save request message to chat message
+        if (data) {
+          try {
+            const result = await axios.post(
+              `${process.env.REACT_APP_BACKEND_URL}/message`,
+              {
+                chatId: data._id,
+                content: message,
+              },
+              config
+            );
+            socket.emit("new message", result.data);
+          } catch (error) {}
+        }
+      } catch (error) {
+        console.log(`message: ${error.message}`);
+      }
+    };
+
+    const [socketConnected, setSocketConnected] = useState(false);
+    const { notification, setNotification } = ChatState();
+    useEffect(() => {
+      socket = io(process.env.REACT_APP_BACKEND_URL);
+      socket.emit("setup", user);
+      socket.on("connection", () => setSocketConnected(true));
+    }, []);
+
+    useEffect(() => {
+      // console.log("selectchat", selectedChatCompare);
+      socket.on("message recieved", (newMessageRecieved) => {
+        // notification
+        if (!notification.includes(newMessageRecieved)) {
+          setNotification([newMessageRecieved, ...notification]);
+        }
+      });
+    });
+
     return (
       <>
         <Modal show={props.open} onHide={props.show} centered>
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>Send Your Request</Modal.Title>
           </Modal.Header>
           <Modal.Body>

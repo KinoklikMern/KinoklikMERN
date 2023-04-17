@@ -87,6 +87,7 @@ import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
 import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
 import UserDashboardSettings from "./pages/UserDashboard/SettingPage";
 import UserDashboardRequests from "./pages/UserDashboard/RequestsPage";
+import UserDashboardChat from "./pages/UserDashboard/ChatPage";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -126,7 +127,10 @@ function App() {
           element={<UserDashboardSettings />}
         />
 
-        <Route path="dashboard/chat" element={<DashboardChat />} />
+        <Route
+          path="userdashboard/chat"
+          element={<UserDashboardChat />}
+        />
       </Route>
 
       <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
