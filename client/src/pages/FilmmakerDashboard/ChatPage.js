@@ -8,41 +8,10 @@ import avatarDemo from "../../images/avatarDefault.jpeg";
 import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
 import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
 import ChatProvider from "../../context/ChatProvider";
+import { ChatState } from "../../context/ChatProvider";
 
 export default function ChatPage() {
-  const { user } = useSelector((user) => ({ ...user }));
-  const [chats, setChats] = useState();
-  const [selectedChat, setSelectedChat] = useState();
-  const [selectedName, setSelectedName] = useState();
-
-  const fetchChats = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/chat`,
-        config
-      );
-      setChats(data);
-    } catch (error) {
-      console.log(`message: ${error.message}`);
-    }
-  };
-
-  useEffect(() => {
-    fetchChats();
-  }, []);
-
-  const selectChatHandle = (chat, name) => {
-    setSelectedChat(chat);
-    setSelectedName(name);
-  };
-
-  console.log("handle", selectedChat);
-
+  const [fetchAgain, setFetchAgain] = useState(false);
   return (
     <ChatProvider>
       <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
@@ -57,7 +26,7 @@ export default function ChatPage() {
             <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
               <div className="tw-overflow-auto">
                 {/* search bar */}
-                <label className="tw-relative tw-block">
+                {/* <label className="tw-relative tw-block">
                   <span className="tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-2">
                     <FontAwesomeIcon
                       icon={faMagnifyingGlass}
@@ -70,12 +39,12 @@ export default function ChatPage() {
                     type="text"
                     name="search"
                   />
-                </label>
+                </label> */}
                 {/* chatlist */}
-                <ChatList chats={chats} selectChatHandle={selectChatHandle} />
+                <ChatList fetchAgain={fetchAgain}/>
               </div>
               <div className="tw-col-span-2 tw-mr-4 tw-overflow-y-auto tw-border-l-2">
-                <MessageBox chat={selectedChat} senderName={selectedName} />
+                <MessageBox fetchAgain={fetchAgain} setFetchAgain={fetchAgain}/>
               </div>
             </div>
           </div>

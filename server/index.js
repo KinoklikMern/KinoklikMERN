@@ -55,6 +55,7 @@ mongoose.connect(
   }
 );
 
+// rucheng edit
 //Whenever someone connects this gets executed
 const io = new Server(server, {
   pingTimeout: 60000,
@@ -66,30 +67,30 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("connected to socket.io");
   socket.on("setup", (userData) => {
-    socket.join(userData._id);
+    socket.join(userData.id);
+    console.log("11",userData.id);
     socket.emit("connected");
   });
-
-  socket.on("join chat", (user, chat) => {
+  socket.on("join chat", (chat) => {
     socket.join(chat);
-    console.log(`user ${user} joined chat: ${chat}`);
+    console.log(`user joined chat: ${chat}`);
   });
 
-  socket.on("typing", (chat) => {
-    socket.in(chet).emit("typing");
-  });
+  // socket.on("typing", (chat) => {
+  //   socket.in(chat).emit("typing");
+  // });
 
   socket.on("new message", (newMessageRecieved) => {
-    console.log("new msg", newMessageRecieved);
+    // console.log("222", newMessageRecieved.chat);
     let chat = newMessageRecieved.chat;
     if (!chat.users) return console.log("chat.users not defined");
 
     chat.users.forEach((user) => {
-      console.log("user", user);
-      console.log("sender", newMessageRecieved.sender);
+      console.log("user", user._id);
+      console.log("sender", newMessageRecieved.sender._id);
 
-      if (user._id == newMessageRecieved.sender._id) return; 
-      console.log("111");
+
+      if (user._id == newMessageRecieved.sender._id) return;  
 
       socket.in(user._id).emit("message recieved", newMessageRecieved);
     });

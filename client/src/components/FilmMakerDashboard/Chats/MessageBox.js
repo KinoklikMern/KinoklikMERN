@@ -3,13 +3,16 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import io from "socket.io-client";
 import avatarDemo from "../../../images/avatarDefault.jpeg";
+import { ChatState } from "../../../context/ChatProvider";
 
 let socket, selectedChatCompare;
-export default function MessageBox({ chat, senderName }) {
+export default function MessageBox({ fetchAgain, setFetchAgain }) {
   const { user } = useSelector((user) => ({ ...user }));
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
+  const { selectedChat, setSelectedChat, notification, setNotification } =
+    ChatState();
 
   const isLoggedUser = (sender) => {
     return sender._id === user.id ? true : false;
@@ -32,7 +35,7 @@ export default function MessageBox({ chat, senderName }) {
   };
 
   const fetchMessages = async () => {
-    if (!chat) return;
+    if (!selectedChat) return;
     try {
       const config = {
         headers: {
@@ -40,19 +43,20 @@ export default function MessageBox({ chat, senderName }) {
         },
       };
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/message/${chat._id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
-      socket.emit("join chat", user.id, chat._id);
+      socket.emit("join chat", selectedChat._id);
     } catch (error) {
       console.log(`error: ${error.message}`);
     }
   };
 
   const typingHandler = (e) => {
-    if (!socketConnected) return;
     setNewMessage(e.target.value);
+
+    if (!socketConnected) return;
   };
 
   const sendMessage = async () => {
@@ -67,7 +71,7 @@ export default function MessageBox({ chat, senderName }) {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/message`,
         {
-          chatId: chat._id,
+          chatId: selectedChat._id,
           content: newMessage,
         },
         config
@@ -81,41 +85,44 @@ export default function MessageBox({ chat, senderName }) {
   useEffect(() => {
     socket = io(process.env.REACT_APP_BACKEND_URL);
     socket.emit("setup", user);
-    socket.on("connected", () => setSocketConnected(true));
+    socket.on("connection", () => setSocketConnected(true));
   }, []);
 
   useEffect(() => {
     fetchMessages();
-    selectedChatCompare = chat;
-  }, [chat]);
-
+    selectedChatCompare = selectedChat;
+  }, [selectedChat]);
   useEffect(() => {
-    console.log("selectchat", selectedChatCompare);
-
+    // console.log("selectchat", selectedChatCompare);
     socket.on("message recieved", (newMessageRecieved) => {
       if (
         !selectedChatCompare || //if this chat is not selected or does not match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
         // notification
+        if (!notification.includes(newMessageRecieved)) {
+            setNotification([newMessageRecieved, ...notification]);
+            setFetchAgain(!fetchAgain);
+        }
       } else {
         setMessages([...messages, newMessageRecieved]);
       }
     });
   });
-  console.log("new msg", messages);
+  console.log("------", notification);
+  //   console.log("new msg", messages);
 
   return (
     <>
       <div className="tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039]">
         <span className="tw-self-center tw-text-xl tw-text-white">
-          {chat
-            ? `Message exchange with ${senderName}`
+          {selectedChat
+            ? `Message exchange with ${selectedChat.chatName}`
             : "Select a conversation to display"}
         </span>
       </div>
 
-      <div className="tw-h-5/6 tw-overflow-y-auto ">
+      <div className="tw-h-5/6 tw-overflow-y-auto">
         {/* in come message */}
 
         {messages?.map((message) => (
