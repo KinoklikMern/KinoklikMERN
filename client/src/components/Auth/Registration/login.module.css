@@ -13,7 +13,7 @@ link for registration is /login */
     box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
     width: 200px;
     text-align: center;
-    margin-left: 100px;
+    margin-left: 80px;
     /* transform: translate(-50%, -50%); */
 
 }
@@ -29,20 +29,21 @@ link for registration is /login */
 .form {
     position: absolute;
     color: black;
-    top: 55%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /* border: #712CB0 1px solid; */
+    /* margin: auto; */
 
 }
 
-
 .form_input {
     background: white;
-    width: 400px;
+    width: 350px;
     border-radius: 10px;
     border: 10px solid var(#712CB0);
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 300;
     outline-color: transparent;
         box-shadow: 0 0 .4em #844fb0;
 
@@ -65,15 +66,38 @@ link for registration is /login */
 }
 
 .link {
-    margin-left: 100px;
+    text-align: center;
+    /* margin-left: 100px; */
 }
 
 .form_title {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 400;
     text-align: center;
     color: #712CB0;
     padding: 100px;
-
 }
+
+.p {
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    padding: 100px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* set the height of the container to the height of the viewport */
+  }
+  
+  img {
+    display: block;
+    margin: auto;
+  }
+
+  .error_text{
+color: red;
+  }
 

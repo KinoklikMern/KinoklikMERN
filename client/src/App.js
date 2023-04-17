@@ -9,6 +9,10 @@ import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
 import LoginForm from "./components/Auth/Registration/loginform";
+import SendResetPasswordLinkPage from "./pages/login/SendResetPasswordLinkPage";
+import CheckEmailPage from "./pages/login/CheckEmailPage";
+import ResetPasswordPage from "./pages/login/ResetPasswordPage";
+import ResetPasswordSuccessPage from "./pages/login/ResetPasswordSuccessPage";
 
 // add by Tony
 import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
@@ -75,9 +79,14 @@ import Title from "antd/es/skeleton/Title";
 import { useSelector } from "react-redux";
 import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
-import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage"
+import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage";
 import DashboardChat from "./pages/FilmmakerDashboard/ChatPage";
 import DashboardLayout from "./layouts/DashboardLayout";
+
+import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
+import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
+import UserDashboardSettings from "./pages/UserDashboard/SettingPage";
+import UserDashboardRequests from "./pages/UserDashboard/RequestsPage";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -97,15 +106,29 @@ function App() {
           path="dashboard/notifications"
           element={<DashboardNotification />}
         />
-         <Route
-          path="dashboard/settings"
-          element={<DashboardSettings />}
+        <Route path="dashboard/chat" element={<DashboardChat />} />
+        <Route path="dashboard/settings" element={<DashboardSettings />} />
+
+        <Route
+          path="userdashboard/starred"
+          element={<UserDashboardStarred />}
         />
         <Route
-          path="dashboard/chat"
-          element={<DashboardChat />}
+          path="userdashboard/following"
+          element={<UserDashboardFollowing />}
         />
+        <Route
+          path="userdashboard/requests"
+          element={<UserDashboardRequests />}
+        />
+        <Route
+          path="userdashboard/settings"
+          element={<UserDashboardSettings />}
+        />
+
+        <Route path="dashboard/chat" element={<DashboardChat />} />
       </Route>
+
       <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
         {/* <Route index element={<Home />} /> */}
 
@@ -114,6 +137,16 @@ function App() {
         <Route path="edit_profile" element={<Home />} />
         <Route path="signup" element={<RegistrationForm />} />
         <Route path="login" element={<LoginForm />} />
+        <Route
+          path="sendresetpasswordlink"
+          element={<SendResetPasswordLinkPage />}
+        />
+        <Route path="checkemail/:email" element={<CheckEmailPage />} />
+        <Route path="resetpassword" element={<ResetPasswordPage />} />
+        <Route
+          path="resetpasswordsuccesss"
+          element={<ResetPasswordSuccessPage />}
+        />
 
         <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
         <Route path="FilmMakerSelectedEpk" element={<FilmMakerSelectedEpk />} />

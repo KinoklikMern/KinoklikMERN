@@ -3,6 +3,7 @@ import { validateEmail, validateLength } from "../helpers/validation.js";
 import { generateToken } from "../helpers/tokens.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import nodemailer from "nodemailer";
 import { uploadFileToS3 } from "../s3.js";
 // Nada
 import PasswordResetToken from "../models/passwordResetToken.js";
@@ -157,43 +158,50 @@ export const getProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// Nada
+
+//***************************Created by Zibin*******************************
 export const forgetPassword = async (req, res) => {
   const { email } = req.body;
 
-  if (!email) return sendError(res, "email is missing!");
+  if (!email) return res.status(404).json({ message: "email is missing!" });
 
   const user = await User.findOne({ email });
-  if (!user) return sendError(res, "User not found!", 404);
+  if (!user) return res.status(404).json({ message: "User not found!" });
 
   const alreadyHasToken = await PasswordResetToken.findOne({ owner: user._id });
   if (alreadyHasToken)
-    return sendError(
-      res,
-      "Only after one hour you can request for another token!"
-    );
+    return res.status(404).json({
+      message: "Only after one hour you can request for another token!",
+    });
 
-  const token = await generateRandomByte();
+  // const token = await generateRandomByte().toString("utf-8");
+
+  const token = await generateRandomByte().toString();
+
+  console.log(token);
   const newPasswordResetToken = await PasswordResetToken({
     owner: user._id,
     token,
   });
   await newPasswordResetToken.save();
+  console.log(newPasswordResetToken);
+  const tokenHash = await bcrypt.hash(token, 12);
   // the token will expire in 1 hour.
-  const resetPasswordUrl = `http://localhost:3000/reset-password?token=${token}&id=${user._id}`;
+  const resetPasswordUrl = `http://localhost:3000/resetpassword?token=${tokenHash}&id=${user._id}`;
 
+  console.log(resetPasswordUrl);
   transport.sendMail({
-    // from: "security@reviewapp.com",
     from: "info@kinoklik.com",
     to: user.email,
     subject: "Reset Password Link",
     html: `
-        <p>Click here to reset password</p>
+    <h2>Reset Password</h2>
+        <p>A password change has been requested for your account. If this was you, please use the link below to reset your password.</p>
         <a href='${resetPasswordUrl}'>Change Password</a>
       `,
   });
 
-  res.json({ message: "Link sent to your email!" });
+  res.status(200).json({ message: "Link sent to your email!" });
 };
 
 export const sendResetPasswordTokenStatus = (req, res) => {
@@ -201,22 +209,44 @@ export const sendResetPasswordTokenStatus = (req, res) => {
 };
 
 export const resetPassword = async (req, res) => {
-  const { newPassword, userId } = req.body;
+  const { newPassword, retypePassword, token, userId } = req.body;
+
+  if (newPassword.trim() !== retypePassword.trim()) {
+    return res.status(422).json({
+      message: "The new password must match the re-entered password",
+    });
+  }
 
   const user = await User.findById(userId);
+  if (!user)
+    return res.status(404).json({
+      message: "User not found",
+    });
+
   const matched = await user.comparePassword(newPassword);
   if (matched)
-    return sendError(
-      res,
-      "The new password must be different from the old one!"
-    );
+    return res.status(404).json({
+      message: "The new password must be different from the old one!",
+    });
 
-  user.password = newPassword;
+  const cryptedPassword = await bcrypt.hash(newPassword, 12);
+  user.password = cryptedPassword;
   await user.save();
 
-  await PasswordResetToken.findByIdAndDelete(req.resetToken._id);
+  // const expired = await PasswordResetToken.findByIdAndDelete(
+  //   req.resetToken._id
+  // );
 
-  const transport = generateMailTransporter();
+  const expired = await PasswordResetToken.findOneAndDelete({
+    owner: user._id,
+  });
+
+  if (!expired)
+    return res.status(404).json({
+      message: "Token expired",
+    });
+  // const transport = generateMailTransporter();
+  // console.log(transport.verify);
 
   transport.sendMail({
     from: "info@kinoklik.com",
@@ -234,7 +264,6 @@ export const resetPassword = async (req, res) => {
   });
 };
 
-//***************************Created by Zibin*******************************
 export const updateProfile = async (req, res) => {
   const id = req.params.userId;
   try {
@@ -330,5 +359,29 @@ export const deleteAccount = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+function generateRandomByte() {
+  return Math.floor(Math.random() * 256); // generates a random integer between 0 and 255 (inclusive)
+}
+
+// create a transporter object using SMTP
+const transport = nodemailer.createTransport({
+  host: "smtp.gmail.com", // replace with your SMTP server address
+  port: 465, // replace with your SMTP server port
+  secure: true, // use SSL
+  auth: {
+    user: "info@kinoklik.ca", // replace with your email address
+    pass: "kzhotugyiukkxjex", // replace with your email password
+  },
+});
+
+// verify connection configuration
+transport.verify(function (error, success) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
 
 //**************************************************************************/

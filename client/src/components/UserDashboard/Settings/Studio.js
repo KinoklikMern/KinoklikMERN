@@ -1,14 +1,18 @@
-import Axios from "axios";
-import { useSelector } from "react-redux";
-import { React, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
-import avatarDefault from "../../../images/avatar1.jpeg";
+import Axios from "axios";
 
-export default function Profile() {
-  const [message, setMessage] = useState([]);
-  const inputFileRef = useRef(null);
-  const [filename, setFilename] = useState("");
-  const [userProfileData, setUserProfileData] = useState([]);
+export default function Studio() {
+  const [userStudioData, setUserStudioData] = useState({
+    name: "",
+    website: "",
+    email: "",
+    phone: "",
+    city: "",
+    province: "",
+    country: "",
+  });
   const [disabled, setDisabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -26,67 +30,34 @@ export default function Profile() {
 
   useEffect(() => {
     try {
-      Axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/getUser`, {
-        id: userId,
-      }).then((rs) => {
-        setUserProfileData(rs.data);
-        console.log(userProfileData);
+      Axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`
+      ).then((rs) => {
+        if (rs.data) setUserStudioData(rs.data);
+        console.log(userStudioData);
       });
     } catch (error) {
-      alert(error.response.data.message);
+      console.log(error.response.data.message);
     }
   }, []);
 
-  if (filename !== "") {
-    userProfileData.picture = filename;
-  }
-
-  async function fileSelected(event) {
-    const file = event.target.files[0];
-    let formData = new FormData();
-    formData.append("file", event.target.files[0]);
-
-    if (checkFileMimeType(file)) {
-      try {
-        const response = await Axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/users/uploadUserAvatar`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        if (response.data !== undefined) {
-          setFilename(response.data.key);
-          setDisabled(false);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      console.log("error");
-      setMessage("File must be a image(jpeg or png)");
-    }
-  }
-
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
-    setUserProfileData({ ...userProfileData, [name]: value });
+    setUserStudioData({ ...userStudioData, [name]: value });
     setDisabled(false);
-    console.log(userProfileData);
+    //console.log(userStudioData);
   };
 
-  function saveUserProfile() {
+  function saveUserStudio() {
+    //console.log(userStudioData);
     Axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
-      userProfileData
+      `${process.env.REACT_APP_BACKEND_URL}/company/updateCompanyByUser/${userId}`,
+      userStudioData
     )
       .then((res) => {
         setModalIsOpen(true);
         // alert("Updated profile successfully!");
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -95,47 +66,39 @@ export default function Profile() {
     setDisabled(true);
   }
 
-  const checkFileMimeType = (file) => {
-    if (file !== "") {
-      if (
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg"
-      )
-        return true;
-      else return false;
-    } else return true;
-  };
+  function openModal() {
+    setModalIsOpen(true);
+  }
 
-  const openModal = () => setModalIsOpen(true);
-
-  const closeModal = () => setModalIsOpen(false);
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   return (
     //<form className="tw-h-full">
     <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
-      <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col tw-justify-self-center">
+      <div className="tw-col-start-2 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
         <input
           type="text"
-          name="firstName"
-          placeholder="First Name"
-          defaultValue={userProfileData.firstName}
+          name="name"
+          placeholder="Studio Name"
+          defaultValue={userStudioData.name}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
         <input
           type="text"
-          name="lastName"
-          placeholder="Last Name"
-          defaultValue={userProfileData.lastName}
+          name="website"
+          placeholder="Studio Website"
+          defaultValue={userStudioData.website}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
         <input
           type="text"
           name="email"
-          placeholder="Email"
-          defaultValue={userProfileData.email}
+          placeholder="Studio Email"
+          defaultValue={userStudioData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -143,15 +106,7 @@ export default function Profile() {
           type="text"
           name="phone"
           placeholder="Phone"
-          defaultValue={userProfileData.phone}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
-        <input
-          type="text"
-          name="website"
-          placeholder="Website"
-          defaultValue={userProfileData.website}
+          defaultValue={userStudioData.phone}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -159,7 +114,7 @@ export default function Profile() {
           type="text"
           name="city"
           placeholder="City"
-          defaultValue={userProfileData.city}
+          defaultValue={userStudioData.city}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -167,7 +122,7 @@ export default function Profile() {
           type="text"
           name="province"
           placeholder="Province"
-          defaultValue={userProfileData.province}
+          defaultValue={userStudioData.province}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -175,7 +130,7 @@ export default function Profile() {
           type="text"
           name="country"
           placeholder="Country"
-          defaultValue={userProfileData.country}
+          defaultValue={userStudioData.country}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -210,27 +165,13 @@ export default function Profile() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated profile successfully!</h2>
+            <h2>Updated studio successfully!</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
               Ok
             </button>
           </div>
         </Modal>
-      </div>
-      <div className="tw-mx-4 tw-my-8 tw-self-center tw-justify-self-center">
-        <img
-          className="tw-rounded-full"
-          src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
-          alt="User Avatar"
-        />
-        <input
-          type="file"
-          onChange={fileSelected}
-          ref={inputFileRef}
-          accept="image/*"
-          className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-py-2 file:tw-px-4 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
-        />
       </div>
       <div className="tw-col-start-4 tw-place-self-end tw-px-12">
         {disabled === true ? (
@@ -243,13 +184,13 @@ export default function Profile() {
         ) : (
           <button
             className="tw-rounded-full tw-py-2 tw-px-8 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
-            onClick={() => saveUserProfile()}
+            onClick={() => saveUserStudio()}
           >
             Save
           </button>
         )}
       </div>
     </div>
-    //  </form>
+    //</form>
   );
 }

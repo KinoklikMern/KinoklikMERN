@@ -35,9 +35,9 @@ router.post(
 
 router.post(
   "/reset-password",
-  validatePassword,
-  validate,
-  isValidPassResetToken,
+  // validatePassword,
+  // validate,
+  // isValidPassResetToken,
   resetPassword
 );
 

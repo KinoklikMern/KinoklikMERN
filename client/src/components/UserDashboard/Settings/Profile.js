@@ -180,6 +180,20 @@ export default function Profile() {
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
       </div>
+      <div className="tw-mx-4 tw-my-8 tw-self-center tw-justify-self-center">
+        <img
+          className="tw-rounded-full"
+          src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
+          alt="User Avatar"
+        />
+        <input
+          type="file"
+          onChange={fileSelected}
+          ref={inputFileRef}
+          accept="image/*"
+          className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-py-2 file:tw-px-4 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
+        />
+      </div>
       <div>
         <Modal
           isOpen={modalIsOpen}
@@ -217,20 +231,6 @@ export default function Profile() {
             </button>
           </div>
         </Modal>
-      </div>
-      <div className="tw-mx-4 tw-my-8 tw-self-center tw-justify-self-center">
-        <img
-          className="tw-rounded-full"
-          src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
-          alt="User Avatar"
-        />
-        <input
-          type="file"
-          onChange={fileSelected}
-          ref={inputFileRef}
-          accept="image/*"
-          className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-py-2 file:tw-px-4 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
-        />
       </div>
       <div className="tw-col-start-4 tw-place-self-end tw-px-12">
         {disabled === true ? (
