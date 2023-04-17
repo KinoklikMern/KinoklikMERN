@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ChatState } from "../../../context/ChatProvider.js";
+import NotificationItem from "./NotificationItem.js";
+import ChatListItem from "./ChatListItem.js";
 
 export default function ChatList({ fetchAgain }) {
   // { chats }
@@ -31,7 +33,7 @@ export default function ChatList({ fetchAgain }) {
     fetchChats();
   }, [selectedChat, fetchAgain]);
 
-  console.log("---", notification);
+  // console.log("---", notification);
   const getChatSender = (loggedUser, users) => {
     const firstName =
       users[0]._id === loggedUser.id ? users[1].firstName : users[0].firstName;
@@ -57,33 +59,22 @@ export default function ChatList({ fetchAgain }) {
     return formatDate == currentDate ? formatTime : formatDate;
   };
   return (
-    <div className="tw-my-4 tw-mx-4 tw-flex tw-flex-col tw-rounded-lg  tw-bg-gray-200 hover:tw-bg-[#581396] hover:tw-text-white">
-      {chats?.map((chat) => (
-        <div
-          className="tw-relative tw-flex tw-rounded-lg"
-          onClick={() => {setSelectedChat(chat)}}
-        >
-          {notification.length != 0 &&
+    <>
+      <div className="tw-my-4 tw-mx-4 tw-flex tw-flex-col tw-rounded-full  tw-bg-[#1E0039] tw-text-gray-400">
+        {chats?.map((chat) =>
+          notification?.length != 0 ? (
             notification.map((notif) =>
               notif.sender._id == getChatSender(user, chat.users).userId ? (
-                <div className="tw-absolute tw-bottom-auto tw-left-auto tw--right-1 tw--top-1 tw-z-10 tw-rounded-full tw-bg-pink-700 tw-p-2.5"></div>
-              ) : null
-            )}
-          <img
-            className="tw-m-2 tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg"
-            src={`${process.env.REACT_APP_AWS_URL}/${
-              getChatSender(user, chat.users).avatar
-            }`}
-            alt="profile image"
-          />
-          <span className="tw-grow tw-self-center tw-pl-8">
-            {getChatSender(user, chat.users).name}
-          </span>
-          <span className="tw-self-center tw-pr-4">
-            {formatTimestamp(chat.updatedAt)}
-          </span>
-        </div>
-      ))}
-    </div>
+                <NotificationItem chat={chat} getChatSender={getChatSender} formatTimestamp={formatTimestamp} notif={notif}/>
+              ) : (
+                <ChatListItem chat={chat} getChatSender={getChatSender} formatTimestamp={formatTimestamp}/>
+              )
+            )
+          ) : (
+            <ChatListItem chat={chat} getChatSender={getChatSender} formatTimestamp={formatTimestamp}/>
+          )
+        )}
+      </div>
+    </>
   );
 }

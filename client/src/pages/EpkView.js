@@ -410,6 +410,7 @@ function EpkView() {
           `${process.env.REACT_APP_BACKEND_URL}/chat`,
           {
             userId: fepkData.film_maker._id,
+            chatName:`${user.firstName} ${user.lastName}`
           },
           config
         );
@@ -449,6 +450,7 @@ function EpkView() {
         }
       });
     });
+    console.log("nn", notification);
 
     return (
       <>
@@ -1124,7 +1126,7 @@ function EpkView() {
           return (
             <>
               {/* {medium.user._id === userId && medium.status === "approved" && ( */}
-              {r.user._id === userId && r.status === "approved" && (
+              {r.user === userId && r.status === "approved" && (
                 <div className={style.synopsis}>
                   <div>
                     <h2 className={style.type}>Medium Synopsis</h2>

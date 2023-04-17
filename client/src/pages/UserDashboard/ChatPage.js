@@ -19,7 +19,7 @@ export default function ChatPage() {
           </div>
           <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-rounded-lg tw-bg-white tw-p-4">
             <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
-              <div className="tw-overflow-auto">
+              <div className="tw-overflow-auto tw-bg-[#1E0039] tw--m-4">
                 {/* search bar */}
                 {/* <label className="tw-relative tw-block">
                   <span className="tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-2">
@@ -38,7 +38,7 @@ export default function ChatPage() {
                 {/* chatlist */}
                 <ChatList fetchAgain={fetchAgain}/>
               </div>
-              <div className="tw-col-span-2 tw-mr-4 tw-overflow-y-auto tw-border-l-2">
+              <div className="tw-col-span-2 tw-mx-4 tw-overflow-y-auto">
                 <MessageBox fetchAgain={fetchAgain} setFetchAgain={fetchAgain}/>
               </div>
             </div>

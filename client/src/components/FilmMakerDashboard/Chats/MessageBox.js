@@ -53,6 +53,8 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
     }
   };
 
+  console.log("select", selectedChat)
+
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
 
