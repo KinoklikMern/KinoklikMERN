@@ -80,12 +80,14 @@ import { useSelector } from "react-redux";
 import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
 import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage";
+import DashboardChat from "./pages/FilmmakerDashboard/ChatPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 
 import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
 import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
 import UserDashboardSettings from "./pages/UserDashboard/SettingPage";
 import UserDashboardRequests from "./pages/UserDashboard/RequestsPage";
+import UserDashboardChat from "./pages/UserDashboard/ChatPage";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -105,6 +107,7 @@ function App() {
           path="dashboard/notifications"
           element={<DashboardNotification />}
         />
+        <Route path="dashboard/chat" element={<DashboardChat />} />
         <Route path="dashboard/settings" element={<DashboardSettings />} />
 
         <Route
@@ -122,6 +125,11 @@ function App() {
         <Route
           path="userdashboard/settings"
           element={<UserDashboardSettings />}
+        />
+
+        <Route
+          path="userdashboard/chat"
+          element={<UserDashboardChat />}
         />
       </Route>
 

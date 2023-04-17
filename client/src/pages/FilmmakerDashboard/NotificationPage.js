@@ -26,11 +26,6 @@ export default function NotificationPage() {
     });
   }, [count]);
 
-  console.info("bb", epkList);
-  console.info("like", likedUserList);
-  console.log("request", requestList);
-  console.log("request epk id", requestList.fepkId);
-
   const handleApprove = (request, fepkId) => {
 
     const requestToApprove = {
@@ -155,7 +150,7 @@ export default function NotificationPage() {
                     <ul className="tw-font-regular tw-flex tw-w-4/5 tw-border-gray-200 tw-text-center tw-text-sm tw-text-gray-500 ">
                       <li
                         className={
-                          "tw-w-1/4 tw-grow tw-rounded-full tw-text-lg " +
+                          "tw-w-1/3 tw-grow tw-rounded-full tw-text-lg " +
                           (filter === "allRequests"
                             ? "tw-w-3/4 tw-bg-[#1E0039] tw-text-white"
                             : "tw-bg-gray-100 tw-text-[#1E0039]")

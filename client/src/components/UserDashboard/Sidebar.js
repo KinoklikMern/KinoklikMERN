@@ -7,6 +7,8 @@ import PlusIcon from "../../images/icons/PlusEmpty.svg";
 import PlusWhiteIcon from "../../images/icons/PlusFULL.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
 import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
+import MessageIcon from "../../images/icons/message.svg"
+import MessageWhiteIcon from "../../images/icons/message-white.svg"
 export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
   console.info("select", SELECTED_TAB);
@@ -40,6 +42,16 @@ export default function Sidebar(props) {
       size: {
         width: 60,
         height: 60,
+      },
+    },
+    {
+      Title: "Messages",
+      DefaultIcon: MessageIcon,
+      ActiveIcon: MessageWhiteIcon,
+      href: "/userdashboard/chat",
+      size: {
+        width: 70,
+        height: 70,
       },
     },
     {
