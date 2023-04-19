@@ -55,5 +55,27 @@ const sendMessage = async (req, res) => {
   }
 };
 
+const updateMessageAsRead = async (req, res) => {
+  console.log("req", req.params)
+  try {
+    const messages = await Message.updateMany(
+      {
+        $and: [{ chat: req.params.chatId }, { receiverHasRead: false }],
+      },
+      {
+        $set: {
+          receiverHasRead: true,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(200).send(messages);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+};
 
-export {allMessages,sendMessage}
+export { allMessages, sendMessage, updateMessageAsRead };
