@@ -240,7 +240,7 @@ export const resetPassword = async (req, res) => {
   const expired = await PasswordResetToken.findOneAndDelete({
     owner: user._id,
   });
-
+  console.log(expired);
   if (!expired)
     return res.status(404).json({
       message: "Token expired",
