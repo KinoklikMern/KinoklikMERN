@@ -68,8 +68,9 @@ export default function Sidebar(props) {
   return (
     <>
       <nav className="tw-flex tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16">
-        {sideBarList.map((item) => (
+        {sideBarList.map((item, index) => (
           <div
+            key={index}
             className={
               "tw-flex tw-justify-center hover:tw-scale-105 " +
               (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
