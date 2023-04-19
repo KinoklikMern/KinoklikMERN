@@ -4,7 +4,6 @@ import SignupCss from "./signup.module.css";
 import LoginForm from "../../Auth/Registration/loginform";
 import { Link } from "react-router-dom";
 
-
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -27,7 +26,7 @@ function RegistrationForm() {
     // },
     {
       label: "Filmmaker",
-      value: "FILM_MAKER",
+      value: "Filmmaker",
     },
     {
       label: "Distributor",
@@ -35,11 +34,11 @@ function RegistrationForm() {
     },
     {
       label: "Sales_Agent",
-      value: "Sales_Agent",
+      value: "Sales Agent",
     },
     {
       label: "Film_Festival",
-      value: "Film_Festival",
+      value: "Film Festival",
     },
     {
       label: "Investor",
@@ -66,14 +65,7 @@ function RegistrationForm() {
   };
 
   const handleSubmit = async () => {
-    console.log(
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-      role
-    );
+    console.log(firstName, lastName, email, password, confirmPassword, role);
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/users/register`,
@@ -176,13 +168,13 @@ function RegistrationForm() {
               />
             </div>
           </div>
-          
+
           <p className={SignupCss.link}>
             already signed up? <Link to="/login">Login</Link>
           </p>
           <br />
           <br />
-          
+
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}
           <button
