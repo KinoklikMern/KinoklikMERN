@@ -4,7 +4,6 @@ import axios from "axios";
 import { ChatState } from "../../../context/ChatProvider.js";
 import NotificationItem from "./NotificationItem.js";
 import ChatListItem from "./ChatListItem.js";
-import ChatItem from "./ChatItem.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
 
 export default function ChatList({ fetchAgain }) {
