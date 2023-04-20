@@ -33,7 +33,7 @@ export const SideProfileMenu = () => {
   };
   return (
     <>
-      <div className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-flex tw-h-screen tw-w-64 tw-flex-col tw-justify-center tw-gap-6 tw-rounded-l-side tw-bg-[#D9D9D9] tw-bg-opacity-50 tw-duration-300 group-hover:tw-visible">
+      <div className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-10 tw-flex tw-h-screen tw-w-64 tw-flex-col tw-justify-center tw-gap-6 tw-rounded-l-side tw-bg-[#D9D9D9] tw-bg-opacity-50 tw-duration-300 group-hover:tw-visible">
         {user.role === "Filmmaker" ? (
           <>
             <div
@@ -56,7 +56,7 @@ export const SideProfileMenu = () => {
             </div>
           </>
         ) : (
-          user.role === "Viewer" && (
+          user.role != "Filmmaker" && (
             <>
               <div
                 onClick={() => {
