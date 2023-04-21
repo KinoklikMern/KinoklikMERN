@@ -5,14 +5,17 @@ import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
 import EpkCard from "../../components/FilmMakerDashboard/Epks/EpkCard";
 import { getFepksByFilmmakerId } from "../../api/epks";
 import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
+import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 
 export default function EpkPage() {
   const { user } = useSelector((user) => ({ ...user }));
   const [epkList, setEpkList] = useState([]);
-  const [ loading, setLoading ] = useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    // setTimeout(() => setLoading(false), 100)
-    getFepksByFilmmakerId(user.id).then((res) => setEpkList(res));
+    getFepksByFilmmakerId(user.id).then((res) => {
+      setEpkList(res);
+      setLoading(false);
+    });
   }, []);
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
@@ -25,7 +28,9 @@ export default function EpkPage() {
         </div>
         <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar  tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]">
           <div className="tw-flex tw-flex-col tw-gap-12">
-            {epkList.length == 0 ? (
+            {loading ? (
+                <LoadingSpin/>
+            ) : epkList.length == 0 ? (
               <EmptyEpk />
             ) : (
               <>
