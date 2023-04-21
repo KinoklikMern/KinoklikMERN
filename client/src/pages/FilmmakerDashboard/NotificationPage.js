@@ -7,6 +7,7 @@ import NotificationEpkCard from "../../components/FilmMakerDashboard/Notificatio
 import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
 import RequestCard from "../../components/FilmMakerDashboard/Notifications/RequestCard";
 import { approveRequest, refuseRequest } from "../../api/epks";
+import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 
 export default function NotificationPage() {
   const { user } = useSelector((user) => ({ ...user }));
@@ -17,17 +18,18 @@ export default function NotificationPage() {
   const [requestList, setRequestList] = useState([]);
   const [filter, setFilter] = useState("pending");
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getFepksByFilmmakerId(user.id).then((res) => {
       setEpkList(res);
       setLikedUserList(res[0].likes);
       setRequestList({ requests: res[0].requests, fepkId: res[0]._id });
+      setLoading(false);
     });
   }, [count]);
 
   const handleApprove = (request, fepkId) => {
-
     const requestToApprove = {
       fepkId: fepkId,
       user: request.user,
@@ -42,10 +44,8 @@ export default function NotificationPage() {
       }
     });
   };
-  
 
   const handleDeny = (request, fepkId) => {
-
     const requestToDeny = {
       fepkId: fepkId,
       user: request.user,
@@ -71,7 +71,9 @@ export default function NotificationPage() {
           <Sidebar selectedTab="Notifications" />
         </div>
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white">
-          {epkList.length == 0 ? (
+          {loading ? (
+              <LoadingSpin />
+          ) : epkList.length == 0 ? (
             <div className="tw-mt-12">
               <EmptyEpk />
             </div>
@@ -268,10 +270,9 @@ export default function NotificationPage() {
                                     </button>
                                     <button
                                       className="tw-m-8 tw-inline-block  tw-rounded-full tw-bg-[#1E0039] tw-px-4 tw-text-white hover:tw-scale-105"
-                                      onClick={()=>handleDeny(
-                                        request,
-                                        requestList.fepkId
-                                      )}
+                                      onClick={() =>
+                                        handleDeny(request, requestList.fepkId)
+                                      }
                                     >
                                       Deny
                                     </button>
@@ -327,10 +328,12 @@ export default function NotificationPage() {
                                         </button>
                                         <button
                                           className="tw-m-8 tw-inline-block  tw-rounded-full tw-bg-[#1E0039] tw-px-4 tw-text-white hover:tw-scale-105"
-                                          onClick={()=>handleDeny(
-                                            request,
-                                            requestList.fepkId
-                                          )}
+                                          onClick={() =>
+                                            handleDeny(
+                                              request,
+                                              requestList.fepkId
+                                            )
+                                          }
                                         >
                                           Deny
                                         </button>
