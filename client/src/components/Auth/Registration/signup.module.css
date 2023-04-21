@@ -29,7 +29,7 @@ position: absolute;
 
 .form_input {
     background: white;
-    width: 500px;
+    width: 550px;
     border-radius: 10px;
    
     font-size: 20px;
@@ -40,23 +40,24 @@ position: absolute;
 }
 
 .form_input1 {
-   width: 500px;
+   width: 550px;
    display: flex;
    align-items: center;
    justify-content: space-between;
    background-color: #fff; 
    border-radius: 10px;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 500;
         color: black;
         outline-color: transparent;
             box-shadow: 0 0 .4em #844fb0;
+           
 
 }
 
 .form_input2 {
 background: white;
-    width: 500px;
+    width: 550px;
     border-radius: 10px;
     font-size: 20px;
     font-weight: 500;
@@ -110,7 +111,7 @@ background: white;
 }
 
 .form_title {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 400;
    text-align: center;
    color: #712CB0;
@@ -148,7 +149,7 @@ background: white;
     }
 
     .form_input1 button {
-        width: 20%;
+        width: 16%;
     }
 
     .form_input {
@@ -159,4 +160,3 @@ background: white;
         width: 100%;
     }
 }
-

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Sidebar from "../../components/UserDashboard/Sidebar";
-import EpkCard from "../../components/UserDashboard/Following/EpkCard";
+import EpkCard from "../../components/UserDashboard/EpkCard";
 import EmptyEpk from "../../components/UserDashboard/Following/EmptyEpk";
 import Axios from "axios";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
