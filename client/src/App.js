@@ -90,6 +90,9 @@ import UserDashboardRequests from "./pages/UserDashboard/RequestsPage";
 import UserDashboardChat from "./pages/UserDashboard/ChatPage";
 import EpkViewPage from "./pages/EpkViewPage";
 
+import AuthRoutes from "./utils/AuthRoutes";
+import AccessDeniedPage from "./pages/AccessDeniedPage";
+
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
   const NavbarDefaultClass =
@@ -99,39 +102,39 @@ function App() {
   const className = user ? NavbarHomeClass : NavbarDefaultClass;
   return (
     <Routes>
+      <Route path="/accessdenied" element={<AccessDeniedPage />} />
       <Route path="/" element={<MainLayout className={className} />}>
         <Route index element={<Home />} />
       </Route>
-      <Route path="/" element={<DashboardLayout className={className} />}>
-        <Route path="dashboard/epks" element={<DashboardEpks />} />
-        <Route
-          path="dashboard/notifications"
-          element={<DashboardNotification />}
-        />
-        <Route path="dashboard/chat" element={<DashboardChat />} />
-        <Route path="dashboard/settings" element={<DashboardSettings />} />
+      <Route element={<AuthRoutes />}>
+        <Route path="/" element={<DashboardLayout className={className} />}>
+          <Route path="dashboard/epks" element={<DashboardEpks />} />
+          <Route
+            path="dashboard/notifications"
+            element={<DashboardNotification />}
+          />
+          <Route path="dashboard/chat" element={<DashboardChat />} />
+          <Route path="dashboard/settings" element={<DashboardSettings />} />
 
-        <Route
-          path="userdashboard/starred"
-          element={<UserDashboardStarred />}
-        />
-        <Route
-          path="userdashboard/following"
-          element={<UserDashboardFollowing />}
-        />
-        <Route
-          path="userdashboard/requests"
-          element={<UserDashboardRequests />}
-        />
-        <Route
-          path="userdashboard/settings"
-          element={<UserDashboardSettings />}
-        />
+          <Route
+            path="userdashboard/starred"
+            element={<UserDashboardStarred />}
+          />
+          <Route
+            path="userdashboard/following"
+            element={<UserDashboardFollowing />}
+          />
+          <Route
+            path="userdashboard/requests"
+            element={<UserDashboardRequests />}
+          />
+          <Route
+            path="userdashboard/settings"
+            element={<UserDashboardSettings />}
+          />
 
-        <Route
-          path="userdashboard/chat"
-          element={<UserDashboardChat />}
-        />
+          <Route path="userdashboard/chat" element={<UserDashboardChat />} />
+        </Route>
       </Route>
 
       <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
@@ -223,14 +226,16 @@ function App() {
         <Route path="resources" element={<Resources />} />
 
         <Route path="epk/:title" element={<EPK />} />
+        <Route element={<AuthRoutes />}>
+          <Route path="uploadFepk" element={<FepkUploadDashboard />} />
+          <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
+        </Route>
         <Route path="uploadEpk" element={<EpkDashboard />} />
-        <Route path="uploadFepk" element={<FepkUploadDashboard />} />
-        <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
         <Route path="resourcesForm" element={<ResourcesForm />} />
         <Route path="trailer" element={<Trailer />} />
         <Route path="resources" element={<Resources />} />
         <Route path="epkview/:title" element={<EpkView />} />
-        <Route path="epkviewpage/:title" element={< EpkViewPage/>} />
+        {/* <Route path="epkviewpage/:title" element={<EpkViewPage />} /> */}
       </Route>
       <Route path="epk" element={<EPK />} />
       <Route path="approvals/:fepkId" element={<TestApproval />} />

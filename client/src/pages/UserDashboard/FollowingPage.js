@@ -4,9 +4,11 @@ import Sidebar from "../../components/UserDashboard/Sidebar";
 import EpkCard from "../../components/UserDashboard/Following/EpkCard";
 import EmptyEpk from "../../components/UserDashboard/Following/EmptyEpk";
 import Axios from "axios";
+import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 
 export default function FollowingPage() {
   const [epkList, setEpkList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -23,6 +25,7 @@ export default function FollowingPage() {
         `${process.env.REACT_APP_BACKEND_URL}/fepks/getFollowingFepksByUser/${userId}`
       ).then((rs) => {
         setEpkList(rs.data);
+        setLoading(false);
         console.log(epkList);
       });
     } catch (error) {
@@ -40,7 +43,9 @@ export default function FollowingPage() {
         </div>
         <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar  tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]">
           <div className="tw-flex tw-flex-col tw-gap-12">
-            {epkList.length == 0 ? (
+            {loading ? (
+              <LoadingSpin />
+            ) : epkList.length == 0 ? (
               <EmptyEpk />
             ) : (
               <>
