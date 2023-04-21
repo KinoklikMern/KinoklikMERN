@@ -6,11 +6,7 @@ function EpkViewPage() {
 const title = "Avatar" //for development, delete this line after
 
 
-  return <div  className={
-    fepkData.status_pause === false
-      ? style.wholeContainer
-      : style.content1
-  }>EpkViewPage</div>;
+  return <div >EpkViewPage</div>;
 }
 
 export default EpkViewPage;
