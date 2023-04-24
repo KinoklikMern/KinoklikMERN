@@ -685,12 +685,12 @@ function FepkDetailsForm () {
                     </div>
                       {disabledAdd===true ? 
                       (
-                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "100%"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold", width: "100%"}} type="outline-primary" block onClick={addCrewToTable} value="save">
                           Add to Table
                       </Button>
                       ) :
                       (
-                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold", width: "100%"}} type="outline-primary" block onClick={addCrewToTable} value="save">
+                      <Button className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"  style={{boxShadow: '1px 2px 9px #311465', fontWeight: "bold", width: "100%"}} type="outline-primary" block onClick={addCrewToTable} value="save">
                           Add to Table
                       </Button>
                       )}
@@ -720,7 +720,7 @@ function FepkDetailsForm () {
                             <td><a href={crew.facebook_url} target="_blank">{crew.facebook_followers}</a></td>
                             <td><a href={crew.instagram_url} target="_blank">{crew.instagram_followers}</a></td>
                             <td><a href={crew.twitter_url} target="_blank">{crew.twitter_followers}</a></td>
-                            <td style={{textAlign: "center"}} onClick={() => deleteFromCrewList(crew)}><FontAwesomeIcon icon={faTrashCan} /></td>
+                            <td style={{textAlign: "center", cursor:"pointer"}} onClick={() => deleteFromCrewList(crew)}><FontAwesomeIcon icon={faTrashCan}/></td>
                           </tr>
                         );
                       })}
@@ -739,12 +739,12 @@ function FepkDetailsForm () {
                       >
                       {disabled===true ? 
                       (
-                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
+                      <Button disabled style={{boxShadow: '1px 2px 9px #311465', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
                           Save
                       </Button>
                       ) :
                       (
-                      <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
+                      <Button className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white" style={{boxShadow: '1px 2px 9px #311465', fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkDetails} value="save">
                           Save
                       </Button>
                       )}
