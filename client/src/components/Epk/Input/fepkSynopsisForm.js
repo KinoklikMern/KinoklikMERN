@@ -235,12 +235,12 @@ function SynopsisForm () {
                 >
                     {disabled===true ? 
                     (
-                    <Button disabled style={{boxShadow: '1px 2px 9px #311465', filter: 'blur(1px)', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkSynopsis} value="save">
+                    <Button disabled style={{boxShadow: '1px 2px 9px #311465', color: "grey", backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkSynopsis} value="save">
                         Save
                     </Button>
                     ) :
                     (
-                    <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkSynopsis} value="save">
+                    <Button className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"  style={{boxShadow: '1px 2px 9px #311465', fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkSynopsis} value="save">
                         Save
                     </Button>
                     )}
