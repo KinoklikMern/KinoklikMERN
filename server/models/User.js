@@ -32,7 +32,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     enum: [
-      "User",
+      // "User",
       "Admin",
       "Filmmaker",
       "Actor",

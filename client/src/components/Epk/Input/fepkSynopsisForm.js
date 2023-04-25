@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -40,11 +41,23 @@ function SynopsisForm() {
     text_short: fepk.text_short,
     text_medium: fepk.text_medium,
     text_long: fepk.text_long,
+    text_medium_blur: fepk.text_medium_blur,
+    text_long_blur: fepk.text_long_blur,
   });
+
+  if (!epkSynopsisData) {
+    epkSynopsisData.text_medium_blur = fepk.text_medium_blur;
+    epkSynopsisData.text_long_blur = fepk.text_long_blur;
+  }
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;
     setCharacterLength({ ...characterLength, [name]: value.length });
+    setEpkSynopsisData({ ...epkSynopsisData, [name]: value });
+    setDisabled(false);
+  };
+
+  const handleSynopsisBlurChange = (value, name) => {
     setEpkSynopsisData({ ...epkSynopsisData, [name]: value });
     setDisabled(false);
   };
@@ -191,13 +204,13 @@ function SynopsisForm() {
                   <div className="col my-4" style={{ position: "relative" }}>
                     <textarea
                       style={{
-                        height: "150px",
+                        height: "100px",
                         width: "100%",
                         borderRadius: "5px",
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
-                        resize:"none"
+                        resize: "none",
                         // position: "absolute",
                         // bottom: "0",
                       }}
@@ -220,7 +233,7 @@ function SynopsisForm() {
                   <div className="col my-4" style={{ position: "relative" }}>
                     <textarea
                       style={{
-                        height: "150px",
+                        height: "100px",
                         width: "100%",
                         borderRadius: "5px",
                         marginBottom: "5px",
@@ -245,11 +258,31 @@ function SynopsisForm() {
                     >
                       {characterLength?.text_medium}/350 characters
                     </span>
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        height: "30px",
+                        width: "100px",
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={() =>
+                        handleSynopsisBlurChange(
+                          !epkSynopsisData.text_medium_blur,
+                          "text_medium_blur"
+                        )
+                      }
+                      name="text_medium_blur"
+                    >
+                      {epkSynopsisData.text_medium_blur ? "UnBlur" : "Blur"}
+                    </Button>
                   </div>
                   <div className="col my-4" style={{ position: "relative" }}>
                     <textarea
                       style={{
-                        height: "150px",
+                        height: "100px",
                         width: "100%",
                         borderRadius: "5px",
                         marginBottom: "5px",
@@ -274,6 +307,26 @@ function SynopsisForm() {
                     >
                       {characterLength?.text_long}/500 characters
                     </span>
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        height: "30px",
+                        width: "120px",
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={() =>
+                        handleSynopsisBlurChange(
+                          !epkSynopsisData.text_long_blur,
+                          "text_long_blur"
+                        )
+                      }
+                      name="text_long_blur"
+                    >
+                      {epkSynopsisData.text_long_blur ? "UnBlur" : "Blur"}
+                    </Button>
                   </div>
                 </div>
                 <div className="row g-3">
@@ -314,7 +367,7 @@ function SynopsisForm() {
                       height: "50px",
                       width: "120px",
                       marginLeft: "100%",
-                      marginTop: "15px",
+                      // marginTop: "15px",
                     }}
                   >
                     {disabled === true ? (

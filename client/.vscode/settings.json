@@ -5,6 +5,7 @@
         "resetpasswordsuccesss",
         "retypepassword",
         "sendresetpasswordlink",
+        "unblur",
         "userdashboard"
     ]
 }

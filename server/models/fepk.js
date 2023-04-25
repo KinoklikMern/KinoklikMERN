@@ -42,17 +42,21 @@ const fepkSchema = mongoose.Schema({
   // Logline
   image_logline: { type: String },
   logLine_long: { type: String },
+  logLine_blur: { type: Boolean },
 
   // Synopsis
   image_synopsis: { type: String },
   text_short: { type: String },
   text_medium: { type: String },
+  text_medium_blur: { type: Boolean },
   text_long: { type: String },
+  text_long_blur: { type: Boolean },
 
   // Uniqueness
   title_uniqueness: { type: String },
   description_uniqueness: { type: String },
   image_uniqueness: { type: String },
+  uniqueness_blur: { type: Boolean },
 
   // Crew
   crew: [
@@ -89,6 +93,7 @@ const fepkSchema = mongoose.Schema({
   stills: [
     {
       image: { type: String },
+      blur: { type: Boolean },
     },
   ],
 

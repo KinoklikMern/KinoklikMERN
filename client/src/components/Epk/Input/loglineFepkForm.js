@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -10,9 +11,10 @@ function LoglineForm() {
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [characterLength, setCharacterLength] = useState({
-    "logLine_long":0
+    logLine_long: 0,
   });
   const inputFileRef = useRef(null);
+  const [blur, setBlur] = useState("");
 
   let { fepkId } = useParams();
 
@@ -24,7 +26,7 @@ function LoglineForm() {
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
-      setCharacterLength({"logLine_long":response.data.logLine_long.length})
+      setCharacterLength({ logLine_long: response.data.logLine_long.length });
       console.log(response.data);
     });
   }, []);
@@ -32,12 +34,23 @@ function LoglineForm() {
   const [epkLoglineData, setEpkLoglineData] = useState({
     image_logline: fepk.image_logline,
     logLine_long: fepk.logLine_long,
+    logLine_blur: fepk.logLine_blur,
   });
 
   const handleLoglineChange = (event) => {
     const { name, value } = event.target;
-    setCharacterLength({...setCharacterLength, [name]:value.length});
     setEpkLoglineData({ ...epkLoglineData, [name]: value });
+    setCharacterLength({ ...setCharacterLength, [name]: value.length });
+    setDisabled(false);
+  };
+  console.log(epkLoglineData);
+
+  if (!epkLoglineData) {
+    epkLoglineData.logLine_blur = fepk.logLine_blur;
+  }
+
+  const handleLoglineblurChange = (value) => {
+    setEpkLoglineData({ ...epkLoglineData, logLine_blur: value });
     setDisabled(false);
   };
 
@@ -92,6 +105,7 @@ function LoglineForm() {
             console.log(err);
           });
       } else {
+        console.log(epkLoglineData);
         http
           .put(`fepks/update/${fepkId}`, epkLoglineData)
           .then((res) => {
@@ -181,13 +195,16 @@ function LoglineForm() {
                   <div className="col my-1">
                     <textarea
                       style={{
-                        height: "60px",
+                        height: "80px",
                         width: "100%",
                         borderRadius: "5px",
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
-                        resize:"none",
+                        resize: "none",
+                        // filter: epkLoglineData.logLine_blur
+                        //   ? "blur(5px)"
+                        //   : "none",
                       }}
                       className="form-control mt-10"
                       defaultValue={fepk.logLine_long}
@@ -205,6 +222,26 @@ function LoglineForm() {
                     >
                       {characterLength?.logLine_long}/160 characters
                     </span>
+                  </div>
+
+                  <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        height: "30px",
+                        width: "120px",
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={() =>
+                        handleLoglineblurChange(!epkLoglineData.logLine_blur)
+                      }
+                      name="logLine_blur"
+                    >
+                      {epkLoglineData.logLine_blur ? "UnBlur" : "Blur"}
+                    </Button>
                   </div>
                   <div className="col mt-5">
                     <label
@@ -242,7 +279,7 @@ function LoglineForm() {
                     height: "50px",
                     width: "120px",
                     marginLeft: "100%",
-                    marginTop: "120px",
+                    marginTop: "20px",
                   }}
                 >
                   {disabled === true ? (
