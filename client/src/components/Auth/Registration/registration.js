@@ -11,7 +11,7 @@ function RegistrationForm() {
   const [website, setWebsite] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("Viewer");
+  const [role, setRole] = useState("Filmmaker");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
@@ -43,6 +43,10 @@ function RegistrationForm() {
     {
       label: "Investor",
       value: "Investor",
+    },
+    {
+      label: "Viewer",
+      value: "Viewer",
     },
   ];
   const handleInputChange = (e) => {
@@ -173,10 +177,9 @@ function RegistrationForm() {
             already signed up? <Link to="/login">Login</Link>
           </p>
           <br />
-          <br />
-
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}
+          <br />
           <button
             onClick={() => handleSubmit()}
             type="submit"
