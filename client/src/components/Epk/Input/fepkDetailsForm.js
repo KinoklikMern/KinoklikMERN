@@ -173,13 +173,13 @@ function FepkDetailsForm() {
       crewData.epkRole !== "" &&
       crewData.biography !== "" &&
       crewData.biography.length <= 250 &&
-      crewData.image !== "" &&
-      crewData.facebook_url !== "" &&
-      crewData.facebook_followers !== "" &&
-      crewData.instagram_url !== "" &&
-      crewData.instagram_followers !== "" &&
-      crewData.twitter_url !== "" &&
-      crewData.twitter_followers !== ""
+      crewData.image !== ""
+      // crewData.facebook_url !== "" &&
+      // crewData.facebook_followers !== "" &&
+      // crewData.instagram_url !== "" &&
+      // crewData.instagram_followers !== "" &&
+      // crewData.twitter_url !== "" &&
+      // crewData.twitter_followers !== ""
     ) {
       crewList.push(crewData);
       setEpkFilmDetailsData({ ...epkFilmDetailsData, crew: crewList });
@@ -605,11 +605,13 @@ function FepkDetailsForm() {
                       </div>
                       <div className="col-3" style={{ textAlign: "left" }}>
                         {status === false ? (
+                          <div className="hover:tw-scale-110">
                           <FontAwesomeIcon
                             icon={faUserPlus}
-                            style={{ height: "20px", paddingBottom: "8px" }}
+                            style={{ height: "20px", paddingBottom: "8px", cursor:"pointer"}}
                             onClick={() => createNewCrew()}
                           />
+                          </div>
                         ) : (
                           <FontAwesomeIcon
                             icon={faUserCheck}
@@ -665,7 +667,7 @@ function FepkDetailsForm() {
                       }}
                       className="form-control mt-10"
                       defaultValue={crewData.biography}
-                      placeholder="Biography(maxmium 250 characters"
+                      placeholder="Biography(maxmium 250 characters)"
                       onChange={handleCrewChange}
                       name="biography"
                       maxLength="250"
