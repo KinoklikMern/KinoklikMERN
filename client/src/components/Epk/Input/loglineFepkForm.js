@@ -225,39 +225,23 @@ function LoglineForm() {
                   </div>
 
                   <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
-                    {epkLoglineData.logLine_blur === true ? (
-                      <Button
-                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                        style={{
-                          height: "30px",
-                          width: "120px",
-                          boxShadow: "1px 2px 9px #311465",
-                          fontWeight: "bold",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={() => handleLoglineblurChange(false)}
-                        name="logLine_blur"
-                      >
-                        UnBlur
-                      </Button>
-                    ) : (
-                      <Button
-                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                        style={{
-                          height: "30px",
-                          width: "120px",
-                          boxShadow: "1px 2px 9px #311465",
-                          fontWeight: "bold",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={() => handleLoglineblurChange(true)}
-                        name="logLine_blur"
-                      >
-                        Blur
-                      </Button>
-                    )}
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        height: "30px",
+                        width: "120px",
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={() =>
+                        handleLoglineblurChange(!epkLoglineData.logLine_blur)
+                      }
+                      name="logLine_blur"
+                    >
+                      {epkLoglineData.logLine_blur ? "UnBlur" : "Blur"}
+                    </Button>
                   </div>
                   <div className="col mt-5">
                     <label
