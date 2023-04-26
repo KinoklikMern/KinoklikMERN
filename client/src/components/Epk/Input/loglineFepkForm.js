@@ -246,7 +246,7 @@ function LoglineForm() {
                   <div className="col mt-5">
                     <label
                       for="filePoster"
-                      class="form-label text-dark"
+                      className="form-label text-dark"
                       style={{ fontSize: "25px" }}
                     >
                       {" "}
@@ -268,8 +268,8 @@ function LoglineForm() {
                       style={{
                         height: "70px",
                         width: "auto",
-                        marginTop: "5px",
-                        marginLeft: "50px",
+                        // marginTop: "5px",
+                        margin: "inherit",
                       }}
                       alt="no image"
                     />

@@ -450,7 +450,6 @@ function EpkView() {
         }
       });
     });
-    console.log("nn", notification);
 
     return (
       <>

@@ -81,10 +81,10 @@ const HomeBody = () => {
                     );
                 })}
 
-                <div className="sponsTitle">
+                {/* <div className="sponsTitle">
                     <span>SPONSORED RELEASED</span>
                 </div>
-                <Sponsored />
+                <Sponsored /> */}
             </div>
         </>
     );
