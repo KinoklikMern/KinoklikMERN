@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -36,12 +37,22 @@ function UniquenessForm() {
     image_uniqueness: fepk.image_uniqueness,
     title_uniqueness: fepk.title_uniqueness,
     description_uniqueness: fepk.description_uniqueness,
+    uniqueness_blur: fepk.uniqueness_blur,
   });
+
+  if (!epkUniquenessData) {
+    epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
+  }
 
   const handleUniquenessChange = (event) => {
     const { name, value } = event.target;
     setEpkUniquenessData({ ...epkUniquenessData, [name]: value });
     setCharacterLength({ ...characterLength, [name]: value });
+    setDisabled(false);
+  };
+
+  const handleUniquenessBlurChange = (value, name) => {
+    setEpkUniquenessData({ ...epkUniquenessData, [name]: value });
     setDisabled(false);
   };
 
@@ -215,7 +226,7 @@ function UniquenessForm() {
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
-                        resize:"none",
+                        resize: "none",
                       }}
                       className="form-control mt-10"
                       defaultValue={fepk.description_uniqueness}
@@ -233,6 +244,26 @@ function UniquenessForm() {
                     >
                       {characterLength?.description_uniqueness}/500 characters
                     </span>
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        height: "30px",
+                        width: "120px",
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={() =>
+                        handleUniquenessBlurChange(
+                          !epkUniquenessData.uniqueness_blur,
+                          "uniqueness_blur"
+                        )
+                      }
+                      name="text_long_blur"
+                    >
+                      {epkUniquenessData.uniqueness_blur ? "UnBlur" : "Blur"}
+                    </Button>
                   </div>
                   <div className="col my-3"></div>
                 </div>
@@ -274,7 +305,7 @@ function UniquenessForm() {
                       height: "50px",
                       width: "120px",
                       marginLeft: "100%",
-                      marginTop: "80px",
+                      // marginTop: "80px",
                     }}
                   >
                     {disabled === true ? (
