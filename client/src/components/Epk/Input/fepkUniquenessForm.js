@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -36,12 +37,22 @@ function UniquenessForm() {
     image_uniqueness: fepk.image_uniqueness,
     title_uniqueness: fepk.title_uniqueness,
     description_uniqueness: fepk.description_uniqueness,
+    uniqueness_blur: fepk.uniqueness_blur,
   });
+
+  if (!epkUniquenessData) {
+    epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
+  }
 
   const handleUniquenessChange = (event) => {
     const { name, value } = event.target;
     setEpkUniquenessData({ ...epkUniquenessData, [name]: value });
     setCharacterLength({ ...characterLength, [name]: value });
+    setDisabled(false);
+  };
+
+  const handleUniquenessBlurChange = (value, name) => {
+    setEpkUniquenessData({ ...epkUniquenessData, [name]: value });
     setDisabled(false);
   };
 
@@ -182,10 +193,9 @@ function UniquenessForm() {
               >
                 Uniqueness
               </h5>
-              <form>
-                <div className="row g-3">
-                  <div className="col my-3"></div>
-                  <div className="col my-6">
+              <form className="row g-3">
+                <div className="col ms-">
+                  <div className="col my-1">
                     <input
                       style={{
                         height: "30px",
@@ -201,12 +211,12 @@ function UniquenessForm() {
                       onChange={handleUniquenessChange}
                       name="title_uniqueness"
                     />
-                  </div>
-                  <div className="col my-3"></div>
+                    {/* </div>
+                   <div className="col my-3"></div> 
                 </div>
-                <div className="row g-3">
-                  <div className="col my-3"></div>
-                  <div className="col my-6">
+
+                <div className="col ms-">
+                  <div className="col my-1"> */}
                     <textarea
                       style={{
                         height: "120px",
@@ -215,7 +225,7 @@ function UniquenessForm() {
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
-                        resize:"none",
+                        resize: "none",
                       }}
                       className="form-control mt-10"
                       defaultValue={fepk.description_uniqueness}
@@ -234,11 +244,32 @@ function UniquenessForm() {
                       {characterLength?.description_uniqueness}/500 characters
                     </span>
                   </div>
-                  <div className="col my-3"></div>
-                </div>
-                <div className="row g-3">
-                  <div className="col my-3"></div>
-                  <div className="col my-6">
+
+                  <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        height: "30px",
+                        width: "120px",
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={() =>
+                        handleUniquenessBlurChange(
+                          !epkUniquenessData.uniqueness_blur,
+                          "uniqueness_blur"
+                        )
+                      }
+                      name="text_long_blur"
+                    >
+                      {epkUniquenessData.uniqueness_blur ? "UnBlur" : "Blur"}
+                    </Button>
+                  </div>
+                  {/* <div className="col my-3"></div> */}
+
+                  <div className="col mt-5">
                     <label
                       for="filePoster"
                       class="form-label text-dark"
@@ -264,51 +295,51 @@ function UniquenessForm() {
                         height: "70px",
                         width: "auto",
                         marginTop: "5px",
+                        marginLeft: "50px",
                       }}
                       alt="no image"
                     />
                   </div>
-                  <div className="col my-3"></div>
-                  <div
-                    style={{
-                      height: "50px",
-                      width: "120px",
-                      marginLeft: "100%",
-                      marginTop: "80px",
-                    }}
-                  >
-                    {disabled === true ? (
-                      <Button
-                        disabled
-                        style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          color: "grey",
-                          backgroundColor: "#ffffff",
-                          fontWeight: "bold",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={saveEpkUniqueness}
-                        value="save"
-                      >
-                        Save
-                      </Button>
-                    ) : (
-                      <Button
-                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                        style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          fontWeight: "bold",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={saveEpkUniqueness}
-                        value="save"
-                      >
-                        Save
-                      </Button>
-                    )}
-                  </div>
+                </div>
+                <div
+                  style={{
+                    height: "50px",
+                    width: "120px",
+                    marginLeft: "100%",
+                    marginTop: "0px",
+                  }}
+                >
+                  {disabled === true ? (
+                    <Button
+                      disabled
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        color: "grey",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={saveEpkUniqueness}
+                      value="save"
+                    >
+                      Save
+                    </Button>
+                  ) : (
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={saveEpkUniqueness}
+                      value="save"
+                    >
+                      Save
+                    </Button>
+                  )}
                 </div>
               </form>
             </div>
