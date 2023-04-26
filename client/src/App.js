@@ -88,7 +88,6 @@ import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
 import UserDashboardSettings from "./pages/UserDashboard/SettingPage";
 import UserDashboardRequests from "./pages/UserDashboard/RequestsPage";
 import UserDashboardChat from "./pages/UserDashboard/ChatPage";
-import EpkViewPage from "./pages/EpkViewPage";
 
 import AuthRoutes from "./utils/AuthRoutes";
 import AccessDeniedPage from "./pages/AccessDeniedPage";
@@ -235,7 +234,6 @@ function App() {
         <Route path="trailer" element={<Trailer />} />
         <Route path="resources" element={<Resources />} />
         <Route path="epkview/:title" element={<EpkView />} />
-        {/* <Route path="epkviewpage/:title" element={<EpkViewPage />} /> */}
       </Route>
       <Route path="epk" element={<EPK />} />
       <Route path="approvals/:fepkId" element={<TestApproval />} />

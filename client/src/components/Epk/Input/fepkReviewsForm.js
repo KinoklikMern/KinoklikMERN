@@ -324,7 +324,7 @@ function ReviewsForm() {
                                 />
                               </td>
                               <td
-                                style={{ textAlign: "center" }}
+                                style={{ textAlign: "center", cursor:"pointer" }}
                                 onClick={() => deleteFromReviewsList(review)}
                               >
                                 <FontAwesomeIcon icon={faTrashCan} />

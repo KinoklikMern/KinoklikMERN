@@ -20,7 +20,9 @@ function StillsForm() {
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
   const [stillsList, setStillsList] = useState([]);
+
   const [epkStillsData, setEpkStillsData] = useState([]);
+
 
   let { fepkId } = useParams();
 
@@ -33,10 +35,12 @@ function StillsForm() {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
       setStillsList(response.data.stills);
+
       setEpkStillsData(response.data.stills);
       //      console.log(response.data.title);
     });
   }, []);
+
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -74,7 +78,9 @@ function StillsForm() {
             if (response.data !== undefined) {
               const key = response.data.key;
               console.log(key);
+
               stillsList.push({ image: key, blur: false });
+
               setEpkStillsData({ ...epkStillsData, stills: stillsList });
               console.log(epkStillsData);
               setDisabled(false);
@@ -99,6 +105,7 @@ function StillsForm() {
     setDisabled(false);
   }
 
+
   const handleStillsBlurChange = (value, still) => {
     // Use filter to find the element with the specified `_id` in the `stills` array
     const updatedStills = stillsList.filter(
@@ -121,6 +128,7 @@ function StillsForm() {
 
   function saveEpkStills() {
     console.log(epkStillsData);
+
     http
       .put(`fepks/update/${fepkId}`, epkStillsData)
       .then((res) => {
@@ -225,7 +233,11 @@ function StillsForm() {
                 </div>
                 <div className="col-1 mt-5">
                   <br />
-                  <FontAwesomeIcon icon={faPlus} onClick={addImage} />
+
+                  <div className="tw-cursor-pointer hover:tw-scale-110">
+                    <FontAwesomeIcon icon={faPlus} onClick={addImage} />
+                  </div>
+
                 </div>
                 <div className="col-6 mt-3">
                   <table
@@ -236,7 +248,9 @@ function StillsForm() {
                       <tr>
                         <th>IMAGE</th>
                         <th>ACTION</th>
+
                         <th>ACTION</th>
+
                       </tr>
                     </thead>
                     <tbody>
@@ -250,11 +264,14 @@ function StillsForm() {
                               />
                             </td>
                             <td
-                              style={{ textAlign: "center" }}
+
+                              style={{ textAlign: "center", cursor: "pointer" }}
+
                               onClick={() => deleteFromStillsList(still)}
                             >
                               <FontAwesomeIcon icon={faTrashCan} />
                             </td>
+
                             <td>
                               <Button
                                 className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
@@ -274,6 +291,7 @@ function StillsForm() {
                                 {still.blur ? "UnBlur" : "Blur"}
                               </Button>
                             </td>
+
                           </tr>
                         );
                       })}

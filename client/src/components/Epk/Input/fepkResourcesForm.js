@@ -232,7 +232,7 @@ function ResourcesForm() {
                         textAlign: "left",
                       }}
                       className="form-control m-10"
-                      placeholder="Time"
+                      placeholder="Duration Required"
                       onChange={handleResourceChange}
                       name="time"
                     />
@@ -318,12 +318,12 @@ function ResourcesForm() {
                   <div className="col-7 my-4">
                     <table
                       className="table table-striped table-bordered"
-                      style={{ fontSize: "8px", textAlign: "center" }}
+                      style={{ fontSize: "8px", textAlign: "center",tableLayout:"auto",width:"100%" }}
                     >
                       <thead className="thead-dark">
                         <tr>
                           <th>Title</th>
-                          <th>Time</th>
+                          <th style={{width:"fit-content", whiteSpace: "nowrap"}}>Duration Required</th>
                           <th>Description</th>
                           <th>Image</th>
                           <th>ACTION</th>
@@ -335,7 +335,7 @@ function ResourcesForm() {
                             <tr>
                               <td>{resource.title}</td>
                               <td>{resource.time}</td>
-                              <td>{resource.description}</td>
+                              <td style={{width:"fit-content"}}>{resource.description}</td>
                               <td>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
@@ -343,7 +343,7 @@ function ResourcesForm() {
                                 />
                               </td>
                               <td
-                                style={{ textAlign: "center" }}
+                                style={{ textAlign: "center" , cursor:"pointer"}}
                                 onClick={() =>
                                   deleteFromResourcesList(resource)
                                 }
