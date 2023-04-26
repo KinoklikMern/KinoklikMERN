@@ -16,6 +16,7 @@ function SynopsisForm() {
     text_medium: 0,
     text_long: 0,
   });
+  const [epkSynopsisData, setEpkSynopsisData] = useState([]);
 
   let { fepkId } = useParams();
 
@@ -32,23 +33,17 @@ function SynopsisForm() {
         text_medium: response.data.text_medium.length,
         text_long: response.data.text_long.length,
       });
+      setEpkSynopsisData({
+        image_synopsis: response.data.image_synopsis,
+        text_short: response.data.text_short,
+        text_medium: response.data.text_medium,
+        text_long: response.data.text_long,
+        text_medium_blur: response.data.text_medium_blur,
+        text_long_blur: response.data.text_long_blur,
+      });
       // console.log(response.data.title);
     });
   }, []);
-
-  const [epkSynopsisData, setEpkSynopsisData] = useState({
-    image_synopsis: fepk.image_synopsis,
-    text_short: fepk.text_short,
-    text_medium: fepk.text_medium,
-    text_long: fepk.text_long,
-    text_medium_blur: fepk.text_medium_blur,
-    text_long_blur: fepk.text_long_blur,
-  });
-
-  if (!epkSynopsisData) {
-    epkSynopsisData.text_medium_blur = fepk.text_medium_blur;
-    epkSynopsisData.text_long_blur = fepk.text_long_blur;
-  }
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;

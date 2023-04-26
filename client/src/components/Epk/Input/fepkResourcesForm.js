@@ -124,6 +124,7 @@ function ResourcesForm() {
   }
 
   function saveEpkResources() {
+    console.log(epkResourcesData);
     http
       .put(`fepks/update/${fepkId}`, epkResourcesData)
       .then((res) => {
