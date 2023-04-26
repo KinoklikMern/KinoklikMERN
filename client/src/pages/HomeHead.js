@@ -207,7 +207,7 @@ const HomeHead = () => {
 
           <p className="movieIntro tw-my-8 tw-text-xl ">{fepk.logLine_short}</p>
         </div>
-        <HomeMainFilm />
+        {/* <HomeMainFilm /> */}
       </section>
     </div>
   );
