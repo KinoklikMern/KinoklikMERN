@@ -13,6 +13,7 @@ function UniquenessForm() {
   const [characterLength, setCharacterLength] = useState({
     description_uniqueness: 0,
   });
+  const [epkUniquenessData, setEpkUniquenessData] = useState([]);
   const inputFileRef = useRef(null);
 
   let { fepkId } = useParams();
@@ -30,15 +31,14 @@ function UniquenessForm() {
         ...characterLength,
         description_uniqueness: response.data.description_uniqueness.length,
       });
+      setEpkUniquenessData({
+        image_uniqueness: response.data.image_uniqueness,
+        title_uniqueness: response.data.title_uniqueness,
+        description_uniqueness: response.data.description_uniqueness,
+        uniqueness_blur: response.data.uniqueness_blur,
+      });
     });
   }, []);
-
-  const [epkUniquenessData, setEpkUniquenessData] = useState({
-    image_uniqueness: fepk.image_uniqueness,
-    title_uniqueness: fepk.title_uniqueness,
-    description_uniqueness: fepk.description_uniqueness,
-    uniqueness_blur: fepk.uniqueness_blur,
-  });
 
   if (!epkUniquenessData) {
     epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;

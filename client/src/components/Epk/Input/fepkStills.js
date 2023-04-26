@@ -1,3 +1,5 @@
+/* eslint-disable no-const-assign */
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -19,6 +21,9 @@ function StillsForm() {
   const inputFileRef = useRef(null);
   const [stillsList, setStillsList] = useState([]);
 
+  const [epkStillsData, setEpkStillsData] = useState([]);
+
+
   let { fepkId } = useParams();
 
   const fileSelected = (event) => {
@@ -30,13 +35,12 @@ function StillsForm() {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
       setStillsList(response.data.stills);
-      console.log(response.data.title);
+
+      setEpkStillsData(response.data.stills);
+      //      console.log(response.data.title);
     });
   }, []);
 
-  const [epkStillsData, setEpkStillsData] = useState({
-    stills: fepk.stills,
-  });
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -74,7 +78,9 @@ function StillsForm() {
             if (response.data !== undefined) {
               const key = response.data.key;
               console.log(key);
-              stillsList.push({ image: key });
+
+              stillsList.push({ image: key, blur: false });
+
               setEpkStillsData({ ...epkStillsData, stills: stillsList });
               console.log(epkStillsData);
               setDisabled(false);
@@ -99,7 +105,30 @@ function StillsForm() {
     setDisabled(false);
   }
 
+
+  const handleStillsBlurChange = (value, still) => {
+    // Use filter to find the element with the specified `_id` in the `stills` array
+    const updatedStills = stillsList.filter(
+      (stillsElement) => stillsElement === still
+    );
+    // Update the `blur` field of the first element in the filtered array
+    updatedStills[0].blur = value;
+    // Update the corresponding field of the `epkStillsData` object
+    const newStillsList = [
+      ...stillsList.filter((stillsElement) => stillsElement !== still),
+      ...updatedStills,
+    ];
+    // console.log(newStillsList);
+    // Update the state with the updated object
+    setStillsList(newStillsList);
+    setEpkStillsData({ ...epkStillsData, stills: newStillsList });
+    // console.log(epkStillsData);
+    setDisabled(false);
+  };
+
   function saveEpkStills() {
+    console.log(epkStillsData);
+
     http
       .put(`fepks/update/${fepkId}`, epkStillsData)
       .then((res) => {
@@ -204,9 +233,11 @@ function StillsForm() {
                 </div>
                 <div className="col-1 mt-5">
                   <br />
+
                   <div className="tw-cursor-pointer hover:tw-scale-110">
                     <FontAwesomeIcon icon={faPlus} onClick={addImage} />
                   </div>
+
                 </div>
                 <div className="col-6 mt-3">
                   <table
@@ -217,6 +248,9 @@ function StillsForm() {
                       <tr>
                         <th>IMAGE</th>
                         <th>ACTION</th>
+
+                        <th>ACTION</th>
+
                       </tr>
                     </thead>
                     <tbody>
@@ -230,11 +264,34 @@ function StillsForm() {
                               />
                             </td>
                             <td
+
                               style={{ textAlign: "center", cursor: "pointer" }}
+
                               onClick={() => deleteFromStillsList(still)}
                             >
                               <FontAwesomeIcon icon={faTrashCan} />
                             </td>
+
+                            <td>
+                              <Button
+                                className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                                style={{
+                                  height: "30px",
+                                  width: "120px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                  fontWeight: "bold",
+                                }}
+                                type="outline-primary"
+                                block
+                                onClick={() =>
+                                  handleStillsBlurChange(!still.blur, still)
+                                }
+                                name="blur"
+                              >
+                                {still.blur ? "UnBlur" : "Blur"}
+                              </Button>
+                            </td>
+
                           </tr>
                         );
                       })}

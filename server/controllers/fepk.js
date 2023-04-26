@@ -218,6 +218,7 @@ export const updateFepk = async (req, res) => {
         { where: { _id: id } }
       );
       const fepkUpdated = await fepk.findOne({ _id: id });
+      //console.log(fepkUpdated);
       res.status(200).json(fepkUpdated);
     }
   } catch (error) {

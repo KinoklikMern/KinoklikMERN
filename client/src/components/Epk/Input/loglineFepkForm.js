@@ -15,6 +15,7 @@ function LoglineForm() {
   });
   const inputFileRef = useRef(null);
   const [blur, setBlur] = useState("");
+  const [epkLoglineData, setEpkLoglineData] = useState([]);
 
   let { fepkId } = useParams();
 
@@ -27,15 +28,13 @@ function LoglineForm() {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
       setCharacterLength({ logLine_long: response.data.logLine_long.length });
-      console.log(response.data);
+      setEpkLoglineData({
+        image_logline: response.data.image_logline,
+        logLine_long: response.data.logLine_long,
+        logLine_blur: response.data.logLine_blur,
+      });
     });
   }, []);
-
-  const [epkLoglineData, setEpkLoglineData] = useState({
-    image_logline: fepk.image_logline,
-    logLine_long: fepk.logLine_long,
-    logLine_blur: fepk.logLine_blur,
-  });
 
   const handleLoglineChange = (event) => {
     const { name, value } = event.target;
@@ -43,11 +42,6 @@ function LoglineForm() {
     setCharacterLength({ ...setCharacterLength, [name]: value.length });
     setDisabled(false);
   };
-  console.log(epkLoglineData);
-
-  if (!epkLoglineData) {
-    epkLoglineData.logLine_blur = fepk.logLine_blur;
-  }
 
   const handleLoglineblurChange = (value) => {
     setEpkLoglineData({ ...epkLoglineData, logLine_blur: value });
