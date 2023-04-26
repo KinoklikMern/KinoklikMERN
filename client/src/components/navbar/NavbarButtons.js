@@ -73,7 +73,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
               SIGN UP
             </Link> */}
             <Link
-              to="/uploadFepk"
+              to={user?'/uploadFepk':'/login'}
               className="md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400"
             >
               CREATE EPK
