@@ -269,6 +269,7 @@ function LoglineForm() {
                         height: "70px",
                         width: "auto",
                         marginTop: "5px",
+                        marginLeft: "50px",
                       }}
                       alt="no image"
                     />
