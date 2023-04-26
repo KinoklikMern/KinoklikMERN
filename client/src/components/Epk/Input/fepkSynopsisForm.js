@@ -258,26 +258,29 @@ function SynopsisForm() {
                     >
                       {characterLength?.text_medium}/350 characters
                     </span>
-                    <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                      style={{
-                        height: "30px",
-                        width: "100px",
-                        boxShadow: "1px 2px 9px #311465",
-                        fontWeight: "bold",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={() =>
-                        handleSynopsisBlurChange(
-                          !epkSynopsisData.text_medium_blur,
-                          "text_medium_blur"
-                        )
-                      }
-                      name="text_medium_blur"
-                    >
-                      {epkSynopsisData.text_medium_blur ? "UnBlur" : "Blur"}
-                    </Button>
+                    <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
+                      <Button
+                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                        style={{
+                          height: "30px",
+                          width: "100px",
+                          boxShadow: "1px 2px 9px #311465",
+                          fontWeight: "bold",
+                          justifyContent: "right",
+                        }}
+                        type="outline-primary"
+                        block
+                        onClick={() =>
+                          handleSynopsisBlurChange(
+                            !epkSynopsisData.text_medium_blur,
+                            "text_medium_blur"
+                          )
+                        }
+                        name="text_medium_blur"
+                      >
+                        {epkSynopsisData.text_medium_blur ? "UnBlur" : "Blur"}
+                      </Button>
+                    </div>
                   </div>
                   <div className="col my-4" style={{ position: "relative" }}>
                     <textarea
@@ -307,26 +310,29 @@ function SynopsisForm() {
                     >
                       {characterLength?.text_long}/500 characters
                     </span>
-                    <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                      style={{
-                        height: "30px",
-                        width: "120px",
-                        boxShadow: "1px 2px 9px #311465",
-                        fontWeight: "bold",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={() =>
-                        handleSynopsisBlurChange(
-                          !epkSynopsisData.text_long_blur,
-                          "text_long_blur"
-                        )
-                      }
-                      name="text_long_blur"
-                    >
-                      {epkSynopsisData.text_long_blur ? "UnBlur" : "Blur"}
-                    </Button>
+
+                    <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
+                      <Button
+                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                        style={{
+                          height: "30px",
+                          width: "120px",
+                          boxShadow: "1px 2px 9px #311465",
+                          fontWeight: "bold",
+                        }}
+                        type="outline-primary"
+                        block
+                        onClick={() =>
+                          handleSynopsisBlurChange(
+                            !epkSynopsisData.text_long_blur,
+                            "text_long_blur"
+                          )
+                        }
+                        name="text_long_blur"
+                      >
+                        {epkSynopsisData.text_long_blur ? "UnBlur" : "Blur"}
+                      </Button>
+                    </div>
                   </div>
                 </div>
                 <div className="row g-3">
