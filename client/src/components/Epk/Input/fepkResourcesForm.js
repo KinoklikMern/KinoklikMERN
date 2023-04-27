@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -10,6 +11,7 @@ import {
   faTrashCan,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import Modal from "react-modal";
 
 function ResourcesForm() {
   const [file, setFile] = useState("");
@@ -30,6 +32,7 @@ function ResourcesForm() {
   const [characterLength, setCharacterLength] = useState({
     description: 0,
   });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   let { fepkId } = useParams();
 
@@ -128,6 +131,7 @@ function ResourcesForm() {
     http
       .put(`fepks/update/${fepkId}`, epkResourcesData)
       .then((res) => {
+        setModalIsOpen(true);
         console.log("saved");
       })
       .catch((err) => {
@@ -135,6 +139,10 @@ function ResourcesForm() {
       });
     setDisabled(true);
   }
+
+  const openModal = () => setModalIsOpen(true);
+
+  const closeModal = () => setModalIsOpen(false);
 
   return (
     <>
@@ -318,12 +326,24 @@ function ResourcesForm() {
                   <div className="col-7 my-4">
                     <table
                       className="table table-striped table-bordered"
-                      style={{ fontSize: "8px", textAlign: "center",tableLayout:"auto",width:"100%" }}
+                      style={{
+                        fontSize: "8px",
+                        textAlign: "center",
+                        tableLayout: "auto",
+                        width: "100%",
+                      }}
                     >
                       <thead className="thead-dark">
                         <tr>
                           <th>Title</th>
-                          <th style={{width:"fit-content", whiteSpace: "nowrap"}}>Duration Required</th>
+                          <th
+                            style={{
+                              width: "fit-content",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            Duration Required
+                          </th>
                           <th>Description</th>
                           <th>Image</th>
                           <th>ACTION</th>
@@ -335,7 +355,9 @@ function ResourcesForm() {
                             <tr>
                               <td>{resource.title}</td>
                               <td>{resource.time}</td>
-                              <td style={{width:"fit-content"}}>{resource.description}</td>
+                              <td style={{ width: "fit-content" }}>
+                                {resource.description}
+                              </td>
                               <td>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
@@ -343,7 +365,10 @@ function ResourcesForm() {
                                 />
                               </td>
                               <td
-                                style={{ textAlign: "center" , cursor:"pointer"}}
+                                style={{
+                                  textAlign: "center",
+                                  cursor: "pointer",
+                                }}
                                 onClick={() =>
                                   deleteFromResourcesList(resource)
                                 }
@@ -355,6 +380,47 @@ function ResourcesForm() {
                         })}
                       </tbody>
                     </table>
+                    <div>
+                      <Modal
+                        isOpen={modalIsOpen}
+                        onRequestClose={closeModal}
+                        contentLabel="Example Modal"
+                        appElement={document.getElementById("root")}
+                        style={{
+                          overlay: {
+                            // position: "fixed",
+                            // top: 0,
+                            // left: 0,
+                            // right: 0,
+                            // bottom: 0,
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                          },
+                          content: {
+                            position: "absolute",
+                            border: "2px solid #000",
+                            backgroundColor: "white",
+                            boxShadow: "2px solid black",
+                            height: 150,
+                            width: 300,
+                            margin: "auto",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          },
+                        }}
+                      >
+                        <div style={{ textAlign: "center" }}>
+                          <h2>Your content has been successfully saved!</h2>
+                          <br />
+                          <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={closeModal}
+                          >
+                            Ok
+                          </button>
+                        </div>
+                      </Modal>
+                    </div>
                   </div>
                   <div className="col-1 mt-5">
                     <div
