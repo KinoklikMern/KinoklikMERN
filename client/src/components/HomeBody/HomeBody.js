@@ -70,13 +70,14 @@ const HomeBody = () => {
           <List title="wish_to_buy" />
         </div>
 
+
         {genres.map((genre) => {
           return (
             <>
               <div className="listTitle">
                 <span>{genre.toUpperCase()}</span>
               </div>
-              {console.log(fepks.filter((fepk) => fepk.genre === genre))}
+
               <div className="list">
                 <div className="wrapper">
                   <ArrowBackIosOutlined

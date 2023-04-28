@@ -52,8 +52,11 @@ import {
 import Login from "../components/Auth/Registration/loginFromViewPage";
 import Axios from "axios";
 import { triggerFocus } from "antd/es/input/Input";
+import { FepkContext } from "../context/FepkContext";
 let socket;
 function EpkView() {
+  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
+    React.useContext(FepkContext);
   // fetching user
   let { title } = useParams();
   const { user } = useSelector((user) => ({ ...user }));
@@ -125,8 +128,10 @@ function EpkView() {
       setTrailer(response.data.trailer);
       setReviews(response.data.reviews);
       setRequests(response.data.requests);
-      //console.log(requests);
-      //console.log(userId);
+      setFepkId(response.data._id);
+      setFepkMaker(response.data.film_maker);
+      console.log(fepkId);
+      console.log(fepkMaker);
       http.get(`/fepks/followers/${response.data._id}`).then((res) => {
         setFollowers(res.data);
       });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import HomeHead from "./HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
@@ -14,9 +14,15 @@ import Landing8 from "../components/LandingPage/Landing8";
 import Landing9 from "../components/LandingPage/Landing9";
 import Landing10 from "../components/LandingPage/Landing10";
 import MainLayout from "../layouts/MainLayout";
+import { FepkContext } from "../context/FepkContext";
 
 function Home() {
   const { user } = useSelector((user) => ({ ...user }));
+  const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
+  useEffect(() => {
+    setFepkMaker("");
+  }, []);
+
   return (
     <>
       <div>

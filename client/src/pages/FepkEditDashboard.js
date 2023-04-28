@@ -16,11 +16,13 @@ import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess
 import User from "../components/navbar/NavbarButtons";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
+import { FepkContext } from "../context/FepkContext";
 
 function FepkEditDashboard() {
   const [fepk, setFepk] = useState([]);
   const [access, setAccess] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -38,6 +40,7 @@ function FepkEditDashboard() {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setAccess(response.data.film_maker._id === filmmaker_id);
       setFepk(response.data);
+      setFepkMaker("");
       setLoading(false);
     });
   }, []);
