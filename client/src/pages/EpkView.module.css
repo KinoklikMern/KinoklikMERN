@@ -390,6 +390,7 @@
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 1.5rem;
 }
 .none {
   display: none;
@@ -462,8 +463,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 6rem;
-  gap: 5rem;
+  padding: 3rem 5rem;
+  gap: 40rem;
 }
 
 h1 {
@@ -475,9 +476,9 @@ h1 {
 }
 .biography {
   color: #1e0039;
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 1.5;
-  padding: 0 8rem;
+  padding: 0 0rem;
 }
 .imgLeft {
   flex-basis: 100%;
@@ -526,7 +527,7 @@ h1 {
 }
 .right p {
   color: white;
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 1.5;
 }
 .right h3 {
@@ -581,6 +582,7 @@ h1 {
 }
 .resourcesCard {
   display: flex;
+  margin: 40px 0;
   align-items: center;
   justify-content: flex-start;
   background-color: #d2ccd6;

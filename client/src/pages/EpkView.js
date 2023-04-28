@@ -410,7 +410,7 @@ function EpkView() {
           `${process.env.REACT_APP_BACKEND_URL}/chat`,
           {
             userId: fepkData.film_maker._id,
-            chatName:`${user.firstName} ${user.lastName}`
+            chatName: `${user.firstName} ${user.lastName}`,
           },
           config
         );
@@ -1053,6 +1053,7 @@ function EpkView() {
           // (mediumSynopsis.length === 0 ||
           //   mediumSynopsis.filter((e) => e.user._id === userId).length ===
           //     0) && (
+          fepkData?.film_maker?._id !== userId &&
           (requests.length === 0 ||
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
@@ -1090,87 +1091,107 @@ function EpkView() {
         )}
         {/* the case when user logged in and requested the approval */}
         {/* {mediumSynopsis.map((medium) => { */}
-        {requests.map((r) => {
-          return (
-            <>
-              {/* {medium.user._id === userId && medium.status === "pending" && ( */}
-              {r.user === userId && r.status === "pending" && (
-                <div className={style.synopsis}>
-                  <div>
-                    <h2 className={style.type}>Medium Synopsis</h2>
-                    <RequestButton status={r.status} />
-                    {show ? (
-                      <RequestModal close={handleClose} open={handleShow} />
-                    ) : null}
-                  </div>
-                  {/* <div className={style.position}>
+        {fepkData?.film_maker?._id !== userId &&
+          requests.map((r) => {
+            return (
+              <>
+                {/* {medium.user._id === userId && medium.status === "pending" && ( */}
+                {r.user === userId && r.status === "pending" && (
+                  <div className={style.synopsis}>
+                    <div>
+                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <RequestButton status={r.status} />
+                      {show ? (
+                        <RequestModal close={handleClose} open={handleShow} />
+                      ) : null}
+                    </div>
+                    {/* <div className={style.position}>
                     <button className={style.btnSy}> Awaiting approval </button>
                   </div> */}
-                  <div className={style.content1}>
-                    <img
-                      src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                      alt="hey"
-                      className={style.imgSynopsis}
-                    />
-                    <h3 className={style.text}>{mediumFakeText}</h3>
+                    <div className={style.content1}>
+                      <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{mediumFakeText}</h3>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
         {/* the case when user logged in and got the approval */}
         {/* {mediumSynopsis.map((medium) => { */}
-        {requests.map((r) => {
-          return (
-            <>
-              {/* {medium.user._id === userId && medium.status === "approved" && ( */}
-              {r.user === userId && r.status === "approved" && (
-                <div className={style.synopsis}>
-                  <div>
-                    <h2 className={style.type}>Medium Synopsis</h2>
+        {fepkData?.film_maker?._id == userId ? (
+          <>
+            <div className={style.synopsis}>
+              <div>
+                <h2 className={style.type}>Medium Synopsis</h2>
+              </div>
+              <div>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                  alt="hey"
+                  className={style.imgSynopsis}
+                />
+                <h3 className={style.text}>{fepkData.text_medium}</h3>
+              </div>
+            </div>
+          </>
+        ) : (
+          requests.map((r) => {
+            return (
+              <>
+                {/* {medium.user._id === userId && medium.status === "approved" && ( */}
+                {r.user === userId && r.status === "approved" && (
+                  <div className={style.synopsis}>
+                    <div>
+                      <h2 className={style.type}>Medium Synopsis</h2>
+                    </div>
+                    <div>
+                      <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{fepkData.text_medium}</h3>
+                    </div>
                   </div>
-                  <div>
-                    <img
-                      src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                      alt="hey"
-                      className={style.imgSynopsis}
-                    />
-                    <h3 className={style.text}>{fepkData.text_medium}</h3>
-                  </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })
+        )}
         {/* the case when user logged in and got refused */}
         {/* {mediumSynopsis.map((medium) => { */}
-        {requests.map((r) => {
-          return (
-            <>
-              {/* {medium.user._id === userId && medium.status === "refused" && ( */}
-              {r.user._id === userId && r.status === "refused" && (
-                <div className={style.synopsis}>
-                  <div>
-                    <h2 className={style.type}>Medium Synopsis</h2>
-                    <RequestButton status={r.status} />
-                  </div>
-                  {/* <div className={style.position}>
+        {fepkData?.film_maker?._id !== userId &&
+          requests.map((r) => {
+            return (
+              <>
+                {/* {medium.user._id === userId && medium.status === "refused" && ( */}
+                {r.user._id === userId && r.status === "refused" && (
+                  <div className={style.synopsis}>
+                    <div>
+                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <RequestButton status={r.status} />
+                    </div>
+                    {/* <div className={style.position}>
                     <button className={style.btnSy}> Refused </button>
                   </div> */}
-                  <div className={style.content1}>
-                    <img
-                      src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                      alt="hey"
-                      className={style.imgSynopsis}
-                    />
-                    <h3 className={style.text}>{mediumFakeText}</h3>
+                    <div className={style.content1}>
+                      <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{mediumFakeText}</h3>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
         {/* LONG SYNOPSIS */}
         {/* the case when user not logged in and if logged in not requested yet*/}
         {userId === "0" ? (
@@ -1251,6 +1272,7 @@ function EpkView() {
         ) : (
           // (longSynopsis.length === 0 ||
           //   longSynopsis.filter((e) => e.user._id === userId).length === 0) && (
+          fepkData?.film_maker?._id !== userId &&
           (requests.length === 0 ||
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
@@ -1288,79 +1310,99 @@ function EpkView() {
         )}
         {/* the case when user logged in and requested the approval */}
         {/* {longSynopsis.map((long) => { */}
-        {requests.map((r) => {
-          return (
-            <>
-              {r.user === userId && r.status === "pending" && (
-                <div className={style.synopsis}>
-                  <div>
-                    <h2 className={style.type}>Long Synopsis</h2>
-                    <RequestButton status={r.status} />
-                    {show ? (
-                      <RequestModal close={handleClose} open={handleShow} />
-                    ) : null}
-                  </div>
-                  {/* <div className={style.position}>
+        {fepkData?.film_maker?._id !== userId &&
+          requests.map((r) => {
+            return (
+              <>
+                {r.user === userId && r.status === "pending" && (
+                  <div className={style.synopsis}>
+                    <div>
+                      <h2 className={style.type}>Long Synopsis</h2>
+                      <RequestButton status={r.status} />
+                      {show ? (
+                        <RequestModal close={handleClose} open={handleShow} />
+                      ) : null}
+                    </div>
+                    {/* <div className={style.position}>
                     <button className={style.btnSy}> Awaiting approval </button>
                   </div> */}
-                  <div className={style.content1}>
-                    <img
-                      src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                      alt="hey"
-                      className={style.imgSynopsis}
-                    />
-                    <h3 className={style.text}>{longFakeText}</h3>
+                    <div className={style.content1}>
+                      <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{longFakeText}</h3>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
         {/* the case when user logged in and got the approval */}
-        {requests.map((long) => {
-          return (
-            <>
-              {long.user === userId && long.status === "approved" && (
-                <div className={style.synopsis}>
-                  <div>
-                    <h2 className={style.type}>Long Synopsis</h2>
+        {fepkData?.film_maker?._id == userId ? (
+          <>
+            <div className={style.synopsis}>
+              <div>
+                <h2 className={style.type}>Long Synopsis</h2>
+              </div>
+              <div>
+                <img
+                  src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                  alt="hey"
+                  className={style.imgSynopsis}
+                />
+                <h3 className={style.text}>{fepkData.text_long}</h3>
+              </div>
+            </div>
+          </>
+        ) : (
+          requests.map((long) => {
+            return (
+              <>
+                {long.user === userId && long.status === "approved" && (
+                  <div className={style.synopsis}>
+                    <div>
+                      <h2 className={style.type}>Long Synopsis</h2>
+                    </div>
+                    <div>
+                      <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{fepkData.text_long}</h3>
+                    </div>
                   </div>
-                  <div>
-                    <img
-                      src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                      alt="hey"
-                      className={style.imgSynopsis}
-                    />
-                    <h3 className={style.text}>{fepkData.text_long}</h3>
-                  </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })
+        )}
         {/* the case when user logged in and got refused */}
-        {requests.map((r) => {
-          return (
-            <>
-              {r.user === userId && r.status === "refused" && (
-                <div className={style.synopsis}>
-                  <div>
-                    <h2 className={style.type}>Long Synopsis</h2>
+        {fepkData?.film_maker?._id !== userId &&
+          requests.map((r) => {
+            return (
+              <>
+                {r.user === userId && r.status === "refused" && (
+                  <div className={style.synopsis}>
+                    <div>
+                      <h2 className={style.type}>Long Synopsis</h2>
+                    </div>
+                    <RequestButton status={r.status} />
+                    <div className={style.content1}>
+                      <img
+                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
+                        alt="hey"
+                        className={style.imgSynopsis}
+                      />
+                      <h3 className={style.text}>{longFakeText}</h3>
+                    </div>
                   </div>
-                  <RequestButton status={r.status} />
-                  <div className={style.content1}>
-                    <img
-                      src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                      alt="hey"
-                      className={style.imgSynopsis}
-                    />
-                    <h3 className={style.text}>{longFakeText}</h3>
-                  </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
         {/* UNIQUENESS section */}
         {/* the case when user not logged in and if logged in not requested yet*/}
         {userId === "0" ? (
@@ -1441,6 +1483,7 @@ function EpkView() {
             </div>
           </div>
         ) : (
+          fepkData?.film_maker?._id !== userId &&
           (requests.length === 0 ||
             requests.filter((u) => u.user === userId).length === 0) && (
             <div className={style.unique}>
@@ -1478,70 +1521,94 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {requests.map((r) => {
-          return (
-            <>
-              {r.user === userId && r.status === "pending" && (
-                <div className={style.unique}>
-                  <p className={style.titleUnique}>
-                    {fepkData.title_uniqueness}
-                  </p>
-                  <RequestButton status={r.status} />
-                  {show ? (
-                    <RequestModal close={handleClose} open={handleShow} />
-                  ) : null}
-                  {/* <div className={style.position1}>
+        {fepkData?.film_maker?._id !== userId &&
+          requests.map((r) => {
+            return (
+              <>
+                {r.user === userId && r.status === "pending" && (
+                  <div className={style.unique}>
+                    <p className={style.titleUnique}>
+                      {fepkData.title_uniqueness}
+                    </p>
+                    <RequestButton status={r.status} />
+                    {show ? (
+                      <RequestModal close={handleClose} open={handleShow} />
+                    ) : null}
+                    {/* <div className={style.position1}>
                     <button className={style.btnUni}>
                       {" "}
                       Awaiting approval{" "}
                     </button>
                   </div> */}
-                  <div className={style.uniqueContainer}>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                        alt="uniqueness"
-                        className={style.imgUnique}
-                      />
-                    </div>
-                    <div className={style.content1}>
-                      <p className={style.textUnique}>{mediumFakeText}</p>
+                    <div className={style.uniqueContainer}>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
+                          alt="uniqueness"
+                          className={style.imgUnique}
+                        />
+                      </div>
+                      <div className={style.content1}>
+                        <p className={style.textUnique}>{mediumFakeText}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
         {/* the case when user logged in and got the approval */}
-        {requests.map((unique) => {
-          return (
-            <>
-              {unique.user === userId && unique.status === "approved" && (
-                <div className={style.unique}>
-                  <p className={style.titleUnique}>
-                    {fepkData.title_uniqueness}
-                  </p>
+        {fepkData?.film_maker?._id == userId ? (
+          <>
+            <div className={style.unique}>
+              <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
 
-                  <div className={style.uniqueContainer}>
-                    <div>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                        alt="uniqueness"
-                        className={style.imgUnique}
-                      />
-                    </div>
-                    <div>
-                      <p className={style.textUnique}>
-                        {fepkData.description_uniqueness}
-                      </p>
+              <div className={style.uniqueContainer}>
+                <div>
+                  <img
+                    src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
+                    alt="uniqueness"
+                    className={style.imgUnique}
+                  />
+                </div>
+                <div>
+                  <p className={style.textUnique}>
+                    {fepkData.description_uniqueness}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          requests.map((unique) => {
+            return (
+              <>
+                {unique.user === userId && unique.status === "approved" && (
+                  <div className={style.unique}>
+                    <p className={style.titleUnique}>
+                      {fepkData.title_uniqueness}
+                    </p>
+
+                    <div className={style.uniqueContainer}>
+                      <div>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
+                          alt="uniqueness"
+                          className={style.imgUnique}
+                        />
+                      </div>
+                      <div>
+                        <p className={style.textUnique}>
+                          {fepkData.description_uniqueness}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })
+        )}
         {/* the case when user logged in and got refused */}
         {/* Starring / Cast section */}
         <div className={style.starring}>
@@ -1889,6 +1956,7 @@ function EpkView() {
             </div>
           </div>
         ) : (
+          fepkData?.film_maker?._id !== userId &&
           (requests.length === 0 ||
             requests.filter((r) => r.user === userId).length === 0) && (
             <div className={style.stills}>
@@ -1945,148 +2013,189 @@ function EpkView() {
           )
         )}
         {/* the case when user logged in and requested the approval */}
-        {requests.map((r) => {
-          return (
-            <>
-              {r.user === userId && r.status === "pending" && (
-                <div className={style.stills}>
-                  <RequestButton status={r.status} />
-                  {show ? (
-                    <RequestModal close={handleClose} open={handleShow} />
-                  ) : null}
-                  {/* <div className={style.position1}>
+        {fepkData?.film_maker?._id !== userId &&
+          requests.map((r) => {
+            return (
+              <>
+                {r.user === userId && r.status === "pending" && (
+                  <div className={style.stills}>
+                    <RequestButton status={r.status} />
+                    {show ? (
+                      <RequestModal close={handleClose} open={handleShow} />
+                    ) : null}
+                    {/* <div className={style.position1}>
                     <button className={style.btnStills}>
                       {" "}
                       Awaiting approval{" "}
                     </button>
                   </div> */}
-                  <div className={style.stillsContainer}>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
-                        alt="resource pics"
-                        className={style.imgStillsLeft}
-                      />
+                    <div className={style.stillsContainer}>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                          alt="resource pics"
+                          className={style.imgStillsLeft}
+                        />
+                      </div>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                          alt="resource pics"
+                          className={style.imgStillsRight}
+                        />
+                      </div>
                     </div>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
-                        alt="resource pics"
-                        className={style.imgStillsRight}
-                      />
+                    <div className={style.stillsContainer}>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                          alt="resource pics"
+                          className={style.imgStillsRight}
+                        />
+                      </div>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                          alt="resource pics"
+                          className={style.imgStillsLeft}
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className={style.stillsContainer}>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
-                        alt="resource pics"
-                        className={style.imgStillsRight}
-                      />
-                    </div>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
-                        alt="resource pics"
-                        className={style.imgStillsLeft}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
         {/* the case when user logged in and got the approval */}
-        {requests.map((r) => {
-          return (
-            <>
-              {r.user === userId && r.status === "approved" && (
-                <div className={style.stills}>
-                  <div className={style.stillsContainer}>
-                    <div>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
-                        alt="resource pics"
-                        className={style.imgStillsLeft}
-                      />
-                    </div>
-                    <div>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
-                        alt="resource pics"
-                        className={style.imgStillsRight}
-                      />
-                    </div>
-                  </div>
-                  <div className={style.stillsContainer}>
-                    <div>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
-                        alt="resource pics"
-                        className={style.imgStillsRight}
-                      />
-                    </div>
-                    <div>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
-                        alt="resource pics"
-                        className={style.imgStillsLeft}
-                      />
-                    </div>
-                  </div>
+        {fepkData?.film_maker?._id == userId ? (
+          <>
+            <div className={style.stills}>
+              <div className={style.stillsContainer}>
+                <div>
+                  <img
+                    src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                    alt="resource pics"
+                    className={style.imgStillsLeft}
+                  />
                 </div>
-              )}
-            </>
-          );
-        })}
+                <div>
+                  <img
+                    src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                    alt="resource pics"
+                    className={style.imgStillsRight}
+                  />
+                </div>
+              </div>
+              <div className={style.stillsContainer}>
+                <div>
+                  <img
+                    src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                    alt="resource pics"
+                    className={style.imgStillsRight}
+                  />
+                </div>
+                <div>
+                  <img
+                    src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                    alt="resource pics"
+                    className={style.imgStillsLeft}
+                  />
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          requests.map((r) => {
+            return (
+              <>
+                {r.user === userId && r.status === "approved" && (
+                  <div className={style.stills}>
+                    <div className={style.stillsContainer}>
+                      <div>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                          alt="resource pics"
+                          className={style.imgStillsLeft}
+                        />
+                      </div>
+                      <div>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                          alt="resource pics"
+                          className={style.imgStillsRight}
+                        />
+                      </div>
+                    </div>
+                    <div className={style.stillsContainer}>
+                      <div>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                          alt="resource pics"
+                          className={style.imgStillsRight}
+                        />
+                      </div>
+                      <div>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                          alt="resource pics"
+                          className={style.imgStillsLeft}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            );
+          })
+        )}
         {/* the case when user logged in and got refused */}
-        {requests.map((r) => {
-          return (
-            <>
-              {r.user === userId && r.status === "refused" && (
-                <div className={style.stills}>
-                  <RequestButton status={r.status} />
-                  {/* <div className={style.position1}>
+        {fepkData?.film_maker?._id !== userId &&
+          requests.map((r) => {
+            return (
+              <>
+                {r.user === userId && r.status === "refused" && (
+                  <div className={style.stills}>
+                    <RequestButton status={r.status} />
+                    {/* <div className={style.position1}>
                     <button className={style.btnStills}> Refused </button>
                   </div> */}
-                  <div className={style.stillsContainer}>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
-                        alt="resource pics"
-                        className={style.imgStillsLeft}
-                      />
+                    <div className={style.stillsContainer}>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[0]}`}
+                          alt="resource pics"
+                          className={style.imgStillsLeft}
+                        />
+                      </div>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
+                          alt="resource pics"
+                          className={style.imgStillsRight}
+                        />
+                      </div>
                     </div>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[1]}`}
-                        alt="resource pics"
-                        className={style.imgStillsRight}
-                      />
+                    <div className={style.stillsContainer}>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
+                          alt="resource pics"
+                          className={style.imgStillsRight}
+                        />
+                      </div>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
+                          alt="resource pics"
+                          className={style.imgStillsLeft}
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className={style.stillsContainer}>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[2]}`}
-                        alt="resource pics"
-                        className={style.imgStillsRight}
-                      />
-                    </div>
-                    <div className={style.content1}>
-                      <img
-                        src={`https://kinomovie.s3.amazonaws.com/${stillsImg[3]}`}
-                        alt="resource pics"
-                        className={style.imgStillsLeft}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
         {/* resources section */}
         <div className={style.resource}>
           {resources.map((resource) => {
@@ -2160,7 +2269,6 @@ function EpkView() {
             );
           })}
         </div>
-        <Footer />
       </div>
     </div>
   );
