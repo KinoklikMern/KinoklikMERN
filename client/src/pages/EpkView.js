@@ -53,6 +53,7 @@ import Login from "../components/Auth/Registration/loginFromViewPage";
 import Axios from "axios";
 import { triggerFocus } from "antd/es/input/Input";
 import { FepkContext } from "../context/FepkContext";
+import StillsCarousel from "../components/Epk/Present/StillsCarousel";
 let socket;
 function EpkView() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -1912,6 +1913,7 @@ function EpkView() {
           })}
         </div>
         {/* stills section */}
+        <StillsCarousel title={{ title }} />
         {/* the case when user not logged in and if logged in not requested yet*/}
         {userId === "0" ? (
           <div className={style.stills}>
