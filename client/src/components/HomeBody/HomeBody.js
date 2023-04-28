@@ -51,10 +51,25 @@ const HomeBody = () => {
   return (
     <>
       <div className="home">
-        <div className="listTitle">
-          <span>MY FAVOURITES</span>
+        <div>
+          <div className="listTitle">
+            <span>STARRED</span>
+          </div>
+          <List title="starred" />
         </div>
-        <FavouriteList />
+        <div>
+          <div className="listTitle">
+            <span>FOLLOWING</span>
+          </div>
+          <List title="following" />
+        </div>
+        <div>
+          <div className="listTitle">
+            <span>WISH LIST</span>
+          </div>
+          <List title="wish_to_buy" />
+        </div>
+
 
         {genres.map((genre) => {
           return (
@@ -62,7 +77,7 @@ const HomeBody = () => {
               <div className="listTitle">
                 <span>{genre.toUpperCase()}</span>
               </div>
-              {/* {console.log(fepks.filter((fepk) => fepk.genre === genre))} */}
+
               <div className="list">
                 <div className="wrapper">
                   <ArrowBackIosOutlined

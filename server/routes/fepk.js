@@ -28,6 +28,8 @@ import {
   getRequestsFepksByUser,
   approveRequests,
   refuseRequests,
+  getWishToBuyFepksByUser,
+  
 } from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
@@ -96,6 +98,9 @@ router.get("/getStarredFepksByUser/:userId", getStarredFepksByUser);
 
 // get fepks which are following by user
 router.get("/getFollowingFepksByUser/:userId", getFollowingFepksByUser);
+
+// get fepks which are wish_to_by by user
+router.get("/getWishTobuyByUser/:userId", getWishToBuyFepksByUser)
 
 //// get fepks which are requests by user
 router.get("/getRequestsFepksByUser/:userId/:status", getRequestsFepksByUser);

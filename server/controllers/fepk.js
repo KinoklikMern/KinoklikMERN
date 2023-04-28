@@ -699,6 +699,32 @@ export const getRequestsFepksByUser = async (req, res) => {
 //************************************************************************************** */
 
 //**************************************Created by Rucheng ***************************************** */
+// get fepks which are wish_to_buy by user
+export const getWishToBuyFepksByUser = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const fepks = await fepk
+      .find({ wishes_to_buy: userId })
+      .populate("film_maker") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
+      .populate("uniqueness.user")
+      .populate("stillsApproval.user")
+      .populate("reports.user")
+      .populate("requests.user")
+      .where("deleted")
+      .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 // approve request mediumSynopsis/Synopsis long/Uniqueness/Stills  part
 export const approveRequests = async (req, res) => {
   const { fepkId, user, comment } = req.body;
