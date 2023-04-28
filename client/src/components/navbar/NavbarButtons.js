@@ -1,23 +1,31 @@
-import { React, useState } from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-undef */
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { useDispatch, useSelector } from "react-redux";
 import { SideProfileMenu } from "./SideMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { FepkContext } from "../../context/FepkContext";
 
 //import Login from "../Auth/Registration/login";
 //import Register from "../Auth/Registration/register";
 
 function NavbarButtons({ user, setToggle, toggle }) {
+  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
+    React.useContext(FepkContext);
   const [userToggle, setUserToggle] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState("Home");
-  const picture =
-    user?(user.picture ==
-    "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+  const picture = user
+    ? user.picture ==
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
       ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`):null;
+      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`
+    : null;
 
   const logout = () => {
     Cookies.set("user", null);
@@ -30,6 +38,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
     console.log(user);
     navigate("/");
   };
+
   // const navLinks = [
   //   {
   //     id: "settings",
@@ -73,7 +82,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
               SIGN UP
             </Link> */}
             <Link
-              to={user?'/uploadFepk':'/login'}
+              to={user ? "/uploadFepk" : "/login"}
               className="md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400"
             >
               CREATE EPK
@@ -107,14 +116,27 @@ function NavbarButtons({ user, setToggle, toggle }) {
         </>
       ) : (
         <>
+          {/* <FontAwesomeIcon icon={faPen} size="lg" /> */}
+          <div className="relative h-32 w-32 ..."></div>
+
           {/* ------modified by rucheng-------- */}
-          <div className="tw-group tw-relative tw-p-4">
-            <img
-              src={picture}
-              alt="User Avatar"
-              className="flex tw-max-h-14"
-            />
-            <SideProfileMenu />
+          <div className="tw-static tw-p-4">
+            <div className="tw-mx-10 tw-inline-block tw-justify-center">
+              {user.id === fepkMaker._id && fepkId !== "" ? (
+                <a href={`/editFepk/${fepkId}`}>
+                  <FontAwesomeIcon icon={faPen} color="white" />
+                  {/* <img src={StarIcon} alt="/" style={{ width: 50, height: 50 }} /> */}
+                </a>
+              ) : null}
+            </div>
+            <div className="tw-group tw-inline-block ">
+              <img
+                src={picture}
+                alt="User Avatar"
+                className="flex tw-max-h-14"
+              />
+              <SideProfileMenu />
+            </div>
           </div>
           {/* -------- */}
           {/* <div
