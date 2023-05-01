@@ -360,8 +360,8 @@
 
 .btnSy {
   position: absolute;
-  top: -2rem;
-  right: -12rem;
+  top: 0.5rem;
+  right: 32rem;
   transform: translate(-50%, 10%);
   width: 10rem;
   height: auto;

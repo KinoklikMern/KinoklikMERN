@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
-export default function ListItem({ title }) {
+export default function ListItem({ title, status }) {
   const [fepks, setFepks] = useState([]);
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -33,10 +33,13 @@ export default function ListItem({ title }) {
           setFepks(response.data);
         });
         break;
+      case "all":
+        http.get(`fepks`).then((response) => {
+          if (status) {
+            setFepks(response.data.filter((epk) => epk.status == status));
+          } else setFepks(response.data);
+        });
     }
-    // http.get(`fepks/favourite/byuser/${id}`).then((response) => {
-    //   setFepks(response.data);
-    // });
   }, []);
   return (
     <>

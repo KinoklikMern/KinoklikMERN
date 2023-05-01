@@ -62,7 +62,7 @@ const Landing1 = () => {
                 </a>
                 <a
                   className="tw-inline-block tw-rounded-lg tw-bg-violet-800 tw-px-4 tw-py-2 tw-text-xl tw-font-bold tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base"
-                  href="/"
+                  href="/catelog"
                 >
                   Browse EPKs
                 </a>
