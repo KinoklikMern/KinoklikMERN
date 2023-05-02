@@ -4,7 +4,7 @@ import ListItem from "../ListItem/ListItem";
 import "./List.css";
 import React from 'react';
 
-export default function List({title}) {
+export default function List({title, status}) {
     const [isMoved, setIsMoved] = useState(false);
     const [slideNumber, setSlideNumber] = useState(0);
 
@@ -29,7 +29,7 @@ export default function List({title}) {
             <div className="wrapper">
                 <ArrowBackIosOutlined className="sliderArrow left" onClick={() => handleClick("left")} style={{ display: !isMoved && "none" }} />
                 <div className="container" ref={listRef}>
-                    <ListItem title={title}/>
+                    <ListItem title={title} status={status}/>
                 </div>
                 <ArrowForwardIosOutlined className="sliderArrow right" onClick={() => handleClick("right")} />
             </div>
