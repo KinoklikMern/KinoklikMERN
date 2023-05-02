@@ -93,6 +93,8 @@ import UserDashboardChat from "./pages/UserDashboard/ChatPage";
 import AuthRoutes from "./utils/AuthRoutes";
 import AccessDeniedPage from "./pages/AccessDeniedPage";
 import { FepkContext } from "./context/FepkContext";
+import CatelogPage from "./pages/CatelogPage";
+import EpkViewPage from "./pages/EpkViewPage";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -145,7 +147,8 @@ function App() {
 
         <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
           {/* <Route index element={<Home />} /> */}
-
+          <Route path="catelog" element={<CatelogPage />} />
+          <Route path="epk/:title" element={<EpkViewPage />} />
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
