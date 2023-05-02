@@ -53,6 +53,7 @@ import Login from "../components/Auth/Registration/loginFromViewPage";
 import Axios from "axios";
 import { triggerFocus } from "antd/es/input/Input";
 import { FepkContext } from "../context/FepkContext";
+import StillsCarousel from "../components/Epk/Present/StillsCarousel";
 let socket;
 function EpkView() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -1912,8 +1913,9 @@ function EpkView() {
           })}
         </div>
         {/* stills section */}
+        <StillsCarousel title={{ title }} />
         {/* the case when user not logged in and if logged in not requested yet*/}
-        {userId === "0" ? (
+        {/* {userId === "0" ? (
           <div className={style.stills}>
             <div className={style.position1}>
               <button
@@ -1969,19 +1971,7 @@ function EpkView() {
               {show ? (
                 <RequestModal close={handleClose} open={handleShow} />
               ) : null}
-              {/* <div className={style.position1}>
-                <button
-                  onClick={() => {
-                    addToRequests();
-                    // addtoStills();
-                    clickState4();
-                  }}
-                  className={isClick4 === true ? style.none : style.btnStills}
-                >
-                  {" "}
-                  Request Access{" "}
-                </button>
-              </div> */}
+             
               <div className={style.stillsContainer}>
                 <div className={style.content1}>
                   <img
@@ -2016,9 +2006,9 @@ function EpkView() {
               </div>
             </div>
           )
-        )}
+        )} */}
         {/* the case when user logged in and requested the approval */}
-        {fepkData?.film_maker?._id !== userId &&
+        {/* {fepkData?.film_maker?._id !== userId &&
           requests.map((r) => {
             return (
               <>
@@ -2028,12 +2018,7 @@ function EpkView() {
                     {show ? (
                       <RequestModal close={handleClose} open={handleShow} />
                     ) : null}
-                    {/* <div className={style.position1}>
-                    <button className={style.btnStills}>
-                      {" "}
-                      Awaiting approval{" "}
-                    </button>
-                  </div> */}
+
                     <div className={style.stillsContainer}>
                       <div className={style.content1}>
                         <img
@@ -2070,9 +2055,9 @@ function EpkView() {
                 )}
               </>
             );
-          })}
+          })} */}
         {/* the case when user logged in and got the approval */}
-        {fepkData?.film_maker?._id == userId ? (
+        {/* {fepkData?.film_maker?._id == userId ? (
           <>
             <div className={style.stills}>
               <div className={style.stillsContainer}>
@@ -2152,18 +2137,16 @@ function EpkView() {
               </>
             );
           })
-        )}
+        )} */}
         {/* the case when user logged in and got refused */}
-        {fepkData?.film_maker?._id !== userId &&
+        {/* {fepkData?.film_maker?._id !== userId &&
           requests.map((r) => {
             return (
               <>
                 {r.user === userId && r.status === "refused" && (
                   <div className={style.stills}>
                     <RequestButton status={r.status} />
-                    {/* <div className={style.position1}>
-                    <button className={style.btnStills}> Refused </button>
-                  </div> */}
+                  
                     <div className={style.stillsContainer}>
                       <div className={style.content1}>
                         <img
@@ -2200,7 +2183,7 @@ function EpkView() {
                 )}
               </>
             );
-          })}
+          })} */}
         {/* resources section */}
         <div className={style.resource}>
           {resources.map((resource) => {
