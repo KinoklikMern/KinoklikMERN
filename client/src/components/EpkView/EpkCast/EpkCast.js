@@ -7,14 +7,20 @@ export default function EpkCast({ epkInfo }) {
     cast.epkRole.includes("actor")
   );
   return (
-    <div className="tw-bg-white">
+    <div className="tw-my-3 tw-bg-white">
       <div className="tw-flex tw-justify-center">
         <p className="tw-text-[3rem]">Starring</p>
       </div>
-      <div>
-        {castList.map((cast, index)=>
-          <CastCard key={index} image={`${IMAGE_URL_PRIFIX}/${cast.image}`} text={cast.biography}/>
-        )}
+      <div className="tw-py-4">
+        {castList.map((cast, index) => (
+          <CastCard
+            key={cast.crewId._id}
+            index={index}
+            image={`${IMAGE_URL_PRIFIX}/${cast.image}`}
+            text={cast.biography}
+            castName={cast.crewId.name}
+          />
+        ))}
       </div>
     </div>
   );

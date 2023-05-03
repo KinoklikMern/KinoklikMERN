@@ -2,55 +2,64 @@ import React from "react";
 
 export default function EpkDetail({ epkInfo }) {
   const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+  const directorList = epkInfo.crew.filter((c) => c.epkRole === "director");
+  const producerList = epkInfo.crew.filter((c) => c.epkRole === "producer");
+  const cinematographerList = epkInfo.crew.filter(
+    (c) => c.epkRole === "cinematographer"
+  );
+  const writerList = epkInfo.crew.filter((c) => c.epkRole === "writer");
+  const editorList = epkInfo.crew.filter((c) => c.epkRole === "editor");
+  const starList = epkInfo.crew.filter((c) => c.epkRole.includes("actor"));
+
   return (
     <div className="tw-bg-white">
       <div className="tw-flex tw-justify-around tw-py-6">
         <div>
           <img src={image_detail} className="tw-my-4 tw-h-full tw-border-2" />
         </div>
-        <div className="tw-justify-between tw-text-[1.5rem]">
+        <div className="tw-flex tw-flex-col tw-justify-between tw-text-[1.5rem]">
+          {directorList.map((director) => (
+            <p key={director.crewId._id}>
+              Directed by: <span>{director.crewId.name}</span>
+            </p>
+          ))}
+          {producerList.map((producer) => (
+            <p key={producer.crewId._id}>
+              Produced by: <span>{producer.crewId.name}</span>
+            </p>
+          ))}
+          {cinematographerList.map((cinematographer) => (
+            <p key={cinematographer.crewId._id}>
+              Cinematographer: <span>{cinematographer.crewId.name}</span>
+            </p>
+          ))}
+          {writerList.map((writer) => (
+            <p key={writer.crewId._id}>
+              Writer: <span>{writer.crewId.name}</span>
+            </p>
+          ))}
+          {editorList.map((editor) => (
+            <p key={editor.crewId._id}>
+              Editor: <span>{editor.crewId.name}</span>
+            </p>
+          ))}
           <p>
-            Directed by: <span></span>
+            Studio: <span>{epkInfo.productionCo}</span>
           </p>
           <p>
-            Produced by: <span></span>
-          </p>
-          <p>
-            Cinematographer: <span></span>
-          </p>
-          <p>
-            Writer: <span></span>
-          </p>
-          <p>
-            Editor: <span></span>
-          </p>
-          <p>
-            Editor: <span></span>
-          </p>
-          <p>
-            Studio: <span></span>
-          </p>
-          <p>
-            Directed by: <span></span>
-          </p>
-          <p>
-            Distributed by: : <span></span>
+            Distributed by: : <span>{epkInfo.distributionCo}</span>
           </p>
         </div>
-        <div className="tw-text-[1.5rem]">
-          <div>
-            <p>Starring:</p>
-            <p>Starring:</p>
-            <p>Starring:</p>
-          </div>
-          <div>
-            <p>
-              Produced Year: <span></span>
-            </p>
-            <p>
-              Duration: <span></span>
-            </p>
-          </div>
+        <div className="tw-flex tw-flex-col tw-justify-around tw-text-[1.5rem] ">
+          {starList.map((star) => (
+            <p key={star.crewId._id}>Starring: {star.crewId.name}</p>
+          ))}
+          <p>
+            Produced Year: <span>{epkInfo.productionYear}</span>
+          </p>
+          <p>
+            Duration: <span>{epkInfo.durationMin} Minutes</span>
+          </p>
         </div>
       </div>
     </div>
