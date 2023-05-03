@@ -93,7 +93,7 @@ const HomeBody = () => {
                         return (
                           <>
                             <div className="listItem" key={fepk._id}>
-                              <a href={`epkview/${fepk.title}`}>
+                              <a href={`epk/${fepk.title}`}>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                                   alt=""

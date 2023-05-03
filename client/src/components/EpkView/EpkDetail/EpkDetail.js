@@ -17,7 +17,7 @@ export default function EpkDetail({ epkInfo }) {
         <div>
           <img src={image_detail} className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]" />
         </div>
-        <div className="tw-flex tw-flex-col tw-justify-between tw-text-[1.5rem]">
+        <div className="tw-flex tw-flex-col tw-justify-around tw-text-[1.5rem]">
           {directorList.map((director) => (
             <p key={director.crewId._id}>
               Directed by: <span>{director.crewId.name}</span>

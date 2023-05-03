@@ -71,8 +71,8 @@ export default function EpkHeader({ epkInfo }) {
     }
   }
   return (
-    <div className="tw-flex tw-my-6 tw-gap-36">
-      <div className="tw-flex tw-gap-6">
+    <div className="tw-flex tw-my-6 tw-justify-between">
+      <div className="tw-flex tw-gap-6 tw-w-1/3">
         <span className="tw-text-3xl tw-font-semibold tw-text-white">
           Total Audience Reach
         </span>
@@ -85,7 +85,7 @@ export default function EpkHeader({ epkInfo }) {
           {socialMediafollowerTotalNum}
         </span>
       </div>
-      <div className="tw-flex tw-gap-10">
+      <div className="tw-flex tw-gap-10 tw-w-1/2 tw-justify-between">
         {socialMediasList?.map((media, index) => (
           <SocialMedia
             key={index}
