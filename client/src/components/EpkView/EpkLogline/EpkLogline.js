@@ -9,7 +9,7 @@ export default function EpkLogline({ epkInfo }) {
         <p className="tw-text-[2rem] tw-font-semibold tw-text-[#1E0039]">
           {epkInfo.logLine_long}
         </p>
-        <img src={image_logline} alt="logline" className="tw-h-auto tw-w-1/2" />
+        <img src={image_logline} alt="logline" className="tw-h-auto tw-w-1/2 tw-shadow-[6px_6px_3px_#1E0039]" />
       </div>
     </div>
   );

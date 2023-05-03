@@ -2,7 +2,10 @@ import React from "react";
 
 export default function ActionIcon({ name, icon, handler, number }) {
   return (
-    <div className="tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-rounded-full tw-bg-[#712CB0] hover:tw-scale-110">
+    <div
+      className="tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-rounded-full tw-bg-[#712CB0] hover:tw-scale-110"
+      onClick={()=>handler()}
+    >
       <img
         src={icon}
         style={{ height: "60%" }}

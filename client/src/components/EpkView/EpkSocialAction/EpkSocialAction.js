@@ -33,6 +33,11 @@ export default function EpkSocialAction({ epkInfo }) {
       icon: ShareIcon,
     },
   ];
+
+  const clickHandler =()=>{
+    //handler function
+    console.log("aaaaa");
+  }
   return (
     <div className="tw-flex tw-justify-between tw-bg-opacity-100 tw-p-6">
       {actionList.map((action) => (
@@ -41,6 +46,7 @@ export default function EpkSocialAction({ epkInfo }) {
           name={action.name}
           icon={action.icon}
           number={action.number}
+          handler={clickHandler}
         />
       ))}
     </div>
