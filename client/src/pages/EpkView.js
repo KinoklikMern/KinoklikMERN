@@ -980,7 +980,7 @@ function EpkView() {
         </div>
         {/* MEDIUM SYNOPSIS */}
         {/* the case when user not logged in and if logged in not requested yet*/}
-        {userId === "0" ? (
+        {userId === "0" && fepkData?.text_medium_blur === true ? (
           <div className={style.synopsis}>
             <div>
               <h2 className={style.type}>Medium Synopsis</h2>
@@ -1056,10 +1056,8 @@ function EpkView() {
             </div>
           </div>
         ) : (
-          // (mediumSynopsis.length === 0 ||
-          //   mediumSynopsis.filter((e) => e.user._id === userId).length ===
-          //     0) && (
           fepkData?.film_maker?._id !== userId &&
+          fepkData.text_medium_blur === true &&
           (requests.length === 0 ||
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
@@ -1070,20 +1068,6 @@ function EpkView() {
                   <RequestModal close={handleClose} open={handleShow} />
                 ) : null}
               </div>
-              {/* <div className={style.position}>
-                <button
-                  onClick={() => {
-                    // addtoMediumSynopsis();
-                    addToRequests();
-                    clickState1();
-                  }}
-                  className={isClick1 === true ? style.none : style.btnSy}
-                >
-                  {" "}
-                  Request Access{" "}
-                </button>
-              </div> */}
-
               <div className={style.content1}>
                 <img
                   src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
@@ -1098,6 +1082,7 @@ function EpkView() {
         {/* the case when user logged in and requested the approval */}
         {/* {mediumSynopsis.map((medium) => { */}
         {fepkData?.film_maker?._id !== userId &&
+          fepkData?.text_medium_blur === true &&
           requests.map((r) => {
             return (
               <>
@@ -1129,7 +1114,8 @@ function EpkView() {
           })}
         {/* the case when user logged in and got the approval */}
         {/* {mediumSynopsis.map((medium) => { */}
-        {fepkData?.film_maker?._id == userId ? (
+        {fepkData?.film_maker?._id === userId ||
+        fepkData?.text_medium_blur === false ? (
           <>
             <div className={style.synopsis}>
               <div>
@@ -1172,6 +1158,7 @@ function EpkView() {
         {/* the case when user logged in and got refused */}
         {/* {mediumSynopsis.map((medium) => { */}
         {fepkData?.film_maker?._id !== userId &&
+          fepkData?.text_medium_blur === true &&
           requests.map((r) => {
             return (
               <>
@@ -1200,7 +1187,7 @@ function EpkView() {
           })}
         {/* LONG SYNOPSIS */}
         {/* the case when user not logged in and if logged in not requested yet*/}
-        {userId === "0" ? (
+        {userId === "0" && fepkData?.text_long_blur === true ? (
           <div className={style.synopsis}>
             <div>
               <h2 className={style.type}>Long Synopsis</h2>
@@ -1279,6 +1266,7 @@ function EpkView() {
           // (longSynopsis.length === 0 ||
           //   longSynopsis.filter((e) => e.user._id === userId).length === 0) && (
           fepkData?.film_maker?._id !== userId &&
+          fepkData?.text_long_blur === true &&
           (requests.length === 0 ||
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
@@ -1317,6 +1305,7 @@ function EpkView() {
         {/* the case when user logged in and requested the approval */}
         {/* {longSynopsis.map((long) => { */}
         {fepkData?.film_maker?._id !== userId &&
+          fepkData?.text_long_blur === true &&
           requests.map((r) => {
             return (
               <>
@@ -1346,7 +1335,8 @@ function EpkView() {
             );
           })}
         {/* the case when user logged in and got the approval */}
-        {fepkData?.film_maker?._id == userId ? (
+        {fepkData?.film_maker?._id === userId ||
+        fepkData?.text_long_blur === false ? (
           <>
             <div className={style.synopsis}>
               <div>
@@ -1387,6 +1377,7 @@ function EpkView() {
         )}
         {/* the case when user logged in and got refused */}
         {fepkData?.film_maker?._id !== userId &&
+          fepkData?.text_long_blur === true &&
           requests.map((r) => {
             return (
               <>
@@ -1411,7 +1402,7 @@ function EpkView() {
           })}
         {/* UNIQUENESS section */}
         {/* the case when user not logged in and if logged in not requested yet*/}
-        {userId === "0" ? (
+        {userId === "0" && fepkData?.uniqueness_blur === true ? (
           <div className={style.unique}>
             <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
             <div className={style.position1}>
@@ -1490,6 +1481,7 @@ function EpkView() {
           </div>
         ) : (
           fepkData?.film_maker?._id !== userId &&
+          fepkData?.uniqueness_blur === true &&
           (requests.length === 0 ||
             requests.filter((u) => u.user === userId).length === 0) && (
             <div className={style.unique}>
@@ -1498,19 +1490,6 @@ function EpkView() {
               {show ? (
                 <RequestModal close={handleClose} open={handleShow} />
               ) : null}
-              {/* <div className={style.position1}>
-                <button
-                  onClick={() => {
-                    // addtoUniqueness();
-                    addToRequests();
-                    clickState3();
-                  }}
-                  className={isClick3 === true ? style.none : style.btnUni}
-                >
-                  {" "}
-                  Request Access{" "}
-                </button>
-              </div> */}
               <div className={style.uniqueContainer}>
                 <div className={style.content1}>
                   <img
@@ -1528,6 +1507,7 @@ function EpkView() {
         )}
         {/* the case when user logged in and requested the approval */}
         {fepkData?.film_maker?._id !== userId &&
+          fepkData?.uniqueness_blur === true &&
           requests.map((r) => {
             return (
               <>
@@ -1564,7 +1544,8 @@ function EpkView() {
             );
           })}
         {/* the case when user logged in and got the approval */}
-        {fepkData?.film_maker?._id == userId ? (
+        {fepkData?.film_maker?._id === userId ||
+        fepkData?.uniequess_blur === false ? (
           <>
             <div className={style.unique}>
               <p className={style.titleUnique}>{fepkData.title_uniqueness}</p>
@@ -1616,6 +1597,36 @@ function EpkView() {
           })
         )}
         {/* the case when user logged in and got refused */}
+        {fepkData?.film_maker?._id !== userId &&
+          fepkData?.uniequess_blur === true &&
+          requests.map((r) => {
+            return (
+              <>
+                {r.user === userId && r.status === "refused" && (
+                  <div className={style.unique}>
+                    <p className={style.titleUnique}>
+                      {fepkData.title_uniqueness}
+                    </p>
+                    <RequestButton status={r.status} />
+                    <div className={style.uniqueContainer}>
+                      <div className={style.content1}>
+                        <img
+                          src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
+                          alt="uniqueness"
+                          className={style.imgUnique}
+                        />{" "}
+                      </div>
+                      <div>
+                        <p className={style.textUnique}>
+                          {fepkData.description_uniqueness}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            );
+          })}
         {/* Starring / Cast section */}
         <div className={style.starring}>
           <p className={style.starTitle}>Starring</p>
