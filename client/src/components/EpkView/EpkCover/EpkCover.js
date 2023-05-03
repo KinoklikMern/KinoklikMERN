@@ -21,9 +21,9 @@ export default function EpkCover({ epkInfo }) {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className="tw-flex tw-h-[600px]  tw-rounded-lg"
+      className="tw-flex tw-h-[600px] tw-rounded-lg tw-shadow-[inset_0_15px_10px_rgba(242,229,229,0.6)]"
     >
-      <div className="tw-mx-16 tw-flex tw-h-5/6 tw-flex-col tw-justify-start tw-py-6">
+      <div className="tw-mx-16 tw-flex tw-h-5/6 tw-flex-col tw-justify-start tw-py-6 ">
         <img src={image_detail} className="tw-my-4 tw-h-full tw-border-2" />
         <div className="tw-m-4">
           <p className="tw-text-xl tw-text-[#D1E205]">{epkInfo.status}</p>
