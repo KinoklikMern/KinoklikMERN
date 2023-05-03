@@ -19,6 +19,7 @@ export default function EpkWorker({ epkInfo }) {
             image={`${IMAGE_URL_PRIFIX}/${cast.image}`}
             text={cast.biography}
             castName={cast.crewId.name}
+            epkRole={cast.epkRole}
           />
         ))}
       </div>

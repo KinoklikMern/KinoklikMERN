@@ -5,7 +5,6 @@ export default function EpkCover({ epkInfo }) {
   const URL = "";
   const banner_url = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
   const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
-  console.log(epkInfo);
 
   const formatedDate = (timestamp) => {
     return new Date(timestamp).toLocaleString("en-US", {
@@ -24,7 +23,7 @@ export default function EpkCover({ epkInfo }) {
       className="tw-flex tw-h-[600px] tw-rounded-lg tw-shadow-[inset_0_15px_10px_rgba(242,229,229,0.6)]"
     >
       <div className="tw-mx-16 tw-flex tw-h-5/6 tw-flex-col tw-justify-start tw-py-6 ">
-        <img src={image_detail} className="tw-my-4 tw-h-full tw-border-2" />
+        <img src={image_detail} className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]" />
         <div className="tw-m-4">
           <p className="tw-text-xl tw-text-[#D1E205]">{epkInfo.status}</p>
           <p className="tw-text-xl tw-text-white">{epkInfo.genre}</p>

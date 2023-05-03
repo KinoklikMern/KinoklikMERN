@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 
-export default function RequestButton({ status }) {
+export default function RequestButton({ status, handler }) {
   let ButtonTxt;
   let IsDisabled = false;
   switch (status) {
@@ -28,8 +28,13 @@ export default function RequestButton({ status }) {
 
   return (
     <>
-      <div className="d-flex justify-content-center">
-        <Button variant="light" disabled={IsDisabled}>
+      <div className="tw-flex tw-justify-center ">
+        <Button
+          variant="light"
+          disabled={IsDisabled}
+          className="tw-shadow-[3px_3px_3px_#712CB0]"
+          onClick={() => handler()}
+        >
           {ButtonTxt}
         </Button>
       </div>

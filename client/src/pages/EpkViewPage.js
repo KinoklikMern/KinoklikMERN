@@ -12,32 +12,74 @@ import EpkStills from "../components/EpkView/EpkStills/EpkStills";
 import EpkResources from "../components/EpkView/EpkResources/EpkResources";
 import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
 import EpkAward from "../components/EpkView/EpkAward/EpkAward";
+import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import { useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
+import { useSelector } from "react-redux";
 
 function EpkViewPage() {
+  const { user } = useSelector((user) => ({ ...user }));
   const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();
+  const [requestStatus, setRequestStatus] = useState();
+  const [refresh, setRefresh] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   useEffect(() => {
-    getFepksByTitle(title).then((res) => setEpkInfo(res));
-  }, [title]);
+    getFepksByTitle(title).then((res) => {
+      setEpkInfo(res);
+      if (user.id == res.film_maker._id) {
+        setRequestStatus("approved");
+      } else {
+        res.requests.map((request) => {
+          if (request.user == user.id) {
+            setRequestStatus(request.status);
+          }
+        });
+      }
+    });
+  }, [title, refresh]);
+  console.log("epk", epkInfo);
   return (
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
         <div className="tw-w-11/12">
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
-          <EpkSocialAction epkInfo={epkInfo}/>
-          <EpkDetail epkInfo={epkInfo}/>
-          <EpkLogline epkInfo={epkInfo}/>
-          <EpkSynopsis epkInfo={epkInfo}/>
-          <EpkUniqueness  epkInfo={epkInfo}/>
+          <EpkSocialAction epkInfo={epkInfo} />
+          <EpkDetail epkInfo={epkInfo} />
+          <EpkLogline epkInfo={epkInfo} />
+          <EpkSynopsis
+            epkInfo={epkInfo}
+            requestStatus={requestStatus}
+            user={user}
+            setRefresh={setRefresh}
+            handleShow={handleShow}
+          />
+          <EpkUniqueness
+            epkInfo={epkInfo}
+            requestStatus={requestStatus}
+            user={user}
+            setRefresh={setRefresh}
+            handleShow={handleShow}
+          />
           <EpkCast epkInfo={epkInfo} />
-          <EpkWorker epkInfo={epkInfo}/>
+          <EpkWorker epkInfo={epkInfo} />
           <EpkStills epkInfo={epkInfo} />
-          <EpkResources epkInfo={epkInfo}/>
-          <EpkTrailer epkInfo={epkInfo}/>
-          <EpkAward epkInfo={epkInfo}/>
+          <EpkResources epkInfo={epkInfo} />
+          <EpkTrailer epkInfo={epkInfo} />
+          <EpkAward epkInfo={epkInfo} />
+          {show && (
+            <RequestModal
+              close={handleClose}
+              open={handleShow}
+              epkId={epkInfo._id}
+              filmmakerId={epkInfo.film_maker._id}
+              user={user}
+              setRefresh={setRefresh}
+            />
+          )}
         </div>
       </div>
     )

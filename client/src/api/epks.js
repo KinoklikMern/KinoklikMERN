@@ -1,3 +1,6 @@
+import axios from "axios";
+
+
 export const getFepksByFilmmakerId = (filmmakerId) => {
   try {
     return fetch(
@@ -11,14 +14,17 @@ export const getFepksByFilmmakerId = (filmmakerId) => {
 
 export const getFepksByTitle = (title) => {
   try {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks/byTitle/${title}`, {
-      method: "GET",
-    }).then((res) => res.json());
+    return fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/fepks/byTitle/${title}`,
+      {
+        method: "GET",
+      }
+    ).then((res) => res.json());
   } catch (error) {
     console.log(error.message);
   }
 };
-export const getFepkFollowersNumber =(id)=>{
+export const getFepkFollowersNumber = (id) => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks/followers/${id}`, {
       method: "GET",
@@ -26,7 +32,7 @@ export const getFepkFollowersNumber =(id)=>{
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 export const getUserbyId = (userId) => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getuser`, {
@@ -39,6 +45,63 @@ export const getUserbyId = (userId) => {
     }).then((res) => res.json());
   } catch (error) {
     console.log(error.message);
+  }
+};
+// api for user is added to request list
+export function addToRequests(message, epkId, userId) {
+  try {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks/postRequests`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fepkId: epkId,
+        user: userId,
+        comment: message,
+      }),
+    }).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+// api for add request message to chat
+export const addToChat = async (message, user, filmmakerId) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/chat`,
+      {
+        userId: filmmakerId,
+        chatName: `${user.firstName} ${user.lastName}`,
+      },
+      config
+    );
+    // save request message to chat message
+    if (data) {
+      try {
+        // const result =
+        return await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/message`,
+          {
+            chatId: data._id,
+            content: message,
+          },
+          config
+        );
+        // socket.emit("new message", result.data);
+      } catch (error) {
+        console.log(`message: ${error.message}`);
+      }
+    }
+  } catch (error) {
+    console.log(`message: ${error.message}`);
   }
 };
 
