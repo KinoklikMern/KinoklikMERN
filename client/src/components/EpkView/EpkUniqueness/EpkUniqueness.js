@@ -3,7 +3,7 @@ import React from 'react'
 export default function EpkUniqueness({epkInfo}) {
   const image_uniqueness = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_uniqueness}`;
   return (
-    <div className='tw-bg-white'>
+    <div className='tw-bg-white tw-my-3'>
       <div className='tw-flex tw-justify-center'>
         <span className='tw-text-[3rem]'>{epkInfo.title_uniqueness}</span>
       </div>
