@@ -19,9 +19,6 @@ export default function EpkSynopsis({
           name="short"
           image={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`}
           text={epkInfo.text_short}
-          // epkId={epkInfo._id}
-          // user={user}
-          // filmmakerId={epkInfo.film_maker._id}
         />
       </div>
       <div className="tw-w-full tw-p-3 tw-text-white">
@@ -35,10 +32,6 @@ export default function EpkSynopsis({
           text={epkInfo.text_medium}
           status={requestStatus}
           handleShow={handleShow}
-          // epkId={epkInfo._id}
-          // user={user}
-          // filmmakerId={epkInfo.film_maker._id}
-          // setRefresh={setRefresh}
         />
       </div>
       <div className="tw-w-full tw-p-3 tw-text-white">
@@ -49,10 +42,6 @@ export default function EpkSynopsis({
           text={epkInfo.text_long}
           status={requestStatus}
           handleShow={handleShow}
-          // epkId={epkInfo._id}
-          // user={user}
-          // filmmakerId={epkInfo.film_maker._id}
-          // setRefresh={setRefresh}
         />
       </div>
     </div>

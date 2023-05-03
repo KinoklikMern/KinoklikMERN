@@ -207,7 +207,7 @@
 }
 
 .dotSection {
-  position: absolute;
+  /* position: absolute; */
   bottom: 1rem;
   right: 1rem;
   color: #170b3b;
@@ -215,15 +215,15 @@
 }
 
 .reportSection {
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   right: 0;
 }
 .reportBtn {
   color: red;
-  padding: 1.5rem 0.5rem 0rem 1.5rem;
+  padding: 0.5rem 0rem 0.5rem 0rem;
   font-size: 1.4rem;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0);
 }
 .reportMessage {
   position: absolute;
