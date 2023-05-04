@@ -42,6 +42,9 @@ function EpkViewPage() {
   useEffect(() => {
     getFepksByTitle(title).then((res) => {
       setEpkInfo(res);
+      setFepkId(res._id);
+      setFepkMaker(res.film_maker);
+      console.log(res);
       if (user.id === res.film_maker._id) {
         setRequestStatus("approved");
       } else {
