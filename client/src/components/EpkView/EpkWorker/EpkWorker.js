@@ -7,7 +7,7 @@ export default function EpkWorker({ epkInfo }) {
     (cast) =>
       cast.epkRole.includes("director") ||
       cast.epkRole.includes("producer") ||
-      cast.epkRole.includes("editor")
+      cast.epkRole.includes("cinematographer") 
   );
   return (
     <div className="tw-bg-opacity-100">

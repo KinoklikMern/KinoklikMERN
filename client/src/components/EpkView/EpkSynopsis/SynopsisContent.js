@@ -7,12 +7,7 @@ export default function SynopsisContent({
   image,
   text,
   status,
-  handleShow,
-  // epkId,
-  // user,
-  // filmmakerId,
-  // setRefresh
-
+  handler,
 }) {
   const isBlur =
     (name != "short" && status == null) ||
@@ -20,14 +15,11 @@ export default function SynopsisContent({
     status == "refused"
       ? true
       : false;
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
   return (
     <div className="tw-relative">
       <div className="tw-absolute tw-top-0 tw-left-[45%] tw-z-20 tw-my-3">
         {name != "short" && status != "approved" && (
-          <RequestButton status={status} handler={handleShow} />
+          <RequestButton status={status} handler={handler} />
         )}
       </div>
       <div
@@ -43,7 +35,6 @@ export default function SynopsisContent({
       >
         <span className="tw-mb-10 tw-text-[1.5rem]">{text}</span>
       </div>
-      {/* {show && <RequestModal close={handleClose} open={handleShow} epkId={epkId} filmmakerId={filmmakerId} user={user} setRefresh={setRefresh}/>} */}
     </div>
   );
 }

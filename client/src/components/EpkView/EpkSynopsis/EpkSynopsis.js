@@ -4,8 +4,7 @@ import SynopsisContent from "./SynopsisContent";
 export default function EpkSynopsis({
   epkInfo,
   requestStatus,
-  user,
-  handleShow,
+  handler,
 }) {
   const IMAGE_URL_PRIFIX = `${process.env.REACT_APP_AWS_URL}`;
 
@@ -31,7 +30,7 @@ export default function EpkSynopsis({
           image={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`}
           text={epkInfo.text_medium}
           status={requestStatus}
-          handleShow={handleShow}
+          handler={handler}
         />
       </div>
       <div className="tw-w-full tw-p-3 tw-text-white">
@@ -41,7 +40,7 @@ export default function EpkSynopsis({
           image={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`}
           text={epkInfo.text_long}
           status={requestStatus}
-          handleShow={handleShow}
+          handler={handler}
         />
       </div>
     </div>
