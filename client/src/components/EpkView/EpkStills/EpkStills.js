@@ -16,8 +16,8 @@ function EpkStills(props) {
   }, []);
 
   return (
-    <div className="tw-bg-white tw-p-5 tw-my-12 tw-h-[700px]">
-      <div className="tw-bg-[#1E0039] tw-h-full">
+    <div className="tw-my-12 tw-h-[700px] tw-bg-white tw-p-5">
+      <div className="tw-h-full tw-bg-[#1E0039]">
         <Carousel className="h-100">
           {stills.map((s) => (
             <Carousel.Item interval={2000}>
