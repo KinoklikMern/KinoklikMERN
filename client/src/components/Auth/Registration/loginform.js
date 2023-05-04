@@ -16,7 +16,6 @@ function LoginForm() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   //individual login form
   const handleInputChange = (e) => {
@@ -50,7 +49,7 @@ function LoginForm() {
       // } else if (data.role === "Viewer") {
       //   navigate("/");
       // }
-      navigate(location.state ? location.state : "/");
+      navigate("/");
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);

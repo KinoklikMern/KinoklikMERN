@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable default-case */
-import React from "react";
+import React, { useState } from "react";
 import ActionIcon from "./ActionIcon";
 import DollarIcon from "../../../images/icons/DollarIcon.svg";
 import DollarBlackIcon from "../../../images/icons/DollarBlackIcon.svg";

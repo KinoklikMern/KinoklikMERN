@@ -71,7 +71,7 @@ export default function EpkHeader({ epkInfo }) {
     }
   }
   return (
-    <div className="tw-flex tw-my-6 tw-justify-between">
+    <div className="tw-flex tw-my-16 tw-justify-between">
       <div className="tw-flex tw-gap-6 tw-w-1/3">
         <span className="tw-text-3xl tw-font-semibold tw-text-white">
           Total Audience Reach
