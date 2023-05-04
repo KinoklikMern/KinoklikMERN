@@ -17,8 +17,11 @@ import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
+import { FepkContext } from "../context/FepkContext";
 
 function EpkViewPage() {
+  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
+    React.useContext(FepkContext);
   const { user } = useSelector((user) => ({ ...user }));
   const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();
@@ -54,7 +57,10 @@ function EpkViewPage() {
   useEffect(() => {
     getFepksByTitle(title).then((res) => {
       setEpkInfo(res);
-      if (user?.id == res.film_maker._id) {
+      setFepkId(res._id);
+      setFepkMaker(res.film_maker);
+      console.log(res);
+      if (user.id === res.film_maker._id) {
         setRequestStatus("approved");
       } else {
         res.requests.map((request) => {

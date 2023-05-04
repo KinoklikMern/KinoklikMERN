@@ -287,11 +287,18 @@ export const getFepkLiked = async (req, res) => {
       if (exists === false) {
         await fepkOne.likes.push(userId);
         await fepkOne.save();
-        const fepkUpdated = await fepk.findOne({ _id: fepkId });
-        res.status(200).json(fepkUpdated);
       } else {
-        res.status(200).json(fepkOne);
+        await fepkOne.likes.pull(userId);
+        await fepkOne.save();
       }
+      const fepkUpdated = await fepk
+        .findOne({ _id: fepkId })
+        .populate("likes") // includes all fields of this object
+        .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_buy") // includes all fields of this object
+        .where("deleted")
+        .equals(false);
+      res.status(200).json(fepkUpdated);
     }
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -311,14 +318,22 @@ export const getFepkFavourite = async (req, res) => {
       res.json({ error: "No EPK was found!" });
     } else {
       let exists = fepkOne.favourites.includes(userId);
+      // let exists = fepkOne.favourites.includes(userId);
       if (exists === false) {
         await fepkOne.favourites.push(userId);
         await fepkOne.save();
-        const fepkUpdated = await fepk.findOne({ _id: fepkId });
-        res.status(200).json(fepkUpdated);
       } else {
-        res.status(200).json(fepkOne);
+        await fepkOne.favourites.pull(userId);
+        await fepkOne.save();
       }
+      const fepkUpdated = await fepk
+        .findOne({ _id: fepkId })
+        .populate("likes") // includes all fields of this object
+        .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_buy") // includes all fields of this object
+        .where("deleted")
+        .equals(false);
+      res.status(200).json(fepkUpdated);
     }
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -341,11 +356,18 @@ export const getFepkWishedToBuy = async (req, res) => {
       if (exists === false) {
         await fepkOne.wishes_to_buy.push(userId);
         await fepkOne.save();
-        const fepkUpdated = await fepk.findOne({ _id: fepkId });
-        res.status(200).json(fepkUpdated);
       } else {
-        res.status(200).json(fepkOne);
+        await fepkOne.wishes_to_buy.pull(userId);
+        await fepkOne.save();
       }
+      const fepkUpdated = await fepk
+        .findOne({ _id: fepkId })
+        .populate("likes") // includes all fields of this object
+        .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_buy") // includes all fields of this object
+        .where("deleted")
+        .equals(false);
+      res.status(200).json(fepkUpdated);
     }
   } catch (error) {
     res.status(404).json({ message: error.message });

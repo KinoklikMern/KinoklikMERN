@@ -1,10 +1,12 @@
 import React from "react";
 import EpkReport from "../EpkReport/EpkReport";
+import { useSelector } from "react-redux";
 
 export default function EpkCover({ epkInfo }) {
   const URL = "";
   const banner_url = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
   const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+  const { user } = useSelector((user) => ({ ...user }));
 
   const formatedDate = (timestamp) => {
     return new Date(timestamp).toLocaleString("en-US", {
@@ -41,8 +43,10 @@ export default function EpkCover({ epkInfo }) {
           <p className="tw-text-xl tw-text-white">{epkInfo.status}</p>
           <p className="tw-text-xl tw-text-white">{epkInfo.genre}</p>
         </div>
-        <div className="tw-flex tw-w-1/6 tw-justify-end tw-cursor-pointer">
-          <EpkReport epkInfo={epkInfo} />
+        <div className="tw-flex tw-w-1/6 tw-cursor-pointer tw-justify-end">
+          {user.id !== epkInfo.film_maker._id ? (
+            <EpkReport epkInfo={epkInfo} />
+          ) : null}
         </div>
       </div>
     </div>
