@@ -30,7 +30,6 @@ import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
 export default function EpkSocialAction({ epkInfo }) {
   const { user } = useSelector((user) => ({ ...user }));
-  const [fepkInfo, setFepkInfo] = useState(epkInfo);
   let userId;
   let userRole;
   if (!user) {
@@ -40,33 +39,66 @@ export default function EpkSocialAction({ epkInfo }) {
     userId = user.id;
     userRole = user.role;
   }
-  const [usersWishesToBuy, setUsersWishesToBuy] = useState(
-    epkInfo.wishes_to_buy.length
-  );
-  const [usersFavourites, setUsersFavourites] = useState(
-    epkInfo.favourites.length
-  );
-  const [usersLikes, setUsersLikes] = useState(epkInfo.likes.length);
+
+  const [fepkInfo, setFepkInfo] = useState([]);
+  const [usersWishesToBuy, setUsersWishesToBuy] = useState([]);
+  const [usersFavourites, setUsersFavourites] = useState([]);
+  const [usersLikes, setUsersLikes] = useState([]);
   const [sharingClicked, setSharingClicked] = useState(false);
   const urlShare = "https://www.google.com"; ///window.location.href
+  console.log(epkInfo);
+  useEffect(() => {
+    if (epkInfo && epkInfo.title) {
+      console.log(epkInfo.title);
+      console.log("11");
+      http.get(`fepks/byTitle/${epkInfo.title}`).then((response) => {
+        console.log(response.data);
+        setFepkInfo(response.data);
+        console.log(fepkInfo);
+        setUsersWishesToBuy(response.data.wishes_to_buy.length);
+        setUsersFavourites(response.data.favourites.length);
+        setUsersLikes(response.data.likes.length);
+      });
+    } else {
+      console.log("22");
+    }
+  }, []);
+  console.log(epkInfo.title);
 
+  console.log(fepkInfo);
+  console.log(userId);
+  console.log(
+    fepkInfo?.wishes_to_buy.filter((item) => item._id === userId).length
+  );
+  console.log(
+    fepkInfo?.favourites.filter((item) => item._id === userId).length
+  );
+  console.log(fepkInfo?.likes.filter((item) => item._id === userId).length);
   const actionList = [
     {
       name: "wish_to_buy",
-      icon: fepkInfo?.wishes_to_buy.includes(userId)
-        ? DollarBlackIcon
-        : DollarIcon,
+      icon:
+        fepkInfo?.wishes_to_buy.filter((item) => item._id === userId).length !==
+        0
+          ? DollarBlackIcon
+          : DollarIcon,
       number: usersWishesToBuy,
       width: "",
     },
     {
       name: "favorites",
-      icon: fepkInfo?.favourites.includes(userId) ? PlusBlackIcon : PlusIcon,
+      icon:
+        fepkInfo?.favourites.filter((item) => item._id === userId).length !== 0
+          ? PlusBlackIcon
+          : PlusIcon,
       number: usersFavourites,
     },
     {
       name: "likes",
-      icon: fepkInfo?.likes.includes(userId) ? StarBlackIcon : StarIcon,
+      icon:
+        fepkInfo?.likes.filter((item) => item._id === userId).length !== 0
+          ? StarBlackIcon
+          : StarIcon,
       number: usersLikes,
     },
     {
@@ -99,6 +131,7 @@ export default function EpkSocialAction({ epkInfo }) {
             .get(`fepks/wishestobuy/${epkInfo._id}/${userId}`)
             .then((response) => {
               setFepkInfo(response.data);
+              console.log(response.data);
               setUsersWishesToBuy(response.data.wishes_to_buy.length);
             })
             .catch((error) => {
@@ -110,6 +143,7 @@ export default function EpkSocialAction({ epkInfo }) {
             .get(`fepks/favourite/${epkInfo._id}/${userId}`)
             .then((response) => {
               setFepkInfo(response.data);
+              console.log(response.data);
               setUsersFavourites(response.data.favourites.length);
             })
             .catch((error) => {
@@ -121,6 +155,7 @@ export default function EpkSocialAction({ epkInfo }) {
             .get(`fepks/like/${epkInfo._id}/${userId}`)
             .then((response) => {
               setFepkInfo(response.data);
+              console.log(response.data);
               setUsersLikes(response.data.likes.length);
             })
             .catch((error) => {
@@ -137,60 +172,71 @@ export default function EpkSocialAction({ epkInfo }) {
           break;
       }
     },
-    hoverHandler: () => addUserToSharings(),
+    hoverHandler: (name) => {
+      switch (name) {
+        case "share":
+          addUserToSharings();
+          break;
+        default:
+          break;
+      }
+    },
   };
 
   return (
     <>
-      <div></div>
       <div className="tw-flex tw-justify-between tw-bg-opacity-100 tw-p-6">
         {/* Social media sharing Icons */}
-        {sharingClicked === true && (
-          <div
-            style={{ float: "left", margin: "5px 5px 0 0" }}
-            onClick={() => closeSharingMenu()}
-          >
-            <FacebookShareButton url={urlShare}>
-              <FacebookIcon
-                size={30}
-                round={true}
-                style={{ marginRight: "5px" }}
-              />
-            </FacebookShareButton>
-            <LinkedinShareButton url={urlShare}>
-              <LinkedinIcon
-                size={30}
-                round={true}
-                style={{ marginRight: "5px" }}
-              />
-            </LinkedinShareButton>
-            <TwitterShareButton url={urlShare}>
-              <TwitterIcon
-                size={30}
-                round={true}
-                style={{ marginRight: "5px" }}
-              />
-            </TwitterShareButton>
-            <RedditShareButton url={urlShare}>
-              <RedditIcon
-                size={30}
-                round={true}
-                style={{ marginRight: "5px" }}
-              />
-            </RedditShareButton>
-            <EmailShareButton url={urlShare}>
-              <EmailIcon size={30} round={true} />
-            </EmailShareButton>
-          </div>
-        )}
+
         {actionList.map((action) => (
-          <ActionIcon
-            key={action.name}
-            name={action.name}
-            icon={action.icon}
-            number={action.number}
-            handlers={handlers}
-          />
+          <React.Fragment key={action.name}>
+            {sharingClicked && action.name === "share" ? (
+              <div
+                className=" tw-z-10"
+                style={{ float: "left", margin: "5px 5px 0 0" }}
+                onClick={() => closeSharingMenu()}
+              >
+                <FacebookShareButton url={urlShare}>
+                  <FacebookIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </FacebookShareButton>
+                <LinkedinShareButton url={urlShare}>
+                  <LinkedinIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </LinkedinShareButton>
+                <TwitterShareButton url={urlShare}>
+                  <TwitterIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </TwitterShareButton>
+                <RedditShareButton url={urlShare}>
+                  <RedditIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </RedditShareButton>
+                <EmailShareButton url={urlShare}>
+                  <EmailIcon size={30} round={true} />
+                </EmailShareButton>
+              </div>
+            ) : null}
+            <ActionIcon
+              key={action.name}
+              name={action.name}
+              icon={action.icon}
+              number={action.number}
+              handlers={handlers}
+            />
+          </React.Fragment>
         ))}
       </div>
     </>

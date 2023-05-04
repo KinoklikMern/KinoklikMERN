@@ -8,7 +8,7 @@ export default function ActionIcon({ name, icon, handlers, number }) {
       className="tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-bg-[#712CB0] hover:tw-scale-110"
       style={{ borderRadius: "20px", cursor: "pointer" }}
       onClick={() => clickHandler(name)}
-      onMouseOver={() => hoverHandler()}
+      onMouseEnter={() => hoverHandler(name)}
     >
       <img
         src={icon}
