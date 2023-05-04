@@ -13,6 +13,7 @@ import EpkResources from "../components/EpkView/EpkResources/EpkResources";
 import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
 import EpkAward from "../components/EpkView/EpkAward/EpkAward";
 import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
+import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
@@ -23,18 +24,32 @@ function EpkViewPage() {
   const [epkInfo, setEpkInfo] = useState();
   const [requestStatus, setRequestStatus] = useState();
   const [refresh, setRefresh] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const handleRequest = () => {
-    if (user) {
-      return handleShow;
-    }
-    return navigate("/login", { state: pathname });
-  };
+  // const handleRequest = () => {
+  //   if (user) {
+  //     return handleShow();
+  //   }
+  //   return navigate("/login", { state: pathname });
+  // };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    if (user) {
+      setShowRequestModal(false);
+    } else {
+      setShowLoginModal(false);
+    }
+  };
+  const handleShow = () => {
+    if (user) {
+      setShowRequestModal(true);
+    } else {
+      setShowLoginModal(true);
+    }
+  };
 
   useEffect(() => {
     getFepksByTitle(title).then((res) => {
@@ -62,30 +77,40 @@ function EpkViewPage() {
           <EpkLogline
             epkInfo={epkInfo}
             requestStatus={requestStatus}
-            handler={handleRequest}
+            handler={handleShow}
           />
           <EpkSynopsis
             epkInfo={epkInfo}
             requestStatus={requestStatus}
-            handler={handleRequest}
+            handler={handleShow}
           />
           <EpkUniqueness
             epkInfo={epkInfo}
             requestStatus={requestStatus}
-            handler={handleRequest}
+            handler={handleShow}
           />
           <EpkCast epkInfo={epkInfo} />
           <EpkWorker epkInfo={epkInfo} />
           <EpkStills
             epkInfo={epkInfo}
             requestStatus={requestStatus}
-            handler={handleRequest}
+            handler={handleShow}
           />
           <EpkResources epkInfo={epkInfo} />
           <EpkTrailer epkInfo={epkInfo} />
           <EpkAward epkInfo={epkInfo} />
-          {show && (
+          {showRequestModal && (
             <RequestModal
+              close={handleClose}
+              open={handleShow}
+              epkId={epkInfo._id}
+              filmmakerId={epkInfo.film_maker._id}
+              user={user}
+              setRefresh={setRefresh}
+            />
+          )}
+          {showLoginModal && (
+            <LoginModal
               close={handleClose}
               open={handleShow}
               epkId={epkInfo._id}
