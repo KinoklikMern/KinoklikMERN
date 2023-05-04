@@ -44,7 +44,7 @@ export default function EpkCover({ epkInfo }) {
           <p className="tw-text-xl tw-text-white">{epkInfo.genre}</p>
         </div>
         <div className="tw-flex tw-w-1/6 tw-cursor-pointer tw-justify-end">
-          {user.id !== epkInfo.film_maker._id ? (
+          {user?.id !== epkInfo.film_maker._id ? (
             <EpkReport epkInfo={epkInfo} />
           ) : null}
         </div>

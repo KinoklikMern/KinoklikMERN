@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import ActionIcon from "./ActionIcon";
 import DollarIcon from "../../../images/icons/DollarIcon.svg";
 import DollarBlackIcon from "../../../images/icons/DollarBlackIcon.svg";
@@ -9,7 +9,6 @@ import StarBlackIcon from "../../../images/icons/StarBlack.svg";
 import KIcon from "../../../images/icons/K.svg";
 import ShareIcon from "../../../images/icons/share.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect } from "react";
 import http from "../../../http-common";
 import { useSelector } from "react-redux";
 import {
