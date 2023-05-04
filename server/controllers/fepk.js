@@ -290,6 +290,8 @@ export const getFepkLiked = async (req, res) => {
         const fepkUpdated = await fepk.findOne({ _id: fepkId });
         res.status(200).json(fepkUpdated);
       } else {
+        await fepkOne.likes.pull(userId);
+        await fepkOne.save();
         res.status(200).json(fepkOne);
       }
     }
@@ -317,6 +319,8 @@ export const getFepkFavourite = async (req, res) => {
         const fepkUpdated = await fepk.findOne({ _id: fepkId });
         res.status(200).json(fepkUpdated);
       } else {
+        await fepkOne.favourites.pull(userId);
+        await fepkOne.save();
         res.status(200).json(fepkOne);
       }
     }
@@ -344,6 +348,8 @@ export const getFepkWishedToBuy = async (req, res) => {
         const fepkUpdated = await fepk.findOne({ _id: fepkId });
         res.status(200).json(fepkUpdated);
       } else {
+        await fepkOne.wishes_to_buy.pull(userId);
+        await fepkOne.save();
         res.status(200).json(fepkOne);
       }
     }
