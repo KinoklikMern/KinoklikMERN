@@ -40,8 +40,10 @@ export default function EpkReport({ epkInfo }) {
 
   const [isClose, setIsClose] = useState(false);
   const clickClose = () => {
-    setIsClose(!isClose);
-    window.location.reload();
+    setIsShow(!isShow);
+    setIsClickDot(!isClickDot);
+    // setIsClose(!isClose);
+    // window.location.reload();
   };
   const [isClickInfoIcon1, setIsClickInfoIcon1] = useState(false);
   const clickInfoIcon1 = () => {

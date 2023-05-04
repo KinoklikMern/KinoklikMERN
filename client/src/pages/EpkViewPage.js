@@ -13,7 +13,7 @@ import EpkResources from "../components/EpkView/EpkResources/EpkResources";
 import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
 import EpkAward from "../components/EpkView/EpkAward/EpkAward";
 import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
 
@@ -24,8 +24,18 @@ function EpkViewPage() {
   const [requestStatus, setRequestStatus] = useState();
   const [refresh, setRefresh] = useState(false);
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const handleRequest = () => {
+    if (user) {
+      return handleShow;
+    }
+    return navigate("/login", { state: pathname });
+  };
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   useEffect(() => {
     getFepksByTitle(title).then((res) => {
       setEpkInfo(res);
@@ -33,7 +43,7 @@ function EpkViewPage() {
         setRequestStatus("approved");
       } else {
         res.requests.map((request) => {
-          if (request.user == user.id) {
+          if (request.user == user?.id) {
             setRequestStatus(request.status);
           }
         });
@@ -55,14 +65,14 @@ function EpkViewPage() {
             requestStatus={requestStatus}
             user={user}
             setRefresh={setRefresh}
-            handleShow={handleShow}
+            handler={handleRequest}
           />
           <EpkUniqueness
             epkInfo={epkInfo}
             requestStatus={requestStatus}
             user={user}
             setRefresh={setRefresh}
-            handleShow={handleShow}
+            handler={handleRequest}
           />
           <EpkCast epkInfo={epkInfo} />
           <EpkWorker epkInfo={epkInfo} />
