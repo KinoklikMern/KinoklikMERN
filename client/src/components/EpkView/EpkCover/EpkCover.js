@@ -41,7 +41,7 @@ export default function EpkCover({ epkInfo }) {
           <p className="tw-text-xl tw-text-white">{epkInfo.status}</p>
           <p className="tw-text-xl tw-text-white">{epkInfo.genre}</p>
         </div>
-        <div className="tw-flex tw-w-1/6 tw-justify-end">
+        <div className="tw-flex tw-w-1/6 tw-justify-end tw-cursor-pointer">
           <EpkReport epkInfo={epkInfo} />
         </div>
       </div>

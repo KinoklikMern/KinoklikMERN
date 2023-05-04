@@ -3,7 +3,7 @@ import axios from "axios";
 import Logincss from "./login.module.css";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -16,6 +16,7 @@ function LoginForm() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   //individual login form
   const handleInputChange = (e) => {
@@ -49,7 +50,7 @@ function LoginForm() {
       // } else if (data.role === "Viewer") {
       //   navigate("/");
       // }
-      navigate("/");
+      navigate(location.state ? location.state : "/");
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);

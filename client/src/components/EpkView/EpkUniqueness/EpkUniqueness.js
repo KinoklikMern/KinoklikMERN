@@ -1,7 +1,7 @@
 import React from "react";
 import RequestButton from "../miscellaneous/RequestButton";
 
-export default function EpkUniqueness({ epkInfo, requestStatus, handleShow }) {
+export default function EpkUniqueness({ epkInfo, requestStatus, handler }) {
   const image_uniqueness = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_uniqueness}`;
   const isBlur =
     requestStatus == null ||
@@ -13,7 +13,7 @@ export default function EpkUniqueness({ epkInfo, requestStatus, handleShow }) {
     <div className="tw-relative tw-h-[600px]">
       <div className="tw-border-1 tw-absolute tw-top-[15%] tw-left-[45%] tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
         {requestStatus != "approved" && (
-          <RequestButton status={requestStatus} handler={handleShow} />
+          <RequestButton status={requestStatus} handler={handler} />
         )}
       </div>
       <div className="tw-my-3 tw-bg-white tw-py-3 tw-h-full tw-flex tw-flex-col tw-gap-12">
