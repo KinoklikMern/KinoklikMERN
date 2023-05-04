@@ -16,8 +16,11 @@ import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
+import { FepkContext } from "../context/FepkContext";
 
 function EpkViewPage() {
+  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
+    React.useContext(FepkContext);
   const { user } = useSelector((user) => ({ ...user }));
   const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();

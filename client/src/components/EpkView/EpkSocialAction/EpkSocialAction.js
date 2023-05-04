@@ -40,17 +40,20 @@ export default function EpkSocialAction({ epkInfo }) {
     userRole = user.role;
   }
 
-  const [fepkInfo, setFepkInfo] = useState([]);
-  const [usersWishesToBuy, setUsersWishesToBuy] = useState([]);
-  const [usersFavourites, setUsersFavourites] = useState([]);
-  const [usersLikes, setUsersLikes] = useState([]);
+  const [fepkInfo, setFepkInfo] = useState(epkInfo);
+  const [usersWishesToBuy, setUsersWishesToBuy] = useState(
+    epkInfo.wishes_to_buy.length
+  );
+  const [usersFavourites, setUsersFavourites] = useState(
+    epkInfo.favourites.length
+  );
+  const [usersLikes, setUsersLikes] = useState(epkInfo.likes.length);
   const [sharingClicked, setSharingClicked] = useState(false);
   const urlShare = "https://www.google.com"; ///window.location.href
   console.log(epkInfo);
+
   useEffect(() => {
-    if (epkInfo && epkInfo.title) {
-      console.log(epkInfo.title);
-      console.log("11");
+    try {
       http.get(`fepks/byTitle/${epkInfo.title}`).then((response) => {
         console.log(response.data);
         setFepkInfo(response.data);
@@ -59,10 +62,11 @@ export default function EpkSocialAction({ epkInfo }) {
         setUsersFavourites(response.data.favourites.length);
         setUsersLikes(response.data.likes.length);
       });
-    } else {
-      console.log("22");
+    } catch (error) {
+      console.log(error);
     }
   }, []);
+
   console.log(epkInfo.title);
 
   console.log(fepkInfo);
