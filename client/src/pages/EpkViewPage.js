@@ -59,24 +59,28 @@ function EpkViewPage() {
           <EpkCover epkInfo={epkInfo} />
           <EpkSocialAction epkInfo={epkInfo} />
           <EpkDetail epkInfo={epkInfo} />
-          <EpkLogline epkInfo={epkInfo} />
+          <EpkLogline
+            epkInfo={epkInfo}
+            requestStatus={requestStatus}
+            handler={handleRequest}
+          />
           <EpkSynopsis
             epkInfo={epkInfo}
             requestStatus={requestStatus}
-            user={user}
-            setRefresh={setRefresh}
             handler={handleRequest}
           />
           <EpkUniqueness
             epkInfo={epkInfo}
             requestStatus={requestStatus}
-            user={user}
-            setRefresh={setRefresh}
             handler={handleRequest}
           />
           <EpkCast epkInfo={epkInfo} />
           <EpkWorker epkInfo={epkInfo} />
-          <EpkStills epkInfo={epkInfo} />
+          <EpkStills
+            epkInfo={epkInfo}
+            requestStatus={requestStatus}
+            handler={handleRequest}
+          />
           <EpkResources epkInfo={epkInfo} />
           <EpkTrailer epkInfo={epkInfo} />
           <EpkAward epkInfo={epkInfo} />
