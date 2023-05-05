@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ActionIcon from "./ActionIcon";
 import DollarIcon from "../../../images/icons/DollarIcon.svg";
 import DollarBlackIcon from "../../../images/icons/DollarBlackIcon.svg";
@@ -45,16 +45,17 @@ export default function EpkSocialAction({ epkInfo }) {
     epkInfo.favourites.length
   );
   const [usersLikes, setUsersLikes] = useState(epkInfo.likes.length);
-  const [sharingClicked, setSharingClicked] = useState(false);
+  // const [sharingClicked, setSharingClicked] = useState(false);
+  const [showShareOptions, setShowShareOptions] = useState(false);
   const urlShare = "https://www.google.com"; ///window.location.href
-  console.log(epkInfo);
+  // console.log(epkInfo);
 
   useEffect(() => {
     try {
       http.get(`fepks/byTitle/${epkInfo.title}`).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setFepkInfo(response.data);
-        console.log(fepkInfo);
+        // console.log(fepkInfo);
         setUsersWishesToBuy(response.data.wishes_to_buy.length);
         setUsersFavourites(response.data.favourites.length);
         setUsersLikes(response.data.likes.length);
@@ -64,17 +65,17 @@ export default function EpkSocialAction({ epkInfo }) {
     }
   }, []);
 
-  console.log(epkInfo.title);
+  // console.log(epkInfo.title);
 
-  console.log(fepkInfo);
-  console.log(userId);
-  console.log(
-    fepkInfo?.wishes_to_buy.filter((item) => item._id === userId).length
-  );
-  console.log(
-    fepkInfo?.favourites.filter((item) => item._id === userId).length
-  );
-  console.log(fepkInfo?.likes.filter((item) => item._id === userId).length);
+  // console.log(fepkInfo);
+  // console.log(userId);
+  // console.log(
+  //   fepkInfo?.wishes_to_buy.filter((item) => item._id === userId).length
+  // );
+  // console.log(
+  //   fepkInfo?.favourites.filter((item) => item._id === userId).length
+  // );
+  // console.log(fepkInfo?.likes.filter((item) => item._id === userId).length);
   const actionList = [
     {
       name: "wish_to_buy",
@@ -113,17 +114,18 @@ export default function EpkSocialAction({ epkInfo }) {
   ];
 
   function closeSharingMenu() {
-    setSharingClicked(false);
+    // setSharingClicked(false);
+    setShowShareOptions(false);
   }
 
   function openUrl(url) {
     window.open(url);
   }
 
-  function addUserToSharings() {
-    http.get(`fepks/sharing/${epkInfo._id}/${userId}`);
-    setSharingClicked(true);
-  }
+  // function addUserToSharings() {
+  //   http.get(`fepks/sharing/${epkInfo._id}/${userId}`);
+  //   setSharingClicked(true);
+  // }
   const handlers = {
     clickHandler: (name) => {
       switch (name) {
@@ -173,73 +175,131 @@ export default function EpkSocialAction({ epkInfo }) {
           break;
       }
     },
-    hoverHandler: (name) => {
-      switch (name) {
-        case "share":
-          addUserToSharings();
+    hoverHandler: (eventName) => {
+      // console.log(eventName);
+      switch (eventName) {
+        case "onMouseOver":
+          setShowShareOptions(true);
+          break;
+        case "onMouseOut":
+          setShowShareOptions(false);
           break;
         default:
           break;
       }
+      // switch (name) {
+      //   case "share":
+      //     // addUserToSharings();
+      //     setShowShareOptions(true);
+      //     break;
+      //   default:
+      //     break;
+      // }
     },
   };
 
   return (
-    <>
-      <div className="tw-flex tw-justify-between tw-bg-opacity-100 tw-p-6">
-        {/* Social media sharing Icons */}
+    <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">
+      {/* Social media sharing Icons */}
 
-        {actionList.map((action) => (
-          <React.Fragment key={action.name}>
-            {sharingClicked && action.name === "share" ? (
-              <div
-                className=" tw-z-10"
-                style={{ float: "left", margin: "5px 5px 0 0" }}
+      {actionList.map((action) => (
+        <div
+          className="tw-relative"
+          onMouseOver={() => handlers.hoverHandler("onMouseOver")}
+          onMouseOut={() => handlers.hoverHandler("onMouseOut")}
+        >
+          {action.name === "share" && showShareOptions && (
+            <div className="tw-absolute tw-right-0 tw--top-[85%] tw-p-3 tw-text-white tw-flex">
+              {/* <div
+                className="tw-border-2"
+                // style={{ float: "top", margin: "5px 5px 0 0" }}
                 onClick={() => closeSharingMenu()}
-              >
-                <FacebookShareButton url={urlShare}>
-                  <FacebookIcon
-                    size={30}
-                    round={true}
-                    style={{ marginRight: "5px" }}
-                  />
-                </FacebookShareButton>
-                <LinkedinShareButton url={urlShare}>
-                  <LinkedinIcon
-                    size={30}
-                    round={true}
-                    style={{ marginRight: "5px" }}
-                  />
-                </LinkedinShareButton>
-                <TwitterShareButton url={urlShare}>
-                  <TwitterIcon
-                    size={30}
-                    round={true}
-                    style={{ marginRight: "5px" }}
-                  />
-                </TwitterShareButton>
-                <RedditShareButton url={urlShare}>
-                  <RedditIcon
-                    size={30}
-                    round={true}
-                    style={{ marginRight: "5px" }}
-                  />
-                </RedditShareButton>
-                <EmailShareButton url={urlShare}>
-                  <EmailIcon size={30} round={true} />
-                </EmailShareButton>
-              </div>
-            ) : null}
-            <ActionIcon
-              key={action.name}
-              name={action.name}
-              icon={action.icon}
-              number={action.number}
-              handlers={handlers}
-            />
-          </React.Fragment>
-        ))}
-      </div>
-    </>
+              > */}
+              <FacebookShareButton url={urlShare} className="hover:tw-scale-125">
+                <FacebookIcon
+                  size={30}
+                  round={true}
+                  style={{ marginRight: "5px" }}
+                />
+              </FacebookShareButton>
+              <LinkedinShareButton url={urlShare} className="hover:tw-scale-125">
+                <LinkedinIcon
+                  size={30}
+                  round={true}
+                  style={{ marginRight: "5px" }}
+                />
+              </LinkedinShareButton>
+              <TwitterShareButton url={urlShare} className="hover:tw-scale-125">
+                <TwitterIcon
+                  size={30}
+                  round={true}
+                  style={{ marginRight: "5px" }}
+                />
+              </TwitterShareButton>
+              <RedditShareButton url={urlShare} className="hover:tw-scale-125">
+                <RedditIcon
+                  size={30}
+                  round={true}
+                  style={{ marginRight: "5px" }}
+                />
+              </RedditShareButton>
+              <EmailShareButton url={urlShare} className="hover:tw-scale-125">
+                <EmailIcon size={30} round={true} />
+              </EmailShareButton>
+            </div>
+            // </div>
+          )}
+          <ActionIcon
+            key={action.name}
+            name={action.name}
+            icon={action.icon}
+            number={action.number}
+            handlers={handlers}
+          />
+        </div>
+      ))}
+    </div>
   );
 }
+
+// <React.Fragment key={action.name}>
+//   {sharingClicked && action.name === "share" ? (
+//     <div
+//       className="tw-border-2"
+//       // style={{ float: "top", margin: "5px 5px 0 0" }}
+//       onClick={() => closeSharingMenu()}
+//     >
+//       <FacebookShareButton url={urlShare}>
+//         <FacebookIcon
+//           size={30}
+//           round={true}
+//           style={{ marginRight: "5px" }}
+//         />
+//       </FacebookShareButton>
+//       <LinkedinShareButton url={urlShare}>
+//         <LinkedinIcon
+//           size={30}
+//           round={true}
+//           style={{ marginRight: "5px" }}
+//         />
+//       </LinkedinShareButton>
+//       <TwitterShareButton url={urlShare}>
+//         <TwitterIcon
+//           size={30}
+//           round={true}
+//           style={{ marginRight: "5px" }}
+//         />
+//       </TwitterShareButton>
+//       <RedditShareButton url={urlShare}>
+//         <RedditIcon
+//           size={30}
+//           round={true}
+//           style={{ marginRight: "5px" }}
+//         />
+//       </RedditShareButton>
+//       <EmailShareButton url={urlShare}>
+//         <EmailIcon size={30} round={true} />
+//       </EmailShareButton>
+//     </div>
+//   ) : null}
+// </React.Fragment>
