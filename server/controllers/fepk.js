@@ -211,7 +211,6 @@ export const updateFepk = async (req, res) => {
       res.json({ error: "No EPK was found!" });
     } else {
       const updatedFepk = req.body;
-      console.log(updatedFepk);
       await fepkOne.updateOne(updatedFepk);
       await fepkOne.updateOne(
         { updatedAt: new Date() },

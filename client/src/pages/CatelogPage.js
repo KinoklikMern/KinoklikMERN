@@ -5,92 +5,107 @@ import "../components/List/List.css";
 import List from "../components/List/List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { CookieSharp } from "@mui/icons-material";
 
 function CatelogPage() {
   const [filterQuery, setFilterQuery] = useState([]);
   const [filterTags, setFilterTags] = useState([
     {
-      name: "movie",
+      name: "Movie",
       isActive: false,
     },
     {
-      name: "tv shows",
+      name: "TV Show",
       isActive: false,
     },
     {
-      name: "web-series",
+      name: "Web Series",
       isActive: false,
     },
     {
-      name: "Documentaries",
+      name: "Documentary",
       isActive: false,
     },
     {
       name: "all epks",
-      isActive: false,
+      isActive: true,
     },
   ]);
 
-  // useEffect(() => {
-  //   setFilterQuery(["Movie", "TV Show", "Web Series", "Documentary"]);
-  // }, []);
   console.log(filterQuery);
-  const clickHandler = (name, isActive) => {
-    setFilterQuery([]);
-    console.log(filterQuery);
-    const newFilterTags = filterTags.map((tag) => {
-      console.log(tag);
-      console.log(name);
-      console.log(filterQuery);
-      if (tag.name === name) {
-        switch (name) {
-          case "movie":
-            if (!isActive) setFilterQuery([...filterQuery, "Movie"]);
-            else setFilterQuery(filterQuery.filter((item) => item !== "Movie"));
-            break;
-          case "tv shows":
-            if (!isActive) setFilterQuery([...filterQuery, "TV Show"]);
-            else
-              setFilterQuery(filterQuery.filter((item) => item !== "TV Show"));
-            break;
-          case "web-series":
-            if (!isActive) setFilterQuery([...filterQuery, "Web Series"]);
-            else
-              setFilterQuery(
-                filterQuery.filter((item) => item !== "Web Series")
-              );
-            break;
-          case "Documentaries":
-            if (!isActive) setFilterQuery([...filterQuery, "Documentary"]);
-            else
-              setFilterQuery(
-                filterQuery.filter((item) => item !== "Documentary")
-              );
-            break;
-          case "all epks":
-            if (!isActive)
-              setFilterQuery(["Movie", "TV Show", "Web Series", "Documentary"]);
-            else
-              setFilterQuery(
-                filterQuery.filter(
-                  (item) =>
-                    item !== "Movie" &&
-                    item !== "TV Show" &&
-                    item !== "Web Series" &&
-                    item !== "Documentary"
-                )
-              );
-            break;
-          default:
-            break;
-        }
 
-        return { ...tag, isActive: !tag.isActive };
+  const clickHandler = (name, isActive) => {
+    let newTags;
+    let newQuery;
+
+    if (name === "all epks") {
+      newTags = filterTags.map((tag) => ({
+        ...tag,
+        isActive: tag.name === name,
+      }));
+      newQuery = isActive
+        ? []
+        : ["Movie", "TV Show", "Web Series", "Documentary"];
+    } else {
+      newTags = filterTags.map((tag) =>
+        tag.name === name ? { ...tag, isActive: !isActive } : tag
+      );
+
+      // newQuery = isActive
+      //   ? filterQuery.filter((item) => item !== name)
+      //   : [...filterQuery, name];
+
+      if (isActive) {
+        newQuery = filterQuery.filter((item) => item !== name);
+      } else {
+        if (filterQuery.length === 4) {
+          newQuery = [name];
+        } else {
+          newQuery = [...filterQuery, name];
+        }
       }
 
-      return tag;
-    });
-    setFilterTags(newFilterTags);
+      // console.log(newQuery);
+      if (!isActive) {
+        newTags[4].isActive = false; // set "all epks" to inactive
+      }
+
+      //if all other tags are active
+      if (
+        newQuery.length ===
+        newTags.filter((tag) => tag.name !== "all epks").length
+      ) {
+        newTags = newTags.map((tag) =>
+          tag.name === "all epks" ? { ...tag, isActive: true } : tag
+        );
+        newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
+        // console.log(newTags);
+        // console.log(newQuery);
+      }
+
+      //if all other tags are inactive
+      if (
+        newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
+          .length === 4
+      ) {
+        newTags = newTags.map((tag) =>
+          tag.name === "all epks" ? { ...tag, isActive: true } : tag
+        );
+      }
+
+      //if one of the other tags is active
+      if (
+        newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
+          .length !== 0
+      ) {
+        newTags = newTags.map((tag) =>
+          tag.name === "all epks" ? { ...tag, isActive: false } : tag
+        );
+      }
+    }
+
+    setFilterTags(newTags);
+    setFilterQuery(newQuery);
   };
 
   // button components

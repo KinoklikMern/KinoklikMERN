@@ -107,6 +107,7 @@ function FepkEditCoverForm() {
     const { name, value } = event.target;
     setCharacterLength({ ...characterLength, [name]: value.length });
     setEpkCoverData({ ...epkCoverData, [name]: value });
+    console.log(epkCoverData);
     setDisabled(false);
     if (name === "title") {
       http.get(`fepks/byTitle/${event.target.value}`).then((response) => {
@@ -168,6 +169,7 @@ function FepkEditCoverForm() {
             if (response.data.file2 !== undefined) {
               epkCoverData.trailer_url = response.data.file2;
             }
+            console.log(epkCoverData);
             http
               .put(`fepks/update/${fepkId}`, epkCoverData)
               .then((res) => {
