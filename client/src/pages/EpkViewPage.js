@@ -78,7 +78,7 @@ function EpkViewPage() {
         <div className="tw-w-11/12">
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
-          <EpkSocialAction epkInfo={epkInfo} />
+          <EpkSocialAction epkInfo={epkInfo} handler={handleShow}/>
           <EpkDetail epkInfo={epkInfo} />
           <EpkLogline
             epkInfo={epkInfo}
