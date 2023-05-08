@@ -202,6 +202,7 @@ export const createFepk = async (req, res) => {
 // update Fepk
 export const updateFepk = async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   try {
     const fepkOne = await fepk
       .findOne({ _id: id })

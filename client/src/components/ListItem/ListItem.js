@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 export default function ListItem({ title, status, type }) {
   let production_type = type;
   if (type && type.length === 0) {
-    production_type = ["Movie", "TV Show", "Web Series", "D)ocumentary"];
+    production_type = ["Movie", "TV Show", "Web Series", "Documentary"];
   }
   const [fepks, setFepks] = useState([]);
   // fetching user
@@ -38,8 +38,7 @@ export default function ListItem({ title, status, type }) {
         });
         break;
       case "all":
-        console.log(type);
-        console.log(status);
+        console.log(production_type);
         http.get(`fepks`).then((response) => {
           if (production_type.length !== 0) {
             setFepks(
