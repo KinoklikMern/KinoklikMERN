@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
-export default function ListItem({ title, status }) {
+export default function ListItem({ title, status, type }) {
+  let production_type = type;
+  if (type.length === 0) {
+    production_type = ["Movie", "TV Show", "Web Series", "Documentary"];
+  }
   const [fepks, setFepks] = useState([]);
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -34,13 +38,25 @@ export default function ListItem({ title, status }) {
         });
         break;
       case "all":
+        console.log(type);
+        console.log(status);
         http.get(`fepks`).then((response) => {
-          if (status) {
-            setFepks(response.data.filter((epk) => epk.status == status));
-          } else setFepks(response.data);
+          if (production_type.length !== 0) {
+            setFepks(
+              response.data.filter(
+                (epk) =>
+                  epk.status === status &&
+                  production_type.includes(epk.production_type)
+              )
+            );
+            console.log(fepks);
+          } else {
+            setFepks(response.data);
+          }
         });
     }
-  }, []);
+  }, [type]);
+
   return (
     <>
       {fepks &&

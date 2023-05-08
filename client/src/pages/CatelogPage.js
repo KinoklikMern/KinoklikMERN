@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disablecase */
+import React, { useEffect, useState } from "react";
 import "../components/HomeBody/HomeBody.css";
 import "../components/List/List.css";
 import List from "../components/List/List";
@@ -6,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 function CatelogPage() {
+  const [filterQuery, setFilterQuery] = useState([]);
   const [filterTags, setFilterTags] = useState([
     {
       name: "movie",
@@ -28,11 +30,64 @@ function CatelogPage() {
       isActive: false,
     },
   ]);
-  const clickHandler = (name) => {
+
+  // useEffect(() => {
+  //   setFilterQuery(["Movie", "TV Show", "Web Series", "Documentary"]);
+  // }, []);
+  console.log(filterQuery);
+  const clickHandler = (name, isActive) => {
+    setFilterQuery([]);
+    console.log(filterQuery);
     const newFilterTags = filterTags.map((tag) => {
-      if (tag.name == name) {
+      console.log(tag);
+      console.log(name);
+      console.log(filterQuery);
+      if (tag.name === name) {
+        switch (name) {
+          case "movie":
+            if (!isActive) setFilterQuery([...filterQuery, "Movie"]);
+            else setFilterQuery(filterQuery.filter((item) => item !== "Movie"));
+            break;
+          case "tv shows":
+            if (!isActive) setFilterQuery([...filterQuery, "TV Show"]);
+            else
+              setFilterQuery(filterQuery.filter((item) => item !== "TV Show"));
+            break;
+          case "web-series":
+            if (!isActive) setFilterQuery([...filterQuery, "Web Series"]);
+            else
+              setFilterQuery(
+                filterQuery.filter((item) => item !== "Web Series")
+              );
+            break;
+          case "Documentaries":
+            if (!isActive) setFilterQuery([...filterQuery, "Documentary"]);
+            else
+              setFilterQuery(
+                filterQuery.filter((item) => item !== "Documentary")
+              );
+            break;
+          case "all epks":
+            if (!isActive)
+              setFilterQuery(["Movie", "TV Show", "Web Series", "Documentary"]);
+            else
+              setFilterQuery(
+                filterQuery.filter(
+                  (item) =>
+                    item !== "Movie" &&
+                    item !== "TV Show" &&
+                    item !== "Web Series" &&
+                    item !== "Documentary"
+                )
+              );
+            break;
+          default:
+            break;
+        }
+
         return { ...tag, isActive: !tag.isActive };
       }
+
       return tag;
     });
     setFilterTags(newFilterTags);
@@ -49,7 +104,7 @@ function CatelogPage() {
               : "tw-bg-white tw-text-[#1E0039]"
           }`}
           type="button"
-          onClick={() => clickHandler(name)}
+          onClick={() => clickHandler(name, isActive)}
         >
           {name}
 
@@ -83,19 +138,19 @@ function CatelogPage() {
         <div className="listTitle">
           <span>POST PRODUCTION</span>
         </div>
-        <List title="all" status="Postproduction" />
+        <List title="all" status="Postproduction" type={filterQuery} />
       </div>
       <div>
         <div className="listTitle">
           <span>PRODUCTION</span>
         </div>
-        <List title="all" status="Production" />
+        <List title="all" status="Production" type={filterQuery} />
       </div>
       <div>
         <div className="listTitle">
           <span>PRE PRODUCTION</span>
         </div>
-        <List title="all" status="Preproduction" />
+        <List title="all" status="Preproduction" type={filterQuery} />
       </div>
     </div>
   );

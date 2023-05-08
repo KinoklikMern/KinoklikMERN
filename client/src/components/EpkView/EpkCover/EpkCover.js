@@ -36,11 +36,12 @@ export default function EpkCover({ epkInfo }) {
       </div>
 
       <div className="tw-flex tw-justify-between tw-bg-white/10 tw-px-6">
-        <div className="tw-flex tw-w-1/3 tw-justify-between">
+        <div className="tw-flex tw-w-1/2 tw-justify-between">
           <p className="tw-text-xl tw-text-white">
             Posted: <span>{formatedDate(epkInfo.createdAt)}</span>
           </p>
           <p className="tw-text-xl tw-text-white">{epkInfo.status}</p>
+          <p className="tw-text-xl tw-text-white">{epkInfo.production_type}</p>
           <p className="tw-text-xl tw-text-white">{epkInfo.genre}</p>
         </div>
         <div className="tw-flex tw-w-1/6 tw-cursor-pointer tw-justify-end">
