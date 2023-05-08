@@ -209,7 +209,7 @@ export default function EpkSocialAction({ epkInfo }) {
           onMouseOut={() => handlers.hoverHandler("onMouseOut")}
         >
           {action.name === "share" && showShareOptions && (
-            <div className="tw-absolute tw-right-0 tw--top-[85%] tw-p-3 tw-text-white tw-flex">
+            <div className="tw-absolute tw-right-0 tw--top-[65%] tw-pb-12 tw-text-white tw-flex">
               {/* <div
                 className="tw-border-2"
                 // style={{ float: "top", margin: "5px 5px 0 0" }}
