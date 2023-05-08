@@ -14,7 +14,7 @@ function FepkEditCoverForm() {
   const [messageTitleYes, setMessageTitleYes] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
-  const [characterLength, setCharacterLength] = useState({logLine_short:0});
+  const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
   let { fepkId } = useParams();
 
   const file1Selected = (event) => {
@@ -32,7 +32,7 @@ function FepkEditCoverForm() {
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
-      setCharacterLength({logLine_short:response.data.logLine_short.length});
+      setCharacterLength({ logLine_short: response.data.logLine_short.length });
       // console.log(response.data);
     });
   }, []);
@@ -42,6 +42,7 @@ function FepkEditCoverForm() {
     title: fepk.title,
     logLine_short: fepk.logLine_short,
     genre: fepk.genre,
+    production_type: fepk.production_type,
     kickstarter_url: fepk.kickstarter_url,
     banner_url: fepk.banner_url,
     trailer_url: fepk.trailer_url,
@@ -97,9 +98,14 @@ function FepkEditCoverForm() {
   const makeStatusItem = (Y) => {
     return <option value={Y}> {Y}</option>;
   };
+
+  const movieType = ["Movie", "Documentary", "TV Show", "Web Series"];
+  const makeTypeItem = (Z) => {
+    return <option value={Z}> {Z}</option>;
+  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setCharacterLength({...characterLength,[name]:value.length});
+    setCharacterLength({ ...characterLength, [name]: value.length });
     setEpkCoverData({ ...epkCoverData, [name]: value });
     setDisabled(false);
     if (name === "title") {
@@ -335,6 +341,25 @@ function FepkEditCoverForm() {
                           {fepk.status}
                         </option>
                         {movieStatus.map(makeStatusItem)}
+                      </select>
+                    </div>
+                    <div className="col my-2">
+                      <select
+                        style={{
+                          height: "30px",
+                          width: "100%",
+                          borderRadius: "5px",
+                          marginBottom: "5px",
+                          boxShadow: "1px 2px 9px #311465",
+                        }}
+                        className="form-select form-select-sm "
+                        name="production_type"
+                        onChange={handleInputChange}
+                      >
+                        <option defaultValue={fepk.production_type}>
+                          {fepk.production_type}
+                        </option>
+                        {movieType.map(makeTypeItem)}
                       </select>
                     </div>
                   </div>
