@@ -7,7 +7,7 @@ export default function EpkCard(props) {
   return (
     <div className="tw-flex tw-flex-row">
       <div className="image-container tw-m-4 tw-max-w-xs tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">
-        <a href={`/epkview/${epkInfo.title}`}>
+        <a href={`/epk/${epkInfo.title}`}>
           <img
             className="tw-max-h-40 tw-w-full tw-rounded-b-none tw-rounded-t-lg"
             src={BANNER_IMG}

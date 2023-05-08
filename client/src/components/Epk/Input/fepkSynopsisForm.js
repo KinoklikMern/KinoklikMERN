@@ -167,7 +167,7 @@ function SynopsisForm() {
             <div className="col-2 m-3">
               <Link
                 className="col align-items-end"
-                to={`/epkview/${fepk.title}`}
+                to={`/epk/${fepk.title}`}
                 style={{
                   color: "#311465",
                   textDecoration: "none",
