@@ -25,7 +25,7 @@ import {
 } from "react-share";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
-export default function EpkSocialAction({ epkInfo }) {
+export default function EpkSocialAction({ epkInfo , handler}) {
   const { user } = useSelector((user) => ({ ...user }));
   let userId;
   let userRole;
@@ -128,7 +128,10 @@ export default function EpkSocialAction({ epkInfo }) {
   // }
   const handlers = {
     clickHandler: (name) => {
-      switch (name) {
+      if(!user){
+        handler();
+      }
+      else{switch (name) {
         case "wish_to_buy":
           http
             .get(`fepks/wishestobuy/${epkInfo._id}/${userId}`)
@@ -173,7 +176,7 @@ export default function EpkSocialAction({ epkInfo }) {
           break;
         default:
           break;
-      }
+      }}
     },
     hoverHandler: (eventName) => {
       // console.log(eventName);
@@ -209,7 +212,7 @@ export default function EpkSocialAction({ epkInfo }) {
           onMouseOut={() => handlers.hoverHandler("onMouseOut")}
         >
           {action.name === "share" && showShareOptions && (
-            <div className="tw-absolute tw-right-0 tw--top-[85%] tw-p-3 tw-text-white tw-flex">
+            <div className="tw-absolute tw-right-0 tw--top-[65%] tw-pb-12 tw-text-white tw-flex">
               {/* <div
                 className="tw-border-2"
                 // style={{ float: "top", margin: "5px 5px 0 0" }}
