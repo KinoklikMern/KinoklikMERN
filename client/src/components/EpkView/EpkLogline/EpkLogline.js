@@ -6,7 +6,7 @@ export default function EpkLogline({ epkInfo, requestStatus, handler }) {
     requestStatus !== "approved" && epkInfo.logLine_blur ? true : false;
 
   return (
-    <div className="tw-bg-white">
+    <div className="tw-bg-white tw-my-16">
       <div className="tw-relative tw-flex tw-flex-col tw-items-center tw-py-12">
         <p className="tw-px-12 tw-text-center tw-text-[2rem] tw-font-semibold tw-text-[#1E0039]">
           {epkInfo.logLine_long}
