@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 
 export default function ListItem({ title, status, type }) {
   let production_type = type;
-  if (type.length === 0) {
-    production_type = ["Movie", "TV Show", "Web Series", "Documentary"];
+  if (type && type.length === 0) {
+    production_type = ["Movie", "TV Show", "Web Series", "D)ocumentary"];
   }
   const [fepks, setFepks] = useState([]);
   // fetching user
