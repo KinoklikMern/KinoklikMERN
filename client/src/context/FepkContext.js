@@ -5,4 +5,6 @@ export const FepkContext = React.createContext({
   setFepkId: () => {},
   fepkMaker: "",
   setFepkMaker: () => {},
+  filterQuery: "",
+  setFilterQuery: () => {},
 });

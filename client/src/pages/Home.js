@@ -15,6 +15,7 @@ import Landing9 from "../components/LandingPage/Landing9";
 import Landing10 from "../components/LandingPage/Landing10";
 import MainLayout from "../layouts/MainLayout";
 import { FepkContext } from "../context/FepkContext";
+import FilterTag from "../components/Filter/FilterTag";
 
 function Home() {
   const { user } = useSelector((user) => ({ ...user }));
@@ -29,6 +30,7 @@ function Home() {
         {user && (
           <>
             <HomeHead />
+            <FilterTag />
             <HomeBody />
             <Festival />
             <HomeBottom />

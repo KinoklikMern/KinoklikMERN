@@ -24,17 +24,44 @@ export default function ListItem({ title, status, type }) {
     switch (title) {
       case "starred":
         http.get(`fepks/getStarredFepksByUser/${id}`).then((response) => {
-          setFepks(response.data);
+          if (production_type.length !== 0) {
+            setFepks(
+              response.data.filter((epk) =>
+                production_type.includes(epk.production_type)
+              )
+            );
+            console.log(fepks);
+          } else {
+            setFepks(response.data);
+          }
         });
         break;
       case "following":
         http.get(`fepks/getFollowingFepksByUser/${id}`).then((response) => {
-          setFepks(response.data);
+          if (production_type.length !== 0) {
+            setFepks(
+              response.data.filter((epk) =>
+                production_type.includes(epk.production_type)
+              )
+            );
+            console.log(fepks);
+          } else {
+            setFepks(response.data);
+          }
         });
         break;
       case "wish_to_buy":
         http.get(`fepks/getWishTobuyByUser/${id}`).then((response) => {
-          setFepks(response.data);
+          if (production_type.length !== 0) {
+            setFepks(
+              response.data.filter((epk) =>
+                production_type.includes(epk.production_type)
+              )
+            );
+            console.log(fepks);
+          } else {
+            setFepks(response.data);
+          }
         });
         break;
       case "all":

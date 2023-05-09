@@ -105,7 +105,15 @@ function App() {
   const className = user ? NavbarHomeClass : NavbarDefaultClass;
   const [fepkId, setFepkId] = useState("");
   const [fepkMaker, setFepkMaker] = useState("");
-  const fepkToProvider = [fepkId, setFepkId, fepkMaker, setFepkMaker];
+  const [filterQuery, setFilterQuery] = useState("");
+  const fepkToProvider = [
+    fepkId,
+    setFepkId,
+    fepkMaker,
+    setFepkMaker,
+    filterQuery,
+    setFilterQuery,
+  ];
 
   return (
     <FepkContext.Provider value={fepkToProvider}>
