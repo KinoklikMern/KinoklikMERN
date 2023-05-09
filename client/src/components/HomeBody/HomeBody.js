@@ -11,30 +11,16 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import { FepkContext } from "../../context/FepkContext.js";
 
 const HomeBody = () => {
   const [fepks, setFepks] = useState([]);
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
+  const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
   const listRef = useRef();
 
-  /*
-    const handleClick = (direction) => {
-        setIsMoved(true);
-        let distance = listRef.current.getBoundingClientRect().x - 62;
-        if (direction === "left" && slideNumber > 0) {
-            setSlideNumber(slideNumber - 1);
-            listRef.current.style.transform = `translateX(${1391 + distance}px)`;
-        }
-        if (direction === "right"
-            && slideNumber < 2
-        ) {
-            setSlideNumber(slideNumber + 1);
-            listRef.current.style.transform = `translateX(${-1391 + distance}px)`;
-        }
-    };
-    */
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
       setFepks(response.data);
@@ -55,21 +41,20 @@ const HomeBody = () => {
           <div className="listTitle">
             <span>STARRED</span>
           </div>
-          <List title="starred" />
+          <List title="starred" type={filterQuery} />
         </div>
         <div>
           <div className="listTitle">
             <span>FOLLOWING</span>
           </div>
-          <List title="following" />
+          <List title="following" type={filterQuery} />
         </div>
         <div>
           <div className="listTitle">
             <span>WISH LIST</span>
           </div>
-          <List title="wish_to_buy" />
+          <List title="wish_to_buy" type={filterQuery} />
         </div>
-
 
         {genres.map((genre) => {
           return (
@@ -88,7 +73,13 @@ const HomeBody = () => {
                   />
                   <div className="container" ref={listRef}>
                     {fepks
-                      .filter((fepk) => fepk.genre === genre)
+                      .filter(
+                        (fepk) =>
+                          fepk.genre === genre &&
+                          (filterQuery !== ""
+                            ? filterQuery.includes(fepk.production_type)
+                            : true)
+                      )
                       .map((fepk) => {
                         return (
                           <>
