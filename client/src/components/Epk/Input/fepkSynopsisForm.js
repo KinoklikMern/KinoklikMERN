@@ -132,7 +132,8 @@ function SynopsisForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius:"10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -190,7 +191,7 @@ function SynopsisForm() {
             <div className="card-body" style={{ height: "500px" }}>
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{ color: "#311465", fontWeight: "normal" }}
               >
                 Synopsis
               </h5>
@@ -354,7 +355,7 @@ function SynopsisForm() {
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_synopsis}`}
                       style={{
-                        height: "70px",
+                        height: "120px",
                         width: "auto",
                         marginTop: "5px",
                       }}
@@ -368,7 +369,7 @@ function SynopsisForm() {
                       height: "50px",
                       width: "120px",
                       marginLeft: "100%",
-                      // marginTop: "15px",
+                      marginTop: "-15px",
                     }}
                   >
                     {disabled === true ? (
