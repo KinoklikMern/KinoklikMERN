@@ -122,7 +122,8 @@ function LoglineForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius:"10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -180,7 +181,7 @@ function LoglineForm() {
             <div className="card-body" style={{ height: "500px" }}>
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{ color: "#311465", fontWeight: "normal" }}
               >
                 Log Line
               </h5>
@@ -260,10 +261,10 @@ function LoglineForm() {
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_logline}`}
                       style={{
-                        height: "70px",
+                        height: "120px",
                         width: "auto",
-                        // marginTop: "5px",
                         margin: "inherit",
+                        marginTop:"0"
                       }}
                       alt="no image"
                     />

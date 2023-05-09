@@ -195,7 +195,8 @@ function FepkEditCoverForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius: "10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -253,13 +254,13 @@ function FepkEditCoverForm() {
             <div className="card-body" style={{ height: "500px" }}>
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{ color: "#311465", fontWeight: "normal" }}
               >
                 Cover
               </h5>
-              <form className="row g-3">
-                <div className="col ms-1">
-                  <div className="col my-1">
+              <form className="row g-5">
+                <div className="col me-5">
+                  <div className="col mt-1 mb-5">
                     <input
                       style={{
                         height: "30px",
@@ -278,7 +279,7 @@ function FepkEditCoverForm() {
                     <h6 style={{ color: "red" }}>{messageTitleNo}</h6>
                     <h6 style={{ color: "green" }}>{messageTitleYes}</h6>
                   </div>
-                  <div className="col my-1">
+                  <div className="col my-3">
                     <textarea
                       style={{
                         height: "100px",
@@ -306,7 +307,7 @@ function FepkEditCoverForm() {
                       {characterLength?.logLine_short}/160 characters
                     </span>
                   </div>
-                  <div className="row mt-2">
+                  <div className="row my-4">
                     <div className="col my-2">
                       <select
                         style={{
@@ -380,7 +381,13 @@ function FepkEditCoverForm() {
                     />
                   </div>
                 </div>
-                <div className="col border border-2">
+                <div
+                  className="col"
+                  style={{
+                    boxShadow: "1px 2px 9px #311465",
+                    borderRadius: "5px",
+                  }}
+                >
                   <div className="row gx-6">
                     <div className="col">
                       <label
@@ -405,7 +412,7 @@ function FepkEditCoverForm() {
                       <img
                         src={`${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`}
                         style={{
-                          height: "70px",
+                          height: "120px",
                           width: "auto",
                           marginTop: "5px",
                         }}
@@ -436,8 +443,9 @@ function FepkEditCoverForm() {
                         src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}
                         style={{
                           marginTop: "5px",
-                          width: "110px",
+                          width: "220px",
                           height: "auto",
+                          paddingTop:"0",
                         }}
                         controls
                       ></video>
@@ -449,7 +457,7 @@ function FepkEditCoverForm() {
                     height: "50px",
                     width: "120px",
                     marginLeft: "100%",
-                    marginTop: "140px",
+                    marginTop: "5%",
                   }}
                 >
                   {disabled === true ? (

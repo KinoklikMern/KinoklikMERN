@@ -139,7 +139,8 @@ function ReviewsForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius:"10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -197,7 +198,7 @@ function ReviewsForm() {
             <div className="card-body" style={{ height: "500px" }}>
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{ color: "#311465", fontWeight: "normal" }}
               >
                 Film Reviews & Awards
               </h5>
@@ -209,7 +210,7 @@ function ReviewsForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
+                        marginBottom: "20px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
                       }}
@@ -341,7 +342,7 @@ function ReviewsForm() {
                       height: "50px",
                       width: "120px",
                       marginLeft: "100%",
-                      marginTop: "15px",
+                      marginTop: "-10px",
                     }}
                   >
                     {disabled === true ? (

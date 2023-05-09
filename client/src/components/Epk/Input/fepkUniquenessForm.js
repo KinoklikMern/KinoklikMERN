@@ -131,7 +131,8 @@ function UniquenessForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius:"10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -189,7 +190,7 @@ function UniquenessForm() {
             <div className="card-body" style={{ height: "500px" }}>
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{ color: "#311465", fontWeight: "normal" }}
               >
                 Uniqueness
               </h5>
@@ -201,7 +202,7 @@ function UniquenessForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
+                        marginBottom: "20px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
                       }}
@@ -269,7 +270,7 @@ function UniquenessForm() {
                   </div>
                   {/* <div className="col my-3"></div> */}
 
-                  <div className="col mt-5">
+                  <div className="col mt-1">
                     <label
                       for="filePoster"
                       class="form-label text-dark"
@@ -292,7 +293,7 @@ function UniquenessForm() {
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_uniqueness}`}
                       style={{
-                        height: "70px",
+                        height: "120px",
                         width: "auto",
                         marginTop: "5px",
                         marginLeft: "50px",
@@ -306,7 +307,7 @@ function UniquenessForm() {
                     height: "50px",
                     width: "120px",
                     marginLeft: "100%",
-                    marginTop: "0px",
+                    marginTop: "-5%",
                   }}
                 >
                   {disabled === true ? (

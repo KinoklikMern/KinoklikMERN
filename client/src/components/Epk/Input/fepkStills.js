@@ -147,7 +147,8 @@ function StillsForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius:"10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -205,7 +206,7 @@ function StillsForm() {
             <div className="card-body" style={{ height: "500px" }}>
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{ color: "#311465", fontWeight: "normal" }}
               >
                 Film Stills
               </h5>

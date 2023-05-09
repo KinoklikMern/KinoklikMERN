@@ -30,7 +30,7 @@ function Home() {
           <>
             <HomeHead />
             <HomeBody />
-            <Festival />
+            {/* <Festival /> */}
             <HomeBottom />
           </>
         )}
