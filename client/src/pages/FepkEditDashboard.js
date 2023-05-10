@@ -26,6 +26,7 @@ function FepkEditDashboard() {
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
+  console.log(user);
   let filmmaker_id;
   if (!user) {
     filmmaker_id = "0";

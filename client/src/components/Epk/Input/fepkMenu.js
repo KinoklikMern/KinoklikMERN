@@ -28,6 +28,7 @@ export default function BasicMenu() {
     });
     http.get(`/fepks/${fepkId}`).then((response) =>{
         setFepk(response.data);
+        console.log(response.data.title);
     });
   }, [fepkId]);
 

@@ -26,6 +26,7 @@ function UniquenessForm() {
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
+      console.log(response.data.title);
       setCharacterLength({
         ...characterLength,
         description_uniqueness: response.data.description_uniqueness.length,
@@ -39,7 +40,6 @@ function UniquenessForm() {
     });
   }, []);
 
-
   if (!epkUniquenessData) {
     epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
   }
@@ -47,7 +47,7 @@ function UniquenessForm() {
   const handleUniquenessChange = (event) => {
     const { name, value } = event.target;
     setEpkUniquenessData({ ...epkUniquenessData, [name]: value });
-    setCharacterLength({ ...characterLength, [name]: value.length });
+    setCharacterLength({ ...characterLength, [name]: value });
     setDisabled(false);
   };
 
@@ -242,7 +242,7 @@ function UniquenessForm() {
                         justifyContent: "right",
                       }}
                     >
-                      {characterLength.description_uniqueness}/500 characters
+                      {characterLength?.description_uniqueness}/500 characters
                     </span>
                   </div>
 
