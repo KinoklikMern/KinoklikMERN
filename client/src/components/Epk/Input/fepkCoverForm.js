@@ -200,7 +200,8 @@ function FepkCoverForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius: "10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -256,8 +257,8 @@ function FepkCoverForm() {
                 Cover
               </h5>
               <form className="row g-3">
-                <div className="col ms-">
-                  <div className="col my-1">
+                <div className="col mx-5">
+                  <div className="col mt-1 mb-5">
                     <input
                       style={{
                         height: "30px",
@@ -280,7 +281,7 @@ function FepkCoverForm() {
                       {messageTitleYes}
                     </h6>
                   </div>
-                  <div className="col my-1">
+                  <div className="col my-3">
                     <textarea
                       style={{
                         height: "60px",
@@ -297,7 +298,7 @@ function FepkCoverForm() {
                       name="logLine_short"
                     />
                   </div>
-                  <div className="row mt-2">
+                  <div className="row my-5">
                     <div className="col my-2">
                       <select
                         style={{
@@ -364,7 +365,7 @@ function FepkCoverForm() {
                     />
                   </div>
                 </div>
-                <div className="col border border-2">
+                <div className="col border border-2 rounded">
                   <div className="row gx-6">
                     <div className="col mt-5">
                       <label
@@ -418,7 +419,7 @@ function FepkCoverForm() {
                     height: "50px",
                     width: "120px",
                     marginLeft: "100%",
-                    marginTop: "140px",
+                    marginTop: "5%",
                     textAlign: "center",
                   }}
                 >

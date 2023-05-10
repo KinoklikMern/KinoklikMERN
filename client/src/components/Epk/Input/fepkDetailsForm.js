@@ -167,6 +167,7 @@ function FepkDetailsForm() {
   }
 
   function addCrewToTable() {
+    console.log("!",crewData);
     if (
       crewData.crewId._id !== "" &&
       crewData.crewId.name !== "" &&
@@ -181,6 +182,7 @@ function FepkDetailsForm() {
       // crewData.twitter_url !== "" &&
       // crewData.twitter_followers !== ""
     ) {
+      console.log("1",crewList);
       crewList.push(crewData);
       setEpkFilmDetailsData({ ...epkFilmDetailsData, crew: crewList });
       setDisabledAdd(true);
@@ -196,6 +198,7 @@ function FepkDetailsForm() {
         });
       window.location.reload();
     }
+    console.log("2",crewList);
   }
 
   const createNewCrew = () => {
@@ -247,7 +250,6 @@ function FepkDetailsForm() {
       setFilteredData(newFilter);
     }
   };
-  // console.log("ff",characterLength);
 
   const addToCrewData = (crew) => {
     if (characterLength.biography <= 250) {
@@ -328,7 +330,8 @@ function FepkDetailsForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
+          borderRadius: "10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -378,7 +381,7 @@ function FepkDetailsForm() {
           <div
             style={{
               marginLeft: "10%",
-              marginRight: "15%",
+              marginRight: "10%",
               color: "#311465",
               fontWeight: "normal",
             }}
@@ -386,13 +389,13 @@ function FepkDetailsForm() {
             <div className="card-body" style={{ height: "500px" }}>
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{ color: "#311465", fontWeight: "normal" }}
               >
                 Film Details
               </h5>
               <form>
                 <div className="row">
-                  <div className="col-3 mt-4">
+                  <div className="col-3 mt-2">
                     <input
                       style={{
                         height: "30px",
@@ -403,7 +406,7 @@ function FepkDetailsForm() {
                         textAlign: "left",
                         fontSize: "14px",
                       }}
-                      className="form-control m-10"
+                      className="form-control m-10 mb-4"
                       defaultValue={fepk.productionCo}
                       placeholder="Production Company Name"
                       onChange={handleDetailsChange}
@@ -419,14 +422,14 @@ function FepkDetailsForm() {
                         textAlign: "left",
                         fontSize: "14px",
                       }}
-                      className="form-control m-10"
+                      className="form-control m-10 "
                       defaultValue={fepk.distributionCo}
                       placeholder="Distribution Company Name"
                       onChange={handleDetailsChange}
                       name="distributionCo"
                     />
                     <div className="row">
-                      <div className="col-6 mt-3">
+                      <div className="col-6 my-3">
                         <input
                           style={{
                             height: "30px",
@@ -532,9 +535,9 @@ function FepkDetailsForm() {
                       />
                     )}
                   </div>
-                  <div className="col-3 mt-3">
+                  <div className="col-3 mt-2">
                     <div className="row">
-                      <div className="col-9 mt-2">
+                      <div className="col-9 ">
                         <input
                           style={{
                             height: "30px",
@@ -553,11 +556,13 @@ function FepkDetailsForm() {
                           <div
                             style={{
                               height: "100px",
-                              width: "100%",
+                              width: "15%",
                               backgroundColor: "white",
                               borderRadius: "5px",
                               marginBottom: "5px",
                               overflow: "auto",
+                              position: "absolute",
+                              zIndex: "1",
                             }}
                           >
                             {filteredData.map((crewObj) => {
@@ -596,9 +601,9 @@ function FepkDetailsForm() {
                         ) : (
                           <div
                             style={{
-                              height: "100px",
-                              width: "100%",
-                              marginBottom: "5px",
+                              // height: "100px",
+                              // width: "100%",
+                              marginBottom: "0px",
                             }}
                           ></div>
                         )}
@@ -606,18 +611,22 @@ function FepkDetailsForm() {
                       <div className="col-3" style={{ textAlign: "left" }}>
                         {status === false ? (
                           <div className="hover:tw-scale-110">
-                          <FontAwesomeIcon
-                            icon={faUserPlus}
-                            style={{ height: "20px", paddingBottom: "8px", cursor:"pointer"}}
-                            onClick={() => createNewCrew()}
-                          />
+                            <FontAwesomeIcon
+                              icon={faUserPlus}
+                              style={{
+                                height: "20px",
+                                paddingBottom: "12px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => createNewCrew()}
+                            />
                           </div>
                         ) : (
                           <FontAwesomeIcon
                             icon={faUserCheck}
                             style={{
                               height: "20px",
-                              paddingBottom: "8px",
+                              paddingBottom: "12px",
                               color: "green",
                             }}
                           />
@@ -629,7 +638,7 @@ function FepkDetailsForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
+                        marginBottom: "20px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
                         fontSize: "14px",
@@ -645,10 +654,10 @@ function FepkDetailsForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
+                        marginBottom: "20px",
                         boxShadow: "1px 2px 9px #311465",
                       }}
-                      className="form-select form-select-sm "
+                      className="form-select form-select-sm"
                       name="epkRole"
                       onChange={handleCrewChange}
                     >
@@ -677,6 +686,7 @@ function FepkDetailsForm() {
                         fontSize: "12px",
                         display: "flex",
                         justifyContent: "right",
+                        marginBottom: "20px",
                       }}
                     >
                       {characterLength?.biography}/250 characters
@@ -688,7 +698,7 @@ function FepkDetailsForm() {
                             height: "30px",
                             width: "100%",
                             borderRadius: "5px",
-                            marginBottom: "5px",
+                            marginBottom: "20px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
                             fontSize: "14px",
@@ -706,7 +716,7 @@ function FepkDetailsForm() {
                             height: "30px",
                             width: "100%",
                             borderRadius: "5px",
-                            marginBottom: "5px",
+                            marginBottom: "20px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
                             fontSize: "9px",
@@ -728,7 +738,7 @@ function FepkDetailsForm() {
                             height: "30px",
                             width: "100%",
                             borderRadius: "5px",
-                            marginBottom: "5px",
+                            marginBottom: "20px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
                             fontSize: "14px",
@@ -746,7 +756,7 @@ function FepkDetailsForm() {
                             height: "30px",
                             width: "100%",
                             borderRadius: "5px",
-                            marginBottom: "5px",
+                            marginBottom: "20px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
                             fontSize: "9px",
@@ -768,7 +778,7 @@ function FepkDetailsForm() {
                             height: "30px",
                             width: "100%",
                             borderRadius: "5px",
-                            marginBottom: "5px",
+                            marginBottom: "20px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
                             fontSize: "14px",
@@ -786,7 +796,7 @@ function FepkDetailsForm() {
                             height: "30px",
                             width: "100%",
                             borderRadius: "5px",
-                            marginBottom: "5px",
+                            marginBottom: "20px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
                             fontSize: "9px",
@@ -813,7 +823,7 @@ function FepkDetailsForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={addCrewToTable}
+                        // onClick={addCrewToTable}
                         value="save"
                       >
                         Add to Table
@@ -900,13 +910,14 @@ function FepkDetailsForm() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="col-1">
+                  <div className="col-1 align-self-end">
                     <div
                       style={{
                         height: "50px",
                         width: "100px",
-                        marginLeft: "100%",
-                        marginTop: "400px",
+                        // marginLeft: "100%",
+                        marginTop: "5%",
+                        // border: "1px solid black",
                       }}
                     >
                       {disabled === true ? (

@@ -32,7 +32,7 @@ function Home() {
             <HomeHead />
             <FilterTag />
             <HomeBody />
-            <Festival />
+            {/* <Festival /> */}
             <HomeBottom />
           </>
         )}
