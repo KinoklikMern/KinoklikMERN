@@ -25,7 +25,7 @@ import {
 } from "react-share";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
-export default function EpkSocialAction({ epkInfo , handler}) {
+export default function EpkSocialAction({ epkInfo, handler }) {
   const { user } = useSelector((user) => ({ ...user }));
   let userId;
   let userRole;
@@ -65,17 +65,6 @@ export default function EpkSocialAction({ epkInfo , handler}) {
     }
   }, []);
 
-  // console.log(epkInfo.title);
-
-  // console.log(fepkInfo);
-  // console.log(userId);
-  // console.log(
-  //   fepkInfo?.wishes_to_buy.filter((item) => item._id === userId).length
-  // );
-  // console.log(
-  //   fepkInfo?.favourites.filter((item) => item._id === userId).length
-  // );
-  // console.log(fepkInfo?.likes.filter((item) => item._id === userId).length);
   const actionList = [
     {
       name: "wish_to_buy",
@@ -122,61 +111,58 @@ export default function EpkSocialAction({ epkInfo , handler}) {
     window.open(url);
   }
 
-  // function addUserToSharings() {
-  //   http.get(`fepks/sharing/${epkInfo._id}/${userId}`);
-  //   setSharingClicked(true);
-  // }
   const handlers = {
     clickHandler: (name) => {
-      if(!user){
+      if (!user) {
         handler();
+      } else {
+        switch (name) {
+          case "wish_to_buy":
+            http
+              .get(`fepks/wishestobuy/${epkInfo._id}/${userId}`)
+              .then((response) => {
+                setFepkInfo(response.data);
+                console.log(response.data);
+                setUsersWishesToBuy(response.data.wishes_to_buy.length);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            break;
+          case "favorites":
+            http
+              .get(`fepks/favourite/${epkInfo._id}/${userId}`)
+              .then((response) => {
+                setFepkInfo(response.data);
+                console.log(response.data);
+                setUsersFavourites(response.data.favourites.length);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            break;
+          case "likes":
+            http
+              .get(`fepks/like/${epkInfo._id}/${userId}`)
+              .then((response) => {
+                setFepkInfo(response.data);
+                console.log(response.data);
+                setUsersLikes(response.data.likes.length);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            break;
+          case "K":
+            openUrl(epkInfo.kickstarter_url);
+            break;
+          case "share":
+            closeSharingMenu();
+            break;
+          default:
+            break;
+        }
       }
-      else{switch (name) {
-        case "wish_to_buy":
-          http
-            .get(`fepks/wishestobuy/${epkInfo._id}/${userId}`)
-            .then((response) => {
-              setFepkInfo(response.data);
-              console.log(response.data);
-              setUsersWishesToBuy(response.data.wishes_to_buy.length);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          break;
-        case "favorites":
-          http
-            .get(`fepks/favourite/${epkInfo._id}/${userId}`)
-            .then((response) => {
-              setFepkInfo(response.data);
-              console.log(response.data);
-              setUsersFavourites(response.data.favourites.length);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          break;
-        case "likes":
-          http
-            .get(`fepks/like/${epkInfo._id}/${userId}`)
-            .then((response) => {
-              setFepkInfo(response.data);
-              console.log(response.data);
-              setUsersLikes(response.data.likes.length);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          break;
-        case "K":
-          openUrl(epkInfo.kickstarter_url);
-          break;
-        case "share":
-          closeSharingMenu();
-          break;
-        default:
-          break;
-      }}
     },
     hoverHandler: (eventName) => {
       // console.log(eventName);
@@ -212,20 +198,26 @@ export default function EpkSocialAction({ epkInfo , handler}) {
           onMouseOut={() => handlers.hoverHandler("onMouseOut")}
         >
           {action.name === "share" && showShareOptions && (
-            <div className="tw-absolute tw-right-0 tw--top-[65%] tw-pb-12 tw-text-white tw-flex">
+            <div className="tw-absolute tw-right-0 tw--top-[65%] tw-flex tw-pb-12 tw-text-white">
               {/* <div
                 className="tw-border-2"
                 // style={{ float: "top", margin: "5px 5px 0 0" }}
                 onClick={() => closeSharingMenu()}
               > */}
-              <FacebookShareButton url={urlShare} className="hover:tw-scale-125">
+              <FacebookShareButton
+                url={urlShare}
+                className="hover:tw-scale-125"
+              >
                 <FacebookIcon
                   size={30}
                   round={true}
                   style={{ marginRight: "5px" }}
                 />
               </FacebookShareButton>
-              <LinkedinShareButton url={urlShare} className="hover:tw-scale-125">
+              <LinkedinShareButton
+                url={urlShare}
+                className="hover:tw-scale-125"
+              >
                 <LinkedinIcon
                   size={30}
                   round={true}

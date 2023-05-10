@@ -23,10 +23,10 @@
   font-size: 2rem;
   color: white;
   display: grid;
-  grid-gap: 115px;
+  grid-gap: 70px;
   position: absolute;
-  left: 16px;
-  top: 8vmax;
+  left: 20px;
+  top: 5vmax;
 }
 
 .menu-icon1 {
