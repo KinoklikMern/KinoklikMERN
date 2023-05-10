@@ -189,7 +189,7 @@ const HomeHead = () => {
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">
             <div>
-              <a href={`epkview/${fepk.title}`}>
+              <a href={`epk/${fepk.title}`}>
                 <img
                   className="tw-h-[70vh] "
                   src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}

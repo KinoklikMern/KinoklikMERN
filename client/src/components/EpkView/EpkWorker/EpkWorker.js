@@ -7,22 +7,24 @@ export default function EpkWorker({ epkInfo }) {
     (cast) =>
       cast.epkRole.includes("director") ||
       cast.epkRole.includes("producer") ||
-      cast.epkRole.includes("cinematographer") 
+      cast.epkRole.includes("cinematographer")
   );
   return (
-    <div className="tw-bg-opacity-100">
-      <div className="tw-text-white">
-        {workerList.map((cast, index) => (
-          <CastCard
-            key={cast.crewId._id}
-            index={index}
-            image={`${IMAGE_URL_PRIFIX}/${cast.image}`}
-            text={cast.biography}
-            castName={cast.crewId.name}
-            epkRole={cast.epkRole}
-          />
-        ))}
+    workerList.length !== 0 && (
+      <div className="tw-bg-opacity-100">
+        <div className="tw-text-white">
+          {workerList.map((cast, index) => (
+            <CastCard
+              key={cast.crewId._id}
+              index={index}
+              image={`${IMAGE_URL_PRIFIX}/${cast.image}`}
+              text={cast.biography}
+              castName={cast.crewId.name}
+              epkRole={cast.epkRole}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    )
   );
 }

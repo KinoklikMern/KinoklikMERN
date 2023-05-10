@@ -8,15 +8,12 @@ import "../../Epk/Present/StillsCarousel.css";
 function EpkStills({ epkInfo, requestStatus, handler }) {
   const stillList = epkInfo?.stills;
   return (
-    epkInfo && (
+    stillList.length !== 0 && (
       <div className="tw-my-12 tw-h-[700px] tw-bg-white tw-p-5">
         <div className="tw-h-full tw-bg-[#1E0039] tw-p-5">
           <Carousel className="h-100">
             {stillList.map((s) => (
-              <Carousel.Item
-                interval={2000}
-                className="position-relative"
-              >
+              <Carousel.Item interval={2000} className="position-relative">
                 <Link to="/movie/830784">
                   <div className="tw-border-1 tw-absolute tw-top-[2%] tw-left-[45%] tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
                     {requestStatus !== "approved" && s.blur && (
@@ -29,7 +26,8 @@ function EpkStills({ epkInfo, requestStatus, handler }) {
                       borderRadius: "30px",
                       width: "100%",
                       height: "100%",
-                      filter: requestStatus !== "approved" && s.blur && "blur(8px)"
+                      filter:
+                        requestStatus !== "approved" && s.blur && "blur(8px)",
                     }}
                     src={`https://kinomovie.s3.amazonaws.com/${s.image}`}
                     alt="resource pics"
