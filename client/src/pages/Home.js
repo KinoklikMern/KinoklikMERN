@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import HomeHead from "./HomeHead";
+import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBottom from "../components/HomeBottom";
 import Festival from "../components/Festival/Festival";
