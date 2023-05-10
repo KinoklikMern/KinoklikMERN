@@ -167,6 +167,7 @@ function FepkDetailsForm() {
   }
 
   function addCrewToTable() {
+    console.log("!",crewData);
     if (
       crewData.crewId._id !== "" &&
       crewData.crewId.name !== "" &&
@@ -181,6 +182,7 @@ function FepkDetailsForm() {
       // crewData.twitter_url !== "" &&
       // crewData.twitter_followers !== ""
     ) {
+      console.log("1",crewList);
       crewList.push(crewData);
       setEpkFilmDetailsData({ ...epkFilmDetailsData, crew: crewList });
       setDisabledAdd(true);
@@ -196,6 +198,7 @@ function FepkDetailsForm() {
         });
       window.location.reload();
     }
+    console.log("2",crewList);
   }
 
   const createNewCrew = () => {
@@ -247,7 +250,6 @@ function FepkDetailsForm() {
       setFilteredData(newFilter);
     }
   };
-  // console.log("ff",characterLength);
 
   const addToCrewData = (crew) => {
     if (characterLength.biography <= 250) {
@@ -667,7 +669,7 @@ function FepkDetailsForm() {
                         height: "60px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "20px",
+                        marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
                         resize: "none",
@@ -684,6 +686,7 @@ function FepkDetailsForm() {
                         fontSize: "12px",
                         display: "flex",
                         justifyContent: "right",
+                        marginBottom: "20px",
                       }}
                     >
                       {characterLength?.biography}/250 characters
@@ -820,7 +823,7 @@ function FepkDetailsForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={addCrewToTable}
+                        // onClick={addCrewToTable}
                         value="save"
                       >
                         Add to Table
