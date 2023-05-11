@@ -132,7 +132,7 @@ const HomeHead = () => {
         <div className="menu-icon tw-pt-12">
           {/* <Link to="/">   must be linked to /bookmark    */}
           <div
-            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-bg-[#2E1F3B] hover:tw-scale-110"
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
@@ -145,12 +145,12 @@ const HomeHead = () => {
               }
               alt="/"
               onClick={handleClickDollar}
-              style={{ opacity: clickedDollar ? 1 : 0.5 }}
+              //   style={{ opacity: clickedDollar ? 1 : 0.5 }}
             />
           </div>
           {/*  </Link> */}
           <div
-            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-bg-[#2E1F3B] hover:tw-scale-110"
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
@@ -163,11 +163,11 @@ const HomeHead = () => {
               }
               alt="/"
               onClick={handleClickPlus}
-              style={{ opacity: clickedPlus ? 1 : 0.5 }}
+              //   style={{ opacity: clickedPlus ? 1 : 0.5 }}
             />
           </div>
           <div
-            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-bg-[#2E1F3B] hover:tw-scale-110"
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
@@ -179,11 +179,11 @@ const HomeHead = () => {
               }
               onClick={handleStarClick}
               alt="/"
-              style={{ opacity: clickedStar ? 1 : 0.5 }}
+              //   style={{ opacity: clickedStar ? 1 : 0.5 }}
             />
           </div>
           <div
-            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-bg-[#2E1F3B] hover:tw-scale-110"
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
@@ -191,11 +191,11 @@ const HomeHead = () => {
               src={KIcon}
               alt="/"
               onClick={handleClickKIcon}
-              style={{ opacity: clickedKIcon ? 1 : 0.5 }}
+              //   style={{ opacity: clickedKIcon ? 1 : 0.5 }}
             />
           </div>
           <div
-            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-bg-[#2E1F3B] hover:tw-scale-110"
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center  hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
@@ -207,7 +207,7 @@ const HomeHead = () => {
                   : ShareIcon
               }
               onClick={handleClickShare}
-              style={{ opacity: clickedShare ? 1 : 0.5 }}
+              //   style={{ opacity: clickedShare ? 1 : 0.5 }}
             />
           </div>
         </div>
