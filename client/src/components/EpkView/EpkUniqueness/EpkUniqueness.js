@@ -15,13 +15,13 @@ export default function EpkUniqueness({ epkInfo, requestStatus, handler }) {
     epkInfo.title_uniqueness &&
     epkInfo.description_uniqueness &&
     image_uniqueness && (
-      <div className="tw-h-[600px]">
+      <div className="tw-h-content">
         <div className="tw-relative tw-my-3 tw-flex tw-h-full tw-flex-col tw-gap-12 tw-bg-white tw-py-3">
           <div className="tw-flex tw-justify-center">
             <span className="tw-text-[3rem]">{epkInfo.title_uniqueness}</span>
           </div>
           <div className="tw-relative">
-            <div className="tw-border-1 tw-absolute tw-top-[0] tw-left-[45%] tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
+            <div className="tw-border-1 tw-absolute tw-z-40 tw-top-[0] tw-left-[45%] tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
               {requestStatus != "approved" && (
                 <RequestButton status={requestStatus} handler={handler} />
               )}

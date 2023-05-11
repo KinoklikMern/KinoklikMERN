@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import MessageIcon from "../../../images/icons/message.svg";
 
-export default function EpkDetail({ epkInfo }) {
+export default function EpkDetail({ epkInfo, handler }) {
   const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
   const directorList = epkInfo.crew.filter((c) => c.epkRole === "director");
   const producerList = epkInfo.crew.filter((c) => c.epkRole === "producer");
@@ -12,26 +13,33 @@ export default function EpkDetail({ epkInfo }) {
   const starList = epkInfo.crew.filter((c) => c.epkRole.includes("actor"));
   const filmmaker_image = `${process.env.REACT_APP_AWS_URL}/${epkInfo.film_maker.picture}`;
   const filmmaker_name = `${epkInfo.film_maker.firstName} ${epkInfo.film_maker.lastName}`;
-
   return (
     <div className="tw-flex tw-flex-col tw-bg-white">
-      <div className="tw-relative tw-flex tw-flex-col tw-self-end tw-m-4">
-        <span className="tw-text-[#1E0039] tw-flex tw-justify-center">Created By</span>
-        <img
-          className="tw-h-24 tw-w-24 tw-rounded-lg"
-          src={filmmaker_image}
-          alt="profile image"
-        />
-        <div className="tw-absolute tw-inset-x-0 tw-bottom-0 tw-flex tw-h-4 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75">
-          <span className="tw-self-center tw-text-sm tw-text-white">
-            {filmmaker_name}
+      <div className=" tw-m-4 tw-flex tw-flex-col tw-relative tw--mb-[50px]">
+        <div className="tw-relative tw-self-end">
+          <span className="tw-flex tw-justify-center tw-text-[#1E0039]">
+            Created By
           </span>
+          <img
+            className="tw-h-24 tw-w-24 tw-rounded-lg"
+            src={filmmaker_image}
+            alt="profile image"
+          />
+          <div className="tw-absolute tw-inset-x-0 tw-bottom-0 tw-flex tw-h-4 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75">
+            <span className="tw-self-center tw-text-sm tw-text-white">
+              {filmmaker_name}
+            </span>
+          </div>
+        </div>
+        <div  className="tw-self-end tw-flex tw-justify-center tw--m-[25px]">
+          <img src={MessageIcon} style={{width:"50%"}} onClick={()=>handler("message")} className="hover:tw-scale-110 tw-cursor-pointer"/>
         </div>
       </div>
       <div className="tw-flex tw-justify-around tw-py-6">
         <div>
           <img
-            src={image_detail} style={{width:"310px", height:"420px"}}
+            src={image_detail}
+            style={{ width: "310px", height: "420px" }}
             className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
           />
         </div>
