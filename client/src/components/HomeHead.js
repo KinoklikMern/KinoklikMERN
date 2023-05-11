@@ -220,7 +220,7 @@ const HomeHead = () => {
                   src={UploadFilmIcon}
                   alt="/"
                   onClick={handleClickMovie}
-                  style={{ opacity: clickedMovie ? 1 : 0.5 }}
+                  // style={{ opacity: clickedMovie ? 1 : 0.5 }}
                 />
               </a>
               <img
@@ -228,7 +228,8 @@ const HomeHead = () => {
                 src={VolumeIcon2}
                 alt="/"
                 onClick={handleClickVolumeUp}
-                style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
+                style={{ cursor: "pointer" }}
+                // style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
               />
             </>
           ) : (
@@ -237,7 +238,7 @@ const HomeHead = () => {
               src={VolumeIcon2}
               alt="/"
               onClick={handleClickVolumeUp}
-              style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
+              // style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
             />
           )}
           {/*}  </Link> */}
