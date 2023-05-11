@@ -38,7 +38,7 @@ export default function RequestModal(props) {
           addToChat(requestMsg, props.user, props.filmmakerId).then((res) => {
             if (res.status == 200) {
               socket.emit("new message", res.data);
-              props.close();
+              props.close("request");
               props.setRefresh(true);
             }
           });
@@ -48,7 +48,7 @@ export default function RequestModal(props) {
   };
   return (
     <>
-      <Modal show={props.open} onHide={props.close} centered className="p-3">
+      <Modal show={()=>props.open("request")} onHide={()=>props.close("request")} centered className="p-3">
         <Modal.Header className="border-0">
           <Modal.Title className="text-center">
             Please type your message to the Filmmaker EPK Owner

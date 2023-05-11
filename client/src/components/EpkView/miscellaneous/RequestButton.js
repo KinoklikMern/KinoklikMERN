@@ -33,7 +33,7 @@ export default function RequestButton({ status, handler }) {
           variant="light"
           disabled={IsDisabled}
           className="tw-shadow-[3px_3px_3px_#712CB0]"
-          onClick={() => handler()}
+          onClick={() => handler("request")}
         >
           {ButtonTxt}
         </Button>

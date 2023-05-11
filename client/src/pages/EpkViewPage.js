@@ -14,6 +14,7 @@ import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
 import EpkAward from "../components/EpkView/EpkAward/EpkAward";
 import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
+import NewMessageModal from "../components/EpkView/miscellaneous/NewMessageModal";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
@@ -29,26 +30,35 @@ function EpkViewPage() {
   const [refresh, setRefresh] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  // const handleRequest = () => {
-  //   if (user) {
-  //     return handleShow();
-  //   }
-  //   return navigate("/login", { state: pathname });
-  // };
-
-  const handleClose = () => {
+  const handleClose = (modalType) => {
     if (user) {
-      setShowRequestModal(false);
+      switch (modalType) {
+        case "message":
+          setShowMessageModal(false);
+          break;
+
+        case "request":
+          setShowRequestModal(false);
+          break;
+      }
     } else {
       setShowLoginModal(false);
     }
   };
-  const handleShow = () => {
+  const handleShow = (modalType) => {
+    console.log("type", modalType);
     if (user) {
-      setShowRequestModal(true);
+      switch (modalType) {
+        case "message":
+          setShowMessageModal(true);
+          break;
+
+        case "request":
+          setShowRequestModal(true);
+          break;
+      }
     } else {
       setShowLoginModal(true);
     }
@@ -77,8 +87,8 @@ function EpkViewPage() {
         <div className="tw-w-11/12">
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
-          <EpkSocialAction epkInfo={epkInfo} handler={handleShow}/>
-          <EpkDetail epkInfo={epkInfo} />
+          <EpkSocialAction epkInfo={epkInfo} handler={handleShow} />
+          <EpkDetail epkInfo={epkInfo} handler={handleShow}/>
           <EpkLogline
             epkInfo={epkInfo}
             requestStatus={requestStatus}
@@ -116,6 +126,16 @@ function EpkViewPage() {
           )}
           {showLoginModal && (
             <LoginModal
+              close={handleClose}
+              open={handleShow}
+              epkId={epkInfo._id}
+              filmmakerId={epkInfo.film_maker._id}
+              user={user}
+              setRefresh={setRefresh}
+            />
+          )}
+          {showMessageModal && (
+            <NewMessageModal
               close={handleClose}
               open={handleShow}
               epkId={epkInfo._id}
