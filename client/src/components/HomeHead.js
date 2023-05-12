@@ -25,7 +25,6 @@ import StarBlackIcon from "../images/icons/StarBlack.svg";
 import KIcon from "../images/icons/K.svg";
 import ShareIcon from "../images/icons/share.svg";
 import ShareBlackIcon from "../images/icons/shareBlack.svg";
-
 import {
   faShareNodes,
   // faBars,
@@ -39,6 +38,7 @@ import {
   // faPlusCircle,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "./HomeHead/SearchBar";
 
 const HomeHead = () => {
   const [clickedStar, setClickedStar] = useState(false);
@@ -49,6 +49,7 @@ const HomeHead = () => {
   const [clickedMovie, setClickedMovie] = useState(false);
   const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
   const [fepk, setFepk] = useState({});
+  const [epkList, setEpkList] = useState([]);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -67,7 +68,6 @@ const HomeHead = () => {
     setClickedDollar(true);
     http.get(`fepks/wishestobuy/${fepk._id}/${userId}`).then((response) => {
       setFepk(response.data);
-      console.log(fepk);
     });
   }
 
@@ -76,7 +76,6 @@ const HomeHead = () => {
     setClickedPlus(true);
     http.get(`fepks/favourite/${fepk._id}/${userId}`).then((response) => {
       setFepk(response.data);
-      console.log(fepk);
     });
   }
 
@@ -85,7 +84,6 @@ const HomeHead = () => {
     setClickedStar(true);
     http.get(`fepks/like/${fepk._id}/${userId}`).then((response) => {
       setFepk(response.data);
-      console.log(fepk);
     });
   }
 
@@ -100,7 +98,6 @@ const HomeHead = () => {
     setClickedShare(true);
     http.get(`fepks/sharing/${fepk._id}/${userId}`).then((response) => {
       setFepk(response.data);
-      console.log(fepk);
     });
   }
 
@@ -114,12 +111,11 @@ const HomeHead = () => {
   //showing the latest added movie
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
+      setEpkList(response.data);
       let last = response.data.length - 1;
       setFepk(response.data[last]);
-      console.log(fepk);
     });
   }, []);
-  console.log(fepk);
 
   return (
     <div
@@ -128,6 +124,7 @@ const HomeHead = () => {
         backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
       }}
     >
+      <SearchBar EpkList={epkList} />
       <section id="home" className="tw-pt-0">
         <div className="menu-icon tw-pt-12">
           {/* <Link to="/">   must be linked to /bookmark    */}

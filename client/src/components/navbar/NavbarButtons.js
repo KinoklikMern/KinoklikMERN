@@ -39,24 +39,6 @@ function NavbarButtons({ user, setToggle, toggle }) {
     navigate("/");
   };
 
-  // const navLinks = [
-  //   {
-  //     id: "settings",
-  //     title: "MY SETTINGS",
-  //     url: "/filmMakerDashboardSecurityAccount",
-  //   },
-  //   {
-  //     id: "dashboard",
-  //     title: "MY DASHBOARD",
-  //     url: "/filmMakerDashboard",
-  //   },
-  //   {
-  //     id: "logout",
-  //     title: "LOGOUT",
-  //     url: "/",
-  //   },
-  // ];
-
   return (
     <>
       {!user ? (
@@ -116,8 +98,6 @@ function NavbarButtons({ user, setToggle, toggle }) {
         </>
       ) : (
         <>
-          {/* <FontAwesomeIcon icon={faPen} size="lg" /> */}
-          <div className="relative h-32 w-32 ..."></div>
 
           {/* ------modified by rucheng-------- */}
           <div className="tw-static tw-p-4">
