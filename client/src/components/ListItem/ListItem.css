@@ -1,6 +1,6 @@
 .listItem {
-    width: 296px;
-    height: 357px;
+    width: 236px;
+    height: 285px;
     background-color: var(--main-color);
     margin-right: 52px;
     flex-shrink: 0;
@@ -15,7 +15,7 @@
 }
 
 .listItem:hover {
-    width: 355px;
-    height: 380px;
+    width: 259px;
+    height: 313px;
     transition: all 1s ease;
 }
