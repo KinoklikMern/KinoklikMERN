@@ -2,7 +2,7 @@ import React from "react";
 
 export default function EpkTrailer({ epkInfo }) {
   const trail_url =
-    epkInfo.trail && `${process.env.REACT_APP_AWS_URL}/${epkInfo.trailer}`;
+    epkInfo.trailer_url && `${process.env.REACT_APP_AWS_URL}/${epkInfo.trailer_url}`;
   return (
     trail_url && (
       <div className="tw-bg-opacity-100 tw-p-12">
