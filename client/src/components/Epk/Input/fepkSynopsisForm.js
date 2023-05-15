@@ -7,10 +7,14 @@ import http from "../../../http-common";
 
 function SynopsisForm() {
   const [file, setFile] = useState("");
+  const [fileMedium, setFileMedium] = useState("");
+  const [fileLong, setFileLong] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
+  const inputFileMediumRef = useRef(null);
+  const inputFileLongRef = useRef(null);
   const [characterLength, setCharacterLength] = useState({
     text_short: 0,
     text_medium: 0,
@@ -25,6 +29,16 @@ function SynopsisForm() {
     setDisabled(false);
   };
 
+  const fileMediumSelected = (event) => {
+    setFileMedium(event.target.files[0]);
+    setDisabled(false);
+  };
+
+  const fileLongSelected = (event) => {
+    setFileLong(event.target.files[0]);
+    setDisabled(false);
+  };
+
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
@@ -35,6 +49,8 @@ function SynopsisForm() {
       });
       setEpkSynopsisData({
         image_synopsis: response.data.image_synopsis,
+        image_synopsis_medium: response.data.image_synopsis_medium,
+        image_synopsis_long: response.data.image_synopsis_long,
         text_short: response.data.text_short,
         text_medium: response.data.text_medium,
         text_long: response.data.text_long,
@@ -77,48 +93,64 @@ function SynopsisForm() {
   };
 
   const saveEpkSynopsis = (e) => {
-    debugger;
+    // debugger;
     e.preventDefault();
     let formData = new FormData();
     console.log(file);
-    formData.append("file", file);
+    formData.append("file1", file);
+    formData.append("file2", fileMedium);
+    formData.append("file3", fileLong);
     console.log(formData);
-    debugger;
-    if (checkFileMimeType(file)) {
-      if (file) {
-        http
-          .post("fepks/uploadFile", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            if (response.data !== undefined) {
-              epkSynopsisData.image_synopsis = response.data.key;
-            }
-            http
-              .put(`fepks/update/${fepkId}`, epkSynopsisData)
-              .then((res) => {
-                console.log("saved");
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          })
-          .catch((err) => {
-            console.log();
-            console.log(err);
-          });
-      } else {
-        http
-          .put(`fepks/update/${fepkId}`, epkSynopsisData)
-          .then((res) => {
-            console.log("saved");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
+    // debugger;
+    if (
+      checkFileMimeType(file) &&
+      checkFileMimeType(fileMedium) &&
+      checkFileMimeType(fileLong)
+    ) {
+      console.log("1");
+      // if (file) {
+      console.log("2");
+      http
+        .post("fepks/uploadFiles", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.file1 !== undefined) {
+            epkSynopsisData.image_synopsis = response.data.file1;
+          }
+          if (response.data.file2 !== undefined) {
+            epkSynopsisData.image_synopsis_medium = response.data.file2;
+          }
+          if (response.data.file3 !== undefined) {
+            epkSynopsisData.image_synopsis_long = response.data.file3;
+          }
+          http
+            .put(`fepks/update/${fepkId}`, epkSynopsisData)
+            .then((res) => {
+              setFepk(res.data);
+              console.log("saved");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log();
+          console.log(err);
+        });
+      // } else {
+      //   http
+      //     .put(`fepks/update/${fepkId}`, epkSynopsisData)
+      //     .then((res) => {
+      //       console.log("saved");
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
+      // }
     } else {
       setMessage("File must be a image(jpeg or png)");
     }
@@ -132,7 +164,7 @@ function SynopsisForm() {
           boxShadow: "1px 2px 9px #311465",
           marginLeft: "10%",
           width: "80%",
-          borderRadius:"10px",
+          borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
@@ -362,8 +394,66 @@ function SynopsisForm() {
                       alt="no image"
                     />
                   </div>
-                  <div className="col my-4"></div>
-                  <div className="col my-4"></div>
+                  <div className="col my-4">
+                    <label
+                      for="filePoster"
+                      class="form-label text-dark"
+                      style={{ fontSize: "25px" }}
+                    >
+                      {" "}
+                      <h4></h4>
+                    </label>
+                    <input
+                      style={{ fontSize: "15px" }}
+                      className="form-control form-control-sm"
+                      filename={fileMedium}
+                      onChange={fileMediumSelected}
+                      ref={inputFileMediumRef}
+                      type="file"
+                      id="filePoster"
+                      name="files"
+                      accept="image/*"
+                    ></input>
+                    <img
+                      src={`${process.env.REACT_APP_AWS_URL}/${fepk?.image_synopsis_medium}`}
+                      style={{
+                        height: "120px",
+                        width: "auto",
+                        marginTop: "5px",
+                      }}
+                      alt="no image"
+                    />
+                  </div>
+                  <div className="col my-4">
+                    <label
+                      for="filePoster"
+                      class="form-label text-dark"
+                      style={{ fontSize: "25px" }}
+                    >
+                      {" "}
+                      <h4></h4>
+                    </label>
+                    <input
+                      style={{ fontSize: "15px" }}
+                      className="form-control form-control-sm"
+                      filename={fileLong}
+                      onChange={fileLongSelected}
+                      ref={inputFileLongRef}
+                      type="file"
+                      id="filePoster"
+                      name="files"
+                      accept="image/*"
+                    ></input>
+                    <img
+                      src={`${process.env.REACT_APP_AWS_URL}/${fepk?.image_synopsis_long}`}
+                      style={{
+                        height: "120px",
+                        width: "auto",
+                        marginTop: "5px",
+                      }}
+                      alt="no image"
+                    />
+                  </div>
                   <div
                     style={{
                       height: "50px",

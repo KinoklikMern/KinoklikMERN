@@ -557,9 +557,10 @@ export const uploadFepkFile = async (req, res) => {
   }
 };
 
-//upload 2 files in cover
+//upload 2 or 3 files to S3
 export const uploadFepkFiles = async (req, res) => {
   let totalResult = {};
+  console.log("here");
   console.log(req.files);
   if ("file1" in req.files) {
     const file1 = req.files.file1[0];
@@ -581,6 +582,18 @@ export const uploadFepkFiles = async (req, res) => {
     } else {
       console.log(totalResult);
       totalResult["file2"] = result2.Key;
+    }
+  }
+
+  console.log("file3" in req.files);
+  if ("file3" in req.files) {
+    const file3 = req.files.file3[0];
+    const result3 = await uploadFileToS3(file3);
+    if (!result3) {
+      res.status(406).send({ message: "File extention not supported!" });
+    } else {
+      console.log(totalResult);
+      totalResult["file3"] = result3.Key;
     }
   }
 
