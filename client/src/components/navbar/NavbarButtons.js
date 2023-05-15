@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FepkContext } from "../../context/FepkContext";
 
 //import Login from "../Auth/Registration/login";
@@ -98,9 +98,8 @@ function NavbarButtons({ user, setToggle, toggle }) {
         </>
       ) : (
         <>
-
           {/* ------modified by rucheng-------- */}
-          <div className="tw-static tw-p-4">
+          <div className="tw-static tw-flex tw-items-center tw-justify-center tw-p-4">
             <div className="tw-mx-10 tw-inline-block tw-justify-center">
               {user.id === fepkMaker._id && fepkId !== "" ? (
                 <a href={`/editFepk/${fepkId}`}>
@@ -109,11 +108,18 @@ function NavbarButtons({ user, setToggle, toggle }) {
                 </a>
               ) : null}
             </div>
-            <div className="tw-group tw-inline-block ">
+            <div className="tw-group tw-mx-4 tw-inline-block">
               <img
                 src={picture}
                 alt="User Avatar"
-                className="flex tw-max-h-14"
+                className="tw-flex tw-max-h-14"
+              />
+            </div>
+            <div className="tw-group tw-mx-4 tw-inline-block">
+              <FontAwesomeIcon
+                icon={faBars}
+                size="2xl"
+                style={{ color: "#fff" }}
               />
               <SideProfileMenu />
             </div>
