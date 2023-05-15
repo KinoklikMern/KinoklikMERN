@@ -3,6 +3,7 @@ import axios from "axios";
 import SignupCss from "./signup.module.css";
 import LoginForm from "../../Auth/Registration/loginform";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
@@ -17,6 +18,7 @@ function RegistrationForm() {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   //individual registration form
   const options = [
@@ -84,6 +86,7 @@ function RegistrationForm() {
       setError("");
       setSuccess(data.message);
       const { message, ...rest } = data;
+      navigate(`/login`);
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);

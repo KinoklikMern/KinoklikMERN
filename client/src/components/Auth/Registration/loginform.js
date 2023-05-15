@@ -86,10 +86,10 @@ function LoginForm() {
               />
             </div>
             <br />
-            <br />
           </div>
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}
+          <br />
           <button
             onClick={() => handleSubmit()}
             type="submit"
