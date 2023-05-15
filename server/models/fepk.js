@@ -51,6 +51,8 @@ const fepkSchema = mongoose.Schema({
 
   // Synopsis
   image_synopsis: { type: String },
+  image_synopsis_medium: { type: String },
+  image_synopsis_long: { type: String },
   text_short: { type: String },
   text_medium: { type: String },
   text_medium_blur: { type: Boolean, default: false },

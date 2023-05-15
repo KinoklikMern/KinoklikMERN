@@ -13,11 +13,16 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
           </span>
           <SynopsisContent
             name="short"
-            image={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`}
+            image={
+              epkInfo.image_synopsis
+                ? `${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`
+                : ""
+            }
             text={epkInfo.text_short}
           />
         </div>
       )}
+      {console.log(epkInfo.image_synopsis_medium)}
       {epkInfo.text_medium && (
         <div className="tw-w-full tw-p-3 tw-text-white">
           <span className="tw-text-[2rem] tw-font-semibold">
@@ -26,7 +31,11 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
           </span>
           <SynopsisContent
             name="medium"
-            image={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`}
+            image={
+              epkInfo.image_synopsis_medium
+                ? `${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis_medium}`
+                : ""
+            }
             text={epkInfo.text_medium}
             status={requestStatus}
             handler={handler}
@@ -41,7 +50,11 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
           </span>
           <SynopsisContent
             name="long"
-            image={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`}
+            image={
+              epkInfo.image_synopsis_long
+                ? `${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis_long}`
+                : ""
+            }
             text={epkInfo.text_long}
             status={requestStatus}
             handler={handler}
