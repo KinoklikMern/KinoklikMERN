@@ -124,7 +124,9 @@ const HomeHead = () => {
         backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
       }}
     >
-      <SearchBar EpkList={epkList} />
+      <div className="tw-mx-16">
+        <SearchBar EpkList={epkList} />
+      </div>
       <section id="home" className="tw-pt-0">
         <div className="menu-icon tw-pt-12">
           {/* <Link to="/">   must be linked to /bookmark    */}

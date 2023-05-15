@@ -21,16 +21,15 @@ export default function SearchBar({ EpkList }) {
         <div className="tw-invisible tw-absolute tw-right-0 tw-top-0 group-hover:tw-visible ">
           <input
             type="search"
-            className="tw-flex tw-h-full tw-w-96 tw-rounded-full tw-border-0 tw-border-r-2 tw-border-b-2 tw-border-white/75 tw-bg-gray-400/25 tw-duration-300"
-            // value={inputChar}
+            className="tw-flex tw-h-full tw-w-96 tw-rounded-full tw-border-0 tw-border-r-2 tw-border-b-2 tw-border-white/75 tw-bg-gray-600/50 tw-duration-300"
             onChange={searchHandler}
           />
           {searchList.length !== 0 && (
-            <div className="tw-max-h-56 tw-overflow-auto  tw-bg-gray-300 tw-text-[#1E0039]">
+            <div className="tw-max-h-56 tw-overflow-auto  tw-bg-white tw-rounded-xl tw-text-[#1E0039] tw-divide-y tw-divide-dashed">
               {searchList?.map((epk) => (
                 <a
                   href={`/epk/${epk.title}`}
-                  className="tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105 hover:tw-text-white"
+                  className="tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105"
                 >
                   <p>{epk.title}</p>
                   <span>
