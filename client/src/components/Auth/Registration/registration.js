@@ -182,9 +182,9 @@ function RegistrationForm() {
                 Login
               </Link>
             </p>
-
+            {success && <div className={SignupCss.error_text}>{success}</div>}
             {error && <div className={SignupCss.error_text}>*{error}</div>}
-            {success && <div className="success_text">{success}</div>}
+
             <br />
 
             <button
