@@ -78,7 +78,7 @@ export default function EpkDetail({ epkInfo, handler }) {
               alt="profile image"
             />
             <div className="tw-absolute tw-inset-x-0 tw-bottom-0 tw-flex tw-h-4 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75">
-              <span className="tw-self-center tw-text-xs tw-text-black tw-overflow-hidden">
+              <span className="tw-self-center tw-text-xs tw-text-white tw-overflow-hidden">
                 {filmmaker_name} 
               </span>
             </div>
