@@ -53,10 +53,10 @@ function SendResetPasswordLink() {
 
         <div className={Logincss.form}>
           <div className={Logincss.formbody}>
-            <p>
+            <div className={Logincss.form_Message}>
               You will receive an email with instructions to reset
               <br /> your password if an account exists for this email address.
-            </p>
+            </div>
             <br />
             <div className="email">
               {/* <label className="form__label">Email: </label> */}
@@ -70,24 +70,31 @@ function SendResetPasswordLink() {
               />
             </div>
             <br />
+
+            {error && <div className={Logincss.error_text}>*{error}</div>}
+            {success && <div className="success_text">{success}</div>}
+            <br />
+            <button
+              onClick={() => handleSubmit()}
+              type="submit"
+              className={Logincss.btn}
+            >
+              Reset Password
+            </button>
           </div>
-          {error && <div className={Logincss.error_text}>*{error}</div>}
-          {success && <div className="success_text">{success}</div>}
-          <br />
-          <button
-            onClick={() => handleSubmit()}
-            type="submit"
-            className={Logincss.btn}
-          >
-            Reset Password
-          </button>
-          <div className={Logincss.link}>
+          <div className={Logincss.form_Message}>
             <br />
             <p>
-              Already hava an account? <a href="/login">Sign In</a>
+              Already hava an account?{" "}
+              <a href="/login" className={Logincss.link}>
+                Sign In
+              </a>
             </p>
             <p>
-              Don't have an account yet? <a href="/signup">Create Account</a>
+              Don't have an account yet?{" "}
+              <a href="/signup" className={Logincss.link}>
+                Create Account
+              </a>
             </p>
           </div>
         </div>

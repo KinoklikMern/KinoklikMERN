@@ -86,27 +86,31 @@ function LoginForm() {
               />
             </div>
             <br />
-          </div>
-          {error && <div className="error_text">{error}</div>}
-          {success && <div className="success_text">{success}</div>}
-          <br />
-          <button
-            onClick={() => handleSubmit()}
-            type="submit"
-            className={Logincss.btn}
-          >
-            Sign In
-          </button>
 
-          <div className={Logincss.link}>
+            {error && <div className="error_text">{error}</div>}
+            {success && <div className="success_text">{success}</div>}
             <br />
+            <button
+              onClick={() => handleSubmit()}
+              type="submit"
+              className={Logincss.btn}
+            >
+              Sign In
+            </button>
+          </div>
+          <div className={Logincss.form_Message}>
             <br />
             <p>
-              Don't have an account yet? <a href="/signup">Create Account</a>
-            </p>
+              Don't have an account yet?{" "}
+              <a href="/signup" className={Logincss.link}>
+                Create Account
+              </a>
+            </p>{" "}
             <p>
               Forgot password?{" "}
-              <a href="/sendresetpasswordlink">Reset my Password</a>
+              <a href="/sendresetpasswordlink" className={Logincss.link}>
+                Reset my Password
+              </a>
             </p>
           </div>
         </div>

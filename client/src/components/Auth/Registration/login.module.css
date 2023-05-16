@@ -13,7 +13,7 @@ link for registration is /login */
     box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
     width: 200px;
     text-align: center;
-    margin-left: 80px;
+    /* margin-left: 80px; */
     /* transform: translate(-50%, -50%); */
 
 }
@@ -67,6 +67,7 @@ link for registration is /login */
 
 .link {
     text-align: center;
+    color: #712CB0;
     /* margin-left: 100px; */
 }
 
@@ -100,4 +101,12 @@ link for registration is /login */
   .error_text{
 color: red;
   }
+
+  .form_Message {
+    font-size: 20px;
+    /* font-weight: 400; */
+    text-align: center;
+    color: #1E0039;
+    
+}
 
