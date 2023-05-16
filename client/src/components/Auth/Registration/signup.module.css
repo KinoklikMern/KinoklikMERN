@@ -106,7 +106,7 @@ background: white;
     box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
     width: 200px;
     text-align: center;
-    margin-left: 150px;
+    /* margin-left: 150px; */
 
 }
 
@@ -118,7 +118,24 @@ background: white;
    padding: 100px;
  
 }
+.form_Message {
+    font-size: 20px;
+    /* font-weight: 400; */
+    text-align: center;
+    color: #1E0039;
+    align-items: center;
+    
+}
 
+.link {
+    text-align: center;
+    color: #712CB0;
+    /* margin-left: 100px; */
+}
+
+.error_text{
+    color: red;
+      }
 
 /* responsive */
 @media (max-width: 768px) {

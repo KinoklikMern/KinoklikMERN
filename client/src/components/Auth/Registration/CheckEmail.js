@@ -20,11 +20,12 @@ export default function CheckEmail(props) {
         </div>
 
         <div className={Logincss.form}>
-          <div className={Logincss.formbody}>
+          <div className={Logincss.form_Message}>
             <p>
               Please check the email address
               <br />
-              {emailAddress} for instructions to reset
+              <span className={Logincss.link}>{emailAddress}</span> for
+              instructions to reset
               <br /> your password.
             </p>
             <br />

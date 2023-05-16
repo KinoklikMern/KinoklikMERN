@@ -59,7 +59,7 @@ function ResetPassword(props) {
         <div className={Logincss.form_title}>Reset your password</div>
 
         <div className={Logincss.form}>
-          <div className={Logincss.formbody}>
+          <div className={Logincss.form_Message}>
             <p>Enter a new password below to change your password.</p>
             <br />
             <div>
@@ -86,19 +86,17 @@ function ResetPassword(props) {
               />
             </div>
             <br />
-          </div>
-          {error && <div className={Logincss.error_text}>*{error}</div>}
-          {success && <div className="success_text">*{success}</div>}
-          <br />
-          <button
-            onClick={() => handleSubmit()}
-            type="submit"
-            className={Logincss.btn}
-          >
-            Reset Password
-          </button>
-          <div className={Logincss.link}>
+
+            {error && <div className={Logincss.error_text}>*{error}</div>}
+            {success && <div className="success_text">*{success}</div>}
             <br />
+            <button
+              onClick={() => handleSubmit()}
+              type="submit"
+              className={Logincss.btn}
+            >
+              Reset Password
+            </button>
           </div>
         </div>
       </div>
