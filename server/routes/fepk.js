@@ -29,7 +29,6 @@ import {
   approveRequests,
   refuseRequests,
   getWishToBuyFepksByUser,
-  
 } from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
@@ -83,7 +82,7 @@ router.post("/uploadFile", upload.single("file"), uploadFepkFile);
 // Uploads up to 2 files to AWS S3
 router.post(
   "/uploadFiles",
-  upload.fields([{ name: "file1" }, { name: "file2" }]),
+  upload.fields([{ name: "file1" }, { name: "file2" }, { name: "file3" }]),
   uploadFepkFiles
 );
 
@@ -100,7 +99,7 @@ router.get("/getStarredFepksByUser/:userId", getStarredFepksByUser);
 router.get("/getFollowingFepksByUser/:userId", getFollowingFepksByUser);
 
 // get fepks which are wish_to_by by user
-router.get("/getWishTobuyByUser/:userId", getWishToBuyFepksByUser)
+router.get("/getWishTobuyByUser/:userId", getWishToBuyFepksByUser);
 
 //// get fepks which are requests by user
 router.get("/getRequestsFepksByUser/:userId/:status", getRequestsFepksByUser);

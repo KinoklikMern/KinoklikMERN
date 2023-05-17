@@ -178,18 +178,18 @@ export const forgetPassword = async (req, res) => {
 
   const token = await generateRandomByte().toString();
 
-  console.log(token);
+  // console.log(token);
   const newPasswordResetToken = await PasswordResetToken({
     owner: user._id,
     token,
   });
   await newPasswordResetToken.save();
-  console.log(newPasswordResetToken);
+  // console.log(newPasswordResetToken);
   const tokenHash = await bcrypt.hash(token, 12);
   // the token will expire in 1 hour.
   const resetPasswordUrl = `http://localhost:3000/resetpassword?token=${tokenHash}&id=${user._id}`;
 
-  console.log(resetPasswordUrl);
+  // console.log(resetPasswordUrl);
   transport.sendMail({
     from: "info@kinoklik.com",
     to: user.email,

@@ -86,7 +86,7 @@ function RegistrationForm() {
       setError("");
       setSuccess(data.message);
       const { message, ...rest } = data;
-      navigate(`/login`);
+      // navigate(`/login`);
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);
@@ -175,21 +175,26 @@ function RegistrationForm() {
               />
             </div>
           </div>
+          <div className={SignupCss.form_Message}>
+            <p>
+              already signed up?{" "}
+              <Link to="/login" className={SignupCss.link}>
+                Login
+              </Link>
+            </p>
+            {success && <div className={SignupCss.error_text}>{success}</div>}
+            {error && <div className={SignupCss.error_text}>*{error}</div>}
 
-          <p className={SignupCss.link}>
-            already signed up? <Link to="/login">Login</Link>
-          </p>
-          <br />
-          {error && <div className="error_text">{error}</div>}
-          {success && <div className="success_text">{success}</div>}
-          <br />
-          <button
-            onClick={() => handleSubmit()}
-            type="submit"
-            className={SignupCss.btn}
-          >
-            Sign Up
-          </button>
+            <br />
+
+            <button
+              onClick={() => handleSubmit()}
+              type="submit"
+              className={SignupCss.btn}
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
       </div>
     </>

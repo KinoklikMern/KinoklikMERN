@@ -20,7 +20,7 @@ export default function ResetPasswordSuccess(props) {
         </div>
 
         <div className={Logincss.form}>
-          <div className={Logincss.formbody}>
+          <div className={Logincss.form_Message}>
             <p>Your password has been changed successfully.</p>
             <br />
 
