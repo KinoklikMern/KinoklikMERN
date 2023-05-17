@@ -1,20 +1,45 @@
 import React, { useState } from "react";
 import MessageIcon from "../../../images/icons/message.svg";
+import demo from "../../../images/avatarDefault.jpeg";
 
 export default function EpkDetail({ epkInfo, handler }) {
   const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
-  const directorList = epkInfo.crew.filter((c) => c.epkRole === "director");
-  const producerList = epkInfo.crew.filter((c) => c.epkRole === "producer");
-  const cinematographerList = epkInfo.crew.filter(
-    (c) => c.epkRole === "cinematographer"
-  );
-  const writerList = epkInfo.crew.filter((c) => c.epkRole === "writer");
-  const editorList = epkInfo.crew.filter((c) => c.epkRole === "editor");
-  const starList = epkInfo.crew.filter((c) => c.epkRole.includes("actor"));
   const filmmaker_image = `${process.env.REACT_APP_AWS_URL}/${epkInfo.film_maker.picture}`;
   const filmmaker_name = `${epkInfo.film_maker.firstName} ${epkInfo.film_maker.lastName}`;
+
+  const CrewAvatar = ({ crewInfo }) => {
+    const formatChars = (chars) => {
+      let noSpecialChars = chars.replace(/[^a-zA-Z0-9]/g, " "); // remove special characters
+      // capitalize the first character.
+      let formatedChars = noSpecialChars
+        .split(" ")
+        .map((char) => {
+          return char[0].toUpperCase() + char.substring(1);
+        })
+        .join(" ");
+
+      return formatedChars;
+    };
+    return (
+      <div className="tw-text-[#1E0039]">
+        <img
+          className="tw-h-20 tw-w-20 tw-rounded-full"
+          src={`${process.env.REACT_APP_AWS_URL}/${crewInfo.image}`}
+          alt="avatar img"
+        />
+        <div className="tw-text-center">
+          <h3 className="tw-text-lg tw-leading-7 tw-tracking-tight">
+            {formatChars(crewInfo.crewId.name)}
+          </h3>
+          <p className="tw-text-sm tw-leading-6">
+            {formatChars(crewInfo.epkRole)}
+          </p>
+        </div>
+      </div>
+    );
+  };
   return (
-    <div className="tw-flex tw-justify-between tw-bg-white tw-pt-3 tw-pb-6 tw-pl-8 tw-pr-3">
+    <div className="tw-flex tw-justify-between tw-gap-6 tw-bg-white tw-pt-3 tw-pb-6 tw-pl-8 tw-pr-3 tw-text-[#1E0039]">
       <div className="tw-m-6">
         <img
           src={image_detail}
@@ -22,49 +47,28 @@ export default function EpkDetail({ epkInfo, handler }) {
           className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
         />
       </div>
-      <div className="tw-flex tw-flex-col tw-justify-around tw-text-[1.5rem] tw-my-8">
-        {directorList.map((director) => (
-          <p key={director.crewId._id}>
-            Directed by: <span>{director.crewId.name}</span>
-          </p>
+      <div className="tw-my-8 tw-grid tw-grid-cols-3 tw-gap-3">
+        {epkInfo.crew.map((crewInfo) => (
+          <CrewAvatar crewInfo={crewInfo} />
         ))}
-        {producerList.map((producer) => (
-          <p key={producer.crewId._id}>
-            Produced by: <span>{producer.crewId.name}</span>
-          </p>
-        ))}
-        {cinematographerList.map((cinematographer) => (
-          <p key={cinematographer.crewId._id}>
-            Cinematographer: <span>{cinematographer.crewId.name}</span>
-          </p>
-        ))}
-        {writerList.map((writer) => (
-          <p key={writer.crewId._id}>
-            Writer: <span>{writer.crewId.name}</span>
-          </p>
-        ))}
-        {editorList.map((editor) => (
-          <p key={editor.crewId._id}>
-            Editor: <span>{editor.crewId.name}</span>
-          </p>
-        ))}
-        <p>
-          Studio: <span>{epkInfo.productionCo}</span>
-        </p>
-        <p>
-          Distributed by: : <span>{epkInfo.distributionCo}</span>
-        </p>
       </div>
-      <div className="tw-flex tw-flex-col tw-justify-around tw-text-[1.5rem] tw-my-8 ">
-        {starList.map((star) => (
-          <p key={star.crewId._id}>Starring: {star.crewId.name}</p>
-        ))}
-        <p>
-          Produced Year: <span>{epkInfo.productionYear}</span>
-        </p>
-        <p>
-          Duration: <span>{epkInfo.durationMin} Minutes</span>
-        </p>
+      <div className="tw-my-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-text-center tw-text-xl ">
+        <div>
+          <p className="tw-font-light">Produced Year</p>
+          <p>{epkInfo.productionYear}</p>
+        </div>
+        <div>
+          <p className="tw-font-light">Duration</p>
+          <p>{epkInfo.durationMin} Minutes</p>
+        </div>
+        <div>
+          <p className="tw-font-light">Studio</p>
+          <p>{epkInfo.productionCo}</p>
+        </div>
+        <div>
+          <p className="tw-font-light">Distributed by</p>
+          <p>{epkInfo.distributionCo}</p>
+        </div>
       </div>
       <div>
         <div className="tw-flex tw-flex-col ">

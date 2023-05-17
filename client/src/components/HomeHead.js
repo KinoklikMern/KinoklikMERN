@@ -49,7 +49,6 @@ const HomeHead = () => {
   const [clickedMovie, setClickedMovie] = useState(false);
   const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
   const [fepk, setFepk] = useState({});
-  const [epkList, setEpkList] = useState([]);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -111,7 +110,6 @@ const HomeHead = () => {
   //showing the latest added movie
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
-      setEpkList(response.data);
       let last = response.data.length - 1;
       setFepk(response.data[last]);
     });
@@ -124,8 +122,8 @@ const HomeHead = () => {
         backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
       }}
     >
-      <div className="tw-mx-16">
-        <SearchBar EpkList={epkList} />
+      <div className="tw-mx-16 tw-flex tw-items-end tw-justify-end tw-mt-6">
+        <SearchBar/>
       </div>
       <section id="home" className="tw-pt-0">
         <div className="menu-icon tw-pt-12">
@@ -210,7 +208,7 @@ const HomeHead = () => {
             />
           </div>
         </div>
-        <div className="menu-icon1">
+        {/* <div className="menu-icon1">
           {userRole === "Filmmaker" ? (
             <>
               <a href={`/uploadFepk`}>
@@ -240,16 +238,15 @@ const HomeHead = () => {
               // style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
             />
           )}
-          {/*}  </Link> */}
 
-          {/* <img
+          <img
             className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
             src={VolumeIcon2}
             alt="/"
             onClick={handleClickVolumeUp}
             style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
-          /> */}
-        </div>
+          />
+        </div> */}
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">
             <div>

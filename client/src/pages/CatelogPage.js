@@ -6,6 +6,7 @@ import List from "../components/List/List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { CookieSharp } from "@mui/icons-material";
+import SearchBar from "../components/HomeHead/SearchBar";
 
 function CatelogPage() {
   const [filterQuery, setFilterQuery] = useState([]);
@@ -31,8 +32,6 @@ function CatelogPage() {
       isActive: true,
     },
   ]);
-
-  console.log(filterQuery);
 
   const clickHandler = (name, isActive) => {
     let newTags;
@@ -139,15 +138,20 @@ function CatelogPage() {
 
   return (
     <div className="home">
-      <div className="tw-m-8">
-        {filterTags.map((tag, index) => (
-          <FilterButton
-            key={index}
-            name={tag.name}
-            clickHandler={clickHandler}
-            isActive={tag.isActive}
-          />
-        ))}
+      <div className="tw-m-8 tw-flex tw-justify-between">
+        <div>
+          {filterTags.map((tag, index) => (
+            <FilterButton
+              key={index}
+              name={tag.name}
+              clickHandler={clickHandler}
+              isActive={tag.isActive}
+            />
+          ))}
+        </div>
+        <div className="tw-flex tw-items-end tw-justify-end">
+          <SearchBar />
+        </div>
       </div>
       <div>
         <div className="listTitle">

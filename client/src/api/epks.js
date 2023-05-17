@@ -1,5 +1,14 @@
 import axios from "axios";
 
+export const getAllFepks = () => {
+  try {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks`, {
+      method: "GET",
+    }).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const getFepksByFilmmakerId = (filmmakerId) => {
   try {
