@@ -32,13 +32,13 @@ export default function CastCard({ index, image, text, castName, epkRole }) {
           className={cardShadowStyle}
         />
         <p className="tw-text-[2rem] tw-font-semibold">
-          {formatChars(castName)}
+          {castName}
         </p>
       </div>
       <div className="tw-mx-12 tw-flex tw-w-1/3 tw-flex-col tw-justify-center tw-gap-6 tw-self-center">
         {hasRoleTitle && (
           <p className="tw-text-center tw-text-[3rem]">
-            {formatChars(epkRole)}
+            {epkRole}
           </p>
         )}
         <p className="tw-text-center tw-text-2xl">{text}</p>

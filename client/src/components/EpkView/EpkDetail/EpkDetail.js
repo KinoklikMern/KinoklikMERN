@@ -29,10 +29,10 @@ export default function EpkDetail({ epkInfo, handler }) {
         />
         <div className="tw-text-center">
           <h3 className="tw-text-lg tw-leading-7 tw-tracking-tight">
-            {formatChars(crewInfo.crewId.name)}
+            {crewInfo.crewId.name}
           </h3>
           <p className="tw-text-sm tw-leading-6">
-            {formatChars(crewInfo.epkRole)}
+            {crewInfo.epkRole}
           </p>
         </div>
       </div>
