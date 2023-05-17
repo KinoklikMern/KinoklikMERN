@@ -15,7 +15,7 @@ export default function EpkUniqueness({ epkInfo, requestStatus, handler }) {
     epkInfo.title_uniqueness &&
     epkInfo.description_uniqueness &&
     image_uniqueness && (
-      <div className="tw-h-content">
+      <div className="tw-h-content tw-text-[#1E0039]">
         <div className="tw-relative tw-my-3 tw-flex tw-h-full tw-flex-col tw-gap-12 tw-bg-white tw-py-3">
           <div className="tw-flex tw-justify-center">
             <span className="tw-text-[3rem]">{epkInfo.title_uniqueness}</span>

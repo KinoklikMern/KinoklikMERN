@@ -200,7 +200,7 @@ function ReviewsForm() {
                 className="card-title "
                 style={{ color: "#311465", fontWeight: "normal" }}
               >
-                Film Reviews & Awards
+                BUZZ
               </h5>
               <form>
                 <div className="row">
@@ -251,7 +251,7 @@ function ReviewsForm() {
                     >
                       {" "}
                       <h4 style={{ fontSize: "20px" }}>
-                        Upload Film Festival Awards Logo
+                        Upload Logo
                       </h4>
                     </label>
                     <input

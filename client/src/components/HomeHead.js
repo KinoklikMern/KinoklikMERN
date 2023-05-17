@@ -208,7 +208,7 @@ const HomeHead = () => {
             />
           </div>
         </div>
-        <div className="menu-icon1">
+        {/* <div className="menu-icon1">
           {userRole === "Filmmaker" ? (
             <>
               <a href={`/uploadFepk`}>
@@ -238,16 +238,15 @@ const HomeHead = () => {
               // style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
             />
           )}
-          {/*}  </Link> */}
 
-          {/* <img
+          <img
             className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
             src={VolumeIcon2}
             alt="/"
             onClick={handleClickVolumeUp}
             style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
-          /> */}
-        </div>
+          />
+        </div> */}
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">
             <div>

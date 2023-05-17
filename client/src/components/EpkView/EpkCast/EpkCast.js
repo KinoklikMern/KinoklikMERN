@@ -8,7 +8,7 @@ export default function EpkCast({ epkInfo }) {
   );
   return (
     castList.length !== 0 && (
-      <div className="tw-my-3 tw-bg-white">
+      <div className="tw-my-3 tw-bg-white tw-text-[#1E0039]">
         <div className="tw-flex tw-justify-center">
           <p className="tw-text-[3rem]">Starring</p>
         </div>

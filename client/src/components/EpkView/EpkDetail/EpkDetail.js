@@ -14,7 +14,7 @@ export default function EpkDetail({ epkInfo, handler }) {
   const filmmaker_image = `${process.env.REACT_APP_AWS_URL}/${epkInfo.film_maker.picture}`;
   const filmmaker_name = `${epkInfo.film_maker.firstName} ${epkInfo.film_maker.lastName}`;
   return (
-    <div className="tw-flex tw-justify-between tw-bg-white tw-pt-3 tw-pb-6 tw-pl-8 tw-pr-3">
+    <div className="tw-flex tw-justify-between tw-bg-white tw-pt-3 tw-pb-6 tw-pl-8 tw-pr-3 tw-text-[#1E0039]">
       <div className="tw-m-6">
         <img
           src={image_detail}
