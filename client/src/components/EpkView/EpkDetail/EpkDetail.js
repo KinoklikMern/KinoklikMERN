@@ -32,7 +32,7 @@ export default function EpkDetail({ epkInfo, handler }) {
             {crewInfo.crewId.name}
           </h3>
           <p className="tw-text-sm tw-leading-6">
-            {crewInfo.epkRole}
+            {formatChars(crewInfo.epkRole)}
           </p>
         </div>
       </div>
