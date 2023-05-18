@@ -101,8 +101,8 @@ router.get("/getFollowingFepksByUser/:userId", getFollowingFepksByUser);
 // get fepks which are wish_to_by by user
 router.get("/getWishTobuyByUser/:userId", getWishToBuyFepksByUser);
 
-//// get fepks which are requests by user
-router.get("/getRequestsFepksByUser/:userId/:status", getRequestsFepksByUser);
+// get fepks which are requests by user
+router.get("/getRequestsFepksByUser/:userId", getRequestsFepksByUser);
 
 //Approve request to fepk
 router.post("/approveRequest", approveRequests);

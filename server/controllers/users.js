@@ -178,13 +178,12 @@ export const forgetPassword = async (req, res) => {
 
   const token = await generateRandomByte().toString();
 
-  // console.log(token);
   const newPasswordResetToken = await PasswordResetToken({
     owner: user._id,
     token,
   });
   await newPasswordResetToken.save();
-  // console.log(newPasswordResetToken);
+
   const tokenHash = await bcrypt.hash(token, 12);
   // the token will expire in 1 hour.
   const resetPasswordUrl = `http://localhost:3000/resetpassword?token=${tokenHash}&id=${user._id}`;

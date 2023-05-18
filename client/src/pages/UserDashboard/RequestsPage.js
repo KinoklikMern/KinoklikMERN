@@ -21,29 +21,46 @@ export default function RequestsPage() {
   useEffect(() => {
     try {
       Axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/fepks/getRequestsFepksByUser/${userId}/approved`
+        `${process.env.REACT_APP_BACKEND_URL}/fepks/getRequestsFepksByUser/${userId}`
       ).then((rs) => {
-        setEpkListApproved(rs.data);
+        setEpkListApproved(
+          rs.data.filter((item) => {
+            // Check if any requests exist and if any of them have a status of "approved"
+            return (
+              item.requests &&
+              item.requests.some(
+                (request) =>
+                  request.status === "approved" && request.user._id === userId
+              )
+            );
+          })
+        );
+        setEpkListPending(
+          rs.data.filter((item) => {
+            // Check if any requests exist and if any of them have a status of "pending"
+            return (
+              item.requests &&
+              item.requests.some(
+                (request) =>
+                  request.status === "pending" && request.user._id === userId
+              )
+            );
+          })
+        );
+        setEpkListRefused(
+          rs.data.filter((item) => {
+            // Check if any requests exist and if any of them have a status of "refused"
+            return (
+              item.requests &&
+              item.requests.some(
+                (request) =>
+                  request.status === "refused" && request.user._id === userId
+              )
+            );
+          })
+        );
         console.log(epkListApproved);
-      });
-    } catch (error) {
-      alert(error.response.data.message);
-    }
-    try {
-      Axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/fepks/getRequestsFepksByUser/${userId}/pending`
-      ).then((rs) => {
-        setEpkListPending(rs.data);
         console.log(epkListPending);
-      });
-    } catch (error) {
-      alert(error.response.data.message);
-    }
-    try {
-      Axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/fepks/getRequestsFepksByUser/${userId}/refused`
-      ).then((rs) => {
-        setEpkListRefused(rs.data);
         console.log(epkListRefused);
       });
     } catch (error) {
@@ -59,19 +76,29 @@ export default function RequestsPage() {
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
           <Sidebar selectedTab="Requests" />
         </div>
-        <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar  tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]">
-          <div className="tw-flex tw-flex-col tw-gap-12 ">
-            <span className="tw-bg-black tw-text-xl tw-text-white">
+
+        <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto  tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar  tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]">
+          <div className="tw-flex tw-flex-col tw-gap-3  ">
+            <span className="tw-bg-[#1E0039] tw-text-xl tw-text-white">
               Approved EPKs
             </span>
             {epkListApproved.length === 0 ? (
               <EmptyEpk EpkStatus="approved" />
+            ) : epkListApproved.length > 2 ? (
+              <>
+                <div className="tw-ml-16 tw-flex tw-overflow-x-auto">
+                  <div className="tw-flex tw-gap-2 tw-p-2">
+                    {epkListApproved.map((epk) => (
+                      <div className="tw-w-1/3 tw-flex-none" key={epk._id}>
+                        <EpkCard EpkInfo={epk} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
             ) : (
               <>
-                {/* <div className="tw-my-16 tw-mb-4 tw-flex tw-justify-center">
-                  <NewEpkBtn />
-                </div> */}
-                <div className="tw-ml-1 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 ">
+                <div className="tw-ml-16 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 ">
                   {epkListApproved.map((epk) => (
                     <EpkCard EpkInfo={epk} />
                   ))}
@@ -79,18 +106,27 @@ export default function RequestsPage() {
               </>
             )}
           </div>
-          <div className="tw-flex tw-flex-col tw-gap-12">
-            <span className="tw-bg-black tw-text-xl tw-text-white">
+          <div className="tw-flex tw-flex-col tw-gap-3">
+            <span className="tw-bg-[#1E0039] tw-text-xl tw-text-white">
               Pending EPKs
             </span>
             {epkListPending.length === 0 ? (
               <EmptyEpk EpkStatus="pending" />
+            ) : epkListPending.length > 2 ? (
+              <>
+                <div className="tw-ml-16 tw-flex tw-overflow-x-auto">
+                  <div className="tw-flex tw-gap-2 tw-p-2">
+                    {epkListPending.map((epk) => (
+                      <div className="tw-w-1/3 tw-flex-none" key={epk._id}>
+                        <EpkCard EpkInfo={epk} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
             ) : (
               <>
-                {/* <div className="tw-my-16 tw-mb-4 tw-flex tw-justify-center">
-                  <NewEpkBtn />
-                </div> */}
-                <div className="tw-ml-1 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 ">
+                <div className="tw-ml-16 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 ">
                   {epkListPending.map((epk) => (
                     <EpkCard EpkInfo={epk} />
                   ))}
@@ -98,18 +134,27 @@ export default function RequestsPage() {
               </>
             )}
           </div>
-          <div className="tw-flex tw-flex-col tw-gap-12">
-            <span className="tw-bg-black tw-text-xl tw-text-white">
+          <div className="tw-flex tw-flex-col tw-gap-3">
+            <span className="tw-bg-[#1E0039] tw-text-xl tw-text-white">
               Refused EPKs
             </span>
             {epkListRefused.length === 0 ? (
               <EmptyEpk EpkStatus="refused" />
+            ) : epkListRefused.length > 2 ? (
+              <>
+                <div className="tw-ml-16 tw-flex tw-overflow-x-auto">
+                  <div className="tw-flex tw-gap-2 tw-p-2">
+                    {epkListRefused.map((epk) => (
+                      <div className="tw-w-1/3 tw-flex-none" key={epk._id}>
+                        <EpkCard EpkInfo={epk} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
             ) : (
               <>
-                {/* <div className="tw-my-16 tw-mb-4 tw-flex tw-justify-center">
-                  <NewEpkBtn />
-                </div> */}
-                <div className="tw-ml-1 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 ">
+                <div className="tw-ml-16 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 ">
                   {epkListRefused.map((epk) => (
                     <EpkCard EpkInfo={epk} />
                   ))}
