@@ -6,7 +6,7 @@ export default function EpkCard(props) {
   const BANNER_IMG = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
   return (
     <div className="tw-flex tw-flex-row">
-      <div className="tw-m-1 tw-max-w-xs  tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">
+      <div className="tw-m-1 tw-max-w-xs tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">
         {/* <div className="tw-m-1 tw-w-40  tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105"> */}
         <a href={`/epk/${epkInfo.title}`}>
           <div className="image-container tw-rounded-lg tw-border tw-border-gray-200">
