@@ -713,12 +713,13 @@ export const getFollowingFepksByUser = async (req, res) => {
 // get fepks which are requests by user
 export const getRequestsFepksByUser = async (req, res) => {
   const userId = req.params.userId;
-  const status = req.params.status;
+  // const status = req.params.status;
   //console.log(userId, status);
   try {
     const fepks = await fepk
       .find()
-      .where({ requests: { $elemMatch: { user: userId, status: status } } })
+      // .where({ requests: { $elemMatch: { user: userId, status: status } } })
+      .where({ requests: { $elemMatch: { user: userId } } })
       .populate("film_maker") // includes all fields of this object
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
@@ -733,6 +734,7 @@ export const getRequestsFepksByUser = async (req, res) => {
       .populate("requests.user")
       .where("deleted")
       .equals(false);
+    // console.log(fepks);
     res.status(200).json(fepks);
   } catch (error) {
     res.status(404).json({ message: error.message });
