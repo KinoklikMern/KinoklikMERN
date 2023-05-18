@@ -39,8 +39,8 @@ export default function Sidebar(props) {
       ActiveIcon: MessageWhiteIcon,
       href: "/dashboard/chat",
       size: {
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
       },
     },
     // report part
@@ -80,7 +80,7 @@ export default function Sidebar(props) {
               href={item.href}
               className="tw-flex tw-flex-col tw-text-[#1E0039]"
             >
-              <div className="tw-flex tw-justify-center ">
+              <div className="tw-flex tw-justify-center">
                 <img
                   src={
                     SELECTED_TAB === item.Title

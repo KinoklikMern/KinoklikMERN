@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import MessageIcon from "../../../images/icons/message.svg";
-import demo from "../../../images/avatarDefault.jpeg";
 
 export default function EpkDetail({ epkInfo, handler }) {
   const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
@@ -71,7 +70,7 @@ export default function EpkDetail({ epkInfo, handler }) {
         </div>
       </div>
       <div>
-        <div className="tw-flex tw-flex-col ">
+        <div className="tw-flex tw-flex-col tw-gap-3">
           <div className="tw-relative tw-self-end">
             <span className="tw-flex tw-justify-center tw-text-[#1E0039]">
               Created By
@@ -87,12 +86,12 @@ export default function EpkDetail({ epkInfo, handler }) {
               </span>
             </div>
           </div>
-          <div className="tw--m-[40px] tw-flex tw-justify-center tw-self-end">
+          <div className="tw-relative tw-flex tw-justify-center tw-self-center">
             <img
               src={MessageIcon}
-              style={{ width: "45%" }}
+              // style={{ width: "30%" }}
               onClick={() => handler("message")}
-              className="tw-cursor-pointer hover:tw-scale-110"
+              className="tw-max-w-16 tw-max-h-16 tw-p-3 tw-cursor-pointer hover:tw-scale-110"
             />
           </div>
         </div>

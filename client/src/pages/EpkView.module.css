@@ -145,7 +145,7 @@
 .form1 {
   width: 80%;
   transform: translate(10%, -10%);
-  position: absolute;
+  /* position: absolute; */
 }
 .form1Input {
   position: relative;
@@ -160,7 +160,7 @@
   width: 100%;
   background-color: #1e0039;
   color: #fff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border-radius: 5px;
 }
 .form1 label {
@@ -175,6 +175,7 @@
   font-size: 1.4rem;
   transform: translate(65%, -40%);
   position: absolute;
+  bottom: -30%;
   width: 10rem;
   border-radius: 5px;
   box-shadow: 2px 3px #a263da;
@@ -203,7 +204,8 @@
 .comment {
   padding-left: 4rem;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
 }
 
 .dotSection {
@@ -227,17 +229,20 @@
 }
 .reportMessage {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.4);
+  left: 10%;
+  top:90%;
+  background-color:#170b3b;
 
   transform: translate(150%, -40%);
   min-height: 5rem;
   max-width: 15rem;
 
   border-radius: 5px;
-  box-shadow: 1px -5px rgba(172, 105, 230, 0.8);
   z-index: 10;
-  color: #000;
+  color: #fff;
   font-size: 1rem;
+  padding: 10px;
+
 }
 .reportP {
   padding: 6rem;

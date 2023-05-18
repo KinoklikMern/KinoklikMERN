@@ -32,7 +32,7 @@ export default function LoginModal(props) {
   };
   return (
     <>
-      <Modal show={props.open} onHide={props.close} centered className="p-3">
+      <Modal show={props.open} onHide={props.close} centered className="p-3 tw-text-[#1E0039]">
         <Modal.Header className="border-0">
           <Modal.Title className="text-center">Sign In</Modal.Title>
         </Modal.Header>
@@ -67,19 +67,25 @@ export default function LoginModal(props) {
         <Modal.Footer
           style={{ border: "none", display: "flex", justifyContent: "center" }}
         >
-          <Button
-            style={{
-              backgroundColor: "#fff",
-              border: "none",
-              color: "#1E0039",
-              boxShadow: "3px 3px 10px #712CB0",
-              width: "25%",
-              padding: "0",
-            }}
-            onClick={handleSubmit}
-          >
-            Sign In
-          </Button>
+          <div className="tw-text-center">
+            <Button
+              style={{
+                backgroundColor: "#fff",
+                border: "none",
+                color: "#1E0039",
+                boxShadow: "3px 3px 10px #712CB0",
+                width: "25%",
+                padding: "0",
+              }}
+              onClick={handleSubmit}
+            >
+              Sign In
+            </Button>
+
+            <p className="tw-mt-3">
+              Don't have an account yet? <a href="/signup" className="tw-text-[#581396]">Create Account</a>
+            </p>
+          </div>
         </Modal.Footer>
       </Modal>
     </>

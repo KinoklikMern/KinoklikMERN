@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as DashIcon } from "../../images/icons/dashFull-white.svg";
-import { ReactComponent as LogoutIcon } from "../../images/icons/logout-icon.svg";
-import { ReactComponent as SettingIcon } from "../../images/icons/Settings-full-white.svg";
-import { ReactComponent as UploadFilmIcon } from "../../images/icons/UploadFilmIcon.svg";
 import { ReactComponent as SettingDefaultIcon } from "../../images/icons/Settings-full-white.svg";
 import { ReactComponent as SettingPurpleIcon } from "../../images/icons/Settings-full-purple.svg";
 import { ReactComponent as DashbordDefaultIcon } from "../../images/icons/dashFull-white.svg";
@@ -22,35 +18,7 @@ export const SideProfileMenu = () => {
   const dispatch = useDispatch();
   const [hoveredMenu, setHoveredMenu] = useState("");
   const { user } = useSelector((user) => ({ ...user }));
-  const picture = user
-    ? user.picture ==
-      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-      ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`
-    : null;
-  let userId;
-  let userRole;
-  if (!user) {
-    userId = "0";
-    userRole = "noUser";
-  } else {
-    userId = user.id;
-    userRole = user.role;
-  }
-
-  const logout = () => {
-    Cookies.set("user", null);
-    console.log(user);
-    console.log("log out");
-    dispatch({
-      type: "LOGOUT",
-      payload: null,
-    });
-    console.log(user);
-    navigate("/");
-  };
-
-  const [menuList, setMenuList] = useState([
+  const menuList = [
     {
       name: "Upload EPK",
       url: `${user.role === "Filmmaker" ? "/uploadFepk" : ""}`,
@@ -81,7 +49,29 @@ export const SideProfileMenu = () => {
       defaultIcon: <LogoutDefaultIcon />,
       hoverIcon: <LogoutPurpleIcon />,
     },
-  ]);
+  ];
+  const filteredMenuList =
+    user?.role !== "Filmmaker" ? menuList.slice(1) : menuList;
+
+  const picture = user
+    ? user.picture ==
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+      ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`
+    : null;
+
+  const logout = () => {
+    Cookies.set("user", null);
+    console.log(user);
+    console.log("log out");
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+    console.log(user);
+    navigate("/");
+  };
+
   return (
     <>
       <div className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-w-72 tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible">
@@ -104,7 +94,7 @@ export const SideProfileMenu = () => {
           </div>
         </div>
         <div className="tw-flex tw-h-screen tw-flex-col tw-items-end tw-justify-center tw-gap-5">
-          {menuList?.map((menu, index) => (
+          {filteredMenuList.map((menu, index) => (
             <>
               <div
                 key={index}

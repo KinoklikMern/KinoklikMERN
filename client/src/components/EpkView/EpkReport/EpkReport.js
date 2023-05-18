@@ -40,27 +40,45 @@ export default function EpkReport({ epkInfo }) {
 
   const [isClose, setIsClose] = useState(false);
   const clickClose = () => {
+    setIsClickInfoIcon1(false);
+    setIsClickInfoIcon2(false);
+    setIsClickInfoIcon3(false);
+    setIsClickInfoIcon4(false);
+    setChosen1(false);
+    setChosen2(false);
+    setChosen3(false);
+    setChosen4(false);
     setIsShow(!isShow);
     setIsClickDot(!isClickDot);
-    // setIsClose(!isClose);
-    // window.location.reload();
   };
   const [isClickInfoIcon1, setIsClickInfoIcon1] = useState(false);
   const clickInfoIcon1 = () => {
     setIsClickInfoIcon1(!isClickInfoIcon1);
+    setIsClickInfoIcon2(false);
+    setIsClickInfoIcon3(false);
+    setIsClickInfoIcon4(false);
   };
   const [isClickInfoIcon2, setIsClickInfoIcon2] = useState(false);
   const clickInfoIcon2 = () => {
+    setIsClickInfoIcon1(false);
     setIsClickInfoIcon2(!isClickInfoIcon2);
+    setIsClickInfoIcon3(false);
+    setIsClickInfoIcon4(false);
   };
 
   const [isClickInfoIcon3, setIsClickInfoIcon3] = useState(false);
   const clickInfoIcon3 = () => {
+    setIsClickInfoIcon1(false);
+    setIsClickInfoIcon2(false);
     setIsClickInfoIcon3(!isClickInfoIcon3);
+    setIsClickInfoIcon4(false);
   };
 
   const [isClickInfoIcon4, setIsClickInfoIcon4] = useState(false);
   const clickInfoIcon4 = () => {
+    setIsClickInfoIcon1(false);
+    setIsClickInfoIcon2(false);
+    setIsClickInfoIcon3(false);
     setIsClickInfoIcon4(!isClickInfoIcon4);
   };
   const [isClickReport, setIsClickReport] = useState(false);
@@ -80,14 +98,6 @@ export default function EpkReport({ epkInfo }) {
   const [chosen3, setChosen3] = useState(false);
   const [chosen4, setChosen4] = useState(false);
 
-  const handleInputChange = (event) => {
-    let comment = event.target.value;
-    setReport({ ...report, comment: comment });
-    setChosen4(!chosen4);
-    setChosen1(false);
-    setChosen2(false);
-    setChosen3(false);
-  };
   function chooseReason(reason) {
     setReport({ ...report, reason: reason });
     setChosen1(!chosen1);
@@ -109,6 +119,21 @@ export default function EpkReport({ epkInfo }) {
     setChosen2(false);
     setChosen4(false);
   }
+  function chooseOtherReason() {
+    setChosen4(!chosen4);
+    setChosen1(false);
+    setChosen2(false);
+    setChosen3(false);
+  }
+
+  const handleInputChange = (event) => {
+    let comment = event.target.value;
+    setReport({ ...report, comment: comment });
+    // setChosen4(true);
+    // setChosen1(false);
+    // setChosen2(false);
+    // setChosen3(false);
+  };
 
   function login() {
     document.getElementById("login").click();
@@ -254,7 +279,7 @@ export default function EpkReport({ epkInfo }) {
                   </div>
 
                   <div className={style.inputContainer}>
-                    <label for="Other">Other: </label>
+                    {!chosen4 && <label for="Other">Other: </label>}
                     <input
                       className={
                         chosen4 === true ? style.selected : style.comment
@@ -262,6 +287,7 @@ export default function EpkReport({ epkInfo }) {
                       type="text"
                       name="comment"
                       onChange={handleInputChange}
+                      onClick={chooseOtherReason}
                       placeholder="type here"
                     ></input>
                     <FontAwesomeIcon
