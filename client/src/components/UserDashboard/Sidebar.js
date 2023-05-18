@@ -50,8 +50,8 @@ export default function Sidebar(props) {
       ActiveIcon: MessageWhiteIcon,
       href: "/userdashboard/chat",
       size: {
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
       },
     },
     {
