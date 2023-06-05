@@ -27,7 +27,7 @@ export default function List({ title, status, type }) {
   };
   return (
     <div className="list">
-      <div className="wrapper">
+      <div className="wrapper" >
         <ArrowBackIosOutlined
           className="sliderArrow left"
           onClick={() => handleClick("left")}
@@ -41,6 +41,7 @@ export default function List({ title, status, type }) {
           onClick={() => handleClick("right")}
         />
       </div>
+
     </div>
   );
 }

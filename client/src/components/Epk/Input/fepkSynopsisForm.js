@@ -161,7 +161,8 @@ function SynopsisForm() {
     <>
       <div
         style={{
-          boxShadow: "1px 2px 9px #311465",
+          boxShadow: "inset 1px 2px 9px #311465",
+          padding : "0px 10px",
           marginLeft: "10%",
           width: "80%",
           borderRadius: "10px",
@@ -170,7 +171,9 @@ function SynopsisForm() {
         }}
       >
         <form>
-          <div className="row">
+          <div className="row" style={{ 
+            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
+          }}>
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -185,7 +188,7 @@ function SynopsisForm() {
               <h2
                 className="col align-items-start"
                 style={{
-                  color: "#311465",
+                  color: "#FFFFFF",
                   fontWeight: "normal",
                   fontSize: "25px",
                 }}
@@ -202,7 +205,7 @@ function SynopsisForm() {
                 className="col align-items-end"
                 to={`/epk/${fepk.title}`}
                 style={{
-                  color: "#311465",
+                  color: "#FFFFFF",
                   textDecoration: "none",
                   fontWeight: "normal",
                   fontSize: "20px",

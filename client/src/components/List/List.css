@@ -2,12 +2,35 @@
     width: 100%;
     /* width: 1440px; */
     margin-top: 10px;
+    padding: 10px 50px 20px 50px;
+    
 }
 
 .list .wrapper {
     position: relative;
     height: 100%;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
 }
+
+.list .wrapper::-webkit-scrollbar{
+    height: 5px;
+}
+
+.list .wrapper::-webkit-scrollbar-track{
+    background-color: rgba(109, 32, 150, 0.714);
+    border-radius: 10px;
+}
+
+.list .wrapper::-webkit-scrollbar-thumb{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+.list .wrapper::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
 .list .wrapper .sliderArrow {
     width: 50px;
     height: 100%;
@@ -29,9 +52,9 @@
 .list .wrapper .container {
     /* width: 1440px; */
     height: 330px;
-    margin-left: 50px;
+    margin-left: 20px;
     display: flex;
-    margin-top: 10px;
+    margin-top: 5px;
     width: max-content;
     transform: translateX(0px);
     transition: all 1s ease;

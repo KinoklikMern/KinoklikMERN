@@ -67,7 +67,9 @@ const ResourcesForm = () => {
     <>
     <div style={{boxShadow: '1px 2px 9px #311465', marginLeft: "10%", width: "80%", background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
             backgroundColor:"white"}}>
-    <div className="row">
+    <div className="row" style={{
+            background: "linear-gradient(to bottom, #1E0039, #FFFFFF)"
+          }}>
       <div className="col-1">
         <Link className="navbar-brand text-headers-style" to="/home">
           <img

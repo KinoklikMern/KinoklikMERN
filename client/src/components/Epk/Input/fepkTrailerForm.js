@@ -90,14 +90,17 @@ function TrailerForm () {
   return (
     <>
       <div style={{
-        boxShadow: '1px 2px 9px #311465', 
+        boxShadow: "inset 1px 2px 9px #311465",
+        padding : "0px 10px", 
         marginLeft: "10%", 
         width: "80%", 
         borderRadius:"10px",
         // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
         backgroundColor:"white"}}>
       <form>
-        <div className="row">
+        <div className="row" style={{ 
+            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
+          }}>
           <div className="col-1">
             <Link className="navbar-brand text-headers-style" to="/home">
               <img style={{width:"100%", height:"80px"}}
@@ -108,7 +111,7 @@ function TrailerForm () {
             </Link>
           </div>
           <div className="col-3  m-3">
-           <h2 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal', fontSize:"25px" }}>EPK Dashboard</h2>
+           <h2 className="col align-items-start" style={{color: "#FFFFFF", fontWeight: 'normal', fontSize:"25px" }}>EPK Dashboard</h2>
           </div>
           <div className="col-3 m-3">
             < BasicMenu/>   
@@ -116,7 +119,7 @@ function TrailerForm () {
           <div className="col-1 m-3">        
           </div>
           <div className="col-2 m-3">
-            <Link className="col align-items-end" to={`/epk/${fepk.title}`}  style={{ color: "#311465", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
+            <Link className="col align-items-end" to={`/epk/${fepk.title}`}  style={{ color: "#FFFFFF", textDecoration: 'none', fontWeight: 'normal', fontSize: '20px' }}>
                 View EPK Page
             </Link>
           </div>

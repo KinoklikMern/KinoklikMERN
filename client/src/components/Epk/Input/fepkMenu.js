@@ -47,9 +47,9 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <h6 className="col align-items-start" style={{color: "#311465", fontWeight: 'normal'}}>
-          <FontAwesomeIcon icon={faCaretDown} style={{height: "15px"}}/> Project: 
-          <span style={{fontWeight: 'bold', margin:"2px 0 0 2px"}}>{fepk.title}</span>
+        <h6 className="col align-items-start" style={{color: "#FFFFFF", fontWeight: 'normal'}}>
+          <FontAwesomeIcon icon={faCaretDown} style={{height: "15px", color: "#FFFFFF"}}/> Project: 
+          <span style={{fontWeight: 'bold', margin:"2px 0 0 2px", color:'#FFFFFF'}}>{fepk.title}</span>
         </h6>
       </Button>
       <Menu
