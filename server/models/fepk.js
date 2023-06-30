@@ -6,6 +6,11 @@ const fepkSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
+  actors: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: false,
+  }],
 
   // Cover
   title: {

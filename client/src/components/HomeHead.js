@@ -39,8 +39,10 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./HomeHead/SearchBar";
+import actorBack from "../images/actor2.png"
+import actorProf from "../images/actor1.png"
 
-const HomeHead = () => {
+const HomeHead = (props) => {
   const [clickedStar, setClickedStar] = useState(false);
   const [clickedShare, setClickedShare] = useState(false);
   const [clickedDollar, setClickedDollar] = useState(false);
@@ -119,7 +121,7 @@ const HomeHead = () => {
     <div
       className=" tw-h-[100vh]  tw-h-screen tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
       style={{
-        backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
+        backgroundImage: (props.role && props.role === "actor") ? `url(${actorBack})` : `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`
       }}
     >
       <div className="tw-mx-16 tw-flex tw-items-end tw-justify-end tw-mt-6">
@@ -253,7 +255,7 @@ const HomeHead = () => {
               <a href={`epk/${fepk.title}`}>
                 <img
                   className="tw-h-[70vh] "
-                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                  src={props.role === "actor" ? actorProf : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                   alt="/"
                 />
               </a>

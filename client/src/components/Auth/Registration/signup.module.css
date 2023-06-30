@@ -1,6 +1,7 @@
 /* use compomonents way to style for registration page
 link for registration is /signup */
 .bg {
+
     /* background-image: url(../../../images/login/Curtains.png); */
     height: 100vh;
     width: 100%;
@@ -31,7 +32,6 @@ position: absolute;
     background: white;
     width: 550px;
     border-radius: 10px;
-   
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 20px;
@@ -40,7 +40,7 @@ position: absolute;
 }
 
 .form_input1 {
-   width: 550px;
+   width: 800px;
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -51,8 +51,6 @@ position: absolute;
         color: black;
         outline-color: transparent;
             box-shadow: 0 0 .4em #844fb0;
-           
-
 }
 
 .form_input2 {
@@ -78,7 +76,7 @@ background: white;
     box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2), 0 6px 20px 0 rgba(175, 63, 227, 0.19);
     width: 200px;
     text-align: center;
-   
+    padding: 2px 12px;
 }
 
 .btn1:hover {
@@ -115,7 +113,7 @@ background: white;
     font-weight: 400;
    text-align: center;
    color: #712CB0;
-   padding: 100px;
+   padding: 20px 100px 20px 100px;
  
 }
 .form_Message {
@@ -166,7 +164,8 @@ background: white;
     }
 
     .form_input1 button {
-        width: 16%;
+        width: 14%;
+        height: 36px;
     }
 
     .form_input {

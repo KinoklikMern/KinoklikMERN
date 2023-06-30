@@ -1,14 +1,13 @@
-import {
-  ArrowBackIosOutlined,
-  ArrowForwardIosOutlined,
-} from "@mui/icons-material";
-import { useRef, useState } from "react";
-import ListItem from "../ListItem/ListItem";
-import ListItemActor from "../ListItem/ListItemActor";
-import "./List.css";
+import ListItem from "./ListItem";
+import "./ListActor.css";
 import React from "react";
+import {
+    ArrowBackIosOutlined,
+    ArrowForwardIosOutlined,
+  } from "@mui/icons-material";
+  import { useRef, useState } from "react";
 
-export default function List({ title, status, type, role }) {
+export default function List() {
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
 
@@ -34,13 +33,8 @@ export default function List({ title, status, type, role }) {
           onClick={() => handleClick("left")}
           style={{ display: !isMoved && "none" }}
         />
-        <div className="container" ref={listRef}>
-          {
-            role === "actor" ? 
-            <ListItemActor title={title} status={status} type={type} role={role}/>
-            :
-            <ListItem title={title} status={status} type={type} role={role}/>
-          }
+        <div className="container" ref={listRef}> 
+            <ListItem />
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"

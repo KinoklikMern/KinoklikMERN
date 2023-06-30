@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import SwitchBtn from "../components/SwitchBtn/Switch";
 import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBottom from "../components/HomeBottom";
@@ -17,7 +18,7 @@ import MainLayout from "../layouts/MainLayout";
 import { FepkContext } from "../context/FepkContext";
 import FilterTag from "../components/Filter/FilterTag";
 
-function Home() {
+function Home({role}) {
   const { user } = useSelector((user) => ({ ...user }));
   const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
   useEffect(() => {
@@ -29,9 +30,10 @@ function Home() {
       <div>
         {user && (
           <>
-            <HomeHead />
-            <FilterTag />
-            <HomeBody />
+            <HomeHead role= {role}/>
+            <SwitchBtn role= {role}/>
+            <FilterTag role= {role}/>
+            <HomeBody role= {role}/>
             {/* <Festival /> */}
             <HomeBottom />
           </>

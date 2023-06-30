@@ -33,9 +33,31 @@ export const getFepksByTitle = (title) => {
     console.log(error.message);
   }
 };
+
+export const getActorById = (id) => {
+  try {
+    return fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/users/getactor/${id}`,
+      {
+        method: "GET",
+      }
+    ).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const getFepkFollowersNumber = (id) => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks/followers/${id}`, {
+      method: "GET",
+    }).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getActorFollowersNumber = (id) => {
+  try {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getfollower/${id}`, {
       method: "GET",
     }).then((res) => res.json());
   } catch (error) {

@@ -11,7 +11,7 @@ import PasswordResetToken from "../models/passwordResetToken.js";
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, role, password, phone, website } =
+    const { firstName, lastName, email, role, password, phone, website, bannerImg, headImg } =
       req.body;
 
     if (!validateEmail(email)) {
@@ -284,6 +284,38 @@ export const updateProfile = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+export const actorUploadFiles = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const userOne = await User.findOne({ _id: id });
+    if (!userOne) {
+      res.json({ error: "No User was found!" });
+    } else {
+      const updatedProfile = {
+        //...userOne,
+        bannerImg: req.body.bannerImg,
+        picture: req.body.picture,
+        profiles: req.body.profiles
+      };
+      
+      await userOne.updateOne({
+        
+        bannerImg: req.body.bannerImg,
+        picture: req.body.picture,
+        profiles: req.body.profiles
+      });
+      await userOne.updateOne(
+        { updatedAt: new Date() },
+        { where: { _id: id } }
+      );
+      await userOne.save();
+      const userUpdated = await User.findOne({ _id: id });
+      res.status(200).json(userUpdated);
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 // upload user avatar file to S3
 export const uploadUserAvatar = async (req, res) => {
@@ -295,6 +327,61 @@ export const uploadUserAvatar = async (req, res) => {
     //console.log(result);
     res.status(200).send({ key: result.Key });
   }
+};
+
+// upload actor banner
+export const uploadActorBanner = async (req, res) => {
+  const file = req.file;
+  const result = await uploadFileToS3(file);
+  if (!result) {
+    res.status(406).send({ message: "File extention not supported!" });
+  } else {
+    res.status(200).send({ key: result.Key });
+  }
+};
+
+// upload profiles
+export const uploadActorProfiles = async (req, res) => {
+  let totalResult = {};
+  console.log("here");
+  console.log(req.files);
+  if ("file1" in req.files) {
+    const file1 = req.files.file1[0];
+    const result1 = await uploadFileToS3(file1);
+    if (!result1) {
+      res.status(406).send({ message: "File extention not supported!" });
+    } else {
+      console.log(result1);
+      totalResult["file1"] = result1.Key;
+    }
+  }
+
+  console.log("file2" in req.files);
+  if ("file2" in req.files) {
+    const file2 = req.files.file2[0];
+    const result2 = await uploadFileToS3(file2);
+    if (!result2) {
+      res.status(406).send({ message: "File extention not supported!" });
+    } else {
+      console.log(totalResult);
+      totalResult["file2"] = result2.Key;
+    }
+  }
+
+  console.log("file3" in req.files);
+  if ("file3" in req.files) {
+    const file3 = req.files.file3[0];
+    const result3 = await uploadFileToS3(file3);
+    if (!result3) {
+      res.status(406).send({ message: "File extention not supported!" });
+    } else {
+      console.log(totalResult);
+      totalResult["file3"] = result3.Key;
+    }
+  }
+
+  console.log(totalResult);
+  res.send(totalResult);
 };
 
 //update user studio
@@ -384,3 +471,119 @@ transport.verify(function (error, success) {
 });
 
 //**************************************************************************/
+
+
+export const getActor = async (req, res) => {
+  try {
+    const actorFind = await User.findOne({
+      role: "Actor", 
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    });
+
+    res.json(actorFind);
+  } catch (error) {
+    res.status(404).json({message: error.message})
+  }
+}
+
+
+
+export const getProfileActor = async (req, res) => {
+    try {
+      const profile = await User.find({ role: "Actor" }).select("-password");
+      if (!profile) {
+        return res.json({ ok: false });
+      }
+      res.json({ ...profile.toObject() });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+};
+
+// get starred actor
+export const getActoStarred = async (req, res) => {
+    try {
+      const profile = await User
+        .find({ role: "Actor" })
+        .where({ likes: {$nin: [req.param.id]} })
+        .select("-password");
+      if (!profile) {
+        return res.json({ ok: false });
+      }
+      res.json({ ...profile });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+};
+
+// get followed actor
+export const getActorFollowing = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const fepkOne = await User
+      .find({ _id: id })
+      .where("deleted")
+      .equals(false);
+    let facebooks = 0;
+    let instagrams = 0;
+    let twitters = 0;
+    fepkOne.crew.forEach((element) => {
+      if (element.facebook_followers) {
+        facebooks += parseInt(element.facebook_followers);
+      }
+      if (element.instagram_followers) {
+        instagrams += parseInt(element.instagram_followers);
+      }
+      if (element.twitter_followers) {
+        twitters += parseInt(element.twitter_followers);
+      }
+    });
+    //res.status(200).json(fepkOne);
+    res
+      .status(200)
+      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getActorById = async (req, res) => {
+  try {
+    const profile = await User.findOne({ _id: req.params.id });
+    if (!profile) {
+      return res.json({ ok: false });
+    }
+    res.json({ ...profile.toObject() });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getFollowers = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const fepkOne = await User
+      .findOne({ _id: id })
+    let facebooks = 0;
+    let instagrams = 0;
+    let twitters = 0;
+    fepkOne.crew.forEach((element) => {
+      if (element.facebook_followers) {
+        facebooks += parseInt(element.facebook_followers);
+      }
+      if (element.instagram_followers) {
+        instagrams += parseInt(element.instagram_followers);
+      }
+      if (element.twitter_followers) {
+        twitters += parseInt(element.twitter_followers);
+      }
+    });
+    //res.status(200).json(fepkOne);
+    res
+      .status(200)
+      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

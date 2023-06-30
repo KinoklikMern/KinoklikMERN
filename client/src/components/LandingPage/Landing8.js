@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./Landing8.css";
 import vip from "../../images/vip.png";
 
 import { Link, Navigate } from "react-router-dom";
 import img from "../../images/landing.png";
 import { useNavigate } from "react-router-dom";
-
+import http from "../../http-common";
 import { newFilm } from "./landingCategory";
 import { popularFilm } from "./landingCategory";
 import { useDispatch } from "react-redux";
@@ -16,6 +16,21 @@ const Landing8 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((user) => ({ ...user }));
+  // save newest file data that get from api
+  const [fepksNew, setFepks] = useState([]);
+  const [fepksPopular, setPopularFepks] = useState([]);
+
+  useEffect(() => {
+    http.get(`fepks/newest/1`).then((response) => {
+      setFepks(response.data);
+    });
+    
+    http.get(`fepks/popular/1`).then((response) => {
+      setPopularFepks(response.data);
+    });
+
+  }, []);
+
   const createEpk = async () => {
     try {
       const { data } = await axios.post(
@@ -43,16 +58,18 @@ const Landing8 = () => {
           NEW FILMS
         </h2>
         <div className="slide-right-left tw-ml-10 tw-grid tw-gap-5 tw-px-2 tw-py-4 sm:tw-grid-cols-2 sm:tw-px-1 md:tw-grid-cols-3 lg:tw-grid-cols-6 ">
-          {newFilm.map((item) => (
+          {fepksNew.map((item) => (
             <div
               className="tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
               key={item._id}
             >
-              <img
-                className="tw-h-64 tw-w-full tw-rounded-md tw-duration-200 hover:tw-scale-105 "
-                src={item.image}
-                alt={item.title}
-              />
+              <a href={`epk/${item.title}`}>
+                <img
+                  className="tw-h-64 tw-w-full tw-rounded-md tw-duration-200 hover:tw-scale-105 "
+                  src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
+                  alt={item.title}
+                />
+              </a>
             </div>
           ))}
         </div>
@@ -61,16 +78,18 @@ const Landing8 = () => {
           MOST POPULAR
         </h2>
         <div className="slide-left-right tw-ml-10 tw-grid tw-gap-5 tw-px-2 sm:tw-grid-cols-2 sm:tw-px-0 md:tw-grid-cols-3 lg:tw-grid-cols-6">
-          {popularFilm.map((item) => (
+          {fepksPopular.map((item) => (
             <div
               className="tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
               key={item._id}
             >
-              <img
-                className="tw-h-64 tw-w-full tw-rounded-md tw-duration-200 hover:tw-scale-105"
-                src={item.image}
-                alt={item.title}
-              />
+              <a href={`epk/${item.title}`}>
+                <img
+                  className="tw-h-64 tw-w-full tw-rounded-md tw-duration-200 hover:tw-scale-105"
+                  src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
+                  alt={item.title}
+                />
+              </a>
             </div>
           ))}
         </div>

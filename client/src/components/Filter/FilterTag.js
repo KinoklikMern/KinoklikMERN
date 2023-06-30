@@ -6,9 +6,10 @@ import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { CookieSharp } from "@mui/icons-material";
 import { FepkContext } from "../../context/FepkContext.js";
 
-export default function FilterTag() {
+export default function FilterTag({role}) {
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
-  const [filterTags, setFilterTags] = useState([
+
+  const actorFilterTag = [
     {
       name: "Movie",
       isActive: false,
@@ -29,7 +30,31 @@ export default function FilterTag() {
       name: "all epks",
       isActive: true,
     },
-  ]);
+  ]
+  const FilterTag = [
+    {
+      name: "Male",
+      isActive: false,
+    },
+    {
+      name: "Female",
+      isActive: false,
+    },
+    {
+      name: "City",
+      isActive: false,
+    },
+    {
+      name: "Country",
+      isActive: false,
+    },
+    {
+      name: "All Actors",
+      isActive: true,
+    },
+  ]
+
+  const [filterTags, setFilterTags] = useState(role === "actor" ? FilterTag : actorFilterTag);
 
   console.log(filterQuery);
 

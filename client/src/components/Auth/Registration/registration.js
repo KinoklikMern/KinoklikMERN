@@ -31,6 +31,10 @@ function RegistrationForm() {
       value: "Filmmaker",
     },
     {
+      label: "Actor",
+      value: "Actor",
+    },
+    {
       label: "Distributor",
       value: "Distributor",
     },
@@ -97,7 +101,9 @@ function RegistrationForm() {
     <>
       <div className={SignupCss.bg}>
         <div className={SignupCss.form_title}>Sign up for KinoKlik </div>
-        <div className={SignupCss.form}>
+        <div className={SignupCss.form} style={{
+          margin: "20px"
+        }}>
           <div className={SignupCss.form_body}>
             <div className={SignupCss.form_input1}>
               <div className={SignupCss.form_input1}>

@@ -2,6 +2,8 @@ import React from "react";
 import { Navigate, Route, Link, Routes } from "react-router-dom";
 import { useState } from "react";
 
+import Actor from './pages/Actor/Actor';
+
 import "./styles/tailwind.css"; //Tailwind
 
 import MainLayout from "./layouts/MainLayout";
@@ -95,6 +97,8 @@ import AccessDeniedPage from "./pages/AccessDeniedPage";
 import { FepkContext } from "./context/FepkContext";
 import CatelogPage from "./pages/CatelogPage";
 import EpkViewPage from "./pages/EpkViewPage";
+import UploadActorPic from "./components/UserDashboard/Upload/UploadActorPic";
+import UploadActorPicCon from "./components/UserDashboard/Upload/UploadActorPicCon";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -122,6 +126,12 @@ function App() {
         <Route path="/" element={<MainLayout className={className} />}>
           <Route index element={<Home />} />
         </Route>
+        <Route path="/actors" element={<MainLayout className={className} />}>
+          <Route index element={<Home role="actor"/>} />
+        </Route>
+        
+        <Route path="/actor/:id" element={<Actor />} />
+
         <Route element={<AuthRoutes />}>
           <Route path="/" element={<DashboardLayout className={className} />}>
             <Route path="dashboard/epks" element={<DashboardEpks />} />
@@ -147,6 +157,10 @@ function App() {
             <Route
               path="userdashboard/settings"
               element={<UserDashboardSettings />}
+            />
+            <Route
+              path="userdashboard/actor"
+              element={<UploadActorPicCon />}
             />
 
             <Route path="userdashboard/chat" element={<UserDashboardChat />} />
@@ -259,6 +273,7 @@ function App() {
         <Route path="epk" element={<EPK />} />
         <Route path="approvals/:fepkId" element={<TestApproval />} />
         <Route path="*" element={<Navigate to="/" />} />
+        
       </Routes>
     </FepkContext.Provider>
   );

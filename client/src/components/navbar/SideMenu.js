@@ -38,7 +38,7 @@ export const SideProfileMenu = () => {
     {
       name: "My Dashboard",
       url: `${
-        user.role === "Filmmaker" ? "/dashboard/epks" : "/userdashboard/starred"
+        user.role === "Filmmaker" ? "/dashboard/epks" : (user.role === "Actor"?  "/userdashboard/actor": "/userdashboard/starred")
       }`,
       defaultIcon: <DashbordDefaultIcon />,
       hoverIcon: <DashbordPurpleIcon />,

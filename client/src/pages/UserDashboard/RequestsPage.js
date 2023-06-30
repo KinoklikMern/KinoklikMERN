@@ -74,7 +74,7 @@ export default function RequestsPage() {
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
-          <Sidebar selectedTab="Requests" />
+          <Sidebar selectedTab="Requests" role={user.role}/>
         </div>
 
         <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto  tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar  tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]">

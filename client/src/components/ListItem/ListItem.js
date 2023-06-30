@@ -5,13 +5,15 @@ import { Link } from "react-router-dom";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
-export default function ListItem({ title, status, type }) {
+export default function ListItem({ title, status, type, role }) {
   let production_type = type;
   if (type && type.length === 0) {
     production_type = ["Movie", "TV Show", "Web Series", "Documentary"];
   }
   const [fepks, setFepks] = useState([]);
+  const [actors, setActors] = useState([]);
   // fetching user
+  //: `epk/${fepk.title}`
   const { user } = useSelector((user) => ({ ...user }));
   let id;
   if (!user) {
@@ -23,6 +25,7 @@ export default function ListItem({ title, status, type }) {
   useEffect(() => {
     switch (title) {
       case "starred":
+        
         http.get(`fepks/getStarredFepksByUser/${id}`).then((response) => {
           if (production_type.length !== 0) {
             setFepks(
@@ -37,6 +40,7 @@ export default function ListItem({ title, status, type }) {
         });
         break;
       case "following":
+        
         http.get(`fepks/getFollowingFepksByUser/${id}`).then((response) => {
           if (production_type.length !== 0) {
             setFepks(
@@ -86,16 +90,19 @@ export default function ListItem({ title, status, type }) {
   return (
     <>
       {fepks &&
-        fepks.map((fepk) => (
+      
+      fepks.map((fepk) => (
           <div className="listItem" key={fepk._id}>
-            <a href={`epk/${fepk.title}`}>
+            <a href={role == "actor"? `/actor/6487758c553b5011282f72a5` : `epk/${fepk.title}`}>
               <img
-                src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                src={ role === "actor"? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`:`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                 alt=""
               />
             </a>
           </div>
-        ))}
+        ))
+      
+      }
     </>
   );
 }

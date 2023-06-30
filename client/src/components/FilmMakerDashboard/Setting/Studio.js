@@ -81,7 +81,7 @@ export default function Studio() {
         <input
           type="text"
           name="name"
-          placeholder="Studio Name"
+          placeholder= {userRole === "Actor" ? "Agent Name" : "Studio Name"}
           defaultValue={userStudioData.name}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -89,7 +89,7 @@ export default function Studio() {
         <input
           type="text"
           name="website"
-          placeholder="Studio Website"
+          placeholder={userRole === "Actor" ? "Agent Website" : "Studio Website"}
           defaultValue={userStudioData.website}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -97,7 +97,7 @@ export default function Studio() {
         <input
           type="text"
           name="email"
-          placeholder="Studio Email"
+          placeholder={userRole === "Actor" ? "Agent Email" : "Studio Email"}
           defaultValue={userStudioData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "

@@ -1,6 +1,8 @@
 import express from "express";
 import multer from "multer";
 import {
+  getNewest,
+  getMostPopular,
   getFepks,
   getFepksByTitle,
   getFepkbyId,
@@ -29,6 +31,7 @@ import {
   approveRequests,
   refuseRequests,
   getWishToBuyFepksByUser,
+  getFepksByActorId
 } from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
@@ -109,5 +112,14 @@ router.post("/approveRequest", approveRequests);
 
 //Refuse request to fepk
 router.post("/refuseRequest", refuseRequests);
+
+// sent request to get 10 newest movie
+router.get("/newest/:newId", getNewest);
+
+// get most popular
+router.get("/popular/:popular", getMostPopular);
+
+// get actor by movie
+router.get("/getactorbymovie/:actorId", getFepksByActorId);
 
 export default router;

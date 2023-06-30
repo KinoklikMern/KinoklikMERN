@@ -13,7 +13,7 @@ import {
 } from "@mui/icons-material";
 import { FepkContext } from "../../context/FepkContext.js";
 
-const HomeBody = () => {
+const HomeBody = ({role}) => {
   const [fepks, setFepks] = useState([]);
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
@@ -21,11 +21,12 @@ const HomeBody = () => {
 
   const listRef = useRef();
 
+  const actorId = "6483619d64b048f952a6fb5b"
+
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
       setFepks(response.data);
-    });
-  }, []);
+  })}, []);
 
   let genres = [];
 
@@ -41,7 +42,7 @@ const HomeBody = () => {
           <div className="listTitle">
             <span>STARRED</span>
           </div>
-          <List title="starred" type={filterQuery} />
+          <List title="starred" type={filterQuery} role={role}/>
         </div>
         <div>
           <div className="listTitle">
@@ -84,7 +85,7 @@ const HomeBody = () => {
                         return (
                           <>
                             <div className="listItem" key={fepk._id}>
-                              <a href={`epk/${fepk.title}`}>
+                              <a href={role === "actor" ? `/actor/${actorId}` : `epk/${fepk.title}`}>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                                   alt=""

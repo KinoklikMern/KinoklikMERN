@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getFepkFollowersNumber } from "../../../api/epks";
+import { getFepkFollowersNumber, getActorFollowersNumber } from "../../../api/epks";
 import Audience from "../../../images/audienceIcon.svg";
 import SocialMedia from "./SocialMedia";
 import {
@@ -8,7 +8,7 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
-export default function EpkHeader({ epkInfo }) {
+export default function EpkHeader({ epkInfo, role, id }) {
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
     useState(0);
   const [socialMediasList, setSocialMediasList] = useState([
@@ -34,7 +34,28 @@ export default function EpkHeader({ epkInfo }) {
 
   useEffect(() => {
     let totalFollowers = 0;
-    if (epkInfo) {
+    if(role === "actor"){
+      getActorFollowersNumber(id).then((res) => {
+        totalFollowers = formatCompactNumber(
+          res.facebook + res.instagram + res.twitter
+        );
+        setSocialMediaFollowerTotalNum(totalFollowers);
+        const newMediaList = socialMediasList.map((media) => {
+          if (media.name == "facebook") {
+            return { ...media, followers: formatCompactNumber(res.facebook) };
+          }
+          if (media.name == "instagram") {
+            return { ...media, followers: formatCompactNumber(res.instagram) };
+          }
+          if (media.name == "twitter") {
+            return { ...media, followers: formatCompactNumber(res.twitter) };
+          }
+          return media;
+        });
+        setSocialMediasList(newMediaList);
+      });
+    }
+    else {
       getFepkFollowersNumber(epkInfo?._id).then((res) => {
         totalFollowers = formatCompactNumber(
           res.facebook + res.instagram + res.twitter
@@ -55,6 +76,7 @@ export default function EpkHeader({ epkInfo }) {
         setSocialMediasList(newMediaList);
       });
     }
+
   }, [epkInfo]);
 
   function formatCompactNumber(number) {

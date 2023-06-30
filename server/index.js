@@ -24,6 +24,7 @@ app.use(cors());
 
 app.use("/users", userRoutes);
 app.use("/fepks", fepkRoutes);
+//app.use("/actor", actorRoutes);
 app.use("/crews", crewRoutes);
 app.use("/company", companyRoutes);
 // Edit by Tony On Jan 20, 2023
