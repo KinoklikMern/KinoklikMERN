@@ -6,13 +6,9 @@ import http from "../../http-common";
 import { useSelector } from "react-redux";
 
 export default function ListItem({ title, status, type, role }) {
-  let production_type = type;
-  if (type && type.length === 0) {
-    production_type = ["Movie", "TV Show", "Web Series", "Documentary"];
-  }
   const [actors, setActors] = useState([]);
-  // fetching user
-  //: `epk/${fepk.title}`
+  const [following, setFollowing] = useState([]);
+ 
   const { user } = useSelector((user) => ({ ...user }));
   let id;
   if (!user) {
@@ -25,20 +21,46 @@ export default function ListItem({ title, status, type, role }) {
     switch (title) {
       case "starred":
           http.get(`users/starred/${user.id}`).then((response) => {
-            
-              //setActors(response.data);
-            
+            setActors(response.data);
+              /*if(type === "ALL ACTORS"){
+                setActors(response.data);
+              }
+              else{
+                setActors(
+                  response.data.filter((actor) =>{
+                if(type === "MALE" || type === "FEMALE"){
+                  return actor.sex === type
+                }
+              }
+              ));
+              }*/
           });
         break;
       case "following":
-          http.get(`/users/followed/${user.id}`).then((response) => {
+          http.get(`/users/getfollowing/${user.id}`).then((response) => {
+              setActors(response.data);
+          });
+        break;
+      case "most_starred":
+          http.get(`users/mostlikes`).then((response) => {
+              setActors(response.data);
+            
+          });
+        break;
+      case "most_followed":
+          http.get(`users/mostfollowed`).then((response) => {
+              setActors(response.data);
+            
+          });
+        break;
+      case "pre-production":
+          http.get(`users/production`).then((response) => {
               //setActors(response.data);
             
           });
         break;
-      case "wish_to_buy":
-          http.get(`users/getactors`).then((response) => {
-            
+      case "production":
+          http.get(`users/preproduction`).then((response) => {
               //setActors(response.data);
             
           });
@@ -53,7 +75,7 @@ export default function ListItem({ title, status, type, role }) {
       //6483619d64b048f952a6fb5b
       actors.map((actor) => (
         <div className="listItem" key={actor._id}>
-          <a href= {`/actor/6487758c553b5011282f72a5`}>
+          <a href= {`/actor/${actor._id}`}>
             <img
               src={`${process.env.REACT_APP_AWS_URL}/${actor.picture}`}
               alt=""

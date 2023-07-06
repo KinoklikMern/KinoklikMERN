@@ -16,6 +16,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import StarIcon from '@mui/icons-material/Star';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 export default function Actor(props) {
   const [epkInfo, setEpkInfo] = useState({});
@@ -28,9 +29,11 @@ export default function Actor(props) {
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
   const [recommend, setRecommend] = useState([]);
+  const [canPlay, setCanPlay] = useState(true);
   let images = [];
 
   const listRef = useRef();
+  const videoRef = useRef();
 
   const age_range = [
    [20, 24],
@@ -42,41 +45,34 @@ export default function Actor(props) {
   ]
 
   function setAge(age){
-     switch (age) {
-      case age>= 20 || age<=24:
-        setRange(0);
-        break;
-      case age>= 25 || age<=29:
-        setRange(1);
-        break;
-      case age>= 30 || age<=34:
-        setRange(2);
-        break;
-      case age>= 35 || age<=39:
-        setRange(3);
-        break;
-      case age>= 40 || age<=44:
-        setRange(4);
-        break;
-      case age>= 45 || age<=49:
-        setRange(5);
-        break;
      
-      default:
+      if(age>= 20 && age<=24)
+        setRange(0);
+        
+      else if(age>= 25 && age<=29)
+        setRange(1);
+        
+      else if(age>= 30 && age<=34)
         setRange(2);
-        break;
-     }
+        
+      else if(age>= 35 && age<=39)
+        setRange(3);
+        
+      else if(age>= 40 && age<=44)
+        setRange(4);
+        
+      else if(age>= 45 && age<=49)
+        setRange(5);
+     
   }
   
   useEffect(() => {
-    console.log("id:"+id);
     http.get(`/users/getactor/${id}`).then((res) => {
       setEpkInfo(res.data);
-      console.log(res.data);
+      
       images.push(res.data.picture);
       images.push(...res.data.profiles);
-      console.log(res.data.profiles);
-      console.log(images);
+      
       setpics(images)
       
 
@@ -85,12 +81,18 @@ export default function Actor(props) {
       setFollower(res.data.followers);
       setRecommend(res.data.comunicate);
     })
+
+    const playVideoAfterDelay = setTimeout(() => {
+      if(videoRef.current){
+        videoRef.current.play();
+      }
+    }, 5000);
     
+    return () => clearTimeout(playVideoAfterDelay)
     
   }, [id]);
 
   const handleClick = (direction) => {
-    console.log(pics);
     if (direction === "left" && indexPic > 0) {
       setPicIndex(indexPic - 1)
     }
@@ -99,18 +101,30 @@ export default function Actor(props) {
     }
   };
 
+  const playVideo = () => {
+    if (canPlay === true ) {
+      setCanPlay(false);
+      videoRef.current.pause();
+    }
+    else{
+      setCanPlay(true);
+      videoRef.current.play();
+    }
+  }
+
 
   return (
     <div className="tw-bg-[#1E0039]">
-      <div>
+      <div className='actor-top-container'>
         <Navbar className={props.className} title={props.title} />
       </div>
       <div className='actor-navbar'>
         <EpkHeader epkInfo={epkInfo} role="actor" id={id}/>
       </div>
     <div className='actor-container'>
-        <div className="actor-image-container">
-        
+      <div>
+        <video loop ref={videoRef} className="actor-image-container" src={`${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`}>
+        </video>
         
         
             <div className='actor-profile' style={{
@@ -134,11 +148,23 @@ export default function Actor(props) {
             display: "inline"
           }}
         />
-            </div>
+        </div>
+        <div>
+          <PlayCircleIcon className='actor-play-icon'style={{
+            color: "#1E0039",
+            fontSize: "4rem",
+            display: "inline"
+          }}
+          onClick={playVideo}
+          />
+        </div>
+
+
+      </div>
         
         
             
-        </div>
+        
         <div className="actor-middle-container">
           <p className="actor-name actor-detail-item">{epkInfo.firstName} {epkInfo.lastName}</p>
           <p className="actor-name actor-detail-item" style={{
@@ -158,7 +184,7 @@ export default function Actor(props) {
           <p className="follower-number-Recommend actor-detail-item" style={{fontSize: "24px"}}>{recommend.length || "0"}</p>
           <div className='actor-detail-item actor-icon-movie-container'>
             <img src="../Vector.png" alt="" style={{width: "37px", height: "25px"}}/>
-            <p className="movie-number" style={{fontSize: "24px"}}>4</p>
+            <p className="movie-number" style={{fontSize: "24px"}}>1</p>
           </div>
         </div>
         <div className='actor-city-container'>

@@ -23,7 +23,11 @@ import {
   getActorFollowing,
   getActorById,
   getFollowers,
-  uploadActorBanner
+  uploadActorBanner,
+  getLikes,
+  getFollowingActor,
+  getMostLikes,
+  getMostFollowed,
 } from "../controllers/users.js";
 import { validate, validatePassword } from "../middlwares/validator.js";
 const upload = multer({ dest: "images/" });
@@ -63,7 +67,11 @@ router.get("/getactors", getProfileActor);
 router.get("/starred/:id", getActoStarred);
 router.get("/followed/:id", getActorFollowing);
 router.get("/getactor/:id", getActorById);
-router.get("/getfollower/:id", getFollowers)
+router.get("/getfollower/:id", getFollowers);
+router.get("/getfollowing/:id", getFollowingActor);
+router.get("/likes/:id", getLikes);
+router.get("/mostlikes", getMostLikes);
+router.get("/mostfollowed", getMostFollowed);
 
 // upload actor banner
 router.post("/actorbanner", upload.single("file"), uploadActorBanner);

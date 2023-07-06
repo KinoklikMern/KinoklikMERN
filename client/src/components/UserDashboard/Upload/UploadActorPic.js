@@ -16,12 +16,16 @@ export default function UploadActorPic({user}) {
     const inputFile3Ref = useRef(null);
     const inputFile4Ref = useRef(null);
     const inputFileBannerRef = useRef(null);
+    const videoRef = useRef(null);
     const [actor, setActor] = useState([]);
     const [profs, setProfs] = useState([]);
     const [message, setMessage] = useState("");
     const [image1, setImage1] = useState("");
     const [image2, setImage2] = useState("");
     const [image3, setImage3] = useState("");
+    const [duration, setDuration] = useState(0);
+    const [textareaValue, setTextareaValue] = useState(user.aboutMe);
+
     let i1 = ""
     let i2 = ""
     let i3 = ""
@@ -34,7 +38,6 @@ export default function UploadActorPic({user}) {
       const file2Selected = (event) => {
         const file = event.target.files[0];
         setFile2(file);
-        console.log("File2 Onchange: " + file2);
       };
       const file3Selected = (event) => {
         const file = event.target.files[0];
@@ -47,12 +50,21 @@ export default function UploadActorPic({user}) {
       const fileBannerSelected = (event) => {
         const file = event.target.files[0];
         setFileBanner(file);
-      };
+
+        if (file) {
+          const videoUrl = URL.createObjectURL(file);
+          videoRef.current.src = videoUrl;
+          setDuration(videoRef.current.duration)
+        }
+    };
+
+      
 
       useEffect(() => {
         http.get(`users/getactor/${user.id}`).then((response) => {
           setActor(response.data);
           setProfs(response.data.profiles);
+          setTextareaValue(response.data.aboutMe);
         });
       }, []);
 
@@ -71,7 +83,7 @@ export default function UploadActorPic({user}) {
             file.type === "video/x-ms-wmv" ||
             file.type === "video/ogg" ||
             file.type === "video/3gpp" ||
-            file.type === "	video/x-msvideo" ||
+            file.type === "video/x-msvideo" ||
             file.type === "image/png" ||
             file.type === "image/jpg" ||
             file.type === "image/jpeg"
@@ -81,11 +93,23 @@ export default function UploadActorPic({user}) {
         } else return true;
       };
 
+      const editAbout = async (e) => {
+        await http.put(`users/updateProfile/${user.id}`, {
+          aboutMe: textareaValue
+        })
+        .then((res) => {
+          console.log("saved");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+
       const saveEpkCover = async (e) => {
         
         e.preventDefault();
         let formDataBanner = new FormData();
-        formDataBanner.append("fileBanner", fileBanner);
+        formDataBanner.append("file", fileBanner);
         let formTest = new FormData();
         formTest.append("file", file1);
         let formData2 = new FormData();
@@ -105,6 +129,10 @@ export default function UploadActorPic({user}) {
         (!fileBanner || checkFileMimeType(fileBanner)) 
         ) {
           if(fileBanner){
+            console.log("video size: "+ fileBanner.size);
+            if (fileBanner.size <= 350000000) {
+              
+            
             await http
             .post("users/actorbanner", formDataBanner, {
               headers: {
@@ -112,11 +140,16 @@ export default function UploadActorPic({user}) {
               },
             })
             .then((response)=>{
-              if (response.data.fileBanner !== undefined) {
-                actorData.bannerImg = response.data.fileBanner;
+              if (response.data.key !== undefined) {
+                actorData.bannerImg = response.data.key;
               }
             })
+            .catch(err => console.log("error: "+err.message))
           }
+          else{
+            setMessage('video Time Most Be Less Than 5 Min');
+          }
+        }
           if(file1){
           await http
             .post("users/actorbanner", formTest, {
@@ -138,11 +171,8 @@ export default function UploadActorPic({user}) {
             })
             .then((response) => {
               if (response.data.key !== undefined) {
-                console.log(response.data.key);
                 setImage1(response.data.key);
-                console.log(image1);
                 i1 = response.data.key
-                console.log("i1: "+ i1);
               }
             })
         }
@@ -183,10 +213,6 @@ export default function UploadActorPic({user}) {
         })
         .then((res) => {
           console.log("saved");
-          console.log(res);
-          console.log(i1);
-          console.log(12);
-          console.log(13);
         })
         .catch((err) => {
           console.log(err);
@@ -201,6 +227,7 @@ export default function UploadActorPic({user}) {
       }
     }
 
+  
     return(
       <>
       <div className="actor-upload-pic-container">
@@ -285,7 +312,7 @@ export default function UploadActorPic({user}) {
           ref={inputFileBannerRef}
           type="file"
           name="files"
-          accept="image/*"
+          accept="video/*"
           id="fileBanner"
           />
           <label for="fileBanner" className="upload-banner-actor">Upload Demoreel Video</label>
@@ -300,7 +327,16 @@ export default function UploadActorPic({user}) {
         </button>
       </div>
   <div className="actor-dashbaord-about">
-    <p>Biography text here example Biography text here example Biography text here example  Biography text here example Biography text here exampleBiography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example  Biography text here example  Biography text here exampleBiography text here example Biography text here example Biography text here example</p>
+    <textarea 
+    className="actor-dash-textarea"
+    value={textareaValue}
+    onChange={(e) => setTextareaValue(e.target.value)}
+    >{user.aboutMe ? user.aboutMe : 'Biography text here example Biography text here example Biography text here example  Biography text here example Biography text here exampleBiography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example  Biography text here example  Biography text here exampleBiography text here example Biography text here example Biography text here example'}</textarea>
+  </div>
+  <div className="actor-save-about">
+    <button className="upload-actor-prof-btn1"
+    onClick={editAbout}
+    >save</button>
   </div>
   <div className="actor-dashbaord-com">
       <div className="actor-dashbaord-com-detail">

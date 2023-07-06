@@ -20,8 +20,16 @@ const { user } = useSelector((user) => ({ ...user }));
 
     return(
         <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
-      <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white">
+      <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white" style={{
+        display: "flex",
+        justifyContent: "space-between"
+      }}>
         <p className="tw-text-4xl">Actor Dashboard</p>
+        <a href={`/actor/${userId}`}>
+          <p className="tw-text-3xl" style={{
+            marginRight: "20px"
+          }}>View Actor Page</p>
+        </a>
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6">

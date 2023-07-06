@@ -171,6 +171,54 @@ export default function Profile() {
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
+        <select
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          type="text"
+          name="age"
+          placeholder="age"
+          defaultValue={userProfileData.age}
+          onChange={handleProfileChange}
+        >
+          <option value={"4"}>3-5</option>
+          <option value={"7"}>6-9</option>
+          <option value={"11"}>10-12</option>
+          <option value={"14"}>13-15</option>
+          <option value={"28"}>16-20</option>
+          <option value={"22"}>21-25</option>
+          <option value={"28"}>26-29</option>
+          <option value={"32"}>30-34</option>
+          <option value={"37"}>35-44</option>
+          <option value={"50"}>45-55</option>
+          <option value={"60"}>56-66</option>
+          <option value={"70"}>67-77</option>
+          <option value={"80"}>78-89+</option>
+        </select>
+        <select
+        type="text"
+          name="ethnicity"
+          placeholder="ethnicity"
+          defaultValue={userProfileData.ethnicity}
+          onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        >
+          <option value="Caucasion">Caucasion</option>
+          <option value="Hispanic">Hispanic</option>
+          <option value="African American">African American</option>
+          <option value="Asian">Asian</option>
+          <option value="Native">Native</option>
+        </select>
+        <select
+        type="text"
+          name="sex"
+          placeholder="sexs"
+          defaultValue={userProfileData.ex}
+          onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+         
+        </select>
         <input
           type="text"
           name="country"
@@ -237,6 +285,9 @@ export default function Profile() {
           <button
             disabled
             className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
+            style={{
+              marginBottom: "20px"
+            }}
           >
             Save
           </button>

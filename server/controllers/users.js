@@ -7,6 +7,7 @@ import nodemailer from "nodemailer";
 import { uploadFileToS3 } from "../s3.js";
 // Nada
 import PasswordResetToken from "../models/passwordResetToken.js";
+import { ObjectID, ObjectId } from "mongodb";
 // const PasswordResetToken = require("../models/passwordResetToken");
 
 export const register = async (req, res) => {
@@ -495,7 +496,7 @@ export const getProfileActor = async (req, res) => {
       if (!profile) {
         return res.json({ ok: false });
       }
-      res.json({ ...profile.toObject() });
+      res.send(profile);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -506,12 +507,56 @@ export const getActoStarred = async (req, res) => {
     try {
       const profile = await User
         .find({ role: "Actor" })
-        .where({ likes: {$nin: [req.param.id]} })
+        .where({ likes: {$in: [req.params.id]} })
         .select("-password");
       if (!profile) {
         return res.json({ ok: false });
       }
-      res.json({ ...profile });
+      res.send(profile);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+};
+export const getMostLikes = async (req, res) => {
+    try {
+      const profile = await User
+        .find({ role: "Actor" })
+        .sort({ likes: -1 })
+        .limit(10)
+        .select("-password");
+      if (!profile) {
+        return res.json({ ok: false });
+      }
+      res.send(profile);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+};
+export const getMostFollowed = async (req, res) => {
+    try {
+      const profile = await User
+        .find({ role: "Actor" })
+        .sort({ follower: -1 })
+        .limit(10)
+        .select("-password");
+      if (!profile) {
+        return res.json({ ok: false });
+      }
+      res.send(profile);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+};
+export const getLikes = async (req, res) => {
+    try {
+      const profile = await User
+        .find({ role: "Actor" , _id: req.params.id})
+        //.where({ likes: {$in: [req.param.id]} })
+        .select({likes: 1});
+      if (!profile) {
+        return res.json({ ok: false });
+      }
+      res.send(profile);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -555,6 +600,23 @@ export const getActorById = async (req, res) => {
       return res.json({ ok: false });
     }
     res.json({ ...profile.toObject() });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+export const getFollowingActor = async (req, res) => {
+  try {
+    const profile = await User
+      .findOne({ _id: req.params.id })
+      .select({following: 1})
+      .populate('following')
+    
+    const result = await User.find({_id: {$in: profile.following}})
+
+    if (!profile) {
+      return res.json({ ok: false });
+    }
+    res.send(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

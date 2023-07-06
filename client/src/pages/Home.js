@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import SwitchBtn from "../components/SwitchBtn/Switch";
 import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
+import HomeBodyActor from "../components/HomeBody/HomeBodyActor";
 import HomeBottom from "../components/HomeBottom";
 import Festival from "../components/Festival/Festival";
 import Landing1 from "../components/LandingPage/Landing1";
@@ -33,7 +34,7 @@ function Home({role}) {
             <HomeHead role= {role}/>
             <SwitchBtn role= {role}/>
             <FilterTag role= {role}/>
-            <HomeBody role= {role}/>
+            {role === "actor"? <HomeBodyActor /> : <HomeBody role= {role}/>}
             {/* <Festival /> */}
             <HomeBottom />
           </>
