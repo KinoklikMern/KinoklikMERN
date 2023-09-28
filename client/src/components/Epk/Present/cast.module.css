@@ -1,0 +1,51 @@
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+  /* max-height:95vh; */
+  border-top: 1.5rem solid rgb(23, 11, 59);
+  margin-top: 4rem;
+}
+.title p {
+  font-size: 4.8rem;
+  color: #000;
+  margin-top: 2rem;
+  font-weight: 700;
+}
+.starcontainer {
+  display: grid;
+  margin-top: 3rem;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1rem;
+  align-items: center;
+  justify-items: center;
+}
+
+h1 {
+  color: rgb(23, 11, 59);
+  font-weight: 700;
+  font-size: 3.6rem;
+}
+.biography {
+  color: rgb(23, 11, 59);
+  font-size: 3rem;
+}
+.img {
+  width: 35rem;
+  height: 45rem;
+  border-radius: 2rem;
+  box-shadow: 5px 5px rgba(70, 9, 129, 0.7);
+}
+.el1,
+.el3,
+.el5,
+.el7 {
+  justify-self: start;
+  align-self: center;
+}
+.el2,
+.el4,
+.el6,
+.el8 {
+  justify-self: end;
+  align-self: center;
+}

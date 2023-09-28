@@ -1,0 +1,83 @@
+.festival-container {
+    width: 100%;
+    /* height: 100vh; */
+    background-color: #2E1F3B;
+}
+
+.festivalTitle {
+    height: auto;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Roboto';
+    text-indent: 50px;
+    background-color: #2E1F3B;
+    display: flex;
+    align-items: center;
+}
+
+.festivalLogo{
+    width: 100%;
+    background-color: #160625;
+
+}
+
+  
+.first {
+    width: 25%;
+    display: inline-block;
+    margin-left: 7%;
+    margin-right: 5%;
+    margin-top: 10px;
+}
+
+.second {
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.third {
+    width: 25%;
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 12%;
+}
+
+
+@media screen  and (max-width: 992px) {
+    .festivalLogo {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .first img,
+    .second img,
+    .third img{
+        width: 50%;
+        height: 50%;
+
+    }
+
+}
+
+.festival-row {
+    display: flex;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
+.c-col.odd {
+    display: inline-block;
+    margin-top: 0.5rem;
+
+}
+
+.c-col.even{
+    display: inline-block;
+    margin-top: 15%;
+    margin-bottom: 0.5rem;
+
+}

@@ -1,0 +1,29 @@
+.container {
+  max-width: 120rem;
+  font-size: 62.5%;  
+  font-weight: 400;
+  color:#fff;
+  box-sizing: border-box;
+}
+
+.logline {
+  max-width: 130rem;
+  margin: 0 auto;
+  
+}
+.logline p {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgb(72, 8, 8);
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+}
+.img {
+  height: auto;
+  width: 60%;
+  border-radius: 3rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

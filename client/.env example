@@ -1,0 +1,8 @@
+# Create a copy of this file, and rename the copy to .env (If it doesn't exist already)
+# To retrieve any keys, check Slack
+
+#Disables preflight checks when starting up React
+SKIP_PREFLIGHT_CHECK=true
+
+#Change this if your backend is using a different port
+REACT_APP_BACKEND_URL="http://localhost:8000"

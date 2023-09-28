@@ -1,0 +1,32 @@
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+  max-height: 95vh;
+  border-top: 1.5rem solid rgb(23, 11, 59);
+  margin-top: 4rem;
+}
+.title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #000;
+  margin-top: 2rem;
+  text-align: center;
+}
+.uniqueContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  margin-top: 3rem;
+  gap: 4rem;
+}
+.img {
+  width:150%;
+  height:80%;
+}
+
+.text {
+  font-size: 2.4rem;
+  text-align: start;
+  color: #000;
+}
