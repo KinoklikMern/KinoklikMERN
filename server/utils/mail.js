@@ -21,7 +21,7 @@ export const generateOTP = (otp_length = 6) => {
 //     });
 
 // Yeming edit
-export const generateMailTransporter = () =>
+export const generateMailTransport = () =>
   nodemailer.createTransport({
     host: "sandbox.smtp.mailtrap.io",
     port: 2525,

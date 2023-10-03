@@ -7,6 +7,8 @@ import {
   actorUploadFiles,
   getActor,
   register,
+  verifyEmail,
+  resendEmailVerificationToken,
   login,
   getUser,
   getProfile,
@@ -29,18 +31,25 @@ import {
   getMostLikes,
   getMostFollowed,
 } from "../controllers/users.js";
-import { validate, validatePassword } from "../middlwares/validator.js";
+import {
+  validate,
+  validatePassword,
+  loginValidator,
+} from "../middlwares/validator.js";
 const upload = multer({ dest: "images/" });
 const router = express.Router();
 
 router.post("/register", register);
-router.post("/login", login);
+router.post("/verify-email", verifyEmail);
+router.post("/resend-email-verification-token", resendEmailVerificationToken);
+// router.post("/login", login);
+router.post("/login", loginValidator, login);
 router.get("/login", logout);
 router.post("/getuser", getUser);
 router.get("/getProfile/:email", authUser, getProfile);
 
 // get actor by name
-router.post('/getactor', getActor);
+router.post("/getactor", getActor);
 
 router.post("/forget-password", forgetPassword);
 router.post(
@@ -85,6 +94,5 @@ router.post(
 
 // final save in actor profiles
 router.put("/actor/files/:id", actorUploadFiles);
-
 
 export default router;

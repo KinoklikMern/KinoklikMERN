@@ -5,13 +5,14 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
 dotenv.config();
-
+import "express-async-errors";
 import userRoutes from "./routes/users.js";
 import fepkRoutes from "./routes/fepk.js";
 import crewRoutes from "./routes/crew.js";
 import companyRoutes from "./routes/company.js";
 import chatRoutes from "./routes/chat.routes.js";
 import messageRoutes from "./routes/message.routes.js";
+import { errorHandler } from "./middlwares/error.js";
 
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
@@ -34,7 +35,8 @@ app.use("/filmmaker", filmMakerDashboard);
 // rucheng edit
 app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
-//
+
+app.use(errorHandler);
 
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)

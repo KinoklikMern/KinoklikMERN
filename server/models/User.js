@@ -57,10 +57,12 @@ const UserSchema = mongoose.Schema({
     default:
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
-  profiles: [{
-    type: String,
-    trim: true,
-  }],
+  profiles: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
   city: {
     type: String,
   },
@@ -92,13 +94,16 @@ const UserSchema = mongoose.Schema({
   aboutMe: {
     type: String,
     trim: true,
-    default: "Biography text here example Biography text here example Biography text here example  Biography text here example Biography text here exampleBiography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example  Biography text here example  Biography text here exampleBiography text here example Biography text here example Biography text here example"
+    default:
+      "Biography text here example Biography text here example Biography text here example  Biography text here example Biography text here exampleBiography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example  Biography text here example  Biography text here exampleBiography text here example Biography text here example Biography text here example",
   },
-  comunicate:{
-    type: [{
-      name: String,
-      follower: Number
-    }]
+  comunicate: {
+    type: [
+      {
+        name: String,
+        follower: Number,
+      },
+    ],
   },
   likes: [
     {
@@ -107,17 +112,21 @@ const UserSchema = mongoose.Schema({
     },
   ],
   sex: {
-    enum: [
-      "Male",
-      "Female"
-    ]
+    enum: ["Male", "Female"],
   },
   age: {
     type: Number,
-    default: 30
+    default: 30,
   },
   ethnicity: {
-    type: String
+    type: String,
+  },
+
+  // Yeming added
+  isVerified: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
   // Crew
   crew: [

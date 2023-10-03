@@ -9,7 +9,10 @@ import { uploadFileToS3 } from "../s3.js";
 import PasswordResetToken from "../models/passwordResetToken.js";
 import { ObjectID, ObjectId } from "mongodb";
 // const PasswordResetToken = require("../models/passwordResetToken");
-import { generateMailTransporter } from "../utils/mail.js";
+import { generateOTP, generateMailTransport } from "../utils/mail.js";
+import EmailVerificationToken from "../models/emailVerificationToken.js";
+import { isValidObjectId } from "mongoose";
+import { sendError } from "../utils/helper.js";
 
 export const register = async (req, res) => {
   try {
@@ -26,34 +29,36 @@ export const register = async (req, res) => {
     } = req.body;
 
     if (!validateEmail(email)) {
-      return res.status(400).json({
-        message: "invalid email address",
-      });
+      return sendError(res, "Invalid email address");
     }
     const emailCheck = await User.findOne({ email });
     if (emailCheck) {
-      return res.status(400).json({
-        message:
-          "This email address already exists. Try with a different email address",
-      });
+      return sendError(
+        res,
+        "This email address already exists. Try with a different email address"
+      );
     }
 
     if (!validateLength(firstName, 3, 30)) {
-      return res.status(400).json({
-        message: "First name must be between 3 and 30 characters long.",
-      });
+      return sendError(
+        res,
+        "First name must be between 3 and 30 characters long."
+      );
     }
     if (!validateLength(lastName, 3, 30)) {
-      return res.status(400).json({
-        message: "Last name must be between 3 and 30 characters long.",
-      });
+      return sendError(
+        res,
+        "Last name must be between 3 and 30 characters long."
+      );
     }
     if (!validateLength(password, 6, 40)) {
-      return res.status(400).json({
-        message: "Password must be between 6 and 40 characters long.",
-      });
+      return sendError(
+        res,
+        "Password must be between 6 and 40 characters long."
+      );
     }
 
+    // Hash the password
     const cryptedPassword = await bcrypt.hash(password, 12);
 
     const user = await new User({
@@ -64,76 +69,196 @@ export const register = async (req, res) => {
       phone,
       website,
       password: cryptedPassword,
+      isVerified: false, // Add this line to set isVerified to false initially
     }).save();
-    const token = generateToken({ id: user._id.toString() }, "7d");
-    res.send({
-      id: user._id,
-      picture: user.picture,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      role: user.role,
-      phone: user.phone,
-      website: user.website,
-      token: token,
-      message: "User was registered successfully!",
+
+    // Generate 6 digit otp
+    const OTP = generateOTP();
+
+    // store otp inside our db
+    const newEmailVerificationToken = new EmailVerificationToken({
+      owner: user._id,
+      token: OTP,
     });
+
+    await newEmailVerificationToken.save();
+    // send that otp to our user
+    // copy from mailtrap.io
+    var transport = generateMailTransport();
+
+    transport.sendMail({
+      from: "info@kinoklik.com",
+      to: user.email,
+      subject: "Email Verification",
+      html: `
+    <p>Your verification OTP</p>
+    <h1>${OTP}</h1>
+    `,
+    });
+
+    res.status(201).json({
+      message:
+        "Please verify your email. OTP has been sent to your email account.",
+    });
+
+    // const token = generateToken({ id: user._id.toString() }, "7d");
+    // res.send({
+    //   id: user._id,
+    //   picture: user.picture,
+    //   firstName: user.firstName,
+    //   lastName: user.lastName,
+    //   role: user.role,
+    //   phone: user.phone,
+    //   website: user.website,
+    //   token: token,
+    //   message: "User was registered successfully! ",
+    // });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const login = async (request, response) => {
-  const email = request.body.email;
-  const password = request.body.password;
+export const verifyEmail = async (req, res) => {
+  const { userId, OTP } = req.body;
 
-  try {
-    if (email && password) {
-      const user = await User.findOne({
-        email: email,
-      })
-        .where("deleted")
-        .equals(false);
+  if (!isValidObjectId(userId)) return sendError(res, "Invalid user!");
 
-      if (!user) {
-        return response.status(400).json({
-          message:
-            "The email address you entered is not connected to an account",
-        });
-      } else {
-        const isSame = await bcrypt.compare(password, user.password);
+  const user = await User.findById(userId);
+  if (!user) return sendError(res, "User not found!", 404);
 
-        if (!isSame) {
-          return response
-            .status(400)
-            .json({ message: "Invalid credentials. Please try again" });
-        }
-        const token = generateToken({ id: user._id.toString() }, "1d");
+  if (user.isVerified) return sendError(res, "User is already verified!");
 
-        response.cookie("token", token, {
-          path: "/",
-          httpOnly: true,
-          expires: new Date(Date.now() + 1000 * 86400), // 1 day
-          sameSite: "none",
-          secure: true,
-        });
-        if (isSame) {
-          response.send({
-            id: user._id,
-            picture: user.picture,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            role: user.role,
-            token: token,
-            message: "Login success!",
-          });
-        }
-      }
-    } else {
-      response.send({ success: false });
-    }
-  } catch (error) {
-    response.status(500).json({ message: error.message });
-  }
+  const token = await EmailVerificationToken.findOne({ owner: userId });
+  if (!token) return sendError(res, "token not found!");
+  const isMatched = await token.compareToken(OTP);
+  if (!isMatched) return sendError(res, "Please submit a valid OTP!");
+  user.isVerified = true;
+  await user.save();
+
+  await EmailVerificationToken.findByIdAndDelete(token._id);
+
+  var transport = generateMailTransport();
+
+  transport.sendMail({
+    from: "info@kinoklik.com",
+    to: user.email,
+    subject: "Welcome Email",
+    html: "<h1>Welcome to our app and thanks for choosing us.</h1>",
+  });
+
+  res.json({ message: "Your email is verified." });
+};
+
+export const resendEmailVerificationToken = async (req, res) => {
+  const { userId } = req.body;
+
+  const user = await User.findById(userId);
+  if (!user) return sendError(res, "User not found!", 404);
+
+  if (user.isVerified) return sendError(res, "This email is already verified!");
+
+  const alreadyHasToken = await EmailVerificationToken.findOne({
+    owner: userId,
+  });
+  if (alreadyHasToken)
+    return sendError(res, "Only after one hour you can request another token!");
+
+  // Generate 6 digit otp
+  const OTP = generateOTP();
+
+  // store otp inside our db
+  const newEmailVerificationToken = new EmailVerificationToken({
+    owner: user._id,
+    token: OTP,
+  });
+
+  await newEmailVerificationToken.save();
+  // send that otp to our user
+  // copy from mailtrap.io
+  var transport = generateMailTransport();
+
+  transport.sendMail({
+    from: "info@kinoklik.com",
+    to: user.email,
+    subject: "Email Verification",
+    html: `
+  <p>Your verification OTP</p>
+  <h1>${OTP}</h1>
+  `,
+  });
+
+  res.json({
+    message: "New OTP has been sent to your registered email account.",
+  });
+};
+
+// export const login = async (request, response) => {
+//   const email = request.body.email;
+//   const password = request.body.password;
+
+//   try {
+//     if (email && password) {
+//       const user = await User.findOne({
+//         email: email,
+//       })
+//         .where("deleted")
+//         .equals(false);
+
+//       if (!user) {
+//         return response.status(400).json({
+//           message:
+//             "The email address you entered is not connected to an account",
+//         });
+//       } else {
+//         const isSame = await bcrypt.compare(password, user.password);
+
+//         if (!isSame) {
+//           return response
+//             .status(400)
+//             .json({ message: "Invalid credentials. Please try again" });
+//         }
+//         const token = generateToken({ id: user._id.toString() }, "1d");
+
+//         response.cookie("token", token, {
+//           path: "/",
+//           httpOnly: true,
+//           expires: new Date(Date.now() + 1000 * 86400), // 1 day
+//           sameSite: "none",
+//           secure: true,
+//         });
+//         if (isSame) {
+//           response.send({
+//             id: user._id,
+//             picture: user.picture,
+//             firstName: user.firstName,
+//             lastName: user.lastName,
+//             role: user.role,
+//             token: token,
+//             message: "Login success!",
+//           });
+//         }
+//       }
+//     } else {
+//       response.send({ success: false });
+//     }
+//   } catch (error) {
+//     response.status(500).json({ message: error.message });
+//   }
+// };
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return sendError(res, "Email/Password mismatch!");
+
+  const matched = await user.comparePassword(password);
+  if (!matched) return sendError(res, "Email/Password mismatch!");
+
+  const { _id, firstName, lastName } = user;
+
+  const jwtToken = jwt.sign({ userId: _id }, process.env.TOKEN_SECRET);
+
+  res.json({ user: { id: _id, firstName, lastName, email, token: jwtToken } });
 };
 
 export const logout = async (req, res) => {
@@ -472,7 +597,7 @@ function generateRandomByte() {
 // });
 
 // Yeming edit
-const transport = generateMailTransporter();
+const transport = generateMailTransport();
 
 // verify connection configuration
 transport.verify(function (error, success) {
