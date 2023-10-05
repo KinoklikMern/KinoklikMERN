@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-undef */
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,16 @@ function NavbarButtons({ user, setToggle, toggle }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [active, setActive] = useState("Home");
+  const location = useLocation();
+  const { pathname } = location;
+
+  // Check if the user is on the registration or login pages
+  const isAuthPage =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/success" ||
+    pathname === "/verification";
+
   const picture = user
     ? user.picture ==
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
@@ -41,7 +51,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
 
   return (
     <>
-      {!user ? (
+      {!user && !isAuthPage && (
         <>
           <div className="tw-hidden md:tw-flex">
             {/* <button className="tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#1e0039] tw-px-4 tw-text-white tw-drop-shadow-lg tw-transition hover:tw-text-gray-400">
@@ -96,7 +106,9 @@ function NavbarButtons({ user, setToggle, toggle }) {
             </button>
           </div>
         </>
-      ) : (
+      )}
+
+      {user && !isAuthPage && (
         <>
           {/* ------modified by rucheng-------- */}
           <div className="tw-static tw-flex tw-items-center tw-justify-center tw-p-4">

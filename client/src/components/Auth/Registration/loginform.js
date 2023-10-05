@@ -44,11 +44,7 @@ function LoginForm() {
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
       console.log(data);
-      // if (data.role === "FILM_MAKER") {
-      //   navigate("/filmMakerDashboard");
-      // } else if (data.role === "Viewer") {
-      //   navigate("/");
-      // }
+
       navigate("/");
     } catch (error) {
       setSuccess("");

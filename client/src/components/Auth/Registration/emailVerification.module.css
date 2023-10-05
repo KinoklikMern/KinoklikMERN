@@ -1,0 +1,39 @@
+.bg {
+  /* background-image: url(../../../images/login/Curtains.png); */
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+  background-repeat: none;
+  background-size: cover;
+  background-position: bottom center;
+  background: linear-gradient(
+      rgba(238, 238, 238, 0.823),
+      rgba(219, 219, 222, 0.856)
+    ),
+    url(../../../images/login/VIP.png);
+}
+
+.spinButtonNone::-webkit-outer-spin-button,
+.spinButtonNone::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+.btn {
+  background: #712cb0;
+  color: white;
+  border: 10px solid var(#712cb0);
+  /* padding: 4px 50px; */
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2),
+    0 6px 20px 0 rgba(175, 63, 227, 0.19);
+  width: 200px;
+  text-align: center;
+  /* margin-left: 150px; */
+}

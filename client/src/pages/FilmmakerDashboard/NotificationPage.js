@@ -72,7 +72,7 @@ export default function NotificationPage() {
         </div>
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white">
           {loading ? (
-              <LoadingSpin />
+            <LoadingSpin />
           ) : epkList.length == 0 ? (
             <div className="tw-mt-12">
               <EmptyEpk />

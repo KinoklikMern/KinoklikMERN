@@ -97,8 +97,13 @@ export const register = async (req, res) => {
     });
 
     res.status(201).json({
-      message:
-        "Please verify your email. OTP has been sent to your email account.",
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        email: user.email,
+      },
     });
 
     // const token = generateToken({ id: user._id.toString() }, "7d");
@@ -146,7 +151,18 @@ export const verifyEmail = async (req, res) => {
     html: "<h1>Welcome to our app and thanks for choosing us.</h1>",
   });
 
-  res.json({ message: "Your email is verified." });
+  // const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
+
+  res.json({
+    // user: {
+    //   id: user._id,
+    //   firstName: user.firstName,
+    //   lastName: user.lastName,
+    //   email: user.email,
+    //   token: jwtToken,
+    // },
+    message: "Your email is verified.",
+  });
 };
 
 export const resendEmailVerificationToken = async (req, res) => {
@@ -192,74 +208,76 @@ export const resendEmailVerificationToken = async (req, res) => {
   });
 };
 
-// export const login = async (request, response) => {
-//   const email = request.body.email;
-//   const password = request.body.password;
+export const login = async (request, response) => {
+  const email = request.body.email;
+  const password = request.body.password;
 
-//   try {
-//     if (email && password) {
-//       const user = await User.findOne({
-//         email: email,
-//       })
-//         .where("deleted")
-//         .equals(false);
+  try {
+    if (email && password) {
+      const user = await User.findOne({
+        email: email,
+      })
+        .where("deleted")
+        .equals(false);
 
-//       if (!user) {
-//         return response.status(400).json({
-//           message:
-//             "The email address you entered is not connected to an account",
-//         });
-//       } else {
-//         const isSame = await bcrypt.compare(password, user.password);
+      if (!user) {
+        return response.status(400).json({
+          message:
+            "The email address you entered is not connected to an account",
+        });
+      } else {
+        const isSame = await bcrypt.compare(password, user.password);
 
-//         if (!isSame) {
-//           return response
-//             .status(400)
-//             .json({ message: "Invalid credentials. Please try again" });
-//         }
-//         const token = generateToken({ id: user._id.toString() }, "1d");
+        if (!isSame) {
+          return response
+            .status(400)
+            .json({ message: "Invalid credentials. Please try again" });
+        }
+        const token = generateToken({ id: user._id.toString() }, "1d");
 
-//         response.cookie("token", token, {
-//           path: "/",
-//           httpOnly: true,
-//           expires: new Date(Date.now() + 1000 * 86400), // 1 day
-//           sameSite: "none",
-//           secure: true,
-//         });
-//         if (isSame) {
-//           response.send({
-//             id: user._id,
-//             picture: user.picture,
-//             firstName: user.firstName,
-//             lastName: user.lastName,
-//             role: user.role,
-//             token: token,
-//             message: "Login success!",
-//           });
-//         }
-//       }
-//     } else {
-//       response.send({ success: false });
-//     }
-//   } catch (error) {
-//     response.status(500).json({ message: error.message });
-//   }
-// };
-
-export const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) return sendError(res, "Email/Password mismatch!");
-
-  const matched = await user.comparePassword(password);
-  if (!matched) return sendError(res, "Email/Password mismatch!");
-
-  const { _id, firstName, lastName } = user;
-
-  const jwtToken = jwt.sign({ userId: _id }, process.env.TOKEN_SECRET);
-
-  res.json({ user: { id: _id, firstName, lastName, email, token: jwtToken } });
+        response.cookie("token", token, {
+          path: "/",
+          httpOnly: true,
+          expires: new Date(Date.now() + 1000 * 86400), // 1 day
+          sameSite: "none",
+          secure: true,
+        });
+        if (isSame) {
+          response.send({
+            id: user._id,
+            picture: user.picture,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role,
+            token: token,
+            // Yeming added
+            isVerified: user.isVerified,
+            message: "Login success!",
+          });
+        }
+      }
+    } else {
+      response.send({ success: false });
+    }
+  } catch (error) {
+    response.status(500).json({ message: error.message });
+  }
 };
+
+// export const login = async (req, res) => {
+//   const { email, password } = req.body;
+//   const user = await User.findOne({ email });
+//   if (!user) return sendError(res, "Email/Password mismatch!");
+
+//   const matched = await user.comparePassword(password);
+//   if (!matched) return sendError(res, "Email/Password mismatch!");
+
+//   const { _id, firstName, lastName } = user;
+
+//   const jwtToken = jwt.sign({ userId: _id }, process.env.TOKEN_SECRET);
+
+//   res.json({ user: { id: _id, firstName, lastName, email, token: jwtToken } });
+// };
 
 export const logout = async (req, res) => {
   res.cookie("token", "", {

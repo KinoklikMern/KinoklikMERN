@@ -77,6 +77,36 @@ function RegistrationForm() {
 
   const handleSubmit = async () => {
     console.log(firstName, lastName, email, password, confirmPassword, role);
+
+    // Validate the form fields
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !role
+    ) {
+      setError("All fields are required.");
+      return;
+    }
+
+    if (!isValidEmail.test(email)) {
+      setError("Invalid Email");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be 8 characters long!");
+      return;
+    }
+
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/users/register`,
@@ -92,7 +122,11 @@ function RegistrationForm() {
       setSuccess(data.message);
       const { message, ...rest } = data;
       // navigate(`/login`);
-      navigate("/success"); // Navigate to the success page
+      // navigate("/success"); // Navigate to the success page
+      navigate("/verification", {
+        state: { user: data.user },
+        replace: true, // prevent user go back to the previous page
+      });
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);

@@ -13,9 +13,11 @@ import companyRoutes from "./routes/company.js";
 import chatRoutes from "./routes/chat.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import { errorHandler } from "./middlwares/error.js";
+import { handleNotFound } from "./utils/helper.js";
 
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
+
 // end ////
 const app = express();
 
@@ -36,6 +38,7 @@ app.use("/filmmaker", filmMakerDashboard);
 app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
 
+app.use("/*", handleNotFound);
 app.use(errorHandler);
 
 const server = app.listen(8000, () =>

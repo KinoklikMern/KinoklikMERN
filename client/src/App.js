@@ -11,6 +11,7 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
+import EmailVerification from "./components/Auth/Registration/EmailVerification";
 import RegistrationSuccess from "./components/Auth/Registration/RegistrationSuccess";
 import LoginForm from "./components/Auth/Registration/loginform";
 import SendResetPasswordLinkPage from "./pages/login/SendResetPasswordLinkPage";
@@ -174,7 +175,8 @@ function App() {
           <Route path="edit_profile" element={<Home />} />
           <Route path="signup" element={<RegistrationForm />} />
 
-          <Route path="/success" element={<RegistrationSuccess />} />
+          <Route path="verification" element={<EmailVerification />} />
+          <Route path="success" element={<RegistrationSuccess />} />
           <Route path="login" element={<LoginForm />} />
           <Route
             path="sendresetpasswordlink"
