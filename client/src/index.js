@@ -12,6 +12,7 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import { SnackbarProvider } from "notistack";
 
 import reducers from "./reducers";
 
@@ -38,7 +39,9 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <ChatProvider>
-          <App />
+          <SnackbarProvider maxSnack={3}>
+            <App />
+          </SnackbarProvider>
         </ChatProvider>
       </BrowserRouter>
     </PersistGate>

@@ -4,6 +4,7 @@ import SignupCss from "./signup.module.css";
 import LoginForm from "../../Auth/Registration/loginform";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import RegistrationSuccess from "./RegistrationSuccess";
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
@@ -76,6 +77,36 @@ function RegistrationForm() {
 
   const handleSubmit = async () => {
     console.log(firstName, lastName, email, password, confirmPassword, role);
+
+    // Validate the form fields
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !role
+    ) {
+      setError("All fields are required.");
+      return;
+    }
+
+    if (!isValidEmail.test(email)) {
+      setError("Invalid Email");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long!");
+      return;
+    }
+
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/users/register`,
@@ -87,10 +118,21 @@ function RegistrationForm() {
           role: role,
         }
       );
+
+      if (data.emailExists) {
+        setError("Email is already in use.");
+        return;
+      }
+
       setError("");
       setSuccess(data.message);
       const { message, ...rest } = data;
       // navigate(`/login`);
+      // navigate("/success"); // Navigate to the success page
+      navigate("/verification", {
+        state: { user: data.user },
+        replace: true, // prevent user go back to the previous page
+      });
     } catch (error) {
       setSuccess("");
       setError(error.response.data.message);
@@ -101,9 +143,12 @@ function RegistrationForm() {
     <>
       <div className={SignupCss.bg}>
         <div className={SignupCss.form_title}>Sign up for KinoKlik </div>
-        <div className={SignupCss.form} style={{
-          margin: "20px"
-        }}>
+        <div
+          className={SignupCss.form}
+          style={{
+            margin: "20px",
+          }}
+        >
           <div className={SignupCss.form_body}>
             <div className={SignupCss.form_input1}>
               <div className={SignupCss.form_input1}>
@@ -188,11 +233,11 @@ function RegistrationForm() {
                 Login
               </Link>
             </p>
-            {success && <div className={SignupCss.error_text}>{success}</div>}
+            {/* Render the success component */}
+            {success && <RegistrationSuccess />}
+            {/* {success && <div className={SignupCss.error_text}>{success}</div>} */}
             {error && <div className={SignupCss.error_text}>*{error}</div>}
-
             <br />
-
             <button
               onClick={() => handleSubmit()}
               type="submit"

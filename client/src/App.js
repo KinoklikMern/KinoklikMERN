@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, Route, Link, Routes } from "react-router-dom";
 import { useState } from "react";
 
-import Actor from './pages/Actor/Actor';
+import Actor from "./pages/Actor/Actor";
 
 import "./styles/tailwind.css"; //Tailwind
 
@@ -11,6 +11,8 @@ import UploadMovie from "./pages/UploadMovie";
 import Home from "./pages/Home";
 import MyList from "./pages/MyList";
 import RegistrationForm from "./components/Auth/Registration/registration";
+import EmailVerification from "./components/Auth/Registration/EmailVerification";
+import RegistrationSuccess from "./components/Auth/Registration/RegistrationSuccess";
 import LoginForm from "./components/Auth/Registration/loginform";
 import SendResetPasswordLinkPage from "./pages/login/SendResetPasswordLinkPage";
 import CheckEmailPage from "./pages/login/CheckEmailPage";
@@ -127,9 +129,9 @@ function App() {
           <Route index element={<Home />} />
         </Route>
         <Route path="/actors" element={<MainLayout className={className} />}>
-          <Route index element={<Home role="actor"/>} />
+          <Route index element={<Home role="actor" />} />
         </Route>
-        
+
         <Route path="/actor/:id" element={<Actor />} />
 
         <Route element={<AuthRoutes />}>
@@ -158,10 +160,7 @@ function App() {
               path="userdashboard/settings"
               element={<UserDashboardSettings />}
             />
-            <Route
-              path="userdashboard/actor"
-              element={<UploadActorPicCon />}
-            />
+            <Route path="userdashboard/actor" element={<UploadActorPicCon />} />
 
             <Route path="userdashboard/chat" element={<UserDashboardChat />} />
           </Route>
@@ -175,6 +174,9 @@ function App() {
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
           <Route path="signup" element={<RegistrationForm />} />
+
+          <Route path="verification" element={<EmailVerification />} />
+          <Route path="success" element={<RegistrationSuccess />} />
           <Route path="login" element={<LoginForm />} />
           <Route
             path="sendresetpasswordlink"
@@ -273,7 +275,6 @@ function App() {
         <Route path="epk" element={<EPK />} />
         <Route path="approvals/:fepkId" element={<TestApproval />} />
         <Route path="*" element={<Navigate to="/" />} />
-        
       </Routes>
     </FepkContext.Provider>
   );

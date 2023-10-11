@@ -9,41 +9,57 @@ import { uploadFileToS3 } from "../s3.js";
 import PasswordResetToken from "../models/passwordResetToken.js";
 import { ObjectID, ObjectId } from "mongodb";
 // const PasswordResetToken = require("../models/passwordResetToken");
+import { generateOTP, generateMailTransport } from "../utils/mail.js";
+import EmailVerificationToken from "../models/emailVerificationToken.js";
+import { isValidObjectId } from "mongoose";
+import { sendError } from "../utils/helper.js";
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, role, password, phone, website, bannerImg, headImg } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      role,
+      password,
+      phone,
+      website,
+      bannerImg,
+      headImg,
+    } = req.body;
 
     if (!validateEmail(email)) {
-      return res.status(400).json({
-        message: "invalid email address",
-      });
+      return sendError(res, "Invalid email address");
     }
     const emailCheck = await User.findOne({ email });
     if (emailCheck) {
-      return res.status(400).json({
+      return res.status(409).json({
         message:
           "This email address already exists. Try with a different email address",
+        emailExists: true,
       });
     }
 
     if (!validateLength(firstName, 3, 30)) {
-      return res.status(400).json({
-        message: "First name must be between 3 and 30 characters long.",
-      });
+      return sendError(
+        res,
+        "First name must be between 3 and 30 characters long."
+      );
     }
     if (!validateLength(lastName, 3, 30)) {
-      return res.status(400).json({
-        message: "Last name must be between 3 and 30 characters long.",
-      });
+      return sendError(
+        res,
+        "Last name must be between 3 and 30 characters long."
+      );
     }
     if (!validateLength(password, 6, 40)) {
-      return res.status(400).json({
-        message: "Password must be between 6 and 40 characters long.",
-      });
+      return sendError(
+        res,
+        "Password must be between 6 and 40 characters long."
+      );
     }
 
+    // Hash the password
     const cryptedPassword = await bcrypt.hash(password, 12);
 
     const user = await new User({
@@ -54,21 +70,169 @@ export const register = async (req, res) => {
       phone,
       website,
       password: cryptedPassword,
+      isVerified: false, // Add this line to set isVerified to false initially
     }).save();
-    const token = generateToken({ id: user._id.toString() }, "7d");
-    res.send({
-      id: user._id,
-      picture: user.picture,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      role: user.role,
-      phone: user.phone,
-      website: user.website,
-      token: token,
-      message: "User was registered successfully!",
+
+    // Generate 6 digit otp
+    const OTP = generateOTP();
+
+    // store otp inside our db
+    const newEmailVerificationToken = new EmailVerificationToken({
+      owner: user._id,
+      token: OTP,
+    });
+
+    await newEmailVerificationToken.save();
+    // send that otp to our user
+    // copy from mailtrap.io
+    var transport = generateMailTransport();
+
+    transport.sendMail({
+      from: "info@kinoklik.com",
+      to: user.email,
+      subject: "Email Verification",
+      html: `
+    <p>Your verification OTP</p>
+    <h1>${OTP}</h1>
+    `,
+    });
+
+    res.status(201).json({
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        email: user.email,
+      },
+      emailExists: false,
+    });
+
+    // const token = generateToken({ id: user._id.toString() }, "7d");
+    // res.send({
+    //   id: user._id,
+    //   picture: user.picture,
+    //   firstName: user.firstName,
+    //   lastName: user.lastName,
+    //   role: user.role,
+    //   phone: user.phone,
+    //   website: user.website,
+    //   token: token,
+    //   message: "User was registered successfully! ",
+    // });
+  } catch (error) {
+    res.status(500).json({ message: error.message, emailExists: false });
+  }
+};
+
+export const verifyEmail = async (req, res) => {
+  const { userId, OTP } = req.body;
+
+  try {
+    console.log("Received userId:", userId);
+    console.log("Received OTP:", OTP);
+
+    if (!isValidObjectId(userId)) return sendError(res, "Invalid user!");
+
+    const user = await User.findById(userId);
+    if (!user) return sendError(res, "User not found!", 404);
+
+    if (user.isVerified) return sendError(res, "User is already verified!");
+
+    const token = await EmailVerificationToken.findOne({ owner: userId });
+    if (!token) return sendError(res, "token not found!");
+    const isMatched = await token.compareToken(OTP);
+    if (!isMatched) return sendError(res, "Please submit a valid OTP!");
+    user.isVerified = true;
+    await user.save();
+
+    await EmailVerificationToken.findByIdAndDelete(token._id);
+
+    var transport = generateMailTransport();
+
+    transport.sendMail({
+      from: "info@kinoklik.com",
+      to: user.email,
+      subject: "Welcome Email",
+      html: "<h1>Welcome to our app and thanks for choosing us.</h1>",
+    });
+
+    // const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
+
+    res.json({
+      // user: {
+      //   id: user._id,
+      //   firstName: user.firstName,
+      //   lastName: user.lastName,
+      //   email: user.email,
+      //   token: jwtToken,
+      // },
+      message: "Your email is verified.",
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error in verifyEmail:", error.message);
+    return sendError(res, "An error occurred while verifying the email.");
+  }
+};
+
+export const resendEmailVerificationToken = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return sendError(res, "User not found!", 404);
+
+    if (user.isVerified)
+      return sendError(res, "This email is already verified!");
+
+    const alreadyHasToken = await EmailVerificationToken.findOne({
+      owner: userId,
+    });
+    if (alreadyHasToken)
+      return sendError(
+        res,
+        "Only after one hour you can request another token!"
+      );
+
+    // Generate 6 digit otp
+    const OTP = generateOTP();
+
+    // store otp inside our db
+    const newEmailVerificationToken = new EmailVerificationToken({
+      owner: user._id,
+      token: OTP,
+    });
+
+    await newEmailVerificationToken.save();
+    // send that otp to our user
+    // copy from mailtrap.io
+    var transport = generateMailTransport();
+
+    transport.sendMail({
+      from: "info@kinoklik.com",
+      to: user.email,
+      subject: "Email Verification",
+      html: `
+  <p>Your verification OTP</p>
+  <h1>${OTP}</h1>
+  `,
+    });
+
+    res.json({
+      message: "New OTP has been sent to your registered email account.",
+      user: {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("Error resending OTP:", error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while resending OTP" });
   }
 };
 
@@ -90,6 +254,46 @@ export const login = async (request, response) => {
             "The email address you entered is not connected to an account",
         });
       } else {
+        const existingToken = await EmailVerificationToken.findOne({
+          owner: user._id,
+        });
+
+        if (!user.isVerified && !existingToken) {
+          // If the user is not verified and there's no existing token, send OTP for verification
+          const OTP = generateOTP(); // Generate OTP
+
+          // Store the OTP in the database for verification
+          const emailVerificationToken = new EmailVerificationToken({
+            owner: user._id,
+            token: OTP,
+          });
+          await emailVerificationToken.save();
+
+          // Send OTP to the user's email
+          var transport = generateMailTransport();
+
+          transport.sendMail({
+            from: "info@kinoklik.com",
+            to: user.email,
+            subject: "Email Verification",
+            html: `
+              <p>Your verification OTP</p>
+              <h1>${OTP}</h1>
+            `,
+          });
+
+          return response.json({
+            message: "New OTP has been sent to your registered email account.",
+            user: {
+              id: user._id,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              role: user.role,
+            },
+          });
+        }
+
         const isSame = await bcrypt.compare(password, user.password);
 
         if (!isSame) {
@@ -107,24 +311,41 @@ export const login = async (request, response) => {
           secure: true,
         });
         if (isSame) {
-          response.send({
+          return response.send({
             id: user._id,
             picture: user.picture,
             firstName: user.firstName,
             lastName: user.lastName,
             role: user.role,
             token: token,
+            // Yeming added
+            isVerified: user.isVerified,
             message: "Login success!",
           });
         }
       }
     } else {
-      response.send({ success: false });
+      return response.json({ success: false });
     }
   } catch (error) {
-    response.status(500).json({ message: error.message });
+    return response.status(500).json({ message: error.message });
   }
 };
+
+// export const login = async (req, res) => {
+//   const { email, password } = req.body;
+//   const user = await User.findOne({ email });
+//   if (!user) return sendError(res, "Email/Password mismatch!");
+
+//   const matched = await user.comparePassword(password);
+//   if (!matched) return sendError(res, "Email/Password mismatch!");
+
+//   const { _id, firstName, lastName } = user;
+
+//   const jwtToken = jwt.sign({ userId: _id }, process.env.TOKEN_SECRET);
+
+//   res.json({ user: { id: _id, firstName, lastName, email, token: jwtToken } });
+// };
 
 export const logout = async (req, res) => {
   res.cookie("token", "", {
@@ -296,14 +517,13 @@ export const actorUploadFiles = async (req, res) => {
         //...userOne,
         bannerImg: req.body.bannerImg,
         picture: req.body.picture,
-        profiles: req.body.profiles
+        profiles: req.body.profiles,
       };
-      
+
       await userOne.updateOne({
-        
         bannerImg: req.body.bannerImg,
         picture: req.body.picture,
-        profiles: req.body.profiles
+        profiles: req.body.profiles,
       });
       await userOne.updateOne(
         { updatedAt: new Date() },
@@ -452,15 +672,18 @@ function generateRandomByte() {
 }
 
 // create a transporter object using SMTP
-const transport = nodemailer.createTransport({
-  host: "smtp.gmail.com", // replace with your SMTP server address
-  port: 465, // replace with your SMTP server port
-  secure: true, // use SSL
-  auth: {
-    user: "info@kinoklik.ca", // replace with your email address
-    pass: "kzhotugyiukkxjex", // replace with your email password
-  },
-});
+// const transport = nodemailer.createTransport({
+//   host: "smtp.gmail.com", // replace with your SMTP server address
+//   port: 465, // replace with your SMTP server port
+//   secure: true, // use SSL
+//   auth: {
+//     user: "info@kinoklik.ca", // replace with your email address
+//     pass: "kzhotugyiukkxjex", // replace with your email password
+//   },
+// });
+
+// Yeming edit
+const transport = generateMailTransport();
 
 // verify connection configuration
 transport.verify(function (error, success) {
@@ -473,103 +696,93 @@ transport.verify(function (error, success) {
 
 //**************************************************************************/
 
-
 export const getActor = async (req, res) => {
   try {
     const actorFind = await User.findOne({
-      role: "Actor", 
+      role: "Actor",
       firstName: req.body.firstName,
-      lastName: req.body.lastName
+      lastName: req.body.lastName,
     });
 
     res.json(actorFind);
   } catch (error) {
-    res.status(404).json({message: error.message})
+    res.status(404).json({ message: error.message });
   }
-}
-
-
+};
 
 export const getProfileActor = async (req, res) => {
-    try {
-      const profile = await User.find({ role: "Actor" }).select("-password");
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor" }).select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // get starred actor
 export const getActoStarred = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" })
-        .where({ likes: {$in: [req.params.id]} })
-        .select("-password");
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor" })
+      .where({ likes: { $in: [req.params.id] } })
+      .select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 export const getMostLikes = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" })
-        .sort({ likes: -1 })
-        .limit(10)
-        .select("-password");
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor" })
+      .sort({ likes: -1 })
+      .limit(10)
+      .select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 export const getMostFollowed = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" })
-        .sort({ follower: -1 })
-        .limit(10)
-        .select("-password");
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor" })
+      .sort({ follower: -1 })
+      .limit(10)
+      .select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 export const getLikes = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" , _id: req.params.id})
-        //.where({ likes: {$in: [req.param.id]} })
-        .select({likes: 1});
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor", _id: req.params.id })
+      //.where({ likes: {$in: [req.param.id]} })
+      .select({ likes: 1 });
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // get followed actor
 export const getActorFollowing = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User
-      .find({ _id: id })
-      .where("deleted")
-      .equals(false);
+    const fepkOne = await User.find({ _id: id }).where("deleted").equals(false);
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;
@@ -606,12 +819,11 @@ export const getActorById = async (req, res) => {
 };
 export const getFollowingActor = async (req, res) => {
   try {
-    const profile = await User
-      .findOne({ _id: req.params.id })
-      .select({following: 1})
-      .populate('following')
-    
-    const result = await User.find({_id: {$in: profile.following}})
+    const profile = await User.findOne({ _id: req.params.id })
+      .select({ following: 1 })
+      .populate("following");
+
+    const result = await User.find({ _id: { $in: profile.following } });
 
     if (!profile) {
       return res.json({ ok: false });
@@ -625,8 +837,7 @@ export const getFollowingActor = async (req, res) => {
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User
-      .findOne({ _id: id })
+    const fepkOne = await User.findOne({ _id: id });
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;
