@@ -724,72 +724,65 @@ export const getProfileActor = async (req, res) => {
 
 // get starred actor
 export const getActoStarred = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" })
-        .where({ likes: {$in: [req.params.id]} })
-        .select("-password");
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor" })
+      .where({ likes: { $in: [req.params.id] } })
+      .select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 export const getMostLikes = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" })
-        .sort({ likes: -1 })
-        .limit(10)
-        .select("-password");
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor" })
+      .sort({ likes: -1 })
+      .limit(10)
+      .select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 export const getMostFollowed = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" })
-        .sort({ follower: -1 })
-        .limit(10)
-        .select("-password");
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor" })
+      .sort({ follower: -1 })
+      .limit(10)
+      .select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 export const getLikes = async (req, res) => {
-    try {
-      const profile = await User
-        .find({ role: "Actor" , _id: req.params.id})
-        //.where({ likes: {$in: [req.param.id]} })
-        .select({likes: 1});
-      if (!profile) {
-        return res.json({ ok: false });
-      }
-      res.send(profile);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const profile = await User.find({ role: "Actor", _id: req.params.id })
+      //.where({ likes: {$in: [req.param.id]} })
+      .select({ likes: 1 });
+    if (!profile) {
+      return res.json({ ok: false });
     }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // get followed actor
 export const getActorFollowing = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User
-      .find({ _id: id })
-      .where("deleted")
-      .equals(false);
+    const fepkOne = await User.find({ _id: id }).where("deleted").equals(false);
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;
@@ -826,12 +819,11 @@ export const getActorById = async (req, res) => {
 };
 export const getFollowingActor = async (req, res) => {
   try {
-    const profile = await User
-      .findOne({ _id: req.params.id })
-      .select({following: 1})
-      .populate('following')
-    
-    const result = await User.find({_id: {$in: profile.following}})
+    const profile = await User.findOne({ _id: req.params.id })
+      .select({ following: 1 })
+      .populate("following");
+
+    const result = await User.find({ _id: { $in: profile.following } });
 
     if (!profile) {
       return res.json({ ok: false });
@@ -845,8 +837,7 @@ export const getFollowingActor = async (req, res) => {
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User
-      .findOne({ _id: id })
+    const fepkOne = await User.findOne({ _id: id });
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;

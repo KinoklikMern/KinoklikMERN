@@ -17,8 +17,6 @@ import {
 } from "@mui/icons-material";
 import StarIcon from "@mui/icons-material/Star";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
-import { useLocation } from "react-router-dom";
 
 export default function Actor(props) {
   const [epkInfo, setEpkInfo] = useState({});
@@ -32,61 +30,91 @@ export default function Actor(props) {
   const [likes, setLikes] = useState([]);
   const [recommend, setRecommend] = useState([]);
   const [canPlay, setCanPlay] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+
   let images = [];
 
   const listRef = useRef();
   const videoRef = useRef();
 
+  // const age_range = [
+  //   [20, 24],
+  //   [25, 29],
+  //   [30, 34],
+  //   [35, 39],
+  //   [40, 44],
+  //   [45, 49],
+  // ];
+
   const age_range = [
-    [20, 24],
-    [25, 29],
+    [3, 5],
+    [6, 9],
+    [10, 12],
+    [13, 15],
+    [16, 20],
+    [21, 25],
+    [26, 29],
     [30, 34],
-    [35, 39],
-    [40, 44],
-    [45, 49],
+    [35, 44],
+    [45, 55],
+    [56, 66],
+    [67, 77],
+    [78, 89],
   ];
 
-  function setAge(age) {
-    if (age >= 20 && age <= 24) setRange(0);
-    else if (age >= 25 && age <= 29) setRange(1);
-    else if (age >= 30 && age <= 34) setRange(2);
-    else if (age >= 35 && age <= 39) setRange(3);
-    else if (age >= 40 && age <= 44) setRange(4);
-    else if (age >= 45 && age <= 49) setRange(5);
-  }
+  // function setAge(age) {
+  //   if (age >= 20 && age <= 24) setRange(0);
+  //   else if (age >= 25 && age <= 29) setRange(1);
+  //   else if (age >= 30 && age <= 34) setRange(2);
+  //   else if (age >= 35 && age <= 39) setRange(3);
+  //   else if (age >= 40 && age <= 44) setRange(4);
+  //   else if (age >= 45 && age <= 49) setRange(5);
+  // }
 
-  // ----- CHIHYIN -------
-  const location = useLocation();
-  const thumbnailFromUploadActorPic = location.state?.thumbnail;
-  if (thumbnailFromUploadActorPic) {
-    localStorage.setItem("thumbnail", thumbnailFromUploadActorPic);
+  function setAge(age) {
+    for (let i = 0; i < age_range.length; i++) {
+      if (age >= age_range[i][0] && age <= age_range[i][1]) {
+        setRange(i);
+        break;
+      }
+    }
   }
-  const thumbnailFromLocalStorage = localStorage.getItem("thumbnail");
-  // ----- CHIHYIN -------
 
   useEffect(() => {
-    http.get(`/users/getactor/${id}`).then((res) => {
-      setEpkInfo(res.data);
+    http
+      .get(`/users/getactor/${id}`)
+      .then((res) => {
+        setEpkInfo(res.data);
 
-      images.push(res.data.picture);
-      images.push(...res.data.profiles);
+        // console.log("Received age from database:", res.data.sex);
 
-      setpics(images);
+        images.push(res.data.picture);
+        images.push(...res.data.profiles);
 
-      setAge(res.data.age);
-      setLikes(res.data.likes);
-      setFollower(res.data.followers);
-      setRecommend(res.data.comunicate);
-    });
+        setpics(images);
 
-    // const playVideoAfterDelay = setTimeout(() => {
-    //   if (videoRef.current) {
-    //     videoRef.current.play();
-    //   }
-    // }, 5000);
+        setAge(res.data.age);
+        setLikes(res.data.likes);
+        setFollower(res.data.followers);
+        setRecommend(res.data.comunicate);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          console.error("Actor not found. Check the ID or the API endpoint.");
+        } else {
+          console.error(
+            "An error occurred while fetching actor data:",
+            error.message
+          );
+        }
+      });
 
-    // return () => clearTimeout(playVideoAfterDelay);
+    const playVideoAfterDelay = setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.play();
+      }
+    }, 5000);
+
+    return () => clearTimeout(playVideoAfterDelay);
   }, [id]);
 
   const handleClick = (direction) => {
@@ -98,21 +126,13 @@ export default function Actor(props) {
   };
 
   const playVideo = () => {
-    // if (canPlay === true) {
-    //   setCanPlay(false);
-    //   videoRef.current.pause();
-    // } else {
-    //   setCanPlay(true);
-    //   videoRef.current.play();
-    // }
-    // ----- CHIHYIN -----
-    const video = videoRef.current;
-    if (isPlaying) {
-      video.pause();
+    if (canPlay === true) {
+      setCanPlay(false);
+      videoRef.current.pause();
     } else {
-      video.play();
+      setCanPlay(true);
+      videoRef.current.play();
     }
-    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -130,9 +150,8 @@ export default function Actor(props) {
             ref={videoRef}
             className="actor-image-container"
             src={`${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`}
-            poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
-            controls
           ></video>
+
           <div
             className="actor-profile"
             style={{
@@ -159,27 +178,15 @@ export default function Actor(props) {
             />
           </div>
           <div>
-            {isPlaying ? (
-              <PauseCircleOutlineIcon
-                className="actor-play-icon"
-                style={{
-                  color: "#1E0039",
-                  fontSize: "4rem",
-                  display: "inline",
-                }}
-                onClick={playVideo}
-              />
-            ) : (
-              <PlayCircleIcon
-                className="actor-play-icon"
-                style={{
-                  color: "#1E0039",
-                  fontSize: "4rem",
-                  display: "inline",
-                }}
-                onClick={playVideo}
-              />
-            )}
+            <PlayCircleIcon
+              className="actor-play-icon"
+              style={{
+                color: "#1E0039",
+                fontSize: "4rem",
+                display: "inline",
+              }}
+              onClick={playVideo}
+            />
           </div>
         </div>
 
@@ -241,7 +248,7 @@ export default function Actor(props) {
               style={{ width: "37px", height: "25px" }}
             />
             <p className="movie-number" style={{ fontSize: "24px" }}>
-              1
+              0
             </p>
           </div>
         </div>

@@ -57,10 +57,12 @@ const UserSchema = mongoose.Schema({
     default:
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
-  profiles: [{
-    type: String,
-    trim: true,
-  }],
+  profiles: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
   city: {
     type: String,
   },
