@@ -11,9 +11,14 @@ module.exports = {
       },
       colors: {
         midnight: "#1E0039",
+        customColor: "#712cb0",
       },
       borderRadius: {
         side: "5.5rem",
+      },
+
+      flex: {
+        center: "0 0 auto",
       },
     },
   },

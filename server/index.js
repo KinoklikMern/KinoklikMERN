@@ -5,16 +5,19 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
 dotenv.config();
-
+import "express-async-errors";
 import userRoutes from "./routes/users.js";
 import fepkRoutes from "./routes/fepk.js";
 import crewRoutes from "./routes/crew.js";
 import companyRoutes from "./routes/company.js";
 import chatRoutes from "./routes/chat.routes.js";
 import messageRoutes from "./routes/message.routes.js";
+import { errorHandler } from "./middlwares/error.js";
+import { handleNotFound } from "./utils/helper.js";
 
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
+
 // end ////
 const app = express();
 
@@ -34,7 +37,9 @@ app.use("/filmmaker", filmMakerDashboard);
 // rucheng edit
 app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
-//
+
+app.use("/*", handleNotFound);
+app.use(errorHandler);
 
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)
@@ -69,14 +74,13 @@ io.on("connection", async (socket) => {
   console.log("connected to socket.io");
   socket.on("setup", (userData) => {
     socket.join(userData.id);
-    console.log("11",userData.id);
+    console.log("11", userData.id);
     socket.emit("connected");
   });
   socket.on("join chat", (chat) => {
     socket.join(chat);
     console.log(`user joined chat: ${chat}`);
   });
-
 
   socket.on("new message", (newMessageRecieved) => {
     // console.log("222", newMessageRecieved.chat);
@@ -87,8 +91,7 @@ io.on("connection", async (socket) => {
       console.log("user", user._id);
       console.log("sender", newMessageRecieved.sender._id);
 
-
-      if (user._id == newMessageRecieved.sender._id) return;  
+      if (user._id == newMessageRecieved.sender._id) return;
 
       socket.in(user._id).emit("message recieved", newMessageRecieved);
     });

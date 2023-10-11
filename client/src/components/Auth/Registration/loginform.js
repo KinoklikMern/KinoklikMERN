@@ -38,17 +38,31 @@ function LoginForm() {
           password: password,
         }
       );
+
+      // Yeming added
+      console.log(data);
+      let userId;
+      if (data.user && data.user.id) {
+        userId = data.user.id;
+      } else if (data.id) {
+        userId = data.id;
+      }
+
+      console.log("User ID:", userId);
+
+      if (!data.isVerified) {
+        navigate("/verification", {
+          state: { user: { ...data.user, id: userId } },
+        });
+        return;
+      }
+
       setError("");
       setSuccess(data.message);
       const { message, ...rest } = data;
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
       console.log(data);
-      // if (data.role === "FILM_MAKER") {
-      //   navigate("/filmMakerDashboard");
-      // } else if (data.role === "Viewer") {
-      //   navigate("/");
-      // }
       navigate("/");
     } catch (error) {
       setSuccess("");
