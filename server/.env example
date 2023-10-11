@@ -1,0 +1,26 @@
+# Create a copy of this file, and rename the copy to .env (If it doesn't exist already)
+# To retrieve the keys, check Slack
+
+#If port 8000 is already being used, change this to another port number
+PORT = 8000
+
+
+# Secret Token
+TOKEN_SECRET=
+BASE_URL= http://localhost:3000
+#Required keys for AWS
+AWS_BUCKET_NAME = 
+AWS_BUCKET_REGION = 
+AWS_ACCESS_KEY_ID = 
+AWS_SECRET_ACCESS_KEY = 
+
+MONGODB_URL = 
+
+
+
+MONGODB_URL = 
+
+
+
+MAIL_TRAP_USER=
+MAIL_TRAP_PASS=

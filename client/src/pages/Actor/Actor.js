@@ -30,6 +30,7 @@ export default function Actor(props) {
   const [likes, setLikes] = useState([]);
   const [recommend, setRecommend] = useState([]);
   const [canPlay, setCanPlay] = useState(true);
+
   let images = [];
 
   const listRef = useRef();
@@ -79,21 +80,33 @@ export default function Actor(props) {
   }
 
   useEffect(() => {
-    http.get(`/users/getactor/${id}`).then((res) => {
-      setEpkInfo(res.data);
+    http
+      .get(`/users/getactor/${id}`)
+      .then((res) => {
+        setEpkInfo(res.data);
 
-      // console.log("Received age from database:", res.data.sex);
+        // console.log("Received age from database:", res.data.sex);
 
-      images.push(res.data.picture);
-      images.push(...res.data.profiles);
+        images.push(res.data.picture);
+        images.push(...res.data.profiles);
 
-      setpics(images);
+        setpics(images);
 
-      setAge(res.data.age);
-      setLikes(res.data.likes);
-      setFollower(res.data.followers);
-      setRecommend(res.data.comunicate);
-    });
+        setAge(res.data.age);
+        setLikes(res.data.likes);
+        setFollower(res.data.followers);
+        setRecommend(res.data.comunicate);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          console.error("Actor not found. Check the ID or the API endpoint.");
+        } else {
+          console.error(
+            "An error occurred while fetching actor data:",
+            error.message
+          );
+        }
+      });
 
     const playVideoAfterDelay = setTimeout(() => {
       if (videoRef.current) {

@@ -33,10 +33,11 @@ export const register = async (req, res) => {
     }
     const emailCheck = await User.findOne({ email });
     if (emailCheck) {
-      return sendError(
-        res,
-        "This email address already exists. Try with a different email address"
-      );
+      return res.status(409).json({
+        message:
+          "This email address already exists. Try with a different email address",
+        emailExists: true,
+      });
     }
 
     if (!validateLength(firstName, 3, 30)) {
@@ -104,6 +105,7 @@ export const register = async (req, res) => {
         role: user.role,
         email: user.email,
       },
+      emailExists: false,
     });
 
     // const token = generateToken({ id: user._id.toString() }, "7d");
@@ -119,93 +121,119 @@ export const register = async (req, res) => {
     //   message: "User was registered successfully! ",
     // });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message, emailExists: false });
   }
 };
 
 export const verifyEmail = async (req, res) => {
   const { userId, OTP } = req.body;
 
-  if (!isValidObjectId(userId)) return sendError(res, "Invalid user!");
+  try {
+    console.log("Received userId:", userId);
+    console.log("Received OTP:", OTP);
 
-  const user = await User.findById(userId);
-  if (!user) return sendError(res, "User not found!", 404);
+    if (!isValidObjectId(userId)) return sendError(res, "Invalid user!");
 
-  if (user.isVerified) return sendError(res, "User is already verified!");
+    const user = await User.findById(userId);
+    if (!user) return sendError(res, "User not found!", 404);
 
-  const token = await EmailVerificationToken.findOne({ owner: userId });
-  if (!token) return sendError(res, "token not found!");
-  const isMatched = await token.compareToken(OTP);
-  if (!isMatched) return sendError(res, "Please submit a valid OTP!");
-  user.isVerified = true;
-  await user.save();
+    if (user.isVerified) return sendError(res, "User is already verified!");
 
-  await EmailVerificationToken.findByIdAndDelete(token._id);
+    const token = await EmailVerificationToken.findOne({ owner: userId });
+    if (!token) return sendError(res, "token not found!");
+    const isMatched = await token.compareToken(OTP);
+    if (!isMatched) return sendError(res, "Please submit a valid OTP!");
+    user.isVerified = true;
+    await user.save();
 
-  var transport = generateMailTransport();
+    await EmailVerificationToken.findByIdAndDelete(token._id);
 
-  transport.sendMail({
-    from: "info@kinoklik.com",
-    to: user.email,
-    subject: "Welcome Email",
-    html: "<h1>Welcome to our app and thanks for choosing us.</h1>",
-  });
+    var transport = generateMailTransport();
 
-  // const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
+    transport.sendMail({
+      from: "info@kinoklik.com",
+      to: user.email,
+      subject: "Welcome Email",
+      html: "<h1>Welcome to our app and thanks for choosing us.</h1>",
+    });
 
-  res.json({
-    // user: {
-    //   id: user._id,
-    //   firstName: user.firstName,
-    //   lastName: user.lastName,
-    //   email: user.email,
-    //   token: jwtToken,
-    // },
-    message: "Your email is verified.",
-  });
+    // const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
+
+    res.json({
+      // user: {
+      //   id: user._id,
+      //   firstName: user.firstName,
+      //   lastName: user.lastName,
+      //   email: user.email,
+      //   token: jwtToken,
+      // },
+      message: "Your email is verified.",
+    });
+  } catch (error) {
+    console.error("Error in verifyEmail:", error.message);
+    return sendError(res, "An error occurred while verifying the email.");
+  }
 };
 
 export const resendEmailVerificationToken = async (req, res) => {
   const { userId } = req.body;
 
-  const user = await User.findById(userId);
-  if (!user) return sendError(res, "User not found!", 404);
+  try {
+    const user = await User.findById(userId);
+    if (!user) return sendError(res, "User not found!", 404);
 
-  if (user.isVerified) return sendError(res, "This email is already verified!");
+    if (user.isVerified)
+      return sendError(res, "This email is already verified!");
 
-  const alreadyHasToken = await EmailVerificationToken.findOne({
-    owner: userId,
-  });
-  if (alreadyHasToken)
-    return sendError(res, "Only after one hour you can request another token!");
+    const alreadyHasToken = await EmailVerificationToken.findOne({
+      owner: userId,
+    });
+    if (alreadyHasToken)
+      return sendError(
+        res,
+        "Only after one hour you can request another token!"
+      );
 
-  // Generate 6 digit otp
-  const OTP = generateOTP();
+    // Generate 6 digit otp
+    const OTP = generateOTP();
 
-  // store otp inside our db
-  const newEmailVerificationToken = new EmailVerificationToken({
-    owner: user._id,
-    token: OTP,
-  });
+    // store otp inside our db
+    const newEmailVerificationToken = new EmailVerificationToken({
+      owner: user._id,
+      token: OTP,
+    });
 
-  await newEmailVerificationToken.save();
-  // send that otp to our user
-  // copy from mailtrap.io
-  var transport = generateMailTransport();
+    await newEmailVerificationToken.save();
+    // send that otp to our user
+    // copy from mailtrap.io
+    var transport = generateMailTransport();
 
-  transport.sendMail({
-    from: "info@kinoklik.com",
-    to: user.email,
-    subject: "Email Verification",
-    html: `
+    transport.sendMail({
+      from: "info@kinoklik.com",
+      to: user.email,
+      subject: "Email Verification",
+      html: `
   <p>Your verification OTP</p>
   <h1>${OTP}</h1>
   `,
-  });
+    });
 
-  res.json({
-    message: "New OTP has been sent to your registered email account.",
-  });
+    res.json({
+      message: "New OTP has been sent to your registered email account.",
+      user: {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("Error resending OTP:", error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while resending OTP" });
+  }
 };
 
 export const login = async (request, response) => {
@@ -226,6 +254,46 @@ export const login = async (request, response) => {
             "The email address you entered is not connected to an account",
         });
       } else {
+        const existingToken = await EmailVerificationToken.findOne({
+          owner: user._id,
+        });
+
+        if (!user.isVerified && !existingToken) {
+          // If the user is not verified and there's no existing token, send OTP for verification
+          const OTP = generateOTP(); // Generate OTP
+
+          // Store the OTP in the database for verification
+          const emailVerificationToken = new EmailVerificationToken({
+            owner: user._id,
+            token: OTP,
+          });
+          await emailVerificationToken.save();
+
+          // Send OTP to the user's email
+          var transport = generateMailTransport();
+
+          transport.sendMail({
+            from: "info@kinoklik.com",
+            to: user.email,
+            subject: "Email Verification",
+            html: `
+              <p>Your verification OTP</p>
+              <h1>${OTP}</h1>
+            `,
+          });
+
+          return response.json({
+            message: "New OTP has been sent to your registered email account.",
+            user: {
+              id: user._id,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              role: user.role,
+            },
+          });
+        }
+
         const isSame = await bcrypt.compare(password, user.password);
 
         if (!isSame) {
@@ -243,7 +311,7 @@ export const login = async (request, response) => {
           secure: true,
         });
         if (isSame) {
-          response.send({
+          return response.send({
             id: user._id,
             picture: user.picture,
             firstName: user.firstName,
@@ -257,10 +325,10 @@ export const login = async (request, response) => {
         }
       }
     } else {
-      response.send({ success: false });
+      return response.json({ success: false });
     }
   } catch (error) {
-    response.status(500).json({ message: error.message });
+    return response.status(500).json({ message: error.message });
   }
 };
 

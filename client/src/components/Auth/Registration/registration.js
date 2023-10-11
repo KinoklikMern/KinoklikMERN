@@ -103,7 +103,7 @@ function RegistrationForm() {
     }
 
     if (password.length < 8) {
-      setError("Password must be 8 characters long!");
+      setError("Password must be at least 8 characters long!");
       return;
     }
 
@@ -118,6 +118,12 @@ function RegistrationForm() {
           role: role,
         }
       );
+
+      if (data.emailExists) {
+        setError("Email is already in use.");
+        return;
+      }
+
       setError("");
       setSuccess(data.message);
       const { message, ...rest } = data;

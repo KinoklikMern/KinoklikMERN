@@ -20,14 +20,38 @@ export default function NotificationPage() {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   getFepksByFilmmakerId(user.id).then((res) => {
+  //     setEpkList(res);
+  //     setLikedUserList(res[0].likes);
+  //     setRequestList({ requests: res[0].requests, fepkId: res[0]._id });
+  //     setLoading(false);
+  //   });
+  // }, [count]);
+
   useEffect(() => {
-    getFepksByFilmmakerId(user.id).then((res) => {
-      setEpkList(res);
-      setLikedUserList(res[0].likes);
-      setRequestList({ requests: res[0].requests, fepkId: res[0]._id });
-      setLoading(false);
-    });
-  }, [count]);
+    getFepksByFilmmakerId(user.id)
+      .then((res) => {
+        if (res && res.length > 0) {
+          setEpkList(res);
+          setLikedUserList(res[0]?.likes || []);
+          setRequestList({
+            requests: res[0]?.requests || [],
+            fepkId: res[0]?._id || 0,
+          });
+        } else {
+          setEpkList([]);
+          setLikedUserList([]);
+          setRequestList({ requests: [], fepkId: 0 });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching EPKs:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [count, user.id]);
 
   const handleApprove = (request, fepkId) => {
     const requestToApprove = {
@@ -63,7 +87,7 @@ export default function NotificationPage() {
 
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
-      <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white">
+      <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
         <p className="tw-text-4xl">Filmmaker Dashboard</p>
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
@@ -99,7 +123,7 @@ export default function NotificationPage() {
                   </div>
                 ))}
               </div>
-              <div className="tw-col-span-2 tw-mt-12 tw-mr-4 tw-overflow-auto  tw-scrollbar tw-scrollbar-track-white tw-scrollbar-thumb-[#1E0039]">
+              <div className="tw-col-span-2 tw-mr-4 tw-mt-12 tw-overflow-auto  tw-scrollbar tw-scrollbar-track-white tw-scrollbar-thumb-[#1E0039]">
                 <ul className="tw-flex tw-border-b tw-border-gray-200 tw-text-center tw-text-sm tw-font-medium tw-text-gray-500">
                   <li
                     className={

@@ -1,6 +1,7 @@
 import express from "express";
 import { authUser } from "../middlwares/auth.js";
 import { isValidPassResetToken } from "../middlwares/user.js";
+
 import multer from "multer";
 import {
   uploadActorProfiles,

@@ -24,8 +24,8 @@ function Home({ role }) {
   const { user } = useSelector((user) => ({ ...user }));
 
   const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
-  // Yeming edit
-  const [verificationMessage, setVerificationMessage] = useState(null);
+
+  // const [verificationMessage, setVerificationMessage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -36,35 +36,46 @@ function Home({ role }) {
   useEffect(() => {
     setFepkMaker("");
 
-    if (user && !user.isVerified) {
-      setVerificationMessage(
-        <div className="tw-bg-customColor">
-          <p className="tw-p-2 tw-text-center tw-text-lg tw-text-blue-50">
-            You haven't verified your account. Please click the link below to
-            verify:
-          </p>
-          <p className="tw-font-semiblod tw-text-center tw-text-lg tw-text-white">
-            <button
-              onClick={navigateToVerification}
-              className="tw-font-semiblod tw-border-none tw-bg-transparent tw-p-0 tw-text-blue-50 hover:tw-underline"
-            >
-              Verify your account
-            </button>
-          </p>
-        </div>
-      );
-    } else {
-      setVerificationMessage(null);
-    }
-  }, [user, user?.isVerified]);
+    // if (user && !user.isVerified) {
+    //   setVerificationMessage(
+    //     <div
+    //       className="tw-rounded tw-p-2 tw-text-center tw-text-white"
+    //       style={{
+    //         position: "fixed",
+    //         top: "0",
+    //         left: "50%",
+    //         transform: "translateX(-50%)", // center it horizontally
+    //         zIndex: 9999,
+    //         backgroundColor: "rgba(0, 0, 0, 0.5)", // Transparent black background
+    //         maxWidth: "80%", // Set a maximum width for the message
+    //       }}
+    //     >
+    //       <p className="tw-p-2 tw-text-center tw-text-lg tw-text-blue-50">
+    //         You haven't verified your account. Please click the link below to
+    //         verify:
+    //       </p>
+    //       <p className="tw-text-center tw-text-lg tw-font-semibold tw-text-white">
+    //         <button
+    //           onClick={navigateToVerification}
+    //           className="tw-font-semiblod tw-border-none tw-bg-transparent tw-p-0 tw-text-blue-50 hover:tw-underline"
+    //         >
+    //           Verify your account
+    //         </button>
+    //       </p>
+    //     </div>
+    //   );
+    // } else {
+    //   setVerificationMessage(null);
+    // }
+  }, [user]);
 
   return (
     <>
+      {/* {verificationMessage} */}
       <div>
         {user && (
           <>
             <HomeHead role={role} />
-            {verificationMessage}
             <SwitchBtn role={role} />
             <FilterTag role={role} />
             {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}

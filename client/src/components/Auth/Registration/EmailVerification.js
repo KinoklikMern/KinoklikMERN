@@ -25,7 +25,7 @@ const isValidOTP = (otp) => {
 export default function EmailVerification() {
   const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(""));
   const [activeOtpIndex, setActiveOtpIndex] = useState(0);
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const inputRef = useRef();
@@ -51,14 +51,29 @@ export default function EmailVerification() {
   const handleOtpChange = ({ target }) => {
     const { value } = target;
     const newOtp = [...otp];
-    newOtp[currentOTPIndex] = value.substring(value.length - 1, value.length);
 
-    if (!value) focusPrevInputField(currentOTPIndex);
-    else focusNextInputField(currentOTPIndex);
+    // Allow re-typing and delete on backspace
+    if (value.length === 1 && currentOTPIndex < OTP_LENGTH) {
+      newOtp[currentOTPIndex] = value;
+      focusNextInputField(currentOTPIndex);
+    } else if (value.length === 0) {
+      newOtp[currentOTPIndex] = ""; // Clear the current input
+      focusPrevInputField(currentOTPIndex);
+    }
+
+    // new added
+    // currentOTPIndex =
+    //   value.length === 0 ? currentOTPIndex - 1 : currentOTPIndex;
+
+    // newOtp[currentOTPIndex] = value.substring(value.length - 1, value.length);
+
+    // if (!value) focusPrevInputField(currentOTPIndex);
+    // else focusNextInputField(currentOTPIndex);
     setOtp([...newOtp]);
   };
 
   const handleOTPResend = async () => {
+    // console.log("User Object:", user); // Log the user object
     try {
       const { error, message } = await resendEmailVerificationToken(user.id);
 
@@ -84,15 +99,17 @@ export default function EmailVerification() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("User:", user);
     if (!isValidOTP(otp)) {
-      return console.log("Invalid OTP!");
+      enqueueSnackbar("Invalid OTP!", { variant: "error" });
+      return;
     }
     // submit otp
     try {
+      console.log("User ID being sent:", user?.id);
       const { error, message } = await verifyUserEmail({
         OTP: otp.join(""),
-        userId: user.id,
+        userId: user?.id,
       });
       if (error) {
         enqueueSnackbar(error, { variant: "error" });
@@ -123,18 +140,6 @@ export default function EmailVerification() {
   useEffect(() => {
     inputRef.current?.focus();
   }, [activeOtpIndex]);
-
-  useEffect(() => {
-    // Navigate to home page if the user is logged in and verified
-    if (user && user.isVerified) {
-      navigate("/");
-    }
-
-    // If not logged in, navigate to home page
-    if (!user) {
-      navigate("/");
-    }
-  }, [user, isVerified]);
 
   return (
     <div
@@ -182,7 +187,7 @@ export default function EmailVerification() {
             type="button"
             className="tw-bg-transparent tw-font-semibold tw-text-midnight hover:tw-underline"
           >
-            I don't have OTP
+            Resend OTP
           </button>
         </div>
       </form>

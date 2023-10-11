@@ -21,6 +21,7 @@ export const generateOTP = (otp_length = 6) => {
 //     });
 
 // Yeming edit
+// Mailtrap
 export const generateMailTransport = () =>
   nodemailer.createTransport({
     host: "sandbox.smtp.mailtrap.io",
@@ -30,3 +31,15 @@ export const generateMailTransport = () =>
       pass: process.env.MAIL_TRAP_PASS,
     },
   });
+
+// Gmail SMTP
+// export const generateMailTransport = () =>
+//   nodemailer.createTransport({
+//     host: "smtp.gmail.com", // replace with your SMTP server address
+//     port: 465, // replace with your SMTP server port
+//     secure: true, // use SSL
+//     auth: {
+//       user: process.env.MAIL_TRAP_USER, // replace with your email address
+//       pass: process.env.MAIL_TRAP_PASS, // replace with your email password
+//     },
+//   });
