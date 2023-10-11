@@ -8,6 +8,9 @@ import {
   faUser,
   faPlus,
   faTrashCan,
+  faPen,
+  faCheck,
+  faUpload,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,12 +29,43 @@ function ReviewsForm() {
   const [characterLength, setCharacterLength] = useState({
     text: 0,
   });
+  const [editingReview, setEditingReview] = useState(null);
 
   let { fepkId } = useParams();
 
+  // const fileSelected = (event) => {
+  //   setFile(event.target.files[0]);
+  //   //setDisabled(false);
+  // };
+
+  // -- CHIHYIN --
   const fileSelected = (event) => {
-    setFile(event.target.files[0]);
-    //setDisabled(false);
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+
+    if (editingReview !== null) {
+      let formData = new FormData();
+      formData.append("file", selectedFile);
+
+      // Upload the file
+      http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          const updatedReviewsList = [...reviewsList];
+          updatedReviewsList[editingReview].award_logo = response.data.key;
+          setReviewsList(updatedReviewsList);
+          setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
+          setEditingReview(null);
+          saveEpkReviews();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -132,23 +166,56 @@ function ReviewsForm() {
     setDisabled(true);
   }
 
+  // -- CHIHYIN --
+  const saveEpkReviewChanges = async (updatedReviewsList) => {
+    try {
+      const res = await http.put(`fepks/update/${fepkId}`, {
+        reviews: updatedReviewsList,
+      });
+
+      // Optionally: Update UI to reflect that changes were saved.
+      console.log("Changes saved:", res.data);
+    } catch (err) {
+      // Handle errors, perhaps revert the change in the UI with a message.
+      console.error("Error saving changes:", err);
+    }
+  };
+
+  const handleEditChange = (e, index, type) => {
+    const updatedReviewsList = [...reviewsList];
+    updatedReviewsList[index][type] = e.target.value;
+    setReviewsList(updatedReviewsList);
+    setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
+    // Save immediately after editing.
+    saveEpkReviewChanges(updatedReviewsList);
+  };
+
+  const triggerFileInput = (index) => {
+    setEditingReview(index); // Set the currently editing review's index
+    inputFileRef.current.click(); // Trigger the file input
+  };
+
   return (
     <>
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
-          borderRadius:"10px",
+          borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -253,9 +320,7 @@ function ReviewsForm() {
                       style={{ fontSize: "25px" }}
                     >
                       {" "}
-                      <h4 style={{ fontSize: "20px" }}>
-                        Upload Logo
-                      </h4>
+                      <h4 style={{ fontSize: "20px" }}>Upload Logo</h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
@@ -312,26 +377,90 @@ function ReviewsForm() {
                           <th>Magazine</th>
                           <th>Text</th>
                           <th>Award Logo</th>
-                          <th>ACTION</th>
+                          <th>ACTIONS</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {reviewsList.map((review) => {
+                        {reviewsList.map((review, index) => {
                           return (
-                            <tr>
-                              <td>{review.magazine}</td>
-                              <td>{review.text}</td>
+                            <tr key={index}>
+                              <td>
+                                {editingReview === index ? (
+                                  <input
+                                    value={review.magazine}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "magazine")
+                                    }
+                                  />
+                                ) : (
+                                  review.magazine
+                                )}
+                              </td>
+                              <td>
+                                {editingReview === index ? (
+                                  <input
+                                    value={review.text}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "text")
+                                    }
+                                  />
+                                ) : (
+                                  review.text
+                                )}
+                              </td>
                               <td>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${review.award_logo}`}
-                                  style={{ height: "60px", width: "auto" }}
+                                  style={{ height: "50px", width: "auto" }}
                                 />
+                                {editingReview === index && (
+                                  <>
+                                    <FontAwesomeIcon
+                                      icon={faUpload}
+                                      onClick={() => triggerFileInput(index)}
+                                      style={{ marginRight: "10px" }}
+                                    />
+                                    <input
+                                      style={{ display: "none" }}
+                                      className="form-control form-control-sm"
+                                      filename={file}
+                                      onChange={fileSelected}
+                                      ref={inputFileRef}
+                                      type="file"
+                                      id="fileAwardLogo"
+                                      name="files"
+                                      accept="image/*"
+                                    />
+                                  </>
+                                )}
                               </td>
+
                               <td
-                                style={{ textAlign: "center", cursor:"pointer" }}
-                                onClick={() => deleteFromReviewsList(review)}
+                                style={{
+                                  textAlign: "center",
+                                  cursor: "pointer",
+                                }}
                               >
-                                <FontAwesomeIcon icon={faTrashCan} />
+                                {editingReview === index ? (
+                                  <FontAwesomeIcon
+                                    icon={faCheck}
+                                    onClick={() => {
+                                      setEditingReview(null);
+                                    }}
+                                    style={{ marginRight: "10px" }}
+                                  />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    icon={faPen}
+                                    onClick={() => setEditingReview(index)}
+                                    style={{ marginRight: "10px" }}
+                                  />
+                                )}
+                                {"  "}
+                                <FontAwesomeIcon
+                                  icon={faTrashCan}
+                                  onClick={() => deleteFromReviewsList(review)}
+                                />
                               </td>
                             </tr>
                           );

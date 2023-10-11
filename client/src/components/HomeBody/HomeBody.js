@@ -13,7 +13,7 @@ import {
 } from "@mui/icons-material";
 import { FepkContext } from "../../context/FepkContext.js";
 
-const HomeBody = ({role}) => {
+const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
@@ -21,12 +21,13 @@ const HomeBody = ({role}) => {
 
   const listRef = useRef();
 
-  const actorId = "6483619d64b048f952a6fb5b"
+  const actorId = "6483619d64b048f952a6fb5b";
 
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
       setFepks(response.data);
-  })}, []);
+    });
+  }, []);
 
   let genres = [];
 
@@ -38,7 +39,8 @@ const HomeBody = ({role}) => {
   return (
     <>
       <div className="home">
-        <div>
+        {/* -- CHIHYIN -- */}
+        {/* <div>
           <div className="listTitle">
             <span>STARRED</span>
           </div>
@@ -55,7 +57,7 @@ const HomeBody = ({role}) => {
             <span>WISH LIST</span>
           </div>
           <List title="wish_to_buy" type={filterQuery} />
-        </div>
+        </div> */}
 
         {genres.map((genre) => {
           return (
@@ -85,7 +87,13 @@ const HomeBody = ({role}) => {
                         return (
                           <>
                             <div className="listItem" key={fepk._id}>
-                              <a href={role === "actor" ? `/actor/${actorId}` : `epk/${fepk.title}`}>
+                              <a
+                                href={
+                                  role === "actor"
+                                    ? `/actor/${actorId}`
+                                    : `epk/${fepk.title}`
+                                }
+                              >
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                                   alt=""

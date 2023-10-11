@@ -156,7 +156,28 @@ function FepkCoverForm() {
 
     formData.append("file2", file2);
     console.log(formData);
+    console.log([...formData.entries()]);
     debugger;
+
+    // ----- CHIHYIN -------
+    // Initializing messages
+    let bannerMessage = "";
+    let titleLoglineMessage = "";
+
+    // Checking if banner (file1) has been uploaded
+    if (!file1) {
+      bannerMessage = "Please upload a banner.";
+    }
+    // Checking if title and logLine_short are filled in
+    if (!epkCoverData.title || !epkCoverData.logLine_short) {
+      titleLoglineMessage = " Title and Log Line needed.";
+    }
+    if (bannerMessage || titleLoglineMessage) {
+      setSubmitMessage(bannerMessage + titleLoglineMessage);
+      return; // Exit the function early if any check fails
+    }
+    // ----- CHIHYIN -------
+
     if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
       http
         .post("fepks/uploadFiles", formData, {
@@ -174,7 +195,9 @@ function FepkCoverForm() {
           http.post("fepks/", epkCoverData).then((res) => {
             if (res.data.error) {
               setSubmitMessage(
-                res.data.error + " Title is unique and status needed!"
+                // res.data.error + " Title is unique and status needed!"
+                // ----- CHIHYIN -------
+                "Tell us the genre and the status."
               );
             } else {
               console.log("saved");
@@ -206,9 +229,13 @@ function FepkCoverForm() {
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img

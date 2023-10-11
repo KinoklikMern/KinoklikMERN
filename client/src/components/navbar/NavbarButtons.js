@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-undef */
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams, useMatch } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -38,6 +38,23 @@ function NavbarButtons({ user, setToggle, toggle }) {
     console.log(user);
     navigate("/");
   };
+
+  // -- CHIHYIN --
+  // show the edit icon for actor account owner, direct to the page "/userdashboard/actor"
+  // also keep the functionality for filmmakers to edit
+  const { actorId } = useParams();
+  const matchFilmmaker = useMatch("/epk/*");
+  const matchActor = useMatch("/actor/*");
+  const isFilmmaker = !!matchFilmmaker;
+  const isActor = !!matchActor;
+  const isActorRole = user && user.role === "Actor";
+  const editForFilmmaker =
+    isFilmmaker && user.id === fepkMaker._id && fepkId !== "";
+  const editForActor = user && isActor && isActorRole;
+
+  const editPageUrl = isActorRole
+    ? "/userdashboard/actor"
+    : `/editFepk/${fepkId}`;
 
   return (
     <>
@@ -100,12 +117,21 @@ function NavbarButtons({ user, setToggle, toggle }) {
         <>
           {/* ------modified by rucheng-------- */}
           <div className="tw-static tw-flex tw-items-center tw-justify-center tw-p-4">
+            {/*
             <div className="tw-mx-10 tw-inline-block tw-justify-center">
               {user.id === fepkMaker._id && fepkId !== "" ? (
                 <a href={`/editFepk/${fepkId}`}>
                   <FontAwesomeIcon icon={faPen} color="white" />
-                  {/* <img src={StarIcon} alt="/" style={{ width: 50, height: 50 }} /> */}
                 </a>
+              ) : null}
+            </div>
+            */}
+            {/* ------modified by CHIHYIN-------- */}
+            <div className="tw-mx-10 tw-inline-block tw-justify-center">
+              {editForFilmmaker || editForActor ? (
+                <Link to={editPageUrl}>
+                  <FontAwesomeIcon icon={faPen} color="white" />
+                </Link>
               ) : null}
             </div>
             <div className="tw-group tw-mx-4 tw-inline-block">
