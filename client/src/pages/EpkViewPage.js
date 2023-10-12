@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import DonationBtn from "../components/DonationBtn"; // Update the import path
 import EpkHeader from "../components/EpkView/EpkHeader/EpkHeader";
 import EpkCover from "../components/EpkView/EpkCover/EpkCover";
 import EpkSocialAction from "../components/EpkView/EpkSocialAction/EpkSocialAction";
@@ -85,6 +86,8 @@ function EpkViewPage() {
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
         <div className="tw-w-11/12">
+          {/* Donation button */}
+          <DonationBtn userIsLoggedIn={user} />
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
           <EpkSocialAction epkInfo={epkInfo} handler={handleShow} />
