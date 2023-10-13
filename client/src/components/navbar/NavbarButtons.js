@@ -49,7 +49,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
   const isActor = !!matchActor;
   const isActorRole = user && user.role === "Actor";
   const editForFilmmaker =
-    isFilmmaker && user.id === fepkMaker._id && fepkId !== "";
+    isFilmmaker && user && user.id === fepkMaker?._id && fepkId !== "";
   const editForActor = user && isActor && isActorRole;
 
   const editPageUrl = isActorRole

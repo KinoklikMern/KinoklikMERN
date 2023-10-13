@@ -1,20 +1,23 @@
 import stripe from "stripe"; // Import the Stripe SDK
+import fepk from "../models/fepk.js";
+import User from "../models/User.js";
 import Donation from "../models/donation.js"; // Import your Mongoose model for donations
-
+//import amount from "../models/amount.js";
 // Create a new Stripe instance with your secret API key
 //const stripe = new stripe(process.env.STRIPE_SECRET_KEY);
 
 // Controller function to process a donation
 export const processDonation = async (req, res) => {
   try {
-    const { amount, token, userId, epkId } = req.body;
+    //later apply amount
+    const { amount, token, userId, fepkId } = req.body;
 
     // Create a charge with Stripe
     const charge = await stripe.charges.create({
-      amount: amount,
-      currency: "usd",
+      //amount: amount,
+      currency: "cad",
       source: token,
-      description: "Donation for a epk",
+      description: "Donation for a fepk",
     });
 
     // Save donation data to MongoDB
@@ -35,12 +38,7 @@ export const processDonation = async (req, res) => {
 };
 
 
-// // donation.js
 
-// import stripe from "stripe"; // Import the Stripe SDK
-// import Donation from "../models/donation.js";// Import your Mongoose model for donations
-// import fepk from "../models/fepk.js";
-// import User from "../models/User.js";
 
 
 

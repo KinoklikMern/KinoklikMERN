@@ -5,7 +5,7 @@ import { processDonation } from "../controllers/donation.js";
 const router = express.Router();
 
 // Create a route to handle donation processing (e.g., POST /donations)
-router.post("/donations", processDonation);
+router.post("/donations",authUser, processDonation);
 
 export default router;
 
