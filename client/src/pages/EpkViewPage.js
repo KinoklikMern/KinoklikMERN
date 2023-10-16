@@ -159,12 +159,12 @@ function EpkViewPage() {
           )}
           {showDonationModal && (
             <DonationModal
-            isOpen={showDonationModal}
-            onRequestClose={() => setShowDonationModal(false)}
-            // epkId={epkInfo._id}
-            // filmmakerId={epkInfo.film_maker._id}
-            // user={user}
-            // setRefresh={setRefresh}
+              isOpen={showDonationModal}
+              onRequestClose={() => setShowDonationModal(false)}
+              epkId={epkInfo._id}
+              userId={user.id}
+              epkImage={"https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details}
+
             />
           )}
         </div>
@@ -172,5 +172,4 @@ function EpkViewPage() {
     )
   );
 }
-
 export default EpkViewPage;

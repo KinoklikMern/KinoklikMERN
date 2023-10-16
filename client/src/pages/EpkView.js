@@ -120,9 +120,9 @@ function EpkView() {
         setFepkData(response.data);
         setCrewList(response.data.crew);
         setUsersWishesToDonate(response.data.wishes_to_donate?.length || 0);
-        setUsersWishesToBuy(response.data.wishes_to_buy?.length || 0); // Check if it's defined
-        setUsersFavourites(response.data.favourites?.length || 0); // Check if it's defined
-        setUsersLikes(response.data.likes?.length || 0); // Check if it's defined
+        setUsersWishesToBuy(response.data.wishes_to_buy.length); // Check if it's defined
+        setUsersFavourites(response.data.favourites.length); // Check if it's defined
+        setUsersLikes(response.data.likes.length); // Check if it's defined
         setMediumSynopsis(response.data.mediumSynopsis);
         setLongSynopsis(response.data.longSynopsis);
         setUniqueness(response.data.uniqueness);

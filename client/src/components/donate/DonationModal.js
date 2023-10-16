@@ -6,7 +6,8 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-const DonationModal = ({ isOpen, onRequestClose }) => {
+const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
+  console.log("epkImage:", epkImage); 
   const [donationAmount, setDonationAmount] = useState(0);
   const [nameOnCard, setNameOnCard] = useState("");
   const [cardNumber, setCardNumber] = useState("");
@@ -171,7 +172,8 @@ const DonationModal = ({ isOpen, onRequestClose }) => {
             </Row>
           </Col>
           <Col>
-            {/* EpkCover */}
+            {/* Epkimge */}
+            <img src={epkImage} alt="EPK Image" className="img-fluid" />
           </Col>
         </Row>
         </Container>
