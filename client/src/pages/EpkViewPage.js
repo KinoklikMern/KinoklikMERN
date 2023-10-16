@@ -12,7 +12,6 @@ import EpkStills from "../components/EpkView/EpkStills/EpkStills";
 import EpkResources from "../components/EpkView/EpkResources/EpkResources";
 import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
 import EpkAward from "../components/EpkView/EpkAward/EpkAward";
-import DonationBtn from "../components/donate/DonationBtn"; // Import your Donation Button component
 import DonationModal from "../components/donate/DonationModal"; 
 import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
@@ -47,9 +46,9 @@ function EpkViewPage() {
           setShowRequestModal(false);
           break;
 
-        case "donation":
-          setShowDonationModal(false); // Close donation form
-          break;
+          case "wish_to_donate":
+            setShowDonationModal(true); // Show the donation modal
+            break;
       }
     } else {
       setShowLoginModal(false);
@@ -67,7 +66,7 @@ function EpkViewPage() {
           setShowRequestModal(true);
           break;
 
-        case "donation":
+        case "wish_to_donate":
           setShowDonationModal(true); // Show donation form
           break;
       }
@@ -96,14 +95,12 @@ function EpkViewPage() {
   return (
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
-        <div className="tw-w-11/12">
-      
-             
-              <DonationBtn onClick={() => handleShow("donation")} /> 
-              
+        <div className="tw-w-11/12">             
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
-          <EpkSocialAction epkInfo={epkInfo} handler={handleShow} />
+          {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}
+          <EpkSocialAction epkInfo={epkInfo} handler={handleShow} showDonationModal={showDonationModal} setShowDonationModal={setShowDonationModal} />
+
           <EpkDetail epkInfo={epkInfo} handler={handleShow} />
           <EpkLogline
             epkInfo={epkInfo}

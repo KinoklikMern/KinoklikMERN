@@ -16,6 +16,8 @@ import VolumeIcon2 from "../images/icons/VolumeIcon2.svg";
 // import KIcon from "../images/icons/KickstarterIcon.svg";
 import http from "../http-common";
 import { useSelector } from "react-redux";
+import DonationIcon from "../images/icons/Donation.svg";
+import DonationBlackIcon from "../images/icons/Donation.svg";
 import DollarIcon from "../images/icons/DollarIcon.svg";
 import DollarBlackIcon from "../images/icons/DollarBlackIcon.svg";
 import PlusIcon from "../images/icons/PlusWhite.svg";
@@ -45,6 +47,7 @@ import actorProf from "../images/actor1.png"
 const HomeHead = (props) => {
   const [clickedStar, setClickedStar] = useState(false);
   const [clickedShare, setClickedShare] = useState(false);
+  const [clickedDonation, setClickedDonation] = useState(false);
   const [clickedDollar, setClickedDollar] = useState(false);
   const [clickedKIcon, setClickedKIcon] = useState(false);
   const [clickedPlus, setClickedPlus] = useState(false);
@@ -63,6 +66,13 @@ const HomeHead = (props) => {
   } else {
     userId = user.id;
     userRole = user.role;
+  }
+ // Donation
+  function handleClickDonation() {
+    setClickedDonation(true);
+    http.get(`fepks/wishestodonate/${fepk._id}/${userId}`).then((response) => {
+      setFepk(response.data);
+    });
   }
 
   // user is added to the list of $
@@ -138,6 +148,24 @@ const HomeHead = (props) => {
       </div>
       <section id="home" className="tw-pt-0">
         <div className="menu-icon tw-pt-12">
+            {/* Donation  */}
+            <div
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
+            style={{ borderRadius: "20px", cursor: "pointer" }}
+          >
+            <img
+              className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
+              src={
+                fepk?.donaton?.filter((item) => item._id === userId)
+                  .length !== 0
+                  ? DonationIcon
+                  : DonationBlackIcon
+              }
+              alt="/"
+              onClick={handleClickDonation}
+             
+            />
+          </div>
           {/* <Link to="/">   must be linked to /bookmark    */}
           <div
             className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"

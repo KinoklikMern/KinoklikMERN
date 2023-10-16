@@ -1,12 +1,12 @@
 // DonationButton.js
 import React from 'react';
-import { BiDonateHeart } from 'react-icons/bi'; 
+import { BiSolidDonateHeart } from 'react-icons/bi'; 
 
 const DonationButton = ({ onClick }) => {
   return (
     <div>
       
-    <BiDonateHeart size={75} color="white" onClick={onClick}/>
+    <BiSolidDonateHeart size={75} color="white" onClick={onClick}/>
     </div>
   );
 };
