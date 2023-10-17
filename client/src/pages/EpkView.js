@@ -54,7 +54,10 @@ import Axios from "axios";
 import { triggerFocus } from "antd/es/input/Input";
 import { FepkContext } from "../context/FepkContext";
 import StillsCarousel from "../components/Epk/Present/StillsCarousel";
+// import { NotificationContext } from "../context/NotificationContext";
+
 let socket;
+
 function EpkView() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
@@ -88,6 +91,8 @@ function EpkView() {
   const [reviews, setReviews] = useState([]);
   const [requests, setRequests] = useState([]);
 
+  // const { incrementNotification } = useContext(NotificationContext);
+
   const [report, setReport] = useState({
     userId: userId,
     reason: "Spam",
@@ -112,6 +117,34 @@ function EpkView() {
     "laboris nisi ut aliquip ex ea commodo consequat.";
 
   let count = 0;
+
+  const handleDollarIconClick = () => {
+    if (userId === "0") {
+      login();
+    } else {
+      console.log("clicked the dollar sign");
+      addUserToWishesToBuy();
+      // incrementNotification();
+    }
+  };
+
+  const handlePlusIconClick = () => {
+    if (userId === "0") {
+      login();
+    } else {
+      addUserToFavourites();
+      // incrementNotification();
+    }
+  };
+
+  const handleStarIconClick = () => {
+    if (userId === "0") {
+      login();
+    } else {
+      addUserToLikes();
+      // incrementNotification();
+    }
+  };
 
   useEffect(() => {
     http.get(`fepks/byTitle/${title}`).then((response) => {
@@ -773,7 +806,7 @@ function EpkView() {
         {/* icon-bar section */}
         <div className={style.iconContainer}>
           <div>
-            <a href="#">
+            {/* <a href="#">
               {userId === "0" ? (
                 <FontAwesomeIcon
                   icon={faDollarSign}
@@ -787,11 +820,15 @@ function EpkView() {
                   onClick={() => addUserToWishesToBuy()}
                 />
               )}
+            </a> */}
+            <a href="#" onClick={handleDollarIconClick}>
+              <FontAwesomeIcon icon={faDollarSign} size="lg" />
             </a>
+
             <span>{usersWishesToBuy}</span>
           </div>
           <div>
-            <a href="#">
+            {/* <a href="#">
               {userId === "0" ? (
                 <FontAwesomeIcon
                   icon={faPlus}
@@ -805,13 +842,21 @@ function EpkView() {
                   color="fa-duotone"
                   onClick={() => addUserToFavourites()}
                 />
-              )}
-              {/* <img className="icon" src={plusIcon} alt="save" /> */}
+              )}         
+            </a> */}
+
+            <a href="#" onClick={handlePlusIconClick}>
+              <FontAwesomeIcon
+                icon={faPlus}
+                size="lg"
+                color={userId !== "0" ? "fa-duotone" : undefined}
+              />
             </a>
+
             <span>{usersFavourites}</span>
           </div>
           <div>
-            <a href="#">
+            {/* <a href="#">
               {userId === "0" ? (
                 <FontAwesomeIcon
                   icon={faStar}
@@ -825,6 +870,10 @@ function EpkView() {
                   onClick={() => addUserToLikes()}
                 />
               )}
+            </a> */}
+
+            <a href="#" onClick={handleStarIconClick}>
+              <FontAwesomeIcon icon={faStar} size="lg" />
             </a>
             <span>{usersLikes}</span>
           </div>

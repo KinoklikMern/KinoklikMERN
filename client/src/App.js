@@ -143,6 +143,7 @@ function App() {
             />
             <Route path="dashboard/chat" element={<DashboardChat />} />
             <Route path="dashboard/settings" element={<DashboardSettings />} />
+            <Route path="dashboard/chat/:userId" element={<DashboardChat />} />
 
             <Route
               path="userdashboard/starred"

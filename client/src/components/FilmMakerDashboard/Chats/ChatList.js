@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ChatState } from "../../../context/ChatProvider.js";
 import NotificationItem from "./NotificationItem.js";
 import ChatListItem from "./ChatListItem.js";
+import { NotificationContext } from "../../../context/NotificationContext.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
 
-export default function ChatList({ fetchAgain }) {
+export default function ChatList({ fetchAgain, userId }) {
   const { user } = useSelector((user) => ({ ...user }));
   const { selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
@@ -16,6 +17,7 @@ export default function ChatList({ fetchAgain }) {
   // const displayChatlist = ()=>{
 
   // }
+  const { incrementMessage } = useContext(NotificationContext);
 
   const fetchChats = async () => {
     try {
@@ -29,6 +31,7 @@ export default function ChatList({ fetchAgain }) {
         config
       );
       setChats(data);
+
       setNotification([]);
       data.map((chat) => {
         // console.log("33", chat);
@@ -41,6 +44,7 @@ export default function ChatList({ fetchAgain }) {
             chat.latestMessage,
             ...notification,
           ]);
+          incrementMessage(); // Increment message count for new notification
         }
       });
     } catch (error) {
@@ -81,6 +85,13 @@ export default function ChatList({ fetchAgain }) {
     return formatDate == currentDate ? formatTime : formatDate;
   };
   const displayChatList = (chat) => {
+    // Yeming added
+    if (userId) {
+      const chatUserId = getChatSender(user, chat.users).userId;
+      if (chatUserId !== userId) {
+        return null;
+      }
+    }
     console.log("c", chat);
     console.log("notif", notification);
 
@@ -110,7 +121,5 @@ export default function ChatList({ fetchAgain }) {
     );
   };
 
-
-  
   return chats?.map((chat) => displayChatList(chat));
 }
