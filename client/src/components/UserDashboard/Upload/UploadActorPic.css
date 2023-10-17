@@ -186,20 +186,35 @@
     grid-row: 3/4;
     align-self: self-end;
     margin-top: 20px;
+    margin-bottom: -5px;
 }
 .actor-prof-file3{
     grid-column: 2/3;
     grid-row: 3/4;
     align-self: self-end;
     margin-top: 20px;
+    margin-bottom: -5px;
 }
 .actor-prof-file4{
     grid-column: 3/4;
     grid-row: 3/4;
     align-self: self-end;
     margin-top: 20px;
+    margin-bottom: -5px;
 }
 .actor-prof-file1{
     grid-column: 1/4;
     grid-row: 1/2;
+}
+
+.uploaded-image-preview-container {
+    max-width: 70%;
+    max-height: auto;
+    overflow: hidden;
+}
+.uploaded-image-preview-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }

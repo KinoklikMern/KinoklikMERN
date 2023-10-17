@@ -6,7 +6,7 @@ import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { CookieSharp } from "@mui/icons-material";
 import { FepkContext } from "../../context/FepkContext.js";
 
-export default function FilterTag({role}) {
+export default function FilterTag({ role }) {
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
   const actorFilterTag = [
@@ -30,7 +30,7 @@ export default function FilterTag({role}) {
       name: "all epks",
       isActive: true,
     },
-  ]
+  ];
   const FilterTag = [
     {
       name: "Male",
@@ -52,79 +52,177 @@ export default function FilterTag({role}) {
       name: "All Actors",
       isActive: true,
     },
-  ]
+  ];
 
-  const [filterTags, setFilterTags] = useState(role === "actor" ? FilterTag : actorFilterTag);
+  const [filterTags, setFilterTags] = useState(
+    role === "actor" ? FilterTag : actorFilterTag
+  );
 
   console.log(filterQuery);
 
+  // const clickHandler = (name, isActive) => {
+  //   let newTags;
+  //   let newQuery;
+
+  //   if (name === "all epks") {
+  //     newTags = filterTags.map((tag) => ({
+  //       ...tag,
+  //       isActive: tag.name === name,
+  //     }));
+  //     newQuery = isActive
+  //       ? []
+  //       : ["Movie", "TV Show", "Web Series", "Documentary"];
+  //   } else {
+  //     newTags = filterTags.map((tag) =>
+  //       tag.name === name ? { ...tag, isActive: !isActive } : tag
+  //     );
+
+  //     // newQuery = isActive
+  //     //   ? filterQuery.filter((item) => item !== name)
+  //     //   : [...filterQuery, name];
+
+  //     if (isActive) {
+  //       newQuery = filterQuery.filter((item) => item !== name);
+  //     } else {
+  //       if (filterQuery.length === 4) {
+  //         newQuery = [name];
+  //       } else {
+  //         newQuery = [...filterQuery, name];
+  //       }
+  //     }
+
+  //     // console.log(newQuery);
+  //     if (!isActive) {
+  //       newTags[4].isActive = false; // set "all epks" to inactive
+  //     }
+
+  //     //if all other tags are active
+  //     if (
+  //       newQuery.length ===
+  //       newTags.filter((tag) => tag.name !== "all epks").length
+  //     ) {
+  //       newTags = newTags.map((tag) =>
+  //         tag.name === "all epks" ? { ...tag, isActive: true } : tag
+  //       );
+  //       newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
+  //       // console.log(newTags);
+  //       // console.log(newQuery);
+  //     }
+
+  //     //if all other tags are inactive
+  //     if (
+  //       newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
+  //         .length === 4
+  //     ) {
+  //       newTags = newTags.map((tag) =>
+  //         tag.name === "all epks" ? { ...tag, isActive: true } : tag
+  //       );
+  //     }
+
+  //     //if one of the other tags is active
+  //     if (
+  //       newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
+  //         .length !== 0
+  //     ) {
+  //       newTags = newTags.map((tag) =>
+  //         tag.name === "all epks" ? { ...tag, isActive: false } : tag
+  //       );
+  //     }
+  //   }
+
+  //   setFilterTags(newTags);
+  //   setFilterQuery(newQuery);
+  // };
+
+  // ----- CHIHYIN -------
   const clickHandler = (name, isActive) => {
     let newTags;
     let newQuery;
 
-    if (name === "all epks") {
-      newTags = filterTags.map((tag) => ({
-        ...tag,
-        isActive: tag.name === name,
-      }));
-      newQuery = isActive
-        ? []
-        : ["Movie", "TV Show", "Web Series", "Documentary"];
-    } else {
+    if (role === "actor") {
+      // Logic for actor filters
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
       );
 
-      // newQuery = isActive
-      //   ? filterQuery.filter((item) => item !== name)
-      //   : [...filterQuery, name];
-
       if (isActive) {
         newQuery = filterQuery.filter((item) => item !== name);
       } else {
-        if (filterQuery.length === 4) {
-          newQuery = [name];
+        newQuery = [...filterQuery, name];
+      }
+
+      // Handle "All Actors" logic
+      if (name === "All Actors") {
+        newTags = filterTags.map((tag) => ({
+          ...tag,
+          isActive: tag.name === "All Actors",
+        }));
+        newQuery = ["Male", "Female", "City", "Country"];
+      }
+
+      // If any other actor tag is active, "All Actors" should be inactive
+      if (newTags.some((tag) => tag.isActive && tag.name !== "All Actors")) {
+        newTags = newTags.map((tag) =>
+          tag.name === "All Actors" ? { ...tag, isActive: false } : tag
+        );
+      }
+    } else {
+      if (name === "all epks") {
+        newTags = filterTags.map((tag) => ({
+          ...tag,
+          isActive: tag.name === name,
+        }));
+        newQuery = isActive
+          ? []
+          : ["Movie", "TV Show", "Web Series", "Documentary"];
+      } else {
+        newTags = filterTags.map((tag) =>
+          tag.name === name ? { ...tag, isActive: !isActive } : tag
+        );
+        if (isActive) {
+          newQuery = filterQuery.filter((item) => item !== name);
         } else {
-          newQuery = [...filterQuery, name];
+          if (filterQuery.length === 4) {
+            newQuery = [name];
+          } else {
+            newQuery = [...filterQuery, name];
+          }
         }
-      }
 
-      // console.log(newQuery);
-      if (!isActive) {
-        newTags[4].isActive = false; // set "all epks" to inactive
-      }
+        if (!isActive) {
+          newTags[4].isActive = false; // set "all epks" to inactive
+        }
 
-      //if all other tags are active
-      if (
-        newQuery.length ===
-        newTags.filter((tag) => tag.name !== "all epks").length
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: true } : tag
-        );
-        newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
-        // console.log(newTags);
-        // console.log(newQuery);
-      }
+        //if all other tags are active
+        if (
+          newQuery.length ===
+          newTags.filter((tag) => tag.name !== "all epks").length
+        ) {
+          newTags = newTags.map((tag) =>
+            tag.name === "all epks" ? { ...tag, isActive: true } : tag
+          );
+          newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
+        }
 
-      //if all other tags are inactive
-      if (
-        newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
-          .length === 4
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: true } : tag
-        );
-      }
+        //if all other tags are inactive
+        if (
+          newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
+            .length === 4
+        ) {
+          newTags = newTags.map((tag) =>
+            tag.name === "all epks" ? { ...tag, isActive: true } : tag
+          );
+        }
 
-      //if one of the other tags is active
-      if (
-        newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
-          .length !== 0
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: false } : tag
-        );
+        //if one of the other tags is active
+        if (
+          newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
+            .length !== 0
+        ) {
+          newTags = newTags.map((tag) =>
+            tag.name === "all epks" ? { ...tag, isActive: false } : tag
+          );
+        }
       }
     }
 

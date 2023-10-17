@@ -48,8 +48,8 @@
 
 .actor-profile{
     position: absolute;
-    top: 35%;
-    left: 10%;
+    top: 42%;
+    left: 8%;
     align-self: center;
     grid-column: 1/2;
     justify-self: center;
@@ -57,8 +57,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 1000;
-    width: 450px;
-    height: 600px;
+    width: 360px;
+    height: 480px;
     display: grid;
     grid-template-columns: repeat(2 , 1fr);
     grid-template-rows: repeat(1, 1fr);

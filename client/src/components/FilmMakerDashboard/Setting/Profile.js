@@ -176,14 +176,15 @@ export default function Profile() {
           type="text"
           name="age"
           placeholder="age"
-          defaultValue={userProfileData.age}
+          value={userProfileData.age}
           onChange={handleProfileChange}
         >
+          <option value="">--Please select--</option>
           <option value={"4"}>3-5</option>
           <option value={"7"}>6-9</option>
           <option value={"11"}>10-12</option>
           <option value={"14"}>13-15</option>
-          <option value={"28"}>16-20</option>
+          <option value={"18"}>16-20</option>
           <option value={"22"}>21-25</option>
           <option value={"28"}>26-29</option>
           <option value={"32"}>30-34</option>
@@ -194,13 +195,14 @@ export default function Profile() {
           <option value={"80"}>78-89+</option>
         </select>
         <select
-        type="text"
+          type="text"
           name="ethnicity"
           placeholder="ethnicity"
-          defaultValue={userProfileData.ethnicity}
+          value={userProfileData.ethnicity}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
+          <option value="">--Please select--</option>
           <option value="Caucasion">Caucasion</option>
           <option value="Hispanic">Hispanic</option>
           <option value="African American">African American</option>
@@ -208,16 +210,20 @@ export default function Profile() {
           <option value="Native">Native</option>
         </select>
         <select
-        type="text"
+          type="text"
           name="sex"
           placeholder="sexs"
-          defaultValue={userProfileData.ex}
+          value={userProfileData.sex}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
+          <option value="">--Please select--</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-         
+          {/* <option value="Transgender">Transgender</option>
+          <option value="Non-binary">Non-binary</option>
+          <option value="other">Other</option>
+          <option value="notToSay">Prefer not to say</option> */}
         </select>
         <input
           type="text"
@@ -286,7 +292,7 @@ export default function Profile() {
             disabled
             className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
             style={{
-              marginBottom: "20px"
+              marginBottom: "20px",
             }}
           >
             Save

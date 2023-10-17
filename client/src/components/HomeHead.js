@@ -39,8 +39,8 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./HomeHead/SearchBar";
-import actorBack from "../images/actor2.png"
-import actorProf from "../images/actor1.png"
+import actorBack from "../images/actor2.png";
+import actorProf from "../images/actor1.png";
 
 const HomeHead = (props) => {
   const [clickedStar, setClickedStar] = useState(false);
@@ -112,29 +112,31 @@ const HomeHead = (props) => {
 
   //showing the latest added movie
   useEffect(() => {
-    if(props.role === "actor"){
+    if (props.role === "actor") {
       http.get(`users/getactors/`).then((response) => {
-      let last = response.data.length - 1;
-      setActor(response.data[last]);
-    });
-    }
-    else{
+        let last = response.data.length - 1;
+        setActor(response.data[last]);
+      });
+    } else {
       http.get(`fepks/`).then((response) => {
         let last = response.data.length - 1;
         setFepk(response.data[last]);
       });
     }
-}, []);
+  }, []);
 
   return (
     <div
       className=" tw-h-[100vh]  tw-h-screen tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
       style={{
-        backgroundImage: (props.role && props.role === "actor") ? `url(${process.env.REACT_APP_AWS_URL}/${actor.bannerImg})` : `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`
+        backgroundImage:
+          props.role && props.role === "actor"
+            ? `url(${process.env.REACT_APP_AWS_URL}/${actor.bannerImg})`
+            : `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
       }}
     >
-      <div className="tw-mx-16 tw-flex tw-items-end tw-justify-end tw-mt-6">
-        <SearchBar/>
+      <div className="tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end">
+        <SearchBar />
       </div>
       <section id="home" className="tw-pt-0">
         <div className="menu-icon tw-pt-12">
@@ -261,10 +263,20 @@ const HomeHead = (props) => {
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">
             <div>
-              <a href={props.role === "actor" ? `actor/${actor._id}`:`epk/${fepk.title}`}>
+              <a
+                href={
+                  props.role === "actor"
+                    ? `actor/${actor._id}`
+                    : `epk/${fepk.title}`
+                }
+              >
                 <img
                   className="tw-h-[70vh] "
-                  src={props.role === "actor" ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}` : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                  src={
+                    props.role === "actor"
+                      ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
+                      : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                  }
                   alt="/"
                 />
               </a>
@@ -272,7 +284,9 @@ const HomeHead = (props) => {
 
             <div>
               <h1 className="movieTitle tw-pl-48 tw-text-8xl tw-font-semibold">
-                {props.role === "actor" ? actor.firstName + " " + actor.lastName:fepk.title}
+                {props.role === "actor"
+                  ? actor.firstName + " " + actor.lastName
+                  : fepk.title}
               </h1>
             </div>
           </div>

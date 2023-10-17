@@ -88,8 +88,14 @@ const UserSchema = mongoose.Schema({
   bannerImg: {
     type: String,
     trim: true,
+    // default:
+    //   "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
+  },
+  thumbnail: {
+    type: String,
+    trim: true,
     default:
-      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844377/banners/sample_banner1.png",
   },
   aboutMe: {
     type: String,
@@ -106,6 +112,13 @@ const UserSchema = mongoose.Schema({
     ],
   },
   likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  // Chihyin added
+  kkFollowers: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
