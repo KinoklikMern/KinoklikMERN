@@ -3,23 +3,37 @@ import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
 import avatarDemo from "../../images/avatarDefault.jpeg";
 import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
 import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ChatPage() {
   const [fetchAgain, setFetchAgain] = useState(false);
+
+  // Yeming added
+  const { userId } = useParams();
+  const navigate = useNavigate(); // Initialize navigate function
+
+  useEffect(() => {
+    if (userId) {
+      // If there's a selected user ID, navigate to the chat page for that user
+      navigate(`/dashboard/chat/${userId}`);
+    }
+  }, [userId, navigate]);
+  //
+
   return (
-      <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
-        <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white">
-          <p className="tw-text-4xl">Filmmaker Dashboard</p>
+    <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
+      <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white">
+        <p className="tw-text-4xl">Filmmaker Dashboard</p>
+      </div>
+      <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
+        <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
+          <Sidebar selectedTab="Messages" />
         </div>
-        <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
-          <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
-            <Sidebar selectedTab="Messages" />
-          </div>
-          <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-rounded-lg tw-bg-white tw-p-4">
-            <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 ">
-              <div className="tw-overflow-auto tw-bg-[#1E0039] tw--m-4">
-                {/* search bar */}
-                {/* <label className="tw-relative tw-block">
+        <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-rounded-lg tw-bg-white tw-p-4">
+          <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 ">
+            <div className="tw--m-4 tw-overflow-auto tw-bg-[#1E0039]">
+              {/* search bar */}
+              {/* <label className="tw-relative tw-block">
                   <span className="tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-2">
                     <FontAwesomeIcon
                       icon={faMagnifyingGlass}
@@ -33,15 +47,24 @@ export default function ChatPage() {
                     name="search"
                   />
                 </label> */}
-                {/* chatlist */}
-                <ChatList fetchAgain={fetchAgain}/>
-              </div>
-              <div className="tw-col-span-2 tw-mx-4 tw-overflow-y-auto tw-rounded-lg">
-                <MessageBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
-              </div>
+              {/* chatlist */}
+              {/* <ChatList fetchAgain={fetchAgain} /> */}
+
+              {userId ? (
+                <ChatList fetchAgain={fetchAgain} userId={userId} />
+              ) : (
+                <ChatList fetchAgain={fetchAgain} />
+              )}
+            </div>
+            <div className="tw-col-span-2 tw-mx-4 tw-overflow-y-auto tw-rounded-lg">
+              <MessageBox
+                fetchAgain={fetchAgain}
+                setFetchAgain={setFetchAgain}
+              />
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 }

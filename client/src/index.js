@@ -18,6 +18,7 @@ import reducers from "./reducers";
 
 import App from "./App";
 import ChatProvider from "./context/ChatProvider";
+import { NotificationProvider } from "./context/NotificationContext";
 const persistConfig = {
   key: "root",
   storage,
@@ -40,7 +41,9 @@ root.render(
       <BrowserRouter>
         <ChatProvider>
           <SnackbarProvider maxSnack={3}>
-            <App />
+            <NotificationProvider>
+              <App />
+            </NotificationProvider>
           </SnackbarProvider>
         </ChatProvider>
       </BrowserRouter>
