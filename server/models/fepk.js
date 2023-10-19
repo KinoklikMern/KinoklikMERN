@@ -147,6 +147,14 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
+   // "$" sign front end
+   wishes_to_donate: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
   // "$" sign front end
   wishes_to_buy: [
     {

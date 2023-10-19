@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import { Form, Modal, Button ,Col,Container,Row  } from "react-bootstrap";
+import paypalImage from '../../images/PayPal-Logo.png';
 
-const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
-  console.log("epkImage:", epkImage); 
+
+const DonationModal = ({ isOpen, onRequestClose, epkImage,epkpaypal }) => {
+  //console.log("epkImage:", epkImage); 
   const [donationAmount, setDonationAmount] = useState(0);
   const [nameOnCard, setNameOnCard] = useState("");
   const [cardNumber, setCardNumber] = useState("");
@@ -18,43 +15,112 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
   const [province, setProvince] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
-
-  const handleDonationSubmit = () => {
-    // Send the donation data to Stripe or your backend for processing
-    // You'll need to implement this part based on your backend setup.
-    // For example, you can use the Stripe API to handle the payment.
+  const handleDonationSubmit = async () => {
+    try {
+      // Create a Payment Intent using the Stripe API
+      const response = await fetch('/donations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: donationAmount,
+          name: nameOnCard,
+          cardNumber,
+          expiry,
+          cvc,
+          // Add other necessary payment details here
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        // Payment was successful
+        // Display a success message to the user
+      } else {
+        // Payment failed
+        // Display an error message to the user
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle errors here
+    }
   };
 
+  const handleDonationPaypalSubmit = () => {
+    // Redirect to the PayPal donation page or URL
+    window.location.href = epkpaypal; // Replace this with the actual PayPal donation page URL.
+  };
+  
+  const buttonStyle = {
+    backgroundColor: 'white',
+    color: '#1E0039',
+    margin:'10px 0px',
+    width: '50%',
+    border: '2px #1E0039', 
+   
+  };
+  
+  const selectedButtonStyle = {
+    backgroundColor:  '#1E0039',
+    color: 'white',
+    margin:'10px 0px',
+    width: '50%',
+    border: '2px #1E0039', 
+  };
+
+ 
+
   return (
-    <Modal show={isOpen} onHide={onRequestClose} animation={true} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Support the filmmaker by making a one-time donation</Modal.Title>
-      </Modal.Header>
+    <Modal show={isOpen} onHide={onRequestClose} animation={true} centered size="lg">
+      <div style={{ backgroundColor: '#503764E0' }}>
+        <Modal.Header closeButton style={{ border: 'none' }}>
+         
+        </Modal.Header>
       <Modal.Body>
       <Container>
-        
+      <Row>
+          <Col>
+          <Modal.Title style={{ color: 'white', textAlign: 'center', marginBottom: '15px' }}>
+            Support the filmmaker by making a one-time donation
+          </Modal.Title>
+          </Col>
+            </Row>
         <Row>
-          <Col style={{ width: "300%" }}>
+          <Col>
             <Row>
               <Col>
-                <Button variant="outline-primary" onClick={() => setDonationAmount(3)}>
+              <Button
+                  style={donationAmount === 3 ? selectedButtonStyle : buttonStyle}
+                  onClick={() => setDonationAmount(3)}
+                >
                   $3
                 </Button>
               </Col>
               <Col>
-                <Button variant="outline-primary" onClick={() => setDonationAmount(5)}>
+              <Button
+                  style={donationAmount === 5 ? selectedButtonStyle : buttonStyle}
+                  onClick={() => setDonationAmount(5)}
+                >
                   $5
                 </Button>
               </Col>
             </Row>
             <Row>
               <Col>
-                <Button variant="outline-primary" onClick={() => setDonationAmount(8)}>
+              <Button
+                  style={donationAmount === 8 ? selectedButtonStyle : buttonStyle}
+                  onClick={() => setDonationAmount(8)}
+                >
                   $8
                 </Button>
               </Col>
               <Col>
-                <Button variant="outline-primary" onClick={() => setDonationAmount(10)}>
+              <Button
+                  style={donationAmount === 10 ? selectedButtonStyle : buttonStyle}
+                  onClick={() => setDonationAmount(10)}
+                >
                   $10
                 </Button>
               </Col>
@@ -63,15 +129,15 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
               <Col>
                 <Form.Control
                   type="text"
-                  placeholder="Other amount:0.00$"
+                  placeholder="Other amount : 0.00$"
                   value={donationAmount}
                   onChange={(e) => setDonationAmount(e.target.value)}
                 />
               </Col>
             </Row>
           </Col>
-          <Col style={{ width: "300%" }}>
-            <Form.Group>
+          <Col>
+            <Form.Group style={{ margin: '5px 0px' }}>
               {/* <Form.Label>Name as on the card</Form.Label> */}
               <Form.Control
                 type="text"
@@ -80,7 +146,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
                 onChange={(e) => setNameOnCard(e.target.value)}
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ marginBottom: '5px' }}>
               {/* <Form.Label>Card Number</Form.Label> */}
               <Form.Control
                 type="text"
@@ -91,7 +157,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
             </Form.Group>
             <Row>
               <Col>
-                <Form.Group>
+                <Form.Group style={{ marginBottom: '5px' }}>
                   {/* <Form.Label>MM/YY</Form.Label> */}
                   <Form.Control
                     type="text"
@@ -102,7 +168,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group>
+                <Form.Group style={{ marginBottom: '5px' }}>
                   {/* <Form.Label>CVC</Form.Label> */}
                   <Form.Control
                     type="text"
@@ -113,7 +179,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
                 </Form.Group>
               </Col>
             </Row>
-            <Form.Group>
+            <Form.Group style={{ marginBottom: '5px' }}>
               {/* <Form.Label>Billing Address</Form.Label> */}
               <Form.Control
                 type="text"
@@ -124,7 +190,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
             </Form.Group>
             <Row>
               <Col>
-                <Form.Group>
+                <Form.Group style={{ marginBottom: '5px' }}>
                   {/* <Form.Label>City</Form.Label> */}
                   <Form.Control
                     type="text"
@@ -135,7 +201,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group>
+                <Form.Group style={{ marginBottom: '5px' }}>
                   {/* <Form.Label>Province</Form.Label> */}
                   <Form.Control
                     type="text"
@@ -148,7 +214,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
             </Row>
             <Row>
               <Col>
-                <Form.Group>
+                <Form.Group style={{ marginBottom: '5px' }}>
                   {/* <Form.Label>Postal Code</Form.Label> */}
                   <Form.Control
                     type="text"
@@ -159,7 +225,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group>
+                <Form.Group style={{ marginBottom: '25px', }}>
                   {/* <Form.Label>Country</Form.Label> */}
                   <Form.Control
                     type="text"
@@ -168,7 +234,15 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
                     onChange={(e) => setCountry(e.target.value)}
                   />
                 </Form.Group>
+                
               </Col>
+        <Button  onClick={handleDonationPaypalSubmit} style={{ marginBottom: '10px',backgroundColor: '#FFD600' }}>
+              Donate with PayPal
+        </Button>
+        <Button  onClick={handleDonationSubmit} style={{ marginBottom: '5px',backgroundColor: '#5B1DDF' }}>
+          Donate with  Debit or Credit Card
+        </Button>
+         
             </Row>
           </Col>
           <Col>
@@ -178,14 +252,13 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage }) => {
         </Row>
         </Container>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onRequestClose}>
-          Close
-        </Button>
-        <Button className="tw-inline-block tw-rounded-lg tw-bg-violet-800 tw-px-4 tw-py-2 tw-text-xl tw-font-bold tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base" variant="primary" onClick={handleDonationSubmit}>
-          Donate
-        </Button>
+      <Modal.Footer style={{ border: 'none',float: 'left' }}>
+      <div>
+      <img src={paypalImage} alt="PayPal Image" style={{ width: '50px', height:'30px' }}  />
+  </div>
+        
       </Modal.Footer>
+      </div>
     </Modal>
   );
 };
@@ -228,50 +301,6 @@ export default DonationModal;
 //           Submit Donation
 //         </Button>
 //       </Modal.Footer>
-//     </Modal>
-//   );
-// };
-
-// export default DonationModal;
-
-// import React from "react";
-// import axios from "axios";
-// import Modal from 'react-modal';
-
-// const DonationModal = ({ closeModal }) => {
-//   return (
-//     <Modal
-//       isOpen={true} // Open the modal for the Donation Form
-//       onRequestClose={closeModal}
-//       contentLabel="Donation Form"
-//       style={{
-//         content: {
-//           width: "1114px",
-//           height: "603px",
-//           position: "relative",
-//           top: "-7322px",
-//           left: "-402px",
-//           fontFamily: "Roboto",
-//           fontSize: "40px",
-//           fontWeight: 800,
-//           lineHeight: "47px",
-//           letterSpacing: "0em",
-//           textAlign: "left",
-//           backgroundColor: "#503764E0",
-//         },
-//       }}
-//     >
-//       <button
-//         className="cancel-button"
-//         onClick={closeModal}
-//       >
-//         Cancel
-//       </button>
-//       <h2>Support the filmmaker by making a one-time donation.</h2>
-//       <form onSubmit={(e) => e.preventDefault()}>
-//         {/* Donation form fields go here */}
-//         <button type="submit">Submit Donation</button>
-//       </form>
 //     </Modal>
 //   );
 // };

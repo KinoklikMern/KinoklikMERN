@@ -4,15 +4,21 @@ const donationSchema = new mongoose.Schema({
   amount: Number,
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User',  // Make sure this matches the name of your User model
   },
-  epk: {
+  fepk: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'epk',
+    ref: 'fepk',   // Make sure this matches the name of your FEPK model
   },
   stripeChargeId: String,
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  
 });
 
 const Donation = mongoose.model("Donation", donationSchema);
 
 export default Donation;
+
