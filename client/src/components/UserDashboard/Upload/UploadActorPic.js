@@ -5,7 +5,6 @@ import instagramIcon from "../../../images/icons/002-instagram.svg";
 import twiiterIcon from "../../../images/icons/005-twitter.svg";
 import facebookIcon from "../../../images/icons/004-facebook-app-logo.svg";
 import Modal from "react-modal";
-import { useNavigate } from "react-router-dom";
 
 export default function UploadActorPic({ user }) {
   const [file1, setFile1] = useState("");
@@ -29,28 +28,73 @@ export default function UploadActorPic({ user }) {
   const [textareaValue, setTextareaValue] = useState(user.aboutMe);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState("");
+  const [characterLength, setCharacterLength] = useState(0);
+  // States for each image preview before saving
+  const [previewImage1, setPreviewImage1] = useState(null);
+  const [previewImage2, setPreviewImage2] = useState(null);
+  const [previewImage3, setPreviewImage3] = useState(null);
+  const [previewImage4, setPreviewImage4] = useState(null);
 
   let i1 = "";
   let i2 = "";
   let i3 = "";
 
+  // // Helper function to handle file reading
+  // const handleFileRead = (file, setPreview) => {
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPreview(reader.result); // Update the respective preview image state
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
   const file1Selected = (event) => {
     const file = event.target.files[0];
     setFile1(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage1(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
-
   const file2Selected = (event) => {
     const file = event.target.files[0];
     setFile2(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage2(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   const file3Selected = (event) => {
     const file = event.target.files[0];
     setFile3(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage3(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   const file4Selected = (event) => {
     const file = event.target.files[0];
     setFile4(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage4(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
+
   // const fileBannerSelected = (event) => {
   //   const file = event.target.files[0];
   //   setFileBanner(file);
@@ -61,25 +105,22 @@ export default function UploadActorPic({ user }) {
   //     setDuration(videoRef.current.duration);
   //   }
   // };
+
   // ----- CHIHYIN -------
   const fileBannerSelected = (event) => {
     const file = event.target.files[0];
     setFileBanner(file);
-
     if (file) {
       const videoUrl = URL.createObjectURL(file);
       videoRef.current.srcObject = null; // Clear the current source object
       videoRef.current.src = videoUrl; // Set the new source
       videoRef.current.load(); // Load the new source
-
       videoRef.current.onloadedmetadata = () => {
         setDuration(videoRef.current.duration);
       };
     }
   };
-
   const captureThumbnail = () => {
-    // Get the canvas context
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     // Set the canvas dimensions same as video
@@ -92,7 +133,28 @@ export default function UploadActorPic({ user }) {
     // Set the image URL to state
     setThumbnailImage(imageUrl);
   };
-  // ----- CHIHYIN -------
+  function dataURLtoBlob(dataurl) {
+    // Check if 'dataurl' is valid
+    if (typeof dataurl !== "string" || !dataurl.includes(",")) {
+      console.error("Invalid data URL passed to dataURLtoBlob.");
+      return null;
+    }
+    var arr = dataurl.split(","),
+      mimeParts = arr[0].match(/:(.*?);/);
+    // Check if the MIME type is present in the data URL
+    if (!mimeParts || mimeParts.length <= 1) {
+      console.error("No MIME type found in data URL.");
+      return null;
+    }
+    var mime = mimeParts[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+  }
 
   useEffect(() => {
     http.get(`users/getactor/${user.id}`).then((response) => {
@@ -101,44 +163,83 @@ export default function UploadActorPic({ user }) {
       setProfs(response.data.profiles);
       setTextareaValue(response.data.aboutMe);
       // ----- CHIHYIN -------
+      if (response.data.aboutMe) {
+        setTextareaValue(response.data.aboutMe);
+        setCharacterLength(response.data.aboutMe.length);
+      }
       setActorData({
         bannerImg: response.data.bannerImg,
+        thumbnail: response.data.thumbnail,
         picture: response.data.picture,
         profiles: response.data.profiles,
       });
     });
   }, []);
 
-  const navigate = useNavigate();
-  const navigateToActor = () => {
-    navigate(`/actor/${user.id}`, { state: { thumbnail: thumbnailImage } });
-    console.log("Navigating...");
-  };
-  // ----- CHIHYIN -------
-
   const [actorData, setActorData] = useState({
     bannerImg: actor.bannerImg,
+    thumbnail: actor.thumbnail,
     picture: actor.picture,
     profiles: actor.profiles,
+    aboutMe: actor.aboutMe,
   });
 
+  const handleCount = (event) => {
+    const value = event.target.value;
+    setCharacterLength(value.length);
+  };
+
+  // const checkFileMimeType = (file) => {
+  //   if (file !== "") {
+  //     if (
+  //       file.type === "video/mp4" ||
+  //       file.type === "video/mpeg" ||
+  //       file.type === "video/quicktime" ||
+  //       file.type === "video/x-ms-wmv" ||
+  //       file.type === "video/ogg" ||
+  //       file.type === "video/3gpp" ||
+  //       file.type === "video/x-msvideo" ||
+  //       file.type === "image/png" ||
+  //       file.type === "image/jpg" ||
+  //       file.type === "image/jpeg"
+  //     )
+  //       return true;
+  //     else return false;
+  //   } else return true;
+  // };
+  // ----- CHIHYIN -------
   const checkFileMimeType = (file) => {
-    if (file !== "") {
-      if (
-        file.type === "video/mp4" ||
-        file.type === "video/mpeg" ||
-        file.type === "video/quicktime" ||
-        file.type === "video/x-ms-wmv" ||
-        file.type === "video/ogg" ||
-        file.type === "video/3gpp" ||
-        file.type === "video/x-msvideo" ||
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg"
-      )
-        return true;
-      else return false;
-    } else return true;
+    const allowedMIMETypes = [
+      "video/mp4",
+      "video/mpeg",
+      "video/quicktime",
+      "video/x-ms-wmv",
+      "video/ogg",
+      "video/3gpp",
+      "video/x-msvideo",
+      "image/png",
+      "image/jpg",
+      "image/jpeg",
+    ];
+    // Check if 'file' is a string assuming it's a data URL.
+    if (typeof file === "string") {
+      // Check if it's a data URL
+      if (file.startsWith("data:")) {
+        const mime = file.split(",")[0].split(":")[1].split(";")[0];
+        return allowedMIMETypes.includes(mime);
+      } else {
+        console.error(
+          "Unexpected string format received. Expected a data URL."
+        );
+        return false;
+      }
+    }
+    // If 'file' seems to be a File object (or similar).
+    if (file && file.type) {
+      return allowedMIMETypes.includes(file.type);
+    }
+    console.error("No file provided or unexpected format.");
+    return false;
   };
 
   const editAbout = async (e) => {
@@ -159,6 +260,25 @@ export default function UploadActorPic({ user }) {
     e.preventDefault();
     let formDataBanner = new FormData();
     formDataBanner.append("file", fileBanner);
+
+    let formDataThumbnail;
+    if (thumbnailImage && thumbnailImage.startsWith("data:image")) {
+      const thumbnailBlob = dataURLtoBlob(thumbnailImage);
+      if (!thumbnailBlob) {
+        console.error("Failed to create blob from data URL.");
+        setMessage("An error occurred while processing the thumbnail image.");
+        return; // Stop the execution of the function here
+      }
+      formDataThumbnail = new FormData();
+      formDataThumbnail.append("file", thumbnailBlob, "thumbnail.png");
+    } else {
+      console.log(
+        "No thumbnail image provided or not a valid data URL, skipping thumbnail upload."
+      );
+      // If you want to stop processing when there's no thumbnail, uncomment the next line
+      // return;
+    }
+
     let formTest = new FormData();
     formTest.append("file", file1);
     let formData2 = new FormData();
@@ -166,7 +286,6 @@ export default function UploadActorPic({ user }) {
     let formData4 = new FormData();
 
     formData2.append("file", file2);
-
     formData3.append("file", file3);
     formData4.append("file", file4);
 
@@ -175,7 +294,8 @@ export default function UploadActorPic({ user }) {
       (!file2 || checkFileMimeType(file2)) &&
       (!file3 || checkFileMimeType(file3)) &&
       (!file4 || checkFileMimeType(file4)) &&
-      (!fileBanner || checkFileMimeType(fileBanner))
+      (!fileBanner || checkFileMimeType(fileBanner)) &&
+      (!thumbnailImage || checkFileMimeType(thumbnailImage))
     ) {
       if (fileBanner) {
         console.log("video size: " + fileBanner.size);
@@ -196,6 +316,24 @@ export default function UploadActorPic({ user }) {
         } else {
           setMessage("video Time Must Be Less Than 5 Min");
         }
+      }
+      // ----- CHIHYIN -------
+      if (formDataThumbnail) {
+        await http
+          .post("users/actorthumbnail", formDataThumbnail, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            if (response.data.key !== undefined) {
+              actorData.thumbnail = response.data.key;
+              console.log("thumbnail:", actorData.thumbnail);
+            }
+          })
+          .catch((err) =>
+            console.log("Error uploading thumbnail:", err.message)
+          );
       }
       if (file1) {
         await http
@@ -256,20 +394,22 @@ export default function UploadActorPic({ user }) {
         .put(`users/actor/files/${user.id}`, {
           picture: actorData.picture,
           bannerImg: actorData.bannerImg,
+          thumbnail: actorData.thumbnail,
           profiles: [
-            i1 != "" ? i1 : profs[0],
-            i2 != "" ? i2 : profs[1],
-            i3 != "" ? i3 : profs[2],
+            i1 !== "" ? i1 : profs[0],
+            i2 !== "" ? i2 : profs[1],
+            i3 !== "" ? i3 : profs[2],
           ],
         })
         .then((res) => {
           console.log("saved");
-          // navigateToActor();
         })
         .catch((err) => {
           console.log(err);
+          setMessage("An unexpected error occurred.");
         });
       setMessage("upload success");
+      window.location.reload();
     } else {
       setMessage("error in Mime");
     }
@@ -285,8 +425,16 @@ export default function UploadActorPic({ user }) {
       <div className="actor-upload-pic-container">
         <div
           className="actor-upload-profile-pic"
+          // style={{
+          //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${actor.picture})`,
+          //   backgroundSize: "cover",
+          //   backgroundRepeat: "no-repeat",
+          // }}
+          // ----- CHIHYIN -----
           style={{
-            backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${actor.picture})`,
+            backgroundImage: previewImage1
+              ? `url(${previewImage1})`
+              : `url(${process.env.REACT_APP_AWS_URL}/${actor.picture})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
@@ -303,7 +451,7 @@ export default function UploadActorPic({ user }) {
               id="actor-file1"
             />
             <label
-              for="actor-file1"
+              htmlFor="actor-file1"
               className="actor-prof-file"
               style={{
                 fontSize: "20px",
@@ -311,6 +459,7 @@ export default function UploadActorPic({ user }) {
             >
               Upload Headshot
             </label>
+            <div className="uploaded-image-preview-container"></div>
           </div>
           <div className="actor-prof-file2">
             <input
@@ -326,8 +475,16 @@ export default function UploadActorPic({ user }) {
             <label
               htmlFor="actor-file2"
               className="actor-prof-file"
+              // style={{
+              //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[0]})`,
+              //   backgroundSize: "cover",
+              //   backgroundRepeat: "no-repeat",
+              // }}
+              // ----- CHIHYIN -----
               style={{
-                backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[0]})`,
+                backgroundImage: previewImage2
+                  ? `url(${previewImage2})`
+                  : `url(${process.env.REACT_APP_AWS_URL}/${profs[0]})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
@@ -349,8 +506,16 @@ export default function UploadActorPic({ user }) {
             <label
               for="actor-file3"
               className="actor-prof-file"
+              // style={{
+              //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[1]})`,
+              //   backgroundSize: "cover",
+              //   backgroundRepeat: "no-repeat",
+              // }}
+              // ----- CHIHYIN -----
               style={{
-                backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[1]})`,
+                backgroundImage: previewImage3
+                  ? `url(${previewImage3})`
+                  : `url(${process.env.REACT_APP_AWS_URL}/${profs[1]})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
@@ -372,8 +537,16 @@ export default function UploadActorPic({ user }) {
             <label
               for="actor-file4"
               className="actor-prof-file"
+              // style={{
+              //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[2]})`,
+              //   backgroundSize: "cover",
+              //   backgroundRepeat: "no-repeat",
+              // }}
+              // ----- CHIHYIN -----
               style={{
-                backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[2]})`,
+                backgroundImage: previewImage4
+                  ? `url(${previewImage4})`
+                  : `url(${process.env.REACT_APP_AWS_URL}/${profs[2]})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
@@ -452,13 +625,27 @@ export default function UploadActorPic({ user }) {
       <div className="actor-dashbaord-about">
         <textarea
           className="actor-dash-textarea"
+          maxLength="500"
           value={textareaValue}
-          onChange={(e) => setTextareaValue(e.target.value)}
+          onChange={(e) => {
+            setTextareaValue(e.target.value);
+            handleCount(e);
+          }}
         >
           {user.aboutMe
             ? user.aboutMe
             : "Biography text here example Biography text here example Biography text here example  Biography text here example Biography text here exampleBiography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example  Biography text here example  Biography text here exampleBiography text here example Biography text here example Biography text here example"}
         </textarea>
+        <span
+          style={{
+            fontSize: "15px",
+            display: "flex",
+            justifyContent: "right",
+            marginTop: "20px",
+          }}
+        >
+          {characterLength}/500 characters
+        </span>
       </div>
       <div>
         <Modal

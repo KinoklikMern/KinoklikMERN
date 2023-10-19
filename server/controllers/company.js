@@ -1,3 +1,4 @@
+import User from "../models/User.js";
 import company from "../models/company.js";
 
 // fetch all company info except users
@@ -174,6 +175,16 @@ export const updateCompanyByUser = async (req, res) => {
       .populate("user.userId") // includes all fields of this object
       .where("deleted")
       .equals(false);
+    // ----- CHIHYIN -----
+    // After dealing with company logic, find the user and update hasAgent
+    const user = await User.findOne({ _id: userId });
+    if (user) {
+      user.hasAgent = req.body.hasAgent;
+      await user.save();
+    } else {
+      res.status(404).json({ message: "User not found." });
+      return;
+    }
     if (!companyGet) {
       const newCompany = new company(companyToSave);
       await newCompany.save();
