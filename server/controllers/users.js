@@ -25,6 +25,7 @@ export const register = async (req, res) => {
       phone,
       website,
       bannerImg,
+      thumbnail,
       headImg,
     } = req.body;
 
@@ -516,12 +517,14 @@ export const actorUploadFiles = async (req, res) => {
       const updatedProfile = {
         //...userOne,
         bannerImg: req.body.bannerImg,
+        thumbnail: req.body.thumbnail,
         picture: req.body.picture,
         profiles: req.body.profiles,
       };
 
       await userOne.updateOne({
         bannerImg: req.body.bannerImg,
+        thumbnail: req.body.thumbnail,
         picture: req.body.picture,
         profiles: req.body.profiles,
       });
@@ -780,29 +783,40 @@ export const getLikes = async (req, res) => {
 
 // get followed actor
 export const getActorFollowing = async (req, res) => {
-  const id = req.params.id;
+  // const id = req.params.id;
+  // try {
+  //   const fepkOne = await User.find({ _id: id }).where("deleted").equals(false);
+  //   let facebooks = 0;
+  //   let instagrams = 0;
+  //   let twitters = 0;
+  //   fepkOne.crew.forEach((element) => {
+  //     if (element.facebook_followers) {
+  //       facebooks += parseInt(element.facebook_followers);
+  //     }
+  //     if (element.instagram_followers) {
+  //       instagrams += parseInt(element.instagram_followers);
+  //     }
+  //     if (element.twitter_followers) {
+  //       twitters += parseInt(element.twitter_followers);
+  //     }
+  //   });
+  //   //res.status(200).json(fepkOne);
+  //   res
+  //     .status(200)
+  //     .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+  // } catch (error) {
+  //   res.status(404).json({ message: error.message });
+  // }
   try {
-    const fepkOne = await User.find({ _id: id }).where("deleted").equals(false);
-    let facebooks = 0;
-    let instagrams = 0;
-    let twitters = 0;
-    fepkOne.crew.forEach((element) => {
-      if (element.facebook_followers) {
-        facebooks += parseInt(element.facebook_followers);
-      }
-      if (element.instagram_followers) {
-        instagrams += parseInt(element.instagram_followers);
-      }
-      if (element.twitter_followers) {
-        twitters += parseInt(element.twitter_followers);
-      }
-    });
-    //res.status(200).json(fepkOne);
-    res
-      .status(200)
-      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+    const profile = await User.find({ role: "Actor" })
+      .where({ kkFollowers: { $in: [req.params.id] } })
+      .select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
+    }
+    res.send(profile);
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -858,5 +872,69 @@ export const getFollowers = async (req, res) => {
       .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+};
+
+// ----- CHIHYIN -----
+// adding user who followed the actor on KinoKlik
+export const getActorFollowers = async (req, res) => {
+  try {
+    const actorId = req.params.actorid;
+    const userId = req.params.userid;
+    const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
+    if (!actorProfile) {
+      return res.status(404).json({ error: "No Actor was found!" });
+    }
+    let iskkFollowed = actorProfile.kkFollowers.includes(userId);
+    if (!iskkFollowed) {
+      actorProfile.kkFollowers.push(userId);
+    } else {
+      actorProfile.kkFollowers.pull(userId);
+    }
+    await actorProfile.save();
+    const updatedActorProfile = await User.findOne({
+      role: "Actor",
+      _id: actorId,
+    }).select({ kkFollowers: 1 });
+    res.json({ ...updatedActorProfile.toObject() });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// adding user who liked the actor on KinoKlik
+export const getActorLikes = async (req, res) => {
+  try {
+    const actorId = req.params.actorid;
+    const userId = req.params.userid;
+    const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
+    if (!actorProfile) {
+      return res.status(404).json({ error: "No Actor was found!" });
+    }
+    let isLiked = actorProfile.likes.includes(userId);
+    if (!isLiked) {
+      actorProfile.likes.push(userId);
+    } else {
+      actorProfile.likes.pull(userId);
+    }
+    await actorProfile.save();
+    const updatedActorProfile = await User.findOne({
+      role: "Actor",
+      _id: actorId,
+    }).select({ likes: 1 });
+    res.json({ ...updatedActorProfile.toObject() });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// upload user(actor) thumbnail of the demo reel
+export const uploadActorThumbnail = async (req, res) => {
+  const file = req.file;
+  const result = await uploadFileToS3(file);
+  if (!result) {
+    res.status(406).send({ message: "File extention not supported!" });
+  } else {
+    res.status(200).send({ key: result.Key });
   }
 };

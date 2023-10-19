@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ActionIcon from "./ActionIcon";
 import DonationIcon from "../../../images/icons/Donation.svg";
 import DonationBlackIcon from "../../../images/icons/Donation.svg";
@@ -27,7 +27,13 @@ import {
 } from "react-share";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
+import { NotificationContext } from "../../../context/NotificationContext";
+// import { FepkContext } from "../../../context/FepkContext";
+
 export default function EpkSocialAction({ epkInfo, handler }) {
+  //
+  // const [fepkId, setFepkId, fepkMaker, setFepkMaker] = useContext(FepkContext);
+
   const { user } = useSelector((user) => ({ ...user }));
   let userId;
   let userRole;
@@ -57,6 +63,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const urlShare = "https://www.google.com"; ///window.location.href
   // console.log(epkInfo);
 
+  //Yeming added
+  const { incrementNotification, filmmakerInfo, setFilmmakerInfo } =
+    useContext(NotificationContext);
+
   useEffect(() => {
     try {
       http.get(`fepks/byTitle/${epkInfo.title}`).then((response) => {
@@ -68,6 +78,12 @@ export default function EpkSocialAction({ epkInfo, handler }) {
         setUsersWishesToBuy(response.data.wishes_to_buy.length);
         setUsersFavourites(response.data.favourites.length);
         setUsersLikes(response.data.likes.length);
+        //
+        // setFepkId(response.data._id);
+        // setFepkMaker(response.data.film_maker._id);
+        // console.log("fepk", response.data);
+        // console.log("fepkId", fepkId);
+        // console.log("fepkMaker", fepkMaker);
       });
     } catch (error) {
       console.log(error);
@@ -131,9 +147,17 @@ export default function EpkSocialAction({ epkInfo, handler }) {
 
   const handlers = {
     clickHandler: (name) => {
+      // console.log("State before action:", {
+      //   usersWishesToBuy,
+      //   usersFavourites,
+      //   usersLikes,
+      // });
+
       if (!user) {
         handler();
       } else {
+        let incrementValue = 0;
+
         switch (name) {
           case "wish_to_donate":
             handler("wish_to_donate"); // Use the handler function to open the donation modal
@@ -154,36 +178,82 @@ export default function EpkSocialAction({ epkInfo, handler }) {
             break;
           
           case "wish_to_buy":
+            // Determine if adding or removing from wishlist
+            // const isAddingToWishlist =
+            //   fepkInfo?.wishes_to_buy.filter((item) => item._id === userId)
+            //     .length === 0;
+            const isAddingToWishlist = fepkInfo?.wishes_to_buy.some(
+              (item) => item._id === userId
+            );
+            incrementValue = isAddingToWishlist ? 0 : 1;
+
             http
               .get(`fepks/wishestobuy/${epkInfo._id}/${userId}`)
               .then((response) => {
                 setFepkInfo(response.data);
-                console.log(response.data);
+                // console.log(response.data.wishes_to_buy.length);
+                // Update filmmaker info in the NotificationContext
+                const filmmakerInfo = response.data.film_maker._id;
+                setFilmmakerInfo(filmmakerInfo);
+
                 setUsersWishesToBuy(response.data.wishes_to_buy.length);
+                incrementNotification(incrementValue);
+
+                // console.log("State after wish_to_buy action:", {
+                //   usersWishesToBuy,
+                //   usersFavourites,
+                //   usersLikes,
+                // });
               })
               .catch((error) => {
                 console.error(error);
               });
             break;
           case "favorites":
+            // Determine if adding or removing from favouritelist
+            // const isAddingToFavouritelist =
+            //   fepkInfo?.favourites.filter((item) => item._id === userId)
+            //     .length === 0;
+            const isAddingToFavouritelist = fepkInfo?.favourites.some(
+              (item) => item._id === userId
+            );
+            incrementValue = isAddingToFavouritelist ? 0 : 1;
+
             http
               .get(`fepks/favourite/${epkInfo._id}/${userId}`)
               .then((response) => {
                 setFepkInfo(response.data);
-                console.log(response.data);
+                // console.log(response.data);
+                // Update filmmaker info in the NotificationContext
+                const filmmakerInfo = response.data.film_maker;
+                setFilmmakerInfo(filmmakerInfo);
                 setUsersFavourites(response.data.favourites.length);
+                incrementNotification(incrementValue);
               })
               .catch((error) => {
                 console.error(error);
               });
             break;
           case "likes":
+            // Determine if adding or removing from favouritelist
+            // const isAddingToLikelist =
+            //   fepkInfo?.likes.filter((item) => item._id === userId).length ===
+            //   0;
+            const isAddingToLikelist = fepkInfo?.likes.some(
+              (item) => item._id === userId
+            );
+            incrementValue = isAddingToLikelist ? 0 : 1;
+
             http
               .get(`fepks/like/${epkInfo._id}/${userId}`)
               .then((response) => {
                 setFepkInfo(response.data);
-                console.log(response.data);
+                // console.log(response.data);
+                // Update filmmaker info in the NotificationContext
+                const filmmakerInfo = response.data.film_maker;
+                setFilmmakerInfo(filmmakerInfo);
                 setUsersLikes(response.data.likes.length);
+                incrementNotification(incrementValue);
               })
               .catch((error) => {
                 console.error(error);
@@ -292,4 +362,3 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     </div>
   );
 }
-

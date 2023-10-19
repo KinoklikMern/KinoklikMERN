@@ -15,6 +15,12 @@ export default function Studio() {
   });
   const [disabled, setDisabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [hasAgent, setHasAgent] = useState(true);
+
+  const handlePermission = (decision) => {
+    setHasAgent(decision);
+    setDisabled(false);
+  };
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -50,9 +56,14 @@ export default function Studio() {
 
   function saveUserStudio() {
     //console.log(userStudioData);
+    const dataToUpdate = {
+      ...userStudioData,
+      hasAgent,
+    };
     Axios.put(
       `${process.env.REACT_APP_BACKEND_URL}/company/updateCompanyByUser/${userId}`,
-      userStudioData
+      // userStudioData
+      dataToUpdate
     )
       .then((res) => {
         setModalIsOpen(true);
@@ -78,62 +89,102 @@ export default function Studio() {
     //<form className="tw-h-full">
     <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
       <div className="tw-col-start-2 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
-        <input
-          type="text"
-          name="name"
-          placeholder= {userRole === "Actor" ? "Agent Name" : "Studio Name"}
-          defaultValue={userStudioData.name}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
-        <input
-          type="text"
-          name="website"
-          placeholder={userRole === "Actor" ? "Agent Website" : "Studio Website"}
-          defaultValue={userStudioData.website}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
-        <input
-          type="text"
-          name="email"
-          placeholder={userRole === "Actor" ? "Agent Email" : "Studio Email"}
-          defaultValue={userStudioData.email}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone"
-          defaultValue={userStudioData.phone}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          defaultValue={userStudioData.city}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
-        <input
-          type="text"
-          name="province"
-          placeholder="Province"
-          defaultValue={userStudioData.province}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          defaultValue={userStudioData.country}
-          onChange={handleProfileChange}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
+        {userRole === "Actor" && (
+          <div className="tw-mb-3 tw-flex tw-items-center">
+            <p className="tw-mb-0 tw-ml-9 tw-text-[#1E0039]">Representation</p>
+            <button
+              onClick={() => handlePermission(true)}
+              className={`tw-ml-5 tw-rounded-lg tw-py-1 tw-px-2 ${
+                hasAgent
+                  ? "tw-bg-[#1E0039] tw-text-white tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
+                  : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
+              }`}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => handlePermission(false)}
+              className={`tw-ml-4 tw-rounded-lg tw-py-1 tw-px-2 ${
+                !hasAgent
+                  ? "tw-bg-[#1E0039] tw-text-white tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
+                  : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
+              }`}
+            >
+              No
+            </button>
+          </div>
+        )}
+        {hasAgent && (
+          <>
+            <input
+              type="text"
+              name="name"
+              placeholder={userRole === "Actor" ? "Agent Name" : "Studio Name"}
+              defaultValue={userStudioData.name}
+              onChange={handleProfileChange}
+              disabled={!hasAgent}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="website"
+              placeholder={
+                userRole === "Actor" ? "Agent Website" : "Studio Website"
+              }
+              defaultValue={userStudioData.website}
+              onChange={handleProfileChange}
+              disabled={!hasAgent}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="email"
+              placeholder={
+                userRole === "Actor" ? "Agent Email" : "Studio Email"
+              }
+              defaultValue={userStudioData.email}
+              onChange={handleProfileChange}
+              disabled={!hasAgent}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone"
+              defaultValue={userStudioData.phone}
+              onChange={handleProfileChange}
+              disabled={!hasAgent}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              defaultValue={userStudioData.city}
+              onChange={handleProfileChange}
+              disabled={!hasAgent}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="province"
+              placeholder="Province"
+              defaultValue={userStudioData.province}
+              onChange={handleProfileChange}
+              disabled={!hasAgent}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="country"
+              placeholder="Country"
+              defaultValue={userStudioData.country}
+              onChange={handleProfileChange}
+              disabled={!hasAgent}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+          </>
+        )}
       </div>
       <div>
         <Modal
@@ -165,7 +216,7 @@ export default function Studio() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated studio successfully!</h2>
+            <h2>Updated successfully!</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
               Ok

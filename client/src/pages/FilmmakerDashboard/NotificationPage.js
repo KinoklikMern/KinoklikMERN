@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
 import UserCard from "../../components/FilmMakerDashboard/Notifications/UserCard";
@@ -8,6 +8,8 @@ import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
 import RequestCard from "../../components/FilmMakerDashboard/Notifications/RequestCard";
 import { approveRequest, refuseRequest } from "../../api/epks";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
+import { useNavigate } from "react-router-dom";
+// import { FepkContext } from "../../context/FepkContext";
 
 export default function NotificationPage() {
   const { user } = useSelector((user) => ({ ...user }));
@@ -20,14 +22,32 @@ export default function NotificationPage() {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
+  const handleStarClick = (likes) => {
+    setLikedUserList(likes);
+  };
+
+  const handleDollarClick = (wishesToBuy) => {
+    setLikedUserList(wishesToBuy);
+  };
+
+  const handlePlusClick = (favourites) => {
+    setLikedUserList(favourites);
+  };
+
   useEffect(() => {
     getFepksByFilmmakerId(user.id).then((res) => {
       setEpkList(res);
-      setLikedUserList(res[0].likes);
-      setRequestList({ requests: res[0].requests, fepkId: res[0]._id });
+      // console.log("userEffect", res[0]?.likes);
+      setLikedUserList(res[0]?.likes || []);
+      setRequestList({ requests: res[0]?.requests || [], fepkId: res[0]?._id });
+      // setLikedUserList(res[0].likes);
+      // setRequestList({ requests: res[0].requests, fepkId: res[0]._id });
       setLoading(false);
     });
-  }, [count]);
+    // }, [count]);
+  }, [user.id, count]);
 
   const handleApprove = (request, fepkId) => {
     const requestToApprove = {
@@ -61,6 +81,11 @@ export default function NotificationPage() {
     });
   };
 
+  const handleMessageClick = (userId) => {
+    // Navigate to the chat section for the specific user
+    navigate(`/dashboard/chat/${userId}`);
+  };
+
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
@@ -68,6 +93,8 @@ export default function NotificationPage() {
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-20">
+          {/* <Sidebar selectedTab="Notifications" /> */}
+
           <Sidebar selectedTab="Notifications" />
         </div>
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white">
@@ -85,7 +112,7 @@ export default function NotificationPage() {
                     onClick={(e) => {
                       e.preventDefault();
                       setSelectedEpk(index);
-                      setLikedUserList(epk.likes);
+                      // setLikedUserList(epk.likes);
                       setRequestList({
                         requests: epk.requests,
                         fepkId: epk._id,
@@ -95,6 +122,9 @@ export default function NotificationPage() {
                     <NotificationEpkCard
                       epkInfo={epk}
                       imgIsSelected={selectedEpk === index ? true : false}
+                      onStarClick={handleStarClick}
+                      onDollarClick={handleDollarClick}
+                      onPlusClick={handlePlusClick}
                     />
                   </div>
                 ))}
@@ -143,7 +173,21 @@ export default function NotificationPage() {
                 {openTab === 1 && (
                   <div>
                     {likedUserList?.map((user) => (
-                      <UserCard UserInfo={user} />
+                      // <UserCard UserInfo={user} key={user.id} />
+                      <UserCard
+                        key={user.id}
+                        UserInfo={{
+                          role: user.role,
+                          firstName: user.firstName,
+                          lastName: user.lastName,
+                          email: user.email,
+                          phone: user.phone,
+                          website: user.website,
+                          id: user._id,
+                          picture: user.picture,
+                        }}
+                        onMessageIconClick={() => handleMessageClick(user._id)}
+                      />
                     ))}
                   </div>
                 )}

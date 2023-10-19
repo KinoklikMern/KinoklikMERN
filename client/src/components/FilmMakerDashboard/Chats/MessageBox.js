@@ -103,8 +103,8 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
       ) {
         // notification
         if (!notification.includes(newMessageRecieved)) {
-            setNotification([newMessageRecieved, ...notification]);
-            // setFetchAgain(!fetchAgain);
+          setNotification([newMessageRecieved, ...notification]);
+          // setFetchAgain(!fetchAgain);
         }
       } else {
         setMessages([...messages, newMessageRecieved]);
@@ -120,7 +120,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const {data} = await axios.put(
+      const { data } = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/message/updateMessage/${selectedChat._id}`,
         {},
         config
@@ -129,7 +129,6 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
       console.log(`message: ${error.message}`);
     }
   };
-
 
   return (
     <>
@@ -152,7 +151,12 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
           >
             <img
               className="tw-h-12 tw-w-12 tw-flex-none tw-rounded-lg"
-              src={message.sender.picture == "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"?message.sender.picture:`${process.env.REACT_APP_AWS_URL}/${message.sender.picture}`}
+              src={
+                message.sender.picture ==
+                "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+                  ? message.sender.picture
+                  : `${process.env.REACT_APP_AWS_URL}/${message.sender.picture}`
+              }
               alt="profile image"
             />
             <div

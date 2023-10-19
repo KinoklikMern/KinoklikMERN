@@ -42,15 +42,15 @@ function NavbarButtons({ user, setToggle, toggle }) {
   // -- CHIHYIN --
   // show the edit icon for actor account owner, direct to the page "/userdashboard/actor"
   // also keep the functionality for filmmakers to edit
-  const { actorId } = useParams();
+  const actorId = window.location.pathname.split("/")[2];
   const matchFilmmaker = useMatch("/epk/*");
   const matchActor = useMatch("/actor/*");
   const isFilmmaker = !!matchFilmmaker;
   const isActor = !!matchActor;
   const isActorRole = user && user.role === "Actor";
   const editForFilmmaker =
-    isFilmmaker && user && user.id === fepkMaker?._id && fepkId !== "";
-  const editForActor = user && isActor && isActorRole;
+    isFilmmaker && user.id === fepkMaker._id && fepkId !== "";
+  const editForActor = user && isActor && isActorRole && user.id === actorId;
 
   const editPageUrl = isActorRole
     ? "/userdashboard/actor"
