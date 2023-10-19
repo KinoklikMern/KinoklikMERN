@@ -141,6 +141,11 @@ const UserSchema = mongoose.Schema({
     required: true,
     default: false,
   },
+  // ChihYin added
+  hasAgent: {
+    type: Boolean,
+    default: true,
+  },
   // Crew
   crew: [
     {
