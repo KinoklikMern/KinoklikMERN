@@ -1,13 +1,106 @@
 import React, { useEffect, useState } from "react";
 import "../HomeBody/HomeBody.css";
 import "../List/List.css";
+import "./DropDown.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faCheck,
+  faSortDown,
+  faSortUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { CookieSharp } from "@mui/icons-material";
 import { FepkContext } from "../../context/FepkContext.js";
+import AgeRangeDropdown from "./AgeRangeDropdown";
+import EthnicityDropdown from "./EthnicityDropdown";
+import RepresentationDropdown from "./RepresentationDropdown";
+import CityDropdown from "./CityDropdown";
+import CountryDropdown from "./CountryDropdown";
 
-export default function FilterTag({role}) {
+export default function FilterTag({ role }) {
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
+
+  // Yeming added
+
+  // State to manage selected values for specific dropdowns
+  const [selectedAgeRange, setSelectedAgeRange] = useState(null);
+  const [selectedEthnicity, setSelectedEthnicity] = useState(null);
+  const [selectedRepresentation, setSelectedRepresentation] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const [selectedDropdown, setSelectedDropdown] = useState(null);
+
+  const handleDropdownSelection = (name, value) => {
+    setFilterQuery((prevFilterQuery) => {
+      let updatedQuery = [...prevFilterQuery];
+
+      // Remove any existing entries for this dropdown
+      updatedQuery = updatedQuery.filter(
+        (item) => item.split(":")[0].trim() !== name
+      );
+
+      // Add the new entry if a value is selected
+      if (value) {
+        updatedQuery.push(`${name}: ${value}`);
+      }
+
+      // Check if "Male" or "Female" buttons are active
+      const isGenderActive = updatedQuery.some(
+        (item) => item === "Male" || item === "Female"
+      );
+
+      // Check if any of the dropdown values have been selected
+      const anyDropdownValueSelected = [
+        "Age Range",
+        "Ethnicity",
+        "Representation",
+        "City",
+        "Country",
+      ].some((dropdownName) =>
+        updatedQuery.some((item) => item.startsWith(`${dropdownName}:`))
+      );
+
+      // Update the "All Actors" button based on the selected dropdown values and gender
+      const allActorsIsActive = !isGenderActive && anyDropdownValueSelected;
+
+      // Update selected value based on the dropdown
+      switch (name) {
+        case "Age Range":
+          setSelectedAgeRange(value);
+          break;
+        case "Ethnicity":
+          setSelectedEthnicity(value);
+          break;
+        case "Representation":
+          setSelectedRepresentation(value);
+          break;
+        case "City":
+          setSelectedCity(value);
+          break;
+        case "Country":
+          setSelectedCountry(value);
+          break;
+        default:
+          break;
+      }
+
+      // Update the state of the "All Actors" button
+      setFilterTags((prevFilterTags) =>
+        prevFilterTags.map((tag) =>
+          tag.name === "All Actors"
+            ? { ...tag, isActive: allActorsIsActive }
+            : tag
+        )
+      );
+
+      // Close the dropdown
+      setSelectedDropdown((prev) => (prev === name ? null : name));
+
+      console.log("selectDropdown", selectedDropdown);
+      return updatedQuery;
+    });
+  };
 
   const actorFilterTag = [
     {
@@ -30,7 +123,7 @@ export default function FilterTag({role}) {
       name: "all epks",
       isActive: true,
     },
-  ]
+  ];
   const FilterTag = [
     {
       name: "Male",
@@ -40,21 +133,36 @@ export default function FilterTag({role}) {
       name: "Female",
       isActive: false,
     },
+
     {
-      name: "City",
+      name: "Age Range", // Age Range dropdown
       isActive: false,
     },
     {
-      name: "Country",
+      name: "Ethnicity", // Ethnicity dropdown
+      isActive: false,
+    },
+    {
+      name: "Representation", // Representation dropdown
+      isActive: false,
+    },
+    {
+      name: "City", // City dropdown
+      isActive: false,
+    },
+    {
+      name: "Country", // Country dropdown
       isActive: false,
     },
     {
       name: "All Actors",
       isActive: true,
     },
-  ]
+  ];
 
-  const [filterTags, setFilterTags] = useState(role === "actor" ? FilterTag : actorFilterTag);
+  const [filterTags, setFilterTags] = useState(
+    role === "actor" ? FilterTag : actorFilterTag
+  );
 
   console.log(filterQuery);
 
@@ -62,70 +170,57 @@ export default function FilterTag({role}) {
     let newTags;
     let newQuery;
 
-    if (name === "all epks") {
+    if (name === "all epks" || name === "All Actors") {
+      // Reset the dropdown state values to their default (null) when All Actors is clicked
+      setSelectedAgeRange(null);
+      setSelectedEthnicity(null);
+      setSelectedRepresentation(null);
+      setSelectedCity(null);
+      setSelectedCountry(null);
       newTags = filterTags.map((tag) => ({
         ...tag,
         isActive: tag.name === name,
+        // isActive: tag.name === name ? !isActive : false, // Toggle the state
       }));
-      newQuery = isActive
-        ? []
-        : ["Movie", "TV Show", "Web Series", "Documentary"];
+
+      newQuery = isActive ? [] : [];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
       );
 
-      // newQuery = isActive
-      //   ? filterQuery.filter((item) => item !== name)
-      //   : [...filterQuery, name];
-
       if (isActive) {
         newQuery = filterQuery.filter((item) => item !== name);
       } else {
-        if (filterQuery.length === 4) {
-          newQuery = [name];
-        } else {
-          newQuery = [...filterQuery, name];
-        }
+        newQuery = [...filterQuery, name];
       }
 
-      // console.log(newQuery);
-      if (!isActive) {
-        newTags[4].isActive = false; // set "all epks" to inactive
-      }
+      // Update "all epks" tag
+      const allEpksIsActive =
+        newQuery.includes("Movie") &&
+        newQuery.includes("TV Show") &&
+        newQuery.includes("Web Series") &&
+        newQuery.includes("Documentary");
 
-      //if all other tags are active
-      if (
-        newQuery.length ===
-        newTags.filter((tag) => tag.name !== "all epks").length
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: true } : tag
-        );
-        newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
-        // console.log(newTags);
-        // console.log(newQuery);
-      }
+      newTags = newTags.map((tag) =>
+        tag.name === "all epks" ? { ...tag, isActive: allEpksIsActive } : tag
+      );
 
-      //if all other tags are inactive
-      if (
-        newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
-          .length === 4
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: true } : tag
-        );
-      }
+      // Update "All Actors" tag
+      const allActorsIsActive =
+        !newQuery.includes("Male") &&
+        !newQuery.includes("Female") &&
+        !selectedAgeRange &&
+        !selectedEthnicity &&
+        !selectedRepresentation &&
+        !selectedCity &&
+        !selectedCountry;
 
-      //if one of the other tags is active
-      if (
-        newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
-          .length !== 0
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: false } : tag
-        );
-      }
+      newTags = newTags.map((tag) =>
+        tag.name === "All Actors"
+          ? { ...tag, isActive: allActorsIsActive }
+          : tag
+      );
     }
 
     setFilterTags(newTags);
@@ -133,31 +228,106 @@ export default function FilterTag({role}) {
   };
 
   // button components
-  const FilterButton = ({ name, isActive, clickHandler }) => {
-    return (
-      <>
-        <button
-          className={`tw-text-small tw-mr-5 tw-mb-1 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
-            !isActive
-              ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
-              : "tw-bg-white tw-text-[#1E0039]"
-          }`}
-          type="button"
-          onClick={() => clickHandler(name, isActive)}
-        >
-          {name}
+  const FilterButton = ({ name, isActive, clickHandler, selectedValue }) => {
+    const isDropdownActive = selectedDropdown === name;
+    // const isDropdownActive = selectedDropdown === selectedValue;
 
-          {!isActive ? (
-            <FontAwesomeIcon
-              className="tw-pl-5"
-              icon={faPlus}
-              style={{ color: "#aaaaaa" }}
-            />
-          ) : (
-            <FontAwesomeIcon className="tw-pl-5" icon={faCheck} />
-          )}
-        </button>
-      </>
+    return (
+      // <>
+      <div className="filter-button-container">
+        {name === "Age Range" ||
+        name === "Ethnicity" ||
+        name === "Representation" ||
+        name === "City" ||
+        name === "Country" ? (
+          <div className="relative inline-block">
+            <button
+              className={`filter-toggle tw-text-small tw-mr-5 tw-mb-1 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
+                // isDropdownActive
+                selectedValue
+                  ? "tw-bg-white tw-text-[#1E0039]"
+                  : "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
+              }`}
+              // onClick={() => handleDropdownSelection(name, selectedValue)}
+              onClick={() => handleDropdownSelection(name, null)}
+            >
+              {/* {name} */}
+              {selectedValue || name}
+              <FontAwesomeIcon
+                icon={isDropdownActive ? faSortUp : faSortDown}
+                className="tw-ml-2"
+              />
+            </button>
+
+            {isDropdownActive && (
+              <div className="dropdown-options absolute top-8 left-0 mt-2 py-2 bg-white rounded-lg shadow-lg">
+                {name === "Age Range" && (
+                  <AgeRangeDropdown
+                    selectedValue={selectedAgeRange}
+                    onOptionSelect={(value) =>
+                      handleDropdownSelection(name, value)
+                    }
+                  />
+                )}
+                {name === "Ethnicity" && (
+                  <EthnicityDropdown
+                    selectedValue={selectedEthnicity}
+                    onOptionSelect={(value) =>
+                      handleDropdownSelection(name, value)
+                    }
+                  />
+                )}
+                {name === "Representation" && (
+                  <RepresentationDropdown
+                    selectedValue={selectedRepresentation}
+                    onOptionSelect={(value) =>
+                      handleDropdownSelection(name, value)
+                    }
+                  />
+                )}
+                {name === "City" && (
+                  <CityDropdown
+                    selectedValue={selectedCity}
+                    onOptionSelect={(value) =>
+                      handleDropdownSelection(name, value)
+                    }
+                  />
+                )}
+                {name === "Country" && (
+                  <CountryDropdown
+                    selectedValue={selectedCountry}
+                    onOptionSelect={(value) =>
+                      handleDropdownSelection(name, value)
+                    }
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            className={`tw-text-small tw-mr-5 tw-mb-1 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
+              !isActive
+                ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
+                : "tw-bg-white tw-text-[#1E0039]"
+            }`}
+            type="button"
+            onClick={() => clickHandler(name, isActive)}
+          >
+            {name}
+
+            {!isActive ? (
+              <FontAwesomeIcon
+                className="tw-pl-5"
+                icon={faPlus}
+                style={{ color: "#aaaaaa" }}
+              />
+            ) : (
+              <FontAwesomeIcon className="tw-pl-5" icon={faCheck} />
+            )}
+          </button>
+        )}
+      </div>
     );
   };
 
@@ -170,6 +340,19 @@ export default function FilterTag({role}) {
             name={tag.name}
             clickHandler={clickHandler}
             isActive={tag.isActive}
+            selectedValue={
+              tag.name === "Age Range"
+                ? selectedAgeRange
+                : tag.name === "Ethnicity"
+                ? selectedEthnicity
+                : tag.name === "Representation"
+                ? selectedRepresentation
+                : tag.name === "City"
+                ? selectedCity
+                : tag.name === "Country"
+                ? selectedCountry
+                : null
+            }
           />
         ))}
       </div>
