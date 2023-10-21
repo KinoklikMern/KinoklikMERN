@@ -62,7 +62,8 @@ export default function FilterTag({ role }) {
       );
 
       // Update the "All Actors" button based on the selected dropdown values and gender
-      const allActorsIsActive = !isGenderActive && anyDropdownValueSelected;
+      // const allActorsIsActive = !isGenderActive && anyDropdownValueSelected;
+      const allActorsIsActive = !(isGenderActive || anyDropdownValueSelected);
 
       // Update selected value based on the dropdown
       switch (name) {
