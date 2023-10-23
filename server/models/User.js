@@ -125,6 +125,7 @@ const UserSchema = mongoose.Schema({
     },
   ],
   sex: {
+    type: String,
     enum: ["Male", "Female"],
   },
   age: {
@@ -145,6 +146,66 @@ const UserSchema = mongoose.Schema({
   hasAgent: {
     type: Boolean,
     default: true,
+  },
+  height: {
+    type: String,
+    enum: [
+      "4'10",
+      "5'0",
+      "5'2",
+      "5'4",
+      "5'6",
+      "5'8",
+      "5'10",
+      "6'0",
+      "6'2",
+      "6'4",
+      "6'6",
+      "6'8",
+      "6'10",
+      "7'0",
+    ],
+  },
+  eyesColor: {
+    type: String,
+    enum: [
+      "Black",
+      "Blue",
+      "Brown",
+      "Hazel",
+      "Grey",
+      "Green",
+      "Amber",
+      "Red",
+      "Violet",
+    ],
+  },
+  hairColor: {
+    type: String,
+    enum: [
+      "Black",
+      "Blonde",
+      "Brown",
+      "Red",
+      "Grey",
+      "White",
+      "Auburn",
+      "Salt & Pepper",
+      "Chestnut",
+      "Bald",
+    ],
+  },
+  bodyBuild: {
+    type: String,
+    enum: [
+      "Slim",
+      "Medium",
+      "Muscular",
+      "Large",
+      "Very Large",
+      "Athletic/Toned",
+      "Curvy",
+    ],
   },
   // Crew
   crew: [
