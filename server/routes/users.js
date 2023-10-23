@@ -33,6 +33,7 @@ import {
   getActorFollowers,
   getActorLikes,
   uploadActorThumbnail,
+  getAllUsers,
 } from "../controllers/users.js";
 import {
   validate,
@@ -60,6 +61,8 @@ router.post(
   isValidPassResetToken,
   sendResetPasswordTokenStatus
 );
+
+//router.post('/send-invitation', sendInvitation)
 
 router.post(
   "/reset-password",
@@ -92,6 +95,7 @@ router.post("/like/:actorid/:userid", getActorLikes);
 // upload actor thumbnail
 router.post("/actorthumbnail", upload.single("file"), uploadActorThumbnail);
 // ----- CHIHYIN -----
+router.get("/getallusers", getAllUsers)
 
 // upload actor banner
 router.post("/actorbanner", upload.single("file"), uploadActorBanner);

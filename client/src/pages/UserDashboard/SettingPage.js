@@ -35,12 +35,13 @@ export default function SettingPage() {
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
-          <Sidebar selectedTab="Settings" role={user.role}/>
+          <Sidebar selectedTab="Settings" role={user.role} />
         </div>
         <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4">
           <ul className="tw-flex tw-divide-x tw-divide-[#1E0039] tw-border-b tw-border-gray-200 tw-text-center tw-text-sm tw-font-medium tw-text-gray-500 tw-shadow-md tw-shadow-[#1E0039]/50">
-            {tabs.map((tab) => (
+            {tabs.map((tab, index) => (
               <li
+                key={index}
                 className={
                   "tw-w-1/4 tw-grow tw-text-2xl tw-shadow-md tw-shadow-[#1E0039]/50 " +
                   (openTab === tab.count
