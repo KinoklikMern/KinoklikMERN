@@ -95,17 +95,17 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage, epkDonatePayPal, epkD
         <Row>
           <Col>
             <Row> 
-        <Button  onClick={handleDonationPaypalSubmit} style={{ margin:'40px',backgroundColor: '#FFD600',width:'300px' }}>
+        <Button  onClick={handleDonationPaypalSubmit} style={{marginTop:'60px', marginLeft: '90px',backgroundColor: '#FFD600',width:'300px' }}>
               Donate with PayPal
         </Button>
-        <Button  onClick={handleDonationStripeSubmit} style={{ margin:'40px',backgroundColor: '#5B1DDF',width:'300px' }}>
+        <Button  onClick={handleDonationStripeSubmit} style={{marginTop:'60px', marginLeft: '90px',backgroundColor: '#5B1DDF',width:'300px' }}>
           Donate with  Debit or Credit Card
         </Button>
             </Row>
           </Col>
           <Col>
             {/* Epkimge */}
-            <img src={epkImage} alt="EPK Image" className="img-fluid" />
+            <img src={epkImage} alt="EPK Image" className="img-fluid" style={{ margin:'40px' }}/>
           </Col>
         </Row>
         </Container>
