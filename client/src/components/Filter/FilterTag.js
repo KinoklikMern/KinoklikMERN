@@ -183,8 +183,11 @@ export default function FilterTag({ role }) {
         isActive: tag.name === name,
         // isActive: tag.name === name ? !isActive : false, // Toggle the state
       }));
-
-      newQuery = isActive ? [] : [];
+      if (name === "all epks") {
+        newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
+      } else {
+        newQuery = isActive ? [] : [];
+      }
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
