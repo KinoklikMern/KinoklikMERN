@@ -26,6 +26,9 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
+//invitations
+app.use("/invitations", invitationRoutes);
+
 app.use("/users", userRoutes);
 app.use("/fepks", fepkRoutes);
 //app.use("/actor", actorRoutes);
@@ -41,9 +44,6 @@ app.use("/message", messageRoutes);
 
 app.use("/*", handleNotFound);
 app.use(errorHandler);
-
-//invitations
-app.use("/invitations", invitationRoutes);
 
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)
