@@ -79,7 +79,12 @@ function FepkDetailsForm() {
   ];
 
   const makeEpkRole = (Y) => {
-    return <option value={Y}> {Y}</option>;
+    return (
+      <option key={Y} value={Y}>
+        {" "}
+        {Y}
+      </option>
+    );
   };
 
   //-------------------------
@@ -467,7 +472,12 @@ function FepkDetailsForm() {
         movie: fepk._id,
       };
 
-      console.log("movie, invitedBy, email",fepk._id, fepk.film_maker._id, invitationEmailValue);
+      console.log(
+        "movie, invitedBy, email",
+        fepk._id,
+        fepk.film_maker._id,
+        invitationEmailValue
+      );
 
       // Check if the invitation already exists
       axios
@@ -817,6 +827,7 @@ function FepkDetailsForm() {
 
                               return (
                                 <p
+                                  key={userObj._id}
                                   style={{
                                     fontSize: "10px",
                                     padding: "5px",
