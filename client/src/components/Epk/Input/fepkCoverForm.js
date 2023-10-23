@@ -283,7 +283,7 @@ function FepkCoverForm() {
               fontWeight: "normal",
             }}
           >
-            <div className="card-body" style={{ height: "500px" }}>
+            <div className="card-body" style={{ height: "530px" }}>
               <h5
                 className="card-title "
                 style={{ color: "#ffffff", fontWeight: "normal" }}
