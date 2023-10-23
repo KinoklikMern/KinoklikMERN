@@ -24,17 +24,34 @@ function LoglineForm() {
     setDisabled(false);
   };
 
-  useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
-      setCharacterLength({ logLine_long: response.data.logLine_long.length });
-      setEpkLoglineData({
-        image_logline: response.data.image_logline,
-        logLine_long: response.data.logLine_long,
-        logLine_blur: response.data.logLine_blur,
-      });
+//modify by delara
+useEffect(() => {
+  http.get(`/fepks/${fepkId}`)
+    .then((response) => {
+      if (response.data) {
+        setFepk(response.data);
+        if (response.data.logLine_long) {
+          setCharacterLength({ logLine_long: response.data.logLine_long.length });
+          setEpkLoglineData({
+            image_logline: response.data.image_logline,
+            logLine_long: response.data.logLine_long,
+            logLine_blur: response.data.logLine_blur,
+          });
+        } else {
+          // Handle the case when logLine_long is undefined or empty
+          console.error('logLine_long is undefined or empty');
+        }
+      } else {
+        // Handle the case when response.data is undefined or empty
+        console.error('response.data is undefined or empty');
+      }
+    })
+    .catch((error) => {
+      // Handle the error if the HTTP request fails
+      console.error('HTTP request failed:', error);
     });
-  }, []);
+}, []);
+
 
   const handleLoglineChange = (event) => {
     const { name, value } = event.target;
