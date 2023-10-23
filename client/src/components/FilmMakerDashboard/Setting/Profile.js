@@ -8,9 +8,31 @@ export default function Profile() {
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
-  const [userProfileData, setUserProfileData] = useState([]);
+  //const [userProfileData, setUserProfileData] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [userProfileData, setUserProfileData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    website: "",
+    city: "",
+    province: "",
+    age: "",
+    ethnicity: "",
+    sex: "",
+    country: "",
+    facebook_url: "",
+    facebook_followers: "",
+    instagram_url: "",
+    instagram_followers: "",
+    twitter_url: "",
+    twitter_followers: "",
+    aboutMe: "",
+    picture: "",
+  });
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -119,7 +141,7 @@ export default function Profile() {
           type="text"
           name="firstName"
           placeholder="First Name"
-          defaultValue={userProfileData.firstName}
+          value={userProfileData.firstName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -127,7 +149,7 @@ export default function Profile() {
           type="text"
           name="lastName"
           placeholder="Last Name"
-          defaultValue={userProfileData.lastName}
+          value={userProfileData.lastName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -135,7 +157,7 @@ export default function Profile() {
           type="text"
           name="email"
           placeholder="Email"
-          defaultValue={userProfileData.email}
+          value={userProfileData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -143,7 +165,7 @@ export default function Profile() {
           type="text"
           name="phone"
           placeholder="Phone"
-          defaultValue={userProfileData.phone}
+          value={userProfileData.phone}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -151,7 +173,7 @@ export default function Profile() {
           type="text"
           name="website"
           placeholder="Website"
-          defaultValue={userProfileData.website}
+          value={userProfileData.website}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -159,7 +181,7 @@ export default function Profile() {
           type="text"
           name="city"
           placeholder="City"
-          defaultValue={userProfileData.city}
+          value={userProfileData.city}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -167,19 +189,56 @@ export default function Profile() {
           type="text"
           name="province"
           placeholder="Province"
-          defaultValue={userProfileData.province}
+          value={userProfileData.province}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
+        <input
+          type="text"
+          name="country"
+          placeholder="Country"
+          defaultValue={userProfileData.country}
+          onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        />
+      </div>
+      <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col tw-justify-self-center">
+        <select
+          type="text"
+          name="sex"
+          // placeholder="sexs"
+          value={userProfileData.sex}
+          onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        >
+          <option value="">Playing Sexe</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <select
+          type="text"
+          name="ethnicity"
+          // placeholder="ethnicity"
+          value={userProfileData.ethnicity}
+          onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        >
+          <option value="">Ethnicity</option>
+          <option value="Caucasion">Caucasion</option>
+          <option value="Hispanic">Hispanic</option>
+          <option value="African American">African American</option>
+          <option value="Asian">Asian</option>
+          <option value="Native">Native</option>
+        </select>
         <select
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           type="text"
           name="age"
-          placeholder="age"
+          // placeholder="age"
           value={userProfileData.age}
           onChange={handleProfileChange}
         >
-          <option value="">--Please select--</option>
+          <option value="">Age Range</option>
           <option value={"4"}>3-5</option>
           <option value={"7"}>6-9</option>
           <option value={"11"}>10-12</option>
@@ -196,43 +255,80 @@ export default function Profile() {
         </select>
         <select
           type="text"
-          name="ethnicity"
-          placeholder="ethnicity"
-          value={userProfileData.ethnicity}
+          name="height"
+          value={userProfileData.height}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
-          <option value="">--Please select--</option>
-          <option value="Caucasion">Caucasion</option>
-          <option value="Hispanic">Hispanic</option>
-          <option value="African American">African American</option>
-          <option value="Asian">Asian</option>
-          <option value="Native">Native</option>
+          <option value="">Height</option>
+          <option value={"4'10"}>4'10" or below</option>
+          <option value={"5'0"}>5'0"</option>
+          <option value={"5'2"}>5'2"</option>
+          <option value={"5'4"}>5'4"</option>
+          <option value={"5'6"}>5'6"</option>
+          <option value={"5'8"}>5'8"</option>
+          <option value={"5'10"}>5'10"</option>
+          <option value={"6'0"}>6'0"</option>
+          <option value={"6'2"}>6'2"</option>
+          <option value={"6'4"}>6'4"</option>
+          <option value={"6'6"}>6'6"</option>
+          <option value={"6'8"}>6'8"</option>
+          <option value={"6'10"}>6'10"</option>
+          <option value={"7'0"}>7'0" or above</option>
         </select>
         <select
           type="text"
-          name="sex"
-          placeholder="sexs"
-          value={userProfileData.sex}
+          name="eyesColor"
+          value={userProfileData.eyesColor}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
-          <option value="">--Please select--</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          {/* <option value="Transgender">Transgender</option>
-          <option value="Non-binary">Non-binary</option>
-          <option value="other">Other</option>
-          <option value="notToSay">Prefer not to say</option> */}
+          <option value="">Eyes Color</option>
+          <option value="Black">Black</option>
+          <option value="Blue">Blue</option>
+          <option value="Brown">Brown</option>
+          <option value="Hazel">Hazel</option>
+          <option value="Grey">Grey</option>
+          <option value="Green">Green</option>
+          <option value="Amber">Amber</option>
+          <option value="Red">Red</option>
+          <option value="Violet">Violet</option>
         </select>
-        <input
+        <select
           type="text"
-          name="country"
-          placeholder="Country"
-          defaultValue={userProfileData.country}
+          name="hairColor"
+          value={userProfileData.hairColor}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-        />
+        >
+          <option value="">Hair Color</option>
+          <option value="Black">Black</option>
+          <option value="Blonde">Blonde</option>
+          <option value="Brown">Brown</option>
+          <option value="Red">Red</option>
+          <option value="Grey">Grey</option>
+          <option value="White">White</option>
+          <option value="Auburn">Auburn</option>
+          <option value="Salt & Pepper">Salt & Pepper</option>
+          <option value="Chestnut">Chestnut</option>
+          <option value="Bald">Bald</option>
+        </select>
+        <select
+          type="text"
+          name="bodyBuild"
+          value={userProfileData.bodyBuild}
+          onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        >
+          <option value="">Body Build</option>
+          <option value="Slim">Slim</option>
+          <option value="Medium">Medium</option>
+          <option value="Muscular">Muscular</option>
+          <option value="Large">Large</option>
+          <option value="Very Large">Very Large</option>
+          <option value="Athletic">Athletic/Toned</option>
+          <option value="Curvy">Curvy</option>
+        </select>
       </div>
       <div>
         <Modal
@@ -276,6 +372,7 @@ export default function Profile() {
         <img
           className="tw-rounded-full"
           src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
+          //src={`${userProfileData.picture}`}
           alt="User Avatar"
         />
         <input

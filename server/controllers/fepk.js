@@ -55,31 +55,61 @@ export const getFepksByFilmmakerId = async (req, res) => {
   }
 };
 
-// get movie by actor
+// // get movie by actor
+// export const getFepksByActorId = async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     const fepks = await fepk
+//       .find()
+//       .where({ actors: {$in: id} })
+//       .populate("film_maker") // includes all fields of this object
+//       .populate("crew.crewId") // includes all fields of this object
+//       .populate("likes") // includes all fields of this object
+//       .populate("favourites") // includes all fields of this object
+//       .populate("wishes_to_buy") // includes all fields of this object
+//       .populate("sharings") // includes all fields of this object
+//       .populate("mediumSynopsis.user") // includes all fields of this object
+//       .populate("longSynopsis.user") // includes all fields of this object
+//       .populate("uniqueness.user")
+//       .populate("stillsApproval.user")
+//       .populate("reports.user")
+//       // .populate("requests.user")
+//       .where("deleted")
+//       .equals(false);
+//     res.status(200).json(fepks);
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+// };
+
 export const getFepksByActorId = async (req, res) => {
   const id = req.params.id;
   try {
     const fepks = await fepk
-      .find()
-      .where({ actors: {$in: id} })
-      .populate("film_maker") // includes all fields of this object
-      .populate("crew.crewId") // includes all fields of this object
-      .populate("likes") // includes all fields of this object
-      .populate("favourites") // includes all fields of this object
+      .find({ actors: { $in: [id] }, deleted: false }) // combine the two .where() conditions into one .find() condition
+      .populate("film_maker")
+      .populate("crew.crewId")
+      .populate("likes")
+      .populate("favourites")
       .populate("wishes_to_donate") // includes all fields of this object
-      .populate("wishes_to_buy") // includes all fields of this object
-      .populate("sharings") // includes all fields of this object
-      .populate("mediumSynopsis.user") // includes all fields of this object
-      .populate("longSynopsis.user") // includes all fields of this object
+      .populate("wishes_to_buy")
+      .populate("sharings")
+      .populate("mediumSynopsis.user")
+      .populate("longSynopsis.user")
       .populate("uniqueness.user")
       .populate("stillsApproval.user")
-      .populate("reports.user")
-      // .populate("requests.user")
-      .where("deleted")
-      .equals(false);
+      .populate("reports.user");
+
+    // Check if no movies are found and send back an empty array.
+    if (!fepks.length) {
+      return res.status(200).json([]);
+    }
+
+    // If movies are found, send them back.
     res.status(200).json(fepks);
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    console.error(error); // This will log the error which can be useful for debugging.
+    res.status(500).json({ message: "Internal Server Error" }); // Changed to 500 to indicate a server error.
   }
 };
 
@@ -117,7 +147,8 @@ export const getFepkbyId = async (req, res) => {
     const fepkOne = await fepk
       .findOne({ _id: id })
       .populate("film_maker") // includes all fields of this object
-      .populate("crew.crewId") // includes all fields of this object
+      //.populate("crew.crewId") // includes all fields of this object
+      .populate("actors")
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
       .populate("wishes_to_donate") // includes all fields of this object
@@ -241,7 +272,7 @@ export const updateFepk = async (req, res) => {
       .where("deleted")
       .equals(false);
     if (!fepkOne) {
-      res.json({ error: "No EPK was found!" });
+      return res.status(404).json({ error: "No EPK was found!" });
     } else {
       const updatedFepk = req.body;
       await fepkOne.updateOne(updatedFepk);
@@ -934,14 +965,13 @@ export const refuseRequests = async (req, res) => {
 //************************************************************************************** */
 
 export const getNewest = async (req, res) => {
-  try{
+  try {
     const getfips = await fepk
     .find()
     .populate("film_maker") // includes all fields of this object
     .populate("crew.crewId") // includes all fields of this object
     .populate("likes") // includes all fields of this object
     .populate("favourites") // includes all fields of this object
-    .populate("wishes_to_donate") // includes all fields of this object
     .populate("wishes_to_buy") // includes all fields of this object
     .populate("sharings") // includes all fields of this object
     .populate("mediumSynopsis.user") // includes all fields of this object
@@ -955,12 +985,10 @@ export const getNewest = async (req, res) => {
     .limit(6)
 
     res.status(200).json(getfips);
-  }
-  catch(error){
+  } catch (error) {
     res.status(404).json({ error: true, message: error.message });
   }
-    
-}
+};
 
 export const getMostPopular = async (req, res) => {
   try {
@@ -972,7 +1000,6 @@ export const getMostPopular = async (req, res) => {
     .populate("crew.crewId") // includes all fields of this object
     .populate("likes") // includes all fields of this object
     .populate("favourites") // includes all fields of this object
-    .populate("wishes_to_donate") // includes all fields of this object
     .populate("wishes_to_buy") // includes all fields of this object
     .populate("sharings") // includes all fields of this object
     .populate("mediumSynopsis.user") // includes all fields of this object
@@ -987,4 +1014,4 @@ export const getMostPopular = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-}
+};

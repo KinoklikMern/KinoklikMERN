@@ -327,7 +327,7 @@ export default function Actor(props) {
               <span
                 style={{
                   fontWeight: "700",
-                  marginRight: "30px",
+                  marginRight: "60px",
                 }}
               >
                 Age-Range
@@ -347,12 +347,84 @@ export default function Actor(props) {
               <span
                 style={{
                   fontWeight: "700",
-                  marginRight: "30px",
+                  marginRight: "75px",
                 }}
               >
                 Ethnicity{" "}
               </span>{" "}
               <span>{epkInfo.ethnicity || "Caucasian"}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "65px",
+                }}
+              >
+                Hair Color{" "}
+              </span>{" "}
+              <span>{epkInfo.hairColor}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "60px",
+                }}
+              >
+                Eyes Color{" "}
+              </span>{" "}
+              <span>{epkInfo.eyesColor}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "60px",
+                }}
+              >
+                Body Build{" "}
+              </span>{" "}
+              <span>{epkInfo.bodyBuild}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "90px",
+                }}
+              >
+                Height{" "}
+              </span>{" "}
+              <span>{epkInfo.height}</span>
             </p>
           </div>
           <div className="actor-biography">

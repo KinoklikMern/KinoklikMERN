@@ -45,7 +45,7 @@ const fepkSchema = mongoose.Schema({
   },
 
   // Film Details
-  image_details: { type: String },
+  image_details: { type: String, default:"https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png" },
   productionCo: { type: String },
   distributionCo: { type: String },
   productionYear: { type: String },

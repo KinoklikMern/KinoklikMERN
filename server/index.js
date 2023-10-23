@@ -14,6 +14,7 @@ import chatRoutes from "./routes/chat.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
+import invitationRoutes from "./routes/invitations.js";
 import donationRoutes from "./routes/donation.js";
 
 // Edit by Tony On Jan 20, 2023
@@ -25,6 +26,9 @@ const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+
+//invitations
+app.use("/invitations", invitationRoutes);
 
 app.use("/users", userRoutes);
 app.use("/fepks", fepkRoutes);

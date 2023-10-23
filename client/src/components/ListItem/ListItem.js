@@ -25,7 +25,6 @@ export default function ListItem({ title, status, type, role }) {
   useEffect(() => {
     switch (title) {
       case "starred":
-        
         http.get(`fepks/getStarredFepksByUser/${id}`).then((response) => {
           if (production_type.length !== 0) {
             setFepks(
@@ -40,7 +39,6 @@ export default function ListItem({ title, status, type, role }) {
         });
         break;
       case "following":
-        
         http.get(`fepks/getFollowingFepksByUser/${id}`).then((response) => {
           if (production_type.length !== 0) {
             setFepks(
@@ -90,19 +88,26 @@ export default function ListItem({ title, status, type, role }) {
   return (
     <>
       {fepks &&
-      
-      fepks.map((fepk) => (
+        fepks.map((fepk) => (
           <div className="listItem" key={fepk._id}>
-            <a href={role == "actor"? `/actor/6487758c553b5011282f72a5` : `epk/${fepk.title}`}>
+            <a
+              href={
+                role == "actor"
+                  ? `/actor/6487758c553b5011282f72a5`
+                  : `epk/${fepk.title}`
+              }
+            >
               <img
-                src={ role === "actor"? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`:`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                src={
+                  role === "actor"
+                    ? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`
+                    : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                }
                 alt=""
               />
             </a>
           </div>
-        ))
-      
-      }
+        ))}
     </>
   );
 }

@@ -55,15 +55,31 @@ export const getFepkFollowersNumber = (id) => {
     console.log(error.message);
   }
 };
-export const getActorFollowersNumber = (id) => {
+// export const getActorFollowersNumber = (id) => {
+//   try {
+//     return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getfollower/${id}`, {
+//       method: "GET",
+//     }).then((res) => res.json());
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
+
+export const getActorFollowersNumber = async (id) => {
   try {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getfollower/${id}`, {
-      method: "GET",
-    }).then((res) => res.json());
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/users/getfollower/${id}`,
+      {
+        method: "GET",
+      }
+    );
+
+    return await response.json();
   } catch (error) {
     console.log(error.message);
   }
 };
+
 export const getUserbyId = (userId) => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getuser`, {
