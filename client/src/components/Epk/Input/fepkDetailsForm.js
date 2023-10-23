@@ -467,6 +467,8 @@ function FepkDetailsForm() {
         movie: fepk._id,
       };
 
+      console.log("movie, invitedBy, email",fepk._id, fepk.film_maker._id, invitationEmailValue);
+
       // Check if the invitation already exists
       axios
         .get(
