@@ -3,7 +3,7 @@ import { Form, Modal, Button ,Col,Container,Row  } from "react-bootstrap";
 import paypalImage from '../../images/PayPal-Logo.png';
 
 
-const DonationModal = ({ isOpen, onRequestClose, epkImage,epkpaypal }) => {
+const DonationModal = ({ isOpen, onRequestClose, epkImage, epkDonatePayPal, epkDonateStripe }) => {
   //console.log("epkImage:", epkImage); 
   const [donationAmount, setDonationAmount] = useState(0);
   const [nameOnCard, setNameOnCard] = useState("");
@@ -50,9 +50,14 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage,epkpaypal }) => {
 
   const handleDonationPaypalSubmit = () => {
     // Redirect to the PayPal donation page or URL
-    window.location.href = epkpaypal; // Replace this with the actual PayPal donation page URL.
+    window.location.href = epkDonatePayPal; // Replace this with the actual PayPal donation page URL.
   };
-  
+
+  const handleDonationStripeSubmit = () => {
+    // Redirect to the PayPal donation page or URL
+    window.location.href = epkDonateStripe; // Replace this with the actual PayPal donation page URL.
+  };
+
   const buttonStyle = {
     backgroundColor: 'white',
     color: '#1E0039',
@@ -239,7 +244,7 @@ const DonationModal = ({ isOpen, onRequestClose, epkImage,epkpaypal }) => {
         <Button  onClick={handleDonationPaypalSubmit} style={{ marginBottom: '10px',backgroundColor: '#FFD600' }}>
               Donate with PayPal
         </Button>
-        <Button  onClick={handleDonationSubmit} style={{ marginBottom: '5px',backgroundColor: '#5B1DDF' }}>
+        <Button  onClick={handleDonationStripeSubmit} style={{ marginBottom: '5px',backgroundColor: '#5B1DDF' }}>
           Donate with  Debit or Credit Card
         </Button>
          

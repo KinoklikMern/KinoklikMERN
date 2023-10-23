@@ -24,7 +24,7 @@ import PlusIcon from "../images/icons/PlusWhite.svg";
 import PlusBlackIcon from "../images/icons/PlusBlack.svg";
 import StarIcon from "../images/icons/StarWhite.svg";
 import StarBlackIcon from "../images/icons/StarBlack.svg";
-import KIcon from "../images/icons/K.svg";
+//import KIcon from "../images/icons/K.svg";
 import ShareIcon from "../images/icons/share.svg";
 import ShareBlackIcon from "../images/icons/shareBlack.svg";
 import {
@@ -49,7 +49,7 @@ const HomeHead = (props) => {
   const [clickedShare, setClickedShare] = useState(false);
   const [clickedDonation, setClickedDonation] = useState(false);
   const [clickedDollar, setClickedDollar] = useState(false);
-  const [clickedKIcon, setClickedKIcon] = useState(false);
+  //const [clickedKIcon, setClickedKIcon] = useState(false);
   const [clickedPlus, setClickedPlus] = useState(false);
   const [clickedMovie, setClickedMovie] = useState(false);
   const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
@@ -100,10 +100,10 @@ const HomeHead = (props) => {
   }
 
   //user click K icon
-  function handleClickKIcon() {
-    setClickedKIcon(true);
-    window.open(fepk.kickstarter_url);
-  }
+  // function handleClickKIcon() {
+  //   setClickedKIcon(true);
+  //   window.open(fepk.kickstarter_url);
+  // }
 
   // user is added to the list of sharings
   function handleClickShare() {
@@ -220,7 +220,7 @@ const HomeHead = (props) => {
               //   style={{ opacity: clickedStar ? 1 : 0.5 }}
             />
           </div>
-          <div
+          {/* <div
             className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
@@ -231,7 +231,7 @@ const HomeHead = (props) => {
               onClick={handleClickKIcon}
               //   style={{ opacity: clickedKIcon ? 1 : 0.5 }}
             />
-          </div>
+          </div> */}
           <div
             className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center  hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}

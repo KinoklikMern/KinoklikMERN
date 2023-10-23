@@ -5,7 +5,7 @@ import axios from "axios";
 import Navbar from "../components/navbar/Navbar";
 import { useParams, Link } from "react-router-dom";
 import style from "./EpkView.module.css";
-import kickStar from "../images/kickstarter.png";
+//import kickStar from "../images/kickstarter.png";
 import People from "../images/People.png";
 import DollarSignEmpty from "../images/DollarSignEMPTY.svg";
 import DollarSignFull from "../images/DollarSignFULL.svg";
@@ -916,7 +916,7 @@ function EpkView() {
             <span>{usersLikes}</span>
           </div>
 
-          <div>
+          {/* <div>
             <a href="#">
               <img
                 className={style.icon}
@@ -925,7 +925,7 @@ function EpkView() {
                 onClick={() => openUrl(fepkData.kickstarter_url)}
               />
             </a>
-          </div>
+          </div> */}
           <div>
             {/* Social media sharing Icons */}
             {sharingClicked === true && (

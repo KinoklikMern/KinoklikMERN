@@ -8,7 +8,7 @@ import PlusIcon from "../../../images/icons/PlusWhite.svg";
 import PlusBlackIcon from "../../../images/icons/PlusBlack.svg";
 import StarIcon from "../../../images/icons/StarWhite.svg";
 import StarBlackIcon from "../../../images/icons/StarBlack.svg";
-import KIcon from "../../../images/icons/K.svg";
+//import KIcon from "../../../images/icons/K.svg";
 import ShareIcon from "../../../images/icons/share.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import http from "../../../http-common";
@@ -126,10 +126,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           : StarIcon,
       number: usersLikes,
     },
-    {
-      name: "K",
-      icon: KIcon,
-    },
+    // {
+    //   name: "K",
+    //   icon: KIcon,
+    // },
     {
       name: "share",
       icon: ShareIcon,
@@ -259,9 +259,9 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 console.error(error);
               });
             break;
-          case "K":
-            openUrl(epkInfo.kickstarter_url);
-            break;
+          // case "K":
+          //   openUrl(epkInfo.kickstarter_url);
+          //   break;
           case "share":
             closeSharingMenu();
             break;

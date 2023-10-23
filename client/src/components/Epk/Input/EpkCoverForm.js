@@ -27,7 +27,9 @@ function EpkCoverForm() {
     minutes: "",
     banner_url: "",
     trailer_url: "",
-    kickstarter_url: "",
+    //kickstarter_url: "",
+    DonatePayPal_url: "",
+    DonateStripe_url: "",
   });
   const movieGenre = [
     "Genre...",
@@ -197,7 +199,7 @@ function EpkCoverForm() {
                     />
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <input
                     className="form-control"
                     defaultValue={epkCoverData.kickstarter_url}
@@ -205,7 +207,26 @@ function EpkCoverForm() {
                     onChange={handleInputChange}
                     name="kickstarter_url"
                   />
+                </div> */}
+                 <div>
+                  <input
+                    className="form-control"
+                    defaultValue={epkCoverData.DonatePayPal_url}
+                    placeholder="URL: www.paypal.com/mymovie"
+                    onChange={handleInputChange}
+                    name="DonatePayPal_url"
+                  />
                 </div>
+                <div>
+                  <input
+                    className="form-control"
+                    defaultValue={epkCoverData.DonateStripe_url}
+                    placeholder="URL: www.stripe.com/mymovie"
+                    onChange={handleInputChange}
+                    name="DonateStripe_url"
+                  />
+                </div>
+
               </div>
               <div className="col border border-2">
                 <div className="row gx-5">

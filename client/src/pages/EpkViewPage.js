@@ -164,7 +164,8 @@ function EpkViewPage() {
               epkId={epkInfo._id}
               userId={user.id}
               epkImage={"https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details}
-              epkpaypal={epkInfo.kickstarter_url}
+              epkDonatePayPal={epkInfo.DonatePayPal_url}
+              epkDonateStripe={epkInfo.DonateStripe_url}
             />
           )}
         </div>
