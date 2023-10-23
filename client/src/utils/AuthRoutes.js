@@ -7,6 +7,6 @@ export default function AuthRoutes() {
   let isLoggedIn = user?true:false;
 
   return (
-    isLoggedIn?<Outlet/>:<Navigate to="/accessdenied" />
+    isLoggedIn?<Outlet/>:<Navigate to="/login" />
   )
 }

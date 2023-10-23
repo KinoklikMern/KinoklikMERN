@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button, Col, Row } from "antd";
+import { Button,Tooltip, Col, Row } from "antd";
+import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import paypalImage from '../../../images/paypal.png';
+import stripImage from '../../../images/stripe.jpg';
 
 function FepkCoverForm() {
   const navigate = useNavigate();
@@ -35,7 +38,9 @@ function FepkCoverForm() {
     logLine_short: "",
     genre: "",
     production_type: "",
-    kickstarter_url: "",
+    //kickstarter_url: "",
+    DonatePayPal_url: "",
+    DonateStripe_url: "",
     banner_url: "",
     trailer_url: "",
     status: "",
@@ -278,7 +283,7 @@ function FepkCoverForm() {
               fontWeight: "normal",
             }}
           >
-            <div className="card-body" style={{ height: "500px" }}>
+            <div className="card-body" style={{ height: "530px" }}>
               <h5
                 className="card-title "
                 style={{ color: "#ffffff", fontWeight: "normal" }}
@@ -293,7 +298,7 @@ function FepkCoverForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
+                        //marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
                       }}
@@ -334,7 +339,7 @@ function FepkCoverForm() {
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
-                          marginBottom: "5px",
+                          //marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
@@ -350,7 +355,7 @@ function FepkCoverForm() {
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
-                          marginBottom: "5px",
+                          //marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
@@ -366,7 +371,7 @@ function FepkCoverForm() {
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
-                          marginBottom: "5px",
+                          //marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
@@ -377,7 +382,7 @@ function FepkCoverForm() {
                       </select>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <input
                       style={{
                         height: "30px",
@@ -391,6 +396,53 @@ function FepkCoverForm() {
                       placeholder="KickStarter URL"
                       onChange={handleInputChange}
                       name="kickstarter_url"
+                    />
+                  </div> */}
+                  <div>
+                    <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
+                       <span> <InfoCircleFilled /></span>
+                    </Tooltip>
+                  </div>
+                   <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${paypalImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 60px",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonatePayPal_url}
+                      placeholder="URL: www.paypal.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonatePayPal_url"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        //marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${stripImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 40px",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonateStripe_url}
+                      placeholder="URL: www.stripe.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonateStripe_url"
                     />
                   </div>
                 </div>
@@ -447,8 +499,8 @@ function FepkCoverForm() {
                   style={{
                     height: "50px",
                     width: "120px",
-                    marginLeft: "100%",
-                    marginTop: "5%",
+                    marginLeft: "90%",
+                    //marginTop: "5%",
                     textAlign: "center",
                   }}
                 >
@@ -457,6 +509,7 @@ function FepkCoverForm() {
                       boxShadow: "1px 2px 9px #311465",
                       backgroundColor: "#ffffff",
                       fontWeight: "bold",
+                      width: "115px",
                     }}
                     type="outline-primary"
                     block

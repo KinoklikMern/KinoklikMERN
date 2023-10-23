@@ -6,7 +6,7 @@ import headerimage from "../../../images/movies/imageSouthpaw.jpeg";
 import logo from "../../../images/logo.png";
 import avatar from "../../../images/avatar1.jpeg";
 import poster from "../../../images/poster.jpg";
-import kikSatr from "../../../images/kickstarter.png";
+//import kikSatr from "../../../images/kickstarter.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -133,11 +133,11 @@ function EpkCover() {
           </a>
         </div>
 
-        <div>
+        {/* <div>
           <a href="#">
             <img className={style.icon} src={kikSatr} alt="save" />
           </a>
-        </div>
+        </div> */}
         <div>
           <a href="#">
             <FontAwesomeIcon icon={faShareAlt} size="lg" />

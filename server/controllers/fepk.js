@@ -10,6 +10,7 @@ export const getFepks = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -37,6 +38,7 @@ export const getFepksByFilmmakerId = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -89,6 +91,7 @@ export const getFepksByActorId = async (req, res) => {
       .populate("crew.crewId")
       .populate("likes")
       .populate("favourites")
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy")
       .populate("sharings")
       .populate("mediumSynopsis.user")
@@ -121,6 +124,7 @@ export const getFepksByUser = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -147,6 +151,7 @@ export const getFepkbyId = async (req, res) => {
       .populate("actors")
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -172,6 +177,7 @@ export const getFepkByTitle = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -352,6 +358,7 @@ export const getFepkLiked = async (req, res) => {
         .findOne({ _id: fepkId })
         .populate("likes") // includes all fields of this object
         .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_donate") // includes all fields of this object
         .populate("wishes_to_buy") // includes all fields of this object
         .where("deleted")
         .equals(false);
@@ -387,6 +394,42 @@ export const getFepkFavourite = async (req, res) => {
         .findOne({ _id: fepkId })
         .populate("likes") // includes all fields of this object
         .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_donate") // includes all fields of this object
+        .populate("wishes_to_buy") // includes all fields of this object
+        .where("deleted")
+        .equals(false);
+      res.status(200).json(fepkUpdated);
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// adding user who wishes to donate
+export const getFepkWishedToDonate = async (req, res) => {
+  const fepkId = req.params.fepkid;
+  const userId = req.params.userid;
+  try {
+    const fepkOne = await fepk
+      .findOne({ _id: fepkId })
+      .where("deleted")
+      .equals(false);
+    if (!fepkOne) {
+      res.json({ error: "No EPK was found!" });
+    } else {
+      let exists = fepkOne.wishes_to_donate.includes(userId);
+      if (exists === false) {
+        await fepkOne.wishes_to_donate.push(userId);
+        await fepkOne.save();
+      } else {
+        await fepkOne.wishes_to_donate.pull(userId);
+        await fepkOne.save();
+      }
+      const fepkUpdated = await fepk
+        .findOne({ _id: fepkId })
+        .populate("likes") // includes all fields of this object
+        .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_donate") // includes all fields of this object
         .populate("wishes_to_buy") // includes all fields of this object
         .where("deleted")
         .equals(false);
@@ -421,6 +464,7 @@ export const getFepkWishedToBuy = async (req, res) => {
         .findOne({ _id: fepkId })
         .populate("likes") // includes all fields of this object
         .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_donate") // includes all fields of this object
         .populate("wishes_to_buy") // includes all fields of this object
         .where("deleted")
         .equals(false);
@@ -455,6 +499,7 @@ export const getFepkSharings = async (req, res) => {
         .findOne({ _id: fepkId })
         .populate("likes") // includes all fields of this object
         .populate("favourites") // includes all fields of this object
+        .populate("wishes_to_donate") // includes all fields of this object
         .populate("wishes_to_buy") // includes all fields of this object
         .populate("sharings") // includes all fields of this object
         .where("deleted")
@@ -726,6 +771,7 @@ export const getStarredFepksByUser = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -752,6 +798,7 @@ export const getFollowingFepksByUser = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -782,6 +829,7 @@ export const getRequestsFepksByUser = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -799,8 +847,34 @@ export const getRequestsFepksByUser = async (req, res) => {
   }
 };
 //************************************************************************************** */
-
+// get fepks which are wish_to_donate by user
+export const getWishToDonateFepksByUser = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const fepks = await fepk
+      .find({ wishes_to_donate: userId })
+      .populate("film_maker") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
+      .populate("likes") // includes all fields of this object
+      .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
+      .populate("wishes_to_buy") // includes all fields of this object
+      .populate("sharings") // includes all fields of this object
+      .populate("mediumSynopsis.user") // includes all fields of this object
+      .populate("longSynopsis.user") // includes all fields of this object
+      .populate("uniqueness.user")
+      .populate("stillsApproval.user")
+      .populate("reports.user")
+      .populate("requests.user")
+      .where("deleted")
+      .equals(false);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 //**************************************Created by Rucheng ***************************************** */
+
 // get fepks which are wish_to_buy by user
 export const getWishToBuyFepksByUser = async (req, res) => {
   const userId = req.params.userId;
@@ -811,6 +885,7 @@ export const getWishToBuyFepksByUser = async (req, res) => {
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
+      .populate("wishes_to_donate") // includes all fields of this object
       .populate("wishes_to_buy") // includes all fields of this object
       .populate("sharings") // includes all fields of this object
       .populate("mediumSynopsis.user") // includes all fields of this object
@@ -892,22 +967,22 @@ export const refuseRequests = async (req, res) => {
 export const getNewest = async (req, res) => {
   try {
     const getfips = await fepk
-      .find()
-      .populate("film_maker") // includes all fields of this object
-      .populate("crew.crewId") // includes all fields of this object
-      .populate("likes") // includes all fields of this object
-      .populate("favourites") // includes all fields of this object
-      .populate("wishes_to_buy") // includes all fields of this object
-      .populate("sharings") // includes all fields of this object
-      .populate("mediumSynopsis.user") // includes all fields of this object
-      .populate("longSynopsis.user") // includes all fields of this object
-      .populate("uniqueness.user")
-      .populate("stillsApproval.user")
-      .populate("reports.user")
-      .where("deleted")
-      .equals(false)
-      .sort({ _id: -1 })
-      .limit(6);
+    .find()
+    .populate("film_maker") // includes all fields of this object
+    .populate("crew.crewId") // includes all fields of this object
+    .populate("likes") // includes all fields of this object
+    .populate("favourites") // includes all fields of this object
+    .populate("wishes_to_buy") // includes all fields of this object
+    .populate("sharings") // includes all fields of this object
+    .populate("mediumSynopsis.user") // includes all fields of this object
+    .populate("longSynopsis.user") // includes all fields of this object
+    .populate("uniqueness.user")
+    .populate("stillsApproval.user")
+    .populate("reports.user")
+    .where("deleted")
+    .equals(false)
+    .sort({_id:-1})
+    .limit(6)
 
     res.status(200).json(getfips);
   } catch (error) {
@@ -918,22 +993,22 @@ export const getNewest = async (req, res) => {
 export const getMostPopular = async (req, res) => {
   try {
     const popularFind = await fepk
-      .find()
-      .sort({ "likes.length": -1 })
-      .limit(6)
-      .populate("film_maker") // includes all fields of this object
-      .populate("crew.crewId") // includes all fields of this object
-      .populate("likes") // includes all fields of this object
-      .populate("favourites") // includes all fields of this object
-      .populate("wishes_to_buy") // includes all fields of this object
-      .populate("sharings") // includes all fields of this object
-      .populate("mediumSynopsis.user") // includes all fields of this object
-      .populate("longSynopsis.user") // includes all fields of this object
-      .populate("uniqueness.user")
-      .populate("stillsApproval.user")
-      .populate("reports.user")
-      .where("deleted")
-      .equals(false);
+    .find()
+    .sort({ "likes.length": -1})
+    .limit(6)
+    .populate("film_maker") // includes all fields of this object
+    .populate("crew.crewId") // includes all fields of this object
+    .populate("likes") // includes all fields of this object
+    .populate("favourites") // includes all fields of this object
+    .populate("wishes_to_buy") // includes all fields of this object
+    .populate("sharings") // includes all fields of this object
+    .populate("mediumSynopsis.user") // includes all fields of this object
+    .populate("longSynopsis.user") // includes all fields of this object
+    .populate("uniqueness.user")
+    .populate("stillsApproval.user")
+    .populate("reports.user")
+    .where("deleted")
+    .equals(false)
 
     res.status(200).json(popularFind);
   } catch (error) {

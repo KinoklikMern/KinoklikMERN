@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import ActionIcon from "./ActionIcon";
+import DonationIcon from "../../../images/icons/Donation.svg";
+import DonationBlackIcon from "../../../images/icons/Donation.svg";
 import DollarIcon from "../../../images/icons/DollarIcon.svg";
 import DollarBlackIcon from "../../../images/icons/DollarBlackIcon.svg";
 import PlusIcon from "../../../images/icons/PlusWhite.svg";
 import PlusBlackIcon from "../../../images/icons/PlusBlack.svg";
 import StarIcon from "../../../images/icons/StarWhite.svg";
 import StarBlackIcon from "../../../images/icons/StarBlack.svg";
-import KIcon from "../../../images/icons/K.svg";
+//import KIcon from "../../../images/icons/K.svg";
 import ShareIcon from "../../../images/icons/share.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import http from "../../../http-common";
@@ -42,8 +44,13 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     userId = user.id;
     userRole = user.role;
   }
-
   const [fepkInfo, setFepkInfo] = useState(epkInfo);
+
+  const [usersWishesToDonate, setUsersWishesToDonate] = useState(
+    epkInfo.wishes_to_donate?.length || 0
+);
+
+
   const [usersWishesToBuy, setUsersWishesToBuy] = useState(
     epkInfo.wishes_to_buy.length
   );
@@ -66,6 +73,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
         // console.log(response.data);
         setFepkInfo(response.data);
         // console.log(fepkInfo);
+        setUsersWishesToDonate(response.data.wishes_to_donate?.length || 0);
+        //setUsersWishesToDonate(response.data.wishes_to_donate.length);
         setUsersWishesToBuy(response.data.wishes_to_buy.length);
         setUsersFavourites(response.data.favourites.length);
         setUsersLikes(response.data.likes.length);
@@ -82,6 +91,15 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   }, []);
 
   const actionList = [
+    {
+      name: "wish_to_donate",
+      icon:
+        fepkInfo?.wishes_to_donate?.filter((item) => item._id === userId).length !== 0
+          ? DonationBlackIcon
+          : DonationIcon,
+      number: usersWishesToDonate,
+      width: "",
+    },
     {
       name: "wish_to_buy",
       icon:
@@ -108,10 +126,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           : StarIcon,
       number: usersLikes,
     },
-    {
-      name: "K",
-      icon: KIcon,
-    },
+    // {
+    //   name: "K",
+    //   icon: KIcon,
+    // },
     {
       name: "share",
       icon: ShareIcon,
@@ -141,6 +159,24 @@ export default function EpkSocialAction({ epkInfo, handler }) {
         let incrementValue = 0;
 
         switch (name) {
+          case "wish_to_donate":
+            handler("wish_to_donate"); // Use the handler function to open the donation modal
+          
+            // Make an HTTP GET request using the Axios library (you can import Axios if it's not already imported)
+            // Replace 'axios.get' with your actual HTTP request method
+
+            http
+              .get(`fepks/wishestodonate/${epkInfo._id}/${userId}`)
+              .then((response) => {
+                setFepkInfo(response.data);
+                console.log(response.data);
+                setUsersWishesToDonate(response.data.wishes_to_donate.length);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            break;
+          
           case "wish_to_buy":
             // Determine if adding or removing from wishlist
             // const isAddingToWishlist =
@@ -223,9 +259,9 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 console.error(error);
               });
             break;
-          case "K":
-            openUrl(epkInfo.kickstarter_url);
-            break;
+          // case "K":
+          //   openUrl(epkInfo.kickstarter_url);
+          //   break;
           case "share":
             closeSharingMenu();
             break;

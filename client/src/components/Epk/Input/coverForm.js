@@ -29,7 +29,9 @@ function CoverForm() {
     minutes: "",
     banner_url: "",
     trailer_url: "",
-    kickstarter_url: "",
+    //kickstarter_url: "",
+    DonatePayPal_url: "",
+    DonateStripe_url: "",
   });
   const movieGenre = [
     "Genre...",
@@ -249,7 +251,7 @@ function CoverForm() {
                     />
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <input
                       style={{ 
                         height: "30px", 
@@ -264,7 +266,42 @@ function CoverForm() {
                     onChange={handleInputChange}
                     name="kickstarter_url"
                   />
+                </div> */}
+
+                 <div>
+                  <input
+                      style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                    }}
+                    className="form-control"
+                    defaultValue={epkCoverData.DonatePayPal_url}
+                    placeholder="URL: www.paypal.com/mymovie"
+                    onChange={handleInputChange}
+                    name="DonatePayPal_url"
+                  />
                 </div>
+
+                <div>
+                  <input
+                      style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: '1px 2px 9px #311465',
+                    }}
+                    className="form-control"
+                    defaultValue={epkCoverData.DonateStripe_url}
+                    placeholder="URL: www.stripe.com/mymovie"
+                    onChange={handleInputChange}
+                    name="DonateStripe_url"
+                  />
+                </div>
+
               </div>
               <div className="col border border-2">
                 <div className="row gx-5">
