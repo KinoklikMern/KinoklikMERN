@@ -119,7 +119,7 @@ export default function Profile() {
           type="text"
           name="firstName"
           placeholder="First Name"
-          defaultValue={userProfileData.firstName}
+          value={userProfileData.firstName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -127,7 +127,7 @@ export default function Profile() {
           type="text"
           name="lastName"
           placeholder="Last Name"
-          defaultValue={userProfileData.lastName}
+          value={userProfileData.lastName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -135,7 +135,7 @@ export default function Profile() {
           type="text"
           name="email"
           placeholder="Email"
-          defaultValue={userProfileData.email}
+          value={userProfileData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -143,7 +143,7 @@ export default function Profile() {
           type="text"
           name="phone"
           placeholder="Phone"
-          defaultValue={userProfileData.phone}
+          value={userProfileData.phone}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -151,7 +151,7 @@ export default function Profile() {
           type="text"
           name="website"
           placeholder="Website"
-          defaultValue={userProfileData.website}
+          value={userProfileData.website}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -159,7 +159,7 @@ export default function Profile() {
           type="text"
           name="city"
           placeholder="City"
-          defaultValue={userProfileData.city}
+          value={userProfileData.city}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -167,7 +167,7 @@ export default function Profile() {
           type="text"
           name="province"
           placeholder="Province"
-          defaultValue={userProfileData.province}
+          value={userProfileData.province}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -175,7 +175,7 @@ export default function Profile() {
           type="text"
           name="country"
           placeholder="Country"
-          defaultValue={userProfileData.country}
+          value={userProfileData.country}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />

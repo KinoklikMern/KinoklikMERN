@@ -8,9 +8,11 @@ const UserSchema = mongoose.Schema({
   },
   phone: {
     type: String,
+    default: "",
   },
   website: {
     type: String,
+    default: "",
   },
   password: {
     type: String,
@@ -41,6 +43,12 @@ const UserSchema = mongoose.Schema({
       "Viewer",
       "Investor",
       "Actor",
+      "Director",
+      "Editor",
+      "Producer",
+      "Cinematographer",
+      "Sound",
+      "Writer",
     ],
   },
   following: {
@@ -65,12 +73,15 @@ const UserSchema = mongoose.Schema({
   ],
   city: {
     type: String,
+    default: "",
   },
   province: {
     type: String,
+    default: "",
   },
   country: {
     type: String,
+    default: "",
   },
   createdAt: {
     type: Date,
@@ -207,36 +218,42 @@ const UserSchema = mongoose.Schema({
       "Curvy",
     ],
   },
+  facebook_url: { type: String, default: "" },
+  facebook_followers: { type: String, default: "" },
+  instagram_url: { type: String, default: "" },
+  instagram_followers: { type: String, default: "" },
+  twitter_url: { type: String, default: "" },
+  twitter_followers: { type: String, default: "" },
   // Crew
-  crew: [
-    {
-      crewId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "crew",
-      },
-      epkRole: {
-        type: String,
-        enum: [
-          "lead_actor",
-          "supporting_actor",
-          "director",
-          "producer",
-          "cinematographer",
-          "editor",
-          "writer",
-          "sound",
-        ],
-      },
-      biography: { type: String },
-      image: { type: String },
-      facebook_url: { type: String },
-      facebook_followers: { type: String },
-      instagram_url: { type: String },
-      instagram_followers: { type: String },
-      twitter_url: { type: String },
-      twitter_followers: { type: String },
-    },
-  ],
+  // crew: [
+  //   {
+  //     crewId: {
+  //       type: mongoose.Schema.Types.ObjectId,
+  //       ref: "crew",
+  //     },
+  //     epkRole: {
+  //       type: String,
+  //       enum: [
+  //         "lead_actor",
+  //         "supporting_actor",
+  //         "director",
+  //         "producer",
+  //         "cinematographer",
+  //         "editor",
+  //         "writer",
+  //         "sound",
+  //       ],
+  //     },
+  //     biography: { type: String },
+  //     image: { type: String },
+  //     facebook_url: { type: String },
+  //     facebook_followers: { type: String },
+  //     instagram_url: { type: String },
+  //     instagram_followers: { type: String },
+  //     twitter_url: { type: String },
+  //     twitter_followers: { type: String },
+  //   },
+  // ],
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).
@@ -248,3 +265,4 @@ UserSchema.methods.comparePassword = async function (password) {
 const User = mongoose.model("User", UserSchema);
 
 export default User;
+

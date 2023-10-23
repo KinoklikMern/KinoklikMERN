@@ -8,9 +8,31 @@ export default function Profile() {
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
-  const [userProfileData, setUserProfileData] = useState([]);
+  //const [userProfileData, setUserProfileData] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [userProfileData, setUserProfileData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    website: "",
+    city: "",
+    province: "",
+    age: "",
+    ethnicity: "",
+    sex: "",
+    country: "",
+    facebook_url: "",
+    facebook_followers: "",
+    instagram_url: "",
+    instagram_followers: "",
+    twitter_url: "",
+    twitter_followers: "",
+    aboutMe: "",
+    picture: "",
+  });
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -119,7 +141,7 @@ export default function Profile() {
           type="text"
           name="firstName"
           placeholder="First Name"
-          defaultValue={userProfileData.firstName}
+          value={userProfileData.firstName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -127,7 +149,7 @@ export default function Profile() {
           type="text"
           name="lastName"
           placeholder="Last Name"
-          defaultValue={userProfileData.lastName}
+          value={userProfileData.lastName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -135,7 +157,7 @@ export default function Profile() {
           type="text"
           name="email"
           placeholder="Email"
-          defaultValue={userProfileData.email}
+          value={userProfileData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -143,7 +165,7 @@ export default function Profile() {
           type="text"
           name="phone"
           placeholder="Phone"
-          defaultValue={userProfileData.phone}
+          value={userProfileData.phone}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -151,7 +173,7 @@ export default function Profile() {
           type="text"
           name="website"
           placeholder="Website"
-          defaultValue={userProfileData.website}
+          value={userProfileData.website}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -159,7 +181,7 @@ export default function Profile() {
           type="text"
           name="city"
           placeholder="City"
-          defaultValue={userProfileData.city}
+          value={userProfileData.city}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -167,7 +189,7 @@ export default function Profile() {
           type="text"
           name="province"
           placeholder="Province"
-          defaultValue={userProfileData.province}
+          value={userProfileData.province}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
@@ -350,6 +372,7 @@ export default function Profile() {
         <img
           className="tw-rounded-full"
           src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
+          //src={`${userProfileData.picture}`}
           alt="User Avatar"
         />
         <input

@@ -382,6 +382,33 @@ export const getProfile = async (req, res) => {
   }
 };
 
+//SEND INVITATION --------------(moved to invitations)-----------------------
+
+// export const sendInvitation = async (req, res) => {
+//   const { email, invitedBy, movie, role, firstName, lastName} = req.body;
+
+//   if (!email) return res.status(404).json({ message: "email is missing!" });
+
+//   // Direct link to your signup page
+//   const signUpLink = `http://localhost:3000/signup`;
+
+//   // Send the invitation email
+//   transport.sendMail({
+//     from: "info@kinoklik.com",
+//     to: email, // Directly use the provided email
+//     subject: "Invitation to Join Kinoklik",
+//     html: `
+//       <h2>${firstName} ${lastName}, You're Invited!</h2>
+//       <p>Hey, You have been invited by ${invitedBy} to register in the Kinoklikk app in connection with participation in the project named "${movie}" in role of ${role}. To do so, please follow the link below:</p>
+//       <a href='${signUpLink}'>Register Now</a>
+//     `,
+//   });
+
+//   res.status(200).json({ message: "Invitation sent to the provided email!" });
+// };
+
+//---------------------------------------------------
+
 //***************************Created by Zibin*******************************
 export const forgetPassword = async (req, res) => {
   const { email } = req.body;
@@ -723,6 +750,28 @@ export const getProfileActor = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+  try {
+    const profile = await User.find({ role: "Actor" }).select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
+    }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+//get all users
+export const getAllUsers = async (req, res) => {
+  try {
+    const profile = await User.find().select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
+    }
+    res.send(profile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // get starred actor
@@ -851,7 +900,8 @@ export const getFollowingActor = async (req, res) => {
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User.findOne({ _id: id });
+    const fepkOne = await User
+      .findOne({ _id: id })
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;
