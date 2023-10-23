@@ -215,7 +215,7 @@ function DetailsForm () {
             <h5 className="card-title " style={{color: "#ffffff", fontWeight: 'normal' }}>Film Details</h5>
             <form className="row g-3">
                 <div className="col-3 mt-5">
-                    <label for="filePoster" class="form-label text-dark">
+                    <label htmlFor="filePoster" className="form-label text-dark">
                       {" "}
                       <h4>Upload Poster / Thumbnail</h4>
                     </label>

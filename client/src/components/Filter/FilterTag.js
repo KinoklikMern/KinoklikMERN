@@ -167,6 +167,7 @@ export default function FilterTag({ role }) {
 
   console.log(filterQuery);
 
+  // ----- CHIHYIN -------
   const clickHandler = (name, isActive) => {
     let newTags;
     let newQuery;

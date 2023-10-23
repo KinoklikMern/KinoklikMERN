@@ -23,7 +23,7 @@ import { useLocation } from "react-router-dom";
 export default function Actor(props) {
   const [epkInfo, setEpkInfo] = useState({});
   const { id } = useParams();
-  const [follower, setFollower] = useState([]);
+  const [kkFollower, setKKFollower] = useState([]);
   const [range, setRange] = useState(2);
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
@@ -37,6 +37,15 @@ export default function Actor(props) {
 
   const listRef = useRef();
   const videoRef = useRef();
+
+  // fetching user
+  const { user } = useSelector((user) => ({ ...user }));
+  let userId;
+  if (!user) {
+    userId = "0";
+  } else {
+    userId = user.id;
+  }
 
   const age_range = [
     [20, 24],
@@ -56,15 +65,6 @@ export default function Actor(props) {
     else if (age >= 45 && age <= 49) setRange(5);
   }
 
-  // ----- CHIHYIN -------
-  const location = useLocation();
-  const thumbnailFromUploadActorPic = location.state?.thumbnail;
-  if (thumbnailFromUploadActorPic) {
-    localStorage.setItem("thumbnail", thumbnailFromUploadActorPic);
-  }
-  const thumbnailFromLocalStorage = localStorage.getItem("thumbnail");
-  // ----- CHIHYIN -------
-
   useEffect(() => {
     http.get(`/users/getactor/${id}`).then((res) => {
       setEpkInfo(res.data);
@@ -75,8 +75,8 @@ export default function Actor(props) {
       setpics(images);
 
       setAge(res.data.age);
-      setLikes(res.data.likes);
-      setFollower(res.data.followers);
+      setLikes(res.data.likes.length);
+      setKKFollower(res.data.kkFollowers.length);
       setRecommend(res.data.comunicate);
     });
 
@@ -88,6 +88,19 @@ export default function Actor(props) {
 
     // return () => clearTimeout(playVideoAfterDelay);
   }, [id]);
+
+  // user is added to the list of +(followers)
+  function addUserToFollowers() {
+    http.post(`/users/follow/${id}/${userId}`).then((res) => {
+      setKKFollower(res.data.kkFollowers.length);
+    });
+  }
+  // user is added to the list of star(likes)
+  function addUserToLikes() {
+    http.post(`/users/like/${id}/${userId}`).then((res) => {
+      setLikes(res.data.likes.length);
+    });
+  }
 
   const handleClick = (direction) => {
     if (direction === "left" && indexPic > 0) {
@@ -105,6 +118,7 @@ export default function Actor(props) {
     //   setCanPlay(true);
     //   videoRef.current.play();
     // }
+
     // ----- CHIHYIN -----
     const video = videoRef.current;
     if (isPlaying) {
@@ -113,6 +127,24 @@ export default function Actor(props) {
       video.play();
     }
     setIsPlaying(!isPlaying);
+  };
+  const displaySex = (sex) => {
+    switch (sex) {
+      case "Male":
+        return "M";
+      case "Female":
+        return "F";
+      case "Transgender":
+        return "Trans";
+      case "Non-binary":
+        return "NB";
+      case "other":
+        return "O";
+      case "notToSay":
+        return "-";
+      default:
+        return "";
+    }
   };
 
   return (
@@ -130,7 +162,8 @@ export default function Actor(props) {
             ref={videoRef}
             className="actor-image-container"
             src={`${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`}
-            poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
+            // poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
+            poster={`${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`}
             controls
           ></video>
           <div
@@ -193,32 +226,50 @@ export default function Actor(props) {
               gridColumn: "3/4",
             }}
           >
-            {epkInfo.sex && epkInfo.sex === "Male" ? "M" : "F"}
+            {/* {epkInfo.sex && epkInfo.sex === "Male" ? "M" : "F"} */}
+            {/* ----- CHIHYIN ----- */}
+            {displaySex(epkInfo.sex)}
           </p>
           <p className="actor-detail-item Actor-Role">Actor</p>
-          <button className="btn-follow actor-detail-item">Follow +</button>
-          <p
-            className="follower-number actor-detail-item"
-            style={{ fontSize: "24px" }}
+          <button
+            className="btn-follow actor-detail-item"
+            onClick={addUserToFollowers}
           >
-            {follower.length || "0"}
-          </p>
-          <button className="btn-star actor-detail-item">
-            <span style={{ display: "inline" }}>Star</span>{" "}
-            <StarIcon
-              className="actor-page-star"
-              style={{
-                color: "white",
-                marginLeft: "10px",
-              }}
-            />{" "}
-            {/*<img src={starIcon} className='actor-page-star' style={{fill: "white", color: "white"}}/>*/}
+            Follow +
           </button>
           <p
             className="follower-number actor-detail-item"
             style={{ fontSize: "24px" }}
           >
-            {likes.length || "22"}
+            {/* {kkFollower.length || "0"} */}
+            {kkFollower}
+          </p>
+          {/* <button className="btn-star actor-detail-item">
+            <span style={{ display: "inline" }}>Star</span>{" "}
+            <StarIcon
+              className="actor-page-star"
+              onClick={addUserToLikes}
+              style={{
+                color: "white",
+                marginLeft: "10px",
+              }}
+            />{" "}
+          </button> */}
+          <button
+            className="btn-star actor-detail-item"
+            onClick={addUserToLikes}
+          >
+            <span style={{ display: "inline" }}>Star</span>
+            <StarIcon
+              className="actor-page-star"
+              style={{ color: "white", marginLeft: "10px" }}
+            />
+          </button>
+          <p
+            className="follower-number actor-detail-item"
+            style={{ fontSize: "24px" }}
+          >
+            {likes}
           </p>
           <button className="btn-Recommend actor-detail-item">
             <span style={{ display: "inline" }}>Recommend</span>{" "}
@@ -276,7 +327,7 @@ export default function Actor(props) {
               <span
                 style={{
                   fontWeight: "700",
-                  marginRight: "30px",
+                  marginRight: "60px",
                 }}
               >
                 Age-Range
@@ -296,12 +347,84 @@ export default function Actor(props) {
               <span
                 style={{
                   fontWeight: "700",
-                  marginRight: "30px",
+                  marginRight: "75px",
                 }}
               >
                 Ethnicity{" "}
               </span>{" "}
               <span>{epkInfo.ethnicity || "Caucasian"}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "65px",
+                }}
+              >
+                Hair Color{" "}
+              </span>{" "}
+              <span>{epkInfo.hairColor}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "60px",
+                }}
+              >
+                Eyes Color{" "}
+              </span>{" "}
+              <span>{epkInfo.eyesColor}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "60px",
+                }}
+              >
+                Body Build{" "}
+              </span>{" "}
+              <span>{epkInfo.bodyBuild}</span>
+            </p>
+            <p
+              style={{
+                display: "block",
+                marginLeft: "30px",
+                color: "#1E0039",
+                fontSize: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "700",
+                  marginRight: "90px",
+                }}
+              >
+                Height{" "}
+              </span>{" "}
+              <span>{epkInfo.height}</span>
             </p>
           </div>
           <div className="actor-biography">

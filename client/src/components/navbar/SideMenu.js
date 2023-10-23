@@ -99,9 +99,9 @@ export const SideProfileMenu = () => {
         </div>
         <div className="tw-flex tw-h-screen tw-flex-col tw-items-end tw-justify-center tw-gap-5">
           {filteredMenuList.map((menu, index) => (
-            <>
+            <React.Fragment key={index}>
               <div
-                key={index}
+                //key={index}
                 onClick={() => {
                   menu.url !== "logout" ? navigate(menu.url) : logout();
                 }}
@@ -113,7 +113,7 @@ export const SideProfileMenu = () => {
                 {menu.name === hoveredMenu ? menu.hoverIcon : menu.defaultIcon}
               </div>
               <div className="tw-mx-3 tw-w-5/6 tw-border-[1px] tw-border-[#712CB0]"></div>
-            </>
+            </React.Fragment>
           ))}
         </div>
       </div>

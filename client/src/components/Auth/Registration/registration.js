@@ -55,6 +55,30 @@ function RegistrationForm() {
       label: "Viewer",
       value: "Viewer",
     },
+    {
+      label: "Producer",
+      value: "Producer",
+    },
+    {
+      label: "Cinematographer",
+      value: "Cinematographer",
+    },
+    {
+      label: "Editor",
+      value: "Editor",
+    },
+    {
+      label: "Writer",
+      value: "Writer",
+    },
+    {
+      label: "Director",
+      value: "Director",
+    },
+    {
+      label: "Sound",
+      value: "Sound",
+    },
   ];
   const handleInputChange = (e) => {
     const { id, value } = e.target;

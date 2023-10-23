@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Col, Row } from "antd";
+import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
+import Modal from "react-modal";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,36 +16,73 @@ import {
 
 function FepkDetailsForm() {
   const [file, setFile] = useState("");
-  const [fileCrew, setFileCrew] = useState("");
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState(false);
+  const [userList, setUserList] = useState([]);
+  const [allUserList, setAllUserList] = useState([]);
   const [fepk, setFepk] = useState({});
-  const [disabled, setDisabled] = useState(true);
-  const [disabledAdd, setDisabledAdd] = useState(true);
-  const inputFileRef = useRef(null);
-  const inputFileCrewRef = useRef(null);
-  const [allCrewList, setAllCrewList] = useState([]);
-  const [crewList, setCrewList] = useState([]);
+  const [disabledSaveButton, setDisabledSaveButton] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
-  const [newCrewName, setNewCrewName] = useState("");
-  const [characterLength, setCharacterLength] = useState({
-    biography: 0,
-  });
+  const [status, setStatus] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [disabledAdd, setDisabledAdd] = useState(true);
+  const [message, setMessage] = useState("");
+  const [userName, setUserName] = useState("");
+  const [role, setRole] = useState(""); // Assuming you have a 'role' in the user object. Adjust if necessary.
+  //toggle search result
+  const [isResultsVisible, setIsResultsVisible] = useState(true);
+  //save selected user
+  const [selectedUser, setSelectedUser] = useState(null);
+  //show email if no user found
+  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [invitationEmailValue, setInvitationEmailValue] = useState("");
+  const [emailError, setEmailError] = useState("");
+  //have list of users that are currently in fepk
+  const [currentFepkUsers, setCurrentFepkUsers] = useState([]);
+  //image url state
+  const [imageUrl, setImageUrl] = useState(""); // Initially, it can be the default image or empty.
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(""); // state to store the uploaded image URL
+  //To work with modal notifications
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContentType, setModalContentType] = useState("save"); // need to change modal content based on wht button was clicked
+
+  const inputFileRef = useRef(null);
 
   let { fepkId } = useParams();
 
-  let newCrew = {
-    name: "",
-    biography: "",
-    image: "",
-    facebook_url: "",
-    facebook_followers: "",
-    instagram_url: "",
-    instagram_followers: "",
-    twitter_url: "",
-    twitter_followers: "",
-    film_maker: fepk.film_maker,
+  //roles for invited users
+  const [invitedUserRole, setInvitedUserRole] = useState("Actor");
+  // const [invitedUserFirstName, setInvitedUserFirstName] = useState("");
+  //const [invitedUserLastName, setInvitedUserLastName] = useState("");
+
+  const [invitationData, setInvitationData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: invitedUserRole,
+    invitedBy: "",
+    movie: "",
+    invitedByName: "",
+    movieTitle: "",
+    status: "Invited",
+  });
+
+  const [invitationsByFilmmakerMovie, setInvitationsByFilmmakerMovie] =
+    useState([]);
+
+  const epkRoles = [
+    "Actor",
+    "Director",
+    "Producer",
+    "Cinematographer",
+    "Editor",
+    "Writer",
+    "Sound",
+  ];
+
+  const makeEpkRole = (Y) => {
+    return <option value={Y}> {Y}</option>;
   };
+
+  //-------------------------
 
   const fileSelected = (event) => {
     let formData = new FormData();
@@ -59,78 +98,100 @@ function FepkDetailsForm() {
         })
         .then((response) => {
           if (response.data !== undefined) {
+            const newImageUrl =
+              process.env.REACT_APP_AWS_URL + "/" + response.data.key;
+            setUploadedImageUrl(newImageUrl); // store the uploaded image URL
             epkFilmDetailsData.image_details = response.data.key;
           }
-          http
-            .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          setDisabledSaveButton(false);
         })
         .catch((err) => {
-          console.log();
           console.log(err);
         });
-      setDisabled(false);
     } else {
       setMessage("File must be a image(jpeg or png)");
     }
   };
 
-  const fileCrewSelected = (event) => {
-    let formData = new FormData();
-    console.log(event.target.files[0]);
-    formData.append("file", event.target.files[0]);
-    console.log(formData);
-    if (checkFileMimeType(event.target.files[0])) {
-      if (event.target.files[0]) {
-        http
-          .post("fepks/uploadFile", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            if (response.data !== undefined) {
-              setCrewData({ ...crewData, image: response.data.key });
-              console.log(crewData);
-            }
-          })
-          .catch((err) => {
-            console.log();
-            console.log(err);
-          });
-      }
-    }
-  };
+  useEffect(() => {
+    console.log("useEffect is running");
 
-  const epkRoles = [
-    "lead_actor",
-    "supporting_actor",
-    "director",
-    "producer",
-    "cinematographer",
-    "editor",
-    "writer",
-    "sound",
-  ];
+    Promise.all([http.get(`/fepks/${fepkId}`), http.get("/users/getallusers")])
+      .then(([fepkResponse, userResponse]) => {
+        setFepk(fepkResponse.data);
+        //setUserList(fepkResponse.data.crew); no need????
+        setAllUserList(userResponse.data);
+        setCurrentFepkUsers(fepkResponse.data.actors);
 
-  const makeEpkRole = (Y) => {
-    return <option value={Y}> {Y}</option>;
-  };
+        // Check if image_details starts with 'http'
+        if (
+          fepkResponse.data.image_details &&
+          fepkResponse.data.image_details.startsWith("http")
+        ) {
+          setImageUrl(fepkResponse.data.image_details);
+        } else {
+          setImageUrl(
+            process.env.REACT_APP_AWS_URL +
+              "/" +
+              fepkResponse.data.image_details
+          );
+        }
+
+        //console.log(imageUrl);
+        //console.log(currentFepkUsers);
+        console.log(fepk);
+        //console.log("i");
+
+        //initial data for epkFilmDetailsData
+        setEpkFilmDetailsData({
+          ...epkFilmDetailsData,
+          image_details: fepkResponse.data.image_details,
+          productionCo: fepkResponse.data.productionCo,
+          distributionCo: fepkResponse.data.distributionCo,
+          productionYear: fepkResponse.data.productionYear,
+          durationMin: fepkResponse.data.durationMin,
+          actors: fepkResponse.data.actors,
+        });
+
+        return http.get("invitations/get-invitation-by-filmmaker-movie", {
+          params: {
+            movie: fepkResponse.data._id,
+            invitedBy: fepkResponse.data.film_maker._id,
+          },
+        });
+      })
+      .then((invitations) => {
+        setInvitationsByFilmmakerMovie(invitations.data);
+      });
+    //console.log(invitationsByFilmmakerMovie);
+    //console.log(allUserList);
+    //console.log(userList);
+  }, []);
+
+  //NEEDED???? empty email when search input
+  useEffect(() => {
+    setInvitationEmailValue(""); // Clear the email input whenever searchValue changes
+  }, [searchValue]);
+  //
+  //temporary to see selected user data
+  // useEffect(() => {
+  //   console.log(currentFepkUsers);
+  // }, [currentFepkUsers]);
 
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
-      setCrewList(response.data.crew);
-    });
-    http.get("/crews/").then((res) => {
-      setAllCrewList(res.data);
-    });
-  }, []);
+    console.log(
+      "Invitations on that filmmaker and movie",
+      invitationsByFilmmakerMovie
+    );
+  }, [invitationsByFilmmakerMovie]);
+
+  useEffect(() => {
+    console.log("Current fepk users", currentFepkUsers);
+  }, [currentFepkUsers]);
+
+  useEffect(() => {
+    console.log(emailError);
+  }, [emailError]);
 
   const [epkFilmDetailsData, setEpkFilmDetailsData] = useState({
     image_details: fepk.image_details,
@@ -138,156 +199,39 @@ function FepkDetailsForm() {
     distributionCo: fepk.distributionCo,
     productionYear: fepk.productionYear,
     durationMin: fepk.durationMin,
-    crew: fepk.crew,
+    actors: fepk.actors,
   });
 
-  const [crewData, setCrewData] = useState({
-    crewId: {
-      _id: "",
-      name: "",
-    },
-    epkRole: "",
-    biography: "",
-    image: "",
-    facebook_url: "",
-    facebook_followers: "",
-    instagram_url: "",
-    instagram_followers: "",
-    twitter_url: "",
-    twitter_followers: "",
-  });
+  function saveEpkDetails() {
+    const tempEpkDetails = { ...epkFilmDetailsData };
 
-  function deleteFromCrewList(deletedCrew) {
-    const newCrewList = crewList.filter(
-      (crewObject) => crewObject !== deletedCrew
-    );
-    setCrewList(newCrewList);
-    setEpkFilmDetailsData({ ...epkFilmDetailsData, crew: newCrewList });
-    setDisabled(false);
-  }
+    http
+      .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
+      .then((res) => {
+        setModalContentType("save");
+        setModalIsOpen(true);
+        console.log("saved");
 
-  function addCrewToTable() {
-    console.log("!",crewData);
-    if (
-      crewData.crewId._id !== "" &&
-      crewData.crewId.name !== "" &&
-      crewData.epkRole !== "" &&
-      crewData.biography !== "" &&
-      crewData.biography.length <= 250 &&
-      crewData.image !== ""
-      // crewData.facebook_url !== "" &&
-      // crewData.facebook_followers !== "" &&
-      // crewData.instagram_url !== "" &&
-      // crewData.instagram_followers !== "" &&
-      // crewData.twitter_url !== "" &&
-      // crewData.twitter_followers !== ""
-    ) {
-      console.log("1",crewList);
-      crewList.push(crewData);
-      setEpkFilmDetailsData({ ...epkFilmDetailsData, crew: crewList });
-      setDisabledAdd(true);
-      setDisabled(false);
-      epkFilmDetailsData.crew = crewList;
-      http
-        .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
-        .then((res) => {
-          console.log("saved");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      window.location.reload();
-    }
-    console.log("2",crewList);
-  }
-
-  const createNewCrew = () => {
-    http.get(`/crews/byName/${newCrewName}`).then((response) => {
-      if (response.data) {
-        setStatus(false);
-      } else {
-        newCrew.name = newCrewName;
-        http.post("/crews/", newCrew).then((response) => {
-          if (response.data.name === newCrewName) {
-            setStatus(true);
-            http.get("/crews/").then((res) => {
-              setAllCrewList(res.data);
-            });
-            setCrewData({
-              ...crewData,
-              crewId: {
-                _id: response.data._id,
-                name: response.data.name,
-              },
-              biography: "",
-              image: "",
-              facebook_url: "",
-              facebook_followers: "",
-              instagram_url: "",
-              instagram_followers: "",
-              twitter_url: "",
-              twitter_followers: "",
-            });
-            console.log(crewData);
-          } else {
-            setStatus(false);
-          }
-        });
-      }
-    });
-  };
-
-  const handleSearch = (event) => {
-    setStatus(false);
-    setNewCrewName(event.target.value);
-    const searchWord = event.target.value;
-    const newFilter = allCrewList.filter((value) => {
-      return value.name.toLowerCase().includes(searchWord.toLowerCase());
-    });
-    if (searchWord === "") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(newFilter);
-    }
-  };
-
-  const addToCrewData = (crew) => {
-    if (characterLength.biography <= 250) {
-      setCrewData({
-        ...crewData,
-        crewId: {
-          _id: crew._id,
-          name: crew.name,
-        },
-        biography: crew.biography,
-        image: crew.image,
-        facebook_url: crew.facebook_url,
-        facebook_followers: crew.facebook_followers,
-        instagram_url: crew.instagram_url,
-        instagram_followers: crew.instagram_followers,
-        twitter_url: crew.twitter_url,
-        twitter_followers: crew.twitter_followers,
+        // Here, if your backend returns the updated data, update the state with that:
+        if (res.data && res.data.updatedEpkData) {
+          setEpkFilmDetailsData(res.data.updatedEpkData);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // Rollback: In case of an error, revert to the original state
+        setEpkFilmDetailsData(tempEpkDetails);
       });
-      setCharacterLength({
-        ...characterLength,
-        biography: crew.biography.length,
-      });
-      setFilteredData([]);
-    }
-  };
+
+    setDisabledSaveButton(true);
+    //window.location.reload();
+  }
 
   const handleDetailsChange = (event) => {
     const { name, value } = event.target;
-    setEpkFilmDetailsData({ ...epkFilmDetailsData, [name]: value });
-    setDisabled(false);
-  };
-
-  const handleCrewChange = (event) => {
-    const { name, value } = event.target;
-    setCharacterLength(value.length);
-    setCrewData({ ...crewData, [name]: value });
-    setCharacterLength({ ...characterLength, [name]: value.length });
-    setDisabledAdd(false);
+    //setEpkFilmDetailsData({ ...epkFilmDetailsData, [name]: value });
+    setEpkFilmDetailsData((prevState) => ({ ...prevState, [name]: value }));
+    setDisabledSaveButton(false);
   };
 
   const checkFileMimeType = (file) => {
@@ -309,26 +253,324 @@ function FepkDetailsForm() {
     } else return true;
   };
 
-  function saveEpkDetails() {
-    http
-      .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
-      .then((res) => {
-        console.log("saved");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleSearch = (event) => {
+    setEmailError("");
+    setStatus(false);
+    setSearchValue(event.target.value);
 
-    setDisabled(true);
-    window.location.reload();
+    const searchWord = event.target.value.toLowerCase();
+
+    //regular implementation
+    const newFilter = allUserList.filter((value) => {
+      // Check if it's a user based on the presence of a name or firstName/lastName
+      const actorName = value.firstName
+        ? (value.firstName + " " + (value.lastName || "")).toLowerCase()
+        : "";
+
+      return actorName.includes(searchWord);
+    });
+
+    //2nd option, if user already exists in the table ( and in db in that fepk ) then do not display him in search
+
+    // const newFilter = allUserList.filter((value) => {
+    //   const actorName = value.firstName
+    //     ? (value.firstName + " " + (value.lastName || "")).toLowerCase()
+    //     : "";
+    //   const userExistsInFepk = currentFepkUsers
+    //     .map((user) => user._id)
+    //     .includes(value._id);
+    //   return actorName.includes(searchWord) && !userExistsInFepk;
+    // });
+
+    if (searchWord === "") {
+      setFilteredData([]);
+      setShowEmailInput(false);
+    } else if (newFilter.length === 0) {
+      setShowEmailInput(true);
+      setFilteredData([]); // No need to display the users
+      setDisabledAdd(true);
+    } else {
+      setFilteredData(newFilter);
+      setShowEmailInput(false);
+      //console.log(filteredData);
+    }
+    setIsResultsVisible(true);
+  };
+
+  const displayChosenUserData = (user) => {
+    //1st option if user exists in table (in db in that specific fepk as user) block add button
+    const userExistsInFepk = currentFepkUsers
+      .map((user) => user._id)
+      .includes(user._id);
+
+    if (userExistsInFepk) {
+      setDisabledAdd(true);
+    } else {
+      setDisabledAdd(false);
+    }
+    //-----------------------------------------------------
+    const displayName = `${user.firstName || ""} ${user.lastName || ""}`.trim();
+    setUserName(displayName);
+    setRole(user.role || ""); // Assuming you have a 'role' in the user object. Adjust if necessary.
+    setSearchValue("");
+    setSelectedUser(user);
+    setIsResultsVisible(false);
+
+    console.log(selectedUser);
+  };
+
+  function addUserToTable() {
+    const userExistsInFepk = currentFepkUsers
+      .map((user) => user._id)
+      .includes(selectedUser._id);
+
+    console.log("user Exists In Fepk:", userExistsInFepk);
+
+    if (!userExistsInFepk) {
+      const userToSave = selectedUser._id;
+
+      //const updatedUserList = [...userList, selectedUser];
+
+      //setCurrentFepkUsers([...currentFepkUsers, selectedUser]);
+
+      const updatedEpkFilmDetailsData = {
+        ...epkFilmDetailsData,
+        actors: [...epkFilmDetailsData.actors, userToSave], // append the user's ObjectId to the actors array
+      };
+
+      //setEpkFilmDetailsData(updatedEpkFilmDetailsData);
+
+      http
+        .put(`fepks/update/${fepkId}`, updatedEpkFilmDetailsData)
+        .then((res) => {
+          setCurrentFepkUsers([...currentFepkUsers, selectedUser]);
+          setEpkFilmDetailsData(updatedEpkFilmDetailsData);
+          console.log("saved");
+        })
+        .catch((err) => {
+          console.log(err);
+          setEpkFilmDetailsData(epkFilmDetailsData); // Reverting back to the previous epkFilmDetailsData
+        });
+
+      setDisabledAdd(true);
+    } else {
+      console.log("User already added.");
+    }
   }
+
+  const deleteFromUsersList = (userToDelete) => {
+    if (userToDelete.status && userToDelete.status === "Invited") {
+      axios
+        .delete(
+          `${process.env.REACT_APP_BACKEND_URL}/invitations/delete-invitation`,
+          {
+            data: {
+              movie: fepk._id,
+              invitedBy: fepk.film_maker._id,
+              email: userToDelete.email,
+            },
+          }
+        )
+        .then(() => {
+          console.log("Invitation deleted");
+
+          const updatedInvitationsList = invitationsByFilmmakerMovie.filter(
+            (user) => user._id !== userToDelete._id
+          );
+
+          setInvitationsByFilmmakerMovie(updatedInvitationsList);
+        })
+        .catch((error) => {
+          console.error("Error deleting invitation:", error);
+        });
+    } else {
+      console.log("user to delete", userToDelete);
+      const updatedFepkUsers = currentFepkUsers.filter(
+        (user) => user._id !== userToDelete._id
+      );
+
+      console.log("updated list", updatedFepkUsers);
+      // Remove the user's ID from the actors array in epkFilmDetailsData
+      const updatedEpkFilmDetailsData = {
+        ...epkFilmDetailsData,
+        actors: updatedFepkUsers,
+      };
+
+      console.log("updatedEpkFilmDetailsData:", updatedEpkFilmDetailsData);
+      // Make an HTTP request to the backend to persist this change
+      http
+        .put(`fepks/update/${fepkId}`, updatedEpkFilmDetailsData)
+        .then((res) => {
+          // Successful database update, so we update the frontend state
+          console.log("res.data:", res.data);
+          setEpkFilmDetailsData(updatedEpkFilmDetailsData);
+          setCurrentFepkUsers(updatedFepkUsers);
+          //setEpkFilmDetailsData(res.data); // Update with returned data from the backend to ensure accuracy PROBABLY WAS BREAKING
+          console.log("user deleted");
+        })
+
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+
+  //check if email input is valid
+  const isValidEmail = (email) => {
+    // Regular expression for basic email validation
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    setInvitationEmailValue(email);
+
+    // Update the invitationData state
+    setInvitationData((prevState) => ({
+      ...prevState,
+      email: email,
+    }));
+
+    if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  function sendInvitation() {
+    //chek if user is already registered
+    const userExists = allUserList.find(
+      (user) => user.email === invitationEmailValue
+    );
+
+    if (userExists) {
+      //console.log("Excisting user:", userExists);
+      const { firstName, lastName } = userExists;
+      setEmailError(
+        `User with that email is already registered under name: ${firstName} ${lastName}`
+      );
+    } else {
+      console.log("Sending invitation...");
+
+      // Clear previous errors
+      setEmailError("");
+
+      // Used directly without state, because state was updated too late
+      const updatedInvitationData = {
+        ...invitationData,
+        invitedByName:
+          fepk.film_maker.firstName + " " + fepk.film_maker.lastName,
+        movieTitle: fepk.title,
+        invitedBy: fepk.film_maker._id,
+        movie: fepk._id,
+      };
+
+      console.log("movie, invitedBy, email",fepk._id, fepk.film_maker._id, invitationEmailValue);
+
+      // Check if the invitation already exists
+      axios
+        .get(
+          `${process.env.REACT_APP_BACKEND_URL}/invitations/get-invitation-by-filmmaker-movie-email`,
+          {
+            params: {
+              movie: fepk._id,
+              invitedBy: fepk.film_maker._id,
+              email: invitationEmailValue,
+            },
+          }
+        )
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            //console.log("response data:", response.data);
+            // Invitation already exists
+            setEmailError(
+              "Invitation for that project was already sent to the person"
+            );
+            console.log("Invitation already exists");
+          } else {
+            // Clear previous errors
+            setEmailError("");
+
+            // Send the invitation
+            axios
+              .post(
+                `${process.env.REACT_APP_BACKEND_URL}/invitations/send-invitation`,
+                updatedInvitationData
+              )
+              .then((response) => {
+                setModalContentType("invitation");
+                setModalIsOpen(true);
+
+                console.log("send invitation response data", response.data);
+                // Add the invited user to the frontend
+                const invitedUser = {
+                  _id: response.data._id, // assuming the response data has the invitations ID
+                  ...updatedInvitationData, // add other required user details from updatedInvitationData if needed
+                  //status: "Invited", // Marking the user as Invited
+                };
+                //setUserList((prevList) => [...prevList, invitedUser]);
+                // setCurrentFepkUsers((prevUsers) => [
+                //   ...prevUsers,
+                //   invitedUser,
+                // ]); // ???????????????????????????????
+                setInvitationsByFilmmakerMovie((prevUsers) => [
+                  ...prevUsers,
+                  invitedUser,
+                ]);
+
+                console.log("Invitation saved and user added to frontend");
+
+                //console.log(response.data);
+                //console.log("Invitation saved");
+              })
+              .catch((error) => {
+                console.error("Error sending invitation:", error);
+                // Handle the error appropriately.
+              });
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking for existing invitation:", error);
+          // Handle the error appropriately.
+        });
+    }
+  }
+
+  // One common list of unique users, so they hold all currentFepkUsers
+  const combinedUsers = [
+    ...currentFepkUsers,
+    ...invitationsByFilmmakerMovie.filter(
+      (invitationUser) =>
+        !currentFepkUsers.some(
+          (currentUser) => currentUser.email === invitationUser.email
+        )
+    ),
+  ];
+
+  //console.log(combinedUsers);
+
+  // Helper function to get user status
+  const getUserStatus = (user) => {
+    if (currentFepkUsers.some((currentUser) => currentUser._id === user._id)) {
+      return "Added";
+    } else {
+      return "Invited";
+    }
+  };
+
+  //close modal
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   return (
     <>
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
           borderRadius: "10px",
@@ -337,9 +579,13 @@ function FepkDetailsForm() {
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -410,7 +656,8 @@ function FepkDetailsForm() {
                         fontSize: "14px",
                       }}
                       className="form-control m-10 mb-4"
-                      defaultValue={fepk.productionCo}
+                      //value={fepk.productionCo}
+                      value={epkFilmDetailsData.productionCo}
                       placeholder="Production Company Name"
                       onChange={handleDetailsChange}
                       name="productionCo"
@@ -426,7 +673,8 @@ function FepkDetailsForm() {
                         fontSize: "14px",
                       }}
                       className="form-control m-10 "
-                      defaultValue={fepk.distributionCo}
+                      //value={fepk.distributionCo}
+                      value={epkFilmDetailsData.distributionCo}
                       placeholder="Distribution Company Name"
                       onChange={handleDetailsChange}
                       name="distributionCo"
@@ -446,7 +694,8 @@ function FepkDetailsForm() {
                           type="number"
                           min="1895"
                           className="form-control m-10"
-                          defaultValue={fepk.productionYear}
+                          //value={fepk.productionYear}
+                          value={epkFilmDetailsData.productionYear}
                           placeholder="Year"
                           onChange={handleDetailsChange}
                           name="productionYear"
@@ -466,7 +715,8 @@ function FepkDetailsForm() {
                           type="number"
                           min="0"
                           className="form-control m-10"
-                          defaultValue={fepk.durationMin}
+                          //value={fepk.durationMin}
+                          value={epkFilmDetailsData.durationMin}
                           placeholder="Min."
                           onChange={handleDetailsChange}
                           name="durationMin"
@@ -492,51 +742,28 @@ function FepkDetailsForm() {
                       name="files"
                       accept="image/*"
                     ></input>
-                    <img
-                      src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                      style={{
-                        height: "40px",
-                        width: "auto",
-                        marginTop: "5px",
-                      }}
-                      alt="no image"
-                    />
-                    <br />
-                    <hr />
-                    <label
-                      for="filePoster"
-                      class="form-label text-dark"
-                      style={{ fontSize: "25px" }}
-                    >
-                      {" "}
-                      <h6 style={{ fontSize: "20px" }}>Upload Crew Image</h6>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
-                      filename={fileCrew}
-                      onChange={fileCrewSelected}
-                      ref={inputFileCrewRef}
-                      type="file"
-                      id="fileDetails"
-                      name="files"
-                      accept="image/*"
-                    ></input>
-                    {crewData.image === "" ? (
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        style={{ height: "30px", marginRight: "10px" }}
-                      />
-                    ) : (
+                    {uploadedImageUrl ? (
                       <img
-                        src={`${process.env.REACT_APP_AWS_URL}/${crewData.image}`}
                         style={{
-                          height: "40px",
+                          height: "150px",
                           width: "auto",
                           marginTop: "5px",
                         }}
+                        src={uploadedImageUrl}
+                        alt="Uploaded"
+                      />
+                    ) : (
+                      <img
+                        src={imageUrl}
+                        style={{
+                          height: "150px",
+                          width: "auto",
+                          marginTop: "5px",
+                        }}
+                        alt="no image"
                       />
                     )}
+                    <br />
                   </div>
                   <div className="col-3 mt-2">
                     <div className="row">
@@ -546,16 +773,19 @@ function FepkDetailsForm() {
                             height: "30px",
                             width: "100%",
                             borderRadius: "5px",
+                            marginBottom: "24px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
                             fontSize: "14px",
                           }}
                           className="form-control"
-                          defaultValue={""}
+                          //defaultValue={""}
+                          value={searchValue}
+                          //value=""
                           placeholder="Search..."
                           onChange={handleSearch}
                         />
-                        {filteredData.length !== 0 ? (
+                        {isResultsVisible && filteredData.length !== 0 ? (
                           <div
                             style={{
                               height: "100px",
@@ -568,7 +798,23 @@ function FepkDetailsForm() {
                               zIndex: "1",
                             }}
                           >
-                            {filteredData.map((crewObj) => {
+                            {filteredData.map((userObj) => {
+                              // Determine the display name based on available properties
+                              const displayName = `${userObj.firstName || ""} ${
+                                userObj.lastName || ""
+                              }`.trim();
+
+                              // Determine the appropriate image URL
+                              let imageUrlDisplay;
+                              if (
+                                userObj.picture &&
+                                !userObj.picture.startsWith("http")
+                              ) {
+                                imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${userObj.picture}`;
+                              } else {
+                                imageUrlDisplay = userObj.picture;
+                              }
+
                               return (
                                 <p
                                   style={{
@@ -576,9 +822,9 @@ function FepkDetailsForm() {
                                     padding: "5px",
                                     margin: "0px",
                                   }}
-                                  onClick={() => addToCrewData(crewObj)}
+                                  onClick={() => displayChosenUserData(userObj)}
                                 >
-                                  {crewObj.image === "" ? (
+                                  {!imageUrlDisplay ? (
                                     <FontAwesomeIcon
                                       icon={faUser}
                                       style={{
@@ -588,15 +834,16 @@ function FepkDetailsForm() {
                                     />
                                   ) : (
                                     <img
-                                      src={`${process.env.REACT_APP_AWS_URL}/${crewObj.image}`}
+                                      src={imageUrlDisplay}
                                       style={{
                                         width: "20px",
                                         height: "auto",
                                         marginRight: "10px",
                                       }}
+                                      alt={displayName}
                                     />
                                   )}
-                                  {crewObj.name}
+                                  {displayName}
                                 </p>
                               );
                             })}
@@ -611,7 +858,7 @@ function FepkDetailsForm() {
                           ></div>
                         )}
                       </div>
-                      <div className="col-3" style={{ textAlign: "left" }}>
+                      {/* <div className="col-3" style={{ textAlign: "left" }}>
                         {status === false ? (
                           <div className="hover:tw-scale-110">
                             <FontAwesomeIcon
@@ -621,7 +868,7 @@ function FepkDetailsForm() {
                                 paddingBottom: "12px",
                                 cursor: "pointer",
                               }}
-                              onClick={() => createNewCrew()}
+                              //onClick={() => createNewCrew()}
                             />
                           </div>
                         ) : (
@@ -634,68 +881,10 @@ function FepkDetailsForm() {
                             }}
                           />
                         )}
-                      </div>
+                      </div> */}
                     </div>
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        fontSize: "14px",
-                      }}
-                      className="form-control m-10"
-                      defaultValue={crewData.crewId.name}
-                      placeholder="Crew Name"
-                      name="name"
-                      readOnly
-                    />
-                    <select
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-select form-select-sm"
-                      name="epkRole"
-                      onChange={handleCrewChange}
-                    >
-                      <option value="">Epk role...</option>
-                      {epkRoles.map(makeEpkRole)}
-                    </select>
-                    <textarea
-                      style={{
-                        height: "60px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        resize: "none",
-                      }}
-                      className="form-control mt-10"
-                      defaultValue={crewData.biography}
-                      placeholder="Biography(maxmium 250 characters)"
-                      onChange={handleCrewChange}
-                      name="biography"
-                      maxLength="250"
-                    />
-                    <span
-                      style={{
-                        fontSize: "12px",
-                        display: "flex",
-                        justifyContent: "right",
-                        marginBottom: "20px",
-                      }}
-                    >
-                      {characterLength?.biography}/250 characters
-                    </span>
-                    <div className="row">
-                      <div className="col-7">
+                    {filteredData.length > 0 && (
+                      <>
                         <input
                           style={{
                             height: "30px",
@@ -707,35 +896,12 @@ function FepkDetailsForm() {
                             fontSize: "14px",
                           }}
                           className="form-control m-10"
-                          defaultValue={crewData.facebook_url}
-                          placeholder="Facebook"
-                          onChange={handleCrewChange}
-                          name="facebook_url"
+                          value={userName}
+                          placeholder="Name"
+                          name="name"
+                          readOnly
+                          //onChange={handleCrewChange}
                         />
-                      </div>
-                      <div className="col-5">
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "9px",
-                          }}
-                          type="number"
-                          min="0"
-                          className="form-control m-10"
-                          defaultValue={crewData.facebook_followers}
-                          placeholder=""
-                          onChange={handleCrewChange}
-                          name="facebook_followers"
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-7">
                         <input
                           style={{
                             height: "30px",
@@ -747,35 +913,25 @@ function FepkDetailsForm() {
                             fontSize: "14px",
                           }}
                           className="form-control m-10"
-                          defaultValue={crewData.instagram_url}
-                          placeholder="Instagram"
-                          onChange={handleCrewChange}
-                          name="instagram_url"
+                          value={role}
+                          placeholder="Role"
+                          name="role"
+                          readOnly
+                          //onChange={handleCrewChange}
                         />
-                      </div>
-                      <div className="col-5">
-                        <input
+                      </>
+                    )}
+                    {showEmailInput ? (
+                      <>
+                        <p
                           style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "9px",
+                            fontSize: "16px",
+                            color: "black",
+                            margin: "15px",
                           }}
-                          type="number"
-                          min="0"
-                          className="form-control m-10"
-                          defaultValue={crewData.instagram_followers}
-                          placeholder=""
-                          onChange={handleCrewChange}
-                          name="instagram_followers"
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-7">
+                        >
+                          User is not found. Invite via email:
+                        </p>
                         <input
                           style={{
                             height: "30px",
@@ -787,13 +943,16 @@ function FepkDetailsForm() {
                             fontSize: "14px",
                           }}
                           className="form-control m-10"
-                          defaultValue={crewData.twitter_url}
-                          placeholder="Twitter"
-                          onChange={handleCrewChange}
-                          name="twitter_url"
+                          defaultValue=""
+                          placeholder="First Name"
+                          name="firstName"
+                          onChange={(e) => {
+                            setInvitationData((prevState) => ({
+                              ...prevState,
+                              [e.target.name]: e.target.value,
+                            }));
+                          }}
                         />
-                      </div>
-                      <div className="col-5">
                         <input
                           style={{
                             height: "30px",
@@ -802,19 +961,89 @@ function FepkDetailsForm() {
                             marginBottom: "20px",
                             boxShadow: "1px 2px 9px #311465",
                             textAlign: "left",
-                            fontSize: "9px",
+                            fontSize: "14px",
                           }}
-                          type="number"
-                          min="0"
                           className="form-control m-10"
-                          defaultValue={crewData.twitter_followers}
-                          placeholder=""
-                          onChange={handleCrewChange}
-                          name="twitter_followers"
+                          defaultValue=""
+                          placeholder="Last Name"
+                          name="lastName"
+                          onChange={(e) => {
+                            setInvitationData((prevState) => ({
+                              ...prevState,
+                              [e.target.name]: e.target.value,
+                            }));
+                          }}
                         />
-                      </div>
-                    </div>
-                    {disabledAdd === true ? (
+                        <input
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "20px",
+                            boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                            fontSize: "14px",
+                          }}
+                          className="form-control m-10"
+                          value={invitationEmailValue}
+                          placeholder="Email Address"
+                          name="email"
+                          // onChange={(e) =>
+                          //   setInvitationEmailValue(e.target.value)
+                          // }
+                          onChange={handleEmailChange}
+                        />
+                        {emailError && (
+                          <p style={{ fontSize: "16px", color: "red" }}>
+                            {emailError}
+                          </p>
+                        )}
+                        <select
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "20px",
+                            boxShadow: "1px 2px 9px #311465",
+                          }}
+                          className="form-select form-select-sm"
+                          name="epkRole"
+                          onChange={(e) => setInvitedUserRole(e.target.value)}
+                        >
+                          <option value="" disabled>
+                            Epk role...
+                          </option>
+                          {epkRoles.map(makeEpkRole)}
+                        </select>
+                        <Button
+                          disabled={!!emailError || !invitationEmailValue}
+                          className={
+                            !!emailError || !invitationEmailValue
+                              ? "" // no hover effect when disabled
+                              : "hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white" // apply hover effect when enabled
+                          }
+                          style={{
+                            boxShadow: "1px 2px 9px #311465",
+                            fontWeight: "bold",
+                            width: "100%",
+                            color:
+                              !!emailError || !invitationEmailValue
+                                ? "grey"
+                                : undefined,
+                            backgroundColor:
+                              !!emailError || !invitationEmailValue
+                                ? "#ffffff"
+                                : undefined,
+                          }}
+                          type="outline-primary"
+                          block
+                          onClick={sendInvitation}
+                          value="save"
+                        >
+                          Send Invitation
+                        </Button>
+                      </>
+                    ) : disabledAdd ? (
                       <Button
                         disabled
                         style={{
@@ -826,10 +1055,10 @@ function FepkDetailsForm() {
                         }}
                         type="outline-primary"
                         block
-                        // onClick={addCrewToTable}
+                        onClick={addUserToTable}
                         value="save"
                       >
-                        Add to Table
+                        Add to EPK
                       </Button>
                     ) : (
                       <Button
@@ -841,10 +1070,10 @@ function FepkDetailsForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={addCrewToTable}
+                        onClick={addUserToTable}
                         value="save"
                       >
-                        Add to Table
+                        Add to EPK
                       </Button>
                     )}
                   </div>
@@ -868,42 +1097,90 @@ function FepkDetailsForm() {
                           <th>FACE</th>
                           <th>INSTA</th>
                           <th>TWIT</th>
+                          <th>STATUS</th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
-                        {crewList.map((crew) => {
+                        {combinedUsers.map((user) => {
+                          {
+                            /* {currentFepkUsers.map((user) => { */
+                          }
+                          let imageUrlDisplay;
+                          if (
+                            user.picture &&
+                            !user.picture.startsWith("http")
+                          ) {
+                            imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
+                          } else {
+                            imageUrlDisplay = user.picture;
+                          }
                           return (
-                            <tr>
-                              <td>{crew.crewId.name}</td>
-                              <td>{crew.epkRole}</td>
+                            <tr key={user._id}>
+                              <td>{user.firstName + " " + user.lastName}</td>
+                              <td>{user.role}</td>
                               <td>
                                 <img
-                                  src={`${process.env.REACT_APP_AWS_URL}/${crew.image}`}
+                                  src={imageUrlDisplay}
                                   style={{ height: "15px", width: "auto" }}
                                 />
                               </td>
                               <td>
-                                <a href={crew.facebook_url} target="_blank">
-                                  {crew.facebook_followers}
+                                <a
+                                  href={
+                                    user.facebook_url ? user.facebook_url : "#"
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {user.facebook_followers
+                                    ? user.facebook_followers
+                                    : "-"}
                                 </a>
                               </td>
                               <td>
-                                <a href={crew.instagram_url} target="_blank">
-                                  {crew.instagram_followers}
+                                <a
+                                  href={
+                                    user.instagram_url
+                                      ? user.instagram_url
+                                      : "#"
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {user.instagram_followers
+                                    ? user.instagram_followers
+                                    : "-"}
                                 </a>
                               </td>
                               <td>
-                                <a href={crew.twitter_url} target="_blank">
-                                  {crew.twitter_followers}
+                                <a
+                                  href={
+                                    user.twitter_url ? user.twitter_url : "#"
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {user.twitter_followers
+                                    ? user.twitter_followers
+                                    : "-"}
                                 </a>
+                              </td>
+                              <td>
+                                {user.status
+                                  ? user.status
+                                  : currentFepkUsers
+                                      .map((user) => user._id)
+                                      .includes(user._id)
+                                  ? "Added"
+                                  : "Invited"}
                               </td>
                               <td
                                 style={{
                                   textAlign: "center",
                                   cursor: "pointer",
                                 }}
-                                onClick={() => deleteFromCrewList(crew)}
+                                onClick={() => deleteFromUsersList(user)}
                               >
                                 <FontAwesomeIcon icon={faTrashCan} />
                               </td>
@@ -923,7 +1200,7 @@ function FepkDetailsForm() {
                         // border: "1px solid black",
                       }}
                     >
-                      {disabled === true ? (
+                      {disabledSaveButton === true ? (
                         <Button
                           disabled
                           style={{
@@ -935,6 +1212,7 @@ function FepkDetailsForm() {
                           type="outline-primary"
                           block
                           onClick={saveEpkDetails}
+                          //onClick={saveHandler}
                           value="save"
                         >
                           Save
@@ -961,6 +1239,46 @@ function FepkDetailsForm() {
             </div>
           </div>
         </form>
+        <div>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Example Modal"
+            appElement={document.getElementById("root")}
+            style={{
+              overlay: {
+                // position: "fixed",
+                // top: 0,
+                // left: 0,
+                // right: 0,
+                // bottom: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+              },
+              content: {
+                position: "absolute",
+                border: "2px solid #000",
+                backgroundColor: "white",
+                boxShadow: "2px solid black",
+                height: 120,
+                width: 300,
+                margin: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+            }}
+          >
+            <div style={{ textAlign: "center" }}>
+              {modalContentType === "invitation"
+                ? "Invitation is Sent Successfully!"
+                : "Film Details Saved Successfully!"}
+              <br />
+              <button className="btn btn-secondary btn-sm" onClick={closeModal}>
+                Ok
+              </button>
+            </div>
+          </Modal>
+        </div>
       </div>
     </>
   );
