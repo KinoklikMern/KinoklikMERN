@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ActionIcon from "./ActionIcon";
 import DonationIcon from "../../../images/icons/Donation.svg";
-import DonationBlackIcon from "../../../images/icons/Donation.svg";
+import DonationBlackIcon from "../../../images/icons/DonationBlack.svg";
 import DollarIcon from "../../../images/icons/DollarIcon.svg";
 import DollarBlackIcon from "../../../images/icons/DollarBlackIcon.svg";
 import PlusIcon from "../../../images/icons/PlusWhite.svg";
@@ -34,6 +34,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   //
   // const [fepkId, setFepkId, fepkMaker, setFepkMaker] = useContext(FepkContext);
 
+
   const { user } = useSelector((user) => ({ ...user }));
   let userId;
   let userRole;
@@ -49,6 +50,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const [usersWishesToDonate, setUsersWishesToDonate] = useState(
     epkInfo.wishes_to_donate?.length || 0
 );
+
+  const hasDonateLinks = epkInfo.DonatePayPal_url || epkInfo.DonateStripe_url;
 
 
   const [usersWishesToBuy, setUsersWishesToBuy] = useState(
@@ -93,11 +96,12 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const actionList = [
     {
       name: "wish_to_donate",
-      icon:
-        fepkInfo?.wishes_to_donate?.filter((item) => item._id === userId).length !== 0
+      icon: hasDonateLinks
+        ? (fepkInfo?.wishes_to_donate?.filter((item) => item._id === userId).length !== 0
           ? DonationBlackIcon
-          : DonationIcon,
-      number: usersWishesToDonate,
+          : DonationIcon)
+        : null, // Set to null if there are no donation links
+      number: hasDonateLinks ? usersWishesToDonate : 0, // Set to 0 if there are no donation links
       width: "",
     },
     {
@@ -282,82 +286,69 @@ export default function EpkSocialAction({ epkInfo, handler }) {
         default:
           break;
       }
-      // switch (name) {
-      //   case "share":
-      //     // addUserToSharings();
-      //     setShowShareOptions(true);
-      //     break;
-      //   default:
-      //     break;
-      // }
     },
   };
 
   return (
     <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">
       {/* Social media sharing Icons */}
-
       {actionList.map((action) => (
-        <div
-          className="tw-relative"
-          onMouseOver={() => handlers.hoverHandler("onMouseOver")}
-          onMouseOut={() => handlers.hoverHandler("onMouseOut")}
-        >
-          {action.name === "share" && showShareOptions && (
-            <div className="tw-absolute tw-right-0 tw--top-[65%] tw-flex tw-pb-12 tw-text-white">
-              {/* <div
-                className="tw-border-2"
-                // style={{ float: "top", margin: "5px 5px 0 0" }}
-                onClick={() => closeSharingMenu()}
-              > */}
-              <FacebookShareButton
-                url={urlShare}
-                className="hover:tw-scale-125"
-              >
-                <FacebookIcon
-                  size={30}
-                  round={true}
-                  style={{ marginRight: "5px" }}
-                />
-              </FacebookShareButton>
-              <LinkedinShareButton
-                url={urlShare}
-                className="hover:tw-scale-125"
-              >
-                <LinkedinIcon
-                  size={30}
-                  round={true}
-                  style={{ marginRight: "5px" }}
-                />
-              </LinkedinShareButton>
-              <TwitterShareButton url={urlShare} className="hover:tw-scale-125">
-                <TwitterIcon
-                  size={30}
-                  round={true}
-                  style={{ marginRight: "5px" }}
-                />
-              </TwitterShareButton>
-              <RedditShareButton url={urlShare} className="hover:tw-scale-125">
-                <RedditIcon
-                  size={30}
-                  round={true}
-                  style={{ marginRight: "5px" }}
-                />
-              </RedditShareButton>
-              <EmailShareButton url={urlShare} className="hover:tw-scale-125">
-                <EmailIcon size={30} round={true} />
-              </EmailShareButton>
-            </div>
-            // </div>
-          )}
-          <ActionIcon
-            key={action.name}
-            name={action.name}
-            icon={action.icon}
-            number={action.number}
-            handlers={handlers}
-          />
-        </div>
+        action.icon !== null && (
+          <div
+            className="tw-relative"
+            onMouseOver={() => handlers.hoverHandler("onMouseOver")}
+            onMouseOut={() => handlers.hoverHandler("onMouseOut")}
+          >
+            {action.name === "share" && showShareOptions && (
+              <div className="tw-absolute tw-right-0 tw--top-[65%] tw-flex tw-pb-12 tw-text-white">
+                <FacebookShareButton
+                  url={urlShare}
+                  className="hover:tw-scale-125"
+                >
+                  <FacebookIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </FacebookShareButton>
+                <LinkedinShareButton
+                  url={urlShare}
+                  className="hover:tw-scale-125"
+                >
+                  <LinkedinIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </LinkedinShareButton>
+                <TwitterShareButton url={urlShare} className="hover:tw-scale-125">
+                  <TwitterIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </TwitterShareButton>
+                <RedditShareButton url={urlShare} className="hover:tw-scale-125">
+                  <RedditIcon
+                    size={30}
+                    round={true}
+                    style={{ marginRight: "5px" }}
+                  />
+                </RedditShareButton>
+                <EmailShareButton url={urlShare} className="hover:tw-scale-125">
+                  <EmailIcon size={30} round={true} />
+                </EmailShareButton>
+              </div>
+            )}
+            <ActionIcon
+              key={action.name}
+              name={action.name}
+              icon={action.icon}
+              number={action.number}
+              handlers={handlers}
+            />
+          </div>
+        )
       ))}
     </div>
   );
