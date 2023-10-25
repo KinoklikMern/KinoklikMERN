@@ -1,6 +1,10 @@
 import express from "express";
-import {authUser} from "../middlwares/auth.js";
-import { allMessages, sendMessage,updateMessageAsRead } from "../controllers/message.controllers.js";
+import { authUser } from "../middlwares/auth.js";
+import {
+  allMessages,
+  sendMessage,
+  updateMessageAsRead,
+} from "../controllers/message.controllers.js";
 
 const router = express.Router();
 
