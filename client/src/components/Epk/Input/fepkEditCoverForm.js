@@ -43,7 +43,9 @@ function FepkEditCoverForm() {
     logLine_short: fepk.logLine_short,
     genre: fepk.genre,
     production_type: fepk.production_type,
-    kickstarter_url: fepk.kickstarter_url,
+    //kickstarter_url: fepk.kickstarter_url,
+    DonatePayPal_url: fepk.DonatePayPal_url,
+    DonateStripe_url: fepk.DonateStripe_url,
     banner_url: fepk.banner_url,
     trailer_url: fepk.trailer_url,
     status: fepk.status,
@@ -374,7 +376,7 @@ function FepkEditCoverForm() {
                       </select>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <input
                       style={{
                         height: "30px",
@@ -389,7 +391,40 @@ function FepkEditCoverForm() {
                       onChange={handleInputChange}
                       name="kickstarter_url"
                     />
+                  </div> */}
+                   <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                      }}
+                      className="form-control"
+                      defaultValue={fepk.DonatePayPal_url}
+                      placeholder="URL: www.paypal.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonatePayPal_url"
+                    />
                   </div>
+                  <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                      }}
+                      className="form-control"
+                      defaultValue={fepk.DonateStripe_url}
+                      placeholder="URL: www.stripe.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonateStripe_url"
+                    />
+                  </div>
+
                 </div>
                 <div
                   className="col"

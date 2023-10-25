@@ -23,21 +23,33 @@ function UniquenessForm() {
     setDisabled(false);
   };
 
+  //modify by delara
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
+  http.get(`/fepks/${fepkId}`).then((response) => {
+  if (response.data) {
+    setFepk(response.data);
+    const { description_uniqueness } = response.data;
+    if (description_uniqueness) {
       setCharacterLength({
-        ...characterLength,
-        description_uniqueness: response.data.description_uniqueness.length,
+        description_uniqueness: description_uniqueness.length,
       });
       setEpkUniquenessData({
         image_uniqueness: response.data.image_uniqueness,
         title_uniqueness: response.data.title_uniqueness,
-        description_uniqueness: response.data.description_uniqueness,
+        description_uniqueness,
         uniqueness_blur: response.data.uniqueness_blur,
       });
-    });
+    } else {
+      // Handle the case when description_uniqueness is undefined or empty
+      console.error('description_uniqueness is undefined or empty');
+    }
+  } else {
+    // Handle the case when response.data is undefined or empty
+    console.error('response.data is undefined or empty');
+  }
+  });
   }, []);
+  //end(delara)
 
 
   if (!epkUniquenessData) {

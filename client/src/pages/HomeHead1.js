@@ -13,7 +13,7 @@ import VolumeIcon2 from "../images/icons/VolumeIcon2.svg";
 import DollarIcon from "../images/icons/DollarIcon.svg";
 
 import PlusIcon from "../images/icons/Plus.svg";
-import KIcon from "../images/icons/KickstarterIcon.svg";
+//import KIcon from "../images/icons/KickstarterIcon.svg";
 import http from "../http-common";
 import { useSelector } from "react-redux";
 
@@ -35,7 +35,7 @@ const HomeHead = () => {
   const [clickedStar, setClickedStar] = useState(false);
   const [clickedShare, setClickedShare] = useState(false);
   const [clickedDollar, setClickedDollar] = useState(false);
-  const [clickedKIcon, setClickedKIcon] = useState(false);
+  //const [clickedKIcon, setClickedKIcon] = useState(false);
   const [clickedPlus, setClickedPlus] = useState(false);
   const [clickedMovie, setClickedMovie] = useState(false);
   const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
@@ -71,11 +71,11 @@ const HomeHead = () => {
     http.get(`fepks/like/${fepk._id}/${userId}`);
   }
 
-  //user click K icon
-  function handleClickKIcon() {
-    setClickedKIcon(true);
-    window.open(fepk.kickstarter_url);
-  }
+  // //user click K icon
+  // function handleClickKIcon() {
+  //   setClickedKIcon(true);
+  //   window.open(fepk.kickstarter_url);
+  // }
 
   // user is added to the list of sharings
   function handleClickShare() {
@@ -132,13 +132,13 @@ const HomeHead = () => {
             onClick={handleStarClick}
             style={{ opacity: clickedStar ? 1 : 0.5 }}
           />
-          <img
+          {/* <img
             className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
             src={KIcon}
             alt="/"
             onClick={handleClickKIcon}
             style={{ opacity: clickedKIcon ? 1 : 0.5 }}
-          />
+          /> */}
 
           <FontAwesomeIcon
             className="tw-h-9 tw-w-9 tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100"
