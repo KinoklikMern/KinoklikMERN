@@ -900,8 +900,7 @@ export const getFollowingActor = async (req, res) => {
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User
-      .findOne({ _id: id })
+    const fepkOne = await User.findOne({ _id: id });
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;

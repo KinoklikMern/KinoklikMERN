@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //Adding antd modules and style
 import { Modal, Form, Input } from "antd";
 
-function Login({spanText}) {
+function Login({ spanText }) {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState("");
@@ -87,10 +87,13 @@ function Login({spanText}) {
     const handleSubmit = async (values) => {
       /*     console.log(email, password); */
       try {
-        const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
-          email: values.email,
-          password: values.password,
-        });
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/users/login`,
+          {
+            email: values.email,
+            password: values.password,
+          }
+        );
         setError("");
         setSuccess(data.message);
         const { message, ...rest } = data;
