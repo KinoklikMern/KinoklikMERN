@@ -137,7 +137,11 @@ export default function ListItem({ title, status, type, role }) {
                 src={`${process.env.REACT_APP_AWS_URL}/${actor.picture}`}
                 alt=""
               />
+            <div className="overlay">
+                  <p>{`${actor.firstName} ${actor.lastName}`}</p>
+            </div>
             </a>
+           
           </div>
         ))}
     </>
