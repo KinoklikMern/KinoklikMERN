@@ -12,6 +12,7 @@ import EpkStills from "../components/EpkView/EpkStills/EpkStills";
 import EpkResources from "../components/EpkView/EpkResources/EpkResources";
 import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
 import EpkAward from "../components/EpkView/EpkAward/EpkAward";
+import DonationModal from "../components/donate/DonationModal"; 
 import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
 import NewMessageModal from "../components/EpkView/miscellaneous/NewMessageModal";
@@ -21,8 +22,9 @@ import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
 
 function EpkViewPage() {
-  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
-    React.useContext(FepkContext);
+  const [fepkId, setFepkId, fepkMaker, setFepkMaker] = React.useContext(
+    FepkContext
+  );
   const { user } = useSelector((user) => ({ ...user }));
   const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();
@@ -31,6 +33,7 @@ function EpkViewPage() {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
 
   const handleClose = (modalType) => {
     if (user) {
@@ -42,13 +45,17 @@ function EpkViewPage() {
         case "request":
           setShowRequestModal(false);
           break;
+
+          case "wish_to_donate":
+            setShowDonationModal(true); // Show the donation modal
+            break;
       }
     } else {
       setShowLoginModal(false);
     }
   };
+
   const handleShow = (modalType) => {
-    console.log("type", modalType);
     if (user) {
       switch (modalType) {
         case "message":
@@ -57,6 +64,10 @@ function EpkViewPage() {
 
         case "request":
           setShowRequestModal(true);
+          break;
+
+        case "wish_to_donate":
+          setShowDonationModal(true); // Show donation form
           break;
       }
     } else {
@@ -69,7 +80,7 @@ function EpkViewPage() {
       setEpkInfo(res);
       setFepkId(res._id);
       setFepkMaker(res.film_maker);
-      if (user.id === res.film_maker._id) {
+      if (user?.id === res.film_maker._id){
         setRequestStatus("approved");
       } else {
         res.requests.map((request) => {
@@ -80,15 +91,17 @@ function EpkViewPage() {
       }
     });
   }, [title, refresh]);
-  console.log("epk", epkInfo);
+
   return (
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
-        <div className="tw-w-11/12">
+        <div className="tw-w-11/12">             
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
-          <EpkSocialAction epkInfo={epkInfo} handler={handleShow} />
-          <EpkDetail epkInfo={epkInfo} handler={handleShow}/>
+          {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}
+          <EpkSocialAction epkInfo={epkInfo} handler={handleShow} showDonationModal={showDonationModal} setShowDonationModal={setShowDonationModal} />
+
+          <EpkDetail epkInfo={epkInfo} handler={handleShow} />
           <EpkLogline
             epkInfo={epkInfo}
             requestStatus={requestStatus}
@@ -144,10 +157,20 @@ function EpkViewPage() {
               setRefresh={setRefresh}
             />
           )}
+          {showDonationModal && (
+            <DonationModal
+              isOpen={showDonationModal}
+              onRequestClose={() => setShowDonationModal(false)}
+              epkId={epkInfo._id}
+              userId={user.id}
+              epkImage={"https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details}
+              epkDonatePayPal={epkInfo.DonatePayPal_url}
+              epkDonateStripe={epkInfo.DonateStripe_url}
+            />
+          )}
         </div>
       </div>
     )
   );
 }
-
 export default EpkViewPage;

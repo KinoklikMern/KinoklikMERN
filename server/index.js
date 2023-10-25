@@ -15,6 +15,7 @@ import messageRoutes from "./routes/message.routes.js";
 import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
+import donationRoutes from "./routes/donation.js";
 
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
@@ -44,6 +45,9 @@ app.use("/message", messageRoutes);
 
 app.use("/*", handleNotFound);
 app.use(errorHandler);
+
+// Use your Stripe routes
+app.use("/donations", donationRoutes); 
 
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)

@@ -39,27 +39,35 @@ function SynopsisForm() {
     setDisabled(false);
   };
 
+  //modify by delara
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
-      setCharacterLength({
-        text_short: response.data.text_short.length,
-        text_medium: response.data.text_medium.length,
-        text_long: response.data.text_long.length,
-      });
-      setEpkSynopsisData({
-        image_synopsis: response.data.image_synopsis,
-        image_synopsis_medium: response.data.image_synopsis_medium,
-        image_synopsis_long: response.data.image_synopsis_long,
-        text_short: response.data.text_short,
-        text_medium: response.data.text_medium,
-        text_long: response.data.text_long,
-        text_medium_blur: response.data.text_medium_blur,
-        text_long_blur: response.data.text_long_blur,
-      });
-      // console.log(response.data.title);
+      if (response.data) {
+        setFepk(response.data);
+        const { text_short, text_medium, text_long } = response.data;
+        if (text_short) {
+          setCharacterLength({ ...characterLength, text_short: text_short.length });
+          setEpkSynopsisData({
+            image_synopsis: response.data.image_synopsis,
+            image_synopsis_medium: response.data.image_synopsis_medium,
+            image_synopsis_long: response.data.image_synopsis_long,
+            text_short,
+            text_medium,
+            text_long,
+            text_medium_blur: response.data.text_medium_blur,
+            text_long_blur: response.data.text_long_blur,
+          });
+        } else {
+          // Handle the case when text_short is undefined or empty
+          console.error('text_short is undefined or empty');
+        }
+      } else {
+        // Handle the case when response.data is undefined or empty
+        console.error('response.data is undefined or empty');
+      }
     });
   }, []);
+  
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;

@@ -5,7 +5,7 @@ import axios from "axios";
 import Navbar from "../components/navbar/Navbar";
 import { useParams, Link } from "react-router-dom";
 import style from "./EpkView.module.css";
-import kickStar from "../images/kickstarter.png";
+//import kickStar from "../images/kickstarter.png";
 import People from "../images/People.png";
 import DollarSignEmpty from "../images/DollarSignEMPTY.svg";
 import DollarSignFull from "../images/DollarSignFULL.svg";
@@ -76,6 +76,7 @@ function EpkView() {
 
   const [fepkData, setFepkData] = useState({});
   const [crewList, setCrewList] = useState([]);
+  const [usersWishesToDonate, setUsersWishesToDonate] = useState(0);
   const [usersWishesToBuy, setUsersWishesToBuy] = useState(0);
   const [usersFavourites, setUsersFavourites] = useState(0);
   const [usersLikes, setUsersLikes] = useState(0);
@@ -147,30 +148,40 @@ function EpkView() {
   };
 
   useEffect(() => {
-    http.get(`fepks/byTitle/${title}`).then((response) => {
-      setFepkData(response.data);
-      setCrewList(response.data.crew);
-      setUsersWishesToBuy(response.data.wishes_to_buy.length);
-      setUsersFavourites(response.data.favourites.length);
-      setUsersLikes(response.data.likes.length);
-      setMediumSynopsis(response.data.mediumSynopsis);
-      setLongSynopsis(response.data.longSynopsis);
-      setUniqueness(response.data.uniqueness);
-      setStills(response.data.stillsApproval);
-      setStillsImages(response.data.stills);
-      setResources(response.data.resources);
-      setTrailer(response.data.trailer);
-      setReviews(response.data.reviews);
-      setRequests(response.data.requests);
-      setFepkId(response.data._id);
-      setFepkMaker(response.data.film_maker);
-      console.log(fepkId);
-      console.log(fepkMaker);
-      http.get(`/fepks/followers/${response.data._id}`).then((res) => {
-        setFollowers(res.data);
+    try {
+      http.get(`fepks/byTitle/${title}`).then((response) => {
+        setFepkData(response.data);
+        setCrewList(response.data.crew);
+        setUsersWishesToDonate(response.data.wishes_to_donate?.length || 0);
+        setUsersWishesToBuy(response.data.wishes_to_buy.length); // Check if it's defined
+        setUsersFavourites(response.data.favourites.length); // Check if it's defined
+        setUsersLikes(response.data.likes.length); // Check if it's defined
+        setMediumSynopsis(response.data.mediumSynopsis);
+        setLongSynopsis(response.data.longSynopsis);
+        setUniqueness(response.data.uniqueness);
+        setStills(response.data.stillsApproval);
+        setStillsImages(response.data.stills);
+        setResources(response.data.resources);
+        setTrailer(response.data.trailer);
+        setReviews(response.data.reviews);
+        setRequests(response.data.requests);
+        setFepkId(response.data._id);
+        setFepkMaker(response.data.film_maker);
+        console.log(fepkId);
+        console.log(fepkMaker);
+  
+        // Move this inside the first http.get's 'then' block
+        http.get(`/fepks/followers/${response.data._id}`).then((res) => {
+          setFollowers(res.data);
+        });
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+  
+  
+  
 
   stillsImages.map((still) => {
     stillsImg.push(still.image);
@@ -224,6 +235,12 @@ function EpkView() {
         alert("Add request successfully!");
       });
   }
+    // user is added to the list of donate
+    function addUserToWishesToDonate() {
+      http.get(`fepks/wishestodonate/${fepkData._id}/${userId}`).then((response) => {
+        setUsersWishesToDonate(response.data.wishes_to_buy.length);
+      });
+    }
 
   // user is added to the list of $
   function addUserToWishesToBuy() {
@@ -805,6 +822,27 @@ function EpkView() {
 
         {/* icon-bar section */}
         <div className={style.iconContainer}>
+
+        <div>
+            <a href="#">
+              {userId === "0" ? (
+               <FontAwesomeIcon  
+               icon={faDollarSign} 
+                  size="lg"
+                  onClick={() => login()}
+                />
+              ) : (
+                <FontAwesomeIcon
+                icon={faDollarSign}
+                  size="lg"
+                  onClick={() => addUserToWishesToDonate()}
+                />
+              )}
+            </a>
+            <span>{usersWishesToDonate}</span>
+          </div>
+
+
           <div>
             {/* <a href="#">
               {userId === "0" ? (
@@ -878,7 +916,7 @@ function EpkView() {
             <span>{usersLikes}</span>
           </div>
 
-          <div>
+          {/* <div>
             <a href="#">
               <img
                 className={style.icon}
@@ -887,7 +925,7 @@ function EpkView() {
                 onClick={() => openUrl(fepkData.kickstarter_url)}
               />
             </a>
-          </div>
+          </div> */}
           <div>
             {/* Social media sharing Icons */}
             {sharingClicked === true && (

@@ -17,6 +17,7 @@ import {
   getFepkByTitle,
   uploadFepkFiles,
   getFepkSharings,
+  getFepkWishedToDonate,
   getFepkWishedToBuy,
   getMediumSynopsis,
   getLongSynopsis,
@@ -30,6 +31,7 @@ import {
   getRequestsFepksByUser,
   approveRequests,
   refuseRequests,
+  getWishToDonateFepksByUser,
   getWishToBuyFepksByUser,
   getFepksByActorId
 } from "../controllers/fepk.js";
@@ -67,11 +69,13 @@ router.put("/update/:id", updateFepk);
 // user sends report on the EPK to Film Maker
 router.put("/report/:fepkId", createReport);
 
-// Calling these APIs will add user to the appropriate list (likes(star), favourites, sharings, wishes_to_buy($))
+// Calling these APIs will add user to the appropriate list (likes(star), favourites, sharings, wishes_to_buy($), wishes_to_donate)
 router.get("/like/:fepkid/:userid", getFepkLiked);
 router.get("/favourite/:fepkid/:userid", getFepkFavourite);
 router.get("/sharing/:fepkid/:userid", getFepkSharings);
+router.get("/wishestodonate/:fepkid/:userid", getFepkWishedToDonate);
 router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
+
 
 // Calling these APIs will create the requests for medium and long synopsises, uniqueness, and stills
 router.get("/mediumSynopsis/:fepkid/:userid", getMediumSynopsis);
@@ -100,6 +104,9 @@ router.get("/getStarredFepksByUser/:userId", getStarredFepksByUser);
 
 // get fepks which are following by user
 router.get("/getFollowingFepksByUser/:userId", getFollowingFepksByUser);
+
+// get fepks which are wish_to_donate by user
+router.get("/getWishTodonateByUser/:userId", getWishToDonateFepksByUser);
 
 // get fepks which are wish_to_by by user
 router.get("/getWishTobuyByUser/:userId", getWishToBuyFepksByUser);
