@@ -1,5 +1,5 @@
 import React from "react";
-import "./ListItem.css";
+import "./ListItemActor.css";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import http from "../../http-common";
@@ -131,7 +131,7 @@ export default function ListItem({ title, status, type, role }) {
       {actors &&
         //6483619d64b048f952a6fb5b
         actors.map((actor) => (
-          <div className="listItem" key={actor._id}>
+          <div className="listItemactor" key={actor._id}>
             <a href={`/actor/${actor._id}`}>
               <img
                 src={`${process.env.REACT_APP_AWS_URL}/${actor.picture}`}

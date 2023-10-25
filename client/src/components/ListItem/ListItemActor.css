@@ -1,0 +1,43 @@
+.listItemactor {
+    width: 236px;
+    height: 285px;
+    background-color: var(--main-color);
+    margin-right: 52px;
+    flex-shrink: 0;
+    overflow: hidden;
+    cursor: pointer;
+    color: white;
+    align-items: center;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: 100;
+    line-height: 35px;
+    letter-spacing: 0em;
+   
+   
+}
+
+.listItemactor img {
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+    /* border-radius: 50%; Makes the image round */
+}
+
+.listItemactor:hover {
+    margin:top -10px ;
+    margin-bottom:0 ;
+    margin: left -10px;
+    margin-right: 0;
+    width: 279px;
+    height: 340px;
+    border-radius: 5%;
+    background: linear-gradient(180deg, #FFFFFF 90%, rgba(255, 255, 255, 0) 100%);
+    color: #1E0039;
+    z-index: -1; 
+}
+
+.listItemactor:hover img {
+    border-radius: 0; /* Reverts to a normal image shape on hover */
+}
