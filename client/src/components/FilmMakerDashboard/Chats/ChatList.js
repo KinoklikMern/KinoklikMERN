@@ -1,23 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ChatState } from "../../../context/ChatProvider.js";
 import NotificationItem from "./NotificationItem.js";
 import ChatListItem from "./ChatListItem.js";
-import { NotificationContext } from "../../../context/NotificationContext.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
 
-export default function ChatList({ fetchAgain, userId }) {
+export default function ChatList({ fetchAgain, userId, searchValue }) {
   const { user } = useSelector((user) => ({ ...user }));
   const { selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
-  const [chats, setChats] = useState();
-  // const [chatlist, setChatList] = useState([]);
-
-  // const displayChatlist = ()=>{
-
-  // }
-  const { incrementMessage } = useContext(NotificationContext);
+  const [chats, setChats] = useState([]);
 
   const fetchChats = async () => {
     try {
@@ -30,23 +23,21 @@ export default function ChatList({ fetchAgain, userId }) {
         `${process.env.REACT_APP_BACKEND_URL}/chat`,
         config
       );
-      setChats(data);
+      // setChats(data);
 
-      setNotification([]);
-      data.map((chat) => {
-        // console.log("33", chat);
-        //check if notification is null and if the sender is not same as logged user
-        if (
+      // Sort the chats based on the latest message timestamp before setting the state
+      const sortedChats = data.sort(
+        (a, b) =>
+          new Date(b.latestMessage.createdAt) -
+          new Date(a.latestMessage.createdAt)
+      );
+      setChats(sortedChats);
+      const unreadMessages = data.filter(
+        (chat) =>
           !chat.latestMessage.receiverHasRead &&
-          chat.latestMessage.sender._id != user.id
-        ) {
-          setNotification((notification) => [
-            chat.latestMessage,
-            ...notification,
-          ]);
-          incrementMessage(); // Increment message count for new notification
-        }
-      });
+          chat.latestMessage.sender._id !== user.id
+      );
+      setNotification(unreadMessages.map((chat) => chat.latestMessage));
     } catch (error) {
       console.log(`message: ${error.message}`);
     }
@@ -82,36 +73,34 @@ export default function ChatList({ fetchAgain, userId }) {
       timeStyle: "short",
     });
 
-    return formatDate == currentDate ? formatTime : formatDate;
+    return formatDate === currentDate ? formatTime : formatDate;
   };
+
   const displayChatList = (chat) => {
-    // Yeming added
     if (userId) {
-      const chatUserId = getChatSender(user, chat.users).userId;
-      if (chatUserId !== userId) {
+      if (getChatSender(user, chat.users).userId !== userId) {
         return null;
       }
     }
-    console.log("c", chat);
-    console.log("notif", notification);
 
-    if (notification.length != 0) {
-      for (let i in notification) {
-        // console.log("2", notification[i]);
-        if (
-          notification[i].sender._id == getChatSender(user, chat.users).userId
-        ) {
-          return (
-            <NotificationItem
-              chat={chat}
-              getChatSender={getChatSender}
-              formatTimestamp={formatTimestamp}
-              notif={notification[i]}
-            />
-          );
-        }
-      }
+    if (
+      notification.some(
+        (notif) => notif.sender._id === getChatSender(user, chat.users).userId
+      )
+    ) {
+      return (
+        <NotificationItem
+          chat={chat}
+          getChatSender={getChatSender}
+          formatTimestamp={formatTimestamp}
+          notif={notification.find(
+            (notif) =>
+              notif.sender._id === getChatSender(user, chat.users).userId
+          )}
+        />
+      );
     }
+
     return (
       <ChatListItem
         chat={chat}
@@ -121,5 +110,76 @@ export default function ChatList({ fetchAgain, userId }) {
     );
   };
 
-  return chats?.map((chat) => displayChatList(chat));
+  // Separate and sort chats into Unread and Read
+  const unreadChats = chats
+    .filter((chat) => notification.some((notif) => notif.chat === chat._id))
+    .sort(
+      (a, b) =>
+        new Date(b.latestMessage.createdAt) -
+        new Date(a.latestMessage.createdAt)
+    );
+
+  const readChats = chats
+    .filter((chat) => !notification.some((notif) => notif.chat === chat._id))
+    .sort(
+      (a, b) =>
+        new Date(b.latestMessage.createdAt) -
+        new Date(a.latestMessage.createdAt)
+    );
+
+  // Here's where we filter the chats based on searchValue
+  const filteredUnreadChats = unreadChats.filter((chat) => {
+    const sender = getChatSender(user, chat.users);
+    if (!sender || typeof sender.name !== "string") {
+      console.error("Invalid sender:", sender, "for chat:", chat);
+      return false;
+    }
+    return sender.name
+      .toLowerCase()
+      .includes((searchValue || "").toLowerCase());
+  });
+
+  const filteredReadChats = readChats.filter((chat) => {
+    const sender = getChatSender(user, chat.users);
+    if (!sender || typeof sender.name !== "string") {
+      console.error("Invalid sender:", sender, "for chat:", chat);
+      return false;
+    }
+    return sender.name
+      .toLowerCase()
+      .includes((searchValue || "").toLowerCase());
+  });
+
+  // console.log("Notifications:", notification);
+  // console.log("unreadchats", unreadChats);
+  // console.log("readchats", readChats);
+
+  return (
+    <div>
+      {(userId
+        ? filteredUnreadChats.some(
+            (chat) =>
+              getChatSender(user, chat.users).userId === userId &&
+              notification.some(
+                (notif) =>
+                  notif.sender._id === getChatSender(user, chat.users).userId &&
+                  notif.receiverHasRead === false
+              )
+          )
+        : filteredUnreadChats.length > 0) && (
+        <>
+          <div className="tw-mx-4 tw-mt-4 tw-text-white">Unread</div>
+          <div className="tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white"></div>
+          {filteredUnreadChats.map((chat) => displayChatList(chat))}
+        </>
+      )}
+      {filteredReadChats && filteredReadChats.length > 0 && (
+        <>
+          <div className="tw-mx-4 tw-mt-4 tw-text-white">Read</div>
+          <div className="tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white"></div>
+          {filteredReadChats.map((chat) => displayChatList(chat))}
+        </>
+      )}
+    </div>
+  );
 }

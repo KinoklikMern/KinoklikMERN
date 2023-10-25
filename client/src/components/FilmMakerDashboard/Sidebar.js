@@ -15,7 +15,7 @@ export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
 
   // Yeming added
-  const { notificationCount, messageCount, filmmakerInfo } =
+  const { notificationCount, messageCount, filmmakerInfo, clearMessageCount } =
     useContext(NotificationContext);
 
   console.info("select", SELECTED_TAB);
@@ -77,6 +77,10 @@ export default function Sidebar(props) {
       },
     },
   ];
+
+  // console.log("filmmaker", filmmakerInfo);
+  // console.log("userId", userId);
+  // console.log("messageCount", messageCount);
   return (
     <>
       <nav className="tw-flex tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16">
@@ -92,6 +96,9 @@ export default function Sidebar(props) {
             <a
               href={item.href}
               className="tw-flex tw-flex-col tw-text-[#1E0039]"
+              onClick={
+                item.Title === "Messages" ? clearMessageCount : undefined
+              }
             >
               <div className="tw-flex tw-justify-center">
                 <img
@@ -121,7 +128,9 @@ export default function Sidebar(props) {
               {(item.Title === "Notifications" &&
                 notificationCount > 0 &&
                 filmmakerInfo === userId) ||
-              (item.Title === "Messages" && messageCount > 0) ? (
+              (item.Title === "Messages" &&
+                messageCount > 0 &&
+                filmmakerInfo === userId) ? (
                 <div className="tw-absolute tw-top-0 tw-right-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"

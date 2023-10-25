@@ -4,6 +4,8 @@ import avatarDemo from "../../images/avatarDefault.jpeg";
 import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
 import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
 import { useNavigate, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function ChatPage() {
   const [fetchAgain, setFetchAgain] = useState(false);
@@ -11,6 +13,7 @@ export default function ChatPage() {
   // Yeming added
   const { userId } = useParams();
   const navigate = useNavigate(); // Initialize navigate function
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     if (userId) {
@@ -33,29 +36,30 @@ export default function ChatPage() {
           <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 ">
             <div className="tw--m-4 tw-overflow-auto tw-bg-[#1E0039]">
               {/* search bar */}
-              {/* <label className="tw-relative tw-block">
-                  <span className="tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-2">
-                    <FontAwesomeIcon
-                      icon={faMagnifyingGlass}
-                      style={{ color: "#ffffff" }}
-                    />
-                  </span>
-                  <input
-                    className="tw-placeholder:tw-italic tw-block tw-h-10 tw-w-full tw-rounded-md tw-border tw-border-slate-300 tw-bg-gradient-to-b tw-from-[#868585] tw-to-[#1E0039] tw-py-2 tw-pl-9 tw-pr-3 tw-text-white tw-shadow-sm placeholder:tw-text-white focus:tw-border-sky-500 focus:tw-outline-none focus:tw-ring-1 focus:tw-ring-sky-500 sm:tw-text-sm"
-                    placeholder="Search..."
-                    type="text"
-                    name="search"
-                  />
-                </label> */}
-              {/* chatlist */}
-              {/* <ChatList fetchAgain={fetchAgain} /> */}
+              <div className="shadow-sm tw-relative tw-mx-4 tw-mb-8 tw-rounded-md">
+                <input
+                  type="text"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  className="tw-block tw-w-full tw-rounded-md tw-border tw-bg-gradient-to-b tw-from-[#868585] tw-to-[#1E0039] tw-py-2 tw-pl-9 tw-pr-10 tw-text-white tw-shadow-sm placeholder:tw-text-white focus:tw-border-white focus:tw-ring-1 focus:tw-ring-white sm:tw-text-sm"
+                  placeholder="Search..."
+                />
+                <div className="tw-absolute tw-inset-y-0 tw-right-0 tw-flex tw-items-center tw-pr-3">
+                  <FontAwesomeIcon icon={faSearch} className="tw-text-white" />
+                </div>
+              </div>
 
               {userId ? (
-                <ChatList fetchAgain={fetchAgain} userId={userId} />
+                <ChatList
+                  fetchAgain={fetchAgain}
+                  userId={userId}
+                  searchValue={searchValue}
+                />
               ) : (
-                <ChatList fetchAgain={fetchAgain} />
+                <ChatList fetchAgain={fetchAgain} searchValue={searchValue} />
               )}
             </div>
+
             <div className="tw-col-span-2 tw-mx-4 tw-overflow-y-auto tw-rounded-lg">
               <MessageBox
                 fetchAgain={fetchAgain}
