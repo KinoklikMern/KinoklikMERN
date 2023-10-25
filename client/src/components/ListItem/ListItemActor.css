@@ -6,42 +6,76 @@
     flex-shrink: 0;
     overflow: hidden;
     cursor: pointer;
-    color: white;
-    align-items: center;
-    text-align: center;
+    transition: all 0.5s; /* Increase the transition duration for smoother effect */
+}
+
+.actor-name {
+color: white;
+align-items: center;
+text-align: center;
+font-family: Roboto;
+font-size: 30px;
+font-weight: 90;
+line-height: 28px;
+letter-spacing: 0em;
+z-index: 2;
+}
+
+.actorname {
+    color: #1E0039;
+    position: absolute;
+    top:85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-family: Roboto;
     font-size: 30px;
     font-weight: 90;
     line-height: 28px;
     letter-spacing: 0em;
-    transition: all 0.5s; /* Increase the transition duration for smoother effect */
-}
+    opacity: 0; /* Initially hidden */
+    z-index: 2;
+    text-align: center;
+    border-radius: 0 0 5% 5%;
+    width: 100%; /* Ensure the name covers the full width of the container */
+    background: linear-gradient(180deg, #FFFFFF 10%, rgba(255, 255, 255, 0) 100%);
+    padding: 5px; /* Add padding for better visibility */
+    transition: opacity 0.5s; /* Add opacity transition for smooth hover effect */
+  }
 
-.listItemactor img {
+.listItemactor .actor-image {
     width: 100%;
     height: 90%;
     object-fit: cover;
     position: relative;
+    top: 0;
+    left: 0;
     z-index: 1; /* Ensure the image is above other content */
+    border-radius: 5%;
+    transition: opacity 0.5s; 
+    
 }
 
 .listItemactor:hover {
     margin-top: -5px;
     margin-bottom: -5px;
-    margin-left: -25px;
-    margin-right: -25px;
+    margin-left: -90px;
+    margin-right: -90px;
     width: 259px;
-    height: 320px;
-    border-radius: 5%;
-    background: linear-gradient(180deg, #FFFFFF 90%, rgba(255, 255, 255, 0) 100%);
-    color: #1E0039;
+    height: 340px;
+    border-radius:10%;
     opacity: 1;
     z-index: 2;
-}
-
-.listItemactor:hover img {
-    z-index: 2; /* Move the image above other content on hover */
-    border-radius: 0; /* Reverts to a normal image shape on hover */
+  }
   
-}
+  .listItemactor:hover .actor-image {
+    opacity: 1;
+  }
+  
+  .listItemactor:hover .actorname {
+    opacity: 1;
+  }
 
+  .listItemactor:hover .actor-name {
+    opacity: 0;
+    
+  }

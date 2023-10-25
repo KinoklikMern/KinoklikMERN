@@ -132,13 +132,17 @@ export default function ListItem({ title, status, type, role }) {
         //6483619d64b048f952a6fb5b
         actors.map((actor) => (
           <div className="listItemactor" key={actor._id}>
+            
             <a href={`/actor/${actor._id}`}>
-              <img
+              <img  className="actor-image"
                 src={`${process.env.REACT_APP_AWS_URL}/${actor.picture}`}
                 alt=""
               />
+              <div className="overlay">
+                  <p className="actorname">{`${actor.firstName} ${actor.lastName}`}</p>
+            </div>
             <div className="overlay">
-                  <p>{`${actor.firstName} ${actor.lastName}`}</p>
+                  <p className="actor-name">{`${actor.firstName} ${actor.lastName}`}</p>
             </div>
             </a>
            
