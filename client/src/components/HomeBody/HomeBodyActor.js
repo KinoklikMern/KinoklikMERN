@@ -1,6 +1,6 @@
 import React from "react";
 import "./HomeBody.css";
-import "../ListItem/ListItem.css";
+import "../ListItem/ListItemActor.css";
 import "../List/List.css";
 import List from "../List/ListActor";
 import FavouriteList from "../List/Favourite";
