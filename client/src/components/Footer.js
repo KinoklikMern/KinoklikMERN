@@ -18,19 +18,19 @@ function Footer() {
                 className="tw-h-16 "
               />
             </div>
-            <div className="tw-col-md-2 tw-px-4 tw-py-3 footer-columns">
+            <div className="tw-col-md-2 footer-columns tw-px-4 tw-py-3">
               <ul className="footer-ul ">
                 <li>
                   <h5 className="footer-header mb-4 text-lg ">KinoKlik APK</h5>
                 </li>
                 <li className="footer-li">
-                <Link to="/forFilmMakers">For Filmmakers</Link>
-               
+                  <Link to="/forFilmMakers">For Filmmakers</Link>
                 </li>
                 <li className="footer-li">
-                <Link to="/forIndustryProf">For Industry <br />
-                Professionals</Link>
-                 
+                  <Link to="/forIndustryProf">
+                    For Industry <br />
+                    Professionals
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -69,26 +69,49 @@ function Footer() {
   </li> */}
               </ul>
             </div>
-            <div className="col-md-2 tw-px-0 tw-py-3 footer-columns text-center tw-mt-0">
+            <div className="col-md-2 footer-columns text-center tw-mt-0 tw-px-0 tw-py-3">
               {/* <h5 className="footer-header">Follow us on:</h5> */}
 
-              <div className="footer-links tw-text-center sm:tw-mt-0  lg:tw-mt-8 sm:tw-ml-48 lg:tw-ml-0 ">
-            
-                <a  href="https://www.facebook.com/kinoklikcanada">
-                   {/* <FontAwesomeIcon icon={faFacebook} size="2x"/> */}
+              <div className="footer-links tw-text-center sm:tw-ml-48  sm:tw-mt-0 lg:tw-ml-0 lg:tw-mt-8 ">
+                <a
+                  href="https://www.facebook.com/kinoklikcanada"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {/* <FontAwesomeIcon icon={faFacebook} size="2x"/> */}
 
-                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faFacebook} /></i>
+                  <i className="sm:text-3xl md:text-4xl lg:text-5xl ">
+                    <FontAwesomeIcon icon={faFacebook} />
+                  </i>
                 </a>
-                <a href="https://www.instagram.com/kinoklik">
-                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faInstagram}  /></i>
+                <a
+                  href="https://www.instagram.com/kinoklik"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <i className="sm:text-3xl md:text-4xl lg:text-5xl ">
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </i>
                 </a>
-                <a href="https://www.linkedin.com/company/kinoklik/?viewAsMember=true">
-                <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faLinkedin} /></i>
+                <a
+                  href="https://www.linkedin.com/company/kinoklik/?viewAsMember=true"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <i className="sm:text-3xl md:text-4xl lg:text-5xl ">
+                    <FontAwesomeIcon icon={faLinkedin} />
+                  </i>
                 </a>
-                <a href="https://twitter.com/kinoklik_canada">
+                <a
+                  href="https://twitter.com/kinoklik_canada"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   {/*  <a href="https://www.youtube.com/channel/UCt2KiIE6jFI0UIa_9olo3Uw"> */}
 
-                  <i className="sm:text-3xl md:text-4xl lg:text-5xl "><FontAwesomeIcon icon={faTwitter} /></i>
+                  <i className="sm:text-3xl md:text-4xl lg:text-5xl ">
+                    <FontAwesomeIcon icon={faTwitter} />
+                  </i>
                 </a>
               </div>
             </div>
