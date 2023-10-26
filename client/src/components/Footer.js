@@ -21,7 +21,7 @@ function Footer() {
             <div className="tw-col-md-2 footer-columns tw-px-4 tw-py-3">
               <ul className="footer-ul ">
                 <li>
-                  <h5 className="footer-header mb-4 text-lg ">KinoKlik APK</h5>
+                  <h5 className="footer-header mb-4 text-lg ">KinoKlik EPK</h5>
                 </li>
                 <li className="footer-li">
                   <Link to="/forFilmMakers">For Filmmakers</Link>
