@@ -297,6 +297,22 @@ export const login = async (request, response) => {
 
         const isSame = await bcrypt.compare(password, user.password);
 
+        // Yeming added
+        if (isSame && !user.isVerified) {
+          // If password is correct but user isn't verified
+          return response.json({
+            isVerified: false,
+            message: "Your account is not verified. Please verify your email.",
+            user: {
+              id: user._id,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              role: user.role,
+            },
+          });
+        }
+
         if (!isSame) {
           return response
             .status(400)
@@ -900,8 +916,7 @@ export const getFollowingActor = async (req, res) => {
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User
-      .findOne({ _id: id })
+    const fepkOne = await User.findOne({ _id: id });
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;

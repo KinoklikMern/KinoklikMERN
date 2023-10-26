@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { addToRequests, addToChat } from "../../../api/epks";
 import { io } from "socket.io-client";
 import { ChatState } from "../../../context/ChatProvider";
+import { NotificationContext } from "../../../context/NotificationContext";
 
 let socket;
 export default function RequestModal(props) {
   const [socketConnected, setSocketConnected] = useState(false);
   const [requestMsg, setRequestMsg] = useState("");
   const { notification, setNotification } = ChatState();
+
+  const { incrementMessage, setFilmmakerInfo } =
+    useContext(NotificationContext);
+
   const handleChange = (e) => {
     setRequestMsg(e.target.value);
   };
@@ -37,6 +42,10 @@ export default function RequestModal(props) {
         if (res) {
           addToChat(requestMsg, props.user, props.filmmakerId).then((res) => {
             if (res.status == 200) {
+              incrementMessage();
+              console.log(props.filmmakerId);
+              setFilmmakerInfo(props.filmmakerId);
+
               socket.emit("new message", res.data);
               props.close("request");
               props.setRefresh(true);
@@ -48,7 +57,12 @@ export default function RequestModal(props) {
   };
   return (
     <>
-      <Modal show={()=>props.open("request")} onHide={()=>props.close("request")} centered className="p-3">
+      <Modal
+        show={() => props.open("request")}
+        onHide={() => props.close("request")}
+        centered
+        className="p-3"
+      >
         <Modal.Header className="border-0">
           <Modal.Title className="text-center">
             Please type your message to the Filmmaker EPK Owner

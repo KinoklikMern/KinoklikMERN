@@ -29,6 +29,11 @@ function LoginForm() {
   };
 
   const handleSubmit = async () => {
+    // Check if no email or password is provided
+    if (!email || !password) {
+      setError("Please provide both email and password.");
+      return;
+    }
     console.log(email, password);
     try {
       const { data } = await axios.post(
@@ -40,20 +45,26 @@ function LoginForm() {
       );
 
       // Yeming added
-      console.log(data);
-      let userId;
-      if (data.user && data.user.id) {
-        userId = data.user.id;
-      } else if (data.id) {
-        userId = data.id;
-      }
+      console.log("data", data);
 
-      console.log("User ID:", userId);
+      // let userId;
+      // if (data.user && data.user.id) {
+      //   userId = data.user.id;
+      // } else if (data.id) {
+      //   userId = data.id;
+      // }
 
-      if (!data.isVerified) {
-        navigate("/verification", {
-          state: { user: { ...data.user, id: userId } },
-        });
+      // console.log("User ID:", userId);
+
+      // if (!data.isVerified) {
+      //   navigate("/verification", {
+      //     state: { user: { ...data.user, id: userId } },
+      //   });
+      //   return;
+      // }
+
+      if (data.user && !data.isVerified) {
+        navigate("/verification", { state: { user: data.user } });
         return;
       }
 
