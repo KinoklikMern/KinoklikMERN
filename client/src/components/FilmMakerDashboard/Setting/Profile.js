@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
-import avatarDefault from "../../../images/avatar1.jpeg";
 
 export default function Profile() {
   const [message, setMessage] = useState([]);
@@ -57,7 +57,7 @@ export default function Profile() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, []);
+  }, [userId, userProfileData]);
 
   if (filename !== "") {
     userProfileData.picture = filename;
@@ -380,14 +380,14 @@ export default function Profile() {
           onChange={fileSelected}
           ref={inputFileRef}
           accept="image/*"
-          className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-py-2 file:tw-px-4 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
+          className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-px-4 file:tw-py-2 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
         />
       </div>
       <div className="tw-col-start-4 tw-place-self-end tw-px-12">
         {disabled === true ? (
           <button
             disabled
-            className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
+            className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
             style={{
               marginBottom: "20px",
             }}
@@ -396,7 +396,7 @@ export default function Profile() {
           </button>
         ) : (
           <button
-            className="tw-rounded-full tw-py-2 tw-px-8 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
+            className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserProfile()}
           >
             Save

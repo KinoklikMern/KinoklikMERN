@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 //import UploadImage from "../../upload";
-import DragUpload from "../../dragUpload";
-import UploadImage from "../../uploadImage";
-import Upload1 from "../../Upload1";
 import UploadFile from "../../FileUpload";
-import { Button, Form, Input, Col, Upload, Row } from "antd";
-import AllSynopsis from "../Present/allSynopsis";
+import { Col, Row } from "antd";
 
 const SynopsisForm = () => {
   const [image1, setImage1] = useState(null);
@@ -14,6 +10,7 @@ const SynopsisForm = () => {
   const [short, setshort] = useState(null);
   const [medium, setMedium] = useState(null);
   const [long, setslong] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [synopsisList, setSynopsisList] = useState(null);
 
   const submit = () => {

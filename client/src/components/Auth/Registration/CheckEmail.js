@@ -1,4 +1,4 @@
-import React, { useState, setState } from "react";
+import React from "react";
 import successemail from "../../../images/icons/success-email.png";
 import Logincss from "./login.module.css";
 

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import http from "../../../http-common";
-import { Button, Col, Row } from "antd";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { Button } from "antd";
+import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 
 function FepkEditCoverForm() {
@@ -9,6 +9,7 @@ function FepkEditCoverForm() {
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
@@ -35,7 +36,7 @@ function FepkEditCoverForm() {
       setCharacterLength({ logLine_short: response.data.logLine_short.length });
       // console.log(response.data);
     });
-  }, []);
+  }, [fepkId]);
 
   const [epkCoverData, setEpkCoverData] = useState({
     film_maker: fepk.film_maker,
@@ -392,7 +393,7 @@ function FepkEditCoverForm() {
                       name="kickstarter_url"
                     />
                   </div> */}
-                   <div>
+                  <div>
                     <input
                       style={{
                         height: "30px",
@@ -424,7 +425,6 @@ function FepkEditCoverForm() {
                       name="DonateStripe_url"
                     />
                   </div>
-
                 </div>
                 <div
                   className="col"
@@ -461,7 +461,7 @@ function FepkEditCoverForm() {
                           width: "auto",
                           marginTop: "5px",
                         }}
-                        alt="no image"
+                        alt="no img"
                       />
                     </div>
                     <div className="col">

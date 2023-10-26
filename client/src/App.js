@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Route, Link, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 import Actor from "./pages/Actor/Actor";
@@ -80,7 +80,6 @@ import FepkUploadDashboard from "./pages/FepkUploadDashboard";
 import FepkEditDashboard from "./pages/FepkEditDashboard";
 import TestApproval from "./pages/TestApproval";
 import EpkView from "./pages/EpkView";
-import Title from "antd/es/skeleton/Title";
 import { useSelector } from "react-redux";
 import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
@@ -99,7 +98,6 @@ import AccessDeniedPage from "./pages/AccessDeniedPage";
 import { FepkContext } from "./context/FepkContext";
 import CatelogPage from "./pages/CatelogPage";
 import EpkViewPage from "./pages/EpkViewPage";
-import UploadActorPic from "./components/UserDashboard/Upload/UploadActorPic";
 import UploadActorPicCon from "./components/UserDashboard/Upload/UploadActorPicCon";
 
 function App() {

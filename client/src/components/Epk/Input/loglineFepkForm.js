@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 
 function LoglineForm() {
   const [file, setFile] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -14,7 +15,7 @@ function LoglineForm() {
     logLine_long: 0,
   });
   const inputFileRef = useRef(null);
-  const [blur, setBlur] = useState("");
+  // const [blur, setBlur] = useState("");
   const [epkLoglineData, setEpkLoglineData] = useState([]);
 
   let { fepkId } = useParams();
@@ -24,34 +25,36 @@ function LoglineForm() {
     setDisabled(false);
   };
 
-//modify by delara
-useEffect(() => {
-  http.get(`/fepks/${fepkId}`)
-    .then((response) => {
-      if (response.data) {
-        setFepk(response.data);
-        if (response.data.logLine_long) {
-          setCharacterLength({ logLine_long: response.data.logLine_long.length });
-          setEpkLoglineData({
-            image_logline: response.data.image_logline,
-            logLine_long: response.data.logLine_long,
-            logLine_blur: response.data.logLine_blur,
-          });
+  //modify by delara
+  useEffect(() => {
+    http
+      .get(`/fepks/${fepkId}`)
+      .then((response) => {
+        if (response.data) {
+          setFepk(response.data);
+          if (response.data.logLine_long) {
+            setCharacterLength({
+              logLine_long: response.data.logLine_long.length,
+            });
+            setEpkLoglineData({
+              image_logline: response.data.image_logline,
+              logLine_long: response.data.logLine_long,
+              logLine_blur: response.data.logLine_blur,
+            });
+          } else {
+            // Handle the case when logLine_long is undefined or empty
+            console.error("logLine_long is undefined or empty");
+          }
         } else {
-          // Handle the case when logLine_long is undefined or empty
-          console.error('logLine_long is undefined or empty');
+          // Handle the case when response.data is undefined or empty
+          console.error("response.data is undefined or empty");
         }
-      } else {
-        // Handle the case when response.data is undefined or empty
-        console.error('response.data is undefined or empty');
-      }
-    })
-    .catch((error) => {
-      // Handle the error if the HTTP request fails
-      console.error('HTTP request failed:', error);
-    });
-}, []);
-
+      })
+      .catch((error) => {
+        // Handle the error if the HTTP request fails
+        console.error("HTTP request failed:", error);
+      });
+  }, [fepkId]);
 
   const handleLoglineChange = (event) => {
     const { name, value } = event.target;
@@ -137,18 +140,22 @@ useEffect(() => {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
-          borderRadius:"10px",
+          borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -284,7 +291,7 @@ useEffect(() => {
                         height: "120px",
                         width: "auto",
                         margin: "inherit",
-                        marginTop:"0"
+                        marginTop: "0",
                       }}
                       alt="no image"
                     />

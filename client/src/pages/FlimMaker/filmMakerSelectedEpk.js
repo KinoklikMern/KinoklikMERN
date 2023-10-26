@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 ////////////////////////////////////////////////
 // Create filmMakerSelectedEpk page
 // Edit by Tony
@@ -5,30 +6,12 @@
 ////////////////////////////////////////////////
 import { React, useEffect, useState } from "react";
 import Axios from "axios";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faComments } from "@fortawesome/free-solid-svg-icons";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { faInbox } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
-import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
-import { faPhotoFilm } from "@fortawesome/free-solid-svg-icons";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
-import { faFilm } from "@fortawesome/free-solid-svg-icons";
-import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
-import { faCrown } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
-import movie6 from "../../images/movies/movie6.jpg";
-import { Link, NavLink } from "react-router-dom";
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
 import Stars from "../../components/FilmMaker/Stars";
 import Requests from "../../components/FilmMaker/Requests";
@@ -40,8 +23,8 @@ export default function Filmmaker() {
   const [epk, setEpk] = useState([]);
   const [users, setUsers] = useState([]);
   const [RequestUsers, setRequestUsers] = useState([]);
-  const [requestFilter, setRequestFilter] = useState(["Pending"]);
-  const [roleFilter, setRoleFilter] = useState(["Investors"]);
+  // const [requestFilter, setRequestFilter] = useState(["Pending"]);
+  // const [roleFilter, setRoleFilter] = useState(["Investors"]);
   const [activeTab, setActiveTab] = useState(["Stars"]);
 
   let component;
@@ -71,7 +54,7 @@ export default function Filmmaker() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, []);
+  }, [epk.favourites, epkid]);
 
   const getRequestUsers = (id) => {
     Axios.get(

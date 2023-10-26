@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button,Tooltip, Col, Row } from "antd";
+import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import paypalImage from '../../../images/paypal.png';
-import stripImage from '../../../images/stripe.jpg';
+import paypalImage from "../../../images/paypal.png";
+import stripImage from "../../../images/stripe.jpg";
 
 function FepkCoverForm() {
   const navigate = useNavigate();
@@ -13,6 +13,7 @@ function FepkCoverForm() {
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
@@ -400,10 +401,13 @@ function FepkCoverForm() {
                   </div> */}
                   <div>
                     <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
-                       <span> <InfoCircleFilled /></span>
+                      <span>
+                        {" "}
+                        <InfoCircleFilled />
+                      </span>
                     </Tooltip>
                   </div>
-                   <div>
+                  <div>
                     <input
                       style={{
                         height: "30px",

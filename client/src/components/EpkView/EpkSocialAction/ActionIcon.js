@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-unused-vars */
 import React from "react";
 
 export default function ActionIcon({ name, icon, handlers, number }) {
@@ -11,15 +11,15 @@ export default function ActionIcon({ name, icon, handlers, number }) {
     >
       <img
         src={icon}
+        alt=""
         style={{ height: "60%" }}
         className="tw-overflow-visible"
       />
       <span
-        className={`tw-absolute tw--top-1 tw--right-3 tw-text-sm tw-font-bold tw-text-white`}
+        className={`tw-absolute tw--right-3 tw--top-1 tw-text-sm tw-font-bold tw-text-white`}
       >
         {number}
       </span>
     </div>
   );
 }
-

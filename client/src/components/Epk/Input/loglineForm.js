@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const LoglineForm = () => {
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [loglineList, setLoglineList] = useState(null);
   const epkID = 5;
   const submit = () => {

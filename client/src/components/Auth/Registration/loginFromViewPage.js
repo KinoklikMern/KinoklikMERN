@@ -87,12 +87,16 @@ function Login() {
     const handleSubmit = async (values) => {
       /*     console.log(email, password); */
       try {
-        const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
-          email: values.email,
-          password: values.password,
-        });
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/users/login`,
+          {
+            email: values.email,
+            password: values.password,
+          }
+        );
         setError("");
         setSuccess(data.message);
+        // eslint-disable-next-line no-unused-vars
         const { message, ...rest } = data;
         dispatch({ type: "LOGIN", payload: data });
         Cookies.set("user", JSON.stringify(data));
@@ -107,12 +111,12 @@ function Login() {
 
     return (
       <div>
-        <span  id="login"
+        <span
+          id="login"
           onClick={() => {
             setOpen(true);
           }}
-        >
-        </span>
+        ></span>
         <CollectionCreateForm
           open={open}
           onCreate={onCreate}

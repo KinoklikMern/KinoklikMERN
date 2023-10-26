@@ -40,13 +40,13 @@ function Footer() {
                   <h5 className="footer-header mb-4 text-lg">Company</h5>
                 </li>
                 <li className="footer-li">
-                  <a href=""></a>About Us
+                  <a href="#aboutus">About Us</a>
                 </li>
                 <li className="footer-li">
-                  <a href=""></a>Contact Us
+                  <a href="#contactus">Contact Us</a>
                 </li>
                 <li className="footer-li">
-                  <a href=""></a>Support
+                  <a href="#support">Support</a>
                 </li>
               </ul>
             </div>
@@ -56,13 +56,13 @@ function Footer() {
                   <h5 className="footer-header mb-4 text-lg">Relations</h5>
                 </li>
                 <li className="footer-li">
-                  <a href="">Partners</a>
+                  <a href="#partners">Partners</a>
                 </li>
                 <li className="footer-li">
-                  <a href="">Investors</a>
+                  <a href="#investors">Investors</a>
                 </li>
                 <li className="footer-li">
-                  <a href="">Media & Blog</a>
+                  <a href="#media">Media & Blog</a>
                 </li>
                 {/*  <li className="footer-li">
                   <a href="press@kinoklik.ca">press@kinoklik.ca</a>

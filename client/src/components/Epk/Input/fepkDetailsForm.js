@@ -1,22 +1,17 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import Modal from "react-modal";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faPlus,
-  faTrashCan,
-  faUserPlus,
-  faUserCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 function FepkDetailsForm() {
   const [file, setFile] = useState("");
-  const [userList, setUserList] = useState([]);
+  // const [userList, setUserList] = useState([]);
   const [allUserList, setAllUserList] = useState([]);
   const [fepk, setFepk] = useState({});
   const [disabledSaveButton, setDisabledSaveButton] = useState(true);
@@ -171,6 +166,7 @@ function FepkDetailsForm() {
     //console.log(invitationsByFilmmakerMovie);
     //console.log(allUserList);
     //console.log(userList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //NEEDED???? empty email when search input
@@ -770,7 +766,7 @@ function FepkDetailsForm() {
                           width: "auto",
                           marginTop: "5px",
                         }}
-                        alt="no image"
+                        alt="no img"
                       />
                     )}
                     <br />
@@ -1114,9 +1110,6 @@ function FepkDetailsForm() {
                       </thead>
                       <tbody>
                         {combinedUsers.map((user) => {
-                          {
-                            /* {currentFepkUsers.map((user) => { */
-                          }
                           let imageUrlDisplay;
                           if (
                             user.picture &&
@@ -1133,6 +1126,7 @@ function FepkDetailsForm() {
                               <td>
                                 <img
                                   src={imageUrlDisplay}
+                                  alt=""
                                   style={{ height: "15px", width: "auto" }}
                                 />
                               </td>
