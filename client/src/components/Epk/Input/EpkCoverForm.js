@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import http from "../../../http-common";
 
 function EpkCoverForm() {
-  //const [movieId, setMovieId] = useState("");
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
@@ -27,7 +26,6 @@ function EpkCoverForm() {
     minutes: "",
     banner_url: "",
     trailer_url: "",
-    //kickstarter_url: "",
     DonatePayPal_url: "",
     DonateStripe_url: "",
   });
@@ -37,7 +35,6 @@ function EpkCoverForm() {
     "comedy",
     "documentary",
     "romance",
-    "action",
     "horror",
     "mystery",
     "drama",
@@ -199,15 +196,6 @@ function EpkCoverForm() {
                     />
                   </div>
                 </div>
-                {/* <div>
-                  <input
-                    className="form-control"
-                    defaultValue={epkCoverData.kickstarter_url}
-                    placeholder="KickStarter URL"
-                    onChange={handleInputChange}
-                    name="kickstarter_url"
-                  />
-                </div> */}
                  <div>
                   <input
                     className="form-control"
