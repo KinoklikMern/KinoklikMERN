@@ -1,7 +1,6 @@
 import React from "react";
 import "./ListItemActor.css";
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
