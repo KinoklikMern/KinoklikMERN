@@ -1,3 +1,34 @@
+#Create and Configure .env Files:
+You have two .env files, one for the client and one for the server.
+Place these files in the respective directories: client/.env and server/.env.
+In the server .env file, update the MAIL_TRAP_USER and MAIL_TRAP_PASS values with your Mailtrap SMTP settings.
+#Mailtrap Setup:
+If you don't have a Mailtrap account, sign up at Mailtrap.
+Find your SMTP settings in Mailtrap, and replace the MAIL_TRAP_USER and MAIL_TRAP_PASS values in the server's .env file with your Mailtrap credentials.
+Server Setup:
+Open a new terminal.
+Navigate to the server directory:
+$cd server
+Install project dependencies:
+$npm install
+Update the dependencies (if needed):
+$npm update
+Start the server:
+$npm start
+Client Setup:
+Open another new terminal.
+Navigate to the client directory:
+$cd client
+Install project dependencies:
+$npm install
+Update the dependencies (if needed):
+$npm update
+Start the client application:
+$npm start
+Register:
+After running the client application, open your web browser and navigate to the localhost address (e.g., http://localhost:3000).
+You should be able to register on the website.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
