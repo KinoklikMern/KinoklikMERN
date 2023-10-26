@@ -216,7 +216,7 @@ function FepkCoverForm() {
               setSubmitMessage(
                 // res.data.error + " Title is unique and status needed!"
                 // ----- CHIHYIN -------
-                "Tell us the genre and the status."
+                "Tell us the genre, the status and the type!"
               );
             } else {
               console.log("saved");
@@ -332,7 +332,7 @@ function FepkCoverForm() {
                   <div className="col my-3">
                    <textarea
                       style={{
-                        height: "100px",
+                        height: "70px",
                         width: "100%",
                         borderRadius: "5px",
                         marginBottom: "0px",
@@ -404,7 +404,7 @@ function FepkCoverForm() {
                       </select>
                     </div>
                   </div>
-                  <div className="row">
+                  <div>
                     <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
                        <span> <InfoCircleFilled /></span>
                     </Tooltip>
