@@ -437,7 +437,7 @@ export default function Actor(props) {
           </p>
           <div className="movie-actor-play-container">
             <div>
-              <List />
+              {/* <List /> */}
             </div>
           </div>
         </div>

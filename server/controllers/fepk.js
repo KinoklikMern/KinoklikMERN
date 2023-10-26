@@ -215,7 +215,7 @@ export const getFollowers = async (req, res) => {
       .equals(false);
     let facebooks = 0;
     let instagrams = 0;
-    let twitters = 0;
+    let twitters = 0;z
     fepkOne.crew.forEach((element) => {
       if (element.facebook_followers) {
         facebooks += parseInt(element.facebook_followers);

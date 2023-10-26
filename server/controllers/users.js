@@ -897,26 +897,49 @@ export const getFollowingActor = async (req, res) => {
   }
 };
 
+// export const getFollowers = async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     const fepkOne = await User.findOne({ _id: id });
+//     let facebooks = 0;
+//     let instagrams = 0;
+//     let twitters = 0;
+//     fepkOne.User.forEach((element) => {
+//       if (element.facebook_followers) {
+//         facebooks += parseInt(element.facebook_followers);
+//       }
+//       if (element.instagram_followers) {
+//         instagrams += parseInt(element.instagram_followers);
+//       }
+//       if (element.twitter_followers) {
+//         twitters += parseInt(element.twitter_followers);
+//       }
+//     });
+//     //res.status(200).json(fepkOne);
+//     res
+//       .status(200)
+//       .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+// };
+
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
-    const fepkOne = await User
-      .findOne({ _id: id })
-    let facebooks = 0;
-    let instagrams = 0;
-    let twitters = 0;
-    fepkOne.crew.forEach((element) => {
-      if (element.facebook_followers) {
-        facebooks += parseInt(element.facebook_followers);
-      }
-      if (element.instagram_followers) {
-        instagrams += parseInt(element.instagram_followers);
-      }
-      if (element.twitter_followers) {
-        twitters += parseInt(element.twitter_followers);
-      }
-    });
-    //res.status(200).json(fepkOne);
+    const fepkOne = await User.findOne({ _id: id });
+    console.log(fepkOne);
+
+    let facebooks = fepkOne.facebook_followers
+      ? parseInt(fepkOne.facebook_followers)
+      : 0;
+    let instagrams = fepkOne.instagram_followers
+      ? parseInt(fepkOne.instagram_followers)
+      : 0;
+    let twitters = fepkOne.twitter_followers
+      ? parseInt(fepkOne.twitter_followers)
+      : 0;
+
     res
       .status(200)
       .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
