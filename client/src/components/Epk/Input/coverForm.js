@@ -4,7 +4,6 @@ import http from "../../../http-common";
 import { Button } from "antd";
 
 function CoverForm() {
-  //const [movieId, setMovieId] = useState("");
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
@@ -30,7 +29,6 @@ function CoverForm() {
     minutes: "",
     banner_url: "",
     trailer_url: "",
-    //kickstarter_url: "",
     DonatePayPal_url: "",
     DonateStripe_url: "",
   });
@@ -240,7 +238,7 @@ function CoverForm() {
                         textAlign: "center",
                       }}
                       className="form-control mt-10"
-                      defaultValue={epkCoverData.LogLine}
+                      defaultValue={epkCoverData.logLine}
                       placeholder="Log Line"
                       onChange={handleInputChange}
                       name="logLine"
@@ -280,23 +278,6 @@ function CoverForm() {
                       />
                     </div>
                   </div>
-                  {/* <div>
-                  <input
-                      style={{ 
-                        height: "30px", 
-                        width: "100%", 
-                        borderRadius: "5px", 
-                        marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
-                    }}
-                    className="form-control"
-                    defaultValue={epkCoverData.kickstarter_url}
-                    placeholder="KickStarter URL"
-                    onChange={handleInputChange}
-                    name="kickstarter_url"
-                  />
-                </div> */}
-
                   <div>
                     <input
                       style={{
@@ -313,7 +294,6 @@ function CoverForm() {
                       name="DonatePayPal_url"
                     />
                   </div>
-
                   <div>
                     <input
                       style={{

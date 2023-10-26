@@ -37,48 +37,49 @@ export default function EpkHeader({ epkInfo, role, id }) {
 
   useEffect(() => {
     let totalFollowers = 0;
-    if (role === "actor") {
-      getActorFollowersNumber(id).then((res) => {
-        totalFollowers = formatCompactNumber(
-          res.facebook + res.instagram + res.twitter
-        );
-        setSocialMediaFollowerTotalNum(totalFollowers);
-        const newMediaList = socialMediasList.map((media) => {
-          if (media.name === "facebook") {
-            return { ...media, followers: formatCompactNumber(res.facebook) };
-          }
-          if (media.name === "instagram") {
-            return { ...media, followers: formatCompactNumber(res.instagram) };
-          }
-          if (media.name === "twitter") {
-            return { ...media, followers: formatCompactNumber(res.twitter) };
-          }
-          return media;
-        });
-        setSocialMediasList(newMediaList);
+    // if(role === "actor"){
+    getActorFollowersNumber(id).then((res) => {
+      totalFollowers = formatCompactNumber(
+        res.facebook + res.instagram + res.twitter
+      );
+      setSocialMediaFollowerTotalNum(totalFollowers);
+      const newMediaList = socialMediasList.map((media) => {
+        if (media.name === "facebook") {
+          return { ...media, followers: formatCompactNumber(res.facebook) };
+        }
+        if (media.name === "instagram") {
+          return { ...media, followers: formatCompactNumber(res.instagram) };
+        }
+        if (media.name === "twitter") {
+          return { ...media, followers: formatCompactNumber(res.twitter) };
+        }
+        return media;
       });
-    } else {
-      getFepkFollowersNumber(epkInfo?._id).then((res) => {
-        totalFollowers = formatCompactNumber(
-          res.facebook + res.instagram + res.twitter
-        );
-        setSocialMediaFollowerTotalNum(totalFollowers);
-        const newMediaList = socialMediasList.map((media) => {
-          if (media.name === "facebook") {
-            return { ...media, followers: formatCompactNumber(res.facebook) };
-          }
-          if (media.name === "instagram") {
-            return { ...media, followers: formatCompactNumber(res.instagram) };
-          }
-          if (media.name === "twitter") {
-            return { ...media, followers: formatCompactNumber(res.twitter) };
-          }
-          return media;
-        });
-        setSocialMediasList(newMediaList);
-      });
-    }
-  }, [epkInfo, id, role, socialMediasList]);
+      setSocialMediasList(newMediaList);
+    });
+    // }
+    // else {
+    //   getFepkFollowersNumber(epkInfo?._id).then((res) => {
+    //     totalFollowers = formatCompactNumber(
+    //       res.facebook + res.instagram + res.twitter
+    //     );
+    //     setSocialMediaFollowerTotalNum(totalFollowers);
+    //     const newMediaList = socialMediasList.map((media) => {
+    //       if (media.name == "facebook") {
+    //         return { ...media, followers: formatCompactNumber(res.facebook) };
+    //       }
+    //       if (media.name == "instagram") {
+    //         return { ...media, followers: formatCompactNumber(res.instagram) };
+    //       }
+    //       if (media.name == "twitter") {
+    //         return { ...media, followers: formatCompactNumber(res.twitter) };
+    //       }
+    //       return media;
+    //     });
+    //     setSocialMediasList(newMediaList);
+    //   });
+    // }
+  }, [epkInfo]);
 
   function formatCompactNumber(number) {
     if (number < 1000) {

@@ -34,7 +34,6 @@ function FepkEditCoverForm() {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
       setCharacterLength({ logLine_short: response.data.logLine_short.length });
-      // console.log(response.data);
     });
   }, [fepkId]);
 
@@ -44,7 +43,6 @@ function FepkEditCoverForm() {
     logLine_short: fepk.logLine_short,
     genre: fepk.genre,
     production_type: fepk.production_type,
-    //kickstarter_url: fepk.kickstarter_url,
     DonatePayPal_url: fepk.DonatePayPal_url,
     DonateStripe_url: fepk.DonateStripe_url,
     banner_url: fepk.banner_url,
@@ -56,7 +54,6 @@ function FepkEditCoverForm() {
     "comedy",
     "documentary",
     "romance",
-    "action",
     "horror",
     "mystery",
     "drama",
@@ -377,22 +374,6 @@ function FepkEditCoverForm() {
                       </select>
                     </div>
                   </div>
-                  {/* <div>
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-control"
-                      defaultValue={fepk.kickstarter_url}
-                      placeholder="KickStarter URL"
-                      onChange={handleInputChange}
-                      name="kickstarter_url"
-                    />
-                  </div> */}
                   <div>
                     <input
                       style={{

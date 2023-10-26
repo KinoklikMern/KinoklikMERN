@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Button, Col, Container, Row } from "react-bootstrap";
 import paypalImage from "../../images/PayPal-Logo.png";
 
@@ -9,8 +9,7 @@ const DonationModal = ({
   epkDonatePayPal,
   epkDonateStripe,
 }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [donationAmount, setDonationAmount] = useState(0);
+  // const [donationAmount, setDonationAmount] = useState(0);
 
   // const handleDonationSubmit = async () => {
   //   try {
@@ -76,7 +75,7 @@ const DonationModal = ({
                 {/* EPK image */}
                 <img
                   src={epkImage}
-                  alt="EPK"
+                  alt="EPK Img"
                   className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
                   style={{ width: "300px", height: "500px" }}
                 />
@@ -114,7 +113,7 @@ const DonationModal = ({
           <div>
             <img
               src={paypalImage}
-              alt="PayPal"
+              alt="PayPal Img"
               style={{ width: "50px", height: "30px" }}
             />
           </div>
