@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button, Tooltip,Row, Col  } from "antd";
+import { Button, Tooltip} from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import paypalImage from '../../../images/paypal.png';
@@ -235,7 +235,6 @@ function FepkCoverForm() {
     }
   };
 
-  
   return (
     <>
       <div
@@ -245,17 +244,69 @@ function FepkCoverForm() {
           width: "80%",
           borderRadius: "10px",
           backgroundColor: "white",
-          display: "flex",
         }}
       >
-        <form style={{ flex: 1 }}>
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <h5 className="card-title" style={{ color: "#ffffff", fontWeight: "normal" }}>
+        <form>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
+            
+            <div className="col-1">
+              <Link className="navbar-brand text-headers-style" to="/home">
+                <img
+                  style={{ width: "100%", height: "80px" }}
+                  src={require("../../../images/logo.png")}
+                  alt="Logo"
+                  className="navbar-logo"
+                />
+              </Link>
+            </div>
+            <div className="col-3  m-3">
+              <h1
+                className="col align-items-start"
+                style={{ color: "#FFFFFF", fontWeight: "normal" }}
+              >
+                EPK Page Upload
+              </h1>
+            </div>
+            <div className="col-3 m-3"></div>
+            <div className="col-3 m-3">
+              <Link
+                className="col align-items-end"
+                to="/filmMakerDashboard"
+                style={{
+                  color: "#FFFFFF",
+                  textDecoration: "none",
+                  fontWeight: "normal",
+                  fontSize: "25px",
+                }}
+              >
+                EPK Dashboard
+              </Link>
+            </div>
+          </div>
+          <div
+            style={{
+              marginLeft: "10%",
+              marginRight: "15%",
+              color: "#311465",
+              fontWeight: "normal",
+            }}
+          >
+            <div className="card-body" style={{ height: "530px" }}>
+              <h5
+                className="card-title "
+                style={{ color: "#ffffff", fontWeight: "normal" }}
+              >
                 Cover
               </h5>
+              
               <form className="row g-3">
-                <div className="col">
+                <div className="col mx-5">
                   <div className="col mt-1 mb-5">
                     <input
                       style={{
@@ -279,7 +330,7 @@ function FepkCoverForm() {
                     </h6>
                   </div>
                   <div className="col my-3">
-                    <textarea
+                   <textarea
                       style={{
                         height: "100px",
                         width: "100%",
@@ -353,83 +404,133 @@ function FepkCoverForm() {
                       </select>
                     </div>
                   </div>
+                  <div className="row">
+                    <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
+                       <span> <InfoCircleFilled /></span>
+                    </Tooltip>
+                  </div>
+                   <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${paypalImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 60px",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonatePayPal_url}
+                      placeholder="URL: www.paypal.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonatePayPal_url"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${stripImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 40px",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonateStripe_url}
+                      placeholder="URL: www.stripe.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonateStripe_url"
+                    />
+                  </div>
                 </div>
-                <div>
-                <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
-                  <span> <InfoCircleFilled /></span>
-                </Tooltip>
-              </div>
-              <div>
-                <input
+                <div className="col border border-2 rounded">
+                  <div className="row gx-6">
+                    <div className="col mt-5">
+                      <label
+                        for="fileBanner"
+                        class="form-label text-dark"
+                        style={{ fontSize: "25px" }}
+                      >
+                        {" "}
+                        Upload Banner
+                      </label>
+                      <input
+                        style={{ fontSize: "15px" }}
+                        className="form-control form-control-sm"
+                        filename={file1}
+                        onChange={file1Selected}
+                        ref={inputFile1Ref}
+                        type="file"
+                        id="fileBanner"
+                        name="files"
+                        accept="image/*"
+                      ></input>
+                    </div>
+                    <div className="col mt-5">
+                      <label
+                        for="fileTrailer"
+                        class="form-label text-dark"
+                        style={{ fontSize: "25px" }}
+                      >
+                        {" "}
+                        Upload Trailer
+                      </label>
+                      <input
+                        style={{ fontSize: "15px" }}
+                        className="form-control form-control-sm"
+                        filename={file2}
+                        ref={inputFile2Ref}
+                        onChange={file2Selected}
+                        type="file"
+                        id="fileTrailer"
+                        name="files"
+                        accept="video/*"
+                      ></input>
+                    </div>
+                   
+                  </div>
+
+           
+
+                </div>
+                <h6 style={{ color: "red", fontSize: "15px" }}>
+                  {submitMessage}
+                </h6>
+                <div class="container">
+               
+                      <div className="row align-items-start"
                   style={{
-                    height: "30px",
-                    width: "100%",
-                    borderRadius: "5px",
-                    marginBottom: "5px",
-                    boxShadow: "1px 2px 9px #311465",
-                    paddingLeft: "90px",
-                    backgroundImage: `url(${paypalImage})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "left",
-                    backgroundSize: "80px 60px",
+                    height: "550px",
+                    width: "120px",
+                    marginLeft: "90%",
                   }}
-                  className="form-control"
-                  defaultValue={epkCoverData.DonatePayPal_url}
-                  placeholder="URL: www.paypal.com/mymovie"
-                  onChange={handleInputChange}
-                  name="DonatePayPal_url"
-                />
-              </div>
-              <div>
-                <input
-                  style={{
-                    height: "30px",
-                    width: "100%",
-                    borderRadius: "5px",
-                    boxShadow: "1px 2px 9px #311465",
-                    paddingLeft: "90px",
-                    backgroundImage: `url(${stripImage})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "left",
-                    backgroundSize: "80px 40px",
-                  }}
-                  className="form-control"
-                  defaultValue={epkCoverData.DonateStripe_url}
-                  placeholder="URL: www.stripe.com/mymovie"
-                  onChange={handleInputChange}
-                  name="DonateStripe_url"
-                />
-              </div>
+                >
+                  <Button
+                    style={{
+                      boxShadow: "1px 2px 9px #311465",
+                      backgroundColor: "#ffffff",
+                      fontWeight: "bold",
+                      width: "115px",
+                    }}
+                    type="outline-primary"
+                    block
+                    onClick={saveEpkCover}
+                    value="save"
+                  >
+                    Save
+                  </Button>
+                  </div>
+                </div>
               </form>
-            </Col>
-            <Col span={12}>
-            
-            </Col>
-          </Row>
-          <h6 style={{ color: "red", fontSize: "15px" }}>
-            {submitMessage}
-          </h6>
-          <div
-            style={{
-              height: "50px",
-              width: "120px",
-              marginLeft: "90%",
-              textAlign: "center",
-            }}
-          >
-            <Button
-              style={{
-                boxShadow: "1px 2px 9px #311465",
-                backgroundColor: "#ffffff",
-                fontWeight: "bold",
-                width: "115px",
-              }}
-              type="outline-primary"
-              onClick={saveEpkCover}
-              value="save"
-            >
-              Save
-            </Button>
+            </div>
           </div>
         </form>
       </div>
