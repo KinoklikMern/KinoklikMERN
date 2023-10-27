@@ -169,12 +169,6 @@ export default function UploadActorPic({ user }) {
       setActor(response.data);
       setProfs(response.data.profiles);
       setTextareaValue(response.data.aboutMe);
-      setFacebookUrlValue(response.data.facebook_url || "");
-      setFacebookFollowersValue(response.data.facebook_followers || "");
-      setInstagramUrlValue(response.data.instagram_url || "");
-      setInstagramFollowersValue(response.data.instagram_followers || "");
-      setTwitterUrlValue(response.data.twitter_url || "");
-      setTwitterFollowersValue(response.data.twitter_followers || "");
       // ----- CHIHYIN -------
       if (response.data.aboutMe) {
         setTextareaValue(response.data.aboutMe);
