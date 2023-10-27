@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Modal, Button, Col, Container, Row } from "react-bootstrap";
+import { Modal, Button, Col, Container, Row } from "react-bootstrap";
 import paypalImage from "../../images/PayPal-Logo.png";
 
 const DonationModal = ({
@@ -9,37 +9,6 @@ const DonationModal = ({
   epkDonatePayPal,
   epkDonateStripe,
 }) => {
-  const [donationAmount, setDonationAmount] = useState(0);
-
-  const handleDonationSubmit = async () => {
-    try {
-      // Create a Payment Intent using the Stripe API
-      const response = await fetch("/donations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: donationAmount,
-          // Add other necessary payment details here
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        // Payment was successful
-        // Display a success message to the user
-      } else {
-        // Payment failed
-        // Display an error message to the user
-      }
-    } catch (error) {
-      console.error(error);
-      // Handle errors here
-    }
-  };
-
   const handleDonationPaypalSubmit = () => {
     // Redirect to the PayPal donation page or URL
     if (epkDonatePayPal) {
