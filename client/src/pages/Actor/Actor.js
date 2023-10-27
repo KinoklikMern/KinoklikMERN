@@ -7,7 +7,7 @@ import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/Footer";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import starIcon from "../../images/icons/Star FULL.svg";
+// import starIcon from "../../images/icons/Star FULL.svg";
 import refralIcon from "../../images/icons/referral sign.svg";
 import http from "../../http-common";
 import {
@@ -17,17 +17,18 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { addToChat } from "../../api/epks";
 
 export default function Actor(props) {
   const [epkInfo, setEpkInfo] = useState({});
   const { id } = useParams();
   const [kkFollower, setKKFollower] = useState([]);
   const [range, setRange] = useState(2);
-  const [isMoved, setIsMoved] = useState(false);
-  const [slideNumber, setSlideNumber] = useState(0);
+  // const [isMoved, setIsMoved] = useState(false);
+  // const [slideNumber, setSlideNumber] = useState(0);
   const [pics, setpics] = useState([]);
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
@@ -38,9 +39,6 @@ export default function Actor(props) {
   const [filteredData, setFilteredData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilmmakers, setSelectedFilmmakers] = useState([]);
-  let images = [];
-
-  const listRef = useRef();
   const videoRef = useRef();
 
   // fetching user
@@ -111,11 +109,17 @@ export default function Actor(props) {
   // user is recommended to filmmakers
   const recommendToFilmmaker = (filmmaker) => {
     setSelectedFilmmakers((prevSelected) => {
-      const alreadySelected = prevSelected.some(
-        (selected) => selected.id === filmmaker.id
+      console.log("Incoming filmmaker:", filmmaker);
+      console.log("Previous Selection:", prevSelected);
+
+      const isAlreadySelected = prevSelected.some(
+        (selected) => selected._id === filmmaker._id
       );
-      if (alreadySelected) {
-        return prevSelected.filter((selected) => selected.id !== filmmaker.id);
+
+      if (isAlreadySelected) {
+        return prevSelected.filter(
+          (selected) => selected._id !== filmmaker._id
+        );
       } else {
         return [...prevSelected, filmmaker];
       }
@@ -123,7 +127,34 @@ export default function Actor(props) {
   };
 
   const sendRecommendations = () => {
-    console.log("Recommendations sent for", selectedFilmmakers);
+    if (selectedFilmmakers.length === 0) {
+      console.error("No filmmakers selected for recommendation");
+      return;
+    }
+    const message = `Hey, check this actor ${epkInfo.firstName} ${epkInfo.lastName}: http://localhost:3000/actor/${epkInfo._id}`;
+    selectedFilmmakers.forEach((filmmaker) => {
+      addToChat(message, user.id, filmmaker._id)
+        .then((res) => {
+          console.log("Sending message: ", message);
+          console.log("User ID: ", user.id);
+          console.log("Actor ID: ", epkInfo._id);
+          console.log("Filmmaker ID: ", filmmaker._id);
+
+          if (res && res.status === 200) {
+            console.log(
+              `Recommendation for ${epkInfo.firstName} ${epkInfo.lastName} sent to ${filmmaker.firstName} ${filmmaker.lastName}.`
+            );
+          } else {
+            console.error("Unexpected response", res);
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "An error occurred while sending the recommendation:",
+            error
+          );
+        });
+    });
     setSelectedFilmmakers([]);
     closeModal();
   };
@@ -170,7 +201,7 @@ export default function Actor(props) {
       case "Female":
         return "F";
       default:
-        return "";
+        return "N/A";
     }
   };
 
@@ -315,14 +346,13 @@ export default function Actor(props) {
               <div
                 style={{
                   alignSelf: "flex-end",
-                  padding: "0.5rem",
                   cursor: "pointer",
                 }}
                 onClick={closeModal}
               >
                 X
               </div>
-              <h2>Recommend to Filmmaker:</h2>
+              <h2>Recommend Actor {epkInfo.firstName} To Filmmaker:</h2>
               <input
                 type="text"
                 className="form-control shared-styles"
@@ -365,10 +395,12 @@ export default function Actor(props) {
                   {filteredData.length > 0 ? (
                     filteredData.map((filmmaker) => (
                       <div
-                        key={filmmaker.id}
+                        key={filmmaker._id}
                         onClick={() => recommendToFilmmaker(filmmaker)}
                         className={
-                          selectedFilmmakers.includes(filmmaker)
+                          selectedFilmmakers.some(
+                            (selected) => selected._id === filmmaker._id
+                          )
                             ? "selected-filmmaker"
                             : ""
                         }
