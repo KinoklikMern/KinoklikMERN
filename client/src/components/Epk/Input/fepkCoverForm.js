@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button, Tooltip } from "antd";
+import { Button, Tooltip} from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import paypalImage from "../../../images/paypal.png";
@@ -217,7 +217,7 @@ function FepkCoverForm() {
               setSubmitMessage(
                 // res.data.error + " Title is unique and status needed!"
                 // ----- CHIHYIN -------
-                "Tell us the genre and the status."
+                "Tell us the genre, the status and the type!"
               );
             } else {
               console.log("saved");
@@ -255,6 +255,7 @@ function FepkCoverForm() {
                 "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
             }}
           >
+            
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -304,6 +305,7 @@ function FepkCoverForm() {
               >
                 Cover
               </h5>
+              
               <form className="row g-3">
                 <div className="col mx-5">
                   <div className="col mt-1 mb-5">
@@ -331,7 +333,7 @@ function FepkCoverForm() {
                   <div className="col my-3">
                    <textarea
                       style={{
-                        height: "100px",
+                        height: "70px",
                         width: "100%",
                         borderRadius: "5px",
                         marginBottom: "0px",
@@ -497,17 +499,22 @@ function FepkCoverForm() {
                         accept="video/*"
                       ></input>
                     </div>
+                   
                   </div>
+
+           
+
                 </div>
                 <h6 style={{ color: "red", fontSize: "15px" }}>
                   {submitMessage}
                 </h6>
-                <div
+                <div class="container">
+               
+                      <div className="row align-items-start"
                   style={{
-                    height: "50px",
+                    height: "550px",
                     width: "120px",
                     marginLeft: "90%",
-                    textAlign: "center",
                   }}
                 >
                   <Button
@@ -524,6 +531,7 @@ function FepkCoverForm() {
                   >
                     Save
                   </Button>
+                  </div>
                 </div>
               </form>
             </div>
