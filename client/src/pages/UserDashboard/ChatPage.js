@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../../components/UserDashboard/Sidebar";
-import avatarDemo from "../../images/avatarDefault.jpeg";
 import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
 import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
 import ChatProvider from "../../context/ChatProvider";
 import { useSelector } from "react-redux";
 
 export default function ChatPage() {
+  // eslint-disable-next-line no-unused-vars
   const [fetchAgain, setFetchAgain] = useState(false);
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
-  
+
   return (
     <ChatProvider>
       <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
-        <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white">
+        <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
           <p className="tw-text-4xl">User Dashboard</p>
         </div>
         <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
           <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
-            <Sidebar selectedTab="Messages" role={user.role}/>
+            <Sidebar selectedTab="Messages" role={user.role} />
           </div>
           <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-rounded-lg tw-bg-white tw-p-4">
             <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
-              <div className="tw-overflow-auto tw-bg-[#1E0039] tw--m-4">
+              <div className="tw--m-4 tw-overflow-auto tw-bg-[#1E0039]">
                 {/* search bar */}
                 {/* <label className="tw-relative tw-block">
                   <span className="tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-2">
@@ -40,10 +40,13 @@ export default function ChatPage() {
                   />
                 </label> */}
                 {/* chatlist */}
-                <ChatList fetchAgain={fetchAgain}/>
+                <ChatList fetchAgain={fetchAgain} />
               </div>
               <div className="tw-col-span-2 tw-mx-4 tw-overflow-y-auto">
-                <MessageBox fetchAgain={fetchAgain} setFetchAgain={fetchAgain}/>
+                <MessageBox
+                  fetchAgain={fetchAgain}
+                  setFetchAgain={fetchAgain}
+                />
               </div>
             </div>
           </div>

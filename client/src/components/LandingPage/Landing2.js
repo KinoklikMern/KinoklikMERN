@@ -1,22 +1,19 @@
 import React from "react";
-
 import starPhoto from "../../images/star.png";
-
 import movie5 from "../../images/movies/movie5.jpg";
 import avatar from "../../images/avatar.jpg";
 import avatar2 from "../../images/avatar.jpeg";
-
 import comingSoon from "../../images/comingSoon.png";
 
 const Landing2 = () => {
   return (
     <>
-      <div className="landing2 tw-m-auto tw-flex tw-max-w-full tw-flex-col tw-gap-4 tw-space-x-10 tw-px-10 tw-pt-4 tw-pb-4 md:tw-flex-row lg:tw-grid-cols-2 lg:tw-pt-20 lg:tw-pb-5">
+      <div className="landing2 tw-m-auto tw-flex tw-max-w-full tw-flex-col tw-gap-4 tw-space-x-10 tw-px-10 tw-pb-4 tw-pt-4 md:tw-flex-row lg:tw-grid-cols-2 lg:tw-pb-5 lg:tw-pt-20">
         {/* Left Side */}
         <div className=" tw-mt-14 tw-grid tw-h-[60vh] tw-grid-cols-3 tw-grid-rows-6 tw-pr-0">
-          <div className="tw-pt-8 tw-pl-11 md:tw-ml-24">
+          <div className="tw-pl-11 tw-pt-8 md:tw-ml-24">
             <img
-              className="tw-row-span-1 tw-h-32 tw-object-right tw-pb-16 tw-pr-2 sm:tw-mr-8 lg:tw-w-42 "
+              className="lg:tw-w-42 tw-row-span-1 tw-h-32 tw-object-right tw-pb-16 tw-pr-2 sm:tw-mr-8 "
               src={starPhoto}
               alt="/"
             />
@@ -27,7 +24,7 @@ const Landing2 = () => {
             alt="/"
           />
           <img
-            className="tw-row-span-2 tw-h-full tw-w-full tw-object-center tw-pt-10 tw-pl-2"
+            className="tw-row-span-2 tw-h-full tw-w-full tw-object-center tw-pl-2 tw-pt-10"
             src={comingSoon}
             alt="/"
           />
@@ -48,7 +45,7 @@ const Landing2 = () => {
             Film.Marketing.Refined.
           </h3>
 
-          <p className=" tw-mt-10 tw-mr-20 tw-ml-20 tw-pb-6  tw-text-center tw-text-3xl  lg:tw-mb-20 ">
+          <p className=" tw-ml-20 tw-mr-20 tw-mt-10 tw-pb-6  tw-text-center tw-text-3xl  lg:tw-mb-20 ">
             KinoKlik EPK is your film's online hub, like a digital flyer,
             allowing you to promote your film to producers, distributors, film
             festivals and investors <br /> (for free).

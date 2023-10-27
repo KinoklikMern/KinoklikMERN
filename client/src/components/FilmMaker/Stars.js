@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from "react";
 import Axios from "axios";
 
@@ -20,7 +21,7 @@ export default function Stars() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, []);
+  }, [epk.favourites, epkid]);
 
   const getRequestUsers = (id) => {
     Axios.get(
@@ -40,7 +41,7 @@ export default function Stars() {
           : users.map((user) => (
               <div class="row">
                 <div class="col-6 g-3">
-                  <img src={user.picture} alt="user image" />
+                  <img src={user.picture} alt="user img" />
                 </div>
                 <div class="col-6 g-3">
                   <p>{user.username == null ? " " : user.username}</p>

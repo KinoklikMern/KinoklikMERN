@@ -3,34 +3,30 @@ import "./HomeBody.css";
 import "../ListItem/ListItemActor.css";
 import "../List/List.css";
 import List from "../List/ListActor";
-import FavouriteList from "../List/Favourite";
-import Sponsored from "../Sponsored/Sponsored";
 import http from "../../http-common";
-import { useState, useRef, useEffect } from "react";
-import {
-  ArrowBackIosOutlined,
-  ArrowForwardIosOutlined,
-} from "@mui/icons-material";
+import { useState, useEffect } from "react";
 import { FepkContext } from "../../context/FepkContext.js";
 
-const HomeBody = ({role}) => {
+const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
-  const [isMoved, setIsMoved] = useState(false);
-  const [slideNumber, setSlideNumber] = useState(0);
+  // const [isMoved, setIsMoved] = useState(false);
+  // const [slideNumber, setSlideNumber] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
-  const listRef = useRef();
+  // const listRef = useRef();
 
-  const actorId = "6483619d64b048f952a6fb5b"
+  // const actorId = "6483619d64b048f952a6fb5b"
 
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
       setFepks(response.data);
-  })}, []);
+    });
+  }, []);
 
   let genres = [];
 
-  fepks.map((fepk) => {
+  fepks.forEach((fepk) => {
     genres.push(fepk.genre);
   });
   genres = [...new Set(genres)].sort();
@@ -42,7 +38,7 @@ const HomeBody = ({role}) => {
           <div className="listTitle">
             <span>STARRED</span>
           </div>
-          <List title="starred" type={filterQuery} role={role}/>
+          <List title="starred" type={filterQuery} role={role} />
         </div>
         <div>
           <div className="listTitle">
@@ -74,7 +70,6 @@ const HomeBody = ({role}) => {
           </div>
           <List title="pre-production" type={filterQuery} />
         </div>
-
       </div>
     </>
   );

@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 
 function UniquenessForm() {
   const [file, setFile] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -25,32 +26,31 @@ function UniquenessForm() {
 
   //modify by delara
   useEffect(() => {
-  http.get(`/fepks/${fepkId}`).then((response) => {
-  if (response.data) {
-    setFepk(response.data);
-    const { description_uniqueness } = response.data;
-    if (description_uniqueness) {
-      setCharacterLength({
-        description_uniqueness: description_uniqueness.length,
-      });
-      setEpkUniquenessData({
-        image_uniqueness: response.data.image_uniqueness,
-        title_uniqueness: response.data.title_uniqueness,
-        description_uniqueness,
-        uniqueness_blur: response.data.uniqueness_blur,
-      });
-    } else {
-      // Handle the case when description_uniqueness is undefined or empty
-      console.error('description_uniqueness is undefined or empty');
-    }
-  } else {
-    // Handle the case when response.data is undefined or empty
-    console.error('response.data is undefined or empty');
-  }
-  });
-  }, []);
+    http.get(`/fepks/${fepkId}`).then((response) => {
+      if (response.data) {
+        setFepk(response.data);
+        const { description_uniqueness } = response.data;
+        if (description_uniqueness) {
+          setCharacterLength({
+            description_uniqueness: description_uniqueness.length,
+          });
+          setEpkUniquenessData({
+            image_uniqueness: response.data.image_uniqueness,
+            title_uniqueness: response.data.title_uniqueness,
+            description_uniqueness,
+            uniqueness_blur: response.data.uniqueness_blur,
+          });
+        } else {
+          // Handle the case when description_uniqueness is undefined or empty
+          console.error("description_uniqueness is undefined or empty");
+        }
+      } else {
+        // Handle the case when response.data is undefined or empty
+        console.error("response.data is undefined or empty");
+      }
+    });
+  }, [fepkId]);
   //end(delara)
-
 
   if (!epkUniquenessData) {
     epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
@@ -141,18 +141,22 @@ function UniquenessForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
-          borderRadius:"10px",
+          borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img

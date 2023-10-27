@@ -13,7 +13,7 @@ function StillsCarousel(props) {
       setStills(response.data.stills);
       console.log(stills);
     });
-  }, []);
+  }, [stills, title]);
 
   return (
     <div>
@@ -32,9 +32,9 @@ function StillsCarousel(props) {
                 alt="resource pics"
               />
 
-              <Carousel.Caption>
+              {/* <Carousel.Caption>
                 <h3 style={{ fontSize: "1.5rem" }}></h3>
-              </Carousel.Caption>
+              </Carousel.Caption> */}
             </Link>
           </Carousel.Item>
         ))}

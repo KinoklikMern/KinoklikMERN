@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 
 function CoverForm() {
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
 
   const file1Selected = (event) => {
@@ -237,7 +238,7 @@ function CoverForm() {
                         textAlign: "center",
                       }}
                       className="form-control mt-10"
-                      defaultValue={epkCoverData.LogLine}
+                      defaultValue={epkCoverData.logLine}
                       placeholder="Log Line"
                       onChange={handleInputChange}
                       name="logLine"

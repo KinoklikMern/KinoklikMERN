@@ -7,6 +7,7 @@ function EpkCoverForm() {
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
 
   const file1Selected = (event) => {
@@ -196,7 +197,7 @@ function EpkCoverForm() {
                     />
                   </div>
                 </div>
-                 <div>
+                <div>
                   <input
                     className="form-control"
                     defaultValue={epkCoverData.DonatePayPal_url}
@@ -214,7 +215,6 @@ function EpkCoverForm() {
                     name="DonateStripe_url"
                   />
                 </div>
-
               </div>
               <div className="col border border-2">
                 <div className="row gx-5">

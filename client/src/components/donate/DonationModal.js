@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Button, Col, Container, Row } from "react-bootstrap";
 import paypalImage from "../../images/PayPal-Logo.png";
 
@@ -44,7 +44,7 @@ const DonationModal = ({
                 {/* EPK image */}
                 <img
                   src={epkImage}
-                  alt="EPK Image"
+                  alt="EPK Img"
                   className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
                   style={{ width: "300px", height: "500px" }}
                 />
@@ -82,7 +82,7 @@ const DonationModal = ({
           <div>
             <img
               src={paypalImage}
-              alt="PayPal Image"
+              alt="PayPal Img"
               style={{ width: "50px", height: "30px" }}
             />
           </div>

@@ -1,20 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faPlus,
-  faTrashCan,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 
 function ResourcesForm() {
   const [file, setFile] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -46,7 +42,7 @@ function ResourcesForm() {
       setFepk(response.data);
       setResourcesList(response.data.resources);
     });
-  }, []);
+  }, [fepkId]);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -140,7 +136,7 @@ function ResourcesForm() {
     setDisabled(true);
   }
 
-  const openModal = () => setModalIsOpen(true);
+  // const openModal = () => setModalIsOpen(true);
 
   const closeModal = () => setModalIsOpen(false);
 
@@ -149,18 +145,22 @@ function ResourcesForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
-          borderRadius:"10px",
+          borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img

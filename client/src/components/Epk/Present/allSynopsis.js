@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import Synopsis from "./synopsis";
-import movieImage from "./movie2.jpeg";
+
 function AllSynopsis(synopsisList) {
   const [synopsisList1, setSynopsisList1] = useState(null);
   setSynopsisList1(synopsisList.synopsisList);

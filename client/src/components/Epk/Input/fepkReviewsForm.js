@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
-  faPlus,
   faTrashCan,
   faPen,
   faCheck,
   faUpload,
-  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 function ReviewsForm() {
   const [file, setFile] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -74,7 +72,7 @@ function ReviewsForm() {
       setReviewsList(response.data.reviews);
       console.log(response.data.title);
     });
-  }, []);
+  }, [fepkId]);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -411,6 +409,7 @@ function ReviewsForm() {
                               <td>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${review.award_logo}`}
+                                  alt=""
                                   style={{ height: "50px", width: "auto" }}
                                 />
                                 {editingReview === index && (

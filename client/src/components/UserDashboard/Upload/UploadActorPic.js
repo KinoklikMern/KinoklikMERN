@@ -690,38 +690,6 @@ export default function UploadActorPic({ user }) {
           save
         </button>
       </div>
-      <div className="actor-dashbaord-com">
-        <div className="actor-dashbaord-com-detail">
-          <img src={instagramIcon} className="actor-dash-com-icon" />
-          <input value="URL Here" className="actor-dash-com-detail" />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <img src={facebookIcon} className="actor-dash-com-icon" />
-          <input value="URL Here" className="actor-dash-com-detail" />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <img src={twiiterIcon} className="actor-dash-com-icon" />
-          <input value="URL Here" className="actor-dash-com-detail" />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            value="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            value="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            value="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-          />
-        </div>
-      </div>
       <div className="actor-btn-save-upload-container">
         <p className="actor-text-upload">
           There are currently no EPKs attached to your Actor Page. Once
@@ -731,4 +699,3 @@ export default function UploadActorPic({ user }) {
     </>
   );
 }
-
