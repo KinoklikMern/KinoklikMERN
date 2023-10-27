@@ -3,17 +3,15 @@
 // Edit by Tony
 // On Jan 15, 2023
 ////////////////////////////////////////////////
-import { useSelector } from "react-redux";
 import { React, useEffect, useState } from "react";
 import Axios from "axios";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 // import "./filmMakerDashboardPage.scss";
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
@@ -33,19 +31,19 @@ export default function Filmmaker() {
   }, []);
 
   return (
-    <div class="filmmakerdash-container">
-      <div class="sidebar-container">
+    <div className="filmmakerdash-container">
+      <div className="sidebar-container">
         <FilmMakerSideBar />
 
-        <div class="sidebar-right">
+        <div className="sidebar-right">
           <article
-            class="tab-pane fade show active"
+            className="tab-pane fade show active"
             role="tabpanel"
             aria-labelledby="llanfairpwllgwyngyll-left-tab"
             id="dashboard"
           >
-            <div class="sidebar-rightcontainer">
-              <div class="item Dashboard">
+            <div className="sidebar-rightcontainer">
+              <div className="item Dashboard">
                 <h1>Filmmaker Dashboard</h1>
 
                 <Link to="/uploadFepk">
@@ -57,7 +55,7 @@ export default function Filmmaker() {
                 {!epkList
                   ? () => (
                       <div>
-                        <p class="icon-plus">
+                        <p className="icon-plus">
                           You don`t have any EPK created.To start promoting your
                           film right away.
                         </p>
@@ -66,21 +64,21 @@ export default function Filmmaker() {
                     )
                   : null}
 
-                <div class="row g-5">
-                  {epkList.map((epk) => (
-                    <div class="col-4">
+                <div className="row g-5">
+                  {epkList.map((epk, index) => (
+                    <div key={index} className="col-4">
                       <Link
                         to={`/filmMakerSelectedEpk?id=${epk._id}`}
-                        class="links"
+                        className="links"
                       >
-                        <div class="card movie-card">
+                        <div className="card movie-card">
                           <img
                             src={`${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`}
                             alt="movie banner"
                           />
 
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center pb-1 small-numbers">
+                          <div className="card-body">
+                            <div className="d-flex justify-content-between align-items-center pb-1 small-numbers">
                               <p>
                                 {epk.wishes_to_buy == null
                                   ? "0"
@@ -101,7 +99,7 @@ export default function Filmmaker() {
                               </p>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center pb-1">
+                            <div className="d-flex justify-content-between align-items-center pb-1">
                               <FontAwesomeIcon icon={faDollarSign} />
                               <FontAwesomeIcon icon={faStar} />
                               <FontAwesomeIcon icon={faBookmark} />

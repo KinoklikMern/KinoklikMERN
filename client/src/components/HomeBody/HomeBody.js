@@ -1,10 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import "./HomeBody.css";
 import "../ListItem/ListItem.css";
 import "../List/List.css";
-import List from "../List/List";
-import FavouriteList from "../List/Favourite";
-import Sponsored from "../Sponsored/Sponsored";
 import http from "../../http-common";
 import { useState, useRef, useEffect } from "react";
 import {
@@ -16,7 +14,7 @@ import { FepkContext } from "../../context/FepkContext.js";
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [isMoved, setIsMoved] = useState(false);
-  const [slideNumber, setSlideNumber] = useState(0);
+  // const [slideNumber, setSlideNumber] = useState(0);
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
   const listRef = useRef();
@@ -31,7 +29,7 @@ const HomeBody = ({ role }) => {
 
   let genres = [];
 
-  fepks.map((fepk) => {
+  fepks.forEach((fepk) => {
     genres.push(fepk.genre);
   });
   genres = [...new Set(genres)].sort();
@@ -59,9 +57,9 @@ const HomeBody = ({ role }) => {
           <List title="wish_to_buy" type={filterQuery} />
         </div> */}
 
-        {genres.map((genre) => {
+        {genres.map((genre, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               <div className="listTitle">
                 <span>{genre.toUpperCase()}</span>
               </div>
@@ -85,8 +83,8 @@ const HomeBody = ({ role }) => {
                       )
                       .map((fepk) => {
                         return (
-                          <>
-                            <div className="listItem" key={fepk._id}>
+                          <React.Fragment key={fepk._id}>
+                            <div className="listItem">
                               <a
                                 href={
                                   role === "actor"
@@ -100,7 +98,7 @@ const HomeBody = ({ role }) => {
                                 />
                               </a>
                             </div>
-                          </>
+                          </React.Fragment>
                         );
                       })}
                   </div>
@@ -109,7 +107,7 @@ const HomeBody = ({ role }) => {
                   />
                 </div>
               </div>
-            </>
+            </React.Fragment>
           );
         })}
 

@@ -1,22 +1,16 @@
-import React, { useState } from "react";
-import { Button, Col, Row } from "antd";
-
-import style from"./review.module.css";
+import React from "react";
+import style from "./review.module.css";
 
 function Review(reviewFile) {
-    console.log(reviewFile);
+  console.log(reviewFile);
 
-
-    return (
-      <div className={style.container}>
-    
-          <div className={style.reviewcontainer}>
-          <div >
-            <p className={style.el1}>
-                {reviewFile.reviewFile.review1Review}
-            </p>
-            </div>
-            {/* <div className={style.el1}>
+  return (
+    <div className={style.container}>
+      <div className={style.reviewcontainer}>
+        <div>
+          <p className={style.el1}>{reviewFile.reviewFile.review1Review}</p>
+        </div>
+        {/* <div className={style.el1}>
                   <p>
                     {reviewFile.reviewFile.review1Magazine}
                   </p>
@@ -31,7 +25,7 @@ function Review(reviewFile) {
                     {reviewFile.reviewFile.review2Magazine}
                   </p>
                   </div> */}
-                  {/* <Col md="auto">
+        {/* <Col md="auto">
                   <h4 className= "text-center" style={{color:'#000000', fontWeight: 'normal'}}>
                     {reviewFile.reviewFile.review3Review}
                   </h4>
@@ -49,7 +43,7 @@ function Review(reviewFile) {
                   </Col>
              */}
 
-              {/* <Row>
+        {/* <Row>
               <Col md="auto">
                   <img 
                     src={reviewFile.reviewFile.review1Award}  alt="Image"
@@ -78,8 +72,8 @@ function Review(reviewFile) {
           </Col>
               </Row>
           </Col> */}
-        </div>
       </div>
-   );
-  }
+    </div>
+  );
+}
 export default Review;

@@ -11,7 +11,10 @@ export const validatePassword = [
 ];
 
 export const loginValidator = [
-  check("email").normalizeEmail().isEmail().withMessage("Email is invalid"),
+  check("email")
+    .normalizeEmail({ gmail_remove_dots: false })
+    .isEmail()
+    .withMessage("Email is invalid"),
   check("password").trim().not().isEmpty().withMessage("Password is missing!"),
 ];
 

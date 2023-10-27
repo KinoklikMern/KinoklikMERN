@@ -1,10 +1,7 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import http from "../../../http-common";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import style from "./Cover.module.css";
-import headerimage from "../../../images/movies/imageSouthpaw.jpeg";
-import logo from "../../../images/logo.png";
-import avatar from "../../../images/avatar1.jpeg";
 import poster from "../../../images/poster.jpg";
 //import kikSatr from "../../../images/kickstarter.png";
 
@@ -15,11 +12,11 @@ import {
   faShareAlt,
   faPlusCircle,
   faStar,
-  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 
 function EpkCover() {
   let { id } = useParams();
+
   const [epkCoverData, setEpkCoverData] = useState({
     title: "SOUTHPAW",
     logLine:
@@ -100,7 +97,7 @@ function EpkCover() {
             <div class={style.threedots}></div>
           </div>
           <div class={style.dropdown}>
-            <a className={style.dotAnkor} href="#">
+            <a className={style.dotAnkor} href="#report">
               <div>report</div>
             </a>
           </div>
@@ -111,23 +108,23 @@ function EpkCover() {
 
       <div className={style.iconContainer}>
         <div>
-          <a href="#">
+          <a href="#action1">
             <FontAwesomeIcon icon={faDollarSign} size="lg" />
           </a>
         </div>
         <div>
-          <a href="#">
+          <a href="#action2">
             <FontAwesomeIcon icon={faPlusCircle} size="lg" />
             {/* <img className="icon" src={plusIcon} alt="save" /> */}
           </a>
         </div>
         <div>
-          <a href="#">
+          <a href="#action3">
             <FontAwesomeIcon icon={faStar} size="lg" />
           </a>
         </div>
         <div>
-          <a href="#">
+          <a href="#action4">
             <FontAwesomeIcon icon={faSave} size="lg" />
             {/* <img className={style.icon} src={saveIcon} alt="save" /> */}
           </a>
@@ -139,7 +136,7 @@ function EpkCover() {
           </a>
         </div> */}
         <div>
-          <a href="#">
+          <a href="#action5">
             <FontAwesomeIcon icon={faShareAlt} size="lg" />
           </a>
         </div>

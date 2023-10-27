@@ -1,19 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Landing8.css";
-import vip from "../../images/vip.png";
-
-import { Link, Navigate } from "react-router-dom";
-import img from "../../images/landing.png";
 import { useNavigate } from "react-router-dom";
 import http from "../../http-common";
-import { newFilm } from "./landingCategory";
-import { popularFilm } from "./landingCategory";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 const Landing8 = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((user) => ({ ...user }));
   // save newest file data that get from api
@@ -24,13 +17,13 @@ const Landing8 = () => {
     http.get(`fepks/newest/1`).then((response) => {
       setFepks(response.data);
     });
-    
+
     http.get(`fepks/popular/1`).then((response) => {
       setPopularFepks(response.data);
     });
-
   }, []);
 
+  // eslint-disable-next-line no-unused-vars
   const createEpk = async () => {
     try {
       const { data } = await axios.post(
@@ -107,8 +100,7 @@ const Landing8 = () => {
 };
 export default Landing8;
 
-{
-  /*} <div className="landing4" >
+/*} <div className="landing4" >
 <h1 className="mt-6 text-2xl font-bold text-center text-white-900   lg:text-3xl xl:text-4xl">Promote your film to industry professionals and your audience!</h1>
 <div className="section-image"   >
     <img src={vip} className="img-fluid" />
@@ -117,4 +109,3 @@ export default Landing8;
 </div>
 
 */
-}

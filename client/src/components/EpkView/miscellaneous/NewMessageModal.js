@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { ChatState } from "../../../context/ChatProvider";
 import { addToChat } from "../../../api/epks";
 import { io } from "socket.io-client";
+import { NotificationContext } from "../../../context/NotificationContext";
 
 let socket;
 export default function NewMessageModal(props) {
   const { notification, setNotification } = ChatState();
   const [socketConnected, setSocketConnected] = useState(false);
   const [msg, setMsg] = useState("");
+
+  const { incrementMessage, messageCount, setMessageCount, setFilmmakerInfo } =
+    useContext(NotificationContext);
   const handleChange = (e) => {
     setMsg(e.target.value);
   };
@@ -18,10 +23,14 @@ export default function NewMessageModal(props) {
     if (msg.length > 0) {
       try {
         addToChat(msg, props.user, props.filmmakerId).then((res) => {
-          if (res.status == 200) {
+          if (res.status === 200) {
+            // Yeming added
+            incrementMessage();
+            setFilmmakerInfo(props.filmmakerId);
+
             socket.emit("new message", res.data);
             props.close("message");
-            props.setRefresh(true);
+            // props.setRefresh(true);
           }
         });
       } catch (error) {
@@ -31,10 +40,14 @@ export default function NewMessageModal(props) {
   };
 
   useEffect(() => {
+    console.log("messageCount updated: ", messageCount);
+  }, [messageCount]);
+
+  useEffect(() => {
     socket = io(process.env.REACT_APP_BACKEND_URL);
     socket.emit("setup", props.user);
     socket.on("connection", () => setSocketConnected(true));
-  }, []);
+  }, [props.user]);
 
   useEffect(() => {
     // console.log("selectchat", selectedChatCompare);
@@ -44,7 +57,8 @@ export default function NewMessageModal(props) {
         setNotification([newMessageRecieved, ...notification]);
       }
     });
-  });
+  }, [notification, setNotification]);
+
   return (
     <>
       <Modal

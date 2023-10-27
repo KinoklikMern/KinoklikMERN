@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
@@ -20,15 +20,13 @@ export default function EpkCard(props) {
             alt=""
           />
           <div className="tw-flex tw-flex-row tw-justify-between tw-p-5">
-
-
-          <div className="tw-relative tw-inline-flex">
+            <div className="tw-relative tw-inline-flex">
               <FontAwesomeIcon
-                icon={faDollarSign} 
+                icon={faDollarSign}
                 style={{ color: "#1E0039" }}
                 size="2xl"
               />
-              <span className="tw-absolute tw--top-3 tw--right-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
+              <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.wishes_to_donate == null
                   ? "0"
                   : epkInfo.wishes_to_donate.length}
@@ -40,7 +38,7 @@ export default function EpkCard(props) {
                 style={{ color: "#1E0039" }}
                 size="2xl"
               />
-              <span className="tw-absolute tw--top-3 tw--right-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
+              <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.wishes_to_buy == null
                   ? "0"
                   : epkInfo.wishes_to_buy.length}
@@ -52,7 +50,7 @@ export default function EpkCard(props) {
                 style={{ color: "#1E0039" }}
                 size="2xl"
               />
-              <span className="tw-absolute tw--top-3 tw--right-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
+              <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.likes == null ? "0" : epkInfo.likes.length}
               </span>
             </div>
@@ -62,7 +60,7 @@ export default function EpkCard(props) {
                 style={{ color: "#1E0039" }}
                 size="2xl"
               />
-              <span className="tw-absolute tw--top-3 tw--right-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
+              <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.favourites == null ? "0" : epkInfo.favourites.length}
               </span>
             </div>
@@ -72,7 +70,7 @@ export default function EpkCard(props) {
                 style={{ color: "#1E0039" }}
                 size="2xl"
               />
-              <span className="tw-absolute tw--top-3 tw--right-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
+              <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.sharings == null ? "0" : epkInfo.sharings.length}
               </span>
             </div>

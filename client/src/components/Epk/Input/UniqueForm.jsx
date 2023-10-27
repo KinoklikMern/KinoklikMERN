@@ -1,22 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import UploadFile from "../../FileUpload";
 
 import http from "../../../http-common";
 
-
 function UniqueForm() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
 
-
   //const [file1, setFile1] = useState("");
   //const [file2, setFile2] = useState("");
-  
+
   //const inputFile1Ref = useRef(null);
   //const inputFile2Ref = useRef(null);
- 
-  const [message, setMessage] = useState("");
+
+  // const [message, setMessage] = useState("");
 
   const params = useParams();
   const navigate = useNavigate();
@@ -31,49 +29,45 @@ function UniqueForm() {
     setFile2(file);
   };*/
 
-   const [uniqueData, setUniqueData] = useState({
+  const [uniqueData, setUniqueData] = useState({
     unique1_title: "",
     unique1_description: "",
     unique1_poster_url: "",
     unique2_title: "",
     unique2_description: "",
-    unique2_poster_url: "",  
+    unique2_poster_url: "",
   });
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUniqueData({ ...uniqueData, [name]: value });
   };
 
-  const checkFileMimeType = (file) => {
-    if (file !== "") {
-      if (  
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg"
-      )
-        return true;
-      else return false;
-    } else return true;
-  };
+  // const checkFileMimeType = (file) => {
+  //   if (file !== "") {
+  //     if (
+  //       file.type === "image/png" ||
+  //       file.type === "image/jpg" ||
+  //       file.type === "image/jpeg"
+  //     )
+  //       return true;
+  //     else return false;
+  //   } else return true;
+  // };
 
-
-  
   useEffect(() => {
     async function fetchData() {
-      const id = params.id.toString();;
+      const id = params.id.toString();
       //const response = await fetch(`http://127.0.0.1:8000/epk/${params.id.toString()}/uniques`);
-      http
-      .get(`epks/${params.id.toString()}/uniques`)
-      .then((response) => {
+      http.get(`epks/${params.id.toString()}/uniques`).then((response) => {
         console.log("response");
         console.log(response);
-        if (!(response.statusText) ==="OK") {
+        if (!response.statusText === "OK") {
           console.log("error");
           const message = `An error has occurred: ${response.statusText}`;
           window.alert(message);
           return;
         }
-    
+
         const record = response.data;
         console.log("record");
         console.log(record);
@@ -83,20 +77,18 @@ function UniqueForm() {
           return;
         }
 
-     
-         //console.log("before set");
-         //console.log(uniqueData);
-         setUniqueData(record[0]); 
-         console.log("image1+imag2");
-         console.log(uniqueData.unique1_poster_url);
-         console.log(uniqueData.unique2_poster_url);
-         setImage1( record[0].unique1_poster_url);
-         setImage2( record[0].unique2_poster_url);
+        //console.log("before set");
+        //console.log(uniqueData);
+        setUniqueData(record[0]);
+        console.log("image1+imag2");
+        console.log(uniqueData.unique1_poster_url);
+        console.log(uniqueData.unique2_poster_url);
+        setImage1(record[0].unique1_poster_url);
+        setImage2(record[0].unique2_poster_url);
         console.log("image1+imag2");
         console.log(image1);
         console.log(image2);
-        
-     
+
         /*uniqueData.unique1_title=record[0].unique1_title
         uniqueData.unique2_title=record[0].unique2_title
         uniqueData.unique1_description=record[0].unique1_description
@@ -105,24 +97,16 @@ function UniqueForm() {
         uniqueData.unique2_poster_url=record[0].unique2_poster_url*/
         //console.log("after set");
         //console.log(uniqueData);
-      }  ) 
+      });
 
-
-  
-    
-  
-  
-        
       //}
-  
     }
-  
+
     fetchData();
-  
+
     return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, navigate]);
-
-
 
   const saveUnique = (e) => {
     //;
@@ -133,8 +117,6 @@ function UniqueForm() {
 
     //formData.append("file1", file1);
     //formData.append("file2", file2);
-
-
 
     console.log(formData);
     //debugger;
@@ -173,95 +155,89 @@ function UniqueForm() {
     }*/
     console.log("before");
     console.log(uniqueData.unique1_poster_url);
-    uniqueData.unique1_poster_url=image1;
-    uniqueData.unique2_poster_url=image2;
-    http 
-            .put(`epks/${params.id.toString()}/uniques`, uniqueData)
-      
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+    uniqueData.unique1_poster_url = image1;
+    uniqueData.unique2_poster_url = image2;
+    http
+      .put(`epks/${params.id.toString()}/uniques`, uniqueData)
 
-           
-           
-            console.log("after");
-            
-            console.log(uniqueData.unique1_poster_url);
-            
+      .then((res) => {
+        console.log("saved");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log("after");
+
+    console.log(uniqueData.unique1_poster_url);
   };
 
   return (
     <form className="form">
-    <div class="card">
-      <div class="card-header">
-        <div class="row align-items-start">
-          <div class="col align-items-start">EPK Page Upload</div>
-          <div class="col align-items-end">link to view</div>
+      <div class="card">
+        <div class="card-header">
+          <div class="row align-items-start">
+            <div class="col align-items-start">EPK Page Upload</div>
+            <div class="col align-items-end">link to view</div>
+          </div>
         </div>
-      </div>
 
-      <div class="card-body">
-        <h5 class="card-title">Uniqueness</h5>
-        <form className="row g-3">      
-      
-              <div className="col-6">
+        <div class="card-body">
+          <h5 class="card-title">Uniqueness</h5>
+          <form className="row g-3">
+            <div className="col-6">
               <input
-                    type="text"
-                    placeholder = "Title"
-                    className="form-control"        
-                    value={uniqueData.unique1_title}
-                    onChange={handleInputChange}
-                    name="unique1_title"                         
-                    />   
-              <br/> 
+                type="text"
+                placeholder="Title"
+                className="form-control"
+                value={uniqueData.unique1_title}
+                onChange={handleInputChange}
+                name="unique1_title"
+              />
+              <br />
 
-               <textarea 
-                    class="form-control" 
-                    rows="3"
-                    placeholder = "Description"
-                    value={uniqueData.unique1_description}
-                 
-                    onChange={handleInputChange}
-                    name="unique1_description"  
-                    />  
-              
-               <br/>   
-               <UploadFile setImage={setImage1} />
-                {image1 && (
-                  <img
-                    src={image1}
-                    alt="hey"
-                    style={{ height: "350px", width: "300px" }}
-                    class="img-fluid "
-                  />
-                )}
-              </div>
-              <div className="col-6">
+              <textarea
+                class="form-control"
+                rows="3"
+                placeholder="Description"
+                value={uniqueData.unique1_description}
+                onChange={handleInputChange}
+                name="unique1_description"
+              />
+
+              <br />
+              <UploadFile setImage={setImage1} />
+              {image1 && (
+                <img
+                  src={image1}
+                  alt="hey"
+                  style={{ height: "350px", width: "300px" }}
+                  class="img-fluid "
+                />
+              )}
+            </div>
+            <div className="col-6">
               <input
-                    type="text"
-                    placeholder = "Title"
-                    className="form-control"        
-                    value={uniqueData.unique2_title}
-                    onChange={handleInputChange}
-                    name="unique2_title"                         
-                    />   
-              <br/> 
+                type="text"
+                placeholder="Title"
+                className="form-control"
+                value={uniqueData.unique2_title}
+                onChange={handleInputChange}
+                name="unique2_title"
+              />
+              <br />
 
-               <textarea 
-                    class="form-control" 
-                    rows="3"
-                    placeholder = "Description"
-                    value={uniqueData.unique2_description}
-                 
-                    onChange={handleInputChange}
-                    name="unique2_description"  
-                    />  
-              
-               <br/> 
-               <UploadFile setImage={setImage2} />
+              <textarea
+                class="form-control"
+                rows="3"
+                placeholder="Description"
+                value={uniqueData.unique2_description}
+                onChange={handleInputChange}
+                name="unique2_description"
+              />
+
+              <br />
+              <UploadFile setImage={setImage2} />
               {image2 && (
                 <img
                   src={image2}
@@ -270,30 +246,23 @@ function UniqueForm() {
                   class="img-fluid "
                 />
               )}
-                 
-              </div>
-             
-            
-           
-          
+            </div>
 
-          
-            
-          <div className="d-flex justify-content-end">
-            <button
-              type="submit"
-              className="btn btn-secondary"
-              onClick={saveUnique}
-            >
-              {" "}
-              Save{" "}
-            </button>
-          </div>
-        </form>
+            <div className="d-flex justify-content-end">
+              <button
+                type="submit"
+                className="btn btn-secondary"
+                onClick={saveUnique}
+              >
+                {" "}
+                Save{" "}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </form>
-)
+    </form>
+  );
 }
 
 export default UniqueForm;

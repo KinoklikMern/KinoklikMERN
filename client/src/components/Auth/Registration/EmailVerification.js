@@ -33,7 +33,7 @@ export default function EmailVerification() {
   const { state } = useLocation();
   const user = state?.user;
 
-  const isVerified = user?.isVerified;
+  // const isVerified = user?.isVerified;
 
   const navigate = useNavigate();
 

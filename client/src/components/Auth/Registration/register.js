@@ -1,24 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
 //Bootstrap and jQuery libraries
-import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./login";
 //Adding antd modules and style
-import { Button, Modal, Form, Input, Select } from "antd";
-const { Option } = Select;
+import { Modal, Form, Input, Select } from "antd";
 
 function Register({ spanText }) {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [role, setRole] = useState("Viewer");
   const [submit, setSubmit] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   //popup and form code
   const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
@@ -213,6 +209,7 @@ function Register({ spanText }) {
         );
         setError("");
         setSuccess(data.message);
+        // eslint-disable-next-line no-unused-vars
         const { message, ...rest } = data;
         setTimeout(() => {
           setSubmit(true);

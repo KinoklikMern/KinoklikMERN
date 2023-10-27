@@ -56,7 +56,7 @@ const sendMessage = async (req, res) => {
 };
 
 const updateMessageAsRead = async (req, res) => {
-  console.log("req", req.params)
+  console.log("req", req.params);
   try {
     const messages = await Message.updateMany(
       {

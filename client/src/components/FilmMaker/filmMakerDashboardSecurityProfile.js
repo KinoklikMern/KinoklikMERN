@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useSelector } from "react-redux";
 import { React, useEffect, useState, useRef } from "react";
 import Axios from "axios";
@@ -40,7 +41,7 @@ export default function FilmMakerDashboardSecurityProfile() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, []);
+  }, [userId, userProfileData]);
 
   if (filename !== "") {
     userProfileData.picture = filename;
