@@ -6,12 +6,12 @@ import producerIcon from "../../../images/icons/producerIcon.svg";
 import viewerIcon from "../../../images/icons/viewerIcon.svg";
 import writerIcon from "../../../images/icons/writerIcon.svg";
 import soundIcon from "../../../images/icons/soundIcon.svg";
-//import cinematographerIcon from "../../../images/icons/cinematographerIcon.svg";
+import cinematographerIcon from "../../../images/icons/cinematographerIcon.svg";
 import salesAgentIcon from "../../../images/icons/salesAgentIcon.svg";
 import festivalIcon from "../../../images/icons/festivalIcon.svg";
 import investorIcon from "../../../images/icons/investorIcon.svg";
 import editorIcon from "../../../images/icons/editorIcon.svg";
-// import festivalIcon from "../../../images/icons/festivalIcon.svg";
+import distributorIcon from "../../../images/icons/distributorIcon.svg";
 
 export const optionsMain = [
   {
@@ -67,6 +67,16 @@ export const optionsSecondary = [
     value: "Sound",
     image: soundIcon,
   },
+  {
+    label: "Cinematographer",
+    value: "Cinematographer",
+    image: cinematographerIcon,
+  },
+  {
+    label: "Distributor",
+    value: "Distributor",
+    image: distributorIcon
+  },
 ];
 
 function RoleChoise({ role, setRole }) {
@@ -103,7 +113,7 @@ function RoleChoise({ role, setRole }) {
           {optionsSecondary
             // That complex is because I want to wrap every 4 lines with div of line
             .reduce((acc, option, index) => {
-              const groupIndex = Math.floor(index / 4);
+              const groupIndex = Math.floor(index / 5);
               if (!acc[groupIndex]) {
                 acc[groupIndex] = [];
               }

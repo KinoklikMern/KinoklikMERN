@@ -203,6 +203,56 @@ export default function Profile() {
         />
       </div>
       <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col tw-justify-self-center">
+        <input
+              type="text"
+              name="facebook_url"
+              placeholder="Facebook URL"
+              value={userProfileData.facebook_url}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="facebook_followers"
+              placeholder="Facebook Followers"
+              value={userProfileData.facebook_followers}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="instagram_url"
+              placeholder="Instagram URL"
+              value={userProfileData.instagram_url}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="instagram_followers"
+              placeholder="Instagram Followers"
+              value={userProfileData.instagram_followers}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="twitter_url"
+              placeholder="Twitter URL"
+              value={userProfileData.twitter_url}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="twitter_followers"
+              placeholder="Twitter Followers"
+              value={userProfileData.twitter_followers}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+      </div>
+      <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col tw-justify-self-center">
         {user.role === "Actor" ? (
         <>
         <select
@@ -332,71 +382,7 @@ export default function Profile() {
           <option value="Curvy">Curvy</option>
         </select>
         </>
-        ) : (
-        <>
-                    <input
-              type="text"
-              name="facebook_url"
-              placeholder="Facebook URL"
-              value={userProfileData.facebook_url}
-              onChange={handleProfileChange}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-            />
-            <input
-              type="text"
-              name="facebook_followers"
-              placeholder="Facebook Followers"
-              value={userProfileData.facebook_followers}
-              onChange={handleProfileChange}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-            />
-            <input
-              type="text"
-              name="instagram_url"
-              placeholder="Instagram URL"
-              value={userProfileData.instagram_url}
-              onChange={handleProfileChange}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-            />
-            <input
-              type="text"
-              name="instagram_followers"
-              placeholder="Instagram Followers"
-              value={userProfileData.instagram_followers}
-              onChange={handleProfileChange}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-            />
-            <input
-              type="text"
-              name="twitter_url"
-              placeholder="Twitter URL"
-              value={userProfileData.twitter_url}
-              onChange={handleProfileChange}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-            />
-            <input
-              type="text"
-              name="twitter_followers"
-              placeholder="Twitter Followers"
-              value={userProfileData.twitter_followers}
-              onChange={handleProfileChange}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-            />
-            <div className="actor-dashbaord-about">
-              <textarea
-                name="aboutMe"
-                className="actor-dash-textarea"
-                //value={userProfileData.aboutMe}
-                value={
-                  userProfileData.aboutMe
-                    ? userProfileData.aboutMe
-                    : "Biography text here example Biography text here example Biography text here example"
-                }
-                onChange={handleProfileChange}
-              ></textarea>
-            </div>
-        </>
-        )}
+        ) : (null)}
         
       </div>
       <div>

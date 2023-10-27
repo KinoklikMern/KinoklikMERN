@@ -259,12 +259,6 @@ export default function UploadActorPic({ user }) {
     await http
       .put(`users/updateProfile/${user.id}`, {
         aboutMe: textareaValue,
-        facebook_url: facebookUrlValue,
-        facebook_followers: facebookFollowersValue,
-        instagram_url: instagramUrlValue,
-        instagram_followers: instagramFollowerslValue,
-        twitter_url: twitterkUrlValue,
-        twitter_followers: twitterFollowersValue,
       })
       .then((res) => {
         setModalIsOpen(true);
@@ -703,67 +697,6 @@ export default function UploadActorPic({ user }) {
             </button>
           </div>
         </Modal>
-      </div>
-      <div className="actor-dashbaord-com">
-        <div className="actor-dashbaord-com-detail">
-          <img src={instagramIcon} className="actor-dash-com-icon" />
-          <input
-            //changed in all those places (vas value and without type)
-            type="text"
-            placeholder="URL Here"
-            //-----------------------------------
-            className="actor-dash-com-detail"
-            value={instagramUrlValue}
-            onChange={(e) => setInstagramUrlValue(e.target.value)}
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <img src={facebookIcon} className="actor-dash-com-icon" />
-          <input
-            type="text"
-            placeholder="URL Here"
-            className="actor-dash-com-detail"
-            value={facebookUrlValue}
-            onChange={(e) => setFacebookUrlValue(e.target.value)}
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <img src={twiiterIcon} className="actor-dash-com-icon" />
-          <input
-            type="text"
-            placeholder="URL Here"
-            className="actor-dash-com-detail"
-            value={twitterkUrlValue}
-            onChange={(e) => setTwitterUrlValue(e.target.value)}
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            type="text"
-            placeholder="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-            value={instagramFollowerslValue}
-            onChange={(e) => setInstagramFollowersValue(e.target.value)}
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            type="text"
-            placeholder="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-            value={facebookFollowersValue}
-            onChange={(e) => setFacebookFollowersValue(e.target.value)}
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            type="text"
-            placeholder="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-            value={twitterFollowersValue}
-            onChange={(e) => setTwitterFollowersValue(e.target.value)}
-          />
-        </div>
       </div>
       <div className="actor-save-about">
         <button className="upload-actor-prof-btn1" onClick={editAbout}>
