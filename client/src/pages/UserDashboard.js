@@ -13,6 +13,7 @@ function Dashboard() {
                 <ul class="nav nav-tabs left-tabs" role="tablist">
                   <li class="nav-item" role="presentation">
                     <a
+                      href="#account"
                       class="nav-link tab-clickable left-heading"
                       data-bs-toggle="tab"
                       data-bs-target="#account"
@@ -25,6 +26,7 @@ function Dashboard() {
                   </li>
                   <li class="nav-item" role="presentation">
                     <a
+                      href="#payment"
                       class="nav-link tab-clickable left-heading"
                       data-bs-toggle="tab"
                       data-bs-target="#payment"
@@ -37,6 +39,7 @@ function Dashboard() {
                   </li>
                   <li class="nav-item" role="presentation">
                     <a
+                      href="#billing"
                       class="nav-link tab-clickable left-heading"
                       data-bs-toggle="tab"
                       data-bs-target="#billing"
@@ -49,6 +52,7 @@ function Dashboard() {
                   </li>
                   <li class="nav-item" role="presentation">
                     <a
+                      href="#setting"
                       class="nav-link tab-clickable left-heading"
                       data-bs-toggle="tab"
                       data-bs-target="#setting"

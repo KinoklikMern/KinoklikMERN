@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
-import avatarDefault from "../../../images/avatar1.jpeg";
 
 export default function Profile() {
   const [message, setMessage] = useState([]);
@@ -57,7 +57,7 @@ export default function Profile() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, []);
+  }, [userId]);
 
   if (filename !== "") {
     userProfileData.picture = filename;
@@ -203,6 +203,58 @@ export default function Profile() {
         />
       </div>
       <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col tw-justify-self-center">
+        <input
+              type="text"
+              name="facebook_url"
+              placeholder="Facebook URL"
+              value={userProfileData.facebook_url}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="facebook_followers"
+              placeholder="Facebook Followers"
+              value={userProfileData.facebook_followers}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="instagram_url"
+              placeholder="Instagram URL"
+              value={userProfileData.instagram_url}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="instagram_followers"
+              placeholder="Instagram Followers"
+              value={userProfileData.instagram_followers}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="twitter_url"
+              placeholder="Twitter URL"
+              value={userProfileData.twitter_url}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+            <input
+              type="text"
+              name="twitter_followers"
+              placeholder="Twitter Followers"
+              value={userProfileData.twitter_followers}
+              onChange={handleProfileChange}
+              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            />
+      </div>
+      <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col tw-justify-self-center">
+        {user.role === "Actor" ? (
+        <>
         <select
           type="text"
           name="sex"
@@ -329,6 +381,9 @@ export default function Profile() {
           <option value="Athletic">Athletic/Toned</option>
           <option value="Curvy">Curvy</option>
         </select>
+        </>
+        ) : (null)}
+        
       </div>
       <div>
         <Modal
@@ -380,14 +435,14 @@ export default function Profile() {
           onChange={fileSelected}
           ref={inputFileRef}
           accept="image/*"
-          className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-py-2 file:tw-px-4 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
+          className="hover:tw-file:bg-violet-100 tw-block tw-w-full tw-text-sm tw-text-slate-500 file:tw-mr-4 file:tw-rounded-full file:tw-border-0 file:tw-bg-violet-50 file:tw-px-4 file:tw-py-2 file:tw-text-sm file:tw-font-semibold file:tw-text-violet-700"
         />
       </div>
       <div className="tw-col-start-4 tw-place-self-end tw-px-12">
         {disabled === true ? (
           <button
             disabled
-            className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
+            className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
             style={{
               marginBottom: "20px",
             }}
@@ -396,7 +451,7 @@ export default function Profile() {
           </button>
         ) : (
           <button
-            className="tw-rounded-full tw-py-2 tw-px-8 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
+            className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserProfile()}
           >
             Save

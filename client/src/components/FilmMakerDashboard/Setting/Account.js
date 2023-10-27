@@ -1,53 +1,38 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-//Modal.setAppElement(document.body);
+Modal.setAppElement(document.body);
+
 export default function Account() {
-  const [message, setMessage] = useState([]);
-  const [confirmed, setConfirmed] = useState();
+  const [message, setMessage] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [deleted, setDeleted] = useState();
+  const [deleted, setDeleted] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
-  let userId;
-  let userRole;
-  if (!user) {
-    userId = "0";
-    userRole = "noUser";
-  } else {
-    userId = user.id;
-    userRole = user.role;
-  }
+  const { user } = useSelector((state) => state);
+  const userId = user ? user.id : "0";
+  const userRole = user ? user.role : "noUser";
 
   function deleteAccount() {
     setModalIsOpen(false);
-    console.log(confirmed);
 
     Axios.delete(
       `${process.env.REACT_APP_BACKEND_URL}/users/deleteAccount/${userId}`
     )
       .then((res) => {
-        console.log(res);
-        // setConfirmed(true);
-        // console.log(confirmed);
         setMessage(res.data.message);
         setConfirmed(true);
-        console.log(confirmed);
         setDeleted(true);
-        console.log(deleted);
         setModalIsOpen(true);
       })
       .catch((err) => {
-        console.log(err);
         setMessage(err.message);
-        //alert(err.response.data.message);
         setModalIsOpen(true);
       });
 
@@ -61,52 +46,37 @@ export default function Account() {
 
   function closeModal() {
     setModalIsOpen(false);
-    if (deleted === true) {
+
+    if (deleted) {
       Cookies.set("user", null);
-      console.log(user);
-      console.log("log out");
-      dispatch({
-        type: "LOGOUT",
-        payload: null,
-      });
-      console.log(user);
+      dispatch({ type: "LOGOUT", payload: null });
       navigate("/");
     }
   }
 
   return (
-    // <form className="tw-h-full">
     <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
       <div className="tw-col-start-4 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
         <input
           readOnly
           placeholder="Account Type"
-          defaultValue={user.role}
+          defaultValue={userRole}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
         <button
-          onClick={() => openModal()}
+          onClick={openModal}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
           Delete Account
         </button>
-        {/* <button className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 ">
-          Confirm Delete Account
-        </button> */}
       </div>
       <div>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           contentLabel="Example Modal"
-          appElement={document.getElementById("root")}
           style={{
             overlay: {
-              // position: "fixed",
-              // top: 0,
-              // left: 0,
-              // right: 0,
-              // bottom: 0,
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             },
             content: {
@@ -129,24 +99,22 @@ export default function Account() {
             {confirmed ? (
               <button
                 className="btn btn-secondary btn-sm"
-                onClick={() => closeModal()}
+                onClick={closeModal}
               >
                 Ok
               </button>
             ) : (
               <>
                 <button
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => closeModal()}
+                  className="btn btn-secondary btn-sm mr-2"
+                  onClick={closeModal}
                 >
                   Cancel
                 </button>
                 <button
                   className="btn btn-secondary btn-sm"
-                  onClick={() => {
-                    // setConfirmed(true);
-                    deleteAccount();
-                  }}
+                  onClick={deleteAccount}
+                   style={{ marginLeft: "25px" }}
                 >
                   Confirm
                 </button>
@@ -156,6 +124,5 @@ export default function Account() {
         </Modal>
       </div>
     </div>
-    // </form>
   );
 }

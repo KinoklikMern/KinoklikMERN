@@ -3,7 +3,6 @@ import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
 import BellIcon from "../../images/icons/bellEmpty.svg";
 import BellWhiteIcon from "../../images/icons/bellFull.svg";
-import FlagIcon from "../../images/icons/flag.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
 import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
 import MessageIcon from "../../images/icons/message.svg";
@@ -131,7 +130,7 @@ export default function Sidebar(props) {
               (item.Title === "Messages" &&
                 messageCount > 0 &&
                 filmmakerInfo === userId) ? (
-                <div className="tw-absolute tw-top-0 tw-right-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
+                <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"
                     : item.Title === "Notifications"
