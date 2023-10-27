@@ -131,12 +131,13 @@ export default function Actor(props) {
       console.error("No filmmakers selected for recommendation");
       return;
     }
-    const message = `Hey, check this actor ${epkInfo.firstName} ${epkInfo.lastName}: http://localhost:3000/actor/${user.id}`;
+    const message = `Hey, check this actor ${epkInfo.firstName} ${epkInfo.lastName}: http://localhost:3000/actor/${epkInfo._id}`;
     selectedFilmmakers.forEach((filmmaker) => {
       addToChat(message, user.id, filmmaker._id)
         .then((res) => {
           console.log("Sending message: ", message);
           console.log("User ID: ", user.id);
+          console.log("Actor ID: ", epkInfo._id);
           console.log("Filmmaker ID: ", filmmaker._id);
 
           if (res && res.status === 200) {
@@ -200,7 +201,7 @@ export default function Actor(props) {
       case "Female":
         return "F";
       default:
-        return "";
+        return "N/A";
     }
   };
 
@@ -345,14 +346,13 @@ export default function Actor(props) {
               <div
                 style={{
                   alignSelf: "flex-end",
-                  padding: "0.5rem",
                   cursor: "pointer",
                 }}
                 onClick={closeModal}
               >
                 X
               </div>
-              <h2>Recommend Actor To Filmmaker:</h2>
+              <h2>Recommend Actor {epkInfo.firstName} To Filmmaker:</h2>
               <input
                 type="text"
                 className="form-control shared-styles"
