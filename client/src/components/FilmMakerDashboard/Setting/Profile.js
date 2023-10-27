@@ -57,7 +57,7 @@ export default function Profile() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, []);
+  }, [userId]);
 
   if (filename !== "") {
     userProfileData.picture = filename;
