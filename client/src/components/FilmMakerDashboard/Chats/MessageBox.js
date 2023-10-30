@@ -203,8 +203,9 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
                     ? "tw-justify-self-end tw-bg-[#1E0039]"
                     : "tw-bg-[#581396]"
                 }`}
+                dangerouslySetInnerHTML={{ __html: message.content }}
               >
-                {message.content}
+                {/* {message.content} */}
               </span>
             </div>
           </div>
