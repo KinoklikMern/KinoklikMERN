@@ -3,6 +3,7 @@ import http from "../../../http-common";
 import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
+import Modal from "react-modal";
 
 function FepkEditCoverForm() {
   const [file1, setFile1] = useState("");
@@ -36,6 +37,10 @@ function FepkEditCoverForm() {
       setCharacterLength({ logLine_short: response.data.logLine_short.length });
     });
   }, [fepkId]);
+
+  //To work with modal notifications
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContentType, setModalContentType] = useState("save"); // need to change modal content based on wht button was clicked
 
   const [epkCoverData, setEpkCoverData] = useState({
     film_maker: fepk.film_maker,
@@ -174,6 +179,8 @@ function FepkEditCoverForm() {
             http
               .put(`fepks/update/${fepkId}`, epkCoverData)
               .then((res) => {
+                setModalContentType("save");
+                setModalIsOpen(true);
                 console.log("saved");
               })
               .catch((err) => {
@@ -189,6 +196,10 @@ function FepkEditCoverForm() {
       setMessage("File must be an image(jpeg or png)");
     }
     setDisabled(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -517,6 +528,46 @@ function FepkEditCoverForm() {
                       Save
                     </Button>
                   )}
+
+                  <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Example Modal"
+                    appElement={document.getElementById("root")}
+                    style={{
+                      overlay: {
+                        // position: "fixed",
+                        // top: 0,
+                        // left: 0,
+                        // right: 0,
+                        // bottom: 0,
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      },
+                      content: {
+                        position: "absolute",
+                        border: "2px solid #000",
+                        backgroundColor: "white",
+                        boxShadow: "2px solid black",
+                        height: 120,
+                        width: 300,
+                        margin: "auto",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      },
+                    }}
+                  >
+                    <div style={{ textAlign: "center" }}>
+                      {"EPK Cover Saved Successfully!"}
+                      <br />
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={closeModal}
+                      >
+                        Ok
+                      </button>
+                    </div>
+                  </Modal>
                 </div>
               </form>
             </div>
