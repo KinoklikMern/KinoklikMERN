@@ -45,9 +45,6 @@ app.use("/message", messageRoutes);
 app.use("/*", handleNotFound);
 app.use(errorHandler);
 
-// Use your Stripe routes
-app.use("/donations", donationRoutes);
-
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)
 );
