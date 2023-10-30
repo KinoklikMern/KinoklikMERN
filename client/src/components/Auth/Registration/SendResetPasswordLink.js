@@ -1,8 +1,6 @@
-import React, { useState, setState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 function SendResetPasswordLink() {
@@ -33,6 +31,7 @@ function SendResetPasswordLink() {
       );
       setError("");
       setSuccess(data.message);
+      // eslint-disable-next-line no-unused-vars
       const { message, ...rest } = data;
       //   dispatch({ type: "LOGIN", payload: data });
       //   Cookies.set("user", JSON.stringify(data));

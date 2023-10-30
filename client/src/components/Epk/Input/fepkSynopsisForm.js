@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
@@ -9,6 +9,7 @@ function SynopsisForm() {
   const [file, setFile] = useState("");
   const [fileMedium, setFileMedium] = useState("");
   const [fileLong, setFileLong] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -46,7 +47,10 @@ function SynopsisForm() {
         setFepk(response.data);
         const { text_short, text_medium, text_long } = response.data;
         if (text_short) {
-          setCharacterLength({ ...characterLength, text_short: text_short.length });
+          setCharacterLength({
+            ...characterLength,
+            text_short: text_short.length,
+          });
           setEpkSynopsisData({
             image_synopsis: response.data.image_synopsis,
             image_synopsis_medium: response.data.image_synopsis_medium,
@@ -59,15 +63,14 @@ function SynopsisForm() {
           });
         } else {
           // Handle the case when text_short is undefined or empty
-          console.error('text_short is undefined or empty');
+          console.error("text_short is undefined or empty");
         }
       } else {
         // Handle the case when response.data is undefined or empty
-        console.error('response.data is undefined or empty');
+        console.error("response.data is undefined or empty");
       }
     });
-  }, []);
-  
+  }, [characterLength, fepkId]);
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;
@@ -170,7 +173,7 @@ function SynopsisForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
           borderRadius: "10px",
@@ -179,9 +182,13 @@ function SynopsisForm() {
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -412,7 +419,6 @@ function SynopsisForm() {
                       style={{ fontSize: "25px" }}
                     >
                       {" "}
-                      <h4></h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
@@ -442,7 +448,6 @@ function SynopsisForm() {
                       style={{ fontSize: "25px" }}
                     >
                       {" "}
-                      <h4></h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}

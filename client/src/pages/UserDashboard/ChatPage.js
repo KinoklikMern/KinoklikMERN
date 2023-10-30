@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../../components/UserDashboard/Sidebar";
-import avatarDemo from "../../images/avatarDefault.jpeg";
 import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
 import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
 import ChatProvider from "../../context/ChatProvider";
@@ -9,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function ChatPage() {
+  // eslint-disable-next-line no-unused-vars
   const [fetchAgain, setFetchAgain] = useState(false);
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));

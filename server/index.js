@@ -15,7 +15,6 @@ import messageRoutes from "./routes/message.routes.js";
 import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
-import donationRoutes from "./routes/donation.js";
 
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";

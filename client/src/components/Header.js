@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import "./Header.css";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import Login from "./Auth/Registration/login";
@@ -141,7 +140,7 @@ function Header() {
           </ul>
           <div className="nav-item dropdown">
             <a
-              href="#"
+              href="#menu"
               id="dlabel"
               data-toggle="dropdown"
               role="button"

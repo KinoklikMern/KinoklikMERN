@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -46,7 +47,7 @@ export default function NewMessageModal(props) {
     socket = io(process.env.REACT_APP_BACKEND_URL);
     socket.emit("setup", props.user);
     socket.on("connection", () => setSocketConnected(true));
-  }, []);
+  }, [props.user]);
 
   useEffect(() => {
     // console.log("selectchat", selectedChatCompare);
@@ -56,7 +57,8 @@ export default function NewMessageModal(props) {
         setNotification([newMessageRecieved, ...notification]);
       }
     });
-  }, [notification]);
+  }, [notification, setNotification]);
+
   return (
     <>
       <Modal

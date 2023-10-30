@@ -1,19 +1,19 @@
-import React, { useState, setState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -70,6 +70,7 @@ function LoginForm() {
 
       setError("");
       setSuccess(data.message);
+      // eslint-disable-next-line no-unused-vars
       const { message, ...rest } = data;
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));

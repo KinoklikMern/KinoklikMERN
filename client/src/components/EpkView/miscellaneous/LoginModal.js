@@ -12,14 +12,14 @@ export default function LoginModal(props) {
   const [password, setPassword] = useState();
   const [errorMsg, setErrorMsg] = useState();
   const handleChange = (e) => {
-    if (e.target.id == "email") setEmail(e.target.value);
+    if (e.target.id === "email") setEmail(e.target.value);
 
-    if (e.target.id == "password") setPassword(e.target.value);
+    if (e.target.id === "password") setPassword(e.target.value);
   };
   const handleSubmit = () => {
     if (email && password) {
       login(email, password).then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           dispatch({ type: "LOGIN", payload: res.data });
           Cookies.set("user", JSON.stringify(res.data));
           props.close();
@@ -32,7 +32,12 @@ export default function LoginModal(props) {
   };
   return (
     <>
-      <Modal show={props.open} onHide={props.close} centered className="p-3 tw-text-[#1E0039]">
+      <Modal
+        show={props.open}
+        onHide={props.close}
+        centered
+        className="p-3 tw-text-[#1E0039]"
+      >
         <Modal.Header className="border-0">
           <Modal.Title className="text-center">Sign In</Modal.Title>
         </Modal.Header>
@@ -83,7 +88,10 @@ export default function LoginModal(props) {
             </Button>
 
             <p className="tw-mt-3">
-              Don't have an account yet? <a href="/signup" className="tw-text-[#581396]">Create Account</a>
+              Don't have an account yet?{" "}
+              <a href="/signup" className="tw-text-[#581396]">
+                Create Account
+              </a>
             </p>
           </div>
         </Modal.Footer>

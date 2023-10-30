@@ -13,8 +13,8 @@ export default function EpkLogline({ epkInfo, requestStatus, handler }) {
             {epkInfo.logLine_long}
           </p>
           <div className="tw-relative">
-            <div className="tw-absolute tw-top-[0] tw-left-[44%] tw-z-40 tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
-              {requestStatus != "approved" && epkInfo.logLine_blur && (
+            <div className="tw-absolute tw-left-[44%] tw-top-[0] tw-z-40 tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
+              {requestStatus !== "approved" && epkInfo.logLine_blur && (
                 <RequestButton status={requestStatus} handler={handler} />
               )}
             </div>

@@ -3,7 +3,6 @@ import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
 import BellIcon from "../../images/icons/bellEmpty.svg";
 import BellWhiteIcon from "../../images/icons/bellFull.svg";
-import FlagIcon from "../../images/icons/flag.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
 import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
 import MessageIcon from "../../images/icons/message.svg";

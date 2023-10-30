@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MessageIcon from "../../../images/icons/message.svg";
 
 export default function EpkDetail({ epkInfo, handler }) {
@@ -38,17 +38,18 @@ export default function EpkDetail({ epkInfo, handler }) {
     );
   };
   return (
-    <div className="tw-flex tw-justify-between tw-gap-6 tw-bg-white tw-pt-3 tw-pb-6 tw-pl-8 tw-pr-3 tw-text-[#1E0039]">
+    <div className="tw-flex tw-justify-between tw-gap-6 tw-bg-white tw-pb-6 tw-pl-8 tw-pr-3 tw-pt-3 tw-text-[#1E0039]">
       <div className="tw-m-6">
         <img
           src={image_detail}
+          alt=""
           style={{ width: "310px", height: "420px" }}
           className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
         />
       </div>
       <div className="tw-my-8 tw-grid tw-grid-cols-3 tw-gap-3">
-        {epkInfo.crew.map((crewInfo) => (
-          <CrewAvatar crewInfo={crewInfo} />
+        {epkInfo.crew.map((crewInfo, index) => (
+          <CrewAvatar crewInfo={crewInfo} key={index} />
         ))}
       </div>
       <div className="tw-my-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-text-center tw-text-xl ">
@@ -78,20 +79,20 @@ export default function EpkDetail({ epkInfo, handler }) {
             <img
               className="tw-max-w-20 tw-max-h-20 tw-rounded-lg"
               src={filmmaker_image}
-              alt="profile image"
+              alt="profile img"
             />
             <div className="tw-absolute tw-inset-x-0 tw-bottom-0 tw-flex tw-h-4 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75">
-              <span className="tw-self-center tw-text-xs tw-text-white tw-overflow-hidden">
-                {filmmaker_name} 
+              <span className="tw-self-center tw-overflow-hidden tw-text-xs tw-text-white">
+                {filmmaker_name}
               </span>
             </div>
           </div>
           <div className="tw-relative tw-flex tw-justify-center tw-self-center">
             <img
               src={MessageIcon}
-              // style={{ width: "30%" }}
+              alt=""
               onClick={() => handler("message")}
-              className="tw-max-w-16 tw-max-h-16 tw-p-3 tw-cursor-pointer hover:tw-scale-110"
+              className="tw-max-w-16 tw-max-h-16 tw-cursor-pointer tw-p-3 hover:tw-scale-110"
             />
           </div>
         </div>

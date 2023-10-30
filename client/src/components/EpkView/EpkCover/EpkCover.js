@@ -3,7 +3,7 @@ import EpkReport from "../EpkReport/EpkReport";
 import { useSelector } from "react-redux";
 
 export default function EpkCover({ epkInfo }) {
-  const URL = "";
+  // const URL = "";
   const banner_url = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
   const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
   const { user } = useSelector((user) => ({ ...user }));
@@ -27,6 +27,7 @@ export default function EpkCover({ epkInfo }) {
       <div className="tw-mx-16 tw-flex tw-h-5/6 tw-justify-start tw-py-6 ">
         <img
           src={image_detail}
+          alt=""
           className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
         />
         <div className="tw-my-4 tw-flex tw-w-2/3 tw-flex-col tw-items-center tw-justify-between tw-text-white">

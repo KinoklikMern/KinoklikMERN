@@ -1,9 +1,8 @@
-import React, { useState, setState } from "react";
+import React from "react";
 import successchanged from "../../../images/icons/success-reset.png";
 import Logincss from "./login.module.css";
 
 export default function ResetPasswordSuccess(props) {
-  const emailAddress = props.EmailAddress;
   //   let { email } = useParams();
   return (
     <>

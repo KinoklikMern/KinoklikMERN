@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getFepkFollowersNumber, getActorFollowersNumber } from "../../../api/epks";
+import {
+  getFepkFollowersNumber,
+  getActorFollowersNumber,
+} from "../../../api/epks";
 import Audience from "../../../images/audienceIcon.svg";
 import SocialMedia from "./SocialMedia";
 import {
@@ -34,48 +37,48 @@ export default function EpkHeader({ epkInfo, role, id }) {
 
   useEffect(() => {
     let totalFollowers = 0;
-    if(role === "actor"){
+    //if(role === "actor"){
       getActorFollowersNumber(id).then((res) => {
         totalFollowers = formatCompactNumber(
           res.facebook + res.instagram + res.twitter
         );
         setSocialMediaFollowerTotalNum(totalFollowers);
         const newMediaList = socialMediasList.map((media) => {
-          if (media.name == "facebook") {
+          if (media.name === "facebook") {
             return { ...media, followers: formatCompactNumber(res.facebook) };
           }
-          if (media.name == "instagram") {
+          if (media.name === "instagram") {
             return { ...media, followers: formatCompactNumber(res.instagram) };
           }
-          if (media.name == "twitter") {
+          if (media.name === "twitter") {
             return { ...media, followers: formatCompactNumber(res.twitter) };
           }
           return media;
         });
         setSocialMediasList(newMediaList);
       });
-    }
-    else {
-      getFepkFollowersNumber(epkInfo?._id).then((res) => {
-        totalFollowers = formatCompactNumber(
-          res.facebook + res.instagram + res.twitter
-        );
-        setSocialMediaFollowerTotalNum(totalFollowers);
-        const newMediaList = socialMediasList.map((media) => {
-          if (media.name == "facebook") {
-            return { ...media, followers: formatCompactNumber(res.facebook) };
-          }
-          if (media.name == "instagram") {
-            return { ...media, followers: formatCompactNumber(res.instagram) };
-          }
-          if (media.name == "twitter") {
-            return { ...media, followers: formatCompactNumber(res.twitter) };
-          }
-          return media;
-        });
-        setSocialMediasList(newMediaList);
-      });
-    }
+    // }
+    // else {
+    //   getFepkFollowersNumber(epkInfo?._id).then((res) => {
+    //     totalFollowers = formatCompactNumber(
+    //       res.facebook + res.instagram + res.twitter
+    //     );
+    //     setSocialMediaFollowerTotalNum(totalFollowers);
+    //     const newMediaList = socialMediasList.map((media) => {
+    //       if (media.name == "facebook") {
+    //         return { ...media, followers: formatCompactNumber(res.facebook) };
+    //       }
+    //       if (media.name == "instagram") {
+    //         return { ...media, followers: formatCompactNumber(res.instagram) };
+    //       }
+    //       if (media.name == "twitter") {
+    //         return { ...media, followers: formatCompactNumber(res.twitter) };
+    //       }
+    //       return media;
+    //     });
+    //     setSocialMediasList(newMediaList);
+    //   });
+    // }
 
   }, [epkInfo]);
 
@@ -93,8 +96,8 @@ export default function EpkHeader({ epkInfo, role, id }) {
     }
   }
   return (
-    <div className="tw-flex tw-my-16 tw-justify-between">
-      <div className="tw-flex tw-gap-6 tw-w-1/3">
+    <div className="tw-my-16 tw-flex tw-justify-between">
+      <div className="tw-flex tw-w-1/3 tw-gap-6">
         <span className="tw-text-3xl tw-font-semibold tw-text-white">
           Total Audience Reach
         </span>
@@ -107,7 +110,7 @@ export default function EpkHeader({ epkInfo, role, id }) {
           {socialMediafollowerTotalNum}
         </span>
       </div>
-      <div className="tw-flex tw-gap-10 tw-w-1/2 tw-justify-between">
+      <div className="tw-flex tw-w-1/2 tw-justify-between tw-gap-10">
         {socialMediasList?.map((media, index) => (
           <SocialMedia
             key={index}
