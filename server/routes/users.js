@@ -52,7 +52,6 @@ router.post("/login", loginValidator, login);
 router.get("/login", logout);
 router.post("/getuser", getUser);
 router.get("/getProfile/:email", authUser, getProfile);
-router.get("/:id", getUserById);
 
 // get actor by name
 router.post("/getactor", getActor);
@@ -111,5 +110,8 @@ router.post(
 
 // final save in actor profiles
 router.put("/actor/files/:id", actorUploadFiles);
+
+// get user by id
+router.get("/:id", getUserById);
 
 export default router;
