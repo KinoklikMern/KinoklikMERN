@@ -9,8 +9,12 @@ const accessChat = async (req, res) => {
   const {chatName} = req.body
   console.log("req", req.user)
 
-  if (!userId) {
-    console.log("UserId param not sent with request");
+  // if (!userId) {
+  //   console.log("UserId param not sent with request");
+  //   return res.sendStatus(400);
+  // }
+  if (!userId || !chatName) {
+    console.log("UserId or chatName not sent with request");
     return res.sendStatus(400);
   }
   let isChat = await Chat.find({
@@ -46,8 +50,9 @@ const accessChat = async (req, res) => {
 
       res.status(200).send(FullChat);
     } catch (error) {
-      res.status(400);
-      throw new Error(error.message);
+      // res.status(400);
+      // throw new Error(error.message);
+      return res.status(400).json({ error: error.message });
     }
   }
 };

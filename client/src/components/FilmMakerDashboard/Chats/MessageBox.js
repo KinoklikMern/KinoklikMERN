@@ -172,13 +172,14 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
                 {formatTimestamp(message.createdAt)}
               </span>
               <span
-                className={`tw-w-fit tw-max-w-2xl tw-rounded-full tw-border-2  tw-py-2 tw-px-8 tw-text-lg tw-text-white ${
+                className={`tw-w-fit tw-max-w-2xl tw-rounded-full tw-border-2  tw-px-8 tw-py-2 tw-text-lg tw-text-white ${
                   isLoggedUser(message.sender)
                     ? "tw-justify-self-end tw-bg-[#1E0039]"
                     : "tw-bg-[#581396]"
                 }`}
+                dangerouslySetInnerHTML={{ __html: message.content }}
               >
-                {message.content}
+                {/* {message.content} */}
               </span>
             </div>
           </div>

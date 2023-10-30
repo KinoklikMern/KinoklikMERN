@@ -40,6 +40,7 @@ export default function Actor(props) {
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilmmakers, setSelectedFilmmakers] = useState([]);
   const videoRef = useRef();
+  const [isModalVisible, setModalVisible] = useState(false);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -127,32 +128,77 @@ export default function Actor(props) {
   };
 
   const sendRecommendations = () => {
-    if (selectedFilmmakers.length === 0) {
-      console.error("No filmmakers selected for recommendation");
-      return;
+    if (!user || !user.token) {
+      return console.error("User or user token is not available");
     }
-    const message = `Hey, check this actor ${epkInfo.firstName} ${epkInfo.lastName}: http://localhost:3000/actor/${epkInfo._id}`;
+
+    if (selectedFilmmakers.length === 0) {
+      return console.error("No filmmakers selected for recommendation");
+    }
+
+    // const message = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>
+    //             <br>
+    //             <a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;"/></a>`;
+
+    // selectedFilmmakers.forEach((filmmaker) => {
+    //   addToChat(message, user, filmmaker._id)
+    //     .then((res) => {
+    //       const logData = {
+    //         "Sending Message": message,
+    //         "User ID": user.id,
+    //         "Actor ID": epkInfo._id,
+    //         "Filmmaker ID": filmmaker._id,
+    //       };
+    //       console.table(logData);
+
+    //       if (res && res.status === 200) {
+    //         console.log(
+    //           `Recommendation for ${epkInfo.firstName} ${epkInfo.lastName} sent to ${filmmaker.firstName} ${filmmaker.lastName}.`
+    //         );
+    //         showModal();
+    //       } else {
+    //         console.error("Unexpected response", res);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error sending recommendation:", error);
+    //     });
+    // });
+    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
+    const message2 = `<a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
+
     selectedFilmmakers.forEach((filmmaker) => {
-      addToChat(message, user.id, filmmaker._id)
+      addToChat(message1, user, filmmaker._id)
         .then((res) => {
-          console.log("Sending message: ", message);
-          console.log("User ID: ", user.id);
-          console.log("Actor ID: ", epkInfo._id);
-          console.log("Filmmaker ID: ", filmmaker._id);
+          // If the first message is successful, send the second message
+          if (res && res.status === 200) {
+            return addToChat(message2, user, filmmaker._id);
+          } else {
+            console.error("Unexpected response for message 1", res);
+            throw new Error("Unexpected response for message 1");
+          }
+        })
+        .then((res) => {
+          // Handle the response for the second message
+          const logData = {
+            "Sending Message": message2,
+            "User ID": user.id,
+            "Actor ID": epkInfo._id,
+            "Filmmaker ID": filmmaker._id,
+          };
+          console.table(logData);
 
           if (res && res.status === 200) {
             console.log(
               `Recommendation for ${epkInfo.firstName} ${epkInfo.lastName} sent to ${filmmaker.firstName} ${filmmaker.lastName}.`
             );
+            showModal();
           } else {
-            console.error("Unexpected response", res);
+            console.error("Unexpected response for message 2", res);
           }
         })
         .catch((error) => {
-          console.error(
-            "An error occurred while sending the recommendation:",
-            error
-          );
+          console.error("Error sending recommendation:", error);
         });
     });
     setSelectedFilmmakers([]);
@@ -210,6 +256,12 @@ export default function Actor(props) {
   };
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+  const showModal = () => {
+    setModalVisible(true);
+    setTimeout(() => {
+      setModalVisible(false);
+    }, 2500);
   };
 
   return (
@@ -352,7 +404,7 @@ export default function Actor(props) {
               >
                 X
               </div>
-              <h2>Recommend Actor {epkInfo.firstName} To Filmmaker:</h2>
+              <h2>Recommend Actor To Filmmaker:</h2>
               <input
                 type="text"
                 className="form-control shared-styles"
@@ -465,6 +517,20 @@ export default function Actor(props) {
             </p>
           </div>
         </div>
+        {isModalVisible && (
+          <div
+            style={{
+              color: "#1e0039",
+              ontWeight: "bold",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Recommendation sent successfully!
+          </div>
+        )}
         <div className="actor-city-container">
           <div className="actor-city-detail">
             <img
