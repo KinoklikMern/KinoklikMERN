@@ -24,12 +24,22 @@ const DonationModal = ({
   };
 
   return (
-    <Modal
+    <>
+    <style>
+       {`
+         .modal-backdrop {
+           z-index: -1;
+         }
+       `}
+     </style>
+     
+     <Modal
       show={isOpen}
       onHide={onRequestClose}
       animation={true}
       centered
       size="lg"
+      style={{ maxWidth: "1000px" }} 
     >
       <div style={{ backgroundColor: "#503764E0" }}>
         <Modal.Header closeButton style={{ border: "none" }}></Modal.Header>
@@ -89,7 +99,9 @@ const DonationModal = ({
         </Modal.Footer>
       </div>
     </Modal>
+    </>
   );
-};
+}
+
 
 export default DonationModal;

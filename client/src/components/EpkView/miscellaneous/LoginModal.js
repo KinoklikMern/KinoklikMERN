@@ -32,6 +32,14 @@ export default function LoginModal(props) {
   };
   return (
     <>
+     <style>
+        {`
+          .modal-backdrop {
+            z-index: -1;
+          }
+        `}
+      </style>
+      
       <Modal
         show={props.open}
         onHide={props.close}
