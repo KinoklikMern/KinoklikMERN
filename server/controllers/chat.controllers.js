@@ -6,8 +6,8 @@ import Chat from "../models/chatModel.js";
 //@access          Protected
 const accessChat = async (req, res) => {
   const { userId } = req.body;
-  const {chatName} = req.body
-  console.log("req", req.user)
+  const { chatName } = req.body;
+  console.log("req", req.user);
 
   if (!userId) {
     console.log("UserId param not sent with request");

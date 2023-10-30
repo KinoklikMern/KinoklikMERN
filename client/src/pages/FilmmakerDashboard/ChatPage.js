@@ -25,7 +25,7 @@ export default function ChatPage() {
 
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
-      <div className="tw-mt-24 tw-mb-8 tw-flex tw-justify-start tw-pl-24 tw-text-white">
+      <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
         <p className="tw-text-4xl">Filmmaker Dashboard</p>
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
@@ -34,7 +34,7 @@ export default function ChatPage() {
         </div>
         <div className="tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-rounded-lg tw-bg-white tw-p-4">
           <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 ">
-            <div className="tw--m-4 tw-overflow-auto tw-bg-[#1E0039]">
+            <div className="tw--m-4 tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d]">
               {/* search bar */}
               <div className="shadow-sm tw-relative tw-mx-4 tw-mb-8 tw-rounded-md">
                 <input
@@ -64,6 +64,7 @@ export default function ChatPage() {
               <MessageBox
                 fetchAgain={fetchAgain}
                 setFetchAgain={setFetchAgain}
+                userId={userId}
               />
             </div>
           </div>

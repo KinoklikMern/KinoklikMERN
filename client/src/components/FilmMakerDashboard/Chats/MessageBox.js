@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import io from "socket.io-client";
 import avatarDemo from "../../../images/avatarDefault.jpeg";
 import { ChatState } from "../../../context/ChatProvider";
+import { NotificationContext } from "../../../context/NotificationContext";
 
 let socket, selectedChatCompare;
-export default function MessageBox({ fetchAgain, setFetchAgain }) {
+export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
   const { user } = useSelector((user) => ({ ...user }));
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
   const { selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
+
+  const { incrementMessage, setUserInfo } = useContext(NotificationContext);
 
   const isLoggedUser = (sender) => {
     return sender._id === user.id ? true : false;
@@ -53,7 +56,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
     }
   };
 
-  // console.log("select", selectedChat)
+  console.log("select", selectedChat);
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
@@ -80,6 +83,15 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
       );
       socket.emit("new message", data);
       setMessages([...messages, data]);
+
+      // Yeming added
+      incrementMessage();
+      const recipient = selectedChat.users.find((u) => u._id !== user.id);
+      const recipientId = recipient?._id;
+
+      if (recipientId) {
+        setUserInfo(recipientId);
+      }
     } catch (error) {
       console.log(`error: ${error.message}`);
     }
@@ -101,6 +113,11 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
         !selectedChatCompare || //if this chat is not selected or does not match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
+        // // Check if the new message is not sent by the logged-in user (incoming message)
+        // if (newMessageRecieved.sender._id !== user.id) {
+        //   incrementMessage();
+        // }
+
         // notification
         if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
@@ -130,6 +147,8 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
     }
   };
 
+  console.log("messages", messages);
+
   return (
     <>
       <div className="tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039]">
@@ -149,16 +168,23 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
               isLoggedUser(message.sender) ? "tw-flex-row-reverse" : ""
             }`}
           >
-            <img
-              className="tw-h-12 tw-w-12 tw-flex-none tw-rounded-lg"
-              src={
-                message.sender.picture ==
-                "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-                  ? message.sender.picture
-                  : `${process.env.REACT_APP_AWS_URL}/${message.sender.picture}`
-              }
-              alt="profile image"
-            />
+            <div className="tw-relative tw-m-1 tw-h-12 tw-w-12 tw-flex-none tw-overflow-hidden tw-rounded-lg">
+              <img
+                className="tw-h-12 tw-w-12 tw-flex-none tw-rounded-lg"
+                src={
+                  message.sender.picture ==
+                  "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+                    ? message.sender.picture
+                    : `${process.env.REACT_APP_AWS_URL}/${message.sender.picture}`
+                }
+                alt="profile image"
+              />
+
+              <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xxs tw-text-white">
+                {message.sender.role}
+              </div>
+            </div>
+
             <div
               className={`tw-grid tw-w-full ${
                 isLoggedUser(message.sender) ? "tw-mr-4" : "tw-ml-4"
@@ -172,7 +198,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain }) {
                 {formatTimestamp(message.createdAt)}
               </span>
               <span
-                className={`tw-w-fit tw-max-w-2xl tw-rounded-full tw-border-2  tw-py-2 tw-px-8 tw-text-lg tw-text-white ${
+                className={`tw-w-fit tw-max-w-2xl tw-rounded-full tw-border-2  tw-px-8 tw-py-2 tw-text-lg tw-text-white ${
                   isLoggedUser(message.sender)
                     ? "tw-justify-self-end tw-bg-[#1E0039]"
                     : "tw-bg-[#581396]"

@@ -47,7 +47,7 @@ app.use("/*", handleNotFound);
 app.use(errorHandler);
 
 // Use your Stripe routes
-app.use("/donations", donationRoutes); 
+app.use("/donations", donationRoutes);
 
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)
@@ -85,6 +85,7 @@ io.on("connection", async (socket) => {
     console.log("11", userData.id);
     socket.emit("connected");
   });
+
   socket.on("join chat", (chat) => {
     socket.join(chat);
     console.log(`user joined chat: ${chat}`);

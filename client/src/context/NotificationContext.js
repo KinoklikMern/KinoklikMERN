@@ -11,7 +11,8 @@ const NotificationProvider = ({ children }) => {
   const [notificationCount, setNotificationCount] = useState(0);
   const [messageCount, setMessageCount] = useState(initialMessageCount);
   const [showNotification, setShowNotification] = useState(false);
-  const [filmmakerInfo, setFilmmakerInfo] = useState(null);
+  // const [filmmakerInfo, setFilmmakerInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("messageCount", messageCount);
@@ -44,8 +45,10 @@ const NotificationProvider = ({ children }) => {
         showNotification,
         incrementNotification,
         incrementMessage,
-        filmmakerInfo,
-        setFilmmakerInfo,
+        // filmmakerInfo,
+        // setFilmmakerInfo,
+        userInfo,
+        setUserInfo,
         clearMessageCount,
       }}
     >
