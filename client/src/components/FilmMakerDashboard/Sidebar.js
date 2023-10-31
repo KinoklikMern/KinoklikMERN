@@ -14,7 +14,7 @@ export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
 
   // Yeming added
-  const { notificationCount, messageCount, filmmakerInfo, clearMessageCount } =
+  const { notificationCount, messageCount, userInfo, clearMessageCount } =
     useContext(NotificationContext);
 
   console.info("select", SELECTED_TAB);
@@ -119,17 +119,13 @@ export default function Sidebar(props) {
                 {item.Title}
               </p>
               {/* Display notification count and Message count*/}
-              {/* {item.Title === "Notifications" && notificationCount > 0 && (
-                <div className="tw-absolute tw-top-0 tw-right-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
-                  {notificationCount > 9 ? "9+" : notificationCount}
-                </div>
-              )} */}
+
               {(item.Title === "Notifications" &&
                 notificationCount > 0 &&
-                filmmakerInfo === userId) ||
+                userInfo === userId) ||
               (item.Title === "Messages" &&
                 messageCount > 0 &&
-                filmmakerInfo === userId) ? (
+                userInfo === userId) ? (
                 <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"

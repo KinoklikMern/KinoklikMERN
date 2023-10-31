@@ -1,4 +1,4 @@
-import React, { useState, setState } from "react";
+import React from "react";
 import SignupCss from "./signup.module.css";
 import filmmakerIcon from "../../../images/icons/filmmakerIcon.svg";
 import actorIcon from "../../../images/icons/actorIcon.svg";
@@ -75,7 +75,7 @@ export const optionsSecondary = [
   {
     label: "Distributor",
     value: "Distributor",
-    image: distributorIcon
+    image: distributorIcon,
   },
 ];
 
@@ -121,7 +121,9 @@ function RoleChoise({ role, setRole }) {
                 <div
                   key={option.value}
                   className={`${SignupCss.roleImgSecondary} ${
-                    role.value === option.value ? SignupCss.selectedSecondary : ""
+                    role.value === option.value
+                      ? SignupCss.selectedSecondary
+                      : ""
                   }`}
                 >
                   <button

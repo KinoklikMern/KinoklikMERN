@@ -16,7 +16,6 @@ import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
 
-
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
 
@@ -45,8 +44,6 @@ app.use("/message", messageRoutes);
 
 app.use("/*", handleNotFound);
 app.use(errorHandler);
-
-
 
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)
@@ -84,6 +81,7 @@ io.on("connection", async (socket) => {
     console.log("11", userData.id);
     socket.emit("connected");
   });
+
   socket.on("join chat", (chat) => {
     socket.join(chat);
     console.log(`user joined chat: ${chat}`);

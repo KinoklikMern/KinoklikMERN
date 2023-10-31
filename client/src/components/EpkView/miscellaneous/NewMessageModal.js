@@ -14,7 +14,7 @@ export default function NewMessageModal(props) {
   const [socketConnected, setSocketConnected] = useState(false);
   const [msg, setMsg] = useState("");
 
-  const { incrementMessage, messageCount, setMessageCount, setFilmmakerInfo } =
+  const { incrementMessage, messageCount, setMessageCount, setUserInfo } =
     useContext(NotificationContext);
   const handleChange = (e) => {
     setMsg(e.target.value);
@@ -26,7 +26,7 @@ export default function NewMessageModal(props) {
           if (res.status === 200) {
             // Yeming added
             incrementMessage();
-            setFilmmakerInfo(props.filmmakerId);
+            setUserInfo(props.filmmakerId);
 
             socket.emit("new message", res.data);
             props.close("message");

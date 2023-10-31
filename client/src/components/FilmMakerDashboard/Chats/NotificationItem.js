@@ -67,11 +67,24 @@ function NotificationItem({ chat, getChatSender, formatTimestamp, notif }) {
           markAsRead();
         }}
       >
-        <img
+        {/* <img
           className="tw-m-1 tw-ml-6 tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg"
           src={getChatSender(user, chat.users).avatar}
           alt="profile image"
-        />
+        /> */}
+
+        <div className="tw-relative tw-m-1 tw-ml-6 tw-h-16 tw-w-16 tw-flex-none tw-overflow-hidden tw-rounded-lg">
+          <img
+            className="tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg"
+            src={getChatSender(user, chat?.users)?.avatar}
+            alt="profile image"
+          />
+
+          <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xs tw-text-white">
+            {getChatSender(user, chat?.users)?.type}
+          </div>
+        </div>
+
         <span className="tw-grow tw-self-center tw-pl-8">
           {getChatSender(user, chat.users).name}
           <div className="tw-absolute tw-bottom-auto tw-left-auto tw--right-1 tw--top-1 tw-z-10 tw-rounded-full tw-bg-pink-700 tw-p-2.5"></div>
