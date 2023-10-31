@@ -20,6 +20,10 @@ module.exports = {
       flex: {
         center: "0 0 auto",
       },
+
+      fontSize: {
+        xxs: "0.6rem",
+      },
     },
   },
   variants: {

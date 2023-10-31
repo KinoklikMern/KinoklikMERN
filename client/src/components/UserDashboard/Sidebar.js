@@ -10,11 +10,20 @@ import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
 import MessageIcon from "../../images/icons/message.svg";
 import MessageWhiteIcon from "../../images/icons/message-white.svg";
 import ActorPage from "../../images/icons/actorpage.svg";
+import { NotificationContext } from "../../context/NotificationContext";
+import { useSelector } from "react-redux";
 
 export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
   const Role = props.role;
   console.info("select", SELECTED_TAB);
+
+  // Yeming added
+  const { messageCount, userInfo, clearMessageCount } =
+    useContext(NotificationContext);
+
+  // Access the user ID from Redux store
+  const userId = useSelector((state) => state.user.id);
 
   const sideBarList1 = [
     {
@@ -137,6 +146,8 @@ export default function Sidebar(props) {
   const sideBarList = Role === "Actor" ? sideBarList2 : sideBarList1;
 
   console.log(sideBarList);
+  console.log("userId", userId);
+  console.log("userInfo", userInfo);
   return (
     <>
       <nav
@@ -149,13 +160,17 @@ export default function Sidebar(props) {
           <div
             key={index}
             className={
-              "tw-flex tw-justify-center hover:tw-scale-105 " +
+              // "tw-flex tw-justify-center hover:tw-scale-105 " +
+              "tw-group tw-relative " +
               (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
             }
           >
             <a
               href={item.href}
               className="tw-flex tw-flex-col tw-text-[#1E0039]"
+              onClick={
+                item.Title === "Messages" ? clearMessageCount : undefined
+              }
             >
               <div className="tw-flex tw-justify-center ">
                 <img
@@ -176,6 +191,17 @@ export default function Sidebar(props) {
               >
                 {item.Title}
               </p>
+
+              {/* Display Message count*/}
+              {item.Title === "Messages" &&
+              messageCount > 0 &&
+              userInfo === userId ? (
+                <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
+                  {item.Title === "Messages" && messageCount > 9
+                    ? "9+"
+                    : messageCount}
+                </div>
+              ) : null}
             </a>
           </div>
         ))}
