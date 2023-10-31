@@ -1016,6 +1016,31 @@ export const getActorLikes = async (req, res) => {
   }
 };
 
+// Increment the recommendation count for an actor on KinoKlik
+export const getActorRecommendations = async (req, res) => {
+  try {
+    console.log("Actor ID:", req.params.actorid);
+    console.log("Count:", req.body.count);
+
+    const actorId = req.params.actorid;
+    const count = req.body.count; // The count of selected filmmakers
+    const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
+
+    console.log("Actor Profile:", actorProfile);
+    
+    if (!actorProfile) {
+      return res.status(404).json({ error: "No Actor was found!" });
+    }
+
+    actorProfile.recommendations = (actorProfile.recommendations || 0) + count;
+    await actorProfile.save();
+
+    res.json({ recommendations: actorProfile.recommendations });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // upload user(actor) thumbnail of the demo reel
 export const uploadActorThumbnail = async (req, res) => {
   const file = req.file;
