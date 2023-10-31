@@ -60,7 +60,7 @@ export const SideProfileMenu = () => {
     user?.role !== "Filmmaker" ? menuList.slice(1) : menuList;
 
   const picture = user
-    ? user.picture ==
+    ? user.picture ===
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
       ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
       : `${process.env.REACT_APP_AWS_URL}/${user.picture}`

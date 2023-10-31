@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
+import LanguageToggle from "./LanguageToggle";
 
 function Footer() {
   return (
@@ -30,6 +31,7 @@ function Footer() {
                 For Industry <br />
                 Professionals
               </Link>
+          
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-lg tw-font-semibold'>Company</h5>
@@ -90,6 +92,7 @@ function Footer() {
               </a>
             </div>
           </div>
+          <LanguageToggle/>
           <div className='tw-text-gray-300'>
             &copy; {new Date().getFullYear()} KinoKlik. All Rights Reserved.
           </div>
