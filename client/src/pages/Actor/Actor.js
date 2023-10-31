@@ -32,7 +32,7 @@ export default function Actor(props) {
   const [pics, setpics] = useState([]);
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
-  const [recommend, setRecommend] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [allUserList, setAllUserList] = useState([]);
@@ -87,7 +87,7 @@ export default function Actor(props) {
         setAge(actorData.age);
         setLikes(actorData.likes.length);
         setKKFollower(actorData.kkFollowers.length);
-        setRecommend(actorData.comunicate);
+        setRecommendations(actorData.recommendations);
         setAllUserList(usersResponse.data);
       })
       .catch((error) => {
@@ -107,6 +107,12 @@ export default function Actor(props) {
       setLikes(res.data.likes.length);
     });
   }
+  // user is added to the list of recommendations
+  const addUserToRecommendations = (count) => {
+    http.post(`/users/recommend/${id}`, { count }).then((res) => {
+      setRecommendations(res.data.recommendations);
+    });
+  };
   // user is recommended to filmmakers
   const recommendToFilmmaker = (filmmaker) => {
     setSelectedFilmmakers((prevSelected) => {
@@ -131,20 +137,50 @@ export default function Actor(props) {
     if (!user || !user.token) {
       return console.error("User or user token is not available");
     }
-
     if (selectedFilmmakers.length === 0) {
       return console.error("No filmmakers selected for recommendation");
     }
 
-    // const message = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>
-    //             <br>
-    //             <a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;"/></a>`;
+    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
+    const message2 = `<a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
+
+    Promise.all(
+      selectedFilmmakers.map((filmmaker) => {
+        return addToChat(message1, user, filmmaker._id).then((res) => {
+          if (res && res.status === 200) {
+            showModal();
+            return addToChat(message2, user, filmmaker._id);
+          } else {
+            console.error("Unexpected response for message 1", res);
+            throw new Error("Unexpected response for message 1");
+          }
+        });
+      })
+    )
+      .then(() => {
+        addUserToRecommendations(selectedFilmmakers.length);
+        setSelectedFilmmakers([]);
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Error sending recommendations:", error);
+      });
 
     // selectedFilmmakers.forEach((filmmaker) => {
-    //   addToChat(message, user, filmmaker._id)
+    //   addToChat(message1, user, filmmaker._id)
     //     .then((res) => {
+    //       // If the first message is successful, send the second message
+    //       if (res && res.status === 200) {
+    //         return addToChat(message2, user, filmmaker._id);
+    //       } else {
+    //         console.error("Unexpected response for message 1", res);
+    //         throw new Error("Unexpected response for message 1");
+    //       }
+    //     })
+    //     .then((res) => {
+    //       // Handle the response for the second message
     //       const logData = {
-    //         "Sending Message": message,
+    //         "Sending Message": message2,
     //         "User ID": user.id,
     //         "Actor ID": epkInfo._id,
     //         "Filmmaker ID": filmmaker._id,
@@ -157,52 +193,15 @@ export default function Actor(props) {
     //         );
     //         showModal();
     //       } else {
-    //         console.error("Unexpected response", res);
+    //         console.error("Unexpected response for message 2", res);
     //       }
     //     })
     //     .catch((error) => {
     //       console.error("Error sending recommendation:", error);
     //     });
     // });
-    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
-    const message2 = `<a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
-
-    selectedFilmmakers.forEach((filmmaker) => {
-      addToChat(message1, user, filmmaker._id)
-        .then((res) => {
-          // If the first message is successful, send the second message
-          if (res && res.status === 200) {
-            return addToChat(message2, user, filmmaker._id);
-          } else {
-            console.error("Unexpected response for message 1", res);
-            throw new Error("Unexpected response for message 1");
-          }
-        })
-        .then((res) => {
-          // Handle the response for the second message
-          const logData = {
-            "Sending Message": message2,
-            "User ID": user.id,
-            "Actor ID": epkInfo._id,
-            "Filmmaker ID": filmmaker._id,
-          };
-          console.table(logData);
-
-          if (res && res.status === 200) {
-            console.log(
-              `Recommendation for ${epkInfo.firstName} ${epkInfo.lastName} sent to ${filmmaker.firstName} ${filmmaker.lastName}.`
-            );
-            showModal();
-          } else {
-            console.error("Unexpected response for message 2", res);
-          }
-        })
-        .catch((error) => {
-          console.error("Error sending recommendation:", error);
-        });
-    });
-    setSelectedFilmmakers([]);
-    closeModal();
+    // setSelectedFilmmakers([]);
+    // closeModal();
   };
 
   const handleSearch = (event) => {
@@ -504,7 +503,7 @@ export default function Actor(props) {
             className="follower-number-Recommend actor-detail-item"
             style={{ fontSize: "24px" }}
           >
-            {recommend.length || "0"}
+            {recommendations}
           </p>
           <div className="actor-detail-item actor-icon-movie-container">
             <img
