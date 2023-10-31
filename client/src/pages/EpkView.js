@@ -5,7 +5,6 @@ import http from "../http-common";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import style from "./EpkView.module.css";
-//import kickStar from "../images/kickstarter.png";
 import People from "../images/People.png";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcons from "@mui/icons-material/Facebook";
@@ -829,21 +828,6 @@ function EpkView() {
           </div>
 
           <div>
-            {/* <a href="#">
-              {userId === "0" ? (
-                <FontAwesomeIcon
-                  icon={faDollarSign}
-                  size="lg"
-                  onClick={() => login()}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faDollarSign}
-                  size="lg"
-                  onClick={() => addUserToWishesToBuy()}
-                />
-              )}
-            </a> */}
             <a href="#action" onClick={handleDollarIconClick}>
               <FontAwesomeIcon icon={faDollarSign} size="lg" />
             </a>
@@ -851,23 +835,6 @@ function EpkView() {
             <span>{usersWishesToBuy}</span>
           </div>
           <div>
-            {/* <a href="#">
-              {userId === "0" ? (
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  size="lg"
-                  onClick={() => login()}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  size="lg"
-                  color="fa-duotone"
-                  onClick={() => addUserToFavourites()}
-                />
-              )}         
-            </a> */}
-
             <a href="#action" onClick={handlePlusIconClick}>
               <FontAwesomeIcon
                 icon={faPlus}
@@ -879,38 +846,12 @@ function EpkView() {
             <span>{usersFavourites}</span>
           </div>
           <div>
-            {/* <a href="#">
-              {userId === "0" ? (
-                <FontAwesomeIcon
-                  icon={faStar}
-                  size="lg"
-                  onClick={() => login()}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faStar}
-                  size="lg"
-                  onClick={() => addUserToLikes()}
-                />
-              )}
-            </a> */}
-
             <a href="#action" onClick={handleStarIconClick}>
               <FontAwesomeIcon icon={faStar} size="lg" />
             </a>
             <span>{usersLikes}</span>
           </div>
 
-          {/* <div>
-            <a href="#">
-              <img
-                className={style.icon}
-                src={kickStar}
-                alt="kstarter"
-                onClick={() => openUrl(fepkData.kickstarter_url)}
-              />
-            </a>
-          </div> */}
           <div>
             {/* Social media sharing Icons */}
             {sharingClicked === true && (

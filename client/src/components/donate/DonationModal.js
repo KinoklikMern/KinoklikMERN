@@ -9,7 +9,6 @@ const DonationModal = ({
   epkDonatePayPal,
   epkDonateStripe,
 }) => {
-
   const handleDonationPaypalSubmit = () => {
     // Redirect to the PayPal donation page or URL
     if (epkDonatePayPal) {
@@ -25,38 +24,45 @@ const DonationModal = ({
   };
 
   return (
-    <Modal
-      show={isOpen}
-      onHide={onRequestClose}
-      animation={true}
-      centered
-      size="lg"
-    >
-      <div style={{ backgroundColor: "#503764E0" }}>
-        <Modal.Header closeButton style={{ border: "none" }}></Modal.Header>
-        <Modal.Body>
+    <>
+      <style>
+        {`
+         .modal-backdrop {
+           z-index: -1;
+         }
+       `}
+      </style>
+
+      <Modal
+        show={isOpen}
+        onHide={onRequestClose}
+        animation={true}
+        centered
+        style={{ maxWidth: "1000px", backgroundColor: "#503764E0" }}
+      >
+        <Modal.Body style={{ backgroundColor: "#503764E0" }}>
           <Container>
-            <Row className="justify-content-center">
-              <Col md={8} style={{ textAlign: "center" }}>
-                <Modal.Title style={{ color: "white", marginBottom: "15px" }}>
+            <Row>
+              {/* First Column */}
+              <Col md={8}>
+                <Modal.Title
+                  style={{
+                    color: "white",
+                    marginBottom: "15px",
+                    fontSize: "20px",
+                    textAlign: "center",
+                  }}
+                >
                   Support the filmmaker by making a one-time donation
                 </Modal.Title>
-
-                {/* EPK image */}
-                <img
-                  src={epkImage}
-                  alt="EPK Img"
-                  className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
-                  style={{ width: "300px", height: "500px" }}
-                />
 
                 {epkDonatePayPal && (
                   <Button
                     onClick={handleDonationPaypalSubmit}
                     style={{
-                      marginTop: "60px",
+                      marginTop: "20px",
                       backgroundColor: "#FFD600",
-                      width: "300px",
+                      width: "100%",
                     }}
                   >
                     Donate with PayPal
@@ -69,27 +75,29 @@ const DonationModal = ({
                     style={{
                       marginTop: "20px",
                       backgroundColor: "#5B1DDF",
-                      width: "300px",
+                      width: "100%",
                     }}
                   >
-                    Donate with Debit or Credit Card
+                    Donate with Stripe
                   </Button>
                 )}
+              </Col>
+
+              {/* Second Column */}
+              <Col md={4}>
+                {/* EPK image */}
+                <img
+                  src={epkImage}
+                  alt="EPK Img"
+                  className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
+                  style={{ width: "100%", height: "100%" }}
+                />
               </Col>
             </Row>
           </Container>
         </Modal.Body>
-        <Modal.Footer style={{ border: "none", float: "left" }}>
-          <div>
-            <img
-              src={paypalImage}
-              alt="PayPal Img"
-              style={{ width: "50px", height: "30px" }}
-            />
-          </div>
-        </Modal.Footer>
-      </div>
-    </Modal>
+      </Modal>
+    </>
   );
 };
 
