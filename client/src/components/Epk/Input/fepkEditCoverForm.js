@@ -4,6 +4,8 @@ import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import Modal from "react-modal";
+import paypalImage from "../../../images/paypal.png";
+import stripImage from "../../../images/stripe.jpg";
 
 function FepkEditCoverForm() {
   const [file1, setFile1] = useState("");
@@ -393,6 +395,11 @@ function FepkEditCoverForm() {
                         borderRadius: "5px",
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${paypalImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 60px",
                       }}
                       className="form-control"
                       defaultValue={fepk.DonatePayPal_url}
@@ -407,8 +414,12 @@ function FepkEditCoverForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${stripImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 40px",
                       }}
                       className="form-control"
                       defaultValue={fepk.DonateStripe_url}
