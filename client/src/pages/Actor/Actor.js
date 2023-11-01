@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Actor.css";
-import List from "./ListActor";
+// import List from "./ListActor";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
 import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
 import Navbar from "../../components/navbar/Navbar";
@@ -165,43 +165,6 @@ export default function Actor(props) {
       .catch((error) => {
         console.error("Error sending recommendations:", error);
       });
-
-    // selectedFilmmakers.forEach((filmmaker) => {
-    //   addToChat(message1, user, filmmaker._id)
-    //     .then((res) => {
-    //       // If the first message is successful, send the second message
-    //       if (res && res.status === 200) {
-    //         return addToChat(message2, user, filmmaker._id);
-    //       } else {
-    //         console.error("Unexpected response for message 1", res);
-    //         throw new Error("Unexpected response for message 1");
-    //       }
-    //     })
-    //     .then((res) => {
-    //       // Handle the response for the second message
-    //       const logData = {
-    //         "Sending Message": message2,
-    //         "User ID": user.id,
-    //         "Actor ID": epkInfo._id,
-    //         "Filmmaker ID": filmmaker._id,
-    //       };
-    //       console.table(logData);
-
-    //       if (res && res.status === 200) {
-    //         console.log(
-    //           `Recommendation for ${epkInfo.firstName} ${epkInfo.lastName} sent to ${filmmaker.firstName} ${filmmaker.lastName}.`
-    //         );
-    //         showModal();
-    //       } else {
-    //         console.error("Unexpected response for message 2", res);
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error sending recommendation:", error);
-    //     });
-    // });
-    // setSelectedFilmmakers([]);
-    // closeModal();
   };
 
   const handleSearch = (event) => {

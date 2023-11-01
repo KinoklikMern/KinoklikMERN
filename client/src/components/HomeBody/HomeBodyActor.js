@@ -38,7 +38,7 @@ const HomeBody = ({role}) => {
   return (
     <>
       <div className="home">
-        <div>
+        {/* <div>
           <div className="listTitle">
             <span>STARRED</span>
           </div>
@@ -49,7 +49,7 @@ const HomeBody = ({role}) => {
             <span>FOLLOWING</span>
           </div>
           <List title="following" type={filterQuery} />
-        </div>
+        </div> */}
         <div>
           <div className="listTitle">
             <span>MOST STARRED</span>
