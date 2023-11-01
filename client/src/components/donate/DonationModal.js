@@ -13,7 +13,6 @@ const customStyles = {
     border: "none",
     display: "flex",
     justifyContent: "center",
-
   },
 
   overlay: {
@@ -75,16 +74,15 @@ const DonationModal = ({
                 style={{
                   color: "#0081C9",
                   marginTop: "10%",
-                  marginLeft:"20%",
+                  marginLeft: "20%",
                   backgroundColor: "#FFD600",
-                  width: "70%", 
-                  height: "60px", 
+                  width: "70%",
+                  height: "60px",
                   borderRadius: "5px",
                   border: "1px solid #1E0039",
                   fontSize: "30px",
                   boxShadow: "4px 4px 10px 0px #1E0039",
-                  fontWeight: "bold", 
-                  
+                  fontWeight: "bold",
                 }}
               >
                 Donate with PayPal
@@ -96,15 +94,15 @@ const DonationModal = ({
                 onClick={handleDonationStripeSubmit}
                 style={{
                   marginTop: "2%",
-                  marginLeft:"20%",
+                  marginLeft: "20%",
                   backgroundColor: "#5B1DDF",
-                  width: "70%", 
-                  height: "60px", 
+                  width: "70%",
+                  height: "60px",
                   borderRadius: "5px",
                   border: "1px solid #1E0039",
                   boxShadow: "4px 4px 10px 0px #1E0039",
                   fontSize: "30px",
-                  fontWeight: "bold", 
+                  fontWeight: "bold",
                   alignSelf: "center",
                 }}
               >
@@ -114,13 +112,16 @@ const DonationModal = ({
           </Col>
 
           {/* Second Column */}
-          <Col md={4} style={{ display: "flex", alignItems: "center", height: "100%" }}>
+          <Col
+            md={4}
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
             {/* EPK image */}
             <img
               src={epkImage}
               alt="EPK Img"
               className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
-              style={{ width: "75%", height: "75%",marginTop:"20%" }}
+              style={{ width: "75%", height: "75%", marginTop: "20%" }}
             />
           </Col>
         </Row>

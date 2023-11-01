@@ -68,7 +68,9 @@ export default function LoginModal(props) {
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer style={{ border: "none", display: "flex", justifyContent: "center" }}>
+      <Modal.Footer
+        style={{ border: "none", display: "flex", justifyContent: "center" }}
+      >
         <div className="text-center">
           <Button
             style={{
