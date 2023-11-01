@@ -296,13 +296,21 @@ export default function Actor(props) {
         </div>
 
         <div className="actor-middle-container">
-          <p className="actor-name actor-detail-item">
+          <p
+            className="Actor-Role actor-detail-item"
+            style={{
+              fontSize: "30px",
+              fontWeight: "bold",
+            }}
+          >
             {epkInfo.firstName} {epkInfo.lastName}
           </p>
           <p
-            className="actor-name actor-detail-item"
+            className="Actor-Role actor-detail-item"
             style={{
               gridColumn: "3/4",
+              fontSize: "30px",
+              fontWeight: "bold",
             }}
           >
             {displaySex(epkInfo.sex)}

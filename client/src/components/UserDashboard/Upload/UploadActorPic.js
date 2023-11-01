@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./UploadActorPic.css";
 import http from "../../../http-common";
-// import instagramIcon from "../../../images/icons/002-instagram.svg";
-// import twiiterIcon from "../../../images/icons/005-twitter.svg";
-// import facebookIcon from "../../../images/icons/004-facebook-app-logo.svg";
+import instagramIcon from "../../../images/icons/002-instagram.svg";
+import twiiterIcon from "../../../images/icons/005-twitter.svg";
+import facebookIcon from "../../../images/icons/004-facebook-app-logo.svg";
 import Modal from "react-modal";
 
 export default function UploadActorPic({ user }) {
@@ -731,4 +731,3 @@ export default function UploadActorPic({ user }) {
     </>
   );
 }
-
