@@ -336,14 +336,16 @@ export default function Profile() {
             </>
           ) : null}
         </div>
-        <div className='tw-col-start-4 tw-mx-auto tw-my-8 tw-flex tw-flex-col tw-self-start'>
+        {/* Profile picture */}
+        <div className='tw-mx-auto tw-my-8 tw-flex tw-flex-col md:tw-col-start-4'>
           <label htmlFor='profileImageUpload'>
-            <img
-              className='tw-mb-4 tw-cursor-pointer tw-rounded-full'
-              src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
-              alt='User Avatar'
+            <div
+              className='tw-h-[150px] tw-w-[150px] tw-cursor-pointer tw-rounded-full tw-bg-cover tw-bg-center'
+              style={{
+                backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${userProfileData.picture})`,
+              }}
               title='Click to change image'
-            />
+            ></div>
           </label>
           <input
             id='profileImageUpload'
@@ -354,6 +356,7 @@ export default function Profile() {
             className='tw-hidden'
           />
         </div>
+
         {/* Save Button */}
         <div className='tw-col-start-4 tw-place-self-end tw-px-12'>
           {disabled === true ? (
