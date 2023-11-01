@@ -37,7 +37,6 @@ const HomeBody = ({ role }) => {
   return (
     <>
       <div className="home">
-        {/* -- CHIHYIN -- */}
         {/* <div>
           <div className="listTitle">
             <span>STARRED</span>
