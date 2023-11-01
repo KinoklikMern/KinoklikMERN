@@ -4,10 +4,10 @@ import Modal from "react-modal";
 
 const customStyles = {
   content: {
-    maxWidth: "650px",
-    maxHeight: "450px",
-    margin: "auto", 
-    top: "50%", 
+    maxWidth: "37%",
+    height: "550px",
+    margin: "auto",
+    top: "50%",
     transform: "translateY(-50%)",
     backgroundColor: "#503764E0",
     border: "none",
@@ -22,7 +22,6 @@ const customStyles = {
     alignItems: "center",
   },
 };
-
 
 const DonationModal = ({
   isOpen,
@@ -46,7 +45,6 @@ const DonationModal = ({
   };
 
   return (
-  
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
@@ -62,12 +60,12 @@ const DonationModal = ({
                 color: "white",
                 marginTop: "55px",
                 marginBottom: "75px",
-                fontSize: "20px",
+                fontSize: "45px",
                 textAlign: "center",
               }}
             >
-             <p>Support the filmmaker by</p>
-             <p>making a one-time donation.</p>
+              <p>Support the filmmaker by</p>
+              <p>making a one-time donation.</p>
             </h1>
 
             {epkDonatePayPal && (
@@ -75,13 +73,16 @@ const DonationModal = ({
                 onClick={handleDonationPaypalSubmit}
                 style={{
                   color: "#0081C9",
-                  
-                  marginTop: "20px",
+                  marginTop: "10%",
+                  marginLeft: "20%",
                   backgroundColor: "#FFD600",
-                  width: "100%",
-                  borderRadius: "5px", 
+                  width: "70%",
+                  height: "60px",
+                  borderRadius: "5px",
                   border: "1px solid #1E0039",
+                  fontSize: "30px",
                   boxShadow: "4px 4px 10px 0px #1E0039",
+                  fontWeight: "bold",
                 }}
               >
                 Donate with PayPal
@@ -89,39 +90,43 @@ const DonationModal = ({
             )}
 
             {epkDonateStripe && (
-            <Button
-            onClick={handleDonationStripeSubmit}
-            style={{
-              marginTop: "20px",
-              backgroundColor: "#5B1DDF",
-              width: "100%",
-              borderRadius: "5px",
-              border: "1px solid #1E0039",
-              boxShadow: "4px 4px 10px 0px #1E0039", 
-            }}
-          >
-            Donate with Stripe
-          </Button>
-          
-           
+              <Button
+                onClick={handleDonationStripeSubmit}
+                style={{
+                  marginTop: "2%",
+                  marginLeft: "20%",
+                  backgroundColor: "#5B1DDF",
+                  width: "70%",
+                  height: "60px",
+                  borderRadius: "5px",
+                  border: "1px solid #1E0039",
+                  boxShadow: "4px 4px 10px 0px #1E0039",
+                  fontSize: "30px",
+                  fontWeight: "bold",
+                  alignSelf: "center",
+                }}
+              >
+                Donate with Stripe
+              </Button>
             )}
-           
           </Col>
 
           {/* Second Column */}
-          <Col md={4}>
+          <Col
+            md={4}
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
             {/* EPK image */}
             <img
               src={epkImage}
               alt="EPK Img"
               className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
-              style={{ width: "100%" }}
+              style={{ width: "75%", height: "75%", marginTop: "20%" }}
             />
           </Col>
         </Row>
       </Container>
     </Modal>
- 
   );
 };
 
