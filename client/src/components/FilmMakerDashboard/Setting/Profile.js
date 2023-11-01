@@ -52,12 +52,12 @@ export default function Profile() {
         id: userId,
       }).then((rs) => {
         setUserProfileData(rs.data);
-        console.log(userProfileData);
+        // console.log(userProfileData);
       });
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, [userId, userProfileData]);
+  }, [userId]);
 
   if (filename !== "") {
     userProfileData.picture = filename;
@@ -97,7 +97,7 @@ export default function Profile() {
     const { name, value } = event.target;
     setUserProfileData({ ...userProfileData, [name]: value });
     setDisabled(false);
-    console.log(userProfileData);
+    // console.log(userProfileData);
   };
 
   function saveUserProfile() {
@@ -108,7 +108,7 @@ export default function Profile() {
       .then((res) => {
         setModalIsOpen(true);
         // alert("Updated profile successfully!");
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         alert(err.response.data.message);
