@@ -1,6 +1,28 @@
 import React from "react";
-import { Modal, Button, Col, Container, Row } from "react-bootstrap";
-import paypalImage from "../../images/PayPal-Logo.png";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    maxWidth: "650px",
+    maxHeight: "450px",
+    margin: "auto", 
+    top: "50%", 
+    transform: "translateY(-50%)",
+    backgroundColor: "#503764E0",
+    border: "none",
+    display: "flex",
+    justifyContent: "center",
+  },
+
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+};
+
 
 const DonationModal = ({
   isOpen,
@@ -24,80 +46,82 @@ const DonationModal = ({
   };
 
   return (
-    <>
-      <style>
-        {`
-         .modal-backdrop {
-           z-index: -1;
-         }
-       `}
-      </style>
+  
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      shouldCloseOnOverlayClick={true}
+      style={customStyles}
+    >
+      <Container>
+        <Row>
+          {/* First Column */}
+          <Col md={8}>
+            <h1
+              style={{
+                color: "white",
+                marginTop: "55px",
+                marginBottom: "75px",
+                fontSize: "20px",
+                textAlign: "center",
+              }}
+            >
+             <p>Support the filmmaker by</p>
+             <p>making a one-time donation.</p>
+            </h1>
 
-      <Modal
-        show={isOpen}
-        onHide={onRequestClose}
-        animation={true}
-        centered
-        style={{ maxWidth: "1000px", backgroundColor: "#503764E0" }}
-      >
-        <Modal.Body style={{ backgroundColor: "#503764E0" }}>
-          <Container>
-            <Row>
-              {/* First Column */}
-              <Col md={8}>
-                <Modal.Title
-                  style={{
-                    color: "white",
-                    marginBottom: "15px",
-                    fontSize: "20px",
-                    textAlign: "center",
-                  }}
-                >
-                  Support the filmmaker by making a one-time donation
-                </Modal.Title>
+            {epkDonatePayPal && (
+              <Button
+                onClick={handleDonationPaypalSubmit}
+                style={{
+                  color: "#0081C9",
+                  
+                  marginTop: "20px",
+                  backgroundColor: "#FFD600",
+                  width: "100%",
+                  borderRadius: "5px", 
+                  border: "1px solid #1E0039",
+                  boxShadow: "4px 4px 10px 0px #1E0039",
+                }}
+              >
+                Donate with PayPal
+              </Button>
+            )}
 
-                {epkDonatePayPal && (
-                  <Button
-                    onClick={handleDonationPaypalSubmit}
-                    style={{
-                      marginTop: "20px",
-                      backgroundColor: "#FFD600",
-                      width: "100%",
-                    }}
-                  >
-                    Donate with PayPal
-                  </Button>
-                )}
+            {epkDonateStripe && (
+            <Button
+            onClick={handleDonationStripeSubmit}
+            style={{
+              marginTop: "20px",
+              backgroundColor: "#5B1DDF",
+              width: "100%",
+              borderRadius: "5px",
+              border: "1px solid #1E0039",
+              boxShadow: "4px 4px 10px 0px #1E0039", 
+            }}
+          >
+            Donate with Stripe
+          </Button>
+          
+           
+            )}
+           
+          </Col>
 
-                {epkDonateStripe && (
-                  <Button
-                    onClick={handleDonationStripeSubmit}
-                    style={{
-                      marginTop: "20px",
-                      backgroundColor: "#5B1DDF",
-                      width: "100%",
-                    }}
-                  >
-                    Donate with Stripe
-                  </Button>
-                )}
-              </Col>
-
-              {/* Second Column */}
-              <Col md={4}>
-                {/* EPK image */}
-                <img
-                  src={epkImage}
-                  alt="EPK Img"
-                  className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </Col>
-            </Row>
-          </Container>
-        </Modal.Body>
-      </Modal>
-    </>
+          {/* Second Column */}
+          <Col md={4}>
+            {/* EPK image */}
+            <img
+              src={epkImage}
+              alt="EPK Img"
+              className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
+              style={{ width: "100%" }}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </Modal>
+ 
   );
 };
 
