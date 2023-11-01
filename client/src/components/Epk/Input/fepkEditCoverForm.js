@@ -543,7 +543,7 @@ function FepkEditCoverForm() {
                   <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
-                    contentLabel="Example Modal"
+                    contentLabel="Save Cover Modal"
                     appElement={document.getElementById("root")}
                     style={{
                       overlay: {
