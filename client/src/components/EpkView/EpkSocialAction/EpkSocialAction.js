@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from "react";
 import ActionIcon from "./ActionIcon";
 import DonationIcon from "../../../images/icons/Donation.svg";
@@ -10,7 +11,6 @@ import StarIcon from "../../../images/icons/StarWhite.svg";
 import StarBlackIcon from "../../../images/icons/StarBlack.svg";
 //import KIcon from "../../../images/icons/K.svg";
 import ShareIcon from "../../../images/icons/share.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import http from "../../../http-common";
 import { useSelector } from "react-redux";
 import {
@@ -34,10 +34,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   //
   // const [fepkId, setFepkId, fepkMaker, setFepkMaker] = useContext(FepkContext);
 
-
   const { user } = useSelector((user) => ({ ...user }));
   let userId;
   let userRole;
+
   if (!user) {
     userId = "0";
     userRole = "noUser";
@@ -49,10 +49,9 @@ export default function EpkSocialAction({ epkInfo, handler }) {
 
   const [usersWishesToDonate, setUsersWishesToDonate] = useState(
     epkInfo.wishes_to_donate?.length || 0
-);
+  );
 
   const hasDonateLinks = epkInfo.DonatePayPal_url || epkInfo.DonateStripe_url;
-
 
   const [usersWishesToBuy, setUsersWishesToBuy] = useState(
     epkInfo.wishes_to_buy.length
@@ -92,15 +91,16 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [epkInfo.title]);
 
   const actionList = [
     {
       name: "wish_to_donate",
       icon: hasDonateLinks
-        ? (fepkInfo?.wishes_to_donate?.filter((item) => item._id === userId).length !== 0
+        ? fepkInfo?.wishes_to_donate?.filter((item) => item._id === userId)
+            .length !== 0
           ? DonationBlackIcon
-          : DonationIcon)
+          : DonationIcon
         : null, // Set to null if there are no donation links
       number: hasDonateLinks ? usersWishesToDonate : 0, // Set to 0 if there are no donation links
       width: "",
@@ -166,7 +166,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
         switch (name) {
           case "wish_to_donate":
             handler("wish_to_donate"); // Use the handler function to open the donation modal
-          
+
             // Make an HTTP GET request using the Axios library (you can import Axios if it's not already imported)
             // Replace 'axios.get' with your actual HTTP request method
 
@@ -181,7 +181,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 console.error(error);
               });
             break;
-          
+
           case "wish_to_buy":
             // Determine if adding or removing from wishlist
             // const isAddingToWishlist =

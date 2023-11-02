@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import http from "../../http-common";
 import "./filmMakerDashboard.scss";
 import profileImage from "../../images/avatarDefault.jpeg";
 
 export default function Requests() {
   const [fepk, setFepk] = useState([]);
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState([]);
   const [roleFilter, setRoleFilter] = useState([""]);
   const [statusFilter, setStatusFilter] = useState([""]);
   const [mediumSynopsis, setMediumSynopsis] = useState([]);
@@ -36,15 +35,16 @@ export default function Requests() {
       setUniqueness(response.data.uniqueness);
       setStillsApproval(response.data.stillsApproval);
     });
-  }, []);
+  }, [fepkId]);
 
   // medium synopsis approval requests
   function mediumSynopsisApproval(userId, status) {
-    mediumSynopsis.map((medium) => {
+    mediumSynopsis.forEach((medium) => {
       if (medium.user._id === userId) {
         medium.status = status;
       }
     });
+
     setApprovalData({ ...approvalData, mediumSynopsis: mediumSynopsis });
     http
       .put(`fepks/update/${fepkId}`, { mediumSynopsis: mediumSynopsis })
@@ -58,7 +58,7 @@ export default function Requests() {
 
   // long synopsis approval requests
   function longSynopsisApproval(userId, status) {
-    longSynopsis.map((long) => {
+    longSynopsis.forEach((long) => {
       if (long.user._id === userId) {
         long.status = status;
       }
@@ -76,7 +76,7 @@ export default function Requests() {
 
   // uniqueness approval requests
   function uniquenessApproval(userId, status) {
-    uniqueness.map((unique) => {
+    uniqueness.forEach((unique) => {
       if (unique.user._id === userId) {
         unique.status = status;
       }
@@ -94,7 +94,7 @@ export default function Requests() {
 
   // stills approval requests
   async function stillApproval(userId, status) {
-    stillsApproval.map((still) => {
+    stillsApproval.forEach((still) => {
       if (still.user._id === userId) {
         still.status = status;
       }
@@ -222,6 +222,7 @@ export default function Requests() {
                   <p>
                     <img
                       src={`${medium.user.picture}`}
+                      alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
                     medium.comment
@@ -264,6 +265,7 @@ export default function Requests() {
                   <p>
                     <img
                       src={`${long.user.picture}`}
+                      alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
                     long.comment
@@ -306,6 +308,7 @@ export default function Requests() {
                   <p>
                     <img
                       src={`${unique.user.picture}`}
+                      alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
                     unique.comment
@@ -348,6 +351,7 @@ export default function Requests() {
                   <p>
                     <img
                       src={`${still.user.picture}`}
+                      alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
                     still.comment
@@ -376,6 +380,7 @@ export default function Requests() {
           <p>
             <img
               src={`${profileImage}`}
+              alt=""
               style={{ width: "40px", height: "auto" }}
             />
             Comment

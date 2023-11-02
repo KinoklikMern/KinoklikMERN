@@ -12,6 +12,10 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import io from "socket.io-client";
+
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const socket = io(backendUrl);
 
 export const SideProfileMenu = () => {
   const navigate = useNavigate();
@@ -38,7 +42,9 @@ export const SideProfileMenu = () => {
     {
       name: "My Dashboard",
       url: `${
-        user.role === "Filmmaker"
+        user.role === "ADMIN"
+          ? "admindashboard/main"
+          : user.role === "Filmmaker"
           ? "/dashboard/epks"
           : user.role === "Actor"
           ? "/userdashboard/actor"
@@ -58,46 +64,80 @@ export const SideProfileMenu = () => {
     user?.role !== "Filmmaker" ? menuList.slice(1) : menuList;
 
   const picture = user
-    ? user.picture ==
+    ? user.picture ===
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
       ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
       : `${process.env.REACT_APP_AWS_URL}/${user.picture}`
     : null;
 
   const logout = () => {
-    Cookies.set("user", null);
-    console.log(user);
-    console.log("log out");
+    // const currentUser = Cookies.get("user")
+    //   ? JSON.parse(Cookies.get("user"))
+    //   : null;
+
+    // // Cookies.set("user", null);
+    // Cookies.remove("user"); // Use remove instead of set to null
+    // // console.log(user);
+    // // console.log("log out");
+
+    // // Dispatching the USER_OFFLINE action
+    // if (currentUser && currentUser.id) {
+    //   // If using socket.io and you have a socket instance available
+    //   if (socket && socket.connected) {
+    //     // Inform the server of the logout
+    //     socket.emit("logout", currentUser.id);
+    //     // Disconnect the socket
+    //     socket.disconnect();
+    //   }
+    //   // console.log(`Dispatching USER_OFFLINE for user:`, currentUser.id);
+    //   // dispatch({ type: "USER_OFFLINE", payload: { userId: currentUser.id } });
+    // }
+
+    const currentUser = JSON.parse(Cookies.get("user") || "null");
+
+    if (currentUser && currentUser.id && socket) {
+      socket.emit("logout", currentUser.id); // Notify server of intent to logout
+      // Delay the disconnection slightly to ensure the logout event is processed
+      setTimeout(() => {
+        socket.disconnect(); // Disconnect the socket
+      }, 1000);
+    }
+
+    // Clear user data from cookies
+    Cookies.remove("user");
+
     dispatch({
       type: "LOGOUT",
       payload: null,
     });
-    console.log(user);
+    console.log("Logout actions dispatched.");
+    // console.log(`Logout actions dispatched for user:`, currentUser.id);
+    // console.log(user);
     navigate("/");
   };
 
   return (
     <>
-      <div className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-w-72 tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible">
-        <div className="tw-p-4">
-          <div className="tw-flex tw-items-center tw-justify-end">
-            <div className="tw-mx-4 tw-inline-block">
+      <div className='tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-w-72 tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible'>
+        <div className='tw-p-4'>
+          <div className='tw-flex tw-items-center tw-justify-end'>
+            <div className='tw-group tw-mx-4 tw-inline-block '>
               <img
                 src={picture}
-                alt="User Avatar"
-                className="tw-flex tw-max-h-14"
+                alt='User Avatar'
+                className='tw-h-14 tw-w-14 tw-rounded-full tw-object-cover'
               />
             </div>
-            <div className="tw-mx-4 tw-inline-block">
+            <div className='tw-mx-4 tw-inline-block'>
               <FontAwesomeIcon
                 icon={faBars}
-                size="2xl"
+                size='2xl'
                 style={{ color: "#fff" }}
               />
             </div>
           </div>
         </div>
-        <div className="tw-flex tw-h-screen tw-flex-col tw-items-end tw-justify-center tw-gap-5">
+        <div className='tw-flex tw-h-screen tw-flex-col tw-items-end tw-justify-center tw-gap-5'>
           {filteredMenuList.map((menu, index) => (
             <React.Fragment key={index}>
               <div
@@ -107,12 +147,12 @@ export const SideProfileMenu = () => {
                 }}
                 onMouseOver={() => setHoveredMenu(menu.name)}
                 onMouseOut={() => setHoveredMenu("")}
-                className="tw-mx-3 tw-flex tw-w-5/6 tw-items-center tw-justify-end tw-gap-2 tw-px-3 tw-pt-4 tw-text-white hover:tw-scale-105 hover:tw-cursor-pointer hover:tw-rounded-xl hover:tw-bg-white hover:tw-text-[#1C0039]"
+                className='tw-mx-3 tw-flex tw-w-5/6 tw-items-center tw-justify-end tw-gap-2 tw-px-3 tw-pt-4 tw-text-white hover:tw-scale-105 hover:tw-cursor-pointer hover:tw-rounded-xl hover:tw-bg-white hover:tw-text-[#1C0039]'
               >
-                <p className="tw-pb-2 tw-text-2xl">{menu.name}</p>
+                <p className='tw-pb-2 tw-text-2xl'>{menu.name}</p>
                 {menu.name === hoveredMenu ? menu.hoverIcon : menu.defaultIcon}
               </div>
-              <div className="tw-mx-3 tw-w-5/6 tw-border-[1px] tw-border-[#712CB0]"></div>
+              <div className='tw-mx-3 tw-w-5/6 tw-border-[1px] tw-border-[#712CB0]'></div>
             </React.Fragment>
           ))}
         </div>

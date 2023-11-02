@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import Axios from "axios";
 
@@ -45,7 +46,7 @@ export default function Studio() {
     } catch (error) {
       console.log(error.response.data.message);
     }
-  }, []);
+  }, [userId, userStudioData]);
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
@@ -94,7 +95,7 @@ export default function Studio() {
             <p className="tw-mb-0 tw-ml-9 tw-text-[#1E0039]">Representation</p>
             <button
               onClick={() => handlePermission(true)}
-              className={`tw-ml-5 tw-rounded-lg tw-py-1 tw-px-2 ${
+              className={`tw-ml-5 tw-rounded-lg tw-px-2 tw-py-1 ${
                 hasAgent
                   ? "tw-bg-[#1E0039] tw-text-white tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
                   : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
@@ -104,7 +105,7 @@ export default function Studio() {
             </button>
             <button
               onClick={() => handlePermission(false)}
-              className={`tw-ml-4 tw-rounded-lg tw-py-1 tw-px-2 ${
+              className={`tw-ml-4 tw-rounded-lg tw-px-2 tw-py-1 ${
                 !hasAgent
                   ? "tw-bg-[#1E0039] tw-text-white tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
                   : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
@@ -228,13 +229,13 @@ export default function Studio() {
         {disabled === true ? (
           <button
             disabled
-            className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
+            className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
           >
             Save
           </button>
         ) : (
           <button
-            className="tw-rounded-full tw-py-2 tw-px-8 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
+            className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserStudio()}
           >
             Save

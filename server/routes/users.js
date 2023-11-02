@@ -34,6 +34,7 @@ import {
   getActorLikes,
   uploadActorThumbnail,
   getAllUsers,
+  getUserById,
 } from "../controllers/users.js";
 import {
   validate,
@@ -95,7 +96,7 @@ router.post("/like/:actorid/:userid", getActorLikes);
 // upload actor thumbnail
 router.post("/actorthumbnail", upload.single("file"), uploadActorThumbnail);
 // ----- CHIHYIN -----
-router.get("/getallusers", getAllUsers)
+router.get("/getallusers", getAllUsers);
 
 // upload actor banner
 router.post("/actorbanner", upload.single("file"), uploadActorBanner);
@@ -109,5 +110,8 @@ router.post(
 
 // final save in actor profiles
 router.put("/actor/files/:id", actorUploadFiles);
+
+// get user by id
+router.get("/:id", getUserById);
 
 export default router;

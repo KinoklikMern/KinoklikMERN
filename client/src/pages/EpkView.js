@@ -1,21 +1,14 @@
-import React, { useState, useEffect, Fragment } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import http from "../http-common";
 import axios from "axios";
-import Navbar from "../components/navbar/Navbar";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import style from "./EpkView.module.css";
-//import kickStar from "../images/kickstarter.png";
 import People from "../images/People.png";
-import DollarSignEmpty from "../images/DollarSignEMPTY.svg";
-import DollarSignFull from "../images/DollarSignFULL.svg";
-import FullStar from "../images/starfull.svg";
-import EmptyStar from "../images/starempty.svg";
-import Share from "../images/share.ico";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcons from "@mui/icons-material/Facebook";
 import TwitterIcons from "@mui/icons-material/Twitter";
-import Footer from "../components/Footer";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -24,14 +17,10 @@ import io from "socket.io-client";
 import { ChatState } from "../context/ChatProvider";
 import {
   faDollarSign,
-  faSave,
-  faShareAlt,
   faPlus,
   faStar,
-  faSearch,
   faEnvelope,
   faEllipsisVertical,
-  faPeopleLine,
   faFlag,
   faCircleInfo,
   faInfoCircle,
@@ -50,8 +39,6 @@ import {
   TwitterIcon,
 } from "react-share";
 import Login from "../components/Auth/Registration/loginFromViewPage";
-import Axios from "axios";
-import { triggerFocus } from "antd/es/input/Input";
 import { FepkContext } from "../context/FepkContext";
 import StillsCarousel from "../components/Epk/Present/StillsCarousel";
 // import { NotificationContext } from "../context/NotificationContext";
@@ -169,7 +156,7 @@ function EpkView() {
         setFepkMaker(response.data.film_maker);
         console.log(fepkId);
         console.log(fepkMaker);
-  
+
         // Move this inside the first http.get's 'then' block
         http.get(`/fepks/followers/${response.data._id}`).then((res) => {
           setFollowers(res.data);
@@ -178,12 +165,9 @@ function EpkView() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
-  
-  
-  
+  }, [fepkId, fepkMaker, setFepkId, setFepkMaker, title]);
 
-  stillsImages.map((still) => {
+  stillsImages.forEach((still) => {
     stillsImg.push(still.image);
   });
 
@@ -235,12 +219,14 @@ function EpkView() {
         alert("Add request successfully!");
       });
   }
-    // user is added to the list of donate
-    function addUserToWishesToDonate() {
-      http.get(`fepks/wishestodonate/${fepkData._id}/${userId}`).then((response) => {
+  // user is added to the list of donate
+  function addUserToWishesToDonate() {
+    http
+      .get(`fepks/wishestodonate/${fepkData._id}/${userId}`)
+      .then((response) => {
         setUsersWishesToDonate(response.data.wishes_to_buy.length);
       });
-    }
+  }
 
   // user is added to the list of $
   function addUserToWishesToBuy() {
@@ -822,18 +808,17 @@ function EpkView() {
 
         {/* icon-bar section */}
         <div className={style.iconContainer}>
-
-        <div>
-            <a href="#">
+          <div>
+            <a href="#action">
               {userId === "0" ? (
-               <FontAwesomeIcon  
-               icon={faDollarSign} 
+                <FontAwesomeIcon
+                  icon={faDollarSign}
                   size="lg"
                   onClick={() => login()}
                 />
               ) : (
                 <FontAwesomeIcon
-                icon={faDollarSign}
+                  icon={faDollarSign}
                   size="lg"
                   onClick={() => addUserToWishesToDonate()}
                 />
@@ -842,48 +827,15 @@ function EpkView() {
             <span>{usersWishesToDonate}</span>
           </div>
 
-
           <div>
-            {/* <a href="#">
-              {userId === "0" ? (
-                <FontAwesomeIcon
-                  icon={faDollarSign}
-                  size="lg"
-                  onClick={() => login()}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faDollarSign}
-                  size="lg"
-                  onClick={() => addUserToWishesToBuy()}
-                />
-              )}
-            </a> */}
-            <a href="#" onClick={handleDollarIconClick}>
+            <a href="#action" onClick={handleDollarIconClick}>
               <FontAwesomeIcon icon={faDollarSign} size="lg" />
             </a>
 
             <span>{usersWishesToBuy}</span>
           </div>
           <div>
-            {/* <a href="#">
-              {userId === "0" ? (
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  size="lg"
-                  onClick={() => login()}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  size="lg"
-                  color="fa-duotone"
-                  onClick={() => addUserToFavourites()}
-                />
-              )}         
-            </a> */}
-
-            <a href="#" onClick={handlePlusIconClick}>
+            <a href="#action" onClick={handlePlusIconClick}>
               <FontAwesomeIcon
                 icon={faPlus}
                 size="lg"
@@ -894,38 +846,12 @@ function EpkView() {
             <span>{usersFavourites}</span>
           </div>
           <div>
-            {/* <a href="#">
-              {userId === "0" ? (
-                <FontAwesomeIcon
-                  icon={faStar}
-                  size="lg"
-                  onClick={() => login()}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faStar}
-                  size="lg"
-                  onClick={() => addUserToLikes()}
-                />
-              )}
-            </a> */}
-
-            <a href="#" onClick={handleStarIconClick}>
+            <a href="#action" onClick={handleStarIconClick}>
               <FontAwesomeIcon icon={faStar} size="lg" />
             </a>
             <span>{usersLikes}</span>
           </div>
 
-          {/* <div>
-            <a href="#">
-              <img
-                className={style.icon}
-                src={kickStar}
-                alt="kstarter"
-                onClick={() => openUrl(fepkData.kickstarter_url)}
-              />
-            </a>
-          </div> */}
           <div>
             {/* Social media sharing Icons */}
             {sharingClicked === true && (
@@ -966,7 +892,7 @@ function EpkView() {
                 </EmailShareButton>
               </div>
             )}
-            <a href="#">
+            <a href="#action">
               <FontAwesomeIcon
                 icon={faShareNodes}
                 size="lg"

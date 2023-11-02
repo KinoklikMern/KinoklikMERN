@@ -1,9 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
 import "./UploadActorPic.css";
 import http from "../../../http-common";
-import instagramIcon from "../../../images/icons/002-instagram.svg";
-import twiiterIcon from "../../../images/icons/005-twitter.svg";
-import facebookIcon from "../../../images/icons/004-facebook-app-logo.svg";
 import Modal from "react-modal";
 
 export default function UploadActorPic({ user }) {
@@ -174,7 +172,7 @@ export default function UploadActorPic({ user }) {
         profiles: response.data.profiles,
       });
     });
-  }, []);
+  }, [user.id]);
 
   const [actorData, setActorData] = useState({
     bannerImg: actor.bannerImg,
@@ -422,9 +420,9 @@ export default function UploadActorPic({ user }) {
 
   return (
     <>
-      <div className="actor-upload-pic-container">
+      <div className='actor-upload-pic-container'>
         <div
-          className="actor-upload-profile-pic"
+          className='actor-upload-profile-pic'
           // style={{
           //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${actor.picture})`,
           //   backgroundSize: "cover",
@@ -439,42 +437,42 @@ export default function UploadActorPic({ user }) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="actor-prof-file1">
+          <div className='actor-prof-file1'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file1}
               ref={inputFile1Ref}
               onChange={file1Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file1"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file1'
             />
             <label
-              htmlFor="actor-file1"
-              className="actor-prof-file"
+              htmlFor='actor-file1'
+              className='actor-prof-file'
               style={{
                 fontSize: "20px",
               }}
             >
               Upload Headshot
             </label>
-            <div className="uploaded-image-preview-container"></div>
+            <div className='uploaded-image-preview-container'></div>
           </div>
-          <div className="actor-prof-file2">
+          <div className='actor-prof-file2'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file2}
               ref={inputFile2Ref}
               onChange={file2Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file2"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file2'
             />
             <label
-              htmlFor="actor-file2"
-              className="actor-prof-file"
+              htmlFor='actor-file2'
+              className='actor-prof-file'
               // style={{
               //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[0]})`,
               //   backgroundSize: "cover",
@@ -492,20 +490,20 @@ export default function UploadActorPic({ user }) {
               +
             </label>
           </div>
-          <div className="actor-prof-file3">
+          <div className='actor-prof-file3'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file3}
               ref={inputFile3Ref}
               onChange={file3Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file3"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file3'
             />
             <label
-              for="actor-file3"
-              className="actor-prof-file"
+              htmlFor='actor-file3'
+              className='actor-prof-file'
               // style={{
               //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[1]})`,
               //   backgroundSize: "cover",
@@ -523,20 +521,20 @@ export default function UploadActorPic({ user }) {
               +
             </label>
           </div>
-          <div className="actor-prof-file4">
+          <div className='actor-prof-file4'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file4}
               ref={inputFile4Ref}
               onChange={file4Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file4"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file4'
             />
             <label
-              for="actor-file4"
-              className="actor-prof-file"
+              htmlFor='actor-file4'
+              className='actor-prof-file'
               // style={{
               //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[2]})`,
               //   backgroundSize: "cover",
@@ -571,34 +569,34 @@ export default function UploadActorPic({ user }) {
           </label>
         </div> */}
         {/* ----- CHIHYIN ------- */}
-        <div className="col mt-5">
+        <div className='col mt-5'>
           <label
-            htmlFor="fileBanner"
-            className="form-label text-dark"
+            htmlFor='fileBanner'
+            className='form-label text-dark'
             style={{ fontSize: "25px" }}
           >
             Upload Demo reel Video
           </label>
           <input
-            className="form-control form-control-sm"
+            className='form-control form-control-sm'
             ref={inputFileBannerRef}
             onChange={fileBannerSelected}
-            type="file"
-            id="fileBanner"
-            name="files"
-            accept="video/*"
+            type='file'
+            id='fileBanner'
+            name='files'
+            accept='video/*'
           ></input>
           {actorData.bannerImg && (
             <video
-              width="320"
-              height="240"
+              width='320'
+              height='240'
               controls
               ref={videoRef}
               poster={thumbnailImage}
             >
               <source
                 src={`${process.env.REACT_APP_AWS_URL}/${actorData.bannerImg}`}
-                type="video/mp4"
+                type='video/mp4'
               />
               Your browser does not support the video tag.
             </video>
@@ -609,23 +607,23 @@ export default function UploadActorPic({ user }) {
         {thumbnailImage && (
           <img
             src={thumbnailImage}
-            alt="Thumbnail Preview"
+            alt='Thumbnail Preview'
             style={{ width: "200px", height: "150px" }}
           />
         )}{" "}
         {/* <p>{message}</p> */}
         {/* ----- CHIHYIN ------- */}
         <button
-          className="upload-actor-prof-btn1 upload-actor-prof-btn-save1"
+          className='upload-actor-prof-btn1 upload-actor-prof-btn-save1'
           onClick={saveEpkCover}
         >
           save
         </button>
       </div>
-      <div className="actor-dashbaord-about">
+      <div className='actor-dashbaord-about'>
         <textarea
-          className="actor-dash-textarea"
-          maxLength="500"
+          className='actor-dash-textarea'
+          maxLength='500'
           value={textareaValue}
           onChange={(e) => {
             setTextareaValue(e.target.value);
@@ -651,7 +649,7 @@ export default function UploadActorPic({ user }) {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          contentLabel="Example Modal"
+          contentLabel='Example Modal'
           appElement={document.getElementById("root")}
           style={{
             overlay: {
@@ -679,51 +677,19 @@ export default function UploadActorPic({ user }) {
           <div style={{ textAlign: "center" }}>
             <h2>Updated successfully!</h2>
             <br />
-            <button className="btn btn-secondary btn-sm" onClick={closeModal}>
+            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
               Ok
             </button>
           </div>
         </Modal>
       </div>
-      <div className="actor-save-about">
-        <button className="upload-actor-prof-btn1" onClick={editAbout}>
+      <div className='actor-save-about'>
+        <button className='upload-actor-prof-btn1' onClick={editAbout}>
           save
         </button>
       </div>
-      <div className="actor-dashbaord-com">
-        <div className="actor-dashbaord-com-detail">
-          <img src={instagramIcon} className="actor-dash-com-icon" />
-          <input value="URL Here" className="actor-dash-com-detail" />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <img src={facebookIcon} className="actor-dash-com-icon" />
-          <input value="URL Here" className="actor-dash-com-detail" />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <img src={twiiterIcon} className="actor-dash-com-icon" />
-          <input value="URL Here" className="actor-dash-com-detail" />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            value="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            value="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-          />
-        </div>
-        <div className="actor-dashbaord-com-detail">
-          <input
-            value="Enter Your Follower Number"
-            className="actor-dash-com-detail2"
-          />
-        </div>
-      </div>
-      <div className="actor-btn-save-upload-container">
-        <p className="actor-text-upload">
+      <div className='actor-btn-save-upload-container'>
+        <p className='actor-text-upload'>
           There are currently no EPKs attached to your Actor Page. Once
           filmmakers will assign you an EPK, it will appear here.
         </p>

@@ -1,14 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import http from "../../../http-common";
-import { Button, Col, Row } from "antd";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { Button } from "antd";
+import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
+import Modal from "react-modal";
+import paypalImage from "../../../images/paypal.png";
+import stripImage from "../../../images/stripe.jpg";
 
 function FepkEditCoverForm() {
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
@@ -33,9 +37,12 @@ function FepkEditCoverForm() {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
       setCharacterLength({ logLine_short: response.data.logLine_short.length });
-      // console.log(response.data);
     });
-  }, []);
+  }, [fepkId]);
+
+  //To work with modal notifications
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContentType, setModalContentType] = useState("save"); // need to change modal content based on wht button was clicked
 
   const [epkCoverData, setEpkCoverData] = useState({
     film_maker: fepk.film_maker,
@@ -43,7 +50,6 @@ function FepkEditCoverForm() {
     logLine_short: fepk.logLine_short,
     genre: fepk.genre,
     production_type: fepk.production_type,
-    //kickstarter_url: fepk.kickstarter_url,
     DonatePayPal_url: fepk.DonatePayPal_url,
     DonateStripe_url: fepk.DonateStripe_url,
     banner_url: fepk.banner_url,
@@ -55,7 +61,6 @@ function FepkEditCoverForm() {
     "comedy",
     "documentary",
     "romance",
-    "action",
     "horror",
     "mystery",
     "drama",
@@ -176,6 +181,8 @@ function FepkEditCoverForm() {
             http
               .put(`fepks/update/${fepkId}`, epkCoverData)
               .then((res) => {
+                setModalContentType("save");
+                setModalIsOpen(true);
                 console.log("saved");
               })
               .catch((err) => {
@@ -191,6 +198,10 @@ function FepkEditCoverForm() {
       setMessage("File must be an image(jpeg or png)");
     }
     setDisabled(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -376,7 +387,7 @@ function FepkEditCoverForm() {
                       </select>
                     </div>
                   </div>
-                  {/* <div>
+                  <div>
                     <input
                       style={{
                         height: "30px",
@@ -384,22 +395,11 @@ function FepkEditCoverForm() {
                         borderRadius: "5px",
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-control"
-                      defaultValue={fepk.kickstarter_url}
-                      placeholder="KickStarter URL"
-                      onChange={handleInputChange}
-                      name="kickstarter_url"
-                    />
-                  </div> */}
-                   <div>
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${paypalImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 60px",
                       }}
                       className="form-control"
                       defaultValue={fepk.DonatePayPal_url}
@@ -414,8 +414,12 @@ function FepkEditCoverForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${stripImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 40px",
                       }}
                       className="form-control"
                       defaultValue={fepk.DonateStripe_url}
@@ -424,7 +428,6 @@ function FepkEditCoverForm() {
                       name="DonateStripe_url"
                     />
                   </div>
-
                 </div>
                 <div
                   className="col"
@@ -461,7 +464,7 @@ function FepkEditCoverForm() {
                           width: "auto",
                           marginTop: "5px",
                         }}
-                        alt="no image"
+                        alt="no img"
                       />
                     </div>
                     <div className="col">
@@ -536,6 +539,46 @@ function FepkEditCoverForm() {
                       Save
                     </Button>
                   )}
+
+                  <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Save Cover Modal"
+                    appElement={document.getElementById("root")}
+                    style={{
+                      overlay: {
+                        // position: "fixed",
+                        // top: 0,
+                        // left: 0,
+                        // right: 0,
+                        // bottom: 0,
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      },
+                      content: {
+                        position: "absolute",
+                        border: "2px solid #000",
+                        backgroundColor: "white",
+                        boxShadow: "2px solid black",
+                        height: 120,
+                        width: 300,
+                        margin: "auto",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      },
+                    }}
+                  >
+                    <div style={{ textAlign: "center" }}>
+                      {"EPK Cover Saved Successfully!"}
+                      <br />
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={closeModal}
+                      >
+                        Ok
+                      </button>
+                    </div>
+                  </Modal>
                 </div>
               </form>
             </div>

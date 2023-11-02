@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function SocialMedia({ icon, followerNum, name, color }) {
-  const textClass = ``;
+  // const textClass = ``;
+
   return (
     <div className="tw-flex tw-gap-3 tw-align-bottom">
       <FontAwesomeIcon

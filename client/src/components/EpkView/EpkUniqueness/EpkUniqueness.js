@@ -7,8 +7,8 @@ export default function EpkUniqueness({ epkInfo, requestStatus, handler }) {
     `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_uniqueness}`;
   const isBlur =
     requestStatus == null ||
-    requestStatus == "pending" ||
-    requestStatus == "refused"
+    requestStatus === "pending" ||
+    requestStatus === "refused"
       ? true
       : false;
   return (
@@ -21,13 +21,13 @@ export default function EpkUniqueness({ epkInfo, requestStatus, handler }) {
             <span className="tw-text-[3rem]">{epkInfo.title_uniqueness}</span>
           </div>
           <div className="tw-relative">
-            <div className="tw-border-1 tw-absolute tw-z-40 tw-top-[0] tw-left-[45%] tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
-              {requestStatus != "approved" && (
+            <div className="tw-border-1 tw-absolute tw-left-[45%] tw-top-[0] tw-z-40 tw-my-3 tw-rounded-lg tw-border-[#712CB0] ">
+              {requestStatus !== "approved" && (
                 <RequestButton status={requestStatus} handler={handler} />
               )}
             </div>
             <div
-              className={`tw-flex tw-h-full tw-items-center tw-justify-between tw-py-3 tw-px-6 ${
+              className={`tw-flex tw-h-full tw-items-center tw-justify-between tw-px-6 tw-py-3 ${
                 isBlur && "tw-blur"
               }
           `}
@@ -36,6 +36,7 @@ export default function EpkUniqueness({ epkInfo, requestStatus, handler }) {
                 <div className="tw-w-1/3">
                   <img
                     src={image_uniqueness}
+                    alt=""
                     style={{ width: "80%", height: "auto" }}
                   />
                 </div>
