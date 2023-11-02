@@ -33,7 +33,8 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
       className={`modal fade ${isOpen ? "show" : ""}`}
       style={{
         display: isOpen ? "block" : "none",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: "rgba(255, 255, 255, 0.3)",
+        zIndex: 1050,
       }}
       id="exampleModal"
       tabIndex="-1"
@@ -46,7 +47,7 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
           className="modal-content col-12"
           style={{
             borderRadius: "13px",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
           }}
         >
           <div
@@ -118,15 +119,6 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
             className="modal-footer"
             style={{ display: "block", marginTop: "10px" }}
           >
-            <label style={{ fontWeight: 600 }}>
-              <span
-                className="message"
-                style={{ fontSize: "1rem", color: "#1e0039" }}
-              >
-                {copySuccess}
-              </span>
-            </label>
-            <br />
             <div className="row">
               <input
                 className="col-10 ur"
@@ -170,6 +162,14 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
             </div>
           </div>
         </div>
+        <label style={{ fontWeight: 600 }}>
+          <span
+            className="message"
+            style={{ fontSize: "1rem", color: "#1e0039" }}
+          >
+            {copySuccess}
+          </span>
+        </label>
       </div>
     </div>
   );
