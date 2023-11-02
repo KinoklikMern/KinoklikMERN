@@ -10,6 +10,7 @@ import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
 import MessageIcon from "../../images/icons/message.svg";
 import MessageWhiteIcon from "../../images/icons/message-white.svg";
 import ActorPage from "../../images/icons/actorpage.svg";
+import ActorPageWhite from "../../images/icons/actorpageWhite.svg";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useSelector } from "react-redux";
 
@@ -83,7 +84,7 @@ export default function Sidebar(props) {
     {
       Title: "Actor Page",
       DefaultIcon: ActorPage,
-      ActiveIcon: ActorPage,
+      ActiveIcon: ActorPageWhite,
       href: "/userdashboard/actor",
       size: {
         width: 60,

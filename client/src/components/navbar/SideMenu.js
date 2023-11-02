@@ -80,26 +80,26 @@ export const SideProfileMenu = () => {
 
   return (
     <>
-      <div className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-w-72 tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible">
-        <div className="tw-p-4">
-          <div className="tw-flex tw-items-center tw-justify-end">
-            <div className="tw-mx-4 tw-inline-block">
+      <div className='tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-w-72 tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible'>
+        <div className='tw-p-4'>
+          <div className='tw-flex tw-items-center tw-justify-end'>
+            <div className='tw-group tw-mx-4 tw-inline-block '>
               <img
                 src={picture}
-                alt="User Avatar"
-                className="tw-flex tw-max-h-14"
+                alt='User Avatar'
+                className='tw-h-14 tw-w-14 tw-rounded-full tw-object-cover'
               />
             </div>
-            <div className="tw-mx-4 tw-inline-block">
+            <div className='tw-mx-4 tw-inline-block'>
               <FontAwesomeIcon
                 icon={faBars}
-                size="2xl"
+                size='2xl'
                 style={{ color: "#fff" }}
               />
             </div>
           </div>
         </div>
-        <div className="tw-flex tw-h-screen tw-flex-col tw-items-end tw-justify-center tw-gap-5">
+        <div className='tw-flex tw-h-screen tw-flex-col tw-items-end tw-justify-center tw-gap-5'>
           {filteredMenuList.map((menu, index) => (
             <React.Fragment key={index}>
               <div
@@ -109,12 +109,12 @@ export const SideProfileMenu = () => {
                 }}
                 onMouseOver={() => setHoveredMenu(menu.name)}
                 onMouseOut={() => setHoveredMenu("")}
-                className="tw-mx-3 tw-flex tw-w-5/6 tw-items-center tw-justify-end tw-gap-2 tw-px-3 tw-pt-4 tw-text-white hover:tw-scale-105 hover:tw-cursor-pointer hover:tw-rounded-xl hover:tw-bg-white hover:tw-text-[#1C0039]"
+                className='tw-mx-3 tw-flex tw-w-5/6 tw-items-center tw-justify-end tw-gap-2 tw-px-3 tw-pt-4 tw-text-white hover:tw-scale-105 hover:tw-cursor-pointer hover:tw-rounded-xl hover:tw-bg-white hover:tw-text-[#1C0039]'
               >
-                <p className="tw-pb-2 tw-text-2xl">{menu.name}</p>
+                <p className='tw-pb-2 tw-text-2xl'>{menu.name}</p>
                 {menu.name === hoveredMenu ? menu.hoverIcon : menu.defaultIcon}
               </div>
-              <div className="tw-mx-3 tw-w-5/6 tw-border-[1px] tw-border-[#712CB0]"></div>
+              <div className='tw-mx-3 tw-w-5/6 tw-border-[1px] tw-border-[#712CB0]'></div>
             </React.Fragment>
           ))}
         </div>
