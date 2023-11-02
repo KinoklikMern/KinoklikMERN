@@ -16,7 +16,6 @@ import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
 
-
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
 
@@ -45,8 +44,6 @@ app.use("/message", messageRoutes);
 
 app.use("/*", handleNotFound);
 app.use(errorHandler);
-
-
 
 const server = app.listen(8000, () =>
   console.log(`App Running on PORT ${PORT}`)
@@ -81,9 +78,54 @@ io.on("connection", async (socket) => {
   console.log("connected to socket.io");
   socket.on("setup", (userData) => {
     socket.join(userData.id);
-    console.log("11", userData.id);
+    // console.log("11", userData.id);
+
+    // Yeming edit
+    // If this user ID is not already in the onlineUsers object, add it
+    if (!onlineUsers[userData.id]) {
+      onlineUsers[userData.id] = new Set(); // Use a Set to prevent duplicates
+    }
+
+    onlineUsers[userData.id].add(socket.id); // Add socket ID to the Set
+
     socket.emit("connected");
+    // onlineUsers[userData.id] = socket.id; // Store the socket ID
+    // console.log(`[Setup] Current online users after setup:`, onlineUsers);
+    io.emit("userOnline", userData.id); // broadcast to other connected clients
   });
+
+  let onlineUsers = {}; // Tracks online users and their socket IDs
+  let userLogoutIntents = {}; // Tracks whether a user has initiated a logout
+
+  // When a user emits a logout event
+  socket.on("logout", (userId) => {
+    userLogoutIntents[userId] = true; // Mark the user's intent to logout
+    // Wait for a short delay to ensure the disconnect event can be handled properly
+    setTimeout(() => {
+      if (!onlineUsers[userId]) {
+        io.emit("userOffline", userId); // Notify other clients if user is no longer online
+        // console.log(`User ${userId} marked offline after logout.`);
+      }
+      delete userLogoutIntents[userId]; // Clean up the logout intent
+    }, 100);
+  });
+
+  // When a user disconnects
+  socket.on("disconnect", () => {
+    // Perform a lookup to see if this socket.id is associated with any user
+    let foundUserId = Object.keys(onlineUsers).find(
+      (userId) => onlineUsers[userId] === socket.id
+    );
+
+    if (foundUserId) {
+      if (userLogoutIntents[foundUserId]) {
+        // User intended to logout, emit userOffline
+        io.emit("userOffline", foundUserId);
+      }
+      delete onlineUsers[foundUserId]; // Remove user from onlineUsers
+    }
+  });
+
   socket.on("join chat", (chat) => {
     socket.join(chat);
     console.log(`user joined chat: ${chat}`);

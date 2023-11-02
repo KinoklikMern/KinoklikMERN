@@ -1,11 +1,10 @@
 /* eslint-disablecase */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../components/HomeBody/HomeBody.css";
 import "../components/List/List.css";
 import List from "../components/List/List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { CookieSharp } from "@mui/icons-material";
 import SearchBar from "../components/HomeHead/SearchBar";
 
 function CatelogPage() {
@@ -112,7 +111,7 @@ function CatelogPage() {
     return (
       <>
         <button
-          className={`tw-text-small tw-mr-5 tw-mb-1 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
+          className={`tw-text-small tw-mb-1 tw-mr-5 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
             !isActive
               ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
               : "tw-bg-white tw-text-[#1E0039]"

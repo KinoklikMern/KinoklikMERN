@@ -226,6 +226,10 @@ const UserSchema = mongoose.Schema({
   instagram_followers: { type: String, default: "" },
   twitter_url: { type: String, default: "" },
   twitter_followers: { type: String, default: "" },
+  youtube_url: { type: String, default: "" },
+  youtube_subs: { type: String, default: "" },
+  linkedin_url: { type: String, default: "" },
+  linkedin_followers: { type: String, default: "" },
   // Crew
   // crew: [
   //   {

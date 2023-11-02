@@ -1,20 +1,16 @@
 /* eslint-disable no-const-assign */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faPlus,
-  faTrashCan,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 function StillsForm() {
   const [file, setFile] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -22,7 +18,6 @@ function StillsForm() {
   const [stillsList, setStillsList] = useState([]);
 
   const [epkStillsData, setEpkStillsData] = useState([]);
-
 
   let { fepkId } = useParams();
 
@@ -39,8 +34,7 @@ function StillsForm() {
       setEpkStillsData(response.data.stills);
       //      console.log(response.data.title);
     });
-  }, []);
-
+  }, [fepkId]);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -105,7 +99,6 @@ function StillsForm() {
     setDisabled(false);
   }
 
-
   const handleStillsBlurChange = (value, still) => {
     // Use filter to find the element with the specified `_id` in the `stills` array
     const updatedStills = stillsList.filter(
@@ -145,18 +138,22 @@ function StillsForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
-          borderRadius:"10px",
+          borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
         <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
+          <div
+            className="row"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+            }}
+          >
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -241,7 +238,6 @@ function StillsForm() {
                   <div className="tw-cursor-pointer hover:tw-scale-110">
                     <FontAwesomeIcon icon={faPlus} onClick={addImage} />
                   </div>
-
                 </div>
                 <div className="col-6 mt-3">
                   <table
@@ -254,7 +250,6 @@ function StillsForm() {
                         <th>ACTION</th>
 
                         <th>ACTION</th>
-
                       </tr>
                     </thead>
                     <tbody>
@@ -268,9 +263,7 @@ function StillsForm() {
                               />
                             </td>
                             <td
-
                               style={{ textAlign: "center", cursor: "pointer" }}
-
                               onClick={() => deleteFromStillsList(still)}
                             >
                               <FontAwesomeIcon icon={faTrashCan} />
@@ -295,7 +288,6 @@ function StillsForm() {
                                 {still.blur ? "UnBlur" : "Blur"}
                               </Button>
                             </td>
-
                           </tr>
                         );
                       })}

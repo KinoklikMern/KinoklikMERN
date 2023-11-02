@@ -1,6 +1,5 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
@@ -19,6 +18,7 @@ import reducers from "./reducers";
 import App from "./App";
 import ChatProvider from "./context/ChatProvider";
 import { NotificationProvider } from "./context/NotificationContext";
+import { SocketProvider } from "./context/SocketProvider";
 const persistConfig = {
   key: "root",
   storage,
@@ -38,15 +38,17 @@ const root = createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <ChatProvider>
-          <SnackbarProvider maxSnack={3}>
-            <NotificationProvider>
-              <App />
-            </NotificationProvider>
-          </SnackbarProvider>
-        </ChatProvider>
-      </BrowserRouter>
+      <SocketProvider>
+        <BrowserRouter>
+          <ChatProvider>
+            <SnackbarProvider maxSnack={3}>
+              <NotificationProvider>
+                <App />
+              </NotificationProvider>
+            </SnackbarProvider>
+          </ChatProvider>
+        </BrowserRouter>
+      </SocketProvider>
     </PersistGate>
   </Provider>
 );

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import UploadIcon from "../images/icons/UploadIcon.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import "../styles/HomeBottom.css";
 import { useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
@@ -26,12 +24,12 @@ const HomeBottom = () => {
       <>
         <Modal
           show={isShowMessage}
-          onHide={()=>setIsShowMessage(false)}
+          onHide={() => setIsShowMessage(false)}
           centered
-          className="p-3"
+          className='p-3'
         >
-          <Modal.Header className="border-0">
-            <Modal.Title className="text-center">
+          <Modal.Header className='border-0'>
+            <Modal.Title className='text-center'>
               Only Filmmaker account can upload film EPK. Please register a
               Filmmaker account to complete this action.
             </Modal.Title>
@@ -53,7 +51,7 @@ const HomeBottom = () => {
                 width: "25%",
                 padding: "0",
               }}
-                onClick={()=>setIsShowMessage(false)}
+              onClick={() => setIsShowMessage(false)}
             >
               OK
             </Button>
@@ -64,12 +62,12 @@ const HomeBottom = () => {
   };
 
   return (
-    <div className="upload">
-      <p className="uploadtext">
+    <div className='upload'>
+      <p className='uploadtext'>
         Promote your film for free, with KinoKlik EPK !
       </p>
-      <div onClick={clickHandler} className="uploadFilm">
-        <img src={UploadIcon} style={{ width: "50%" }} />
+      <div onClick={clickHandler} className='uploadFilm'>
+        <img src={UploadIcon} className='uploadIcon' alt='' />
       </div>
       <PopupModal />
     </div>

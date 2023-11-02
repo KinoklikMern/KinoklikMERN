@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Epkcover from "../components/Epk/Present/Cover";
 import Details from "../components/Epk/Present/details";
 import Logline from "../components/Epk/Present/logline";
 import Synopsis from "../components/Epk/Present/synopsis";
@@ -12,54 +12,52 @@ import Cinematographer from "../components/Epk/Present/cinematographer";
 import Stills from "../components/Epk/Present/stills";
 import Review from "../components/Epk/Present/review";
 import Resources from "../components/Epk/Present/Resources";
-import Trailer from "../components/Epk/Present/Trailer"
-import { renderCloseIcon } from "antd/es/modal/PurePanel";
-import Footer from"../components/Footer"
+import Trailer from "../components/Epk/Present/Trailer";
+import Footer from "../components/Footer";
 
 function EPK() {
+  const { user } = useSelector((user) => ({ ...user }));
+  const id = 5;
 
-    const { user } = useSelector((user) => ({ ...user }));
-    const id = 5;
+  //Cover
+  const [coverList, setCoverList] = useState(null);
+  useEffect(() => {
+    getEpktCover(id);
+  }, []);
+  async function getEpktCover(id) {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCover/` + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const coverList1 = await response.json();
+    console.log(coverList1);
+    setCoverList(coverList1);
+  }
 
-    //Cover
-    const [coverList, setCoverList] = useState(null); 
-    useEffect(() => {
-      getEpktCover(id);
-    }, []);
-    async function getEpktCover(id) {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCover/` + id,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const coverList1 = await response.json();
-      console.log(coverList1);
-      setCoverList(coverList1);
-    }
-
-        //Details
-        const [detailsList, setDetailsList] = useState(null); 
-        useEffect(() => {
-          getEpktDetails(id);
-        }, []);
-        async function getEpktDetails(id) {
-          const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_URL}/epk/EpkDetails/` + id,
-            {
-              method: "GET",
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
-            }
-          );
-          const detailsList1 = await response.json();
-          console.log(detailsList1);
-          setDetailsList(detailsList1);
-        }
+  //Details
+  const [detailsList, setDetailsList] = useState(null);
+  useEffect(() => {
+    getEpktDetails(id);
+  }, []);
+  async function getEpktDetails(id) {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkDetails/` + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const detailsList1 = await response.json();
+    console.log(detailsList1);
+    setDetailsList(detailsList1);
+  }
 
   //Logline
   const [loglineList, setLoglineList] = useState(null);
@@ -101,45 +99,45 @@ function EPK() {
     setSynopsisList(synopsisList1);
   }
 
-    //Uniqueness
-    const [uniquenessList, setUniquenessList] = useState(null);
-    useEffect(() => {
-      getEpkUniqueness(id);
-    }, []);
-    async function getEpkUniqueness(id) {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkUniqueness/` + id,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const uniquenessList1 = await response.json();
-      console.log(uniquenessList1);
-      setUniquenessList(uniquenessList1);
-    }
+  //Uniqueness
+  const [uniquenessList, setUniquenessList] = useState(null);
+  useEffect(() => {
+    getEpkUniqueness(id);
+  }, []);
+  async function getEpkUniqueness(id) {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkUniqueness/` + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const uniquenessList1 = await response.json();
+    console.log(uniquenessList1);
+    setUniquenessList(uniquenessList1);
+  }
 
-    //Cast
-    const [castList, setCastList] = useState(null);
-    useEffect(() => {
-      getEpktCast(id);
-    }, []);
-    async function getEpktCast(id) {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCast/` + id,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const castList1 = await response.json();
-      console.log(castList1);
-      setCastList(castList1);
-    }
+  //Cast
+  const [castList, setCastList] = useState(null);
+  useEffect(() => {
+    getEpktCast(id);
+  }, []);
+  async function getEpktCast(id) {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCast/` + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const castList1 = await response.json();
+    console.log(castList1);
+    setCastList(castList1);
+  }
 
   //Director
   const [directorList, setDirectorList] = useState(null);
@@ -161,45 +159,45 @@ function EPK() {
     setDirectorList(directorList1);
   }
 
-    //Producer
-    const [producerList, setProducerList] = useState(null);
-    useEffect(() => {
-      getEpktProducer(id);
-    }, []);
-    async function getEpktProducer(id) {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkProducer/` + id,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const producerList1 = await response.json();
-      console.log(producerList1);
-      setProducerList(producerList1);
-    }
+  //Producer
+  const [producerList, setProducerList] = useState(null);
+  useEffect(() => {
+    getEpktProducer(id);
+  }, []);
+  async function getEpktProducer(id) {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkProducer/` + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const producerList1 = await response.json();
+    console.log(producerList1);
+    setProducerList(producerList1);
+  }
 
-    //Cinematographer
-    const [cinematographerList, setCinematographerList] = useState(null);
-    useEffect(() => {
-      getEpktCinematographer(id);
-    }, []);
-    async function getEpktCinematographer(id) {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCinematographer/` + id,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const cinematographerList1 = await response.json();
-      console.log(cinematographerList1);
-      setCinematographerList(cinematographerList1);
-    }
+  //Cinematographer
+  const [cinematographerList, setCinematographerList] = useState(null);
+  useEffect(() => {
+    getEpktCinematographer(id);
+  }, []);
+  async function getEpktCinematographer(id) {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/epk/EpkCinematographer/` + id,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    const cinematographerList1 = await response.json();
+    console.log(cinematographerList1);
+    setCinematographerList(cinematographerList1);
+  }
 
   //Stills
   const [stillsList, setStillsList] = useState(null);
@@ -240,7 +238,7 @@ function EPK() {
     console.log(reviewList1);
     setReviewList(reviewList1);
   }
-  
+
   //Resources
   const [resourcesList, setResourcesList] = useState(null);
   useEffect(() => {
@@ -277,40 +275,41 @@ function EPK() {
     //     }
     //   );
     //   const trailerList1 = await response.json();
-  
+
     //   console.log(trailerList1);
     //   setResourcesList(trailerList1);
-
 
     /*  console.log(shortSynopsis);
       console.log(mediumSynopsis);
       console.log(longSynopsis);*/
   }
 
-
   return (
     <>
-    <div className="container">
-      
-      {/* {coverList && coverList.map((s) => <EpkCover coverFile={s} />)} */}
-      {detailsList && detailsList.map((s) => <Details detailsFile={s} />)}
-      {loglineList && loglineList.map((s) => <Logline loglineFile={s} />)}
-      {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}
-      {uniquenessList && uniquenessList.map((s) => <Uniqueness uniquenessFile={s} />)}
-      {castList && castList.map((s) => <Cast castFile={s} />)}
-      {directorList && directorList.map((s) => <Director directorFile={s} />)}
-      {producerList && producerList.map((s) => <Producer producerFile={s} />)}
-      {cinematographerList && cinematographerList.map((s) => <Cinematographer cinematographerFile={s} />)}
-      {stillsList && stillsList.map((s) => <Stills stillsFile={s} />)}
-      {resourcesList && resourcesList.map((s) => <Resources resFile={s} />)}
-      <Trailer/>
-      {reviewList && reviewList.map((s) => <Review reviewFile={s} />)}
-      {/* {trailerList && trailerList.map((s) => <Trailer trailerFile={s} />)} */}
-      
-      <Footer/>
-    </div>
+      <div className="container">
+        {/* {coverList && coverList.map((s) => <EpkCover coverFile={s} />)} */}
+        {detailsList && detailsList.map((s) => <Details detailsFile={s} />)}
+        {loglineList && loglineList.map((s) => <Logline loglineFile={s} />)}
+        {synopsisList && synopsisList.map((s) => <Synopsis synopsFile={s} />)}
+        {uniquenessList &&
+          uniquenessList.map((s) => <Uniqueness uniquenessFile={s} />)}
+        {castList && castList.map((s) => <Cast castFile={s} />)}
+        {directorList && directorList.map((s) => <Director directorFile={s} />)}
+        {producerList && producerList.map((s) => <Producer producerFile={s} />)}
+        {cinematographerList &&
+          cinematographerList.map((s) => (
+            <Cinematographer cinematographerFile={s} />
+          ))}
+        {stillsList && stillsList.map((s) => <Stills stillsFile={s} />)}
+        {resourcesList && resourcesList.map((s) => <Resources resFile={s} />)}
+        <Trailer />
+        {reviewList && reviewList.map((s) => <Review reviewFile={s} />)}
+        {/* {trailerList && trailerList.map((s) => <Trailer trailerFile={s} />)} */}
+
+        <Footer />
+      </div>
     </>
-    );
+  );
 }
 
 export default EPK;

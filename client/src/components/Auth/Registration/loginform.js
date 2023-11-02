@@ -1,19 +1,24 @@
-import React, { useState, setState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import io from "socket.io-client";
+
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const socket = io(backendUrl);
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -70,9 +75,22 @@ function LoginForm() {
 
       setError("");
       setSuccess(data.message);
+      // eslint-disable-next-line no-unused-vars
       const { message, ...rest } = data;
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
+
+      if (socket && !socket.connected) {
+        socket.connect(); // Ensure the socket connects if it's not already
+      }
+
+      // Dispatching the USER_ONLINE action
+      if (data && data.id) {
+        // Emit the setup event to the socket server
+        console.log("Setting up user on socket.io for user:", data.id);
+        socket.emit("setup", { id: data.id });
+      }
+
       console.log(data);
       navigate("/");
     } catch (error) {
