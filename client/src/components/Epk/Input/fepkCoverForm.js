@@ -179,24 +179,21 @@ function FepkCoverForm() {
     console.log([...formData.entries()]);
     debugger;
 
-    // ----- CHIHYIN -------
-    // Initializing messages
-    let bannerMessage = "";
     let titleLoglineMessage = "";
-
-    // Checking if banner (file1) has been uploaded
-    if (!file1) {
-      bannerMessage = "Please upload a banner.";
-    }
+    let genreStatusMessage = "";
     // Checking if title and logLine_short are filled in
     if (!epkCoverData.title || !epkCoverData.logLine_short) {
       titleLoglineMessage = " Title and Log Line needed.";
     }
-    if (bannerMessage || titleLoglineMessage) {
-      setSubmitMessage(bannerMessage + titleLoglineMessage);
+    // Checking if genre and status are selected
+    if (!epkCoverData.genre || !epkCoverData.status) {
+      genreStatusMessage = " Tell us the genre and the status.";
+    }
+    // Combine the messages if any
+    if (titleLoglineMessage || genreStatusMessage) {
+      setSubmitMessage(titleLoglineMessage + genreStatusMessage);
       return; // Exit the function early if any check fails
     }
-    // ----- CHIHYIN -------
 
     if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
       http
@@ -214,11 +211,7 @@ function FepkCoverForm() {
           }
           http.post("fepks/", epkCoverData).then((res) => {
             if (res.data.error) {
-              setSubmitMessage(
-                // res.data.error + " Title is unique and status needed!"
-                // ----- CHIHYIN -------
-                "Tell us the genre, the status and the type!"
-              );
+              setSubmitMessage(res.data.error);
             } else {
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
@@ -368,6 +361,7 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
+                        defaultValue={epkCoverData.genre}
                         name="genre"
                         onChange={handleInputChange}
                       >
@@ -383,6 +377,7 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
+                        defaultValue={epkCoverData.status}
                         name="status"
                         onChange={handleInputChange}
                       >
@@ -398,6 +393,7 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
+                        defaultValue={epkCoverData.production_type}
                         name="production_type"
                         onChange={handleInputChange}
                       >

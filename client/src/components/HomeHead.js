@@ -113,6 +113,8 @@ const HomeHead = (props) => {
     }
   }, [props.role]);
 
+  const formattedTitle = fepk.title?.replace(/ /g, "_");
+
   return (
     <div
       className=' tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat'
@@ -126,6 +128,7 @@ const HomeHead = (props) => {
       <div className='tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end'>
         <SearchBar />
       </div>
+
       <section id='home' className='tw-pt-0'>
         <div className='menu-icon tw-pt-12'>
           {/* Donation  */}
@@ -272,7 +275,7 @@ const HomeHead = (props) => {
                 href={
                   props.role === "actor"
                     ? `actor/${actor._id}`
-                    : `epk/${fepk.title}`
+                    : `epk/${formattedTitle}`
                 }
               >
                 <img

@@ -88,26 +88,31 @@ export default function ListItem({ title, status, type, role }) {
   return (
     <>
       {fepks &&
-        fepks.map((fepk) => (
-          <div className='listItem' key={fepk._id}>
-            <a
-              href={
-                role === "actor"
-                  ? `/actor/6487758c553b5011282f72a5`
-                  : `epk/${fepk.title}`
-              }
-            >
-              <img
-                src={
+        fepks.map((fepk) => {
+          // Replace spaces '%20' with underscores
+          const formattedTitle = fepk.title.replace(/ /g, "_");
+
+          return (
+            <div className="listItem" key={fepk._id}>
+              <a
+                href={
                   role === "actor"
-                    ? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`
-                    : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                    ? `/actor/6487758c553b5011282f72a5`
+                    : `epk/${formattedTitle}`
                 }
-                alt=''
-              />
-            </a>
-          </div>
-        ))}
+              >
+                <img
+                  src={
+                    role === "actor"
+                      ? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`
+                      : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                  }
+                  alt=""
+                />
+              </a>
+            </div>
+          );
+        })}
     </>
   );
 }
