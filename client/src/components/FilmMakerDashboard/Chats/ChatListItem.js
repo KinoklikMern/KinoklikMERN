@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ChatState } from "../../../context/ChatProvider.js";
 
-function ChatListItem({ chat, getChatSender, formatTimestamp }) {
+function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
   const { selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
   const { user } = useSelector((user) => ({ ...user }));
@@ -35,6 +35,10 @@ function ChatListItem({ chat, getChatSender, formatTimestamp }) {
             src={getChatSender(user, chat?.users)?.avatar}
             alt="profile image"
           />
+
+          {isOnline && (
+            <span className="tw-absolute tw-right-0 tw-top-0 tw-h-3 tw-w-3 tw-rounded-full tw-border-2 tw-border-white tw-bg-green-500"></span>
+          )}
 
           <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xs tw-text-white">
             {getChatSender(user, chat?.users)?.type}

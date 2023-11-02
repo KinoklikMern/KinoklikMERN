@@ -12,6 +12,10 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import io from "socket.io-client";
+
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const socket = io(backendUrl);
 
 export const SideProfileMenu = () => {
   const navigate = useNavigate();
@@ -67,14 +71,48 @@ export const SideProfileMenu = () => {
     : null;
 
   const logout = () => {
-    Cookies.set("user", null);
-    console.log(user);
-    console.log("log out");
+    // const currentUser = Cookies.get("user")
+    //   ? JSON.parse(Cookies.get("user"))
+    //   : null;
+
+    // // Cookies.set("user", null);
+    // Cookies.remove("user"); // Use remove instead of set to null
+    // // console.log(user);
+    // // console.log("log out");
+
+    // // Dispatching the USER_OFFLINE action
+    // if (currentUser && currentUser.id) {
+    //   // If using socket.io and you have a socket instance available
+    //   if (socket && socket.connected) {
+    //     // Inform the server of the logout
+    //     socket.emit("logout", currentUser.id);
+    //     // Disconnect the socket
+    //     socket.disconnect();
+    //   }
+    //   // console.log(`Dispatching USER_OFFLINE for user:`, currentUser.id);
+    //   // dispatch({ type: "USER_OFFLINE", payload: { userId: currentUser.id } });
+    // }
+
+    const currentUser = JSON.parse(Cookies.get("user") || "null");
+
+    if (currentUser && currentUser.id && socket) {
+      socket.emit("logout", currentUser.id); // Notify server of intent to logout
+      // Delay the disconnection slightly to ensure the logout event is processed
+      setTimeout(() => {
+        socket.disconnect(); // Disconnect the socket
+      }, 1000);
+    }
+
+    // Clear user data from cookies
+    Cookies.remove("user");
+
     dispatch({
       type: "LOGOUT",
       payload: null,
     });
-    console.log(user);
+    console.log("Logout actions dispatched.");
+    // console.log(`Logout actions dispatched for user:`, currentUser.id);
+    // console.log(user);
     navigate("/");
   };
 
