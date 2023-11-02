@@ -48,7 +48,7 @@ function EpkViewPage() {
           break;
 
         case "wish_to_donate":
-          setShowDonationModal(true); // Show the donation modal
+          setShowDonationModal(true); 
           break;
       }
     } else {
@@ -69,7 +69,7 @@ function EpkViewPage() {
           break;
 
         case "wish_to_donate":
-          setShowDonationModal(true); // Show donation form
+          setShowDonationModal(true); 
           break;
       }
     } else {
