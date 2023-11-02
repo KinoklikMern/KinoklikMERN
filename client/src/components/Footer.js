@@ -21,7 +21,7 @@ function Footer() {
               <img src={logo} alt='Logo' className='tw-h-22' />
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
-              <h5 className='tw-mb-4 tw-text-lg tw-font-semibold'>
+              <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
                 KinoKlik EPK
               </h5>
               <Link to='/forFilmMakers' className='footer-li tw-mb-2 tw-block'>
@@ -31,10 +31,11 @@ function Footer() {
                 For Industry <br />
                 Professionals
               </Link>
-          
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
-              <h5 className='tw-mb-4 tw-text-lg tw-font-semibold'>Company</h5>
+              <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
+                Company
+              </h5>
               <a href='#aboutus' className='footer-li tw-mb-2 tw-block'>
                 About Us
               </a>
@@ -46,7 +47,9 @@ function Footer() {
               </a>
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
-              <h5 className='tw-mb-4 tw-text-lg tw-font-semibold'>Relations</h5>
+              <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
+                Relations
+              </h5>
               <a href='#partners' className='footer-li tw-mb-2 tw-block'>
                 Partners
               </a>
@@ -92,7 +95,7 @@ function Footer() {
               </a>
             </div>
           </div>
-          <LanguageToggle/>
+          <LanguageToggle />
           <div className='tw-text-gray-300'>
             &copy; {new Date().getFullYear()} KinoKlik. All Rights Reserved.
           </div>

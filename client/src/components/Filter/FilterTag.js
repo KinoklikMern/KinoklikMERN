@@ -238,13 +238,13 @@ export default function FilterTag({ role }) {
 
     return (
       // <>
-      <div className="filter-button-container">
+      <div className='filter-button-container'>
         {name === "Age Range" ||
         name === "Ethnicity" ||
         name === "Representation" ||
         name === "City" ||
         name === "Country" ? (
-          <div className="relative inline-block">
+          <div className='relative inline-block'>
             <button
               className={`filter-toggle tw-text-small tw-mb-1 tw-mr-5 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
                 // isDropdownActive
@@ -259,12 +259,12 @@ export default function FilterTag({ role }) {
               {selectedValue || name}
               <FontAwesomeIcon
                 icon={isDropdownActive ? faSortUp : faSortDown}
-                className="tw-ml-2"
+                className='tw-ml-2'
               />
             </button>
 
             {isDropdownActive && (
-              <div className="dropdown-options absolute top-8 left-0 mt-2 py-2 bg-white rounded-lg shadow-lg">
+              <div className='dropdown-options absolute top-8 left-0 mt-2 py-2 bg-white rounded-lg shadow-lg'>
                 {name === "Age Range" && (
                   <AgeRangeDropdown
                     selectedValue={selectedAgeRange}
@@ -310,24 +310,24 @@ export default function FilterTag({ role }) {
           </div>
         ) : (
           <button
-            className={`tw-text-small tw-mb-1 tw-mr-5 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
+            className={`tw-text-small tw-mb-1 tw-mr-5 tw-w-80 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase lg:tw-w-full ${
               !isActive
                 ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
                 : "tw-bg-white tw-text-[#1E0039]"
             }`}
-            type="button"
+            type='button'
             onClick={() => clickHandler(name, isActive)}
           >
             {name}
 
             {!isActive ? (
               <FontAwesomeIcon
-                className="tw-pl-5"
+                className='tw-pl-5'
                 icon={faPlus}
                 style={{ color: "#aaaaaa" }}
               />
             ) : (
-              <FontAwesomeIcon className="tw-pl-5" icon={faCheck} />
+              <FontAwesomeIcon className='tw-pl-5' icon={faCheck} />
             )}
           </button>
         )}
@@ -336,8 +336,8 @@ export default function FilterTag({ role }) {
   };
 
   return (
-    <div className="home">
-      <div className="tw-relative tw-m-8 tw-flex tw-justify-between">
+    <div className='home'>
+      <div className='tw-relative tw-m-8 tw-flex tw-flex-col tw-items-center tw-justify-between lg:tw-flex-row'>
         {filterTags.map((tag, index) => (
           <FilterButton
             key={index}
