@@ -22,11 +22,10 @@ import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
 
 function EpkViewPage() {
-  const [fepkId, setFepkId, fepkMaker, setFepkMaker] = React.useContext(
-    FepkContext
-  );
+  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
+    React.useContext(FepkContext);
   const { user } = useSelector((user) => ({ ...user }));
-  const { title } = useParams();
+  // const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();
   const [requestStatus, setRequestStatus] = useState();
   const [refresh, setRefresh] = useState(false);
@@ -34,6 +33,9 @@ function EpkViewPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
+
+  let { title } = useParams();
+  title = title.replace(/%20/g, "_"); // Replace %20 with _
 
   const handleClose = (modalType) => {
     if (user) {
@@ -46,9 +48,9 @@ function EpkViewPage() {
           setShowRequestModal(false);
           break;
 
-          case "wish_to_donate":
-            setShowDonationModal(true); // Show the donation modal
-            break;
+        case "wish_to_donate":
+          setShowDonationModal(true); // Show the donation modal
+          break;
       }
     } else {
       setShowLoginModal(false);
@@ -77,10 +79,11 @@ function EpkViewPage() {
 
   useEffect(() => {
     getFepksByTitle(title).then((res) => {
+      console.log(res); 
       setEpkInfo(res);
       setFepkId(res._id);
       setFepkMaker(res.film_maker);
-      if (user?.id === res.film_maker._id){
+      if (user?.id === res.film_maker._id) {
         setRequestStatus("approved");
       } else {
         res.requests.map((request) => {
@@ -95,11 +98,16 @@ function EpkViewPage() {
   return (
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
-        <div className="tw-w-11/12">             
+        <div className="tw-w-11/12">
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
           {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}
-          <EpkSocialAction epkInfo={epkInfo} handler={handleShow} showDonationModal={showDonationModal} setShowDonationModal={setShowDonationModal} />
+          <EpkSocialAction
+            epkInfo={epkInfo}
+            handler={handleShow}
+            showDonationModal={showDonationModal}
+            setShowDonationModal={setShowDonationModal}
+          />
 
           <EpkDetail epkInfo={epkInfo} handler={handleShow} />
           <EpkLogline
@@ -163,7 +171,9 @@ function EpkViewPage() {
               onRequestClose={() => setShowDonationModal(false)}
               epkId={epkInfo._id}
               userId={user.id}
-              epkImage={"https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details}
+              epkImage={
+                "https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details
+              }
               epkDonatePayPal={epkInfo.DonatePayPal_url}
               epkDonateStripe={epkInfo.DonateStripe_url}
             />

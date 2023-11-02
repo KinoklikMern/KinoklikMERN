@@ -67,7 +67,7 @@ const HomeHead = (props) => {
     userId = user.id;
     userRole = user.role;
   }
- // Donation
+  // Donation
   function handleClickDonation() {
     setClickedDonation(true);
     http.get(`fepks/wishestodonate/${fepk._id}/${userId}`).then((response) => {
@@ -135,6 +135,8 @@ const HomeHead = (props) => {
     }
   }, []);
 
+  const formattedTitle = fepk.title?.replace(/ /g, "_");
+
   return (
     <div
       className=" tw-h-[100vh]  tw-h-screen tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
@@ -150,22 +152,21 @@ const HomeHead = (props) => {
       </div>
       <section id="home" className="tw-pt-0">
         <div className="menu-icon tw-pt-12">
-            {/* Donation  */}
-            <div
+          {/* Donation  */}
+          <div
             className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
               className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
               src={
-                fepk?.donaton?.filter((item) => item._id === userId)
-                  .length !== 0
+                fepk?.donaton?.filter((item) => item._id === userId).length !==
+                0
                   ? DonationIcon
                   : DonationBlackIcon
               }
               alt="/"
               onClick={handleClickDonation}
-             
             />
           </div>
           {/* <Link to="/">   must be linked to /bookmark    */}
@@ -295,7 +296,7 @@ const HomeHead = (props) => {
                 href={
                   props.role === "actor"
                     ? `actor/${actor._id}`
-                    : `epk/${fepk.title}`
+                    : `epk/${formattedTitle}`
                 }
               >
                 <img

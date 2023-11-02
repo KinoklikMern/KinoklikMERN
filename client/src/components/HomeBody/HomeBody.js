@@ -83,6 +83,8 @@ const HomeBody = ({ role }) => {
                             : true)
                       )
                       .map((fepk) => {
+                        // Replace spaces with underscores
+                        const formattedTitle = fepk.title.replace(/ /g, "_");
                         return (
                           <>
                             <div className="listItem" key={fepk._id}>
@@ -90,7 +92,7 @@ const HomeBody = ({ role }) => {
                                 href={
                                   role === "actor"
                                     ? `/actor/${actorId}`
-                                    : `epk/${fepk.title}`
+                                    : `epk/${formattedTitle}`
                                 }
                               >
                                 <img
