@@ -47,7 +47,7 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
           className="modal-content col-12"
           style={{
             borderRadius: "13px",
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            backgroundColor: "rgba(255, 255, 255, 0.1)",
           }}
         >
           <div
