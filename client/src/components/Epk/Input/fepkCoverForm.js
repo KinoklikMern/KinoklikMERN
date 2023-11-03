@@ -361,7 +361,6 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
-                        defaultValue={epkCoverData.genre}
                         name="genre"
                         onChange={handleInputChange}
                       >
@@ -377,7 +376,6 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
-                        defaultValue={epkCoverData.status}
                         name="status"
                         onChange={handleInputChange}
                       >
@@ -393,7 +391,6 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
-                        defaultValue={epkCoverData.production_type}
                         name="production_type"
                         onChange={handleInputChange}
                       >
