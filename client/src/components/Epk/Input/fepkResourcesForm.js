@@ -36,9 +36,15 @@ function ResourcesForm() {
 
   let { fepkId } = useParams();
 
+  //Picture prewiev
+  const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
+
   const fileSelected = (event) => {
-    setFile(event.target.files[0]);
+    const fileNew = event.target.files[0];
+    setFile(fileNew);
     //setDisabled(false);
+    const url = URL.createObjectURL(fileNew);
+    setPicturerPreviewUrlPreviewUrl(url);
   };
 
   useEffect(() => {
@@ -46,7 +52,11 @@ function ResourcesForm() {
       setFepk(response.data);
       setResourcesList(response.data.resources);
     });
-  }, []);
+  }, [fepkId]);
+
+  useEffect(() => {
+    console.log(resourcesList);
+  }, [resourcesList]);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -102,6 +112,8 @@ function ResourcesForm() {
                 console.log(key);
                 resource.image = key;
                 addResourceToTable();
+                setPicturerPreviewUrlPreviewUrl("");
+                inputFileRef.current.value = "";
               }
             })
             .catch((err) => {
@@ -149,151 +161,306 @@ function ResourcesForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
           width: "80%",
-          borderRadius:"10px",
+          borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
-        <form>
-          <div className="row" style={{ 
-            background: "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)"
-          }}>
-            <div className="col-1">
-              <Link className="navbar-brand text-headers-style" to="/home">
-                <img
-                  style={{ width: "100%", height: "80px" }}
-                  src={require("../../../images/logo.png")}
-                  alt="Logo"
-                  className="navbar-logo"
-                />
-              </Link>
-            </div>
-            <div className="col-3  m-3">
-              <h2
-                className="col align-items-start"
-                style={{
-                  color: "#FFFFFF",
-                  fontWeight: "normal",
-                  fontSize: "25px",
-                }}
-              >
-                EPK Dashboard
-              </h2>
-            </div>
-            <div className="col-3 m-3">
-              <BasicMenu />
-            </div>
-            <div className="col-1 m-3"></div>
-            <div className="col-2 m-3">
-              <Link
-                className="col align-items-end"
-                to={`/epk/${fepk.title}`}
-                style={{
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  fontWeight: "normal",
-                  fontSize: "20px",
-                }}
-              >
-                View EPK Page
-              </Link>
-            </div>
+        <div
+          className="row"
+          style={{
+            background:
+              "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+          }}
+        >
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
+              <img
+                style={{ width: "100%", height: "80px" }}
+                src={require("../../../images/logo.png")}
+                alt="Logo"
+                className="navbar-logo"
+              />
+            </Link>
           </div>
-          <div
-            style={{
-              marginLeft: "10%",
-              marginRight: "15%",
-              color: "#311465",
-              fontWeight: "normal",
-            }}
-          >
-            <div className="card-body" style={{ height: "500px" }}>
-              <h5
-                className="card-title "
-                style={{ color: "#311465", fontWeight: "normal" }}
-              >
-                Resources
-              </h5>
-              <form>
-                <div className="row">
-                  <div className="col-4 my-4">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                      }}
-                      className="form-control m-10"
-                      placeholder="Title"
-                      onChange={handleResourceChange}
-                      name="title"
-                    />
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                      }}
-                      className="form-control m-10"
-                      placeholder="Duration Required"
-                      onChange={handleResourceChange}
-                      name="time"
-                    />
-                    <textarea
-                      style={{
-                        height: "60px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        resize: "none",
-                      }}
-                      className="form-control mt-10"
-                      placeholder="Description(maximum 160 characters)"
-                      onChange={handleResourceChange}
-                      name="description"
-                      maxLength="160"
-                    />
-                    <span
-                      style={{
-                        fontSize: "15px",
-                        display: "flex",
-                        justifyContent: "right",
-                      }}
-                    >
-                      {characterLength?.description}/160 characters
-                    </span>
+          <div className="col-3  m-3">
+            <h2
+              className="col align-items-start"
+              style={{
+                color: "#FFFFFF",
+                fontWeight: "normal",
+                fontSize: "25px",
+              }}
+            >
+              EPK Dashboard
+            </h2>
+          </div>
+          <div className="col-3 m-3">
+            <BasicMenu />
+          </div>
+          <div className="col-1 m-3"></div>
+          <div className="col-2 m-3">
+            <Link
+              className="col align-items-end"
+              to={`/epk/${fepk.title}`}
+              style={{
+                color: "#FFFFFF",
+                textDecoration: "none",
+                fontWeight: "normal",
+                fontSize: "20px",
+              }}
+            >
+              View EPK Page
+            </Link>
+          </div>
+        </div>
+        <div
+          style={{
+            marginLeft: "10%",
+            marginRight: "15%",
+            color: "#311465",
+            fontWeight: "normal",
+          }}
+        >
+          <div className="card-body" style={{ height: "500px" }}>
+            <h5
+              className="card-title "
+              style={{ color: "#311465", fontWeight: "normal" }}
+            >
+              Resources
+            </h5>
+            <form>
+              <div className="row">
+                <div className="col-4 my-4">
+                  <input
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
+                    className="form-control m-10"
+                    placeholder="Title"
+                    onChange={handleResourceChange}
+                    name="title"
+                  />
+                  <input
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
+                    className="form-control m-10"
+                    placeholder="Duration Required"
+                    onChange={handleResourceChange}
+                    name="time"
+                  />
+                  <textarea
+                    style={{
+                      height: "60px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "5px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                      resize: "none",
+                    }}
+                    className="form-control mt-10"
+                    placeholder="Description(maximum 160 characters)"
+                    onChange={handleResourceChange}
+                    name="description"
+                    maxLength="160"
+                  />
+                  <span
+                    style={{
+                      fontSize: "15px",
+                      display: "flex",
+                      justifyContent: "right",
+                    }}
+                  >
+                    {characterLength?.description}/160 characters
+                  </span>
 
-                    <label
-                      for="fileAwardLogo"
-                      class="form-label text-dark"
-                      style={{ fontSize: "25px" }}
-                    >
-                      {" "}
-                      <h4>Upload Image</h4>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="fileImageResources"
-                      name="files"
-                      accept="image/*"
+                  <label
+                    htmlFor="fileAwardLogo"
+                    className="form-label text-dark"
+                    style={{ fontSize: "25px" }}
+                  >
+                    {" "}
+                    <h4>Upload Image</h4>
+                  </label>
+                  <input
+                    style={{ fontSize: "15px" }}
+                    className="form-control form-control-sm"
+                    filename={file}
+                    onChange={fileSelected}
+                    ref={inputFileRef}
+                    type="file"
+                    id="fileImageResources"
+                    name="files"
+                    accept="image/*"
+                  />
+                  {picturePreviewUrl && picturePreviewUrl !== undefined ? (
+                    <img
+                      src={picturePreviewUrl}
+                      style={{
+                        height: "120px",
+                        width: "auto",
+                        marginTop: "5px",
+                      }}
+                      alt="no img"
                     />
-                    {disabledAdd === true ? (
+                  ) : // <h3>No Image</h3>
+                  null}
+                  {disabledAdd === true ? (
+                    <Button
+                      disabled
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        color: "grey",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                        width: "100%",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={addResourceImage}
+                      value="save"
+                    >
+                      Add to Table
+                    </Button>
+                  ) : (
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                        width: "100%",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={addResourceImage}
+                      value="save"
+                    >
+                      Add to Table
+                    </Button>
+                  )}
+                </div>
+                <div className="col-7 my-4">
+                  <table
+                    className="table table-striped table-bordered"
+                    style={{
+                      fontSize: "8px",
+                      textAlign: "center",
+                      tableLayout: "auto",
+                      width: "100%",
+                    }}
+                  >
+                    <thead className="thead-dark">
+                      <tr>
+                        <th>Title</th>
+                        <th
+                          style={{
+                            width: "fit-content",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          Duration Required
+                        </th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {resourcesList.map((resource, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{resource.title}</td>
+                            <td>{resource.time}</td>
+                            <td style={{ width: "fit-content" }}>
+                              {resource.description}
+                            </td>
+                            <td>
+                              <img
+                                src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                style={{ height: "60px", width: "auto" }}
+                              />
+                            </td>
+                            <td
+                              style={{
+                                textAlign: "center",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteFromResourcesList(resource)}
+                            >
+                              <FontAwesomeIcon icon={faTrashCan} />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  <div>
+                    <Modal
+                      isOpen={modalIsOpen}
+                      onRequestClose={closeModal}
+                      contentLabel="Example Modal"
+                      appElement={document.getElementById("root")}
+                      style={{
+                        overlay: {
+                          // position: "fixed",
+                          // top: 0,
+                          // left: 0,
+                          // right: 0,
+                          // bottom: 0,
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        },
+                        content: {
+                          position: "absolute",
+                          border: "2px solid #000",
+                          backgroundColor: "white",
+                          boxShadow: "2px solid black",
+                          height: 150,
+                          width: 300,
+                          margin: "auto",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        },
+                      }}
+                    >
+                      <div style={{ textAlign: "center" }}>
+                        <h2>Your content has been successfully saved!</h2>
+                        <br />
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          onClick={closeModal}
+                        >
+                          Ok
+                        </button>
+                      </div>
+                    </Modal>
+                  </div>
+                </div>
+                <div className="col-1 mt-5">
+                  <div
+                    style={{
+                      height: "50px",
+                      width: "100px",
+                      marginLeft: "100%",
+                      marginTop: "350px",
+                    }}
+                  >
+                    {disabled === true ? (
                       <Button
                         disabled
                         style={{
@@ -301,14 +468,13 @@ function ResourcesForm() {
                           color: "grey",
                           backgroundColor: "#ffffff",
                           fontWeight: "bold",
-                          width: "100%",
                         }}
                         type="outline-primary"
                         block
-                        onClick={addResourceImage}
+                        onClick={saveEpkResources}
                         value="save"
                       >
-                        Add to Table
+                        Save
                       </Button>
                     ) : (
                       <Button
@@ -316,163 +482,21 @@ function ResourcesForm() {
                         style={{
                           boxShadow: "1px 2px 9px #311465",
                           fontWeight: "bold",
-                          width: "100%",
                         }}
                         type="outline-primary"
                         block
-                        onClick={addResourceImage}
+                        onClick={saveEpkResources}
                         value="save"
                       >
-                        Add to Table
+                        Save
                       </Button>
                     )}
                   </div>
-                  <div className="col-7 my-4">
-                    <table
-                      className="table table-striped table-bordered"
-                      style={{
-                        fontSize: "8px",
-                        textAlign: "center",
-                        tableLayout: "auto",
-                        width: "100%",
-                      }}
-                    >
-                      <thead className="thead-dark">
-                        <tr>
-                          <th>Title</th>
-                          <th
-                            style={{
-                              width: "fit-content",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            Duration Required
-                          </th>
-                          <th>Description</th>
-                          <th>Image</th>
-                          <th>ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {resourcesList.map((resource) => {
-                          return (
-                            <tr>
-                              <td>{resource.title}</td>
-                              <td>{resource.time}</td>
-                              <td style={{ width: "fit-content" }}>
-                                {resource.description}
-                              </td>
-                              <td>
-                                <img
-                                  src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
-                                  style={{ height: "60px", width: "auto" }}
-                                />
-                              </td>
-                              <td
-                                style={{
-                                  textAlign: "center",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() =>
-                                  deleteFromResourcesList(resource)
-                                }
-                              >
-                                <FontAwesomeIcon icon={faTrashCan} />
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                    <div>
-                      <Modal
-                        isOpen={modalIsOpen}
-                        onRequestClose={closeModal}
-                        contentLabel="Example Modal"
-                        appElement={document.getElementById("root")}
-                        style={{
-                          overlay: {
-                            // position: "fixed",
-                            // top: 0,
-                            // left: 0,
-                            // right: 0,
-                            // bottom: 0,
-                            backgroundColor: "rgba(0, 0, 0, 0.5)",
-                          },
-                          content: {
-                            position: "absolute",
-                            border: "2px solid #000",
-                            backgroundColor: "white",
-                            boxShadow: "2px solid black",
-                            height: 150,
-                            width: 300,
-                            margin: "auto",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          },
-                        }}
-                      >
-                        <div style={{ textAlign: "center" }}>
-                          <h2>Your content has been successfully saved!</h2>
-                          <br />
-                          <button
-                            className="btn btn-secondary btn-sm"
-                            onClick={closeModal}
-                          >
-                            Ok
-                          </button>
-                        </div>
-                      </Modal>
-                    </div>
-                  </div>
-                  <div className="col-1 mt-5">
-                    <div
-                      style={{
-                        height: "50px",
-                        width: "100px",
-                        marginLeft: "100%",
-                        marginTop: "350px",
-                      }}
-                    >
-                      {disabled === true ? (
-                        <Button
-                          disabled
-                          style={{
-                            boxShadow: "1px 2px 9px #311465",
-                            color: "grey",
-                            backgroundColor: "#ffffff",
-                            fontWeight: "bold",
-                          }}
-                          type="outline-primary"
-                          block
-                          onClick={saveEpkResources}
-                          value="save"
-                        >
-                          Save
-                        </Button>
-                      ) : (
-                        <Button
-                          className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                          style={{
-                            boxShadow: "1px 2px 9px #311465",
-                            fontWeight: "bold",
-                          }}
-                          type="outline-primary"
-                          block
-                          onClick={saveEpkResources}
-                          value="save"
-                        >
-                          Save
-                        </Button>
-                      )}
-                    </div>
-                  </div>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

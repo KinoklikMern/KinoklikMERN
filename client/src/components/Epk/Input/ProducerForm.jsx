@@ -104,18 +104,18 @@ function ProducerForm() {
 
   return (
     <form className="form">
-    <div class="card">
-      <div class="card-header">
-        <div class="row align-items-start">
-          <div class="col align-items-start">EPK Page Upload</div>
-          <div class="col align-items-end">link to view</div>
+      <div className="card">
+        <div className="card-header">
+          <div className="row align-items-start">
+            <div className="col align-items-start">EPK Page Upload</div>
+            <div className="col align-items-end">link to view</div>
+          </div>
         </div>
-      </div>
 
-      <div class="card-body">
-        <h5 class="card-title">Producers</h5>
-        <form className="row g-3">      
-              <div className="col-6">
+        <div className="card-body">
+          <h5 className="card-title">Producers</h5>
+          <form className="row g-3">
+            <div className="col-6">
               <input
                     type="text"
                     placeholder = "Name"
@@ -135,43 +135,42 @@ function ProducerForm() {
                     />   
               <br/> 
 
-               <textarea 
-                    class="form-control" 
-                    rows="3"
-                    placeholder = "Biography"
-                    value={producerData.producer_biography}
-                 
-                    onChange={handleInputChange}
-                    name="producer_biography"  
-                    />  
-              
-               <br/>   
-               <UploadFile setImage={setImage1} />
-                {image1 && (
-                  <img
-                    src={image1}
-                    alt="hey"
-                    style={{ height: "350px", width: "300px" }}
-                    class="img-fluid "
-                  />
-                )}
-              </div>
-            
-          <div className="d-flex justify-content-end">
-            <button
-              type="submit"
-              className="btn btn-secondary"
-              onClick={saveProducer}
-            >
-              {" "}
-              Save{" "}
-            </button>
-          </div>
-        </form>
+              <textarea
+                className="form-control"
+                rows="3"
+                placeholder="Biography"
+                value={producerData.producer_biography}
+                onChange={handleInputChange}
+                name="producer_biography"
+              />
+
+              <br />
+              <UploadFile setImage={setImage1} />
+              {image1 && (
+                <img
+                  src={image1}
+                  alt="hey"
+                  style={{ height: "350px", width: "300px" }}
+                  className="img-fluid "
+                />
+              )}
+            </div>
+
+            <div className="d-flex justify-content-end">
+              <button
+                type="submit"
+                className="btn btn-secondary"
+                onClick={saveProducer}
+              >
+                {" "}
+                Save{" "}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </form>
-)
+    </form>
+  );
 }
 
 export default ProducerForm;

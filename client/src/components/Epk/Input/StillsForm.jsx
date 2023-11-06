@@ -244,138 +244,185 @@ function StillsForm() {
 
   return (
     <form className="form">
-    <div class="card">
-      <div class="card-header">
-        <div class="row align-items-start">
-          <div class="col align-items-start">EPK Page Upload</div>
-          <div class="col align-items-end">link to view</div>
+      <div className="card">
+        <div className="card-header">
+          <div className="row align-items-start">
+            <div className="col align-items-start">EPK Page Upload</div>
+            <div className="col align-items-end">link to view</div>
+          </div>
         </div>
-      </div>
 
-      <div class="card-body">
-        <h5 class="card-title">Stills</h5>
-        <form className="row g-3">      
-      
-              <div className="col-3">
-                
-                <input
-                  className="form-control form-control-sm"
-                  filename={file1}
-                  onChange={file1Selected}
-                  ref={inputFile1Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img1_url? 
-                    <img src={stillData.still_img1_url}  class="img-fluid"></img>:<></>}
-              </div>
-              <div className="col-3">
-              
-                <input
-                  className="form-control form-control-sm"
-                  filename={file2}
-                  onChange={file2Selected}
-                  ref={inputFile2Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img2_url? 
-                    <img src={stillData.still_img2_url}  class="img-fluid"></img>:<></>}
-              </div>
-              <div className="col-3">
-               
-                <input
-                  className="form-control form-control-sm"
-                  filename={file3}
-                  onChange={file3Selected}
-                  ref={inputFile3Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img3_url? 
-                    <img src={stillData.still_img3_url}  class="img-fluid"></img>:<></>}
-              </div>
-              <div className="col-3">
-                
-                <input
-                  className="form-control form-control-sm"
-                  filename={file4}
-                  onChange={file4Selected}
-                  ref={inputFile4Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img4_url? 
-                    <img src={stillData.still_img4_url}  class="img-fluid"></img>:<></>}
-              </div>
-              <div className="col-3">
-              
-                <input
-                  className="form-control form-control-sm"
-                  filename={file5}
-                  onChange={file5Selected}
-                  ref={inputFile5Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img5_url? 
-                    <img src={stillData.still_img5_url}  class="img-fluid"></img>:<></>}
-              </div>
-              <div className="col-3">
-               
-                <input
-                  className="form-control form-control-sm"
-                  filename={file6}
-                  onChange={file6Selected}
-                  ref={inputFile6Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img6_url? 
-                    <img src={stillData.still_img6_url}  class="img-fluid"></img>:<></>}
-              </div>
-              <div className="col-3">
-            
-                <input
-                  className="form-control form-control-sm"
-                  filename={file7}
-                  onChange={file7Selected}
-                  ref={inputFile7Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img7_url? 
-                    <img src={stillData.still_img7_url}  class="img-fluid"></img>:<></>}
-              </div>
-              <div className="col-3">
-             
-                <input
-                  className="form-control form-control-sm"
-                  filename={file8}
-                  onChange={file8Selected}
-                  ref={inputFile8Ref}
-                  type="file"
-                  id="fileBanner"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                 {stillData.still_img8_url? 
-                    <img src={stillData.still_img8_url}  class="img-fluid"></img>:<></>}
-              </div>
+        <div className="card-body">
+          <h5 className="card-title">Stills</h5>
+          <form className="row g-3">
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file1}
+                onChange={file1Selected}
+                ref={inputFile1Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img1_url ? (
+                <img
+                  src={stillData.still_img1_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file2}
+                onChange={file2Selected}
+                ref={inputFile2Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img2_url ? (
+                <img
+                  src={stillData.still_img2_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file3}
+                onChange={file3Selected}
+                ref={inputFile3Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img3_url ? (
+                <img
+                  src={stillData.still_img3_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file4}
+                onChange={file4Selected}
+                ref={inputFile4Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img4_url ? (
+                <img
+                  src={stillData.still_img4_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file5}
+                onChange={file5Selected}
+                ref={inputFile5Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img5_url ? (
+                <img
+                  src={stillData.still_img5_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file6}
+                onChange={file6Selected}
+                ref={inputFile6Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img6_url ? (
+                <img
+                  src={stillData.still_img6_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file7}
+                onChange={file7Selected}
+                ref={inputFile7Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img7_url ? (
+                <img
+                  src={stillData.still_img7_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div className="col-3">
+              <input
+                className="form-control form-control-sm"
+                filename={file8}
+                onChange={file8Selected}
+                ref={inputFile8Ref}
+                type="file"
+                id="fileBanner"
+                name="files"
+                accept="image/*"
+              ></input>
+              {stillData.still_img8_url ? (
+                <img
+                  src={stillData.still_img8_url}
+                  alt=""
+                  className="img-fluid"
+                ></img>
+              ) : (
+                <></>
+              )}
+            </div>
 
               
                 

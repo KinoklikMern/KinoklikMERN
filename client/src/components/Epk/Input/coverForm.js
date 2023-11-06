@@ -256,70 +256,96 @@ function CoverForm() {
                         width: "100%", 
                         borderRadius: "5px", 
                         marginBottom: "5px",
-                        boxShadow: '1px 2px 9px #311465',
+                        boxShadow: "1px 2px 9px #311465",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonatePayPal_url}
+                      placeholder="URL: www.paypal.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonatePayPal_url"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonateStripe_url}
+                      placeholder="URL: www.stripe.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonateStripe_url"
+                    />
+                  </div>
+                </div>
+                <div className="col border border-2">
+                  <div className="row gx-5">
+                    <div className="col mt-5">
+                      <label htmlFor="fileBanner" className="form-label text-dark">
+                        {" "}
+                        Upload Banner
+                      </label>
+                      <input
+                        className="form-control form-control-sm"
+                        filename={file1}
+                        onChange={file1Selected}
+                        ref={inputFile1Ref}
+                        type="file"
+                        id="fileBanner"
+                        name="files"
+                        accept="image/*"
+                      ></input>
+                    </div>
+                    <div className="col mt-5">
+                      <label htmlFor="fileTrailer" className="form-label text-dark">
+                        {" "}
+                        Upload Trailer
+                      </label>
+                      <input
+                        className="form-control form-control-sm"
+                        filename={file2}
+                        ref={inputFile2Ref}
+                        onChange={file2Selected}
+                        type="file"
+                        id="fileTrailer"
+                        name="files"
+                        accept="video/*"
+                      ></input>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    height: "50px",
+                    width: "120px",
+                    marginLeft: "100%",
+                    marginTop: "200px",
+                  }}
+                >
+                  <Button
+                    style={{
+                      boxShadow: "1px 2px 9px #311465",
+                      backgroundColor: "#ffffff",
+                      fontWeight: "bold",
                     }}
-                    className="form-control"
-                    defaultValue={epkCoverData.kickstarter_url}
-                    placeholder="KickStarter URL"
-                    onChange={handleInputChange}
-                    name="kickstarter_url"
-                  />
+                    type="outline-primary"
+                    block
+                    onClick={saveEpkCover}
+                    value="save"
+                  >
+                    Save
+                  </Button>
                 </div>
-              </div>
-              <div className="col border border-2">
-                <div className="row gx-5">
-                  <div className="col mt-5">
-                    <label for="fileBanner" class="form-label text-dark">
-                      {" "}
-                      Upload Banner
-                    </label>
-                    <input
-                      className="form-control form-control-sm"
-                      filename={file1}
-                      onChange={file1Selected}
-                      ref={inputFile1Ref}
-                      type="file"
-                      id="fileBanner"
-                      name="files"
-                      accept="image/*"
-                    ></input>
-                  </div>
-                  <div className="col mt-5">
-                    <label for="fileTrailer" class="form-label text-dark">
-                      {" "}
-                      Upload Trailer
-                    </label>
-                    <input
-                      className="form-control form-control-sm"
-                      filename={file2}
-                      ref={inputFile2Ref}
-                      onChange={file2Selected}
-                      type="file"
-                      id="fileTrailer"
-                      name="files"
-                      accept="video/*"
-                    ></input>
-                  </div>
-                </div>
-              </div>
-          <div
-          style={{
-            height: "50px",
-            width: "120px",
-            marginLeft: "100%",
-            marginTop: "200px"
-          }}
-        >
-          <Button style={{boxShadow: '1px 2px 9px #311465', backgroundColor: "#ffffff", fontWeight: "bold"}} type="outline-primary" block onClick={saveEpkCover} value="save">
-            Save
-          </Button>
+              </form>
             </div>
-            </form>
           </div>
-        </div>
-      </form>
-    </div>
-  </>
+        </form>
+      </div>
+    </>
   );
 }
 

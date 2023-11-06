@@ -62,9 +62,16 @@ export default function BasicMenu() {
         }}
       >
         {fepkList.map((val) => {
-                    return (
-                        <MenuItem><a href={`/editFepk/${val._id}`} style={{color: "#311465", textDecoration: "none" }}>{val.title}</a></MenuItem>
-                    );
+          return (
+            <MenuItem key={val._id}>
+              <a
+                href={`/editFepk/${val._id}`}
+                style={{ color: "#311465", textDecoration: "none" }}
+              >
+                {val.title}
+              </a>
+            </MenuItem>
+          );
         })}
       </Menu>
     </div>

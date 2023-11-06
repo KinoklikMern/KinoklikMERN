@@ -6,17 +6,23 @@ const fepkSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
-  actors: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: false,
-  }],
+  actors: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
+  ],
 
   // Cover
   title: {
     type: String,
     unique: true,
     required: true,
+  },
+  budget: {
+    type: String,
+    default: "",
   },
   logLine_short: { type: String },
   genre: { type: String },
@@ -43,31 +49,35 @@ const fepkSchema = mongoose.Schema({
   },
 
   // Film Details
-  image_details: { type: String, default:"https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png" },
+  image_details: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
+  },
   productionCo: { type: String },
   distributionCo: { type: String },
   productionYear: { type: String },
   durationMin: { type: String },
 
   // Logline
-  image_logline: { type: String },
-  logLine_long: { type: String },
+  image_logline: { type: String, default: "" },
+  logLine_long: { type: String, default: "" },
   logLine_blur: { type: Boolean, default: false },
 
   // Synopsis
-  image_synopsis: { type: String },
-  image_synopsis_medium: { type: String },
-  image_synopsis_long: { type: String },
-  text_short: { type: String },
-  text_medium: { type: String },
+  image_synopsis: { type: String, default: "" },
+  image_synopsis_medium: { type: String, default: "" },
+  image_synopsis_long: { type: String, default: "" },
+  text_short: { type: String, default: "" },
+  text_medium: { type: String, default: "" },
   text_medium_blur: { type: Boolean, default: false },
-  text_long: { type: String },
+  text_long: { type: String, default: "" },
   text_long_blur: { type: Boolean, default: false },
 
   // Uniqueness
-  title_uniqueness: { type: String },
-  description_uniqueness: { type: String },
-  image_uniqueness: { type: String },
+  title_uniqueness: { type: String, default: "" },
+  description_uniqueness: { type: String, default: "" },
+  image_uniqueness: { type: String, default: "" },
   uniqueness_blur: { type: Boolean, default: false },
 
   // Crew
@@ -141,6 +151,14 @@ const fepkSchema = mongoose.Schema({
 
   // "+" sign front end
   favourites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
+  // "$" sign front end
+  wishes_to_donate: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
