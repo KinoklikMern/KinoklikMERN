@@ -67,7 +67,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   //Yeming added
-  const { incrementNotification, filmmakerInfo, setFilmmakerInfo } =
+  const { incrementNotification, setUserInfo } =
     useContext(NotificationContext);
 
   useEffect(() => {
@@ -198,8 +198,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 setFepkInfo(response.data);
                 // console.log(response.data.wishes_to_buy.length);
                 // Update filmmaker info in the NotificationContext
-                const filmmakerInfo = response.data.film_maker._id;
-                setFilmmakerInfo(filmmakerInfo);
+                const filmmakerInfo = response.data.film_maker;
+                setUserInfo(filmmakerInfo);
 
                 setUsersWishesToBuy(response.data.wishes_to_buy.length);
                 incrementNotification(incrementValue);
@@ -231,7 +231,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 // console.log(response.data);
                 // Update filmmaker info in the NotificationContext
                 const filmmakerInfo = response.data.film_maker;
-                setFilmmakerInfo(filmmakerInfo);
+                // console.log("filmmakerInfo:", filmmakerInfo);
+                setUserInfo(filmmakerInfo);
                 setUsersFavourites(response.data.favourites.length);
                 incrementNotification(incrementValue);
               })
@@ -256,7 +257,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 // console.log(response.data);
                 // Update filmmaker info in the NotificationContext
                 const filmmakerInfo = response.data.film_maker;
-                setFilmmakerInfo(filmmakerInfo);
+                setUserInfo(filmmakerInfo);
                 setUsersLikes(response.data.likes.length);
                 incrementNotification(incrementValue);
               })
