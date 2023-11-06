@@ -42,4 +42,27 @@
 .homeHead-poster {
   border-radius: 55px;
   border: 2px solid #160625;
+  height: 30vh;
+}
+
+@media (max-width: 768px) {
+  .movieTitle {
+    text-align: start;
+  }
+
+  .homeHead-poster {
+    height: 40vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .homeHead-poster {
+    height: 50vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .homeHead-poster {
+    height: 60vh;
+  }
 }

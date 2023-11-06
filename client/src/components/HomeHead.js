@@ -273,7 +273,7 @@ const HomeHead = (props) => {
         </div> */}
         <div className='tw-pt-24'>
           <div className='tw-flex'>
-            <div className='tw-flex tw-w-2/4'>
+            <div className='tw-flex md:tw-w-2/4'>
               <a
                 className='tw-mx-auto'
                 href={
@@ -283,7 +283,7 @@ const HomeHead = (props) => {
                 }
               >
                 <img
-                  className='homeHead-poster tw-invisible md:tw-visible md:tw-h-[40vh] lg:tw-h-[70vh]'
+                  className='homeHead-poster tw-invisible md:tw-visible'
                   src={
                     props.role === "actor"
                       ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
