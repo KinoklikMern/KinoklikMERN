@@ -1,14 +1,22 @@
 // Yeming added
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 const NotificationContext = createContext();
 
 const NotificationProvider = ({ children }) => {
+  const initialMessageCount =
+    parseInt(localStorage.getItem("messageCount"), 10) || 0;
+
   const [notificationCount, setNotificationCount] = useState(0);
-  const [messageCount, setMessageCount] = useState(0);
+  const [messageCount, setMessageCount] = useState(initialMessageCount);
   const [showNotification, setShowNotification] = useState(false);
-  const [filmmakerInfo, setFilmmakerInfo] = useState(null);
+  // const [filmmakerInfo, setFilmmakerInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem("messageCount", messageCount);
+  }, [messageCount]);
 
   const incrementNotification = (incrementBy = 1) => {
     setNotificationCount((prevCount) => {
@@ -23,16 +31,30 @@ const NotificationProvider = ({ children }) => {
     setShowNotification(true);
   };
 
+  const clearMessageCount = () => {
+    setMessageCount(0);
+    localStorage.removeItem("messageCount");
+  };
+
+  const clearNotificationCount = () => {
+    setNotificationCount(0);
+  };
+
   return (
     <NotificationContext.Provider
       value={{
         notificationCount,
         messageCount,
+        setMessageCount,
         showNotification,
         incrementNotification,
         incrementMessage,
-        filmmakerInfo,
-        setFilmmakerInfo,
+        // filmmakerInfo,
+        // setFilmmakerInfo,
+        userInfo,
+        setUserInfo,
+        clearMessageCount,
+        clearNotificationCount,
       }}
     >
       {children}

@@ -1,57 +1,52 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import UploadFile from "../../FileUpload";
 
 import http from "../../../http-common";
 
-
 function ProducerForm() {
   const [image1, setImage1] = useState("");
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
   const params = useParams();
   const navigate = useNavigate();
 
-   const [producerData, setProducerData] = useState({
+  const [producerData, setProducerData] = useState({
     producer_name: "",
     producer_header: "",
     producer_photo_url: "",
-    producer_biography: "", 
+    producer_biography: "",
   });
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setProducerData({ ...producerData, [name]: value });
   };
 
-  const checkFileMimeType = (file) => {
-    if (file !== "") {
-      if (  
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg"
-      )
-        return true;
-      else return false;
-    } else return true;
-  };
+  // const checkFileMimeType = (file) => {
+  //   if (file !== "") {
+  //     if (
+  //       file.type === "image/png" ||
+  //       file.type === "image/jpg" ||
+  //       file.type === "image/jpeg"
+  //     )
+  //       return true;
+  //     else return false;
+  //   } else return true;
+  // };
 
-
-  
   useEffect(() => {
     async function fetchData() {
-      const id = params.id.toString();;
-      http
-      .get(`epk/${params.id.toString()}/producers`)
-      .then((response) => {
+      const id = params.id.toString();
+      http.get(`epk/${params.id.toString()}/producers`).then((response) => {
         console.log("response");
         console.log(response);
-        if (!(response.statusText) ==="OK") {
+        if (!response.statusText === "OK") {
           console.log("error");
           const message = `An error has occurred: ${response.statusText}`;
           window.alert(message);
           return;
         }
-    
+
         const record = response.data;
         console.log("record");
         console.log(record);
@@ -61,45 +56,43 @@ function ProducerForm() {
           return;
         }
 
-         setProducerData(record[0]); 
-         console.log("image1");
-         console.log(producerData.producer_name);
-         console.log(producerData.producer_photo_url);
-         setImage1( record[0].producer_photo_url);
+        setProducerData(record[0]);
+        console.log("image1");
+        console.log(producerData.producer_name);
+        console.log(producerData.producer_photo_url);
+        setImage1(record[0].producer_photo_url);
         console.log("image1");
         console.log(image1);
-      }  )       
+      });
     }
-  
+
     fetchData();
-  
+
     return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, navigate]);
-
-
 
   const saveProducer = (e) => {
     e.preventDefault();
     let formData = new FormData();
 
     console.log(formData);
-    
+
     console.log("before");
     console.log(producerData.producer_photo_url);
-    producerData.producer_photo_url=image1;
-    http 
-            .put(`epk/${params.id.toString()}/producers`, producerData)
-      
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-            console.log("after");
-            
-            console.log(producerData.producer_photo_url);
-            
+    producerData.producer_photo_url = image1;
+    http
+      .put(`epk/${params.id.toString()}/producers`, producerData)
+
+      .then((res) => {
+        console.log("saved");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log("after");
+
+    console.log(producerData.producer_photo_url);
   };
 
   return (
@@ -117,14 +110,14 @@ function ProducerForm() {
           <form className="row g-3">
             <div className="col-6">
               <input
-                    type="text"
-                    placeholder = "Name"
-                    className="form-control"        
-                    value={producerData.producer_name}
-                    onChange={handleInputChange}
-                    name="producer_name"                         
-                    />   
-              <br/> 
+                type="text"
+                placeholder="Name"
+                className="form-control"
+                value={producerData.producer_name}
+                onChange={handleInputChange}
+                name="producer_name"
+              />
+              <br />
               <input
                     type="text"
                     placeholder = "Header"

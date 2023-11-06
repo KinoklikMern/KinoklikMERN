@@ -6,3 +6,6 @@ SKIP_PREFLIGHT_CHECK=true
 
 #Change this if your backend is using a different port
 REACT_APP_BACKEND_URL="http://localhost:8000"
+
+#Stripe publishable key
+REACT_APP_STRIPE_PUBLISHABLE_KEY=""

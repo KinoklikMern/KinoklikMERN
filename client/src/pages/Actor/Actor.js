@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Actor.css";
-import List from "./ListActor";
+// import List from "./ListActor";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
 import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/Footer";
 import { useParams } from "react-router-dom";
-import { getActorById } from "../../api/epks";
 import { useSelector } from "react-redux";
-import starIcon from "../../images/icons/Star FULL.svg";
+// import starIcon from "../../images/icons/Star FULL.svg";
 import refralIcon from "../../images/icons/referral sign.svg";
 import http from "../../http-common";
 import {
@@ -18,25 +17,30 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { addToChat } from "../../api/epks";
 
 export default function Actor(props) {
   const [epkInfo, setEpkInfo] = useState({});
   const { id } = useParams();
   const [kkFollower, setKKFollower] = useState([]);
   const [range, setRange] = useState(2);
-  const [isMoved, setIsMoved] = useState(false);
-  const [slideNumber, setSlideNumber] = useState(0);
+  // const [isMoved, setIsMoved] = useState(false);
+  // const [slideNumber, setSlideNumber] = useState(0);
   const [pics, setpics] = useState([]);
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
-  const [recommend, setRecommend] = useState([]);
-  const [canPlay, setCanPlay] = useState(true);
+  const [recommendations, setRecommendations] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
-  let images = [];
-
-  const listRef = useRef();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [allUserList, setAllUserList] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedFilmmakers, setSelectedFilmmakers] = useState([]);
   const videoRef = useRef();
+  const [isModalVisible, setModalVisible] = useState(false);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -66,27 +70,29 @@ export default function Actor(props) {
   }
 
   useEffect(() => {
-    http.get(`/users/getactor/${id}`).then((res) => {
-      setEpkInfo(res.data);
+    Promise.all([
+      http.get(`/users/getactor/${id}`),
+      http.get("/users/getallusers"),
+    ])
+      .then(([actorResponse, usersResponse]) => {
+        const actorData = actorResponse.data;
+        setEpkInfo(actorData);
 
-      images.push(res.data.picture);
-      images.push(...res.data.profiles);
+        const images = [];
+        images.push(actorData.picture);
+        images.push(...actorData.profiles);
 
-      setpics(images);
+        setpics(images);
 
-      setAge(res.data.age);
-      setLikes(res.data.likes.length);
-      setKKFollower(res.data.kkFollowers.length);
-      setRecommend(res.data.comunicate);
-    });
-
-    // const playVideoAfterDelay = setTimeout(() => {
-    //   if (videoRef.current) {
-    //     videoRef.current.play();
-    //   }
-    // }, 5000);
-
-    // return () => clearTimeout(playVideoAfterDelay);
+        setAge(actorData.age);
+        setLikes(actorData.likes.length);
+        setKKFollower(actorData.kkFollowers.length);
+        setRecommendations(actorData.recommendations);
+        setAllUserList(usersResponse.data);
+      })
+      .catch((error) => {
+        console.error("An error occurred while fetching data.", error);
+      });
   }, [id]);
 
   // user is added to the list of +(followers)
@@ -101,6 +107,83 @@ export default function Actor(props) {
       setLikes(res.data.likes.length);
     });
   }
+  // user is added to the list of recommendations
+  const addUserToRecommendations = (count) => {
+    http.post(`/users/recommend/${id}`, { count }).then((res) => {
+      setRecommendations(res.data.recommendations);
+    });
+  };
+  // user is recommended to filmmakers
+  const recommendToFilmmaker = (filmmaker) => {
+    setSelectedFilmmakers((prevSelected) => {
+      console.log("Incoming filmmaker:", filmmaker);
+      console.log("Previous Selection:", prevSelected);
+
+      const isAlreadySelected = prevSelected.some(
+        (selected) => selected._id === filmmaker._id
+      );
+
+      if (isAlreadySelected) {
+        return prevSelected.filter(
+          (selected) => selected._id !== filmmaker._id
+        );
+      } else {
+        return [...prevSelected, filmmaker];
+      }
+    });
+  };
+
+  const sendRecommendations = () => {
+    if (!user || !user.token) {
+      return console.error("User or user token is not available");
+    }
+    if (selectedFilmmakers.length === 0) {
+      return console.error("No filmmakers selected for recommendation");
+    }
+
+    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
+    const message2 = `<a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
+
+    Promise.all(
+      selectedFilmmakers.map((filmmaker) => {
+        return addToChat(message1, user, filmmaker._id).then((res) => {
+          if (res && res.status === 200) {
+            showModal();
+            return addToChat(message2, user, filmmaker._id);
+          } else {
+            console.error("Unexpected response for message 1", res);
+            throw new Error("Unexpected response for message 1");
+          }
+        });
+      })
+    )
+      .then(() => {
+        addUserToRecommendations(selectedFilmmakers.length);
+        setSelectedFilmmakers([]);
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Error sending recommendations:", error);
+      });
+  };
+
+  const handleSearch = (event) => {
+    setSearchValue(event.target.value);
+    const searchWord = event.target.value.toLowerCase();
+    const newFilter = allUserList.filter((user) => {
+      return (
+        user.role === "Filmmaker" &&
+        (user.firstName + " " + (user.lastName || ""))
+          .toLowerCase()
+          .includes(searchWord)
+      );
+    });
+    if (!searchWord.trim() || newFilter.length === 0) {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
+    }
+  };
 
   const handleClick = (direction) => {
     if (direction === "left" && indexPic > 0) {
@@ -111,15 +194,6 @@ export default function Actor(props) {
   };
 
   const playVideo = () => {
-    // if (canPlay === true) {
-    //   setCanPlay(false);
-    //   videoRef.current.pause();
-    // } else {
-    //   setCanPlay(true);
-    //   videoRef.current.play();
-    // }
-
-    // ----- CHIHYIN -----
     const video = videoRef.current;
     if (isPlaying) {
       video.pause();
@@ -134,17 +208,22 @@ export default function Actor(props) {
         return "M";
       case "Female":
         return "F";
-      case "Transgender":
-        return "Trans";
-      case "Non-binary":
-        return "NB";
-      case "other":
-        return "O";
-      case "notToSay":
-        return "-";
       default:
-        return "";
+        return "N/A";
     }
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+  const showModal = () => {
+    setModalVisible(true);
+    setTimeout(() => {
+      setModalVisible(false);
+    }, 2500);
   };
 
   return (
@@ -217,17 +296,23 @@ export default function Actor(props) {
         </div>
 
         <div className="actor-middle-container">
-          <p className="actor-name actor-detail-item">
+          <p
+            className="Actor-Role actor-detail-item"
+            style={{
+              fontSize: "30px",
+              fontWeight: "bold",
+            }}
+          >
             {epkInfo.firstName} {epkInfo.lastName}
           </p>
           <p
-            className="actor-name actor-detail-item"
+            className="Actor-Role actor-detail-item"
             style={{
               gridColumn: "3/4",
+              fontSize: "30px",
+              fontWeight: "bold",
             }}
           >
-            {/* {epkInfo.sex && epkInfo.sex === "Male" ? "M" : "F"} */}
-            {/* ----- CHIHYIN ----- */}
             {displaySex(epkInfo.sex)}
           </p>
           <p className="actor-detail-item Actor-Role">Actor</p>
@@ -241,20 +326,9 @@ export default function Actor(props) {
             className="follower-number actor-detail-item"
             style={{ fontSize: "24px" }}
           >
-            {/* {kkFollower.length || "0"} */}
             {kkFollower}
           </p>
-          {/* <button className="btn-star actor-detail-item">
-            <span style={{ display: "inline" }}>Star</span>{" "}
-            <StarIcon
-              className="actor-page-star"
-              onClick={addUserToLikes}
-              style={{
-                color: "white",
-                marginLeft: "10px",
-              }}
-            />{" "}
-          </button> */}
+
           <button
             className="btn-star actor-detail-item"
             onClick={addUserToLikes}
@@ -271,7 +345,10 @@ export default function Actor(props) {
           >
             {likes}
           </p>
-          <button className="btn-Recommend actor-detail-item">
+          <button
+            className="btn-Recommend actor-detail-item"
+            onClick={openModal}
+          >
             <span style={{ display: "inline" }}>Recommend</span>{" "}
             <img
               src={refralIcon}
@@ -279,11 +356,125 @@ export default function Actor(props) {
               style={{ fill: "white", color: "white" }}
             />
           </button>
+          <div className={`actor-modal ${modalIsOpen ? "is-open" : ""}`}>
+            <div
+              className="shared-style"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                position: "relative",
+              }}
+            >
+              <div
+                style={{
+                  alignSelf: "flex-end",
+                  cursor: "pointer",
+                }}
+                onClick={closeModal}
+              >
+                X
+              </div>
+              <h2>Recommend Actor To Filmmaker:</h2>
+              <input
+                type="text"
+                className="form-control shared-styles"
+                value={searchValue}
+                placeholder="Search name ..."
+                onChange={handleSearch}
+              />
+              <div className="selected-filmmakers-display">
+                {selectedFilmmakers.map((filmmaker, index) => (
+                  <div key={index} className="selected-filmmaker-display">
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      {" "}
+                      <img
+                        src={filmmaker.picture}
+                        alt={filmmaker.firstName}
+                        style={{
+                          display: "inline",
+                          width: "30px",
+                          height: "30px",
+                          borderRadius: "25%",
+                          marginRight: "10px",
+                        }}
+                      />
+                      {filmmaker.firstName} {filmmaker.lastName || ""}
+                    </div>
+                    <button
+                      style={{
+                        background: "transparent",
+                        marginright: "30px",
+                      }}
+                      onClick={() => recommendToFilmmaker(filmmaker)}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
+              {searchValue && (
+                <div className={`results-div shared-styles`}>
+                  {filteredData.length > 0 ? (
+                    filteredData.map((filmmaker) => (
+                      <div
+                        key={filmmaker._id}
+                        onClick={() => recommendToFilmmaker(filmmaker)}
+                        className={
+                          selectedFilmmakers.some(
+                            (selected) => selected._id === filmmaker._id
+                          )
+                            ? "selected-filmmaker"
+                            : ""
+                        }
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <div
+                          style={{ marginRight: "30px", marginBottom: "10px" }}
+                        >
+                          <img
+                            src={filmmaker.picture}
+                            alt={`${filmmaker.firstName} ${filmmaker.lastName}`}
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              borderRadius: "25%",
+                            }}
+                          />
+                        </div>
+                        <div>
+                          {filmmaker.firstName} {filmmaker.lastName || ""}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ padding: "5px" }}>No filmmaker found.</div>
+                  )}
+                </div>
+              )}
+              {selectedFilmmakers.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "20px",
+                  }}
+                >
+                  <button className="btn-send" onClick={sendRecommendations}>
+                    Send <FontAwesomeIcon icon={faPaperPlane} />
+                  </button>
+                </div>
+              )}
+            </div>{" "}
+          </div>
           <p
             className="follower-number-Recommend actor-detail-item"
             style={{ fontSize: "24px" }}
           >
-            {recommend.length || "0"}
+            {recommendations}
           </p>
           <div className="actor-detail-item actor-icon-movie-container">
             <img
@@ -296,6 +487,20 @@ export default function Actor(props) {
             </p>
           </div>
         </div>
+        {isModalVisible && (
+          <div
+            style={{
+              color: "#1e0039",
+              ontWeight: "bold",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Recommendation sent successfully!
+          </div>
+        )}
         <div className="actor-city-container">
           <div className="actor-city-detail">
             <img
@@ -436,9 +641,8 @@ export default function Actor(props) {
             current films by actor {epkInfo.firstName} {epkInfo.lastName}
           </p>
           <div className="movie-actor-play-container">
-            <div>
-              {/* <List /> */}
-            </div>
+            // TODO: getMoviesByActor
+            <div>{/* <List /> */}</div>
           </div>
         </div>
       </div>

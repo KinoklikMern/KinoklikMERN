@@ -228,7 +228,7 @@ link for registration is /signup */
 .roleImgMain button {
   border: none;
   padding: 0;
-  background-color: white; /* Set the background color to white */
+  background: transparent; /* Set the background color to white */
 }
 
 .roleImgMain.selected,
@@ -327,7 +327,7 @@ link for registration is /signup */
 .roleImgSecondary button {
   border: none;
   padding: 0;
-  background-color: white;
+  background: transparent;
 }
 
 .line {

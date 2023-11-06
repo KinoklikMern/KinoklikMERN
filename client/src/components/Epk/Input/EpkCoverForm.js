@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import http from "../../../http-common";
 
 function EpkCoverForm() {
-  //const [movieId, setMovieId] = useState("");
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
 
   const file1Selected = (event) => {
@@ -27,7 +27,8 @@ function EpkCoverForm() {
     minutes: "",
     banner_url: "",
     trailer_url: "",
-    kickstarter_url: "",
+    DonatePayPal_url: "",
+    DonateStripe_url: "",
   });
   const movieGenre = [
     "Genre...",
@@ -35,7 +36,6 @@ function EpkCoverForm() {
     "comedy",
     "documentary",
     "romance",
-    "action",
     "horror",
     "mystery",
     "drama",
@@ -200,10 +200,19 @@ function EpkCoverForm() {
                 <div>
                   <input
                     className="form-control"
-                    defaultValue={epkCoverData.kickstarter_url}
-                    placeholder="KickStarter URL"
+                    defaultValue={epkCoverData.DonatePayPal_url}
+                    placeholder="URL: www.paypal.com/mymovie"
                     onChange={handleInputChange}
-                    name="kickstarter_url"
+                    name="DonatePayPal_url"
+                  />
+                </div>
+                <div>
+                  <input
+                    className="form-control"
+                    defaultValue={epkCoverData.DonateStripe_url}
+                    placeholder="URL: www.stripe.com/mymovie"
+                    onChange={handleInputChange}
+                    name="DonateStripe_url"
                   />
                 </div>
               </div>

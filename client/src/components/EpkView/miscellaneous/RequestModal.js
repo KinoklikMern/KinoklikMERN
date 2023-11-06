@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { addToRequests, addToChat } from "../../../api/epks";
 import { io } from "socket.io-client";
 import { ChatState } from "../../../context/ChatProvider";
+import { NotificationContext } from "../../../context/NotificationContext";
 
 let socket;
 export default function RequestModal(props) {
+  // eslint-disable-next-line no-unused-vars
   const [socketConnected, setSocketConnected] = useState(false);
   const [requestMsg, setRequestMsg] = useState("");
   const { notification, setNotification } = ChatState();
+
+  const { incrementMessage, setUserInfo } = useContext(NotificationContext);
+
   const handleChange = (e) => {
     setRequestMsg(e.target.value);
   };
@@ -19,7 +24,7 @@ export default function RequestModal(props) {
     socket = io(process.env.REACT_APP_BACKEND_URL);
     socket.emit("setup", props.user);
     socket.on("connection", () => setSocketConnected(true));
-  }, []);
+  }, [props.user]);
 
   useEffect(() => {
     // console.log("selectchat", selectedChatCompare);
@@ -36,7 +41,11 @@ export default function RequestModal(props) {
       addToRequests(requestMsg, props.epkId, props.user.id).then((res) => {
         if (res) {
           addToChat(requestMsg, props.user, props.filmmakerId).then((res) => {
-            if (res.status == 200) {
+            if (res.status === 200) {
+              incrementMessage();
+              console.log(props.filmmakerId);
+              setUserInfo(props.filmmakerId);
+
               socket.emit("new message", res.data);
               props.close("request");
               props.setRefresh(true);
@@ -48,7 +57,12 @@ export default function RequestModal(props) {
   };
   return (
     <>
-      <Modal show={()=>props.open("request")} onHide={()=>props.close("request")} centered className="p-3">
+      <Modal
+        show={() => props.open("request")}
+        onHide={() => props.close("request")}
+        centered
+        className="p-3"
+      >
         <Modal.Header className="border-0">
           <Modal.Title className="text-center">
             Please type your message to the Filmmaker EPK Owner

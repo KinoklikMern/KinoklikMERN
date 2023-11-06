@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-unused-vars */
 import React from "react";
 
 export default function ActionIcon({ name, icon, handlers, number }) {
@@ -8,16 +8,15 @@ export default function ActionIcon({ name, icon, handlers, number }) {
       className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center tw-bg-[#712CB0] hover:tw-scale-110"
       style={{ borderRadius: "20px", cursor: "pointer" }}
       onClick={() => clickHandler(name)}
-      // onMouseOver={name === "share" && (() => hoverHandler("onMouseOver"))}
-      // onMouseOut={name === "share" && (() => hoverHandler("onMouseOut"))}
     >
       <img
         src={icon}
+        alt=""
         style={{ height: "60%" }}
         className="tw-overflow-visible"
       />
       <span
-        className={`tw-absolute tw--top-1 tw--right-3 tw-text-sm tw-font-bold tw-text-white`}
+        className={`tw-absolute tw--right-3 tw--top-1 tw-text-sm tw-font-bold tw-text-white`}
       >
         {number}
       </span>

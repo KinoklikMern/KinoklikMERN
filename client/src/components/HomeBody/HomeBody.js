@@ -1,12 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import "./HomeBody.css";
 import "../ListItem/ListItem.css";
 import "../List/List.css";
-import List from "../List/List";
-import FavouriteList from "../List/Favourite";
-import Sponsored from "../Sponsored/Sponsored";
 import http from "../../http-common";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
@@ -16,7 +14,6 @@ import { FepkContext } from "../../context/FepkContext.js";
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [isMoved, setIsMoved] = useState(false);
-  const [slideNumber, setSlideNumber] = useState(0);
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
   const listRef = useRef();
@@ -29,87 +26,62 @@ const HomeBody = ({ role }) => {
     });
   }, []);
 
-  let genres = [];
-
-  fepks.map((fepk) => {
-    genres.push(fepk.genre);
-  });
-  genres = [...new Set(genres)].sort();
+  const rowSize = 8;
+  const fepksInEachRow = useMemo(() => {
+    const result = [];
+    for (let i = 0; i < fepks.length; i += rowSize) {
+      result.push(fepks.slice(i, i + rowSize));
+    }
+    return result;
+  }, [fepks]);
 
   return (
     <>
-      <div className="home">
-        {/* -- CHIHYIN -- */}
-        {/* <div>
-          <div className="listTitle">
-            <span>STARRED</span>
-          </div>
-          <List title="starred" type={filterQuery} role={role}/>
-        </div>
-        <div>
-          <div className="listTitle">
-            <span>FOLLOWING</span>
-          </div>
-          <List title="following" type={filterQuery} />
-        </div>
-        <div>
-          <div className="listTitle">
-            <span>WISH LIST</span>
-          </div>
-          <List title="wish_to_buy" type={filterQuery} />
-        </div> */}
-
-        {genres.map((genre) => {
+      <div className='home'>
+        {fepksInEachRow.map((item, index) => {
           return (
-            <>
-              <div className="listTitle">
-                <span>{genre.toUpperCase()}</span>
+            <React.Fragment key={index}>
+              <div className='listTitle'>
+                <span>Placeholder</span>
               </div>
 
-              <div className="list">
-                <div className="wrapper">
+              <div className='list'>
+                <div className='wrapper'>
                   <ArrowBackIosOutlined
-                    className="sliderArrow left"
+                    className='sliderArrow left'
                     /* onClick={() => handleClick("left")} */ style={{
                       display: !isMoved && "none",
                     }}
                   />
-                  <div className="container" ref={listRef}>
-                    {fepks
-                      .filter(
-                        (fepk) =>
-                          fepk.genre === genre &&
-                          (filterQuery !== ""
-                            ? filterQuery.includes(fepk.production_type)
-                            : true)
-                      )
-                      .map((fepk) => {
-                        return (
-                          <>
-                            <div className="listItem" key={fepk._id}>
-                              <a
-                                href={
-                                  role === "actor"
-                                    ? `/actor/${actorId}`
-                                    : `epk/${fepk.title}`
-                                }
-                              >
-                                <img
-                                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                                  alt=""
-                                />
-                              </a>
-                            </div>
-                          </>
-                        );
-                      })}
+                  <div className='container' ref={listRef}>
+                    {item.map((fepk) => {
+                      const formattedTitle = fepk.title.replace(/ /g, "_");
+                      return (
+                        <React.Fragment key={fepk._id}>
+                          <div className='listItem'>
+                            <a
+                              href={
+                                role === "actor"
+                                  ? `/actor/${actorId}`
+                                  : `epk/${formattedTitle}`
+                              }
+                            >
+                              <img
+                                src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                                alt=''
+                              />
+                            </a>
+                          </div>
+                        </React.Fragment>
+                      );
+                    })}
                   </div>
                   <ArrowForwardIosOutlined
-                    className="sliderArrow right" /*onClick={() => handleClick("right")}*/
+                    className='sliderArrow right' /*onClick={() => handleClick("right")}*/
                   />
                 </div>
               </div>
-            </>
+            </React.Fragment>
           );
         })}
 

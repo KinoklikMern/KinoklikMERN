@@ -1,52 +1,48 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import UploadFile from "../../FileUpload";
 import http from "../../../http-common";
 
 function LoglineForm() {
   const [image1, setImage1] = useState("");
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const params = useParams();
   const navigate = useNavigate();
 
-   const [loglineData, setLoglineData] = useState({
+  const [loglineData, setLoglineData] = useState({
     log_lines: "",
-    log_line_poster_urls: "",  
+    log_line_poster_urls: "",
   });
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setLoglineData({ ...loglineData, [name]: value });
   };
 
-  const checkFileMimeType = (file) => {
-    if (file !== "") {
-      if (  
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg"
-      )
-        return true;
-      else return false;
-    } else return true;
-  };
+  // const checkFileMimeType = (file) => {
+  //   if (file !== "") {
+  //     if (
+  //       file.type === "image/png" ||
+  //       file.type === "image/jpg" ||
+  //       file.type === "image/jpeg"
+  //     )
+  //       return true;
+  //     else return false;
+  //   } else return true;
+  // };
 
-
-  
   useEffect(() => {
     async function fetchData() {
-      const id = params.id.toString();;
-      http
-      .get(`epk/${params.id.toString()}/loglines`)
-      .then((response) => {
+      const id = params.id.toString();
+      http.get(`epk/${params.id.toString()}/loglines`).then((response) => {
         console.log("response");
         console.log(response);
-        if (!(response.statusText) ==="OK") {
+        if (!response.statusText === "OK") {
           console.log("error");
           const message = `An error has occurred: ${response.statusText}`;
           window.alert(message);
           return;
         }
-    
+
         const record = response.data;
         console.log("record");
         console.log(record);
@@ -56,22 +52,21 @@ function LoglineForm() {
           return;
         }
 
-         setLoglineData(record[0]); 
-         console.log("image1");
-         console.log(loglineData.log_line_poster_urls);
-         console.log(loglineData.log_lines);
-         setImage1( record[0].log_line_poster_urls);
+        setLoglineData(record[0]);
+        console.log("image1");
+        console.log(loglineData.log_line_poster_urls);
+        console.log(loglineData.log_lines);
+        setImage1(record[0].log_line_poster_urls);
         console.log("image1");
         console.log(image1);
-      }  ) 
+      });
     }
-  
+
     fetchData();
-  
+
     return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, navigate]);
-
-
 
   const saveLogline = (e) => {
     e.preventDefault();
@@ -80,20 +75,19 @@ function LoglineForm() {
     console.log(formData);
     console.log("before");
     console.log(loglineData.log_line_poster_urls);
-    loglineData.log_line_poster_urls=image1;
-    http 
-            .put(`epk/${params.id.toString()}/loglines`, loglineData)
-      
-            .then((res) => {
-              console.log("saved");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+    loglineData.log_line_poster_urls = image1;
+    http
+      .put(`epk/${params.id.toString()}/loglines`, loglineData)
 
-            console.log("after");
-            console.log(loglineData.log_line_poster_urls);
-            
+      .then((res) => {
+        console.log("saved");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log("after");
+    console.log(loglineData.log_line_poster_urls);
   };
 
   return (

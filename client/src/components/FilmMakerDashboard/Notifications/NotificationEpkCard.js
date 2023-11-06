@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
   faStar,
-  faBookmark,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -62,6 +61,22 @@ export default function NotificationEpkCard(props) {
               {epkInfo.likes == null ? "0" : epkInfo.likes.length}
             </span>
           </div>
+
+          <div className="tw-relative tw-inline-flex">
+            <FontAwesomeIcon
+              icon={faDollarSign}
+              style={{ color: "#1E0039" }}
+              size={props.imgIsSelected === true ? "2xl" : "sm"}
+            />
+            <span
+              className={`tw-absolute ${iconSize} tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-text-xs tw-font-bold tw-text-red-500`}
+            >
+              {epkInfo.wishes_to_donate == null
+                ? "0"
+                : epkInfo.wishes_to_donate.length}
+            </span>
+          </div>
+
           <div
             className="tw-relative tw-inline-flex"
             onClick={handleDollarClick}

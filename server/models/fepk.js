@@ -28,7 +28,9 @@ const fepkSchema = mongoose.Schema({
   genre: { type: String },
   banner_url: { type: String },
   trailer_url: { type: String },
-  kickstarter_url: { type: String },
+  //kickstarter_url: { type: String },
+  DonatePayPal_url: { type: String },
+  DonateStripe_url: { type: String },
   status: {
     type: String,
     enum: ["Preproduction", "Production", "Postproduction"],
@@ -151,6 +153,14 @@ const fepkSchema = mongoose.Schema({
 
   // "+" sign front end
   favourites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+
+   // "$" sign front end
+   wishes_to_donate: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

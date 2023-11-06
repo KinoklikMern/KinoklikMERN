@@ -5,7 +5,6 @@ import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBodyActor from "../components/HomeBody/HomeBodyActor";
 import HomeBottom from "../components/HomeBottom";
-import Festival from "../components/Festival/Festival";
 import Landing1 from "../components/LandingPage/Landing1";
 import Landing2 from "../components/LandingPage/Landing2";
 import Landing3 from "../components/LandingPage/Landing3";
@@ -15,15 +14,15 @@ import Landing5 from "../components/LandingPage/Landing5";
 import Landing8 from "../components/LandingPage/Landing8";
 import Landing9 from "../components/LandingPage/Landing9";
 import Landing10 from "../components/LandingPage/Landing10";
-import MainLayout from "../layouts/MainLayout";
 import { FepkContext } from "../context/FepkContext";
-import FilterTag from "../components/Filter/FilterTag";
 
-function Home({role}) {
+function Home({ role }) {
   const { user } = useSelector((user) => ({ ...user }));
+  // eslint-disable-next-line no-unused-vars
   const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
   useEffect(() => {
     setFepkMaker("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -31,10 +30,9 @@ function Home({role}) {
       <div>
         {user && (
           <>
-            <HomeHead role= {role}/>
-            <SwitchBtn role= {role}/>
-            <FilterTag role= {role}/>
-            {role === "actor"? <HomeBodyActor /> : <HomeBody role= {role}/>}
+            <HomeHead role={role} />
+            <SwitchBtn role={role} />
+            {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
             {/* <Festival /> */}
             <HomeBottom />
           </>
@@ -46,7 +44,6 @@ function Home({role}) {
             <Landing3 />
             <Landing4 />
             <Landing5 />
-
             <Landing8 />
             <Landing9 />
             <Landing10 />

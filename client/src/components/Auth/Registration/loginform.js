@@ -1,19 +1,24 @@
-import React, { useState, setState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import io from "socket.io-client";
+
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const socket = io(backendUrl);
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +34,11 @@ function LoginForm() {
   };
 
   const handleSubmit = async () => {
+    // Check if no email or password is provided
+    if (!email || !password) {
+      setError("Please provide both email and password.");
+      return;
+    }
     console.log(email, password);
     try {
       const { data } = await axios.post(
@@ -40,28 +50,47 @@ function LoginForm() {
       );
 
       // Yeming added
-      console.log(data);
-      let userId;
-      if (data.user && data.user.id) {
-        userId = data.user.id;
-      } else if (data.id) {
-        userId = data.id;
-      }
+      console.log("data", data);
 
-      console.log("User ID:", userId);
+      // let userId;
+      // if (data.user && data.user.id) {
+      //   userId = data.user.id;
+      // } else if (data.id) {
+      //   userId = data.id;
+      // }
 
-      if (!data.isVerified) {
-        navigate("/verification", {
-          state: { user: { ...data.user, id: userId } },
-        });
+      // console.log("User ID:", userId);
+
+      // if (!data.isVerified) {
+      //   navigate("/verification", {
+      //     state: { user: { ...data.user, id: userId } },
+      //   });
+      //   return;
+      // }
+
+      if (data.user && !data.isVerified) {
+        navigate("/verification", { state: { user: data.user } });
         return;
       }
 
       setError("");
       setSuccess(data.message);
+      // eslint-disable-next-line no-unused-vars
       const { message, ...rest } = data;
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
+
+      if (socket && !socket.connected) {
+        socket.connect(); // Ensure the socket connects if it's not already
+      }
+
+      // Dispatching the USER_ONLINE action
+      if (data && data.id) {
+        // Emit the setup event to the socket server
+        console.log("Setting up user on socket.io for user:", data.id);
+        socket.emit("setup", { id: data.id });
+      }
+
       console.log(data);
       navigate("/");
     } catch (error) {

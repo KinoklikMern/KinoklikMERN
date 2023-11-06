@@ -1,19 +1,15 @@
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
-import img from "../../images/landing.png";
 import { useNavigate } from "react-router-dom";
-import { newFilm } from "./landingCategory";
-import { popularFilm } from "./landingCategory";
-import { useDispatch } from "react-redux";
-import axios from "axios";
 import { useSelector } from "react-redux";
-
+import axios from "axios";
 import moviesPhoto from "../../images/landing.png";
 
 const Landing1 = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((user) => ({ ...user }));
+
+  // eslint-disable-next-line no-unused-vars
   const createEpk = async () => {
     try {
       const { data } = await axios.post(
@@ -30,6 +26,7 @@ const Landing1 = () => {
       // console.log(error.response.message);
     }
   };
+
   return (
     <>
       <div className="landing11  tw-bg-midnight tw-pb-20">
@@ -71,7 +68,7 @@ const Landing1 = () => {
           </div>
           <div className="tw-ml-20 tw-hidden tw-h-[107%] tw-bg-TvImage tw-bg-cover   tw-bg-no-repeat tw-pl-10 tw-pr-10   lg:tw-block  2xl:tw-col-span-3 ">
             <img
-              className="  tw-mx-1 tw-h-[100%] tw-object-cover tw-object-center tw-px-8   lg:tw-pr-24 lg:tw-pl-20 lg:tw-pb-6 lg:tw-pt-4"
+              className="  tw-mx-1 tw-h-[100%] tw-object-cover tw-object-center tw-px-8   lg:tw-pb-6 lg:tw-pl-20 lg:tw-pr-24 lg:tw-pt-4"
               src={moviesPhoto}
               alt="Movies"
             />

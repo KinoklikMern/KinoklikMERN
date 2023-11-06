@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useParams } from "react-router-dom";
 import http from "../../../http-common";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,19 +17,19 @@ export default function BasicMenu() {
   const filmmaker_id = user.id;
 
   let { fepkId } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [fepkList, setFepkList] = React.useState([]);
   const [fepk, setFepk] = React.useState([]);
 
   React.useEffect(() => {
-    http.get(`/fepks/byfilmmaker/${filmmaker_id}`).then((response) =>{
-        setFepkList(response.data);
+    http.get(`/fepks/byfilmmaker/${filmmaker_id}`).then((response) => {
+      setFepkList(response.data);
     });
-    http.get(`/fepks/${fepkId}`).then((response) =>{
-        setFepk(response.data);
+    http.get(`/fepks/${fepkId}`).then((response) => {
+      setFepk(response.data);
     });
-  }, [fepkId]);
+  }, [fepkId, filmmaker_id]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,14 +42,29 @@ export default function BasicMenu() {
     <div>
       <Button
         id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
+        aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <h6 className="col align-items-start" style={{color: "#FFFFFF", fontWeight: 'normal'}}>
-          <FontAwesomeIcon icon={faCaretDown} style={{height: "15px", color: "#FFFFFF"}}/> Project: 
-          <span style={{fontWeight: 'bold', margin:"2px 0 0 2px", color:'#FFFFFF'}}>{fepk.title}</span>
+        <h6
+          className="col align-items-start"
+          style={{ color: "#FFFFFF", fontWeight: "normal" }}
+        >
+          <FontAwesomeIcon
+            icon={faCaretDown}
+            style={{ height: "15px", color: "#FFFFFF" }}
+          />{" "}
+          Project:
+          <span
+            style={{
+              fontWeight: "bold",
+              margin: "2px 0 0 2px",
+              color: "#FFFFFF",
+            }}
+          >
+            {fepk.title}
+          </span>
         </h6>
       </Button>
       <Menu
@@ -58,7 +73,7 @@ export default function BasicMenu() {
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button',
+          "aria-labelledby": "basic-button",
         }}
       >
         {fepkList.map((val) => {

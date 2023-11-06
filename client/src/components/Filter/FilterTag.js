@@ -1,276 +1,365 @@
-import React, { useEffect, useState } from "react";
-import "../HomeBody/HomeBody.css";
-import "../List/List.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { CookieSharp } from "@mui/icons-material";
-import { FepkContext } from "../../context/FepkContext.js";
+// import React, { useState } from "react";
+// import "../HomeBody/HomeBody.css";
+// import "../List/List.css";
+// import "./DropDown.css";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faPlus,
+//   faCheck,
+//   faSortDown,
+//   faSortUp,
+// } from "@fortawesome/free-solid-svg-icons";
+// import { FepkContext } from "../../context/FepkContext.js";
+// import AgeRangeDropdown from "./AgeRangeDropdown";
+// import EthnicityDropdown from "./EthnicityDropdown";
+// import RepresentationDropdown from "./RepresentationDropdown";
+// import CityDropdown from "./CityDropdown";
+// import CountryDropdown from "./CountryDropdown";
 
-export default function FilterTag({ role }) {
-  const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
+// export default function FilterTag({ role }) {
+//   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
-  const actorFilterTag = [
-    {
-      name: "Movie",
-      isActive: false,
-    },
-    {
-      name: "TV Show",
-      isActive: false,
-    },
-    {
-      name: "Web Series",
-      isActive: false,
-    },
-    {
-      name: "Documentary",
-      isActive: false,
-    },
-    {
-      name: "all epks",
-      isActive: true,
-    },
-  ];
-  const FilterTag = [
-    {
-      name: "Male",
-      isActive: false,
-    },
-    {
-      name: "Female",
-      isActive: false,
-    },
-    {
-      name: "City",
-      isActive: false,
-    },
-    {
-      name: "Country",
-      isActive: false,
-    },
-    {
-      name: "All Actors",
-      isActive: true,
-    },
-  ];
+//   // Yeming added
 
-  const [filterTags, setFilterTags] = useState(
-    role === "actor" ? FilterTag : actorFilterTag
-  );
+//   // State to manage selected values for specific dropdowns
+//   const [selectedAgeRange, setSelectedAgeRange] = useState(null);
+//   const [selectedEthnicity, setSelectedEthnicity] = useState(null);
+//   const [selectedRepresentation, setSelectedRepresentation] = useState(null);
+//   const [selectedCity, setSelectedCity] = useState(null);
+//   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  console.log(filterQuery);
+//   const [selectedDropdown, setSelectedDropdown] = useState(null);
 
-  // const clickHandler = (name, isActive) => {
-  //   let newTags;
-  //   let newQuery;
+//   const handleDropdownSelection = (name, value) => {
+//     setFilterQuery((prevFilterQuery) => {
+//       let updatedQuery = [...prevFilterQuery];
 
-  //   if (name === "all epks") {
-  //     newTags = filterTags.map((tag) => ({
-  //       ...tag,
-  //       isActive: tag.name === name,
-  //     }));
-  //     newQuery = isActive
-  //       ? []
-  //       : ["Movie", "TV Show", "Web Series", "Documentary"];
-  //   } else {
-  //     newTags = filterTags.map((tag) =>
-  //       tag.name === name ? { ...tag, isActive: !isActive } : tag
-  //     );
+//       // Remove any existing entries for this dropdown
+//       updatedQuery = updatedQuery.filter(
+//         (item) => item.split(":")[0].trim() !== name
+//       );
 
-  //     // newQuery = isActive
-  //     //   ? filterQuery.filter((item) => item !== name)
-  //     //   : [...filterQuery, name];
+//       // Add the new entry if a value is selected
+//       if (value) {
+//         updatedQuery.push(`${name}: ${value}`);
+//       }
 
-  //     if (isActive) {
-  //       newQuery = filterQuery.filter((item) => item !== name);
-  //     } else {
-  //       if (filterQuery.length === 4) {
-  //         newQuery = [name];
-  //       } else {
-  //         newQuery = [...filterQuery, name];
-  //       }
-  //     }
+//       // Check if "Male" or "Female" buttons are active
+//       const isGenderActive = updatedQuery.some(
+//         (item) => item === "Male" || item === "Female"
+//       );
 
-  //     // console.log(newQuery);
-  //     if (!isActive) {
-  //       newTags[4].isActive = false; // set "all epks" to inactive
-  //     }
+//       // Check if any of the dropdown values have been selected
+//       const anyDropdownValueSelected = [
+//         "Age Range",
+//         "Ethnicity",
+//         "Representation",
+//         "City",
+//         "Country",
+//       ].some((dropdownName) =>
+//         updatedQuery.some((item) => item.startsWith(`${dropdownName}:`))
+//       );
 
-  //     //if all other tags are active
-  //     if (
-  //       newQuery.length ===
-  //       newTags.filter((tag) => tag.name !== "all epks").length
-  //     ) {
-  //       newTags = newTags.map((tag) =>
-  //         tag.name === "all epks" ? { ...tag, isActive: true } : tag
-  //       );
-  //       newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
-  //       // console.log(newTags);
-  //       // console.log(newQuery);
-  //     }
+//       // Update the "All Actors" button based on the selected dropdown values and gender
+//       // const allActorsIsActive = !isGenderActive && anyDropdownValueSelected;
+//       const allActorsIsActive = !(isGenderActive || anyDropdownValueSelected);
 
-  //     //if all other tags are inactive
-  //     if (
-  //       newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
-  //         .length === 4
-  //     ) {
-  //       newTags = newTags.map((tag) =>
-  //         tag.name === "all epks" ? { ...tag, isActive: true } : tag
-  //       );
-  //     }
+//       // Update selected value based on the dropdown
+//       switch (name) {
+//         case "Age Range":
+//           setSelectedAgeRange(value);
+//           break;
+//         case "Ethnicity":
+//           setSelectedEthnicity(value);
+//           break;
+//         case "Representation":
+//           setSelectedRepresentation(value);
+//           break;
+//         case "City":
+//           setSelectedCity(value);
+//           break;
+//         case "Country":
+//           setSelectedCountry(value);
+//           break;
+//         default:
+//           break;
+//       }
 
-  //     //if one of the other tags is active
-  //     if (
-  //       newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
-  //         .length !== 0
-  //     ) {
-  //       newTags = newTags.map((tag) =>
-  //         tag.name === "all epks" ? { ...tag, isActive: false } : tag
-  //       );
-  //     }
-  //   }
+//       // Update the state of the "All Actors" button
+//       setFilterTags((prevFilterTags) =>
+//         prevFilterTags.map((tag) =>
+//           tag.name === "All Actors"
+//             ? { ...tag, isActive: allActorsIsActive }
+//             : tag
+//         )
+//       );
 
-  //   setFilterTags(newTags);
-  //   setFilterQuery(newQuery);
-  // };
+//       // Close the dropdown
+//       setSelectedDropdown((prev) => (prev === name ? null : name));
 
-  // ----- CHIHYIN -------
-  const clickHandler = (name, isActive) => {
-    let newTags;
-    let newQuery;
+//       console.log("selectDropdown", selectedDropdown);
+//       return updatedQuery;
+//     });
+//   };
 
-    if (role === "actor") {
-      // Logic for actor filters
-      newTags = filterTags.map((tag) =>
-        tag.name === name ? { ...tag, isActive: !isActive } : tag
-      );
+//   const actorFilterTag = [
+//     {
+//       name: "Movie",
+//       isActive: false,
+//     },
+//     {
+//       name: "TV Show",
+//       isActive: false,
+//     },
+//     {
+//       name: "Web Series",
+//       isActive: false,
+//     },
+//     {
+//       name: "Documentary",
+//       isActive: false,
+//     },
+//     {
+//       name: "all epks",
+//       isActive: true,
+//     },
+//   ];
+//   const FilterTag = [
+//     {
+//       name: "Male",
+//       isActive: false,
+//     },
+//     {
+//       name: "Female",
+//       isActive: false,
+//     },
 
-      if (isActive) {
-        newQuery = filterQuery.filter((item) => item !== name);
-      } else {
-        newQuery = [...filterQuery, name];
-      }
+//     {
+//       name: "Age Range", // Age Range dropdown
+//       isActive: false,
+//     },
+//     {
+//       name: "Ethnicity", // Ethnicity dropdown
+//       isActive: false,
+//     },
+//     {
+//       name: "Representation", // Representation dropdown
+//       isActive: false,
+//     },
+//     {
+//       name: "City", // City dropdown
+//       isActive: false,
+//     },
+//     {
+//       name: "Country", // Country dropdown
+//       isActive: false,
+//     },
+//     {
+//       name: "All Actors",
+//       isActive: true,
+//     },
+//   ];
 
-      // Handle "All Actors" logic
-      if (name === "All Actors") {
-        newTags = filterTags.map((tag) => ({
-          ...tag,
-          isActive: tag.name === "All Actors",
-        }));
-        newQuery = ["Male", "Female", "City", "Country"];
-      }
+//   const [filterTags, setFilterTags] = useState(
+//     role === "actor" ? FilterTag : actorFilterTag
+//   );
 
-      // If any other actor tag is active, "All Actors" should be inactive
-      if (newTags.some((tag) => tag.isActive && tag.name !== "All Actors")) {
-        newTags = newTags.map((tag) =>
-          tag.name === "All Actors" ? { ...tag, isActive: false } : tag
-        );
-      }
-    } else {
-      if (name === "all epks") {
-        newTags = filterTags.map((tag) => ({
-          ...tag,
-          isActive: tag.name === name,
-        }));
-        newQuery = isActive
-          ? []
-          : ["Movie", "TV Show", "Web Series", "Documentary"];
-      } else {
-        newTags = filterTags.map((tag) =>
-          tag.name === name ? { ...tag, isActive: !isActive } : tag
-        );
-        if (isActive) {
-          newQuery = filterQuery.filter((item) => item !== name);
-        } else {
-          if (filterQuery.length === 4) {
-            newQuery = [name];
-          } else {
-            newQuery = [...filterQuery, name];
-          }
-        }
+//   console.log(filterQuery);
 
-        if (!isActive) {
-          newTags[4].isActive = false; // set "all epks" to inactive
-        }
+//   // ----- CHIHYIN -------
+//   const clickHandler = (name, isActive) => {
+//     let newTags;
+//     let newQuery;
 
-        //if all other tags are active
-        if (
-          newQuery.length ===
-          newTags.filter((tag) => tag.name !== "all epks").length
-        ) {
-          newTags = newTags.map((tag) =>
-            tag.name === "all epks" ? { ...tag, isActive: true } : tag
-          );
-          newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
-        }
+//     if (name === "all epks" || name === "All Actors") {
+//       // Reset the dropdown state values to their default (null) when All Actors is clicked
+//       setSelectedAgeRange(null);
+//       setSelectedEthnicity(null);
+//       setSelectedRepresentation(null);
+//       setSelectedCity(null);
+//       setSelectedCountry(null);
+//       newTags = filterTags.map((tag) => ({
+//         ...tag,
+//         isActive: tag.name === name,
+//         // isActive: tag.name === name ? !isActive : false, // Toggle the state
+//       }));
+//       if (name === "all epks") {
+//         newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
+//       } else {
+//         newQuery = isActive ? [] : [];
+//       }
+//     } else {
+//       newTags = filterTags.map((tag) =>
+//         tag.name === name ? { ...tag, isActive: !isActive } : tag
+//       );
 
-        //if all other tags are inactive
-        if (
-          newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
-            .length === 4
-        ) {
-          newTags = newTags.map((tag) =>
-            tag.name === "all epks" ? { ...tag, isActive: true } : tag
-          );
-        }
+//       if (isActive) {
+//         newQuery = filterQuery.filter((item) => item !== name);
+//       } else {
+//         newQuery = [...filterQuery, name];
+//       }
 
-        //if one of the other tags is active
-        if (
-          newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
-            .length !== 0
-        ) {
-          newTags = newTags.map((tag) =>
-            tag.name === "all epks" ? { ...tag, isActive: false } : tag
-          );
-        }
-      }
-    }
+//       // Update "all epks" tag
+//       const allEpksIsActive =
+//         newQuery.includes("Movie") &&
+//         newQuery.includes("TV Show") &&
+//         newQuery.includes("Web Series") &&
+//         newQuery.includes("Documentary");
 
-    setFilterTags(newTags);
-    setFilterQuery(newQuery);
-  };
+//       newTags = newTags.map((tag) =>
+//         tag.name === "all epks" ? { ...tag, isActive: allEpksIsActive } : tag
+//       );
 
-  // button components
-  const FilterButton = ({ name, isActive, clickHandler }) => {
-    return (
-      <>
-        <button
-          className={`tw-text-small tw-mr-5 tw-mb-1 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
-            !isActive
-              ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
-              : "tw-bg-white tw-text-[#1E0039]"
-          }`}
-          type="button"
-          onClick={() => clickHandler(name, isActive)}
-        >
-          {name}
+//       // Update "All Actors" tag
+//       const allActorsIsActive =
+//         !newQuery.includes("Male") &&
+//         !newQuery.includes("Female") &&
+//         !selectedAgeRange &&
+//         !selectedEthnicity &&
+//         !selectedRepresentation &&
+//         !selectedCity &&
+//         !selectedCountry;
 
-          {!isActive ? (
-            <FontAwesomeIcon
-              className="tw-pl-5"
-              icon={faPlus}
-              style={{ color: "#aaaaaa" }}
-            />
-          ) : (
-            <FontAwesomeIcon className="tw-pl-5" icon={faCheck} />
-          )}
-        </button>
-      </>
-    );
-  };
+//       newTags = newTags.map((tag) =>
+//         tag.name === "All Actors"
+//           ? { ...tag, isActive: allActorsIsActive }
+//           : tag
+//       );
+//     }
 
-  return (
-    <div className="home">
-      <div className="tw-relative tw-m-8 tw-flex tw-justify-between">
-        {filterTags.map((tag, index) => (
-          <FilterButton
-            key={index}
-            name={tag.name}
-            clickHandler={clickHandler}
-            isActive={tag.isActive}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+//     setFilterTags(newTags);
+//     setFilterQuery(newQuery);
+//   };
+
+//   // button components
+//   const FilterButton = ({ name, isActive, clickHandler, selectedValue }) => {
+//     const isDropdownActive = selectedDropdown === name;
+//     // const isDropdownActive = selectedDropdown === selectedValue;
+
+//     return (
+//       // <>
+//       <div className='filter-button-container'>
+//         {name === "Age Range" ||
+//         name === "Ethnicity" ||
+//         name === "Representation" ||
+//         name === "City" ||
+//         name === "Country" ? (
+//           <div className='relative inline-block'>
+//             <button
+//               className={`filter-toggle tw-text-small tw-mb-1 tw-mr-5 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
+//                 // isDropdownActive
+//                 selectedValue
+//                   ? "tw-bg-white tw-text-[#1E0039]"
+//                   : "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
+//               }`}
+//               // onClick={() => handleDropdownSelection(name, selectedValue)}
+//               onClick={() => handleDropdownSelection(name, null)}
+//             >
+//               {/* {name} */}
+//               {selectedValue || name}
+//               <FontAwesomeIcon
+//                 icon={isDropdownActive ? faSortUp : faSortDown}
+//                 className='tw-ml-2'
+//               />
+//             </button>
+
+//             {isDropdownActive && (
+//               <div className='dropdown-options absolute top-8 left-0 mt-2 py-2 bg-white rounded-lg shadow-lg'>
+//                 {name === "Age Range" && (
+//                   <AgeRangeDropdown
+//                     selectedValue={selectedAgeRange}
+//                     onOptionSelect={(value) =>
+//                       handleDropdownSelection(name, value)
+//                     }
+//                   />
+//                 )}
+//                 {name === "Ethnicity" && (
+//                   <EthnicityDropdown
+//                     selectedValue={selectedEthnicity}
+//                     onOptionSelect={(value) =>
+//                       handleDropdownSelection(name, value)
+//                     }
+//                   />
+//                 )}
+//                 {name === "Representation" && (
+//                   <RepresentationDropdown
+//                     selectedValue={selectedRepresentation}
+//                     onOptionSelect={(value) =>
+//                       handleDropdownSelection(name, value)
+//                     }
+//                   />
+//                 )}
+//                 {name === "City" && (
+//                   <CityDropdown
+//                     selectedValue={selectedCity}
+//                     onOptionSelect={(value) =>
+//                       handleDropdownSelection(name, value)
+//                     }
+//                   />
+//                 )}
+//                 {name === "Country" && (
+//                   <CountryDropdown
+//                     selectedValue={selectedCountry}
+//                     onOptionSelect={(value) =>
+//                       handleDropdownSelection(name, value)
+//                     }
+//                   />
+//                 )}
+//               </div>
+//             )}
+//           </div>
+//         ) : (
+//           <button
+//             className={`tw-text-small tw-mb-1 tw-mr-5 tw-w-80 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase lg:tw-w-full ${
+//               !isActive
+//                 ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
+//                 : "tw-bg-white tw-text-[#1E0039]"
+//             }`}
+//             type='button'
+//             onClick={() => clickHandler(name, isActive)}
+//           >
+//             {name}
+
+//             {!isActive ? (
+//               <FontAwesomeIcon
+//                 className='tw-pl-5'
+//                 icon={faPlus}
+//                 style={{ color: "#aaaaaa" }}
+//               />
+//             ) : (
+//               <FontAwesomeIcon className='tw-pl-5' icon={faCheck} />
+//             )}
+//           </button>
+//         )}
+//       </div>
+//     );
+//   };
+
+//   return (
+//     <div className='home'>
+//       <div className='tw-relative tw-m-8 tw-flex tw-flex-col tw-items-center tw-justify-between lg:tw-flex-row'>
+//         {filterTags.map((tag, index) => (
+//           <FilterButton
+//             key={index}
+//             name={tag.name}
+//             clickHandler={clickHandler}
+//             isActive={tag.isActive}
+//             selectedValue={
+//               tag.name === "Age Range"
+//                 ? selectedAgeRange
+//                 : tag.name === "Ethnicity"
+//                 ? selectedEthnicity
+//                 : tag.name === "Representation"
+//                 ? selectedRepresentation
+//                 : tag.name === "City"
+//                 ? selectedCity
+//                 : tag.name === "Country"
+//                 ? selectedCountry
+//                 : null
+//             }
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }

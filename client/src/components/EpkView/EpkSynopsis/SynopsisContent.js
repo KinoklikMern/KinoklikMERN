@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import RequestButton from "../miscellaneous/RequestButton";
-import RequestModal from "../miscellaneous/RequestModal";
 
 export default function SynopsisContent({
   name,
@@ -10,16 +9,16 @@ export default function SynopsisContent({
   handler,
 }) {
   const isBlur =
-    (name != "short" && status == null) ||
-    status == "pending" ||
-    status == "refused"
+    (name !== "short" && status == null) ||
+    status === "pending" ||
+    status === "refused"
       ? true
       : false;
   console.log("/" + image + "/");
   return (
     <div className="tw-relative">
-      <div className="tw-absolute tw-top-0 tw-left-[45%] tw-z-20 tw-my-3">
-        {name != "short" && status != "approved" && (
+      <div className="tw-absolute tw-left-[45%] tw-top-0 tw-z-20 tw-my-3">
+        {name !== "short" && status !== "approved" && (
           <RequestButton status={status} handler={handler} />
         )}
       </div>

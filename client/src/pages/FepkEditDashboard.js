@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import http from "../http-common";
 import SectionButton from "../components/Epk/Buttons/SectionButton";
 import FepkEditCoverForm from "../components/Epk/Input/fepkEditCoverForm";
 import LoglineForm from "../components/Epk/Input/loglineFepkForm";
-import DetailsForm from "../components/Epk/Input/detailsFepkForm";
 import SynopsisForm from "../components/Epk/Input/fepkSynopsisForm";
 import UniquenessForm from "../components/Epk/Input/fepkUniquenessForm";
 import StillsForm from "../components/Epk/Input/fepkStills";
@@ -13,8 +13,7 @@ import ReviewsForm from "../components/Epk/Input/fepkReviewsForm";
 import ResourcesForm from "../components/Epk/Input/fepkResourcesForm";
 import FepkDetailsForm from "../components/Epk/Input/fepkDetailsForm";
 import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess";
-import User from "../components/navbar/NavbarButtons";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
 import { FepkContext } from "../context/FepkContext";
 
@@ -47,7 +46,7 @@ function FepkEditDashboard() {
       setFepkMaker("");
       setLoading(false);
     });
-  }, []);
+  }, [fepkId, filmmaker_id, setFepkMaker]);
 
   return loading ? (
     <div className="tw-h-screen">

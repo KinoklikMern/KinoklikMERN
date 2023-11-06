@@ -50,13 +50,14 @@ const sendMessage = async (req, res) => {
     // console.log("message", message);
     res.json(message);
   } catch (error) {
-    res.status(400);
-    throw new Error(error.message);
+    // res.status(400);
+    // throw new Error(error.message);
+    return res.status(400).json({ error: error.message });
   }
 };
 
 const updateMessageAsRead = async (req, res) => {
-  console.log("req", req.params)
+  console.log("req", req.params);
   try {
     const messages = await Message.updateMany(
       {

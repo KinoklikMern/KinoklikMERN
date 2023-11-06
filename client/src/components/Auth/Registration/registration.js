@@ -1,7 +1,6 @@
 import React, { useState, setState, useEffect } from "react";
 import axios from "axios";
 import SignupCss from "./signup.module.css";
-import LoginForm from "../../Auth/Registration/loginform";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RegistrationSuccess from "./RegistrationSuccess";
@@ -21,14 +20,14 @@ import editorIcon from "../../../images/icons/editorIcon.svg";
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [website, setWebsite] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [website, setWebsite] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
   const [nextClicked, setNextClicked] = useState(false);
   const navigate = useNavigate();
@@ -95,6 +94,7 @@ function RegistrationForm() {
 
       setError("");
       setSuccess(data.message);
+      // eslint-disable-next-line no-unused-vars
       const { message, ...rest } = data;
       // navigate(`/login`);
       // navigate("/success"); // Navigate to the success page

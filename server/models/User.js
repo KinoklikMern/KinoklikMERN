@@ -128,13 +128,16 @@ const UserSchema = mongoose.Schema({
       ref: "User",
     },
   ],
-  // Chihyin added
   kkFollowers: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
   ],
+  recommendations: {
+    type: Number,
+    default: 0,
+  },
   sex: {
     type: String,
     enum: ["Male", "Female"],
@@ -153,7 +156,6 @@ const UserSchema = mongoose.Schema({
     required: true,
     default: false,
   },
-  // ChihYin added
   hasAgent: {
     type: Boolean,
     default: true,
@@ -224,6 +226,10 @@ const UserSchema = mongoose.Schema({
   instagram_followers: { type: String, default: "" },
   twitter_url: { type: String, default: "" },
   twitter_followers: { type: String, default: "" },
+  youtube_url: { type: String, default: "" },
+  youtube_subs: { type: String, default: "" },
+  linkedin_url: { type: String, default: "" },
+  linkedin_followers: { type: String, default: "" },
   // Crew
   // crew: [
   //   {
@@ -265,4 +271,3 @@ UserSchema.methods.comparePassword = async function (password) {
 const User = mongoose.model("User", UserSchema);
 
 export default User;
-

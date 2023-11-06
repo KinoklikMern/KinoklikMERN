@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
 import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import paypalImage from "../../../images/paypal.png";
+import stripImage from "../../../images/stripe.jpg";
 
 function FepkCoverForm() {
   const navigate = useNavigate();
@@ -11,13 +13,15 @@ function FepkCoverForm() {
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
+  const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const { user } = useSelector((state) => state);
   const filmmaker_id = user.id;
 
   const file1Selected = (event) => {
@@ -36,7 +40,8 @@ function FepkCoverForm() {
     logLine_short: "",
     genre: "",
     production_type: "",
-    kickstarter_url: "",
+    DonatePayPal_url: "",
+    DonateStripe_url: "",
     banner_url: "",
     trailer_url: "",
     status: "",
@@ -47,7 +52,6 @@ function FepkCoverForm() {
     "comedy",
     "documentary",
     "romance",
-    "action",
     "horror",
     "mystery",
     "drama",
@@ -126,13 +130,11 @@ function FepkCoverForm() {
     // Handle other input fields
     setEpkCoverData({ ...epkCoverData, [name]: value });
     //}
-
     if (name === "title") {
-      http.get(`fepks/byTitles/${event.target.value}`).then((response) => {
+      http.get(`fepks/byTitles/${value}`).then((response) => {
         if (response.data.length > 0) {
           setMessageTitleNo("This title exists! Choose another one!");
           setMessageTitleYes("");
-          console.log(response.data);
         } else {
           setMessageTitleYes("This title is ok!");
           setMessageTitleNo("");
@@ -140,6 +142,8 @@ function FepkCoverForm() {
       });
     }
   };
+  
+  
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -174,24 +178,21 @@ function FepkCoverForm() {
     console.log([...formData.entries()]);
     debugger;
 
-    // ----- CHIHYIN -------
-    // Initializing messages
-    let bannerMessage = "";
     let titleLoglineMessage = "";
-
-    // Checking if banner (file1) has been uploaded
-    if (!file1) {
-      bannerMessage = "Please upload a banner.";
-    }
+    let genreStatusMessage = "";
     // Checking if title and logLine_short are filled in
     if (!epkCoverData.title || !epkCoverData.logLine_short) {
       titleLoglineMessage = " Title and Log Line needed.";
     }
-    if (bannerMessage || titleLoglineMessage) {
-      setSubmitMessage(bannerMessage + titleLoglineMessage);
+    // Checking if genre and status are selected
+    if (!epkCoverData.genre || !epkCoverData.status) {
+      genreStatusMessage = " Tell us the genre and the status.";
+    }
+    // Combine the messages if any
+    if (titleLoglineMessage || genreStatusMessage) {
+      setSubmitMessage(titleLoglineMessage + genreStatusMessage);
       return; // Exit the function early if any check fails
     }
-    // ----- CHIHYIN -------
 
     if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
       http
@@ -209,11 +210,7 @@ function FepkCoverForm() {
           }
           http.post("fepks/", epkCoverData).then((res) => {
             if (res.data.error) {
-              setSubmitMessage(
-                // res.data.error + " Title is unique and status needed!"
-                // ----- CHIHYIN -------
-                "Tell us the genre and the status."
-              );
+              setSubmitMessage(res.data.error);
             } else {
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
@@ -227,7 +224,7 @@ function FepkCoverForm() {
           console.log(err);
         })*/;
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage("File must be an image(jpeg or png)");
     }
   };
 
@@ -239,7 +236,6 @@ function FepkCoverForm() {
           marginLeft: "10%",
           width: "80%",
           borderRadius: "10px",
-          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -251,6 +247,7 @@ function FepkCoverForm() {
                 "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
             }}
           >
+            
             <div className="col-1">
               <Link className="navbar-brand text-headers-style" to="/home">
                 <img
@@ -293,14 +290,13 @@ function FepkCoverForm() {
               fontWeight: "normal",
             }}
           >
-            <div className="card-body" style={{ height: "500px" }}>
+            <div className="card-body" style={{ height: "530px" }}>
               <h5
                 className="card-title "
                 style={{ color: "#ffffff", fontWeight: "normal" }}
               >
                 Cover
               </h5>
-
               <form className="row g-3">
                 <div className="col mx-5">
                   <div className="col mt-1 mb-5">
@@ -309,7 +305,6 @@ function FepkCoverForm() {
                         height: "30px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
                       }}
@@ -327,21 +322,32 @@ function FepkCoverForm() {
                     </h6>
                   </div>
                   <div className="col my-3">
-                    <textarea
+                   <textarea
                       style={{
-                        height: "60px",
+                        height: "70px",
                         width: "100%",
                         borderRadius: "5px",
-                        marginBottom: "5px",
+                        marginBottom: "0px",
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
+                        resize: "none",
                       }}
+                      maxLength="160"
                       className="form-control mt-10"
                       defaultValue={epkCoverData.logLine_short}
-                      placeholder="Log Line short"
+                      placeholder="Log Line short (maximum 160 characters)"
                       onChange={handleInputChange}
                       name="logLine_short"
                     />
+                    <span
+                      style={{
+                        fontSize: "15px",
+                        display: "flex",
+                        justifyContent: "right",
+                      }}
+                    >
+                      {characterLength?.logLine_short}/160 characters
+                    </span>
                   </div>
                   <div className="row my-5">
                     <div className="col my-2">
@@ -350,7 +356,6 @@ function FepkCoverForm() {
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
-                          marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
@@ -366,7 +371,6 @@ function FepkCoverForm() {
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
-                          marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
@@ -382,7 +386,6 @@ function FepkCoverForm() {
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
-                          marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
                         className="form-select form-select-sm "
@@ -394,6 +397,14 @@ function FepkCoverForm() {
                     </div>
                   </div>
                   <div>
+                    <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
+                      <span>
+                        {" "}
+                        <InfoCircleFilled />
+                      </span>
+                    </Tooltip>
+                  </div>
+                  <div>
                     <input
                       style={{
                         height: "30px",
@@ -401,12 +412,37 @@ function FepkCoverForm() {
                         borderRadius: "5px",
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${paypalImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 60px",
                       }}
                       className="form-control"
-                      defaultValue={epkCoverData.kickstarter_url}
-                      placeholder="KickStarter URL"
+                      defaultValue={epkCoverData.DonatePayPal_url}
+                      placeholder="URL: www.paypal.com/mymovie"
                       onChange={handleInputChange}
-                      name="kickstarter_url"
+                      name="DonatePayPal_url"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${stripImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 40px",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonateStripe_url}
+                      placeholder="URL: www.stripe.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonateStripe_url"
                     />
                   </div>
                 </div>
@@ -454,18 +490,29 @@ function FepkCoverForm() {
                         accept="video/*"
                       ></input>
                     </div>
+                   
                   </div>
+
+           
+
                 </div>
                 <h6 style={{ color: "red", fontSize: "15px" }}>
                   {submitMessage}
                 </h6>
-                <div class="container">
-                  <div
-                    className="row align-items-start"
+                <div class="container">               
+                      <div className="row align-items-start"
+                  style={{
+                    height: "550px",
+                    width: "120px",
+                    marginLeft: "90%",
+                  }}
+                >
+                  <Button
                     style={{
-                      height: "550px",
-                      width: "120px",
-                      marginLeft: "90%",
+                      boxShadow: "1px 2px 9px #311465",
+                      backgroundColor: "#ffffff",
+                      fontWeight: "bold",
+                      width: "115px",
                     }}
                   >
                     <Button

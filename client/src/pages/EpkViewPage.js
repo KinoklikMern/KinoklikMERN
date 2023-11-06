@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import EpkHeader from "../components/EpkView/EpkHeader/EpkHeader";
 import EpkCover from "../components/EpkView/EpkCover/EpkCover";
@@ -12,10 +13,11 @@ import EpkStills from "../components/EpkView/EpkStills/EpkStills";
 import EpkResources from "../components/EpkView/EpkResources/EpkResources";
 import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
 import EpkAward from "../components/EpkView/EpkAward/EpkAward";
+import DonationModal from "../components/donate/DonationModal";
 import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
 import NewMessageModal from "../components/EpkView/miscellaneous/NewMessageModal";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
@@ -24,16 +26,21 @@ function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
   const { user } = useSelector((user) => ({ ...user }));
-  const { title } = useParams();
+  // const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();
   const [requestStatus, setRequestStatus] = useState();
   const [refresh, setRefresh] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
+
+  let { title } = useParams();
+  title = title.replace(/%20/g, "_"); // Replace %20 with _
 
   const handleClose = (modalType) => {
     if (user) {
+      // eslint-disable-next-line default-case
       switch (modalType) {
         case "message":
           setShowMessageModal(false);
@@ -42,14 +49,19 @@ function EpkViewPage() {
         case "request":
           setShowRequestModal(false);
           break;
+
+        case "wish_to_donate":
+          setShowDonationModal(true); // Show the donation modal
+          break;
       }
     } else {
       setShowLoginModal(false);
     }
   };
+
   const handleShow = (modalType) => {
-    console.log("type", modalType);
     if (user) {
+      // eslint-disable-next-line default-case
       switch (modalType) {
         case "message":
           setShowMessageModal(true);
@@ -57,6 +69,10 @@ function EpkViewPage() {
 
         case "request":
           setShowRequestModal(true);
+          break;
+
+        case "wish_to_donate":
+          setShowDonationModal(true); 
           break;
       }
     } else {
@@ -66,29 +82,37 @@ function EpkViewPage() {
 
   useEffect(() => {
     getFepksByTitle(title).then((res) => {
+      console.log(res); 
       setEpkInfo(res);
       setFepkId(res._id);
       setFepkMaker(res.film_maker);
-      if (user.id === res.film_maker._id) {
+      if (user?.id === res.film_maker._id) {
         setRequestStatus("approved");
       } else {
-        res.requests.map((request) => {
-          if (request.user == user?.id) {
+        res.requests.forEach((request) => {
+          if (request.user === user?.id) {
             setRequestStatus(request.status);
           }
         });
       }
     });
-  }, [title, refresh]);
-  console.log("epk", epkInfo);
+  }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
+
   return (
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
         <div className="tw-w-11/12">
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
-          <EpkSocialAction epkInfo={epkInfo} handler={handleShow} />
-          <EpkDetail epkInfo={epkInfo} handler={handleShow}/>
+          {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}
+          <EpkSocialAction
+            epkInfo={epkInfo}
+            handler={handleShow}
+            showDonationModal={showDonationModal}
+            setShowDonationModal={setShowDonationModal}
+          />
+
+          <EpkDetail epkInfo={epkInfo} handler={handleShow} />
           <EpkLogline
             epkInfo={epkInfo}
             requestStatus={requestStatus}
@@ -144,10 +168,22 @@ function EpkViewPage() {
               setRefresh={setRefresh}
             />
           )}
+          {showDonationModal && (
+            <DonationModal
+              isOpen={showDonationModal}
+              onRequestClose={() => setShowDonationModal(false)}
+              epkId={epkInfo._id}
+              userId={user.id}
+              epkImage={
+                "https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details
+              }
+              epkDonatePayPal={epkInfo.DonatePayPal_url}
+              epkDonateStripe={epkInfo.DonateStripe_url}
+            />
+          )}
         </div>
       </div>
     )
   );
 }
-
 export default EpkViewPage;
