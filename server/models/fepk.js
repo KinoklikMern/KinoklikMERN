@@ -53,8 +53,7 @@ const fepkSchema = mongoose.Schema({
   // Film Details
   image_details: {
     type: String,
-    default:
-      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
+    default: "",
   },
   productionCo: { type: String },
   distributionCo: { type: String },
@@ -159,8 +158,8 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
-   // "$" sign front end
-   wishes_to_donate: [
+  // "$" sign front end
+  wishes_to_donate: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

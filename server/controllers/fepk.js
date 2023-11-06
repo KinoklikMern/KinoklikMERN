@@ -280,13 +280,16 @@ export const updateFepk = async (req, res) => {
       return res.status(404).json({ error: "No EPK was found!" });
     } else {
       const updatedFepk = req.body;
-      await fepkOne.updateOne(updatedFepk);
-      await fepkOne.updateOne(
-        { updatedAt: new Date() },
-        { where: { _id: id } }
+      await fepk.updateOne(
+        { _id: id },
+        {
+          $set: {
+            ...updatedFepk,
+            updatedAt: new Date(), // Set the updatedAt field to the current date and time
+          },
+        }
       );
       const fepkUpdated = await fepk.findOne({ _id: id });
-      //console.log(fepkUpdated);
       res.status(200).json(fepkUpdated);
     }
   } catch (error) {
