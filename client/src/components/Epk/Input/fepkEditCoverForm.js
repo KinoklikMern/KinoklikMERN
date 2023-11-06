@@ -71,6 +71,7 @@ function FepkEditCoverForm() {
 
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContentType, setModalContentType] = useState("save");
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -272,6 +273,7 @@ function FepkEditCoverForm() {
             http
               .put(`fepks/update/${fepkId}`, epkCoverData)
               .then((res) => {
+                setModalContentType("save");
                 setModalIsOpen(true);
                 console.log("saved");
               })
