@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button, Tooltip} from "antd";
+import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import paypalImage from "../../../images/paypal.png";
@@ -115,22 +115,21 @@ function FepkCoverForm() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-  
-    if (name === "logLine_short") {
-      if (value.length > 160) {
-        // Truncate the value to 160 characters
-        const truncatedValue = value.slice(0, 160);
-        setCharacterLength({ logLine_short: truncatedValue.length });
-        setEpkCoverData({ ...epkCoverData, [name]: truncatedValue });
-      } else {
-        setCharacterLength({ logLine_short: value.length });
-        setEpkCoverData({ ...epkCoverData, [name]: value });
-      }
-    } else {
-      // Handle other input fields
-      setEpkCoverData({ ...epkCoverData, [name]: value });
-    }
-  
+
+    // if (name === "logLine_short") {
+    //   if (value.length > 160) {
+    //     // Truncate the value to 160 characters
+    //     const truncatedValue = value.slice(0, 160);
+    //     setCharacterLength({ logLine_short: truncatedValue.length });
+    //     setEpkCoverData({ ...epkCoverData, [name]: truncatedValue });
+    //   } else {
+    //     setCharacterLength({ logLine_short: value.length });
+    //     setEpkCoverData({ ...epkCoverData, [name]: value });
+    //   }
+    // } else {
+    // Handle other input fields
+    setEpkCoverData({ ...epkCoverData, [name]: value });
+    //}
     if (name === "title") {
       http.get(`fepks/byTitles/${value}`).then((response) => {
         if (response.data.length > 0) {
@@ -298,7 +297,6 @@ function FepkCoverForm() {
               >
                 Cover
               </h5>
-              
               <form className="row g-3">
                 <div className="col mx-5">
                   <div className="col mt-1 mb-5">
@@ -452,8 +450,8 @@ function FepkCoverForm() {
                   <div className="row gx-6">
                     <div className="col mt-5">
                       <label
-                        for="fileBanner"
-                        class="form-label text-dark"
+                        htmlFor="fileBanner"
+                        className="form-label text-dark"
                         style={{ fontSize: "25px" }}
                       >
                         {" "}
@@ -473,8 +471,8 @@ function FepkCoverForm() {
                     </div>
                     <div className="col mt-5">
                       <label
-                        for="fileTrailer"
-                        class="form-label text-dark"
+                        htmlFor="fileTrailer"
+                        className="form-label text-dark"
                         style={{ fontSize: "25px" }}
                       >
                         {" "}
@@ -501,8 +499,7 @@ function FepkCoverForm() {
                 <h6 style={{ color: "red", fontSize: "15px" }}>
                   {submitMessage}
                 </h6>
-                <div class="container">
-               
+                <div class="container">               
                       <div className="row align-items-start"
                   style={{
                     height: "550px",
@@ -517,13 +514,21 @@ function FepkCoverForm() {
                       fontWeight: "bold",
                       width: "115px",
                     }}
-                    type="outline-primary"
-                    block
-                    onClick={saveEpkCover}
-                    value="save"
                   >
-                    Save
-                  </Button>
+                    <Button
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                        width: "115px",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={saveEpkCover}
+                      value="save"
+                    >
+                      Save
+                    </Button>
                   </div>
                 </div>
               </form>

@@ -294,6 +294,23 @@ function CoverForm() {
                       name="DonatePayPal_url"
                     />
                   </div>
+                </div>
+                <div>
+                  <input
+                      style={{ 
+                        height: "30px", 
+                        width: "100%", 
+                        borderRadius: "5px", 
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonatePayPal_url}
+                      placeholder="URL: www.paypal.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonatePayPal_url"
+                    />
+                  </div>
                   <div>
                     <input
                       style={{
@@ -314,7 +331,7 @@ function CoverForm() {
                 <div className="col border border-2">
                   <div className="row gx-5">
                     <div className="col mt-5">
-                      <label for="fileBanner" class="form-label text-dark">
+                      <label htmlFor="fileBanner" className="form-label text-dark">
                         {" "}
                         Upload Banner
                       </label>
@@ -330,7 +347,7 @@ function CoverForm() {
                       ></input>
                     </div>
                     <div className="col mt-5">
-                      <label for="fileTrailer" class="form-label text-dark">
+                      <label htmlFor="fileTrailer" className="form-label text-dark">
                         {" "}
                         Upload Trailer
                       </label>

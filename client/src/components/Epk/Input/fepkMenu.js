@@ -78,7 +78,7 @@ export default function BasicMenu() {
       >
         {fepkList.map((val) => {
           return (
-            <MenuItem>
+            <MenuItem key={val._id}>
               <a
                 href={`/editFepk/${val._id}`}
                 style={{ color: "#311465", textDecoration: "none" }}
