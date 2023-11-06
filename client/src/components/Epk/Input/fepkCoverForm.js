@@ -9,8 +9,10 @@ function FepkCoverForm() {
   const navigate = useNavigate();
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
+  const [file3, setFile3] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  const inputFile3Ref = useRef(null);
   const [message, setMessage] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
@@ -18,6 +20,7 @@ function FepkCoverForm() {
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
   const filmmaker_id = user.id;
+
   const file1Selected = (event) => {
     const file = event.target.files[0];
     setFile1(file);
@@ -26,6 +29,11 @@ function FepkCoverForm() {
     const file = event.target.files[0];
     setFile2(file);
   };
+  const file3Selected = (event) => {
+    const file = event.target.files[0];
+    setFile3(file);
+  };
+
   const [epkCoverData, setEpkCoverData] = useState({
     film_maker: filmmaker_id,
     title: "",
@@ -33,6 +41,7 @@ function FepkCoverForm() {
     genre: "",
     production_type: "",
     kickstarter_url: "",
+    image_details: "",
     banner_url: "",
     trailer_url: "",
     status: "",
@@ -154,34 +163,36 @@ function FepkCoverForm() {
     } else return true;
   };
   const saveEpkCover = (e) => {
-    debugger;
+    console.log("Button clicked");
     e.preventDefault();
     let formData = new FormData();
     console.log(file1);
     console.log(file2);
+    console.log(file3);
     formData.append("file1", file1);
     formData.append("file2", file2);
+    formData.append("file3", file3);
     console.log(formData);
     console.log([...formData.entries()]);
-    debugger;
-    // ----- CHIHYIN -------
-    // Initializing messages
-    let bannerMessage = "";
+
     let titleLoglineMessage = "";
-    // Checking if banner (file1) has been uploaded
-    if (!file1) {
-      bannerMessage = "Please upload a banner.";
-    }
-    // Checking if title and logLine_short are filled in
+    let genreStatusMessage = "";
     if (!epkCoverData.title || !epkCoverData.logLine_short) {
       titleLoglineMessage = " Title and Log Line needed.";
     }
-    if (bannerMessage || titleLoglineMessage) {
-      setSubmitMessage(bannerMessage + titleLoglineMessage);
+    if (!epkCoverData.genre || !epkCoverData.status) {
+      genreStatusMessage = "Tell us the genre and the status.";
+    }
+    if (titleLoglineMessage || genreStatusMessage) {
+      setSubmitMessage(titleLoglineMessage + " " + genreStatusMessage);
       return; // Exit the function early if any check fails
     }
-    // ----- CHIHYIN -------
-    if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
+
+    if (
+      checkFileMimeType(file1) &&
+      checkFileMimeType(file2) &&
+      checkFileMimeType(file3)
+    ) {
       http
         .post("fepks/uploadFiles", formData, {
           headers: {
@@ -195,29 +206,26 @@ function FepkCoverForm() {
           if (response.data.file2 !== undefined) {
             epkCoverData.trailer_url = response.data.file2;
           }
+          if (response.data.file3 !== undefined) {
+            epkCoverData.image_details = response.data.file3;
+          }
           http.post("fepks/", epkCoverData).then((res) => {
             if (res.data.error) {
+              console.error("Error submitting data:", res.data.error);
               setSubmitMessage(
-                // res.data.error + " Title is unique and status needed!"
-                // ----- CHIHYIN -------
-                "Tell us the genre and the status."
+                "An error occurred while saving your data. Please try again."
               );
             } else {
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
             }
-          }) /*
-            .catch((err) => {
-              console.log(err);
-            })*/;
-        }) /*
-        .catch((err) => {
-          console.log(err);
-        })*/;
+          });
+        });
     } else {
       setMessage("File must be a image(jpeg or png)");
     }
   };
+
   return (
     <>
       <div
@@ -280,14 +288,10 @@ function FepkCoverForm() {
               fontWeight: "normal",
             }}
           >
-            <div className="card-body" style={{ height: "500px" }}>
-              <h5
-                className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
-              >
-                Cover
-              </h5>
-
+            <div
+              className="card-body"
+              style={{ height: "500px", marginTop: "2rem" }}
+            >
               <form className="row g-3">
                 <div className="col mx-5">
                   <div className="col mt-1 mb-5">
@@ -399,6 +403,27 @@ function FepkCoverForm() {
                 </div>
                 <div className="col border border-2 rounded">
                   <div className="row gx-6">
+                    <div className="col mt-5">
+                      <label
+                        htmlFor="fileBanner"
+                        className="form-label text-dark"
+                        style={{ fontSize: "25px" }}
+                      >
+                        {" "}
+                        Upload Poster
+                      </label>
+                      <input
+                        style={{ fontSize: "15px" }}
+                        className="form-control form-control-sm"
+                        filename={file3}
+                        onChange={file3Selected}
+                        ref={inputFile3Ref}
+                        type="file"
+                        id="filePoster"
+                        name="files"
+                        accept="image/*"
+                      ></input>
+                    </div>
                     <div className="col mt-5">
                       <label
                         htmlFor="fileBanner"

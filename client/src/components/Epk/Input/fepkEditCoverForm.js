@@ -197,7 +197,6 @@ function FepkEditCoverForm() {
     const { name, value } = event.target;
     setCharacterLength({ ...characterLength, [name]: value.length });
     setEpkCoverData({ ...epkCoverData, [name]: value });
-    //console.log(epkCoverData);
     setDisabled(false);
     if (name === "title") {
       http.get(`fepks/byTitle/${event.target.value}`).then((response) => {
@@ -206,7 +205,6 @@ function FepkEditCoverForm() {
             "This title exists! You are not allowed to use it again!"
           );
           setMessageTitleYes("");
-          //console.log(response.data);
         } else {
           setMessageTitleYes("Title is available!");
           setMessageTitleNo("");
@@ -241,16 +239,16 @@ function FepkEditCoverForm() {
       let formData = new FormData();
       console.log(file1);
       console.log(file2);
+      console.log(file3);
 
       formData.append("file1", file1);
-
       formData.append("file2", file2);
       formData.append("file3", file3);
       console.log(formData);
       if (
         checkFileMimeType(file1) &&
         checkFileMimeType(file2) &&
-        checkFileMimeType(file2)
+        checkFileMimeType(file3)
       ) {
         http
           .post("fepks/uploadFiles", formData, {
