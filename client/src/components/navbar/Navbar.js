@@ -14,7 +14,7 @@ function Navbar(props) {
 
   return (
     <nav className={`tw-w-full ${props.className}`}>
-      <div className='tw-mx-auto tw-flex tw-max-w-full tw-items-center tw-justify-between tw-bg-gradient-to-b tw-from-[#160625]/70 tw-to-[#160625]/0'>
+      <div className='tw-mx-auto tw-flex tw-max-w-full tw-items-center tw-justify-between tw-bg-gradient-to-b tw-from-[#000]/70 tw-to-transparent'>
         {/* Logo and brand name */}
         <NavbarBrand title={props.title} />
         {/* Buttons */}

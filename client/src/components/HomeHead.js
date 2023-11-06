@@ -131,7 +131,7 @@ const HomeHead = (props) => {
 
       <section
         id='home'
-        className='tw-h-full tw-bg-gradient-to-t tw-from-[#160625]/60 tw-via-[#160625]/50 tw-to-transparent tw-pt-0'
+        className='tw-h-full tw-bg-gradient-to-t tw-from-[#000]/50 tw-via-[#000]/40 tw-to-transparent tw-pt-0'
       >
         <div className='menu-icon tw-pt-12'>
           {/* Donation  */}

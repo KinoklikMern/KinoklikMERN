@@ -15,7 +15,6 @@ import Landing8 from "../components/LandingPage/Landing8";
 import Landing9 from "../components/LandingPage/Landing9";
 import Landing10 from "../components/LandingPage/Landing10";
 import { FepkContext } from "../context/FepkContext";
-import FilterTag from "../components/Filter/FilterTag";
 
 function Home({ role }) {
   const { user } = useSelector((user) => ({ ...user }));
@@ -33,7 +32,6 @@ function Home({ role }) {
           <>
             <HomeHead role={role} />
             <SwitchBtn role={role} />
-            <FilterTag role={role} />
             {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
             {/* <Festival /> */}
             <HomeBottom />
@@ -46,7 +44,6 @@ function Home({ role }) {
             <Landing3 />
             <Landing4 />
             <Landing5 />
-
             <Landing8 />
             <Landing9 />
             <Landing10 />
