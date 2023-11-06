@@ -4,6 +4,8 @@ import http from "../../../http-common";
 import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import paypalImage from "../../../images/paypal.png";
+import stripImage from "../../../images/stripe.jpg";
 
 function FepkCoverForm() {
   const navigate = useNavigate();
@@ -32,7 +34,8 @@ function FepkCoverForm() {
     logLine_short: "",
     genre: "",
     production_type: "",
-    kickstarter_url: "",
+    DonatePayPal_url: "",
+    DonateStripe_url: "",
     banner_url: "",
     trailer_url: "",
     status: "",
@@ -381,6 +384,14 @@ function FepkCoverForm() {
                     </div>
                   </div>
                   <div>
+                    <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
+                      <span>
+                        {" "}
+                        <InfoCircleFilled />
+                      </span>
+                    </Tooltip>
+                  </div>
+                  <div>
                     <input
                       style={{
                         height: "30px",
@@ -388,12 +399,37 @@ function FepkCoverForm() {
                         borderRadius: "5px",
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${paypalImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 60px",
                       }}
                       className="form-control"
-                      defaultValue={epkCoverData.kickstarter_url}
-                      placeholder="KickStarter URL"
+                      defaultValue={epkCoverData.DonatePayPal_url}
+                      placeholder="URL: www.paypal.com/mymovie"
                       onChange={handleInputChange}
-                      name="kickstarter_url"
+                      name="DonatePayPal_url"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${stripImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 40px",
+                      }}
+                      className="form-control"
+                      defaultValue={epkCoverData.DonateStripe_url}
+                      placeholder="URL: www.stripe.com/mymovie"
+                      onChange={handleInputChange}
+                      name="DonateStripe_url"
                     />
                   </div>
                 </div>
