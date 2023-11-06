@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { ChatState } from "../../../context/ChatProvider.js";
 
 function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
-  const { selectedChat, setSelectedChat, notification, setNotification } =
-    ChatState();
+  const { selectedChat, setSelectedChat } = ChatState();
   const { user } = useSelector((user) => ({ ...user }));
 
   // Check if the current chat item is the selected chat

@@ -36,6 +36,10 @@ const NotificationProvider = ({ children }) => {
     localStorage.removeItem("messageCount");
   };
 
+  const clearNotificationCount = () => {
+    setNotificationCount(0);
+  };
+
   return (
     <NotificationContext.Provider
       value={{
@@ -50,6 +54,7 @@ const NotificationProvider = ({ children }) => {
         userInfo,
         setUserInfo,
         clearMessageCount,
+        clearNotificationCount,
       }}
     >
       {children}

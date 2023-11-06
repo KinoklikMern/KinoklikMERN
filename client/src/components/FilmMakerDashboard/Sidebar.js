@@ -14,7 +14,7 @@ export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
 
   // Yeming added
-  const { notificationCount, messageCount, filmmakerInfo, clearMessageCount } =
+  const { notificationCount, messageCount, userInfo, clearMessageCount } =
     useContext(NotificationContext);
 
   console.info("select", SELECTED_TAB);
@@ -82,7 +82,7 @@ export default function Sidebar(props) {
   // console.log("messageCount", messageCount);
   return (
     <>
-      <nav className='tw-hidden tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16 md:tw-flex'>
+      <nav className="tw-hidden tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16 md:tw-flex">
         {sideBarList.map((item, index) => (
           <div
             key={index}
@@ -94,12 +94,12 @@ export default function Sidebar(props) {
           >
             <a
               href={item.href}
-              className='tw-flex tw-flex-col tw-text-[#1E0039]'
+              className="tw-flex tw-flex-col tw-text-[#1E0039]"
               onClick={
                 item.Title === "Messages" ? clearMessageCount : undefined
               }
             >
-              <div className='tw-flex tw-justify-center'>
+              <div className="tw-flex tw-justify-center">
                 <img
                   src={
                     SELECTED_TAB === item.Title
@@ -126,11 +126,11 @@ export default function Sidebar(props) {
               )} */}
               {(item.Title === "Notifications" &&
                 notificationCount > 0 &&
-                filmmakerInfo === userId) ||
+                userInfo === userId) ||
               (item.Title === "Messages" &&
                 messageCount > 0 &&
-                filmmakerInfo === userId) ? (
-                <div className='tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white'>
+                userInfo === userId) ? (
+                <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"
                     : item.Title === "Notifications"
@@ -147,7 +147,7 @@ export default function Sidebar(props) {
 
       {/* Bottom bar for mobile screens */}
 
-      <nav className='tw-fixed tw-bottom-0 tw-left-0 tw-z-50 tw-flex tw-w-full tw-border-gray-300 tw-bg-white tw-shadow-md md:tw-hidden'>
+      <nav className="tw-fixed tw-bottom-0 tw-left-0 tw-z-50 tw-flex tw-w-full tw-border-gray-300 tw-bg-white tw-shadow-md md:tw-hidden">
         {sideBarList.map((item, index) => (
           <div
             key={index}
@@ -158,7 +158,7 @@ export default function Sidebar(props) {
           >
             <a
               href={item.href}
-              className='tw-flex tw-flex-col tw-text-[#1E0039]'
+              className="tw-flex tw-flex-col tw-text-[#1E0039]"
               onClick={
                 item.Title === "Messages" ? clearMessageCount : undefined
               }
@@ -185,11 +185,11 @@ export default function Sidebar(props) {
               </p>
               {(item.Title === "Notifications" &&
                 notificationCount > 0 &&
-                filmmakerInfo === userId) ||
+                userInfo === userId) ||
               (item.Title === "Messages" &&
                 messageCount > 0 &&
-                filmmakerInfo === userId) ? (
-                <div className='tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white'>
+                userInfo === userId) ? (
+                <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"
                     : item.Title === "Notifications"

@@ -14,8 +14,7 @@ export default function RequestModal(props) {
   const [requestMsg, setRequestMsg] = useState("");
   const { notification, setNotification } = ChatState();
 
-  const { incrementMessage, setFilmmakerInfo } =
-    useContext(NotificationContext);
+  const { incrementMessage, setUserInfo } = useContext(NotificationContext);
 
   const handleChange = (e) => {
     setRequestMsg(e.target.value);
@@ -45,7 +44,7 @@ export default function RequestModal(props) {
             if (res.status === 200) {
               incrementMessage();
               console.log(props.filmmakerId);
-              setFilmmakerInfo(props.filmmakerId);
+              setUserInfo(props.filmmakerId);
 
               socket.emit("new message", res.data);
               props.close("request");
