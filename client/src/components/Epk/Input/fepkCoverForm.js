@@ -19,6 +19,8 @@ function FepkCoverForm() {
   const [submitMessage, setSubmitMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
+  const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
+
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
   const filmmaker_id = user.id;
@@ -120,21 +122,19 @@ function FepkCoverForm() {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    // if (name === "logLine_short") {
-    //   if (value.length > 160) {
-    //     // Truncate the value to 160 characters
-    //     const truncatedValue = value.slice(0, 160);
-    //     setCharacterLength({ logLine_short: truncatedValue.length });
-    //     setEpkCoverData({ ...epkCoverData, [name]: truncatedValue });
-    //   } else {
-    //     setCharacterLength({ logLine_short: value.length });
-    //     setEpkCoverData({ ...epkCoverData, [name]: value });
-    //   }
-    // } else {
-    // Handle other input fields
+    if (name === "logLine_short") {
+      if (value.length > 160) {
+        // Truncate the value to 160 characters
+        const truncatedValue = value.slice(0, 160);
+        setCharacterLength({ logLine_short: truncatedValue.length });
+        setEpkCoverData({ ...epkCoverData, [name]: truncatedValue });
+      } else {
+        setCharacterLength({ logLine_short: value.length });
+        setEpkCoverData({ ...epkCoverData, [name]: value });
+      }
+    } 
+   // Handle other input fields
     setEpkCoverData({ ...epkCoverData, [name]: value });
-    //}
-
     if (name === "title") {
       http.get(`fepks/byTitles/${event.target.value}`).then((response) => {
         if (response.data.length > 0) {
@@ -331,12 +331,22 @@ function FepkCoverForm() {
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "left",
                       }}
+                      maxLength="160"
                       className="form-control mt-10"
                       defaultValue={epkCoverData.logLine_short}
                       placeholder="Log Line short"
                       onChange={handleInputChange}
                       name="logLine_short"
                     />
+                     <span
+                    style={{
+                      fontSize: "15px",
+                      display: "flex",
+                      justifyContent: "right",
+                    }}
+                  >
+                    {characterLength?.logLine_short}/160 characters
+                  </span>
                   </div>
                   <div className="row my-5">
                     <div className="col my-2">
