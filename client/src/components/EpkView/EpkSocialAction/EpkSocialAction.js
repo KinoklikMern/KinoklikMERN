@@ -25,7 +25,8 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "react-share";
-
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import SocialShareModal from "./SocialShareModal";
 import { NotificationContext } from "../../../context/NotificationContext";
 // import { FepkContext } from "../../../context/FepkContext";
 
@@ -63,6 +64,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const [showShareOptions, setShowShareOptions] = useState(false);
   const urlShare = "https://www.google.com"; ///window.location.href
   // console.log(epkInfo);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   //Yeming added
   const { incrementNotification, setUserInfo } =
@@ -267,7 +269,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           //   openUrl(epkInfo.kickstarter_url);
           //   break;
           case "share":
-            closeSharingMenu();
+            // closeSharingMenu();
+            setIsShareModalOpen(true);
             break;
           default:
             break;
@@ -289,18 +292,28 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     },
   };
 
+  const closeShareModal = () => {
+    setIsShareModalOpen(false);
+  };
+
+
   return (
     <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">
       {/* Social media sharing Icons */}
       {actionList.map(
-        (action, index) =>
+        (action) =>
           action.icon !== null && (
             <div
               className="tw-relative"
-              key={index}
               onMouseOver={() => handlers.hoverHandler("onMouseOver")}
               onMouseOut={() => handlers.hoverHandler("onMouseOut")}
             >
+              {/* Social media sharing modal */}
+              <SocialShareModal
+                isOpen={isShareModalOpen}
+                urlShare={urlShare}
+                closeModal={closeShareModal}
+              />
               {action.name === "share" && showShareOptions && (
                 <div className="tw-absolute tw--top-[65%] tw-right-0 tw-flex tw-pb-12 tw-text-white">
                   <FacebookShareButton

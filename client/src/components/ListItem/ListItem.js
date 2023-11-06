@@ -1,7 +1,6 @@
 import React from "react";
 import "./ListItem.css";
-import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
@@ -11,7 +10,7 @@ export default function ListItem({ title, status, type, role }) {
     production_type = ["Movie", "TV Show", "Web Series", "Documentary"];
   }
   const [fepks, setFepks] = useState([]);
-  const [actors, setActors] = useState([]);
+  // const [actors, setActors] = useState([]);
   // fetching user
   //: `epk/${fepk.title}`
   const { user } = useSelector((user) => ({ ...user }));
@@ -23,6 +22,7 @@ export default function ListItem({ title, status, type, role }) {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line default-case
     switch (title) {
       case "starred":
         http.get(`fepks/getStarredFepksByUser/${id}`).then((response) => {
@@ -88,26 +88,31 @@ export default function ListItem({ title, status, type, role }) {
   return (
     <>
       {fepks &&
-        fepks.map((fepk) => (
-          <div className="listItem" key={fepk._id}>
-            <a
-              href={
-                role == "actor"
-                  ? `/actor/6487758c553b5011282f72a5`
-                  : `epk/${fepk.title}`
-              }
-            >
-              <img
-                src={
+        fepks.map((fepk) => {
+          // Replace spaces '%20' with underscores
+          const formattedTitle = fepk.title.replace(/ /g, "_");
+
+          return (
+            <div className="listItem" key={fepk._id}>
+              <a
+                href={
                   role === "actor"
-                    ? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`
-                    : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                    ? `/actor/6487758c553b5011282f72a5`
+                    : `epk/${formattedTitle}`
                 }
-                alt=""
-              />
-            </a>
-          </div>
-        ))}
+              >
+                <img
+                  src={
+                    role === "actor"
+                      ? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`
+                      : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                  }
+                  alt=""
+                />
+              </a>
+            </div>
+          );
+        })}
     </>
   );
 }

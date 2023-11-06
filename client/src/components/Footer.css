@@ -37,6 +37,7 @@
 .footer-li {
   color: white;
   opacity: 0.5;
+  text-align: left;
 
   &:hover {
     opacity: 1;

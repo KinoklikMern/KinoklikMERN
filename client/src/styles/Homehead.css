@@ -38,3 +38,8 @@
   right: 16px;
   top: 8vmax;
 }
+
+.homeHead-poster {
+  border-radius: 55px;
+  border: 2px solid #160625;
+}

@@ -246,7 +246,7 @@
   width: 50px;
 }
 
-/* .modal {
+.actor-modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -263,11 +263,10 @@
   border-radius: 5px;
   box-sizing: border-box;
 }
-.modal.is-open {
+.actor-modal.is-open {
   display: block;
-} */
-
-.shared-styles {
+}
+*/ .shared-styles {
   height: 30px;
   width: 100%;
   border-radius: 5px;
