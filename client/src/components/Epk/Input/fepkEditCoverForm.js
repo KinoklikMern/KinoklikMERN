@@ -98,7 +98,6 @@ function FepkEditCoverForm() {
     "comedy",
     "documentary",
     "romance",
-    "action",
     "horror",
     "mystery",
     "drama",
