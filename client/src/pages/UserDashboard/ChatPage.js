@@ -17,7 +17,7 @@ export default function ChatPage() {
   return (
     <ChatProvider>
       <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
-        <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
+        <div className='tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white md:tw-mb-8'>
           <p className='tw-text-4xl'>User Dashboard</p>
         </div>
         <div className='tw-flex tw-h-5/6 tw-flex-row md:tw-mx-8'>

@@ -11,31 +11,32 @@ export default function StatusBtn({ onStatusChange }) {
 
   useEffect(() => {
     onStatusChange(activeBtn);
-  }, [activeBtn, onStatusChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeBtn]);
 
   return (
-    <div className="switchstat-container">
-      <div className="switchstat-btn">
+    <div className='switchstat-container'>
+      <div className='switchstat-btn'>
         <button
-          id="Postproduction"
-          className={activeBtn === "Postproduction" ? "active" : "deactive"}
-          onClick={() => handleClick("Postproduction")}
+          id='Preproduction'
+          className={activeBtn === "Preproduction" ? "active" : "deactive"}
+          onClick={() => handleClick("Preproduction")}
         >
-          Postproduction
+          Pre-Production
         </button>
         <button
-          id="Production"
+          id='Production'
           className={activeBtn === "Production" ? "active" : "deactive"}
           onClick={() => handleClick("Production")}
         >
           Production
         </button>
         <button
-          id="Preproduction"
-          className={activeBtn === "Preproduction" ? "active" : "deactive"}
-          onClick={() => handleClick("Preproduction")}
+          id='Postproduction'
+          className={activeBtn === "Postproduction" ? "active" : "deactive"}
+          onClick={() => handleClick("Postproduction")}
         >
-          Preproduction
+          Post-Production
         </button>
       </div>
     </div>

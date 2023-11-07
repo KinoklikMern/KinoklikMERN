@@ -15,6 +15,7 @@ import StatusBtn from "../SwitchStatusBtn/Status";
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [isMoved, setIsMoved] = useState(false);
+  const [filteredEPKs, setFilteredEPKs] = useState(fepks);
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
   const [currentStatus, setCurrentStatus] = useState("All");
   const listRef = useRef();
@@ -28,12 +29,10 @@ const HomeBody = ({ role }) => {
   }, []);
 
   const productionCategories = [
-    { title: "POST PRODUCTION", status: "Postproduction" },
-    { title: "PRODUCTION", status: "Production" },
     { title: "PRE PRODUCTION", status: "Preproduction" },
+    { title: "PRODUCTION", status: "Production" },
+    { title: "POST PRODUCTION", status: "Postproduction" },
   ];
-
-  const [filteredEPKs, setFilteredEPKs] = useState(fepks);
 
   const handleStatusChange = (status) => {
     setCurrentStatus(status);
@@ -58,16 +57,16 @@ const HomeBody = ({ role }) => {
 
   return (
     <>
-    <div>
+      <div>
         <StatusBtn onStatusChange={handleStatusChange} />
-    </div>
-  
+      </div>
+
       <div className='home'>
         {fepksInEachRow.map((item, index) => {
           return (
             <React.Fragment key={index}>
               <div className='listTitle'>
-                <span>Placeholder</span>
+                <span>{productionCategories[index].title}</span>
               </div>
 
               <div className='list'>
