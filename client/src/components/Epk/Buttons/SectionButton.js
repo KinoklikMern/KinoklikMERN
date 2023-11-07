@@ -16,9 +16,10 @@ const SectionButton = (props) => {
       style={{
         boxShadow: "1px 2px 9px #311465",
         fontWeight: "bold",
-        margin: "20px",
-        fontSize: "1vw",
-        height: "3vw",
+        margin: "0.9rem",
+        fontSize: "0.9rem",
+        padding: "1%",
+        height: "3%",
         alignItems: "center",
         justifyContent: "center",
       }}
