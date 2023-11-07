@@ -108,29 +108,29 @@ export default function FilterTag({ role }) {
     });
   };
 
+  // const actorFilterTag = [
+  //   {
+  //     name: "Movie",
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: "TV Show",
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: "Web Series",
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: "Documentary",
+  //     isActive: false,
+  //   },
+  //   {
+  //     name: "all epks",
+  //     isActive: true,
+  //   },
+  // ];
   const actorFilterTag = [
-    {
-      name: "Movie",
-      isActive: false,
-    },
-    {
-      name: "TV Show",
-      isActive: false,
-    },
-    {
-      name: "Web Series",
-      isActive: false,
-    },
-    {
-      name: "Documentary",
-      isActive: false,
-    },
-    {
-      name: "all epks",
-      isActive: true,
-    },
-  ];
-  const FilterTag = [
     {
       name: "Male",
       isActive: false,
@@ -166,9 +166,8 @@ export default function FilterTag({ role }) {
     },
   ];
 
-  const [filterTags, setFilterTags] = useState(
-    role === "actor" ? FilterTag : actorFilterTag
-  );
+  const [filterTags, setFilterTags] = useState(role === "actor" ? actorFilterTag : []);
+
 
   console.log(filterQuery);
 
@@ -234,15 +233,15 @@ export default function FilterTag({ role }) {
       }
 
       // Update "all epks" tag
-      const allEpksIsActive =
-        newQuery.includes("Movie") &&
-        newQuery.includes("TV Show") &&
-        newQuery.includes("Web Series") &&
-        newQuery.includes("Documentary");
+      // const allEpksIsActive =
+      //   newQuery.includes("Movie") &&
+      //   newQuery.includes("TV Show") &&
+      //   newQuery.includes("Web Series") &&
+      //   newQuery.includes("Documentary");
 
-      newTags = newTags.map((tag) =>
-        tag.name === "all epks" ? { ...tag, isActive: allEpksIsActive } : tag
-      );
+      // newTags = newTags.map((tag) =>
+      //   tag.name === "all epks" ? { ...tag, isActive: allEpksIsActive } : tag
+      // );
 
       // Update "All Actors" tag
       const allActorsIsActive =
