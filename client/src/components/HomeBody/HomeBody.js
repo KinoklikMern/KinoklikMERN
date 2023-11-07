@@ -10,12 +10,13 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { FepkContext } from "../../context/FepkContext.js";
+import StatusBtn from "../SwitchStatusBtn/Status";
 
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [isMoved, setIsMoved] = useState(false);
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
-
+  const [currentStatus, setCurrentStatus] = useState("All");
   const listRef = useRef();
 
   const actorId = "6483619d64b048f952a6fb5b";
@@ -25,6 +26,26 @@ const HomeBody = ({ role }) => {
       setFepks(response.data);
     });
   }, []);
+
+  const productionCategories = [
+    { title: "POST PRODUCTION", status: "Postproduction" },
+    { title: "PRODUCTION", status: "Production" },
+    { title: "PRE PRODUCTION", status: "Preproduction" },
+  ];
+
+  const [filteredEPKs, setFilteredEPKs] = useState(fepks);
+
+  const handleStatusChange = (status) => {
+    setCurrentStatus(status);
+
+    if (status === "All") {
+      setFilteredEPKs(fepks); // Show all EPKs
+    } else {
+      // Filter EPKs based on the selected status
+      const filtered = fepks.filter((fepk) => fepk.status === status);
+      setFilteredEPKs(filtered);
+    }
+  };
 
   const rowSize = 8;
   const fepksInEachRow = useMemo(() => {
@@ -37,6 +58,10 @@ const HomeBody = ({ role }) => {
 
   return (
     <>
+    <div>
+        <StatusBtn onStatusChange={handleStatusChange} />
+    </div>
+  
       <div className='home'>
         {fepksInEachRow.map((item, index) => {
           return (

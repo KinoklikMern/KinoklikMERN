@@ -23,7 +23,9 @@ function FepkCoverForm() {
   const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
   const [posterPreviewUrl, setPosterPreviewUrl] = useState("");
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
-  const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
+  const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("")
+  const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
+
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
   const filmmaker_id = user.id;
@@ -171,6 +173,19 @@ function FepkCoverForm() {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setCharacterLength({ ...characterLength, [name]: value.length });
+
+    if (name === "logLine_short") {
+      if (value.length > 160) {
+        // Truncate the value to 160 characters
+        const truncatedValue = value.slice(0, 160);
+        setCharacterLength({ logLine_short: truncatedValue.length });
+        setEpkCoverData({ ...epkCoverData, [name]: truncatedValue });
+      } else {
+        setCharacterLength({ logLine_short: value.length });
+        setEpkCoverData({ ...epkCoverData, [name]: value });
+      }
+    } 
+   // Handle other input fields
     setEpkCoverData({ ...epkCoverData, [name]: value });
     if (name === "title") {
       http.get(`fepks/byTitles/${event.target.value}`).then((response) => {
@@ -435,6 +450,74 @@ function FepkCoverForm() {
                           />
                         </div>
                       </div>
+              <form className="row g-3">
+                <div className="col mx-5">
+                  <div className="col mt-1 mb-5">
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        textAlign: "left",
+                      }}
+                      className="form-control m-10"
+                      defaultValue={epkCoverData.title}
+                      placeholder="Title"
+                      onChange={handleInputChange}
+                      name="title"
+                    />
+                    <h6 style={{ color: "red", fontSize: "15px" }}>
+                      {messageTitleNo}
+                    </h6>
+                    <h6 style={{ color: "green", fontSize: "15px" }}>
+                      {messageTitleYes}
+                    </h6>
+                  </div>
+                  <div className="col my-3">
+                    <textarea
+                      style={{
+                        height: "60px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        marginBottom: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        textAlign: "left",
+                      }}
+                      maxLength="160"
+                      className="form-control mt-10"
+                      defaultValue={epkCoverData.logLine_short}
+                      placeholder="Log Line short"
+                      onChange={handleInputChange}
+                      name="logLine_short"
+                    />
+                     <span
+                    style={{
+                      fontSize: "15px",
+                      display: "flex",
+                      justifyContent: "right",
+                    }}
+                  >
+                    {characterLength?.logLine_short}/160 characters
+                  </span>
+                  </div>
+                  <div className="row my-5">
+                    <div className="col my-2">
+                      <select
+                        style={{
+                          height: "30px",
+                          width: "100%",
+                          borderRadius: "5px",
+                          marginBottom: "5px",
+                          boxShadow: "1px 2px 9px #311465",
+                        }}
+                        className="form-select form-select-sm "
+                        name="genre"
+                        onChange={handleInputChange}
+                      >
+                        {movieGenre.map(makeGenreItem)}
+                      </select>
                     </div>
                     <div className="col">
                       <div className="row">
