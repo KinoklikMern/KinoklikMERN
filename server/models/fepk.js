@@ -166,7 +166,7 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
-  // "$" sign front end
+  // donate sign front end
   wishes_to_donate: [
     {
       type: mongoose.Schema.Types.ObjectId,
