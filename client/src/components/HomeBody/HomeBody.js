@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./HomeBody.css";
 import "../ListItem/ListItem.css";
 import "../List/List.css";
 import http from "../../http-common";
-import { useState, useRef, useEffect, useMemo } from "react";
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
@@ -12,12 +10,13 @@ import {
 import { FepkContext } from "../../context/FepkContext.js";
 import StatusBtn from "../SwitchStatusBtn/Status";
 
+
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
-  const [isMoved, setIsMoved] = useState(false);
-  const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
+  const [filterQuery] = React.useContext(FepkContext);
   const [currentStatus, setCurrentStatus] = useState("All");
   const listRef = useRef();
+  const isMoved = false;
 
   const actorId = "6483619d64b048f952a6fb5b";
 
@@ -25,7 +24,7 @@ const HomeBody = ({ role }) => {
     http.get(`fepks/`).then((response) => {
       setFepks(response.data);
     });
-  }, []);
+  }, []); // Fetch EPKs when the component loads
 
   const productionCategories = [
     { title: "POST PRODUCTION", status: "Postproduction" },
@@ -47,73 +46,111 @@ const HomeBody = ({ role }) => {
     }
   };
 
-  const rowSize = 8;
-  const fepksInEachRow = useMemo(() => {
-    const result = [];
-    for (let i = 0; i < fepks.length; i += rowSize) {
-      result.push(fepks.slice(i, i + rowSize));
-    }
-    return result;
-  }, [fepks]);
+  let genres = [];
+
+  fepks.forEach((fepk) => {
+    genres.push(fepk.genre);
+  });
+  genres = [...new Set(genres)].sort();
 
   return (
     <>
-    <div>
+      <div>
         <StatusBtn onStatusChange={handleStatusChange} />
-    </div>
-  
-      <div className='home'>
-        {fepksInEachRow.map((item, index) => {
+      </div>
+      <div className="home">
+        {productionCategories.map((category, index) => {
+          const categoryFilteredEPKs = filteredEPKs.filter(
+            (fepk) =>
+              fepk.status === category.status &&
+              (filterQuery !== ""
+                ? filterQuery.includes(fepk.production_type)
+                : true)
+          );
+
+          return categoryFilteredEPKs.length > 0 ? (
+            <div className="list" key={index}>
+              <div className="listTitle">
+                <span>{category.title}</span>
+              </div>
+              <div className="wrapper">
+                <ArrowBackIosOutlined
+                  className="sliderArrow left"
+                  style={{
+                    display: !isMoved && "none",
+                  }}
+                />
+          <div className="container" ref={listRef}>
+    {categoryFilteredEPKs.map((fepk) => (
+      <div className="listItem" key={fepk._id}>
+        <a
+          href={
+            role === "actor"
+              ? `/actor/${actorId}`
+              : `epk/${fepk.title}`
+          }
+        >
+          <img
+            src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+            alt=""
+          />
+        </a>
+      </div>
+    ))}
+  </div>
+                <ArrowForwardIosOutlined className="sliderArrow right" />
+              </div>
+            </div>
+          ) : null;
+        })}
+        {genres.map((genre, index) => {
+          const genreFilteredEPKs = filteredEPKs.filter(
+            (fepk) =>
+              fepk.genre === genre &&
+              (filterQuery !== ""
+                ? filterQuery.includes(fepk.production_type)
+                : true)
+          );
+
           return (
             <React.Fragment key={index}>
-              <div className='listTitle'>
-                <span>Placeholder</span>
+              <div className="listTitle">
               </div>
-
-              <div className='list'>
-                <div className='wrapper'>
+              <div className="list">
+                <div className="wrapper">
                   <ArrowBackIosOutlined
-                    className='sliderArrow left'
-                    /* onClick={() => handleClick("left")} */ style={{
+                    className="sliderArrow left"
+                    style={{
                       display: !isMoved && "none",
                     }}
                   />
-                  <div className='container' ref={listRef}>
-                    {item.map((fepk) => {
+                  <div className="container" ref={listRef}>
+                    {genreFilteredEPKs.map((fepk) => {
                       const formattedTitle = fepk.title.replace(/ /g, "_");
                       return (
-                        <React.Fragment key={fepk._id}>
-                          <div className='listItem'>
-                            <a
-                              href={
-                                role === "actor"
-                                  ? `/actor/${actorId}`
-                                  : `epk/${formattedTitle}`
-                              }
-                            >
-                              <img
-                                src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                                alt=''
-                              />
-                            </a>
-                          </div>
-                        </React.Fragment>
+                        <div className="listItem" key={fepk._id}>
+                          <a
+                            href={
+                              role === "actor"
+                                ? `/actor/${actorId}`
+                                : `epk/${formattedTitle}`
+                            }
+                          >
+                            <img
+                              src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                              alt=""
+                            />
+                          </a>
+                        </div>
                       );
                     })}
                   </div>
-                  <ArrowForwardIosOutlined
-                    className='sliderArrow right' /*onClick={() => handleClick("right")}*/
-                  />
+                  <ArrowForwardIosOutlined className="sliderArrow right" />
                 </div>
               </div>
             </React.Fragment>
           );
         })}
-
-        {/* <div className="sponsTitle">
-                    <span>SPONSORED RELEASED</span>
-                </div>
-                <Sponsored /> */}
       </div>
     </>
   );
