@@ -1,7 +1,12 @@
 .home {
   background-color: #160625;
   height: 100vh;
-  overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.home::-webkit-scrollbar {
+  display: none;
 }
 
 .home .listTitle {

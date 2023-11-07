@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import "./HomeBody.css";
 import "../ListItem/ListItem.css";
 import "../List/List.css";
 import http from "../../http-common";
@@ -43,7 +42,7 @@ const HomeBody = ({ role }) => {
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
 
-      <div className='home tw-flex tw-justify-center'>
+      <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
         <div className='tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
           {filteredEPKs.map((fepk) => {
             const formattedTitle = fepk.title.replace(/ /g, "_");
