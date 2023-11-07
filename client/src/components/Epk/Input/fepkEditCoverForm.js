@@ -295,6 +295,7 @@ function FepkEditCoverForm() {
           boxShadow: "inset 1px 2px 9px #311465",
           padding: "0px 10px",
           marginLeft: "10%",
+          marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
@@ -351,261 +352,260 @@ function FepkEditCoverForm() {
         </div>
         <div
           style={{
-            marginLeft: "10%",
-            marginRight: "15%",
+            marginLeft: "5%",
+            marginRight: "5%",
             color: "#311465",
             fontWeight: "normal",
           }}
         >
-          <div className="card-body" style={{ height: "500px" }}>
+          <div
+            className="card-body"
+            style={{
+              height: "500px",
+              marginLeft: "-1em",
+              marginRight: "-1rem",
+            }}
+          >
             <h5
               className="card-title "
-              style={{ color: "#311465", fontWeight: "normal" }}
+              style={{
+                color: "#311465",
+                fontWeight: "normal",
+                marginBottom: "1%",
+                fontSize: "1.5rem",
+              }}
             >
-              Cover
+              Cover - Mandotory
             </h5>
             <form className="row g-5">
               <div className="col me-5">
-                <div className="col mt-1 mb-5">
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "left",
-                    }}
-                    className="form-control m-10"
-                    defaultValue={fepk.title}
-                    placeholder="Title"
-                    onChange={handleInputChange}
-                    name="title"
-                  />
-                  <h6 style={{ color: "red" }}>{messageTitleNo}</h6>
-                  <h6 style={{ color: "green" }}>{messageTitleYes}</h6>
-                </div>
-                <div className="col my-1">
-                  <textarea
-                    style={{
-                      height: "100px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "0px",
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "left",
-                      resize: "none",
-                    }}
-                    maxLength="160"
-                    className="form-control mt-10"
-                    defaultValue={fepk.logLine_short}
-                    placeholder="Log Line short (maximum 160 characters)"
-                    onChange={handleInputChange}
-                    name="logLine_short"
-                  />
-                  <span
-                    style={{
-                      fontSize: "15px",
-                      display: "flex",
-                      justifyContent: "right",
-                    }}
-                  >
-                    {characterLength?.logLine_short}/160 characters
-                  </span>
-                </div>
-                <div className="row">
-                  <div className="col my-2">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        fontSize: "14px",
-                      }}
-                      className="form-control m-10 mb-4"
-                      defaultValue={fepk.productionCo}
-                      placeholder="Production Company Name"
-                      onChange={handleInputChange}
-                      name="productionCo"
-                    />
+                <div className="row align-items-stretch">
+                  <div className="col">
+                    <div className="col mt-1 mb-5">
+                      <input
+                        style={{
+                          height: "30px",
+                          width: "100%",
+                          borderRadius: "5px",
+                          marginBottom: "5px",
+                          boxShadow: "1px 2px 9px #311465",
+                          textAlign: "left",
+                        }}
+                        className="form-control m-10"
+                        defaultValue={fepk.title}
+                        placeholder="Title"
+                        onChange={handleInputChange}
+                        name="title"
+                      />
+                      <h6 style={{ color: "red", fontSize: "1rem" }}>
+                        {messageTitleNo}
+                      </h6>
+                      <h6 style={{ color: "green", fontSize: "1rem" }}>
+                        {messageTitleYes}
+                      </h6>
+                    </div>
+                    <div className="col my-1">
+                      <textarea
+                        style={{
+                          height: "80px",
+                          width: "100%",
+                          borderRadius: "5px",
+                          marginBottom: "0px",
+                          boxShadow: "1px 2px 9px #311465",
+                          textAlign: "left",
+                          resize: "none",
+                        }}
+                        maxLength="160"
+                        className="form-control mt-10"
+                        defaultValue={fepk.logLine_short}
+                        placeholder="Log Line short (maximum 160 characters)"
+                        onChange={handleInputChange}
+                        name="logLine_short"
+                      />
+                      <span
+                        style={{
+                          fontSize: "15px",
+                          display: "flex",
+                          justifyContent: "right",
+                          marginBottom: "1rem",
+                        }}
+                      >
+                        {characterLength?.logLine_short}/160 characters
+                      </span>
+                    </div>
+                    <div className="row" style={{ marginBottom: "-1.4rem" }}>
+                      <div className="col my-2">
+                        <input
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                            fontSize: "14px",
+                          }}
+                          className="form-control m-10 mb-4"
+                          defaultValue={fepk.productionCo}
+                          placeholder="Production Company Name"
+                          onChange={handleInputChange}
+                          name="productionCo"
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col my-2">
+                        <input
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                            fontSize: "14px",
+                          }}
+                          className="form-control m-10 "
+                          //value={fepk.distributionCo}
+                          defaultValue={fepk.distributionCo}
+                          placeholder="Distribution Company Name"
+                          onChange={handleInputChange}
+                          name="distributionCo"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="col my-2">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        fontSize: "14px",
-                      }}
-                      className="form-control m-10 "
-                      //value={fepk.distributionCo}
-                      defaultValue={fepk.distributionCo}
-                      placeholder="Distribution Company Name"
-                      onChange={handleInputChange}
-                      name="distributionCo"
-                    />
+                  <div className="col">
+                    <div className="row">
+                      <div className="col my-2">
+                        <select
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                          }}
+                          className="form-select form-select-sm "
+                          name="budget"
+                          onChange={handleInputChange}
+                        >
+                          <option defaultValue={fepk.budget}>
+                            {fepk.budget ? fepk.budget : "Production Budget"}
+                          </option>
+                          {budgetRanges.map(makeBudgetRangeItem)}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col my-2">
+                        <select
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                          }}
+                          className="form-select form-select-sm "
+                          name="production_type"
+                          onChange={handleInputChange}
+                          defaultValue={fepk.production_type || ""}
+                        >
+                          <option value="" disabled>
+                            {fepk.production_type
+                              ? fepk.production_type
+                              : "Production Type"}
+                          </option>
+                          {movieType.map(makeTypeItem)}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="row" style={{ marginBottom: "3rem" }}>
+                      <div className="col my-2">
+                        <select
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                          }}
+                          className="form-select form-select-sm "
+                          name="genre"
+                          onChange={handleInputChange}
+                          defaultValue={fepk.genre || ""}
+                        >
+                          <option value="" disabled>
+                            {fepk.genre ? fepk.genre : "Genre"}
+                          </option>
+                          {movieGenre.map(makeGenreItem)}
+                        </select>
+                      </div>
+                      <div className="col my-2">
+                        <select
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                          }}
+                          className="form-select form-select-sm "
+                          name="status"
+                          onChange={handleInputChange}
+                          defaultValue={fepk.status || ""}
+                        >
+                          <option value="" disabled>
+                            {fepk.status ? fepk.status : "Status"}
+                          </option>
+                          {movieStatus.map(makeStatusItem)}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col my-2">
+                        <input
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                            fontSize: "14px",
+                          }}
+                          className="form-control"
+                          type="number"
+                          min="1895"
+                          //value={fepk.productionYear}
+                          defaultValue={fepk.productionYear}
+                          placeholder="Production Year"
+                          onChange={handleInputChange}
+                          name="productionYear"
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col my-2">
+                        <input
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                            fontSize: "14px",
+                          }}
+                          type="number"
+                          min="0"
+                          className="form-control m-10"
+                          //value={fepk.durationMin}
+                          defaultValue={fepk.durationMin}
+                          placeholder="Duration Minutes"
+                          onChange={handleInputChange}
+                          name="durationMin"
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col my-2">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        fontSize: "14px",
-                      }}
-                      type="number"
-                      min="1895"
-                      className="form-control m-10"
-                      //value={fepk.productionYear}
-                      defaultValue={fepk.productionYear}
-                      placeholder="Year"
-                      onChange={handleInputChange}
-                      name="productionYear"
-                    />
-                  </div>
-                  <div className="col my-2">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        fontSize: "14px",
-                      }}
-                      type="number"
-                      min="0"
-                      className="form-control m-10"
-                      //value={fepk.durationMin}
-                      defaultValue={fepk.durationMin}
-                      placeholder="Min."
-                      onChange={handleInputChange}
-                      name="durationMin"
-                    />
-                  </div>
-                  <div className="col my-2">
-                    <select
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-select form-select-sm "
-                      name="budget"
-                      onChange={handleInputChange}
-                    >
-                      <option defaultValue={fepk.budget}>
-                        {fepk.budget ? fepk.budget : "Budget"}
-                      </option>
-                      {budgetRanges.map(makeBudgetRangeItem)}
-                    </select>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col my-2">
-                    <select
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-select form-select-sm "
-                      name="genre"
-                      onChange={handleInputChange}
-                    >
-                      <option defaultValue={fepk.genre}>{fepk.genre}</option>
-                      {movieGenre.map(makeGenreItem)}
-                    </select>
-                  </div>
-                  <div className="col my-2">
-                    <select
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-select form-select-sm "
-                      name="status"
-                      onChange={handleInputChange}
-                    >
-                      <option defaultValue={fepk.status}>{fepk.status}</option>
-                      {movieStatus.map(makeStatusItem)}
-                    </select>
-                  </div>
-                  <div className="col my-2">
-                    <select
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-select form-select-sm "
-                      name="production_type"
-                      onChange={handleInputChange}
-                    >
-                      <option defaultValue={fepk.production_type}>
-                        {fepk.production_type}
-                      </option>
-                      {movieType.map(makeTypeItem)}
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      paddingLeft: "90px",
-                      backgroundImage: `url(${paypalImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "left",
-                      backgroundSize: "80px 60px",
-                    }}
-                    className="form-control"
-                    defaultValue={fepk.DonatePayPal_url}
-                    placeholder="URL: www.paypal.com/mymovie"
-                    onChange={handleInputChange}
-                    name="DonatePayPal_url"
-                  />
-                </div>
-                <div>
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      paddingLeft: "90px",
-                      backgroundImage: `url(${stripImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "left",
-                      backgroundSize: "80px 40px",
-                    }}
-                    className="form-control"
-                    defaultValue={fepk.DonateStripe_url}
-                    placeholder="URL: www.stripe.com/mymovie"
-                    onChange={handleInputChange}
-                    name="DonateStripe_url"
-                  />
                 </div>
               </div>
               <div
@@ -622,7 +622,6 @@ function FepkEditCoverForm() {
                       className="form-label text-dark"
                       style={{ fontSize: "25px" }}
                     >
-                      {" "}
                       <h4>Upload Poster</h4>
                     </label>
                     <input
@@ -651,7 +650,7 @@ function FepkEditCoverForm() {
                       <img
                         src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                         style={{
-                          height: "120px",
+                          height: "240px",
                           width: "auto",
                           marginTop: "5px",
                         }}
@@ -661,164 +660,218 @@ function FepkEditCoverForm() {
                       <h3>No Image</h3>
                     )}
                   </div>
-                  <div className="col">
-                    <label
-                      htmlFor="fileBanner"
-                      className="form-label text-dark"
-                      style={{ fontSize: "25px" }}
-                    >
-                      {" "}
-                      <h4>Upload Banner</h4>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
-                      filename={file1}
-                      onChange={file1Selected}
-                      ref={inputFile1Ref}
-                      type="file"
-                      id="fileBanner"
-                      name="files"
-                      accept="image/*"
-                    ></input>
-                    {bannerPreviewUrl ? (
-                      <img
-                        src={bannerPreviewUrl}
-                        style={{
-                          height: "120px",
-                          width: "auto",
-                          marginTop: "5px",
-                        }}
-                        alt="Preview"
-                      />
-                    ) : fepk.banner_url && fepk.banner_url !== undefined ? (
-                      <img
-                        src={`${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`}
-                        style={{
-                          height: "120px",
-                          width: "auto",
-                          marginTop: "5px",
-                        }}
-                        alt="no image"
-                      />
-                    ) : (
-                      <h3>No Image</h3>
-                    )}
-                  </div>
-                  <div className="col">
-                    <label
-                      htmlFor="fileTrailer"
-                      className="form-label text-dark"
-                      style={{ fontSize: "25px" }}
-                    >
-                      {" "}
-                      <h4>Upload Trailer</h4>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
-                      filename={file2}
-                      ref={inputFile2Ref}
-                      onChange={file2Selected}
-                      type="file"
-                      id="fileTrailer"
-                      name="files"
-                      accept="video/*"
-                    ></input>
-                    {trailerPreviewUrl ? (
-                      <video
-                        src={trailerPreviewUrl}
-                        style={{ width: "100%", height: "400px" }}
-                        controls
-                      ></video>
-                    ) : fepk.trailer_url ? (
-                      <video
-                        src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}
-                        style={{ width: "100%", height: "400px" }}
-                        controls
-                      ></video>
-                    ) : (
-                      <h1>NO VIDEO UPLOADED</h1>
-                    )}
+                  <div className="col" style={{ height: "450px" }}>
+                    <div className="row">
+                      <div className="col">
+                        <label
+                          htmlFor="fileBanner"
+                          className="form-label text-dark"
+                          style={{ fontSize: "25px" }}
+                        >
+                          {" "}
+                          <h4>Upload Banner</h4>
+                        </label>
+                        <input
+                          style={{ fontSize: "15px" }}
+                          className="form-control form-control-sm"
+                          filename={file1}
+                          onChange={file1Selected}
+                          ref={inputFile1Ref}
+                          type="file"
+                          id="fileBanner"
+                          name="files"
+                          accept="image/*"
+                        ></input>
+                        {bannerPreviewUrl ? (
+                          <img
+                            src={bannerPreviewUrl}
+                            style={{
+                              height: "100px",
+                              width: "auto",
+                              marginTop: "5px",
+                            }}
+                            alt="Preview"
+                          />
+                        ) : fepk.banner_url && fepk.banner_url !== undefined ? (
+                          <img
+                            src={`${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`}
+                            style={{
+                              height: "100px",
+                              width: "auto",
+                              marginTop: "5px",
+                            }}
+                            alt="no image"
+                          />
+                        ) : (
+                          <h3>No Image</h3>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col">
+                        <label
+                          htmlFor="fileTrailer"
+                          className="form-label text-dark"
+                          style={{ fontSize: "25px" }}
+                        >
+                          {" "}
+                          <h4>Upload Trailer</h4>
+                        </label>
+                        <input
+                          style={{ fontSize: "15px" }}
+                          className="form-control form-control-sm"
+                          filename={file2}
+                          ref={inputFile2Ref}
+                          onChange={file2Selected}
+                          type="file"
+                          id="fileTrailer"
+                          name="files"
+                          accept="video/*"
+                        ></input>
+                        {trailerPreviewUrl ? (
+                          <video
+                            src={trailerPreviewUrl}
+                            style={{ width: "100%", height: "150px" }}
+                            controls
+                          ></video>
+                        ) : fepk.trailer_url ? (
+                          <video
+                            src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}
+                            style={{ width: "100%", height: "150px" }}
+                            controls
+                          ></video>
+                        ) : (
+                          <h1>NO VIDEO UPLOADED</h1>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div
+                className="row"
                 style={{
-                  height: "50px",
-                  width: "120px",
-                  marginLeft: "100%",
-                  marginTop: "5%",
+                  marginTop: "4%",
+                  paddingRight: "25%",                  
                 }}
               >
-                {disabled === true ? (
-                  <Button
-                    disabled
+                <div className="col">
+                  <input
                     style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "5px",
                       boxShadow: "1px 2px 9px #311465",
-                      color: "grey",
-                      backgroundColor: "#ffffff",
-                      fontWeight: "bold",
+                      paddingLeft: "90px",
+                      backgroundImage: `url(${paypalImage})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "left",
+                      backgroundSize: "80px 60px",
                     }}
-                    type="outline-primary"
-                    block
-                    onClick={saveEpkCover}
-                    value="save"
-                  >
-                    Save
-                  </Button>
-                ) : (
-                  <Button
-                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                    className="form-control"
+                    defaultValue={fepk.DonatePayPal_url}
+                    placeholder="URL: www.paypal.com/mymovie"
+                    onChange={handleInputChange}
+                    name="DonatePayPal_url"
+                  />
+                </div>
+                <div className="col">
+                  <input
                     style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
                       boxShadow: "1px 2px 9px #311465",
-                      fontWeight: "bold",
+                      paddingLeft: "90px",
+                      backgroundImage: `url(${stripImage})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "left",
+                      backgroundSize: "80px 40px",
                     }}
-                    type="outline-primary"
-                    block
-                    onClick={saveEpkCover}
-                    value="save"
-                  >
-                    Save
-                  </Button>
-                )}
-
-                <Modal
-                  isOpen={modalIsOpen}
-                  onRequestClose={closeModal}
-                  contentLabel="Example Modal"
-                  appElement={document.getElementById("root")}
-                  style={{
-                    overlay: {
-                      backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    },
-                    content: {
-                      position: "absolute",
-                      border: "2px solid #000",
-                      backgroundColor: "white",
-                      boxShadow: "2px solid black",
-                      height: 120,
-                      width: 300,
-                      margin: "auto",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    },
-                  }}
-                >
-                  <div style={{ textAlign: "center" }}>
-                    {"EPK Cover Saved Successfully!"}
-                    <br />
-                    <button
-                      className="btn btn-secondary btn-sm"
-                      onClick={closeModal}
-                    >
-                      Ok
-                    </button>
-                  </div>
-                </Modal>
+                    className="form-control"
+                    defaultValue={fepk.DonateStripe_url}
+                    placeholder="URL: www.stripe.com/mymovie"
+                    onChange={handleInputChange}
+                    name="DonateStripe_url"
+                  />
+                </div>
               </div>
             </form>
+          </div>
+          <div
+            style={{
+              height: "50px",
+              width: "80px",
+              marginLeft: "90%",
+              marginTop: "3%",
+            }}
+          >
+            {disabled === true ? (
+              <Button
+                disabled
+                style={{
+                  boxShadow: "1px 2px 9px #311465",
+                  color: "grey",
+                  backgroundColor: "#ffffff",
+                  fontWeight: "bold",
+                }}
+                type="outline-primary"
+                block
+                onClick={saveEpkCover}
+                value="save"
+              >
+                Save
+              </Button>
+            ) : (
+              <Button
+                className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                style={{
+                  boxShadow: "1px 2px 9px #311465",
+                  fontWeight: "bold",
+                }}
+                type="outline-primary"
+                block
+                onClick={saveEpkCover}
+                value="save"
+              >
+                Save
+              </Button>
+            )}
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+              appElement={document.getElementById("root")}
+              style={{
+                overlay: {
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                },
+                content: {
+                  position: "absolute",
+                  border: "2px solid #000",
+                  backgroundColor: "white",
+                  boxShadow: "2px solid black",
+                  height: 120,
+                  width: 300,
+                  margin: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                },
+              }}
+            >
+              <div style={{ textAlign: "center" }}>
+                {"EPK Cover Saved Successfully!"}
+                <br />
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={closeModal}
+                >
+                  Ok
+                </button>
+              </div>
+            </Modal>
           </div>
         </div>
       </div>

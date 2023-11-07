@@ -198,8 +198,9 @@ function SynopsisForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding : "0px 10px",
+          padding: "0px 10px",
           marginLeft: "10%",
+          marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",

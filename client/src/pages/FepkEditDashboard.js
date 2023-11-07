@@ -58,7 +58,10 @@ function FepkEditDashboard() {
         <div>
           <div
             style={{
-              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-between",
+              overflowX: "auto",
+              margin: "0 10%",
             }}
           >
             <SectionButton
@@ -125,7 +128,7 @@ function FepkEditDashboard() {
           </div>
           <div
             style={{
-              margin: "20px",
+              margin: "0 5px",
             }}
           >
             <br />
