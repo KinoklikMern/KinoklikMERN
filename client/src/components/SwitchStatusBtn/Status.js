@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Status.css";
 
 export default function StatusBtn({ onStatusChange }) {
   const [activeBtn, setActiveBtn] = useState("All"); // Default status is "All"
 
   const handleClick = (status) => {
-    setActiveBtn(status);
-    onStatusChange(status); // Call the provided callback to update EPK status filter
+    if (status === activeBtn) {
+      setActiveBtn("All");
+      onStatusChange("All");
+    } else {
+      setActiveBtn(status);
+      onStatusChange(status); // Call the provided callback to update EPK status filter
+    }
   };
-
-  useEffect(() => {
-    onStatusChange(activeBtn);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeBtn]);
 
   return (
     <div className='switchstat-container'>
