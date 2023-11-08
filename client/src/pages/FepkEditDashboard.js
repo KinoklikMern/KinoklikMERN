@@ -60,8 +60,8 @@ function FepkEditDashboard() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              overflowX: "auto",
-              margin: "0 10%",
+              margin: "1% 10%",
+              marginBottom: "0"
             }}
           >
             <SectionButton

@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import http from "../../../http-common";
 import Modal from "react-modal";
-import { Button, Col, Row } from "antd";
+import { Button, Tooltip, Col, Row } from "antd";
+import { InfoCircleFilled } from "@ant-design/icons";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
@@ -366,6 +367,7 @@ function FepkEditCoverForm() {
               height: "500px",
               marginLeft: "-1em",
               marginRight: "-1rem",
+              marginBottom: "5%",
             }}
           >
             <h5
@@ -374,10 +376,10 @@ function FepkEditCoverForm() {
                 color: "#311465",
                 fontWeight: "normal",
                 marginBottom: "1%",
-                fontSize: "1.5rem",
+                fontSize: "1rem",
               }}
             >
-              Cover - Mandotory
+              Cover
             </h5>
             <form className="row g-5">
               <div className="col me-5">
@@ -753,10 +755,18 @@ function FepkEditCoverForm() {
               <div
                 className="row"
                 style={{
-                  marginTop: "4%",
-                  paddingRight: "25%",                  
+                  paddingRight: "25%",
+                  paddingLeft: "3%"
                 }}
               >
+                <div>
+                  <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
+                    <span>
+                      {" "}
+                      <InfoCircleFilled />
+                    </span>
+                  </Tooltip>
+                </div>
                 <div className="col">
                   <input
                     style={{
