@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
 import "../List/List.css";
-/* eslint-disable no-unused-vars */
 import "../ListItem/ListItem.css";
 import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
