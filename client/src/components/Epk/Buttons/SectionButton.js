@@ -16,12 +16,13 @@ const SectionButton = (props) => {
       style={{
         boxShadow: "1px 2px 9px #311465",
         fontWeight: "bold",
-        margin: "0.9rem",
-        fontSize: "0.9rem",
+        margin: "0.3rem",
+        fontSize: "0.8rem",
         padding: "1%",
         height: "3%",
         alignItems: "center",
         justifyContent: "center",
+        opacity: isCurrentSection ? 1 : 0.5,
       }}
       type="outline-primary"
       //block
