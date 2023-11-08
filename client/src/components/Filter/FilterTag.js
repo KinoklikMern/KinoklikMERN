@@ -102,28 +102,7 @@ export default function FilterTag({ role }) {
     });
   };
 
-  // const actorFilterTag = [
-  //   {
-  //     name: "Movie",
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: "TV Show",
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: "Web Series",
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: "Documentary",
-  //     isActive: false,
-  //   },
-  //   {
-  //     name: "all epks",
-  //     isActive: true,
-  //   },
-  // ];
+
   const actorFilterTag = [
     {
       name: "Male",
@@ -171,7 +150,7 @@ export default function FilterTag({ role }) {
     let newTags;
     let newQuery;
 
-    if (name === "all epks" || name === "All Actors") {
+    if ( name === "All Actors") {
       // Reset the dropdown state values to their default (null) when All Actors is clicked
       setSelectedAgeRange(null);
       setSelectedEthnicity(null);
@@ -183,9 +162,8 @@ export default function FilterTag({ role }) {
         isActive: tag.name === name,
         // isActive: tag.name === name ? !isActive : false, // Toggle the state
       }));
-      if (name === "all epks") {
-        newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
-      } else {
+      if (name === "All Actors") {
+
         newQuery = isActive ? [] : [];
       }
     } else {
