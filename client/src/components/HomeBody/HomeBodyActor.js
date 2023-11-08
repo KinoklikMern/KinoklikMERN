@@ -33,7 +33,7 @@ const HomeBody = ({ role }) => {
 
   return (
     <>
-      <div className="home">
+      <div className='home tw-overflow-y-auto'>
         {/* <div>
           <div className="listTitle">
             <span>STARRED</span>
@@ -47,28 +47,28 @@ const HomeBody = ({ role }) => {
           <List title="following" type={filterQuery} />
         </div> */}
         <div>
-          <div className="listTitle">
+          <div className='listTitle'>
             <span>MOST STARRED</span>
           </div>
-          <List title="most_starred" type={filterQuery} />
+          <List title='most_starred' type={filterQuery} />
         </div>
         <div>
-          <div className="listTitle">
+          <div className='listTitle'>
             <span>MOST FOLLOWED</span>
           </div>
-          <List title="most_followed" type={filterQuery} />
+          <List title='most_followed' type={filterQuery} />
         </div>
         <div>
-          <div className="listTitle">
+          <div className='listTitle'>
             <span>PRODUCTION</span>
           </div>
-          <List title="production" type={filterQuery} />
+          <List title='production' type={filterQuery} />
         </div>
         <div>
-          <div className="listTitle">
+          <div className='listTitle'>
             <span>PRE-PRODUCTION</span>
           </div>
-          <List title="pre-production" type={filterQuery} />
+          <List title='pre-production' type={filterQuery} />
         </div>
       </div>
     </>
