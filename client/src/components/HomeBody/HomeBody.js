@@ -10,7 +10,7 @@ const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [filterQuery, setFilterQuery] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
-  const listRef = useRef();
+  
   const [filterTags, setFilterTags] = useState([
     {
       name: "Movie",
@@ -113,9 +113,9 @@ const HomeBody = ({ role }) => {
   }, []);
 
   const productionCategories = [
-    { title: "POST PRODUCTION", status: "Postproduction" },
+    { title: "POST-PRODUCTION", status: "Postproduction" },
     { title: "PRODUCTION", status: "Production" },
-    { title: "PRE PRODUCTION", status: "Preproduction" },
+    { title: "PRE-PRODUCTION", status: "Preproduction" },
   ];
 
   const [filteredEPKs, setFilteredEPKs] = useState(fepks);
