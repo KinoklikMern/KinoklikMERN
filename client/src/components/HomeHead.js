@@ -2,35 +2,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { React, useState, useEffect } from "react";
 import "../styles/Homehead.css";
-// import { faBars, faComment } from "@fortawesome/free-solid-svg-icons";
-//import { ShareIcon } from "../images/Share .svg";
-// import DollarIcon from "../images/icons/DollarIcon.svg";
-// import PlusIcon from "../images/icons/Plus.svg";
-// import KIcon from "../images/icons/KickstarterIcon.svg";
 import http from "../http-common";
 import { useSelector } from "react-redux";
-import DonationIcon from "../images/icons/Donation.svg";
-import DonationBlackIcon from "../images/icons/Donation.svg";
-import DollarIcon from "../images/icons/DollarIcon.svg";
-import DollarBlackIcon from "../images/icons/DollarBlackIcon.svg";
-import PlusIcon from "../images/icons/PlusWhite.svg";
-import PlusBlackIcon from "../images/icons/PlusBlack.svg";
-import StarIcon from "../images/icons/StarWhite.svg";
-import StarBlackIcon from "../images/icons/StarBlack.svg";
-//import KIcon from "../images/icons/K.svg";
-import ShareIcon from "../images/icons/share.svg";
-import ShareBlackIcon from "../images/icons/shareBlack.svg";
 import SearchBar from "./HomeHead/SearchBar";
 
 const HomeHead = (props) => {
-  const [clickedStar, setClickedStar] = useState(false);
-  const [clickedShare, setClickedShare] = useState(false);
-  const [clickedDonation, setClickedDonation] = useState(false);
-  const [clickedDollar, setClickedDollar] = useState(false);
-  //const [clickedKIcon, setClickedKIcon] = useState(false);
-  const [clickedPlus, setClickedPlus] = useState(false);
-  const [clickedMovie, setClickedMovie] = useState(false);
-  const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
   const [fepk, setFepk] = useState({});
   const [actor, setActor] = useState({});
 
@@ -44,58 +20,6 @@ const HomeHead = (props) => {
   } else {
     userId = user.id;
     userRole = user.role;
-  }
-  // Donation
-  function handleClickDonation() {
-    setClickedDonation(true);
-    http.get(`fepks/wishestodonate/${fepk._id}/${userId}`).then((response) => {
-      setFepk(response.data);
-    });
-  }
-
-  // user is added to the list of $
-  function handleClickDollar() {
-    setClickedDollar(true);
-    http.get(`fepks/wishestobuy/${fepk._id}/${userId}`).then((response) => {
-      setFepk(response.data);
-    });
-  }
-
-  // user is added to the list of +
-  function handleClickPlus() {
-    setClickedPlus(true);
-    http.get(`fepks/favourite/${fepk._id}/${userId}`).then((response) => {
-      setFepk(response.data);
-    });
-  }
-
-  // user is added to the list of star(likes)
-  function handleStarClick() {
-    setClickedStar(true);
-    http.get(`fepks/like/${fepk._id}/${userId}`).then((response) => {
-      setFepk(response.data);
-    });
-  }
-
-  //user click K icon
-  // function handleClickKIcon() {
-  //   setClickedKIcon(true);
-  //   window.open(fepk.kickstarter_url);
-  // }
-
-  // user is added to the list of sharings
-  function handleClickShare() {
-    setClickedShare(true);
-    http.get(`fepks/sharing/${fepk._id}/${userId}`).then((response) => {
-      setFepk(response.data);
-    });
-  }
-
-  function handleClickMovie() {
-    setClickedMovie(true);
-  }
-  function handleClickVolumeUp() {
-    setClickedVolumeUp(true);
   }
 
   //showing the latest added movie
@@ -156,11 +80,20 @@ const HomeHead = (props) => {
           </div>
 
           <div className='tw-flex tw-w-full md:tw-w-2/4'>
-            <h1 className='movieTitle tw-mx-auto tw-my-auto tw-text-8xl tw-font-semibold'>
-              {props.role === "actor"
-                ? actor.firstName + " " + actor.lastName
-                : fepk.title}
-            </h1>
+            <a
+              className='tw-my-auto'
+              href={
+                props.role === "actor"
+                  ? `actor/${actor._id}`
+                  : `epk/${formattedTitle}`
+              }
+            >
+              <h1 className='movieTitle tw-mx-auto tw-text-8xl tw-font-semibold'>
+                {props.role === "actor"
+                  ? actor.firstName + " " + actor.lastName
+                  : fepk.title}
+              </h1>
+            </a>
           </div>
         </div>
         <p className='movieIntro tw-my-8 tw-px-2 tw-text-xl'>
