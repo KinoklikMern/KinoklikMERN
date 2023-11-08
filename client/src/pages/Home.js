@@ -15,7 +15,7 @@ import Landing8 from "../components/LandingPage/Landing8";
 import Landing9 from "../components/LandingPage/Landing9";
 import Landing10 from "../components/LandingPage/Landing10";
 import { FepkContext } from "../context/FepkContext";
-
+import FilterTag from "../components/Filter/FilterTag";
 function Home({ role }) {
   const { user } = useSelector((user) => ({ ...user }));
   // eslint-disable-next-line no-unused-vars
@@ -29,13 +29,13 @@ function Home({ role }) {
     <>
       <div>
         {user && (
-          <>
-            <HomeHead role={role} />
-            <SwitchBtn role={role} />
-            {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
-            {/* <Festival /> */}
-            <HomeBottom />
-          </>
+         <>
+         <HomeHead role={role} />
+         <SwitchBtn role={role} />
+         <FilterTag role={role} />
+         {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
+         <HomeBottom />
+       </>
         )}
         {!user && (
           <>
