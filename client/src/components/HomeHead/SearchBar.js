@@ -26,7 +26,7 @@ export default function SearchBar() {
 
   return (
     <div className=' tw-flex tw-flex-col tw-text-white'>
-      <div className='tw-group tw-relative tw-mx-24'>
+      <div className='tw-group tw-relative tw-mx-12'>
         <div className='tw-invisible tw-absolute tw-right-0 tw-top-0 group-hover:tw-visible '>
           <input
             type='search'

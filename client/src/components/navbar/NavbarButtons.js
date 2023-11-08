@@ -105,7 +105,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
       ) : (
         <>
           {/* ------modified by rucheng-------- */}
-          <div className='tw-static tw-flex tw-items-center tw-justify-center tw-p-4'>
+          <div className='tw-flex tw-items-center tw-justify-center tw-p-4'>
             {/* ------modified by CHIHYIN-------- */}
             <div className='tw-mx-10 tw-inline-block tw-justify-center'>
               {editForFilmmaker || editForActor ? (
@@ -114,18 +114,11 @@ function NavbarButtons({ user, setToggle, toggle }) {
                 </Link>
               ) : null}
             </div>
-            <div className='tw-group tw-mx-4 tw-inline-block '>
+            <div className='tw-group tw-mx-4 tw-inline-block'>
               <img
                 src={picture}
                 alt='User Avatar'
                 className='tw-h-14 tw-w-14 tw-rounded-full tw-object-cover'
-              />
-            </div>
-            <div className='tw-group tw-mx-4 tw-inline-block'>
-              <FontAwesomeIcon
-                icon={faBars}
-                size='2xl'
-                style={{ color: "#fff" }}
               />
               <SideProfileMenu />
             </div>
