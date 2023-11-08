@@ -144,7 +144,7 @@ const HomeBody = ({ role }) => {
       <div>
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className='tw-flex tw-justify-around tw-bg-[#1e0039] tw-pb-1'>
+      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-1 md:tw-flex-row'>
         {filterTags.map((tag, index) => (
           <FilterButton
             key={index}
@@ -155,7 +155,7 @@ const HomeBody = ({ role }) => {
         ))}
       </div>
       <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
-        <div className='tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
+        <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
           {filteredEPKs.map((fepk) => {
             const formattedTitle = fepk.title.replace(/ /g, "_");
             return (
@@ -189,7 +189,7 @@ const FilterButton = ({ name, isActive, clickHandler }) => {
   return (
     <>
       <button
-        className={`tw-text-small tw-mb-1 tw-mr-5 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
+        className={`tw-text-small tw-mb-1 tw-mr-5 tw-w-48 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase md:tw-w-auto ${
           !isActive
             ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
             : "tw-bg-white tw-text-[#1E0039]"

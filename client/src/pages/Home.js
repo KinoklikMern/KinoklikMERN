@@ -32,7 +32,7 @@ function Home({ role }) {
           <>
             <HomeHead role={role} />
             <SwitchBtn role={role} />
-            {/* <FilterTag role={role} /> */}
+            <FilterTag role={role} />
             {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
             <HomeBottom />
           </>

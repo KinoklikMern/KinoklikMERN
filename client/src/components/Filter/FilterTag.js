@@ -234,7 +234,7 @@ export default function FilterTag({ role }) {
         name === "Country" ? (
           <div className='relative inline-block'>
             <button
-              className={`filter-toggle tw-text-small tw-mb-1 tw-mr-5 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase ${
+              className={`filter-toggle tw-text-small tw-mb-1 tw-mr-5 tw-w-60 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase lg:tw-w-auto ${
                 // isDropdownActive
                 selectedValue
                   ? "tw-bg-white tw-text-[#1E0039]"
@@ -298,7 +298,7 @@ export default function FilterTag({ role }) {
           </div>
         ) : (
           <button
-            className={`tw-text-small tw-mb-1 tw-mr-5 tw-w-80 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase lg:tw-w-full ${
+            className={`tw-text-small tw-mb-2 tw-mr-5 tw-w-60 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase lg:tw-w-auto ${
               !isActive
                 ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
                 : "tw-bg-white tw-text-[#1E0039]"
@@ -325,8 +325,8 @@ export default function FilterTag({ role }) {
 
   return (
     <div className=''>
-      <div className='filter-tag-container'></div>
-      <div className='tw-relative tw-m-8 tw-flex tw-flex-col tw-items-center tw-justify-between lg:tw-flex-row'>
+      {/* <div className='filter-tag-container'></div> */}
+      <div className='tw-relative tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] lg:tw-flex-row'>
         {filterTags.map((tag, index) => (
           <FilterButton
             key={index}
