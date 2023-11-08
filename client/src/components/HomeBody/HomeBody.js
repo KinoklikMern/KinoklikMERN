@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
-import List from "../List/List";
+import "../List/List.css";
 /* eslint-disable no-unused-vars */
 import "../ListItem/ListItem.css";
 import http from "../../http-common";
@@ -11,8 +11,9 @@ import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
+  const [filterQuery, setFilterQuery] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
-  
+
   const [filterTags, setFilterTags] = useState([
     {
       name: "Movie",
@@ -36,17 +37,20 @@ const HomeBody = ({ role }) => {
     },
   ]);
 
+  const actorId = "6483619d64b048f952a6fb5b";
+
   const clickHandler = (name, isActive) => {
     let newTags;
     let newQuery;
-
 
     if (name === "all epks") {
       newTags = filterTags.map((tag) => ({
         ...tag,
         isActive: tag.name === name,
       }));
-      newQuery = isActive ? [] : ["Movie", "TV Show", "Web Series", "Documentary"];
+      newQuery = isActive
+        ? []
+        : ["Movie", "TV Show", "Web Series", "Documentary"];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
@@ -77,7 +81,8 @@ const HomeBody = ({ role }) => {
       }
 
       if (
-        newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive).length === 4
+        newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
+          .length === 4
       ) {
         newTags = newTags.map((tag) =>
           tag.name === "all epks" ? { ...tag, isActive: true } : tag
@@ -85,7 +90,8 @@ const HomeBody = ({ role }) => {
       }
 
       if (
-        newTags.filter((tag) => tag.name !== "all epks" && tag.isActive).length !== 0
+        newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
+          .length !== 0
       ) {
         newTags = newTags.map((tag) =>
           tag.name === "all epks" ? { ...tag, isActive: false } : tag
@@ -114,20 +120,28 @@ const HomeBody = ({ role }) => {
       setFilteredEPKs(filtered);
     }
   };
-  
+
   useEffect(() => {
     if (currentStatus === "All") {
       setFilteredEPKs(fepks);
     }
   }, [fepks, currentStatus]);
 
-  
   return (
     <>
       <div>
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-
+      <div className='tw-flex tw-justify-around tw-bg-[#1e0039] tw-pb-1'>
+        {filterTags.map((tag, index) => (
+          <FilterButton
+            key={index}
+            name={tag.name}
+            clickHandler={clickHandler}
+            isActive={tag.isActive}
+          />
+        ))}
+      </div>
       <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
         <div className='tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
           {filteredEPKs.map((fepk) => {
@@ -154,38 +168,7 @@ const HomeBody = ({ role }) => {
           })}
         </div>
       </div>
-      <div className="tw-m-8 tw-flex tw-justify-between">
-        {filterTags.map((tag, index) => (
-          <FilterButton
-            key={index}
-            name={tag.name}
-            clickHandler={clickHandler}
-            isActive={tag.isActive}
-          />
-        ))}
-      </div>
-
-      {productionCategories.map((category, index) => {
-        const categoryFilteredEPKs = filteredEPKs.filter(
-          (fepk) =>
-            fepk.status === category.status &&
-            (filterQuery.length === 0 || filterQuery.includes(fepk.production_type))
-        );
-
-        return categoryFilteredEPKs.length > 0 ? (
-          <div className="list" key={index}>
-            <div className="listTitle">
-              <span>{category.title}</span>
-            </div>
-            <List
-              title="all"
-              status={category.status}
-              type={filterQuery}
-            />
-          </div>
-        ) : null;
-      })}
-    </div>
+    </>
   );
 };
 
@@ -199,18 +182,18 @@ const FilterButton = ({ name, isActive, clickHandler }) => {
             ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
             : "tw-bg-white tw-text-[#1E0039]"
         }`}
-        type="button"
+        type='button'
         onClick={() => clickHandler(name, isActive)}
       >
         {name}
         {!isActive ? (
           <FontAwesomeIcon
-            className="tw-pl-5"
+            className='tw-pl-5'
             icon={faPlus}
             style={{ color: "#aaaaaa" }}
           />
         ) : (
-          <FontAwesomeIcon className="tw-pl-5" icon={faCheck} />
+          <FontAwesomeIcon className='tw-pl-5' icon={faCheck} />
         )}
       </button>
     </>

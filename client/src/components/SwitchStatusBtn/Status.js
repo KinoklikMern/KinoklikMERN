@@ -24,7 +24,7 @@ export default function StatusBtn({ onStatusChange }) {
         >
           Pre-Production
         </button>
-      
+
         <button
           id='Production'
           className={activeBtn === "Production" ? "active" : "deactive"}
@@ -32,7 +32,7 @@ export default function StatusBtn({ onStatusChange }) {
         >
           Production
         </button>
-      
+
         <button
           id='Postproduction'
           className={activeBtn === "Postproduction" ? "active" : "deactive"}

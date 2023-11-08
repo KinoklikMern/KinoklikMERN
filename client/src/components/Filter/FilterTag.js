@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "../HomeBody/HomeBody.css";
 import "../List/List.css";
 import "./DropDown.css";
-import http from "../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -161,8 +160,9 @@ export default function FilterTag({ role }) {
     },
   ];
 
-  const [filterTags, setFilterTags] = useState(role === "actor" ? actorFilterTag : []);
-
+  const [filterTags, setFilterTags] = useState(
+    role === "actor" ? actorFilterTag : []
+  );
 
   console.log(filterQuery);
 
@@ -199,7 +199,6 @@ export default function FilterTag({ role }) {
         newQuery = [...filterQuery, name];
       }
 
-
       // Update "All Actors" tag
       const allActorsIsActive =
         !newQuery.includes("Male") &&
@@ -227,7 +226,6 @@ export default function FilterTag({ role }) {
     // const isDropdownActive = selectedDropdown === selectedValue;
 
     return (
-   
       <div className='filter-button-container'>
         {name === "Age Range" ||
         name === "Ethnicity" ||
@@ -322,13 +320,12 @@ export default function FilterTag({ role }) {
           </button>
         )}
       </div>
-    
     );
   };
 
   return (
-    <div className='home'>
-      <div className="filter-tag-container"></div>
+    <div className=''>
+      <div className='filter-tag-container'></div>
       <div className='tw-relative tw-m-8 tw-flex tw-flex-col tw-items-center tw-justify-between lg:tw-flex-row'>
         {filterTags.map((tag, index) => (
           <FilterButton

@@ -29,13 +29,13 @@ function Home({ role }) {
     <>
       <div>
         {user && (
-         <>
-         <HomeHead role={role} />
-         <SwitchBtn role={role} />
-         <FilterTag role={role} />
-         {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
-         <HomeBottom />
-       </>
+          <>
+            <HomeHead role={role} />
+            <SwitchBtn role={role} />
+            {/* <FilterTag role={role} /> */}
+            {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
+            <HomeBottom />
+          </>
         )}
         {!user && (
           <>
