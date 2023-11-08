@@ -160,23 +160,25 @@ export default function FilterTag({ role }) {
       newTags = filterTags.map((tag) => ({
         ...tag,
         isActive: tag.name === name,
-        // isActive: tag.name === name ? !isActive : false, // Toggle the state
       }));
-      if (name === "All Actors") {
-
-        newQuery = isActive ? [] : [];
-      }
+      newQuery = isActive ? [] : [];
+    } else if (name === "Male" || name === "Female") {
+      // Handle "Male" and "Female" options mutually exclusively
+      newTags = filterTags.map((tag) =>
+        tag.name === name ? { ...tag, isActive: true } : { ...tag, isActive: false }
+      );
+      newQuery = [name];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
       );
-
+  
       if (isActive) {
         newQuery = filterQuery.filter((item) => item !== name);
       } else {
         newQuery = [...filterQuery, name];
       }
-
+  
       // Update "All Actors" tag
       const allActorsIsActive =
         !newQuery.includes("Male") &&
@@ -186,14 +188,14 @@ export default function FilterTag({ role }) {
         !selectedRepresentation &&
         !selectedCity &&
         !selectedCountry;
-
+  
       newTags = newTags.map((tag) =>
         tag.name === "All Actors"
           ? { ...tag, isActive: allActorsIsActive }
           : tag
       );
     }
-
+  
     setFilterTags(newTags);
     setFilterQuery(newQuery);
   };
