@@ -113,9 +113,9 @@ const HomeBody = ({ role }) => {
   }, []);
 
   const productionCategories = [
-    { title: "POST-PRODUCTION", status: "Postproduction" },
-    { title: "PRODUCTION", status: "Production" },
-    { title: "PRE-PRODUCTION", status: "Preproduction" },
+    { title: "Pre-Production", status: "Preproduction" },
+    { title: "Production", status: "Production" },
+    { title: "Post-Production", status: "Postproduction" },
   ];
 
   const [filteredEPKs, setFilteredEPKs] = useState(fepks);

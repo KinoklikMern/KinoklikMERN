@@ -29,11 +29,6 @@ export default function FilterTag({ role }) {
   const [selectedRepresentation, setSelectedRepresentation] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
-
-  // const [fepks, setFepks] = useState([]);
-
-  // const [currentStatus, setCurrentStatus] = useState("All");
-
   const [selectedDropdown, setSelectedDropdown] = useState(null);
 
   const handleDropdownSelection = (name, value) => {
@@ -171,34 +166,6 @@ export default function FilterTag({ role }) {
 
   console.log(filterQuery);
 
-  //delara
-  // useEffect(() => {
-  //   http.get(`fepks/`).then((response) => {
-  //     setFepks(response.data);
-  //   });
-  // }, []); // Fetch EPKs when the component loads
-  
-  // const productionCategories = [
-  //   { title: "POST PRODUCTION", status: "Postproduction" },
-  //   { title: "PRODUCTION", status: "Production" },
-  //   { title: "PRE PRODUCTION", status: "Preproduction" },
-  // ];
-
-  // const [filteredEPKs, setFilteredEPKs] = useState(fepks);
-
-  // const handleStatusChange = (status) => {
-  //   setCurrentStatus(status);
-
-  //   if (status === "All") {
-  //     setFilteredEPKs(fepks); // Show all EPKs
-  //   } else {
-  //     // Filter EPKs based on the selected status
-  //     const filtered = fepks.filter((fepk) => fepk.status === status);
-  //     setFilteredEPKs(filtered);
-  //   }
-  // };
-  
-
   // ----- CHIHYIN -------
   const clickHandler = (name, isActive) => {
     let newTags;
@@ -232,16 +199,6 @@ export default function FilterTag({ role }) {
         newQuery = [...filterQuery, name];
       }
 
-      // Update "all epks" tag
-      // const allEpksIsActive =
-      //   newQuery.includes("Movie") &&
-      //   newQuery.includes("TV Show") &&
-      //   newQuery.includes("Web Series") &&
-      //   newQuery.includes("Documentary");
-
-      // newTags = newTags.map((tag) =>
-      //   tag.name === "all epks" ? { ...tag, isActive: allEpksIsActive } : tag
-      // );
 
       // Update "All Actors" tag
       const allActorsIsActive =
