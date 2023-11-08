@@ -122,10 +122,22 @@ const HomeBody = ({ role }) => {
   };
 
   useEffect(() => {
-    if (currentStatus === "All") {
-      setFilteredEPKs(fepks);
+    let filtered = fepks;
+
+    // Filter by status if not 'All'
+    if (currentStatus !== "All") {
+      filtered = filtered.filter((fepk) => fepk.status === currentStatus);
     }
-  }, [fepks, currentStatus]);
+
+    // Filter by tags if filterQuery is not empty
+    if (filterQuery.length > 0) {
+      filtered = filtered.filter((fepk) =>
+        filterQuery.includes(fepk.production_type)
+      );
+    }
+
+    setFilteredEPKs(filtered);
+  }, [fepks, currentStatus, filterQuery]);
 
   return (
     <>
