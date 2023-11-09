@@ -248,16 +248,16 @@ function StillsForm() {
 
   return (
     <form className="form">
-      <div class="card">
-        <div class="card-header">
-          <div class="row align-items-start">
-            <div class="col align-items-start">EPK Page Upload</div>
-            <div class="col align-items-end">link to view</div>
+      <div className="card">
+        <div className="card-header">
+          <div className="row align-items-start">
+            <div className="col align-items-start">EPK Page Upload</div>
+            <div className="col align-items-end">link to view</div>
           </div>
         </div>
 
-        <div class="card-body">
-          <h5 class="card-title">Stills</h5>
+        <div className="card-body">
+          <h5 className="card-title">Stills</h5>
           <form className="row g-3">
             <div className="col-3">
               <input
@@ -274,7 +274,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img1_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>
@@ -295,7 +295,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img2_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>
@@ -316,7 +316,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img3_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>
@@ -337,7 +337,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img4_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>
@@ -358,7 +358,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img5_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>
@@ -379,7 +379,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img6_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>
@@ -400,7 +400,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img7_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>
@@ -421,7 +421,7 @@ function StillsForm() {
                 <img
                   src={stillData.still_img8_url}
                   alt=""
-                  class="img-fluid"
+                  className="img-fluid"
                 ></img>
               ) : (
                 <></>

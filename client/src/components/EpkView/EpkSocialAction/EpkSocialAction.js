@@ -25,7 +25,8 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "react-share";
-
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import SocialShareModal from "./SocialShareModal";
 import { NotificationContext } from "../../../context/NotificationContext";
 // import { FepkContext } from "../../../context/FepkContext";
 
@@ -63,9 +64,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const [showShareOptions, setShowShareOptions] = useState(false);
   const urlShare = "https://www.google.com"; ///window.location.href
   // console.log(epkInfo);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   //Yeming added
-  const { incrementNotification, filmmakerInfo, setFilmmakerInfo } =
+  const { incrementNotification, setUserInfo } =
     useContext(NotificationContext);
 
   useEffect(() => {
@@ -196,8 +198,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 setFepkInfo(response.data);
                 // console.log(response.data.wishes_to_buy.length);
                 // Update filmmaker info in the NotificationContext
-                const filmmakerInfo = response.data.film_maker._id;
-                setFilmmakerInfo(filmmakerInfo);
+                const filmmakerInfo = response.data.film_maker;
+                setUserInfo(filmmakerInfo);
 
                 setUsersWishesToBuy(response.data.wishes_to_buy.length);
                 incrementNotification(incrementValue);
@@ -229,7 +231,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 // console.log(response.data);
                 // Update filmmaker info in the NotificationContext
                 const filmmakerInfo = response.data.film_maker;
-                setFilmmakerInfo(filmmakerInfo);
+                // console.log("filmmakerInfo:", filmmakerInfo);
+                setUserInfo(filmmakerInfo);
                 setUsersFavourites(response.data.favourites.length);
                 incrementNotification(incrementValue);
               })
@@ -254,7 +257,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 // console.log(response.data);
                 // Update filmmaker info in the NotificationContext
                 const filmmakerInfo = response.data.film_maker;
-                setFilmmakerInfo(filmmakerInfo);
+                setUserInfo(filmmakerInfo);
                 setUsersLikes(response.data.likes.length);
                 incrementNotification(incrementValue);
               })
@@ -266,7 +269,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           //   openUrl(epkInfo.kickstarter_url);
           //   break;
           case "share":
-            closeSharingMenu();
+            // closeSharingMenu();
+            setIsShareModalOpen(true);
             break;
           default:
             break;
@@ -288,6 +292,11 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     },
   };
 
+  const closeShareModal = () => {
+    setIsShareModalOpen(false);
+  };
+
+
   return (
     <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">
       {/* Social media sharing Icons */}
@@ -295,11 +304,17 @@ export default function EpkSocialAction({ epkInfo, handler }) {
         (action, index) =>
           action.icon !== null && (
             <div
-              className="tw-relative"
               key={index}
+              className="tw-relative"
               onMouseOver={() => handlers.hoverHandler("onMouseOver")}
               onMouseOut={() => handlers.hoverHandler("onMouseOut")}
             >
+              {/* Social media sharing modal */}
+              <SocialShareModal
+                isOpen={isShareModalOpen}
+                urlShare={urlShare}
+                closeModal={closeShareModal}
+              />
               {action.name === "share" && showShareOptions && (
                 <div className="tw-absolute tw--top-[65%] tw-right-0 tw-flex tw-pb-12 tw-text-white">
                   <FacebookShareButton

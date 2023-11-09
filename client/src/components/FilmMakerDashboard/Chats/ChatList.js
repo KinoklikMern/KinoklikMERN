@@ -16,6 +16,8 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
   // manage the fetched user's details
   const [fetchedUser, setFetchedUser] = useState(null);
 
+  const onlineUsers = useSelector((state) => state.onlineUsers);
+
   // Fetch a user by their ID
   const fetchUserById = async (id) => {
     try {
@@ -161,6 +163,13 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
       }
     }
 
+    // Get the chat sender information
+    const senderInfo = getChatSender(user, chat.users);
+
+    // Check if the sender is online by referencing the `onlineUsers` state
+    // const isSenderOnline = onlineUsers[senderInfo.userId] === true;
+    const isSenderOnline = !!onlineUsers[senderInfo.userId];
+
     // Check if the Chat has a Notification
     if (
       notification.some(
@@ -186,6 +195,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
         chat={chat}
         getChatSender={getChatSender}
         formatTimestamp={formatTimestamp}
+        isOnline={isSenderOnline} // Pass the online status to the ChatListItem
       />
     );
   };

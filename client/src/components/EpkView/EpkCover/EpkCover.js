@@ -22,30 +22,32 @@ export default function EpkCover({ epkInfo }) {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className="tw-flex tw-h-[700px] tw-flex-col tw-justify-between tw-rounded-lg tw-shadow-[inset_0_15px_10px_rgba(242,229,229,0.6)]"
+      className='tw-flex tw-h-[700px] tw-flex-col tw-justify-between tw-rounded-lg tw-shadow-[inset_0_15px_10px_rgba(242,229,229,0.6)]'
     >
-      <div className="tw-mx-16 tw-flex tw-h-5/6 tw-justify-start tw-py-6 ">
+      <div className='tw-mx-16 tw-flex tw-h-5/6 tw-justify-start tw-py-6 '>
         <img
           src={image_detail}
-          alt=""
-          className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
+          alt=''
+          className='tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]'
         />
-        <div className="tw-my-4 tw-flex tw-w-2/3 tw-flex-col tw-items-center tw-justify-between tw-text-white">
-          <p className="tw-text-[5rem]">{epkInfo.title}</p>
-          <p className="tw-text-lg ">{epkInfo.logLine_short}</p>
+        <div className='tw-my-4 tw-flex tw-w-2/3 tw-flex-col tw-items-center tw-justify-between tw-text-white'>
+          <p className='tw-rounded-xl tw-bg-black tw-bg-opacity-50 tw-px-5 tw-text-[5rem]'>
+            {epkInfo.title}
+          </p>
+          <p className='tw-text-lg '>{epkInfo.logLine_short}</p>
         </div>
       </div>
 
-      <div className="tw-flex tw-justify-between tw-bg-white/10 tw-px-6">
-        <div className="tw-flex tw-w-1/2 tw-justify-between">
-          <p className="tw-text-xl tw-text-white">
+      <div className='tw-flex tw-justify-between tw-bg-white/10 tw-px-6'>
+        <div className='tw-flex tw-w-1/2 tw-justify-between'>
+          <p className='tw-text-xl tw-text-white'>
             Posted: <span>{formatedDate(epkInfo.createdAt)}</span>
           </p>
-          <p className="tw-text-xl tw-text-white">{epkInfo.status}</p>
-          <p className="tw-text-xl tw-text-white">{epkInfo.production_type}</p>
-          <p className="tw-text-xl tw-text-white">{epkInfo.genre}</p>
+          <p className='tw-text-xl tw-text-white'>{epkInfo.status}</p>
+          <p className='tw-text-xl tw-text-white'>{epkInfo.production_type}</p>
+          <p className='tw-text-xl tw-text-white'>{epkInfo.genre}</p>
         </div>
-        <div className="tw-flex tw-w-1/6 tw-cursor-pointer tw-justify-end">
+        <div className='tw-flex tw-w-1/6 tw-cursor-pointer tw-justify-end'>
           {user?.id !== epkInfo.film_maker._id ? (
             <EpkReport epkInfo={epkInfo} />
           ) : null}

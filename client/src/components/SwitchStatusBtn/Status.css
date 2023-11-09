@@ -1,0 +1,52 @@
+.switchstat-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e0039;
+  padding-bottom: 2rem;
+}
+
+.switchstat-btn {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  width: 80%;
+  border-radius: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.247);
+  background-color: white;
+}
+
+.switchstat-btn button {
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 15px;
+  width: 100%;
+  height: 28px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.switchstat-btn button.active {
+  background-color: #712cb0;
+  color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.247);
+}
+
+@media (min-width: 701px) {
+  .switchstat-btn button {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 901px) {
+  .switchstat-btn {
+    width: 50%;
+  }
+
+  .switchstat-btn button {
+    font-size: 20px;
+  }
+}

@@ -97,16 +97,16 @@ function ProducerForm() {
 
   return (
     <form className="form">
-      <div class="card">
-        <div class="card-header">
-          <div class="row align-items-start">
-            <div class="col align-items-start">EPK Page Upload</div>
-            <div class="col align-items-end">link to view</div>
+      <div className="card">
+        <div className="card-header">
+          <div className="row align-items-start">
+            <div className="col align-items-start">EPK Page Upload</div>
+            <div className="col align-items-end">link to view</div>
           </div>
         </div>
 
-        <div class="card-body">
-          <h5 class="card-title">Producers</h5>
+        <div className="card-body">
+          <h5 className="card-title">Producers</h5>
           <form className="row g-3">
             <div className="col-6">
               <input
@@ -119,17 +119,17 @@ function ProducerForm() {
               />
               <br />
               <input
-                type="text"
-                placeholder="Header"
-                className="form-control"
-                value={producerData.producer_header}
-                onChange={handleInputChange}
-                name="producer_header"
-              />
-              <br />
+                    type="text"
+                    placeholder = "Header"
+                    className="form-control"        
+                    value={producerData.producer_header}
+                    onChange={handleInputChange}
+                    name="producer_header"                          
+                    />   
+              <br/> 
 
               <textarea
-                class="form-control"
+                className="form-control"
                 rows="3"
                 placeholder="Biography"
                 value={producerData.producer_biography}
@@ -144,7 +144,7 @@ function ProducerForm() {
                   src={image1}
                   alt="hey"
                   style={{ height: "350px", width: "300px" }}
-                  class="img-fluid "
+                  className="img-fluid "
                 />
               )}
             </div>

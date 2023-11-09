@@ -1,78 +1,62 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
-import { Button } from "antd";
+import { Button, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faUser,
+  faPlus,
   faTrashCan,
-  faPen,
-  faCheck,
-  faUpload,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import Modal from "react-modal";
 
-function ReviewsForm() {
+function ResourcesForm() {
   const [file, setFile] = useState("");
-  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [disabledAdd, setDisabledAdd] = useState(true);
   const inputFileRef = useRef(null);
-  const [reviewsList, setReviewsList] = useState([]);
-  const [review, setReview] = useState({ text: "", magazine: "" });
-  const [epkReviewsData, setEpkReviewsData] = useState({
-    reviews: fepk.reviews,
+  const [resourcesList, setResourcesList] = useState([]);
+  const [resource, setResource] = useState({
+    title: "",
+    time: "",
+    description: "",
+  });
+  const [epkResourcesData, setEpkResourcesData] = useState({
+    resources: fepk.resources,
   });
   const [characterLength, setCharacterLength] = useState({
-    text: 0,
+    description: 0,
   });
-  const [editingReview, setEditingReview] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   let { fepkId } = useParams();
 
-  // const fileSelected = (event) => {
-  //   setFile(event.target.files[0]);
-  //   //setDisabled(false);
-  // };
+  //Picture prewiev
+  const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
 
-  // -- CHIHYIN --
   const fileSelected = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-
-    if (editingReview !== null) {
-      let formData = new FormData();
-      formData.append("file", selectedFile);
-
-      // Upload the file
-      http
-        .post("fepks/uploadFile", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          const updatedReviewsList = [...reviewsList];
-          updatedReviewsList[editingReview].award_logo = response.data.key;
-          setReviewsList(updatedReviewsList);
-          setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
-          setEditingReview(null);
-          saveEpkReviews();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    const fileNew = event.target.files[0];
+    setFile(fileNew);
+    //setDisabled(false);
+    const url = URL.createObjectURL(fileNew);
+    setPicturerPreviewUrlPreviewUrl(url);
   };
 
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
-      setReviewsList(response.data.reviews);
-      console.log(response.data.title);
+      setResourcesList(response.data.resources);
     });
   }, [fepkId]);
+
+  useEffect(() => {
+    console.log(resourcesList);
+  }, [resourcesList]);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -93,23 +77,23 @@ function ReviewsForm() {
     } else return true;
   };
 
-  function addReviewToTable() {
-    if (review.magazine !== "" && review.text !== "") {
-      reviewsList.push(review);
-      setEpkReviewsData({ ...epkReviewsData, reviews: reviewsList });
+  function addResourceToTable() {
+    if (resource.title !== "") {
+      resourcesList.push(resource);
+      setEpkResourcesData({ ...epkResourcesData, resources: resourcesList });
       setDisabledAdd(true);
       setDisabled(false);
     }
   }
-  const handleReviewsChange = (event) => {
+  const handleResourceChange = (event) => {
     const { name, value } = event.target;
-    setReview({ ...review, [name]: value });
+    setResource({ ...resource, [name]: value });
     setCharacterLength({ ...characterLength, [name]: value.length });
     setDisabledAdd(false);
   };
 
-  function addAwardLogo() {
-    if (characterLength.text <= 160) {
+  function addResourceImage() {
+    if (characterLength.description <= 160) {
       let formData = new FormData();
       console.log(file);
       formData.append("file", file);
@@ -126,8 +110,10 @@ function ReviewsForm() {
               if (response.data !== undefined) {
                 const key = response.data.key;
                 console.log(key);
-                review.award_logo = key;
-                addReviewToTable();
+                resource.image = key;
+                addResourceToTable();
+                setPicturerPreviewUrlPreviewUrl("");
+                inputFileRef.current.value = "";
               }
             })
             .catch((err) => {
@@ -135,7 +121,7 @@ function ReviewsForm() {
               console.log(err);
             });
         } else {
-          addReviewToTable();
+          addResourceToTable();
         }
       } else {
         setMessage("File must be a image(jpeg or png)");
@@ -143,19 +129,21 @@ function ReviewsForm() {
     }
   }
 
-  function deleteFromReviewsList(deletedReview) {
-    const newReviewsList = reviewsList.filter(
-      (reviewObject) => reviewObject !== deletedReview
+  function deleteFromResourcesList(deletedResource) {
+    const newResourcesList = resourcesList.filter(
+      (resourceObject) => resourceObject !== deletedResource
     );
-    setReviewsList(newReviewsList);
-    setEpkReviewsData({ ...epkReviewsData, reviews: newReviewsList });
+    setResourcesList(newResourcesList);
+    setEpkResourcesData({ ...epkResourcesData, resources: newResourcesList });
     setDisabled(false);
   }
 
-  function saveEpkReviews() {
+  function saveEpkResources() {
+    console.log(epkResourcesData);
     http
-      .put(`fepks/update/${fepkId}`, epkReviewsData)
+      .put(`fepks/update/${fepkId}`, epkResourcesData)
       .then((res) => {
+        setModalIsOpen(true);
         console.log("saved");
       })
       .catch((err) => {
@@ -164,34 +152,9 @@ function ReviewsForm() {
     setDisabled(true);
   }
 
-  // -- CHIHYIN --
-  const saveEpkReviewChanges = async (updatedReviewsList) => {
-    try {
-      const res = await http.put(`fepks/update/${fepkId}`, {
-        reviews: updatedReviewsList,
-      });
+  const openModal = () => setModalIsOpen(true);
 
-      // Optionally: Update UI to reflect that changes were saved.
-      console.log("Changes saved:", res.data);
-    } catch (err) {
-      // Handle errors, perhaps revert the change in the UI with a message.
-      console.error("Error saving changes:", err);
-    }
-  };
-
-  const handleEditChange = (e, index, type) => {
-    const updatedReviewsList = [...reviewsList];
-    updatedReviewsList[index][type] = e.target.value;
-    setReviewsList(updatedReviewsList);
-    setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
-    // Save immediately after editing.
-    saveEpkReviewChanges(updatedReviewsList);
-  };
-
-  const triggerFileInput = (index) => {
-    setEditingReview(index); // Set the currently editing review's index
-    inputFileRef.current.click(); // Trigger the file input
-  };
+  const closeModal = () => setModalIsOpen(false);
 
   return (
     <>
@@ -200,280 +163,302 @@ function ReviewsForm() {
           boxShadow: "inset 1px 2px 9px #311465",
           padding: "0px 10px",
           marginLeft: "10%",
+          marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
-        <form>
-          <div
-            className="row"
-            style={{
-              background:
-                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
-            }}
-          >
-            <div className="col-1">
-              <Link className="navbar-brand text-headers-style" to="/home">
-                <img
-                  style={{ width: "100%", height: "80px" }}
-                  src={require("../../../images/logo.png")}
-                  alt="Logo"
-                  className="navbar-logo"
-                />
-              </Link>
-            </div>
-            <div className="col-3  m-3">
-              <h2
-                className="col align-items-start"
-                style={{
-                  color: "#FFFFFF",
-                  fontWeight: "normal",
-                  fontSize: "25px",
-                }}
-              >
-                EPK Dashboard
-              </h2>
-            </div>
-            <div className="col-3 m-3">
-              <BasicMenu />
-            </div>
-            <div className="col-1 m-3"></div>
-            <div className="col-2 m-3">
-              <Link
-                className="col align-items-end"
-                to={`/epk/${fepk.title}`}
-                style={{
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  fontWeight: "normal",
-                  fontSize: "20px",
-                }}
-              >
-                View EPK Page
-              </Link>
-            </div>
+        <div
+          className="row"
+          style={{
+            background:
+              "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+          }}
+        >
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
+              <img
+                style={{ width: "100%", height: "80px" }}
+                src={require("../../../images/logo.png")}
+                alt="Logo"
+                className="navbar-logo"
+              />
+            </Link>
           </div>
-          <div
-            style={{
-              marginLeft: "10%",
-              marginRight: "15%",
-              color: "#311465",
-              fontWeight: "normal",
-            }}
-          >
-            <div className="card-body" style={{ height: "500px" }}>
-              <h5
-                className="card-title "
-                style={{ color: "#311465", fontWeight: "normal" }}
-              >
-                BUZZ
-              </h5>
-              <form>
-                <div className="row">
-                  <div className="col my-5">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                      }}
-                      className="form-control m-10"
-                      placeholder="Magazine/Blog/Journalist Name"
-                      onChange={handleReviewsChange}
-                      name="magazine"
-                    />
-                    <textarea
+          <div className="col-3  m-3">
+            <h2
+              className="col align-items-start"
+              style={{
+                color: "#FFFFFF",
+                fontWeight: "normal",
+                fontSize: "25px",
+              }}
+            >
+              EPK Dashboard
+            </h2>
+          </div>
+          <div className="col-3 m-3">
+            <BasicMenu />
+          </div>
+          <div className="col-1 m-3"></div>
+          <div className="col-2 m-3">
+            <Link
+              className="col align-items-end"
+              to={`/epk/${fepk.title}`}
+              style={{
+                color: "#FFFFFF",
+                textDecoration: "none",
+                fontWeight: "normal",
+                fontSize: "20px",
+              }}
+            >
+              View EPK Page
+            </Link>
+          </div>
+        </div>
+        <div
+          style={{
+            marginLeft: "10%",
+            marginRight: "15%",
+            color: "#311465",
+            fontWeight: "normal",
+          }}
+        >
+          <div className="card-body" style={{ height: "500px" }}>
+            <h5
+              className="card-title "
+              style={{ color: "#311465", fontWeight: "normal" }}
+            >
+              Resources
+            </h5>
+            <form>
+              <div className="row">
+                <div className="col-4 my-4">
+                  <input
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
+                    className="form-control m-10"
+                    placeholder="Title"
+                    onChange={handleResourceChange}
+                    name="title"
+                  />
+                  <input
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
+                    className="form-control m-10"
+                    placeholder="Duration Required"
+                    onChange={handleResourceChange}
+                    name="time"
+                  />
+                  <textarea
+                    style={{
+                      height: "60px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "5px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                      resize: "none",
+                    }}
+                    className="form-control mt-10"
+                    placeholder="Description(maximum 160 characters)"
+                    onChange={handleResourceChange}
+                    name="description"
+                    maxLength="160"
+                  />
+                  <span
+                    style={{
+                      fontSize: "15px",
+                      display: "flex",
+                      justifyContent: "right",
+                    }}
+                  >
+                    {characterLength?.description}/160 characters
+                  </span>
+
+                  <label
+                    htmlFor="fileAwardLogo"
+                    className="form-label text-dark"
+                    style={{ fontSize: "25px" }}
+                  >
+                    {" "}
+                    <h4>Upload Image</h4>
+                  </label>
+                  <input
+                    style={{ fontSize: "15px" }}
+                    className="form-control form-control-sm"
+                    filename={file}
+                    onChange={fileSelected}
+                    ref={inputFileRef}
+                    type="file"
+                    id="fileImageResources"
+                    name="files"
+                    accept="image/*"
+                  />
+                  {picturePreviewUrl && picturePreviewUrl !== undefined ? (
+                    <img
+                      src={picturePreviewUrl}
                       style={{
                         height: "120px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        resize: "none",
+                        width: "auto",
+                        marginTop: "5px",
                       }}
-                      className="form-control mt-10"
-                      placeholder="Review text (maximum 160 characters)"
-                      onChange={handleReviewsChange}
-                      name="text"
-                      maxLength="160"
+                      alt="no img"
                     />
-                    <span
+                  ) : // <h3>No Image</h3>
+                  null}
+                  {disabledAdd === true ? (
+                    <Button
+                      disabled
                       style={{
-                        fontSize: "15px",
-                        display: "flex",
-                        justifyContent: "right",
+                        boxShadow: "1px 2px 9px #311465",
+                        color: "grey",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                        width: "100%",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={addResourceImage}
+                      value="save"
+                    >
+                      Add to Table
+                    </Button>
+                  ) : (
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                        width: "100%",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={addResourceImage}
+                      value="save"
+                    >
+                      Add to Table
+                    </Button>
+                  )}
+                </div>
+                <div className="col-7 my-4">
+                  <table
+                    className="table table-striped table-bordered"
+                    style={{
+                      fontSize: "8px",
+                      textAlign: "center",
+                      tableLayout: "auto",
+                      width: "100%",
+                    }}
+                  >
+                    <thead className="thead-dark">
+                      <tr>
+                        <th>Title</th>
+                        <th
+                          style={{
+                            width: "fit-content",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          Duration Required
+                        </th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {resourcesList.map((resource, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{resource.title}</td>
+                            <td>{resource.time}</td>
+                            <td style={{ width: "fit-content" }}>
+                              {resource.description}
+                            </td>
+                            <td>
+                              <img
+                                src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                style={{ height: "60px", width: "auto" }}
+                              />
+                            </td>
+                            <td
+                              style={{
+                                textAlign: "center",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteFromResourcesList(resource)}
+                            >
+                              <FontAwesomeIcon icon={faTrashCan} />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  <div>
+                    <Modal
+                      isOpen={modalIsOpen}
+                      onRequestClose={closeModal}
+                      contentLabel="Example Modal"
+                      appElement={document.getElementById("root")}
+                      style={{
+                        overlay: {
+                          // position: "fixed",
+                          // top: 0,
+                          // left: 0,
+                          // right: 0,
+                          // bottom: 0,
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        },
+                        content: {
+                          position: "absolute",
+                          border: "2px solid #000",
+                          backgroundColor: "white",
+                          boxShadow: "2px solid black",
+                          height: 150,
+                          width: 300,
+                          margin: "auto",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        },
                       }}
                     >
-                      {characterLength?.text}/160 characters
-                    </span>
-                    <label
-                      for="fileAwardLogo"
-                      class="form-label text-dark"
-                      style={{ fontSize: "25px" }}
-                    >
-                      {" "}
-                      <h4 style={{ fontSize: "20px" }}>Upload Logo</h4>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="fileAwardLogo"
-                      name="files"
-                      accept="image/*"
-                    />
-                    {disabledAdd === true ? (
-                      <Button
-                        disabled
-                        style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          color: "grey",
-                          backgroundColor: "#ffffff",
-                          fontWeight: "bold",
-                          width: "100%",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={addAwardLogo}
-                        value="save"
-                      >
-                        Add to Table
-                      </Button>
-                    ) : (
-                      <Button
-                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                        style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          fontWeight: "bold",
-                          width: "100%",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={addAwardLogo}
-                        value="save"
-                      >
-                        Add to Table
-                      </Button>
-                    )}
+                      <div style={{ textAlign: "center" }}>
+                        <h2>Your content has been successfully saved!</h2>
+                        <br />
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          onClick={closeModal}
+                        >
+                          Ok
+                        </button>
+                      </div>
+                    </Modal>
                   </div>
-                  <div className="col my-5">
-                    <table
-                      className="table table-striped table-bordered"
-                      style={{ fontSize: "12px", textAlign: "center" }}
-                    >
-                      <thead className="thead-dark">
-                        <tr>
-                          <th>Magazine</th>
-                          <th>Text</th>
-                          <th>Award Logo</th>
-                          <th>ACTIONS</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {reviewsList.map((review, index) => {
-                          return (
-                            <tr key={index}>
-                              <td>
-                                {editingReview === index ? (
-                                  <input
-                                    value={review.magazine}
-                                    onChange={(e) =>
-                                      handleEditChange(e, index, "magazine")
-                                    }
-                                  />
-                                ) : (
-                                  review.magazine
-                                )}
-                              </td>
-                              <td>
-                                {editingReview === index ? (
-                                  <input
-                                    value={review.text}
-                                    onChange={(e) =>
-                                      handleEditChange(e, index, "text")
-                                    }
-                                  />
-                                ) : (
-                                  review.text
-                                )}
-                              </td>
-                              <td>
-                                <img
-                                  src={`${process.env.REACT_APP_AWS_URL}/${review.award_logo}`}
-                                  alt=""
-                                  style={{ height: "50px", width: "auto" }}
-                                />
-                                {editingReview === index && (
-                                  <>
-                                    <FontAwesomeIcon
-                                      icon={faUpload}
-                                      onClick={() => triggerFileInput(index)}
-                                      style={{ marginRight: "10px" }}
-                                    />
-                                    <input
-                                      style={{ display: "none" }}
-                                      className="form-control form-control-sm"
-                                      filename={file}
-                                      onChange={fileSelected}
-                                      ref={inputFileRef}
-                                      type="file"
-                                      id="fileAwardLogo"
-                                      name="files"
-                                      accept="image/*"
-                                    />
-                                  </>
-                                )}
-                              </td>
-
-                              <td
-                                style={{
-                                  textAlign: "center",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                {editingReview === index ? (
-                                  <FontAwesomeIcon
-                                    icon={faCheck}
-                                    onClick={() => {
-                                      setEditingReview(null);
-                                    }}
-                                    style={{ marginRight: "10px" }}
-                                  />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    icon={faPen}
-                                    onClick={() => setEditingReview(index)}
-                                    style={{ marginRight: "10px" }}
-                                  />
-                                )}
-                                {"  "}
-                                <FontAwesomeIcon
-                                  icon={faTrashCan}
-                                  onClick={() => deleteFromReviewsList(review)}
-                                />
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
+                </div>
+                <div className="col-1 mt-5">
                   <div
-                    className="col-1"
                     style={{
                       height: "50px",
-                      width: "120px",
+                      width: "100px",
                       marginLeft: "100%",
-                      marginTop: "-10px",
+                      marginTop: "350px",
                     }}
                   >
                     {disabled === true ? (
@@ -487,7 +472,7 @@ function ReviewsForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={saveEpkReviews}
+                        onClick={saveEpkResources}
                         value="save"
                       >
                         Save
@@ -501,7 +486,7 @@ function ReviewsForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={saveEpkReviews}
+                        onClick={saveEpkResources}
                         value="save"
                       >
                         Save
@@ -509,12 +494,12 @@ function ReviewsForm() {
                     )}
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
 }
-export default ReviewsForm;
+export default ResourcesForm;

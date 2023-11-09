@@ -108,15 +108,26 @@ function RegistrationForm() {
     }
   };
 
+  const handleBack = () => {
+    setNextClicked(false); // Set nextClicked to false
+    // Navigate back to the previous page (RegistrationForm)
+    navigate("/signup");
+  };
+
   return (
     <>
       <div className={SignupCss.bg}>
-        <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div>
+        {!nextClicked && (
+          <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div>
+        )}
+
+        {/* <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div> */}
+
         <div
           className={SignupCss.form}
-          style={{
-            margin: "20px",
-          }}
+          // style={{
+          //   margin: "2px",
+          // }}
         >
           <div className={SignupCss.form_body}>
             {!nextClicked ? (
@@ -134,36 +145,43 @@ function RegistrationForm() {
                 setPassword={setPassword}
                 setConfirmPassword={setConfirmPassword}
                 role={role}
+                handleSubmit={handleSubmit}
+                setNextClicked={setNextClicked}
+                handleBack={handleBack}
+                showBackButton={!nextClicked} // prop to conditionally render the "Back" button
               />
             )}
-            <button
-              className={SignupCss.next}
-              onClick={() => setNextClicked(!nextClicked)}
-            >
-              {!nextClicked ? "Next" : "Back"}
-            </button>
+
+            {nextClicked ? (
+              <button onClick={handleSubmit} className={SignupCss.btn}>
+                Sign Up
+              </button>
+            ) : null}
+            {
+              <button
+                className={nextClicked ? SignupCss.back : SignupCss.next}
+                onClick={() => setNextClicked(!nextClicked)}
+              >
+                {!nextClicked ? "Next" : "Back"}
+              </button>
+            }
+
             <div className={SignupCss.form_Message}>
-              <p>
-                already signed up?{" "}
-                <Link to="/login" className={SignupCss.link}>
-                  Login
-                </Link>
-              </p>
+              {!nextClicked ? (
+                <p>
+                  already signed up?{" "}
+                  <Link to="/login" className={SignupCss.link}>
+                    Login
+                  </Link>
+                </p>
+              ) : null}
               {/* Render the success component */}
               {success && <RegistrationSuccess />}
               {/* {success && <div className={SignupCss.error_text}>{success}</div>} */}
               {error && <div className={SignupCss.error_text}>*{error}</div>}
               <br />
-              {nextClicked ? (
-                <button
-                  onClick={() => handleSubmit()}
-                  type="submit"
-                  className={SignupCss.btn}
-                >
-                  Sign Up
-                </button>
-              ) : null}
             </div>
+            {/*  */}
           </div>
         </div>
       </div>

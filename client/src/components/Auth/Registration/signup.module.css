@@ -1,8 +1,9 @@
 /* use compomonents way to style for registration page
 link for registration is /signup */
+
+/*SIGN_UP AND REGISTRATION PERSONAL INFO*/
 .bg {
-  /* background-image: url(../../../images/login/Curtains.png); */
-  height: 100vh;
+  height: 105vh;
   width: 100%;
   position: relative;
   top: 0;
@@ -21,27 +22,39 @@ link for registration is /signup */
 .form {
   position: absolute;
   color: black;
-  top: 55%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .form_body {
   text-align: center;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;*/
 }
 
+/*first name, last name, email fields as a form*/
 .form_input {
   background: white;
   width: 550px;
   border-radius: 10px;
   font-size: 20px;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   outline-color: transparent;
   box-shadow: 0 0 0.4em #844fb0;
+  flex: 1;
 }
 
-.form_input1 {
+/*first name, last name,*/
+.nameFields {
+  display: flex;
+  gap: 10px;
+}
+
+/*THIS FORM_input1 is not used*/
+/* .form_input1 {
   width: 800px;
   display: flex;
   align-items: center;
@@ -53,22 +66,30 @@ link for registration is /signup */
   color: black;
   outline-color: transparent;
   box-shadow: 0 0 0.4em #844fb0;
-}
+} */
 
+/*password, password confirmation input*/
 .form_input2 {
   background: white;
   width: 550px;
   border-radius: 10px;
   font-size: 20px;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   outline-color: transparent;
   box-shadow: 0 0 0.4em #844fb0;
 }
-.personalInfo {
-  height: 500px;
-}
 
+/*Sign up personal  info*/
+.personalInfo {
+  /*height: 100vh;*/
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+}
+/* THIS CODE IS NOT USED  
 .btn1 {
   background: white;
   color: black;
@@ -94,6 +115,7 @@ link for registration is /signup */
   color: white;
 } */
 
+/*BUTTON SIGN UP*/
 .btn {
   background: #712cb0;
   color: white;
@@ -108,9 +130,16 @@ link for registration is /signup */
     0 6px 20px 0 rgba(175, 63, 227, 0.19);
   width: 200px;
   text-align: center;
-  /* margin-left: 150px; */
+  margin: 10px;
 }
 
+.btn:hover {
+  background: #fff;
+  color: #712cb0;
+  
+}
+
+/*button  NEXT*/
 .next {
   background: white;
   color: #712cb0;
@@ -126,24 +155,62 @@ link for registration is /signup */
   width: 100px;
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 50px;
   /* margin-left: 150px; */
 }
 
+.next:hover {
+  background: #712cb0;
+  color: #fff;
+ 
+}
+.buttonsSignUpAndBack {
+  display: flex;
+  flex-direction: row;
+  margin: 2px;
+}
+
+/*button  BACK*/
+.back {
+  background: #fff;
+  color: #712cb0;
+  border: 10px solid var(#712cb0);
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(96, 35, 170, 0.2),
+    0 6px 20px 0 rgba(175, 63, 227, 0.19);
+  width: 100px;
+  text-align: center;
+  
+}
+
+.back:hover {
+  background: #712cb0;
+  color: #fff;
+  
+}
+
+/*"I AM" on the sign-up page*/
 .form_title {
   font-size: 3vw;
   font-weight: 400;
   text-align: center;
   color: #712cb0;
-  /* padding: 20px 100px 20px 100px; */
+  /*padding: 20px 100px 20px 100px; */
 }
 
+/*Sign up for KinoKlik*/
 .form_titleMain {
   font-size: 3vw;
   font-weight: 400;
   text-align: center;
   color: #712cb0;
-  /* padding: 20px 100px 20px 100px; */
 }
+
+/*already signed up? Login*/
 .form_Message {
   font-size: 20px;
   /* font-weight: 400; */
@@ -159,7 +226,11 @@ link for registration is /signup */
 }
 
 .error_text {
+  display: flex;
+  flex-direction:column;
   color: red;
+  font-size: 14px;
+  margin-top: 0px;
 }
 
 /* ROLES COMPONENT ------------------------------------- */
@@ -176,11 +247,13 @@ link for registration is /signup */
   justify-content: center;
 }
 
+/*mask icon*/
 .roleImgMain {
   width: 150px;
   height: 150px;
   background-color: white;
   margin: 1vw;
+  margin-top: 50px;
   border-radius: 5%;
   display: flex;
   align-items: center;
@@ -188,6 +261,7 @@ link for registration is /signup */
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(113, 44, 176, 10);
 }
 
 .roleImgMain img {
@@ -199,7 +273,7 @@ link for registration is /signup */
 }
 
 .roleImgMain:hover {
-  background-color: #712cb0;
+  background-color: rgb(113, 44, 176);
   width: 150px;
   height: 150px;
 }
@@ -208,6 +282,132 @@ link for registration is /signup */
   transform: scale(1.2);
 }
 
+/* TitleMainP + Role image + Role text*/
+.form_titleMainPAndRole {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -120px;
+  padding: 10px;
+  
+}
+/*Sign up headline for Personal Info Page */
+.form_titleMainPI {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 3vw;
+  font-weight: 400;
+  text-align: center;
+  color: #712cb0;
+  padding: 10px;
+
+}
+
+/*image and role text of the personal info registration*/
+.imageAndTextPI {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(113, 44, 176);
+  padding: 10px;
+  width: 100%;
+  max-width: 240px;
+  max-height: 120px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(240, 237, 243, 0.1);
+  /* margin-top: -50px; */
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.roleImgMainPI {
+  
+  flex: 1;
+  text-align: center;
+  max-height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+
+.roleImgMainPI img {
+  max-width: 100%;
+  max-height: 90px;
+  background-color: #fff;
+    
+
+}
+
+.imageAndTextPI:hover  {
+  transform: scale(1.2);
+ 
+}
+.textImgMainPI {
+  flex: 1; /* Grow as needed */
+  flex-wrap: wrap;
+  text-align: center; 
+  color: #fff;
+  position: relative; /* Add this line for positioning */
+}
+
+.textImgMainPI::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; /* Adjust the height as needed */
+  background: linear-gradient(to bottom, rgba(251, 251, 252, 0.1) 0%, rgba(240, 237, 243, 0) 100%); /* Define your gradient colors */
+}
+
+
+
+/*role image of the personal info registration*/
+/* .roleImgMainPI {
+  display: flex;
+  display: column;
+  align-items: center;
+  width: 250px;
+  height: 120px;
+  background-color: rgb(113, 44, 176); 
+  margin-bottom: 15px;
+  margin-top: -90px;
+  border-radius: 5%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(113, 44, 176, 10);
+}
+
+ .roleImgMainPI img {
+  /* max-width: 100%;
+  max-height: 100%; 
+  width: 90px;
+  height: 90px;
+  transition: all 0.3s ease;
+  background-color: rgb(113, 44, 176);
+
+}
+
+.roleImgMainPI:hover {
+  background-color: rgb(113, 44, 176);
+  width: 80px;
+  height: 80px;
+  
+}
+
+.roleImgMainPI:hover img {
+  transform: scale(1.2);
+  
+} */
+
+/*text on the icons*/
 .mainText {
   position: absolute;
   bottom: 0;
@@ -228,7 +428,7 @@ link for registration is /signup */
 .roleImgMain button {
   border: none;
   padding: 0;
-  background: transparent; /* Set the background color to white */
+  background-color: white;
 }
 
 .roleImgMain.selected,
@@ -267,16 +467,16 @@ link for registration is /signup */
   opacity: 1;
 }
 
+.rolesSecondary {
+  display: flex;
+  flex-wrap: wrap;
+  width: 410px;
+}
 /* PRIMARY ROLES -------------------------------------------------------- */
 
 /* SECONDARY ROLES -------------------------------------------------------- */
 
-.rolesSecondary {
-  display: flex;
-  flex-wrap: wrap;
-  width: 400px;
-}
-
+/*small boxes on sign-up  page*/
 .roleImgSecondary {
   width: 75px;
   height: 75px;
@@ -288,6 +488,7 @@ link for registration is /signup */
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(113, 44, 176, 10);
 }
 
 .roleImgSecondary img {
@@ -327,7 +528,7 @@ link for registration is /signup */
 .roleImgSecondary button {
   border: none;
   padding: 0;
-  background: transparent;
+  background-color: white;
 }
 
 .line {
@@ -344,12 +545,97 @@ link for registration is /signup */
   max-width: 75px;
 }
 
+/*TERMS AND CONDITIONS*/
+.termsAndConditions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #585858;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+/*NEWSLETTER OPT-IN*/
+
+.newsletterOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #712cb0;
+  /*margin-bottom: 25px;*/
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #712cb0;
+  border-radius: 50%;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #712cb0;
+  border: 2px solid #712cb0;
+}
+
+.newsletterOption > .headerLetter {
+  font-weight: bold;
+}
+
+.newsletterOption .yesNo {
+  display: flex;
+  flex-direction: row;
+}
+.newsletterOption .yesAndNo {
+  color: #585858;
+  margin: 2px;
+  align-items: center;
+}
+
+.newsletterOption .yesNo label {
+  margin-right: 12px;
+}
+
+.listOfAudiences {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column wrap;
+  align-items: flex-start;
+  color: #585858;
+  font-size: 14px;
+}
+
+/*radio buttons */
+input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #712cb0;
+  border-radius: 50%;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked {
+  background-color: #712cb0;
+  border: 2px solid #712cb0;
+}
 /* SECONDARY ROLES -------------------------------------------------------- */
 
 /* ROLES COMPONENT ------------------------------------- */
 
 /* responsive */
 @media (max-width: 768px) {
+  .form_titleMain {
+    font-size: 32px;
+  }
+
+  .listOfAudiences {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column wrap;
+    align-items: flex-start;
+  }
+
   .form_input1 {
     display: flex;
     flex-wrap: wrap;
@@ -369,6 +655,98 @@ link for registration is /signup */
   }
 }
 
+@media (min-width: 320px) and (max-width: 950px) {
+  
+
+  /* .roleImgMainPI {
+    width: 100px;
+    height: 100px;
+    margin-top: -90px;
+  
+  }
+  .roleImgMainPI img {
+    width: 70px;
+    height: 70px;
+    transition: all 0.3s ease;
+  }
+  
+  .roleImgMainPI:hover {
+    
+    width: 60px;
+    height: 60px;
+  } */
+
+  .termsAndConditions {
+   font-size: 12px;
+  }
+  
+  .newsletterOption > .headerLetter {
+    font-size: 12px;
+  }
+  
+  .listOfAudiences {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start important!;
+    color: #585858;
+    font-size: 10px;
+  }
+  
+  .btn {
+    font-size: 15px;
+    font-weight: 400;
+    width: 150px;
+  }
+
+  
+.back {
+  
+  font-size: 15px;
+  font-weight: 400;
+  width: 100px;
+  
+}
+
+}
+
+@media (min-width: 150px) and (max-width: 320px) {
+   /* .roleImgMainPI {
+    display: none;
+  }  */
+
+  
+  .termsAndConditions {
+    font-size: 8px;
+   }
+   
+   .newsletterOption > .headerLetter {
+     font-size: 8px;
+   }
+   
+   .listOfAudiences {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start important!;
+     font-size: 8px;
+   }
+   
+   .btn {
+     font-size: 12px;
+     font-weight: 200;
+     width: 150px;
+   }
+ 
+   
+ .back {
+   
+   font-size: 12px;
+   font-weight: 200;
+   width: 100px;
+   
+ }
+
+ 
+}
 @media (min-width: 768px) {
   .form_input1 {
     display: flex;
@@ -388,4 +766,8 @@ link for registration is /signup */
   .form_input2 {
     width: 100%;
   }
+
+ 
+  
+  
 }

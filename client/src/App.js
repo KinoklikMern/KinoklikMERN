@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Actor from "./pages/Actor/Actor";
 
@@ -190,7 +190,7 @@ function App() {
 
         <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
           {/* <Route index element={<Home />} /> */}
-          <Route path="catelog" element={<CatelogPage />} />
+          <Route path="catalog" element={<CatelogPage />} />
           <Route path="epk/:title" element={<EpkViewPage />} />
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />

@@ -1,7 +1,4 @@
 #home {
-  /*background-image: url("/images/home/joker.jpg");*/
-  /* background: linear-gradient(90deg, rgb(0,101,219) 50%, rgba(0, 212, 255, 1) 100%); */
-  /* min-height: 600px; */
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -9,6 +6,7 @@
 .c-row1 {
   padding-top: 300px;
 }
+
 .movieTitle {
   color: white;
   text-align: center;
@@ -19,22 +17,26 @@
   text-align: center;
 }
 
-.menu-icon {
-  font-size: 2rem;
-  color: white;
-  display: grid;
-  grid-gap: 70px;
-  position: absolute;
-  left: 20px;
-  top: 5vmax;
+.homeHead-poster {
+  border-radius: 55px;
+  border: 2px solid #160625;
+  height: 30vh;
 }
 
-.menu-icon1 {
-  font-size: 2.5rem;
-  color: white;
-  display: grid;
-  grid-gap: 65px;
-  position: absolute;
-  right: 16px;
-  top: 8vmax;
+@media (max-width: 768px) {
+  .homeHead-poster {
+    height: 40vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .homeHead-poster {
+    height: 50vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .homeHead-poster {
+    height: 60vh;
+  }
 }

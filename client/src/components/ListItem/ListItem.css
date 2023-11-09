@@ -1,21 +1,22 @@
 .listItem {
-    width: 236px;
-    height: 285px;
-    background-color: var(--main-color);
-    margin-right: 52px;
-    flex-shrink: 0;
-    overflow: hidden;
-    cursor: pointer;
-    color: white;
-}
-.listItem img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 450px;
 }
 
-.listItem:hover {
-    width: 259px;
-    height: 313px;
+.listItem img {
+  height: 100%;
+  object-fit: cover;
+
+  &:hover {
+    scale: 1.05;
     transition: all 1s ease;
+  }
+}
+
+@media (max-width: 700px) {
+  .listItem {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

@@ -1,121 +1,212 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
-import "../ListItem/ListItem.css";
 import "../List/List.css";
+import "../ListItem/ListItem.css";
 import http from "../../http-common";
-import { useState, useRef, useEffect } from "react";
-import {
-  ArrowBackIosOutlined,
-  ArrowForwardIosOutlined,
-} from "@mui/icons-material";
-import { FepkContext } from "../../context/FepkContext.js";
+import StatusBtn from "../SwitchStatusBtn/Status";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
-  const [isMoved, setIsMoved] = useState(false);
-  // const [slideNumber, setSlideNumber] = useState(0);
-  const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
+  const [filteredEPKs, setFilteredEPKs] = useState([]);
+  const [filterQuery, setFilterQuery] = useState([]);
+  const [currentStatus, setCurrentStatus] = useState("All");
 
-  const listRef = useRef();
+  const [filterTags, setFilterTags] = useState([
+    {
+      name: "Movie",
+      isActive: false,
+    },
+    {
+      name: "TV Show",
+      isActive: false,
+    },
+    {
+      name: "Web Series",
+      isActive: false,
+    },
+    {
+      name: "Documentary",
+      isActive: false,
+    },
+    {
+      name: "all epks",
+      isActive: true,
+    },
+  ]);
 
-  const actorId = "6483619d64b048f952a6fb5b";
+  // const actorId = "6483619d64b048f952a6fb5b";
+
+  const clickHandler = (name, isActive) => {
+    let newTags;
+    let newQuery;
+
+    if (name === "all epks") {
+      newTags = filterTags.map((tag) => ({
+        ...tag,
+        isActive: tag.name === name,
+      }));
+      newQuery = isActive
+        ? []
+        : ["Movie", "TV Show", "Web Series", "Documentary"];
+    } else {
+      newTags = filterTags.map((tag) =>
+        tag.name === name ? { ...tag, isActive: !isActive } : tag
+      );
+
+      if (isActive) {
+        newQuery = filterQuery.filter((item) => item !== name);
+      } else {
+        if (filterQuery.length === 4) {
+          newQuery = [name];
+        } else {
+          newQuery = [...filterQuery, name];
+        }
+      }
+
+      if (!isActive) {
+        newTags[4].isActive = false; // set "all epks" to inactive
+      }
+
+      if (
+        newQuery.length ===
+        newTags.filter((tag) => tag.name !== "all epks").length
+      ) {
+        newTags = newTags.map((tag) =>
+          tag.name === "all epks" ? { ...tag, isActive: true } : tag
+        );
+        newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
+      }
+
+      if (
+        newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
+          .length === 4
+      ) {
+        newTags = newTags.map((tag) =>
+          tag.name === "all epks" ? { ...tag, isActive: true } : tag
+        );
+      }
+
+      if (
+        newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
+          .length !== 0
+      ) {
+        newTags = newTags.map((tag) =>
+          tag.name === "all epks" ? { ...tag, isActive: false } : tag
+        );
+      }
+    }
+
+    setFilterTags(newTags);
+    setFilterQuery(newQuery);
+  };
 
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
       setFepks(response.data);
+      setFilteredEPKs(response.data);
     });
   }, []);
 
-  let genres = [];
+  const handleStatusChange = (status) => {
+    if (currentStatus === status) {
+      setCurrentStatus("All");
+      setFilteredEPKs(fepks);
+    } else {
+      setCurrentStatus(status);
+      const filtered = fepks.filter((fepk) => fepk.status === status);
+      setFilteredEPKs(filtered);
+    }
+  };
 
-  fepks.forEach((fepk) => {
-    genres.push(fepk.genre);
-  });
-  genres = [...new Set(genres)].sort();
+  useEffect(() => {
+    let filtered = fepks;
+
+    // Filter by status if not 'All'
+    if (currentStatus !== "All") {
+      filtered = filtered.filter((fepk) => fepk.status === currentStatus);
+    }
+
+    // Filter by tags if filterQuery is not empty
+    if (filterQuery.length > 0) {
+      filtered = filtered.filter((fepk) =>
+        filterQuery.includes(fepk.production_type)
+      );
+    }
+
+    setFilteredEPKs(filtered);
+  }, [fepks, currentStatus, filterQuery]);
 
   return (
     <>
-      <div className="home">
-        {/* -- CHIHYIN -- */}
-        {/* <div>
-          <div className="listTitle">
-            <span>STARRED</span>
-          </div>
-          <List title="starred" type={filterQuery} role={role}/>
-        </div>
-        <div>
-          <div className="listTitle">
-            <span>FOLLOWING</span>
-          </div>
-          <List title="following" type={filterQuery} />
-        </div>
-        <div>
-          <div className="listTitle">
-            <span>WISH LIST</span>
-          </div>
-          <List title="wish_to_buy" type={filterQuery} />
-        </div> */}
-
-        {genres.map((genre, index) => {
-          return (
-            <React.Fragment key={index}>
-              <div className="listTitle">
-                <span>{genre.toUpperCase()}</span>
-              </div>
-
-              <div className="list">
-                <div className="wrapper">
-                  <ArrowBackIosOutlined
-                    className="sliderArrow left"
-                    /* onClick={() => handleClick("left")} */ style={{
-                      display: !isMoved && "none",
-                    }}
-                  />
-                  <div className="container" ref={listRef}>
-                    {fepks
-                      .filter(
-                        (fepk) =>
-                          fepk.genre === genre &&
-                          (filterQuery !== ""
-                            ? filterQuery.includes(fepk.production_type)
-                            : true)
-                      )
-                      .map((fepk) => {
-                        return (
-                          <React.Fragment key={fepk._id}>
-                            <div className="listItem">
-                              <a
-                                href={
-                                  role === "actor"
-                                    ? `/actor/${actorId}`
-                                    : `epk/${fepk.title}`
-                                }
-                              >
-                                <img
-                                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                                  alt=""
-                                />
-                              </a>
-                            </div>
-                          </React.Fragment>
-                        );
-                      })}
-                  </div>
-                  <ArrowForwardIosOutlined
-                    className="sliderArrow right" /*onClick={() => handleClick("right")}*/
-                  />
-                </div>
-              </div>
-            </React.Fragment>
-          );
-        })}
-
-        {/* <div className="sponsTitle">
-                    <span>SPONSORED RELEASED</span>
-                </div>
-                <Sponsored /> */}
+      <div>
+        <StatusBtn onStatusChange={handleStatusChange} />
       </div>
+      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-1 md:tw-flex-row'>
+        {filterTags.map((tag, index) => (
+          <FilterButton
+            key={index}
+            name={tag.name}
+            clickHandler={clickHandler}
+            isActive={tag.isActive}
+          />
+        ))}
+      </div>
+      <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
+        <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
+          {filteredEPKs.map((fepk) => {
+            const formattedTitle = fepk.title.replace(/ /g, "_");
+            return (
+              <React.Fragment key={fepk._id}>
+                <div className='listItem tw-p-3'>
+                  <a
+                    href={
+                      role === "actor"
+                        ? `/actor/${fepk._id}`
+                        : `epk/${formattedTitle}`
+                    }
+                  >
+                    <img
+                      src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                      alt=''
+                      className='tw-aspect-1 tw-w-full'
+                    />
+                  </a>
+                </div>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Extract FilterButton as a separate component
+const FilterButton = ({ name, isActive, clickHandler }) => {
+  return (
+    <>
+      <button
+        className={`tw-text-small tw-mb-1 tw-mr-5 tw-w-48 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase md:tw-w-auto ${
+          !isActive
+            ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
+            : "tw-bg-white tw-text-[#1E0039]"
+        }`}
+        type='button'
+        onClick={() => clickHandler(name, isActive)}
+      >
+        {name}
+        {!isActive ? (
+          <FontAwesomeIcon
+            className='tw-pl-5'
+            icon={faPlus}
+            style={{ color: "#aaaaaa" }}
+          />
+        ) : (
+          <FontAwesomeIcon className='tw-pl-5' icon={faCheck} />
+        )}
+      </button>
     </>
   );
 };

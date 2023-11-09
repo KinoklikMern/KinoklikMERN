@@ -766,15 +766,6 @@ export const getProfileActor = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-  try {
-    const profile = await User.find({ role: "Actor" }).select("-password");
-    if (!profile) {
-      return res.json({ ok: false });
-    }
-    res.send(profile);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 };
 
 //get all users
@@ -1011,6 +1002,31 @@ export const getActorLikes = async (req, res) => {
       _id: actorId,
     }).select({ likes: 1 });
     res.json({ ...updatedActorProfile.toObject() });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Increment the recommendation count for an actor on KinoKlik
+export const getActorRecommendations = async (req, res) => {
+  try {
+    console.log("Actor ID:", req.params.actorid);
+    console.log("Count:", req.body.count);
+
+    const actorId = req.params.actorid;
+    const count = req.body.count; // The count of selected filmmakers
+    const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
+
+    console.log("Actor Profile:", actorProfile);
+
+    if (!actorProfile) {
+      return res.status(404).json({ error: "No Actor was found!" });
+    }
+
+    actorProfile.recommendations = (actorProfile.recommendations || 0) + count;
+    await actorProfile.save();
+
+    res.json({ recommendations: actorProfile.recommendations });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

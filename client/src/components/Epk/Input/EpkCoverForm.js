@@ -219,7 +219,7 @@ function EpkCoverForm() {
               <div className="col border border-2">
                 <div className="row gx-5">
                   <div className="col mt-5">
-                    <label for="fileBanner" class="form-label text-dark">
+                    <label htmlFor="fileBanner" className="form-label text-dark">
                       {" "}
                       Upload Banner
                     </label>
@@ -235,7 +235,7 @@ function EpkCoverForm() {
                     ></input>
                   </div>
                   <div className="col mt-5">
-                    <label for="fileTrailer" class="form-label text-dark">
+                    <label htmlFor="fileTrailer" className="form-label text-dark">
                       {" "}
                       Upload Trailer
                     </label>

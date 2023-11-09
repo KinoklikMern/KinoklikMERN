@@ -97,10 +97,7 @@ export default function Account() {
             <h2>{message}</h2>
             <br />
             {confirmed ? (
-              <button
-                className="btn btn-secondary btn-sm"
-                onClick={closeModal}
-              >
+              <button className="btn btn-secondary btn-sm" onClick={closeModal}>
                 Ok
               </button>
             ) : (
@@ -114,7 +111,7 @@ export default function Account() {
                 <button
                   className="btn btn-secondary btn-sm"
                   onClick={deleteAccount}
-                   style={{ marginLeft: "25px" }}
+                  style={{ marginLeft: "25px" }}
                 >
                   Confirm
                 </button>
