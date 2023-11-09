@@ -36,7 +36,7 @@ const HomeBody = ({ role }) => {
     },
   ]);
 
-  const actorId = "6483619d64b048f952a6fb5b";
+  // const actorId = "6483619d64b048f952a6fb5b";
 
   const clickHandler = (name, isActive) => {
     let newTags;
@@ -163,7 +163,7 @@ const HomeBody = ({ role }) => {
                   <a
                     href={
                       role === "actor"
-                        ? `/actor/${actorId}`
+                        ? `/actor/${fepk._id}`
                         : `epk/${formattedTitle}`
                     }
                   >
