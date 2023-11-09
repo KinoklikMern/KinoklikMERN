@@ -176,6 +176,7 @@ export const getFepkByTitle = async (req, res) => {
       .findOne({ title: { $regex: new RegExp(`^${title}$`, "i") } })
       .populate("film_maker") // includes all fields of this object
       .populate("crew.crewId") // includes all fields of this object
+      .populate("actors")
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
       .populate("wishes_to_donate") // includes all fields of this object
@@ -192,7 +193,6 @@ export const getFepkByTitle = async (req, res) => {
     if (!fepkOne) {
       return res.status(404).json({ message: "FEPK not found" });
     }
-    res.status(200).json(fepkOne);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

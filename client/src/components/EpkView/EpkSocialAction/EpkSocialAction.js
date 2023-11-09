@@ -301,9 +301,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">
       {/* Social media sharing Icons */}
       {actionList.map(
-        (action) =>
+        (action, index) =>
           action.icon !== null && (
             <div
+              key={index}
               className="tw-relative"
               onMouseOver={() => handlers.hoverHandler("onMouseOver")}
               onMouseOut={() => handlers.hoverHandler("onMouseOut")}

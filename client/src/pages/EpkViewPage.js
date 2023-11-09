@@ -98,6 +98,10 @@ function EpkViewPage() {
     });
   }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
 
+  // useEffect(() => {
+  //   console.log(epkInfo);
+  // }, [epkInfo])
+
   return (
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">

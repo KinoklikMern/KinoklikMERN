@@ -11,9 +11,10 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
-export default function EpkHeader({ epkInfo, role, id }) {
+export default function EpkHeader({ epkInfo }) {
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
     useState(0);
+
   const [socialMediasList, setSocialMediasList] = useState([
     {
       name: "facebook",
@@ -36,50 +37,58 @@ export default function EpkHeader({ epkInfo, role, id }) {
   ]);
 
   useEffect(() => {
-    let totalFollowers = 0;
-    //if(role === "actor"){
-      getActorFollowersNumber(id).then((res) => {
-        totalFollowers = formatCompactNumber(
-          res.facebook + res.instagram + res.twitter
-        );
-        setSocialMediaFollowerTotalNum(totalFollowers);
-        const newMediaList = socialMediasList.map((media) => {
-          if (media.name === "facebook") {
-            return { ...media, followers: formatCompactNumber(res.facebook) };
-          }
-          if (media.name === "instagram") {
-            return { ...media, followers: formatCompactNumber(res.instagram) };
-          }
-          if (media.name === "twitter") {
-            return { ...media, followers: formatCompactNumber(res.twitter) };
-          }
-          return media;
-        });
-        setSocialMediasList(newMediaList);
-      });
-    // }
-    // else {
-    //   getFepkFollowersNumber(epkInfo?._id).then((res) => {
-    //     totalFollowers = formatCompactNumber(
-    //       res.facebook + res.instagram + res.twitter
-    //     );
-    //     setSocialMediaFollowerTotalNum(totalFollowers);
-    //     const newMediaList = socialMediasList.map((media) => {
-    //       if (media.name == "facebook") {
-    //         return { ...media, followers: formatCompactNumber(res.facebook) };
-    //       }
-    //       if (media.name == "instagram") {
-    //         return { ...media, followers: formatCompactNumber(res.instagram) };
-    //       }
-    //       if (media.name == "twitter") {
-    //         return { ...media, followers: formatCompactNumber(res.twitter) };
-    //       }
-    //       return media;
-    //     });
-    //     setSocialMediasList(newMediaList);
-    //   });
-    // }
+    const fetchAndSumActorFollowers = async () => {
+      let totalFacebookFollowers = 0;
+      let totalInstagramFollowers = 0;
+      let totalTwitterFollowers = 0;
 
+      const actorPromises = epkInfo.actors.map(async (actor) => {
+        try {
+          const res = await getActorFollowersNumber(actor._id);
+          totalFacebookFollowers += parseInt(res.facebook, 10);
+          totalInstagramFollowers += parseInt(res.instagram, 10);
+          totalTwitterFollowers += parseInt(res.twitter, 10);
+        } catch (error) {
+          console.error(
+            "Failed to fetch followers for actor",
+            actor._id,
+            error
+          );
+        }
+      });
+
+      await Promise.all(actorPromises);
+
+      // Once all promises are resolved, update the state
+      setSocialMediaFollowerTotalNum(
+        formatCompactNumber(
+          totalFacebookFollowers +
+            totalInstagramFollowers +
+            totalTwitterFollowers
+        )
+      );
+
+      setSocialMediasList(
+        socialMediasList.map((media) => {
+          let followersCount;
+          if (media.name === "facebook") {
+            followersCount = totalFacebookFollowers;
+          } else if (media.name === "instagram") {
+            followersCount = totalInstagramFollowers;
+          } else if (media.name === "twitter") {
+            followersCount = totalTwitterFollowers;
+          }
+          return {
+            ...media,
+            followers: formatCompactNumber(followersCount),
+          };
+        })
+      );
+    };
+
+    if (epkInfo?.actors && epkInfo.actors.length > 0) {
+      fetchAndSumActorFollowers();
+    }
   }, [epkInfo]);
 
   function formatCompactNumber(number) {
