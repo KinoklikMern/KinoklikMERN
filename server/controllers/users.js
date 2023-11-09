@@ -766,15 +766,6 @@ export const getProfileActor = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-  try {
-    const profile = await User.find({ role: "Actor" }).select("-password");
-    if (!profile) {
-      return res.json({ ok: false });
-    }
-    res.send(profile);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 };
 
 //get all users
@@ -1027,7 +1018,7 @@ export const getActorRecommendations = async (req, res) => {
     const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
 
     console.log("Actor Profile:", actorProfile);
-    
+
     if (!actorProfile) {
       return res.status(404).json({ error: "No Actor was found!" });
     }
