@@ -36,12 +36,9 @@ export const getFepksByTitle = (title) => {
 
 export const getActorById = (id) => {
   try {
-    return fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/users/getactor/${id}`,
-      {
-        method: "GET",
-      }
-    ).then((res) => res.json());
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getactor/${id}`, {
+      method: "GET",
+    }).then((res) => res.json());
   } catch (error) {
     console.log(error.message);
   }

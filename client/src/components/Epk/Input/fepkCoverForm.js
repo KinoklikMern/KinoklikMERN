@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
 import { Button, Tooltip } from "antd";
@@ -11,27 +11,46 @@ function FepkCoverForm() {
   const navigate = useNavigate();
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
+  const [file3, setFile3] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
-  // eslint-disable-next-line no-unused-vars
+  const inputFile3Ref = useRef(null);
   const [message, setMessage] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
+  const [posterPreviewUrl, setPosterPreviewUrl] = useState("");
+  const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
+  const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
 
   // fetching user
-  const { user } = useSelector((state) => state);
+  const { user } = useSelector((user) => ({ ...user }));
   const filmmaker_id = user.id;
-
+  //banner
   const file1Selected = (event) => {
     const file = event.target.files[0];
     setFile1(file);
+    setDisabled(false);
+    const url = URL.createObjectURL(file);
+    setBannerPreviewUrl(url);
   };
-
+  // trailer
   const file2Selected = (event) => {
     const file = event.target.files[0];
     setFile2(file);
+    setDisabled(false);
+    const url = URL.createObjectURL(file);
+    setTrailerPreviewUrl(url);
+  };
+  // poster
+  const file3Selected = (event) => {
+    const file = event.target.files[0];
+    setFile3(file);
+    setDisabled(false);
+    const url = URL.createObjectURL(file);
+    setPosterPreviewUrl(url);
   };
 
   const [epkCoverData, setEpkCoverData] = useState({
@@ -40,18 +59,25 @@ function FepkCoverForm() {
     logLine_short: "",
     genre: "",
     production_type: "",
+    kickstarter_url: "",
+    image_details: "",
     DonatePayPal_url: "",
     DonateStripe_url: "",
     banner_url: "",
     trailer_url: "",
     status: "",
+    productionCo: "",
+    distributionCo: "",
+    durationMin: "",
+    productionYear: "",
+    budget: "",
   });
   const movieGenre = [
-    "Genre...",
     "action",
     "comedy",
     "documentary",
     "romance",
+    "action",
     "horror",
     "mystery",
     "drama",
@@ -92,30 +118,49 @@ function FepkCoverForm() {
   const makeGenreItem = (X) => {
     return <option value={X}> {X}</option>;
   };
-  const movieStatus = [
-    "Status...",
-    "Preproduction",
-    "Production",
-    "Postproduction",
-  ];
+  const movieStatus = ["Preproduction", "Production", "Postproduction"];
   const makeStatusItem = (Y) => {
     return <option value={Y}> {Y}</option>;
   };
-
-  const movieType = [
-    "Type...",
-    "Movie",
-    "Documentary",
-    "TV Show",
-    "Web Series",
-  ];
+  const movieType = ["Movie", "Documentary", "TV Show", "Web Series"];
   const makeTypeItem = (Z) => {
     return <option value={Z}> {Z}</option>;
   };
 
+  const budgetRanges = [
+    "0$ - 5,000$",
+    "5,000$ - 10,000$",
+    "10,000$ - 25,000$",
+    "25,000$ - 50,000$",
+    "50,000$ - 75,000$",
+    "75,000$ - 100,000$",
+    "100,000$ - 150,000$",
+    "150,000$ - 200,000$",
+    "200,000$ - 300,000$",
+    "300,000$ - 500,000$",
+    "500,000$ - 750,000$",
+    "750,000$ - 1,000,000$",
+    "1,000,000$ - 1,500,000$",
+    "1,500,000$ - 2,000,000$",
+    "2,000,000$ - 3,000,000$",
+    "3,000,000$ - 5,000,000$",
+    "5,000,000$ - 7,500,000$",
+    "7,500,000$ - 10,000,000$",
+  ];
+
+  const makeBudgetRangeItem = (B) => {
+    return (
+      <option key={B} value={B}>
+        {" "}
+        {B}
+      </option>
+    );
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-  
+    setCharacterLength({ ...characterLength, [name]: value.length });
+
     if (name === "logLine_short") {
       if (value.length > 160) {
         // Truncate the value to 160 characters
@@ -126,25 +171,23 @@ function FepkCoverForm() {
         setCharacterLength({ logLine_short: value.length });
         setEpkCoverData({ ...epkCoverData, [name]: value });
       }
-    } else {
-      // Handle other input fields
-      setEpkCoverData({ ...epkCoverData, [name]: value });
     }
-  
+    // Handle other input fields
+    setEpkCoverData({ ...epkCoverData, [name]: value });
     if (name === "title") {
-      http.get(`fepks/byTitles/${value}`).then((response) => {
+      http.get(`fepks/byTitles/${event.target.value}`).then((response) => {
         if (response.data.length > 0) {
           setMessageTitleNo("This title exists! Choose another one!");
           setMessageTitleYes("");
+          console.log(response.data);
         } else {
           setMessageTitleYes("This title is ok!");
           setMessageTitleNo("");
         }
       });
     }
+    setDisabled(false);
   };
-  
-  
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -164,41 +207,41 @@ function FepkCoverForm() {
       else return false;
     } else return true;
   };
-
   const saveEpkCover = (e) => {
-    debugger;
+    console.log("Button clicked");
     e.preventDefault();
     let formData = new FormData();
     console.log(file1);
     console.log(file2);
-
+    console.log(file3);
     formData.append("file1", file1);
-
     formData.append("file2", file2);
+    formData.append("file3", file3);
     console.log(formData);
     console.log([...formData.entries()]);
-    debugger;
 
-    // ----- CHIHYIN -------
-    // Initializing messages
-    let bannerMessage = "";
     let titleLoglineMessage = "";
-
-    // Checking if banner (file1) has been uploaded
-    if (!file1) {
-      bannerMessage = "Please upload a banner.";
-    }
-    // Checking if title and logLine_short are filled in
+    let genreStatusMessage = "";
     if (!epkCoverData.title || !epkCoverData.logLine_short) {
       titleLoglineMessage = " Title and Log Line needed.";
     }
-    if (bannerMessage || titleLoglineMessage) {
-      setSubmitMessage(bannerMessage + titleLoglineMessage);
+    if (
+      !epkCoverData.production_type ||
+      !epkCoverData.genre ||
+      !epkCoverData.status
+    ) {
+      genreStatusMessage = "Tell us the productiob type, genre and status.";
+    }
+    if (titleLoglineMessage || genreStatusMessage) {
+      setSubmitMessage(titleLoglineMessage + " " + genreStatusMessage);
       return; // Exit the function early if any check fails
     }
-    // ----- CHIHYIN -------
 
-    if (checkFileMimeType(file1) && checkFileMimeType(file2)) {
+    if (
+      checkFileMimeType(file1) &&
+      checkFileMimeType(file2) &&
+      checkFileMimeType(file3)
+    ) {
       http
         .post("fepks/uploadFiles", formData, {
           headers: {
@@ -212,38 +255,38 @@ function FepkCoverForm() {
           if (response.data.file2 !== undefined) {
             epkCoverData.trailer_url = response.data.file2;
           }
+          if (response.data.file3 !== undefined) {
+            epkCoverData.image_details = response.data.file3;
+          }
           http.post("fepks/", epkCoverData).then((res) => {
             if (res.data.error) {
+              console.error("Error submitting data:", res.data.error);
               setSubmitMessage(
-                // res.data.error + " Title is unique and status needed!"
-                // ----- CHIHYIN -------
-                "Tell us the genre and the status."
+                "An error occurred while saving your data. Please try again."
               );
             } else {
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
             }
-          }) /*
-            .catch((err) => {
-              console.log(err);
-            })*/;
-        }) /*
-        .catch((err) => {
-          console.log(err);
-        })*/;
+          });
+        });
     } else {
-      setMessage("File must be an image(jpeg or png)");
+      setMessage("File must be a image(jpeg or png)");
     }
+    setDisabled(true);
   };
 
   return (
     <>
       <div
         style={{
-          boxShadow: "1px 2px 9px #311465",
+          boxShadow: "inset 1px 2px 9px #311465",
+          padding: "0px 10px",
           marginLeft: "10%",
+          marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
+          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -253,6 +296,7 @@ function FepkCoverForm() {
             style={{
               background:
                 "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+              height: "auto",
             }}
           >
             <div className="col-1">
@@ -291,118 +335,418 @@ function FepkCoverForm() {
           </div>
           <div
             style={{
-              marginLeft: "10%",
-              marginRight: "15%",
+              marginLeft: "5%",
+              marginRight: "5%",
               color: "#311465",
               fontWeight: "normal",
             }}
           >
-            <div className="card-body" style={{ height: "530px" }}>
+            <div
+              className="card-body"
+              style={{
+                height: "auto",
+                marginLeft: "-1em",
+                marginRight: "-1rem",
+                marginBottom: "1%",
+                paddingBottom: "2%",
+              }}
+            >
               <h5
                 className="card-title "
-                style={{ color: "#ffffff", fontWeight: "normal" }}
+                style={{
+                  color: "#311465",
+                  fontWeight: "normal",
+                  marginBottom: "1%",
+                  fontSize: "1.2rem",
+                }}
               >
-                Cover
+                Cover - Mandotory
               </h5>
-              <form className="row g-3">
-                <div className="col mx-5">
-                  <div className="col mt-1 mb-5">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                      }}
-                      className="form-control m-10"
-                      defaultValue={epkCoverData.title}
-                      placeholder="Title"
-                      onChange={handleInputChange}
-                      name="title"
-                    />
-                    <h6 style={{ color: "red", fontSize: "15px" }}>
-                      {messageTitleNo}
-                    </h6>
-                    <h6 style={{ color: "green", fontSize: "15px" }}>
-                      {messageTitleYes}
-                    </h6>
-                  </div>
-                  <div className="col my-3">
-                   <textarea
-                      style={{
-                        height: "100px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "0px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        resize: "none",
-                      }}
-                      maxLength="160"
-                      className="form-control mt-10"
-                      defaultValue={epkCoverData.logLine_short}
-                      placeholder="Log Line short (maximum 160 characters)"
-                      onChange={handleInputChange}
-                      name="logLine_short"
-                    />
-                    <span
-                      style={{
-                        fontSize: "15px",
-                        display: "flex",
-                        justifyContent: "right",
-                      }}
-                    >
-                      {characterLength?.logLine_short}/160 characters
-                    </span>
-                  </div>
-                  <div className="row my-5">
-                    <div className="col my-2">
-                      <select
-                        style={{
-                          height: "30px",
-                          width: "100%",
-                          borderRadius: "5px",
-                          boxShadow: "1px 2px 9px #311465",
-                        }}
-                        className="form-select form-select-sm "
-                        name="genre"
-                        onChange={handleInputChange}
-                      >
-                        {movieGenre.map(makeGenreItem)}
-                      </select>
+              <form className="row g-5">
+                <div className="col me-5">
+                  <div className="row align-items-stretch">
+                    <div className="col">
+                      <div className="col mt-1 mb-5">
+                        <input
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "5px",
+                            boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                          }}
+                          className="form-control m-10"
+                          placeholder="Title"
+                          onChange={handleInputChange}
+                          value={epkCoverData.title}
+                          name="title"
+                        />
+                        <h6 style={{ color: "red", fontSize: "1rem" }}>
+                          {messageTitleNo}
+                        </h6>
+                        <h6 style={{ color: "green", fontSize: "1rem" }}>
+                          {messageTitleYes}
+                        </h6>
+                      </div>
+                      <div className="col my-1">
+                        <textarea
+                          style={{
+                            height: "80px",
+                            width: "100%",
+                            borderRadius: "5px",
+                            marginBottom: "0px",
+                            boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                            resize: "none",
+                          }}
+                          maxLength="160"
+                          className="form-control mt-10"
+                          placeholder="Log Line short (maximum 160 characters)"
+                          onChange={handleInputChange}
+                          value={epkCoverData.logLine_short}
+                          name="logLine_short"
+                        />
+                        <span
+                          style={{
+                            fontSize: "15px",
+                            display: "flex",
+                            justifyContent: "right",
+                            marginBottom: "1rem",
+                          }}
+                        >
+                          {characterLength?.logLine_short}/160 characters
+                        </span>
+                      </div>
+                      <div className="row" style={{ marginBottom: "-1.4rem" }}>
+                        <div className="col my-2">
+                          <input
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            className="form-control m-10 mb-4"
+                            placeholder="Production Company Name"
+                            onChange={handleInputChange}
+                            value={epkCoverData.productionCo}
+                            name="productionCo"
+                          />
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col my-2">
+                          <input
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            className="form-control m-10 "
+                            placeholder="Distribution Company Name"
+                            onChange={handleInputChange}
+                            value={epkCoverData.distributionCo}
+                            name="distributionCo"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="col my-2">
-                      <select
-                        style={{
-                          height: "30px",
-                          width: "100%",
-                          borderRadius: "5px",
-                          boxShadow: "1px 2px 9px #311465",
-                        }}
-                        className="form-select form-select-sm "
-                        name="status"
-                        onChange={handleInputChange}
-                      >
-                        {movieStatus.map(makeStatusItem)}
-                      </select>
-                    </div>
-                    <div className="col my-2">
-                      <select
-                        style={{
-                          height: "30px",
-                          width: "100%",
-                          borderRadius: "5px",
-                          boxShadow: "1px 2px 9px #311465",
-                        }}
-                        className="form-select form-select-sm "
-                        name="production_type"
-                        onChange={handleInputChange}
-                      >
-                        {movieType.map(makeTypeItem)}
-                      </select>
+                    <div className="col">
+                      <div className="row">
+                        <div className="col my-2">
+                          <select
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              marginBottom: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                            }}
+                            className="form-select form-select-sm "
+                            name="budget"
+                            onChange={handleInputChange}
+                            value={epkCoverData.budget}
+                          >
+                            <option
+                              value=""
+                              disabled
+                              selected={!epkCoverData.budget}
+                            >
+                              Production Budget
+                            </option>
+                            {budgetRanges.map((budget) => (
+                              <option key={budget} value={budget}>
+                                {budget}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col my-2">
+                          <select
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              marginBottom: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                            }}
+                            className="form-select form-select-sm "
+                            name="production_type"
+                            onChange={handleInputChange}
+                            value={epkCoverData.production_type}
+                          >
+                            <option
+                              value=""
+                              disabled
+                              selected={!epkCoverData.production_type}
+                            >
+                              Production Type
+                            </option>
+                            {movieType.map((type) => (
+                              <option key={type} value={type}>
+                                {type}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="row" style={{ marginBottom: "3rem" }}>
+                        <div className="col my-2">
+                          <select
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              marginBottom: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                            }}
+                            className="form-select form-select-sm "
+                            name="genre"
+                            onChange={handleInputChange}
+                            value={epkCoverData.genre}
+                          >
+                            <option
+                              value=""
+                              disabled
+                              selected={!epkCoverData.genre}
+                            >
+                              Genre
+                            </option>
+                            {movieGenre.map((genre) => (
+                              <option key={genre} value={genre}>
+                                {genre}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="col my-2">
+                          <select
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              marginBottom: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                            }}
+                            className="form-select form-select-sm "
+                            name="status"
+                            onChange={handleInputChange}
+                            value={epkCoverData.status}
+                          >
+                            <option
+                              value=""
+                              disabled
+                              selected={!epkCoverData.status}
+                            >
+                              Status
+                            </option>
+                            {movieStatus.map((status) => (
+                              <option key={status} value={status}>
+                                {status}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col my-2">
+                          <input
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            className="form-control"
+                            type="number"
+                            min="1895"
+                            placeholder="Production Year"
+                            onChange={handleInputChange}
+                            name="productionYear"
+                          />
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col my-2">
+                          <input
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "5px",
+                              boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            type="number"
+                            min="0"
+                            className="form-control m-10"
+                            placeholder="Duration Minutes"
+                            onChange={handleInputChange}
+                            name="durationMin"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </div>
+                <div
+                  className="col"
+                  style={{
+                    boxShadow: "1px 2px 9px #311465",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <div className="row gx-6">
+                    <div className="col">
+                      <label
+                        htmlFor="filePoster"
+                        className="form-label text-dark"
+                        style={{ fontSize: "25px" }}
+                      >
+                        <h4>Upload Poster</h4>
+                      </label>
+                      <input
+                        style={{ fontSize: "15px" }}
+                        className="form-control form-control-sm"
+                        filename={file3}
+                        onChange={file3Selected}
+                        ref={inputFile3Ref}
+                        type="file"
+                        id="filePoster"
+                        name="files"
+                        accept="image/*"
+                      ></input>
+                      {posterPreviewUrl ? (
+                        <img
+                          src={posterPreviewUrl}
+                          style={{
+                            height: "120px",
+                            width: "auto",
+                            marginTop: "5px",
+                          }}
+                          alt="Preview"
+                        />
+                      ) : (
+                        <h3>No Image</h3>
+                      )}
+                    </div>
+                    <div className="col" style={{ height: "450px" }}>
+                      <div className="row">
+                        <div className="col">
+                          <label
+                            htmlFor="fileBanner"
+                            className="form-label text-dark"
+                            style={{ fontSize: "25px" }}
+                          >
+                            <h4>Upload Banner</h4>
+                          </label>
+                          <input
+                            style={{ fontSize: "15px" }}
+                            className="form-control form-control-sm"
+                            filename={file1}
+                            onChange={file1Selected}
+                            ref={inputFile1Ref}
+                            type="file"
+                            id="fileBanner"
+                            name="files"
+                            accept="image/*"
+                          ></input>
+                          {bannerPreviewUrl ? (
+                            <img
+                              src={bannerPreviewUrl}
+                              style={{
+                                height: "100px",
+                                width: "auto",
+                                marginTop: "5px",
+                              }}
+                              alt="Preview"
+                            />
+                          ) : (
+                            <h3>No Image</h3>
+                          )}
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <label
+                            htmlFor="fileTrailer"
+                            className="form-label text-dark"
+                            style={{ fontSize: "25px" }}
+                          >
+                            <h4>Upload Trailer</h4>
+                          </label>
+                          <input
+                            style={{ fontSize: "15px" }}
+                            className="form-control form-control-sm"
+                            filename={file2}
+                            ref={inputFile2Ref}
+                            onChange={file2Selected}
+                            type="file"
+                            id="fileTrailer"
+                            name="files"
+                            accept="video/*"
+                          ></input>
+                          {trailerPreviewUrl ? (
+                            <video
+                              src={trailerPreviewUrl}
+                              style={{ width: "100%", height: "150px" }}
+                              controls
+                            ></video>
+                          ) : (
+                            <h1>NO VIDEO UPLOADED</h1>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h6
+                  style={{
+                    color: "red",
+                    fontSize: "0.9rem",
+                    marginTop: "-10%",
+                  }}
+                >
+                  {submitMessage}
+                </h6>
+                <div
+                  className="row"
+                  style={{
+                    marginTop: "-2%",
+                    paddingRight: "25%",
+                    paddingLeft: "3%",
+                  }}
+                >
                   <div>
                     <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
                       <span>
@@ -411,7 +755,7 @@ function FepkCoverForm() {
                       </span>
                     </Tooltip>
                   </div>
-                  <div>
+                  <div className="col">
                     <input
                       style={{
                         height: "30px",
@@ -432,7 +776,7 @@ function FepkCoverForm() {
                       name="DonatePayPal_url"
                     />
                   </div>
-                  <div>
+                  <div className="col">
                     <input
                       style={{
                         height: "30px",
@@ -453,61 +797,12 @@ function FepkCoverForm() {
                     />
                   </div>
                 </div>
-                <div className="col border border-2 rounded">
-                  <div className="row gx-6">
-                    <div className="col mt-5">
-                      <label
-                        for="fileBanner"
-                        class="form-label text-dark"
-                        style={{ fontSize: "25px" }}
-                      >
-                        {" "}
-                        Upload Banner
-                      </label>
-                      <input
-                        style={{ fontSize: "15px" }}
-                        className="form-control form-control-sm"
-                        filename={file1}
-                        onChange={file1Selected}
-                        ref={inputFile1Ref}
-                        type="file"
-                        id="fileBanner"
-                        name="files"
-                        accept="image/*"
-                      ></input>
-                    </div>
-                    <div className="col mt-5">
-                      <label
-                        for="fileTrailer"
-                        class="form-label text-dark"
-                        style={{ fontSize: "25px" }}
-                      >
-                        {" "}
-                        Upload Trailer
-                      </label>
-                      <input
-                        style={{ fontSize: "15px" }}
-                        className="form-control form-control-sm"
-                        filename={file2}
-                        ref={inputFile2Ref}
-                        onChange={file2Selected}
-                        type="file"
-                        id="fileTrailer"
-                        name="files"
-                        accept="video/*"
-                      ></input>
-                    </div>
-                  </div>
-                </div>
-                <h6 style={{ color: "red", fontSize: "15px" }}>
-                  {submitMessage}
-                </h6>
                 <div
                   style={{
                     height: "50px",
-                    width: "120px",
+                    width: "auto",
                     marginLeft: "90%",
-                    textAlign: "center",
+                    marginTop: "-1%",
                   }}
                 >
                   <Button
@@ -515,7 +810,6 @@ function FepkCoverForm() {
                       boxShadow: "1px 2px 9px #311465",
                       backgroundColor: "#ffffff",
                       fontWeight: "bold",
-                      width: "115px",
                     }}
                     type="outline-primary"
                     block
@@ -533,5 +827,4 @@ function FepkCoverForm() {
     </>
   );
 }
-
 export default FepkCoverForm;

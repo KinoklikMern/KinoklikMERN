@@ -1,26 +1,22 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button } from "antd";
-
+import { Button, Col, Row } from "antd";
 function CoverForm() {
+  //const [movieId, setMovieId] = useState("");
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
-  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
-
   const file1Selected = (event) => {
     const file = event.target.files[0];
     setFile1(file);
   };
-
   const file2Selected = (event) => {
     const file = event.target.files[0];
     setFile2(file);
   };
-
   const [epkCoverData, setEpkCoverData] = useState({
     epkId: "5",
     title: "",
@@ -29,8 +25,7 @@ function CoverForm() {
     minutes: "",
     banner_url: "",
     trailer_url: "",
-    DonatePayPal_url: "",
-    DonateStripe_url: "",
+    kickstarter_url: "",
   });
   const movieGenre = [
     "Genre...",
@@ -83,7 +78,6 @@ function CoverForm() {
     const { name, value } = event.target;
     setEpkCoverData({ ...epkCoverData, [name]: value });
   };
-
   const checkFileMimeType = (file) => {
     if (file !== "") {
       if (
@@ -102,16 +96,13 @@ function CoverForm() {
       else return false;
     } else return true;
   };
-
   const saveEpkCover = (e) => {
     debugger;
     e.preventDefault();
     let formData = new FormData();
     console.log(file1);
     console.log(file2);
-
     formData.append("file1", file1);
-
     formData.append("file2", file2);
     console.log(formData);
     debugger;
@@ -146,7 +137,6 @@ function CoverForm() {
       setMessage("File must be a image(jpeg or png)");
     }
   };
-
   return (
     <>
       <div
@@ -238,7 +228,7 @@ function CoverForm() {
                         textAlign: "center",
                       }}
                       className="form-control mt-10"
-                      defaultValue={epkCoverData.logLine}
+                      defaultValue={epkCoverData.LogLine}
                       placeholder="Log Line"
                       onChange={handleInputChange}
                       name="logLine"
@@ -288,33 +278,20 @@ function CoverForm() {
                         boxShadow: "1px 2px 9px #311465",
                       }}
                       className="form-control"
-                      defaultValue={epkCoverData.DonatePayPal_url}
-                      placeholder="URL: www.paypal.com/mymovie"
+                      defaultValue={epkCoverData.kickstarter_url}
+                      placeholder="KickStarter URL"
                       onChange={handleInputChange}
-                      name="DonatePayPal_url"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                      }}
-                      className="form-control"
-                      defaultValue={epkCoverData.DonateStripe_url}
-                      placeholder="URL: www.stripe.com/mymovie"
-                      onChange={handleInputChange}
-                      name="DonateStripe_url"
+                      name="kickstarter_url"
                     />
                   </div>
                 </div>
                 <div className="col border border-2">
                   <div className="row gx-5">
                     <div className="col mt-5">
-                      <label for="fileBanner" class="form-label text-dark">
+                      <label
+                        htmlFor="fileBanner"
+                        className="form-label text-dark"
+                      >
                         {" "}
                         Upload Banner
                       </label>
@@ -330,7 +307,10 @@ function CoverForm() {
                       ></input>
                     </div>
                     <div className="col mt-5">
-                      <label for="fileTrailer" class="form-label text-dark">
+                      <label
+                        htmlFor="fileTrailer"
+                        className="form-label text-dark"
+                      >
                         {" "}
                         Upload Trailer
                       </label>

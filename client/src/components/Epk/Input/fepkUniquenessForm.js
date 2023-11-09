@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "antd";
+import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 
 function UniquenessForm() {
   const [file, setFile] = useState("");
-  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -17,40 +17,49 @@ function UniquenessForm() {
   const [epkUniquenessData, setEpkUniquenessData] = useState([]);
   const inputFileRef = useRef(null);
 
+  //modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  //Picture prewiev
+  const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
+
   let { fepkId } = useParams();
 
   const fileSelected = (event) => {
-    setFile(event.target.files[0]);
+    const fileNew = event.target.files[0];
+    setFile(fileNew);
     setDisabled(false);
+    const url = URL.createObjectURL(fileNew);
+    setPicturerPreviewUrlPreviewUrl(url);
   };
 
-  //modify by delara
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
       if (response.data) {
         setFepk(response.data);
         const { description_uniqueness } = response.data;
-        if (description_uniqueness) {
-          setCharacterLength({
-            description_uniqueness: description_uniqueness.length,
-          });
-          setEpkUniquenessData({
-            image_uniqueness: response.data.image_uniqueness,
-            title_uniqueness: response.data.title_uniqueness,
-            description_uniqueness,
-            uniqueness_blur: response.data.uniqueness_blur,
-          });
-        } else {
-          // Handle the case when description_uniqueness is undefined or empty
-          console.error("description_uniqueness is undefined or empty");
-        }
+        //Aleksejs commented out because it was giving an error, seems to be working fine without that part
+        //if (description_uniqueness) {
+        setCharacterLength({
+          description_uniqueness: description_uniqueness.length,
+        });
+        setEpkUniquenessData({
+          image_uniqueness: response.data.image_uniqueness,
+          title_uniqueness: response.data.title_uniqueness,
+          description_uniqueness,
+          uniqueness_blur: response.data.uniqueness_blur,
+        });
+        // } else {
+        //   // Handle the case when description_uniqueness is undefined or empty
+        //   console.error("description_uniqueness is undefined or empty");
+        // }
       } else {
         // Handle the case when response.data is undefined or empty
         console.error("response.data is undefined or empty");
       }
     });
-  }, [fepkId]);
-  //end(delara)
+  }, []);
+
 
   if (!epkUniquenessData) {
     epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
@@ -109,6 +118,7 @@ function UniquenessForm() {
               http
                 .put(`fepks/update/${fepkId}`, epkUniquenessData)
                 .then((res) => {
+                  setModalIsOpen(true);
                   console.log("saved");
                 })
                 .catch((err) => {
@@ -123,6 +133,8 @@ function UniquenessForm() {
           http
             .put(`fepks/update/${fepkId}`, epkUniquenessData)
             .then((res) => {
+              setModalIsOpen(true);
+
               console.log("saved");
             })
             .catch((err) => {
@@ -136,6 +148,10 @@ function UniquenessForm() {
     }
   };
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <>
       <div
@@ -143,172 +159,184 @@ function UniquenessForm() {
           boxShadow: "inset 1px 2px 9px #311465",
           padding: "0px 10px",
           marginLeft: "10%",
+          marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
-        <form>
-          <div
-            className="row"
-            style={{
-              background:
-                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
-            }}
-          >
-            <div className="col-1">
-              <Link className="navbar-brand text-headers-style" to="/home">
-                <img
-                  style={{ width: "100%", height: "80px" }}
-                  src={require("../../../images/logo.png")}
-                  alt="Logo"
-                  className="navbar-logo"
-                />
-              </Link>
-            </div>
-            <div className="col-3  m-3">
-              <h2
-                className="col align-items-start"
-                style={{
-                  color: "#FFFFFF",
-                  fontWeight: "normal",
-                  fontSize: "25px",
-                }}
-              >
-                EPK Dashboard
-              </h2>
-            </div>
-            <div className="col-3 m-3">
-              <BasicMenu />
-            </div>
-            <div className="col-1 m-3"></div>
-            <div className="col-2 m-3">
-              <Link
-                className="col align-items-end"
-                to={`/epk/${fepk.title}`}
-                style={{
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  fontWeight: "normal",
-                  fontSize: "20px",
-                }}
-              >
-                View EPK Page
-              </Link>
-            </div>
+        <div
+          className="row"
+          style={{
+            background:
+              "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
+          }}
+        >
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
+              <img
+                style={{ width: "100%", height: "80px" }}
+                src={require("../../../images/logo.png")}
+                alt="Logo"
+                className="navbar-logo"
+              />
+            </Link>
           </div>
-          <div
-            style={{
-              marginLeft: "10%",
-              marginRight: "15%",
-              color: "#311465",
-              fontWeight: "normal",
-            }}
-          >
-            <div className="card-body" style={{ height: "500px" }}>
-              <h5
-                className="card-title "
-                style={{ color: "#311465", fontWeight: "normal" }}
-              >
-                Uniqueness
-              </h5>
-              <form className="row g-3">
-                <div className="col ms-">
-                  <div className="col my-1">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                      }}
-                      className="form-control m-10"
-                      defaultValue={fepk.title_uniqueness}
-                      placeholder="Title"
-                      onChange={handleUniquenessChange}
-                      name="title_uniqueness"
-                    />
-                    {/* </div>
+          <div className="col-3  m-3">
+            <h2
+              className="col align-items-start"
+              style={{
+                color: "#FFFFFF",
+                fontWeight: "normal",
+                fontSize: "25px",
+              }}
+            >
+              EPK Dashboard
+            </h2>
+          </div>
+          <div className="col-3 m-3">
+            <BasicMenu />
+          </div>
+          <div className="col-1 m-3"></div>
+          <div className="col-2 m-3">
+            <Link
+              className="col align-items-end"
+              to={`/epk/${fepk.title}`}
+              style={{
+                color: "#FFFFFF",
+                textDecoration: "none",
+                fontWeight: "normal",
+                fontSize: "20px",
+              }}
+            >
+              View EPK Page
+            </Link>
+          </div>
+        </div>
+        <div
+          style={{
+            marginLeft: "10%",
+            marginRight: "15%",
+            color: "#311465",
+            fontWeight: "normal",
+          }}
+        >
+          <div className="card-body" style={{ height: "500px" }}>
+            <h5
+              className="card-title "
+              style={{ color: "#311465", fontWeight: "normal" }}
+            >
+              Uniqueness
+            </h5>
+            <form className="row g-3">
+              <div className="col ms-">
+                <div className="col my-1">
+                  <input
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
+                    className="form-control m-10"
+                    defaultValue={fepk.title_uniqueness}
+                    placeholder="Title"
+                    onChange={handleUniquenessChange}
+                    name="title_uniqueness"
+                  />
+                  {/* </div>
                    <div className="col my-3"></div> 
                 </div>
 
                 <div className="col ms-">
                   <div className="col my-1"> */}
-                    <textarea
+                  <textarea
+                    style={{
+                      height: "120px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "5px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                      resize: "none",
+                    }}
+                    className="form-control mt-10"
+                    defaultValue={fepk.description_uniqueness}
+                    placeholder="Description (maximum 500 characters)"
+                    onChange={handleUniquenessChange}
+                    name="description_uniqueness"
+                    maxLength="500"
+                  />
+                  <span
+                    style={{
+                      fontSize: "15px",
+                      display: "flex",
+                      justifyContent: "right",
+                    }}
+                  >
+                    {characterLength.description_uniqueness}/500 characters
+                  </span>
+                </div>
+
+                <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
+                  <Button
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                    style={{
+                      height: "30px",
+                      width: "120px",
+                      boxShadow: "1px 2px 9px #311465",
+                      fontWeight: "bold",
+                    }}
+                    type="outline-primary"
+                    block
+                    onClick={() =>
+                      handleUniquenessBlurChange(
+                        !epkUniquenessData.uniqueness_blur,
+                        "uniqueness_blur"
+                      )
+                    }
+                    name="text_long_blur"
+                  >
+                    {epkUniquenessData.uniqueness_blur ? "UnBlur" : "Blur"}
+                  </Button>
+                </div>
+                {/* <div className="col my-3"></div> */}
+
+                <div className="col mt-1">
+                  <label
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
+                    style={{ fontSize: "25px" }}
+                  >
+                    {" "}
+                    <h4>Upload Picture</h4>
+                  </label>
+                  <input
+                    style={{ fontSize: "15px" }}
+                    className="form-control form-control-sm"
+                    filename={file}
+                    onChange={fileSelected}
+                    ref={inputFileRef}
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
+                  ></input>
+                  {picturePreviewUrl ? (
+                    <img
+                      src={picturePreviewUrl}
                       style={{
                         height: "120px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        resize: "none",
+                        width: "auto",
+                        marginTop: "5px",
+                        marginLeft: "50px",
                       }}
-                      className="form-control mt-10"
-                      defaultValue={fepk.description_uniqueness}
-                      placeholder="Description (maximum 500 characters)"
-                      onChange={handleUniquenessChange}
-                      name="description_uniqueness"
-                      maxLength="500"
+                      alt="Picture Preview"
                     />
-                    <span
-                      style={{
-                        fontSize: "15px",
-                        display: "flex",
-                        justifyContent: "right",
-                      }}
-                    >
-                      {characterLength.description_uniqueness}/500 characters
-                    </span>
-                  </div>
-
-                  <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
-                    <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                      style={{
-                        height: "30px",
-                        width: "120px",
-                        boxShadow: "1px 2px 9px #311465",
-                        fontWeight: "bold",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={() =>
-                        handleUniquenessBlurChange(
-                          !epkUniquenessData.uniqueness_blur,
-                          "uniqueness_blur"
-                        )
-                      }
-                      name="text_long_blur"
-                    >
-                      {epkUniquenessData.uniqueness_blur ? "UnBlur" : "Blur"}
-                    </Button>
-                  </div>
-                  {/* <div className="col my-3"></div> */}
-
-                  <div className="col mt-1">
-                    <label
-                      for="filePoster"
-                      class="form-label text-dark"
-                      style={{ fontSize: "25px" }}
-                    >
-                      {" "}
-                      <h4>Upload Picture</h4>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="filePoster"
-                      name="files"
-                      accept="image/*"
-                    ></input>
+                  ) : fepk.image_uniqueness ? (
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_uniqueness}`}
                       style={{
@@ -317,54 +345,90 @@ function UniquenessForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt="no image"
+                      alt="Picture"
                     />
-                  </div>
-                </div>
-                <div
-                  style={{
-                    height: "50px",
-                    width: "120px",
-                    marginLeft: "100%",
-                    marginTop: "-5%",
-                  }}
-                >
-                  {disabled === true ? (
-                    <Button
-                      disabled
-                      style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        color: "grey",
-                        backgroundColor: "#ffffff",
-                        fontWeight: "bold",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={saveEpkUniqueness}
-                      value="save"
-                    >
-                      Save
-                    </Button>
                   ) : (
-                    <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                      style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        fontWeight: "bold",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={saveEpkUniqueness}
-                      value="save"
-                    >
-                      Save
-                    </Button>
+                    <h3>No Image</h3>
                   )}
                 </div>
-              </form>
-            </div>
+              </div>
+              <div
+                style={{
+                  height: "50px",
+                  width: "120px",
+                  marginLeft: "100%",
+                  marginTop: "-5%",
+                }}
+              >
+                {disabled === true ? (
+                  <Button
+                    disabled
+                    style={{
+                      boxShadow: "1px 2px 9px #311465",
+                      color: "grey",
+                      backgroundColor: "#ffffff",
+                      fontWeight: "bold",
+                    }}
+                    type="outline-primary"
+                    block
+                    onClick={saveEpkUniqueness}
+                    value="save"
+                  >
+                    Save
+                  </Button>
+                ) : (
+                  <Button
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                    style={{
+                      boxShadow: "1px 2px 9px #311465",
+                      fontWeight: "bold",
+                    }}
+                    type="outline-primary"
+                    block
+                    onClick={saveEpkUniqueness}
+                    value="save"
+                  >
+                    Save
+                  </Button>
+                )}
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={closeModal}
+                  contentLabel="Example Modal"
+                  appElement={document.getElementById("root")}
+                  style={{
+                    overlay: {
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    },
+                    content: {
+                      position: "absolute",
+                      border: "2px solid #000",
+                      backgroundColor: "white",
+                      boxShadow: "2px solid black",
+                      height: 120,
+                      width: 300,
+                      margin: "auto",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    },
+                  }}
+                >
+                  <div style={{ textAlign: "center" }}>
+                    {"Uniqueness Saved Successfully!"}
+                    <br />
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={closeModal}
+                    >
+                      Ok
+                    </button>
+                  </div>
+                </Modal>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

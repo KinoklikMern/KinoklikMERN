@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Actor.css";
-import List from "./ListActor";
+// import List from "./ListActor";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
 import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/Footer";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import starIcon from "../../images/icons/Star FULL.svg";
+// import starIcon from "../../images/icons/Star FULL.svg";
 import refralIcon from "../../images/icons/referral sign.svg";
 import http from "../../http-common";
 import {
@@ -17,31 +17,30 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { addToChat } from "../../api/epks";
 
 export default function Actor(props) {
   const [epkInfo, setEpkInfo] = useState({});
   const { id } = useParams();
   const [kkFollower, setKKFollower] = useState([]);
   const [range, setRange] = useState(2);
-  const [isMoved, setIsMoved] = useState(false);
-  const [slideNumber, setSlideNumber] = useState(0);
+  // const [isMoved, setIsMoved] = useState(false);
+  // const [slideNumber, setSlideNumber] = useState(0);
   const [pics, setpics] = useState([]);
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
-  const [recommend, setRecommend] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [allUserList, setAllUserList] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilmmakers, setSelectedFilmmakers] = useState([]);
-  let images = [];
-
-  const listRef = useRef();
   const videoRef = useRef();
+  const [isModalVisible, setModalVisible] = useState(false);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -88,7 +87,7 @@ export default function Actor(props) {
         setAge(actorData.age);
         setLikes(actorData.likes.length);
         setKKFollower(actorData.kkFollowers.length);
-        setRecommend(actorData.comunicate);
+        setRecommendations(actorData.recommendations);
         setAllUserList(usersResponse.data);
       })
       .catch((error) => {
@@ -108,14 +107,26 @@ export default function Actor(props) {
       setLikes(res.data.likes.length);
     });
   }
+  // user is added to the list of recommendations
+  const addUserToRecommendations = (count) => {
+    http.post(`/users/recommend/${id}`, { count }).then((res) => {
+      setRecommendations(res.data.recommendations);
+    });
+  };
   // user is recommended to filmmakers
   const recommendToFilmmaker = (filmmaker) => {
     setSelectedFilmmakers((prevSelected) => {
-      const alreadySelected = prevSelected.some(
-        (selected) => selected.id === filmmaker.id
+      console.log("Incoming filmmaker:", filmmaker);
+      console.log("Previous Selection:", prevSelected);
+
+      const isAlreadySelected = prevSelected.some(
+        (selected) => selected._id === filmmaker._id
       );
-      if (alreadySelected) {
-        return prevSelected.filter((selected) => selected.id !== filmmaker.id);
+
+      if (isAlreadySelected) {
+        return prevSelected.filter(
+          (selected) => selected._id !== filmmaker._id
+        );
       } else {
         return [...prevSelected, filmmaker];
       }
@@ -123,9 +134,37 @@ export default function Actor(props) {
   };
 
   const sendRecommendations = () => {
-    console.log("Recommendations sent for", selectedFilmmakers);
-    setSelectedFilmmakers([]);
-    closeModal();
+    if (!user || !user.token) {
+      return console.error("User or user token is not available");
+    }
+    if (selectedFilmmakers.length === 0) {
+      return console.error("No filmmakers selected for recommendation");
+    }
+
+    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
+    const message2 = `<a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
+
+    Promise.all(
+      selectedFilmmakers.map((filmmaker) => {
+        return addToChat(message1, user, filmmaker._id).then((res) => {
+          if (res && res.status === 200) {
+            showModal();
+            return addToChat(message2, user, filmmaker._id);
+          } else {
+            console.error("Unexpected response for message 1", res);
+            throw new Error("Unexpected response for message 1");
+          }
+        });
+      })
+    )
+      .then(() => {
+        addUserToRecommendations(selectedFilmmakers.length);
+        setSelectedFilmmakers([]);
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Error sending recommendations:", error);
+      });
   };
 
   const handleSearch = (event) => {
@@ -170,7 +209,7 @@ export default function Actor(props) {
       case "Female":
         return "F";
       default:
-        return "";
+        return "N/A";
     }
   };
 
@@ -180,34 +219,40 @@ export default function Actor(props) {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+  const showModal = () => {
+    setModalVisible(true);
+    setTimeout(() => {
+      setModalVisible(false);
+    }, 2500);
+  };
 
   return (
-    <div className="tw-bg-[#1E0039]">
-      <div className="actor-top-container">
+    <div className='tw-bg-[#1E0039]'>
+      <div className='actor-top-container'>
         <Navbar className={props.className} title={props.title} />
       </div>
-      <div className="actor-navbar">
-        <EpkHeader epkInfo={epkInfo} role="actor" id={id} />
+      <div className='actor-navbar'>
+        <EpkHeader epkInfo={epkInfo} role='actor' id={id} />
       </div>
-      <div className="actor-container">
+      <div className='actor-container'>
         <div>
           <video
             loop
             ref={videoRef}
-            className="actor-image-container"
+            className='actor-image-container'
             src={`${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`}
             // poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
             poster={`${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`}
             controls
           ></video>
           <div
-            className="actor-profile"
+            className='actor-profile'
             style={{
               backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
             }}
           >
             <ArrowBackIosOutlined
-              className="arrow-actor-profile arrow-actor-profile1"
+              className='arrow-actor-profile arrow-actor-profile1'
               onClick={() => handleClick("left")}
               style={{
                 color: "#1E0039",
@@ -216,7 +261,7 @@ export default function Actor(props) {
               }}
             />
             <ArrowForwardIosOutlined
-              className="arrow-actor-profile arrow-actor-profile2"
+              className='arrow-actor-profile arrow-actor-profile2'
               onClick={() => handleClick("right")}
               style={{
                 color: "#1E0039",
@@ -228,7 +273,7 @@ export default function Actor(props) {
           <div>
             {isPlaying ? (
               <PauseCircleOutlineIcon
-                className="actor-play-icon"
+                className='actor-play-icon'
                 style={{
                   color: "#1E0039",
                   fontSize: "4rem",
@@ -238,7 +283,7 @@ export default function Actor(props) {
               />
             ) : (
               <PlayCircleIcon
-                className="actor-play-icon"
+                className='actor-play-icon'
                 style={{
                   color: "#1E0039",
                   fontSize: "4rem",
@@ -250,62 +295,71 @@ export default function Actor(props) {
           </div>
         </div>
 
-        <div className="actor-middle-container">
-          <p className="actor-name actor-detail-item">
+        <div className='actor-middle-container'>
+          <p
+            className='Actor-Role actor-detail-item'
+            style={{
+              fontSize: "30px",
+              fontWeight: "bold",
+            }}
+          >
             {epkInfo.firstName} {epkInfo.lastName}
           </p>
           <p
-            className="actor-name actor-detail-item"
+            className='Actor-Role actor-detail-item'
             style={{
               gridColumn: "3/4",
+              fontSize: "30px",
+              fontWeight: "bold",
             }}
           >
             {displaySex(epkInfo.sex)}
           </p>
-          <p className="actor-detail-item Actor-Role">Actor</p>
+          <p className='actor-detail-item Actor-Role'>Actor</p>
           <button
-            className="btn-follow actor-detail-item"
+            className='btn-follow actor-detail-item'
             onClick={addUserToFollowers}
           >
             Follow +
           </button>
           <p
-            className="follower-number actor-detail-item"
+            className='follower-number actor-detail-item'
             style={{ fontSize: "24px" }}
           >
             {kkFollower}
           </p>
 
           <button
-            className="btn-star actor-detail-item"
+            className='btn-star actor-detail-item'
             onClick={addUserToLikes}
           >
             <span style={{ display: "inline" }}>Star</span>
             <StarIcon
-              className="actor-page-star"
+              className='actor-page-star'
               style={{ color: "white", marginLeft: "10px" }}
             />
           </button>
           <p
-            className="follower-number actor-detail-item"
+            className='follower-number actor-detail-item'
             style={{ fontSize: "24px" }}
           >
             {likes}
           </p>
           <button
-            className="btn-Recommend actor-detail-item"
+            className='btn-Recommend actor-detail-item'
             onClick={openModal}
           >
             <span style={{ display: "inline" }}>Recommend</span>{" "}
             <img
               src={refralIcon}
-              className="actor-page-star"
+              className='actor-page-star'
               style={{ fill: "white", color: "white" }}
+              alt=''
             />
           </button>
-          <div className={`modal ${modalIsOpen ? "is-open" : ""}`}>
+          <div className={`actor-modal ${modalIsOpen ? "is-open" : ""}`}>
             <div
-              className="shared-style"
+              className='shared-style'
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -315,24 +369,23 @@ export default function Actor(props) {
               <div
                 style={{
                   alignSelf: "flex-end",
-                  padding: "0.5rem",
                   cursor: "pointer",
                 }}
                 onClick={closeModal}
               >
                 X
               </div>
-              <h2>Recommend to Filmmaker:</h2>
+              <h2>Recommend Actor To Filmmaker:</h2>
               <input
-                type="text"
-                className="form-control shared-styles"
+                type='text'
+                className='form-control shared-styles'
                 value={searchValue}
-                placeholder="Search name ..."
+                placeholder='Search name ...'
                 onChange={handleSearch}
               />
-              <div className="selected-filmmakers-display">
+              <div className='selected-filmmakers-display'>
                 {selectedFilmmakers.map((filmmaker, index) => (
-                  <div key={index} className="selected-filmmaker-display">
+                  <div key={index} className='selected-filmmaker-display'>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       {" "}
                       <img
@@ -365,10 +418,12 @@ export default function Actor(props) {
                   {filteredData.length > 0 ? (
                     filteredData.map((filmmaker) => (
                       <div
-                        key={filmmaker.id}
+                        key={filmmaker._id}
                         onClick={() => recommendToFilmmaker(filmmaker)}
                         className={
-                          selectedFilmmakers.includes(filmmaker)
+                          selectedFilmmakers.some(
+                            (selected) => selected._id === filmmaker._id
+                          )
                             ? "selected-filmmaker"
                             : ""
                         }
@@ -409,7 +464,7 @@ export default function Actor(props) {
                     marginTop: "20px",
                   }}
                 >
-                  <button className="btn-send" onClick={sendRecommendations}>
+                  <button className='btn-send' onClick={sendRecommendations}>
                     Send <FontAwesomeIcon icon={faPaperPlane} />
                   </button>
                 </div>
@@ -417,27 +472,42 @@ export default function Actor(props) {
             </div>{" "}
           </div>
           <p
-            className="follower-number-Recommend actor-detail-item"
+            className='follower-number-Recommend actor-detail-item'
             style={{ fontSize: "24px" }}
           >
-            {recommend.length || "0"}
+            {recommendations}
           </p>
-          <div className="actor-detail-item actor-icon-movie-container">
+          <div className='actor-detail-item actor-icon-movie-container'>
             <img
-              src="../Vector.png"
-              alt=""
+              src='../Vector.png'
+              alt=''
               style={{ width: "37px", height: "25px" }}
             />
-            <p className="movie-number" style={{ fontSize: "24px" }}>
+            <p className='movie-number' style={{ fontSize: "24px" }}>
               1
             </p>
           </div>
         </div>
-        <div className="actor-city-container">
-          <div className="actor-city-detail">
+        {isModalVisible && (
+          <div
+            style={{
+              color: "#1e0039",
+              ontWeight: "bold",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Recommendation sent successfully!
+          </div>
+        )}
+        <div className='actor-city-container'>
+          <div className='actor-city-detail'>
             <img
               src={worldIcon}
               style={{ width: "55px", height: "45px", display: "inline" }}
+              alt=''
             />
             <p
               style={{
@@ -451,9 +521,9 @@ export default function Actor(props) {
               {epkInfo.city || "Montreal"}{" "}
             </p>
           </div>
-          <div className="actor-city-ethnicity">
+          <div className='actor-city-ethnicity'>
             <p
-              className="actor-age-show"
+              className='actor-age-show'
               style={{
                 display: "block",
                 marginLeft: "30px",
@@ -564,16 +634,16 @@ export default function Actor(props) {
               <span>{epkInfo.height}</span>
             </p>
           </div>
-          <div className="actor-biography">
+          <div className='actor-biography'>
             <p>{epkInfo.aboutMe}</p>
           </div>
         </div>
-        <div className="bottom-container">
-          <p className="bottom-actor-container-title">
+        <div className='bottom-container'>
+          <p className='bottom-actor-container-title'>
             current films by actor {epkInfo.firstName} {epkInfo.lastName}
           </p>
-          <div className="movie-actor-play-container">
-            // TODO: getMoviesByActor
+          <div className='movie-actor-play-container'>
+            {/* TODO: getMoviesByActor */}
             <div>{/* <List /> */}</div>
           </div>
         </div>

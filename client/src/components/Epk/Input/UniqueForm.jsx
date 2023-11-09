@@ -174,16 +174,16 @@ function UniqueForm() {
 
   return (
     <form className="form">
-      <div class="card">
-        <div class="card-header">
-          <div class="row align-items-start">
-            <div class="col align-items-start">EPK Page Upload</div>
-            <div class="col align-items-end">link to view</div>
+      <div className="card">
+        <div className="card-header">
+          <div className="row align-items-start">
+            <div className="col align-items-start">EPK Page Upload</div>
+            <div className="col align-items-end">link to view</div>
           </div>
         </div>
 
-        <div class="card-body">
-          <h5 class="card-title">Uniqueness</h5>
+        <div className="card-body">
+          <h5 className="card-title">Uniqueness</h5>
           <form className="row g-3">
             <div className="col-6">
               <input
@@ -197,7 +197,7 @@ function UniqueForm() {
               <br />
 
               <textarea
-                class="form-control"
+                className="form-control"
                 rows="3"
                 placeholder="Description"
                 value={uniqueData.unique1_description}
@@ -212,7 +212,7 @@ function UniqueForm() {
                   src={image1}
                   alt="hey"
                   style={{ height: "350px", width: "300px" }}
-                  class="img-fluid "
+                  className="img-fluid "
                 />
               )}
             </div>
@@ -236,6 +236,14 @@ function UniqueForm() {
                 name="unique2_description"
               />
 
+              <textarea
+                className="form-control"
+                rows="3"
+                placeholder="Description"
+                value={uniqueData.unique2_description}
+                onChange={handleInputChange}
+                name="unique2_description"
+              />
               <br />
               <UploadFile setImage={setImage2} />
               {image2 && (
@@ -243,7 +251,7 @@ function UniqueForm() {
                   src={image2}
                   alt="hey"
                   style={{ height: "350px", width: "300px" }}
-                  class="img-fluid "
+                  className="img-fluid "
                 />
               )}
             </div>

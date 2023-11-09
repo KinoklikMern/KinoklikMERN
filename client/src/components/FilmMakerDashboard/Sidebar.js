@@ -14,7 +14,7 @@ export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
 
   // Yeming added
-  const { notificationCount, messageCount, filmmakerInfo, clearMessageCount } =
+  const { notificationCount, messageCount, userInfo, clearMessageCount } =
     useContext(NotificationContext);
 
   console.info("select", SELECTED_TAB);
@@ -82,7 +82,7 @@ export default function Sidebar(props) {
   // console.log("messageCount", messageCount);
   return (
     <>
-      <nav className="tw-flex tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16">
+      <nav className="tw-hidden tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16 md:tw-flex">
         {sideBarList.map((item, index) => (
           <div
             key={index}
@@ -126,10 +126,69 @@ export default function Sidebar(props) {
               )} */}
               {(item.Title === "Notifications" &&
                 notificationCount > 0 &&
-                filmmakerInfo === userId) ||
+                userInfo === userId) ||
               (item.Title === "Messages" &&
                 messageCount > 0 &&
-                filmmakerInfo === userId) ? (
+                userInfo === userId) ? (
+                <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
+                  {item.Title === "Notifications" && notificationCount > 9
+                    ? "9+"
+                    : item.Title === "Notifications"
+                    ? notificationCount
+                    : item.Title === "Messages" && messageCount > 9
+                    ? "9+"
+                    : messageCount}
+                </div>
+              ) : null}
+            </a>
+          </div>
+        ))}
+      </nav>
+
+      {/* Bottom bar for mobile screens */}
+
+      <nav className="tw-fixed tw-bottom-0 tw-left-0 tw-z-50 tw-flex tw-w-full tw-border-gray-300 tw-bg-white tw-shadow-md md:tw-hidden">
+        {sideBarList.map((item, index) => (
+          <div
+            key={index}
+            className={
+              "tw-group tw-relative tw-flex tw-w-1/4 tw-flex-col tw-items-center tw-justify-center " +
+              (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
+            }
+          >
+            <a
+              href={item.href}
+              className="tw-flex tw-flex-col tw-text-[#1E0039]"
+              onClick={
+                item.Title === "Messages" ? clearMessageCount : undefined
+              }
+            >
+              <img
+                src={
+                  SELECTED_TAB === item.Title
+                    ? item.ActiveIcon
+                    : item.DefaultIcon
+                }
+                alt={item.Title}
+                style={{
+                  width: item.size.width / 2,
+                  height: item.size.height / 2,
+                }} // Adjust the size for mobile view
+              />
+              <p
+                className={
+                  "tw-flex tw-justify-center tw-text-xs " + // Adjust the font size for mobile view
+                  (SELECTED_TAB === item.Title ? "tw-text-white" : "")
+                }
+              >
+                {item.Title}
+              </p>
+              {(item.Title === "Notifications" &&
+                notificationCount > 0 &&
+                userInfo === userId) ||
+              (item.Title === "Messages" &&
+                messageCount > 0 &&
+                userInfo === userId) ? (
                 <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"

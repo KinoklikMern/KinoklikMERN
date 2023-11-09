@@ -1,27 +1,29 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
-import { Button } from "antd";
+import { Button, Col, Row } from "antd";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import Modal from "react-modal";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faPlus,
+  faTrashCan,
+  faUserPlus,
+  faUserCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 function FepkDetailsForm() {
-  const [file, setFile] = useState("");
-  // const [userList, setUserList] = useState([]);
   const [allUserList, setAllUserList] = useState([]);
   const [fepk, setFepk] = useState({});
-  const [disabledSaveButton, setDisabledSaveButton] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
   const [status, setStatus] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [disabledAdd, setDisabledAdd] = useState(true);
   const [message, setMessage] = useState("");
   const [userName, setUserName] = useState("");
-  const [role, setRole] = useState(""); // Assuming you have a 'role' in the user object. Adjust if necessary.
+  const [role, setRole] = useState("");
   //toggle search result
   const [isResultsVisible, setIsResultsVisible] = useState(true);
   //save selected user
@@ -32,14 +34,8 @@ function FepkDetailsForm() {
   const [emailError, setEmailError] = useState("");
   //have list of users that are currently in fepk
   const [currentFepkUsers, setCurrentFepkUsers] = useState([]);
-  //image url state
-  const [imageUrl, setImageUrl] = useState(""); // Initially, it can be the default image or empty.
-  const [uploadedImageUrl, setUploadedImageUrl] = useState(""); // state to store the uploaded image URL
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalContentType, setModalContentType] = useState("save"); // need to change modal content based on wht button was clicked
-
-  const inputFileRef = useRef(null);
 
   let { fepkId } = useParams();
 
@@ -74,44 +70,10 @@ function FepkDetailsForm() {
   ];
 
   const makeEpkRole = (Y) => {
-    return (
-      <option key={Y} value={Y}>
-        {" "}
-        {Y}
-      </option>
-    );
+    return <option value={Y}> {Y}</option>;
   };
 
   //-------------------------
-
-  const fileSelected = (event) => {
-    let formData = new FormData();
-    console.log(event.target.files[0]);
-    formData.append("file", event.target.files[0]);
-    console.log(formData);
-    if (checkFileMimeType(event.target.files[0])) {
-      http
-        .post("fepks/uploadFile", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          if (response.data !== undefined) {
-            const newImageUrl =
-              process.env.REACT_APP_AWS_URL + "/" + response.data.key;
-            setUploadedImageUrl(newImageUrl); // store the uploaded image URL
-            epkFilmDetailsData.image_details = response.data.key;
-          }
-          setDisabledSaveButton(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setMessage("File must be a image(jpeg or png)");
-    }
-  };
 
   useEffect(() => {
     console.log("useEffect is running");
@@ -123,33 +85,9 @@ function FepkDetailsForm() {
         setAllUserList(userResponse.data);
         setCurrentFepkUsers(fepkResponse.data.actors);
 
-        // Check if image_details starts with 'http'
-        if (
-          fepkResponse.data.image_details &&
-          fepkResponse.data.image_details.startsWith("http")
-        ) {
-          setImageUrl(fepkResponse.data.image_details);
-        } else {
-          setImageUrl(
-            process.env.REACT_APP_AWS_URL +
-              "/" +
-              fepkResponse.data.image_details
-          );
-        }
-
-        //console.log(imageUrl);
-        //console.log(currentFepkUsers);
-        console.log(fepk);
-        //console.log("i");
-
         //initial data for epkFilmDetailsData
         setEpkFilmDetailsData({
           ...epkFilmDetailsData,
-          image_details: fepkResponse.data.image_details,
-          productionCo: fepkResponse.data.productionCo,
-          distributionCo: fepkResponse.data.distributionCo,
-          productionYear: fepkResponse.data.productionYear,
-          durationMin: fepkResponse.data.durationMin,
           actors: fepkResponse.data.actors,
         });
 
@@ -163,96 +101,15 @@ function FepkDetailsForm() {
       .then((invitations) => {
         setInvitationsByFilmmakerMovie(invitations.data);
       });
-    //console.log(invitationsByFilmmakerMovie);
-    //console.log(allUserList);
-    //console.log(userList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //NEEDED???? empty email when search input
   useEffect(() => {
-    setInvitationEmailValue(""); // Clear the email input whenever searchValue changes
+    setInvitationEmailValue("");
   }, [searchValue]);
-  //
-  //temporary to see selected user data
-  // useEffect(() => {
-  //   console.log(currentFepkUsers);
-  // }, [currentFepkUsers]);
-
-  useEffect(() => {
-    console.log(
-      "Invitations on that filmmaker and movie",
-      invitationsByFilmmakerMovie
-    );
-  }, [invitationsByFilmmakerMovie]);
-
-  useEffect(() => {
-    console.log("Current fepk users", currentFepkUsers);
-  }, [currentFepkUsers]);
-
-  useEffect(() => {
-    console.log(emailError);
-  }, [emailError]);
 
   const [epkFilmDetailsData, setEpkFilmDetailsData] = useState({
-    image_details: fepk.image_details,
-    productionCo: fepk.productionCo,
-    distributionCo: fepk.distributionCo,
-    productionYear: fepk.productionYear,
-    durationMin: fepk.durationMin,
-    actors: fepk.actors,
+    actors: fepk?.actors ?? [],
   });
-
-  function saveEpkDetails() {
-    const tempEpkDetails = { ...epkFilmDetailsData };
-
-    http
-      .put(`fepks/update/${fepkId}`, epkFilmDetailsData)
-      .then((res) => {
-        setModalContentType("save");
-        setModalIsOpen(true);
-        console.log("saved");
-
-        // Here, if your backend returns the updated data, update the state with that:
-        if (res.data && res.data.updatedEpkData) {
-          setEpkFilmDetailsData(res.data.updatedEpkData);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        // Rollback: In case of an error, revert to the original state
-        setEpkFilmDetailsData(tempEpkDetails);
-      });
-
-    setDisabledSaveButton(true);
-    //window.location.reload();
-  }
-
-  const handleDetailsChange = (event) => {
-    const { name, value } = event.target;
-    //setEpkFilmDetailsData({ ...epkFilmDetailsData, [name]: value });
-    setEpkFilmDetailsData((prevState) => ({ ...prevState, [name]: value }));
-    setDisabledSaveButton(false);
-  };
-
-  const checkFileMimeType = (file) => {
-    if (file !== "") {
-      if (
-        file.type === "video/mp4" ||
-        file.type === "video/mpeg" ||
-        file.type === "video/quicktime" ||
-        file.type === "video/x-ms-wmv" ||
-        file.type === "video/ogg" ||
-        file.type === "video/3gpp" ||
-        file.type === "video/x-msvideo" ||
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg"
-      )
-        return true;
-      else return false;
-    } else return true;
-  };
 
   const handleSearch = (event) => {
     setEmailError("");
@@ -271,18 +128,6 @@ function FepkDetailsForm() {
       return actorName.includes(searchWord);
     });
 
-    //2nd option, if user already exists in the table ( and in db in that fepk ) then do not display him in search
-
-    // const newFilter = allUserList.filter((value) => {
-    //   const actorName = value.firstName
-    //     ? (value.firstName + " " + (value.lastName || "")).toLowerCase()
-    //     : "";
-    //   const userExistsInFepk = currentFepkUsers
-    //     .map((user) => user._id)
-    //     .includes(value._id);
-    //   return actorName.includes(searchWord) && !userExistsInFepk;
-    // });
-
     if (searchWord === "") {
       setFilteredData([]);
       setShowEmailInput(false);
@@ -293,7 +138,6 @@ function FepkDetailsForm() {
     } else {
       setFilteredData(newFilter);
       setShowEmailInput(false);
-      //console.log(filteredData);
     }
     setIsResultsVisible(true);
   };
@@ -316,16 +160,12 @@ function FepkDetailsForm() {
     setSearchValue("");
     setSelectedUser(user);
     setIsResultsVisible(false);
-
-    console.log(selectedUser);
   };
 
   function addUserToTable() {
     const userExistsInFepk = currentFepkUsers
       .map((user) => user._id)
       .includes(selectedUser._id);
-
-    console.log("user Exists In Fepk:", userExistsInFepk);
 
     if (!userExistsInFepk) {
       const userToSave = selectedUser._id;
@@ -385,25 +225,20 @@ function FepkDetailsForm() {
           console.error("Error deleting invitation:", error);
         });
     } else {
-      console.log("user to delete", userToDelete);
       const updatedFepkUsers = currentFepkUsers.filter(
         (user) => user._id !== userToDelete._id
       );
-
-      console.log("updated list", updatedFepkUsers);
       // Remove the user's ID from the actors array in epkFilmDetailsData
       const updatedEpkFilmDetailsData = {
         ...epkFilmDetailsData,
         actors: updatedFepkUsers,
       };
 
-      console.log("updatedEpkFilmDetailsData:", updatedEpkFilmDetailsData);
       // Make an HTTP request to the backend to persist this change
       http
         .put(`fepks/update/${fepkId}`, updatedEpkFilmDetailsData)
         .then((res) => {
           // Successful database update, so we update the frontend state
-          console.log("res.data:", res.data);
           setEpkFilmDetailsData(updatedEpkFilmDetailsData);
           setCurrentFepkUsers(updatedFepkUsers);
           //setEpkFilmDetailsData(res.data); // Update with returned data from the backend to ensure accuracy PROBABLY WAS BREAKING
@@ -447,7 +282,6 @@ function FepkDetailsForm() {
     );
 
     if (userExists) {
-      //console.log("Excisting user:", userExists);
       const { firstName, lastName } = userExists;
       setEmailError(
         `User with that email is already registered under name: ${firstName} ${lastName}`
@@ -468,13 +302,6 @@ function FepkDetailsForm() {
         movie: fepk._id,
       };
 
-      console.log(
-        "movie, invitedBy, email",
-        fepk._id,
-        fepk.film_maker._id,
-        invitationEmailValue
-      );
-
       // Check if the invitation already exists
       axios
         .get(
@@ -489,7 +316,6 @@ function FepkDetailsForm() {
         )
         .then((response) => {
           if (response.data && response.data.length > 0) {
-            //console.log("response data:", response.data);
             // Invitation already exists
             setEmailError(
               "Invitation for that project was already sent to the person"
@@ -506,10 +332,7 @@ function FepkDetailsForm() {
                 updatedInvitationData
               )
               .then((response) => {
-                setModalContentType("invitation");
                 setModalIsOpen(true);
-
-                console.log("send invitation response data", response.data);
                 // Add the invited user to the frontend
                 const invitedUser = {
                   _id: response.data._id, // assuming the response data has the invitations ID
@@ -527,9 +350,6 @@ function FepkDetailsForm() {
                 ]);
 
                 console.log("Invitation saved and user added to frontend");
-
-                //console.log(response.data);
-                //console.log("Invitation saved");
               })
               .catch((error) => {
                 console.error("Error sending invitation:", error);
@@ -555,8 +375,6 @@ function FepkDetailsForm() {
     ),
   ];
 
-  //console.log(combinedUsers);
-
   // Helper function to get user status
   const getUserStatus = (user) => {
     if (currentFepkUsers.some((currentUser) => currentUser._id === user._id)) {
@@ -578,6 +396,7 @@ function FepkDetailsForm() {
           boxShadow: "inset 1px 2px 9px #311465",
           padding: "0px 10px",
           marginLeft: "10%",
+          marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
           // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
@@ -635,615 +454,509 @@ function FepkDetailsForm() {
           </div>
           <div
             style={{
-              marginLeft: "10%",
-              marginRight: "10%",
+              marginLeft: "5%",
+              marginRight: "3%",
               color: "#311465",
               fontWeight: "normal",
             }}
           >
             <div className="card-body" style={{ height: "500px" }}>
-              <h5
-                className="card-title "
-                style={{ color: "#311465", fontWeight: "normal" }}
-              >
-                Film Details
-              </h5>
-              <form>
-                <div className="row">
-                  <div className="col-3 mt-2">
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        fontSize: "14px",
-                      }}
-                      className="form-control m-10 mb-4"
-                      //value={fepk.productionCo}
-                      value={epkFilmDetailsData.productionCo}
-                      placeholder="Production Company Name"
-                      onChange={handleDetailsChange}
-                      name="productionCo"
-                    />
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "5px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                        fontSize: "14px",
-                      }}
-                      className="form-control m-10 "
-                      //value={fepk.distributionCo}
-                      value={epkFilmDetailsData.distributionCo}
-                      placeholder="Distribution Company Name"
-                      onChange={handleDetailsChange}
-                      name="distributionCo"
-                    />
-                    <div className="row">
-                      <div className="col-6 my-3">
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          type="number"
-                          min="1895"
-                          className="form-control m-10"
-                          //value={fepk.productionYear}
-                          value={epkFilmDetailsData.productionYear}
-                          placeholder="Year"
-                          onChange={handleDetailsChange}
-                          name="productionYear"
-                        />
-                      </div>
-                      <div className="col-6 mt-3">
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          type="number"
-                          min="0"
-                          className="form-control m-10"
-                          //value={fepk.durationMin}
-                          value={epkFilmDetailsData.durationMin}
-                          placeholder="Min."
-                          onChange={handleDetailsChange}
-                          name="durationMin"
-                        />
-                      </div>
-                    </div>
-                    <label
-                      for="filePoster"
-                      class="form-label text-dark"
-                      style={{ fontSize: "25px" }}
-                    >
-                      {" "}
-                      <h6 style={{ fontSize: "20px" }}>Upload Poster</h6>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="fileDetails"
-                      name="files"
-                      accept="image/*"
-                    ></input>
-                    {uploadedImageUrl ? (
-                      <img
+              <div className="row">
+                <div className="col">
+                  <div className="row">
+                    <div className="col my-1">
+                      <h5
+                        className="card-title "
                         style={{
-                          height: "150px",
-                          width: "auto",
-                          marginTop: "5px",
+                          color: "#311465",
+                          marginTop: "1%",
+                          marginBottom: "1%",
                         }}
-                        src={uploadedImageUrl}
-                        alt="Uploaded"
-                      />
-                    ) : (
-                      <img
-                        src={imageUrl}
-                        style={{
-                          height: "150px",
-                          width: "auto",
-                          marginTop: "5px",
-                        }}
-                        alt="no img"
-                      />
-                    )}
-                    <br />
-                  </div>
-                  <div className="col-3 mt-2">
-                    <div className="row">
-                      <div className="col-9 ">
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "24px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control"
-                          //defaultValue={""}
-                          value={searchValue}
-                          //value=""
-                          placeholder="Search..."
-                          onChange={handleSearch}
-                        />
-                        {isResultsVisible && filteredData.length !== 0 ? (
-                          <div
-                            style={{
-                              height: "100px",
-                              width: "15%",
-                              backgroundColor: "white",
-                              borderRadius: "5px",
-                              marginBottom: "5px",
-                              overflow: "auto",
-                              position: "absolute",
-                              zIndex: "1",
-                            }}
-                          >
-                            {filteredData.map((userObj) => {
-                              // Determine the display name based on available properties
-                              const displayName = `${userObj.firstName || ""} ${
-                                userObj.lastName || ""
-                              }`.trim();
-
-                              // Determine the appropriate image URL
-                              let imageUrlDisplay;
-                              if (
-                                userObj.picture &&
-                                !userObj.picture.startsWith("http")
-                              ) {
-                                imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${userObj.picture}`;
-                              } else {
-                                imageUrlDisplay = userObj.picture;
-                              }
-
-                              return (
-                                <p
-                                  key={userObj._id}
-                                  style={{
-                                    fontSize: "10px",
-                                    padding: "5px",
-                                    margin: "0px",
-                                  }}
-                                  onClick={() => displayChosenUserData(userObj)}
-                                >
-                                  {!imageUrlDisplay ? (
-                                    <FontAwesomeIcon
-                                      icon={faUser}
-                                      style={{
-                                        height: "27px",
-                                        marginRight: "10px",
-                                      }}
-                                    />
-                                  ) : (
-                                    <img
-                                      src={imageUrlDisplay}
-                                      style={{
-                                        width: "20px",
-                                        height: "auto",
-                                        marginRight: "10px",
-                                      }}
-                                      alt={displayName}
-                                    />
-                                  )}
-                                  {displayName}
-                                </p>
-                              );
-                            })}
-                          </div>
-                        ) : (
-                          <div
-                            style={{
-                              // height: "100px",
-                              // width: "100%",
-                              marginBottom: "0px",
-                            }}
-                          ></div>
-                        )}
-                      </div>
-                      {/* <div className="col-3" style={{ textAlign: "left" }}>
-                        {status === false ? (
-                          <div className="hover:tw-scale-110">
-                            <FontAwesomeIcon
-                              icon={faUserPlus}
-                              style={{
-                                height: "20px",
-                                paddingBottom: "12px",
-                                cursor: "pointer",
-                              }}
-                              //onClick={() => createNewCrew()}
-                            />
-                          </div>
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faUserCheck}
-                            style={{
-                              height: "20px",
-                              paddingBottom: "12px",
-                              color: "green",
-                            }}
-                          />
-                        )}
-                      </div> */}
-                    </div>
-                    {filteredData.length > 0 && (
-                      <>
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control m-10"
-                          value={userName}
-                          placeholder="Name"
-                          name="name"
-                          readOnly
-                          //onChange={handleCrewChange}
-                        />
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control m-10"
-                          value={role}
-                          placeholder="Role"
-                          name="role"
-                          readOnly
-                          //onChange={handleCrewChange}
-                        />
-                      </>
-                    )}
-                    {showEmailInput ? (
-                      <>
-                        <p
-                          style={{
-                            fontSize: "16px",
-                            color: "black",
-                            margin: "15px",
-                          }}
-                        >
-                          User is not found. Invite via email:
-                        </p>
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control m-10"
-                          defaultValue=""
-                          placeholder="First Name"
-                          name="firstName"
-                          onChange={(e) => {
-                            setInvitationData((prevState) => ({
-                              ...prevState,
-                              [e.target.name]: e.target.value,
-                            }));
-                          }}
-                        />
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control m-10"
-                          defaultValue=""
-                          placeholder="Last Name"
-                          name="lastName"
-                          onChange={(e) => {
-                            setInvitationData((prevState) => ({
-                              ...prevState,
-                              [e.target.name]: e.target.value,
-                            }));
-                          }}
-                        />
-                        <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control m-10"
-                          value={invitationEmailValue}
-                          placeholder="Email Address"
-                          name="email"
-                          // onChange={(e) =>
-                          //   setInvitationEmailValue(e.target.value)
-                          // }
-                          onChange={handleEmailChange}
-                        />
-                        {emailError && (
-                          <p style={{ fontSize: "16px", color: "red" }}>
-                            {emailError}
-                          </p>
-                        )}
-                        <select
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "20px",
-                            boxShadow: "1px 2px 9px #311465",
-                          }}
-                          className="form-select form-select-sm"
-                          name="epkRole"
-                          onChange={(e) => setInvitedUserRole(e.target.value)}
-                        >
-                          <option value="" disabled>
-                            Epk role...
-                          </option>
-                          {epkRoles.map(makeEpkRole)}
-                        </select>
-                        <Button
-                          disabled={!!emailError || !invitationEmailValue}
-                          className={
-                            !!emailError || !invitationEmailValue
-                              ? "" // no hover effect when disabled
-                              : "hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white" // apply hover effect when enabled
-                          }
-                          style={{
-                            boxShadow: "1px 2px 9px #311465",
-                            fontWeight: "bold",
-                            width: "100%",
-                            color:
-                              !!emailError || !invitationEmailValue
-                                ? "grey"
-                                : undefined,
-                            backgroundColor:
-                              !!emailError || !invitationEmailValue
-                                ? "#ffffff"
-                                : undefined,
-                          }}
-                          type="outline-primary"
-                          block
-                          onClick={sendInvitation}
-                          value="save"
-                        >
-                          Send Invitation
-                        </Button>
-                      </>
-                    ) : disabledAdd ? (
-                      <Button
-                        disabled
-                        style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          color: "grey",
-                          backgroundColor: "#ffffff",
-                          fontWeight: "bold",
-                          width: "100%",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={addUserToTable}
-                        value="save"
                       >
-                        Add to EPK
-                      </Button>
-                    ) : (
-                      <Button
-                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                        Cast & Crew
+                      </h5>
+                      <h5
+                        className="card-title "
                         style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          fontWeight: "bold",
-                          width: "100%",
+                          color: "black",
+                          marginBottom: "3%",
+                          fontSize: "1.3rem",
                         }}
-                        type="outline-primary"
-                        block
-                        onClick={addUserToTable}
-                        value="save"
                       >
-                        Add to EPK
-                      </Button>
-                    )}
-                  </div>
-                  <div
-                    className="col-5 mt-2"
-                    style={{
-                      overflow: "auto",
-                      height: "440px",
-                      scrollbarWidth: "none",
-                    }}
-                  >
-                    <table
-                      className="table table-striped table-bordered"
-                      style={{ fontSize: "9px" }}
-                    >
-                      <thead className="thead-dark">
-                        <tr>
-                          <th>NAME</th>
-                          <th>EPK ROLE</th>
-                          <th>IMAGE</th>
-                          <th>FACE</th>
-                          <th>INSTA</th>
-                          <th>TWIT</th>
-                          <th>STATUS</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {combinedUsers.map((user) => {
-                          let imageUrlDisplay;
-                          if (
-                            user.picture &&
-                            !user.picture.startsWith("http")
-                          ) {
-                            imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
-                          } else {
-                            imageUrlDisplay = user.picture;
-                          }
-                          return (
-                            <tr key={user._id}>
-                              <td>{user.firstName + " " + user.lastName}</td>
-                              <td>{user.role}</td>
-                              <td>
-                                <img
-                                  src={imageUrlDisplay}
-                                  alt=""
-                                  style={{ height: "15px", width: "auto" }}
-                                />
-                              </td>
-                              <td>
-                                <a
-                                  href={
-                                    user.facebook_url ? user.facebook_url : "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {user.facebook_followers
-                                    ? user.facebook_followers
-                                    : "-"}
-                                </a>
-                              </td>
-                              <td>
-                                <a
-                                  href={
-                                    user.instagram_url
-                                      ? user.instagram_url
-                                      : "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {user.instagram_followers
-                                    ? user.instagram_followers
-                                    : "-"}
-                                </a>
-                              </td>
-                              <td>
-                                <a
-                                  href={
-                                    user.twitter_url ? user.twitter_url : "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {user.twitter_followers
-                                    ? user.twitter_followers
-                                    : "-"}
-                                </a>
-                              </td>
-                              <td>
-                                {user.status
-                                  ? user.status
-                                  : currentFepkUsers
-                                      .map((user) => user._id)
-                                      .includes(user._id)
-                                  ? "Added"
-                                  : "Invited"}
-                              </td>
-                              <td
+                        Add Cast & Crew members to your EPK!
+                      </h5>
+                      <div className="row">
+                        <div className="col-3 mt-2">
+                          <div className="row">
+                            <div className="col-9 ">
+                              <input
                                 style={{
-                                  textAlign: "center",
-                                  cursor: "pointer",
+                                  height: "30px",
+                                  width: "auto",
+                                  borderRadius: "5px",
+                                  marginBottom: "24px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                  textAlign: "left",
+                                  fontSize: "14px",
                                 }}
-                                onClick={() => deleteFromUsersList(user)}
+                                className="form-control"
+                                //defaultValue={""}
+                                value={searchValue}
+                                //value=""
+                                placeholder="Search..."
+                                onChange={handleSearch}
+                              />
+                              {isResultsVisible && filteredData.length !== 0 ? (
+                                <div
+                                  style={{
+                                    height: "100px",
+                                    width: "15%",
+                                    backgroundColor: "white",
+                                    borderRadius: "5px",
+                                    marginBottom: "5px",
+                                    overflow: "auto",
+                                    position: "absolute",
+                                    zIndex: "1",
+                                  }}
+                                >
+                                  {filteredData.map((userObj) => {
+                                    // Determine the display name based on available properties
+                                    const displayName = `${
+                                      userObj.firstName || ""
+                                    } ${userObj.lastName || ""}`.trim();
+
+                                    // Determine the appropriate image URL
+                                    let imageUrlDisplay;
+                                    if (
+                                      userObj.picture &&
+                                      !userObj.picture.startsWith("http")
+                                    ) {
+                                      imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${userObj.picture}`;
+                                    } else {
+                                      imageUrlDisplay = userObj.picture;
+                                    }
+
+                                    return (
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          justifyContent: "space-between",
+                                          cursor: "pointer",
+                                          margin: "7% 3%",
+                                          height: "auto",
+                                        }}
+                                      >
+                                        <div>
+                                          <p
+                                            key={userObj._id}
+                                            style={{
+                                              fontSize: "0.9rem",
+                                            }}
+                                            onClick={() =>
+                                              displayChosenUserData(userObj)
+                                            }
+                                          >
+                                            {displayName}
+                                          </p>
+                                        </div>
+                                        <div
+                                          style={
+                                            {
+                                              // marginLeft: "10%",
+                                            }
+                                          }
+                                        >
+                                          {!imageUrlDisplay ? (
+                                            <FontAwesomeIcon
+                                              icon={faUser}
+                                              style={{
+                                                width: "25px",
+                                                height: "25px",
+                                                borderRadius: "25%",
+                                              }}
+                                            />
+                                          ) : (
+                                            <img
+                                              src={imageUrlDisplay}
+                                              style={{
+                                                width: "25px",
+                                                height: "25px",
+                                                borderRadius: "25%",
+                                              }}
+                                              alt={displayName}
+                                            />
+                                          )}
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              ) : (
+                                <div
+                                  style={{
+                                    // height: "100px",
+                                    // width: "100%",
+                                    marginBottom: "0px",
+                                  }}
+                                ></div>
+                              )}
+                            </div>
+                          </div>
+                          {filteredData.length > 0 && (
+                            <>
+                              <input
+                                style={{
+                                  height: "30px",
+                                  width: "auto",
+                                  borderRadius: "5px",
+                                  marginBottom: "20px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                  textAlign: "left",
+                                  fontSize: "14px",
+                                }}
+                                className="form-control m-10"
+                                value={userName}
+                                placeholder="Name"
+                                name="name"
+                                readOnly
+                                //onChange={handleCrewChange}
+                              />
+                              <input
+                                style={{
+                                  height: "30px",
+                                  width: "auto",
+                                  borderRadius: "5px",
+                                  marginBottom: "20px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                  textAlign: "left",
+                                  fontSize: "14px",
+                                }}
+                                className="form-control m-10"
+                                value={role}
+                                placeholder="Role"
+                                name="role"
+                                readOnly
+                                //onChange={handleCrewChange}
+                              />
+                            </>
+                          )}
+                          {showEmailInput ? (
+                            <>
+                              <p
+                                style={{
+                                  fontSize: "0.8rem",
+                                  color: "red",
+                                  marginTop: "-12%",
+                                  marginBottom: "3%",
+                                }}
                               >
-                                <FontAwesomeIcon icon={faTrashCan} />
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="col-1 align-self-end">
-                    <div
-                      style={{
-                        height: "50px",
-                        width: "100px",
-                        // marginLeft: "100%",
-                        marginTop: "5%",
-                        // border: "1px solid black",
-                      }}
-                    >
-                      {disabledSaveButton === true ? (
-                        <Button
-                          disabled
-                          style={{
-                            boxShadow: "1px 2px 9px #311465",
-                            color: "grey",
-                            backgroundColor: "#ffffff",
-                            fontWeight: "bold",
-                          }}
-                          type="outline-primary"
-                          block
-                          onClick={saveEpkDetails}
-                          //onClick={saveHandler}
-                          value="save"
-                        >
-                          Save
-                        </Button>
-                      ) : (
-                        <Button
-                          className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                          style={{
-                            boxShadow: "1px 2px 9px #311465",
-                            fontWeight: "bold",
-                          }}
-                          type="outline-primary"
-                          block
-                          onClick={saveEpkDetails}
-                          value="save"
-                        >
-                          Save
-                        </Button>
-                      )}
+                                User is not found. Invite via email:
+                              </p>
+                              <input
+                                style={{
+                                  height: "30px",
+                                  width: "auto",
+                                  borderRadius: "5px",
+                                  marginBottom: "20px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                  textAlign: "left",
+                                  fontSize: "14px",
+                                }}
+                                className="form-control m-10"
+                                // defaultValue=""
+                                value={invitationData.firstName}
+                                placeholder="First Name"
+                                name="firstName"
+                                onChange={(e) => {
+                                  setInvitationData((prevState) => ({
+                                    ...prevState,
+                                    [e.target.name]: e.target.value,
+                                  }));
+                                }}
+                              />
+                              <input
+                                style={{
+                                  height: "30px",
+                                  width: "auto",
+                                  borderRadius: "5px",
+                                  marginBottom: "20px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                  textAlign: "left",
+                                  fontSize: "14px",
+                                }}
+                                className="form-control m-10"
+                                // defaultValue=""
+                                value={invitationData.lastName}
+                                placeholder="Last Name"
+                                name="lastName"
+                                onChange={(e) => {
+                                  setInvitationData((prevState) => ({
+                                    ...prevState,
+                                    [e.target.name]: e.target.value,
+                                  }));
+                                }}
+                              />
+                              <input
+                                style={{
+                                  height: "30px",
+                                  width: "auto",
+                                  borderRadius: "5px",
+                                  marginBottom: "20px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                  textAlign: "left",
+                                  fontSize: "14px",
+                                }}
+                                className="form-control m-10"
+                                value={invitationEmailValue}
+                                placeholder="Email Address"
+                                name="email"
+                                // onChange={(e) =>
+                                //   setInvitationEmailValue(e.target.value)
+                                // }
+                                onChange={handleEmailChange}
+                              />
+                              {emailError && (
+                                <div
+                                  style={{
+                                    fontSize: "0.8rem",
+                                    color: "red",
+                                    width: "120%",
+                                    marginTop: "-10%",
+                                    marginBottom: "3%",
+                                  }}
+                                >
+                                  {emailError}
+                                </div>
+                              )}
+                              <select
+                                style={{
+                                  height: "30px",
+                                  width: "auto",
+                                  borderRadius: "5px",
+                                  marginBottom: "20px",
+                                  boxShadow: "1px 2px 9px #311465",
+                                }}
+                                className="form-select form-select-sm"
+                                name="epkRole"
+                                onChange={(e) =>
+                                  setInvitedUserRole(e.target.value)
+                                }
+                              >
+                                <option value="" disabled>
+                                  Epk role...
+                                </option>
+                                {epkRoles.map(makeEpkRole)}
+                              </select>
+                              <Button
+                                disabled={!!emailError || !invitationEmailValue}
+                                className={
+                                  !!emailError || !invitationEmailValue
+                                    ? "" // no hover effect when disabled
+                                    : "hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white" // apply hover effect when enabled
+                                }
+                                style={{
+                                  boxShadow: "1px 2px 9px #311465",
+                                  fontWeight: "bold",
+                                  width: "auto",
+                                  color:
+                                    !!emailError || !invitationEmailValue
+                                      ? "grey"
+                                      : undefined,
+                                  backgroundColor:
+                                    !!emailError || !invitationEmailValue
+                                      ? "#ffffff"
+                                      : undefined,
+                                }}
+                                type="outline-primary"
+                                block
+                                onClick={sendInvitation}
+                                value="save"
+                              >
+                                Send Invitation
+                              </Button>
+                            </>
+                          ) : disabledAdd ? (
+                            <Button
+                              disabled
+                              style={{
+                                boxShadow: "1px 2px 9px #311465",
+                                color: "grey",
+                                backgroundColor: "#ffffff",
+                                fontWeight: "bold",
+                                width: "auto",
+                              }}
+                              type="outline-primary"
+                              block
+                              onClick={addUserToTable}
+                              value="save"
+                            >
+                              Save to EPK
+                            </Button>
+                          ) : (
+                            <Button
+                              className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                              style={{
+                                boxShadow: "1px 2px 9px #311465",
+                                fontWeight: "bold",
+                                width: "auti",
+                              }}
+                              type="outline-primary"
+                              block
+                              onClick={addUserToTable}
+                              value="save"
+                            >
+                              Save to EPK
+                            </Button>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </form>
+                <div className="col">
+                  <div className="row">
+                    <div className="col my-2">
+                      <div
+                        className="col-5 mt-2"
+                        style={{
+                          // overflow: "auto",
+                          height: "440px",
+                          width: "auto",
+                          scrollbarWidth: "none",
+                          marginLeft: "-18%",
+                        }}
+                      >
+                        <table
+                          className="table table-striped table-bordered"
+                          style={{
+                            fontSize: "0.8rem",
+                            textAlign: "center",
+                            tableLayout: "auto",
+                          }}
+                        >
+                          <thead className="thead-dark">
+                            <tr>
+                              <th>NAME</th>
+                              <th>EPK ROLE</th>
+                              <th>IMAGE</th>
+                              <th>FB</th>
+                              <th>IG</th>
+                              <th>TW</th>
+                              <th>STATUS</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {combinedUsers.map((user) => {
+                              let imageUrlDisplay;
+                              if (
+                                user.picture &&
+                                !user.picture.startsWith("http")
+                              ) {
+                                imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
+                              } else {
+                                imageUrlDisplay = user.picture;
+                              }
+                              return (
+                                <tr
+                                  key={user._id}
+                                  style={{
+                                    textAlign: "center",
+                                    verticalAlign: "middle",
+                                  }}
+                                >
+                                  <td>
+                                    {user.firstName + " " + user.lastName}
+                                  </td>
+                                  <td>{user.role}</td>
+                                  <td>
+                                    <img
+                                      src={imageUrlDisplay}
+                                      alt=""
+                                      style={{
+                                        height: "35px",
+                                        width: "auto",
+                                      }}
+                                    />
+                                  </td>
+                                  <td>
+                                    <a
+                                      href={
+                                        user.facebook_url
+                                          ? user.facebook_url
+                                          : "#"
+                                      }
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {user.facebook_followers
+                                        ? user.facebook_followers
+                                        : "-"}
+                                    </a>
+                                  </td>
+                                  <td>
+                                    <a
+                                      href={
+                                        user.instagram_url
+                                          ? user.instagram_url
+                                          : "#"
+                                      }
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {user.instagram_followers
+                                        ? user.instagram_followers
+                                        : "-"}
+                                    </a>
+                                  </td>
+                                  <td>
+                                    <a
+                                      href={
+                                        user.twitter_url
+                                          ? user.twitter_url
+                                          : "#"
+                                      }
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {user.twitter_followers
+                                        ? user.twitter_followers
+                                        : "-"}
+                                    </a>
+                                  </td>
+                                  <td>
+                                    {user.status
+                                      ? user.status
+                                      : currentFepkUsers
+                                          .map((user) => user._id)
+                                          .includes(user._id)
+                                      ? "Added"
+                                      : "Invited"}
+                                  </td>
+                                  <td
+                                    style={{
+                                      textAlign: "center",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() => deleteFromUsersList(user)}
+                                  >
+                                    <FontAwesomeIcon icon={faTrashCan} />
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>
+
         <div>
           <Modal
             isOpen={modalIsOpen}
@@ -1252,11 +965,6 @@ function FepkDetailsForm() {
             appElement={document.getElementById("root")}
             style={{
               overlay: {
-                // position: "fixed",
-                // top: 0,
-                // left: 0,
-                // right: 0,
-                // bottom: 0,
                 backgroundColor: "rgba(0, 0, 0, 0.5)",
               },
               content: {
@@ -1274,9 +982,7 @@ function FepkDetailsForm() {
             }}
           >
             <div style={{ textAlign: "center" }}>
-              {modalContentType === "invitation"
-                ? "Invitation is Sent Successfully!"
-                : "Film Details Saved Successfully!"}
+              "Invitation is Sent Successfully!"
               <br />
               <button className="btn btn-secondary btn-sm" onClick={closeModal}>
                 Ok
