@@ -36,7 +36,7 @@ const HomeBody = ({ role }) => {
 
   return (
     <>
-      <div className='home'>
+      <div className="home">
         {/* <div>
           <div className="listTitle">
             <span>STARRED</span>
@@ -59,19 +59,19 @@ const HomeBody = ({ role }) => {
         {genres.map((genre, index) => {
           return (
             <React.Fragment key={index}>
-              <div className='listTitle'>
-                <span>{genre.toUpperCase()}</span>
+              <div className="listTitle">
+                <span>{genre && genre.toUpperCase()}</span>
               </div>
 
-              <div className='list'>
-                <div className='wrapper'>
+              <div className="list">
+                <div className="wrapper">
                   <ArrowBackIosOutlined
-                    className='sliderArrow left'
+                    className="sliderArrow left"
                     /* onClick={() => handleClick("left")} */ style={{
                       display: !isMoved && "none",
                     }}
                   />
-                  <div className='container' ref={listRef}>
+                  <div className="container" ref={listRef}>
                     {fepks
                       .filter(
                         (fepk) =>
@@ -85,7 +85,7 @@ const HomeBody = ({ role }) => {
                         const formattedTitle = fepk.title.replace(/ /g, "_");
                         return (
                           <React.Fragment key={fepk._id}>
-                            <div className='listItem'>
+                            <div className="listItem">
                               <a
                                 href={
                                   role === "actor"
@@ -95,7 +95,7 @@ const HomeBody = ({ role }) => {
                               >
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                                  alt=''
+                                  alt=""
                                 />
                               </a>
                             </div>
@@ -104,7 +104,7 @@ const HomeBody = ({ role }) => {
                       })}
                   </div>
                   <ArrowForwardIosOutlined
-                    className='sliderArrow right' /*onClick={() => handleClick("right")}*/
+                    className="sliderArrow right" /*onClick={() => handleClick("right")}*/
                   />
                 </div>
               </div>
