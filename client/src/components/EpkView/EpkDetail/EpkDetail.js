@@ -1,8 +1,12 @@
 import React from "react";
 import MessageIcon from "../../../images/icons/message.svg";
+import emptyPoster from "../../../images/empty_banner.jpeg";
 
 export default function EpkDetail({ epkInfo, handler }) {
-  const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+  const image_detail = epkInfo.image_details === "" || epkInfo.image_details.startsWith("https")
+    ? emptyPoster
+    : `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+
   const filmmaker_image = epkInfo.film_maker.picture.startsWith("https")
     ? epkInfo.film_maker.picture
     : `${process.env.REACT_APP_AWS_URL}/${epkInfo.film_maker.picture}`;
@@ -10,16 +14,16 @@ export default function EpkDetail({ epkInfo, handler }) {
 
   //That piece of code is added just to be able to use both "crew" and "actor" (basically new version of crew but held in 1 collection of users)
   const normalizeAvatarCrewData = (person) => {
-      let imageUrl;
-      if (person.picture) {
-        imageUrl = person.picture.startsWith("https")
-          ? person.picture
-          : `${process.env.REACT_APP_AWS_URL}/${person.picture}`;
-      } else if (person.image) {
-        imageUrl = person.image.startsWith("https")
-          ? person.image
-          : `${process.env.REACT_APP_AWS_URL}/${person.image}`;;
-      }
+    let imageUrl;
+    if (person.picture) {
+      imageUrl = person.picture.startsWith("https")
+        ? person.picture
+        : `${process.env.REACT_APP_AWS_URL}/${person.picture}`;
+    } else if (person.image) {
+      imageUrl = person.image.startsWith("https")
+        ? person.image
+        : `${process.env.REACT_APP_AWS_URL}/${person.image}`;
+    }
 
     // Assuming 'person' can be either a 'crew' object or an 'actor' object
     return {

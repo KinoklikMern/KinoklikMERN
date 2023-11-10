@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 export default function EpkCover({ epkInfo }) {
   // const URL = "";
   const banner_url = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
-  const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+  const image_detail =
+    epkInfo.image_details === "" || epkInfo.image_details.startsWith("https")
+      ? ""
+      : `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+
   const { user } = useSelector((user) => ({ ...user }));
 
   const formatedDate = (timestamp) => {

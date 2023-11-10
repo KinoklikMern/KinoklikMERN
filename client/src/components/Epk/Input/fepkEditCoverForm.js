@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import http from "../../../http-common";
 import Modal from "react-modal";
-import { Button, Tooltip, Col, Row } from "antd";
+import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
 import stripImage from "../../../images/stripe.jpg";
@@ -404,6 +404,9 @@ function FepkEditCoverForm() {
                       </h6>
                       <h6 style={{ color: "green", fontSize: "1rem" }}>
                         {messageTitleYes}
+                      </h6>
+                      <h6 style={{ color: "green", fontSize: "1rem" }}>
+                        {message}
                       </h6>
                     </div>
                     <div className="col my-1">

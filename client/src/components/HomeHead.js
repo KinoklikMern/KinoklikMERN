@@ -56,13 +56,14 @@ const HomeHead = (props) => {
       className="tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
       style={{
         backgroundImage:
-          props.role && props.role === "actor"
+          props.role === "actor" && actor.thumbnail
             ? `url(${process.env.REACT_APP_AWS_URL}/${actor.thumbnail})`
-            : `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
+            : props.role !== "actor" && fepk.banner_url
+            ? `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`
+            : "none",
       }}
     >
-
-    {/* 
+      {/* 
     // <div className="tw-relative tw-h-[100vh] tw-overflow-hidden">
     //   {props.role && props.role === "actor" && actor.bannerImg && ( 
     //     <video
@@ -106,9 +107,11 @@ const HomeHead = (props) => {
               <img
                 className="homeHead-poster tw-invisible md:tw-visible"
                 src={
-                  props.role === "actor"
+                  props.role === "actor" && actor.picture
                     ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
-                    : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                    : props.role !== "actor" && fepk.image_details
+                    ? `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                    : "defaultImageURL" // Fallback image URL
                 }
                 alt="/"
               />
