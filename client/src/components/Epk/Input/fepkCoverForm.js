@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import http from "../../../http-common";
 import { Button, Tooltip } from "antd";
@@ -77,7 +77,6 @@ function FepkCoverForm() {
     "comedy",
     "documentary",
     "romance",
-    "action",
     "horror",
     "mystery",
     "drama",
@@ -115,17 +114,10 @@ function FepkCoverForm() {
     "space opera",
     "mockumentary",
   ];
-  const makeGenreItem = (X) => {
-    return <option value={X}> {X}</option>;
-  };
+
   const movieStatus = ["Preproduction", "Production", "Postproduction"];
-  const makeStatusItem = (Y) => {
-    return <option value={Y}> {Y}</option>;
-  };
+
   const movieType = ["Movie", "Documentary", "TV Show", "Web Series"];
-  const makeTypeItem = (Z) => {
-    return <option value={Z}> {Z}</option>;
-  };
 
   const budgetRanges = [
     "0$ - 5,000$",
@@ -147,15 +139,6 @@ function FepkCoverForm() {
     "5,000,000$ - 7,500,000$",
     "7,500,000$ - 10,000,000$",
   ];
-
-  const makeBudgetRangeItem = (B) => {
-    return (
-      <option key={B} value={B}>
-        {" "}
-        {B}
-      </option>
-    );
-  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -290,7 +273,6 @@ function FepkCoverForm() {
           backgroundColor: "white",
         }}
       >
-        <form>
           <div
             className="row"
             style={{
@@ -473,11 +455,7 @@ function FepkCoverForm() {
                             onChange={handleInputChange}
                             value={epkCoverData.budget}
                           >
-                            <option
-                              value=""
-                              disabled
-                              selected={!epkCoverData.budget}
-                            >
+                            <option value="" disabled>
                               Production Budget
                             </option>
                             {budgetRanges.map((budget) => (
@@ -503,11 +481,7 @@ function FepkCoverForm() {
                             onChange={handleInputChange}
                             value={epkCoverData.production_type}
                           >
-                            <option
-                              value=""
-                              disabled
-                              selected={!epkCoverData.production_type}
-                            >
+                            <option value="" disabled>
                               Production Type
                             </option>
                             {movieType.map((type) => (
@@ -533,11 +507,7 @@ function FepkCoverForm() {
                             onChange={handleInputChange}
                             value={epkCoverData.genre}
                           >
-                            <option
-                              value=""
-                              disabled
-                              selected={!epkCoverData.genre}
-                            >
+                            <option value="" disabled>
                               Genre
                             </option>
                             {movieGenre.map((genre) => (
@@ -561,11 +531,7 @@ function FepkCoverForm() {
                             onChange={handleInputChange}
                             value={epkCoverData.status}
                           >
-                            <option
-                              value=""
-                              disabled
-                              selected={!epkCoverData.status}
-                            >
+                            <option value="" disabled>
                               Status
                             </option>
                             {movieStatus.map((status) => (
@@ -822,7 +788,6 @@ function FepkCoverForm() {
               </form>
             </div>
           </div>
-        </form>
       </div>
     </>
   );
