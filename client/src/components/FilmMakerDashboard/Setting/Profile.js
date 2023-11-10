@@ -101,9 +101,39 @@ export default function Profile() {
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
-    setUserProfileData({ ...userProfileData, [name]: value });
+  
+    // Check if the selected city is Montreal or Toronto
+    if (name === 'city' && (value === 'Montreal' || value === 'Toronto')) {
+      setUserProfileData(prevState => ({
+        ...prevState,
+        [name]: value,
+        country: 'Canada', // Set country to Canada for Montreal and Toronto
+      }));
+    } else if (name === 'city' && value === 'New York') {
+      // Check if the selected city is New York
+      setUserProfileData(prevState => ({
+        ...prevState,
+        [name]: value,
+        country: 'USA', // Set country to USA for New York
+      }));
+    }  else if (name === 'city' && value === 'Other') {
+      // Check if the selected city is New York
+      setUserProfileData(prevState => ({
+        ...prevState,
+        [name]: value,
+        country: 'Other', // Set country to USA for New York
+      }));
+    } else {
+      setUserProfileData(prevState => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  
     setDisabled(false);
   };
+  
+  
 
   function saveUserProfile() {
     Axios.put(
