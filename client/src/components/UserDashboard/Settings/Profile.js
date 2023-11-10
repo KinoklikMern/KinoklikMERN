@@ -138,6 +138,7 @@ export default function Profile() {
           value={userProfileData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          disabled={disabled}
         />
         <input
           type="text"
@@ -202,11 +203,6 @@ export default function Profile() {
           appElement={document.getElementById("root")}
           style={{
             overlay: {
-              // position: "fixed",
-              // top: 0,
-              // left: 0,
-              // right: 0,
-              // bottom: 0,
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             },
             content: {
@@ -250,6 +246,5 @@ export default function Profile() {
         )}
       </div>
     </div>
-    //  </form>
   );
 }

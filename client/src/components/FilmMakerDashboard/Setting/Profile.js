@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import { React, useEffect, useState, useRef } from "react";
@@ -8,7 +7,6 @@ export default function Profile() {
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
-  //const [userProfileData, setUserProfileData] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -146,7 +144,6 @@ export default function Profile() {
   const closeModal = () => setModalIsOpen(false);
 
   return (
-    //<form className="tw-h-full">
     <div className="tw-container">
       <div className="tw-grid tw-h-full tw-grid-cols-1 tw-gap-2 tw-py-4 md:tw-grid-cols-2 lg:tw-grid-cols-4">
         <div className="tw-mx-auto tw-my-8 tw-flex tw-flex-col">
@@ -173,6 +170,7 @@ export default function Profile() {
             value={userProfileData.email}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            disabled={disabled || userRole !== 'noUser'}
           />
           <input
             type="text"
@@ -190,14 +188,19 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
-          <input
-            type="text"
-            name="city"
-            placeholder="City"
-            value={userProfileData.city}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
+          <select
+          type="text"
+          name="city"
+          value={userProfileData.city}
+          onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        >
+          <option value="">Select City</option>
+                <option value="Montreal">Montreal</option>
+                <option value="Toronto">Toronto</option>
+                <option value="New York">New York</option>
+                <option value="Other">Other</option>
+        </select>
           <input
             type="text"
             name="province"
@@ -206,14 +209,19 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
-          <input
-            type="text"
-            name="country"
-            placeholder="Country"
-            defaultValue={userProfileData.country}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
+         <select
+           type="text"
+           name="country"
+           value={userProfileData.country}
+           onChange={handleProfileChange}
+          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+        >
+                  <option value="">Select Country</option>
+                  <option value="Canada">Canada</option>
+                  <option value="USA">USA</option>
+                  <option value="Other">Other</option>
+                </select>
+
         </div>
 
         <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col">
@@ -222,12 +230,11 @@ export default function Profile() {
               <select
                 type="text"
                 name="sex"
-                // placeholder="sexs"
                 value={userProfileData.sex}
                 onChange={handleProfileChange}
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
-                <option value="">Playing Sexe</option>
+                <option value="">Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
