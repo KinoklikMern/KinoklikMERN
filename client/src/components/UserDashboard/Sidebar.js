@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import StarIcon from "../../images/icons/StarEmpty.svg";
 import StarWhiteIcon from "../../images/icons/StarFULL.svg";
 import BellIcon from "../../images/icons/bellEmpty.svg";
@@ -26,6 +26,9 @@ export default function Sidebar(props) {
   // Access the user ID from Redux store
   const userId = useSelector((state) => state.user.id);
 
+  const sidebarRef = useRef(null);
+  const [isScrollable, setIsScrollable] = useState(false);
+
   const sideBarList1 = [
     {
       Title: "Starred",
@@ -33,8 +36,8 @@ export default function Sidebar(props) {
       ActiveIcon: StarWhiteIcon,
       href: "/userdashboard/starred",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
     {
@@ -43,8 +46,8 @@ export default function Sidebar(props) {
       ActiveIcon: PlusWhiteIcon,
       href: "/userdashboard/following",
       size: {
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
       },
     },
 
@@ -54,8 +57,8 @@ export default function Sidebar(props) {
       ActiveIcon: BellWhiteIcon,
       href: "/userdashboard/requests",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
     {
@@ -64,8 +67,8 @@ export default function Sidebar(props) {
       ActiveIcon: MessageWhiteIcon,
       href: "/userdashboard/chat",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
     {
@@ -74,8 +77,8 @@ export default function Sidebar(props) {
       ActiveIcon: SettingsWhiteIcon,
       href: "/userdashboard/settings",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
   ];
@@ -87,8 +90,8 @@ export default function Sidebar(props) {
       ActiveIcon: ActorPageWhite,
       href: "/userdashboard/actor",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
     {
@@ -97,8 +100,8 @@ export default function Sidebar(props) {
       ActiveIcon: StarWhiteIcon,
       href: "/userdashboard/starred",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
     {
@@ -107,8 +110,8 @@ export default function Sidebar(props) {
       ActiveIcon: PlusWhiteIcon,
       href: "/userdashboard/following",
       size: {
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
       },
     },
 
@@ -118,8 +121,8 @@ export default function Sidebar(props) {
       ActiveIcon: BellWhiteIcon,
       href: "/userdashboard/requests",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
     {
@@ -128,8 +131,8 @@ export default function Sidebar(props) {
       ActiveIcon: MessageWhiteIcon,
       href: "/userdashboard/chat",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
     {
@@ -138,42 +141,67 @@ export default function Sidebar(props) {
       ActiveIcon: SettingsWhiteIcon,
       href: "/userdashboard/settings",
       size: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
       },
     },
   ];
 
   const sideBarList = Role === "Actor" ? sideBarList2 : sideBarList1;
 
-  console.log(sideBarList);
-  console.log("userId", userId);
-  console.log("userInfo", userInfo);
+  useEffect(() => {
+    // Function to check if the sidebar has a scrollbar
+    const checkIfScrollable = () => {
+      const sidebar = sidebarRef.current;
+      if (!sidebar) return;
+
+      const hasScrollbar = sidebar.scrollHeight > sidebar.clientHeight;
+      setIsScrollable(hasScrollbar);
+    };
+
+    checkIfScrollable();
+    window.addEventListener("resize", checkIfScrollable);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => window.removeEventListener("resize", checkIfScrollable);
+  }, []);
+
+  // console.log(sideBarList);
+  // console.log("userId", userId);
+  // console.log("userInfo", userInfo);
   return (
     <>
       <nav
-        className='tw-hidden tw-h-full tw-w-24 tw-flex-col tw-justify-between tw-gap-3 tw-rounded-lg tw-bg-[#fff] md:tw-flex'
+        // className='tw-hidden tw-h-full tw-w-24 tw-flex-col tw-justify-between tw-gap-3 tw-rounded-lg tw-bg-[#fff] md:tw-flex'
+        // className="overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16 md:tw-flex"
         // style={{
         //   height: Role === "Actor" ? "115%" : "100%",
         // }}
+        className={`overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between tw-gap-3 tw-space-y-1 tw-rounded-lg tw-bg-[#fff] tw-py-4 md:tw-flex ${
+          isScrollable ? "tw-w-20" : ""
+        }`}
+        ref={sidebarRef}
       >
         {sideBarList.map((item, index) => (
           <div
             key={index}
-            className={
-              // "tw-flex tw-justify-center hover:tw-scale-105 " +
-              "tw-group tw-relative " +
-              (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
-            }
+            // className={
+            //   // "tw-flex tw-justify-center hover:tw-scale-105 " +
+            //   "tw-group tw-relative " +
+            //   (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
+            // }
+            className={`tw-group tw-relative ${
+              SELECTED_TAB === item.Title ? "tw-rounded-xl tw-bg-[#1E0039]" : ""
+            } tw-flex tw-justify-center`}
           >
             <a
               href={item.href}
-              className='tw-flex tw-flex-col tw-text-[#1E0039]'
+              className="tw-flex tw-flex-col tw-text-[#1E0039]"
               onClick={
                 item.Title === "Messages" ? clearMessageCount : undefined
               }
             >
-              <div className='tw-flex tw-justify-center '>
+              <div className="tw-flex tw-justify-center ">
                 <img
                   src={
                     SELECTED_TAB === item.Title
@@ -185,10 +213,13 @@ export default function Sidebar(props) {
                 />
               </div>
               <p
-                className={
-                  "tw-flex tw-justify-center tw-text-sm " +
-                  (SELECTED_TAB === item.Title ? "tw-text-white" : "")
-                }
+                // className={
+                //   "tw-flex tw-justify-center tw-text-sm " +
+                //   (SELECTED_TAB === item.Title ? "tw-text-white" : "")
+                // }
+                className={`tw-flex tw-justify-center ${
+                  item.Title === "Notifications" ? "tw-text-xs1" : "tw-text-xs"
+                } ${SELECTED_TAB === item.Title ? "tw-text-white" : ""}`}
               >
                 {item.Title}
               </p>
@@ -197,7 +228,7 @@ export default function Sidebar(props) {
               {item.Title === "Messages" &&
               messageCount > 0 &&
               userInfo === userId ? (
-                <div className='tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white'>
+                <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Messages" && messageCount > 9
                     ? "9+"
                     : messageCount}
@@ -209,8 +240,8 @@ export default function Sidebar(props) {
       </nav>
 
       {/* Tab bar for medium and small screens */}
-      <div className='tw-fixed tw-bottom-0 tw-left-0 tw-right-0 tw-z-50 tw-mx-auto tw-flex tw-w-full tw-bg-white tw-shadow-md md:tw-hidden'>
-        <nav className='tw-flex tw-w-full tw-justify-between'>
+      <div className="tw-fixed tw-bottom-0 tw-left-0 tw-right-0 tw-z-50 tw-mx-auto tw-flex tw-w-full tw-bg-white tw-shadow-md md:tw-hidden">
+        <nav className="tw-flex tw-w-full tw-justify-between">
           {sideBarList.map((item, index) => (
             <div
               key={index}
@@ -221,7 +252,7 @@ export default function Sidebar(props) {
             >
               <a
                 href={item.href}
-                className='tw-flex tw-flex-col tw-text-[#1E0039]'
+                className="tw-flex tw-flex-col tw-text-[#1E0039]"
                 onClick={
                   item.Title === "Messages" ? clearMessageCount : undefined
                 }
@@ -253,7 +284,7 @@ export default function Sidebar(props) {
                 {item.Title === "Messages" &&
                 messageCount > 0 &&
                 userInfo === userId ? (
-                  <div className='tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-xs sm:tw-h-6 sm:tw-w-6'>
+                  <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-xs sm:tw-h-6 sm:tw-w-6">
                     {item.Title === "Messages" && messageCount > 9
                       ? "9+"
                       : messageCount}

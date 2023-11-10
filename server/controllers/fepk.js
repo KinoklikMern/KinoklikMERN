@@ -192,7 +192,7 @@ export const getFepkByTitle = async (req, res) => {
     if (!fepkOne) {
       return res.status(404).json({ message: "FEPK not found" });
     }
-    res.status(200).json(fepkOne);
+    // res.status(200).json(fepkOne);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

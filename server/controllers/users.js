@@ -1027,7 +1027,7 @@ export const getActorRecommendations = async (req, res) => {
     const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
 
     console.log("Actor Profile:", actorProfile);
-    
+
     if (!actorProfile) {
       return res.status(404).json({ error: "No Actor was found!" });
     }

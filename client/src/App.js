@@ -85,6 +85,9 @@ import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
 import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage";
 import DashboardChat from "./pages/FilmmakerDashboard/ChatPage";
+import DashboardFollowing from "./pages/FilmmakerDashboard/FollowingPage";
+import DashboardStarred from "./pages/FilmmakerDashboard/StarredPage";
+import DashboardWishToBuy from "./pages/FilmmakerDashboard/WishToBuyPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 
 import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
@@ -147,6 +150,15 @@ function App() {
             <Route path="dashboard/chat" element={<DashboardChat />} />
             <Route path="dashboard/settings" element={<DashboardSettings />} />
             <Route path="dashboard/chat/:userId" element={<DashboardChat />} />
+            <Route path="dashboard/starred" element={<DashboardStarred />} />
+            <Route
+              path="dashboard/following"
+              element={<DashboardFollowing />}
+            />
+            <Route
+              path="dashboard/wishtobuy"
+              element={<DashboardWishToBuy />}
+            />
 
             <Route
               path="userdashboard/starred"

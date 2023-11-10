@@ -45,14 +45,19 @@ export default function NotificationEpkCard(props) {
       <div className="tw-m-12 tw-flex tw-flex-row">
         <img className={`tw-rounded-lg ${imageSize}`} src={BANNER_IMG} alt="" />
         <div className="tw-flex tw-flex-col tw-justify-between tw-p-3">
+          {/* <div
+            className="tw-relative tw-inline-flex tw-justify-center" */}
           <div
-            className="tw-relative tw-inline-flex tw-justify-center"
+            className="tw-relative tw-inline-flex"
             onClick={handleStarClick}
             style={{ cursor: "pointer" }}
           >
             <FontAwesomeIcon
               icon={faStar}
-              style={{ color: "#1E0039" }}
+              style={{
+                color: "#1E0039",
+                marginRight: props.imgIsSelected ? "0.5rem" : "0.25rem",
+              }}
               size={props.imgIsSelected === true ? "2xl" : "sm"}
             />
             <span
@@ -62,7 +67,7 @@ export default function NotificationEpkCard(props) {
             </span>
           </div>
 
-          <div className="tw-relative tw-inline-flex">
+          {/* <div className="tw-relative tw-inline-flex">
             <FontAwesomeIcon
               icon={faDollarSign}
               style={{ color: "#1E0039" }}
@@ -75,16 +80,19 @@ export default function NotificationEpkCard(props) {
                 ? "0"
                 : epkInfo.wishes_to_donate.length}
             </span>
-          </div>
+          </div> */}
 
           <div
-            className="tw-relative tw-inline-flex"
+            // className="tw-relative tw-inline-flex"
+            className="tw-relative tw-inline-flex tw-justify-center"
             onClick={handleDollarClick}
             style={{ cursor: "pointer" }}
           >
             <FontAwesomeIcon
               icon={faDollarSign}
-              style={{ color: "#1E0039" }}
+              style={{
+                color: "#1E0039",
+              }}
               size={props.imgIsSelected === true ? "2xl" : "sm"}
             />
             <span
@@ -96,13 +104,16 @@ export default function NotificationEpkCard(props) {
             </span>
           </div>
           <div
-            className="tw-relative tw-inline-flex"
+            // className="tw-relative tw-inline-flex"
+            className="tw-relative tw-inline-flex tw-justify-center"
             onClick={handlePlusClick}
             style={{ cursor: "pointer" }}
           >
             <FontAwesomeIcon
               icon={faPlus}
-              style={{ color: "#1E0039" }}
+              style={{
+                color: "#1E0039",
+              }}
               size={props.imgIsSelected === true ? "2xl" : "sm"}
             />
             <span
