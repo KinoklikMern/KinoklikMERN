@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
 import "../List/List.css";
-/* eslint-disable no-unused-vars */
 import "../ListItem/ListItem.css";
 import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
@@ -37,7 +36,7 @@ const HomeBody = ({ role }) => {
     },
   ]);
 
-  const actorId = "6483619d64b048f952a6fb5b";
+  // const actorId = "6483619d64b048f952a6fb5b";
 
   const clickHandler = (name, isActive) => {
     let newTags;
@@ -164,7 +163,7 @@ const HomeBody = ({ role }) => {
                   <a
                     href={
                       role === "actor"
-                        ? `/actor/${actorId}`
+                        ? `/actor/${fepk._id}`
                         : `epk/${formattedTitle}`
                     }
                   >
