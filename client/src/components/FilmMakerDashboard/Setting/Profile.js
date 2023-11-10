@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from 'react-redux';
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
 
@@ -34,8 +34,15 @@ export default function Profile() {
     picture: "",
   });
 
+  const [validationErrors, setValidationErrors] = useState({
+    phone: '',
+    firstName:'',
+  });
+
+
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const selectUser = (state) => state.user;
+  const user = useSelector(selectUser, shallowEqual)
   let userId;
   let userRole;
   if (!user) {
@@ -99,31 +106,62 @@ export default function Profile() {
     }
   }
 
+  const validatename = (firstName) => {
+    const nameRegex = /^[^\s]+$/;
+    return nameRegex.test(firstName);
+  };
+  
+  const validatePhone = (phone) => {
+    const phoneRegex = /^\d{10,15}$/;
+    return phoneRegex.test(phone);
+  };
+
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
   
-    // Check if the selected city is Montreal or Toronto
+    if (name === 'firstName' || name === 'lastName') {
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: validatename(value) ? '' : 'Name is a required field',
+      }));
+    }
+  
+    if (name === 'phone') {
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: validatePhone(value) ? '' : 'Please enter a valid phone number (10 to 15 digits)',
+      }));
+    }
+
     if (name === 'city' && (value === 'Montreal' || value === 'Toronto')) {
       setUserProfileData(prevState => ({
         ...prevState,
         [name]: value,
-        country: 'Canada', // Set country to Canada for Montreal and Toronto
+        country: 'Canada', 
       }));
     } else if (name === 'city' && value === 'New York') {
-      // Check if the selected city is New York
+      
       setUserProfileData(prevState => ({
         ...prevState,
         [name]: value,
-        country: 'USA', // Set country to USA for New York
+        country: 'USA', 
       }));
     }  else if (name === 'city' && value === 'Other') {
-      // Check if the selected city is New York
+      
       setUserProfileData(prevState => ({
         ...prevState,
         [name]: value,
-        country: 'Other', // Set country to USA for New York
+        country: 'Other', 
       }));
-    } else {
+    }else if (name === 'city' && value === '') {
+      
+      setUserProfileData(prevState => ({
+        ...prevState,
+        [name]: value,
+        country: '', 
+      }));
+    }
+     else {
       setUserProfileData(prevState => ({
         ...prevState,
         [name]: value,
@@ -134,7 +172,6 @@ export default function Profile() {
   };
   
   
-
   function saveUserProfile() {
     Axios.put(
       `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
@@ -142,13 +179,14 @@ export default function Profile() {
     )
       .then((res) => {
         setModalIsOpen(true);
+        setDisabled(true);
       })
       .catch((err) => {
         alert(err.response.data.message);
       });
-
-    setDisabled(true);
   }
+  
+ 
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -185,6 +223,10 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+       {validationErrors.firstName && (
+  <div className="tw-text-red-500">{validationErrors.firstName}</div>
+)}
+
           <input
             type="text"
             name="lastName"
@@ -193,6 +235,7 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+          
           <input
             type="text"
             name="email"
@@ -202,6 +245,9 @@ export default function Profile() {
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             disabled={disabled || userRole !== 'noUser'}
           />
+         
+
+        {/* Phone input with validation error */}
           <input
             type="text"
             name="phone"
@@ -210,6 +256,10 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+      {validationErrors.phone && (
+        <div className="tw-text-red-500">{validationErrors.phone}</div>
+      )}
+
           <input
             type="text"
             name="website"
