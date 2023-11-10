@@ -41,8 +41,6 @@ function FepkDetailsForm() {
 
   //roles for invited users
   const [invitedUserRole, setInvitedUserRole] = useState("Actor");
-  // const [invitedUserFirstName, setInvitedUserFirstName] = useState("");
-  //const [invitedUserLastName, setInvitedUserLastName] = useState("");
 
   const [invitationData, setInvitationData] = useState({
     firstName: "",

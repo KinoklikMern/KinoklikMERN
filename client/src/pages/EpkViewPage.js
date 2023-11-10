@@ -21,6 +21,7 @@ import { useParams } from "react-router-dom";
 import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
+import Banner from "../components/EpkView/EpkBanner/EpkBanner";
 
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -72,7 +73,7 @@ function EpkViewPage() {
           break;
 
         case "wish_to_donate":
-          setShowDonationModal(true); 
+          setShowDonationModal(true);
           break;
       }
     } else {
@@ -82,7 +83,7 @@ function EpkViewPage() {
 
   useEffect(() => {
     getFepksByTitle(title).then((res) => {
-      console.log(res); 
+      console.log(res);
       setEpkInfo(res);
       setFepkId(res._id);
       setFepkMaker(res.film_maker);
@@ -97,6 +98,10 @@ function EpkViewPage() {
       }
     });
   }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
+
+  // useEffect(() => {
+  //   console.log(epkInfo);
+  // }, [epkInfo])
 
   return (
     epkInfo && (
@@ -181,6 +186,8 @@ function EpkViewPage() {
               epkDonateStripe={epkInfo.DonateStripe_url}
             />
           )}
+
+          <Banner />
         </div>
       </div>
     )
