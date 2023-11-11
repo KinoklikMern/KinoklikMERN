@@ -6,10 +6,15 @@ import {
   faShareNodes,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import emptyBanner from "../../../images/empty_banner.jpeg";
 
 export default function EpkCard(props) {
   const epkInfo = props.EpkInfo;
-  const BANNER_IMG = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
+  const BANNER_IMG =
+    epkInfo.banner_url === ""
+      ? emptyBanner
+      : `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
+
   return (
     <div className="tw-flex tw-flex-row">
       <div className="tw-m-4 tw-max-w-xs tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  getFepkFollowersNumber,
-  getActorFollowersNumber,
-} from "../../../api/epks";
+import { getActorFollowersNumber } from "../../../api/epks";
 import Audience from "../../../images/audienceIcon.svg";
 import SocialMedia from "./SocialMedia";
 import {
@@ -89,6 +86,7 @@ export default function EpkHeader({ epkInfo }) {
     if (epkInfo?.actors && epkInfo.actors.length > 0) {
       fetchAndSumActorFollowers();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [epkInfo]);
 
   function formatCompactNumber(number) {

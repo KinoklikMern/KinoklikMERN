@@ -1,8 +1,12 @@
 import React from "react";
 import MessageIcon from "../../../images/icons/message.svg";
+import emptyPoster from "../../../images/empty_banner.jpeg";
 
 export default function EpkDetail({ epkInfo, handler }) {
-  const image_detail = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+  const image_detail = epkInfo.image_details === "" || epkInfo.image_details.startsWith("https")
+    ? emptyPoster
+    : `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+
   const filmmaker_image = epkInfo.film_maker.picture.startsWith("https")
     ? epkInfo.film_maker.picture
     : `${process.env.REACT_APP_AWS_URL}/${epkInfo.film_maker.picture}`;

@@ -124,6 +124,23 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
 
   // determine and return the chat sender
   const getChatSender = (loggedUser, users) => {
+    // Check if users array is valid and has at least two users
+    if (!Array.isArray(users) || users.length < 2 || !loggedUser) {
+      console.error("Invalid users array or loggedUser:", users, loggedUser);
+      return { name: "Unknown", avatar: "", userId: "", type: "" };
+    }
+
+    // Ensure both users have _id and firstName properties
+    if (
+      !users[0]._id ||
+      !users[1]._id ||
+      !users[0].firstName ||
+      !users[1].firstName
+    ) {
+      console.error("Invalid user objects:", users);
+      return { name: "Unknown", avatar: "", userId: "", type: "" };
+    }
+
     const firstName =
       users[0]._id === loggedUser.id ? users[1].firstName : users[0].firstName;
     const lastName =

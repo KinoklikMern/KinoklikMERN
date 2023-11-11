@@ -143,7 +143,7 @@ const HomeBody = ({ role }) => {
       <div>
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-1 md:tw-flex-row'>
+      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-1 md:tw-flex-row">
         {filterTags.map((tag, index) => (
           <FilterButton
             key={index}
@@ -153,13 +153,17 @@ const HomeBody = ({ role }) => {
           />
         ))}
       </div>
-      <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
-        <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
+      <div className="home tw-flex tw-justify-center tw-overflow-y-auto">
+        <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5">
           {filteredEPKs.map((fepk) => {
+            if (fepk.image_details === "") {
+              // Skip rendering this item if image_details (poster) because it looks
+              return null;
+            }
             const formattedTitle = fepk.title.replace(/ /g, "_");
             return (
               <React.Fragment key={fepk._id}>
-                <div className='listItem tw-p-3'>
+                <div className="listItem tw-p-3">
                   <a
                     href={
                       role === "actor"
@@ -169,8 +173,8 @@ const HomeBody = ({ role }) => {
                   >
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                      alt=''
-                      className='tw-aspect-1 tw-w-full'
+                      alt=""
+                      className="tw-aspect-1 tw-w-full"
                     />
                   </a>
                 </div>
@@ -193,18 +197,18 @@ const FilterButton = ({ name, isActive, clickHandler }) => {
             ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
             : "tw-bg-white tw-text-[#1E0039]"
         }`}
-        type='button'
+        type="button"
         onClick={() => clickHandler(name, isActive)}
       >
         {name}
         {!isActive ? (
           <FontAwesomeIcon
-            className='tw-pl-5'
+            className="tw-pl-5"
             icon={faPlus}
             style={{ color: "#aaaaaa" }}
           />
         ) : (
-          <FontAwesomeIcon className='tw-pl-5' icon={faCheck} />
+          <FontAwesomeIcon className="tw-pl-5" icon={faCheck} />
         )}
       </button>
     </>
