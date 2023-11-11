@@ -105,8 +105,8 @@ function EpkViewPage() {
 
   return (
     epkInfo && (
-      <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
-        <div className="tw-w-11/12">
+      <div className='tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039]'>
+        <div className='tw-w-11/12'>
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
           {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}

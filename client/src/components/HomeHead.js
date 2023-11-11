@@ -79,9 +79,8 @@ const HomeHead = (props) => {
             </a>
           </div>
 
-          <div className='tw-flex tw-w-full md:tw-w-2/4'>
+          <div className='tw-mx-auto tw-my-auto tw-w-full md:tw-w-2/4'>
             <a
-              className='tw-my-auto'
               href={
                 props.role === "actor"
                   ? `actor/${actor._id}`
