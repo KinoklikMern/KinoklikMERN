@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Actor from "./pages/Actor/Actor";
 
 import "./styles/tailwind.css"; //Tailwind
-import "./styles/Loader.css";
 
 import MainLayout from "./layouts/MainLayout";
 import UploadMovie from "./pages/UploadMovie";

@@ -3,9 +3,10 @@ import MessageIcon from "../../../images/icons/message.svg";
 import emptyPoster from "../../../images/empty_banner.jpeg";
 
 export default function EpkDetail({ epkInfo, handler }) {
-  const image_detail = epkInfo.image_details === "" || epkInfo.image_details.startsWith("https")
-    ? emptyPoster
-    : `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
+  const image_detail =
+    epkInfo.image_details === "" || epkInfo.image_details.startsWith("https")
+      ? emptyPoster
+      : `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
 
   const filmmaker_image = epkInfo.film_maker.picture.startsWith("https")
     ? epkInfo.film_maker.picture
@@ -84,16 +85,16 @@ export default function EpkDetail({ epkInfo, handler }) {
     );
   };
   return (
-    <div className='tw-flex tw-justify-between tw-gap-6 tw-rounded-lg tw-bg-white tw-pb-6 tw-pl-8 tw-pr-3 tw-pt-3 tw-text-[#1E0039]'>
-      <div className='tw-m-6'>
+    <div className='tw-grid tw-grid-cols-4 tw-gap-6 tw-rounded-lg tw-bg-white tw-px-2 tw-text-[#1E0039] md:tw-pl-8'>
+      <div className='md:tw-m-6'>
         <img
           src={image_detail}
           alt=''
           style={{ width: "310px", height: "420px" }}
-          className='tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]'
+          className='hidden md:block tw-invisible tw-my-4 tw-shadow-[6px_6px_3px_#1E0039] md:tw-visible md:tw-h-full'
         />
       </div>
-      <div className='tw-my-8 tw-grid tw-grid-cols-3 tw-gap-3'>
+      <div className='md:col-span-2 tw-my-8 tw-grid tw-grid-cols-3 tw-gap-3'>
         {epkInfo.crew.length > 0
           ? epkInfo.crew.map((person, index) => (
               <CrewAvatar
@@ -108,7 +109,7 @@ export default function EpkDetail({ epkInfo, handler }) {
               />
             ))}
       </div>
-      <div className='tw-my-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-text-center tw-text-xl '>
+      <div className='md:col-span-2 tw-my-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-text-center tw-text-xl'>
         <div>
           <p className='tw-font-light'>Produced Year</p>
           <p>{epkInfo.productionYear}</p>
@@ -127,28 +128,28 @@ export default function EpkDetail({ epkInfo, handler }) {
         </div>
       </div>
       <div>
-        <div className='tw-flex tw-flex-col tw-gap-3'>
-          <div className='tw-relative tw-self-end'>
+        <div className='tw-mt-8 tw-flex tw-flex-col tw-gap-3'>
+          <div className='tw-relative tw-mx-auto'>
             <span className='tw-flex tw-justify-center tw-text-[#1E0039]'>
               Created By
             </span>
             <img
-              className='tw-max-w-20 tw-max-h-20 tw-rounded-lg'
+              className='tw-h-4/4 tw-w-4/4 tw-rounded-lg'
               src={filmmaker_image}
               alt='profile img'
             />
-            <div className='tw-absolute tw-inset-x-0 tw-bottom-0 tw-flex tw-h-4 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75'>
+            <div className='tw-absolute tw-inset-x-0 tw-bottom-0 tw-mx-auto tw-flex tw-h-4 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75'>
               <span className='tw-self-center tw-overflow-hidden tw-text-xs tw-text-white'>
                 {filmmaker_name}
               </span>
             </div>
           </div>
-          <div className='tw-relative tw-flex tw-justify-center tw-self-center'>
+          <div className='tw-flex'>
             <img
               src={MessageIcon}
               alt=''
               onClick={() => handler("message")}
-              className='tw-max-w-16 tw-max-h-16 tw-cursor-pointer tw-p-3 hover:tw-scale-110'
+              className='tw-max-w-20 tw-max-h-20 tw-cursor-pointer tw-p-3 hover:tw-scale-110'
             />
           </div>
         </div>
