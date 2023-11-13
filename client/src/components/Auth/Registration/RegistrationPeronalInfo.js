@@ -54,6 +54,9 @@ function RegistrationPersonalInfo({
     const updatedOptions = { ...initOptions, [option]: true };
     setNewsletterOptions(updatedOptions);
   };
+  const handleReceiveNewsletterChange = (e) => {
+    setReceiveNewsletter(e.target.checked);
+  };
 
   return (
     <>
@@ -180,61 +183,57 @@ function RegistrationPersonalInfo({
             <div className={SignupCss.listOfAudiences}>
               <label className="audience">
                 <input
-                  type="radio"
                   name="newsletterOption"
+                  type="checkbox"
                   checked={newsletterOptions.filmmakers}
-                  onChange={(e) => handleNewsletterOptionChange("filmmakers")}
+                  onChange={handleNewsletterOptionChange("filmmakers")}
                 />
                 Filmmakers (Directors & Producers)
               </label>
               <label className="audience">
                 <input
-                  type="radio"
                   name="newsletterOption"
+                  type="checkbox"
                   checked={newsletterOptions.viewers}
-                  onChange={(e) => handleNewsletterOptionChange("viewers")}
+                  onChange={handleNewsletterOptionChange("viewers")}
                 />
                 Viewers
               </label>
               <label className="audience">
                 <input
-                  type="radio"
                   name="newsletterOption"
                   checked={newsletterOptions.ecosystemPlayers}
                   onChange={(e) =>
                     handleNewsletterOptionChange("ecosystemPlayers")
                   }
+                  type="checkbox"
                 />
                 Film Ecosystem & Industry Players
               </label>
               <label className="audience">
                 <input
-                  type="radio"
                   name="newsletterOption"
+                  type="checkbox"
                   checked={newsletterOptions.investors}
-                  onChange={(e) => handleNewsletterOptionChange("investors")}
+                  onChange={handleNewsletterOptionChange("investors")}
                 />
                 Investors & VCs Updates
               </label>
               <label className="audience">
                 <input
-                  type="radio"
                   name="newsletterOption"
+                  type="checkbox"
                   checked={newsletterOptions.technicalUpdates}
-                  onChange={(e) =>
-                    handleNewsletterOptionChange("technicalUpdates")
-                  }
+                  onChange={handleNewsletterOptionChange("technicalUpdates")}
                 />
                 KinoKlik Technical Updates
               </label>
               <label className="audience">
                 <input
-                  type="radio"
                   name="newsletterOption"
+                  type="checkbox"
                   checked={newsletterOptions.allNewsletters}
-                  onChange={(e) =>
-                    handleNewsletterOptionChange("allNewsletters")
-                  }
+                  onChange={handleNewsletterOptionChange("allNewsletters")}
                 />
                 All Newsletters
               </label>

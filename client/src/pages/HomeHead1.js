@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { React, useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import HomeMainFilm from "../components/HomeMainFilm";
@@ -102,32 +103,32 @@ const HomeHead = () => {
 
   return (
     <div
-      className=" tw-h-[100vh]  tw-h-screen tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
+      className='tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat'
       style={{
         backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
       }}
     >
-      <section id="home" className="tw-pt-0">
-        <div className="menu-icon tw-pt-12">
+      <section id='home' className='tw-pt-0'>
+        <div className='menu-icon tw-pt-12'>
           {/* <Link to="/">   must be linked to /bookmark    */}
           <img
-            className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
+            className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 '
             src={DollarIcon}
-            alt="/"
+            alt='/'
             onClick={handleClickDollar}
             style={{ opacity: clickedDollar ? 1 : 0.5 }}
           />
           {/*  </Link> */}
           <img
-            className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
+            className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 '
             src={PlusIcon}
-            alt="/"
+            alt='/'
             onClick={handleClickPlus}
             style={{ opacity: clickedPlus ? 1 : 0.5 }}
           />
 
           <FontAwesomeIcon
-            className="tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100"
+            className='tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100'
             icon={faStar}
             onClick={handleStarClick}
             style={{ opacity: clickedStar ? 1 : 0.5 }}
@@ -141,37 +142,37 @@ const HomeHead = () => {
           /> */}
 
           <FontAwesomeIcon
-            className="tw-h-9 tw-w-9 tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100"
+            className='tw-h-9 tw-w-9 tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100'
             icon={faShareNodes}
             onClick={handleClickShare}
             style={{ opacity: clickedShare ? 1 : 0.5 }}
           />
         </div>
-        <div className="menu-icon1">
+        <div className='menu-icon1'>
           {userRole === "Filmmaker" ? (
             <>
               <a href={`/uploadFepk`}>
                 <img
-                  className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
+                  className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 '
                   src={UploadFilmIcon}
-                  alt="/"
+                  alt='/'
                   onClick={handleClickMovie}
                   style={{ opacity: clickedMovie ? 1 : 0.5 }}
                 />
               </a>
               <img
-                className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
+                className='tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 '
                 src={VolumeIcon2}
-                alt="/"
+                alt='/'
                 onClick={handleClickVolumeUp}
                 style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
               />
             </>
           ) : (
             <img
-              className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
+              className='tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 '
               src={VolumeIcon2}
-              alt="/"
+              alt='/'
               onClick={handleClickVolumeUp}
               style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
             />
@@ -186,26 +187,26 @@ const HomeHead = () => {
             style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
           /> */}
         </div>
-        <div className="tw-pt-24">
-          <div className="tw-flex tw-h-[70vh] tw-pl-40">
+        <div className='tw-pt-24'>
+          <div className='tw-flex tw-h-[70vh] tw-pl-40'>
             <div>
               <a href={`epk/${fepk.title}`}>
                 <img
-                  className="tw-h-[70vh] "
+                  className='tw-h-[70vh] '
                   src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                  alt="/"
+                  alt='/'
                 />
               </a>
             </div>
 
             <div>
-              <h1 className="movieTitle tw-pl-48 tw-text-8xl tw-font-semibold">
+              <h1 className='movieTitle tw-pl-48 tw-text-8xl tw-font-semibold'>
                 {fepk.title}
               </h1>
             </div>
           </div>
 
-          <p className="movieIntro tw-my-8 tw-text-xl ">{fepk.logLine_short}</p>
+          <p className='movieIntro tw-my-8 tw-text-xl '>{fepk.logLine_short}</p>
         </div>
         {/* <HomeMainFilm /> */}
       </section>

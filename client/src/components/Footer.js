@@ -14,11 +14,15 @@ import LanguageToggle from "./LanguageToggle";
 function Footer() {
   return (
     <>
-      <div className='footer-container'>
+      <div className='footer-container tw-overflow-hidden'>
         <footer className='footer tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-bg-gradient-to-t tw-from-purple-950 tw-to-purple-900 tw-p-6 tw-text-white'>
-          <div className='tw-mb-4 tw-flex tw-w-full tw-flex-col tw-items-center md:tw-flex-row md:tw-justify-around'>
-            <div className='tw-mb-4 tw-flex tw-justify-center md:tw-mb-0'>
-              <img src={logo} alt='Logo' className='tw-h-22' />
+          <div className='tw-mb-4 tw-grid  tw-w-full  tw-grid-cols-2 tw-items-center md:tw-grid-cols-5 md:tw-justify-around'>
+            <div className='tw-mb-4 tw-flex md:tw-mb-0'>
+              <img
+                src={logo}
+                alt='Logo'
+                className='tw-h-22 tw-ml-0 md:tw-mx-auto'
+              />
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
@@ -60,7 +64,7 @@ function Footer() {
                 Media & Blog
               </a>
             </div>
-            <div className='footer-links tw-flex tw-flex-row tw-items-center tw-justify-center tw-text-center md:tw-flex-col'>
+            <div className='footer-links tw-col-span-2 tw-flex tw-justify-center tw-text-center md:tw-col-span-1 md:tw-justify-normal'>
               <a
                 href='https://www.facebook.com/kinoklikcanada'
                 target='_blank'
@@ -95,6 +99,7 @@ function Footer() {
               </a>
             </div>
           </div>
+
           <LanguageToggle />
           <div className='tw-text-gray-300'>
             &copy; {new Date().getFullYear()} KinoKlik. All Rights Reserved.
