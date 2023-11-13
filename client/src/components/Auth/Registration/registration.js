@@ -16,6 +16,8 @@ import salesAgentIcon from "../../../images/icons/salesAgentIcon.svg";
 import festivalIcon from "../../../images/icons/festivalIcon.svg";
 import investorIcon from "../../../images/icons/investorIcon.svg";
 import editorIcon from "../../../images/icons/editorIcon.svg";
+import {useTranslation} from 'react-i18next';
+
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
@@ -31,9 +33,11 @@ function RegistrationForm() {
   const [success, setSuccess] = useState("");
   const [nextClicked, setNextClicked] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [role, setRole] = useState({
-    label: "An amazing and talented visionary filmmaker",
+    
+    label: (t('An amazing and talented visionary filmmaker')),
     value: "Filmmaker",
     image: filmmakerIcon,
   });
