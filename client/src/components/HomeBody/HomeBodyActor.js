@@ -11,11 +11,7 @@ const HomeBodyActor = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
-  useEffect(() => {
-    http.get(`fepks/`).then((response) => {
-      setFepks(response.data);
-    });
-  }, []);
+
 
 
   return (

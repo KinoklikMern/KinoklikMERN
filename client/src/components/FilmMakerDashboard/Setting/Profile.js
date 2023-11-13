@@ -35,8 +35,11 @@ export default function Profile() {
   });
 
   const [validationErrors, setValidationErrors] = useState({
-    phone: '',
-    firstName:'',
+  firstName:'',
+  lastName:'',
+  province:'',
+  phone: '',
+  website:'',
   });
 
 
@@ -106,14 +109,31 @@ export default function Profile() {
     }
   }
 
-  const validatename = (firstName) => {
+  const validatename = (name) => {
     const nameRegex = /^[^\s]+$/;
-    return nameRegex.test(firstName);
+    return nameRegex.test(name);
   };
   
   const validatePhone = (phone) => {
     const phoneRegex = /^\d{10,15}$/;
-    return phoneRegex.test(phone);
+    return phone === '' || phoneRegex.test(phone);
+  };
+
+  const validateWebsite = (website) => {
+    const websiteRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+    return website === '' || websiteRegex.test(website);
+  };
+    
+  const validateFollowers = (followers) => {
+    const followersRegex = /^(\d+([kK])?)?$/; 
+    return followers === '' || followersRegex.test(followers);
+  };
+
+  const cityInfo = {
+    Montreal: { province: 'Quebec', country: 'Canada' },
+    Toronto: { province: 'Ontario', country: 'Canada' },
+    'New York': { province: 'New York', country: 'USA' },
+    //Other: { province: 'Other', country: 'Other' },
   };
 
   const handleProfileChange = (event) => {
@@ -122,47 +142,59 @@ export default function Profile() {
     if (name === 'firstName' || name === 'lastName') {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validatename(value) ? '' : 'Name is a required field',
+        [name]: validatename(value) ? '' : 'Please fill out the required field',
       }));
     }
   
-    if (name === 'phone') {
+    if (name === 'phone' && value !== '') {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
         phone: validatePhone(value) ? '' : 'Please enter a valid phone number (10 to 15 digits)',
       }));
     }
 
-    if (name === 'city' && (value === 'Montreal' || value === 'Toronto')) {
-      setUserProfileData(prevState => ({
-        ...prevState,
-        [name]: value,
-        country: 'Canada', 
-      }));
-    } else if (name === 'city' && value === 'New York') {
-      
-      setUserProfileData(prevState => ({
-        ...prevState,
-        [name]: value,
-        country: 'USA', 
-      }));
-    }  else if (name === 'city' && value === 'Other') {
-      
-      setUserProfileData(prevState => ({
-        ...prevState,
-        [name]: value,
-        country: 'Other', 
-      }));
-    }else if (name === 'city' && value === '') {
-      
-      setUserProfileData(prevState => ({
-        ...prevState,
-        [name]: value,
-        country: '', 
+    if ((name === 'website' && value !== '') || (name === 'facebook_url' && value !== '')
+    || (name === 'twitter_url' && value !== '') || (name === 'instagram_url' && value !== '') 
+    || (name === 'youtube_url' && value !== '') || (name === 'linkedin_url' && value !== '')) {
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: validateWebsite(value) ? '' : 'Please enter a valid URL',
       }));
     }
-     else {
-      setUserProfileData(prevState => ({
+
+    if ((name === 'facebook_followers' && value !== '') || (name === 'linkedin_followers' && value !== '')
+    || (name === 'twitter_followers' && value !== '') || (name === 'instagram_followers' && value !== '') 
+    || (name === 'youtube_subs' && value !== '')) {
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: validateFollowers(value) ? '' : 'Please enter a valid number of followers',
+      }));
+    }
+
+    if (name === 'city' && value in cityInfo) {
+      const { province, country } = cityInfo[value];
+      setUserProfileData((prevState) => ({
+        ...prevState,
+        [name]: value,
+        province,
+        country,
+      }));
+    } else if (name === 'city' && value === 'Other') {
+      setUserProfileData((prevState) => ({
+        ...prevState,
+        [name]: value,
+        province: 'Other',
+        country: 'Other',
+      }));
+    } else if (name === 'city' && value === '') {
+      setUserProfileData((prevState) => ({
+        ...prevState,
+        [name]: value,
+        country: '',
+        province: '',
+      }));
+    } else {
+      setUserProfileData((prevState) => ({
         ...prevState,
         [name]: value,
       }));
@@ -171,19 +203,26 @@ export default function Profile() {
     setDisabled(false);
   };
   
-  
   function saveUserProfile() {
-    Axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
-      userProfileData
-    )
-      .then((res) => {
-        setModalIsOpen(true);
-        setDisabled(true);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    // Check if there are any validation errors
+    const hasErrors = Object.values(validationErrors).some(error => error);
+  
+    if (!hasErrors) {
+      Axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
+        userProfileData
+      )
+        .then((res) => {
+          setModalIsOpen(true);
+          setDisabled(true);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    } else {
+      // Display a message or handle the errors appropriately
+      alert('Please fix the validation errors before saving.');
+    }
   }
   
  
@@ -223,9 +262,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
-       {validationErrors.firstName && (
-  <div className="tw-text-red-500">{validationErrors.firstName}</div>
-)}
+            {validationErrors.firstName && (
+            <div className="tw-text-red-500">{validationErrors.firstName}</div>
+            )}
 
           <input
             type="text"
@@ -235,6 +274,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.lastName && (
+           <div className="tw-text-red-500">{validationErrors.lastName}</div>
+           )}
           
           <input
             type="text"
@@ -268,6 +310,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.website && (
+           <div className="tw-text-red-500">{validationErrors.website}</div>
+            )}
           <select
           type="text"
           name="city"
@@ -281,14 +326,23 @@ export default function Profile() {
                 <option value="New York">New York</option>
                 <option value="Other">Other</option>
         </select>
-          <input
+          <select
             type="text"
             name="province"
-            placeholder="Province"
+           // placeholder="Province or State"
             value={userProfileData.province}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
+          >
+              <option value="">Select Province</option>
+                <option value="Quebec">Quebec</option>
+                <option value="Ontario">Ontario</option>
+                <option value="New York">New York</option>
+                <option value="Other">Other</option>
+        </select>
+           {validationErrors.province && (
+           <div className="tw-text-red-500">{validationErrors.province}</div>
+           )}
          <select
            type="text"
            name="country"
@@ -524,6 +578,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.facebook_url && (
+           <div className="tw-text-red-500">{validationErrors.facebook_url}</div>
+            )}
           <input
             type="text"
             name="facebook_followers"
@@ -533,7 +590,9 @@ export default function Profile() {
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
         </div>
-
+        {validationErrors.facebook_followers && (
+           <div className="tw-text-red-500">{validationErrors.facebook_followers}</div>
+            )}
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-instagram tw-text-4xl"></i>
           <input
@@ -544,6 +603,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.instagram_url && (
+           <div className="tw-text-red-500">{validationErrors.instagram_url}</div>
+            )}
           <input
             type="text"
             name="instagram_followers"
@@ -552,6 +614,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.instagram_followers && (
+           <div className="tw-text-red-500">{validationErrors.instagram_followers}</div>
+            )}
         </div>
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-twitter tw-text-4xl"></i>
@@ -563,6 +628,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-ml-3 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.twitter_url && (
+           <div className="tw-text-red-500">{validationErrors.twitter_url}</div>
+            )}
           <input
             type="text"
             name="twitter_followers"
@@ -571,6 +639,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.twitter_followers && (
+           <div className="tw-text-red-500">{validationErrors.twitter_followers}</div>
+            )}
         </div>
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-youtube tw-text-4xl"></i>
@@ -582,6 +653,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-ml-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.youtube_url && (
+           <div className="tw-text-red-500">{validationErrors.youtube_url}</div>
+            )}
           <input
             type="text"
             name="youtube_subs"
@@ -590,6 +664,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.youtube_subs && (
+           <div className="tw-text-red-500">{validationErrors.youtube_subs}</div>
+            )}
         </div>
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-linkedin tw-text-4xl"></i>
@@ -601,6 +678,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.linkedin_url && (
+           <div className="tw-text-red-500">{validationErrors.linkedin_url}</div>
+            )}
           <input
             type="text"
             name="linkedin_followers"
@@ -609,9 +689,11 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
+           {validationErrors.linkedin_followers && (
+           <div className="tw-text-red-500">{validationErrors.linkedin_followers}</div>
+            )}
         </div>
       </div>
     </div>
-    //  </form>
   );
 }
