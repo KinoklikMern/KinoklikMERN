@@ -14,23 +14,14 @@ function RegistrationPersonalInfo({
   setPassword,
   setConfirmPassword,
   role,
-  handleSubmit,
-  setNextClicked,
-  handleBack,
-  showBackButton,
+  receiveNewsletter,
+  setReceiveNewsletter,
+  newsletterOptions,
+  setNewsletterOptions,
+  agreeToTerms,
+  setAgreeToTerms,
 }) {
   const navigate = useNavigate();
-  const [receiveNewsletter, setReceiveNewsletter] = useState(false);
-  const [newsletterOptions, setNewsletterOptions] = useState({
-    filmmakers: false,
-    viewers: false,
-    ecosystemPlayers: false,
-    investors: false,
-    technicalUpdates: false,
-    allNewsletters: false,
-  });
-
-  const [agreeToTerms, setAgreeToTerms] = useState(false); // New state for the terms and conditions checkbox
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -51,15 +42,17 @@ function RegistrationPersonalInfo({
     }
   };
 
-  const handleReceiveNewsletterChange = (e) => {
-    setReceiveNewsletter(e.target.checked);
-  };
-
-  const handleNewsletterOptionChange = (option) => (e) => {
-    setNewsletterOptions({
-      ...newsletterOptions,
-      [option]: e.target.checked,
-    });
+  const handleNewsletterOptionChange = (option) => {
+    const initOptions = {
+      filmmakers: false,
+      viewers: false,
+      ecosystemPlayers: false,
+      investors: false,
+      technicalUpdates: false,
+      allNewsletters: false,
+    };
+    const updatedOptions = { ...initOptions, [option]: true };
+    setNewsletterOptions(updatedOptions);
   };
 
   return (
@@ -67,21 +60,22 @@ function RegistrationPersonalInfo({
       <div className={SignupCss.personalInfo}>
         <div className={SignupCss.rolesMain}>
           <div className={SignupCss.form_titleMainPAndRole}>
-        <div className={SignupCss.form_titleMainPI}>Sign up for KinoKlik </div>
+            <div className={SignupCss.form_titleMainPI}>
+              Sign up for KinoKlik{" "}
+            </div>
             {/* <div className={SignupCss.mainText}>{role.label}</div> */}
             <div className={SignupCss.imageAndTextPI}>
-            <div className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}>
-              {/* <button> */}
+              <div
+                className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}
+              >
+                {/* <button> */}
                 <img src={role.image} alt="Filmmaker Icon"></img>
-               
-              {/* </button> */}
+
+                {/* </button> */}
+              </div>
+              <div className={SignupCss.textImgMainPI}>{role.label}</div>
             </div>
-            <div className={SignupCss.textImgMainPI}>
-            {role.label}
-            </div>
-            </div>
-            </div>
-          
+          </div>
         </div>
         <div className={SignupCss.nameFields}>
           {/*<div className={SignupCss.form_input}>*/}
@@ -169,7 +163,7 @@ function RegistrationPersonalInfo({
               <input
                 type="checkbox"
                 checked={receiveNewsletter}
-                onChange={handleReceiveNewsletterChange}
+                onChange={() => setReceiveNewsletter(true)}
               />
               Yes
             </label>
@@ -188,8 +182,8 @@ function RegistrationPersonalInfo({
                 <input
                   type="radio"
                   name="newsletterOption"
-                  checked={newsletterOptions === "filmmakers"}
-                  onChange={() => setNewsletterOptions("filmmakers")}
+                  checked={newsletterOptions.filmmakers}
+                  onChange={(e) => handleNewsletterOptionChange("filmmakers")}
                 />
                 Filmmakers (Directors & Producers)
               </label>
@@ -197,8 +191,8 @@ function RegistrationPersonalInfo({
                 <input
                   type="radio"
                   name="newsletterOption"
-                  checked={newsletterOptions === "viewers"}
-                  onChange={() => setNewsletterOptions("viewers")}
+                  checked={newsletterOptions.viewers}
+                  onChange={(e) => handleNewsletterOptionChange("viewers")}
                 />
                 Viewers
               </label>
@@ -206,8 +200,10 @@ function RegistrationPersonalInfo({
                 <input
                   type="radio"
                   name="newsletterOption"
-                  checked={newsletterOptions === "ecosystemPlayers"}
-                  onChange={() => setNewsletterOptions("ecosystemPlayers")}
+                  checked={newsletterOptions.ecosystemPlayers}
+                  onChange={(e) =>
+                    handleNewsletterOptionChange("ecosystemPlayers")
+                  }
                 />
                 Film Ecosystem & Industry Players
               </label>
@@ -215,8 +211,8 @@ function RegistrationPersonalInfo({
                 <input
                   type="radio"
                   name="newsletterOption"
-                  checked={newsletterOptions === "investors"}
-                  onChange={() => setNewsletterOptions("investors")}
+                  checked={newsletterOptions.investors}
+                  onChange={(e) => handleNewsletterOptionChange("investors")}
                 />
                 Investors & VCs Updates
               </label>
@@ -224,8 +220,10 @@ function RegistrationPersonalInfo({
                 <input
                   type="radio"
                   name="newsletterOption"
-                  checked={newsletterOptions === "technicalUpdates"}
-                  onChange={() => setNewsletterOptions("technicalUpdates")}
+                  checked={newsletterOptions.technicalUpdates}
+                  onChange={(e) =>
+                    handleNewsletterOptionChange("technicalUpdates")
+                  }
                 />
                 KinoKlik Technical Updates
               </label>
@@ -233,8 +231,10 @@ function RegistrationPersonalInfo({
                 <input
                   type="radio"
                   name="newsletterOption"
-                  checked={newsletterOptions === "allNewsletters"}
-                  onChange={() => setNewsletterOptions("allNewsletters")}
+                  checked={newsletterOptions.allNewsletters}
+                  onChange={(e) =>
+                    handleNewsletterOptionChange("allNewsletters")
+                  }
                 />
                 All Newsletters
               </label>

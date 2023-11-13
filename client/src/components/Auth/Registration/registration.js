@@ -38,6 +38,19 @@ function RegistrationForm() {
     image: filmmakerIcon,
   });
 
+  //Personal Info
+  const [receiveNewsletter, setReceiveNewsletter] = useState(true);
+  const initOptions = {
+    filmmakers: false,
+    viewers: false,
+    ecosystemPlayers: false,
+    investors: false,
+    technicalUpdates: false,
+    allNewsletters: true,
+  };
+  const [newsletterOptions, setNewsletterOptions] = useState(initOptions);
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // New state for the terms and conditions checkbox
+
   useEffect(() => {
     // Clear the error message when nextClicked changes
     setError("");
@@ -74,6 +87,19 @@ function RegistrationForm() {
       setError("Password must be at least 8 characters long!");
       return;
     }
+    if (agreeToTerms === false) {
+      setError("Please check the user agreement option!");
+      return;
+    }
+
+    //Find newsLetter options
+    let trueKey = "";
+    // If the user wants to receive the newsletter
+    if (receiveNewsletter) {
+      trueKey = Object.keys(newsletterOptions).find(
+        (key) => newsletterOptions[key] === true
+      );
+    }
 
     try {
       const { data } = await axios.post(
@@ -84,6 +110,7 @@ function RegistrationForm() {
           firstName: firstName,
           lastName: lastName,
           role: role.value,
+          newsLetterOptions: trueKey,
         }
       );
 
@@ -145,10 +172,12 @@ function RegistrationForm() {
                 setPassword={setPassword}
                 setConfirmPassword={setConfirmPassword}
                 role={role}
-                handleSubmit={handleSubmit}
-                setNextClicked={setNextClicked}
-                handleBack={handleBack}
-                showBackButton={!nextClicked} // prop to conditionally render the "Back" button
+                receiveNewsletter={receiveNewsletter}
+                setReceiveNewsletter={setReceiveNewsletter}
+                newsletterOptions={newsletterOptions}
+                setNewsletterOptions={setNewsletterOptions}
+                agreeToTerms={agreeToTerms}
+                setAgreeToTerms={setAgreeToTerms}
               />
             )}
 

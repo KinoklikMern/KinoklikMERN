@@ -1,35 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Account from "../../components/FilmMakerDashboard/Setting/Account";
-import Password from "../../components/FilmMakerDashboard/Setting/Password";
-import Profile from "../../components/FilmMakerDashboard/Setting/Profile";
-import Studio from "../../components/FilmMakerDashboard/Setting/Studio";
 import LeftSidebar from "../../components/AdminDashboard/LeftSidebar";
-import Triangle from "../../images/icons/triangle.svg";
 import TopToolBar from "../../components/AdminDashboard/TopToolBar";
 
 export default function AnalyticsPage() {
   const { user } = useSelector((user) => ({ ...user }));
-  const [openTab, setOpenTab] = useState(1);
-  const tabs = [
-    {
-      title: "Analytics",
-      count: 1,
-    },
-    {
-      title: user.role === "Actor" ? "Agent" : "Studio",
-      count: 2,
-    },
-    {
-      title: "Password",
-      count: 3,
-    },
-    {
-      title: "Account",
-      count: 4,
-    },
-  ];
+
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-white">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]">

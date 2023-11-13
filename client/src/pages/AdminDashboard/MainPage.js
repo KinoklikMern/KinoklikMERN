@@ -10,10 +10,15 @@ import starWhite from "../../images/icons/StarFULL.svg";
 import plusWhite from "../../images/icons/PlusWhite.svg";
 import referralIcon from "../../images/icons/referral-sign-white.svg";
 import Triangle from "../../images/icons/triangle.svg";
+import http from "../../http-common";
 
 export default function MainPage() {
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
+
+  //Fetch data related
+  const [userInfo, setUserInfo] = useState();
+  const [epkInfo, setEpkInfo] = useState();
 
   const dropdownRef = useRef(null);
   const [item, setItem] = useState({
@@ -39,36 +44,32 @@ export default function MainPage() {
     setIsOpen(false);
   };
 
-  const tabs = [
-    {
-      title: "Profile",
-      count: 1,
-    },
-    {
-      title: user.role === "Actor" ? "Agent" : "Studio",
-      count: 2,
-    },
-    {
-      title: "Password",
-      count: 3,
-    },
-    {
-      title: "Account",
-      count: 4,
-    },
-  ];
-
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
     return () => {
       document.removeEventListener("mousedown", handleDocumentClick);
     };
   }, []);
+
+  useEffect(() => {
+    Promise.all([http.get(`/fepks/`), http.get("/users/getallusers")])
+      .then(([fepkResponse, usersResponse]) => {
+        const usersData = usersResponse.data;
+        const fepksData = fepkResponse.data;
+        setUserInfo(usersData);
+        setEpkInfo(fepksData);
+      })
+      .catch((error) => {
+        console.error("An error occurred while fetching data.", error);
+      });
+  }, []);
+
   const handleDocumentClick = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
       setIsOpen(false);
     }
   };
+
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-white">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]">
@@ -85,37 +86,45 @@ export default function MainPage() {
           <TopToolBar selectedTab="Main Metrics" role={user.role} />
 
           <div className="tw-sm:flex-col tw-sm:gap-10 tw-mt-6 tw-flex tw-w-full  tw-flex-row tw-items-center tw-justify-between">
-            <div className="tw-sm:flex-1 tw-sm:w-full tw-rounded-[22px] tw-border-[2px] tw-border-[#cac4cf] tw-px-[50px] tw-py-[26px] tw-shadow-[35px_35px_60px_-15px_rgba(0,0,0,0.3)] tw-flex tw-w-full tw-items-center tw-justify-between tw-bg-white">
-              <div className="tw-md:w-full tw-w-[20%] tw-min-w-[134px] tw-gap-[9px] tw-rounded-[18px] tw-mb-12 tw-mt-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-bg-[#1E0039] tw-p-0.5">
+            <div className="tw-sm:flex-1 tw-sm:w-full tw-flex tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-border-[2px] tw-border-[#cac4cf] tw-bg-white tw-px-[50px] tw-py-[26px] tw-shadow-[35px_35px_60px_-15px_rgba(0,0,0,0.3)]">
+              <div className="tw-md:w-full tw-mb-12 tw-mt-8 tw-flex tw-w-[20%] tw-min-w-[134px] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-[#1E0039] tw-p-0.5">
                 <img
-                  className="tw-h-[40px] tw-pt-[2px] tw-mb-1"
+                  className="tw-mb-1 tw-h-[40px] tw-pt-[2px]"
                   src={Users}
                   alt="bookmark_One"
                 />
-                <p className="tw-md:text-base tw-sm:text-[28px] tw-text-[18px] tw-mt-1 tw-text-white">
+                <p className="tw-md:text-base tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
                   Total Users
                 </p>
-                <p className="tw-md:text-3xl tw-sm:text-[28px] tw-text-[18px] tw-mt-1 tw-text-white">
-                  1646
-                </p>
+                {userInfo === undefined ? (
+                  "Loading"
+                ) : (
+                  <p className="tw-md:text-3xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
+                    {userInfo.length}
+                  </p>
+                )}
               </div>
-              <div className="tw-md:w-full tw-w-[20%] tw-min-w-[134px] tw-gap-[9px] tw-rounded-[18px] tw-mb-12 tw-mt-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-bg-[#1E0039] tw-p-0.5">
+              <div className="tw-md:w-full tw-mb-12 tw-mt-8 tw-flex tw-w-[20%] tw-min-w-[134px] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-[#1E0039] tw-p-0.5">
                 <img
-                  className="tw-h-[46px] tw-mb-1"
+                  className="tw-mb-1 tw-h-[46px]"
                   src={StartWhiteIcon}
                   alt="bookmark_One"
                 />
-                <p className="tw-md:text-xl tw-sm:text-[28px] tw-text-[18px] tw-mt-1 tw-text-white">
+                <p className="tw-md:text-xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
                   Total EPKs
                 </p>
-                <p className="tw-md:text-3xl tw-sm:text-[28px] tw-text-[18px] tw-mt-1 tw-text-white">
-                  840
-                </p>
+                {epkInfo === undefined ? (
+                  "Loading"
+                ) : (
+                  <p className="tw-md:text-3xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
+                    {epkInfo.length}
+                  </p>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="tw-md:flex-1 tw-md:w-full tw-rounded-[22px] tw-mt-8 tw-flex  tw-w-full tw-flex-col  tw-items-center tw-justify-start  tw-bg-[#1E0039]">
+          <div className="tw-md:flex-1 tw-md:w-full tw-mt-8 tw-flex tw-w-full  tw-flex-col tw-items-center  tw-justify-start tw-rounded-[22px]  tw-bg-[#1E0039]">
             <div className="tw-my-[10px] tw-flex tw-w-full tw-items-center">
               {/* DropdownBtn  */}
               <div
@@ -131,7 +140,7 @@ export default function MainPage() {
                 >
                   {item.role}
                   <img
-                    className=" tw-absolute tw-right-5 tw-ml-2.5 tw-h-3 tw-rounded-none tw-pl-4"
+                    className=" tw-absolute tw-right-3 tw-ml-2.5 tw-h-3 tw-rounded-none tw-pl-4"
                     src={Triangle}
                     alt="polygonThree"
                   />
@@ -142,7 +151,7 @@ export default function MainPage() {
                       <li
                         key={index}
                         onClick={(e) => handleSelect(option)}
-                        className="hover:tw-bg-[#1E0039] tw-block tw-w-full tw-px-4 tw-py-2 tw-text-sm tw-text-[#1E0039] hover:tw-text-white"
+                        className="tw-block tw-w-full tw-px-4 tw-py-2 tw-text-sm tw-text-[#1E0039] hover:tw-bg-[#1E0039] hover:tw-text-white"
                         role="menuitem"
                       >
                         {option}
@@ -152,84 +161,126 @@ export default function MainPage() {
                 )}
               </div>
 
-              <p className="tw-mt-[5px] tw-w-full  tw-pl-44 tw-font-bold tw-text-white">
+              <p className="tw-mt-[5px] tw-w-full  tw-pl-52 tw-font-bold tw-text-white">
                 ENGAGEMENT
               </p>
             </div>
-            <div className="tw-sm:flex-1 tw-sm:w-full tw-rounded-[22px] tw-px-[30px] tw-flex tw-w-full tw-items-center tw-justify-between tw-bg-[#1E0039] ">
-              <div className="tw-md:w-full tw-my-[40px] tw-w-[40%] tw-gap-[9px] tw-rounded-[18px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-bg-white tw-p-0.5">
+            <div className="tw-sm:flex-1 tw-sm:w-full tw-flex tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-bg-[#1E0039] tw-px-[30px] ">
+              <div className="tw-md:w-full tw-my-[40px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5">
                 <p className="tw-md:text-base tw-sm:text-[28px]  tw-mt-[20px] tw-text-[18px] tw-font-bold tw-text-[#1E0039]">
                   ENGAGEMENT EPKs
                 </p>
-                <div className="tw-mt-[20px] tw-mb-[40px] tw-flex tw-w-full tw-items-center tw-justify-around">
-                  <div className=" tw-w-[50px] tw-rounded-[18px] tw-flex-col tw-items-center tw-justify-center tw-bg-[#1E0039] ">
+                <div className="tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around">
+                  <div className=" tw-w-[50px] tw-flex-col tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
                     <img
                       className="tw-mt-1 tw-h-[20px] tw-scale-90 "
                       src={DollarIcon}
                       alt="Dollar icon"
                     />
-                    <p className="tw-md:text-base tw-sm:text-[12px]  tw-text-[14px] tw-mb-1 tw-text-center tw-text-white">
-                      400
-                    </p>
+                    {epkInfo === undefined ? (
+                      0
+                    ) : (
+                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                        {epkInfo.reduce((sum, item) => {
+                          return sum + item.wishes_to_buy.length;
+                        }, 0)}
+                      </p>
+                    )}
                   </div>
-                  <div className="tw-w-[50px] tw-rounded-[18px] tw-items-center tw-justify-center tw-bg-[#1E0039] ">
+                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
                     <img
-                      className="tw-fill-[#FFF] tw-mt-1 tw-h-[20px] tw-scale-150 "
+                      className="tw-mt-1 tw-h-[20px] tw-scale-150 tw-fill-[#FFF] "
                       src={starWhite}
                       alt="Star icon"
                     />
-                    <p className="tw-md:text-base tw-sm:text-[12px]  tw-text-[14px] tw-mb-1 tw-text-center tw-text-white">
-                      440
-                    </p>
+                    {epkInfo === undefined ? (
+                      0
+                    ) : (
+                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                        {epkInfo.reduce((sum, item) => {
+                          return sum + item.likes.length;
+                        }, 0)}
+                      </p>
+                    )}
                   </div>
-                  <div className="tw-w-[50px] tw-rounded-[18px] tw-items-center tw-justify-center tw-bg-[#1E0039] ">
+                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
                     <img
                       className="tw-mt-1 tw-h-[20px] tw-scale-90 "
                       src={plusWhite}
                       alt="Plus icon"
                     />
-                    <p className="tw-md:text-base tw-sm:text-[12px]  tw-text-[14px] tw-mb-1 tw-text-center tw-text-white">
-                      380
-                    </p>
+                    {epkInfo === undefined ? (
+                      0
+                    ) : (
+                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                        {epkInfo.reduce((sum, item) => {
+                          return sum + item.favourites.length;
+                        }, 0)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="tw-md:w-full  tw-my-[10px] tw-w-[40%] tw-gap-[9px] tw-rounded-[18px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-bg-white tw-p-0.5">
+              <div className="tw-md:w-full  tw-my-[10px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5">
                 <p className="tw-md:text-base tw-sm:text-[28px] tw-mt-[20px]  tw-text-[18px] tw-font-bold tw-text-[#1E0039]">
                   ENGAGEMENT ACTORs
                 </p>
-                <div className="tw-mt-[20px] tw-mb-[40px] tw-flex tw-w-full tw-items-center tw-justify-around">
-                  <div className="tw-w-[50px] tw-rounded-[18px] tw-items-center tw-justify-center tw-bg-[#1E0039] ">
+                <div className="tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around">
+                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
                     <img
-                      className="tw-fill-[#FFF] tw-mt-1 tw-h-[20px] tw-scale-150 "
+                      className="tw-mt-1 tw-h-[20px] tw-scale-150 tw-fill-[#FFF] "
                       src={starWhite}
                       alt="Star icon"
                     />
-                    <p className="tw-md:text-base tw-sm:text-[12px]  tw-text-[14px] tw-mb-1 tw-text-center tw-text-white">
-                      440
-                    </p>
+                    {userInfo === undefined ? (
+                      0
+                    ) : (
+                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                        {userInfo
+                          .filter((user) => user.role === "Actor")
+                          .reduce((sum, item) => {
+                            return sum + item.likes.length;
+                          }, 0)}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="tw-w-[50px] tw-rounded-[18px] tw-items-center tw-justify-center tw-bg-[#1E0039] ">
+                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
                     <img
                       className="tw-mt-1 tw-h-[20px] tw-scale-90 "
                       src={plusWhite}
                       alt="Plus icon"
                     />
-                    <p className="tw-md:text-base tw-sm:text-[12px]  tw-text-[14px] tw-mb-1 tw-text-center tw-text-white">
-                      390
-                    </p>
+                    {userInfo === undefined ? (
+                      0
+                    ) : (
+                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                        {userInfo
+                          .filter((user) => user.role === "Actor")
+                          .reduce((sum, item) => {
+                            return sum + item.followers.length;
+                          }, 0)}
+                      </p>
+                    )}
                   </div>
-                  <div className=" tw-w-[50px] tw-rounded-[18px] tw-flex-col tw-items-center tw-justify-center tw-bg-[#1E0039] ">
+                  <div className=" tw-w-[50px] tw-flex-col tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
                     <img
                       className="tw-mt-1 tw-h-[20px] tw-scale-105 "
                       src={referralIcon}
                       alt="referral Icon"
                     />
 
-                    <p className="tw-md:text-base tw-sm:text-[12px]  tw-text-[14px] tw-mb-1 tw-text-center tw-text-white">
-                      390
-                    </p>
+                    {userInfo === undefined ? (
+                      0
+                    ) : (
+                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                        {userInfo
+                          .filter((user) => user.role === "Actor")
+                          .reduce((sum, item) => {
+                            return sum + item.recommendations;
+                          }, 0)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

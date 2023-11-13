@@ -27,6 +27,7 @@ export const register = async (req, res) => {
       bannerImg,
       thumbnail,
       headImg,
+      newsLetterOptions,
     } = req.body;
 
     if (!validateEmail(email)) {
@@ -72,6 +73,7 @@ export const register = async (req, res) => {
       website,
       password: cryptedPassword,
       isVerified: false, // Add this line to set isVerified to false initially
+      newsLetterOptions,
     }).save();
 
     // Generate 6 digit otp
@@ -1027,7 +1029,7 @@ export const getActorRecommendations = async (req, res) => {
     const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
 
     console.log("Actor Profile:", actorProfile);
-    
+
     if (!actorProfile) {
       return res.status(404).json({ error: "No Actor was found!" });
     }
