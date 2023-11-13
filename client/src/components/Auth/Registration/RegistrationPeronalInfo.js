@@ -20,14 +20,14 @@ function RegistrationPersonalInfo({
   showBackButton,
 }) {
   const navigate = useNavigate();
-  const [receiveNewsletter, setReceiveNewsletter] = useState(false);
+  const [receiveNewsletter, setReceiveNewsletter] = useState(true);
   const [newsletterOptions, setNewsletterOptions] = useState({
     filmmakers: false,
     viewers: false,
     ecosystemPlayers: false,
     investors: false,
     technicalUpdates: false,
-    allNewsletters: false,
+    allNewsletters: true,
   });
 
   const [agreeToTerms, setAgreeToTerms] = useState(false); // New state for the terms and conditions checkbox
@@ -55,11 +55,25 @@ function RegistrationPersonalInfo({
     setReceiveNewsletter(e.target.checked);
   };
 
-  const handleNewsletterOptionChange = (option) => (e) => {
-    setNewsletterOptions({
-      ...newsletterOptions,
-      [option]: e.target.checked,
-    });
+  const handleNewsletterOptionChange = (option) => {
+    return () => {
+      if (option === "allNewsletters") {
+        setNewsletterOptions({
+          filmmakers: false,
+          viewers: false,
+          ecosystemPlayers: false,
+          investors: false,
+          technicalUpdates: false,
+          allNewsletters: true,
+        });
+      } else {
+        setNewsletterOptions((prevOptions) => ({
+          ...prevOptions,
+          [option]: !prevOptions[option],
+          allNewsletters: false,
+        }));
+      }
+    };
   };
 
   return (
@@ -67,21 +81,22 @@ function RegistrationPersonalInfo({
       <div className={SignupCss.personalInfo}>
         <div className={SignupCss.rolesMain}>
           <div className={SignupCss.form_titleMainPAndRole}>
-        <div className={SignupCss.form_titleMainPI}>Sign up for KinoKlik </div>
+            <div className={SignupCss.form_titleMainPI}>
+              Sign up for KinoKlik{" "}
+            </div>
             {/* <div className={SignupCss.mainText}>{role.label}</div> */}
             <div className={SignupCss.imageAndTextPI}>
-            <div className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}>
-              {/* <button> */}
+              <div
+                className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}
+              >
+                {/* <button> */}
                 <img src={role.image} alt="Filmmaker Icon"></img>
-               
-              {/* </button> */}
+
+                {/* </button> */}
+              </div>
+              <div className={SignupCss.textImgMainPI}>{role.label}</div>
             </div>
-            <div className={SignupCss.textImgMainPI}>
-            {role.label}
-            </div>
-            </div>
-            </div>
-          
+          </div>
         </div>
         <div className={SignupCss.nameFields}>
           {/*<div className={SignupCss.form_input}>*/}
@@ -186,55 +201,49 @@ function RegistrationPersonalInfo({
             <div className={SignupCss.listOfAudiences}>
               <label className="audience">
                 <input
-                  type="radio"
-                  name="newsletterOption"
-                  checked={newsletterOptions === "filmmakers"}
-                  onChange={() => setNewsletterOptions("filmmakers")}
+                  type="checkbox"
+                  checked={newsletterOptions.filmmakers}
+                  onChange={handleNewsletterOptionChange("filmmakers")}
                 />
                 Filmmakers (Directors & Producers)
               </label>
               <label className="audience">
                 <input
-                  type="radio"
-                  name="newsletterOption"
-                  checked={newsletterOptions === "viewers"}
-                  onChange={() => setNewsletterOptions("viewers")}
+                  type="checkbox"
+                  checked={newsletterOptions.viewers}
+                  onChange={handleNewsletterOptionChange("viewers")}
                 />
                 Viewers
               </label>
               <label className="audience">
                 <input
-                  type="radio"
-                  name="newsletterOption"
-                  checked={newsletterOptions === "ecosystemPlayers"}
-                  onChange={() => setNewsletterOptions("ecosystemPlayers")}
+                  type="checkbox"
+                  checked={newsletterOptions.ecosystemPlayers}
+                  onChange={handleNewsletterOptionChange("ecosystemPlayers")}
                 />
                 Film Ecosystem & Industry Players
               </label>
               <label className="audience">
                 <input
-                  type="radio"
-                  name="newsletterOption"
-                  checked={newsletterOptions === "investors"}
-                  onChange={() => setNewsletterOptions("investors")}
+                  type="checkbox"
+                  checked={newsletterOptions.investors}
+                  onChange={handleNewsletterOptionChange("investors")}
                 />
                 Investors & VCs Updates
               </label>
               <label className="audience">
                 <input
-                  type="radio"
-                  name="newsletterOption"
-                  checked={newsletterOptions === "technicalUpdates"}
-                  onChange={() => setNewsletterOptions("technicalUpdates")}
+                  type="checkbox"
+                  checked={newsletterOptions.technicalUpdates}
+                  onChange={handleNewsletterOptionChange("technicalUpdates")}
                 />
                 KinoKlik Technical Updates
               </label>
               <label className="audience">
                 <input
-                  type="radio"
-                  name="newsletterOption"
-                  checked={newsletterOptions === "allNewsletters"}
-                  onChange={() => setNewsletterOptions("allNewsletters")}
+                  type="checkbox"
+                  checked={newsletterOptions.allNewsletters}
+                  onChange={handleNewsletterOptionChange('allNewsletters')}
                 />
                 All Newsletters
               </label>
