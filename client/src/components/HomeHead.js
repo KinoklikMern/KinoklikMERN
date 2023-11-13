@@ -105,7 +105,7 @@ const HomeHead = (props) => {
               }
             >
               <img
-                className='homeHead-poster tw-invisible md:tw-visible'
+                className='homeHead-poster tw-invisible tw-object-cover md:tw-visible'
                 src={
                   props.role === "actor" && actor.picture
                     ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`

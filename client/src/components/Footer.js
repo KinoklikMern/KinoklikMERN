@@ -16,7 +16,7 @@ function Footer() {
     <>
       <div className='footer-container tw-overflow-hidden'>
         <footer className='footer tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-bg-gradient-to-t tw-from-purple-950 tw-to-purple-900 tw-p-6 tw-text-white'>
-          <div className='tw-mb-4 tw-grid  tw-w-full  tw-grid-cols-2 tw-items-center md:tw-grid-cols-4 md:tw-justify-around'>
+          <div className='tw-mb-4 tw-grid  tw-w-full  tw-grid-cols-2 tw-items-center md:tw-grid-cols-5 md:tw-justify-around'>
             <div className='tw-mb-4 tw-flex md:tw-mb-0'>
               <img
                 src={logo}
@@ -64,41 +64,42 @@ function Footer() {
                 Media & Blog
               </a>
             </div>
+            <div className='footer-links tw-col-span-2 tw-flex tw-justify-center tw-text-center md:tw-col-span-1 md:tw-justify-normal'>
+              <a
+                href='https://www.facebook.com/kinoklikcanada'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faFacebook} className='tw-text-4xl' />
+              </a>
+              <a
+                href='https://www.instagram.com/kinoklik'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faInstagram} className='tw-text-4xl' />
+              </a>
+              <a
+                href='https://www.linkedin.com/company/kinoklik/?viewAsMember=true'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faLinkedin} className='tw-text-4xl' />
+              </a>
+              <a
+                href='https://twitter.com/kinoklik_canada'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faTwitter} className='tw-text-4xl' />
+              </a>
+            </div>
           </div>
-          <div className='footer-links tw-flex tw-text-center'>
-            <a
-              href='https://www.facebook.com/kinoklikcanada'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faFacebook} className='tw-text-4xl' />
-            </a>
-            <a
-              href='https://www.instagram.com/kinoklik'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faInstagram} className='tw-text-4xl' />
-            </a>
-            <a
-              href='https://www.linkedin.com/company/kinoklik/?viewAsMember=true'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faLinkedin} className='tw-text-4xl' />
-            </a>
-            <a
-              href='https://twitter.com/kinoklik_canada'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faTwitter} className='tw-text-4xl' />
-            </a>
-          </div>
+
           <LanguageToggle />
           <div className='tw-text-gray-300'>
             &copy; {new Date().getFullYear()} KinoKlik. All Rights Reserved.
