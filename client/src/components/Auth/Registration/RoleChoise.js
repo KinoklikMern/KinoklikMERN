@@ -12,9 +12,14 @@ import festivalIcon from "../../../images/icons/festivalIcon.svg";
 import investorIcon from "../../../images/icons/investorIcon.svg";
 import editorIcon from "../../../images/icons/editorIcon.svg";
 import distributorIcon from "../../../images/icons/distributorIcon.svg";
+import {useTranslation} from 'react-i18next';
+//import i18n from 'i18next'; 
+
 
 export const optionsMain = [
+
   {
+    
     label: "An amazing and talented visionary filmmaker",
     value: "Filmmaker",
     image: filmmakerIcon,
@@ -80,11 +85,16 @@ export const optionsSecondary = [
 ];
 
 function RoleChoise({ role, setRole }) {
+  const { t } = useTranslation();
+  //const translatedOptionsMain = optionsMain.map(option => ({
+   // ...option,
+   // label: t(option.labelKey),
+//  }));
   console.log(role);
   return (
     <>
       <div className={SignupCss.roles}>
-        <div className={SignupCss.form_title}>I am:</div>
+        <div className={SignupCss.form_title}>{t('I am')}:</div>
         <div className={SignupCss.rolesMain}>
           {optionsMain.map((option) => (
             <div
@@ -104,7 +114,7 @@ function RoleChoise({ role, setRole }) {
                 }
               >
                 <img src={option.image} alt={`${option.value} Icon`}></img>
-                <div className={SignupCss.mainText}>{option.label}</div>
+                <div className={SignupCss.mainText}>{t(option.label)}</div>
               </button>
             </div>
           ))}
@@ -138,7 +148,7 @@ function RoleChoise({ role, setRole }) {
                   >
                     <img src={option.image} alt={`${option.value} Icon`}></img>
                     <div className={SignupCss.secondaryText}>
-                      {option.label}
+                      {t(option.label)}
                     </div>
                   </button>
                 </div>

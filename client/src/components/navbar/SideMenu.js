@@ -16,11 +16,12 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import { NotificationContext } from "../../context/NotificationContext";
-
+import {useTranslation} from 'react-i18next';
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
 
 export const SideProfileMenu = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [hoveredMenu, setHoveredMenu] = useState("");
@@ -39,14 +40,14 @@ export const SideProfileMenu = () => {
 
   const menuList = [
     {
-      name: "Upload EPK",
+      name: (t("Upload EPK")),
       url: `${user.role === "Filmmaker" ? "/uploadFepk" : ""}`,
       defaultIcon: <UploadFilmDefaultIcon />,
       hoverIcon: <UploadFilmPurpleIcon />,
       display: user.role === "Filmmaker",
     },
     {
-      name: "My Settings",
+      name: (t("My Settings")),
       url: `${
         user.role === "Filmmaker"
           ? "/dashboard/settings"
@@ -71,14 +72,14 @@ export const SideProfileMenu = () => {
     //   hoverIcon: <DashbordPurpleIcon />,
     // },
     {
-      name: "Notifications",
+      name: (t("Notifications")),
       url: "/dashboard/notifications",
       defaultIcon: <NotificationsDefaultIcon />,
       hoverIcon: <NotificationsPurpleIcon />,
       display: user.role === "Filmmaker",
     },
     {
-      name: "Messages",
+      name: (t("Messages")),
       url:
         user.role === "Filmmaker" ? "/dashboard/chat" : "/userdashboard/chat",
       defaultIcon: <MessagesDefaultIcon />,
@@ -94,7 +95,7 @@ export const SideProfileMenu = () => {
     //   display: user.role === "ADMIN",
     // },
     {
-      name: "Logout",
+      name: (t("Logout")),
       url: "logout",
       defaultIcon: <LogoutDefaultIcon />,
       hoverIcon: <LogoutPurpleIcon />,

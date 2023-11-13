@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
 import avatarDefault from "../../../images/avatar1.jpeg";
+import {useTranslation} from 'react-i18next';
 
 export default function Profile() {
+  const { t } = useTranslation();
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
@@ -118,7 +120,7 @@ export default function Profile() {
         <input
           type="text"
           name="firstName"
-          placeholder="First Name"
+          placeholder={t("First Name")}
           value={userProfileData.firstName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -126,7 +128,7 @@ export default function Profile() {
         <input
           type="text"
           name="lastName"
-          placeholder="Last Name"
+          placeholder={t("Last Name")}
           value={userProfileData.lastName}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -134,15 +136,16 @@ export default function Profile() {
         <input
           type="text"
           name="email"
-          placeholder="Email"
+          placeholder={t("Email")}
           value={userProfileData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          disabled={disabled}
         />
         <input
           type="text"
           name="phone"
-          placeholder="Phone"
+          placeholder={t("Phone")}
           value={userProfileData.phone}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -150,7 +153,7 @@ export default function Profile() {
         <input
           type="text"
           name="website"
-          placeholder="Website"
+          placeholder={t("Website")}
           value={userProfileData.website}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -158,7 +161,7 @@ export default function Profile() {
         <input
           type="text"
           name="city"
-          placeholder="City"
+          placeholder={t("City")}
           value={userProfileData.city}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -166,7 +169,7 @@ export default function Profile() {
         <input
           type="text"
           name="province"
-          placeholder="Province"
+          placeholder={t("Province")}
           value={userProfileData.province}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -174,7 +177,7 @@ export default function Profile() {
         <input
           type="text"
           name="country"
-          placeholder="Country"
+          placeholder={t("Country")}
           value={userProfileData.country}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -202,11 +205,6 @@ export default function Profile() {
           appElement={document.getElementById("root")}
           style={{
             overlay: {
-              // position: "fixed",
-              // top: 0,
-              // left: 0,
-              // right: 0,
-              // bottom: 0,
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             },
             content: {
@@ -224,10 +222,10 @@ export default function Profile() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated profile successfully!</h2>
+            <h2>{t('Updated profile successfully!')}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+            {t('Ok')}
             </button>
           </div>
         </Modal>
@@ -238,18 +236,17 @@ export default function Profile() {
             disabled
             className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
           >
-            Save
+            {t('Save')}
           </button>
         ) : (
           <button
             className="tw-rounded-full tw-py-2 tw-px-8 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserProfile()}
           >
-            Save
+            {t('Save')}
           </button>
         )}
       </div>
     </div>
-    //  </form>
   );
 }
