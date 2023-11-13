@@ -6,8 +6,10 @@ import React, { useState } from "react";
 import EmptyEpk from "../Requests/EmptyEpk";
 import LoadingSpin from "../../FilmMakerDashboard/LoadingSpin";
 import List from "../../../pages/Actor/ListActor";
+import {useTranslation} from 'react-i18next';
 
 export default function UploadActorPicCon() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [epkList, setEpkList] = useState([]);
 
@@ -28,7 +30,7 @@ export default function UploadActorPicCon() {
           justifyContent: "space-between",
         }}
       >
-        <p className='tw-text-4xl'>Actor Dashboard</p>
+        <p className='tw-text-4xl'>{t('Actor Dashboard')}</p>
         <a href={`/actor/${userId}`}>
           <p
             className='tw-rounded-2xl tw-bg-black tw-p-2 md:tw-text-3xl'

@@ -22,6 +22,7 @@ import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
 import Banner from "../components/EpkView/EpkBanner/EpkBanner";
+import emptyBanner from "../images/empty_banner.jpeg";
 
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -35,6 +36,7 @@ function EpkViewPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
+  const [imageDetails, setImageDetails] = useState("");
 
   let { title } = useParams();
   title = title.replace(/%20/g, "_"); // Replace %20 with _
@@ -99,14 +101,24 @@ function EpkViewPage() {
     });
   }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
 
-  // useEffect(() => {
-  //   console.log(epkInfo);
-  // }, [epkInfo])
+  useEffect(() => {
+    if (
+      !epkInfo?.image_details ||
+      epkInfo?.image_details === "" ||
+      epkInfo.image_details.startsWith("https")
+    ) {
+      setImageDetails(emptyBanner);
+    } else {
+      setImageDetails(
+        `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`
+      );
+    }
+  }, [epkInfo]);
 
   return (
     epkInfo && (
-      <div className="tw-flex tw-justify-center tw-bg-[#1E0039]">
-        <div className="tw-w-11/12">
+      <div className='tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039]'>
+        <div className='tw-w-11/12'>
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
           {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}
@@ -180,7 +192,8 @@ function EpkViewPage() {
               epkId={epkInfo._id}
               userId={user.id}
               epkImage={
-                "https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details
+                // "https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details
+                imageDetails
               }
               epkDonatePayPal={epkInfo.DonatePayPal_url}
               epkDonateStripe={epkInfo.DonateStripe_url}

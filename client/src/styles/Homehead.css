@@ -21,22 +21,26 @@
   border-radius: 55px;
   border: 2px solid #160625;
   height: 30vh;
+  width: 80%;
 }
 
 @media (max-width: 768px) {
   .homeHead-poster {
     height: 40vh;
+    width: 80%;
   }
 }
 
 @media (min-width: 992px) {
   .homeHead-poster {
     height: 50vh;
+    width: 85%;
   }
 }
 
 @media (min-width: 1200px) {
   .homeHead-poster {
     height: 60vh;
+    width: 50%;
   }
 }

@@ -7,7 +7,9 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import {userTranslation} from 'react-i18next';
 export default function RegisterForm() {
+  const { t } = userTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfos = {
@@ -26,24 +28,24 @@ export default function RegisterForm() {
 
   const registerValidation = Yup.object({
     firstName: Yup.string()
-      .required("What's your First name ?")
-      .min(2, "Fisrt name must be between 2 and 16 characters.")
-      .max(16, "Fisrt name must be between 2 and 16 characters.")
+      .required(t("What's your First name ?"))
+      .min(2, "First name must be between 2 and 16 characters.")
+      .max(16, "First name must be between 2 and 16 characters.")
       .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
     lastName: Yup.string()
-      .required("What's your Last name ?")
+      .required(t("What's your Last name ?"))
       .min(2, "Last name must be between 2 and 16 characters.")
       .max(16, "Last name must be between 2 and 16 characters.")
       .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
     email: Yup.string()
-      .required(
+      .required(t(
         "You'll need this when you log in and if you ever need to reset your password."
-      )
-      .email("Enter a valid email address."),
+      ))
+      .email(t("Enter a valid email address.")),
     password: Yup.string()
-      .required(
+      .required(t(
         "Enter a combination of at least six numbers,letters and punctuation marks(such as ! and &)."
-      )
+      ))
       .min(6, "Password must be atleast 6 characters.")
       .max(36, "Password can't be more than 36 characters"),
   });
@@ -82,8 +84,8 @@ export default function RegisterForm() {
       <div className="register">
         <div className="register_header">
           <i className="exit_icon" onClick={() => setVisible(false)}></i>
-          <span>Sign Up</span>
-          <span>it's quick and easy</span>
+          <span>{t('Sign Up')}</span>
+          <span>{t("it's quick and easy")}</span>
         </div>
         <Formik
           enableReinitialize
@@ -103,13 +105,13 @@ export default function RegisterForm() {
               <div className="reg_line">
                 <RegisterInput
                   type="text"
-                  placeholder="First name"
+                  placeholder={t("First name")}
                   name="firstName"
                   onChange={handleRegisterChange}
                 />
                 <RegisterInput
                   type="text"
-                  placeholder="Surname"
+                  placeholder={t("Surname")}
                   name="lastName"
                   onChange={handleRegisterChange}
                 />
@@ -117,7 +119,7 @@ export default function RegisterForm() {
               <div className="reg_line">
                 <RegisterInput
                   type="text"
-                  placeholder=" email address"
+                  placeholder={t(" email address")}
                   name="email"
                   onChange={handleRegisterChange}
                 />
@@ -125,14 +127,14 @@ export default function RegisterForm() {
               <div className="reg_line">
                 <RegisterInput
                   type="password"
-                  placeholder="New password"
+                  placeholder={t("New password")}
                   name="password"
                   onChange={handleRegisterChange}
                 />
               </div>
               <div className="reg_col">
                 <div className="reg_line_header">
-                  Gender <i className="info_icon"></i>
+                  {('Gender')} <i className="info_icon"></i>
                 </div>
 
                 <GenderSelect
@@ -141,13 +143,13 @@ export default function RegisterForm() {
                 />
               </div>
               <div className="reg_infos">
-                By clicking Sign Up, you agree to our{" "}
-                <span>Terms, Data Policy &nbsp;</span>
-                and <span>Cookie Policy.</span> You may receive SMS
-                notifications from us and can opt out at any time.
+              {t('By clicking Sign Up, you agree to our')}{" "}
+                <span>{t('Terms, Data Policy')} &nbsp;</span>
+                {t('and')} <span>{t('Cookie Policy.')}</span> {t('You may receive SMS notifications from us')} 
+                {t('and can opt out at any time.')}
               </div>
               <div className="reg_btn_wrapper">
-                <button className="blue_btn open_signup">Sign Up</button>
+                <button className="blue_btn open_signup">{('Sign Up')}</button>
               </div>
               <DotLoader color="#1876f2" loading={loading} size={30} />
               {error && <div className="error_text">{error}</div>}

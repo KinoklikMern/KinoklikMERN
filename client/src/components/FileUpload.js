@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import http from "../http-common";
+import {useTranslation} from 'react-i18next';
 
 const UploadFile = (props) => {
+  const { t } = useTranslation();
   const [file, setFile] = useState(undefined);
   const [message, setMessage] = useState("");
   const [image, setImage] = useState(null);
@@ -48,7 +50,7 @@ const UploadFile = (props) => {
         return file;
       })
       .catch(() => {
-        setMessage("Could not upload the file!. File must be an image");
+        setMessage(t(("Could not upload the file!. File must be an image")));
         setFile(undefined);
       });
   };
@@ -60,7 +62,7 @@ const UploadFile = (props) => {
           <input type="file" onChange={fileSelected} name="file" />
         </label>
         <button type="submit" className="btn btn-success" disabled={!file}>
-          Upload
+          {t('Upload')}
         </button>
         <div className="alert alert-light" role="alert">
           {/*   {message} */}
