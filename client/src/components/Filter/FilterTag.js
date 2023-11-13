@@ -102,7 +102,6 @@ export default function FilterTag({ role }) {
     });
   };
 
-
   const actorFilterTag = [
     {
       name: "Male",
@@ -150,7 +149,7 @@ export default function FilterTag({ role }) {
     let newTags;
     let newQuery;
 
-    if ( name === "All Actors") {
+    if (name === "All Actors") {
       // Reset the dropdown state values to their default (null) when All Actors is clicked
       setSelectedAgeRange(null);
       setSelectedEthnicity(null);
@@ -165,20 +164,22 @@ export default function FilterTag({ role }) {
     } else if (name === "Male" || name === "Female") {
       // Handle "Male" and "Female" options mutually exclusively
       newTags = filterTags.map((tag) =>
-        tag.name === name ? { ...tag, isActive: true } : { ...tag, isActive: false }
+        tag.name === name
+          ? { ...tag, isActive: true }
+          : { ...tag, isActive: false }
       );
       newQuery = [name];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
       );
-  
+
       if (isActive) {
         newQuery = filterQuery.filter((item) => item !== name);
       } else {
         newQuery = [...filterQuery, name];
       }
-  
+
       // Update "All Actors" tag
       const allActorsIsActive =
         !newQuery.includes("Male") &&
@@ -188,14 +189,14 @@ export default function FilterTag({ role }) {
         !selectedRepresentation &&
         !selectedCity &&
         !selectedCountry;
-  
+
       newTags = newTags.map((tag) =>
         tag.name === "All Actors"
           ? { ...tag, isActive: allActorsIsActive }
           : tag
       );
     }
-  
+
     setFilterTags(newTags);
     setFilterQuery(newQuery);
   };

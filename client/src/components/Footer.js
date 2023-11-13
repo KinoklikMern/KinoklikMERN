@@ -10,13 +10,16 @@ import {
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import LanguageToggle from "./LanguageToggle";
+import {useTranslation} from 'react-i18next';
+
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <>
       <div className='footer-container tw-overflow-hidden'>
         <footer className='footer tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-bg-gradient-to-t tw-from-purple-950 tw-to-purple-900 tw-p-6 tw-text-white'>
-          <div className='tw-mb-4 tw-grid  tw-w-full  tw-grid-cols-2 tw-items-center md:tw-grid-cols-4 md:tw-justify-around'>
+          <div className='tw-mb-4 tw-grid  tw-w-full  tw-grid-cols-2 tw-items-center md:tw-grid-cols-5 md:tw-justify-around'>
             <div className='tw-mb-4 tw-flex md:tw-mb-0'>
               <img
                 src={logo}
@@ -29,79 +32,80 @@ function Footer() {
                 KinoKlik EPK
               </h5>
               <Link to='/forFilmMakers' className='footer-li tw-mb-2 tw-block'>
-                For Filmmakers
+                {t('For Filmmakers')}
               </Link>
               <Link to='/forIndustryProf' className='footer-li tw-block'>
-                For Industry <br />
-                Professionals
+                {t('For Industry')} <br />
+                {t('Professionals')}
               </Link>
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
-                Company
+              {t('Company')}
               </h5>
               <a href='#aboutus' className='footer-li tw-mb-2 tw-block'>
-                About Us
+                {t('About Us')}
               </a>
               <a href='#contactus' className='footer-li tw-mb-2 tw-block'>
-                Contact Us
+                {t('Contact Us')}
               </a>
               <a href='#support' className='footer-li tw-block'>
-                Support
+                {t('Support')}
               </a>
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
-                Relations
+              {t('Relations')}
               </h5>
               <a href='#partners' className='footer-li tw-mb-2 tw-block'>
-                Partners
+                {t('Partners')}
               </a>
               <a href='#investors' className='footer-li tw-mb-2 tw-block'>
-                Investors
+                {t('Investors')}
               </a>
               <a href='#media' className='footer-li tw-block'>
-                Media & Blog
+                {t('Media & Blog')}
+              </a>
+            </div>
+            <div className='footer-links tw-col-span-2 tw-flex tw-justify-center tw-text-center md:tw-col-span-1 md:tw-justify-normal'>
+              <a
+                href='https://www.facebook.com/kinoklikcanada'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faFacebook} className='tw-text-4xl' />
+              </a>
+              <a
+                href='https://www.instagram.com/kinoklik'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faInstagram} className='tw-text-4xl' />
+              </a>
+              <a
+                href='https://www.linkedin.com/company/kinoklik/?viewAsMember=true'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faLinkedin} className='tw-text-4xl' />
+              </a>
+              <a
+                href='https://twitter.com/kinoklik_canada'
+                target='_blank'
+                rel='noreferrer'
+                className='tw-mb-2'
+              >
+                <FontAwesomeIcon icon={faTwitter} className='tw-text-4xl' />
               </a>
             </div>
           </div>
-          <div className='footer-links tw-flex tw-text-center'>
-            <a
-              href='https://www.facebook.com/kinoklikcanada'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faFacebook} className='tw-text-4xl' />
-            </a>
-            <a
-              href='https://www.instagram.com/kinoklik'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faInstagram} className='tw-text-4xl' />
-            </a>
-            <a
-              href='https://www.linkedin.com/company/kinoklik/?viewAsMember=true'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faLinkedin} className='tw-text-4xl' />
-            </a>
-            <a
-              href='https://twitter.com/kinoklik_canada'
-              target='_blank'
-              rel='noreferrer'
-              className='tw-mb-2'
-            >
-              <FontAwesomeIcon icon={faTwitter} className='tw-text-4xl' />
-            </a>
-          </div>
+
           <LanguageToggle />
           <div className='tw-text-gray-300'>
-            &copy; {new Date().getFullYear()} KinoKlik. All Rights Reserved.
+            &copy; {new Date().getFullYear()} {t('KinoKlik. All Rights Reserved.')}
           </div>
         </footer>
       </div>

@@ -28,14 +28,14 @@ export default function EpkCover({ epkInfo }) {
       }}
       className='tw-flex tw-h-[700px] tw-flex-col tw-justify-between tw-rounded-lg tw-shadow-[inset_0_15px_10px_rgba(242,229,229,0.6)]'
     >
-      <div className='tw-mx-16 tw-flex tw-h-5/6 tw-flex-col tw-justify-start tw-py-6 md:tw-flex-row '>
+      <div className='tw-mx-16 tw-flex tw-h-5/6 tw-flex-col tw-justify-start tw-pb-12 tw-pt-6 md:tw-flex-row md:tw-pb-0 '>
         <img
           src={image_detail}
           alt=''
-          className='tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]'
+          className='tw-my-4 tw-h-full tw-w-96 tw-object-cover tw-shadow-[6px_6px_3px_#1E0039]'
         />
         <div className='tw-my-4 tw-flex tw-flex-col tw-items-center tw-justify-between tw-text-white md:tw-w-2/3'>
-          <p className='tw-rounded-xl tw-bg-black tw-bg-opacity-40 tw-px-5 tw-text-center md:tw-text-[5rem]'>
+          <p className='tw-rounded-xl tw-bg-black tw-bg-opacity-40 tw-px-5 tw-text-center tw-text-[1.5rem] md:tw-text-[3rem] lg:tw-text-[4rem]'>
             {epkInfo.title}
           </p>
           <p className='tw-mt-4 tw-text-center md:tw-mt-0 md:tw-text-lg'>
@@ -45,7 +45,7 @@ export default function EpkCover({ epkInfo }) {
       </div>
 
       <div className='tw-flex tw-justify-between tw-bg-white/10 tw-px-6'>
-        <div className='tw-flex tw-items-center tw-justify-between md:tw-w-1/2'>
+        <div className='tw-flex tw-w-5/6 tw-items-center tw-justify-between'>
           <p className='tw-text-white md:tw-text-xl'>
             Posted: <span>{formatedDate(epkInfo.createdAt)}</span>
           </p>

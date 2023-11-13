@@ -44,5 +44,6 @@ module.exports = {
     require("@tailwindcss/forms"),
     "prettier-plugin-tailwindcss",
     require("tailwind-scrollbar"),
+    require('@tailwindcss/nesting'),
   ],
 };

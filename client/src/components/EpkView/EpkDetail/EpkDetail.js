@@ -91,10 +91,10 @@ export default function EpkDetail({ epkInfo, handler }) {
           src={image_detail}
           alt=''
           style={{ width: "310px", height: "420px" }}
-          className='hidden md:block tw-invisible tw-my-4 tw-shadow-[6px_6px_3px_#1E0039] md:tw-visible md:tw-h-full'
+          className='hidden md:block tw-invisible tw-my-4 tw-object-cover tw-shadow-[6px_6px_3px_#1E0039] md:tw-visible md:tw-h-full'
         />
       </div>
-      <div className='md:col-span-2 tw-my-8 tw-grid tw-grid-cols-3 tw-gap-3'>
+      <div className='tw-my-8 tw-grid tw-grid-cols-3 tw-gap-3'>
         {epkInfo.crew.length > 0
           ? epkInfo.crew.map((person, index) => (
               <CrewAvatar
@@ -109,7 +109,7 @@ export default function EpkDetail({ epkInfo, handler }) {
               />
             ))}
       </div>
-      <div className='md:col-span-2 tw-my-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-text-center tw-text-xl'>
+      <div className='tw-my-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-text-center tw-text-xl'>
         <div>
           <p className='tw-font-light'>Produced Year</p>
           <p>{epkInfo.productionYear}</p>

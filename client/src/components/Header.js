@@ -6,12 +6,15 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import Login from "./Auth/Registration/login";
 import Register from "./Auth/Registration/register";
+import {useTranslation} from 'react-i18next';
 
 function Header() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((user) => ({ ...user }));
   const logout = () => {
+   
     Cookies.set("user", null);
     console.log(user);
     console.log("log out");
@@ -53,7 +56,7 @@ function Header() {
 
                 <span>
                   <Link className="whatsnew-text" to="/home">
-                    HOME
+                    {t('HOME')}
                   </Link>
                 </span>
               </button>
@@ -67,7 +70,7 @@ function Header() {
 
                   <span>
                     <Link className="whatsnew-text" to="/my_list">
-                      My list
+                    {t('My list')}
                     </Link>
                   </span>
                 </button>
@@ -119,7 +122,7 @@ function Header() {
 
                   <span>
                     <Link className="whatsnew-text" to="/RegistrationForm">
-                      &nbsp;&nbsp;&nbsp;&nbsp;logout
+                      &nbsp;&nbsp;&nbsp;&nbsp;{t('logout')}
                     </Link>
                   </span>
                 </button>
@@ -129,7 +132,7 @@ function Header() {
               <input
                 type="text"
                 name=""
-                placeholder="  Search here..."
+                placeholder={t("  Search here...")}
                 className="search__field"
               ></input>
               <button
@@ -151,16 +154,16 @@ function Header() {
             </a>
             <div className="dropdown-menu">
               <Link className="dropdown-item" to="/dashboard">
-                Dashboard
+              {t('Dashboard')}
               </Link>
 
               <Link className="dropdown-item" to="/edit_profile">
                 {" "}
-                Edit Profile{" "}
+                {t('Edit Profile')}{" "}
               </Link>
 
               <Link className="dropdown-item" to="/upload">
-                Upload a movie
+                {t('Upload a movie')}
               </Link>
               <div className="divider dropdown-divider"></div>
             </div>
