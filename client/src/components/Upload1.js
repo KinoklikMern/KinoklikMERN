@@ -1,9 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import {useTranslation} from 'react-i18next';
 
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
+const { t } = useTranslation();
 
 function Upload1() {
+  
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
 
@@ -44,7 +47,7 @@ function Upload1() {
     <>
       <form>
         <p>
-          <label htmlFor="image"> Browse images </label>
+          <label htmlFor="image"> {t('Browse images')} </label>
           <input
             type="file"
             id="image"

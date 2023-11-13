@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+import {useTranslation} from 'react-i18next';
 
 const getBase64 = (img, callback) => {
+  
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
 const beforeUpload = (file) => {
+  
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
+    message.error(t("You can only upload JPG/PNG file!"));
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+    message.error(t("Image must smaller than 2MB!"));
   }
   return isJpgOrPng && isLt2M;
 };
 const UploadImage = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const handleChange = (info) => {
@@ -35,6 +39,7 @@ const UploadImage = () => {
     }
   };
   const uploadButton = (
+    
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
@@ -42,7 +47,7 @@ const UploadImage = () => {
           marginTop: 8,
         }}
       >
-        Upload Poster
+        {t('Upload Poster')}
       </div>
     </div>
   );
