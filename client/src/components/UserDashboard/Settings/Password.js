@@ -146,7 +146,7 @@ export default function Password() {
             <h2>{message}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              {t('Ok')}
+            {t('Your password has been successfully updated.')}
             </button>
           </div>
         </Modal>
