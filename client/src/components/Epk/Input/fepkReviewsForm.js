@@ -206,11 +206,6 @@ function ReviewsForm() {
     }
   };
 
-  const triggerFileInput = (index) => {
-    setEditingReview(index); // Set the currently editing review's index
-    inputFileRef.current.click(); // Trigger the file input
-  };
-
   return (
     <>
       <div
@@ -464,10 +459,6 @@ function ReviewsForm() {
                               />
                               {editingReview === index && (
                                 <>
-                                  <FontAwesomeIcon
-                                    icon={faUpload}
-                                    onClick={() => triggerFileInput(index)}
-                                  />
                                   <input
                                     className="form-control form-control-sm"
                                     filename={file}
