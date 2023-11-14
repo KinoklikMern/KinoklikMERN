@@ -105,8 +105,8 @@ const UserSchema = mongoose.Schema({
   thumbnail: {
     type: String,
     trim: true,
-    // default:
-    //   "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844377/banners/sample_banner1.png",
+    default:
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844377/banners/sample_banner1.png",
   },
   aboutMe: {
     type: String,
@@ -144,7 +144,7 @@ const UserSchema = mongoose.Schema({
   },
   age: {
     type: Number,
-    default: 30,
+    // default: 30,
   },
   ethnicity: {
     type: String,

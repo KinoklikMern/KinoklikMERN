@@ -206,11 +206,12 @@
 
 .actor-biography {
   box-shadow: 0px 0px 5px 2px #1e0039;
-  grid-column: 7/ 9;
+  grid-column: 6/ 9;
   width: auto;
   border-radius: 15px;
   padding: 15px;
   align-self: self-end;
+  margin-right: -20px;
 }
 
 .actor-city-detail {
