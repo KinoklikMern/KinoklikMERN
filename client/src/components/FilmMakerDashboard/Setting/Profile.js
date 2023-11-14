@@ -2,6 +2,7 @@ import Axios from "axios";
 import { useSelector, shallowEqual } from 'react-redux';
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
+import {validatename, validatePhone,validateWebsite,validateFollowers,cityInfo}from './validation.js';
 
 export default function Profile() {
   const [message, setMessage] = useState([]);
@@ -112,33 +113,6 @@ export default function Profile() {
       setMessage("File must be a image(jpeg or png)");
     }
   }
-
-  const validatename = (name) => {
-    const nameRegex = /^[^\s]+$/;
-    return nameRegex.test(name);
-  };
-  
-  const validatePhone = (phone) => {
-    const phoneRegex = /^\d{10,15}$/;
-    return phone === '' || phoneRegex.test(phone);
-  };
-
-  const validateWebsite = (website) => {
-    const websiteRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
-    return website === '' || websiteRegex.test(website);
-  };
-    
-  const validateFollowers = (followers) => {
-    const followersRegex = /^(\d+([kK])?)?$/; 
-    return followers === '' || followersRegex.test(followers);
-  };
-
-  const cityInfo = {
-    Montreal: { province: 'Quebec', country: 'Canada' },
-    Toronto: { province: 'Ontario', country: 'Canada' },
-    'New York': { province: 'New York', country: 'USA' },
-    //Other: { province: 'Other', country: 'Other' },
-  };
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;

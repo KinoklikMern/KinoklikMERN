@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import Axios from "axios";
+import {validatename, validatePhone,validateWebsite}from './validation.js';
 
 export default function Studio() {
   const [userStudioData, setUserStudioData] = useState({

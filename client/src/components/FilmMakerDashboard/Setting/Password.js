@@ -145,7 +145,7 @@ export default function Password() {
             <h2>{message}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-            "Your password has been successfully updated."
+            ok
             </button>
           </div>
         </Modal>
