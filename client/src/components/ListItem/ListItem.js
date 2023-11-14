@@ -83,6 +83,7 @@ export default function ListItem({ title, status, type, role }) {
           }
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
   return (
@@ -93,7 +94,7 @@ export default function ListItem({ title, status, type, role }) {
           const formattedTitle = fepk.title.replace(/ /g, "_");
 
           return (
-            <div className="listItem" key={fepk._id}>
+            <div className='listItem' key={fepk._id}>
               <a
                 href={
                   role === "actor"
@@ -107,7 +108,7 @@ export default function ListItem({ title, status, type, role }) {
                       ? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`
                       : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
                   }
-                  alt=""
+                  alt=''
                 />
               </a>
             </div>

@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import Axios from "axios";
+import {useTranslation} from 'react-i18next';
+
 
 export default function Studio() {
+  const { t } = useTranslation();
   const [userStudioData, setUserStudioData] = useState({
     name: "",
     website: "",
@@ -81,7 +84,7 @@ export default function Studio() {
         <input
           type="text"
           name="name"
-          placeholder="Studio Name"
+          placeholder={t("Studio Name")}
           defaultValue={userStudioData.name}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -89,7 +92,7 @@ export default function Studio() {
         <input
           type="text"
           name="website"
-          placeholder="Studio Website"
+          placeholder={t("Studio Website")}
           defaultValue={userStudioData.website}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -97,7 +100,7 @@ export default function Studio() {
         <input
           type="text"
           name="email"
-          placeholder="Studio Email"
+          placeholder={t("Studio Email")}
           defaultValue={userStudioData.email}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -105,7 +108,7 @@ export default function Studio() {
         <input
           type="text"
           name="phone"
-          placeholder="Phone"
+          placeholder={t("Phone")}
           defaultValue={userStudioData.phone}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -113,7 +116,7 @@ export default function Studio() {
         <input
           type="text"
           name="city"
-          placeholder="City"
+          placeholder={t("City")}
           defaultValue={userStudioData.city}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -121,7 +124,7 @@ export default function Studio() {
         <input
           type="text"
           name="province"
-          placeholder="Province"
+          placeholder={t("Province")}
           defaultValue={userStudioData.province}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -129,7 +132,7 @@ export default function Studio() {
         <input
           type="text"
           name="country"
-          placeholder="Country"
+          placeholder={t("Country")}
           defaultValue={userStudioData.country}
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -165,10 +168,10 @@ export default function Studio() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated studio successfully!</h2>
+            <h2>{t('Updated studio successfully!')}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+              {t('Ok')}
             </button>
           </div>
         </Modal>
@@ -179,14 +182,14 @@ export default function Studio() {
             disabled
             className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
           >
-            Save
+            {t('Save')}
           </button>
         ) : (
           <button
             className="tw-rounded-full tw-py-2 tw-px-8 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserStudio()}
           >
-            Save
+            {t('Save')}
           </button>
         )}
       </div>

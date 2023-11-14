@@ -5,8 +5,10 @@ import { useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 
 const HomeBottom = () => {
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [isShowMessage, setIsShowMessage] = useState(false);
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const HomeBottom = () => {
   };
 
   const PopupModal = () => {
+   
     return (
       <>
         <Modal
@@ -30,8 +33,8 @@ const HomeBottom = () => {
         >
           <Modal.Header className='border-0'>
             <Modal.Title className='text-center'>
-              Only Filmmaker account can upload film EPK. Please register a
-              Filmmaker account to complete this action.
+              {t('Only Filmmaker account can upload film EPK. Please register a')}
+              {t('Filmmaker account to complete this action.')}
             </Modal.Title>
           </Modal.Header>
 
@@ -53,7 +56,7 @@ const HomeBottom = () => {
               }}
               onClick={() => setIsShowMessage(false)}
             >
-              OK
+              {t('OK')}
             </Button>
           </Modal.Footer>
         </Modal>
@@ -64,7 +67,7 @@ const HomeBottom = () => {
   return (
     <div className='upload'>
       <p className='uploadtext'>
-        Promote your film for free, with KinoKlik EPK !
+      {t('Promote your film for free, with KinoKlik EPK !')}
       </p>
       <div onClick={clickHandler} className='uploadFilm'>
         <img src={UploadIcon} className='uploadIcon' alt='' />
