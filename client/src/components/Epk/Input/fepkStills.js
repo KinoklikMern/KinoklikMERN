@@ -277,14 +277,18 @@ function StillsForm() {
               <div className="col-6 mt-3">
                 <table
                   className="table table-striped table-bordered"
-                  style={{ fontSize: "12px", textAlign: "center" }}
+                  style={{
+                    fontSize: "12px",
+                    textAlign: "center",
+                    verticalAlign: "middle",
+                    tableLayout: "auto",
+                  }}
                 >
                   <thead className="thead-dark">
                     <tr>
                       <th>IMAGE</th>
-                      <th>ACTION</th>
-
-                      <th>ACTION</th>
+                      <th>EDIT</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -294,7 +298,7 @@ function StillsForm() {
                           <td>
                             <img
                               src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
-                              style={{ height: "60px", width: "auto" }}
+                              style={{ height: "80px", width: "auto" }}
                             />
                           </td>
                           <td
@@ -309,7 +313,7 @@ function StillsForm() {
                               className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                               style={{
                                 height: "30px",
-                                width: "120px",
+                                width: "80px",
                                 boxShadow: "1px 2px 9px #311465",
                                 fontWeight: "bold",
                               }}

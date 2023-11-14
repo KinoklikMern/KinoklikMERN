@@ -11,6 +11,7 @@ function TrailerForm() {
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   //Trailer preview
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
@@ -20,6 +21,7 @@ function TrailerForm() {
 
   const closeModal = () => {
     setModalIsOpen(false);
+    window.location.reload();
   };
 
   let { fepkId } = useParams();
@@ -61,6 +63,17 @@ function TrailerForm() {
         return true;
       else return false;
     } else return true;
+  };
+
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    e.currentTarget.style.display = "flex";
+    e.currentTarget.style.justifyContent = "center";
+    e.currentTarget.style.alignItems = "center";
+    e.currentTarget.innerHTML =
+      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
+    setIsUploading(true);
+    saveEpkTrailer(e);
   };
 
   const saveEpkTrailer = (e) => {
@@ -240,7 +253,7 @@ function TrailerForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={saveEpkTrailer}
+                        onClick={handleSaveClick}
                         value="save"
                       >
                         Save
@@ -254,7 +267,7 @@ function TrailerForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={saveEpkTrailer}
+                        onClick={handleSaveClick}
                         value="save"
                       >
                         Save
@@ -284,7 +297,7 @@ function TrailerForm() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        {"Trailer is Saved Successfully!"}
+                        {"Trailer Saved Successfully!"}
                         <br />
                         <button
                           className="btn btn-secondary btn-sm"

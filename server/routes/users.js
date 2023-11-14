@@ -32,6 +32,7 @@ import {
   getMostFollowed,
   getActorFollowers,
   getActorLikes,
+  getActorRecommendations,
   uploadActorThumbnail,
   getAllUsers,
   getUserById,
@@ -90,14 +91,12 @@ router.get("/likes/:id", getLikes);
 router.get("/mostlikes", getMostLikes);
 router.get("/mostfollowed", getMostFollowed);
 
-// ----- CHIHYIN -----
 // Calling these APIs will add user to the appropriate list of likes(star), favourites,
 router.post("/follow/:actorid/:userid", getActorFollowers);
 router.post("/like/:actorid/:userid", getActorLikes);
 router.post("/recommend/:actorid", getActorRecommendations);
 // upload actor thumbnail
 router.post("/actorthumbnail", upload.single("file"), uploadActorThumbnail);
-// ----- CHIHYIN -----
 router.get("/getallusers", getAllUsers);
 
 // upload actor banner
