@@ -2,10 +2,10 @@ import React from "react";
 
 export default function CastCard({ index, image, text, castName, epkRole }) {
   const isReverse = index % 2 === 0;
-  const cardShadowStyle = epkRole.includes("actor")
+  const cardShadowStyle = epkRole.includes("actor" && "Actor")
     ? "tw-shadow-[6px_6px_3px_#1E0039]"
     : "tw-shadow-[6px_6px_3px_#ffffff]";
-  const hasRoleTitle = epkRole.includes("actor") ? false : true;
+  const hasRoleTitle = epkRole.includes("actor" && "Actor") ? false : true;
 
   const formatChars = (chars) => {
     let noSpecialChars = chars.replace(/[^a-zA-Z0-9]/g, " "); // remove special characters

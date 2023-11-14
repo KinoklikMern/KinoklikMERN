@@ -536,6 +536,7 @@ function FepkDetailsForm() {
 
                                     return (
                                       <div
+                                        key={userObj._id}
                                         style={{
                                           display: "flex",
                                           alignItems: "center",
@@ -547,7 +548,6 @@ function FepkDetailsForm() {
                                       >
                                         <div>
                                           <p
-                                            key={userObj._id}
                                             style={{
                                               fontSize: "0.9rem",
                                             }}
