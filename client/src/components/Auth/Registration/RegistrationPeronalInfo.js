@@ -46,13 +46,44 @@ function RegistrationPersonalInfo({
     const initOptions = {
       filmmakers: false,
       viewers: false,
-      ecosystemPlayers: false,
+      ecosystem: false,
       investors: false,
-      technicalUpdates: false,
+      technical: false,
       allNewsletters: false,
     };
-    const updatedOptions = { ...initOptions, [option]: true };
-    setNewsletterOptions(updatedOptions);
+    if (option === "allNewsletters" && newsletterOptions[option] === true) {
+      // If the user unchecks the "All Newsletters" option, uncheck all the other options
+      setNewsletterOptions(initOptions);
+    } else if (
+      option === "allNewsletters" &&
+      newsletterOptions[option] === false
+    ) {
+      // If the user checks the "All Newsletters" option, check all the other options
+      setNewsletterOptions(
+        Object.fromEntries(Object.keys(initOptions).map((key) => [key, true]))
+      );
+    } else {
+      // If the user checks/unchecks any other option, update the state accordingly
+      setNewsletterOptions((prevOptions) => {
+        // If the user unchecks any other option, uncheck the "All Newsletters" option
+        if (prevOptions[option] === true) {
+          return {
+            ...prevOptions,
+            [option]: !prevOptions[option],
+            allNewsletters: false,
+          };
+        } else {
+          // If the user checks all other options except option "All Newsletters", check the "All Newsletters" option
+          const options = { ...prevOptions, [option]: !prevOptions[option] };
+          return {
+            ...options,
+            allNewsletters: Object.keys(options)
+              .filter((key) => key !== "allNewsletters")
+              .every((key) => options[key] === true),
+          };
+        }
+      });
+    }
   };
   const handleReceiveNewsletterChange = (e) => {
     setReceiveNewsletter(e.target.checked);
@@ -164,7 +195,7 @@ function RegistrationPersonalInfo({
           <div className={SignupCss.yesNo}>
             <label className={SignupCss.yesAndNo}>
               <input
-                type="checkbox"
+                type="radio"
                 checked={receiveNewsletter}
                 onChange={() => setReceiveNewsletter(true)}
               />
@@ -172,7 +203,7 @@ function RegistrationPersonalInfo({
             </label>
             <label className={SignupCss.yesAndNo}>
               <input
-                type="checkbox"
+                type="radio"
                 checked={!receiveNewsletter}
                 onChange={() => setReceiveNewsletter(false)}
               />
@@ -186,7 +217,7 @@ function RegistrationPersonalInfo({
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.filmmakers}
-                  onChange={handleNewsletterOptionChange("filmmakers")}
+                  onChange={() => handleNewsletterOptionChange("filmmakers")}
                 />
                 Filmmakers (Directors & Producers)
               </label>
@@ -195,17 +226,15 @@ function RegistrationPersonalInfo({
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.viewers}
-                  onChange={handleNewsletterOptionChange("viewers")}
+                  onChange={() => handleNewsletterOptionChange("viewers")}
                 />
                 Viewers
               </label>
               <label className="audience">
                 <input
                   name="newsletterOption"
-                  checked={newsletterOptions.ecosystemPlayers}
-                  onChange={(e) =>
-                    handleNewsletterOptionChange("ecosystemPlayers")
-                  }
+                  checked={newsletterOptions.ecosystem}
+                  onChange={() => handleNewsletterOptionChange("ecosystem")}
                   type="checkbox"
                 />
                 Film Ecosystem & Industry Players
@@ -215,7 +244,7 @@ function RegistrationPersonalInfo({
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.investors}
-                  onChange={handleNewsletterOptionChange("investors")}
+                  onChange={() => handleNewsletterOptionChange("investors")}
                 />
                 Investors & VCs Updates
               </label>
@@ -223,8 +252,8 @@ function RegistrationPersonalInfo({
                 <input
                   name="newsletterOption"
                   type="checkbox"
-                  checked={newsletterOptions.technicalUpdates}
-                  onChange={handleNewsletterOptionChange("technicalUpdates")}
+                  checked={newsletterOptions.technical}
+                  onChange={() => handleNewsletterOptionChange("technical")}
                 />
                 KinoKlik Technical Updates
               </label>
@@ -233,7 +262,9 @@ function RegistrationPersonalInfo({
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.allNewsletters}
-                  onChange={handleNewsletterOptionChange("allNewsletters")}
+                  onChange={() =>
+                    handleNewsletterOptionChange("allNewsletters")
+                  }
                 />
                 All Newsletters
               </label>

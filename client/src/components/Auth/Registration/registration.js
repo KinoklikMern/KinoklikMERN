@@ -41,11 +41,11 @@ function RegistrationForm() {
   //Personal Info
   const [receiveNewsletter, setReceiveNewsletter] = useState(true);
   const initOptions = {
-    filmmakers: false,
-    viewers: false,
-    ecosystemPlayers: false,
-    investors: false,
-    technicalUpdates: false,
+    filmmakers: true,
+    viewers: true,
+    ecosystem: true,
+    investors: true,
+    technical: true,
     allNewsletters: true,
   };
   const [newsletterOptions, setNewsletterOptions] = useState(initOptions);
@@ -93,12 +93,12 @@ function RegistrationForm() {
     }
 
     //Find newsLetter options
-    let trueKey = "";
+    let userOptions = [];
     // If the user wants to receive the newsletter
     if (receiveNewsletter) {
-      trueKey = Object.keys(newsletterOptions).find(
-        (key) => newsletterOptions[key] === true
-      );
+      userOptions = Object.keys(newsletterOptions).filter((key) => {
+        return key !== "allNewsletters" && newsletterOptions[key] === true;
+      });
     }
 
     try {
@@ -110,7 +110,7 @@ function RegistrationForm() {
           firstName: firstName,
           lastName: lastName,
           role: role.value,
-          newsLetterOptions: trueKey,
+          newsLetterOptions: userOptions,
         }
       );
 

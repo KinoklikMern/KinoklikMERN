@@ -231,7 +231,7 @@ const UserSchema = mongoose.Schema({
   linkedin_url: { type: String, default: "" },
   linkedin_followers: { type: String, default: "" },
 
-  newsLetterOptions: { type: String, default: "allNewsletters" },
+  newsLetterOptions: { type: Array, default: [] },
   // Crew
   // crew: [
   //   {

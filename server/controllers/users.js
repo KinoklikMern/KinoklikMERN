@@ -697,7 +697,7 @@ export const changePassword = async (req, res) => {
 
 export const deleteAccount = async (req, res) => {
   const id = req.params.userId;
-  //console.log(id);
+  // console.log(id);
   try {
     const userToDelete = await User.findOne({ _id: id })
       .where("deleted")

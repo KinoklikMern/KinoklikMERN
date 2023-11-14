@@ -40,8 +40,8 @@ export default function EPKsPage() {
           {/* box */}
           <TopToolBar
             selectedTab="EPKs"
-            setFilteredEPKs={setFilteredEPKs}
-            epkInfo={epkInfo}
+            setFilteredData={setFilteredEPKs}
+            dataInfo={epkInfo}
           />
 
           <div className="tw-mt-10 tw-max-w-5xl  tw-rounded-lg  tw-border-2 tw-border-[#cac4cf] tw-bg-white tw-p-4 tw-shadow-[20px_20px_30px_-15px_rgba(30,0,57,0.3)]">

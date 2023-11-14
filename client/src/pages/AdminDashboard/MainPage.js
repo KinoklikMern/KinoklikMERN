@@ -127,7 +127,7 @@ export default function MainPage() {
           <div className="tw-md:flex-1 tw-md:w-full tw-mt-8 tw-flex tw-w-full  tw-flex-col tw-items-center  tw-justify-start tw-rounded-[22px]  tw-bg-[#1E0039]">
             <div className="tw-my-[10px] tw-flex tw-w-full tw-items-center">
               {/* DropdownBtn  */}
-              <div
+              {/* <div
                 ref={dropdownRef}
                 className="tw-relative tw-my-1 tw-ml-10 tw-h-5 tw-w-48 tw-rounded-2xl  tw-border-none tw-text-center tw-shadow-lg"
               >
@@ -159,9 +159,9 @@ export default function MainPage() {
                     ))}
                   </ul>
                 )}
-              </div>
+              </div> */}
 
-              <p className="tw-mt-[5px] tw-w-full  tw-pl-52 tw-font-bold tw-text-white">
+              <p className="tw-mt-[5px] tw-w-full   tw-text-center tw-font-bold tw-text-white">
                 ENGAGEMENT
               </p>
             </div>

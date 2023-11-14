@@ -23,13 +23,8 @@ export default function UsersPage() {
   const [actionStatus, setActionStatus] = useState(0); //0: list, 1: view, 2: edit,
   const dropdownRef = useRef(null);
   const [userInfo, setUserInfo] = useState();
-  const [item, setItem] = useState({
-    name: "Vera Carpenter",
-    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80",
-    role: "Distributor",
-    phone: "647-818-1281",
-    email: "123@gmail.com",
-  });
+  const [userFilterInfo, setUserFilterInfo] = useState();
+  const [item, setItem] = useState();
 
   //dropdown
   const [isOpen, setIsOpen] = useState(false);
@@ -83,13 +78,13 @@ export default function UsersPage() {
   };
 
   const handleViewClick = (item) => {
-    // alert(item.phone);
-
+    setItem(item);
     setActionStatus(1);
   };
 
-  const handleEditClick = () => {
+  const handleEditClick = (item) => {
     // alert("Edit clicked");
+    setItem(item);
 
     setActionStatus(2);
   };
@@ -98,8 +93,26 @@ export default function UsersPage() {
     alert("Save clicked");
     setActionStatus(1);
   };
-  const handleDeleteClick = () => {
-    alert("Do you really want to delete this user?");
+  const handleDeleteClick = (item) => {
+    const userConfirmed = window.confirm(
+      "Do you really want to delete this user's account?"
+    );
+
+    if (userConfirmed) {
+      http
+        .delete(
+          `${process.env.REACT_APP_BACKEND_URL}/users/deleteAccount/${item._id}`
+        )
+        .then((res) => {
+          alert(res.data.message);
+          window.location.reload();
+        })
+        .catch((err) => {
+          alert("Error: ", err);
+        });
+    } else {
+      alert("Delete operation canceled");
+    }
   };
 
   useEffect(() => {
@@ -120,6 +133,7 @@ export default function UsersPage() {
         const usersData = usersResponse.data;
 
         setUserInfo(usersData);
+        setUserFilterInfo(usersData);
       })
       .catch((error) => {
         console.error("An error occurred while fetching data.", error);
@@ -140,7 +154,11 @@ export default function UsersPage() {
           {/* line */}
           <div className="tw-h-0.5 tw-w-full tw-bg-[#1E0039]"></div>
           {/* box */}
-          <TopToolBar selectedTab="Users" role={user.role} />
+          <TopToolBar
+            selectedTab="Users"
+            setFilteredData={setUserFilterInfo}
+            dataInfo={userInfo}
+          />
 
           {/* List */}
           {actionStatus == 0 ? (
@@ -164,96 +182,106 @@ export default function UsersPage() {
                   </p>
                 </div>
 
-                {userInfo === undefined ? (
+                {userFilterInfo === undefined ? (
                   "Loading"
                 ) : (
                   <div className="tw-mt-[10px] tw-h-[480px] tw-min-w-full tw-overflow-auto tw-rounded-lg tw-shadow">
-                    {userInfo.map((item, index) => (
-                      <div
-                        key={index}
-                        className={classNames(
-                          getRowClass(index)
-                            ? "group tw-rounded-lg tw-rounded-l-[14px] tw-bg-[#1E0039] tw-p-[2px] tw-text-white tw-shadow-2xl"
-                            : "tw-bg-white tw-text-[#1E0039] ",
-                          "tw-group tw-flex tw-h-[80px] tw-w-full tw-items-center tw-justify-between  tw-border-b tw-border-gray-200 tw-shadow-lg  "
-                        )}
-                        onMouseEnter={() => handleMouseEnter(index)}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        <div className="tw-w-3/12 tw-px-2 tw-py-5 tw-text-sm">
-                          <div className="shadow-xl tw-flex tw-items-center">
-                            <div className="tw-relative tw-h-14 tw-w-14 tw-flex-shrink-0">
-                              {item.picture.includes("https") ? (
-                                <img
-                                  className="tw-h-full tw-w-full tw-justify-center "
-                                  src={item.picture}
-                                  alt=""
-                                />
-                              ) : (
-                                <img
-                                  className="tw-h-full tw-w-full tw-justify-center "
-                                  src={`${process.env.REACT_APP_AWS_URL}/${item.picture}`}
-                                  alt=""
-                                />
-                              )}
-                              <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-h-3 tw-items-start tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-[8px]  tw-text-white">
-                                <p className="tw-leading-3">{item.role}</p>
+                    {userFilterInfo.map((item, index) =>
+                      item.deleted ? null : (
+                        <div
+                          key={index}
+                          className={classNames(
+                            getRowClass(index)
+                              ? "group tw-rounded-lg tw-rounded-l-[14px] tw-bg-[#1E0039] tw-p-[2px] tw-text-white tw-shadow-2xl"
+                              : "tw-bg-white tw-text-[#1E0039] ",
+                            "tw-group tw-flex tw-h-[80px] tw-w-full tw-items-center tw-justify-between  tw-border-b tw-border-gray-200 tw-shadow-lg  "
+                          )}
+                          onMouseEnter={() => handleMouseEnter(index)}
+                          onMouseLeave={handleMouseLeave}
+                        >
+                          <div className="tw-w-3/12 tw-px-2 tw-py-5 tw-text-sm">
+                            <div className="shadow-xl tw-flex tw-items-center">
+                              <div className="tw-relative tw-h-14 tw-w-14 tw-flex-shrink-0">
+                                {item.picture.includes("https") ? (
+                                  <img
+                                    className="tw-h-full tw-w-full tw-justify-center "
+                                    src={item.picture}
+                                    alt=""
+                                  />
+                                ) : (
+                                  <img
+                                    className="tw-h-full tw-w-full tw-justify-center "
+                                    src={`${process.env.REACT_APP_AWS_URL}/${item.picture}`}
+                                    alt=""
+                                  />
+                                )}
+                                <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-h-3 tw-items-start tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-[8px]  tw-text-white">
+                                  <p className="tw-leading-3">{item.role}</p>
+                                </div>
+                              </div>
+                              <div className="tw-ml-3">
+                                <p className="tw-whitespace-no-wrap ">
+                                  {item.firstName} {item.lastName}
+                                </p>
                               </div>
                             </div>
-                            <div className="tw-ml-3">
-                              <p className="tw-whitespace-no-wrap ">
-                                {item.firstName} {item.lastName}
-                              </p>
+                          </div>
+                          <div className=" tw-w-2/12  tw-py-5 tw-text-sm ">
+                            <p className="tw-whitespace-no-wrap ">
+                              {item.role}
+                            </p>
+                          </div>
+                          <div className=" tw-w-4/12 tw-py-5 tw-text-sm">
+                            <p className="tw-whitespace-no-wrap ">
+                              {item.phone}
+                            </p>
+                            <p className="tw-whitespace-no-wrap ">
+                              {item.email}
+                            </p>
+                          </div>
+                          <div className="  tw-w-2/12 tw-px-5 tw-py-5 tw-text-sm ">
+                            <p className="tw-whitespace-no-wrap ">
+                              {item.lastActive}
+                            </p>
+                          </div>
+                          <div className="  tw-w-1/12 tw-py-5 tw-text-sm ">
+                            <div className="tw-relative  tw-flex tw-px-1 tw-py-1 tw-font-semibold tw-leading-tight ">
+                              <img
+                                src={
+                                  getRowClass(index)
+                                    ? MessageIconWhite
+                                    : MessageIcon
+                                }
+                                className="tw-flex tw-h-[20px] tw-cursor-pointer tw-rounded-none tw-fill-red-500"
+                                alt="View icon"
+                                onClick={() => handleViewClick(item)}
+                              />
+                              <img
+                                src={
+                                  getRowClass(index)
+                                    ? EditPencilIconWhite
+                                    : EditPencilIcon
+                                }
+                                className="tw-flex tw-h-[20px] tw-cursor-pointer"
+                                alt="Edit icon"
+                                onClick={() => handleEditClick(item)}
+                              />
+
+                              <img
+                                src={
+                                  getRowClass(index)
+                                    ? TrashIconWhite
+                                    : TrashIcon
+                                }
+                                className="tw-flex tw-h-[28px] tw-cursor-pointer"
+                                alt="Trash Icon"
+                                onClick={() => handleDeleteClick(item)}
+                              />
                             </div>
                           </div>
                         </div>
-                        <div className=" tw-w-2/12  tw-py-5 tw-text-sm ">
-                          <p className="tw-whitespace-no-wrap ">{item.role}</p>
-                        </div>
-                        <div className=" tw-w-4/12 tw-py-5 tw-text-sm">
-                          <p className="tw-whitespace-no-wrap ">{item.phone}</p>
-                          <p className="tw-whitespace-no-wrap ">{item.email}</p>
-                        </div>
-                        <div className="  tw-w-2/12 tw-px-5 tw-py-5 tw-text-sm ">
-                          <p className="tw-whitespace-no-wrap ">
-                            {item.lastActive}
-                          </p>
-                        </div>
-                        <div className="  tw-w-1/12 tw-py-5 tw-text-sm ">
-                          <div className="tw-relative  tw-flex tw-px-1 tw-py-1 tw-font-semibold tw-leading-tight ">
-                            <img
-                              src={
-                                getRowClass(index)
-                                  ? MessageIconWhite
-                                  : MessageIcon
-                              }
-                              className="tw-flex tw-h-[20px] tw-cursor-pointer tw-rounded-none tw-fill-red-500"
-                              alt="View icon"
-                              onClick={() => handleViewClick(item)}
-                            />
-                            <img
-                              src={
-                                getRowClass(index)
-                                  ? EditPencilIconWhite
-                                  : EditPencilIcon
-                              }
-                              className="tw-flex tw-h-[20px] tw-cursor-pointer"
-                              alt="Edit icon"
-                              onClick={handleEditClick}
-                            />
-
-                            <img
-                              src={
-                                getRowClass(index) ? TrashIconWhite : TrashIcon
-                              }
-                              className="tw-flex tw-h-[28px] tw-cursor-pointer"
-                              alt="Trash Icon"
-                              onClick={handleDeleteClick}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 )}
               </div>
@@ -282,13 +310,13 @@ export default function UsersPage() {
                     src={EditPencilIconWhite}
                     className="tw-flex tw-h-[20px] tw-cursor-pointer"
                     alt="Edit icon"
-                    onClick={handleEditClick}
+                    onClick={() => handleEditClick(item)}
                   />
                   <img
                     src={TrashIconWhite}
                     className="tw-flex tw-h-[28px] tw-cursor-pointer"
                     alt="Trash Icon"
-                    onClick={handleDeleteClick}
+                    onClick={() => handleDeleteClick(item)}
                   />
                 </div>
               </div>
@@ -297,16 +325,30 @@ export default function UsersPage() {
                   <div className="tw-relative tw-w-24  tw-flex-shrink-0">
                     <img
                       className="tw-h-full tw-w-full tw-justify-center "
-                      src={item.img}
+                      src={
+                        item.picture.includes("https")
+                          ? item.picture
+                          : `${process.env.REACT_APP_AWS_URL}/${item.picture}`
+                      }
                       alt=""
                     />
-                    <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-h-4 tw-items-start tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white">
-                      <p className="tw-leading-3">{item.role}</p>
+                    <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-flex tw-h-4 tw-items-center tw-justify-center tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white">
+                      <p className=" tw-leading-3">
+                        {item.role.includes("_")
+                          ? item.role.replace("_", " ")
+                          : item.role}
+                      </p>
                     </div>
                   </div>
-                  <div className="tw-text-md tw-pl-6  tw-text-[#1E0039]">
-                    <p>{item.name}</p>
-                    <p>{item.role}</p>
+                  <div className="tw-text-md tw-whitespace-no-wrap  tw-pl-6 tw-text-[#1E0039] ">
+                    <p>
+                      {item.firstName} {item.lastName}
+                    </p>
+                    <p>
+                      {item.role.includes("_")
+                        ? item.role.replace("_", " ")
+                        : item.role}
+                    </p>
                     <p>{item.phone}</p>
                     <p>{item.email}</p>
                   </div>
@@ -360,7 +402,7 @@ export default function UsersPage() {
                     src={TrashIconWhite}
                     className="tw-flex tw-h-[28px] tw-cursor-pointer"
                     alt="Trash Icon"
-                    onClick={handleDeleteClick}
+                    onClick={() => handleDeleteClick(item)}
                   />
                 </div>
               </div>
@@ -369,26 +411,50 @@ export default function UsersPage() {
                   <div className="tw-relative tw-w-24  tw-flex-shrink-0">
                     <img
                       className="tw-h-full tw-w-full tw-justify-center "
-                      src={item.img}
+                      src={
+                        item.picture.includes("https")
+                          ? item.picture
+                          : `${process.env.REACT_APP_AWS_URL}/${item.picture}`
+                      }
                       alt=""
                     />
-                    <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-h-4 tw-items-start tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white">
-                      <p className="tw-leading-3">{item.role}</p>
+                    <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-flex tw-h-4 tw-items-center tw-justify-center tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white">
+                      <p className="tw-leading-3">
+                        {item.role.includes("_")
+                          ? item.role.replace("_", " ")
+                          : item.role}
+                      </p>
                     </div>
                   </div>
-                  <div className="tw-text-md tw-pl-6  tw-text-[#1E0039]">
-                    <input
-                      type="text"
-                      value={item.name}
-                      onChange={(e) =>
-                        setItem({ ...item, name: e.target.value })
-                      }
-                      className="tw-my-1 tw-h-5 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
-                    />
+                  <div className="tw-text-md  tw-pl-6 tw-text-[#1E0039]">
+                    <div className="tw-flex tw-w-full tw-gap-1">
+                      <input
+                        type="text"
+                        value={
+                          actionStatus === 2
+                            ? item.firstName
+                            : item.firstName + " " + item.lastName
+                        }
+                        // onChange={(e) =>
+                        //   setItem({ ...item, name: e.target.value })
+                        // }
+                        className="tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
+                      />
+                      {actionStatus == 2 ? (
+                        <input
+                          type="text"
+                          value={item.lastName}
+                          onChange={(e) =>
+                            setItem({ ...item, name: e.target.value })
+                          }
+                          className="tw-my-1 tw-h-5 tw-w-1/2  tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
+                        />
+                      ) : null}
+                    </div>
 
                     <div
                       ref={dropdownRef}
-                      className="tw-relative tw-my-1 tw-h-5 tw-rounded-2xl  tw-border-none tw-text-center tw-shadow-lg"
+                      className="tw-relative tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl  tw-border-none tw-text-center tw-shadow-lg"
                     >
                       <button
                         onClick={handleToggle}
@@ -397,7 +463,9 @@ export default function UsersPage() {
                         id="options-menu"
                         aria-haspopup="listbox"
                       >
-                        {item.role}
+                        {item.role.includes("_")
+                          ? item.role.replace("_", " ")
+                          : item.role}
                         <img
                           className=" tw-absolute tw-right-5 tw-ml-2.5 tw-h-3 tw-rounded-none"
                           src={Triangle}
@@ -422,19 +490,21 @@ export default function UsersPage() {
 
                     <input
                       type="text"
+                      placeholder="Phone no."
                       value={item.phone}
                       onChange={(e) =>
                         setItem({ ...item, phone: e.target.value })
                       }
-                      className="tw-my-1 tw-h-5 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
+                      className="tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500"
                     />
                     <input
                       type="text"
+                      placeholder="Email"
                       value={item.email}
                       onChange={(e) =>
                         setItem({ ...item, email: e.target.value })
                       }
-                      className="tw-my-1 tw-h-5 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
+                      className="tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500"
                     />
                   </div>
                 </div>
