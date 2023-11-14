@@ -10,11 +10,15 @@ import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FepkContext } from "../../context/FepkContext";
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
 //import Login from "../Auth/Registration/login";
 //import Register from "../Auth/Registration/register";
 
 function NavbarButtons({ user, setToggle, toggle }) {
+  const { t } = useTranslation();
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
   const [userToggle, setUserToggle] = useState(false);
@@ -66,14 +70,14 @@ function NavbarButtons({ user, setToggle, toggle }) {
               to='/login'
               className='md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400'
             >
-              SIGN IN
+              {t('SIGN IN')}
             </Link>
 
             <Link
               to={user ? "/uploadFepk" : "/signup"}
               className='md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400'
             >
-              REGISTER
+              {t('REGISTER')}
             </Link>
           </div>
           <div
@@ -105,7 +109,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
       ) : (
         <>
           {/* ------modified by rucheng-------- */}
-          <div className='tw-static tw-flex tw-items-center tw-justify-center tw-p-4'>
+          <div className='tw-flex tw-items-center tw-justify-center tw-p-4'>
             {/* ------modified by CHIHYIN-------- */}
             <div className='tw-mx-10 tw-inline-block tw-justify-center'>
               {editForFilmmaker || editForActor ? (
@@ -114,18 +118,11 @@ function NavbarButtons({ user, setToggle, toggle }) {
                 </Link>
               ) : null}
             </div>
-            <div className='tw-group tw-mx-4 tw-inline-block '>
+            <div className='tw-group tw-mx-4 tw-inline-block'>
               <img
                 src={picture}
                 alt='User Avatar'
                 className='tw-h-14 tw-w-14 tw-rounded-full tw-object-cover'
-              />
-            </div>
-            <div className='tw-group tw-mx-4 tw-inline-block'>
-              <FontAwesomeIcon
-                icon={faBars}
-                size='2xl'
-                style={{ color: "#fff" }}
               />
               <SideProfileMenu />
             </div>

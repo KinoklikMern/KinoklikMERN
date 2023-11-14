@@ -17,14 +17,14 @@ export default function ChatPage() {
   return (
     <ChatProvider>
       <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
-        <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
-          <p className='tw-text-4xl'>User Dashboard</p>
+        <div className='tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white md:tw-mb-8'>
+          <p className='tw-text-4xl'>{user.role} Dashboard</p>
         </div>
-        <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
-          <div className='tw-ml-16 tw-mt-12 tw-h-5/6'>
+        <div className='tw-flex tw-h-5/6 tw-flex-row md:tw-mx-8'>
+          <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
             <Sidebar selectedTab='Messages' role={user.role} />
           </div>
-          <div className='tw-scrollbar-w-36 tw-ml-16 tw-mt-12 tw-h-5/6 tw-w-5/6 tw-rounded-lg tw-bg-white tw-p-4'>
+          <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-w-full tw-rounded-lg tw-bg-white tw-p-4 md:tw-ml-16 md:tw-w-5/6'>
             <div className='tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3'>
               <div className='tw--m-4 tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d]'>
                 {/* search bar */}

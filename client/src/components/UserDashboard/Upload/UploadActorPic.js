@@ -3,8 +3,10 @@ import React, { useState, useRef, useEffect } from "react";
 import "./UploadActorPic.css";
 import http from "../../../http-common";
 import Modal from "react-modal";
+import {useTranslation} from 'react-i18next';
 
 export default function UploadActorPic({ user }) {
+  const { t } = useTranslation();
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
@@ -436,7 +438,7 @@ export default function UploadActorPic({ user }) {
                 fontSize: "20px",
               }}
             >
-              Upload Headshot
+              {t('Upload Headshot')}
             </label>
             <div className="uploaded-image-preview-container"></div>
           </div>
@@ -552,7 +554,7 @@ export default function UploadActorPic({ user }) {
             className="form-label text-dark"
             style={{ fontSize: "25px" }}
           >
-            Upload Demo reel Video
+            {t('Upload Demo reel Video')}
           </label>
           <input
             className="form-control form-control-sm"
@@ -575,11 +577,11 @@ export default function UploadActorPic({ user }) {
                 src={`${process.env.REACT_APP_AWS_URL}/${actorData.bannerImg}`}
                 type="video/mp4"
               />
-              Your browser does not support the video tag.
+              {t('Your browser does not support the video tag.')}
             </video>
           )}
           <br></br>
-          <button onClick={captureThumbnail}>Capture Thumbnail</button>
+          <button onClick={captureThumbnail}>{t('Capture Thumbnail')}</button>
         </div>
         {thumbnailImage && (
           <img
@@ -593,7 +595,7 @@ export default function UploadActorPic({ user }) {
           className="upload-actor-prof-btn1 upload-actor-prof-btn-save1"
           onClick={handleSaveClick}
         >
-          save
+          {t('save')}
         </button>
       </div>
       <div className="actor-dashbaord-about">
@@ -618,7 +620,7 @@ export default function UploadActorPic({ user }) {
             marginTop: "20px",
           }}
         >
-          {characterLength}/500 characters
+          {characterLength}{t('/500 characters')}
         </span>
       </div>
       <div>
@@ -675,6 +677,23 @@ export default function UploadActorPic({ user }) {
         <p className="actor-text-upload">
           There are currently no EPKs attached to your Actor Page. Once
           filmmakers will assign you an EPK, it will appear here.
+            <h2>{t('Updated successfully!')}</h2>
+            <br />
+            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
+              {t('Ok')}
+            </button>
+          </div>
+        </Modal>
+      </div>
+      <div className='actor-save-about'>
+        <button className='upload-actor-prof-btn1' onClick={editAbout}>
+        {t('save')}
+        </button>
+      </div>
+      <div className='actor-btn-save-upload-container'>
+        <p className='actor-text-upload'>
+          {t('There are currently no EPKs attached to your Actor Page. Once')}
+          {t('filmmakers will assign you an EPK, it will appear here.')}
         </p>
       </div>
     </>

@@ -17,9 +17,12 @@ export default function UserCard(props) {
       : `${process.env.REACT_APP_AWS_URL}/${props.UserInfo.picture}`;
 
   return (
-    <div className="tw-py-2 sm:tw-py-4">
-      <div className="tw-flex tw-items-center tw-border-b-2 md:tw-gap-12">
-        <div className="tw-relative tw-m-4 tw-flex-shrink-0">
+    // <div className="tw-py-2 sm:tw-py-4">
+    //   <div className="tw-flex tw-items-center tw-border-b-2 md:tw-gap-12">
+    //     <div className="tw-relative tw-m-4 tw-flex-shrink-0">
+    <div className="tw-py-2 sm:tw-py-3">
+      <div className="tw-flex tw-items-center tw-border-b-2 md:tw-gap-8">
+        <div className="tw-relative tw-m-3 tw-flex-shrink-0">
           <Link to={`/actor/${props.UserInfo.id}`}>
             {/* <img
               className="tw-h-32 tw-w-32 tw-rounded-lg"
@@ -27,7 +30,8 @@ export default function UserCard(props) {
               alt="profile image"
             /> */}
             <div
-              className="tw-h-32 tw-w-32 tw-rounded-lg tw-bg-cover tw-bg-center tw-bg-no-repeat"
+              // className="tw-h-32 tw-w-32 tw-rounded-lg tw-bg-cover tw-bg-center tw-bg-no-repeat"
+              className="tw-h-20 tw-w-20 tw-rounded-lg tw-bg-cover tw-bg-center tw-bg-no-repeat"
               style={{ backgroundImage: `url(${picture})` }}
             ></div>
           </Link>
@@ -38,7 +42,11 @@ export default function UserCard(props) {
             </span>
           </div>
         </div>
-        <div className="tw-m-4 tw-min-w-0 tw-gap-32 md:tw-flex">
+        {/* <div className="tw-m-4 tw-min-w-0 tw-gap-32 md:tw-flex"> */}
+        <div
+          className="tw-ml-4 tw-min-w-0 tw-flex-1"
+          style={{ maxWidth: "30%" }}
+        >
           <div>
             <Link to={`/actor/${id}`}>
               <p className="tw-truncate tw-text-lg tw-font-medium tw-text-gray-900">
@@ -49,8 +57,9 @@ export default function UserCard(props) {
               {website}
             </p>
           </div>
+        </div>
 
-          {/* <p className="tw-truncate tw-text-lg tw-font-normal tw-text-gray-900">
+        {/* <p className="tw-truncate tw-text-lg tw-font-normal tw-text-gray-900">
               {email}
             </p>
           </div>
@@ -63,22 +72,21 @@ export default function UserCard(props) {
             </p>
           </div> */}
 
-          {/* Add the message icon and handle its click */}
-          <div
-            onClick={props.onMessageIconClick}
-            style={{
-              cursor: "pointer",
-              width: "32px",
-              height: "32px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <FontAwesomeIcon
-              icon={faMessage}
-              style={{ width: "100%", height: "100%" }}
-            />
-          </div>
+        {/* Add the message icon and handle its click */}
+        <div
+          onClick={props.onMessageIconClick}
+          className="tw-flex tw-items-center tw-justify-center"
+          style={{
+            cursor: "pointer",
+            width: "32px",
+            height: "32px",
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faMessage}
+            style={{ width: "100%", height: "100%" }}
+            className="tw-h-full tw-w-full"
+          />
         </div>
       </div>
     </div>

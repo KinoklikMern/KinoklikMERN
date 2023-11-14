@@ -19,6 +19,10 @@ import App from "./App";
 import ChatProvider from "./context/ChatProvider";
 import { NotificationProvider } from "./context/NotificationContext";
 import { SocketProvider } from "./context/SocketProvider";
+
+import './i18n';
+
+
 const persistConfig = {
   key: "root",
   storage,

@@ -41,8 +41,6 @@ function FepkDetailsForm() {
 
   //roles for invited users
   const [invitedUserRole, setInvitedUserRole] = useState("Actor");
-  // const [invitedUserFirstName, setInvitedUserFirstName] = useState("");
-  //const [invitedUserLastName, setInvitedUserLastName] = useState("");
 
   const [invitationData, setInvitationData] = useState({
     firstName: "",
@@ -538,6 +536,7 @@ function FepkDetailsForm() {
 
                                     return (
                                       <div
+                                        key={userObj._id}
                                         style={{
                                           display: "flex",
                                           alignItems: "center",
@@ -549,7 +548,6 @@ function FepkDetailsForm() {
                                       >
                                         <div>
                                           <p
-                                            key={userObj._id}
                                             style={{
                                               fontSize: "0.9rem",
                                             }}
