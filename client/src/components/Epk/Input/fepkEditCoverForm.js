@@ -22,13 +22,11 @@ function FepkEditCoverForm() {
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
-
+  const [isUploading, setIsUploading] = useState(false);
   //Poster preview
   const [posterPreviewUrl, setPosterPreviewUrl] = useState("");
-
   //Banner prewiev
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
-
   //Trailer preview
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
 
@@ -76,6 +74,7 @@ function FepkEditCoverForm() {
 
   const closeModal = () => {
     setModalIsOpen(false);
+    window.location.reload();
   };
 
   const [epkCoverData, setEpkCoverData] = useState({
@@ -232,6 +231,17 @@ function FepkEditCoverForm() {
         return true;
       else return false;
     } else return true;
+  };
+
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    e.currentTarget.style.display = "flex";
+    e.currentTarget.style.justifyContent = "center";
+    e.currentTarget.style.alignItems = "center";
+    e.currentTarget.innerHTML =
+      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
+    setIsUploading(true);
+    saveEpkCover(e);
   };
 
   const saveEpkCover = (e) => {
@@ -745,7 +755,7 @@ function FepkEditCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h1>NO VIDEO UPLOADED</h1>
+                          <h6>NO VIDEO UPLOADED</h6>
                         )}
                       </div>
                     </div>
@@ -756,7 +766,7 @@ function FepkEditCoverForm() {
                 className="row"
                 style={{
                   paddingRight: "25%",
-                  paddingLeft: "3%"
+                  paddingLeft: "3%",
                 }}
               >
                 <div>
@@ -830,7 +840,7 @@ function FepkEditCoverForm() {
                 }}
                 type="outline-primary"
                 block
-                onClick={saveEpkCover}
+                onClick={handleSaveClick}
                 value="save"
               >
                 Save
@@ -844,7 +854,7 @@ function FepkEditCoverForm() {
                 }}
                 type="outline-primary"
                 block
-                onClick={saveEpkCover}
+                onClick={handleSaveClick}
                 value="save"
               >
                 Save

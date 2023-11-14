@@ -62,8 +62,11 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const [usersLikes, setUsersLikes] = useState(epkInfo.likes.length);
   // const [sharingClicked, setSharingClicked] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
-  const urlShare = "https://www.google.com"; ///window.location.href
-  // console.log(epkInfo);
+  const currentUrl = window.location.href.startsWith("http")
+    ? window.location.href
+    : `https://${window.location.href}`;
+  const urlShare = `I’ve created my new film ${epkInfo.title} #EPK using #KinoKlik free software. Check it out at ${currentUrl} and let me know! #ElectronicPressKit #FilmEPK #NewFilmInProgress`;
+
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   //Yeming added
@@ -295,7 +298,6 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const closeShareModal = () => {
     setIsShareModalOpen(false);
   };
-
 
   return (
     <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">

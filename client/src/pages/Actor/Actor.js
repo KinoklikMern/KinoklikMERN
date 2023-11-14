@@ -557,7 +557,7 @@ export default function Actor(props) {
               >
                 Ethnicity{" "}
               </span>{" "}
-              <span>{epkInfo.ethnicity || "Caucasian"}</span>
+              <span>{epkInfo.ethnicity}</span>
             </p>
             <p
               style={{
