@@ -30,7 +30,7 @@ export default function StarredPage() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, [epkList, userId]);
+  }, [userId]);
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">

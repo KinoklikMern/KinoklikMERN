@@ -31,7 +31,7 @@ export default function FollowingPage() {
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, [epkList, userId]);
+  }, [userId]);
 
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]">

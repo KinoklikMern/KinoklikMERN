@@ -180,7 +180,7 @@ export default function NotificationPage() {
                     {likedUserList?.map((user) => (
                       // <UserCard UserInfo={user} key={user.id} />
                       <UserCard
-                        key={user.id}
+                        key={user._id}
                         UserInfo={{
                           role: user.role,
                           firstName: user.firstName,
@@ -278,7 +278,10 @@ export default function NotificationPage() {
                     </ul>
                     {filter === "allRequests" &&
                       requestList.requests?.map((request) => (
-                        <div className="tw-flex tw-flex-row tw-justify-between tw-border-b-2">
+                        <div
+                          className="tw-flex tw-flex-row tw-justify-between tw-border-b-2"
+                          key={request.id}
+                        >
                           <div className="tw-w-2/3">
                             <RequestCard Request={request} />
                           </div>
@@ -336,7 +339,10 @@ export default function NotificationPage() {
                       requestList.requests?.map(
                         (request) =>
                           request.status === filter && (
-                            <div className="tw-flex tw-flex-row tw-justify-between tw-border-b-2">
+                            <div
+                              className="tw-flex tw-flex-row tw-justify-between tw-border-b-2"
+                              key={request.id}
+                            >
                               <div className="tw-w-2/3">
                                 <RequestCard Request={request} />
                               </div>
