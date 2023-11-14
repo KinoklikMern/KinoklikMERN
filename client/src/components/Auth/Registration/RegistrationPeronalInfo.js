@@ -1,4 +1,5 @@
-import React, { /**useState, setState **/} from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, setState } from "react";
 import SignupCss from "./signup.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -90,7 +91,7 @@ function RegistrationPersonalInfo({
                 className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}
               >
                 {/* <button> */}
-                <img src={role.image} alt="Filmmaker Icon"></img>
+                <img src={role.image} alt='Filmmaker Icon'></img>
 
                 {/* </button> */}
               </div>
@@ -104,11 +105,11 @@ function RegistrationPersonalInfo({
             {/* <label className="form__label">First Name </label> */}
             <input
               className={SignupCss.form_input}
-              type="text"
+              type='text'
               value={firstName}
               onChange={(e) => handleInputChange(e)}
-              id="firstName"
-              placeholder="First Name"
+              id='firstName'
+              placeholder='First Name'
             />
           </div>
           {/* <div className={SignupCss.form_input}>*/}
@@ -116,11 +117,11 @@ function RegistrationPersonalInfo({
             {/* <label className="form__label">Last Name </label> */}
             <input
               className={SignupCss.form_input}
-              type="text"
+              type='text'
               value={lastName}
               onChange={(e) => handleInputChange(e)}
-              id="lastName"
-              placeholder="LastName"
+              id='lastName'
+              placeholder='LastName'
             />
           </div>
         </div>
@@ -128,11 +129,11 @@ function RegistrationPersonalInfo({
           {/* <label className="form__label">Email </label> */}
           <input
             className={SignupCss.form_input}
-            type="text"
-            id="email"
+            type='text'
+            id='email'
             value={email}
             onChange={(e) => handleInputChange(e)}
-            placeholder="Email"
+            placeholder='Email'
           />
         </div>
 
@@ -141,11 +142,11 @@ function RegistrationPersonalInfo({
           {/* <label className="form__label">Password </label> */}
           <input
             className={SignupCss.form_input2}
-            type="password"
-            id="password"
+            type='password'
+            id='password'
             value={password}
             onChange={(e) => handleInputChange(e)}
-            placeholder="Password"
+            placeholder='Password'
           />
         </div>
         <div>
@@ -153,11 +154,11 @@ function RegistrationPersonalInfo({
           {/* <label className="form__label">Confirm Password </label> */}
           <input
             className={SignupCss.form_input2}
-            type="password"
-            id="confirmPassword"
+            type='password'
+            id='confirmPassword'
             value={confirmPassword}
             onChange={(e) => handleInputChange(e)}
-            placeholder="Confirm Password"
+            placeholder='Confirm Password'
           />
         </div>
 
@@ -165,7 +166,7 @@ function RegistrationPersonalInfo({
         <div className={SignupCss.termsAndConditions}>
           <label className={SignupCss.termsCheckboxLabel}>
             <input
-              type="checkbox"
+              type='checkbox'
               checked={agreeToTerms}
               onChange={() => setAgreeToTerms(!agreeToTerms)}
             />
@@ -182,7 +183,7 @@ function RegistrationPersonalInfo({
           <div className={SignupCss.yesNo}>
             <label className={SignupCss.yesAndNo}>
               <input
-                type="checkbox"
+                type='checkbox'
                 checked={receiveNewsletter}
                 onChange={handleReceiveNewsletterChange}
               />
@@ -190,7 +191,7 @@ function RegistrationPersonalInfo({
             </label>
             <label className={SignupCss.yesAndNo}>
               <input
-                type="checkbox"
+                type='checkbox'
                 checked={!receiveNewsletter}
                 onChange={() => setReceiveNewsletter(false)}
               />
@@ -199,51 +200,51 @@ function RegistrationPersonalInfo({
           </div>
           {receiveNewsletter && (
             <div className={SignupCss.listOfAudiences}>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={newsletterOptions.filmmakers}
                   onChange={handleNewsletterOptionChange("filmmakers")}
                 />
                 Filmmakers (Directors & Producers)
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={newsletterOptions.viewers}
                   onChange={handleNewsletterOptionChange("viewers")}
                 />
                 Viewers
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={newsletterOptions.ecosystemPlayers}
                   onChange={handleNewsletterOptionChange("ecosystemPlayers")}
                 />
                 Film Ecosystem & Industry Players
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={newsletterOptions.investors}
                   onChange={handleNewsletterOptionChange("investors")}
                 />
                 Investors & VCs Updates
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={newsletterOptions.technicalUpdates}
                   onChange={handleNewsletterOptionChange("technicalUpdates")}
                 />
                 KinoKlik Technical Updates
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={newsletterOptions.allNewsletters}
-                  onChange={handleNewsletterOptionChange('allNewsletters')}
+                  onChange={handleNewsletterOptionChange("allNewsletters")}
                 />
                 All Newsletters
               </label>
