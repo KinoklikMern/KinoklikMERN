@@ -41,11 +41,11 @@ function RegistrationForm() {
   //Personal Info
   const [receiveNewsletter, setReceiveNewsletter] = useState(true);
   const initOptions = {
-    filmmakers: true,
-    viewers: true,
-    ecosystem: true,
-    investors: true,
-    technical: true,
+    filmmakers: false,
+    viewers: false,
+    ecosystem: false,
+    investors: false,
+    technical: false,
     allNewsletters: true,
   };
   const [newsletterOptions, setNewsletterOptions] = useState(initOptions);

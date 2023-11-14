@@ -58,10 +58,7 @@ function RegistrationPersonalInfo({
       option === "allNewsletters" &&
       newsletterOptions[option] === false
     ) {
-      // If the user checks the "All Newsletters" option, check all the other options
-      setNewsletterOptions(
-        Object.fromEntries(Object.keys(initOptions).map((key) => [key, true]))
-      );
+      setNewsletterOptions({ ...initOptions, allNewsletters: true });
     } else {
       // If the user checks/unchecks any other option, update the state accordingly
       setNewsletterOptions((prevOptions) => {
@@ -75,11 +72,16 @@ function RegistrationPersonalInfo({
         } else {
           // If the user checks all other options except option "All Newsletters", check the "All Newsletters" option
           const options = { ...prevOptions, [option]: !prevOptions[option] };
+          if (
+            Object.keys(options)
+              .filter((key) => key !== "allNewsletters")
+              .every((key) => options[key] === true)
+          ) {
+            return { ...initOptions, allNewsletters: true };
+          }
           return {
             ...options,
-            allNewsletters: Object.keys(options)
-              .filter((key) => key !== "allNewsletters")
-              .every((key) => options[key] === true),
+            allNewsletters: false,
           };
         }
       });

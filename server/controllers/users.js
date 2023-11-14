@@ -13,7 +13,7 @@ import { generateOTP, generateMailTransport } from "../utils/mail.js";
 import EmailVerificationToken from "../models/emailVerificationToken.js";
 import { isValidObjectId } from "mongoose";
 import { sendError } from "../utils/helper.js";
-
+import { addSubscribe } from "../utils/mailChimp.js";
 export const register = async (req, res) => {
   try {
     const {
@@ -75,6 +75,9 @@ export const register = async (req, res) => {
       isVerified: false, // Add this line to set isVerified to false initially
       newsLetterOptions,
     }).save();
+
+    //Add the user to the Mailchimp list
+    addSubscribe(email, "fab1255128", firstName, lastName);
 
     // Generate 6 digit otp
     const OTP = generateOTP();
