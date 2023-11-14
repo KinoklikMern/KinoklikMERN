@@ -99,8 +99,8 @@ const UserSchema = mongoose.Schema({
   bannerImg: {
     type: String,
     trim: true,
-    default:
-      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
+    // default:
+    //   "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
   thumbnail: {
     type: String,

@@ -32,7 +32,6 @@ import {
   getMostFollowed,
   getActorFollowers,
   getActorLikes,
-  getActorRecommendations,
   uploadActorThumbnail,
   getAllUsers,
   getUserById,

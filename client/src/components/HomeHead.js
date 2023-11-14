@@ -102,13 +102,25 @@ const HomeHead = (props) => {
   useEffect(() => {
     if (props.role === "actor") {
       http.get(`users/getactors/`).then((response) => {
-        let last = response.data.length - 1;
-        setActor(response.data[last]);
+        // Find the most recent actor with a bannerImg and picture
+        const validActor = response.data
+          .slice()
+          .reverse()
+          .find((actor) => actor.bannerImg && actor.thumbnail && actor.picture);
+        if (validActor) {
+          setActor(validActor);
+        }
       });
     } else {
       http.get(`fepks/`).then((response) => {
-        let last = response.data.length - 1;
-        setFepk(response.data[last]);
+        // Find the most recent fepk with both banner_url and image_details
+        const validFepk = response.data
+          .slice()
+          .reverse()
+          .find((fepk) => fepk.banner_url && fepk.image_details);
+        if (validFepk) {
+          setFepk(validFepk);
+        }
       });
     }
   }, [props.role]);
@@ -117,89 +129,89 @@ const HomeHead = (props) => {
 
   return (
     <div
-      className='tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat'
+      className="tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
       style={{
         backgroundImage:
           props.role && props.role === "actor"
-            ? `url(${process.env.REACT_APP_AWS_URL}/${actor.bannerImg})`
+            ? `url(${process.env.REACT_APP_AWS_URL}/${actor.thumbnail})`
             : `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
       }}
     >
-      <div className='tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end'>
+      <div className="tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end">
         <SearchBar />
       </div>
 
       <section
-        id='home'
-        className='tw-h-full tw-bg-gradient-to-t tw-from-[#000]/50 tw-via-[#000]/40 tw-to-transparent tw-pt-0'
+        id="home"
+        className="tw-h-full tw-bg-gradient-to-t tw-from-[#000]/50 tw-via-[#000]/40 tw-to-transparent tw-pt-0"
       >
-        <div className='menu-icon tw-pt-12'>
+        <div className="menu-icon tw-pt-12">
           {/* Donation  */}
           <div
-            className=' tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110'
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
-              className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100'
+              className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100"
               src={
                 fepk?.donaton?.filter((item) => item._id === userId).length !==
                 0
                   ? DonationIcon
                   : DonationBlackIcon
               }
-              alt='/'
+              alt="/"
               onClick={handleClickDonation}
             />
           </div>
           {/* <Link to="/">   must be linked to /bookmark    */}
           <div
-            className=' tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110'
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
-              className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 '
+              className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
               src={
                 fepk?.wishes_to_buy?.filter((item) => item._id === userId)
                   .length !== 0
                   ? DollarBlackIcon
                   : DollarIcon
               }
-              alt='/'
+              alt="/"
               onClick={handleClickDollar}
               //   style={{ opacity: clickedDollar ? 1 : 0.5 }}
             />
           </div>
           {/*  </Link> */}
           <div
-            className=' tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110'
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
-              className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 '
+              className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
               src={
                 fepk?.favourites?.filter((item) => item._id === userId)
                   .length !== 0
                   ? PlusBlackIcon
                   : PlusIcon
               }
-              alt='/'
+              alt="/"
               onClick={handleClickPlus}
               //   style={{ opacity: clickedPlus ? 1 : 0.5 }}
             />
           </div>
           <div
-            className=' tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110'
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
-              className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 '
+              className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
               src={
                 fepk?.likes?.filter((item) => item._id === userId).length !== 0
                   ? StarBlackIcon
                   : StarIcon
               }
               onClick={handleStarClick}
-              alt='/'
+              alt="/"
               //   style={{ opacity: clickedStar ? 1 : 0.5 }}
             />
           </div>
@@ -216,11 +228,11 @@ const HomeHead = (props) => {
             />
           </div> */}
           <div
-            className=' tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center  hover:tw-scale-110'
+            className=" tw-relative tw-inline-flex tw-h-16 tw-w-16 tw-justify-center  hover:tw-scale-110"
             style={{ borderRadius: "20px", cursor: "pointer" }}
           >
             <img
-              className='tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 '
+              className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
               src={
                 fepk?.sharings?.filter((item) => item._id === userId).length !==
                 0
@@ -271,11 +283,11 @@ const HomeHead = (props) => {
             style={{ opacity: clickedVolumeUp ? 1 : 0.5 }}
           />
         </div> */}
-        <div className='tw-pt-24'>
-          <div className='tw-flex'>
-            <div className='tw-flex md:tw-w-2/4'>
+        <div className="tw-pt-24">
+          <div className="tw-flex">
+            <div className="tw-flex md:tw-w-2/4">
               <a
-                className='tw-mx-auto'
+                className="tw-mx-auto"
                 href={
                   props.role === "actor"
                     ? `actor/${actor._id}`
@@ -283,26 +295,26 @@ const HomeHead = (props) => {
                 }
               >
                 <img
-                  className='homeHead-poster tw-invisible md:tw-visible'
+                  className="homeHead-poster tw-invisible md:tw-visible"
                   src={
                     props.role === "actor"
                       ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
                       : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
                   }
-                  alt='/'
+                  alt="/"
                 />
               </a>
             </div>
 
-            <div className='tw-flex tw-w-full md:tw-w-2/4'>
-              <h1 className='movieTitle tw-mx-auto tw-my-auto tw-text-8xl tw-font-semibold'>
+            <div className="tw-flex tw-w-full md:tw-w-2/4">
+              <h1 className="movieTitle tw-mx-auto tw-my-auto tw-text-8xl tw-font-semibold">
                 {props.role === "actor"
                   ? actor.firstName + " " + actor.lastName
                   : fepk.title}
               </h1>
             </div>
           </div>
-          <p className='movieIntro tw-my-8 tw-text-xl'>{fepk.logLine_short}</p>
+          <p className="movieIntro tw-my-8 tw-text-xl">{fepk.logLine_short}</p>
         </div>
         {/* <HomeMainFilm /> */}
       </section>
