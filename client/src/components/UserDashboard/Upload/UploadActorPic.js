@@ -673,7 +673,7 @@ export default function UploadActorPic({ user }) {
           save
         </button>
       </div>
-      <div className="actor-btn-save-upload-container">
+      {/* <div className="actor-btn-save-upload-container">
         <p className="actor-text-upload">
           There are currently no EPKs attached to your Actor Page. Once
           filmmakers will assign you an EPK, it will appear here.
@@ -695,7 +695,7 @@ export default function UploadActorPic({ user }) {
           {t('There are currently no EPKs attached to your Actor Page. Once')}
           {t('filmmakers will assign you an EPK, it will appear here.')}
         </p>
-      </div>
+      </div> */}
     </>
   );
 }
