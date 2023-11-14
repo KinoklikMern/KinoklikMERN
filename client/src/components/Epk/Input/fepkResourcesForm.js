@@ -180,11 +180,6 @@ function ResourcesForm() {
     }
   };
 
-  const triggerFileInput = (index) => {
-    // setEditingRe(index);
-    inputFileRef.current.click(); // Trigger the file input
-    handleEditChange();
-  };
 
   return (
     <>
@@ -452,6 +447,7 @@ function ResourcesForm() {
                                       }
                                       name="text"
                                       maxLength="160"
+                                      style={{ maxWidth: "160px" }}
                                     />
                                     <span
                                       style={{
@@ -464,14 +460,10 @@ function ResourcesForm() {
                                     </span>
                                   </div>
                                 </td>
-                                <td>
-                                  {/* <img
+                                <td style={{ minWidth: "160px" }}>
+                                  <img
                                     src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
-                                    style={{ height: "30px", width: "auto" }}
-                                  /> */}
-                                  <FontAwesomeIcon
-                                    icon={faUpload}
-                                    onClick={() => triggerFileInput(index)}
+                                    style={{ height: "50px", width: "auto" }}
                                   />
                                   <input
                                     className="form-control form-control-sm"
