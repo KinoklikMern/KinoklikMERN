@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useMatch } from "react-router-dom";
 import Cookies from "js-cookie";
-
+import "./NavbarToggle.css";
 import { useDispatch } from "react-redux";
 import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -84,25 +84,14 @@ function NavbarButtons({ user, setToggle, toggle }) {
             className='tw-flex tw-items-center md:tw-hidden'
             onClick={() => setToggle((prev) => !prev)}
           >
-            <button className='mobile-menu-button tw-rounded-sm tw-bg-purple-200 tw-p-2'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='tw-h-6 tw-w-6'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d={
-                    toggle
-                      ? "M6 18L18 6M6 6l12 12" // 3 lines
-                      : "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" // X
-                  }
-                />
-              </svg>
+            <button
+              className={`toggle tw-mr-4 tw-bg-transparent ${
+                toggle ? "active" : ""
+              }`}
+            >
+              <div className='bars' id='bar1'></div>
+              <div className='bars' id='bar2'></div>
+              <div className='bars' id='bar3'></div>
             </button>
           </div>
         </>

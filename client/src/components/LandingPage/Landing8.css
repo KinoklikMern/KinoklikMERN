@@ -1,5 +1,5 @@
 .slide-right-left {
-  animation: slide-right-left 15s linear infinite;
+  animation: slide-right-left 20s linear infinite;
 }
 
 @keyframes slide-right-left {
@@ -18,7 +18,7 @@
 }
 
 .slide-left-right {
-  animation: slide-left-right 15s linear infinite;
+  animation: slide-left-right 20s linear infinite;
 }
 
 @keyframes slide-left-right {

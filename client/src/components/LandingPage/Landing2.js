@@ -8,9 +8,9 @@ import comingSoon from "../../images/comingSoon.png";
 const Landing2 = () => {
   return (
     <>
-      <div className='landing2 tw-m-auto tw-flex tw-max-w-full tw-flex-col tw-gap-4 tw-space-x-10 tw-bg-gradient-to-t tw-from-white tw-to-[#1e0039] tw-px-10 tw-pb-4 tw-pt-4 md:tw-flex-row lg:tw-grid-cols-2 lg:tw-pb-5 lg:tw-pt-20'>
+      <div className='tw-m-auto tw-flex tw-max-w-full tw-flex-col tw-gap-4 tw-space-x-10 tw-bg-gradient-to-t tw-from-white tw-to-[#1e0039] tw-px-10 tw-pb-4 tw-pt-4 md:tw-flex-row lg:tw-grid-cols-2 lg:tw-pb-5 lg:tw-pt-20'>
         {/* Left Side */}
-        <div className=' tw-mt-14 tw-grid tw-h-[60vh] tw-grid-cols-3 tw-grid-rows-6 tw-pr-0'>
+        <div className=' tw-mt-14 tw-grid tw-w-2/4 tw-grid-cols-3 tw-grid-rows-6 tw-pr-0'>
           <div className='tw-pl-11 tw-pt-8 md:tw-ml-24'>
             <img
               className='lg:tw-w-42 tw-row-span-1 tw-h-32 tw-object-right tw-pb-16 tw-pr-2 sm:tw-mr-8 '
@@ -40,8 +40,8 @@ const Landing2 = () => {
           />
         </div>
         {/* Right Side */}
-        <div className='tw-flex tw-h-full tw-w-4/5  tw-flex-col tw-text-center '>
-          <h3 className=' tw-mb-0 tw-text-5xl tw-font-bold tw-text-white md:tw-text-6xl '>
+        <div className='tw-flex tw-h-full tw-w-4/5 tw-flex-col tw-text-center'>
+          <h3 className='tw-text-center tw-text-5xl tw-font-bold tw-text-white md:tw-text-6xl'>
             Film.Marketing.Refined.
           </h3>
 
