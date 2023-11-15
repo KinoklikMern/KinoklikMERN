@@ -635,7 +635,7 @@ export default function Actor(props) {
                   marginRight: "90px",
                 }}
               >
-                Height{" "}
+                {t("Height")}{" "}
               </span>{" "}
               <span>{epkInfo.height}</span>
             </p>

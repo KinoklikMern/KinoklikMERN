@@ -1,10 +1,10 @@
 import React from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const { Dragger } = Upload;
-const { t } = userTranslation();
+const { t } = useTranslation();
 
 const props = {
  
