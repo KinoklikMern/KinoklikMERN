@@ -12,6 +12,8 @@ import {
   faPlus,
   faTrashCan,
   faUserPlus,
+  faCheck,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 
 function StillsForm() {
@@ -21,12 +23,10 @@ function StillsForm() {
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
   const [stillsList, setStillsList] = useState([]);
-
   const [epkStillsData, setEpkStillsData] = useState([]);
-
+  const [editMode, setEditMode] = useState({ status: false, rowKey: null });
   //modal
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
 
@@ -49,7 +49,6 @@ function StillsForm() {
       //      console.log(response.data.title);
     });
   }, []);
-
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -116,7 +115,6 @@ function StillsForm() {
     setDisabled(false);
   }
 
-
   const handleStillsBlurChange = (value, still) => {
     // Use filter to find the element with the specified `_id` in the `stills` array
     const updatedStills = stillsList.filter(
@@ -154,6 +152,43 @@ function StillsForm() {
 
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+
+  const enterEditMode = (key) => {
+    setEditMode({ status: true, rowKey: key });
+  };
+  const exitEditMode = () => {
+    setEditMode({ status: false, rowKey: null });
+  };
+
+  const handleEditChange = (event, index, field) => {
+    // Check if the field is 'image' and handle file input
+    if (field === "image") {
+      const selectedFile = event.target.files[0];
+      setFile(selectedFile);
+      let formData = new FormData();
+      formData.append("file", selectedFile);
+
+      http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          const updatedStillsList = [...stillsList];
+          updatedStillsList[index].image = response.data.key;
+          setStillsList(updatedStillsList);
+          setEpkStillsData({
+            ...epkStillsData,
+            resources: updatedStillsList,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    setDisabled(false);
   };
 
   return (
@@ -295,19 +330,73 @@ function StillsForm() {
                     {stillsList.map((still, index) => {
                       return (
                         <tr key={index}>
-                          <td>
+                          {/* <td>
                             <img
                               src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
                               style={{ height: "80px", width: "auto" }}
                             />
-                          </td>
+                          </td> */}
+                          {editMode.status && editMode.rowKey === index ? (
+                            <>
+                              <td style={{ maxWidth: "115px" }}>
+                                <img
+                                  src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
+                                  alt=""
+                                  style={{ height: "50px", width: "auto" }}
+                                />
+                                {editMode && (
+                                  <>
+                                    <input
+                                      className="form-control form-control-sm"
+                                      filename={file}
+                                      onChange={(e) =>
+                                        handleEditChange(e, index, "image")
+                                      }
+                                      ref={inputFileRef}
+                                      type="file"
+                                      id="fileImageResources"
+                                      name="files"
+                                      accept="image/*"
+                                    />
+                                  </>
+                                )}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td>
+                                <img
+                                  src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
+                                  style={{ height: "80px", width: "auto" }}
+                                />
+                              </td>
+                            </>
+                          )}
                           <td
-                            style={{ textAlign: "center", cursor: "pointer" }}
-                            onClick={() => deleteFromStillsList(still)}
+                            style={{
+                              textAlign: "center",
+                              cursor: "pointer",
+                            }}
                           >
-                            <FontAwesomeIcon icon={faTrashCan} />
+                            {editMode.status && editMode.rowKey === index ? (
+                              <FontAwesomeIcon
+                                icon={faCheck}
+                                onClick={() => exitEditMode()}
+                                style={{ marginRight: "15px" }}
+                              />
+                            ) : (
+                              <FontAwesomeIcon
+                                icon={faPen}
+                                onClick={() => enterEditMode(index)}
+                                style={{ marginRight: "15px" }}
+                              />
+                            )}
+                            {"  "}
+                            <FontAwesomeIcon
+                              icon={faTrashCan}
+                              onClick={() => deleteFromStillsList(still)}
+                            />
                           </td>
-
                           <td>
                             <Button
                               className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
