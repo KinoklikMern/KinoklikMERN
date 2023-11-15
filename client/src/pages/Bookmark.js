@@ -1,8 +1,8 @@
 import React from "react";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 function Bookmark() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   
   return (
     <>

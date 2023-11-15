@@ -6,11 +6,11 @@ import EpkCard from "../../components/FilmMakerDashboard/Epks/EpkCard";
 import { getFepksByFilmmakerId } from "../../api/epks";
 import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 
 export default function EpkPage() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [epkList, setEpkList] = useState([]);
   const [loading, setLoading] = useState(true);

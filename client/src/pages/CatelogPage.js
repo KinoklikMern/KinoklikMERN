@@ -6,10 +6,10 @@ import List from "../components/List/List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../components/HomeHead/SearchBar";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 function CatelogPage() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   const [filterQuery, setFilterQuery] = useState([]);
   const [filterTags, setFilterTags] = useState([
     {

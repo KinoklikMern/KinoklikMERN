@@ -1,8 +1,8 @@
 import React from "react";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function AccessDeniedPage() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   return (
     <div className="tw-grid tw-min-h-full tw-place-items-center tw-bg-white tw-px-6 tw-py-24 sm:tw-py-32 lg:tw-px-8">
       <div className="tw-text-center">

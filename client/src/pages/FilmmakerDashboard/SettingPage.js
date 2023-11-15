@@ -5,13 +5,13 @@ import Password from "../../components/FilmMakerDashboard/Setting/Password";
 import Profile from "../../components/FilmMakerDashboard/Setting/Profile";
 import Studio from "../../components/FilmMakerDashboard/Setting/Studio";
 import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function SettingPage() {
   // eslint-disable-next-line no-unused-vars
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   const tabs = [
     {
       title: "Profile",
