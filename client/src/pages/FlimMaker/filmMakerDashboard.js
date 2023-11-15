@@ -15,11 +15,11 @@ import { Link } from "react-router-dom";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 // import "./filmMakerDashboardPage.scss";
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function Filmmaker() {
   const [epkList, setEpkList] = useState([]);
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   useEffect(() => {
     try {
       Axios.get(process.env.REACT_APP_BACKEND_URL + "/filmmaker/").then(

@@ -5,10 +5,10 @@ import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function ChatPage() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   const [fetchAgain, setFetchAgain] = useState(false);
 
   // Yeming added

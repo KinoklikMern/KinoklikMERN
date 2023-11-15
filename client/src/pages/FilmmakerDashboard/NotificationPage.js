@@ -9,11 +9,11 @@ import RequestCard from "../../components/FilmMakerDashboard/Notifications/Reque
 import { approveRequest, refuseRequest } from "../../api/epks";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 import { useNavigate } from "react-router-dom";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 // import { FepkContext } from "../../context/FepkContext";
 
 export default function NotificationPage() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
   const [epkList, setEpkList] = useState([]);

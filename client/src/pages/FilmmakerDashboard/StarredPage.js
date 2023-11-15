@@ -5,10 +5,10 @@ import EpkCard from "../../components/UserDashboard/EpkCard";
 import EmptyEpk from "../../components/FilmMakerDashboard/Starred/EmptyEpk";
 import Axios from "axios";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function StarredPage() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   const [epkList, setEpkList] = useState([]);
   const [loading, setLoading] = useState(true);
 

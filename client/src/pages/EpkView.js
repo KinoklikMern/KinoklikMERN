@@ -41,11 +41,14 @@ import {
 import Login from "../components/Auth/Registration/loginFromViewPage";
 import { FepkContext } from "../context/FepkContext";
 import StillsCarousel from "../components/Epk/Present/StillsCarousel";
+import {useTranslation} from 'react-i18next';
+
 // import { NotificationContext } from "../context/NotificationContext";
 
 let socket;
 
 function EpkView() {
+  const { t } = useTranslation();
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
   // fetching user

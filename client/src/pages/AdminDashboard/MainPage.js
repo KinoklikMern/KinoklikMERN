@@ -6,10 +6,10 @@ import Triangle from "../../images/icons/triangle.svg";
 import Film from "../../images/icons/img_save.svg";
 import Users from "../../images/icons/img_user.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
-import {userTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function MainPage() {
-  const { t } = userTranslation();
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
   const tabs = [
