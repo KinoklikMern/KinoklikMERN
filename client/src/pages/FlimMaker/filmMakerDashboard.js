@@ -15,9 +15,11 @@ import { Link } from "react-router-dom";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 // import "./filmMakerDashboardPage.scss";
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
+import {userTranslation} from 'react-i18next';
 
 export default function Filmmaker() {
   const [epkList, setEpkList] = useState([]);
+  const { t } = userTranslation();
   useEffect(() => {
     try {
       Axios.get(process.env.REACT_APP_BACKEND_URL + "/filmmaker/").then(
@@ -44,10 +46,10 @@ export default function Filmmaker() {
           >
             <div className="sidebar-rightcontainer">
               <div className="item Dashboard">
-                <h1>Filmmaker Dashboard</h1>
+                <h1>{t("Filmmaker Dashboard")}</h1>
 
                 <Link to="/uploadFepk">
-                  <Button>Create New Film EPK</Button>
+                  <Button>{t("Create New Film EPK")}</Button>
                   <br />
                   <br />
                 </Link>
@@ -56,10 +58,10 @@ export default function Filmmaker() {
                   ? () => (
                       <div>
                         <p className="icon-plus">
-                          You don`t have any EPK created.To start promoting your
-                          film right away.
+                        {t("You don`t have any EPK created.To start promoting your ")}
+                          {t(" film right away.")}
                         </p>
-                        <Button> Create your free film EPK now! </Button>
+                        <Button> {t("Create your free film EPK now!")} </Button>
                       </div>
                     )
                   : null}
@@ -112,7 +114,7 @@ export default function Filmmaker() {
                         to={`/editFepk/${epk._id}`}
                         style={{ color: "white", float: "right" }}
                       >
-                        update
+                        {t("update")}
                       </Link>
                     </div>
                   ))}

@@ -40,10 +40,16 @@
 
 "_comment From FilmMaker filmMakerDashboared ":"5 changes, Line 47",
 "Create New Film EPK": "Créer un nouveau film EPK",
-"You don`t have any EPK created.To start promoting your film right away.":
-"Vous n'avez créé aucun EPK. Pour commencer immédiatement à promouvoir votre film.",
+"You don`t have any EPK created.To start promoting your ":
+"Vous n'avez pas créé d'EPK. Pour commencer à promouvoir votre ",
+
+" film right away.": " film tout de suite",
+
+
 "Create your free film EPK now!":"Créez votre EPK de film gratuit maintenant !",
 "Update": "Mise à jour",
+
+"update": "Mise à jour",
 
 "_comment From FilmMaker filmMakerSelected":"2 changes, Line 115, Line 122",
 "EPK Requests": "Demande EPK",
@@ -681,7 +687,7 @@
 "Line 267 Height":"Hauteur",
 "Line 268 or below":"ou ci-dessous",
 "Line 281 or above":"ou au-dessus",
-"Line 290 Eyes Color":"Couleur des yeux",
+"Eyes Color":"Couleur des yeux",
 "Black":"Noir",
 "Brown":"Brun",
 "Blue":"Bleue",
@@ -981,7 +987,7 @@
 
 "Updated successfully!": "Mis à jour avec succès!",
 
-"There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois",
+"There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois ",
 "filmmakers will assign you an EPK, it will appear here.": "Les réalisateurs vous attribueront un EPK, il apparaîtra ici",
 
 "Actor Dashboard": "Tableau de bord des acteurs",
@@ -994,5 +1000,39 @@
 
 "Image must smaller than 2MB!": "L'image doit être inférieure à 2 Mo !",
 
-"Passwords don't match!": "Les mots de passe ne correspondent pas!"
+"Passwords don't match!": "Les mots de passe ne correspondent pas!",
+
+
+
+
+
+
+"mage mime type is not valid": "Le type MIME de l'image n'est pas valide",
+
+"File must be a image(jpeg or png)": "Le fichier doit être une image (jpeg ou png)",
+
+"error": "erreur",
+
+"Confirmed delete Account?": "Suppression du compte confirmée ? Erreur",
+
+"log out": "Se déconnecter",
+
+"'${info.file.name} file uploaded successfully.'": "${info.file.name} fichier téléchargé avec succès.",
+
+"`${info.file.name} file upload failed.`": "`${info.file.name} Le téléchargement du fichier a échoué.`",
+
+"Pre-Production": "Pré-production",
+
+"Production": "Production",
+
+"Post-Production": "Post-production",
+
+"Hey, check out this Actor": "Salut, regarde cet acteur :",
+
+"Age-Range": "âge-Gamme",
+
+"Ethnicity": "Origine Ethnique",
+
+"Stars": "étoiles"
+
 }

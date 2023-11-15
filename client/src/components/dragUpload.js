@@ -1,10 +1,13 @@
 import React from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+import {userTranslation} from 'react-i18next';
 
 const { Dragger } = Upload;
+const { t } = userTranslation();
 
 const props = {
+ 
   name: "file",
   multiple: true,
   action: "./images",
@@ -20,7 +23,7 @@ const props = {
     }
   },
   onDrop(e) {
-    console.log((t("Dropped files")), e.dataTransfer.files);
+    console.log(("Dropped files"), e.dataTransfer.files);
   },
 };
 const dragUpload = () => (

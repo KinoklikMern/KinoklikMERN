@@ -15,8 +15,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
 import Stars from "../../components/FilmMaker/Stars";
 import Requests from "../../components/FilmMaker/Requests";
+import {userTranslation} from 'react-i18next';
 
 export default function Filmmaker() {
+  const { t } = userTranslation();
   const queryParams = new URLSearchParams(window.location.search);
   const epkid = queryParams.get("id");
 
@@ -112,14 +114,14 @@ export default function Filmmaker() {
                 className={activeTab === "Stars" ? "active" : ""}
                 onClick={() => handleTabClick("Stars")}
               >
-                Stars
+                {t("Stars")}
               </button>
               |{" "}
               <button
                 className={activeTab === "Requests" ? "active" : ""}
                 onClick={() => handleTabClick("Requests")}
               >
-                EPK Requests
+                {t("EPK Requests")}
               </button>
             </h3>
             <hr />

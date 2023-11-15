@@ -69,7 +69,7 @@ export default function Profile() {
       }
     } else {
       console.log("error");
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
   }
 
