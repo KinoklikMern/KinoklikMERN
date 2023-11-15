@@ -10,6 +10,9 @@ import {
   faPlus,
   faTrashCan,
   faUserPlus,
+  faCheck,
+  faPen,
+  faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 
@@ -33,6 +36,7 @@ function ResourcesForm() {
     description: 0,
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editMode, setEditMode] = useState({ status: false, rowKey: null });
 
   let { fepkId } = useParams();
 
@@ -153,8 +157,29 @@ function ResourcesForm() {
   }
 
   const openModal = () => setModalIsOpen(true);
-
   const closeModal = () => setModalIsOpen(false);
+
+  const enterEditMode = (key) => {
+    setEditMode({ status: true, rowKey: key });
+  };
+  const exitEditMode = () => {
+    setEditMode({ status: false, rowKey: null });
+  };
+
+  const handleEditChange = (event, index, field) => {
+    const newResourcesList = [...resourcesList];
+    const newValue = event.target.value;
+    newResourcesList[index] = {
+      ...newResourcesList[index],
+      [field]: event.target.value,
+    };
+    setResourcesList(newResourcesList);
+    setDisabled(false);
+    if (field === "description") {
+      setCharacterLength({ ...characterLength, [index]: newValue.length });
+    }
+  };
+
 
   return (
     <>
@@ -359,10 +384,11 @@ function ResourcesForm() {
                   <table
                     className="table table-striped table-bordered"
                     style={{
-                      fontSize: "8px",
+                      fontSize: "0.8rem",
                       textAlign: "center",
                       tableLayout: "auto",
-                      width: "100%",
+                      // width: "100%",
+                      marginLeft: "2%",
                     }}
                   >
                     <thead className="thead-dark">
@@ -378,32 +404,120 @@ function ResourcesForm() {
                         </th>
                         <th>Description</th>
                         <th>Image</th>
-                        <th>ACTION</th>
+                        <th>ACTIONS</th>
                       </tr>
                     </thead>
                     <tbody>
                       {resourcesList.map((resource, index) => {
                         return (
-                          <tr key={index}>
-                            <td>{resource.title}</td>
-                            <td>{resource.time}</td>
-                            <td style={{ width: "fit-content" }}>
-                              {resource.description}
-                            </td>
-                            <td>
-                              <img
-                                src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
-                                style={{ height: "60px", width: "auto" }}
-                              />
-                            </td>
+                          <tr
+                            key={index}
+                            style={{
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {editMode.status && editMode.rowKey === index ? (
+                              <>
+                                <td>
+                                  <input
+                                    value={resource.title}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "title")
+                                    }
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={resource.time}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "time")
+                                    }
+                                  />
+                                </td>
+                                <td>
+                                  <div>
+                                    <textarea
+                                      value={resource.description}
+                                      onChange={(e) =>
+                                        handleEditChange(
+                                          e,
+                                          index,
+                                          "description"
+                                        )
+                                      }
+                                      name="text"
+                                      maxLength="160"
+                                      style={{ maxWidth: "160px" }}
+                                    />
+                                    <span
+                                      style={{
+                                        fontSize: "10px",
+                                        display: "flex",
+                                        justifyContent: "right",
+                                      }}
+                                    >
+                                      {characterLength[index]}/ 160 characters
+                                    </span>
+                                  </div>
+                                </td>
+                                <td style={{ minWidth: "160px" }}>
+                                  <img
+                                    src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                    style={{ height: "50px", width: "auto" }}
+                                  />
+                                  <input
+                                    className="form-control form-control-sm"
+                                    filename={file}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "image")
+                                    }
+                                    ref={inputFileRef}
+                                    type="file"
+                                    id="fileImageResources"
+                                    name="files"
+                                    accept="image/*"
+                                  />
+                                </td>
+                              </>
+                            ) : (
+                              <>
+                                <td>{resource.title}</td>
+                                <td>{resource.time}</td>
+                                <td>{resource.description}</td>
+                                <td>
+                                  <img
+                                    src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                    style={{ height: "50px", width: "auto" }}
+                                  />
+                                </td>
+                              </>
+                            )}
                             <td
                               style={{
                                 textAlign: "center",
                                 cursor: "pointer",
                               }}
-                              onClick={() => deleteFromResourcesList(resource)}
                             >
-                              <FontAwesomeIcon icon={faTrashCan} />
+                              {editMode.status && editMode.rowKey === index ? (
+                                <FontAwesomeIcon
+                                  icon={faCheck}
+                                  onClick={() => exitEditMode()}
+                                  style={{ marginRight: "15px" }}
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faPen}
+                                  onClick={() => enterEditMode(index)}
+                                  style={{ marginRight: "15px" }}
+                                />
+                              )}
+                              {"  "}
+                              <FontAwesomeIcon
+                                icon={faTrashCan}
+                                onClick={() =>
+                                  deleteFromResourcesList(resource)
+                                }
+                              />
                             </td>
                           </tr>
                         );

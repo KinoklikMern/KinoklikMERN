@@ -1,10 +1,16 @@
 export const validatename = (name) => {
-  const nameRegex = /^[^\s]+$/;
+  const nameRegex = /^.{3,35}$/;
   return nameRegex.test(name);
 };
 
+export const validatelocation = (location) => {
+  const locationRegex = /^.{1,35}$/;
+  return location === '' || locationRegex.test(location);
+};
+
+
 export const validatePhone = (phone) => {
-  const phoneRegex = /^\d{10,15}$/;
+  const phoneRegex = /^\d{9,15}$/;
   return phone === '' || phoneRegex.test(phone);
 };
 

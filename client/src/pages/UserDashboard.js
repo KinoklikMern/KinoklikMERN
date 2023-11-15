@@ -60,7 +60,7 @@ function Dashboard() {
                       aria-controls="setting-left"
                       aria-selected="false"
                     >
-                      <i class="fas fa-cog"></i> Settings
+                      <i class="fas fa-cog"></i> {("Settings")}
                     </a>
                   </li>
                 </ul>

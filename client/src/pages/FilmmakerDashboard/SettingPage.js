@@ -5,11 +5,13 @@ import Password from "../../components/FilmMakerDashboard/Setting/Password";
 import Profile from "../../components/FilmMakerDashboard/Setting/Profile";
 import Studio from "../../components/FilmMakerDashboard/Setting/Studio";
 import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
+import {useTranslation} from 'react-i18next';
 
 export default function SettingPage() {
   // eslint-disable-next-line no-unused-vars
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
+  const { t } = useTranslation();
   const tabs = [
     {
       title: "Profile",
@@ -31,7 +33,7 @@ export default function SettingPage() {
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]'>
       <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
-        <p className='tw-text-4xl'>Filmmaker Dashboard</p>
+        <p className='tw-text-4xl'>{t("Filmmaker Dashboard")}</p>
       </div>
       <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row tw-overflow-auto'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>

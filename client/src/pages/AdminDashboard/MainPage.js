@@ -6,8 +6,10 @@ import Triangle from "../../images/icons/triangle.svg";
 import Film from "../../images/icons/img_save.svg";
 import Users from "../../images/icons/img_user.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
+import {useTranslation} from 'react-i18next';
 
 export default function MainPage() {
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
   const tabs = [
@@ -60,7 +62,7 @@ export default function MainPage() {
               <div className="tw-mb-[100px] tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-gap-1.5">
                 <div className="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-rounded-[20px] tw-bg-gradient-to-b tw-from-[#1E0039] tw-p-[7px]">
                   <p className=" tw-mb-[5px] tw-text-[15px] tw-font-bold tw-text-white">
-                    Users & Filmmakers
+                  {t("Users & Filmmakers")}
                   </p>
                 </div>
                 <div className="tw-md:w-full tw-flex tw-w-[72%] tw-flex-row tw-items-center tw-justify-between tw-gap-[39px]">

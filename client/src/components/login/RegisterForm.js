@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import {userTranslation} from 'react-i18next';
+
 export default function RegisterForm() {
   const { t } = userTranslation();
   const dispatch = useDispatch();
@@ -119,7 +120,7 @@ export default function RegisterForm() {
               <div className="reg_line">
                 <RegisterInput
                   type="text"
-                  placeholder={t(" email address")}
+                  placeholder={t("email address")}
                   name="email"
                   onChange={handleRegisterChange}
                 />

@@ -40,10 +40,16 @@
 
 "_comment From FilmMaker filmMakerDashboared ":"5 changes, Line 47",
 "Create New Film EPK": "Créer un nouveau film EPK",
-"You don`t have any EPK created.To start promoting your film right away.":
-"Vous n'avez créé aucun EPK. Pour commencer immédiatement à promouvoir votre film.",
+"You don`t have any EPK created.To start promoting your ":
+"Vous n'avez pas créé d'EPK. Pour commencer à promouvoir votre ",
+
+" film right away.": " film tout de suite",
+
+
 "Create your free film EPK now!":"Créez votre EPK de film gratuit maintenant !",
 "Update": "Mise à jour",
+
+"update": "Mise à jour",
 
 "_comment From FilmMaker filmMakerSelected":"2 changes, Line 115, Line 122",
 "EPK Requests": "Demande EPK",
@@ -99,7 +105,10 @@
 "This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform.":
 "Cela peut être une utilisation non désirée, non autorisée ou contraire à l'éthique de contenu provenant d'un autre site web, affectant négativement votre expérience et la réputation sur notre plateforme.",
 "Other:":"Autre:",    
-"Other: any other reason you may want to report this EPK.":"Autre : toute autre raison pour laquelle vous souhaiteriez signaler ceci",
+"Other: any other reason you may want to report this":"Autre : toute autre raison pour laquelle vous souhaiteriez signaler ceci",
+
+" EPK.": " EPK.",
+
 "Report!":"Rapporter!",
 "Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.":"Merci d'avoir faire une rapport. On est entraint de faire une investigation. On a deja fait une rapport avec le createur du film. Merci!",
 "Request Access to Medium Synopsis":"Demande l'acces au Synopsis Medium",
@@ -462,9 +471,11 @@
 
  "_comment From Components Epk Input synopsisFormback":"0 CHanges.",
  "Line 84":"Synopsis",
- "Line 92 short synopsis":"",
- "Line 109 long synopsis":"",
- "Line 126 medium synopsis":"",
+
+"Short Synopsis": "Court Synopsis",
+
+
+ "Medium Synopsis":"Moyen Synopsis",
 
 
  "_comment From Components Epk Input TrailerForm":"0 CHanges.",
@@ -487,15 +498,16 @@
  
  "_comment From Components Epk Present Cover":"0 CHanges.",
  "Line 101 report":"rapport",
+ "Report": "Raport",
 
  "_comment From Components Epk Present details":"0 CHanges.",
  "Directed by:":"Dirigé par:",
  "Produced by:":"Produit par:",
  "Writer:":"",
- "Line 25 Cinematographer:":"",
+ "Cinematographer:":"Directeur de la Photographie",
  "1 Editor:":"Éditeur:",
  "Sound:":"Son:",
- "Line 29 Studio:":"",
+ "Studio:":"Studio:",
  "Distributed by:":"Distribué par:",
  "Line 37 Starring":"",
  "Production Year:":"Année de production:",
@@ -549,10 +561,21 @@
  "_comment From Components EpkView EpkLogline EpkLogline":"0 CHanges.",
  "_comment From Components EpkView EpkReport EpkReport":"6 CHanges.",
  "Line 189 Why are you reporting this EPK?":"Pourquoi signalez-vous cet EPK ?",
- "Line 212-215 This can be unwanted and unauthorized use of content from another website on third-party websites in connection with other content, negatively affecting your experience and reputation on our platform"
- :"Il peut s'agir d'une utilisation indésirable et non autorisée du contenu d'un autre site Web sur des sites Web tiers en relation avec d'autres contenus, affectant négativement votre expérience et votre réputation sur notre plateforme",
- "Line 240-244 This can be any content that appears to be pronographic, sexual exploitation or solicitation and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks. Nudity in photos of paintings and sculptures are permitted."
- :"Il peut s'agir de tout contenu qui semble être une exploitation ou une sollicitation pronographique, sexuelle et/ou un contenu montrant des rapports sexuels, des organes génitaux et des gros plans de fesses entièrement nues. La nudité sur les photos de peintures et de sculptures est autorisée.",
+ "Line 212-215 This can be unwanted and unauthorized use of content"
+ :"Il peut s'agir d'une utilisation indésirable et non autorisée du contenu",
+ 
+ " from another website on third-party websites in": " d'un autre site Web sur des sites Web tiers en",
+
+ " connection with other content, negatively affecting": " relation avec d'autres contenus, affectant négativement",
+   
+ " your experience and reputation on our platform": " votre expérience et votre réputation sur notre plateforme",
+ 
+ "This can be any content that appears to be": "Il peut s'agir de tout contenu qui semble être une ",
+  " pronographic, sexual exploitation or solicitation": " exploitation ou une sollicitation pronographique,",
+  " and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks.": " sexuelle et/ou un contenu montrant des rapports sexuels, des organes génitaux et des gros plans de fesses entièrement nues.",
+  " Nudity in photos of paintings and sculptures are permitted.": " La nudité sur les photos de peintures et de sculptures est autorisée.",
+
+
  "Line 273-274":"",
  "Line 303":"",
  "Line 320-321":"",
@@ -681,7 +704,7 @@
 "Line 267 Height":"Hauteur",
 "Line 268 or below":"ou ci-dessous",
 "Line 281 or above":"ou au-dessus",
-"Line 290 Eyes Color":"Couleur des yeux",
+"Eyes Color":"Couleur des yeux",
 "Black":"Noir",
 "Brown":"Brun",
 "Blue":"Bleue",
@@ -981,7 +1004,7 @@
 
 "Updated successfully!": "Mis à jour avec succès!",
 
-"There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois",
+"There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois ",
 "filmmakers will assign you an EPK, it will appear here.": "Les réalisateurs vous attribueront un EPK, il apparaîtra ici",
 
 "Actor Dashboard": "Tableau de bord des acteurs",
@@ -994,5 +1017,42 @@
 
 "Image must smaller than 2MB!": "L'image doit être inférieure à 2 Mo !",
 
-"Passwords don't match!": "Les mots de passe ne correspondent pas!"
+"Passwords don't match!": "Les mots de passe ne correspondent pas!",
+
+"mage mime type is not valid": "Le type MIME de l'image n'est pas valide",
+
+"File must be a image(jpeg or png)": "Le fichier doit être une image (jpeg ou png)",
+
+"error": "erreur",
+
+"Confirmed delete Account?": "Suppression du compte confirmée ? Erreur",
+
+"log out": "Se déconnecter",
+
+"'${info.file.name} file uploaded successfully.'": "${info.file.name} fichier téléchargé avec succès.",
+
+"`${info.file.name} file upload failed.`": "`${info.file.name} Le téléchargement du fichier a échoué.`",
+
+"Pre-Production": "Pré-production",
+
+"Production": "Production",
+
+"Post-Production": "Post-production",
+
+"Hey, check out this Actor": "Salut, regarde cet acteur :",
+
+"Age-Range": "âge-Gamme",
+
+"Ethnicity": "Origine Ethnique",
+
+"Stars": "étoiles",
+
+"Send Your Request": "Envoyez votre demande",
+
+"Posted": "Publié",
+
+"Copyrighted Intellectual Property Violation": "Violation de la propriété intellectuelle protégée par le droit d'auteur"
+
+
+
 }

@@ -1,6 +1,8 @@
 import React from "react";
+import {useTranslation} from 'react-i18next';
 
 function MyList() {
+  const { t } = useTranslation();
   return (
     <>
       <div>
@@ -9,7 +11,7 @@ function MyList() {
         <br />
         <br />
         <br />
-        This is the My List
+        {t("This is the My List")}
         <br />
         <br />
         <br />

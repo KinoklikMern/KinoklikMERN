@@ -6,8 +6,10 @@ import List from "../components/List/List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../components/HomeHead/SearchBar";
+import {useTranslation} from 'react-i18next';
 
 function CatelogPage() {
+  const { t } = useTranslation();
   const [filterQuery, setFilterQuery] = useState([]);
   const [filterTags, setFilterTags] = useState([
     {
@@ -154,19 +156,19 @@ function CatelogPage() {
       </div>
       <div>
         <div className="listTitle">
-          <span>POST PRODUCTION</span>
+          <span>{t("POST PRODUCTION")}</span>
         </div>
         <List title="all" status="Postproduction" type={filterQuery} />
       </div>
       <div>
         <div className="listTitle">
-          <span>PRODUCTION</span>
+          <span>{t("PRODUCTION")}</span>
         </div>
         <List title="all" status="Production" type={filterQuery} />
       </div>
       <div>
         <div className="listTitle">
-          <span>PRE PRODUCTION</span>
+          <span>{t("PRE PRODUCTION")}</span>
         </div>
         <List title="all" status="Preproduction" type={filterQuery} />
       </div>

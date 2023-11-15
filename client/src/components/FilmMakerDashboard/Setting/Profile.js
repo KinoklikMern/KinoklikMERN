@@ -35,6 +35,10 @@ export default function Profile() {
     instagram_followers: "",
     twitter_url: "",
     twitter_followers: "",
+    youtube_subs:"",
+    youtube_url:"",
+    linkedin_followers:"",
+    linkedin_url:"",
     aboutMe: "",
     picture: "",
   });
@@ -42,7 +46,9 @@ export default function Profile() {
   const [validationErrors, setValidationErrors] = useState({
   firstName:'',
   lastName:'',
+  city:'',
   province:'',
+  country:'',
   phone: '',
   website:'',
   });
@@ -120,29 +126,29 @@ export default function Profile() {
     if (name === 'firstName' || name === 'lastName') {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validatename(value) ? '' : 'Please fill out the required field',
+        [name]: validatename(value) ? '' : 'Please fill out the required field(more than 3 char)',
       }));
     }
   
-    if (name === 'phone' && value !== '') {
+    if (name === 'phone') {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
         phone: validatePhone(value) ? '' : 'Please enter a valid phone number (10 to 15 digits)',
       }));
     }
 
-    if ((name === 'website' && value !== '') || (name === 'facebook_url' && value !== '')
-    || (name === 'twitter_url' && value !== '') || (name === 'instagram_url' && value !== '') 
-    || (name === 'youtube_url' && value !== '') || (name === 'linkedin_url' && value !== '')) {
+    if ((name === 'website') || (name === 'facebook_url')
+    || (name === 'twitter_url') || (name === 'instagram_url') 
+    || (name === 'youtube_url') || (name === 'linkedin_url')) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
         [name]: validateWebsite(value) ? '' : 'Please enter a valid URL',
       }));
     }
 
-    if ((name === 'facebook_followers' && value !== '') || (name === 'linkedin_followers' && value !== '')
-    || (name === 'twitter_followers' && value !== '') || (name === 'instagram_followers' && value !== '') 
-    || (name === 'youtube_subs' && value !== '')) {
+    if ((name === 'facebook_followers') || (name === 'linkedin_followers')
+    || (name === 'twitter_followers' ) || (name === 'instagram_followers') 
+    || (name === 'youtube_subs')) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
         [name]: validateFollowers(value) ? '' : 'Please enter a valid number of followers',
@@ -276,9 +282,9 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           />
-      {validationErrors.phone && (
-        <div className="tw-text-red-500">{validationErrors.phone}</div>
-      )}
+            {validationErrors.phone && (
+              <div className="tw-text-red-500">{validationErrors.phone}</div>
+            )}
 
           <input
             type="text"

@@ -34,7 +34,7 @@ const HomeBottom = () => {
           <Modal.Header className='border-0'>
             <Modal.Title className='text-center'>
               {t('Only Filmmaker account can upload film EPK. Please register a')}
-              {t('Filmmaker account to complete this action.')}
+              {t(' Filmmaker account to complete this action.')}
             </Modal.Title>
           </Modal.Header>
 
