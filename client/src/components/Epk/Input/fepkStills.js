@@ -255,7 +255,7 @@ function StillsForm() {
         <div
           style={{
             marginLeft: "10%",
-            marginRight: "15%",
+            marginRight: "10%",
             color: "#311465",
             fontWeight: "normal",
           }}
@@ -268,7 +268,7 @@ function StillsForm() {
               Film Stills
             </h5>
             <form className="row">
-              <div className="col-4 mt-5">
+              <div className="col-12 col-md-4 mt-5">
                 <label
                   htmlFor="filePoster"
                   className="form-label text-dark"
@@ -294,21 +294,28 @@ function StillsForm() {
                     style={{
                       height: "120px",
                       width: "auto",
-                      marginTop: "5px",
+                      marginTop: "10px",
                     }}
                     alt="no img"
                   />
                 ) : // <h3>No Image</h3>
                 null}
-              </div>
-              <div className="col-1 mt-5">
-                <br />
-
                 <div className="tw-cursor-pointer hover:tw-scale-110">
-                  <FontAwesomeIcon icon={faPlus} onClick={addImage} />
+                  {/* <FontAwesomeIcon icon={faPlus} onClick={addImage} /> */}
+                  <Button
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                    style={{
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "center",
+                    }}
+                    type="outline-primary"
+                    onClick={addImage}
+                  >
+                    Add to Pictures Gallery
+                  </Button>
                 </div>
               </div>
-              <div className="col-6 mt-3">
+              <div className="col-12 col-md-6 mt-3">
                 <table
                   className="table table-striped table-bordered"
                   style={{
@@ -331,7 +338,7 @@ function StillsForm() {
                         <tr key={index}>
                           {editMode.status && editMode.rowKey === index ? (
                             <>
-                              <td style={{ maxWidth: "115px" }}>
+                              <td>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
                                   alt=""
@@ -415,7 +422,7 @@ function StillsForm() {
                   </tbody>
                 </table>
               </div>
-              <div className="col-1 mt-5">
+              <div className="col-12 col-md-2 mt-5">
                 <div
                   style={{
                     height: "50px",
