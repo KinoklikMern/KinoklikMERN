@@ -17,6 +17,12 @@ const HomeBodyActor = ({ role }) => {
   return (
     <>
       <div className='home tw-overflow-y-auto'>
+      <div>
+          <div className='listTitle'>
+            <span>All ACTORS</span>
+          </div>
+          <List title='all_actors' type={filterQuery} />
+        </div>
         <div>
           <div className='listTitle'>
             <span>MOST STARRED</span>
