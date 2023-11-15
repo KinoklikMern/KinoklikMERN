@@ -750,10 +750,10 @@ function EpkView() {
                         />
                         {isClickInfoIcon3 === true ? (
                           <div className={style.reportMessage}>
-                            This can be unwanted, unauthorized or unethical use
-                            of content from another website, negatively
-                            affecting your experience and the reputation on our
-                            platform.
+                            {t("This can be unwanted, unauthorized or unethical use")}
+                            {t(" of content from another website, negatively")}
+                            {t(" affecting your experience and the reputation on our")}
+                            {t(" platform.")}
                           </div>
                         ) : (
                           ""
@@ -800,8 +800,8 @@ function EpkView() {
                   </>
                 ) : (
                   <p className={style.reportP}>
-                    Thank you for reporting this film EPK. We are currently
-                    inverstigation and have notified the filmmaker accordingly.
+                    {t("Thank you for reporting this film EPK. We are currently")}
+                    {t("inverstigation and have notified the filmmaker accordingly.")}
                   </p>
                 )}
               </div>
@@ -1012,7 +1012,7 @@ function EpkView() {
                 className={isClick1 === true ? style.none : style.btnSy}
               >
                 {" "}
-                Request Access{" "}
+                {t("Request Access")}{" "}
               </button>
 
               <div
@@ -1026,7 +1026,7 @@ function EpkView() {
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLongTitle">
-                        Request Access to Medium Synopsis
+                      {t("Request Access to Medium Synopsis")}
                       </h5>
                       <button
                         type="button"
@@ -1052,10 +1052,10 @@ function EpkView() {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                       >
-                        Close
+                        {t("Close")}
                       </button>
                       <button type="button" className="btn btn-primary">
-                        Save changes
+                      {t("Save changes")}
                       </button>
                     </div>
                   </div>
@@ -1078,7 +1078,7 @@ function EpkView() {
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Medium Synopsis</h2>
+                <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                 <RequestButton />
                 {show ? (
                   <RequestModal close={handleClose} open={handleShow} />
@@ -1106,7 +1106,7 @@ function EpkView() {
                 {r.user === userId && r.status === "pending" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                       <RequestButton status={r.status} />
                       {show ? (
                         <RequestModal close={handleClose} open={handleShow} />
@@ -1135,7 +1135,7 @@ function EpkView() {
           <>
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Medium Synopsis</h2>
+                <h2 className={style.type}>{t("Medium Synopsis")}</h2>
               </div>
               <div>
                 <img
@@ -1155,7 +1155,7 @@ function EpkView() {
                 {r.user === userId && r.status === "approved" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                     </div>
                     <div>
                       <img
@@ -1182,7 +1182,7 @@ function EpkView() {
                 {r.user._id === userId && r.status === "refused" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                       <RequestButton status={r.status} />
                     </div>
                     {/* <div className={style.position}>
@@ -1219,7 +1219,7 @@ function EpkView() {
                 className={isClick2 === true ? style.none : style.btnSy}
               >
                 {" "}
-                Request Access{" "}
+                {t("Request Access")}{" "}
               </button>
 
               <div
@@ -1233,7 +1233,7 @@ function EpkView() {
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLongTitle">
-                        Request Access to Long Synopsis
+                      {t("Request Access to Long Synopsis")}
                       </h5>
                       <button
                         type="button"
@@ -1259,10 +1259,10 @@ function EpkView() {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                       >
-                        Close
+                        {t("Close")}
                       </button>
                       <button type="button" className="btn btn-primary">
-                        Save changes
+                        {t("Save changes")}
                       </button>
                     </div>
                   </div>
@@ -1287,7 +1287,7 @@ function EpkView() {
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Long Synopsis</h2>
+                <h2 className={style.type}>{t("Long Synopsis")}</h2>
               </div>
               <RequestButton />
               {show ? (
@@ -1328,7 +1328,7 @@ function EpkView() {
                 {r.user === userId && r.status === "pending" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Long Synopsis</h2>
+                      <h2 className={style.type}>{t("Long Synopsis")}</h2>
                       <RequestButton status={r.status} />
                       {show ? (
                         <RequestModal close={handleClose} open={handleShow} />
@@ -1356,7 +1356,7 @@ function EpkView() {
           <>
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Long Synopsis</h2>
+                <h2 className={style.type}>{t("Long Synopsis")}</h2>
               </div>
               <div>
                 <img
@@ -1375,7 +1375,7 @@ function EpkView() {
                 {long.user === userId && long.status === "approved" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Long Synopsis</h2>
+                      <h2 className={style.type}>{("Long Synopsis")}</h2>
                     </div>
                     <div>
                       <img
@@ -1400,7 +1400,7 @@ function EpkView() {
                 {r.user === userId && r.status === "refused" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Long Synopsis</h2>
+                      <h2 className={style.type}>{t("Long Synopsis")}</h2>
                     </div>
                     <RequestButton status={r.status} />
                     <div className={style.content1}>
@@ -1446,7 +1446,7 @@ function EpkView() {
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLongTitle">
-                        Request Access to Uniqueness
+                      {t("Request Access to Uniqueness")}
                       </h5>
                       <button
                         type="button"
@@ -1472,10 +1472,10 @@ function EpkView() {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                       >
-                        Close
+                        {t("Close")}
                       </button>
                       <button type="button" className="btn btn-primary">
-                        Save changes
+                        {t("Save changes")}
                       </button>
                     </div>
                   </div>
@@ -1749,7 +1749,7 @@ function EpkView() {
                       </p>
                     </div>
                     <div className={style.right}>
-                      <h3>Director</h3>
+                      <h3>{t("Director")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1759,7 +1759,7 @@ function EpkView() {
                 {crewObj.epkRole === "director" && count % 2 === 0 && (
                   <div className={style.directorcontainer}>
                     <div className={style.right}>
-                      <h3>Director</h3>
+                      <h3>{t("Director")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1833,7 +1833,7 @@ function EpkView() {
                 {crewObj.epkRole === "producer" && count % 2 === 0 && (
                   <div className={style.directorcontainer}>
                     <div className={style.right}>
-                      <h3>Producer</h3>
+                      <h3>{t("Producer")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1897,7 +1897,7 @@ function EpkView() {
                       </p>
                     </div>
                     <div className={style.right}>
-                      <h3>Cinematographer</h3>
+                      <h3>{t("Cinematographer")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1907,7 +1907,7 @@ function EpkView() {
                 {crewObj.epkRole === "cinematographer" && count % 2 === 0 && (
                   <div className={style.directorcontainer}>
                     <div className={style.right}>
-                      <h3>Cinematographer</h3>
+                      <h3>{t("Cinematographer")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>

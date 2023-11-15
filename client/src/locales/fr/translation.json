@@ -98,8 +98,11 @@
 "Send": "Envoyer",
 "Total Audience Reach":"Audience totale",
 "Why are you reporting this EPK?":"Pourquoi signalez-vous cet EPK ?",
-"This can be unwanted and unauthorized use of content from another website on third-party websites inconnection with other content, negatively affecting your experience and reputation on our platform."
-:"Cela peut être une utilisation non désirée et non autorisée de contenu provenant d'un autre site web sur des sites tiers en lien avec d'autres contenus, affectant négativement votre expérience et réputation sur notre plateforme.",
+"This can be unwanted and unauthorized use": "Cela peut être une utilisation non désirée et non autorisée",
+" of content from another website on third-party websites inconnection with other content, negatively": " de contenu provenant d'un autre site web sur des sites tiers en lien avec d'autres contenus",
+" affecting your experience and reputation on our": " affectant négativement votre expérience et réputation sur notre",
+" platform.": " plateforme.",
+
 "This can be any content that appears to be pronographic, sexual exploitation or solicitation and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks. Nudity in photos of paintings and sculptures are permitted.":
 "Cela peut être tout contenu qui semble être pornographique, une exploitation ou sollicitation sexuelle et/ou du contenu montrant des rapports sexuels, des organes génitaux et des gros plans de fesses entièrement nues. La nudité dans les photos de peintures et de sculptures est autorisée.",
 "This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform.":
@@ -110,11 +113,12 @@
 " EPK.": " EPK.",
 
 "Report!":"Rapporter!",
-"Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.":"Merci d'avoir faire une rapport. On est entraint de faire une investigation. On a deja fait une rapport avec le createur du film. Merci!",
+"Thank you for reporting this film EPK. We are currently": "Merci d'avoir faire une rapport. On est entraint de faire une ",
+" inverstigation and have notified the filmmaker accordingly.":" investigation. On a deja fait une rapport avec le createur du film. Merci!",
 "Request Access to Medium Synopsis":"Demande l'acces au Synopsis Medium",
-"Close line 1052":"Fermer",
-"Save changes line 1055":"Sauvegarder les changements",
-"Medium Synopsis Line 1078,1106,1135,1155,1182":"Synopsis Moyen",
+
+"Save changes":"Sauvegarder les changements",
+
 "Long Synopsis":"Synopsis Longue",
 "Request Access to Long Synopsis Line 1233":"Demande l'access au longue Synopsis",
 "Close Line 1259,1472":"Fermer",
@@ -701,7 +705,7 @@
 "Line 159, 166 Save":"",
 
 "_comment From Components FilmMakeDashboard Settings Profile":"0 CHanges.",
-"Line 267 Height":"Hauteur",
+"Height":"Hauteur",
 "Line 268 or below":"ou ci-dessous",
 "Line 281 or above":"ou au-dessus",
 "Eyes Color":"Couleur des yeux",
@@ -769,9 +773,7 @@
  "1 SIGN IN":"Connection",
  "1 REGISTER":"Enregistrer",
     
-
-
-   "I am": "Je suis",
+"I am": "Je suis",
 
 "LOGOUT": " Se Déconnecter",
 
@@ -866,15 +868,11 @@
 
 "Notifications": "Notifications",
 
-
-
 "Starred": "Joué",
 
 "Following": "Suivant",
 
 "Requests": "Demandes",
-
-
 
 "Settings": "Paramètres",
 
@@ -889,8 +887,6 @@
 "Upload": "Télécharger",
 
 "For Filmmakers": "Pour les cinéastes",
-
-
 
 "Professionals": "de L'industrie",
 
@@ -996,8 +992,6 @@
 
 "Capture Thumbnail": "Capturer une vignette",
 
-
-
 "  Search here...": "  Cherche ici...",
 
 "/500 characters": "/500 caractères",
@@ -1033,11 +1027,11 @@
 
 "`${info.file.name} file upload failed.`": "`${info.file.name} Le téléchargement du fichier a échoué.`",
 
-"Pre-Production": "Pré-production",
+"Pre-Production": "Pré-Production",
 
 "Production": "Production",
 
-"Post-Production": "Post-production",
+"Post-Production": "Post-Production",
 
 "Hey, check out this Actor": "Salut, regarde cet acteur :",
 
@@ -1051,8 +1045,10 @@
 
 "Posted": "Publié",
 
-"Copyrighted Intellectual Property Violation": "Violation de la propriété intellectuelle protégée par le droit d'auteur"
+"Copyrighted Intellectual Property Violation": "Violation de la propriété intellectuelle protégée par le droit d'auteur",
 
+"Billing History": "Historique de Facturation",
 
+"Request Access": "Demande D'accès"
 
 }
