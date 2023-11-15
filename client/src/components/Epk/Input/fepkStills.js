@@ -162,7 +162,6 @@ function StillsForm() {
   };
 
   const handleEditChange = (event, index, field) => {
-    // Check if the field is 'image' and handle file input
     if (field === "image") {
       const selectedFile = event.target.files[0];
       setFile(selectedFile);
@@ -181,7 +180,7 @@ function StillsForm() {
           setStillsList(updatedStillsList);
           setEpkStillsData({
             ...epkStillsData,
-            resources: updatedStillsList,
+            stills: updatedStillsList,
           });
         })
         .catch((err) => {
@@ -330,12 +329,6 @@ function StillsForm() {
                     {stillsList.map((still, index) => {
                       return (
                         <tr key={index}>
-                          {/* <td>
-                            <img
-                              src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
-                              style={{ height: "80px", width: "auto" }}
-                            />
-                          </td> */}
                           {editMode.status && editMode.rowKey === index ? (
                             <>
                               <td style={{ maxWidth: "115px" }}>
@@ -354,7 +347,7 @@ function StillsForm() {
                                       }
                                       ref={inputFileRef}
                                       type="file"
-                                      id="fileImageResources"
+                                      id="filePoster"
                                       name="files"
                                       accept="image/*"
                                     />
