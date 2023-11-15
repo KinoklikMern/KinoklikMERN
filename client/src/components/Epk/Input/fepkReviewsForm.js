@@ -153,18 +153,6 @@ function ReviewsForm() {
     setDisabled(true);
   }
 
-  const saveEpkReviewChanges = async (updatedReviewsList) => {
-    try {
-      const res = await http.put(`fepks/update/${fepkId}`, {
-        reviews: updatedReviewsList,
-      });
-      console.log("Changes saved:", res.data);
-      setDisabled(false);
-    } catch (err) {
-      console.error("Error saving changes:", err);
-    }
-  };
-
   const handleEditChange = (e, index, type) => {
     if (type === "file") {
       const selectedFile = e.target.files[0];
@@ -194,7 +182,6 @@ function ReviewsForm() {
       updatedReviewsList[index][type] = e.target.value;
       setReviewsList(updatedReviewsList);
       setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
-      saveEpkReviewChanges(updatedReviewsList);
       // Update character length for text changes
       if (type === "text") {
         setCharacterLength({
