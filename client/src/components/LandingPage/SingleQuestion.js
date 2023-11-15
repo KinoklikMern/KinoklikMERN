@@ -7,24 +7,21 @@ export default function SingleQuestion({ question, answer }) {
 
   return (
     <>
-      <div className=" tw-ml-20 tw-mr-20 ">
-        <div
-          className=" tw-flex  tw-justify-between tw-border-b tw-border-gray-500 tw-p-3 tw-my-2 tw-rounded-md tw-text-2xl tw-font-bold lg:tw-text-3xl"
-          style={{ color: "white" }}
-        >
+      <div className='tw-ml-20 tw-mr-20 '>
+        <div className='tw-my-2 tw-flex tw-border-b-2 tw-border-white tw-p-3 tw-text-2xl tw-font-bold lg:tw-text-3xl'>
           <h2
             onClick={() => setShowAnswer(!showAnswer)}
-            className="   tw-text-white  sm:tw-text-xl  lg:tw-text-3xl tw-font-semibold tw-cursor-pointer"
+            className='   tw-cursor-pointer  tw-font-semibold  tw-text-white sm:tw-text-xl lg:tw-text-3xl'
           >
             {question}
             &nbsp;&nbsp;&nbsp;
             {showAnswer ? (
-              <button className="tw-bg-midnight">
+              <button className='tw-bg-transparent'>
                 <FontAwesomeIcon icon={faMinus} />
               </button>
             ) : (
               <button
-                className="tw-bg-midnight tw-justify-end"
+                className='tw-bg-transparent'
                 onClick={() => setShowAnswer(!showAnswer)}
               >
                 <FontAwesomeIcon icon={faPlus} />
@@ -32,10 +29,7 @@ export default function SingleQuestion({ question, answer }) {
             )}
           </h2>
         </div>
-        <div
-          className="tw-px-6 tw-text-justify  sm:tw-text-l lg:tw-text-xl"
-          style={{ color: "white" }}
-        >
+        <div className='sm:tw-text-l tw-py-4  tw-text-justify tw-text-white lg:tw-text-xl'>
           {showAnswer && <p>{answer}</p>}
         </div>
       </div>

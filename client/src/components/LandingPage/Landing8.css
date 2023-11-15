@@ -1,34 +1,37 @@
 .slide-right-left {
-  animation: slide-right-left 10s linear infinite;
+  animation: slide-right-left 15s linear infinite;
 }
 
 @keyframes slide-right-left {
   0% {
     transform: translateX(0);
   }
-  10% {
-    transform: translateX(10%);
+  50% {
+    transform: translateX(-100%);
   }
-
-
+  50.01% {
+    transform: translateX(100%);
+  }
   100% {
-    transform: translateX(-10%);
+    transform: translateX(0);
   }
 }
+
 .slide-left-right {
-  animation: slide-left-right 10s infinite;
+  animation: slide-left-right 15s linear infinite;
 }
 
 @keyframes slide-left-right {
   0% {
     transform: translateX(0);
   }
-  10% {
-    transform: translateX(-10%);
+  50% {
+    transform: translateX(100%);
   }
-
-  
+  50.01% {
+    transform: translateX(-100%);
+  }
   100% {
-    transform: translateX(10%);
+    transform: translateX(0);
   }
 }
