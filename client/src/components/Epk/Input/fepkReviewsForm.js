@@ -266,9 +266,13 @@ function ReviewsForm() {
           <div className="card-body" style={{ minHeight: "500px" }}>
             <h5
               className="card-title "
-              style={{ color: "#311465", fontWeight: "normal" }}
+              style={{
+                color: "#311465",
+                fontWeight: "normal",
+                marginBottom: "-3%",
+              }}
             >
-              BUZZ
+              Film Buzz (Reviews & Awards)
             </h5>
             <form>
               <div className="row" style={{ marginRight: "-5%" }}>
