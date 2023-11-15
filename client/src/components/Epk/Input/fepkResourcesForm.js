@@ -168,18 +168,46 @@ function ResourcesForm() {
 
   const handleEditChange = (event, index, field) => {
     const newResourcesList = [...resourcesList];
-    const newValue = event.target.value;
-    newResourcesList[index] = {
-      ...newResourcesList[index],
-      [field]: event.target.value,
-    };
-    setResourcesList(newResourcesList);
-    setDisabled(false);
-    if (field === "description") {
-      setCharacterLength({ ...characterLength, [index]: newValue.length });
-    }
-  };
+    // Check if the field is 'image' and handle file input
+    if (field === "image") {
+      const selectedFile = event.target.files[0];
+      setFile(selectedFile);
+      let formData = new FormData();
+      formData.append("file", selectedFile);
 
+      http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          const updatedResourcesList = [...resourcesList];
+          updatedResourcesList[index].image = response.data.key;
+          setResourcesList(updatedResourcesList);
+          setEpkResourcesData({
+            ...epkResourcesData,
+            resources: updatedResourcesList,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // Handle text inputs
+      const newValue = event.target.value;
+      newResourcesList[index] = {
+        ...newResourcesList[index],
+        [field]: newValue,
+      };
+      // Update character length
+      if (field === "description") {
+        setCharacterLength({ ...characterLength, [index]: newValue.length });
+      }
+      setResourcesList(newResourcesList);
+    }
+    setDisabled(false);
+  };
 
   return (
     <>
@@ -463,20 +491,25 @@ function ResourcesForm() {
                                 <td style={{ minWidth: "160px" }}>
                                   <img
                                     src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                    alt=""
                                     style={{ height: "50px", width: "auto" }}
                                   />
-                                  <input
-                                    className="form-control form-control-sm"
-                                    filename={file}
-                                    onChange={(e) =>
-                                      handleEditChange(e, index, "image")
-                                    }
-                                    ref={inputFileRef}
-                                    type="file"
-                                    id="fileImageResources"
-                                    name="files"
-                                    accept="image/*"
-                                  />
+                                  {editMode && (
+                                    <>
+                                      <input
+                                        className="form-control form-control-sm"
+                                        filename={file}
+                                        onChange={(e) =>
+                                          handleEditChange(e, index, "image")
+                                        }
+                                        ref={inputFileRef}
+                                        type="file"
+                                        id="fileImageResources"
+                                        name="files"
+                                        accept="image/*"
+                                      />
+                                    </>
+                                  )}
                                 </td>
                               </>
                             ) : (
