@@ -5,8 +5,10 @@ import EpkCard from "../../components/UserDashboard/EpkCard";
 import EmptyEpk from "../../components/FilmMakerDashboard/WishToBuy/EmptyEpk";
 import Axios from "axios";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
+import {userTranslation} from 'react-i18next';
 
 export default function WishToBuyPage() {
+  const { t } = userTranslation();
   const [epkList, setEpkList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +38,7 @@ export default function WishToBuyPage() {
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
-        <p className="tw-text-4xl">Filmmaker Dashboard</p>
+        <p className="tw-text-4xl">{t("Filmmaker Dashboard")}</p>
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
