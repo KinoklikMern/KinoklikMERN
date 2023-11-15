@@ -2,7 +2,7 @@ import Axios from "axios";
 import { useSelector, shallowEqual } from 'react-redux';
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
-import { validatename,validateFollowers,validateWebsite,validatePhone,cityInfo } from "./validation";
+import {validatename, validatePhone,validateWebsite,validateFollowers,cityInfo}from './validation.js';
 
 export default function Profile() {
   const [message, setMessage] = useState([]);

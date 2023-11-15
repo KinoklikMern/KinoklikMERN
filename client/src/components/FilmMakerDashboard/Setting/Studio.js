@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import Axios from "axios";
 import { validatename, validateWebsite, validateEmail, validatePhone, validatelocation } from "./validation";
 
+
 export default function Studio() {
   const [userStudioData, setUserStudioData] = useState({
     name: "",
