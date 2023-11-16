@@ -12,7 +12,11 @@ export default function EpkResources({ epkInfo }) {
           {t('RESOURCES NEEDED')}
         </p>
         {epkInfo.resources.map((resource) => (
-          <ResourceCard key={resource._id} resourceInfo={resource} />
+          <ResourceCard
+            key={resource._id}
+            resourceInfo={resource}
+            fepkTitle={epkInfo.title}
+          />
         ))}
       </div>
     )
