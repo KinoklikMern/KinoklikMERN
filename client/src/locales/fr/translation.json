@@ -127,6 +127,7 @@
 " EPK.": " EPK.",
 
 "Report!":"Rapporter!",
+
 "Thank you for reporting this film EPK. We are currently": "Merci d'avoir faire une rapport. On est entraint de faire une ",
 " inverstigation and have notified the filmmaker accordingly.":" investigation. On a deja fait une rapport avec le createur du film. Merci!",
 "Request Access to Medium Synopsis":"Demande l'acces au Synopsis Medium",
@@ -881,7 +882,7 @@
 
 "Notifications": "Notifications",
 
-"Starred": "Joué",
+"1 Starred": "Joué",
 
 "Following": "Suivant",
 
@@ -1084,6 +1085,6 @@
 
 "10.Traitement": "10.Treatment",
 
-"Upload EPK": "Télécharger l'EPK"
+"Upload EPK": "Télécharger l'EPK" 
 
 }
