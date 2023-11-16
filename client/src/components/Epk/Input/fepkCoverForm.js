@@ -379,7 +379,7 @@ function FepkCoverForm() {
                           textAlign: "left",
                         }}
                         className="form-control m-10"
-                        placeholder="Title"
+                        placeholder={t("Title")}
                         onChange={handleInputChange}
                         value={epkCoverData.title}
                         name="title"
@@ -404,7 +404,7 @@ function FepkCoverForm() {
                         }}
                         maxLength="160"
                         className="form-control mt-10"
-                        placeholder="Log Line short (maximum 160 characters)"
+                        placeholder={t("Log Line short (maximum 160 characters)")}
                         onChange={handleInputChange}
                         value={epkCoverData.logLine_short}
                         name="logLine_short"
@@ -417,7 +417,7 @@ function FepkCoverForm() {
                           marginBottom: "1rem",
                         }}
                       >
-                        {characterLength?.logLine_short}/160 characters
+                        {characterLength?.logLine_short}{t("/160 characters")}
                       </span>
                     </div>
                     <div className="row" style={{ marginBottom: "-1.4rem" }}>
@@ -432,7 +432,7 @@ function FepkCoverForm() {
                             fontSize: "14px",
                           }}
                           className="form-control m-10 mb-4"
-                          placeholder="Production Company Name"
+                          placeholder={t("Production Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.productionCo}
                           name="productionCo"

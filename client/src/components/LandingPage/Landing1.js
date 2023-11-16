@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 // import http from "../../http-common.js";
 import heroImage from "../../images/LandingPage_Hero.png";
+import {useTranslation} from 'react-i18next';
 
 const Landing1 = () => {
+  const { t } = useTranslation();
   // const dispatch = useDispatch();
   // const [fepks, setFepks] = useState([]);
   const navigate = useNavigate();

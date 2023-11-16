@@ -258,12 +258,12 @@
 
  "_comment From Components Epk Input castForm":"3 CHanges.",
 "Line EPK Dashboard":"Tableau de bord EPK",
-"Line View EPK Page":"Voir la page EPK",
+"View EPK Page":"Voir la page EPK",
 "Starring/Cast":"Vedette/Casting",
 
  "_comment From Components Epk Input cinematographerForm":"1 CHanges.Line 88, 102",
 "EPK Dashboard":"",
-"View EPK Page": "",
+
 
 "Line Save":"",
 
@@ -278,7 +278,7 @@
  "Line 177":"",
  "Line 209":"",
  "Line 227":"",
- "Film Details Line 244":"Détails du film",
+
  "Upload Poster / Thumbail Line 250":"Télécharger une affiche/une vignette",
  "CREW NAME":"NOM DE L'ÉQUIPAGE",
  "EPK ROLE":"RÔLE EPK",
@@ -470,7 +470,7 @@
  
  "_comment From Components Epk Input ResourcesForm":"0 CHanges.",
  "Line 101 EPK Dashboard":"Tableau de bord EPK",
- "Line 115 View EPK Page":"Voir la page EPK",
+ 
  "Line 124 Resources":"Ressources",
  "Line 205 Save":"Sauvegarder",
 
@@ -1101,6 +1101,18 @@
 
 "10.Traitement": "10.Treatment",
 
-"Upload EPK": "Télécharger l'EPK" 
+"Upload EPK": "Télécharger l'EPK",
+
+"Hello": "Bounjour",
+
+"Upload Poster / Thumbnail": "Télécharger une affiche/une vignette",
+
+"Title": "Titre",
+
+"Log Line short (maximum 160 characters)": "Ligne de journal courte (160 caractères maximum)",
+
+"/160 characters": "/160 caractères",
+
+"Production Company Name": "Nom de la société de production"
 
 }

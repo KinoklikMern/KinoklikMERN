@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 const CastForm = () => {
+
   const [leadActor1Name, setLeadActor1Name] = useState(null);
   const [leadActor1Biography, setLeadActor1Biography] = useState(null);
   const [leadActor1Img_url, setLeadActor1Img_url] = useState(null);
@@ -19,9 +20,11 @@ const CastForm = () => {
   const [supportingActor2Biography, setSupportingActor2Biography] =
     useState(null);
   const [supportingActor2Img_url, setSupportingActor2Img_url] = useState(null);
+  
 
   // eslint-disable-next-line no-unused-vars
   const [castList, setCastList] = useState(null);
+  
   const epkID = 5;
   const submit = () => {
     const castList1 = [
@@ -342,7 +345,7 @@ const CastForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t("Save")}
             </Button>
           </div>
         </Row>
