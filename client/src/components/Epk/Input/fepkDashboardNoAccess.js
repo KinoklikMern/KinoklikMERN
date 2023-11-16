@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function FepkDashboardNoAccess() {
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -39,7 +42,7 @@ function FepkDashboardNoAccess() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3"></div>

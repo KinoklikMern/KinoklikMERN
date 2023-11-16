@@ -7,8 +7,11 @@ import http from "../../../http-common";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 export default function BasicMenu() {
+  const { t } = useTranslation();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -55,7 +58,7 @@ export default function BasicMenu() {
             icon={faCaretDown}
             style={{ height: "15px", color: "#FFFFFF" }}
           />{" "}
-          Project:
+          {t('Project:')}
           <span
             style={{
               fontWeight: "bold",

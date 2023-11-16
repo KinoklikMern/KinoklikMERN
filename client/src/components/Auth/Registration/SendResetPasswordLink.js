@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function SendResetPasswordLink() {
   const [email, setEmail] = useState("");
@@ -45,16 +46,20 @@ function SendResetPasswordLink() {
     }
   };
 
+  //For Translation
+  const { t } = useTranslation();
+
+
   return (
     <>
       <div className={Logincss.bg}>
-        <div className={Logincss.form_title}>Forgot your password?</div>
+        <div className={Logincss.form_title}>{t('Forgot your password?')}</div>
 
         <div className={Logincss.form}>
           <div className={Logincss.formbody}>
             <div className={Logincss.form_Message}>
-              You will receive an email with instructions to reset
-              <br /> your password if an account exists for this email address.
+              {t('You will receive an email with instructions to reset')}
+              <br /> {t('your password if an account exists for this email address.')}
             </div>
             <br />
             <div className="email">
@@ -65,7 +70,7 @@ function SendResetPasswordLink() {
                 value={email}
                 className={Logincss.form_input}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Email"
+                placeholder= {t("Email")}
               />
             </div>
             <br />
@@ -78,21 +83,21 @@ function SendResetPasswordLink() {
               type="submit"
               className={Logincss.btn}
             >
-              Reset Password
+              {t('Reset Password')}
             </button>
           </div>
           <div className={Logincss.form_Message}>
             <br />
             <p>
-              Already hava an account?{" "}
+              {t('Already hava an account?')}{" "}
               <a href="/login" className={Logincss.link}>
-                Sign In
+                {t('Sign In')}
               </a>
             </p>
             <p>
-              Don't have an account yet?{" "}
+              {t("Don't have an account yet?")}{" "}
               <a href="/signup" className={Logincss.link}>
-                Create Account
+                {t('Create Account')}
               </a>
             </p>
           </div>

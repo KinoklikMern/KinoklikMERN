@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 // import "../../../styles/tailwind.css";
+import { useTranslation } from 'react-i18next';
 
 import {
   resendEmailVerificationToken,
@@ -140,6 +141,8 @@ export default function EmailVerification() {
   useEffect(() => {
     inputRef.current?.focus();
   }, [activeOtpIndex]);
+ 
+  const { t } = useTranslation();
 
   return (
     <div
@@ -151,11 +154,11 @@ export default function EmailVerification() {
       >
         <div>
           <h1 className="font-semiblod text-center tw-mb-8 tw-text-3xl tw-text-customColor">
-            Please enter the OTP to verify your account
+            {t('Please enter the OTP to verify your account')}
           </h1>
 
           <p className="text-center tw-text-xl tw-text-customColor">
-            OTP has been sent to your email
+            {t('OTP has been sent to your email')}
           </p>
         </div>
 
@@ -177,7 +180,7 @@ export default function EmailVerification() {
 
         <div className="tw-mt-3 tw-flex tw-items-center tw-justify-center">
           <button type="submit" className={EmailCss.btn}>
-            Verify Account
+            {t('Verify Account')}
           </button>
         </div>
 
@@ -187,7 +190,7 @@ export default function EmailVerification() {
             type="button"
             className="tw-bg-transparent tw-font-semibold tw-text-midnight hover:tw-underline"
           >
-            Resend OTP
+            {t('Resend OTP')}
           </button>
         </div>
       </form>

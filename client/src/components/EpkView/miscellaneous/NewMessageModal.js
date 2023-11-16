@@ -7,6 +7,7 @@ import { ChatState } from "../../../context/ChatProvider";
 import { addToChat } from "../../../api/epks";
 import { io } from "socket.io-client";
 import { NotificationContext } from "../../../context/NotificationContext";
+import { useTranslation } from 'react-i18next';
 
 let socket;
 export default function NewMessageModal(props) {
@@ -59,6 +60,9 @@ export default function NewMessageModal(props) {
     });
   }, [notification, setNotification]);
 
+  // For Translation of Text
+  const { t } = useTranslation();
+
   return (
     <>
       <Modal
@@ -69,7 +73,7 @@ export default function NewMessageModal(props) {
       >
         <Modal.Header className="border-0">
           <Modal.Title className="text-center px-3">
-            Please type your message to the Filmmaker EPK Owner
+            {t('Please type your message to the Filmmaker EPK Owner')}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -103,7 +107,7 @@ export default function NewMessageModal(props) {
             }}
             onClick={handleSubmit}
           >
-            Send
+            {t('Send')}
           </Button>
         </Modal.Footer>
       </Modal>

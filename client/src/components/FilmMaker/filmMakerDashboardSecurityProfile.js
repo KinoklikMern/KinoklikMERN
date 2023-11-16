@@ -9,6 +9,7 @@ import FilmmakerSideBar from "./filmMakerSideBar";
 import Modal from "react-modal";
 //import Modal from "@material-ui/core/Modal";
 //import "react-modal/styles.css";
+import { useTranslation } from 'react-i18next';
 
 export default function FilmMakerDashboardSecurityProfile() {
   const [message, setMessage] = useState([]);
@@ -121,6 +122,9 @@ export default function FilmMakerDashboardSecurityProfile() {
     setModalIsOpen(false);
   }
 
+
+  const { t } = useTranslation();
+
   return (
     <div className="filmmakerdash-container container-fluid">
       <div className="sidebar-container">
@@ -143,7 +147,7 @@ export default function FilmMakerDashboardSecurityProfile() {
                           to="/filmMakerDashboardSecurityProfile"
                           className="security-links"
                         >
-                          Profile
+                          {t('Profile')}
                         </Link>
                       </li>
                       <li>
@@ -151,7 +155,7 @@ export default function FilmMakerDashboardSecurityProfile() {
                           to="/filmMakerDashboardSecurityCompany"
                           className="security-links"
                         >
-                          Studio
+                          {t('Studio')}
                         </Link>
                       </li>
                       <li>
@@ -159,7 +163,7 @@ export default function FilmMakerDashboardSecurityProfile() {
                           to="/filmMakerDashboardSecurityPassword"
                           className="security-links"
                         >
-                          Password
+                          {t('Password')}
                         </Link>
                       </li>
                       <li>
@@ -167,7 +171,7 @@ export default function FilmMakerDashboardSecurityProfile() {
                           to="/filmMakerDashboardSecurityAccount"
                           className="security-links"
                         >
-                          Account
+                          {t('Account')}
                         </Link>
                       </li>
                     </ul>
@@ -176,56 +180,56 @@ export default function FilmMakerDashboardSecurityProfile() {
                     <input
                       type="text"
                       name="firstName"
-                      placeholder="First Name"
+                      placeholder= {t("First Name")}
                       defaultValue={userProfileData.firstName}
                       onChange={handleProfileChange}
                     ></input>
                     <input
                       type="text"
                       name="lastName"
-                      placeholder="Last Name"
+                      placeholder= {t("Last Name")}
                       defaultValue={userProfileData.lastName}
                       onChange={handleProfileChange}
                     ></input>
                     <input
                       type="text"
                       name="email"
-                      placeholder="Email"
+                      placeholder= {t("Email")}
                       defaultValue={userProfileData.email}
                       onChange={handleProfileChange}
                     ></input>
                     <input
                       type="text"
                       name="phone"
-                      placeholder="Phone"
+                      placeholder= {t("Phone")}
                       defaultValue={userProfileData.phone}
                       onChange={handleProfileChange}
                     ></input>
                     <input
                       type="text"
                       name="website"
-                      placeholder="Website"
+                      placeholder= {t("Website")}
                       defaultValue={userProfileData.website}
                       onChange={handleProfileChange}
                     ></input>
                     <input
                       type="text"
                       name="city"
-                      placeholder="City"
+                      placeholder= {t("City")}
                       defaultValue={userProfileData.city}
                       onChange={handleProfileChange}
                     ></input>
                     <input
                       type="text"
                       name="province"
-                      placeholder="Province"
+                      placeholder= {t("Province")}
                       defaultValue={userProfileData.province}
                       onChange={handleProfileChange}
                     ></input>
                     <input
                       type="text"
                       name="country"
-                      placeholder="Country"
+                      placeholder= {t("Country")}
                       defaultValue={userProfileData.country}
                       onChange={handleProfileChange}
                     ></input>
@@ -242,7 +246,7 @@ export default function FilmMakerDashboardSecurityProfile() {
                       style={{ fontSize: "25px" }}
                     >
                       {" "}
-                      <h6 style={{ fontSize: "20px" }}>Upload Avatar</h6>
+                      <h6 style={{ fontSize: "20px" }}>{t('Upload Avatar')}</h6>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
@@ -287,13 +291,13 @@ export default function FilmMakerDashboardSecurityProfile() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        <h2>Updated profile successfully!</h2>
+                        <h2>{t('Updated profile successfully!')}</h2>
                         <br />
                         <button
                           className="btn btn-secondary btn-sm"
                           onClick={closeModal}
                         >
-                          Ok
+                          {t('Ok')}
                         </button>
                       </div>
                     </Modal>
@@ -305,14 +309,14 @@ export default function FilmMakerDashboardSecurityProfile() {
                         className="btn btn-secondary"
                         onClick={() => saveUserProfile()}
                       >
-                        Save
+                        {t('Save')}
                       </button>
                     ) : (
                       <button
                         className="btn btn-secondary"
                         onClick={() => saveUserProfile()}
                       >
-                        Save
+                        {t('Save')}
                       </button>
                     )}
                   </div>

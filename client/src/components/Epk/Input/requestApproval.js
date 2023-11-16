@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function RequestApproval() {
   const [fepk, setFepk] = useState([]);
@@ -8,6 +9,7 @@ function RequestApproval() {
   const [longSynopsis, setLongSynopsis] = useState([]);
   const [uniqueness, setUniqueness] = useState([]);
   const [stillsApproval, setStillsApproval] = useState([]);
+  const { t } = useTranslation();
 
   let { fepkId } = useParams();
 
@@ -105,14 +107,14 @@ function RequestApproval() {
       {/* Medium Synopsis requests */}
       <div>
         <h4>
-          <b>Medium Synopsis Requests:</b>
+          <b>{t('Medium Synopsis Requests:')}</b>
         </h4>
         {mediumSynopsis.map((medium) => {
           return (
             medium.status === "pending" && (
               <div style={{ margin: "20px 0 5px 0px" }}>
                 <h5>
-                  User Name:{" "}
+                  {t('User Name:')}{" "}
                   <b>
                     {medium.user.firstName} {medium.user.lastName}
                   </b>
@@ -123,14 +125,14 @@ function RequestApproval() {
                     alt=""
                     style={{ width: "40px", height: "auto" }}
                   />
-                  Hi! I need your approval to see the medium synopsis section!
+                  {t('Hi! I need your approval to see the medium synopsis section!')}
                 </p>
                 <button
                   onClick={() =>
                     mediumSynopsisApproval(medium.user._id, "approved")
                   }
                 >
-                  approve
+                  {t('approve')}
                 </button>
                 &nbsp; &nbsp;
                 <button
@@ -138,7 +140,7 @@ function RequestApproval() {
                     mediumSynopsisApproval(medium.user._id, "refused")
                   }
                 >
-                  refuse
+                  {t('refuse')}
                 </button>
               </div>
             )
@@ -151,14 +153,14 @@ function RequestApproval() {
       {/* Long Synopsis requests */}
       <div>
         <h4>
-          <b>Long Synopsis Requests:</b>
+          <b>{t('Long Synopsis Requests:')}</b>
         </h4>
         {longSynopsis.map((long) => {
           return (
             long.status === "pending" && (
               <div style={{ margin: "20px 0 5px 0px" }}>
                 <h5>
-                  User Name:{" "}
+                  {t('User Name:')}{" "}
                   <b>
                     {long.user.firstName} {long.user.lastName}
                   </b>
@@ -169,20 +171,20 @@ function RequestApproval() {
                     alt=""
                     style={{ width: "40px", height: "auto" }}
                   />
-                  Hi! I need your approval to see the long synopsis section!
+                  {t('Hi! I need your approval to see the long synopsis section!')}
                 </p>
                 <button
                   onClick={() =>
                     longSynopsisApproval(long.user._id, "approved")
                   }
                 >
-                  approve
+                  {t('approve')}
                 </button>
                 &nbsp; &nbsp;
                 <button
                   onClick={() => longSynopsisApproval(long.user._id, "refused")}
                 >
-                  refuse
+                  {t('refuse')}
                 </button>
               </div>
             )
@@ -195,14 +197,14 @@ function RequestApproval() {
       {/* Uniqueness requests */}
       <div>
         <h4>
-          <b>Uniqueness Requests:</b>
+          <b>{t('Uniqueness Requests:')}</b>
         </h4>
         {uniqueness.map((unique) => {
           return (
             unique.status === "pending" && (
               <div style={{ margin: "20px 0 5px 0px" }}>
                 <h5>
-                  User Name:{" "}
+                  {t('User Name:')}{" "}
                   <b>
                     {unique.user.firstName} {unique.user.lastName}
                   </b>
@@ -213,20 +215,20 @@ function RequestApproval() {
                     alt=""
                     style={{ width: "40px", height: "auto" }}
                   />
-                  Hi! I need your approval to see the uniqueness section!
+                  {t('Hi! I need your approval to see the uniqueness section!')}
                 </p>
                 <button
                   onClick={() =>
                     uniquenessApproval(unique.user._id, "approved")
                   }
                 >
-                  approve
+                  {t('approve')}
                 </button>
                 &nbsp; &nbsp;
                 <button
                   onClick={() => uniquenessApproval(unique.user._id, "refused")}
                 >
-                  refuse
+                  {t('refuse')}
                 </button>
               </div>
             )
@@ -239,14 +241,14 @@ function RequestApproval() {
       {/* Stills requests */}
       <div>
         <h4>
-          <b>Stills Requests:</b>
+          <b>{t('Stills Requests:')}</b>
         </h4>
         {stillsApproval.map((still) => {
           return (
             still.status === "pending" && (
               <div style={{ margin: "20px 0 5px 0px" }}>
                 <h5>
-                  User Name:{" "}
+                  {t('User Name:')}{" "}
                   <b>
                     {still.user.firstName} {still.user.lastName}
                   </b>
@@ -257,18 +259,18 @@ function RequestApproval() {
                     alt=""
                     style={{ width: "40px", height: "auto" }}
                   />
-                  Hi! I need your approval to see the stills section!
+                  {t('Hi! I need your approval to see the stills section!')}
                 </p>
                 <button
                   onClick={() => stillApproval(still.user._id, "approved")}
                 >
-                  approve
+                  {t('approve')}
                 </button>
                 &nbsp; &nbsp;
                 <button
                   onClick={() => stillApproval(still.user._id, "refused")}
                 >
-                  refuse
+                  {t('refuse')}
                 </button>
               </div>
             )

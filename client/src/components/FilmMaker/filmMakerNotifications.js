@@ -3,8 +3,11 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./filmMakerDashboard.scss";
 import FilmmakerSideBar from "./filmMakerSideBar";
+import { useTranslation } from 'react-i18next';
 
-export default function filmMakerNotifications() {
+export default function FilmMakerNotifications() {
+  const { t } = useTranslation();
+
   return (
     <div className="filmmakerdash-container">
       <div className="sidebar-container">
@@ -18,10 +21,10 @@ export default function filmMakerNotifications() {
           >
             <div className="sidebar-rightcontainer">
               <div className="item Dashboard">
-                <h1>Filmmaker Dashboard</h1>
+                <h1> {t('Filmmaker Dashboard')}</h1>
 
                 {/* <Link to="/uploadFepk"> */}
-                <Button>Notifications Page</Button>
+                <Button>{t('Notifications Page')}</Button>
                 <br />
                 <br />
                 {/* </Link> */}

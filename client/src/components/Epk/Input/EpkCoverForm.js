@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function EpkCoverForm() {
   const [file1, setFile1] = useState("");
@@ -144,6 +145,8 @@ function EpkCoverForm() {
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="container">
       <form>
@@ -151,12 +154,12 @@ function EpkCoverForm() {
           <div className="row card-header">
             <h2 className="col align-items-start text-dark">EPK Upload Page</h2>
             <Link className="col align-items-end" to="/Epk">
-              Show EPK
+              {t('Show EPK')}
             </Link>
           </div>
 
           <div className="card-body">
-            <h5 className="card-title text-dark">EPK Cover Section</h5>
+            <h5 className="card-title text-dark">{t('EPK Cover Section')}</h5>
             <form className="row g-3">
               <div className="col ms-">
                 <div className="col my-1">
@@ -221,7 +224,7 @@ function EpkCoverForm() {
                   <div className="col mt-5">
                     <label htmlFor="fileBanner" className="form-label text-dark">
                       {" "}
-                      Upload Banner
+                      {t('Upload Banner')}
                     </label>
                     <input
                       className="form-control form-control-sm"
@@ -237,7 +240,7 @@ function EpkCoverForm() {
                   <div className="col mt-5">
                     <label htmlFor="fileTrailer" className="form-label text-dark">
                       {" "}
-                      Upload Trailer
+                      {t('Upload Trailer')}
                     </label>
                     <input
                       className="form-control form-control-sm"
@@ -259,7 +262,7 @@ function EpkCoverForm() {
                   onClick={saveEpkCover}
                 >
                   {" "}
-                  Save{" "}
+                  {t('Save')}{" "}
                 </button>
               </div>
             </form>

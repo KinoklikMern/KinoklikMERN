@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Modal from "react-modal";
+import { useTranslation } from 'react-i18next';
 
 const customStyles = {
   content: {
@@ -44,6 +45,8 @@ const DonationModal = ({
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <Modal
       isOpen={isOpen}
@@ -64,8 +67,8 @@ const DonationModal = ({
                 textAlign: "center",
               }}
             >
-              <p>Support the filmmaker by</p>
-              <p>making a one-time donation.</p>
+              <p>{t('Support the filmmaker by')}</p>
+              <p>{t('making a one-time donation.')}</p>
             </h1>
 
             {epkDonatePayPal && (
@@ -85,7 +88,7 @@ const DonationModal = ({
                   fontWeight: "bold",
                 }}
               >
-                Donate with PayPal
+                {t('Donate with PayPal')}
               </Button>
             )}
 
@@ -106,7 +109,7 @@ const DonationModal = ({
                   alignSelf: "center",
                 }}
               >
-                Donate with Stripe
+                {t('Donate with Stripe')}
               </Button>
             )}
           </Col>

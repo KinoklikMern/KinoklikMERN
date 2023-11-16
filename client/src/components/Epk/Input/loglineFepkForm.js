@@ -5,8 +5,11 @@ import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function LoglineForm() {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -191,7 +194,7 @@ function LoglineForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -209,7 +212,7 @@ function LoglineForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -226,7 +229,7 @@ function LoglineForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Log Line
+              {t('Log Line')}
             </h5>
             <form className="row g-3">
               <div className="col ms-">
@@ -324,7 +327,7 @@ function LoglineForm() {
                       alt="no image"
                     />
                   ) : (
-                    <h3>No Image</h3>
+                    <h3>{t('No Image')}</h3>
                   )}
                 </div>
               </div>
@@ -350,7 +353,7 @@ function LoglineForm() {
                     onClick={saveEpkLogline}
                     value="save"
                   >
-                    Save
+                    {t('Save')}
                   </Button>
                 ) : (
                   <Button
@@ -364,7 +367,7 @@ function LoglineForm() {
                     onClick={saveEpkLogline}
                     value="save"
                   >
-                    Save
+                    {t('Save')}
                   </Button>
                 )}
                 <Modal
@@ -397,7 +400,7 @@ function LoglineForm() {
                       className="btn btn-secondary btn-sm"
                       onClick={closeModal}
                     >
-                      Ok
+                      {t('Ok')}
                     </button>
                   </div>
                 </Modal>
