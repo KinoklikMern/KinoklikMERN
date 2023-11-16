@@ -156,6 +156,10 @@ const HomeBody = ({ role }) => {
       <div className="home tw-flex tw-justify-center tw-overflow-y-auto">
         <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5">
           {filteredEPKs.map((fepk) => {
+            if (fepk.image_details === "") {
+              // Skip rendering this item if image_details (poster) because it looks
+              return null;
+            }
             const formattedTitle = fepk.title.replace(/ /g, "_");
             return (
               <React.Fragment key={fepk._id}>

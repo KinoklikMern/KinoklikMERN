@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./Status.css";
+import {useTranslation} from 'react-i18next';
 
 export default function StatusBtn({ onStatusChange }) {
+  const { t } = useTranslation();
   const [activeBtn, setActiveBtn] = useState("All"); // Default status is "All"
 
   const handleClick = (status) => {
+   
     if (status === activeBtn) {
       setActiveBtn("All");
       onStatusChange("All");
@@ -21,8 +24,9 @@ export default function StatusBtn({ onStatusChange }) {
           id='Preproduction'
           className={activeBtn === "Preproduction" ? "active" : "deactive"}
           onClick={() => handleClick("Preproduction")}
+          
         >
-          Pre-Production
+          {t("Pre-Production")}
         </button>
 
         <button
@@ -30,7 +34,7 @@ export default function StatusBtn({ onStatusChange }) {
           className={activeBtn === "Production" ? "active" : "deactive"}
           onClick={() => handleClick("Production")}
         >
-          Production
+          {t("Production")}
         </button>
 
         <button
@@ -38,7 +42,7 @@ export default function StatusBtn({ onStatusChange }) {
           className={activeBtn === "Postproduction" ? "active" : "deactive"}
           onClick={() => handleClick("Postproduction")}
         >
-          Post-Production
+         {t("Post-Production")}
         </button>
       </div>
     </div>

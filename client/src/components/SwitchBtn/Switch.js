@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./SwitchBtn.css";
+import {useTranslation} from 'react-i18next';
 
 export default function SwitchBtn({role}) {
+  const { t } = useTranslation();
   const [activeBtn, setActiveBtn] = useState(role === "actor" ? "actor": "epk");
 
   function handleClick(button) {
@@ -41,7 +43,7 @@ export default function SwitchBtn({role}) {
           className={activeBtn === "actor" ? "active" : ""}
           onClick={() => handleClick("actor")}
         >
-          Actors
+          {t('Actors')}
         </button>
         </a>
     </div>

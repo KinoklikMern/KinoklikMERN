@@ -21,8 +21,10 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { addToChat } from "../../api/epks";
+import { useTranslation } from "react-i18next";
 
 export default function Actor(props) {
+  const { t } = useTranslation();
   const [epkInfo, setEpkInfo] = useState({});
   const { id } = useParams();
   const [kkFollower, setKKFollower] = useState([]);
@@ -227,32 +229,32 @@ export default function Actor(props) {
   };
 
   return (
-    <div className='tw-bg-[#1E0039]'>
-      <div className='actor-top-container'>
+    <div className="tw-bg-[#1E0039]">
+      <div className="actor-top-container">
         <Navbar className={props.className} title={props.title} />
       </div>
-      <div className='actor-navbar'>
-        <EpkHeader epkInfo={epkInfo} role='actor' id={id} />
+      <div className="actor-navbar">
+        <EpkHeader epkInfo={epkInfo} role="actor" id={id} />
       </div>
-      <div className='actor-container'>
+      <div className="actor-container">
         <div>
           <video
             loop
             ref={videoRef}
-            className='actor-image-container'
+            className="actor-image-container"
             src={`${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`}
             // poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
             poster={`${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`}
             controls
           ></video>
           <div
-            className='actor-profile'
+            className="actor-profile"
             style={{
               backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
             }}
           >
             <ArrowBackIosOutlined
-              className='arrow-actor-profile arrow-actor-profile1'
+              className="arrow-actor-profile arrow-actor-profile1"
               onClick={() => handleClick("left")}
               style={{
                 color: "#1E0039",
@@ -261,7 +263,7 @@ export default function Actor(props) {
               }}
             />
             <ArrowForwardIosOutlined
-              className='arrow-actor-profile arrow-actor-profile2'
+              className="arrow-actor-profile arrow-actor-profile2"
               onClick={() => handleClick("right")}
               style={{
                 color: "#1E0039",
@@ -273,7 +275,7 @@ export default function Actor(props) {
           <div>
             {isPlaying ? (
               <PauseCircleOutlineIcon
-                className='actor-play-icon'
+                className="actor-play-icon"
                 style={{
                   color: "#1E0039",
                   fontSize: "4rem",
@@ -283,7 +285,7 @@ export default function Actor(props) {
               />
             ) : (
               <PlayCircleIcon
-                className='actor-play-icon'
+                className="actor-play-icon"
                 style={{
                   color: "#1E0039",
                   fontSize: "4rem",
@@ -295,18 +297,19 @@ export default function Actor(props) {
           </div>
         </div>
 
-        <div className='actor-middle-container'>
+        <div className="actor-middle-container">
           <p
-            className='Actor-Role actor-detail-item'
+            className="Actor-Role actor-detail-item"
             style={{
               fontSize: "30px",
               fontWeight: "bold",
+              gridColumn: "1/3",
             }}
           >
             {epkInfo.firstName} {epkInfo.lastName}
           </p>
           <p
-            className='Actor-Role actor-detail-item'
+            className="Actor-Role actor-detail-item"
             style={{
               gridColumn: "3/4",
               fontSize: "30px",
@@ -315,51 +318,52 @@ export default function Actor(props) {
           >
             {displaySex(epkInfo.sex)}
           </p>
-          <p className='actor-detail-item Actor-Role'>Actor</p>
+          <p className="actor-detail-item Actor-Role">{t("Actor")}</p>
           <button
-            className='btn-follow actor-detail-item'
+            className="btn-follow actor-detail-item"
             onClick={addUserToFollowers}
           >
             Follow +
           </button>
           <p
-            className='follower-number actor-detail-item'
+            className="follower-number actor-detail-item"
             style={{ fontSize: "24px" }}
           >
             {kkFollower}
           </p>
 
           <button
-            className='btn-star actor-detail-item'
+            className="btn-star actor-detail-item"
             onClick={addUserToLikes}
           >
-            <span style={{ display: "inline" }}>Star</span>
+            <span style={{ display: "inline" }}>{t("Star")}</span>
             <StarIcon
-              className='actor-page-star'
+              className="actor-page-star"
               style={{ color: "white", marginLeft: "10px" }}
             />
           </button>
           <p
-            className='follower-number actor-detail-item'
+            className="follower-number actor-detail-item"
             style={{ fontSize: "24px" }}
           >
             {likes}
           </p>
           <button
-            className='btn-Recommend actor-detail-item'
+            className="btn-Recommend actor-detail-item"
             onClick={openModal}
+            disabled={epkInfo._id === user.id}
           >
-            <span style={{ display: "inline" }}>Recommend</span>{" "}
+            <span style={{ display: "inline" }}>{t("Recommend")}</span>{" "}
             <img
               src={refralIcon}
-              className='actor-page-star'
+              className="actor-page-star"
               style={{ fill: "white", color: "white" }}
-              alt=''
+              alt=""
             />
           </button>
           <div className={`actor-modal ${modalIsOpen ? "is-open" : ""}`}>
             <div
-              className='shared-style'
+              className="shared-style"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -375,17 +379,17 @@ export default function Actor(props) {
               >
                 X
               </div>
-              <h2>Recommend Actor To Filmmaker:</h2>
+              <h2>{t("Recommend Actor To Filmmaker")}:</h2>
               <input
-                type='text'
-                className='form-control shared-styles'
+                type="text"
+                className="form-control shared-styles"
                 value={searchValue}
-                placeholder='Search name ...'
+                placeholder="Search name ..."
                 onChange={handleSearch}
               />
-              <div className='selected-filmmakers-display'>
+              <div className="selected-filmmakers-display">
                 {selectedFilmmakers.map((filmmaker, index) => (
-                  <div key={index} className='selected-filmmaker-display'>
+                  <div key={index} className="selected-filmmaker-display">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       {" "}
                       <img
@@ -452,7 +456,9 @@ export default function Actor(props) {
                       </div>
                     ))
                   ) : (
-                    <div style={{ padding: "5px" }}>No filmmaker found.</div>
+                    <div style={{ padding: "5px" }}>
+                      {t("No filmmaker found.")}
+                    </div>
                   )}
                 </div>
               )}
@@ -464,26 +470,26 @@ export default function Actor(props) {
                     marginTop: "20px",
                   }}
                 >
-                  <button className='btn-send' onClick={sendRecommendations}>
-                    Send <FontAwesomeIcon icon={faPaperPlane} />
+                  <button className="btn-send" onClick={sendRecommendations}>
+                    {t("Send")} <FontAwesomeIcon icon={faPaperPlane} />
                   </button>
                 </div>
               )}
             </div>{" "}
           </div>
           <p
-            className='follower-number-Recommend actor-detail-item'
+            className="follower-number-Recommend actor-detail-item"
             style={{ fontSize: "24px" }}
           >
             {recommendations}
           </p>
-          <div className='actor-detail-item actor-icon-movie-container'>
+          <div className="actor-detail-item actor-icon-movie-container">
             <img
-              src='../Vector.png'
-              alt=''
+              src="../Vector.png"
+              alt=""
               style={{ width: "37px", height: "25px" }}
             />
-            <p className='movie-number' style={{ fontSize: "24px" }}>
+            <p className="movie-number" style={{ fontSize: "24px" }}>
               1
             </p>
           </div>
@@ -499,15 +505,15 @@ export default function Actor(props) {
               alignItems: "center",
             }}
           >
-            Recommendation sent successfully!
+            {t("Recommendation sent successfully!")}
           </div>
         )}
-        <div className='actor-city-container'>
-          <div className='actor-city-detail'>
+        <div className="actor-city-container">
+          <div className="actor-city-detail">
             <img
               src={worldIcon}
               style={{ width: "55px", height: "45px", display: "inline" }}
-              alt=''
+              alt=""
             />
             <p
               style={{
@@ -521,9 +527,9 @@ export default function Actor(props) {
               {epkInfo.city || "Montreal"}{" "}
             </p>
           </div>
-          <div className='actor-city-ethnicity'>
+          <div className="actor-city-ethnicity">
             <p
-              className='actor-age-show'
+              className="actor-age-show"
               style={{
                 display: "block",
                 marginLeft: "30px",
@@ -537,7 +543,7 @@ export default function Actor(props) {
                   marginRight: "60px",
                 }}
               >
-                Age-Range
+                {t("Age-Range")}
               </span>
               <span>
                 {age_range[range][0]} - {age_range[range][1]}
@@ -559,7 +565,7 @@ export default function Actor(props) {
               >
                 Ethnicity{" "}
               </span>{" "}
-              <span>{epkInfo.ethnicity || "Caucasian"}</span>
+              <span>{epkInfo.ethnicity}</span>
             </p>
             <p
               style={{
@@ -575,7 +581,7 @@ export default function Actor(props) {
                   marginRight: "65px",
                 }}
               >
-                Hair Color{" "}
+                {t("Hair Color")}{" "}
               </span>{" "}
               <span>{epkInfo.hairColor}</span>
             </p>
@@ -593,7 +599,7 @@ export default function Actor(props) {
                   marginRight: "60px",
                 }}
               >
-                Eyes Color{" "}
+                {t("Eyes Color")}{" "}
               </span>{" "}
               <span>{epkInfo.eyesColor}</span>
             </p>
@@ -611,7 +617,7 @@ export default function Actor(props) {
                   marginRight: "60px",
                 }}
               >
-                Body Build{" "}
+                {t("Body Build")}{" "}
               </span>{" "}
               <span>{epkInfo.bodyBuild}</span>
             </p>
@@ -629,20 +635,20 @@ export default function Actor(props) {
                   marginRight: "90px",
                 }}
               >
-                Height{" "}
+                {t("Height")}{" "}
               </span>{" "}
               <span>{epkInfo.height}</span>
             </p>
           </div>
-          <div className='actor-biography'>
+          <div className="actor-biography">
             <p>{epkInfo.aboutMe}</p>
           </div>
         </div>
-        <div className='bottom-container'>
-          <p className='bottom-actor-container-title'>
-            current films by actor {epkInfo.firstName} {epkInfo.lastName}
+        <div className="bottom-container">
+          <p className="bottom-actor-container-title">
+            {t("current films by actor")} {epkInfo.firstName} {epkInfo.lastName}
           </p>
-          <div className='movie-actor-play-container'>
+          <div className="movie-actor-play-container">
             {/* TODO: getMoviesByActor */}
             <div>{/* <List /> */}</div>
           </div>

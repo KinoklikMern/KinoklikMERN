@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 
 const ProducerForm = () => {
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const [biography, setBiography] = useState(null);
   const [header, setHeader] = useState(null);
@@ -108,7 +110,7 @@ const ProducerForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Producer
+          {t('Producer')}
         </h5>
         <br />
         <Row justify="space-around" className="text-center ">

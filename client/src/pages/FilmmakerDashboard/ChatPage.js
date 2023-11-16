@@ -5,8 +5,10 @@ import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {useTranslation} from 'react-i18next';
 
 export default function ChatPage() {
+  const { t } = useTranslation();
   const [fetchAgain, setFetchAgain] = useState(false);
 
   // Yeming added
@@ -23,9 +25,9 @@ export default function ChatPage() {
   //
 
   return (
-    <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
-      <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
-        <p className="tw-text-4xl">Filmmaker Dashboard</p>
+    <div className='tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]'>
+      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
+        <p className='tw-text-4xl'>{t("Filmmaker Dashboard")}</p>
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-mt-12 tw-h-5/6 md:tw-ml-16">
