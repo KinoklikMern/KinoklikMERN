@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import { useTranslation } from 'react-i18next';
+
 //Bootstrap and jQuery libraries
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,6 +18,7 @@ function Login({ spanText }) {
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   //popup and form code
   const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
@@ -53,7 +56,7 @@ function Login({ spanText }) {
             rules={[
               {
                 required: true,
-                message: "Please enter email!",
+                message: (t("Please enter email!")),
               },
             ]}
           >
@@ -65,7 +68,7 @@ function Login({ spanText }) {
             rules={[
               {
                 required: true,
-                message: "Please enter password!",
+                message: (t("Please enter password!")),
               },
             ]}
             cla

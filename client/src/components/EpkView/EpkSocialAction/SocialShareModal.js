@@ -13,9 +13,13 @@ import {
 } from "react-share";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
   const [copySuccess, setCopySuccess] = useState("");
+
+  //Translate Text
+const { t } = useTranslation();
 
   if (!isOpen) return null;
 
@@ -27,13 +31,13 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
       setTimeout(() => setCopySuccess(""), 2000);
     });
   };
+  
 
   return (
     <div
       className={`modal fade ${isOpen ? "show" : ""}`}
       style={{
         display: isOpen ? "block" : "none",
-        backgroundColor: "rgba(255, 255, 255, 0.3)",
         zIndex: 1050,
       }}
       id="exampleModal"
@@ -47,7 +51,7 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
           className="modal-content col-12"
           style={{
             borderRadius: "13px",
-            backgroundColor: "rgba(255, 255, 255, 0.1)",
+            backgroundColor: "rgba(255, 255, 255, 0.3)",
           }}
         >
           <div
@@ -85,7 +89,7 @@ const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
                 color: "#1e0039",
               }}
             >
-              Share your EPK with the world!
+              {t('Share your EPK with the world!')}
             </h5>
             <div className="icon-container1 d-flex justify-content-between">
               <div className="smd">

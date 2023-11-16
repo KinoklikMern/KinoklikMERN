@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { login } from "../../../api/user";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 export default function LoginModal(props) {
   const dispatch = useDispatch();
@@ -31,6 +32,8 @@ export default function LoginModal(props) {
       });
     }
   };
+ 
+  const { t } = useTranslation();
 
   return (
     <Modal show={props.open} onHide={props.close} centered>
@@ -49,7 +52,7 @@ export default function LoginModal(props) {
         <span className="text-danger">{errorMsg}</span>
         <Form>
           <Form.Group controlId="email" className="my-3">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>{t('Email address')}</Form.Label>
             <Form.Control
               type="email"
               value={email}
@@ -83,12 +86,12 @@ export default function LoginModal(props) {
             }}
             onClick={handleSubmit}
           >
-            Sign In
+            {t('Sign In')}
           </Button>
           <p className="mt-3">
-            Don't have an account yet?{" "}
+            {t("Don't have an account yet?")}{" "}
             <a href="/signup" className="text-[#581396]">
-              Create Account
+              {t('Create Account')}
             </a>
           </p>
         </div>

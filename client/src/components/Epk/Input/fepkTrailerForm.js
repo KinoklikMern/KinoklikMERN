@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function TrailerForm() {
   const [file, setFile] = useState("");
@@ -11,6 +12,8 @@ function TrailerForm() {
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const { t } = useTranslation();
 
   //Trailer preview
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
@@ -20,6 +23,7 @@ function TrailerForm() {
 
   const closeModal = () => {
     setModalIsOpen(false);
+    window.location.reload();
   };
 
   let { fepkId } = useParams();
@@ -63,6 +67,17 @@ function TrailerForm() {
     } else return true;
   };
 
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    e.currentTarget.style.display = "flex";
+    e.currentTarget.style.justifyContent = "center";
+    e.currentTarget.style.alignItems = "center";
+    e.currentTarget.innerHTML =
+      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
+    setIsUploading(true);
+    saveEpkTrailer(e);
+  };
+
   const saveEpkTrailer = (e) => {
     //debugger;
     e.preventDefault();
@@ -98,7 +113,7 @@ function TrailerForm() {
           console.log(err);
         });
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
     setDisabled(true);
   };
@@ -143,7 +158,7 @@ function TrailerForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -161,7 +176,7 @@ function TrailerForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -178,7 +193,7 @@ function TrailerForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Film Trailer
+              {t('Film Trailer')}
             </h5>
             <form>
               <div className="row">
@@ -217,7 +232,7 @@ function TrailerForm() {
                       controls
                     ></video>
                   ) : (
-                    <h1>NO VIDEO UPLOADED</h1>
+                    <h1>{t('NO VIDEO UPLOADED')}</h1>
                   )}
                 </div>
                 <div className="col-1">
@@ -240,10 +255,10 @@ function TrailerForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={saveEpkTrailer}
+                        onClick={handleSaveClick}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     ) : (
                       <Button
@@ -254,10 +269,10 @@ function TrailerForm() {
                         }}
                         type="outline-primary"
                         block
-                        onClick={saveEpkTrailer}
+                        onClick={handleSaveClick}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     )}
                     <Modal
@@ -284,13 +299,13 @@ function TrailerForm() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        {"Trailer is Saved Successfully!"}
+                        {"Trailer Saved Successfully!"}
                         <br />
                         <button
                           className="btn btn-secondary btn-sm"
                           onClick={closeModal}
                         >
-                          Ok
+                          {t('Ok')}
                         </button>
                       </div>
                     </Modal>

@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./filmMakerDashboard.scss";
 import FilmmakerSideBar from "./filmMakerSideBar";
+import { useTranslation } from 'react-i18next';
 
 export default function Filmmaker() {
+  const { t } = useTranslation();
+
   return (
     <div className="filmmakerdash-container container-fluid">
       <div className="sidebar-container">
@@ -26,7 +29,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityProfile"
                         className="security-links"
                       >
-                        Profile
+                        {t('Profile')}
                       </Link>
                     </li>
                     <li>
@@ -34,7 +37,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityCompany"
                         className="security-links"
                       >
-                        Studio
+                        {t('Studio')}
                       </Link>
                     </li>
                     <li>
@@ -42,7 +45,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityPassword"
                         className="security-links"
                       >
-                        Password
+                        {t('Password')}
                       </Link>
                     </li>
                     <li>
@@ -50,7 +53,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityAccount"
                         className="security-links"
                       >
-                        Account
+                        {t('Account')}
                       </Link>
                     </li>
                   </ul>
@@ -60,7 +63,7 @@ export default function Filmmaker() {
                     type="text"
                     id=""
                     name=""
-                    placeholder="Studio Name"
+                    placeholder= {t("Studio Name")}
                   ></input>
                   {/* <input
                     type="text"
@@ -72,31 +75,31 @@ export default function Filmmaker() {
                     type="text"
                     id=""
                     name=""
-                    placeholder="Studio Email"
+                    placeholder= {t("Studio Email")}
                   ></input>
                   <input
                     type="text"
                     id=""
                     name=""
-                    placeholder="Studio Phone"
+                    placeholder= {t("Studio Phone")}
                   ></input>
                   <input
                     type="text"
                     id=""
                     name=""
-                    placeholder="Studio City"
+                    placeholder= {t("Studio City")}
                   ></input>
                   <input
                     type="text"
                     id=""
                     name=""
-                    placeholder="Studio Province"
+                    placeholder= {t("Studio Province")}
                   ></input>
                   <input
                     type="text"
                     id=""
                     name=""
-                    placeholder="Studio Country"
+                    placeholder= {t("Studio Country")}
                   ></input>
                 </div>
 
@@ -105,7 +108,7 @@ export default function Filmmaker() {
                 </div> */}
                 <div classNameName="d-flex justify-content-end settingsSaveBtn">
                   <button type="submit" classNameName="btn btn-secondary">
-                    Save
+                    {t('Save')}
                   </button>
                 </div>
               </div>

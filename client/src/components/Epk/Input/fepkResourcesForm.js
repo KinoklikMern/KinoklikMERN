@@ -10,10 +10,16 @@ import {
   faPlus,
   faTrashCan,
   faUserPlus,
+  faCheck,
+  faPen,
+  faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
+import { useTranslation } from 'react-i18next';
 
 function ResourcesForm() {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -33,6 +39,7 @@ function ResourcesForm() {
     description: 0,
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editMode, setEditMode] = useState({ status: false, rowKey: null });
 
   let { fepkId } = useParams();
 
@@ -124,7 +131,7 @@ function ResourcesForm() {
           addResourceToTable();
         }
       } else {
-        setMessage("File must be a image(jpeg or png)");
+        setMessage(t("File must be a image(jpeg or png)"));
       }
     }
   }
@@ -153,8 +160,57 @@ function ResourcesForm() {
   }
 
   const openModal = () => setModalIsOpen(true);
-
   const closeModal = () => setModalIsOpen(false);
+
+  const enterEditMode = (key) => {
+    setEditMode({ status: true, rowKey: key });
+  };
+  const exitEditMode = () => {
+    setEditMode({ status: false, rowKey: null });
+  };
+
+  const handleEditChange = (event, index, field) => {
+    const newResourcesList = [...resourcesList];
+    // Check if the field is 'image' and handle file input
+    if (field === "image") {
+      const selectedFile = event.target.files[0];
+      setFile(selectedFile);
+      let formData = new FormData();
+      formData.append("file", selectedFile);
+
+      http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          const updatedResourcesList = [...resourcesList];
+          updatedResourcesList[index].image = response.data.key;
+          setResourcesList(updatedResourcesList);
+          setEpkResourcesData({
+            ...epkResourcesData,
+            resources: updatedResourcesList,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // Handle text inputs
+      const newValue = event.target.value;
+      newResourcesList[index] = {
+        ...newResourcesList[index],
+        [field]: newValue,
+      };
+      // Update character length
+      if (field === "description") {
+        setCharacterLength({ ...characterLength, [index]: newValue.length });
+      }
+      setResourcesList(newResourcesList);
+    }
+    setDisabled(false);
+  };
 
   return (
     <>
@@ -196,7 +252,7 @@ function ResourcesForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -214,7 +270,7 @@ function ResourcesForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -231,7 +287,7 @@ function ResourcesForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Resources
+              {t('Resources')}
             </h5>
             <form>
               <div className="row">
@@ -296,7 +352,7 @@ function ResourcesForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4>Upload Image</h4>
+                    <h4>{t('Upload Image')}</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
@@ -336,7 +392,7 @@ function ResourcesForm() {
                       onClick={addResourceImage}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   ) : (
                     <Button
@@ -351,7 +407,7 @@ function ResourcesForm() {
                       onClick={addResourceImage}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   )}
                 </div>
@@ -359,10 +415,11 @@ function ResourcesForm() {
                   <table
                     className="table table-striped table-bordered"
                     style={{
-                      fontSize: "8px",
+                      fontSize: "0.8rem",
                       textAlign: "center",
                       tableLayout: "auto",
-                      width: "100%",
+                      // width: "100%",
+                      marginLeft: "2%",
                     }}
                   >
                     <thead className="thead-dark">
@@ -374,36 +431,129 @@ function ResourcesForm() {
                             whiteSpace: "nowrap",
                           }}
                         >
-                          Duration Required
+                          {t('Duration Required')}
                         </th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>ACTION</th>
+                        <th>{t('Description')}</th>
+                        <th>{t('Image')}</th>
+                        <th>{t('ACTIONS')}</th>
                       </tr>
                     </thead>
                     <tbody>
                       {resourcesList.map((resource, index) => {
                         return (
-                          <tr key={index}>
-                            <td>{resource.title}</td>
-                            <td>{resource.time}</td>
-                            <td style={{ width: "fit-content" }}>
-                              {resource.description}
-                            </td>
-                            <td>
-                              <img
-                                src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
-                                style={{ height: "60px", width: "auto" }}
-                              />
-                            </td>
+                          <tr
+                            key={index}
+                            style={{
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {editMode.status && editMode.rowKey === index ? (
+                              <>
+                                <td>
+                                  <input
+                                    value={resource.title}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "title")
+                                    }
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={resource.time}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "time")
+                                    }
+                                  />
+                                </td>
+                                <td>
+                                  <div>
+                                    <textarea
+                                      value={resource.description}
+                                      onChange={(e) =>
+                                        handleEditChange(
+                                          e,
+                                          index,
+                                          "description"
+                                        )
+                                      }
+                                      name="text"
+                                      maxLength="160"
+                                      style={{ maxWidth: "160px" }}
+                                    />
+                                    <span
+                                      style={{
+                                        fontSize: "10px",
+                                        display: "flex",
+                                        justifyContent: "right",
+                                      }}
+                                    >
+                                      {characterLength[index]}/ 160 characters
+                                    </span>
+                                  </div>
+                                </td>
+                                <td style={{ minWidth: "160px" }}>
+                                  <img
+                                    src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                    alt=""
+                                    style={{ height: "50px", width: "auto" }}
+                                  />
+                                  {editMode && (
+                                    <>
+                                      <input
+                                        className="form-control form-control-sm"
+                                        filename={file}
+                                        onChange={(e) =>
+                                          handleEditChange(e, index, "image")
+                                        }
+                                        ref={inputFileRef}
+                                        type="file"
+                                        id="fileImageResources"
+                                        name="files"
+                                        accept="image/*"
+                                      />
+                                    </>
+                                  )}
+                                </td>
+                              </>
+                            ) : (
+                              <>
+                                <td>{resource.title}</td>
+                                <td>{resource.time}</td>
+                                <td>{resource.description}</td>
+                                <td>
+                                  <img
+                                    src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                    style={{ height: "50px", width: "auto" }}
+                                  />
+                                </td>
+                              </>
+                            )}
                             <td
                               style={{
                                 textAlign: "center",
                                 cursor: "pointer",
                               }}
-                              onClick={() => deleteFromResourcesList(resource)}
                             >
-                              <FontAwesomeIcon icon={faTrashCan} />
+                              {editMode.status && editMode.rowKey === index ? (
+                                <FontAwesomeIcon
+                                  icon={faCheck}
+                                  onClick={() => exitEditMode()}
+                                  style={{ marginRight: "15px" }}
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faPen}
+                                  onClick={() => enterEditMode(index)}
+                                  style={{ marginRight: "15px" }}
+                                />
+                              )}
+                              {"  "}
+                              <FontAwesomeIcon
+                                icon={faTrashCan}
+                                onClick={() =>
+                                  deleteFromResourcesList(resource)
+                                }
+                              />
                             </td>
                           </tr>
                         );
@@ -440,13 +590,13 @@ function ResourcesForm() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        <h2>Your content has been successfully saved!</h2>
+                        <h2>{t('Your content has been successfully saved!')}</h2>
                         <br />
                         <button
                           className="btn btn-secondary btn-sm"
                           onClick={closeModal}
                         >
-                          Ok
+                          {t('Ok')}
                         </button>
                       </div>
                     </Modal>
@@ -475,7 +625,7 @@ function ResourcesForm() {
                         onClick={saveEpkResources}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     ) : (
                       <Button
@@ -489,7 +639,7 @@ function ResourcesForm() {
                         onClick={saveEpkResources}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     )}
                   </div>

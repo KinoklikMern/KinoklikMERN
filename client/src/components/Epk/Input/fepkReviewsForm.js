@@ -1,6 +1,6 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+import { Button } from "antd";
+import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
@@ -9,40 +9,48 @@ import {
   faUser,
   faPlus,
   faTrashCan,
+  faPen,
+  faCheck,
+  faUpload,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-modal";
+import { useTranslation } from 'react-i18next';
 
-function ResourcesForm() {
+function ReviewsForm() {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [disabledAdd, setDisabledAdd] = useState(true);
   const inputFileRef = useRef(null);
-  const [resourcesList, setResourcesList] = useState([]);
-  const [resource, setResource] = useState({
-    title: "",
-    time: "",
-    description: "",
-  });
-  const [epkResourcesData, setEpkResourcesData] = useState({
-    resources: fepk.resources,
+  const [reviewsList, setReviewsList] = useState([]);
+  const [review, setReview] = useState({ text: "", magazine: "" });
+  const [epkReviewsData, setEpkReviewsData] = useState({
+    reviews: fepk.reviews,
   });
   const [characterLength, setCharacterLength] = useState({
-    description: 0,
+    text: 0,
   });
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editingReview, setEditingReview] = useState(null);
 
-  let { fepkId } = useParams();
+  //modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
 
+  let { fepkId } = useParams();
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
     setFile(fileNew);
-    //setDisabled(false);
+    setDisabled(false);
     const url = URL.createObjectURL(fileNew);
     setPicturerPreviewUrlPreviewUrl(url);
   };
@@ -50,13 +58,10 @@ function ResourcesForm() {
   useEffect(() => {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
-      setResourcesList(response.data.resources);
+      setReviewsList(response.data.reviews);
+      console.log(response.data.title);
     });
-  }, [fepkId]);
-
-  useEffect(() => {
-    console.log(resourcesList);
-  }, [resourcesList]);
+  }, []);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -77,23 +82,23 @@ function ResourcesForm() {
     } else return true;
   };
 
-  function addResourceToTable() {
-    if (resource.title !== "") {
-      resourcesList.push(resource);
-      setEpkResourcesData({ ...epkResourcesData, resources: resourcesList });
+  function addReviewToTable() {
+    if (review.magazine !== "" && review.text !== "") {
+      reviewsList.push(review);
+      setEpkReviewsData({ ...epkReviewsData, reviews: reviewsList });
       setDisabledAdd(true);
       setDisabled(false);
     }
   }
-  const handleResourceChange = (event) => {
+  const handleReviewsChange = (event) => {
     const { name, value } = event.target;
-    setResource({ ...resource, [name]: value });
+    setReview({ ...review, [name]: value });
     setCharacterLength({ ...characterLength, [name]: value.length });
     setDisabledAdd(false);
   };
 
-  function addResourceImage() {
-    if (characterLength.description <= 160) {
+  function addAwardLogo() {
+    if (characterLength.text <= 160) {
       let formData = new FormData();
       console.log(file);
       formData.append("file", file);
@@ -110,8 +115,8 @@ function ResourcesForm() {
               if (response.data !== undefined) {
                 const key = response.data.key;
                 console.log(key);
-                resource.image = key;
-                addResourceToTable();
+                review.award_logo = key;
+                addReviewToTable();
                 setPicturerPreviewUrlPreviewUrl("");
                 inputFileRef.current.value = "";
               }
@@ -121,27 +126,26 @@ function ResourcesForm() {
               console.log(err);
             });
         } else {
-          addResourceToTable();
+          addReviewToTable();
         }
       } else {
-        setMessage("File must be a image(jpeg or png)");
+        setMessage(t("File must be a image(jpeg or png)"));
       }
     }
   }
 
-  function deleteFromResourcesList(deletedResource) {
-    const newResourcesList = resourcesList.filter(
-      (resourceObject) => resourceObject !== deletedResource
+  function deleteFromReviewsList(deletedReview) {
+    const newReviewsList = reviewsList.filter(
+      (reviewObject) => reviewObject !== deletedReview
     );
-    setResourcesList(newResourcesList);
-    setEpkResourcesData({ ...epkResourcesData, resources: newResourcesList });
+    setReviewsList(newReviewsList);
+    setEpkReviewsData({ ...epkReviewsData, reviews: newReviewsList });
     setDisabled(false);
   }
 
-  function saveEpkResources() {
-    console.log(epkResourcesData);
+  function saveEpkReviews() {
     http
-      .put(`fepks/update/${fepkId}`, epkResourcesData)
+      .put(`fepks/update/${fepkId}`, epkReviewsData)
       .then((res) => {
         setModalIsOpen(true);
         console.log("saved");
@@ -152,9 +156,45 @@ function ResourcesForm() {
     setDisabled(true);
   }
 
-  const openModal = () => setModalIsOpen(true);
+  const handleEditChange = (e, index, type) => {
+    if (type === "file") {
+      const selectedFile = e.target.files[0];
+      setFile(selectedFile);
+      let formData = new FormData();
+      formData.append("file", selectedFile);
 
-  const closeModal = () => setModalIsOpen(false);
+      http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          const updatedReviewsList = [...reviewsList];
+          updatedReviewsList[index].award_logo = response.data.key;
+          setReviewsList(updatedReviewsList);
+          setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
+          setDisabled(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      const newText = e.target.value;
+      const updatedReviewsList = [...reviewsList];
+      updatedReviewsList[index][type] = e.target.value;
+      setReviewsList(updatedReviewsList);
+      setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
+      // Update character length for text changes
+      if (type === "text") {
+        setCharacterLength({
+          ...characterLength,
+          [index]: newText.length,
+        });
+      }
+      setDisabled(false);
+    }
+  };
 
   return (
     <>
@@ -196,7 +236,7 @@ function ResourcesForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -214,7 +254,7 @@ function ResourcesForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -226,16 +266,20 @@ function ResourcesForm() {
             fontWeight: "normal",
           }}
         >
-          <div className="card-body" style={{ height: "500px" }}>
+          <div className="card-body" style={{ minHeight: "500px" }}>
             <h5
               className="card-title "
-              style={{ color: "#311465", fontWeight: "normal" }}
+              style={{
+                color: "#311465",
+                fontWeight: "normal",
+                marginBottom: "-3%",
+              }}
             >
-              Resources
+              Film Buzz (Reviews & Awards)
             </h5>
             <form>
-              <div className="row">
-                <div className="col-4 my-4">
+              <div className="row" style={{ marginRight: "-5%" }}>
+                <div className="col my-5">
                   <input
                     style={{
                       height: "30px",
@@ -246,27 +290,13 @@ function ResourcesForm() {
                       textAlign: "left",
                     }}
                     className="form-control m-10"
-                    placeholder="Title"
-                    onChange={handleResourceChange}
-                    name="title"
-                  />
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "20px",
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "left",
-                    }}
-                    className="form-control m-10"
-                    placeholder="Duration Required"
-                    onChange={handleResourceChange}
-                    name="time"
+                    placeholder="Magazine/Blog/Journalist Name"
+                    onChange={handleReviewsChange}
+                    name="magazine"
                   />
                   <textarea
                     style={{
-                      height: "60px",
+                      height: "120px",
                       width: "100%",
                       borderRadius: "5px",
                       marginBottom: "5px",
@@ -275,9 +305,9 @@ function ResourcesForm() {
                       resize: "none",
                     }}
                     className="form-control mt-10"
-                    placeholder="Description(maximum 160 characters)"
-                    onChange={handleResourceChange}
-                    name="description"
+                    placeholder="Review text (maximum 160 characters)"
+                    onChange={handleReviewsChange}
+                    name="text"
                     maxLength="160"
                   />
                   <span
@@ -287,16 +317,15 @@ function ResourcesForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.description}/160 characters
+                    {characterLength?.text}/160 characters
                   </span>
-
                   <label
                     htmlFor="fileAwardLogo"
                     className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4>Upload Image</h4>
+                    <h4 style={{ fontSize: "20px" }}>Upload Logo</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
@@ -305,22 +334,21 @@ function ResourcesForm() {
                     onChange={fileSelected}
                     ref={inputFileRef}
                     type="file"
-                    id="fileImageResources"
+                    id="fileAwardLogo"
                     name="files"
                     accept="image/*"
                   />
-                  {picturePreviewUrl && picturePreviewUrl !== undefined ? (
+                  {picturePreviewUrl ? (
                     <img
                       src={picturePreviewUrl}
                       style={{
-                        height: "120px",
+                        height: "80px",
                         width: "auto",
                         marginTop: "5px",
                       }}
-                      alt="no img"
+                      alt="Preview"
                     />
-                  ) : // <h3>No Image</h3>
-                  null}
+                  ) : null}
                   {disabledAdd === true ? (
                     <Button
                       disabled
@@ -333,10 +361,10 @@ function ResourcesForm() {
                       }}
                       type="outline-primary"
                       block
-                      onClick={addResourceImage}
+                      onClick={addAwardLogo}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   ) : (
                     <Button
@@ -348,151 +376,207 @@ function ResourcesForm() {
                       }}
                       type="outline-primary"
                       block
-                      onClick={addResourceImage}
+                      onClick={addAwardLogo}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   )}
                 </div>
-                <div className="col-7 my-4">
+                <div className="col-8 my-5">
                   <table
                     className="table table-striped table-bordered"
                     style={{
-                      fontSize: "8px",
+                      fontSize: "12px",
                       textAlign: "center",
-                      tableLayout: "auto",
-                      width: "100%",
                     }}
                   >
                     <thead className="thead-dark">
                       <tr>
-                        <th>Title</th>
-                        <th
-                          style={{
-                            width: "fit-content",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          Duration Required
-                        </th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>ACTION</th>
+                        <th>{t('Magazine')}</th>
+                        <th>{t('Text')}</th>
+                        <th>{t('Award Logo')}</th>
+                        <th>{t('ACTIONS')}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {resourcesList.map((resource, index) => {
+                      {reviewsList.map((review, index) => {
                         return (
-                          <tr key={index}>
-                            <td>{resource.title}</td>
-                            <td>{resource.time}</td>
-                            <td style={{ width: "fit-content" }}>
-                              {resource.description}
+                          <tr
+                            key={index}
+                            style={{
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <td>
+                              {editingReview === index ? (
+                                <input
+                                  value={review.magazine}
+                                  onChange={(e) =>
+                                    handleEditChange(e, index, "magazine")
+                                  }
+                                />
+                              ) : (
+                                review.magazine
+                              )}
+                            </td>
+                            <td>
+                              {editingReview === index ? (
+                                <div>
+                                  <textarea
+                                    value={review.text}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "text")
+                                    }
+                                    name="text"
+                                    maxLength="160"
+                                  />
+                                  <span
+                                    style={{
+                                      fontSize: "10px",
+                                      display: "flex",
+                                      justifyContent: "right",
+                                    }}
+                                  >
+                                    {characterLength[index]}/ 160 characters
+                                  </span>
+                                </div>
+                              ) : (
+                                review.text
+                              )}
                             </td>
                             <td>
                               <img
-                                src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
-                                style={{ height: "60px", width: "auto" }}
+                                src={`${process.env.REACT_APP_AWS_URL}/${review.award_logo}`}
+                                alt=""
+                                style={{ height: "40px", width: "auto" }}
                               />
+                              {editingReview === index && (
+                                <>
+                                  <input
+                                    className="form-control form-control-sm"
+                                    filename={file}
+                                    onChange={(e) =>
+                                      handleEditChange(e, index, "file")
+                                    }
+                                    ref={inputFileRef}
+                                    type="file"
+                                    id="fileAwardLogo"
+                                    name="files"
+                                    accept="image/*"
+                                  />
+                                </>
+                              )}
                             </td>
+
                             <td
                               style={{
                                 textAlign: "center",
                                 cursor: "pointer",
                               }}
-                              onClick={() => deleteFromResourcesList(resource)}
                             >
-                              <FontAwesomeIcon icon={faTrashCan} />
+                              {editingReview === index ? (
+                                <FontAwesomeIcon
+                                  icon={faCheck}
+                                  onClick={() => {
+                                    setEditingReview(null);
+                                  }}
+                                  style={{ marginRight: "15px" }}
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faPen}
+                                  onClick={() => setEditingReview(index)}
+                                  style={{ marginRight: "15px" }}
+                                />
+                              )}
+                              {"  "}
+                              <FontAwesomeIcon
+                                icon={faTrashCan}
+                                onClick={() => deleteFromReviewsList(review)}
+                              />
                             </td>
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
-                  <div>
-                    <Modal
-                      isOpen={modalIsOpen}
-                      onRequestClose={closeModal}
-                      contentLabel="Example Modal"
-                      appElement={document.getElementById("root")}
-                      style={{
-                        overlay: {
-                          // position: "fixed",
-                          // top: 0,
-                          // left: 0,
-                          // right: 0,
-                          // bottom: 0,
-                          backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        },
-                        content: {
-                          position: "absolute",
-                          border: "2px solid #000",
-                          backgroundColor: "white",
-                          boxShadow: "2px solid black",
-                          height: 150,
-                          width: 300,
-                          margin: "auto",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        },
-                      }}
-                    >
-                      <div style={{ textAlign: "center" }}>
-                        <h2>Your content has been successfully saved!</h2>
-                        <br />
-                        <button
-                          className="btn btn-secondary btn-sm"
-                          onClick={closeModal}
-                        >
-                          Ok
-                        </button>
-                      </div>
-                    </Modal>
-                  </div>
                 </div>
-                <div className="col-1 mt-5">
-                  <div
+                <div
+                  className="col-1"
+                  style={{
+                    height: "50px",
+                    width: "120px",
+                    marginLeft: "100%",
+                    marginTop: "-1%",
+                    marginBottom: "3%",
+                  }}
+                >
+                  {disabled === true ? (
+                    <Button
+                      disabled
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        color: "grey",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={saveEpkReviews}
+                      value="save"
+                    >
+                      {t('Save')}
+                    </Button>
+                  ) : (
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={saveEpkReviews}
+                      value="save"
+                    >
+                      {t('Save')}
+                    </Button>
+                  )}
+                  <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Example Modal"
+                    appElement={document.getElementById("root")}
                     style={{
-                      height: "50px",
-                      width: "100px",
-                      marginLeft: "100%",
-                      marginTop: "350px",
+                      overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      },
+                      content: {
+                        position: "absolute",
+                        border: "2px solid #000",
+                        backgroundColor: "white",
+                        boxShadow: "2px solid black",
+                        height: 120,
+                        width: 300,
+                        margin: "auto",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      },
                     }}
                   >
-                    {disabled === true ? (
-                      <Button
-                        disabled
-                        style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          color: "grey",
-                          backgroundColor: "#ffffff",
-                          fontWeight: "bold",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={saveEpkResources}
-                        value="save"
+                    <div style={{ textAlign: "center" }}>
+                      {"Reviews Saved Successfully!"}
+                      <br />
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={closeModal}
                       >
-                        Save
-                      </Button>
-                    ) : (
-                      <Button
-                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                        style={{
-                          boxShadow: "1px 2px 9px #311465",
-                          fontWeight: "bold",
-                        }}
-                        type="outline-primary"
-                        block
-                        onClick={saveEpkResources}
-                        value="save"
-                      >
-                        Save
-                      </Button>
-                    )}
-                  </div>
+                        {t('Ok')}
+                      </button>
+                    </div>
+                  </Modal>
                 </div>
               </div>
             </form>
@@ -502,4 +586,4 @@ function ResourcesForm() {
     </>
   );
 }
-export default ResourcesForm;
+export default ReviewsForm;

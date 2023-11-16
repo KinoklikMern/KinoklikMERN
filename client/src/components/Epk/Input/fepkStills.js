@@ -12,7 +12,10 @@ import {
   faPlus,
   faTrashCan,
   faUserPlus,
+  faCheck,
+  faPen,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 function StillsForm() {
   const [file, setFile] = useState("");
@@ -21,14 +24,14 @@ function StillsForm() {
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
   const [stillsList, setStillsList] = useState([]);
-
   const [epkStillsData, setEpkStillsData] = useState([]);
-
+  const [editMode, setEditMode] = useState({ status: false, rowKey: null });
   //modal
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
+  
+  const { t } = useTranslation();
 
   let { fepkId } = useParams();
 
@@ -49,7 +52,6 @@ function StillsForm() {
       //      console.log(response.data.title);
     });
   }, []);
-
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -103,7 +105,7 @@ function StillsForm() {
           });
       }
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
   }
 
@@ -115,7 +117,6 @@ function StillsForm() {
     setEpkStillsData({ ...epkStillsData, stills: newStillsList });
     setDisabled(false);
   }
-
 
   const handleStillsBlurChange = (value, still) => {
     // Use filter to find the element with the specified `_id` in the `stills` array
@@ -154,6 +155,42 @@ function StillsForm() {
 
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+
+  const enterEditMode = (key) => {
+    setEditMode({ status: true, rowKey: key });
+  };
+  const exitEditMode = () => {
+    setEditMode({ status: false, rowKey: null });
+  };
+
+  const handleEditChange = (event, index, field) => {
+    if (field === "image") {
+      const selectedFile = event.target.files[0];
+      setFile(selectedFile);
+      let formData = new FormData();
+      formData.append("file", selectedFile);
+
+      http
+        .post("fepks/uploadFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          const updatedStillsList = [...stillsList];
+          updatedStillsList[index].image = response.data.key;
+          setStillsList(updatedStillsList);
+          setEpkStillsData({
+            ...epkStillsData,
+            stills: updatedStillsList,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    setDisabled(false);
   };
 
   return (
@@ -196,7 +233,7 @@ function StillsForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -214,14 +251,14 @@ function StillsForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
         <div
           style={{
             marginLeft: "10%",
-            marginRight: "15%",
+            marginRight: "10%",
             color: "#311465",
             fontWeight: "normal",
           }}
@@ -231,17 +268,17 @@ function StillsForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Film Stills
+              {t('Film Stills')}
             </h5>
             <form className="row">
-              <div className="col-4 mt-5">
+              <div className="col-12 col-md-4 mt-5">
                 <label
                   htmlFor="filePoster"
                   className="form-label text-dark"
                   style={{ fontSize: "25px" }}
                 >
                   {" "}
-                  <h4>Upload Picture</h4>
+                  <h4>{t('Upload Picture')}</h4>
                 </label>
                 <input
                   style={{ fontSize: "15px" }}
@@ -260,56 +297,115 @@ function StillsForm() {
                     style={{
                       height: "120px",
                       width: "auto",
-                      marginTop: "5px",
+                      marginTop: "10px",
                     }}
                     alt="no img"
                   />
                 ) : // <h3>No Image</h3>
                 null}
-              </div>
-              <div className="col-1 mt-5">
-                <br />
-
                 <div className="tw-cursor-pointer hover:tw-scale-110">
-                  <FontAwesomeIcon icon={faPlus} onClick={addImage} />
+                  {/* <FontAwesomeIcon icon={faPlus} onClick={addImage} /> */}
+                  <Button
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                    style={{
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "center",
+                    }}
+                    type="outline-primary"
+                    onClick={addImage}
+                  >
+                    Add to Pictures Gallery
+                  </Button>
                 </div>
               </div>
-              <div className="col-6 mt-3">
+              <div className="col-12 col-md-6 mt-3">
                 <table
                   className="table table-striped table-bordered"
-                  style={{ fontSize: "12px", textAlign: "center" }}
+                  style={{
+                    fontSize: "12px",
+                    textAlign: "center",
+                    verticalAlign: "middle",
+                    tableLayout: "auto",
+                  }}
                 >
                   <thead className="thead-dark">
                     <tr>
-                      <th>IMAGE</th>
-                      <th>ACTION</th>
-
-                      <th>ACTION</th>
+                      <th>{t('IMAGE')}</th>
+                      <th>{t('EDIT')}</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
                     {stillsList.map((still, index) => {
                       return (
                         <tr key={index}>
-                          <td>
-                            <img
-                              src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
-                              style={{ height: "60px", width: "auto" }}
+                          {editMode.status && editMode.rowKey === index ? (
+                            <>
+                              <td>
+                                <img
+                                  src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
+                                  alt=""
+                                  style={{ height: "50px", width: "auto" }}
+                                />
+                                {editMode && (
+                                  <>
+                                    <input
+                                      className="form-control form-control-sm"
+                                      filename={file}
+                                      onChange={(e) =>
+                                        handleEditChange(e, index, "image")
+                                      }
+                                      ref={inputFileRef}
+                                      type="file"
+                                      id="filePoster"
+                                      name="files"
+                                      accept="image/*"
+                                    />
+                                  </>
+                                )}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td>
+                                <img
+                                  src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
+                                  style={{ height: "80px", width: "auto" }}
+                                />
+                              </td>
+                            </>
+                          )}
+                          <td
+                            style={{
+                              textAlign: "center",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {editMode.status && editMode.rowKey === index ? (
+                              <FontAwesomeIcon
+                                icon={faCheck}
+                                onClick={() => exitEditMode()}
+                                style={{ marginRight: "15px" }}
+                              />
+                            ) : (
+                              <FontAwesomeIcon
+                                icon={faPen}
+                                onClick={() => enterEditMode(index)}
+                                style={{ marginRight: "15px" }}
+                              />
+                            )}
+                            {"  "}
+                            <FontAwesomeIcon
+                              icon={faTrashCan}
+                              onClick={() => deleteFromStillsList(still)}
                             />
                           </td>
-                          <td
-                            style={{ textAlign: "center", cursor: "pointer" }}
-                            onClick={() => deleteFromStillsList(still)}
-                          >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                          </td>
-
                           <td>
                             <Button
                               className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                               style={{
                                 height: "30px",
-                                width: "120px",
+                                width: "80px",
                                 boxShadow: "1px 2px 9px #311465",
                                 fontWeight: "bold",
                               }}
@@ -329,7 +425,7 @@ function StillsForm() {
                   </tbody>
                 </table>
               </div>
-              <div className="col-1 mt-5">
+              <div className="col-12 col-md-2 mt-5">
                 <div
                   style={{
                     height: "50px",
@@ -352,7 +448,7 @@ function StillsForm() {
                       onClick={saveEpkStills}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   ) : (
                     <Button
@@ -366,7 +462,7 @@ function StillsForm() {
                       onClick={saveEpkStills}
                       value="save"
                     >
-                      Save
+                     {t('Save')}
                     </Button>
                   )}
 
@@ -400,7 +496,7 @@ function StillsForm() {
                         className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                       >
-                        Ok
+                        {t('Ok')}
                       </button>
                     </div>
                   </Modal>

@@ -4,10 +4,13 @@ import Axios from "axios";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useTranslation } from 'react-i18next';
 
 Modal.setAppElement(document.body);
 
 export default function Account() {
+  const { t } = useTranslation();
+
   const [message, setMessage] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -67,7 +70,7 @@ export default function Account() {
           onClick={openModal}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
-          Delete Account
+          {t('Delete Account')}
         </button>
       </div>
       <div>
@@ -98,7 +101,7 @@ export default function Account() {
             <br />
             {confirmed ? (
               <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-                Ok
+                {t('Ok')}
               </button>
             ) : (
               <>
@@ -106,14 +109,14 @@ export default function Account() {
                   className="btn btn-secondary btn-sm mr-2"
                   onClick={closeModal}
                 >
-                  Cancel
+                  {t('Cancel')}
                 </button>
                 <button
                   className="btn btn-secondary btn-sm"
                   onClick={deleteAccount}
                   style={{ marginLeft: "25px" }}
                 >
-                  Confirm
+                  {t('Confirm')}
                 </button>
               </>
             )}

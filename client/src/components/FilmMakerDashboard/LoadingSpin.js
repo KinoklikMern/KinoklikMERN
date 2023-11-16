@@ -3,7 +3,6 @@ import React from "react";
 export default function LoadingSpin() {
   return (
     <div className="tw-my-16 tw-flex tw-justify-center">
-    
       <svg
         aria-hidden="true"
         className="tw-mr-2 tw-h-8 tw-w-8 tw-animate-spin tw-fill-blue-600 tw-text-gray-200"

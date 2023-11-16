@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const CastForm = () => {
   const [leadActor1Name, setLeadActor1Name] = useState(null);
@@ -73,6 +74,8 @@ const CastForm = () => {
   //     console.log(biography);
   // };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -100,7 +103,7 @@ const CastForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -114,7 +117,7 @@ const CastForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -123,7 +126,7 @@ const CastForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Starring / Cast
+          {t('Starring / Cast')}
         </h5>
         <Row justify="space-around" className="text-center ">
           <Col style={{ width: "1400px", height: "600px" }} className="m-2">
@@ -141,7 +144,7 @@ const CastForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Lead Actor Name"
+                  placeholder= {t("Lead Actor Name")}
                   onChange={(event) => {
                     setLeadActor1Name(event.target.value);
                   }}
@@ -156,7 +159,7 @@ const CastForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Lead Actor's Biography here."
+                  placeholder= {t("Enter Lead Actor's Biography here.")}
                   onChange={(event) => {
                     setLeadActor1Biography(event.target.value);
                   }}
@@ -202,7 +205,7 @@ const CastForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Lead Actor's Biography here."
+                  placeholder= {t("Enter Lead Actor's Biography here.")}
                   onChange={(event) => {
                     setLeadActor2Biography(event.target.value);
                   }}
@@ -232,7 +235,7 @@ const CastForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Suporting Actor Name"
+                  placeholder= {t("Suporting Actor Name")}
                   onChange={(event) => {
                     setSupportingActor1Name(event.target.value);
                   }}
@@ -247,7 +250,7 @@ const CastForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Suporting Actor Biography here."
+                  placeholder= {t("Enter Suporting Actor Biography here.")}
                   onChange={(event) => {
                     setSupportingActor1Biography(event.target.value);
                   }}
@@ -277,7 +280,7 @@ const CastForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Suporting Actor Name"
+                  placeholder= {t("Suporting Actor Name")}
                   onChange={(event) => {
                     setSupportingActor2Name(event.target.value);
                   }}
@@ -292,7 +295,7 @@ const CastForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Suporting Actor's Biography here."
+                  placeholder= {t("Enter Suporting Actor's Biography here.")}
                   onChange={(event) => {
                     setSupportingActor2Biography(event.target.value);
                   }}

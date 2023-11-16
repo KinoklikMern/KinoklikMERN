@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Axios from "axios";
 import Modal from "react-modal";
+import { useTranslation } from 'react-i18next';
 
 export default function Password() {
   const [disabled, setDisabled] = useState(true);
@@ -12,6 +13,7 @@ export default function Password() {
   const [rePwdShow, setRePwdShow] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [message, setMessage] = useState([]);
+  const { t } = useTranslation();
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -145,7 +147,7 @@ export default function Password() {
             <h2>{message}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+            {t('ok')}
             </button>
           </div>
         </Modal>
@@ -156,14 +158,14 @@ export default function Password() {
             disabled
             className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
           >
-            Save
+            {t('Save')}
           </button>
         ) : (
           <button
             className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserPassword()}
           >
-            Save
+            {t('Save')}
           </button>
         )}
       </div>

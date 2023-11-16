@@ -1,14 +1,16 @@
 import React from "react";
 import style from "./producer.module.css";
+import { useTranslation } from 'react-i18next';
 
 function Producer(producerFile) {
   console.log(producerFile);
+  const { t } = useTranslation();
 
   return (
     <div className={style.container}>
       <div className={style.producercontainer}>
         <div className={style.el1}>
-          <h1>Producer</h1>
+          <h1>{t('Producer')}</h1>
           <p>{producerFile.producerFile.header}</p>
           <br />
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function ResetPassword(props) {
   const token = props.token;
@@ -52,14 +53,16 @@ function ResetPassword(props) {
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className={Logincss.bg}>
-        <div className={Logincss.form_title}>Reset your password</div>
+        <div className={Logincss.form_title}>{t('Reset your password')}</div>
 
         <div className={Logincss.form}>
           <div className={Logincss.form_Message}>
-            <p>Enter a new password below to change your password.</p>
+            <p>{t('Enter a new password below to change your password')}.</p>
             <br />
             <div>
               {/* <label className="form__label">Email: </label> */}
@@ -69,7 +72,7 @@ function ResetPassword(props) {
                 value={password}
                 className={Logincss.form_input}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="New password"
+                placeholder= {t("New password")}
               />
             </div>
             <br />
@@ -81,7 +84,7 @@ function ResetPassword(props) {
                 value={retypepassword}
                 className={Logincss.form_input}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Re-enter new password"
+                placeholder= {t("Re-enter new password")}
               />
             </div>
             <br />
@@ -94,7 +97,7 @@ function ResetPassword(props) {
               type="submit"
               className={Logincss.btn}
             >
-              Reset Password
+              {t('Reset Password')}
             </button>
           </div>
         </div>

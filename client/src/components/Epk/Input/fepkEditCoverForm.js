@@ -1,14 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import http from "../../../http-common";
 import Modal from "react-modal";
-import { Button, Tooltip, Col, Row } from "antd";
+import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
 import stripImage from "../../../images/stripe.jpg";
+import { useTranslation } from 'react-i18next';
 
 function FepkEditCoverForm() {
+  const { t } = useTranslation();
+
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
@@ -22,15 +25,16 @@ function FepkEditCoverForm() {
   const [fepk, setFepk] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
-
+  const [isUploading, setIsUploading] = useState(false);
   //Poster preview
   const [posterPreviewUrl, setPosterPreviewUrl] = useState("");
-
   //Banner prewiev
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
-
   //Trailer preview
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
+
+  //To work with modal notifications
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   let { fepkId } = useParams();
 
@@ -70,12 +74,9 @@ function FepkEditCoverForm() {
     });
   }, [fepkId]);
 
-  //To work with modal notifications
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalContentType, setModalContentType] = useState("save");
-
   const closeModal = () => {
     setModalIsOpen(false);
+    window.location.reload();
   };
 
   const [epkCoverData, setEpkCoverData] = useState({
@@ -234,6 +235,17 @@ function FepkEditCoverForm() {
     } else return true;
   };
 
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    e.currentTarget.style.display = "flex";
+    e.currentTarget.style.justifyContent = "center";
+    e.currentTarget.style.alignItems = "center";
+    e.currentTarget.innerHTML =
+      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
+    setIsUploading(true);
+    saveEpkCover(e);
+  };
+
   const saveEpkCover = (e) => {
     console.log("Button clicked");
     e.preventDefault();
@@ -272,7 +284,6 @@ function FepkEditCoverForm() {
             http
               .put(`fepks/update/${fepkId}`, epkCoverData)
               .then((res) => {
-                setModalContentType("save");
                 setModalIsOpen(true);
                 console.log("saved");
               })
@@ -331,7 +342,7 @@ function FepkEditCoverForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -349,7 +360,7 @@ function FepkEditCoverForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -379,7 +390,7 @@ function FepkEditCoverForm() {
                 fontSize: "1rem",
               }}
             >
-              Cover
+              {t('Cover')}
             </h5>
             <form className="row g-5">
               <div className="col me-5">
@@ -406,6 +417,9 @@ function FepkEditCoverForm() {
                       </h6>
                       <h6 style={{ color: "green", fontSize: "1rem" }}>
                         {messageTitleYes}
+                      </h6>
+                      <h6 style={{ color: "green", fontSize: "1rem" }}>
+                        {message}
                       </h6>
                     </div>
                     <div className="col my-1">
@@ -661,7 +675,7 @@ function FepkEditCoverForm() {
                         alt="no img"
                       />
                     ) : (
-                      <h3>No Image</h3>
+                      <h3>{t('No Image')}</h3>
                     )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
@@ -673,7 +687,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>Upload Banner</h4>
+                          <h4>{t('Upload Banner')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -707,7 +721,7 @@ function FepkEditCoverForm() {
                             alt="no image"
                           />
                         ) : (
-                          <h3>No Image</h3>
+                          <h3>{t('No Image')}</h3>
                         )}
                       </div>
                     </div>
@@ -719,7 +733,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>Upload Trailer</h4>
+                          <h4>{t('Upload Trailer')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -745,7 +759,7 @@ function FepkEditCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h1>NO VIDEO UPLOADED</h1>
+                          <h6>{t('NO VIDEO UPLOADED')}</h6>
                         )}
                       </div>
                     </div>
@@ -756,7 +770,7 @@ function FepkEditCoverForm() {
                 className="row"
                 style={{
                   paddingRight: "25%",
-                  paddingLeft: "3%"
+                  paddingLeft: "3%",
                 }}
               >
                 <div>
@@ -830,10 +844,10 @@ function FepkEditCoverForm() {
                 }}
                 type="outline-primary"
                 block
-                onClick={saveEpkCover}
+                onClick={handleSaveClick}
                 value="save"
               >
-                Save
+                {t('Save')}
               </Button>
             ) : (
               <Button
@@ -844,10 +858,10 @@ function FepkEditCoverForm() {
                 }}
                 type="outline-primary"
                 block
-                onClick={saveEpkCover}
+                onClick={handleSaveClick}
                 value="save"
               >
-                Save
+                {t('Save')}
               </Button>
             )}
             <Modal
@@ -880,7 +894,7 @@ function FepkEditCoverForm() {
                   className="btn btn-secondary btn-sm"
                   onClick={closeModal}
                 >
-                  Ok
+                  {t('Ok')}
                 </button>
               </div>
             </Modal>

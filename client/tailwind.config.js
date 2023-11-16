@@ -23,6 +23,11 @@ module.exports = {
 
       fontSize: {
         xxs: "0.6rem",
+        xs1: "0.7rem",
+      },
+
+      width: {
+        18: "4.5rem",
       },
     },
   },
@@ -39,5 +44,6 @@ module.exports = {
     require("@tailwindcss/forms"),
     "prettier-plugin-tailwindcss",
     require("tailwind-scrollbar"),
+    require('@tailwindcss/nesting'),
   ],
 };

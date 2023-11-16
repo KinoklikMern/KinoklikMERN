@@ -5,6 +5,7 @@ import { ChatState } from "../../../context/ChatProvider.js";
 import NotificationItem from "./NotificationItem.js";
 import ChatListItem from "./ChatListItem.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
+import { useTranslation } from 'react-i18next';
 
 export default function ChatList({ fetchAgain, userId, searchValue }) {
   const { user } = useSelector((user) => ({ ...user }));
@@ -124,6 +125,23 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
 
   // determine and return the chat sender
   const getChatSender = (loggedUser, users) => {
+    // Check if users array is valid and has at least two users
+    if (!Array.isArray(users) || users.length < 2 || !loggedUser) {
+      console.error("Invalid users array or loggedUser:", users, loggedUser);
+      return { name: "Unknown", avatar: "", userId: "", type: "" };
+    }
+
+    // Ensure both users have _id and firstName properties
+    if (
+      !users[0]._id ||
+      !users[1]._id ||
+      !users[0].firstName ||
+      !users[1].firstName
+    ) {
+      console.error("Invalid user objects:", users);
+      return { name: "Unknown", avatar: "", userId: "", type: "" };
+    }
+
     const firstName =
       users[0]._id === loggedUser.id ? users[1].firstName : users[0].firstName;
     const lastName =
@@ -251,6 +269,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
   // console.log("Notifications:", notification);
   // console.log("unreadchats", unreadChats);
   // console.log("filteredReadChats", filteredReadChats);
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -258,7 +277,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
         <div>Loading...</div>
       ) : filteredUnreadChats.length === 0 && filteredReadChats.length === 0 ? (
         <div className="tw-mx-4 tw-mt-4 tw-text-center tw-text-white">
-          No conversations to display
+          {t('No conversations to display')}
         </div>
       ) : (
         <>

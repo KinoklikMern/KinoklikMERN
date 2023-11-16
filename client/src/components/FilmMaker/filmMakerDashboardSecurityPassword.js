@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./filmMakerDashboard.scss";
 import FilmmakerSideBar from "./filmMakerSideBar";
+import { useTranslation } from 'react-i18next';
 
 export default function Filmmaker() {
+  const { t } = useTranslation();
+
   return (
     <div className="filmmakerdash-container container-fluid">
       <div className="sidebar-container">
@@ -26,7 +29,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityProfile"
                         className="security-links"
                       >
-                        Profile
+                        {t('Profile')}
                       </Link>
                     </li>
                     <li>
@@ -34,7 +37,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityCompany"
                         className="security-links"
                       >
-                        Studio
+                        {t('Studio')}
                       </Link>
                     </li>
                     <li>
@@ -42,7 +45,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityPassword"
                         className="security-links"
                       >
-                        Password
+                        {t('Password')}
                       </Link>
                     </li>
                     <li>
@@ -50,7 +53,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityAccount"
                         className="security-links"
                       >
-                        Account
+                        {t('Account')}
                       </Link>
                     </li>
                   </ul>
@@ -60,13 +63,13 @@ export default function Filmmaker() {
                     type="text"
                     id=""
                     name=""
-                    placeholder="New Password"
+                    placeholder= {t("New Password")}
                   ></input>
                   <input
                     type="text"
                     id=""
                     name=""
-                    placeholder="Retype New Password"
+                    placeholder= {t("Retype New Password")}
                   ></input>
                 </div>
 
@@ -75,7 +78,7 @@ export default function Filmmaker() {
                 </div> */}
                 <div className="d-flex justify-content-end settingsSaveBtn">
                   <button type="submit" className="btn btn-secondary">
-                    Save
+                    {t('Save')}
                   </button>
                 </div>
               </div>

@@ -21,6 +21,10 @@
 ::after {
   --tw-content: "";
 }
+
+::selection {
+  background: #4b1277;
+}
 /*
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.

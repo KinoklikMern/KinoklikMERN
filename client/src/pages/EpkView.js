@@ -41,11 +41,14 @@ import {
 import Login from "../components/Auth/Registration/loginFromViewPage";
 import { FepkContext } from "../context/FepkContext";
 import StillsCarousel from "../components/Epk/Present/StillsCarousel";
+import {useTranslation} from 'react-i18next';
+
 // import { NotificationContext } from "../context/NotificationContext";
 
 let socket;
 
 function EpkView() {
+  const { t } = useTranslation();
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
   // fetching user
@@ -497,7 +500,7 @@ function EpkView() {
       <>
         <Modal show={props.open} onHide={props.show} centered>
           <Modal.Header>
-            <Modal.Title>Send Your Request</Modal.Title>
+            <Modal.Title>{t("Send Your Request")}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -517,10 +520,10 @@ function EpkView() {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={props.close}>
-              Close
+            {t("Close")}
             </Button>
             <Button variant="primary" onClick={handleSubmit}>
-              Send
+              {t("Send")}
             </Button>
           </Modal.Footer>
         </Modal>
@@ -540,7 +543,7 @@ function EpkView() {
         {/* socialMedia icon */}
         <div className={style.socialMedia}>
           <div>
-            <p className={style.cornerText}>Total Audience Reach</p>
+            <p className={style.cornerText}>{t("Total Audience Reach")}</p>
           </div>
           <div className={style.iconAmount}>
             {" "}
@@ -636,7 +639,7 @@ function EpkView() {
                 }}
               >
                 <FontAwesomeIcon icon={faFlag} />
-                &nbsp; Report
+                &nbsp; {t("Report")}
               </button>
               <div />
 
@@ -654,7 +657,7 @@ function EpkView() {
                 {isClickReport === false ? (
                   <>
                     <p className={style.reportTitle}>
-                      Why are you reporting this EPK?
+                    {t("Why are you reporting this EPK?")}
                     </p>
                     <form className={style.form1}>
                       <div className={style.inputContainer}>
@@ -679,10 +682,10 @@ function EpkView() {
                         />
                         {isClickInfoIcon1 === true ? (
                           <div className={style.reportMessage}>
-                            This can be unwanted and unauthorized use of content
-                            from another website on third-party websites in
-                            connection with other content, negatively affecting
-                            your experience and reputation on our platform.
+                            {t("This can be unwanted and unauthorized use of content")}
+                            {t(" from another website on third-party websites in")}
+                            {t(" connection with other content, negatively affecting")}
+                            {t(" your experience and reputation on our platform.")}
                           </div>
                         ) : (
                           ""
@@ -711,12 +714,12 @@ function EpkView() {
                         />
                         {isClickInfoIcon2 === true ? (
                           <div className={style.reportMessage}>
-                            This can be any content that appears to be
-                            pronographic, sexual exploitation or solicitation
-                            and/or content that shows sexual intercourse,
-                            genitals and close-ups of fully-nude buttocks.
-                            Nudity in photos of paintings and sculptures are
-                            permitted.
+                            {t("This can be any content that appears to be")}
+                            {t(" pronographic, sexual exploitation or solicitation")}
+                            {t(" and/or content that shows sexual intercourse,")}
+                            {t(" genitals and close-ups of fully-nude buttocks.")}
+                            {t(" Nudity in photos of paintings and sculptures are")}
+                            {t("permitted.")}
                           </div>
                         ) : (
                           ""
@@ -730,9 +733,9 @@ function EpkView() {
                           type="text"
                           value="Copyrighted Intellectual Property Violation"
                           onClick={() =>
-                            chooseReason2(
+                            chooseReason2(t(
                               "Copyrighted Intellectual Property Violation"
-                            )
+                            ))
                           }
                           readOnly
                         ></input>
@@ -747,10 +750,10 @@ function EpkView() {
                         />
                         {isClickInfoIcon3 === true ? (
                           <div className={style.reportMessage}>
-                            This can be unwanted, unauthorized or unethical use
-                            of content from another website, negatively
-                            affecting your experience and the reputation on our
-                            platform.
+                            {t("This can be unwanted, unauthorized or unethical use")}
+                            {t(" of content from another website, negatively")}
+                            {t(" affecting your experience and the reputation on our")}
+                            {t(" platform.")}
                           </div>
                         ) : (
                           ""
@@ -758,7 +761,7 @@ function EpkView() {
                       </div>
 
                       <div className={style.inputContainer}>
-                        <label for="Other">Other: </label>
+                        <label for="Other">{t("Other:")} </label>
                         <input
                           className={
                             chosen4 === true ? style.selected : style.comment
@@ -779,8 +782,8 @@ function EpkView() {
                         />
                         {isClickInfoIcon4 === true ? (
                           <div className={style.reportMessage}>
-                            Other: any other reason you may want to report this
-                            EPK.
+                            {t("Other: any other reason you may want to report this")}
+                           {t(" EPK.")}
                           </div>
                         ) : (
                           ""
@@ -791,14 +794,14 @@ function EpkView() {
                         onClick={() => clickReport()}
                         className={style.submitReport}
                       >
-                        Report!
+                       {t("Report!")}
                       </button>
                     </form>
                   </>
                 ) : (
                   <p className={style.reportP}>
-                    Thank you for reporting this film EPK. We are currently
-                    inverstigation and have notified the filmmaker accordingly.
+                    {t("Thank you for reporting this film EPK. We are currently")}
+                    {t("inverstigation and have notified the filmmaker accordingly.")}
                   </p>
                 )}
               </div>
@@ -917,30 +920,30 @@ function EpkView() {
               return (
                 <>
                   {crewObj.epkRole === "director" && (
-                    <p>Directed by: {crewObj.crewId.name}</p>
+                    <p>{t("Directed by:")} {crewObj.crewId.name}</p>
                   )}
                   {crewObj.epkRole === "producer" && (
-                    <p>Produced by: {crewObj.crewId.name}</p>
+                    <p>{t("Produced by:")} {crewObj.crewId.name}</p>
                   )}
                   {crewObj.epkRole === "writer" && (
-                    <p>Writer: {crewObj.crewId.name}</p>
+                    <p>{t("Writer:")} {crewObj.crewId.name}</p>
                   )}
                   {crewObj.epkRole === "cinematographer" && (
-                    <p>Cinematographer: {crewObj.crewId.name}</p>
+                    <p>{t("Cinematographer:")} {crewObj.crewId.name}</p>
                   )}
                   {crewObj.epkRole === "editor" && (
-                    <p>Editor: {crewObj.crewId.name}</p>
+                    <p>{t("Editor:")} {crewObj.crewId.name}</p>
                   )}
                 </>
               );
             })}
-            <p>Studio: {fepkData.productionCo}</p>
+            <p>{t("Studio:")} {fepkData.productionCo}</p>
 
-            <p>Distributed by: {fepkData.distributionCo}</p>
+            <p>{t("Distributed by:")} {fepkData.distributionCo}</p>
           </div>
 
           <div className={style.leftDetail}>
-            <p>Starring:</p>
+            <p>{t("Starring:")}</p>
             {crewList.map((crewObj) => {
               return (
                 <>
@@ -955,11 +958,11 @@ function EpkView() {
             })}
 
             <p className={style.bottom}>
-              Production Year: {fepkData.productionYear}
+            {t("Production Year:")} {fepkData.productionYear}
             </p>
 
             <p className={style.bottom}>
-              Duration: {fepkData.durationMin} Minutes
+              {t("Duration:")} {fepkData.durationMin} {t("Minutes")}
             </p>
           </div>
         </div>
@@ -979,7 +982,7 @@ function EpkView() {
         {/* synopsis section */}
         <div className={style.synopsis}>
           <div>
-            <h2 className={style.type}>Short Synopsis</h2>
+            <h2 className={style.type}>{t("Short Synopsis")}</h2>
           </div>
 
           <div className={style.content}>
@@ -996,7 +999,7 @@ function EpkView() {
         {userId === "0" && fepkData?.text_medium_blur === true ? (
           <div className={style.synopsis}>
             <div>
-              <h2 className={style.type}>Medium Synopsis</h2>
+              <h2 className={style.type}>{t("Medium Synopsis")}</h2>
             </div>
             <div className={style.position}>
               <button
@@ -1009,7 +1012,7 @@ function EpkView() {
                 className={isClick1 === true ? style.none : style.btnSy}
               >
                 {" "}
-                Request Access{" "}
+                {t("Request Access")}{" "}
               </button>
 
               <div
@@ -1023,7 +1026,7 @@ function EpkView() {
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLongTitle">
-                        Request Access to Medium Synopsis
+                      {t("Request Access to Medium Synopsis")}
                       </h5>
                       <button
                         type="button"
@@ -1049,10 +1052,10 @@ function EpkView() {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                       >
-                        Close
+                        {t("Close")}
                       </button>
                       <button type="button" className="btn btn-primary">
-                        Save changes
+                      {t("Save changes")}
                       </button>
                     </div>
                   </div>
@@ -1075,7 +1078,7 @@ function EpkView() {
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Medium Synopsis</h2>
+                <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                 <RequestButton />
                 {show ? (
                   <RequestModal close={handleClose} open={handleShow} />
@@ -1103,7 +1106,7 @@ function EpkView() {
                 {r.user === userId && r.status === "pending" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                       <RequestButton status={r.status} />
                       {show ? (
                         <RequestModal close={handleClose} open={handleShow} />
@@ -1132,7 +1135,7 @@ function EpkView() {
           <>
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Medium Synopsis</h2>
+                <h2 className={style.type}>{t("Medium Synopsis")}</h2>
               </div>
               <div>
                 <img
@@ -1152,7 +1155,7 @@ function EpkView() {
                 {r.user === userId && r.status === "approved" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                     </div>
                     <div>
                       <img
@@ -1179,7 +1182,7 @@ function EpkView() {
                 {r.user._id === userId && r.status === "refused" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Medium Synopsis</h2>
+                      <h2 className={style.type}>{t("Medium Synopsis")}</h2>
                       <RequestButton status={r.status} />
                     </div>
                     {/* <div className={style.position}>
@@ -1203,7 +1206,7 @@ function EpkView() {
         {userId === "0" && fepkData?.text_long_blur === true ? (
           <div className={style.synopsis}>
             <div>
-              <h2 className={style.type}>Long Synopsis</h2>
+              <h2 className={style.type}>{t("Long Synopsis")}</h2>
             </div>
             <div className={style.position}>
               <button
@@ -1216,7 +1219,7 @@ function EpkView() {
                 className={isClick2 === true ? style.none : style.btnSy}
               >
                 {" "}
-                Request Access{" "}
+                {t("Request Access")}{" "}
               </button>
 
               <div
@@ -1230,7 +1233,7 @@ function EpkView() {
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLongTitle">
-                        Request Access to Long Synopsis
+                      {t("Request Access to Long Synopsis")}
                       </h5>
                       <button
                         type="button"
@@ -1256,10 +1259,10 @@ function EpkView() {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                       >
-                        Close
+                        {t("Close")}
                       </button>
                       <button type="button" className="btn btn-primary">
-                        Save changes
+                        {t("Save changes")}
                       </button>
                     </div>
                   </div>
@@ -1284,7 +1287,7 @@ function EpkView() {
             requests.filter((e) => e.user === userId).length === 0) && (
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Long Synopsis</h2>
+                <h2 className={style.type}>{t("Long Synopsis")}</h2>
               </div>
               <RequestButton />
               {show ? (
@@ -1325,7 +1328,7 @@ function EpkView() {
                 {r.user === userId && r.status === "pending" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Long Synopsis</h2>
+                      <h2 className={style.type}>{t("Long Synopsis")}</h2>
                       <RequestButton status={r.status} />
                       {show ? (
                         <RequestModal close={handleClose} open={handleShow} />
@@ -1353,7 +1356,7 @@ function EpkView() {
           <>
             <div className={style.synopsis}>
               <div>
-                <h2 className={style.type}>Long Synopsis</h2>
+                <h2 className={style.type}>{t("Long Synopsis")}</h2>
               </div>
               <div>
                 <img
@@ -1372,7 +1375,7 @@ function EpkView() {
                 {long.user === userId && long.status === "approved" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Long Synopsis</h2>
+                      <h2 className={style.type}>{("Long Synopsis")}</h2>
                     </div>
                     <div>
                       <img
@@ -1397,7 +1400,7 @@ function EpkView() {
                 {r.user === userId && r.status === "refused" && (
                   <div className={style.synopsis}>
                     <div>
-                      <h2 className={style.type}>Long Synopsis</h2>
+                      <h2 className={style.type}>{t("Long Synopsis")}</h2>
                     </div>
                     <RequestButton status={r.status} />
                     <div className={style.content1}>
@@ -1443,7 +1446,7 @@ function EpkView() {
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLongTitle">
-                        Request Access to Uniqueness
+                      {t("Request Access to Uniqueness")}
                       </h5>
                       <button
                         type="button"
@@ -1469,10 +1472,10 @@ function EpkView() {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                       >
-                        Close
+                        {t("Close")}
                       </button>
                       <button type="button" className="btn btn-primary">
-                        Save changes
+                        {t("Save changes")}
                       </button>
                     </div>
                   </div>
@@ -1746,7 +1749,7 @@ function EpkView() {
                       </p>
                     </div>
                     <div className={style.right}>
-                      <h3>Director</h3>
+                      <h3>{t("Director")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1756,7 +1759,7 @@ function EpkView() {
                 {crewObj.epkRole === "director" && count % 2 === 0 && (
                   <div className={style.directorcontainer}>
                     <div className={style.right}>
-                      <h3>Director</h3>
+                      <h3>{t("Director")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1830,7 +1833,7 @@ function EpkView() {
                 {crewObj.epkRole === "producer" && count % 2 === 0 && (
                   <div className={style.directorcontainer}>
                     <div className={style.right}>
-                      <h3>Producer</h3>
+                      <h3>{t("Producer")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1894,7 +1897,7 @@ function EpkView() {
                       </p>
                     </div>
                     <div className={style.right}>
-                      <h3>Cinematographer</h3>
+                      <h3>{t("Cinematographer")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
@@ -1904,7 +1907,7 @@ function EpkView() {
                 {crewObj.epkRole === "cinematographer" && count % 2 === 0 && (
                   <div className={style.directorcontainer}>
                     <div className={style.right}>
-                      <h3>Cinematographer</h3>
+                      <h3>{t("Cinematographer")}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>
