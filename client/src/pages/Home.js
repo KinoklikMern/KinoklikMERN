@@ -6,7 +6,7 @@ import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBodyActor from "../components/HomeBody/HomeBodyActor";
 import HomeBottom from "../components/HomeBottom";
 import Landing1 from "../components/LandingPage/Landing1";
-// import Landing2 from "../components/LandingPage/Landing2";
+import Landing2 from "../components/LandingPage/Landing2";
 import Landing3 from "../components/LandingPage/Landing3";
 // import Landing4 from "../components/LandingPage/Landing4";
 import Landing5 from "../components/LandingPage/Landing5";
@@ -41,7 +41,7 @@ function Home({ role }) {
         {!user && (
           <>
             <Landing1 />
-            {/* <Landing2 /> */}
+            <Landing2 />
             <Landing3 />
             {/* <Landing4 /> */}
             <Landing5 />

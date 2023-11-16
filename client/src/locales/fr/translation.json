@@ -1,5 +1,13 @@
 
 {
+    "All fields are required.":"Tous les champs sont requis.", 
+    "Invalid Email":"Email invalide",
+    "Passwords do not match.":"Les mots de passe ne correspondent pas.",
+    "Password must be at least 8 characters long!":"Le mot de passe doit comporter au moins 8 caractères !",
+    "Email is already in use.":"Cet email est déjà utilisé.",
+    "already signed up?":"déjà inscrit ?",
+    "Login":"Se connecter",
+
     "Sign up for KinoKlik": "Inscrivez vous pour KinoKlik",
     "Next": "Suivant",
     
@@ -712,6 +720,7 @@
 "Line 70 Delete Account":"Supprimer le compte",
 "Line 104 Ok":"Ok",
 "Line 112 Cancel":"Annuler",
+"Account Type":"Type de compte",
 
 
 "_comment From Components FilmMakeDashboard Settings Password":"0 CHanges.",
@@ -735,19 +744,26 @@
 "Hair Color":"Couleur de cheveux",
 "Auburn":"Auburn",
 "Salt & Pepper":"Sel poivre",
-"Chestnut":"châtaigne",
+"Chestnut":"Châtaigne",
 "Bald":"Chauve",
 "Body Build":"Musculation",
 "Slim":"Mince",
 "Medium":"Moyen",
 "Muscular":"Musclé",
-"Large":"Grand",
-"Very Large":"Très grand",
-"Athletic/Toned":"Athlétique/tonique",
-"Curvy":"Courbé",
-"Line 367,374 Save":"Sauvegarder",
-"Updates profile successfully!":"Profil mis à jour avec succès !",
-"Line 407 Ok":"Ok",
+"Large": "Grand",
+"Very Large": "Très grand",
+"Athletic/Toned": "Athlétique/tonique",
+"Curvy": "Courbé",
+"Line 367,374 Save": "Sauvegarder",
+"Updates profile successfully!": "Profil mis à jour avec succès !",
+"Line 407 Ok": "Ok",
+"Select City": "Sélectionnez une ville",
+"Select Province": "Sélectionnez une province",
+"Select Country": "Choisissez le pays",
+"Gender": "",
+"Age Range": "Tranche d'âge", 
+"or below":"ou ci-dessous",
+"or above":"ou au-dessus",
 
 "_comment From Components FilmMakeDashboard Settings Studio":"0 CHanges.",
 "Yes":"Oui",
@@ -944,7 +960,7 @@
 
 "OK": "D'ACCORD",
 
-"Promote your film for free, with KinoKlik EPK": "Faites la promotion de votre film gratuitement, avec KinoKlik EPK !",
+"Promote your film for free, with KinoKlik EPK !": "Faites la promotion de votre film gratuitement, avec KinoKlik EPK !",
 
 "components, upload1, Image mime type is not valid": "Le type d'image MIME n'est pas valide",
 

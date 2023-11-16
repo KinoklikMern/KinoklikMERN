@@ -139,6 +139,8 @@ function CoverForm() {
       setMessage("File must be a image(jpeg or png)");
     }
   };
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -166,7 +168,7 @@ function CoverForm() {
                 className="col align-items-start"
                 style={{ color: "#311465", fontWeight: "normal" }}
               >
-                EPK Page Upload
+                {t('EPK Page Upload')}
               </h2>
             </div>
             <div className="col-2 m-3">

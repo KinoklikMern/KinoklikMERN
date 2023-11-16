@@ -7,7 +7,7 @@ export default function SingleQuestion({ question, answer }) {
 
   return (
     <>
-      <div className='tw-ml-20 tw-mr-20 '>
+      <div className='tw-mx-6 md:tw-mx-12'>
         <div className='tw-my-2 tw-flex tw-border-b-2 tw-border-white tw-p-3 tw-text-2xl tw-font-bold lg:tw-text-3xl'>
           <h2
             onClick={() => setShowAnswer(!showAnswer)}
