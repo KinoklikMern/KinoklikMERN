@@ -26,6 +26,7 @@ export default function EpkCast({ epkInfo }) {
             text={cast.biography}
             castName={cast.crewId.name}
             epkRole={cast.epkRole}
+            actorUrl={`/actor/${cast.crewId._id}`}
           />
         ))}
       </div>
@@ -40,10 +41,15 @@ export default function EpkCast({ epkInfo }) {
           <CastCard
             key={cast._id}
             index={index}
-            image={cast.picture.startsWith("https") ? `${cast.picture}` :`${IMAGE_URL_PRIFIX}/${cast.picture}`}
+            image={
+              cast.picture.startsWith("https")
+                ? `${cast.picture}`
+                : `${IMAGE_URL_PRIFIX}/${cast.picture}`
+            }
             text={cast.aboutMe}
             castName={cast.firstName + " " + cast.lastName}
             epkRole={cast.role}
+            actorUrl={`/actor/${cast._id}`}
           />
         ))}
       </div>
