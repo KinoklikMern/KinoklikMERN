@@ -307,7 +307,7 @@ export default function Profile() {
           onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
-          <option value="">Select City</option>
+          <option value="">{t('Select City')}</option>
                 <option value="Montreal">Montreal</option>
                 <option value="Toronto">Toronto</option>
                 <option value="New York">New York</option>
@@ -321,7 +321,7 @@ export default function Profile() {
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
           >
-              <option value="">Select Province</option>
+              <option value="">{t('Select Province')}</option>
                 <option value="Quebec">Quebec</option>
                 <option value="Ontario">Ontario</option>
                 <option value="New York">New York</option>
@@ -337,7 +337,7 @@ export default function Profile() {
            onChange={handleProfileChange}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
-                  <option value="">Select Country</option>
+                  <option value="">{t('Select Country')}</option>
                   <option value="Canada">Canada</option>
                   <option value="USA">USA</option>
                   <option value="Other">Other</option>
@@ -355,7 +355,7 @@ export default function Profile() {
                 onChange={handleProfileChange}
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
-                <option value="">Gender</option>
+                <option value="">{t('Gender')}</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -428,7 +428,7 @@ export default function Profile() {
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
                 <option value="">{t('Eyes Color')}</option>
-                <option value="Black">{t('Black<')}</option>
+                <option value="Black">{t('Black')}</option>
                 <option value="Blue">{t('Blue')}</option>
                 <option value="Brown">{t('Brown')}</option>
                 <option value="Hazel">{t('Hazel')}</option>

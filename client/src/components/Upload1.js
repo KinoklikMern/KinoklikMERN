@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {useTranslation} from 'react-i18next';
 
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
-const { t } = useTranslation();
 
 function Upload1() {
   
@@ -42,6 +41,8 @@ function Upload1() {
       }
     };
   }, [file]);
+
+  const { t } = useTranslation();
 
   return (
     <>
