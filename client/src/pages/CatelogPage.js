@@ -35,6 +35,7 @@ function CatelogPage() {
   ]);
 
   const clickHandler = (name, isActive) => {
+   
     let newTags;
     let newQuery;
 
