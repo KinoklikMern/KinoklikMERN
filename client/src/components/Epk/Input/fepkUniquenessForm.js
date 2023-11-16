@@ -5,8 +5,11 @@ import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function UniquenessForm() {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -142,7 +145,7 @@ function UniquenessForm() {
             });
         }
       } else {
-        setMessage("File must be a image(jpeg or png)");
+        setMessage(t("File must be a image(jpeg or png)"));
       }
       setDisabled(true);
     }
@@ -192,7 +195,7 @@ function UniquenessForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -210,7 +213,7 @@ function UniquenessForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -227,7 +230,7 @@ function UniquenessForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Uniqueness
+              {t('Uniqueness')}
             </h5>
             <form className="row g-3">
               <div className="col ms-">
@@ -348,7 +351,7 @@ function UniquenessForm() {
                       alt="Picture"
                     />
                   ) : (
-                    <h3>No Image</h3>
+                    <h3>{t('No Image')}</h3>
                   )}
                 </div>
               </div>
@@ -374,7 +377,7 @@ function UniquenessForm() {
                     onClick={saveEpkUniqueness}
                     value="save"
                   >
-                    Save
+                    {t('Save')}
                   </Button>
                 ) : (
                   <Button
@@ -388,7 +391,7 @@ function UniquenessForm() {
                     onClick={saveEpkUniqueness}
                     value="save"
                   >
-                    Save
+                    {t('Save')}
                   </Button>
                 )}
                 <Modal
@@ -421,7 +424,7 @@ function UniquenessForm() {
                       className="btn btn-secondary btn-sm"
                       onClick={closeModal}
                     >
-                      Ok
+                      {t('Ok')}
                     </button>
                   </div>
                 </Modal>

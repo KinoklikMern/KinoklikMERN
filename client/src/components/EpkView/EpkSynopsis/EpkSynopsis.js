@@ -1,15 +1,17 @@
 import React from "react";
 import SynopsisContent from "./SynopsisContent";
+import { useTranslation } from 'react-i18next';
 
 export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
   const IMAGE_URL_PRIFIX = `${process.env.REACT_APP_AWS_URL}`;
+  const { t } = useTranslation();
 
   return (
     <div className="tw-flex tw-flex-col tw-items-center tw-gap-12 tw-bg-opacity-100 tw-text-center">
       {epkInfo.text_short && (
         <div className="tw-w-full tw-p-3 tw-text-white">
           <span className="tw-my-3 tw-text-[2rem] tw-font-semibold">
-            Short Synopsis
+            {t('Short Synopsis')}
           </span>
           <SynopsisContent
             name="short"
@@ -46,7 +48,7 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
         <div className="tw-w-full tw-p-3 tw-text-white">
           <span className="tw-text-[2rem] tw-font-semibold">
             {" "}
-            Long Synopsis{" "}
+            {t('Long Synopsis')}{" "}
           </span>
           <SynopsisContent
             name="long"

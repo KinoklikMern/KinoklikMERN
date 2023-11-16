@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const SynopsisForm = () => {
+  const { t } = useTranslation();
+
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
   const [image3, setImage3] = useState(null);
@@ -104,7 +107,7 @@ const SynopsisForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -118,7 +121,7 @@ const SynopsisForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -127,7 +130,7 @@ const SynopsisForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Synopsis
+          {t('Synopsis')}
         </h5>
 
         <Row
@@ -244,7 +247,7 @@ const SynopsisForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

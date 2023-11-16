@@ -7,8 +7,11 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
 import stripImage from "../../../images/stripe.jpg";
+import { useTranslation } from 'react-i18next';
 
 function FepkEditCoverForm() {
+  const { t } = useTranslation();
+
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
@@ -339,7 +342,7 @@ function FepkEditCoverForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -357,7 +360,7 @@ function FepkEditCoverForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -387,7 +390,7 @@ function FepkEditCoverForm() {
                 fontSize: "1rem",
               }}
             >
-              Cover
+              {t('Cover')}
             </h5>
             <form className="row g-5">
               <div className="col me-5">
@@ -672,7 +675,7 @@ function FepkEditCoverForm() {
                         alt="no img"
                       />
                     ) : (
-                      <h3>No Image</h3>
+                      <h3>{t('No Image')}</h3>
                     )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
@@ -684,7 +687,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>Upload Banner</h4>
+                          <h4>{t('Upload Banner')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -718,7 +721,7 @@ function FepkEditCoverForm() {
                             alt="no image"
                           />
                         ) : (
-                          <h3>No Image</h3>
+                          <h3>{t('No Image')}</h3>
                         )}
                       </div>
                     </div>
@@ -730,7 +733,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>Upload Trailer</h4>
+                          <h4>{t('Upload Trailer')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -756,7 +759,7 @@ function FepkEditCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h6>NO VIDEO UPLOADED</h6>
+                          <h6>{t('NO VIDEO UPLOADED')}</h6>
                         )}
                       </div>
                     </div>
@@ -844,7 +847,7 @@ function FepkEditCoverForm() {
                 onClick={handleSaveClick}
                 value="save"
               >
-                Save
+                {t('Save')}
               </Button>
             ) : (
               <Button
@@ -858,7 +861,7 @@ function FepkEditCoverForm() {
                 onClick={handleSaveClick}
                 value="save"
               >
-                Save
+                {t('Save')}
               </Button>
             )}
             <Modal
@@ -891,7 +894,7 @@ function FepkEditCoverForm() {
                   className="btn btn-secondary btn-sm"
                   onClick={closeModal}
                 >
-                  Ok
+                  {t('Ok')}
                 </button>
               </div>
             </Modal>

@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./filmMakerDashboard.scss";
 import FilmmakerSideBar from "./filmMakerSideBar";
+import { useTranslation } from 'react-i18next';
 
 export default function Filmmaker() {
+  const { t } = useTranslation();
+
   return (
     <div className="filmmakerdash-container container-fluid">
       <div className="sidebar-container">
@@ -28,7 +31,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityProfile"
                         className="security-links"
                       >
-                        Profile
+                        {t('Profile')}
                       </Link>
                     </li>
                     <li>
@@ -36,7 +39,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityCompany"
                         className="security-links"
                       >
-                        Company
+                        {t('Company')}
                       </Link>
                     </li>
                     <li>
@@ -44,7 +47,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityPassword"
                         className="security-links"
                       >
-                        Password
+                        {t('Password')}
                       </Link>
                     </li>
                     <li>
@@ -52,7 +55,7 @@ export default function Filmmaker() {
                         to="/filmMakerDashboardSecurityAccount"
                         className="security-links"
                       >
-                        Account
+                        {t('Account')}
                       </Link>
                     </li>
                   </ul>
@@ -62,13 +65,13 @@ export default function Filmmaker() {
                     type="text"
                     id=""
                     name=""
-                    placeholder="First Name"
+                    placeholder= {t("First Name")}
                   ></input>
                   <input
                     type="text"
                     id=""
                     name=""
-                    placeholder="Last Name"
+                    placeholder= {t("Last Name")}
                   ></input>
                   <input type="text" id="" name="" placeholder="Email"></input>
                   <input type="text" id="" name="" placeholder="Phone"></input>
@@ -77,17 +80,17 @@ export default function Filmmaker() {
                     type="text"
                     id=""
                     name=""
-                    placeholder="Province"
+                    placeholder= {t("Province")}
                   ></input>
                   <input
                     type="text"
                     id=""
                     name=""
-                    placeholder="Country"
+                    placeholder= {t("Country")}
                   ></input>
                 </div>
                 <div className="side-id-2">
-                  <h4>Upload</h4>
+                  <h4> {t('Upload')}</h4>
                   <FontAwesomeIcon icon={faUser} />
                 </div>
 

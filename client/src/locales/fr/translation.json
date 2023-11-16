@@ -1,6 +1,21 @@
 
 {
+    "Sign up for KinoKlik": "Inscrivez vous pour KinoKlik",
+    "Next": "Suivant",
     
+    "_comment From components Auth|Registration RegistrationPersonalInfo": "ReCheck For changes",
+    "I agree to the terms and conditions as set out by the user agreement":"J'accepte les termes et conditions énoncés dans le contrat d'utilisation",
+    "I want to stay up to date and receive newsletters from KinoKlik!":"Je souhaite rester informé et recevoir les newsletters de KinoKlik !",
+    "Viewers":"Les spectateurs",
+    "Film Ecosystem & Industry Players": "Ecosystème cinématographique & acteurs de l'industrie",
+    "Investors & VCs Updates":"Mises à jour des investisseurs et des sociétés de capital-risque",
+    "KinoKlik Technical Updates":"Mises à jour techniques de KinoKlik",
+    "All Newsletters":"Lettres d'information",
+    "Filmmakers (Directors & Producers)":"Réalisateur (Réalisateurs et Producteurs)",
+
+
+    "_comment From Input coverForm and detailsFepkForm also miscellaneis Request Button": "ReCheck For changes",
+
     "_comment From Actors Page": "This is a comment. 8 changes",
 "Actors": "Acteurs",
 "Actress": "Actrice",  
@@ -20,7 +35,6 @@
 "Account": "Compte",
 "_comment From AdminDashBoard EPKsPage":"no changes",
 "_comment From AdminDashBoard MainPage":"1 change",
-"Profile": "Profil",
 "Users & Filmmakers": "Utilisateurs et cinéastes",
 "_comment From AdminDashBoard UsersPage":"no changes",
 
@@ -158,7 +172,7 @@
 
 "_comment From Components AuthRegistration EmailVerification":"0 CHanges.",
 "_comment From Components AuthRegistration Login":"2 CHanges.",
- "Please enter email":"",
+ "Please enter email":"Veuillez entrer votre Email",
  "Please enter password":"Veuillez entrer le mot de passe",
 
 "_comment From Components AuthRegistration LoginForm":"6 CHanges.",
@@ -170,7 +184,6 @@
 "Reset my Password":"Réinitialiser mon mot de passe",
 
 "_comment From Components AuthRegistration LoginFormViewPage":"2 CHanges.",
- "LinePlease enter email":"",
  "password":"mot de passe",
  
  "_comment From Components AuthRegistration register":"3 CHanges.",
@@ -189,7 +202,7 @@
  "_comment From Components AuthRegistration registration":"1 CHanges.",
  "Sign Up Line 163":"S'inscrire",
 
- "_comment From Components AuthRegistration RegistrationPeronalInfo":"0 CHanges.",
+
 
  "_comment From Components AuthRegistration RegistrationSuccess":"3 CHanges.",
  "Congratulations!":"Félicitations!",

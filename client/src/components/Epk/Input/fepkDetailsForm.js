@@ -13,8 +13,11 @@ import {
   faUserPlus,
   faUserCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 function FepkDetailsForm() {
+  const { t } = useTranslation();
+
   const [allUserList, setAllUserList] = useState([]);
   const [fepk, setFepk] = useState({});
   const [filteredData, setFilteredData] = useState([]);
@@ -428,7 +431,7 @@ function FepkDetailsForm() {
                   fontSize: "25px",
                 }}
               >
-                EPK Dashboard
+                {t('EPK Dashboard')}
               </h2>
             </div>
             <div className="col-3 m-3">
@@ -446,7 +449,7 @@ function FepkDetailsForm() {
                   fontSize: "20px",
                 }}
               >
-                View EPK Page
+                {t('View EPK Page')}
               </Link>
             </div>
           </div>
@@ -471,7 +474,7 @@ function FepkDetailsForm() {
                           marginBottom: "1%",
                         }}
                       >
-                        Cast & Crew
+                        {t('Cast & Crew')}
                       </h5>
                       <h5
                         className="card-title "
@@ -481,7 +484,7 @@ function FepkDetailsForm() {
                           fontSize: "1.3rem",
                         }}
                       >
-                        Add Cast & Crew members to your EPK!
+                        {t('Add Cast & Crew members to your EPK!')}
                       </h5>
                       <div className="row">
                         <div className="col-3 mt-2">
@@ -649,7 +652,7 @@ function FepkDetailsForm() {
                                   marginBottom: "3%",
                                 }}
                               >
-                                User is not found. Invite via email:
+                                {t('User is not found. Invite via email:')}
                               </p>
                               <input
                                 style={{
@@ -664,7 +667,7 @@ function FepkDetailsForm() {
                                 className="form-control m-10"
                                 // defaultValue=""
                                 value={invitationData.firstName}
-                                placeholder="First Name"
+                                placeholder= {t("First Name")}
                                 name="firstName"
                                 onChange={(e) => {
                                   setInvitationData((prevState) => ({
@@ -771,7 +774,7 @@ function FepkDetailsForm() {
                                 onClick={sendInvitation}
                                 value="save"
                               >
-                                Send Invitation
+                                {t('Send Invitation')}
                               </Button>
                             </>
                           ) : disabledAdd ? (
@@ -789,7 +792,7 @@ function FepkDetailsForm() {
                               onClick={addUserToTable}
                               value="save"
                             >
-                              Save to EPK
+                              {t('Save to EPK')}
                             </Button>
                           ) : (
                             <Button
@@ -804,7 +807,7 @@ function FepkDetailsForm() {
                               onClick={addUserToTable}
                               value="save"
                             >
-                              Save to EPK
+                              {t('Save to EPK')}
                             </Button>
                           )}
                         </div>
@@ -835,13 +838,13 @@ function FepkDetailsForm() {
                         >
                           <thead className="thead-dark">
                             <tr>
-                              <th>NAME</th>
-                              <th>EPK ROLE</th>
-                              <th>IMAGE</th>
-                              <th>FB</th>
-                              <th>IG</th>
-                              <th>TW</th>
-                              <th>STATUS</th>
+                              <th>{t('NAME')}</th>
+                              <th>{t('EPK ROLE')}</th>
+                              <th>{t('IMAGE')}</th>
+                              <th>{t('FB')}</th>
+                              <th>{t('IG')}</th>
+                              <th>{t('TW')}</th>
+                              <th>{t('STATUS')}</th>
                               <th></th>
                             </tr>
                           </thead>
