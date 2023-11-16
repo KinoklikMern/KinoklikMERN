@@ -89,7 +89,7 @@ const Landing8 = () => {
         <div className='tw-flex tw-items-center tw-justify-center tw-p-6'>
           <a
             className='tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-midnight tw-px-4 tw-py-2 tw-text-xl tw-font-bold  tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5  hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base'
-            href='/'
+            href='/catalog'
           >
             Browse EPKs
           </a>

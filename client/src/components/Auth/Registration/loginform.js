@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 import io from "socket.io-client";
+import { useTranslation } from 'react-i18next';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
@@ -21,6 +22,9 @@ function LoginForm() {
   // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // For Translation
+  const { t } = useTranslation();
 
   //individual login form
   const handleInputChange = (e) => {
@@ -36,7 +40,7 @@ function LoginForm() {
   const handleSubmit = async () => {
     // Check if no email or password is provided
     if (!email || !password) {
-      setError("Please provide both email and password.");
+      setError(t("Please provide both email and password."));
       return;
     }
     console.log(email, password);
@@ -113,7 +117,7 @@ function LoginForm() {
                 className={Logincss.form_input}
                 value={email}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Email"
+                placeholder={t("Email")}
               />
             </div>
             <br />
@@ -125,7 +129,7 @@ function LoginForm() {
                 id="password"
                 value={password}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Password"
+                placeholder={t("Password")}
               />
             </div>
             <br />
@@ -138,20 +142,20 @@ function LoginForm() {
                 type="submit"
                 className={Logincss.btn}
               >
-                Sign In
+                {t('Sign In')}
               </button>
               <br />
               <br />
               <p>
-                Don't have an account yet?{" "}
+                {t("Don't have an account yet?")}{" "}
                 <a href="/signup" className={Logincss.link}>
-                  Create Account
+                  {t('Create Account')}
                 </a>
               </p>{" "}
               <p>
-                Forgot password?{" "}
+                {t("Forgot password?")}{" "}
                 <a href="/sendresetpasswordlink" className={Logincss.link}>
-                  Reset my Password
+                  {t('Reset my Password')}
                 </a>
               </p>
             </div>

@@ -6,10 +6,12 @@ import List from "../List/ListActor";
 import http from "../../http-common";
 import { useState, useEffect } from "react";
 import { FepkContext } from "../../context/FepkContext.js";
+import { useTranslation } from 'react-i18next';
 
 const HomeBodyActor = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
+  const { t } = useTranslation();
 
 
 
@@ -25,13 +27,13 @@ const HomeBodyActor = ({ role }) => {
         </div>
         <div>
           <div className='listTitle'>
-            <span>MOST STARRED</span>
+            <span>{t('MOST STARRED')}</span>
           </div>
           <List title='most_starred' type={filterQuery} />
         </div>
         <div>
           <div className='listTitle'>
-            <span>MOST FOLLOWED</span>
+            <span>{t('MOST FOLLOWED')}</span>
           </div>
           <List title='most_followed' type={filterQuery} />
         </div>

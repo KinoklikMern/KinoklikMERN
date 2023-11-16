@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import http from "../../../http-common";
 import { Button, Col, Row } from "antd";
+import { useTranslation } from 'react-i18next';
+
 function CoverForm() {
   //const [movieId, setMovieId] = useState("");
   const [file1, setFile1] = useState("");
