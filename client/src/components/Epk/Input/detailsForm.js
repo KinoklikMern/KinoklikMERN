@@ -229,7 +229,7 @@ const DetailsForm = () => {
                   }}
                 />
                 <input
-                  name="Editor"
+                  name={t("Editor")}
                   style={{
                     height: "30px",
                     width: "250px",
@@ -244,7 +244,7 @@ const DetailsForm = () => {
                   }}
                 />
                 <input
-                  name="sound"
+                  name={t("sound")}
                   style={{
                     height: "30px",
                     width: "250px",
@@ -299,7 +299,7 @@ const DetailsForm = () => {
                     marginBottom: "25px",
                   }}
                 >
-                  Starring
+                  {t("Starring")}
                 </h4>
                 <input
                   name="leadActor1"

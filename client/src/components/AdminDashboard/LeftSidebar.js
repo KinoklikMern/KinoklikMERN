@@ -8,8 +8,10 @@ import AnalyticsActiveIcon from "../../images/icons/img_analyticsicon.svg";
 import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
 import adminImg from "../../images/img_ellipse9.png";
+import {useTranslation} from 'react-i18next';
 
 export default function LeftSidebar(props) {
+  const { t } = useTranslation();
   const SELECTED_TAB = props.selectedTab;
 
   const Role = props.role;
@@ -180,7 +182,7 @@ export default function LeftSidebar(props) {
             alt="ellipseTwelve"
           />
           <p className="tw-font-inter tw-mt-1 tw-text-base tw-text-white">
-            KinoKlik Admin
+            {t("KinoKlik Admin")}
           </p>
         </div>
       </nav>
