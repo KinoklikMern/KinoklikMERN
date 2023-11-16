@@ -1,7 +1,10 @@
 import React from "react";
 import CastCard from "./CastCard";
+import { useTranslation } from 'react-i18next';
 
 export default function EpkCast({ epkInfo }) {
+  const { t } = useTranslation();
+
   const IMAGE_URL_PRIFIX = `${process.env.REACT_APP_AWS_URL}`;
   const castList = epkInfo.crew.filter((cast) =>
     cast.epkRole.includes("actor")
@@ -15,7 +18,7 @@ export default function EpkCast({ epkInfo }) {
   return castList.length !== 0 ? (
     <div className="tw-my-3 tw-bg-white tw-text-[#1E0039]">
       <div className="tw-flex tw-justify-center">
-        <p className="tw-text-[3rem]">Starring</p>
+        <p className="tw-text-[3rem]">{t('Starring')}</p>
       </div>
       <div className="tw-py-4">
         {castList.map((cast, index) => (

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RegistrationSuccess from "./RegistrationSuccess";
 import RoleChoice from "./RoleChoise";
+import { useTranslation } from 'react-i18next';
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
@@ -21,59 +22,60 @@ function RegistrationForm() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   //individual registration form
   const options = [
     {
-      label: "Filmmaker",
+      label: (t("Filmmaker")),
       value: "Filmmaker",
     },
     {
-      label: "Actor",
+      label: (t("Actor")),
       value: "Actor",
     },
     {
-      label: "Distributor",
+      label: (t("Distributor")),
       value: "Distributor",
     },
     {
-      label: "Sales_Agent",
+      label: (t("Sales_Agent")),
       value: "Sales Agent",
     },
     {
-      label: "Film_Festival",
+      label: (t("Film_Festival")),
       value: "Film Festival",
     },
     {
-      label: "Investor",
+      label: (t("Investor")),
       value: "Investor",
     },
     {
-      label: "Viewer",
+      label: (t("Viewer")),
       value: "Viewer",
     },
     {
-      label: "Producer",
+      label: (t("Producer")),
       value: "Producer",
     },
     {
-      label: "Cinematographer",
+      label: (t("Cinematographer")),
       value: "Cinematographer",
     },
     {
-      label: "Editor",
+      label: (t("Editor")),
       value: "Editor",
     },
     {
-      label: "Writer",
+      label: (t("Writer")),
       value: "Writer",
     },
     {
-      label: "Director",
+      label: (t("Director")),
       value: "Director",
     },
     {
-      label: "Sound",
+      label: (t("Sound")),
       value: "Sound",
     },
   ];
@@ -109,22 +111,22 @@ function RegistrationForm() {
       !confirmPassword ||
       !role
     ) {
-      setError("All fields are required.");
+      setError(t("All fields are required."));
       return;
     }
 
     if (!isValidEmail.test(email)) {
-      setError("Invalid Email");
+      setError(t("Invalid Email"));
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t("Passwords do not match."));
       return;
     }
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters long!");
+      setError(t("Password must be at least 8 characters long!"));
       return;
     }
 
@@ -141,7 +143,7 @@ function RegistrationForm() {
       );
 
       if (data.emailExists) {
-        setError("Email is already in use.");
+        setError(t("Email is already in use."));
         return;
       }
 
@@ -163,7 +165,7 @@ function RegistrationForm() {
   return (
     <>
       <div className={SignupCss.bg}>
-        <div className={SignupCss.form_title}>Sign up for KinoKlik </div>
+        <div className={SignupCss.form_title}>{t('Sign up for KinoKlik')}</div>
         <div
           className={SignupCss.form}
           style={{
@@ -196,7 +198,7 @@ function RegistrationForm() {
                 value={firstName}
                 onChange={(e) => handleInputChange(e)}
                 id="firstName"
-                placeholder="First Name"
+                placeholder= {t("First Name")}
               />
             </div>
             <div className={SignupCss.form_input}>
@@ -207,7 +209,7 @@ function RegistrationForm() {
                 value={lastName}
                 onChange={(e) => handleInputChange(e)}
                 id="lastName"
-                placeholder="LastName"
+                placeholder= {t("LastName")}
               />
             </div>
             <div className={SignupCss.form_input}>
@@ -218,7 +220,7 @@ function RegistrationForm() {
                 id="email"
                 value={email}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Email"
+                placeholder={t("Email")}
               />
             </div>
 
@@ -231,7 +233,7 @@ function RegistrationForm() {
                 id="password"
                 value={password}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Password"
+                placeholder={t("Password")}
               />
             </div>
             <div>
@@ -243,16 +245,16 @@ function RegistrationForm() {
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Confirm Password"
+                placeholder={t("Confirm Password")}
               />
             </div>
           </div>
           <div className={SignupCss.form_Message}>
-            <button>Next</button>
+            <button>{t("Next")}</button>
             <p>
-              already signed up?{" "}
+              {t("already signed up?")}{" "}
               <Link to="/login" className={SignupCss.link}>
-                Login
+                {t('Login')}
               </Link>
             </p>
             {/* Render the success component */}
@@ -265,7 +267,7 @@ function RegistrationForm() {
               type="submit"
               className={SignupCss.btn}
             >
-              Sign Up
+              {t('Sign Up')}
             </button>
           </div>
         </div>

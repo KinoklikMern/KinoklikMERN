@@ -15,8 +15,11 @@ import MessageIcon from "../../images/icons/message.svg";
 import MessageWhiteIcon from "../../images/icons/message-white.svg";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 export default function Sidebar(props) {
+  const { t } = useTranslation();
+
   const SELECTED_TAB = props.selectedTab;
 
   const { notificationCount, messageCount, userInfo, clearMessageCount } =
@@ -60,7 +63,7 @@ export default function Sidebar(props) {
       },
     },
     {
-      Title: "Notifications",
+      Title: (t("Notifications")),
       DefaultIcon: BellIcon,
       ActiveIcon: BellWhiteIcon,
       href: "/dashboard/notifications",
@@ -70,7 +73,7 @@ export default function Sidebar(props) {
       },
     },
     {
-      Title: "Messages",
+      Title: (t("Messages")),
       DefaultIcon: MessageIcon,
       ActiveIcon: MessageWhiteIcon,
       href: "/dashboard/chat",
@@ -81,7 +84,7 @@ export default function Sidebar(props) {
     },
 
     {
-      Title: "Starred",
+      Title: (t("Starred")),
       DefaultIcon: StarIcon1,
       ActiveIcon: StarWhiteIcon1,
       href: "/dashboard/starred",
@@ -91,7 +94,7 @@ export default function Sidebar(props) {
       },
     },
     {
-      Title: "Following",
+      Title: (t("Following")),
       DefaultIcon: PlusIcon,
       ActiveIcon: PlusWhiteIcon,
       href: "/dashboard/following",
@@ -101,7 +104,7 @@ export default function Sidebar(props) {
       },
     },
     {
-      Title: "WishToBuy",
+      Title: (t("WishToBuy")),
       DefaultIcon: DollarIcon,
       ActiveIcon: DollarWhiteIcon,
       href: "/dashboard/wishtobuy",
@@ -122,7 +125,7 @@ export default function Sidebar(props) {
     //   },
     // },
     {
-      Title: "Settings",
+      Title: (t("Settings")),
       DefaultIcon: SettingsIcon,
       ActiveIcon: SettingsWhiteIcon,
       href: "/dashboard/settings",

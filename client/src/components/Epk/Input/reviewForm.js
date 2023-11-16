@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const ReviewForm = () => {
+  const { t } = useTranslation();
+
   const [review1Magazine, setReview1Magazine] = useState(null);
   const [review1Review, setReview1Review] = useState(null);
   const [review1Award, setReview1Award] = useState(null);
@@ -98,7 +101,7 @@ const ReviewForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -112,7 +115,7 @@ const ReviewForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -121,7 +124,7 @@ const ReviewForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Reviews
+          {t('Reviews')}
         </h5>
         <Row justify="space-around" className="text-center ">
           <Col style={{ width: "1400px", height: "300px" }} className="m-2">
@@ -338,7 +341,7 @@ const ReviewForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

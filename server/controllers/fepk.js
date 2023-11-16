@@ -1023,3 +1023,28 @@ export const getMostPopular = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+// Transfer EPK ownership
+export const transferEpkOwnership = async (req, res) => {
+  const epkId = req.params.epkId; // Get the EPK ID from the request parameters
+  const newFilmmakerId = req.body.newFilmmakerId; // Get the new filmmaker ID from the request body
+
+  try {
+    // Find the EPK by ID and update the film_maker field
+    const updatedEpk = await fepk
+      .findByIdAndUpdate(
+        epkId,
+        { film_maker: newFilmmakerId },
+        { new: true, runValidators: true } // Return the updated document and run schema validators
+      )
+      .populate("film_maker"); // Repopulate the film_maker field to return the updated filmmaker information
+
+    if (!updatedEpk) {
+      return res.status(404).json({ message: "EPK not found." });
+    }
+
+    res.status(200).json(updatedEpk);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

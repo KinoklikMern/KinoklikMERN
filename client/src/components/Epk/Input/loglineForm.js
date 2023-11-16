@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const LoglineForm = () => {
   const [image, setImage] = useState(null);
@@ -39,6 +40,8 @@ const LoglineForm = () => {
     console.log(message);
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -65,7 +68,7 @@ const LoglineForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -79,7 +82,7 @@ const LoglineForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -88,7 +91,7 @@ const LoglineForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Logline
+          {t('Logline')}
         </h5>
         <Row justify="space-around" className="text-center ">
           <Col style={{ width: "1000px" }} className="m-2 ">
@@ -149,7 +152,7 @@ const LoglineForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

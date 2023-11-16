@@ -3,8 +3,11 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
 import {validatename, validatePhone,validateWebsite,validateFollowers,cityInfo}from './validation.js';
+import { useTranslation } from 'react-i18next';
 
 export default function Profile() {
+  const { t } = useTranslation();
+
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
@@ -277,7 +280,7 @@ export default function Profile() {
           <input
             type="text"
             name="phone"
-            placeholder="Phone"
+            placeholder= {t("Phone")}
             value={userProfileData.phone}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -289,7 +292,7 @@ export default function Profile() {
           <input
             type="text"
             name="website"
-            placeholder="Website"
+            placeholder= {t("Website")}
             value={userProfileData.website}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -364,12 +367,12 @@ export default function Profile() {
                 onChange={handleProfileChange}
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
-                <option value="">Ethnicity</option>
-                <option value="Caucasion">Caucasion</option>
-                <option value="Hispanic">Hispanic</option>
-                <option value="African American">African American</option>
-                <option value="Asian">Asian</option>
-                <option value="Native">Native</option>
+                <option value="">{t('Ethnicity')}</option>
+                <option value="Caucasion">{t('Caucasion')}</option>
+                <option value="Hispanic">{t('Hispanic')}</option>
+                <option value="African American">{t('African American')}</option>
+                <option value="Asian">{t('Asian')}</option>
+                <option value="Native">{t('Native')}</option>
               </select>
               <select
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -379,7 +382,7 @@ export default function Profile() {
                 value={userProfileData.age}
                 onChange={handleProfileChange}
               >
-                <option value="">Age Range</option>
+                <option value="">{t('Age Range')}</option>
                 <option value={"4"}>3-5</option>
                 <option value={"7"}>6-9</option>
                 <option value={"11"}>10-12</option>
@@ -401,8 +404,8 @@ export default function Profile() {
                 onChange={handleProfileChange}
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
-                <option value="">Height</option>
-                <option value={"4'10"}>4'10" or below</option>
+                <option value="">{t('Height')}</option>
+                <option value={"4'10"}>4'10" {t('or below')}</option>
                 <option value={"5'0"}>5'0"</option>
                 <option value={"5'2"}>5'2"</option>
                 <option value={"5'4"}>5'4"</option>
@@ -415,7 +418,7 @@ export default function Profile() {
                 <option value={"6'6"}>6'6"</option>
                 <option value={"6'8"}>6'8"</option>
                 <option value={"6'10"}>6'10"</option>
-                <option value={"7'0"}>7'0" or above</option>
+                <option value={"7'0"}>7'0" {t('or above')}</option>
               </select>
               <select
                 type="text"
@@ -424,16 +427,16 @@ export default function Profile() {
                 onChange={handleProfileChange}
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
-                <option value="">Eyes Color</option>
-                <option value="Black">Black</option>
-                <option value="Blue">Blue</option>
-                <option value="Brown">Brown</option>
-                <option value="Hazel">Hazel</option>
-                <option value="Grey">Grey</option>
-                <option value="Green">Green</option>
-                <option value="Amber">Amber</option>
-                <option value="Red">Red</option>
-                <option value="Violet">Violet</option>
+                <option value="">{t('Eyes Color')}</option>
+                <option value="Black">{t('Black<')}</option>
+                <option value="Blue">{t('Blue')}</option>
+                <option value="Brown">{t('Brown')}</option>
+                <option value="Hazel">{t('Hazel')}</option>
+                <option value="Grey">{t('Grey')}</option>
+                <option value="Green">{t('Green')}</option>
+                <option value="Amber">{t('Amber')}</option>
+                <option value="Red">{t('Red')}</option>
+                <option value="Violet">{t('Violet')}</option>
               </select>
               <select
                 type="text"
@@ -442,17 +445,17 @@ export default function Profile() {
                 onChange={handleProfileChange}
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
-                <option value="">Hair Color</option>
-                <option value="Black">Black</option>
-                <option value="Blonde">Blonde</option>
-                <option value="Brown">Brown</option>
-                <option value="Red">Red</option>
-                <option value="Grey">Grey</option>
-                <option value="White">White</option>
-                <option value="Auburn">Auburn</option>
-                <option value="Salt & Pepper">Salt & Pepper</option>
-                <option value="Chestnut">Chestnut</option>
-                <option value="Bald">Bald</option>
+                <option value="">{t('Hair Color')}</option>
+                <option value="Black">{t('Black')}</option>
+                <option value="Blonde">{t('Blonde')}</option>
+                <option value="Brown">{t('Brown')}</option>
+                <option value="Red">{t('Red')}</option>
+                <option value="Grey">{t('Grey')}</option>
+                <option value="White">{t('White')}</option>
+                <option value="Auburn">{t('Auburn')}</option>
+                <option value="Salt & Pepper">{t('Salt & Pepper')}</option>
+                <option value="Chestnut">{t('Chestnut')}</option>
+                <option value="Bald">{t('Bald')}</option>
               </select>
               <select
                 type="text"
@@ -461,14 +464,14 @@ export default function Profile() {
                 onChange={handleProfileChange}
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
-                <option value="">Body Build</option>
-                <option value="Slim">Slim</option>
-                <option value="Medium">Medium</option>
-                <option value="Muscular">Muscular</option>
-                <option value="Large">Large</option>
-                <option value="Very Large">Very Large</option>
-                <option value="Athletic">Athletic/Toned</option>
-                <option value="Curvy">Curvy</option>
+                <option value="">{t('Body Build')}</option>
+                <option value="Slim">{t('Slim')}</option>
+                <option value="Medium">{t('Medium')}</option>
+                <option value="Muscular">{t('Muscular')}</option>
+                <option value="Large">{t('Large')}</option>
+                <option value="Very Large">{t('Very Large')}</option>
+                <option value="Athletic">{t('Athletic')}/Toned</option>
+                <option value="Curvy">{t('Curvy')}</option>
               </select>
             </>
           ) : null}
@@ -481,7 +484,7 @@ export default function Profile() {
               style={{
                 backgroundImage: `url(${backgroundImageUrl})`,
               }}
-              title="Click to change image"
+              title={t("Click to change image")}
             ></div>
           </label>
           <input
@@ -504,14 +507,14 @@ export default function Profile() {
                 marginBottom: "20px",
               }}
             >
-              Save
+              {t('Save')}
             </button>
           ) : (
             <button
               className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
               onClick={() => saveUserProfile()}
             >
-              Save
+              {t('Save')}
             </button>
           )}
         </div>
@@ -544,7 +547,7 @@ export default function Profile() {
             <h2>Updated profile successfully!</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+              {t('Ok')}
             </button>
           </div>
         </Modal>
@@ -568,7 +571,7 @@ export default function Profile() {
           <input
             type="text"
             name="facebook_followers"
-            placeholder="Facebook Followers"
+            placeholder= {t("Facebook Followers")}
             value={userProfileData.facebook_followers}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -593,7 +596,7 @@ export default function Profile() {
           <input
             type="text"
             name="instagram_followers"
-            placeholder="Instagram Followers"
+            placeholder= {t("Instagram Followers")}
             value={userProfileData.instagram_followers}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -618,7 +621,7 @@ export default function Profile() {
           <input
             type="text"
             name="twitter_followers"
-            placeholder="Twitter Followers"
+            placeholder= {t("Twitter Followers")}
             value={userProfileData.twitter_followers}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
@@ -668,7 +671,7 @@ export default function Profile() {
           <input
             type="text"
             name="linkedin_followers"
-            placeholder="LinkedIn Followers"
+            placeholder={t("LinkedIn Followers")}
             value={userProfileData.linkedin_followers}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
