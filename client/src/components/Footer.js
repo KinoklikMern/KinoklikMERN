@@ -29,7 +29,7 @@ function Footer() {
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
-                KinoKlik EPK
+                {t('KinoKlik EPK')}
               </h5>
               <Link to='/forFilmMakers' className='footer-li tw-mb-2 tw-block'>
                 {t('For Filmmakers')}

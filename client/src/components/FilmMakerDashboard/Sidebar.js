@@ -53,7 +53,7 @@ export default function Sidebar(props) {
   // console.log("notificationCount", notificationCount);
   const sideBarList = [
     {
-      Title: "EPKs",
+      Title: (t("EPKs")),
       DefaultIcon: StarIcon,
       ActiveIcon: StartWhiteIcon,
       href: "/dashboard/epks",
