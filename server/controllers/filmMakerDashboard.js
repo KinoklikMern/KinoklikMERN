@@ -150,3 +150,45 @@ export const getSalesAgentsEpkRequests = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+// search filmmaker by name
+// export const searchFilmmakers = async (req, res) => {
+//   const searchTerm = req.query.name;
+//   if (!searchTerm) {
+//     return res.status(400).json({ message: "Search term is required." });
+//   }
+
+//   try {
+//     const regex = new RegExp(searchTerm, "i"); // 'i' for case-insensitive
+//     const filmmakers = await User.find({ name: regex, role: "Filmmaker" });
+
+//     const formattedFilmmakers = filmmakers.map((filmmaker) => ({
+//       id: filmmaker._id,
+//       name: filmmaker.name,
+//       role: filmmaker.role,
+//       image: filmmaker.picture,
+//     }));
+
+//     res.status(200).json(formattedFilmmakers);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
+export const searchFilmmakers = async (req, res) => {
+  const searchTerm = req.query.name;
+  try {
+    const results = await User.find({
+      $or: [
+        { firstName: { $regex: searchTerm, $options: "i" } },
+        { lastName: { $regex: searchTerm, $options: "i" } },
+      ],
+      role: "Filmmaker", // If you want to search for actors, or change to 'Filmmaker' if needed
+      // Add other filters if necessary
+    }).select("firstName lastName role picture");
+
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

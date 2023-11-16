@@ -16,6 +16,7 @@ import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess
 import { useSelector } from "react-redux";
 import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
 import { FepkContext } from "../context/FepkContext";
+import EPKSideMenu from "../components/Epk/EpkSideMenu";
 
 function FepkEditDashboard() {
   const [fepk, setFepk] = useState([]);
@@ -54,6 +55,7 @@ function FepkEditDashboard() {
     </div>
   ) : (
     <>
+      <EPKSideMenu epkId={fepkId} filmmakerId={user.id} />
       {access === true ? (
         <div>
           <div
@@ -61,7 +63,7 @@ function FepkEditDashboard() {
               display: "flex",
               justifyContent: "space-between",
               margin: "1% 10%",
-              marginBottom: "0"
+              marginBottom: "0",
             }}
           >
             <SectionButton
