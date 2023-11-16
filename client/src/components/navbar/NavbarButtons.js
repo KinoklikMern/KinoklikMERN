@@ -86,7 +86,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
           >
             <button
               className={`toggle tw-mr-4 tw-bg-transparent ${
-                toggle ? "active" : ""
+                toggle ? "activeNavItem" : ""
               }`}
             >
               <div className='bars' id='bar1'></div>

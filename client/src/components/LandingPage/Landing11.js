@@ -12,7 +12,7 @@ const Landing11 = () => {
       </div>
       <div className='tw-w-2/4 tw-text-center md:tw-w-1/4'>
         <button className='tw-mt-8 tw-rounded-3xl tw-bg-midnight tw-p-3 tw-font-bold tw-text-white md:tw-mt-0'>
-          Sign up from newsletter
+          Sign up for newsletter
         </button>
       </div>
     </div>
