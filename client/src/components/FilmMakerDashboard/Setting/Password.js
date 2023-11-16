@@ -145,7 +145,7 @@ export default function Password() {
             <h2>{message}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+            ok
             </button>
           </div>
         </Modal>

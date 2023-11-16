@@ -1,60 +1,64 @@
-import React from 'react';
+import React from "react";
 //import "./Landing5.css";
 
 const Landing9 = () => {
-    return (
-        <>
-        <div>
-        <div className="landing9 tw-flex tw-justify-center tw-mt-20">
-          <p className="tw-text-2xl">
-            A good EPK helps you communicate your vision.
-            <br /><br/>
-            A great EPK helps you promote your vision. <br /><br/>
-           <b>KinoKlik EPK helps you communicate, promote and sell your vision.</b> 
+  return (
+    <>
+      <div>
+        <div className='landing9 tw-mt-20 tw-flex tw-items-center tw-justify-center'>
+          <p className='tw-text-center tw-text-2xl tw-font-bold tw-text-midnight md:tw-text-3xl'>
+            Present and promote your film's vision to industry professionals
+            with KinoKlik EPK.
           </p>
         </div>
-      
-        <div className="tw-mt-12 tw-mr-20 tw-ml-20 ">
-          <div className="tw-flex sm:tw-flex-row-1 lg:tw-flex-col-3 tw-pt-28 tw-pl-28 tw-mt-12 tw-align-middle tw-text-center tw-space-x-8 ">
-            <div className="tw-p-10  tw-py-20 tw-border tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
-              <h2 className="tw-text-white tw-text-2xl tw-font-bold tw-mb-4">Step 1. </h2>
-              <p className="tw-text-white tw-text-xl">
+
+        <div className='tw-mt-12'>
+          <div className='tw-flex tw-flex-col tw-items-center tw-justify-center tw-space-y-10 tw-text-center lg:tw-flex-row lg:tw-space-x-20 lg:tw-space-y-0'>
+            <div className='tw-h-64 tw-w-80 tw-rounded-3xl tw-border tw-border-gray-400 tw-bg-[#1E1E1E] tw-p-10 tw-py-20 '>
+              <h2 className='tw-mb-4 tw-text-2xl tw-font-bold tw-text-white'>
+                Step 1.{" "}
+              </h2>
+              <p className='tw-text-xl tw-text-white'>
                 Create a free filmmaker account.
               </p>
             </div>
-            <div className="tw-p-10 tw-py-20 tw-border tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
-              <h2 className="tw-text-white tw-text-2xl tw-font-bold tw-mb-4">Step 2. </h2>
-              <p className="tw-text-white tw-text-xl">
-                Upload your film info to the EPK Page.
+            <div className='tw-h-64 tw-w-80 tw-rounded-3xl tw-border tw-border-gray-400 tw-bg-[#1E1E1E] tw-p-10 tw-py-20 '>
+              <h2 className='tw-mb-4 tw-text-2xl tw-font-bold tw-text-white'>
+                Step 2.{" "}
+              </h2>
+              <p className='tw-text-xl tw-text-white'>
+                Upload your film details to the EPK Page
               </p>
             </div>
-  
-            <div className="tw-p-10 tw-py-20 tw-border  tw-bg-black tw-border-gray-400 tw-rounded-2xl tw-flex-1 ">
-              <h2 className="tw-text-white tw-text-2xl tw-font-bold tw-mb-4">Step 3. </h2>
-              <p className="tw-text-white tw-text-xl">
+
+            <div className='tw-h-64 tw-w-80 tw-rounded-3xl tw-border tw-border-gray-400 tw-bg-[#1E1E1E] tw-p-10 tw-py-20 '>
+              <h2 className='tw-mb-4 tw-text-2xl tw-font-bold tw-text-white'>
+                Step 3.{" "}
+              </h2>
+              <p className='tw-text-xl tw-text-white'>
                 Share your film EPK page with the world and track interest!
               </p>
             </div>
           </div>
-         
-          <div className="tw-text-4xl tw-font-semibold tw-flex tw-justify-center tw-mt-20 ">
-           <p className='tw-pt-3'> Are you ready to create</p> 
-            <div className="tw-mx-5 align:tw-middle tw-bg-white tw-text-black tw-border-2 tw-border-black tw-rounded-xl tw-p-4 tw-rotate-12">
+
+          <div className='tw-mt-20 tw-flex tw-justify-center tw-text-center tw-text-lg tw-font-bold tw-text-midnight sm:tw-text-xl md:tw-text-4xl'>
+            <p className='tw-pt-3'> Are you ready to create</p>
+            <div className='align:tw-middle tw-mx-5 tw-rotate-12 tw-rounded-lg tw-border-2 tw-border-black tw-bg-white tw-p-2 tw-text-midnight md:tw-rounded-3xl md:tw-p-4'>
               Amazing
             </div>
             <p className='tw-pt-3'> film EPKs? </p>
           </div>
-          <div className="tw-flex tw-justify-center tw-mt-20 tw-mb-20 sm:tw-mt-6 tw-grid-cols-2 ">
-          <a
-            className="tw-inline-block tw-px-5 tw-py-2 tw-rounded-lg tw-bg-black hover:tw-bg-violet-900 hover:tw--translate-y-0.5 focus:tw-outline-none tw-tracking-wider tw-font-bold tw-text-2xl tw-text-white tw-shadow-lg sm:tw-text-base tw-mr-4 "
-            href="/"
-          >
-            Create EPK
-          </a>
-        </div>
+          <div className='tw-mb-20 tw-mt-20 tw-flex tw-grid-cols-2 tw-justify-center sm:tw-mt-6 '>
+            <a
+              className='tw-mr-4 tw-inline-block tw-rounded-xl tw-bg-midnight tw-px-5 tw-py-2 tw-text-2xl tw-font-bold tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-900 focus:tw-outline-none'
+              href='/'
+            >
+              Create EPK
+            </a>
+          </div>
         </div>
       </div>
-        </>
-    )
-}
+    </>
+  );
+};
 export default Landing9;

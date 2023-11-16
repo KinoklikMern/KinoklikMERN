@@ -4,6 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
+
+
+
 export default function ListItem({ title, status, type, role }) {
   const [actors, setActors] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -22,11 +25,14 @@ export default function ListItem({ title, status, type, role }) {
         let response = null;
 
         switch (title) {
-          case "starred":
-            response = await http.get(`users/starred/${user.id}`);
-            break;
-          case "following":
-            response = await http.get(`users/getfollowing/${user.id}`);
+          // case "starred":
+          //   response = await http.get(`users/starred/${user.id}`);
+          //   break;
+          // case "following":
+          //   response = await http.get(`users/getfollowing/${user.id}`);
+          //   break;
+          case "all_actors":
+            response = await http.get(`users/getactors`);
             break;
           case "most_starred":
             response = await http.get(`users/mostlikes`);
@@ -34,12 +40,7 @@ export default function ListItem({ title, status, type, role }) {
           case "most_followed":
             response = await http.get(`users/mostfollowed`);
             break;
-          case "pre-production":
-            response = await http.get(`users/production`);
-            break;
-          case "production":
-            response = await http.get(`users/preproduction`);
-            break;
+         
           default:
             return;
         }

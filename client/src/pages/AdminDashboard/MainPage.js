@@ -6,6 +6,7 @@ import TopToolBar from "../../components/AdminDashboard/TopToolBar";
 import Users from "../../images/icons/people-3-v3-white.svg";
 import DollarIcon from "../../images/icons/DollarIcon.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
+import {useTranslation} from 'react-i18next';
 import starWhite from "../../images/icons/StarFULL.svg";
 import plusWhite from "../../images/icons/PlusWhite.svg";
 import referralIcon from "../../images/icons/referral-sign-white.svg";
@@ -13,6 +14,7 @@ import Triangle from "../../images/icons/triangle.svg";
 import http from "../../http-common";
 
 export default function MainPage() {
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
 

@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
+import {useTranslation} from 'react-i18next';
 //import styles from "../styles/Home.module.css";
 
 export default function UploadImage() {
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
   const fileInputRef = useRef(HTMLInputElement);
@@ -38,7 +40,7 @@ export default function UploadImage() {
               fileInputRef.current.click();
             }}
           >
-            Add Image
+           {t('Add Image')}
           </button>
         )}
 

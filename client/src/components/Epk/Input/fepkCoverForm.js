@@ -24,6 +24,7 @@ function FepkCoverForm() {
   const [posterPreviewUrl, setPosterPreviewUrl] = useState("");
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -193,6 +194,18 @@ function FepkCoverForm() {
         return true;
       else return false;
     } else return true;
+  };
+
+
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    e.currentTarget.style.display = "flex";
+    e.currentTarget.style.justifyContent = "center";
+    e.currentTarget.style.alignItems = "center";
+    e.currentTarget.innerHTML =
+      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
+    setIsUploading(true);
+    saveEpkCover(e);
   };
 
   const saveEpkCover = (e) => {
@@ -796,7 +809,7 @@ function FepkCoverForm() {
                     }}
                     type="outline-primary"
                     block
-                    onClick={saveEpkCover}
+                    onClick={handleSaveClick}
                     value="save"
                   >
                     Save

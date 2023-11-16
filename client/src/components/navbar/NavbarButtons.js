@@ -4,17 +4,21 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useMatch } from "react-router-dom";
 import Cookies from "js-cookie";
-
+import "./NavbarToggle.css";
 import { useDispatch } from "react-redux";
 import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FepkContext } from "../../context/FepkContext";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 //import Login from "../Auth/Registration/login";
 //import Register from "../Auth/Registration/register";
 
 function NavbarButtons({ user, setToggle, toggle }) {
+  const { t } = useTranslation();
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
   const [userToggle, setUserToggle] = useState(false);
@@ -64,41 +68,30 @@ function NavbarButtons({ user, setToggle, toggle }) {
           <div className='tw-hidden md:tw-flex'>
             <Link
               to='/login'
-              className='md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400'
+              className='md:ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400'
             >
-              SIGN IN
+              {t("SIGN IN")}
             </Link>
 
             <Link
               to={user ? "/uploadFepk" : "/signup"}
-              className='md:ml-10 tw-mr-4 tw-rounded-full tw-border-2 tw-bg-[#712cb0] tw-px-4 tw-text-white tw-drop-shadow-lg hover:tw-text-gray-400'
+              className='md:ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400'
             >
-              REGISTER
+              {t("CREATE EPK")}
             </Link>
           </div>
           <div
             className='tw-flex tw-items-center md:tw-hidden'
             onClick={() => setToggle((prev) => !prev)}
           >
-            <button className='mobile-menu-button tw-rounded-sm tw-bg-purple-200 tw-p-2'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='tw-h-6 tw-w-6'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d={
-                    toggle
-                      ? "M6 18L18 6M6 6l12 12" // 3 lines
-                      : "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" // X
-                  }
-                />
-              </svg>
+            <button
+              className={`toggle tw-mr-4 tw-bg-transparent ${
+                toggle ? "active" : ""
+              }`}
+            >
+              <div className='bars' id='bar1'></div>
+              <div className='bars' id='bar2'></div>
+              <div className='bars' id='bar3'></div>
             </button>
           </div>
         </>

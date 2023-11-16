@@ -11,16 +11,18 @@ const HomeBodyActor = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
-  useEffect(() => {
-    http.get(`fepks/`).then((response) => {
-      setFepks(response.data);
-    });
-  }, []);
+
 
 
   return (
     <>
       <div className='home tw-overflow-y-auto'>
+      <div>
+          <div className='listTitle'>
+            <span>All ACTORS</span>
+          </div>
+          <List title='all_actors' type={filterQuery} />
+        </div>
         <div>
           <div className='listTitle'>
             <span>MOST STARRED</span>

@@ -13,8 +13,10 @@ import ActorPage from "../../images/icons/actorpage.svg";
 import ActorPageWhite from "../../images/icons/actorpageWhite.svg";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 export default function Sidebar(props) {
+  const { t } = useTranslation();
   const SELECTED_TAB = props.selectedTab;
   const Role = props.role;
   console.info("select", SELECTED_TAB);
@@ -22,6 +24,7 @@ export default function Sidebar(props) {
   // Yeming added
   const { messageCount, userInfo, clearMessageCount } =
     useContext(NotificationContext);
+    
 
   // Access the user ID from Redux store
   const userId = useSelector((state) => state.user.id);
@@ -30,6 +33,7 @@ export default function Sidebar(props) {
   const [isScrollable, setIsScrollable] = useState(false);
 
   const sideBarList1 = [
+    
     {
       Title: "Starred",
       DefaultIcon: StarIcon,
