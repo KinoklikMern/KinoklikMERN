@@ -119,7 +119,7 @@ export default function Profile() {
       }
     } else {
       console.log("error");
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
   }
 
@@ -129,14 +129,14 @@ export default function Profile() {
     if (name === 'firstName' || name === 'lastName') {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validatename(value) ? '' : 'Please fill out the required field(more than 3 char)',
+        [name]: validatename(value) ? '' : (t('Please fill out the required field(more than 3 char)')),
       }));
     }
   
     if (name === 'phone') {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
-        phone: validatePhone(value) ? '' : 'Please enter a valid phone number (10 to 15 digits)',
+        phone: validatePhone(value) ? '' : (t('Please enter a valid phone number (10 to 15 digits)')),
       }));
     }
 
@@ -145,7 +145,7 @@ export default function Profile() {
     || (name === 'youtube_url') || (name === 'linkedin_url')) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validateWebsite(value) ? '' : 'Please enter a valid URL',
+        [name]: validateWebsite(value) ? '' : (t('Please enter a valid URL')),
       }));
     }
 
@@ -154,7 +154,7 @@ export default function Profile() {
     || (name === 'youtube_subs')) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validateFollowers(value) ? '' : 'Please enter a valid number of followers',
+        [name]: validateFollowers(value) ? '' : (t('Please enter a valid number of followers')),
       }));
     }
 
@@ -208,7 +208,7 @@ export default function Profile() {
         });
     } else {
       // Display a message or handle the errors appropriately
-      alert('Please fix the validation errors before saving.');
+      alert(t('Please fix the validation errors before saving.'));
     }
   }
   
@@ -308,10 +308,10 @@ export default function Profile() {
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         >
           <option value="">{t('Select City')}</option>
-                <option value="Montreal">Montreal</option>
+                <option value="Montreal">{t("Montreal")}</option>
                 <option value="Toronto">Toronto</option>
                 <option value="New York">New York</option>
-                <option value="Other">Other</option>
+                <option value="Other">{t("Other")}</option>
         </select>
           <select
             type="text"
@@ -325,7 +325,7 @@ export default function Profile() {
                 <option value="Quebec">Quebec</option>
                 <option value="Ontario">Ontario</option>
                 <option value="New York">New York</option>
-                <option value="Other">Other</option>
+                <option value="Other">{t("Other")}</option>
         </select>
            {validationErrors.province && (
            <div className="tw-text-red-500">{validationErrors.province}</div>
@@ -340,7 +340,7 @@ export default function Profile() {
                   <option value="">{t('Select Country')}</option>
                   <option value="Canada">Canada</option>
                   <option value="USA">USA</option>
-                  <option value="Other">Other</option>
+                  <option value="Other">{t("Other")}</option>
                 </select>
 
         </div>
@@ -356,8 +356,8 @@ export default function Profile() {
                 className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
               >
                 <option value="">{t('Gender')}</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
+                <option value="Male">{t("Male")}</option>
+                <option value="Female">{t("Female")}</option>
               </select>
               <select
                 type="text"
@@ -470,7 +470,7 @@ export default function Profile() {
                 <option value="Muscular">{t('Muscular')}</option>
                 <option value="Large">{t('Large')}</option>
                 <option value="Very Large">{t('Very Large')}</option>
-                <option value="Athletic">{t('Athletic')}/Toned</option>
+                <option value="Athletic">{t('Athletic')}/{t("Toned")}</option>
                 <option value="Curvy">{t('Curvy')}</option>
               </select>
             </>
@@ -544,7 +544,7 @@ export default function Profile() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated profile successfully!</h2>
+            <h2>{t("Updated profile successfully!")}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
               {t('Ok')}
@@ -646,7 +646,7 @@ export default function Profile() {
           <input
             type="text"
             name="youtube_subs"
-            placeholder="Youtube Subs"
+            placeholder={t("Youtube Subs")}
             value={userProfileData.youtube_subs}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "

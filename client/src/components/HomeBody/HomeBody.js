@@ -14,8 +14,9 @@ const HomeBody = ({ role }) => {
   const [filterQuery, setFilterQuery] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
 //For Translation
-const { t } = useTranslation();
+
   const [filterTags, setFilterTags] = useState([
+    
     {
       name: ("Movie"),
       isActive: false,
