@@ -306,7 +306,7 @@ export default function NotificationPage() {
                                     disabled
                                     className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white "
                                   >
-                                    Approved
+                                    {t('Approved')}
                                   </button>
                                 )}
                                 {request.status === "pending" && (

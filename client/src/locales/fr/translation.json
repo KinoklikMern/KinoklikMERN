@@ -1,11 +1,12 @@
 
 {
+    "_comment From components Auth|Registration Registration": "ReCheck For changes",
     "All fields are required.":"Tous les champs sont requis.", 
     "Invalid Email":"Email invalide",
     "Passwords do not match.":"Les mots de passe ne correspondent pas.",
     "Password must be at least 8 characters long!":"Le mot de passe doit comporter au moins 8 caractères !",
     "Email is already in use.":"Cet email est déjà utilisé.",
-    "already signed up?":"déjà inscrit ?",
+    "already signed up?":"Déjà inscrit?",
     "Login":"Se connecter",
 
     "Sign up for KinoKlik": "Inscrivez vous pour KinoKlik",
@@ -59,6 +60,7 @@
 "Approve": "Approuvé",
 "Deny": "Refuser",
 "_comment From FimakerDashBoard SettingsPage":"9 changes, Line 15,19,23,27,34,65-68",
+
 
 "_comment From FilmMaker filmMakerDashboared ":"5 changes, Line 47",
 "Create New Film EPK": "Créer un nouveau film EPK",
@@ -248,7 +250,6 @@
  "your password if an account exists for this email address":"votre mot de passe si un compte existe pour cette adresse email",
  "Line Reset Password":"",
  "Already have an account?":"Vous avez déjà un compte?",
- "Line Sign In":"",
  "Line Don't have an account yet?":"",
  "Line Create Account":"",
 
@@ -619,7 +620,7 @@
  "_comment From Components EpkView EpkUniqueness EpkUniqueness":"0 CHanges.",
  "_comment From Components EpkView EpkWorker EpkWorker":"0 CHanges.",
  "_comment From Components EpkView miscellaneous LoginModal":"0 CHanges.",
- "Line50, 95 Sign In":"Se connecter",
+ "Sign In":"Se connecter",
  "Email address":"Adresse e-mail",
  "Line 99 Don't have an account yet?":"Vous n'avez pas encore de compte?",
  "Line 101 Create Account":"Créer un compte",
@@ -676,7 +677,7 @@
  "_comment From Components Filmaker filmMakerDashboardSecurityProfile":"0 CHanges.",
  "Line 154,162,170,":"",
  "Line 245 Upload Avatar":"Télécharger l'avatar",
- "Line 290 Updated profile successfully!":"Profil mis à jour avec succès !",
+ "Updated profile successfully!":"Profil mis à jour avec succès!",
  "Line 296 Ok":"Ok",
  "Line 308":"",
  "Line 315":"",
@@ -733,7 +734,7 @@
 "Height":"Hauteur",
 "Line 268 or below":"ou ci-dessous",
 "Line 281 or above":"ou au-dessus",
-"Eyes Color":"Couleur des yeux",
+"Eye Color":"Couleur des yeux",
 "Black":"Noir",
 "Brown":"Brun",
 "Blue":"Bleue",
@@ -762,7 +763,7 @@
 "Select City": "Sélectionnez une ville",
 "Select Province": "Sélectionnez une province",
 "Select Country": "Choisissez le pays",
-"Gender": "",
+"1Gender": "",
 "Age Range": "Tranche d'âge", 
 "or below":"ou ci-dessous",
 "or above":"ou au-dessus",
@@ -795,6 +796,7 @@
 "MOST FOLLOWED":"LES PLUS SUIVIES",
 "Line 63 PRODUCTION":"Production",
 "Line 69 PRE PRODUCTION":"PRÉ-PRODUCTION",
+"All ACTORS":"Tous les acteurs",
 "_comment From Components HomeHead SearchBar":"0 CHanges.",
 
 "For Industry":"Professionels d'industrie",
@@ -802,7 +804,6 @@
  "Welcome": "Bienvenue",
 
  "_comment From Components navbar NavbarButton":"0 CHanges.",
- "1 SIGN IN":"Connection",
  "1 REGISTER":"Enregistrer",
     
 "I am": "Je suis",
@@ -868,8 +869,6 @@
 "email address": "adresse e-mail",
 
 "New password": "Nouveau mot de passe",
-
-"Gender": "Genre",
 
 "By clicking Sign Up, you agree to our": "En cliquant sur S'inscrire, vous acceptez notre",
 
@@ -956,7 +955,7 @@
 
 "Upload a movie": "Télécharger un film",
 
-"Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Filmmaker peut télécharger un film EPK. Veuillez enregistrer un",
+"Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Cinéaste peut télécharger un film EPK. Veuillez enregistrer un",
 
 "Filmmaker account to complete this action.": "Compte cinéaste pour réaliser cette action.",
 
@@ -986,6 +985,8 @@
 
 "Save": "Enregistrez",
 
+"save": "enregistrez",
+
 "First Name": "Prénom",
 
 "Last Name": "Nom de famille",
@@ -1001,8 +1002,6 @@
 "Province": "Province",
 
 "Country": "Pays",
-
-"Updated profile successfully!": "Profil mis à jour avec succès !",
 
 "Studio Name": "Nom du studio",
 
@@ -1279,9 +1278,76 @@
 
    "Unread": "Non lu",
 
-   "Read": "Lu"
+   "Read": "Lu",
 
+   "Select a conversation to display": "Sélectionnez une conversation à afficher",
+
+   "Your message...": "Votre message...",
+
+   "Enter Cinematographer's Biography here.": "Entrez la biographie du directeur de la photographie ici.",
+
+   "lead_actor": "Acteur_principal",
+   "supporting_actor": "second_rôle",
+   "director": "directeur",
+   "producer": "producteur",
+   "cinematographer": "directeur de la photographie",
+   "editor": "éditeur",
+   "writer": "écrivain",
+   "sound": "son",
+
+   "Please fill out the required field(more than 3 char)": "Veuillez remplir le champ obligatoire (plus de 3 caractères)",
+
+   "Please enter a valid phone number (10 to 15 digits)": "Veuillez saisir un numéro de téléphone valide (10 à 15 chiffres)",
+
+   "Please enter a valid URL": "Veuillez saisir une URL valide",
+
+   "Please enter a valid number of followers": "Veuillez entrer un nombre valide d'abonnés",
+
+   "Please fix the validation errors before saving.": "Veuillez corriger les erreurs de validation avant d'enregistrer.",
+
+   "Other": "Autre",
+
+   "Montreal": "Montréal",
+
+   "Male": "Mâle",
+
+   "Female": "Femelle",
+
+   "Toned": "Tonique",
    
+   "Facebook Followers": "Abonnés Facebook",
+
+   "Instagram Followers": "Abonnés Instagram",
+
+   "Twitter Followers": "Abonnés Twitter",
+
+   "Youtube Subs": "Abonnés Youtube",
+
+   "LinkedIn Followers": "Abonnés LinkedIn",
+
+   "An error occurred while processing the thumbnail image": "Une erreur s'est produite lors du traitement de l'image miniature",
+
+   "video Time Must Be Less Than 5 Min": "La durée de la vidéo doit être inférieure à 5 minutes",
+
+   "An unexpected error occurred": "Une erreur inattendue est apparue",
+
+   "upload success": "Télécharger le succès",
+
+   "error in Mime": "erreur dans Mime",
+
+   "Uploading...": "Téléchargement..."
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

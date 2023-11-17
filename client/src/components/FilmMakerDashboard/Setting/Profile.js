@@ -124,7 +124,7 @@ export default function Profile() {
       }
     } else {
       console.log("error");
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
   }
 
@@ -136,7 +136,7 @@ export default function Profile() {
         ...prevErrors,
         [name]: validatename(value)
           ? ""
-          : "Please fill out the required field(more than 3 char)",
+          : t("Please fill out the required field(more than 3 char)"),
       }));
     }
 
@@ -145,7 +145,7 @@ export default function Profile() {
         ...prevErrors,
         phone: validatePhone(value)
           ? ""
-          : "Please enter a valid phone number (10 to 15 digits)",
+          : t("Please enter a valid phone number (10 to 15 digits)"),
       }));
     }
 
@@ -159,7 +159,7 @@ export default function Profile() {
     ) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validateWebsite(value) ? "" : "Please enter a valid URL",
+        [name]: validateWebsite(value) ? "" : t("Please enter a valid URL"),
       }));
     }
 
@@ -174,7 +174,7 @@ export default function Profile() {
         ...prevErrors,
         [name]: validateFollowers(value)
           ? ""
-          : "Please enter a valid number of followers",
+          : t("Please enter a valid number of followers"),
       }));
     }
 
@@ -228,7 +228,7 @@ export default function Profile() {
         });
     } else {
       // Display a message or handle the errors appropriately
-      alert("Please fix the validation errors before saving.");
+      alert(t("Please fix the validation errors before saving."));
     }
   }
 
@@ -265,7 +265,7 @@ export default function Profile() {
             placeholder='First Name'
             value={userProfileData.firstName}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
           />
           {validationErrors.firstName && (
             <div className='tw-text-red-500'>{validationErrors.firstName}</div>
@@ -277,7 +277,7 @@ export default function Profile() {
             placeholder='Last Name'
             value={userProfileData.lastName}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
           />
           {validationErrors.lastName && (
             <div className='tw-text-red-500'>{validationErrors.lastName}</div>
@@ -289,7 +289,7 @@ export default function Profile() {
             placeholder='Email'
             value={userProfileData.email}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
             disabled={disabled || userRole !== "noUser"}
           />
 
@@ -300,7 +300,7 @@ export default function Profile() {
             placeholder={t("Phone")}
             value={userProfileData.phone}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
           />
           {validationErrors.phone && (
             <div className='tw-text-red-500'>{validationErrors.phone}</div>
@@ -312,7 +312,7 @@ export default function Profile() {
             placeholder={t("Website")}
             value={userProfileData.website}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
           />
           {validationErrors.website && (
             <div className='tw-text-red-500'>{validationErrors.website}</div>
@@ -322,13 +322,13 @@ export default function Profile() {
             name='city'
             value={userProfileData.city}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
           >
             <option value=''>{t("Select City")}</option>
-            <option value='Montreal'>Montreal</option>
+            <option value='Montreal'>{t("Montreal")}</option>
             <option value='Toronto'>Toronto</option>
             <option value='New York'>New York</option>
-            <option value='Other'>Other</option>
+            <option value='Other'>{t("Other")}</option>
           </select>
           <select
             type='text'
@@ -336,13 +336,13 @@ export default function Profile() {
             // placeholder="Province or State"
             value={userProfileData.province}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
           >
             <option value=''>{t("Select Province")}</option>
             <option value='Quebec'>Quebec</option>
             <option value='Ontario'>Ontario</option>
             <option value='New York'>New York</option>
-            <option value='Other'>Other</option>
+            <option value='Other'>{t("Other")}</option>
           </select>
           {validationErrors.province && (
             <div className='tw-text-red-500'>{validationErrors.province}</div>
@@ -352,12 +352,12 @@ export default function Profile() {
             name='country'
             value={userProfileData.country}
             onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
           >
             <option value=''>{t("Select Country")}</option>
             <option value='Canada'>Canada</option>
             <option value='USA'>USA</option>
-            <option value='Other'>Other</option>
+            <option value='Other'>{t("Other")}</option>
           </select>
         </div>
 
@@ -369,11 +369,11 @@ export default function Profile() {
                 name='sex'
                 value={userProfileData.sex}
                 onChange={handleProfileChange}
-                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
               >
                 <option value=''>{t("Gender")}</option>
-                <option value='Male'>Male</option>
-                <option value='Female'>Female</option>
+                <option value='Male'>{t("Male")}</option>
+                <option value='Female'>{t("Female")}</option>
               </select>
               <select
                 type='text'
@@ -381,7 +381,7 @@ export default function Profile() {
                 // placeholder="ethnicity"
                 value={userProfileData.ethnicity}
                 onChange={handleProfileChange}
-                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
               >
                 <option value=''>{t("Ethnicity")}</option>
                 <option value='Caucasion'>{t("Caucasion")}</option>
@@ -393,7 +393,7 @@ export default function Profile() {
                 <option value='Native'>{t("Native")}</option>
               </select>
               <select
-                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
                 type='text'
                 name='age'
                 // placeholder="age"
@@ -420,7 +420,7 @@ export default function Profile() {
                 name='height'
                 value={userProfileData.height}
                 onChange={handleProfileChange}
-                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
               >
                 <option value=''>{t("Height")}</option>
                 <option value={"4'10"}>4'10" {t("or below")}</option>
@@ -443,7 +443,7 @@ export default function Profile() {
                 name='eyesColor'
                 value={userProfileData.eyesColor}
                 onChange={handleProfileChange}
-                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
               >
                 <option value=''>{t("Eyes Color")}</option>
                 <option value='Black'>{t("Black")}</option>
@@ -461,7 +461,7 @@ export default function Profile() {
                 name='hairColor'
                 value={userProfileData.hairColor}
                 onChange={handleProfileChange}
-                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
               >
                 <option value=''>{t("Hair Color")}</option>
                 <option value='Black'>{t("Black")}</option>
@@ -480,7 +480,7 @@ export default function Profile() {
                 name='bodyBuild'
                 value={userProfileData.bodyBuild}
                 onChange={handleProfileChange}
-                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4 '
+                className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4'
               >
                 <option value=''>{t("Body Build")}</option>
                 <option value='Slim'>{t("Slim")}</option>
@@ -488,7 +488,9 @@ export default function Profile() {
                 <option value='Muscular'>{t("Muscular")}</option>
                 <option value='Large'>{t("Large")}</option>
                 <option value='Very Large'>{t("Very Large")}</option>
-                <option value='Athletic'>{t("Athletic")}/Toned</option>
+                <option value='Athletic'>
+                  {t("Athletic")}/{t("Toned")}
+                </option>
                 <option value='Curvy'>{t("Curvy")}</option>
               </select>
             </>
@@ -563,7 +565,7 @@ export default function Profile() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated profile successfully!</h2>
+            <h2>{t("Updated profile successfully!")}</h2>
             <br />
             <button className='btn btn-secondary btn-sm' onClick={closeModal}>
               {t("Ok")}
@@ -679,7 +681,7 @@ export default function Profile() {
           <input
             type='text'
             name='youtube_subs'
-            placeholder='Youtube Subs'
+            placeholder={t("Youtube Subs")}
             value={userProfileData.youtube_subs}
             onChange={handleProfileChange}
             className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '

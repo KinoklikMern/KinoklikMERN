@@ -5,9 +5,11 @@ import io from "socket.io-client";
 import avatarDemo from "../../../images/avatarDefault.jpeg";
 import { ChatState } from "../../../context/ChatProvider";
 import { NotificationContext } from "../../../context/NotificationContext";
+import { useTranslation } from 'react-i18next';
 
 let socket, selectedChatCompare;
 export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState();
@@ -155,7 +157,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
         <span className="tw-self-center tw-text-xl tw-text-white">
           {selectedChat
             ? `Message exchange with ${selectedChat.chatName}`
-            : "Select a conversation to display"}
+            : (t("Select a conversation to display"))}
         </span>
       </div>
 
@@ -217,7 +219,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
             value={newMessage}
             onChange={typingHandler}
             className="tw-block tw-w-full tw-self-center tw-rounded-lg tw-border tw-border-gray-100/50 tw-bg-gray-500/50 tw-px-3 tw-pt-2 tw-text-base tw-text-white placeholder:tw-text-white focus:tw-border-gray-100 focus:tw-ring-gray-100"
-            placeholder="Your message..."
+            placeholder={t("Your message...")}
           ></textarea>
           <button
             onClick={sendMessage}
