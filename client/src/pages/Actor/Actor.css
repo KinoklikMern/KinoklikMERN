@@ -131,6 +131,12 @@
   cursor: pointer;
 }
 
+.btn-Recommend:disabled {
+  cursor: default;
+  background-color: rgb(226, 226, 226);
+  color: #1e0039;
+}
+
 .btn-follow:hover {
   background-color: rgb(226, 226, 226);
   color: #1e0039;

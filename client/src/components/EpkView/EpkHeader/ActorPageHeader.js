@@ -8,7 +8,7 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
-export default function EpkHeader({ epkInfo }) {
+export default function ActorPageHeader({ epkInfo, id }) {
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
     useState(0);
 
@@ -34,60 +34,42 @@ export default function EpkHeader({ epkInfo }) {
   ]);
 
   useEffect(() => {
+    console.log("useEffect triggered");
     const fetchAndSumActorFollowers = async () => {
-      let totalFacebookFollowers = 0;
-      let totalInstagramFollowers = 0;
-      let totalTwitterFollowers = 0;
+      try {
+        const followers = await getActorFollowersNumber(id);
 
-      const actorPromises = epkInfo.actors.map(async (actor) => {
-        try {
-          const res = await getActorFollowersNumber(actor._id);
-          totalFacebookFollowers += parseInt(res.facebook, 10);
-          totalInstagramFollowers += parseInt(res.instagram, 10);
-          totalTwitterFollowers += parseInt(res.twitter, 10);
-          console.log(res.facebook);
-        } catch (error) {
-          console.error(
-            "Failed to fetch followers for actor",
-            actor._id,
-            error
-          );
-        }
-      });
+        const facebookFollowers = parseInt(followers.facebook) || 0;
+        const instagramFollowers = parseInt(followers.instagram) || 0;
+        const twitterFollowers = parseInt(followers.twitter) || 0;
 
-      await Promise.all(actorPromises);
+        const totalFollowers = facebookFollowers + instagramFollowers + twitterFollowers;
 
-      // Once all promises are resolved, update the state
-      setSocialMediaFollowerTotalNum(
-        formatCompactNumber(
-          totalFacebookFollowers +
-            totalInstagramFollowers +
-            totalTwitterFollowers
-        )
-      );
-
-      setSocialMediasList(
-        socialMediasList.map((media) => {
-          let followersCount;
+        const updatedSocialMediasList = socialMediasList.map((media) => {
+          let followerCount = 0;
           if (media.name === "facebook") {
-            followersCount = totalFacebookFollowers;
+            followerCount = facebookFollowers || 0;
           } else if (media.name === "instagram") {
-            followersCount = totalInstagramFollowers;
+            followerCount = instagramFollowers || 0;
           } else if (media.name === "twitter") {
-            followersCount = totalTwitterFollowers;
+            followerCount = twitterFollowers || 0;
           }
-          return {
-            ...media,
-            followers: formatCompactNumber(followersCount),
-          };
-        })
-      );
+          return { ...media, followers: formatCompactNumber(followerCount) };
+        });
+
+        setSocialMediasList(updatedSocialMediasList);
+
+        setSocialMediaFollowerTotalNum(formatCompactNumber(totalFollowers));
+      } catch (error) {
+        console.error("Error fetching followers", error);
+      }
     };
 
-    if (epkInfo?.actors && epkInfo.actors.length > 0) {
+    if (id) {
       fetchAndSumActorFollowers();
+    } else {
+      console.log("ID is not defined");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [epkInfo]);
 
   function formatCompactNumber(number) {

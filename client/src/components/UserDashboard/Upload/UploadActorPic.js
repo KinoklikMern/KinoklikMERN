@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./UploadActorPic.css";
 import http from "../../../http-common";
 import Modal from "react-modal";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function UploadActorPic({ user }) {
   const { t } = useTranslation();
@@ -35,6 +35,8 @@ export default function UploadActorPic({ user }) {
   const [previewImage3, setPreviewImage3] = useState(null);
   const [previewImage4, setPreviewImage4] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const [trailerPreview, setTrailerPreview] = useState("");
 
   let i1 = "";
   let i2 = "";
@@ -101,6 +103,7 @@ export default function UploadActorPic({ user }) {
     setFileBanner(file);
     if (file) {
       const videoUrl = URL.createObjectURL(file);
+      setTrailerPreview(videoUrl);
       videoRef.current.srcObject = null; // Clear the current source object
       videoRef.current.src = videoUrl; // Set the new source
       videoRef.current.load(); // Load the new source
@@ -109,6 +112,7 @@ export default function UploadActorPic({ user }) {
       };
     }
   };
+
   const captureThumbnail = () => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -116,11 +120,18 @@ export default function UploadActorPic({ user }) {
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     // Draw the video frame to canvas
-    ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    const image = ctx.drawImage(
+      videoRef.current,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
     // Convert canvas to data URL (base64 encoded image)
     const imageUrl = canvas.toDataURL("image/png");
     setThumbnailImage(imageUrl);
   };
+
   function dataURLtoBlob(dataurl) {
     // Check if 'dataurl' is valid
     if (typeof dataurl !== "string" || !dataurl.includes(",")) {
@@ -230,8 +241,6 @@ export default function UploadActorPic({ user }) {
     e.currentTarget.style.display = "flex";
     e.currentTarget.style.justifyContent = "center";
     e.currentTarget.style.alignItems = "center";
-    e.currentTarget.innerHTML =
-      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
     setIsUploading(true);
     saveEpkCover(e);
   };
@@ -255,8 +264,7 @@ export default function UploadActorPic({ user }) {
       console.log(
         "No thumbnail image provided or not a valid data URL, skipping thumbnail upload."
       );
-      // If you want to stop processing hen there's no thumbnail, comment the next line
-      return;
+      //return;
     }
 
     let formTest = new FormData();
@@ -381,6 +389,7 @@ export default function UploadActorPic({ user }) {
           ],
         })
         .then((res) => {
+          setModalIsOpen(true);
           console.log("saved");
           setIsUploading(false);
         })
@@ -399,7 +408,6 @@ export default function UploadActorPic({ user }) {
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {
     setModalIsOpen(false);
-    window.location.reload();
   };
 
   return (
@@ -407,15 +415,12 @@ export default function UploadActorPic({ user }) {
       <div className="actor-upload-pic-container">
         <div
           className="actor-upload-profile-pic"
-          // style={{
-          //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${actor.picture})`,
-          //   backgroundSize: "cover",
-          //   backgroundRepeat: "no-repeat",
-          // }}
           style={{
             backgroundImage: previewImage1
               ? `url(${previewImage1})`
-              : `url(${process.env.REACT_APP_AWS_URL}/${actor.picture})`,
+              : actor.picture && !actor.picture.startsWith("https")
+              ? `url(${process.env.REACT_APP_AWS_URL}/${actor.picture})`
+              : null,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
@@ -438,7 +443,7 @@ export default function UploadActorPic({ user }) {
                 fontSize: "20px",
               }}
             >
-              {t('Upload Headshot')}
+              {t("Upload Headshot")}
             </label>
             <div className="uploaded-image-preview-container"></div>
           </div>
@@ -456,15 +461,12 @@ export default function UploadActorPic({ user }) {
             <label
               htmlFor="actor-file2"
               className="actor-prof-file"
-              // style={{
-              //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[0]})`,
-              //   backgroundSize: "cover",
-              //   backgroundRepeat: "no-repeat",
-              // }}
               style={{
                 backgroundImage: previewImage2
                   ? `url(${previewImage2})`
-                  : `url(${process.env.REACT_APP_AWS_URL}/${profs[0]})`,
+                  : profs[0]
+                  ? `url(${process.env.REACT_APP_AWS_URL}/${profs[0]})`
+                  : null,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
@@ -486,15 +488,12 @@ export default function UploadActorPic({ user }) {
             <label
               htmlFor="actor-file3"
               className="actor-prof-file"
-              // style={{
-              //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[1]})`,
-              //   backgroundSize: "cover",
-              //   backgroundRepeat: "no-repeat",
-              // }}
               style={{
                 backgroundImage: previewImage3
                   ? `url(${previewImage3})`
-                  : `url(${process.env.REACT_APP_AWS_URL}/${profs[1]})`,
+                  : profs[1]
+                  ? `url(${process.env.REACT_APP_AWS_URL}/${profs[1]})`
+                  : null,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
@@ -516,15 +515,12 @@ export default function UploadActorPic({ user }) {
             <label
               htmlFor="actor-file4"
               className="actor-prof-file"
-              // style={{
-              //   backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${profs[2]})`,
-              //   backgroundSize: "cover",
-              //   backgroundRepeat: "no-repeat",
-              // }}
               style={{
                 backgroundImage: previewImage4
                   ? `url(${previewImage4})`
-                  : `url(${process.env.REACT_APP_AWS_URL}/${profs[2]})`,
+                  : profs[2]
+                  ? `url(${process.env.REACT_APP_AWS_URL}/${profs[2]})`
+                  : null,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
@@ -533,28 +529,13 @@ export default function UploadActorPic({ user }) {
             </label>
           </div>
         </div>
-        {/* <div className="actor-upload-back-pic">
-          <input
-            className="actor-upload-back-pic-btn upload-actor-prof-btn"
-            filename={fileBanner}
-            onChange={fileBannerSelected}
-            ref={inputFileBannerRef}
-            type="file"
-            name="files"
-            accept="video/*"
-            id="fileBanner"
-          />
-          <label for="fileBanner" className="upload-banner-actor">
-            Upload Demo reel Video
-          </label>
-        </div> */}
         <div className="col mt-5">
           <label
             htmlFor="fileBanner"
             className="form-label text-dark"
             style={{ fontSize: "25px" }}
           >
-            {t('Upload Demo reel Video')}
+            {t("Upload Demo reel Video")}
           </label>
           <input
             className="form-control form-control-sm"
@@ -565,7 +546,8 @@ export default function UploadActorPic({ user }) {
             name="files"
             accept="video/*"
           ></input>
-          {actorData.bannerImg && (
+          {trailerPreview !== "" ? (
+            // Display the selected file's video preview
             <video
               width="320"
               height="240"
@@ -573,15 +555,45 @@ export default function UploadActorPic({ user }) {
               ref={videoRef}
               poster={thumbnailImage}
             >
-              <source
-                src={`${process.env.REACT_APP_AWS_URL}/${actorData.bannerImg}`}
-                type="video/mp4"
-              />
-              {t('Your browser does not support the video tag.')}
+              <source src={trailerPreview} type="video/mp4" />
+              {t("Your browser does not support the video tag.")}
             </video>
+          ) : (
+            // Display the existing video if trailerPreview is empty
+            actorData.bannerImg && (
+              <video
+                width="320"
+                height="240"
+                controls
+                ref={videoRef}
+                poster={thumbnailImage}
+                style={{
+                  display:
+                    actorData.bannerImg &&
+                    !actorData.bannerImg.startsWith("https")
+                      ? "block"
+                      : "none",
+                }}
+                crossOrigin="anonymous"
+              >
+                <source
+                  src={
+                    actorData.bannerImg.startsWith("https")
+                      ? actorData.bannerImg
+                      : `http://localhost:8000/video-proxy?url=${process.env.REACT_APP_AWS_URL}/${actorData.bannerImg}`
+                  }
+                  type="video/mp4"
+                />
+                {t("Your browser does not support the video tag.")}
+              </video>
+            )
           )}
           <br></br>
-          <button onClick={captureThumbnail}>{t('Capture Thumbnail')}</button>
+          {trailerPreview ? (
+            <button onClick={captureThumbnail}>{t("Capture Thumbnail")}</button>
+          ) : actorData.bannerImg && !actorData.bannerImg.startsWith("http") ? (
+            <button onClick={captureThumbnail}>{t("Capture Thumbnail")}</button>
+          ) : null}
         </div>
         {thumbnailImage && (
           <img
@@ -595,7 +607,21 @@ export default function UploadActorPic({ user }) {
           className="upload-actor-prof-btn1 upload-actor-prof-btn-save1"
           onClick={handleSaveClick}
         >
-          {t('save')}
+          {isUploading ? (
+            <div
+              className="spinner"
+              style={{
+                border: "4px solid rgba(0, 0, 0, 0.1)",
+                borderTop: "4px solid blue",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                animation: "spin 1s linear infinite",
+              }}
+            ></div>
+          ) : (
+            t("save")
+          )}
         </button>
       </div>
       <div className="actor-dashbaord-about">
@@ -607,11 +633,7 @@ export default function UploadActorPic({ user }) {
             setTextareaValue(e.target.value);
             handleCount(e);
           }}
-        >
-          {user.aboutMe
-            ? user.aboutMe
-            : "Biography text here example Biography text here example Biography text here example  Biography text here example Biography text here exampleBiography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example  Biography text here example  Biography text here exampleBiography text here example Biography text here example Biography text here example"}
-        </textarea>
+        ></textarea>
         <span
           style={{
             fontSize: "15px",
@@ -620,7 +642,8 @@ export default function UploadActorPic({ user }) {
             marginTop: "20px",
           }}
         >
-          {characterLength}{t('/500 characters')}
+          {characterLength}
+          {t("/500 characters")}
         </span>
       </div>
       <div>
@@ -648,54 +671,28 @@ export default function UploadActorPic({ user }) {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            {isUploading ? (
+            {/* {isUploading ? (
               <div>
                 <div className="spinner"></div>
                 <p>Uploading...</p>
               </div>
             ) : (
-              <>
-                <h2>Updated successfully!</h2>
-                <br />
-                <button
-                  className="btn btn-secondary btn-sm"
-                  onClick={closeModal}
-                >
-                  Ok
-                </button>
-              </>
-            )}
+              <> */}
+            <h2>Updated successfully!</h2>
+            <br />
+            <button className="btn btn-secondary btn-sm" onClick={closeModal}>
+              Ok
+            </button>
+            {/* </>
+            )} */}
           </div>
         </Modal>
       </div>
       <div className="actor-save-about">
         <button className="upload-actor-prof-btn1" onClick={editAbout}>
-          save
+          {t("save")}
         </button>
       </div>
-      {/* <div className="actor-btn-save-upload-container">
-        <p className="actor-text-upload">
-          There are currently no EPKs attached to your Actor Page. Once
-          filmmakers will assign you an EPK, it will appear here.
-            <h2>{t('Updated successfully!')}</h2>
-            <br />
-            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
-              {t('Ok')}
-            </button>
-          </div>
-        </Modal>
-      </div>
-      <div className='actor-save-about'>
-        <button className='upload-actor-prof-btn1' onClick={editAbout}>
-        {t('save')}
-        </button>
-      </div>
-      <div className='actor-btn-save-upload-container'>
-        <p className='actor-text-upload'>
-          {t('There are currently no EPKs attached to your Actor Page. Once')}
-          {t('filmmakers will assign you an EPK, it will appear here.')}
-        </p>
-      </div> */}
     </>
   );
 }

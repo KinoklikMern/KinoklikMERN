@@ -73,7 +73,6 @@ function FepkEditCoverForm() {
 
   const closeModal = () => {
     setModalIsOpen(false);
-    window.location.reload();
   };
 
   const [epkCoverData, setEpkCoverData] = useState({
