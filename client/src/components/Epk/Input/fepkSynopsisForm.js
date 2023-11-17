@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function SynopsisForm() {
   const [file, setFile] = useState("");
@@ -30,6 +31,9 @@ function SynopsisForm() {
 
   //modal
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  //Translation
+  const { t } = useTranslation();
 
   let { fepkId } = useParams();
 
@@ -86,7 +90,7 @@ function SynopsisForm() {
         // }
       } else {
         // Handle the case when response.data is undefined or empty
-        console.error("response.data is undefined or empty");
+        console.error(t("response.data is undefined or empty"));
       }
     });
      }, [characterLength, fepkId]);
@@ -184,7 +188,7 @@ function SynopsisForm() {
       //     });
       // }
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
     setDisabled(true);
   };
@@ -233,7 +237,7 @@ function SynopsisForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -251,7 +255,7 @@ function SynopsisForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -268,7 +272,7 @@ function SynopsisForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Synopsis
+              {t('Synopsis')}
             </h5>
             <form>
               <div className="row g-3">
@@ -287,7 +291,7 @@ function SynopsisForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.text_short}
-                    placeholder="Short Synopsis(maximum 160 characters)"
+                    placeholder={t("Short Synopsis(maximum 160 characters)")}
                     onChange={handleSynopsisChange}
                     name="text_short"
                   />
@@ -298,7 +302,7 @@ function SynopsisForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.text_short}/160 characters
+                    {characterLength?.text_short}{t("/160 characters")}
                   </span>
                 </div>
                 <div className="col my-4" style={{ position: "relative" }}>
@@ -316,7 +320,7 @@ function SynopsisForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.text_medium}
-                    placeholder="Medium Synopsis(maximum 350 characters)"
+                    placeholder={t("Medium Synopsis(maximum 350 characters)")}
                     onChange={handleSynopsisChange}
                     name="text_medium"
                   />
@@ -327,7 +331,7 @@ function SynopsisForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.text_medium}/350 characters
+                    {characterLength?.text_medium}{t("/350 characters")}
                   </span>
                   <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                     <Button
@@ -368,7 +372,7 @@ function SynopsisForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.text_long}
-                    placeholder="Long Synopsis(maximum 500 characters)"
+                    placeholder={t("Long Synopsis(maximum 500 characters)")}
                     onChange={handleSynopsisChange}
                     name="text_long"
                   />
@@ -379,7 +383,7 @@ function SynopsisForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.text_long}/500 characters
+                    {characterLength?.text_long}{t("/500 characters")}
                   </span>
 
                   <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
@@ -414,7 +418,7 @@ function SynopsisForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4>Upload Poster</h4>
+                    <h4>{t('Upload Poster')}</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
@@ -450,7 +454,7 @@ function SynopsisForm() {
                       alt="Short Banner"
                     />
                   ) : (
-                    <h3>No Image</h3>
+                    <h3>{t('No Image')}</h3>
                   )}
                 </div>
                 <div className="col my-4">
@@ -495,7 +499,7 @@ function SynopsisForm() {
                       alt="Medium Banner"
                     />
                   ) : (
-                    <h3>No Image</h3>
+                    <h3>{t('No Image')}</h3>
                   )}
                 </div>
                 <div className="col my-4">
@@ -540,7 +544,7 @@ function SynopsisForm() {
                       alt="Long Banner"
                     />
                   ) : (
-                    <h3>No Image</h3>
+                    <h3>{t('No Image')}</h3>
                   )}
                 </div>
                 <div
@@ -565,7 +569,7 @@ function SynopsisForm() {
                       onClick={saveEpkSynopsis}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   ) : (
                     <Button
@@ -579,7 +583,7 @@ function SynopsisForm() {
                       onClick={saveEpkSynopsis}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   )}
                   <Modal
@@ -612,7 +616,7 @@ function SynopsisForm() {
                         className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                       >
-                        Ok
+                        {t('Ok')}
                       </button>
                     </div>
                   </Modal>

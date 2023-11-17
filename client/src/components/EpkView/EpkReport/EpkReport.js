@@ -11,6 +11,7 @@ import {
   faCircleInfo,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 export default function EpkReport({ epkInfo }) {
   const { user } = useSelector((user) => ({ ...user }));
@@ -140,6 +141,8 @@ export default function EpkReport({ epkInfo }) {
     document.getElementById("login").click();
     // setClickStar(!clickStar);
   }
+  //For Translation
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -155,7 +158,7 @@ export default function EpkReport({ epkInfo }) {
         <div className={style.reportSection}>
           <button className={style.reportBtn} onClick={() => login()}>
             <FontAwesomeIcon icon={faFlag} />
-            &nbsp; Report
+            &nbsp; {t("Report")}
           </button>
         </div>
       ) : (
@@ -168,7 +171,7 @@ export default function EpkReport({ epkInfo }) {
             }}
           >
             <FontAwesomeIcon icon={faFlag} />
-            &nbsp; Report
+            &nbsp; {t("Report")}
           </button>
           <div />
 
@@ -186,7 +189,7 @@ export default function EpkReport({ epkInfo }) {
             {isClickReport === false ? (
               <>
                 <p className={style.reportTitle}>
-                  Why are you reporting this EPK?
+                  {t('Why are you reporting this EPK?')}
                 </p>
                 <form className={style.form1}>
                   <div className={style.inputContainer}>
@@ -209,10 +212,7 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon1 === true ? (
                       <div className={style.reportMessage}>
-                        This can be unwanted and unauthorized use of content
-                        from another website on third-party websites in
-                        connection with other content, negatively affecting your
-                        experience and reputation on our platform.
+                        {t('This can be unwanted and unauthorized use of content from another website on third-party websites in connection with other content, negatively affecting your experience and reputation on our platform.')}
                       </div>
                     ) : (
                       ""
@@ -237,11 +237,7 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon2 === true ? (
                       <div className={style.reportMessage}>
-                        This can be any content that appears to be pronographic,
-                        sexual exploitation or solicitation and/or content that
-                        shows sexual intercourse, genitals and close-ups of
-                        fully-nude buttocks. Nudity in photos of paintings and
-                        sculptures are permitted.
+                        {t('This can be any content that appears to be pronographic, sexual exploitation or solicitation and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks. Nudity in photos of paintings and sculptures are permitted.')}
                       </div>
                     ) : (
                       ""
@@ -255,9 +251,7 @@ export default function EpkReport({ epkInfo }) {
                       type="text"
                       value="Copyrighted Intellectual Property Violation"
                       onClick={() =>
-                        chooseReason2(
-                          "Copyrighted Intellectual Property Violation"
-                        )
+                        chooseReason2(t("Copyrighted Intellectual Property Violation"))
                       }
                       readOnly
                     ></input>
@@ -270,9 +264,7 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon3 === true ? (
                       <div className={style.reportMessage}>
-                        This can be unwanted, unauthorized or unethical use of
-                        content from another website, negatively affecting your
-                        experience and the reputation on our platform.
+                        {t('This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform.')}
                       </div>
                     ) : (
                       ""
@@ -289,7 +281,7 @@ export default function EpkReport({ epkInfo }) {
                       name="comment"
                       onChange={handleInputChange}
                       onClick={chooseOtherReason}
-                      placeholder="type here"
+                      placeholder= {t("type here")}
                     ></input>
                     <FontAwesomeIcon
                       className={
@@ -300,7 +292,7 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon4 === true ? (
                       <div className={style.reportMessage}>
-                        Other: any other reason you may want to report this EPK.
+                        {t('Other: any other reason you may want to report this EPK.')}
                       </div>
                     ) : (
                       ""
@@ -311,14 +303,13 @@ export default function EpkReport({ epkInfo }) {
                     onClick={() => clickReport()}
                     className={style.submitReport}
                   >
-                    Report!
+                    {t('Report!')}
                   </button>
                 </form>
               </>
             ) : (
               <p className={style.reportP}>
-                Thank you for reporting this film EPK. We are currently
-                inverstigation and have notified the filmmaker accordingly.
+                {t('Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.')}
               </p>
             )}
           </div>

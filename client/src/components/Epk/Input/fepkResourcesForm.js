@@ -15,8 +15,11 @@ import {
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
+import { useTranslation } from 'react-i18next';
 
 function ResourcesForm() {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -128,7 +131,7 @@ function ResourcesForm() {
           addResourceToTable();
         }
       } else {
-        setMessage("File must be a image(jpeg or png)");
+        setMessage(t("File must be a image(jpeg or png)"));
       }
     }
   }
@@ -249,7 +252,7 @@ function ResourcesForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -267,7 +270,7 @@ function ResourcesForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -284,7 +287,7 @@ function ResourcesForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Resources
+              {t('Resources')}
             </h5>
             <form>
               <div className="row">
@@ -299,7 +302,7 @@ function ResourcesForm() {
                       textAlign: "left",
                     }}
                     className="form-control m-10"
-                    placeholder="Title"
+                    placeholder={t("Title")}
                     onChange={handleResourceChange}
                     name="title"
                   />
@@ -313,7 +316,7 @@ function ResourcesForm() {
                       textAlign: "left",
                     }}
                     className="form-control m-10"
-                    placeholder="Duration Required"
+                    placeholder={t("Duration Required")}
                     onChange={handleResourceChange}
                     name="time"
                   />
@@ -328,7 +331,7 @@ function ResourcesForm() {
                       resize: "none",
                     }}
                     className="form-control mt-10"
-                    placeholder="Description(maximum 160 characters)"
+                    placeholder={t("Description(maximum 160 characters)")}
                     onChange={handleResourceChange}
                     name="description"
                     maxLength="160"
@@ -340,7 +343,7 @@ function ResourcesForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.description}/160 characters
+                    {characterLength?.description}{t("/160 characters")}
                   </span>
 
                   <label
@@ -349,7 +352,7 @@ function ResourcesForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4>Upload Image</h4>
+                    <h4>{t('Upload Image')}</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
@@ -389,7 +392,7 @@ function ResourcesForm() {
                       onClick={addResourceImage}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   ) : (
                     <Button
@@ -404,7 +407,7 @@ function ResourcesForm() {
                       onClick={addResourceImage}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   )}
                 </div>
@@ -428,11 +431,11 @@ function ResourcesForm() {
                             whiteSpace: "nowrap",
                           }}
                         >
-                          Duration Required
+                          {t('Duration Required')}
                         </th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>ACTIONS</th>
+                        <th>{t('Description')}</th>
+                        <th>{t('Image')}</th>
+                        <th>{t('ACTIONS')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -484,7 +487,7 @@ function ResourcesForm() {
                                         justifyContent: "right",
                                       }}
                                     >
-                                      {characterLength[index]}/ 160 characters
+                                      {characterLength[index]}{t("/ 160 characters")}
                                     </span>
                                   </div>
                                 </td>
@@ -587,13 +590,13 @@ function ResourcesForm() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        <h2>Your content has been successfully saved!</h2>
+                        <h2>{t('Your content has been successfully saved!')}</h2>
                         <br />
                         <button
                           className="btn btn-secondary btn-sm"
                           onClick={closeModal}
                         >
-                          Ok
+                          {t('Ok')}
                         </button>
                       </div>
                     </Modal>
@@ -622,7 +625,7 @@ function ResourcesForm() {
                         onClick={saveEpkResources}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     ) : (
                       <Button
@@ -636,7 +639,7 @@ function ResourcesForm() {
                         onClick={saveEpkResources}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     )}
                   </div>

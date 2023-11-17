@@ -6,6 +6,7 @@ import { InfoCircleFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import paypalImage from "../../../images/paypal.png";
 import stripImage from "../../../images/stripe.jpg";
+import { useTranslation } from 'react-i18next';
 
 function FepkCoverForm() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function FepkCoverForm() {
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const { t } = useTranslation();
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -72,46 +74,46 @@ function FepkCoverForm() {
     budget: "",
   });
   const movieGenre = [
-    "action",
-    "comedy",
-    "documentary",
-    "romance",
-    "horror",
-    "mystery",
-    "drama",
-    "western",
-    "science fiction",
-    "thriller",
-    "crime",
-    "animation",
-    "musical",
-    "war",
-    "romantic comedy",
-    "noir",
-    "disaster",
-    "dark comedy",
-    "historical film",
-    "slasher",
-    "adventure",
-    "gangster",
-    "spy",
-    "fantasy",
-    "biographical",
-    "found footage",
-    "legal drama",
-    "melodrama",
-    "superhero",
-    "slapstick",
-    "monster",
-    "historical fiction",
-    "teen",
-    "apocalyptic",
-    "post-apocalyptic",
-    "psychological thriller",
-    "stop motion",
-    "sports",
-    "space opera",
-    "mockumentary",
+    (t("action")),
+    (t("comedy")),
+    (t("documentary")),
+    (t("romance")),
+    (t("horror")),
+    (t("mystery")),
+    (t("drama")),
+    (t("western")),
+    (t("science fiction")),
+    (t("thriller")),
+    (t("crime")),
+    (t("animation")),
+    (t("musical")),
+    (t("war")),
+    (t("romantic comedy")),
+    (t("noir")),
+    (t("disaster")),
+    (t("dark comedy")),
+    (t("historical film")),
+    (t("slasher")),
+    (t("adventure")),
+    (t("gangster")),
+    (t("spy")),
+    (t("fantasy")),
+    (t("biographical")),
+    (t("found footage")),
+    (t("legal drama")),
+    (t("melodrama")),
+    (t("superhero")),
+    (t("slapstick")),
+    (t("monster")),
+    (t("historical fiction")),
+    (t("teen")),
+    (t("apocalyptic")),
+    (t("post-apocalyptic")),
+    (t("psychological thriller")),
+    (t("stop motion")),
+    (t("sports")),
+    (t("space opera")),
+    (t("mockumentary")),
   ];
 
   const movieStatus = ["Preproduction", "Production", "Postproduction"];
@@ -231,7 +233,7 @@ function FepkCoverForm() {
       !epkCoverData.genre ||
       !epkCoverData.status
     ) {
-      genreStatusMessage = "Tell us the productiob type, genre and status.";
+      genreStatusMessage = (t("Tell us the productiob type, genre and status."));
     }
     if (titleLoglineMessage || genreStatusMessage) {
       setSubmitMessage(titleLoglineMessage + " " + genreStatusMessage);
@@ -262,9 +264,7 @@ function FepkCoverForm() {
           http.post("fepks/", epkCoverData).then((res) => {
             if (res.data.error) {
               console.error("Error submitting data:", res.data.error);
-              setSubmitMessage(
-                "An error occurred while saving your data. Please try again."
-              );
+              setSubmitMessage(t(" An error occurred while saving your data. Please try again."));
             } else {
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
@@ -272,7 +272,7 @@ function FepkCoverForm() {
           });
         });
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
     setDisabled(true);
   };
@@ -314,7 +314,7 @@ function FepkCoverForm() {
               className="col align-items-start"
               style={{ color: "#FFFFFF", fontWeight: "normal" }}
             >
-              EPK Page Upload
+              {t('EPK Page Upload')}
             </h1>
           </div>
           <div className="col-3 m-3"></div>
@@ -329,7 +329,7 @@ function FepkCoverForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </Link>
           </div>
         </div>
@@ -360,7 +360,7 @@ function FepkCoverForm() {
                 fontSize: "1.2rem",
               }}
             >
-              Cover - Mandotory
+              {t('Cover - Mandotory')}
             </h5>
             <form className="row g-5">
               <div className="col me-5">
@@ -377,7 +377,7 @@ function FepkCoverForm() {
                           textAlign: "left",
                         }}
                         className="form-control m-10"
-                        placeholder="Title"
+                        placeholder={t("Title")}
                         onChange={handleInputChange}
                         value={epkCoverData.title}
                         name="title"
@@ -402,7 +402,7 @@ function FepkCoverForm() {
                         }}
                         maxLength="160"
                         className="form-control mt-10"
-                        placeholder="Log Line short (maximum 160 characters)"
+                        placeholder={t("Log Line short (maximum 160 characters)")}
                         onChange={handleInputChange}
                         value={epkCoverData.logLine_short}
                         name="logLine_short"
@@ -415,7 +415,7 @@ function FepkCoverForm() {
                           marginBottom: "1rem",
                         }}
                       >
-                        {characterLength?.logLine_short}/160 characters
+                        {characterLength?.logLine_short}{t("/160 characters")}
                       </span>
                     </div>
                     <div className="row" style={{ marginBottom: "-1.4rem" }}>
@@ -430,7 +430,7 @@ function FepkCoverForm() {
                             fontSize: "14px",
                           }}
                           className="form-control m-10 mb-4"
-                          placeholder="Production Company Name"
+                          placeholder={t("Production Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.productionCo}
                           name="productionCo"
@@ -449,7 +449,7 @@ function FepkCoverForm() {
                             fontSize: "14px",
                           }}
                           className="form-control m-10 "
-                          placeholder="Distribution Company Name"
+                          placeholder={t("Distribution Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.distributionCo}
                           name="distributionCo"
@@ -474,7 +474,7 @@ function FepkCoverForm() {
                           value={epkCoverData.budget}
                         >
                           <option value="" disabled>
-                            Production Budget
+                            {t('Production Budget')}
                           </option>
                           {budgetRanges.map((budget) => (
                             <option key={budget} value={budget}>
@@ -495,12 +495,12 @@ function FepkCoverForm() {
                             boxShadow: "1px 2px 9px #311465",
                           }}
                           className="form-select form-select-sm "
-                          name="production_type"
+                          name={t("production_type")}
                           onChange={handleInputChange}
                           value={epkCoverData.production_type}
                         >
                           <option value="" disabled>
-                            Production Type
+                            {t('Production Type')}
                           </option>
                           {movieType.map((type) => (
                             <option key={type} value={type}>
@@ -526,7 +526,7 @@ function FepkCoverForm() {
                           value={epkCoverData.genre}
                         >
                           <option value="" disabled>
-                            Genre
+                            {t('Genre')}
                           </option>
                           {movieGenre.map((genre) => (
                             <option key={genre} value={genre}>
@@ -550,7 +550,7 @@ function FepkCoverForm() {
                           value={epkCoverData.status}
                         >
                           <option value="" disabled>
-                            Status
+                            {t('Status')}
                           </option>
                           {movieStatus.map((status) => (
                             <option key={status} value={status}>
@@ -574,7 +574,7 @@ function FepkCoverForm() {
                           className="form-control"
                           type="number"
                           min="1895"
-                          placeholder="Production Year"
+                          placeholder={t("Production Year")}
                           onChange={handleInputChange}
                           name="productionYear"
                         />
@@ -594,7 +594,7 @@ function FepkCoverForm() {
                           type="number"
                           min="0"
                           className="form-control m-10"
-                          placeholder="Duration Minutes"
+                          placeholder={t("Duration Minutes")}
                           onChange={handleInputChange}
                           name="durationMin"
                         />
@@ -617,7 +617,7 @@ function FepkCoverForm() {
                       className="form-label text-dark"
                       style={{ fontSize: "25px" }}
                     >
-                      <h4>Upload Poster</h4>
+                      <h4>{t('Upload Poster')}</h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
@@ -641,7 +641,7 @@ function FepkCoverForm() {
                         alt="Preview"
                       />
                     ) : (
-                      <h3>No Image</h3>
+                      <h3>{t('No Image')}</h3>
                     )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
@@ -652,7 +652,7 @@ function FepkCoverForm() {
                           className="form-label text-dark"
                           style={{ fontSize: "25px" }}
                         >
-                          <h4>Upload Banner</h4>
+                          <h4>{t('Upload Banner')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -676,7 +676,7 @@ function FepkCoverForm() {
                             alt="Preview"
                           />
                         ) : (
-                          <h3>No Image</h3>
+                          <h3>{t('No Image')}</h3>
                         )}
                       </div>
                     </div>
@@ -687,7 +687,7 @@ function FepkCoverForm() {
                           className="form-label text-dark"
                           style={{ fontSize: "25px" }}
                         >
-                          <h4>Upload Trailer</h4>
+                          <h4>{t('Upload Trailer')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -707,7 +707,7 @@ function FepkCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h1>NO VIDEO UPLOADED</h1>
+                          <h1>{t('NO VIDEO UPLOADED')}</h1>
                         )}
                       </div>
                     </div>
@@ -741,7 +741,7 @@ function FepkCoverForm() {
                 }}
               >
                 <div>
-                  <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
+                  <Tooltip title= {t("In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.")}>
                     <span>
                       {" "}
                       <InfoCircleFilled />
@@ -812,7 +812,7 @@ function FepkCoverForm() {
                     onClick={handleSaveClick}
                     value="save"
                   >
-                    Save
+                    {t('Save')}
                   </Button>
                 ) : (
                   <Button
@@ -826,7 +826,7 @@ function FepkCoverForm() {
                     onClick={saveEpkCover}
                     value="save"
                   >
-                    Save
+                    {t('Save')}
                   </Button>
                 )}
               </div>

@@ -6,6 +6,7 @@ import { addToRequests, addToChat } from "../../../api/epks";
 import { io } from "socket.io-client";
 import { ChatState } from "../../../context/ChatProvider";
 import { NotificationContext } from "../../../context/NotificationContext";
+import { useTranslation } from 'react-i18next';
 
 let socket;
 export default function RequestModal(props) {
@@ -55,6 +56,9 @@ export default function RequestModal(props) {
       });
     }
   };
+
+  const { t } = useTranslation();
+
   return (
     <>
       <Modal
@@ -65,7 +69,7 @@ export default function RequestModal(props) {
       >
         <Modal.Header className="border-0">
           <Modal.Title className="text-center">
-            Please type your message to the Filmmaker EPK Owner
+            {t('Please type your message to the Filmmaker EPK Owner')}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -80,7 +84,7 @@ export default function RequestModal(props) {
                 style={{ height: "200px", resize: "none" }}
                 as="textarea"
                 rows={4}
-                placeholder="eg. Hello Filmmaker, I’m interested to see your film EPK and possibly purchase the rights. Let’s connect and talk! "
+                placeholder={t("eg. Hello Filmmaker, I’m interested to see your film EPK and possibly purchase the rights. Let’s connect and talk! ")}
               />
             </Form.Group>
           </Form>
@@ -99,7 +103,7 @@ export default function RequestModal(props) {
             }}
             onClick={handleSubmit}
           >
-            Submit
+            {t('Submit')}
           </Button>
         </Modal.Footer>
       </Modal>

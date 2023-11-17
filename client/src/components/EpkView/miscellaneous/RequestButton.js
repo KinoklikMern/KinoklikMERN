@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import { useTranslation } from 'react-i18next';
 
 export default function RequestButton({ status, handler }) {
   let ButtonTxt;
@@ -26,6 +27,8 @@ export default function RequestButton({ status, handler }) {
       break;
   }
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="tw-flex tw-justify-center ">
@@ -35,7 +38,7 @@ export default function RequestButton({ status, handler }) {
           className="tw-shadow-[3px_3px_3px_#712CB0]"
           onClick={() => handler("request")}
         >
-          {ButtonTxt}
+          {t({ButtonTxt})}
         </Button>
       </div>
     </>

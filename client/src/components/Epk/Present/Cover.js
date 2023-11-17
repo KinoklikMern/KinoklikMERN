@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import style from "./Cover.module.css";
 import poster from "../../../images/poster.jpg";
+import { useTranslation } from 'react-i18next';
 //import kikSatr from "../../../images/kickstarter.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,13 +16,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function EpkCover() {
+  const { t } = useTranslation();
   let { id } = useParams();
 
   const [epkCoverData, setEpkCoverData] = useState({
     title: "SOUTHPAW",
     logLine:
-      "They told him revenge was not the answer. They were severely wrong.",
-    genre: "Drama",
+      (t("They told him revenge was not the answer. They were severely wrong.")),
+    genre: (t("Drama")),
     minutes: "",
     createdAt: "December 8th, 2002",
     banner_url: "https://postimg.cc/FkfWC4N0",
@@ -89,16 +91,16 @@ function EpkCover() {
         {/* corner section */}
         <div className={style.bottomeLine}>
           <div className={style.flexContainer}>
-            <p className={style.el1}>Preproduction</p>
+            <p className={style.el1}>{t("Preproduction")}</p>
             <p className={style.el2}>{epkCoverData.genre}</p>
-            <p className={style.el3}>Posted:{epkCoverData.createdAt}</p>
+            <p className={style.el3}>{t("Posted")}:{epkCoverData.createdAt}</p>
           </div>
           <div class={style.dropdownContainer}>
             <div class={style.threedots}></div>
           </div>
           <div class={style.dropdown}>
             <a className={style.dotAnkor} href="#report">
-              <div>report</div>
+              <div>{t("report")}</div>
             </a>
           </div>
         </div>

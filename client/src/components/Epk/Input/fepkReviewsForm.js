@@ -14,8 +14,11 @@ import {
   faUpload,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 function ReviewsForm() {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -126,7 +129,7 @@ function ReviewsForm() {
           addReviewToTable();
         }
       } else {
-        setMessage("File must be a image(jpeg or png)");
+        setMessage(t("File must be a image(jpeg or png)"));
       }
     }
   }
@@ -233,7 +236,7 @@ function ReviewsForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -251,7 +254,7 @@ function ReviewsForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -361,7 +364,7 @@ function ReviewsForm() {
                       onClick={addAwardLogo}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   ) : (
                     <Button
@@ -376,7 +379,7 @@ function ReviewsForm() {
                       onClick={addAwardLogo}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   )}
                 </div>
@@ -390,10 +393,10 @@ function ReviewsForm() {
                   >
                     <thead className="thead-dark">
                       <tr>
-                        <th>Magazine</th>
-                        <th>Text</th>
-                        <th>Award Logo</th>
-                        <th>ACTIONS</th>
+                        <th>{t('Magazine')}</th>
+                        <th>{t('Text')}</th>
+                        <th>{t('Award Logo')}</th>
+                        <th>{t('ACTIONS')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -523,7 +526,7 @@ function ReviewsForm() {
                       onClick={saveEpkReviews}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   ) : (
                     <Button
@@ -537,7 +540,7 @@ function ReviewsForm() {
                       onClick={saveEpkReviews}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   )}
                   <Modal
@@ -570,7 +573,7 @@ function ReviewsForm() {
                         className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                       >
-                        Ok
+                        {t('Ok')}
                       </button>
                     </div>
                   </Modal>

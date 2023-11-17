@@ -2,7 +2,10 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import http from "../../../http-common";
 import { Button, Col, Row } from "antd";
+import { useTranslation } from 'react-i18next';
+
 function CoverForm() {
+
   //const [movieId, setMovieId] = useState("");
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
@@ -137,6 +140,8 @@ function CoverForm() {
       setMessage("File must be a image(jpeg or png)");
     }
   };
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -164,7 +169,7 @@ function CoverForm() {
                 className="col align-items-start"
                 style={{ color: "#311465", fontWeight: "normal" }}
               >
-                EPK Page Upload
+                {t("EPK Page Upload")}
               </h2>
             </div>
             <div className="col-2 m-3">
@@ -178,7 +183,7 @@ function CoverForm() {
                   fontSize: "20px",
                 }}
               >
-                View EPK Page
+                {t("View EPK Page")}
               </Link>
             </div>
             <div className="col"></div>
@@ -196,7 +201,7 @@ function CoverForm() {
                 className="card-title "
                 style={{ color: "#ffffff", fontWeight: "normal" }}
               >
-                Cover
+                {t("Cover")}
               </h5>
               <form className="row g-3">
                 <div className="col ms-">
@@ -293,7 +298,7 @@ function CoverForm() {
                         className="form-label text-dark"
                       >
                         {" "}
-                        Upload Banner
+                        {t("Upload Banner")}
                       </label>
                       <input
                         className="form-control form-control-sm"
@@ -312,7 +317,7 @@ function CoverForm() {
                         className="form-label text-dark"
                       >
                         {" "}
-                        Upload Trailer
+                        {t("Upload Trailer")}
                       </label>
                       <input
                         className="form-control form-control-sm"
@@ -346,7 +351,7 @@ function CoverForm() {
                     onClick={saveEpkCover}
                     value="save"
                   >
-                    Save
+                    {t("Save")}
                   </Button>
                 </div>
               </form>

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import io from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
@@ -31,6 +32,9 @@ function LoginForm() {
     emailInputRef.current.focus();
   }, []);
 
+  // For Translation
+  const { t } = useTranslation();
+
   //individual login form
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -50,7 +54,7 @@ function LoginForm() {
     e.preventDefault();
     // Check if no email or password is provided
     if (!email || !password) {
-      setError("Please provide both email and password.");
+      setError(t("Please provide both email and password."));
       return;
     }
     console.log(email, password);
@@ -127,7 +131,7 @@ function LoginForm() {
                 className={`${Logincss.form_input} tw-flex-1 tw-rounded tw-border tw-pl-3 tw-pr-3`}
                 value={email}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Email"
+                placeholder={t("Email")}
                 ref={emailInputRef}
               />
             </div>
@@ -141,7 +145,7 @@ function LoginForm() {
                 id="password"
                 value={password}
                 onChange={(e) => handleInputChange(e)}
-                placeholder="Password"
+                placeholder={t("Password")}
               />
 
               <button
@@ -150,7 +154,7 @@ function LoginForm() {
                 onClick={togglePasswordVisibility}
               >
                 <FontAwesomeIcon
-                  icon={showPassword ? faEyeSlash : faEye }
+                  icon={showPassword ? faEyeSlash : faEye}
                   className="tw-text-lg tw-text-gray-500"
                 />
               </button>
@@ -165,20 +169,20 @@ function LoginForm() {
                 type="submit"
                 className={Logincss.btn}
               >
-                Sign In
+                {t("Sign In")}
               </button>
               <br />
               <br />
               <p>
-                Don't have an account yet?{" "}
+                {t("Don't have an account yet?")}{" "}
                 <a href="/signup" className={Logincss.link}>
-                  Create Account
+                  {t("Create Account")}
                 </a>
               </p>{" "}
               <p>
-                Forgot password?{" "}
+                {t("Forgot password?")}{" "}
                 <a href="/sendresetpasswordlink" className={Logincss.link}>
-                  Reset my Password
+                  {t("Reset my Password")}
                 </a>
               </p>
             </div>
