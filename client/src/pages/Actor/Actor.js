@@ -349,7 +349,7 @@ export default function Actor(props) {
             className="btn-follow actor-detail-item"
             onClick={addUserToFollowers}
           >
-            Follow +
+            {t("Follow +")}
           </button>
           <p
             className="follower-number actor-detail-item"

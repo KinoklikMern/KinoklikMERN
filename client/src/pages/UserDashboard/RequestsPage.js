@@ -73,7 +73,7 @@ export default function RequestsPage() {
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
       <div className='tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white md:tw-mb-8'>
-        <p className='tw-text-4xl'>{user.role} Dashboard</p>
+        <p className='tw-text-4xl'>{user.role} {t("Dashboard")}</p>
       </div>
       <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>

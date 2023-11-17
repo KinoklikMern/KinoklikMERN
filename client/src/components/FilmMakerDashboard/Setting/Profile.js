@@ -145,7 +145,7 @@ export default function Profile() {
         ...prevErrors,
         phone: validatePhone(value)
           ? ""
-          : t("Please enter a valid phone number (10 to 15 digits)"),
+          : (t("Please enter a valid phone number (10 to 15 digits)")),
       }));
     }
 
@@ -174,7 +174,7 @@ export default function Profile() {
         ...prevErrors,
         [name]: validateFollowers(value)
           ? ""
-          : t("Please enter a valid number of followers"),
+          : (t("Please enter a valid number of followers")),
       }));
     }
 
@@ -356,7 +356,7 @@ export default function Profile() {
           >
             <option value=''>{t("Select Country")}</option>
             <option value='Canada'>Canada</option>
-            <option value='USA'>USA</option>
+            <option value='USA'>{t("USA")}</option>
             <option value='Other'>{t("Other")}</option>
           </select>
         </div>

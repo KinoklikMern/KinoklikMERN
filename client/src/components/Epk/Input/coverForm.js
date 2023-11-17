@@ -136,7 +136,7 @@ function CoverForm() {
           console.log(err);
         });
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
   };
   const { t } = useTranslation();
