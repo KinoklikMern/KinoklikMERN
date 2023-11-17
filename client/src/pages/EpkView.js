@@ -1645,7 +1645,7 @@ function EpkView() {
           })}
         {/* Starring / Cast section */}
         <div className={style.starring}>
-          <p className={style.starTitle}>Starring</p>
+          <p className={style.starTitle}>{t('Starring')}</p>
           {crewList.map((crewObj) => {
             return (
               <>
@@ -1823,7 +1823,7 @@ function EpkView() {
                       </p>
                     </div>
                     <div className={style.right}>
-                      <h3>Producer</h3>
+                      <h3>{t('Producer')}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>

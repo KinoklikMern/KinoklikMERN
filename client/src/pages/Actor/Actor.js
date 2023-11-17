@@ -599,7 +599,7 @@ export default function Actor(props) {
                   marginRight: "60px",
                 }}
               >
-                {t("Eyes Color")}{" "}
+                {t("Eye Color")}{" "}
               </span>{" "}
               <span>{epkInfo.eyesColor}</span>
             </p>

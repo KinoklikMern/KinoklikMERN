@@ -60,6 +60,7 @@
 "Deny": "Refuser",
 "_comment From FimakerDashBoard SettingsPage":"9 changes, Line 15,19,23,27,34,65-68",
 
+
 "_comment From FilmMaker filmMakerDashboared ":"5 changes, Line 47",
 "Create New Film EPK": "Créer un nouveau film EPK",
 "You don`t have any EPK created.To start promoting your ":
@@ -676,7 +677,7 @@
  "_comment From Components Filmaker filmMakerDashboardSecurityProfile":"0 CHanges.",
  "Line 154,162,170,":"",
  "Line 245 Upload Avatar":"Télécharger l'avatar",
- "Line 290 Updated profile successfully!":"Profil mis à jour avec succès !",
+ "Updated profile successfully!":"Profil mis à jour avec succès!",
  "Line 296 Ok":"Ok",
  "Line 308":"",
  "Line 315":"",
@@ -733,7 +734,7 @@
 "Height":"Hauteur",
 "Line 268 or below":"ou ci-dessous",
 "Line 281 or above":"ou au-dessus",
-"Eyes Color":"Couleur des yeux",
+"Eye Color":"Couleur des yeux",
 "Black":"Noir",
 "Brown":"Brun",
 "Blue":"Bleue",
@@ -795,6 +796,7 @@
 "MOST FOLLOWED":"LES PLUS SUIVIES",
 "Line 63 PRODUCTION":"Production",
 "Line 69 PRE PRODUCTION":"PRÉ-PRODUCTION",
+"All ACTORS":"Tous les acteurs",
 "_comment From Components HomeHead SearchBar":"0 CHanges.",
 
 "For Industry":"Professionels d'industrie",
@@ -868,8 +870,6 @@
 "email address": "adresse e-mail",
 
 "New password": "Nouveau mot de passe",
-
-"Gender": "Genre",
 
 "By clicking Sign Up, you agree to our": "En cliquant sur S'inscrire, vous acceptez notre",
 
@@ -956,7 +956,7 @@
 
 "Upload a movie": "Télécharger un film",
 
-"Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Filmmaker peut télécharger un film EPK. Veuillez enregistrer un",
+"Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Cinéaste peut télécharger un film EPK. Veuillez enregistrer un",
 
 "Filmmaker account to complete this action.": "Compte cinéaste pour réaliser cette action.",
 
@@ -1001,8 +1001,6 @@
 "Province": "Province",
 
 "Country": "Pays",
-
-"Updated profile successfully!": "Profil mis à jour avec succès !",
 
 "Studio Name": "Nom du studio",
 
@@ -1281,7 +1279,6 @@
 
    "Read": "Lu"
 
-   
 
 
 
