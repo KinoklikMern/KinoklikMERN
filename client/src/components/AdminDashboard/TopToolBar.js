@@ -86,6 +86,10 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
         return dataInfo.filter((user) => user.role === "Sound"); //
       case 12:
         return dataInfo.filter((user) => user.role === "Viewer");
+      case 13:
+        return dataInfo.filter((user) => user.role === "Admin");
+      case 14:
+        return dataInfo.filter((user) => user.role === "Director");
       default:
         return dataInfo;
     }
@@ -117,6 +121,11 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
     if (dataInfo !== undefined && roleFilter === 5) {
       setSum(dataInfo.length);
     }
+
+    //When chaged user in edit user page, the filter user list should be updated
+    if (dataInfo) {
+      handleRoleClick(roleFilter);
+    }
   }, [dataInfo]);
   return (
     <>
@@ -130,7 +139,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
         >
           {selectedTab == "Main Metrics" ||
           selectedTab == "Analytics" ? null : (
-            <div className=" tw-relative tw-ml-14 tw-flex">
+            <div className=" tw-relative tw-ml-6 tw-flex">
               <input
                 type="text"
                 placeholder="Search name..."
@@ -165,7 +174,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
         {selectedTab == "Users" ? (
           <div className="tw-md:flex-col tw-md:gap-5  tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-pr-10">
             <div>
-              <div className="tw-mb-2 tw-ml-14 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
+              <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
                 <button
                   className={`${
                     roleFilter === 0
@@ -220,6 +229,16 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                 </button>
                 <button
                   className={`${
+                    roleFilter === 13
+                      ? "tw-bg-midnight tw-text-white"
+                      : "tw-bg-white tw-text-midnight"
+                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
+                  onClick={() => handleRoleClick(13)}
+                >
+                  Admins
+                </button>
+                <button
+                  className={`${
                     roleFilter === 5
                       ? "tw-bg-midnight tw-text-white"
                       : "tw-bg-white tw-text-midnight"
@@ -229,7 +248,17 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   All Users
                 </button>
               </div>
-              <div className="tw-mb-2 tw-ml-14 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
+              <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
+                <button
+                  className={`${
+                    roleFilter === 14
+                      ? "tw-bg-midnight tw-text-white"
+                      : "tw-bg-white tw-text-midnight"
+                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
+                  onClick={() => handleRoleClick(14)}
+                >
+                  Directors
+                </button>
                 <button
                   className={`${
                     roleFilter === 6
@@ -288,7 +317,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(11)}
                 >
-                  Sound
+                  Sounds
                 </button>
                 <button
                   className={`${
@@ -313,7 +342,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
         {selectedTab == "EPKs" ? (
           <div className="tw-md:flex-col tw-md:gap-5  tw-mb-2 tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-pr-10">
             <div>
-              <div className="tw-mb-2 tw-ml-14 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
+              <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
                 <button
                   className={`${
                     productionFilter === 0

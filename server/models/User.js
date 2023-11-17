@@ -74,7 +74,7 @@ const UserSchema = mongoose.Schema({
   city: {
     type: String,
     default: "",
-    required: true,
+    // required: true,
   },
   province: {
     type: String,

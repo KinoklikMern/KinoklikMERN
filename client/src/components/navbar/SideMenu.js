@@ -16,7 +16,7 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import { NotificationContext } from "../../context/NotificationContext";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
 
@@ -40,14 +40,14 @@ export const SideProfileMenu = () => {
 
   const menuList = [
     {
-      name: (t("Upload EPK")),
+      name: t("Upload EPK"),
       url: `${user.role === "Filmmaker" ? "/uploadFepk" : ""}`,
       defaultIcon: <UploadFilmDefaultIcon />,
       hoverIcon: <UploadFilmPurpleIcon />,
       display: user.role === "Filmmaker",
     },
     {
-      name: (t("My Settings")),
+      name: t("My Settings"),
       url: `${
         user.role === "Filmmaker"
           ? "/dashboard/settings"
@@ -60,7 +60,7 @@ export const SideProfileMenu = () => {
     // {
     //   name: "My Dashboard",
     //   url: `${
-    //     user.role === "ADMIN"
+    //     user.role === "Admin"
     //       ? "admindashboard/main"
     //       : user.role === "Filmmaker"
     //       ? "/dashboard/epks"
@@ -72,19 +72,19 @@ export const SideProfileMenu = () => {
     //   hoverIcon: <DashbordPurpleIcon />,
     // },
     {
-      name: (t("Notifications")),
+      name: t("Notifications"),
       url: "/dashboard/notifications",
       defaultIcon: <NotificationsDefaultIcon />,
       hoverIcon: <NotificationsPurpleIcon />,
       display: user.role === "Filmmaker",
     },
     {
-      name: (t("Messages")),
+      name: t("Messages"),
       url:
         user.role === "Filmmaker" ? "/dashboard/chat" : "/userdashboard/chat",
       defaultIcon: <MessagesDefaultIcon />,
       hoverIcon: <MessagesPurpleIcon />,
-      // display: user.role === "Filmmaker" || user.role !== "ADMIN",
+      // display: user.role === "Filmmaker" || user.role !== "Admin",
       display: true,
     },
     {
@@ -92,10 +92,10 @@ export const SideProfileMenu = () => {
       url: "/admindashboard/main",
       defaultIcon: <DashbordDefaultIcon />,
       hoverIcon: <DashbordPurpleIcon />,
-      display: user.role === "ADMIN",
+      display: user.role === "Admin",
     },
     {
-      name: (t("Logout")),
+      name: t("Logout"),
       url: "logout",
       defaultIcon: <LogoutDefaultIcon />,
       hoverIcon: <LogoutPurpleIcon />,

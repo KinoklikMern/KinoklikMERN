@@ -23,12 +23,30 @@ export default function UsersPage() {
   const [actionStatus, setActionStatus] = useState(0); //0: list, 1: view, 2: edit,
   const dropdownRef = useRef(null);
   const [userInfo, setUserInfo] = useState();
+  const [epkInfo, setEpkInfo] = useState();
   const [userFilterInfo, setUserFilterInfo] = useState();
   const [item, setItem] = useState();
+  const [epks, setEpks] = useState([]);
+  const [hoveredRow, setHoveredRow] = useState(null);
 
   //dropdown
   const [isOpen, setIsOpen] = useState(false);
-  const options = ["Distributor", "Actor", "Editor", "Producer"];
+  const options = [
+    "Filmmaker",
+    "Sales Agent",
+    "Distributor",
+    "Film Festival",
+    "Viewer",
+    "Investor",
+    "Actor",
+    "Director",
+    "Editor",
+    "Producer",
+    "Cinematographer",
+    "Sound",
+    "Writer",
+    "Admin",
+  ];
 
   const handleToggle = () => {
     console.log("handleToggle");
@@ -40,26 +58,6 @@ export default function UsersPage() {
     setItem({ ...item, role: option });
     setIsOpen(false);
   };
-
-  const imgs = [
-    {
-      url: "http://s3.us-east-1.amazonaws.com/kinomovie/f9c17daf535ab107c552d49191701818.png",
-    },
-    {
-      url: "http://s3.us-east-1.amazonaws.com/kinomovie/3ab6f8ea5ee3dd35a9be9f81632be1b4.jpg",
-    },
-    {
-      url: "http://s3.us-east-1.amazonaws.com/kinomovie/0448521dfc96c129e1729e2c5a3b2fdd.png",
-    },
-    {
-      url: "http://s3.us-east-1.amazonaws.com/kinomovie/8a4c8ecf8141675ccc4069280413c475.jpg",
-    },
-    {
-      url: "http://s3.us-east-1.amazonaws.com/kinomovie/575f1eda2e3be1c812d7dc1332650451.jpg",
-    },
-  ];
-
-  const [hoveredRow, setHoveredRow] = useState(null);
 
   const handleMouseEnter = (index) => {
     setHoveredRow(index);
@@ -77,8 +75,13 @@ export default function UsersPage() {
     }
   };
 
+  const handleBackClick = () => {
+    setActionStatus(0);
+    setItem(null);
+  };
   const handleViewClick = (item) => {
     setItem(item);
+
     setActionStatus(1);
   };
 
@@ -90,12 +93,79 @@ export default function UsersPage() {
   };
 
   const handleSaveClick = () => {
-    alert("Save clicked");
-    setActionStatus(1);
+    const currentUser = userInfo.find((user) => user._id === item._id);
+
+    //Check if the user has changed the item or not,oringinal item is saved in userInfo
+    if (
+      item.firstName === currentUser.firstName &&
+      item.lastName === currentUser.lastName &&
+      item.role === currentUser.role &&
+      item.phone === currentUser.phone &&
+      item.email === currentUser.email &&
+      item.picture === currentUser.picture
+    ) {
+      //if not changed, return
+      setActionStatus(1);
+      return;
+    } else {
+      //Validate the item
+      if (item.firstName === "" || !/^[a-zA-Z0-9]+$/.test(item.firstName)) {
+        alert("Please enter valid first name");
+        return;
+      }
+      if (item.lastName === "" || !/^[a-zA-Z0-9]+$/.test(item.lastName)) {
+        alert("Please enter valid last name");
+        return;
+      }
+      if (item.role === "Admin") {
+        const confirmed = window.confirm(
+          "Are you sure you want to set this user as an adminstrator?"
+        );
+        if (!confirmed) {
+          setItem({ ...item, role: currentUser.role }); //set the role back to the original one
+          return;
+        }
+      }
+      if (item.phone !== "" && !/^\d{10}$/.test(item.phone)) {
+        alert("Phone number must be 10 digits!");
+        return;
+      }
+      if (item.email === "") {
+        alert("Please enter email");
+        return;
+      }
+    }
+
+    //if changed, update the item
+    http
+      .put(
+        `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${item._id}`,
+        item
+      )
+      .then((res) => {
+        if (res.status >= 200 && res.status < 300) {
+          // Success: HTTP status code is in the 2xx range
+          //update the userInfo
+          const userIndex = userInfo.findIndex((user) => user._id === item._id);
+          if (userIndex !== -1) {
+            const newUserInfo = [...userInfo];
+            newUserInfo[userIndex] = item;
+            setUserInfo(newUserInfo);
+          }
+          alert("Changes saved successfully!");
+        } else {
+          // Handle non-successful response
+          alert("Request was not successful. Status code: " + res.status);
+        }
+        setActionStatus(1);
+      })
+      .catch((err) => {
+        alert("fail Error: ", err);
+      });
   };
   const handleDeleteClick = (item) => {
     const userConfirmed = window.confirm(
-      "Do you really want to delete this user's account?"
+      "Are you sure you want to delete this user's account?"
     );
 
     if (userConfirmed) {
@@ -115,6 +185,48 @@ export default function UsersPage() {
     }
   };
 
+  const checkFileMimeType = (file) => {
+    if (file !== "") {
+      if (
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "image/jpeg"
+      )
+        return true;
+      else return false;
+    } else return true;
+  };
+
+  async function fileSelected(event) {
+    const file = event.target.files[0];
+    let formData = new FormData();
+    formData.append("file", event.target.files[0]);
+
+    if (checkFileMimeType(file)) {
+      console.log(formData);
+      try {
+        const response = await http.post(
+          `${process.env.REACT_APP_BACKEND_URL}/users/uploadUserAvatar`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response.data !== undefined) {
+          console.log(response.data.key);
+          setItem({ ...item, picture: response.data.key });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log("error");
+      alert("File must be a image(jpeg or png)");
+    }
+  }
+
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
     return () => {
@@ -128,11 +240,13 @@ export default function UsersPage() {
   };
 
   useEffect(() => {
-    Promise.all([http.get("/users/getallusers")])
-      .then(([usersResponse]) => {
+    Promise.all([http.get(`/fepks/`), http.get("/users/getallusers")])
+      .then(([fepkResponse, usersResponse]) => {
         const usersData = usersResponse.data;
+        const fepksData = fepkResponse.data;
 
         setUserInfo(usersData);
+        setEpkInfo(fepksData);
         setUserFilterInfo(usersData);
       })
       .catch((error) => {
@@ -140,6 +254,57 @@ export default function UsersPage() {
       });
   }, []);
 
+  useEffect(() => {
+    const relatedEPKs = async () => {
+      const relatedEPKs = [];
+
+      if (epkInfo !== undefined && item !== undefined) {
+        await Promise.all(
+          epkInfo.map(async (epk) => {
+            http.get(`/fepks/byTitle/${epk.title}`).then((res) => {
+              const epkData = res.data;
+              if (item?.role === "Actor" && epkData.actors.length > 0) {
+                if (epkData.actors.some((actor) => actor?._id === item?._id)) {
+                  relatedEPKs.push(epkData);
+                }
+              } else if (item?.role === "Filmmaker") {
+                if (
+                  epkData.film_maker?.firstName === item.firstName &&
+                  epkData.film_maker?.lastName === item.lastName
+                ) {
+                  relatedEPKs.push(epkData);
+                }
+              } else if (epkData.crew.length > 0) {
+                //Crew
+
+                epkData.crew.map((crew) => {
+                  const fullName = crew.crewId.name;
+
+                  if (fullName) {
+                    const [firstName, lastName] = fullName.split(" ");
+                    if (
+                      firstName === item?.firstName &&
+                      lastName === item?.lastName
+                    ) {
+                      const isAlreadyIncluded = relatedEPKs.some(
+                        (item) => item === epkData
+                      );
+                      if (!isAlreadyIncluded) {
+                        relatedEPKs.push(epkData);
+                      }
+                    }
+                  }
+                  return null;
+                });
+              }
+              setEpks(relatedEPKs);
+            });
+          })
+        );
+      }
+    };
+    relatedEPKs();
+  }, [item, epkInfo]);
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-white">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]">
@@ -161,7 +326,7 @@ export default function UsersPage() {
           />
 
           {/* List */}
-          {actionStatus == 0 ? (
+          {actionStatus === 0 ? (
             <div className=" tw-w-full tw-rounded-md tw-bg-white ">
               <div className=" tw-w-full tw-overflow-auto tw-py-4">
                 <div className="tw-scrollbar-width-thin tw-flex tw-h-[50px] tw-min-w-full tw-items-center tw-justify-between tw-overflow-auto tw-rounded-xl tw-bg-gray-300  tw-scrollbar-track-gray-300 tw-scrollbar-thumb-blue-500">
@@ -289,14 +454,14 @@ export default function UsersPage() {
           ) : null}
 
           {/* View */}
-          {actionStatus == 1 ? (
+          {actionStatus === 1 ? (
             <div className="tw-mt-12 tw-w-full tw-rounded-xl  tw-bg-gray-300">
               <div className=" tw-flex tw-h-12 tw-w-full tw-items-center tw-justify-between tw-rounded-xl tw-bg-[#1E0039]">
                 <div className="tw-ml-4 tw-cursor-pointer tw-text-white">
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     style={{ color: "#fafafa" }}
-                    onClick={() => setActionStatus(0)}
+                    onClick={handleBackClick}
                   />
                 </div>
                 <div className="tw-mr-3 tw-flex tw-w-16 tw-justify-around tw-text-white">
@@ -353,46 +518,44 @@ export default function UsersPage() {
                     <p>{item.email}</p>
                   </div>
                 </div>
-                <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
-                  <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
-                    {imgs.map((img, index) => (
-                      <img
-                        key={index}
-                        src={img.url}
-                        className="  tw-m-2 tw-rounded-none"
-                        alt="movie cover"
-                      ></img>
-                    ))}
+                {epks !== undefined ? (
+                  <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
+                    <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
+                      {epks.map((epk, index) => (
+                        <a key={index} href={`/epk/${epk.title}`}>
+                          <img
+                            src={
+                              epk.image_details.includes("https")
+                                ? epk.image_details
+                                : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                            }
+                            className="  tw-m-2 tw-rounded-none"
+                            alt="movie cover"
+                          />
+                        </a>
+                      ))}
+                      {epks.length === 0 ? (
+                        <div className="tw-block tw-h-[180px]"></div>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
           ) : null}
 
           {/* Edit */}
-          {actionStatus == 2 ? (
+          {actionStatus === 2 ? (
             <div className="tw-mt-12 tw-w-full tw-rounded-xl  tw-bg-gray-300">
               <div className=" tw-flex tw-h-12 tw-w-full tw-items-center tw-justify-between tw-rounded-xl tw-bg-[#1E0039]">
                 <div className="tw-ml-4 tw-cursor-pointer tw-text-white">
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     style={{ color: "#fafafa" }}
-                    onClick={() => setActionStatus(0)}
+                    onClick={handleBackClick}
                   />
                 </div>
                 <div className="tw-mr-3 tw-flex tw-w-16 tw-justify-around tw-text-white">
-                  {/* <img
-                    src={MessageIconWhite}
-                    className="tw-flex tw-h-5  tw-cursor-pointer tw-rounded-none "
-                    alt="View icon"
-                    onClick={() => handleViewClick}
-                  /> */}
-                  {/* <img
-                    src={EditPencilIconWhite}
-                    className="tw-flex tw-h-[20px] tw-cursor-pointer"
-                    alt="Edit icon"
-                    onClick={handleEditClick}
-                  /> */}
                   <FontAwesomeIcon
                     icon={faFloppyDisk}
                     className="tw-mt-1 tw-cursor-pointer"
@@ -408,15 +571,28 @@ export default function UsersPage() {
               </div>
               <div className=" tw-justify-left tw-w-full tw-flex-col tw-rounded-xl tw-bg-gray-300 ">
                 <div className="tw-flex tw-w-full tw-pl-8 tw-pt-2">
-                  <div className="tw-relative tw-w-24  tw-flex-shrink-0">
-                    <img
-                      className="tw-h-full tw-w-full tw-justify-center "
-                      src={
-                        item.picture.includes("https")
-                          ? item.picture
-                          : `${process.env.REACT_APP_AWS_URL}/${item.picture}`
-                      }
-                      alt=""
+                  <div className="tw-relative tw-h-24 tw-w-24  tw-flex-shrink-0">
+                    <label
+                      htmlFor="profileImageUpload"
+                      className="tw-h-full tw-w-full tw-justify-center"
+                    >
+                      <img
+                        className="tw-h-full tw-w-full tw-cursor-pointer tw-justify-center"
+                        src={
+                          item.picture.includes("https")
+                            ? item.picture
+                            : `${process.env.REACT_APP_AWS_URL}/${item.picture}`
+                        }
+                        alt=""
+                      />
+                    </label>
+                    <input
+                      id="profileImageUpload"
+                      type="file"
+                      onChange={fileSelected}
+                      // ref={inputFileRef}
+                      accept="image/*"
+                      className="tw-hidden"
                     />
                     <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-flex tw-h-4 tw-items-center tw-justify-center tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white">
                       <p className="tw-leading-3">
@@ -435,17 +611,17 @@ export default function UsersPage() {
                             ? item.firstName
                             : item.firstName + " " + item.lastName
                         }
-                        // onChange={(e) =>
-                        //   setItem({ ...item, name: e.target.value })
-                        // }
+                        onChange={(e) =>
+                          setItem({ ...item, firstName: e.target.value })
+                        }
                         className="tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
                       />
-                      {actionStatus == 2 ? (
+                      {actionStatus === 2 ? (
                         <input
                           type="text"
-                          value={item.lastName}
+                          defaultValue={item.lastName}
                           onChange={(e) =>
-                            setItem({ ...item, name: e.target.value })
+                            setItem({ ...item, lastName: e.target.value })
                           }
                           className="tw-my-1 tw-h-5 tw-w-1/2  tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
                         />
@@ -508,18 +684,25 @@ export default function UsersPage() {
                     />
                   </div>
                 </div>
-                <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
-                  <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
-                    {imgs.map((img, index) => (
-                      <img
-                        key={index}
-                        src={img.url}
-                        className="  tw-m-2 tw-rounded-none"
-                        alt="movie cover"
-                      ></img>
-                    ))}
+                {epks !== undefined ? (
+                  <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
+                    <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
+                      {epks.map((epk, index) => (
+                        <a key={index} href={`/epk/${epk.title}`}>
+                          <img
+                            src={
+                              epk.image_details.includes("https")
+                                ? epk.image_details
+                                : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                            }
+                            className="  tw-m-2 tw-rounded-none"
+                            alt="movie cover"
+                          />
+                        </a>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
           ) : null}

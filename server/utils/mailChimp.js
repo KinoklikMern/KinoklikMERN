@@ -26,21 +26,28 @@ export const addSubscribe = async (email, audienceId, firstName, lastName) => {
   // );
   // console.log(response);
 
-  //addListMember with interest
-  const response2 = await mailchimp.lists.addListMember(audienceId, {
-    email_address: email,
-    status: "subscribed",
-    merge_fields: {
-      FNAME: firstName,
-      LNAME: lastName,
-    },
-    interests: {
-      2706686037: false, //Tech
-      "3bd82b23c8": true, //Filmmakers
-      "0fb3916418": false,
-      "7efa332ea9": false,
-      cd45639efb: false,
-    },
-  });
-  console.log(response2);
+  try {
+    //addListMember with interest
+    const response2 = await mailchimp.lists.addListMember(audienceId, {
+      email_address: email,
+      status: "subscribed",
+      merge_fields: {
+        FNAME: firstName,
+        LNAME: lastName,
+      },
+      interests: {
+        2706686037: false, //Tech
+        "3bd82b23c8": true, //Filmmakers
+        "0fb3916418": false,
+        "7efa332ea9": false,
+        cd45639efb: false,
+      },
+    });
+  } catch (error) {
+    const msg = JSON.parse(error.response.text);
+
+    return { message: msg.detail, emailExists: false };
+  }
+
+  return { message: null, emailExists: false };
 };
