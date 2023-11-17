@@ -433,7 +433,7 @@ function FepkEditCoverForm() {
                         maxLength="160"
                         className="form-control mt-10"
                         defaultValue={fepk.logLine_short}
-                        placeholder="Log Line short (maximum 160 characters)"
+                        placeholder={t("Log Line short (maximum 160 characters)")}
                         onChange={handleInputChange}
                         name="logLine_short"
                       />
@@ -445,7 +445,7 @@ function FepkEditCoverForm() {
                           marginBottom: "1rem",
                         }}
                       >
-                        {characterLength?.logLine_short}/160 characters
+                        {characterLength?.logLine_short}{t("/160 characters")}
                       </span>
                     </div>
                     <div className="row" style={{ marginBottom: "-1.4rem" }}>
@@ -885,7 +885,7 @@ function FepkEditCoverForm() {
               }}
             >
               <div style={{ textAlign: "center" }}>
-                {"EPK Cover Saved Successfully!"}
+                {t("EPK Cover Saved Successfully!")}
                 <br />
                 <button
                   className="btn btn-secondary btn-sm"

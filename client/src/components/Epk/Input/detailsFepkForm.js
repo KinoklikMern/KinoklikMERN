@@ -175,7 +175,7 @@ function DetailsForm() {
           });
       }
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
     setDisabled(true);
   };

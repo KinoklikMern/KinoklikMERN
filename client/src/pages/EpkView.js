@@ -219,7 +219,7 @@ function EpkView() {
       })
       .then((response) => {
         setRequests(response.data.requests);
-        alert("Add request successfully!");
+        alert(t("Add request successfully!"));
       });
   }
   // user is added to the list of donate

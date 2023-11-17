@@ -1356,26 +1356,23 @@
 
    "Awaiting approval": "En attente d'approbation",
 
-   "Request refused": "Demande refusée"
+   "Request refused": "Demande refusée",
 
+   "eg. Hello Filmmaker, I’m interested to see your film EPK and possibly purchase the rights. Let’s connect and talk! ": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons ! ",
 
-   
+   "still.comment": "encore.commentaire",
 
+   "USA": "Etats-Unis",
 
+   "Add request successfully!": "Ajouter la demande avec succès!",
 
+   "Follow +": "Suivre +",
 
+   "EPK Cover Saved Successfully!": "Couverture EPK enregistrée avec succès !",
 
+   "User with that email is already registered under name:": "L'utilisateur avec cette adresse e-mail est déjà enregistré sous le nom:",
 
-
-
-
-
-
-
-
-
-
-
+   " fepuniquenessform Uniqueness Saved Successfully": "Unicité enregistrée avec succès"
 
 
 }
