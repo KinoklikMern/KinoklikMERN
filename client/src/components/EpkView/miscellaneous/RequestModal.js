@@ -84,7 +84,7 @@ export default function RequestModal(props) {
                 style={{ height: "200px", resize: "none" }}
                 as="textarea"
                 rows={4}
-                placeholder="eg. Hello Filmmaker, I’m interested to see your film EPK and possibly purchase the rights. Let’s connect and talk! "
+                placeholder={t("eg. Hello Filmmaker, I’m interested to see your film EPK and possibly purchase the rights. Let’s connect and talk! ")}
               />
             </Form.Group>
           </Form>

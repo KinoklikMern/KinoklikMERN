@@ -302,7 +302,7 @@ function ResourcesForm() {
                       textAlign: "left",
                     }}
                     className="form-control m-10"
-                    placeholder="Title"
+                    placeholder={t("Title")}
                     onChange={handleResourceChange}
                     name="title"
                   />
@@ -316,7 +316,7 @@ function ResourcesForm() {
                       textAlign: "left",
                     }}
                     className="form-control m-10"
-                    placeholder="Duration Required"
+                    placeholder={t("Duration Required")}
                     onChange={handleResourceChange}
                     name="time"
                   />
@@ -331,7 +331,7 @@ function ResourcesForm() {
                       resize: "none",
                     }}
                     className="form-control mt-10"
-                    placeholder="Description(maximum 160 characters)"
+                    placeholder={t("Description(maximum 160 characters)")}
                     onChange={handleResourceChange}
                     name="description"
                     maxLength="160"
@@ -343,7 +343,7 @@ function ResourcesForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.description}/160 characters
+                    {characterLength?.description}{t("/160 characters")}
                   </span>
 
                   <label
@@ -487,7 +487,7 @@ function ResourcesForm() {
                                         justifyContent: "right",
                                       }}
                                     >
-                                      {characterLength[index]}/ 160 characters
+                                      {characterLength[index]}{t("/ 160 characters")}
                                     </span>
                                   </div>
                                 </td>

@@ -29,7 +29,7 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
         <div className="tw-w-full tw-p-3 tw-text-white">
           <span className="tw-text-[2rem] tw-font-semibold">
             {" "}
-            Medium Synopsis{" "}
+            {t("Medium Synopsis")}{" "}
           </span>
           <SynopsisContent
             name="medium"

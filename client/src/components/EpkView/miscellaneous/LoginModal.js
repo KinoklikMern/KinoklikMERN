@@ -46,7 +46,7 @@ export default function LoginModal(props) {
         `}
       </style>
       <Modal.Header className="border-0">
-        <Modal.Title className="text-center">Sign In</Modal.Title>
+        <Modal.Title className="text-center">{t("Sign In")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <span className="text-danger">{errorMsg}</span>
@@ -61,7 +61,7 @@ export default function LoginModal(props) {
             />
           </Form.Group>
           <Form.Group controlId="password" className="my-3">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t("Password")}</Form.Label>
             <Form.Control
               type="password"
               value={password}

@@ -1,8 +1,10 @@
 import React from "react";
 import EpkReport from "../EpkReport/EpkReport";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 export default function EpkCover({ epkInfo }) {
+  const { t } = useTranslation();
   // const URL = "";
   const banner_url = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
   const image_detail =
@@ -47,7 +49,7 @@ export default function EpkCover({ epkInfo }) {
       <div className='tw-flex tw-justify-between tw-bg-white/10 tw-px-6'>
         <div className='tw-flex tw-w-5/6 tw-items-center tw-justify-between'>
           <p className='tw-text-white md:tw-text-xl'>
-            Posted: <span>{formatedDate(epkInfo.createdAt)}</span>
+            {t("Posted")}: <span>{formatedDate(epkInfo.createdAt)}</span>
           </p>
           <p className='tw-text-white md:tw-text-xl'>{epkInfo.status}</p>
           <p className='tw-text-white md:tw-text-xl'>

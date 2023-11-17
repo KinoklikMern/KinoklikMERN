@@ -228,7 +228,7 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    medium.comment
+                    {t("medium.comment")}
                   </p>
                   <button
                     onClick={() =>
@@ -271,7 +271,7 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    long.comment
+                     {t("long.comment")}
                   </p>
                   <button
                     onClick={() =>
@@ -314,7 +314,7 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    unique.comment
+                    {t("unique.comment")}
                   </p>
                   <button
                     onClick={() =>

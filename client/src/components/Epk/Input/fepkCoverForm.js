@@ -74,46 +74,46 @@ function FepkCoverForm() {
     budget: "",
   });
   const movieGenre = [
-    "action",
-    "comedy",
-    "documentary",
-    "romance",
-    "horror",
-    "mystery",
-    "drama",
-    "western",
-    "science fiction",
-    "thriller",
-    "crime",
-    "animation",
-    "musical",
-    "war",
-    "romantic comedy",
-    "noir",
-    "disaster",
-    "dark comedy",
-    "historical film",
-    "slasher",
-    "adventure",
-    "gangster",
-    "spy",
-    "fantasy",
-    "biographical",
-    "found footage",
-    "legal drama",
-    "melodrama",
-    "superhero",
-    "slapstick",
-    "monster",
-    "historical fiction",
-    "teen",
-    "apocalyptic",
-    "post-apocalyptic",
-    "psychological thriller",
-    "stop motion",
-    "sports",
-    "space opera",
-    "mockumentary",
+    (t("action")),
+    (t("comedy")),
+    (t("documentary")),
+    (t("romance")),
+    (t("horror")),
+    (t("mystery")),
+    (t("drama")),
+    (t("western")),
+    (t("science fiction")),
+    (t("thriller")),
+    (t("crime")),
+    (t("animation")),
+    (t("musical")),
+    (t("war")),
+    (t("romantic comedy")),
+    (t("noir")),
+    (t("disaster")),
+    (t("dark comedy")),
+    (t("historical film")),
+    (t("slasher")),
+    (t("adventure")),
+    (t("gangster")),
+    (t("spy")),
+    (t("fantasy")),
+    (t("biographical")),
+    (t("found footage")),
+    (t("legal drama")),
+    (t("melodrama")),
+    (t("superhero")),
+    (t("slapstick")),
+    (t("monster")),
+    (t("historical fiction")),
+    (t("teen")),
+    (t("apocalyptic")),
+    (t("post-apocalyptic")),
+    (t("psychological thriller")),
+    (t("stop motion")),
+    (t("sports")),
+    (t("space opera")),
+    (t("mockumentary")),
   ];
 
   const movieStatus = ["Preproduction", "Production", "Postproduction"];
@@ -233,7 +233,7 @@ function FepkCoverForm() {
       !epkCoverData.genre ||
       !epkCoverData.status
     ) {
-      genreStatusMessage = "Tell us the productiob type, genre and status.";
+      genreStatusMessage = (t("Tell us the productiob type, genre and status."));
     }
     if (titleLoglineMessage || genreStatusMessage) {
       setSubmitMessage(titleLoglineMessage + " " + genreStatusMessage);
@@ -264,9 +264,7 @@ function FepkCoverForm() {
           http.post("fepks/", epkCoverData).then((res) => {
             if (res.data.error) {
               console.error("Error submitting data:", res.data.error);
-              setSubmitMessage(
-                "An error occurred while saving your data. Please try again."
-              );
+              setSubmitMessage(t(" An error occurred while saving your data. Please try again."));
             } else {
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
@@ -274,7 +272,7 @@ function FepkCoverForm() {
           });
         });
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
     setDisabled(true);
   };
@@ -451,7 +449,7 @@ function FepkCoverForm() {
                             fontSize: "14px",
                           }}
                           className="form-control m-10 "
-                          placeholder="Distribution Company Name"
+                          placeholder={t("Distribution Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.distributionCo}
                           name="distributionCo"
@@ -497,7 +495,7 @@ function FepkCoverForm() {
                             boxShadow: "1px 2px 9px #311465",
                           }}
                           className="form-select form-select-sm "
-                          name="production_type"
+                          name={t("production_type")}
                           onChange={handleInputChange}
                           value={epkCoverData.production_type}
                         >
@@ -576,7 +574,7 @@ function FepkCoverForm() {
                           className="form-control"
                           type="number"
                           min="1895"
-                          placeholder="Production Year"
+                          placeholder={t("Production Year")}
                           onChange={handleInputChange}
                           name="productionYear"
                         />
@@ -596,7 +594,7 @@ function FepkCoverForm() {
                           type="number"
                           min="0"
                           className="form-control m-10"
-                          placeholder="Duration Minutes"
+                          placeholder={t("Duration Minutes")}
                           onChange={handleInputChange}
                           name="durationMin"
                         />

@@ -61,13 +61,13 @@ function FepkDetailsForm() {
     useState([]);
 
   const epkRoles = [
-    "Actor",
-    "Director",
-    "Producer",
-    "Cinematographer",
-    "Editor",
-    "Writer",
-    "Sound",
+    (t("Actor")),
+    (t("Director")),
+    (t("Producer")),
+    (t("Cinematographer")),
+    (t("Editor")),
+    (t("Writer")),
+    (t("Sound")),
   ];
 
   const makeEpkRole = (Y) => {
@@ -270,7 +270,7 @@ function FepkDetailsForm() {
     }));
 
     if (!isValidEmail(email)) {
-      setEmailError("Please enter a valid email address.");
+      setEmailError(t("Please enter a valid email address."));
     } else {
       setEmailError("");
     }
@@ -618,7 +618,7 @@ function FepkDetailsForm() {
                                 }}
                                 className="form-control m-10"
                                 value={userName}
-                                placeholder="Name"
+                                placeholder={t("Name")}
                                 name="name"
                                 readOnly
                                 //onChange={handleCrewChange}
@@ -635,7 +635,7 @@ function FepkDetailsForm() {
                                 }}
                                 className="form-control m-10"
                                 value={role}
-                                placeholder="Role"
+                                placeholder={t("Role")}
                                 name="role"
                                 readOnly
                                 //onChange={handleCrewChange}
@@ -689,7 +689,7 @@ function FepkDetailsForm() {
                                 className="form-control m-10"
                                 // defaultValue=""
                                 value={invitationData.lastName}
-                                placeholder="Last Name"
+                                placeholder={t("Last Name")}
                                 name="lastName"
                                 onChange={(e) => {
                                   setInvitationData((prevState) => ({
@@ -710,7 +710,7 @@ function FepkDetailsForm() {
                                 }}
                                 className="form-control m-10"
                                 value={invitationEmailValue}
-                                placeholder="Email Address"
+                                placeholder={t("Email Address")}
                                 name="email"
                                 // onChange={(e) =>
                                 //   setInvitationEmailValue(e.target.value)
@@ -745,7 +745,7 @@ function FepkDetailsForm() {
                                 }
                               >
                                 <option value="" disabled>
-                                  Epk role...
+                                  {t("Epk role...")}
                                 </option>
                                 {epkRoles.map(makeEpkRole)}
                               </select>
@@ -983,10 +983,10 @@ function FepkDetailsForm() {
             }}
           >
             <div style={{ textAlign: "center" }}>
-              "Invitation is Sent Successfully!"
+            {t("Invitation is Sent Successfully!")}
               <br />
               <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-                Ok
+                {t("Ok")}
               </button>
             </div>
           </Modal>

@@ -140,7 +140,7 @@ const ReviewForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Film Review Text Here."
+                  placeholder={t("Film Review Text Here.")}
                   onChange={(event) => {
                     setReview1Review(event.target.value);
                   }}
@@ -155,7 +155,7 @@ const ReviewForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Magazine/Blog/Journalist Name"
+                  placeholder={t("Magazine/Blog/Journalist Name")}
                   onChange={(event) => {
                     setReview1Magazine(event.target.value);
                   }}
@@ -172,7 +172,7 @@ const ReviewForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Film Review Text Here."
+                  placeholder={t("Film Review Text Here.")}
                   onChange={(event) => {
                     setReview2Review(event.target.value);
                   }}
@@ -187,7 +187,7 @@ const ReviewForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Magazine/Blog/Journalist Name"
+                  placeholder={t("Magazine/Blog/Journalist Name")}
                   onChange={(event) => {
                     setReview2Magazine(event.target.value);
                   }}
@@ -219,7 +219,7 @@ const ReviewForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Magazine/Blog/Journalist Name"
+                  placeholder={t("Magazine/Blog/Journalist Name")}
                   onChange={(event) => {
                     setReview3Magazine(event.target.value);
                   }}
@@ -251,7 +251,7 @@ const ReviewForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Magazine/Blog/Journalist Name"
+                  placeholder={t("Magazine/Blog/Journalist Name")}
                   onChange={(event) => {
                     setReview4Magazine(event.target.value);
                   }}
