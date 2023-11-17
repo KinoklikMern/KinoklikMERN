@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import MainMetricsIcon from "../../images/icons/dashFull.svg";
 import MainMetricsWhiteIcon from "../../images/icons/dashFull-white.svg";
 import UsersIcon from "../../images/icons/people-3-v3-white.svg";
@@ -7,7 +7,7 @@ import AnalyticsIcon from "../../images/icons/analytics-white.svg";
 import AnalyticsActiveIcon from "../../images/icons/analytics.svg";
 import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
-import adminImg from "../../images/img_ellipse9.png";
+import adminImg from "../../images/admin-profile.png";
 import { useTranslation } from "react-i18next";
 
 export default function LeftSidebar(props) {
