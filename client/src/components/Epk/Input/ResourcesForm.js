@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 
+import { useTranslation } from 'react-i18next';
+
 const ResourcesForm = () => {
+  const { t } = useTranslation();
+
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState(null);
   const [time, setTime] = useState(null);
@@ -98,7 +102,7 @@ const ResourcesForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -112,7 +116,7 @@ const ResourcesForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -121,7 +125,7 @@ const ResourcesForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Resources
+          {t('Resources')}
         </h5>
         <br />
         <Row justify="space-around" className="text-center ">
@@ -203,7 +207,7 @@ const ResourcesForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

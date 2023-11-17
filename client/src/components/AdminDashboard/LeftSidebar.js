@@ -7,9 +7,11 @@ import AnalyticsIcon from "../../images/icons/analytics-white.svg";
 import AnalyticsActiveIcon from "../../images/icons/analytics.svg";
 import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
-import adminImg from "../../images/admin-profile.png";
+import adminImg from "../../images/img_ellipse9.png";
+import { useTranslation } from "react-i18next";
 
 export default function LeftSidebar(props) {
+  const { t } = useTranslation();
   const SELECTED_TAB = props.selectedTab;
 
   const Role = props.role;
@@ -83,7 +85,7 @@ export default function LeftSidebar(props) {
               href={item.href}
               className="tw-flex tw-w-full tw-flex-col tw-text-white"
             >
-              <div className="tw-gap-[20px] tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center">
+              <div className="tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-gap-[20px]">
                 <img
                   src={
                     SELECTED_TAB === item.Title
@@ -110,12 +112,12 @@ export default function LeftSidebar(props) {
         {/* <div className="tw-flex tw-h-full tw-w-full tw-flex-col tw-items-center tw-justify-end  tw-text-center"></div> */}
         <div className="tw-flex  tw-w-full tw-flex-col tw-items-center tw-justify-end  tw-text-center">
           <img
-            className="tw-md:h-auto tw-rounded-[50%] tw-mt-8 tw-h-10 tw-w-10"
+            className="tw-md:h-auto tw-mt-8 tw-h-10 tw-w-10 tw-rounded-[50%]"
             src={adminImg}
             alt="ellipseTwelve"
           />
           <p className="tw-font-inter tw-mt-1 tw-text-base tw-text-white">
-            KinoKlik Admin
+            {t("KinoKlik Admin")}
           </p>
         </div>
       </nav>

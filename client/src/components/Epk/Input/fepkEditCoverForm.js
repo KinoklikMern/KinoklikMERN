@@ -7,8 +7,11 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
 import stripImage from "../../../images/stripe.jpg";
+import { useTranslation } from 'react-i18next';
 
 function FepkEditCoverForm() {
+  const { t } = useTranslation();
+
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
@@ -94,46 +97,46 @@ function FepkEditCoverForm() {
     budget: fepk.budget,
   });
   const movieGenre = [
-    "action",
-    "comedy",
-    "documentary",
-    "romance",
-    "horror",
-    "mystery",
-    "drama",
-    "western",
-    "science fiction",
-    "thriller",
-    "crime",
-    "animation",
-    "musical",
-    "war",
-    "romantic comedy",
-    "noir",
-    "disaster",
-    "dark comedy",
-    "historical film",
-    "slasher",
-    "adventure",
-    "gangster",
-    "spy",
-    "fantasy",
-    "biographical",
-    "found footage",
-    "legal drama",
-    "melodrama",
-    "superhero",
-    "slapstick",
-    "monster",
-    "historical fiction",
-    "teen",
-    "apocalyptic",
-    "post-apocalyptic",
-    "psychological thriller",
-    "stop motion",
-    "sports",
-    "space opera",
-    "mockumentary",
+    (t("action")),
+    (t("comedy")),
+    (t("documentary")),
+    (t("romance")),
+    (t("horror")),
+    (t("mystery")),
+    (t("drama")),
+    (t("western")),
+    (t("science fiction")),
+    (t("thriller")),
+    (t("crime")),
+    (t("animation")),
+    (t("musical")),
+    (t("war")),
+    (t("romantic comedy")),
+    (t("noir")),
+    (t("disaster")),
+    (t("dark comedy")),
+    (t("historical film")),
+    (t("slasher")),
+    (t("adventure")),
+    (t("gangster")),
+    (t("spy")),
+    (t("fantasy")),
+    (t("biographical")),
+    (t("found footage")),
+    (t("legal drama")),
+    (t("melodrama")),
+    (t("superhero")),
+    (t("slapstick")),
+    (t("monster")),
+    (t("historical fiction")),
+    (t("teen")),
+    (t("apocalyptic")),
+    (t("post-apocalyptic")),
+    (t("psychological thriller")),
+    (t("stop motion")),
+    (t("sports")),
+    (t("space opera")),
+    (t("mockumentary")),
   ];
   const makeGenreItem = (X) => {
     return (
@@ -201,12 +204,10 @@ function FepkEditCoverForm() {
     if (name === "title") {
       http.get(`fepks/byTitle/${event.target.value}`).then((response) => {
         if (response.data !== null) {
-          setMessageTitleNo(
-            "This title exists! You are not allowed to use it again!"
-          );
+          setMessageTitleNo(t("This title exists! You are not allowed to use it again!"));
           setMessageTitleYes("");
         } else {
-          setMessageTitleYes("Title is available!");
+          setMessageTitleYes(t("Title is available!"));
           setMessageTitleNo("");
         }
       });
@@ -294,7 +295,7 @@ function FepkEditCoverForm() {
           });
       }
     } else {
-      setMessage("File must be an image(jpeg or png)");
+      setMessage(t("File must be an image(jpeg or png)"));
     }
     setDisabled(true);
   };
@@ -339,7 +340,7 @@ function FepkEditCoverForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -357,7 +358,7 @@ function FepkEditCoverForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -387,7 +388,7 @@ function FepkEditCoverForm() {
                 fontSize: "1rem",
               }}
             >
-              Cover
+              {t('Cover')}
             </h5>
             <form className="row g-5">
               <div className="col me-5">
@@ -405,7 +406,7 @@ function FepkEditCoverForm() {
                         }}
                         className="form-control m-10"
                         defaultValue={fepk.title}
-                        placeholder="Title"
+                        placeholder={t("Title")}
                         onChange={handleInputChange}
                         name="title"
                       />
@@ -461,7 +462,7 @@ function FepkEditCoverForm() {
                           }}
                           className="form-control m-10 mb-4"
                           defaultValue={fepk.productionCo}
-                          placeholder="Production Company Name"
+                          placeholder={t("Production Company Name")}
                           onChange={handleInputChange}
                           name="productionCo"
                         />
@@ -481,7 +482,7 @@ function FepkEditCoverForm() {
                           className="form-control m-10 "
                           //value={fepk.distributionCo}
                           defaultValue={fepk.distributionCo}
-                          placeholder="Distribution Company Name"
+                          placeholder={t("Distribution Company Name")}
                           onChange={handleInputChange}
                           name="distributionCo"
                         />
@@ -592,7 +593,7 @@ function FepkEditCoverForm() {
                           min="1895"
                           //value={fepk.productionYear}
                           defaultValue={fepk.productionYear}
-                          placeholder="Production Year"
+                          placeholder={t("Production Year")}
                           onChange={handleInputChange}
                           name="productionYear"
                         />
@@ -614,7 +615,7 @@ function FepkEditCoverForm() {
                           className="form-control m-10"
                           //value={fepk.durationMin}
                           defaultValue={fepk.durationMin}
-                          placeholder="Duration Minutes"
+                          placeholder={t("Duration Minutes")}
                           onChange={handleInputChange}
                           name="durationMin"
                         />
@@ -637,7 +638,7 @@ function FepkEditCoverForm() {
                       className="form-label text-dark"
                       style={{ fontSize: "25px" }}
                     >
-                      <h4>Upload Poster</h4>
+                      <h4>{t("Upload Poster")}</h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
@@ -672,7 +673,7 @@ function FepkEditCoverForm() {
                         alt="no img"
                       />
                     ) : (
-                      <h3>No Image</h3>
+                      <h3>{t('No Image')}</h3>
                     )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
@@ -684,7 +685,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>Upload Banner</h4>
+                          <h4>{t('Upload Banner')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -718,7 +719,7 @@ function FepkEditCoverForm() {
                             alt="no image"
                           />
                         ) : (
-                          <h3>No Image</h3>
+                          <h3>{t('No Image')}</h3>
                         )}
                       </div>
                     </div>
@@ -730,7 +731,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>Upload Trailer</h4>
+                          <h4>{t('Upload Trailer')}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -756,7 +757,7 @@ function FepkEditCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h6>NO VIDEO UPLOADED</h6>
+                          <h6>{t('NO VIDEO UPLOADED')}</h6>
                         )}
                       </div>
                     </div>
@@ -771,7 +772,7 @@ function FepkEditCoverForm() {
                 }}
               >
                 <div>
-                  <Tooltip title="In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.">
+                  <Tooltip title={t("In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.")}>
                     <span>
                       {" "}
                       <InfoCircleFilled />
@@ -844,7 +845,7 @@ function FepkEditCoverForm() {
                 onClick={handleSaveClick}
                 value="save"
               >
-                Save
+                {t('Save')}
               </Button>
             ) : (
               <Button
@@ -858,7 +859,7 @@ function FepkEditCoverForm() {
                 onClick={handleSaveClick}
                 value="save"
               >
-                Save
+                {t('Save')}
               </Button>
             )}
             <Modal
@@ -891,7 +892,7 @@ function FepkEditCoverForm() {
                   className="btn btn-secondary btn-sm"
                   onClick={closeModal}
                 >
-                  Ok
+                  {t('Ok')}
                 </button>
               </div>
             </Modal>

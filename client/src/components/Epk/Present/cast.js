@@ -1,14 +1,17 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 import style from "./cast.module.css";
 
+
 function Cast(castFile) {
   console.log(castFile);
+  const { t } = useTranslation();
 
   return (
     <div className={style.container}>
       <div className={style.title}>
-        <p>Starring</p>
+        <p>{t('Starring')}</p>
       </div>
 
       <div className={style.starcontainer}>

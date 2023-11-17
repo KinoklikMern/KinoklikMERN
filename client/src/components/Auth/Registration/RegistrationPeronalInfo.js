@@ -2,6 +2,7 @@
 import React, { useState, setState } from "react";
 import SignupCss from "./signup.module.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function RegistrationPersonalInfo({
   firstName,
@@ -22,6 +23,9 @@ function RegistrationPersonalInfo({
   agreeToTerms,
   setAgreeToTerms,
 }) {
+  //For Translation
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -98,7 +102,7 @@ function RegistrationPersonalInfo({
         <div className={SignupCss.rolesMain}>
           <div className={SignupCss.form_titleMainPAndRole}>
             <div className={SignupCss.form_titleMainPI}>
-              Sign up for KinoKlik{" "}
+              {t("Sign up for KinoKlik")}{" "}
             </div>
             {/* <div className={SignupCss.mainText}>{role.label}</div> */}
             <div className={SignupCss.imageAndTextPI}>
@@ -106,7 +110,7 @@ function RegistrationPersonalInfo({
                 className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}
               >
                 {/* <button> */}
-                <img src={role.image} alt='Filmmaker Icon'></img>
+                <img src={role.image} alt="Filmmaker Icon"></img>
 
                 {/* </button> */}
               </div>
@@ -120,11 +124,11 @@ function RegistrationPersonalInfo({
             {/* <label className="form__label">First Name </label> */}
             <input
               className={SignupCss.form_input}
-              type='text'
+              type="text"
               value={firstName}
               onChange={(e) => handleInputChange(e)}
-              id='firstName'
-              placeholder='First Name'
+              id="firstName"
+              placeholder={t("First Name")}
             />
           </div>
           {/* <div className={SignupCss.form_input}>*/}
@@ -132,11 +136,11 @@ function RegistrationPersonalInfo({
             {/* <label className="form__label">Last Name </label> */}
             <input
               className={SignupCss.form_input}
-              type='text'
+              type="text"
               value={lastName}
               onChange={(e) => handleInputChange(e)}
-              id='lastName'
-              placeholder='LastName'
+              id="lastName"
+              placeholder={t("Last Name")}
             />
           </div>
         </div>
@@ -144,11 +148,11 @@ function RegistrationPersonalInfo({
           {/* <label className="form__label">Email </label> */}
           <input
             className={SignupCss.form_input}
-            type='text'
-            id='email'
+            type="text"
+            id="email"
             value={email}
             onChange={(e) => handleInputChange(e)}
-            placeholder='Email'
+            placeholder={t("Email")}
           />
         </div>
 
@@ -157,11 +161,11 @@ function RegistrationPersonalInfo({
           {/* <label className="form__label">Password </label> */}
           <input
             className={SignupCss.form_input2}
-            type='password'
-            id='password'
+            type="password"
+            id="password"
             value={password}
             onChange={(e) => handleInputChange(e)}
-            placeholder='Password'
+            placeholder={t("Password")}
           />
         </div>
         <div>
@@ -169,11 +173,11 @@ function RegistrationPersonalInfo({
           {/* <label className="form__label">Confirm Password </label> */}
           <input
             className={SignupCss.form_input2}
-            type='password'
-            id='confirmPassword'
+            type="password"
+            id="confirmPassword"
             value={confirmPassword}
             onChange={(e) => handleInputChange(e)}
-            placeholder='Confirm Password'
+            placeholder={t("Confirm Password")}
           />
         </div>
 
@@ -181,19 +185,23 @@ function RegistrationPersonalInfo({
         <div className={SignupCss.termsAndConditions}>
           <label className={SignupCss.termsCheckboxLabel}>
             <input
-              type='checkbox'
+              type="checkbox"
               checked={agreeToTerms}
               onChange={() => setAgreeToTerms(!agreeToTerms)}
             />
-            I agree to the terms and conditions as set out by the user
-            agreement.
+            {t(
+              "I agree to the terms and conditions as set out by the user agreement"
+            )}
+            .
           </label>
         </div>
 
         {/*the newsletters opt-in */}
         <div className={SignupCss.newsletterOption}>
           <div className={SignupCss.headerLetter}>
-            I want to stay up to date and receive newsletters from KinoKlik!
+            {t(
+              "I want to stay up to date and receive newsletters from KinoKlik!"
+            )}
           </div>
           <div className={SignupCss.yesNo}>
             <label className={SignupCss.yesAndNo}>
@@ -202,7 +210,7 @@ function RegistrationPersonalInfo({
                 checked={receiveNewsletter}
                 onChange={() => setReceiveNewsletter(true)}
               />
-              Yes
+              {t("Yes")}
             </label>
             <label className={SignupCss.yesAndNo}>
               <input
@@ -210,57 +218,57 @@ function RegistrationPersonalInfo({
                 checked={!receiveNewsletter}
                 onChange={() => setReceiveNewsletter(false)}
               />
-              No
+              {t("No")}
             </label>
           </div>
           {receiveNewsletter && (
             <div className={SignupCss.listOfAudiences}>
-              <label className='audience'>
+              <label className="audience">
                 <input
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.filmmakers}
                   onChange={() => handleNewsletterOptionChange("filmmakers")}
                 />
-                Filmmakers (Directors & Producers)
+                {t("Filmmakers (Directors & Producers)")}
               </label>
-              <label className='audience'>
+              <label className="audience">
                 <input
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.viewers}
                   onChange={() => handleNewsletterOptionChange("viewers")}
                 />
-                Viewers
+                {t("Viewers")}
               </label>
-              <label className='audience'>
+              <label className="audience">
                 <input
                   name="newsletterOption"
                   checked={newsletterOptions.ecosystem}
                   onChange={() => handleNewsletterOptionChange("ecosystem")}
                   type="checkbox"
                 />
-                Film Ecosystem & Industry Players
+                {t("Film Ecosystem & Industry Players")}
               </label>
-              <label className='audience'>
+              <label className="audience">
                 <input
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.investors}
                   onChange={() => handleNewsletterOptionChange("investors")}
                 />
-                Investors & VCs Updates
+                {t("Investors & VCs Updates")}
               </label>
-              <label className='audience'>
+              <label className="audience">
                 <input
                   name="newsletterOption"
                   type="checkbox"
                   checked={newsletterOptions.technical}
                   onChange={() => handleNewsletterOptionChange("technical")}
                 />
-                KinoKlik Technical Updates
+                {t("KinoKlik Technical Updates")}
               </label>
-              <label className='audience'>
+              <label className="audience">
                 <input
                   name="newsletterOption"
                   type="checkbox"
@@ -269,7 +277,7 @@ function RegistrationPersonalInfo({
                     handleNewsletterOptionChange("allNewsletters")
                   }
                 />
-                All Newsletters
+                {t("All Newsletters")}
               </label>
             </div>
           )}

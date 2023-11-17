@@ -30,10 +30,13 @@ export const register = async (req, res) => {
       newsLetterOptions,
     } = req.body;
 
-    if (!validateEmail(email)) {
+    // Normalize the email to lowercase
+    const normalizedEmail = email.toLowerCase();
+
+    if (!validateEmail(normalizedEmail)) {
       return sendError(res, "Invalid email address");
     }
-    const emailCheck = await User.findOne({ email });
+    const emailCheck = await User.findOne({ email: normalizedEmail });
     if (emailCheck) {
       return res.status(409).json({
         message:
@@ -78,7 +81,7 @@ export const register = async (req, res) => {
       firstName,
       lastName,
       role,
-      email,
+      email: normalizedEmail,
       phone,
       website,
       password: cryptedPassword,
@@ -250,8 +253,12 @@ export const resendEmailVerificationToken = async (req, res) => {
 };
 
 export const login = async (request, response) => {
-  const email = request.body.email;
-  const password = request.body.password;
+  // const email = request.body.email;
+  // const password = request.body.password;
+
+  let { email, password } = request.body;
+  // Normalize the email to lowercase
+  email = email.toLowerCase();
 
   try {
     if (email && password) {

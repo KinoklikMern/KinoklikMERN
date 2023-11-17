@@ -15,6 +15,7 @@ import {
   faCheck,
   faPen,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 function StillsForm() {
   const [file, setFile] = useState("");
@@ -29,6 +30,8 @@ function StillsForm() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
+  
+  const { t } = useTranslation();
 
   let { fepkId } = useParams();
 
@@ -102,7 +105,7 @@ function StillsForm() {
           });
       }
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
   }
 
@@ -230,7 +233,7 @@ function StillsForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -248,7 +251,7 @@ function StillsForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -265,7 +268,7 @@ function StillsForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Film Stills
+              {t('Film Stills')}
             </h5>
             <form className="row">
               <div className="col-12 col-md-4 mt-5">
@@ -275,7 +278,7 @@ function StillsForm() {
                   style={{ fontSize: "25px" }}
                 >
                   {" "}
-                  <h4>Upload Picture</h4>
+                  <h4>{t('Upload Picture')}</h4>
                 </label>
                 <input
                   style={{ fontSize: "15px" }}
@@ -311,7 +314,7 @@ function StillsForm() {
                     type="outline-primary"
                     onClick={addImage}
                   >
-                    Add to Pictures Gallery
+                    {t("Add to Pictures Gallery")}
                   </Button>
                 </div>
               </div>
@@ -327,8 +330,8 @@ function StillsForm() {
                 >
                   <thead className="thead-dark">
                     <tr>
-                      <th>IMAGE</th>
-                      <th>EDIT</th>
+                      <th>{t('IMAGE')}</th>
+                      <th>{t('EDIT')}</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -445,7 +448,7 @@ function StillsForm() {
                       onClick={saveEpkStills}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   ) : (
                     <Button
@@ -459,7 +462,7 @@ function StillsForm() {
                       onClick={saveEpkStills}
                       value="save"
                     >
-                      Save
+                     {t('Save')}
                     </Button>
                   )}
 
@@ -487,13 +490,13 @@ function StillsForm() {
                     }}
                   >
                     <div style={{ textAlign: "center" }}>
-                      {"Film Stills Saved Successfully!"}
+                      (t({"Film Stills Saved Successfully!"}))
                       <br />
                       <button
                         className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                       >
-                        Ok
+                        {t('Ok')}
                       </button>
                     </div>
                   </Modal>

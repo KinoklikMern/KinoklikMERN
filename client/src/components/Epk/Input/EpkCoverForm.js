@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function EpkCoverForm() {
   const [file1, setFile1] = useState("");
@@ -31,47 +32,47 @@ function EpkCoverForm() {
     DonateStripe_url: "",
   });
   const movieGenre = [
-    "Genre...",
-    "action",
-    "comedy",
-    "documentary",
-    "romance",
-    "horror",
-    "mystery",
-    "drama",
-    "western",
-    "science fiction",
-    "thriller",
-    "crime",
-    "animation",
-    "musical",
-    "war",
-    "romantic comedy",
-    "noir",
-    "disaster",
-    "dark comedy",
-    "historical film",
-    "slasher",
-    "adventure",
-    "gangster",
-    "spy",
-    "fantasy",
-    "biographical",
-    "found footage",
-    "legal drama",
-    "melodrama",
-    "superhero",
-    "slapstick",
-    "monster",
-    "historical fiction",
-    "teen",
-    "apocalyptic",
-    "post-apocalyptic",
-    "psychological thriller",
-    "stop motion",
-    "sports",
-    "space opera",
-    "mockumentary",
+    (t("Genre...")),
+    (t("action")),
+    (t("comedy")),
+    (t("documentary")),
+    (t("romance")),
+    (t("horror")),
+    (t("mystery")),
+    (t("drama")),
+    (t("western")),
+    (t("science fiction")),
+    (t("thriller")),
+    (t("crime")),
+    (t("animation")),
+    (t("musical")),
+    (t("war")),
+    (t("romantic comedy")),
+    (t("noir")),
+    (t("disaster")),
+    (t("dark comedy")),
+    (t("historical film")),
+    (t("slasher")),
+    (t("adventure")),
+    (t("gangster")),
+    (t("spy")),
+    (t("fantasy")),
+    (t("biographical")),
+    (t("found footage")),
+    (t("legal drama")),
+    (t("melodrama")),
+    (t("superhero")),
+    (t("slapstick")),
+    (t("monster")),
+    (t("historical fiction")),
+    (t("teen")),
+    (t("apocalyptic")),
+    (t("post-apocalyptic")),
+    (t("psychological thriller")),
+    (t("stop motion")),
+    (t("sports")),
+    (t("space opera")),
+    (t("mockumentary")),
   ];
   const makeGenreItem = (X) => {
     return <option value={X}> {X}</option>;
@@ -140,30 +141,32 @@ function EpkCoverForm() {
           console.log(err);
         });
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t(("File must be a image(jpeg or png)")));
     }
   };
+
+  const { t } = useTranslation();
 
   return (
     <div className="container">
       <form>
         <div className="card">
           <div className="row card-header">
-            <h2 className="col align-items-start text-dark">EPK Upload Page</h2>
+            <h2 className="col align-items-start text-dark">{t("EPK Upload Page")}</h2>
             <Link className="col align-items-end" to="/Epk">
-              Show EPK
+              {t('Show EPK')}
             </Link>
           </div>
 
           <div className="card-body">
-            <h5 className="card-title text-dark">EPK Cover Section</h5>
+            <h5 className="card-title text-dark">{t('EPK Cover Section')}</h5>
             <form className="row g-3">
               <div className="col ms-">
                 <div className="col my-1">
                   <input
                     className="form-control m-10"
                     defaultValue={epkCoverData.title}
-                    placeholder="Title"
+                    placeholder={t("Title")}
                     onChange={handleInputChange}
                     name="title"
                   />
@@ -172,7 +175,7 @@ function EpkCoverForm() {
                   <input
                     className="form-control mt-10"
                     defaultValue={epkCoverData.LogLine}
-                    placeholder="Log Line"
+                    placeholder={t("Log Line")}
                     onChange={handleInputChange}
                     name="logLine"
                   />
@@ -191,7 +194,7 @@ function EpkCoverForm() {
                     <input
                       className="form-control"
                       defaultValue={epkCoverData.minutes}
-                      placeholder="Minutes"
+                      placeholder={t("Minutes")}
                       onChange={handleInputChange}
                       name="minutes"
                     />
@@ -221,7 +224,7 @@ function EpkCoverForm() {
                   <div className="col mt-5">
                     <label htmlFor="fileBanner" className="form-label text-dark">
                       {" "}
-                      Upload Banner
+                      {t('Upload Banner')}
                     </label>
                     <input
                       className="form-control form-control-sm"
@@ -237,7 +240,7 @@ function EpkCoverForm() {
                   <div className="col mt-5">
                     <label htmlFor="fileTrailer" className="form-label text-dark">
                       {" "}
-                      Upload Trailer
+                      {t('Upload Trailer')}
                     </label>
                     <input
                       className="form-control form-control-sm"
@@ -259,7 +262,7 @@ function EpkCoverForm() {
                   onClick={saveEpkCover}
                 >
                   {" "}
-                  Save{" "}
+                  {t('Save')}{" "}
                 </button>
               </div>
             </form>

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import http from "../../http-common";
 import "./filmMakerDashboard.scss";
 import profileImage from "../../images/avatarDefault.jpeg";
+import { useTranslation } from 'react-i18next';
 
 export default function Requests() {
   const [fepk, setFepk] = useState([]);
@@ -13,6 +14,8 @@ export default function Requests() {
   const [longSynopsis, setLongSynopsis] = useState([]);
   const [uniqueness, setUniqueness] = useState([]);
   const [stillsApproval, setStillsApproval] = useState([]);
+ 
+  const { t } = useTranslation();
 
   let { fepkId } = useParams();
 
@@ -129,37 +132,37 @@ export default function Requests() {
               }`}
               onClick={() => handleRoleFilterChange("")}
             >
-              All Users
+              {t('All Users')}
             </button>
             <button
               className={`btn filtersBarBtn `}
               onClick={() => handleRoleFilterChange("Investor")}
             >
-              Investor
+              {t('Investor')}
             </button>
             <button
               className={`btn filtersBarBtn`}
               onClick={() => handleRoleFilterChange("Viewer")}
             >
-              Viewer
+              {t('Viewer')}
             </button>
             <button
               className={`btn filtersBarBtn`}
               onClick={() => handleRoleFilterChange("Distributor")}
             >
-              Distributor
+              {t('Distributor')}
             </button>
             <button
               className={`btn filtersBarBtn`}
               onClick={() => handleRoleFilterChange("Film_Festival")}
             >
-              Film Festival
+              {t('Film Festival')}
             </button>
             <button
               className={`btn filtersBarBtn`}
               onClick={() => handleRoleFilterChange("Sales_Agent")}
             >
-              Sales Agent
+              {t('Sales Agent')}
             </button>
           </div>
 
@@ -171,7 +174,7 @@ export default function Requests() {
                 }`}
                 onClick={() => handleStatusFilterChange("")}
               >
-                All EPK
+                {t('All EPK')}
               </button>
 
               <button
@@ -180,7 +183,7 @@ export default function Requests() {
                 }`}
                 onClick={() => handleStatusFilterChange("pending")}
               >
-                Pending
+                {t('Pending')}
               </button>
               <button
                 className={`btn filtersBarBtn ${
@@ -188,7 +191,7 @@ export default function Requests() {
                 }`}
                 onClick={() => handleStatusFilterChange("approved")}
               >
-                Approved
+                {t('Approved')}
               </button>
               <button
                 className={`btn filtersBarBtn ${
@@ -196,12 +199,12 @@ export default function Requests() {
                 }`}
                 onClick={() => handleStatusFilterChange("refused")}
               >
-                Denied
+                {t('Denied')}
               </button>
             </div>
             <div className="actionBtn col-md-6">
-              <button classname="btn">Approve All</button>
-              <button classname="btn">Deny All</button>
+              <button classname="btn">{t('Approve All')}</button>
+              <button classname="btn">{t('Deny All')}</button>
             </div>
           </div>
         </div>
@@ -214,7 +217,7 @@ export default function Requests() {
               medium.status === "pending" && (
                 <div style={{ margin: "20px 0 5px 0px" }}>
                   <h5>
-                    User Name:{" "}
+                    {t('User Name:')}{" "}
                     <b>
                       {medium.user.firstName} {medium.user.lastName}
                     </b>
@@ -225,14 +228,14 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    medium.comment
+                    {t("medium.comment")}
                   </p>
                   <button
                     onClick={() =>
                       mediumSynopsisApproval(medium.user._id, "approved")
                     }
                   >
-                    approve
+                    {t('approve')}
                   </button>
                   &nbsp; &nbsp;
                   <button
@@ -240,7 +243,7 @@ export default function Requests() {
                       mediumSynopsisApproval(medium.user._id, "refused")
                     }
                   >
-                    refuse
+                    {t('refuse')}
                   </button>
                 </div>
               )
@@ -257,7 +260,7 @@ export default function Requests() {
               long.status === "" && (
                 <div style={{ margin: "20px 0 5px 0px" }}>
                   <h5>
-                    User Name:{" "}
+                    {t('User Name:')}{" "}
                     <b>
                       {long.user.firstName} {long.user.lastName}
                     </b>
@@ -268,14 +271,14 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    long.comment
+                     {t("long.comment")}
                   </p>
                   <button
                     onClick={() =>
                       longSynopsisApproval(long.user._id, "approved")
                     }
                   >
-                    approve
+                    {t('approve')}
                   </button>
                   &nbsp; &nbsp;
                   <button
@@ -283,7 +286,7 @@ export default function Requests() {
                       longSynopsisApproval(long.user._id, "refused")
                     }
                   >
-                    refuse
+                    {t('refuse')}
                   </button>
                 </div>
               )
@@ -300,7 +303,7 @@ export default function Requests() {
               unique.status === "approved" && (
                 <div style={{ margin: "20px 0 5px 0px" }}>
                   <h5>
-                    User Name:{" "}
+                    {t('User Name:')}{" "}
                     <b>
                       {unique.user.firstName} {unique.user.lastName}
                     </b>
@@ -311,14 +314,14 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    unique.comment
+                    {t("unique.comment")}
                   </p>
                   <button
                     onClick={() =>
                       uniquenessApproval(unique.user._id, "approved")
                     }
                   >
-                    approve
+                    {t('approve')}
                   </button>
                   &nbsp; &nbsp;
                   <button
@@ -326,7 +329,7 @@ export default function Requests() {
                       uniquenessApproval(unique.user._id, "refused")
                     }
                   >
-                    refuse
+                    {t('refuse')}
                   </button>
                 </div>
               )
@@ -343,7 +346,7 @@ export default function Requests() {
               still.status === "refused" && (
                 <div style={{ margin: "20px 0 5px 0px" }}>
                   <h5>
-                    User Name:{" "}
+                    {t('User Name:')}{" "}
                     <b>
                       {still.user.firstName} {still.user.lastName}
                     </b>
@@ -359,13 +362,13 @@ export default function Requests() {
                   <button
                     onClick={() => stillApproval(still.user._id, "approved")}
                   >
-                    approve
+                    {t('approve')}
                   </button>
                   &nbsp; &nbsp;
                   <button
                     onClick={() => stillApproval(still.user._id, "refused")}
                   >
-                    refuse
+                    {t('refuse')}
                   </button>
                 </div>
               )
@@ -375,7 +378,7 @@ export default function Requests() {
 
         <div style={{ margin: "20px 0 5px 0px" }}>
           <h5>
-            User Name: <b>Moosa Mughal</b>
+            {t('User Name:')} <b>Moosa Mughal</b>
           </h5>
           <p>
             <img
@@ -383,11 +386,11 @@ export default function Requests() {
               alt=""
               style={{ width: "40px", height: "auto" }}
             />
-            Comment
+            {t('Comment')}
           </p>
-          <button>approve</button>
+          <button>{t('approve')}</button>
           &nbsp; &nbsp;
-          <button>refuse</button>
+          <button>{t('refuse')}</button>
         </div>
       </div>
     </div>

@@ -51,7 +51,7 @@ const Landing9 = () => {
           <div className='tw-mb-20 tw-mt-20 tw-flex tw-grid-cols-2 tw-justify-center sm:tw-mt-6 '>
             <a
               className='tw-mr-4 tw-inline-block tw-rounded-xl tw-bg-midnight tw-px-5 tw-py-2 tw-text-2xl tw-font-bold tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-900 focus:tw-outline-none'
-              href='/'
+              href='/uploadFepk'
             >
               Create EPK
             </a>

@@ -73,22 +73,22 @@ function RegistrationForm() {
       !confirmPassword ||
       !role
     ) {
-      setError("All fields are required.");
+      setError(t("All fields are required."));
       return;
     }
 
     if (!isValidEmail.test(email)) {
-      setError("Invalid Email");
+      setError(t("Invalid Email"));
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t("Passwords do not match."));
       return;
     }
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters long!");
+      setError(t("Password must be at least 8 characters long!"));
       return;
     }
     if (agreeToTerms === false) {
@@ -119,7 +119,7 @@ function RegistrationForm() {
       );
 
       if (data.emailExists) {
-        setError("Email is already in use.");
+        setError(t("Email is already in use."));
         return;
       }
 
@@ -187,7 +187,7 @@ function RegistrationForm() {
 
             {nextClicked ? (
               <button onClick={handleSubmit} className={SignupCss.btn}>
-                Sign Up
+                {t('Sign Up')}
               </button>
             ) : null}
             {
@@ -202,9 +202,9 @@ function RegistrationForm() {
             <div className={SignupCss.form_Message}>
               {!nextClicked ? (
                 <p>
-                  already signed up?{" "}
+                  {t('already signed up?')}{" "}
                   <Link to="/login" className={SignupCss.link}>
-                    Login
+                    {t('Login')}
                   </Link>
                 </p>
               ) : null}
