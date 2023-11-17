@@ -15,9 +15,11 @@ import EthnicityDropdown from "./EthnicityDropdown";
 import RepresentationDropdown from "./RepresentationDropdown";
 import CityDropdown from "./CityDropdown";
 import CountryDropdown from "./CountryDropdown";
+import { useTranslation } from 'react-i18next';
 // import StatusBtn from "../SwitchStatusBtn/Status";
 
 export default function FilterTag({ role }) {
+  const { t } = useTranslation();
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
   // Yeming added
@@ -51,11 +53,11 @@ export default function FilterTag({ role }) {
   
       // Check if any of the dropdown values have been selected
       const anyDropdownValueSelected = [
-        "Age Range",
-        "Ethnicity",
-        "Representation",
-        "City",
-        "Country",
+        (t("Age Range")),
+        (t("Ethnicity")),
+        (t("Representation")),
+        (t("City")),
+        (t("Country")),
       ].some((dropdownName) =>
         updatedQuery.some((item) => item.startsWith(`${dropdownName}:`))
       );

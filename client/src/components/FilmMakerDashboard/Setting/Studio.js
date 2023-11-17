@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import Axios from "axios";
 import { validatename, validateWebsite, validateEmail, validatePhone, validatelocation } from "./validation";
+import { useTranslation } from 'react-i18next';
 
 
 export default function Studio() {
+ const { t } = useTranslation();
   const [userStudioData, setUserStudioData] = useState({
     name: "",
     website: "",
@@ -85,27 +87,27 @@ export default function Studio() {
     if (name === 'name') {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validatename(value) ? '' : 'Please fill out the required field',
+        [name]: validatename(value) ? '' : (t('Please fill out the required field')),
       }));
     } else if ( name === 'city' || name === 'province' || name === 'country') {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validatelocation(value) ? '' : 'Please enter a valid location',
+        [name]: validatelocation(value) ? '' : (t('Please enter a valid location')),
       }));
     }else if (name === 'website') {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validateWebsite(value) ? '' : 'Please enter a valid URL',
+        [name]: validateWebsite(value) ? '' : (t('Please enter a valid URL')),
       }));
     } else if (name === 'email') {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        email: validateEmail(value) ? '' : 'Please enter a valid email address',
+        email: validateEmail(value) ? '' : (t('Please enter a valid email address')),
       }));
     } else if (name === 'phone') {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        phone: validatePhone(value) ? '' : 'Please enter a valid phone number (10 to 15 digits)',
+        phone: validatePhone(value) ? '' : (t('Please enter a valid phone number (10 to 15 digits)')),
       }));
     }
   
@@ -155,7 +157,7 @@ export default function Studio() {
       <div className="tw-col-start-2 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
         {userRole === "Actor" && (
           <div className="tw-mb-3 tw-flex tw-items-center">
-            <p className="tw-mb-0 tw-ml-9 tw-text-[#1E0039]">Representation</p>
+            <p className="tw-mb-0 tw-ml-9 tw-text-[#1E0039]">{t("Representation")}</p>
             <button
               onClick={() => handlePermission(true)}
               className={`tw-ml-5 tw-rounded-lg tw-px-2 tw-py-1 ${
@@ -164,7 +166,7 @@ export default function Studio() {
                   : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3pprofilhandleProfileChangex_10px_rgba(113,44,176,0.25)]"
               }`}
             >
-              Yes
+              {t("Yes")}
             </button>
             <button
               onClick={() => handlePermission(false)}
@@ -174,7 +176,7 @@ export default function Studio() {
                   : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
               }`}
             >
-              No
+              {t("No")}
             </button>
           </div>
         )}
@@ -224,7 +226,7 @@ export default function Studio() {
             <input
               type="text"
               name="phone"
-              placeholder="Phone"
+              placeholder={t("Phone")}
               defaultValue={userStudioData.phone}
               onChange={handleProfileChange}
               disabled={!hasAgent}
@@ -236,7 +238,7 @@ export default function Studio() {
             <input
               type="text"
               name="city"
-              placeholder="City"
+              placeholder={t("City")}
               defaultValue={userStudioData.city}
               onChange={handleProfileChange}
               disabled={!hasAgent}
@@ -248,7 +250,7 @@ export default function Studio() {
             <input
               type="text"
               name="province"
-              placeholder="Province"
+              placeholder={t("Province")}
               defaultValue={userStudioData.province}
               onChange={handleProfileChange}
               disabled={!hasAgent}
@@ -260,7 +262,7 @@ export default function Studio() {
             <input
               type="text"
               name="country"
-              placeholder="Country"
+              placeholder={t("Country")}
               defaultValue={userStudioData.country}
               onChange={handleProfileChange}
               disabled={!hasAgent}
@@ -297,10 +299,10 @@ export default function Studio() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated successfully!</h2>
+            <h2>{t("Updated successfully!")}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+            {t("Ok")}
             </button>
           </div>
         </Modal>
@@ -311,14 +313,14 @@ export default function Studio() {
             disabled
             className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
           >
-            Save
+            {t("Save")}
           </button>
         ) : (
           <button
             className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserStudio()}
           >
-            Save
+            {t("Save")}
           </button>
         )}
       </div>

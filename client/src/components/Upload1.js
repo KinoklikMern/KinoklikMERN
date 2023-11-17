@@ -10,13 +10,15 @@ function Upload1() {
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const handleSubmit = () => {
+    
     console.log(fileDataURL);
   };
 
   const changeHandler = (e) => {
+    const { t } = useTranslation();
     const file = e.target.files[0];
     if (!file.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
+      alert(t("Image mime type is not valid"));
       return;
     }
     setFile(file);

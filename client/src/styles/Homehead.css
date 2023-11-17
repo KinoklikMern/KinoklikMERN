@@ -21,26 +21,26 @@
   border-radius: 55px;
   border: 2px solid #160625;
   height: 30vh;
-  width: 80%;
+  width: 20rem;
 }
 
 @media (max-width: 768px) {
   .homeHead-poster {
     height: 40vh;
-    width: 80%;
+    width: 15rem;
   }
 }
 
 @media (min-width: 992px) {
   .homeHead-poster {
     height: 50vh;
-    width: 85%;
+    width: 20rem;
   }
 }
 
 @media (min-width: 1200px) {
   .homeHead-poster {
     height: 60vh;
-    width: 50%;
+    width: 25rem;
   }
 }
