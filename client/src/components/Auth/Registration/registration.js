@@ -122,7 +122,7 @@ function RegistrationForm() {
     <>
       <div className={SignupCss.bg}>
         {!nextClicked && (
-          <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div>
+          <div className={SignupCss.form_titleMain}>{t('Sign up for KinoKlik')} </div>
         )}
 
         {/* <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div> */}
@@ -166,7 +166,7 @@ function RegistrationForm() {
                 className={nextClicked ? SignupCss.back : SignupCss.next}
                 onClick={() => setNextClicked(!nextClicked)}
               >
-                {!nextClicked ? "Next" : "Back"}
+                {!nextClicked ? (t("Next")) : (t("Back"))}
               </button>
             }
 
