@@ -7,8 +7,11 @@ import {
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 export default function EpkHeader({ epkInfo }) {
+  const { t } = useTranslation();
+
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
     useState(0);
 
@@ -107,7 +110,7 @@ export default function EpkHeader({ epkInfo }) {
     <div className="tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row">
       <div className="tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-6">
         <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
-          Total Audience Reach
+          {t('Total Audience Reach')}
         </span>
         <img src={Audience} alt="audience icon" className="tw-h-10 tw-w-10" />
         <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">

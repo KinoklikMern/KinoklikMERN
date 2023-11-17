@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const DetailsForm = () => {
   const [image, setImage] = useState(null);
@@ -82,6 +83,9 @@ const DetailsForm = () => {
   //     console.log(biography);
   // };
 
+  const { t } = useTranslation();
+
+
   return (
     <>
       <div
@@ -108,7 +112,7 @@ const DetailsForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Page Upload
+              {t('EPK Page Upload')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -122,7 +126,7 @@ const DetailsForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -131,7 +135,7 @@ const DetailsForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Film Details
+          {t('Film Details')}
         </h5>
         <br />
         <Row justify="space-around" className="text-center ">
@@ -160,7 +164,7 @@ const DetailsForm = () => {
                     marginBottom: "25px",
                   }}
                 >
-                  Key Crew
+                  {t('Key Crew')}
                 </h4>
                 <input
                   name="director"
@@ -202,14 +206,14 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Writen By:"
+                  placeholder= {t("Writen By:")}
                   onChange={(event) => {
                     setWriter(event.target.value);
                   }}
                 />
 
                 <input
-                  name="cinematographer"
+                  name= {t("cinematographer")}
                   style={{
                     marginTop: "20px",
                     height: "30px",
@@ -219,13 +223,13 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Cinematography By:"
+                  placeholder= {t("Cinematography By:")}
                   onChange={(event) => {
                     setCinematographer(event.target.value);
                   }}
                 />
                 <input
-                  name="Editor"
+                  name={t("Editor")}
                   style={{
                     height: "30px",
                     width: "250px",
@@ -234,13 +238,13 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Edited By:"
+                  placeholder= {t("Edited By:")}
                   onChange={(event) => {
                     setEditor(event.target.value);
                   }}
                 />
                 <input
-                  name="sound"
+                  name={t("sound")}
                   style={{
                     height: "30px",
                     width: "250px",
@@ -249,7 +253,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Sound By:"
+                  placeholder= {t("Sound By:")}
                   onChange={(event) => {
                     setSound(event.target.value);
                   }}
@@ -265,7 +269,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Production Company Name"
+                  placeholder= {t("Production Company Name")}
                   onChange={(event) => {
                     setProductionCo(event.target.value);
                   }}
@@ -280,7 +284,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Distribution Company Name"
+                  placeholder= {t("Distribution Company Name")}
                   onChange={(event) => {
                     setDistributionCo(event.target.value);
                   }}
@@ -295,7 +299,7 @@ const DetailsForm = () => {
                     marginBottom: "25px",
                   }}
                 >
-                  Starring
+                  {t("Starring")}
                 </h4>
                 <input
                   name="leadActor1"
@@ -307,7 +311,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Lead Actor Name:"
+                  placeholder= {t("Lead Actor Name:")}
                   onChange={(event) => {
                     setLeadActor1(event.target.value);
                   }}
@@ -322,7 +326,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Lead Actor Name:"
+                  placeholder= {t("Lead Actor Name:")}
                   onChange={(event) => {
                     setLeadActor2(event.target.value);
                   }}
@@ -339,7 +343,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Supporting Actor Name:"
+                  placeholder= {t("Supporting Actor Name:")}
                   onChange={(event) => {
                     setSupportingActor1(event.target.value);
                   }}
@@ -354,7 +358,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Supporting Actor Name:"
+                  placeholder= {t("Supporting Actor Name:")}
                   onChange={(event) => {
                     setSupportingActor2(event.target.value);
                   }}
@@ -371,7 +375,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Production Year"
+                  placeholder= {t("Production Year")}
                   onChange={(event) => {
                     setProductionYear(event.target.value);
                   }}
@@ -386,7 +390,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Duration Minutes"
+                  placeholder= {t("Duration Minutes")}
                   onChange={(event) => {
                     setDurationMin(event.target.value);
                   }}
@@ -414,7 +418,7 @@ const DetailsForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

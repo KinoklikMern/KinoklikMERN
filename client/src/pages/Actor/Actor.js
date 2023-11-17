@@ -22,8 +22,10 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { addToChat } from "../../api/epks";
+import { useTranslation } from "react-i18next";
 
 export default function Actor(props) {
+  const { t } = useTranslation();
   const [epkInfo, setEpkInfo] = useState({});
   const { id } = useParams();
   const [kkFollower, setKKFollower] = useState([]);
@@ -342,7 +344,7 @@ export default function Actor(props) {
           >
             {displaySex(epkInfo.sex)}
           </p>
-          <p className="actor-detail-item Actor-Role">Actor</p>
+          <p className="actor-detail-item Actor-Role">{t("Actor")}</p>
           <button
             className="btn-follow actor-detail-item"
             onClick={addUserToFollowers}
@@ -360,7 +362,7 @@ export default function Actor(props) {
             className="btn-star actor-detail-item"
             onClick={addUserToLikes}
           >
-            <span style={{ display: "inline" }}>Star</span>
+            <span style={{ display: "inline" }}>{t("Star")}</span>
             <StarIcon
               className="actor-page-star"
               style={{ color: "white", marginLeft: "10px" }}
@@ -377,7 +379,7 @@ export default function Actor(props) {
             onClick={openModal}
             disabled={epkInfo._id === user.id}
           >
-            <span style={{ display: "inline" }}>Recommend</span>{" "}
+            <span style={{ display: "inline" }}>{t("Recommend")}</span>{" "}
             <img
               src={refralIcon}
               className="actor-page-star"
@@ -403,7 +405,7 @@ export default function Actor(props) {
               >
                 X
               </div>
-              <h2>Recommend Actor To Filmmaker:</h2>
+              <h2>{t("Recommend Actor To Filmmaker")}:</h2>
               <input
                 type="text"
                 className="form-control shared-styles"
@@ -480,7 +482,9 @@ export default function Actor(props) {
                       </div>
                     ))
                   ) : (
-                    <div style={{ padding: "5px" }}>No filmmaker found.</div>
+                    <div style={{ padding: "5px" }}>
+                      {t("No filmmaker found.")}
+                    </div>
                   )}
                 </div>
               )}
@@ -493,7 +497,7 @@ export default function Actor(props) {
                   }}
                 >
                   <button className="btn-send" onClick={sendRecommendations}>
-                    Send <FontAwesomeIcon icon={faPaperPlane} />
+                    {t("Send")} <FontAwesomeIcon icon={faPaperPlane} />
                   </button>
                 </div>
               )}
@@ -527,7 +531,7 @@ export default function Actor(props) {
               alignItems: "center",
             }}
           >
-            Recommendation sent successfully!
+            {t("Recommendation sent successfully!")}
           </div>
         )}
         <div className="actor-city-container">
@@ -565,7 +569,7 @@ export default function Actor(props) {
                   marginRight: "60px",
                 }}
               >
-                Age-Range
+                {t("Age-Range")}
               </span>
               <span>
                 {age_range[range][0]} - {age_range[range][1]}
@@ -585,7 +589,7 @@ export default function Actor(props) {
                   marginRight: "75px",
                 }}
               >
-                Ethnicity{" "}
+                {t("Ethnicity")}{" "}
               </span>{" "}
               <span>{epkInfo.ethnicity}</span>
             </p>
@@ -603,7 +607,7 @@ export default function Actor(props) {
                   marginRight: "65px",
                 }}
               >
-                Hair Color{" "}
+                {t("Hair Color")}{" "}
               </span>{" "}
               <span>{epkInfo.hairColor}</span>
             </p>
@@ -621,7 +625,7 @@ export default function Actor(props) {
                   marginRight: "60px",
                 }}
               >
-                Eyes Color{" "}
+                {t("Eye Color")}{" "}
               </span>{" "}
               <span>{epkInfo.eyesColor}</span>
             </p>
@@ -639,7 +643,7 @@ export default function Actor(props) {
                   marginRight: "60px",
                 }}
               >
-                Body Build{" "}
+                {t("Body Build")}{" "}
               </span>{" "}
               <span>{epkInfo.bodyBuild}</span>
             </p>
@@ -657,7 +661,7 @@ export default function Actor(props) {
                   marginRight: "90px",
                 }}
               >
-                Height{" "}
+                {t("Height")}{" "}
               </span>{" "}
               <span>{epkInfo.height}</span>
             </p>
@@ -668,7 +672,7 @@ export default function Actor(props) {
         </div>
         <div className="bottom-container">
           <p className="bottom-actor-container-title">
-            current films by actor {epkInfo.firstName} {epkInfo.lastName}
+            {t("current films by actor")} {epkInfo.firstName} {epkInfo.lastName}
           </p>
           <div className="movie-actor-play-container">
             {/* TODO: getMoviesByActor */}

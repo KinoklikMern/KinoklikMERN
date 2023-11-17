@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const StillsForm = () => {
+  const { t } = useTranslation();
+
   const [stills1Img_url, setStills1Img_url] = useState(null);
   const [stills2Img_url, setStills2Img_url] = useState(null);
   const [stills3Img_url, setStills3Img_url] = useState(null);
@@ -90,7 +93,7 @@ const StillsForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -104,7 +107,7 @@ const StillsForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -113,7 +116,7 @@ const StillsForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Stills
+          {t('Stills')}
         </h5>
         <Row justify="space-around" className="text-center ">
           <Col style={{ width: "1400px", height: "300px" }} className="m-2">
@@ -282,7 +285,7 @@ const StillsForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

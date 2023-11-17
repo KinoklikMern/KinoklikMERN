@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function TrailerForm() {
   const [file, setFile] = useState("");
@@ -12,6 +13,7 @@ function TrailerForm() {
   const [disabled, setDisabled] = useState(true);
   const inputFileRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
+  const { t } = useTranslation();
 
   //Trailer preview
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
@@ -111,7 +113,7 @@ function TrailerForm() {
           console.log(err);
         });
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
     setDisabled(true);
   };
@@ -156,7 +158,7 @@ function TrailerForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -174,7 +176,7 @@ function TrailerForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -191,7 +193,7 @@ function TrailerForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              Film Trailer
+              {t('Film Trailer')}
             </h5>
             <form>
               <div className="row">
@@ -202,7 +204,7 @@ function TrailerForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h6 style={{ fontSize: "20px" }}>Upload Video</h6>
+                    <h6 style={{ fontSize: "20px" }}>{t("Upload Video")}</h6>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
@@ -230,7 +232,7 @@ function TrailerForm() {
                       controls
                     ></video>
                   ) : (
-                    <h1>NO VIDEO UPLOADED</h1>
+                    <h1>{t('NO VIDEO UPLOADED')}</h1>
                   )}
                 </div>
                 <div className="col-1">
@@ -256,7 +258,7 @@ function TrailerForm() {
                         onClick={handleSaveClick}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     ) : (
                       <Button
@@ -270,7 +272,7 @@ function TrailerForm() {
                         onClick={handleSaveClick}
                         value="save"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     )}
                     <Modal
@@ -303,7 +305,7 @@ function TrailerForm() {
                           className="btn btn-secondary btn-sm"
                           onClick={closeModal}
                         >
-                          Ok
+                          {t('Ok')}
                         </button>
                       </div>
                     </Modal>

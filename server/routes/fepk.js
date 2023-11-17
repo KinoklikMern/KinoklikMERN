@@ -33,7 +33,8 @@ import {
   refuseRequests,
   getWishToDonateFepksByUser,
   getWishToBuyFepksByUser,
-  getFepksByActorId
+  getFepksByActorId,
+  transferEpkOwnership,
 } from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
@@ -75,7 +76,6 @@ router.get("/favourite/:fepkid/:userid", getFepkFavourite);
 router.get("/sharing/:fepkid/:userid", getFepkSharings);
 router.get("/wishestodonate/:fepkid/:userid", getFepkWishedToDonate);
 router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
-
 
 // Calling these APIs will create the requests for medium and long synopsises, uniqueness, and stills
 router.get("/mediumSynopsis/:fepkid/:userid", getMediumSynopsis);
@@ -128,5 +128,8 @@ router.get("/popular/:popular", getMostPopular);
 
 // get actor by movie
 router.get("/getactorbymovie/:actorId", getFepksByActorId);
+
+// transfer epk ownership
+router.put("/:epkId/transfer", transferEpkOwnership);
 
 export default router;

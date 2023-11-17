@@ -5,12 +5,14 @@ import image03 from "../../images/Festival/03.png";
 import image04 from "../../images/Festival/04.png";
 import logo from "../../images/Festival/log2.png";
 import "./Festival.css";
+import { useTranslation } from 'react-i18next';
 
 export default function Festival() {
+  const { t } = useTranslation();
   return (
     <div className="festival-container">
       <div className="festivalTitle">
-        <span>From The Festivals</span>
+        <span>{t("From The Festivals")}</span>
       </div>
 
       <div className="festivalLogo">

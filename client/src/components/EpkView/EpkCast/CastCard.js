@@ -1,7 +1,15 @@
 import React from "react";
 
-export default function CastCard({ index, image, text, castName, epkRole }) {
+export default function CastCard({
+  index,
+  image,
+  text,
+  castName,
+  epkRole,
+  actorUrl,
+}) {
   const isReverse = index % 2 === 0;
+  const isActor = epkRole.includes("actor") || epkRole.includes("Actor");
   const cardShadowStyle = epkRole.includes("actor" && "Actor")
     ? "tw-shadow-[6px_6px_3px_#1E0039]"
     : "tw-shadow-[6px_6px_3px_#ffffff]";
@@ -32,7 +40,13 @@ export default function CastCard({ index, image, text, castName, epkRole }) {
           className={cardShadowStyle}
           alt=""
         />
-        <p className="tw-text-[2rem] tw-font-semibold">{castName}</p>
+        <a
+          href={actorUrl}
+          className={`${isActor ? "hover:tw-text-[#712CB0]" : ""}`}
+          style={{ textDecoration: "none" }}
+        >
+          <p className="tw-text-[2rem] tw-font-semibold">{castName}</p>
+        </a>
       </div>
       <div className="tw-mx-12 tw-flex tw-w-1/3 tw-flex-col tw-justify-center tw-gap-6 tw-self-center">
         {hasRoleTitle && (

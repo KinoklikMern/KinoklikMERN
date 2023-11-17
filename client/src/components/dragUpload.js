@@ -1,10 +1,13 @@
 import React from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+//import {useTranslation} from 'react-i18next';
 
 const { Dragger } = Upload;
+//const { t } = useTranslation();
 
 const props = {
+ 
   name: "file",
   multiple: true,
   action: "./images",
@@ -20,7 +23,7 @@ const props = {
     }
   },
   onDrop(e) {
-    console.log((t("Dropped files")), e.dataTransfer.files);
+    console.log(("Dropped files"), e.dataTransfer.files);
   },
 };
 const dragUpload = () => (
@@ -28,8 +31,8 @@ const dragUpload = () => (
     <p className="ant-upload-drag-icon">
       <InboxOutlined />
     </p>
-    <p className="ant-upload-text">{t('Upload Poster')}</p>
-    <p className="ant-upload-hint">{t('Click or drag file to this area to upload')}</p>
+    <p className="ant-upload-text">(Upload Poster)</p>
+    <p className="ant-upload-hint">(Click or drag file to this area to upload)</p>
   </Dragger>
 );
 export default dragUpload;

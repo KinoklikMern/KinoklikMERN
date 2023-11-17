@@ -1,9 +1,11 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 import style from "./cinematographer.module.css";
 
 function Cinematographer(cinematographerFile) {
   console.log(cinematographerFile);
+  const { t } = useTranslation();
 
   return (
     <div className={style.container}>
@@ -18,7 +20,7 @@ function Cinematographer(cinematographerFile) {
           <h1>{cinematographerFile.cinematographerFile.name}</h1>
         </div>
         <div className={style.el2}>
-          <h1>Cinematographer</h1>
+          <h1>{t('Cinematographer')}</h1>
           <p>{cinematographerFile.cinematographerFile.header}</p>
 
           <p>{cinematographerFile.cinematographerFile.biography}</p>

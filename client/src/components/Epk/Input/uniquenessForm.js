@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const UniquenessForm = () => {
+  const { t } = useTranslation();
+
   const [uniqueness1Title, setUniqueness1Title] = useState(null);
   const [uniqueness1Description, setUniqueness1Description] = useState(null);
   const [uniqueness1Img_url, setUniqueness1Img_url] = useState(null);
@@ -91,7 +94,7 @@ const UniquenessForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -105,16 +108,13 @@ const UniquenessForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col-5">
             <br />
             <p>
-              Tell the world what makes your film and production special. This
-              is where you sell the world (and the media) your film. Is your
-              film inspired by a true story? Is it based on a criminal court
-              case? Does it feature a real haunted house or a celebrity cameo?
+              {t('Tell the world what makes your film and production special. This is where you sell the world (and the media) your film. Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?')}
             </p>
           </div>
         </div>
@@ -122,7 +122,7 @@ const UniquenessForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Uniqueness
+          {('Uniqueness')}
         </h5>
         <Row justify="space-around" className="text-center ">
           <Col style={{ width: "1400px", height: "600px" }} className="m-2">
@@ -250,7 +250,7 @@ const UniquenessForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

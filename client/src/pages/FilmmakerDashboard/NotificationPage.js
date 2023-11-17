@@ -9,9 +9,11 @@ import RequestCard from "../../components/FilmMakerDashboard/Notifications/Reque
 import { approveRequest, refuseRequest } from "../../api/epks";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 import { useNavigate } from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 // import { FepkContext } from "../../context/FepkContext";
 
 export default function NotificationPage() {
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
   const [epkList, setEpkList] = useState([]);
@@ -91,7 +93,7 @@ export default function NotificationPage() {
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
-        <p className="tw-text-4xl">Filmmaker Dashboard</p>
+        <p className="tw-text-4xl">{t("Filmmaker Dashboard")}</p>
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
         <div className="tw-mt-12 tw-h-5/6 md:tw-ml-16">
@@ -171,7 +173,7 @@ export default function NotificationPage() {
                       // className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
                       className="tw-inline-block tw-w-full hover:tw-text-white"
                     >
-                      EPK Requests
+                      {t("EPK Requests")}
                     </a>
                   </li>
                 </ul>
@@ -215,7 +217,7 @@ export default function NotificationPage() {
                           href="#allrequests"
                           className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
                         >
-                          All Request
+                          {t("All Request")}
                         </a>
                       </li>
                       <li
@@ -234,7 +236,7 @@ export default function NotificationPage() {
                           href="#pending"
                           className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
                         >
-                          Pending
+                          {t("Pending")}
                         </a>
                       </li>
                       <li
@@ -253,7 +255,7 @@ export default function NotificationPage() {
                           href="#approved"
                           className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
                         >
-                          Approved
+                          {t("Approved")}
                         </a>
                       </li>
                       <li
@@ -272,7 +274,7 @@ export default function NotificationPage() {
                           href="#refused"
                           className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
                         >
-                          Refused
+                          {t("Refused")}
                         </a>
                       </li>
                     </ul>
@@ -296,7 +298,7 @@ export default function NotificationPage() {
                                     disabled
                                     className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white "
                                   >
-                                    Refused
+                                    {t("Refused")}
                                   </button>
                                 )}
                                 {request.status === "approved" && (
@@ -304,7 +306,7 @@ export default function NotificationPage() {
                                     disabled
                                     className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white "
                                   >
-                                    Approved
+                                    {t('Approved')}
                                   </button>
                                 )}
                                 {request.status === "pending" && (
@@ -318,7 +320,7 @@ export default function NotificationPage() {
                                         )
                                       }
                                     >
-                                      Approve
+                                      {t("Approve")}
                                     </button>
                                     <button
                                       className="tw-m-8 tw-inline-block  tw-rounded-full tw-bg-[#1E0039] tw-px-4 tw-text-white hover:tw-scale-105"
@@ -326,7 +328,7 @@ export default function NotificationPage() {
                                         handleDeny(request, requestList.fepkId)
                                       }
                                     >
-                                      Deny
+                                      {t("Deny")}
                                     </button>
                                   </>
                                 )}
@@ -357,7 +359,7 @@ export default function NotificationPage() {
                                         disabled
                                         className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white "
                                       >
-                                        Refused
+                                        {t("Refused")}
                                       </button>
                                     )}
                                     {request.status === "approved" && (
@@ -365,7 +367,7 @@ export default function NotificationPage() {
                                         disabled
                                         className="tw-m-8 tw-rounded-full tw-bg-[#712CB0] tw-px-4 tw-text-white"
                                       >
-                                        Approved
+                                        {t("Approved")}
                                       </button>
                                     )}
                                     {request.status === "pending" && (
@@ -379,7 +381,7 @@ export default function NotificationPage() {
                                             )
                                           }
                                         >
-                                          Approve
+                                          {t("Approve")}
                                         </button>
                                         <button
                                           className="tw-m-8 tw-inline-block  tw-rounded-full tw-bg-[#1E0039] tw-px-4 tw-text-white hover:tw-scale-105"
@@ -390,7 +392,7 @@ export default function NotificationPage() {
                                             )
                                           }
                                         >
-                                          Deny
+                                          {t("Deny")}
                                         </button>
                                       </>
                                     )}

@@ -1,11 +1,13 @@
 import React from "react";
+import {useTranslation} from 'react-i18next';
 
 function Bookmark() {
+  const { t } = useTranslation();
   
   return (
     <>
       <div>
-        This is the bookmark.
+        {t("This is the bookmark.")}
       </div>
     </>
   );

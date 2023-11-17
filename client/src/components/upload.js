@@ -4,13 +4,13 @@ import { message, Upload } from "antd";
 import {useTranslation} from 'react-i18next';
 
 const getBase64 = (img, callback) => {
-  
+
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
 const beforeUpload = (file) => {
-  
+  const { t } = useTranslation();
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
     message.error(t("You can only upload JPG/PNG file!"));
@@ -47,7 +47,7 @@ const UploadImage = () => {
           marginTop: 8,
         }}
       >
-        {t('Upload Poster')}
+        (t("Upload Poster'))
       </div>
     </div>
   );

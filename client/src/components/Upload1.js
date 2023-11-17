@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {useTranslation} from 'react-i18next';
 
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
-const { t } = useTranslation();
 
 function Upload1() {
   
@@ -11,13 +10,15 @@ function Upload1() {
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const handleSubmit = () => {
+    
     console.log(fileDataURL);
   };
 
   const changeHandler = (e) => {
+    const { t } = useTranslation();
     const file = e.target.files[0];
     if (!file.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
+      alert(t("Image mime type is not valid"));
       return;
     }
     setFile(file);
@@ -42,6 +43,8 @@ function Upload1() {
       }
     };
   }, [file]);
+
+  const { t } = useTranslation();
 
   return (
     <>

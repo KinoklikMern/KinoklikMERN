@@ -3,8 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import Axios from "axios";
+import { validatename, validateWebsite, validateEmail, validatePhone, validatelocation } from "./validation";
+import { useTranslation } from 'react-i18next';
+
 
 export default function Studio() {
+ const { t } = useTranslation();
   const [userStudioData, setUserStudioData] = useState({
     name: "",
     website: "",
@@ -14,6 +18,17 @@ export default function Studio() {
     province: "",
     country: "",
   });
+
+  const [validationStudioErrors, setValidationStudioErrors] = useState({
+    name: '',
+    email: '',
+    website: '',
+    city: '',
+    province: '',
+    country: '',
+    phone: '',
+  });
+  
   const [disabled, setDisabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [hasAgent, setHasAgent] = useState(true);
@@ -35,25 +50,76 @@ export default function Studio() {
     userRole = user.role;
   }
 
+  // useEffect(() => {
+  //   try {
+  //     Axios.get(
+  //       `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`
+  //     ).then((rs) => {
+  //       if (rs.data) setUserStudioData(rs.data);
+  //       console.log(userStudioData);
+  //     });
+  //   } catch (error) {
+  //     console.log(error.response.data.message);
+  //   }
+  // }, [userId, userStudioData]);
+
   useEffect(() => {
-    try {
-      Axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`
-      ).then((rs) => {
-        if (rs.data) setUserStudioData(rs.data);
-        console.log(userStudioData);
-      });
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
-  }, [userId, userStudioData]);
+    const fetchData = async () => {
+      try {
+        const response = await Axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`
+        );
+        if (response.data) {
+          setUserStudioData(response.data);
+          console.log(response.data); // Log the response data directly
+        }
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
+    fetchData(); // Call the async function to fetch data
+  }, [userId]);
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
+  
+    if (name === 'name') {
+      setValidationStudioErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: validatename(value) ? '' : (t('Please fill out the required field')),
+      }));
+    } else if ( name === 'city' || name === 'province' || name === 'country') {
+      setValidationStudioErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: validatelocation(value) ? '' : (t('Please enter a valid location')),
+      }));
+    }else if (name === 'website') {
+      setValidationStudioErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: validateWebsite(value) ? '' : (t('Please enter a valid URL')),
+      }));
+    } else if (name === 'email') {
+      setValidationStudioErrors((prevErrors) => ({
+        ...prevErrors,
+        email: validateEmail(value) ? '' : (t('Please enter a valid email address')),
+      }));
+    } else if (name === 'phone') {
+      setValidationStudioErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: validatePhone(value) ? '' : (t('Please enter a valid phone number (10 to 15 digits)')),
+      }));
+    }
+  
     setUserStudioData({ ...userStudioData, [name]: value });
-    setDisabled(false);
-    //console.log(userStudioData);
+  
+    // Check for validation errors
+    const hasErrors = Object.values(validationStudioErrors).some((error) => error);
+  
+    // Set the "Save" button state based on validation errors and hasAgent value
+    setDisabled(!hasAgent || hasErrors);
   };
+  
 
   function saveUserStudio() {
     //console.log(userStudioData);
@@ -87,21 +153,20 @@ export default function Studio() {
   }
 
   return (
-    //<form className="tw-h-full">
     <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
       <div className="tw-col-start-2 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
         {userRole === "Actor" && (
           <div className="tw-mb-3 tw-flex tw-items-center">
-            <p className="tw-mb-0 tw-ml-9 tw-text-[#1E0039]">Representation</p>
+            <p className="tw-mb-0 tw-ml-9 tw-text-[#1E0039]">{t("Representation")}</p>
             <button
               onClick={() => handlePermission(true)}
               className={`tw-ml-5 tw-rounded-lg tw-px-2 tw-py-1 ${
                 hasAgent
                   ? "tw-bg-[#1E0039] tw-text-white tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
-                  : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
+                  : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3pprofilhandleProfileChangex_10px_rgba(113,44,176,0.25)]"
               }`}
             >
-              Yes
+              {t("Yes")}
             </button>
             <button
               onClick={() => handlePermission(false)}
@@ -111,7 +176,7 @@ export default function Studio() {
                   : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
               }`}
             >
-              No
+              {t("No")}
             </button>
           </div>
         )}
@@ -126,6 +191,9 @@ export default function Studio() {
               disabled={!hasAgent}
               className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             />
+             {validationStudioErrors.name && (
+            <div className="tw-text-red-500">{validationStudioErrors.name}</div>
+            )}
             <input
               type="text"
               name="website"
@@ -137,6 +205,10 @@ export default function Studio() {
               disabled={!hasAgent}
               className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             />
+             {validationStudioErrors.website && (
+           <div className="tw-text-red-500">{validationStudioErrors.website}</div>
+            )}
+             
             <input
               type="text"
               name="email"
@@ -148,42 +220,57 @@ export default function Studio() {
               disabled={!hasAgent}
               className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             />
+             {validationStudioErrors.email && (
+           <div className="tw-text-red-500">{validationStudioErrors.email}</div>
+            )}
             <input
               type="text"
               name="phone"
-              placeholder="Phone"
+              placeholder={t("Phone")}
               defaultValue={userStudioData.phone}
               onChange={handleProfileChange}
               disabled={!hasAgent}
               className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             />
+            {validationStudioErrors.phone && (
+            <div className="tw-text-red-500">{validationStudioErrors.phone}</div>
+             )}
             <input
               type="text"
               name="city"
-              placeholder="City"
+              placeholder={t("City")}
               defaultValue={userStudioData.city}
               onChange={handleProfileChange}
               disabled={!hasAgent}
               className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             />
+            {validationStudioErrors.city && (
+            <div className="tw-text-red-500">{validationStudioErrors.city}</div>
+             )}
             <input
               type="text"
               name="province"
-              placeholder="Province"
+              placeholder={t("Province")}
               defaultValue={userStudioData.province}
               onChange={handleProfileChange}
               disabled={!hasAgent}
               className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             />
+            {validationStudioErrors.province && (
+            <div className="tw-text-red-500">{validationStudioErrors.province}</div>
+             )}
             <input
               type="text"
               name="country"
-              placeholder="Country"
+              placeholder={t("Country")}
               defaultValue={userStudioData.country}
               onChange={handleProfileChange}
               disabled={!hasAgent}
               className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
             />
+            {validationStudioErrors.country && (
+            <div className="tw-text-red-500">{validationStudioErrors.country}</div>
+             )}
           </>
         )}
       </div>
@@ -195,11 +282,6 @@ export default function Studio() {
           appElement={document.getElementById("root")}
           style={{
             overlay: {
-              // position: "fixed",
-              // top: 0,
-              // left: 0,
-              // right: 0,
-              // bottom: 0,
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             },
             content: {
@@ -217,10 +299,10 @@ export default function Studio() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h2>Updated successfully!</h2>
+            <h2>{t("Updated successfully!")}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+            {t("Ok")}
             </button>
           </div>
         </Modal>
@@ -231,18 +313,17 @@ export default function Studio() {
             disabled
             className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
           >
-            Save
+            {t("Save")}
           </button>
         ) : (
           <button
             className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
             onClick={() => saveUserStudio()}
           >
-            Save
+            {t("Save")}
           </button>
         )}
       </div>
     </div>
-    //</form>
   );
 }

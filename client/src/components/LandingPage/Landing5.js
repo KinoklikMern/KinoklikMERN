@@ -1,46 +1,98 @@
 import React from "react";
-import dashboard from "../../images/dashBoard.png";
-import TvImage from "../../images/TV.png";
+import image1 from "../../images/LandingPage/LongSynopsisBlurred.png";
+import image2 from "../../images/LandingPage/CastCrewScreenShot.png";
+import image3 from "../../images/LandingPage/AvatarFIghtingBird.png";
+import image4 from "../../images/LandingPage/EPK_DashboardCoverSection.png";
+import image5 from "../../images/LandingPage/ResourcesScreenshot.png";
+import image6 from "../../images/LandingPage/SebastianCordobaDemoReel.png";
 
 const Landing5 = () => {
   return (
-    <div className="tw-bg-midnight tw-pt-72 tw-pb-10 ">
-      <div className="tw-p-20 tw-text-center tw-text-6xl tw-font-bold tw-text-white ">
-        <div className=" "> One EPK.</div>
-        <div className=" ">All Film Details.</div>
+    <div className='tw-bg-midnight'>
+      <div className='tw-py-20 tw-text-center tw-text-white '>
+        <p className='tw-text-3xl tw-font-bold md:tw-text-5xl'>
+          Introducing KinoKlik EPK
+        </p>
+        <p className='tw-mt-2 tw-text-lg md:tw-text-xl'>
+          free film marketing software.
+        </p>
       </div>
-      <div className="tw-flex tw-space-x-14 ">
-        <div className="tw-w-7/12 tw-rounded-3xl tw-bg-gray-800 tw-p-6 ">
-          <p className="tw-p-4 tw-text-4xl tw-font-bold tw-text-white">
-            Film Details
-          </p>
-          <p className="tw-p-4 tw-text-2xl tw-text-white ">
-            This section contains the main cast and crew you want to hire,
-            production/release year and film length in minutes.
-          </p>
-          <div className="tw-relative tw-bg-no-repeat">
-            <img
-              className="tw-absolute tw-h-full tw-w-4/5"
-              src={TvImage}
-              alt="Left Im"
-            />
-            <img
-              className="tw-ml-10 tw-h-2/5 tw-w-8/12 tw-pl-20 tw-pb-10 "
-              src={dashboard}
-              alt="/"
-            />
+
+      <div className=' tw-flex tw-flex-col tw-items-center tw-gap-20'>
+        <div className='tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-5 tw-px-5 md:tw-flex-row md:tw-px-10'>
+          <img src={image1} alt='' className='tw-h-full md:tw-w-2/4' />
+          <div className='tw-rounded-xl tw-bg-[#3f2556] tw-p-5 md:tw-w-2/4'>
+            <p className='tw-text-center tw-font-semibold tw-text-white md:tw-text-2xl'>
+              Protect your film's Intelectual Property (IP) by blurring out any
+              section you chose directly from your EPK dashboard.
+            </p>
           </div>
         </div>
-        <div className="tw-w-5/12">
-          <div className="tw-relative tw-h-full tw-w-4/5 tw-rounded-3xl tw-border tw-border-black tw-bg-white">
-            <div className="tw-absolute tw-left-0 tw-top-5 tw-h-[94%] tw-w-11/12 tw-rounded-3xl tw-bg-midnight tw-text-white">
-              <p className="tw-px-14 tw-py-64 tw-text-justify tw-text-3xl ">
-                From the main Filmmaker EPK Dashboard, KinoKlik allows you to
-                upload all your film details in one place.
-              </p>
-            </div>
+
+        <div className='tw-flex tw-w-full tw-flex-col-reverse tw-items-center tw-gap-5 tw-px-5 md:tw-flex-row md:tw-px-10'>
+          <div className='tw-rounded-xl tw-bg-[#3f2556] tw-p-5 md:tw-w-2/4'>
+            <p className='tw-text-center tw-font-semibold tw-text-white md:tw-text-2xl'>
+              Add unlimited Actors information to your film EPK in the Cast &
+              Crew section.
+            </p>
+          </div>
+          <img src={image2} alt='' className='tw-h-full md:tw-w-2/4' />
+        </div>
+
+        <div className='tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-5 tw-px-5 md:tw-flex-row md:tw-px-10'>
+          <img src={image3} alt='' className='tw-h-full md:tw-w-2/4' />
+          <div className='tw-rounded-xl tw-bg-[#3f2556] tw-p-5 md:tw-w-2/4'>
+            <p className='tw-text-center tw-font-semibold tw-text-white md:tw-text-2xl'>
+              Display unlimited film stills and posters!{" "}
+            </p>
           </div>
         </div>
+
+        <div className='tw-flex tw-w-full tw-flex-col-reverse tw-items-center tw-gap-5 tw-px-5 md:tw-flex-row md:tw-px-10'>
+          <div className='tw-rounded-xl tw-bg-[#3f2556] tw-p-5 md:tw-w-2/4'>
+            <p className='tw-text-center tw-font-semibold tw-text-white md:tw-text-2xl'>
+              Control all information you display about your film directly from
+              your EPK Dashboard.
+            </p>
+          </div>
+          <img src={image4} alt='' className='tw-h-full md:tw-w-2/4' />
+        </div>
+
+        <div className='tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-5 tw-px-5 md:tw-flex-row md:tw-px-10'>
+          <img src={image5} alt='' className='tw-h-full md:tw-w-2/4' />
+          <div className='tw-rounded-xl tw-bg-[#3f2556] tw-p-5 md:tw-w-2/4'>
+            <p className='tw-text-center tw-font-semibold tw-text-white md:tw-text-2xl'>
+              Take advantage of the views and traffic to tell people what you
+              need for your film! You never know who has access to that red
+              Ferrari or hard-to-find rooftop infinity pool.
+            </p>
+          </div>
+        </div>
+
+        <div className='tw-flex tw-w-full tw-flex-col-reverse tw-items-center tw-gap-5 tw-px-5 md:tw-flex-row md:tw-px-10'>
+          <div className='tw-rounded-xl tw-bg-[#3f2556] tw-p-5 md:tw-w-2/4'>
+            <p className='tw-text-center tw-font-semibold tw-text-white md:tw-text-2xl'>
+              Discover up-and-coming Actors eager to join your film project and
+              add them to your EPK. Follow, Star and Recommend Actors to other
+              filmmakers directly from their Actor Page!
+            </p>
+          </div>
+          <img src={image6} alt='' className='tw-h-full md:tw-w-2/4' />
+        </div>
+      </div>
+
+      <div className='tw-py-20 tw-text-center tw-text-white '>
+        <p className='tw-text-3xl tw-font-bold md:tw-text-4xl'>
+          One KinoKlik account.
+          <br />
+          All your films EPKs.
+        </p>
+        <a
+          className='tw-mt-12 tw-inline-block tw-rounded-lg tw-bg-white tw-px-10 tw-py-2 tw-text-xl tw-font-bold tw-tracking-wider tw-text-midnight tw-shadow-lg tw-duration-200 hover:tw--translate-y-0.5 hover:tw-bg-violet-900 hover:tw-text-white focus:tw-outline-none'
+          href='/uploadFepk'
+        >
+          Create EPK
+        </a>
       </div>
     </div>
   );

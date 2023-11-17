@@ -2,8 +2,11 @@ import React, { useState } from "react";
 //import UploadImage from "../../upload";
 import UploadFile from "../../FileUpload";
 import { Col, Row } from "antd";
+import { useTranslation } from 'react-i18next';
 
 const SynopsisForm = () => {
+  const { t } = useTranslation();
+
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
   const [image3, setImage3] = useState(null);
@@ -81,7 +84,7 @@ const SynopsisForm = () => {
   return (
     <>
       {" "}
-      <h1 className="text-center text-primary">synopsis</h1>
+      <h1 className="text-center text-primary">{t(synopsis)}</h1>
       <br />
       <Row
         justify="space-around"
@@ -89,11 +92,11 @@ const SynopsisForm = () => {
         /*  style={{height: "70vh" }}*/
       >
         <Col span={6} className="m-2 bg-light">
-          <h4>short synopsis</h4>
+          <h4>{t('short synopsis')}</h4>
           <textarea
             name="short"
             style={{ height: "200px", width: "300px" }}
-            placeholder="max 30 words"
+            placeholder={t("max 30 words")}
             onChange={handleShort}
           />
           <UploadFile setImage={setImage1} />
@@ -106,11 +109,11 @@ const SynopsisForm = () => {
           )}
         </Col>
         <Col span={6} className="m-2 bg-light">
-          <h4>long synopsis</h4>
+          <h4>{t("long synopsis")}</h4>
           <textarea
             name="medium"
             style={{ height: "200px", width: "300px" }}
-            placeholder="max 70 words"
+            placeholder={t("max 70 words")}
             onChange={handleMedium}
           ></textarea>
           <UploadFile setImage={setImage2} />
@@ -123,7 +126,7 @@ const SynopsisForm = () => {
           )}
         </Col>
         <Col span={6} className="m-2 bg-light">
-          <h4>medium synopsis</h4>
+          <h4>{t('medium synopsis')}</h4>
           <textarea
             name="long"
             style={{ height: "200px", width: "300px" }}

@@ -16,8 +16,11 @@ import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess
 import { useSelector } from "react-redux";
 import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
 import { FepkContext } from "../context/FepkContext";
+import EPKSideMenu from "../components/Epk/EpkSideMenu";
+import {useTranslation} from 'react-i18next';
 
 function FepkEditDashboard() {
+  const { t } = useTranslation();
   const [fepk, setFepk] = useState([]);
   const [access, setAccess] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -54,6 +57,7 @@ function FepkEditDashboard() {
     </div>
   ) : (
     <>
+      <EPKSideMenu epkId={fepkId} filmmakerId={user.id} />
       {access === true ? (
         <div>
           <div
@@ -61,65 +65,65 @@ function FepkEditDashboard() {
               display: "flex",
               justifyContent: "space-between",
               margin: "1% 10%",
-              marginBottom: "0"
+              marginBottom: "0",
             }}
           >
             <SectionButton
-              text="1. Cover"
+              text={t("1. Cover")}
               onClick={() => handleSectionClick("cover")}
               sectionChosen={sectionChosen}
               value="cover"
             />
             <SectionButton
-              text="2. Log Line"
+              text={t("2. Log Line")}
               onClick={() => handleSectionClick("logLine")}
               sectionChosen={sectionChosen}
               value="logLine"
             />
             <SectionButton
-              text="3. Synopsis"
+              text={t("3. Synopsis")}
               onClick={() => handleSectionClick("synopsis")}
               sectionChosen={sectionChosen}
               value="synopsis"
             />
             <SectionButton
-              text="4. Cast & Crew"
+              text={t("4. Cast & Crew")}
               onClick={() => handleSectionClick("details")}
               sectionChosen={sectionChosen}
               value="details"
             />
             <SectionButton
-              text="5. Uniqueness"
+              text={t("5. Uniqueness")}
               onClick={() => handleSectionClick("uniqueness")}
               sectionChosen={sectionChosen}
               value="uniqueness"
             />
             <SectionButton
-              text="6. Film Stills"
+              text={t("6. Film Stills")}
               onClick={() => handleSectionClick("stills")}
               sectionChosen={sectionChosen}
               value="stills"
             />
             <SectionButton
-              text="7. Film Trailer"
+              text={t("7. Film Trailer")}
               onClick={() => handleSectionClick("trailer")}
               sectionChosen={sectionChosen}
               value="trailer"
             />
             <SectionButton
-              text="8. Film Buzz"
+              text={t("8. Film Buzz")}
               onClick={() => handleSectionClick("reviews")}
               sectionChosen={sectionChosen}
               value="reviews"
             />
             <SectionButton
-              text="9. Resources"
+              text={t("9. Resources")}
               onClick={() => handleSectionClick("resources")}
               sectionChosen={sectionChosen}
               value="resources"
             />
             <SectionButton
-              text="10.Treatment"
+              text={t("10.Treatment")}
               onClick={() => handleSectionClick("treatment")}
               sectionChosen={sectionChosen}
               value="treatment"

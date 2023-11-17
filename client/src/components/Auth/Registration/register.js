@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./login";
 //Adding antd modules and style
 import { Modal, Form, Input, Select } from "antd";
+import { useTranslation } from 'react-i18next';
 
 function Register({ spanText }) {
   const [open, setOpen] = useState(false);
@@ -15,6 +16,7 @@ function Register({ spanText }) {
   const [success, setSuccess] = useState("");
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
+  const { t } = useTranslation();
 
   //popup and form code
   const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
@@ -28,9 +30,9 @@ function Register({ spanText }) {
       <Modal
         className="modalStyle"
         open={open}
-        title="Sign Up"
+        title={t("Sign Up")}
         okText="Sign Up"
-        cancelText="Cancel"
+        cancelText={t("Cancel")}
         onCancel={onCancel}
         onOk={() => {
           form
@@ -63,43 +65,43 @@ function Register({ spanText }) {
                 onChange={handleChange}
                 options={[
                   {
-                    label: "Viewer",
+                    label: (t("Viewer")),
                     value: "Viewer",
                   },
                   {
-                    label: "Filmmaker",
+                    label: (t("Filmmaker")),
                     value: "FILM_MAKER",
                   },
                   {
-                    label: "Sales Agent",
+                    label: (t("Sales Agent")),
                     value: "Sales_Agent",
                   },
                   {
-                    label: "Distributor",
+                    label: (t("Distributor")),
                     value: "Distributor",
                   },
                   {
-                    label: "Film Festival",
+                    label: (t("Film Festival")),
                     value: "Film_Festival",
                   },
                 ]}
               />
             </Form.Item>
             <Form.Item
-              name="firstName"
-              label="First Name"
+              name= "firstName"
+              label={t("First Name")}
               rules={[
                 {
                   required: true,
-                  message: "Please enter your first name!",
+                  message: (t("Please enter your first name!")),
                 },
                 {
                   min: 3,
-                  message: "First Name must be at least 3 characters long!",
+                  message: (t("First Name must be at least 3 characters long!")),
                 },
                 {
                   max: 30,
-                  message: "First Name must be at most 30 characters long!",
+                  message: (t("First Name must be at most 30 characters long!")),
                 },
               ]}
             >
@@ -107,19 +109,19 @@ function Register({ spanText }) {
             </Form.Item>
             <Form.Item
               name="lastName"
-              label="Last Name"
+              label= {t("Last Name")}
               rules={[
                 {
                   required: true,
-                  message: "Please enter your last name!",
+                  message: (t("Please enter your last name!")),
                 },
                 {
                   min: 3,
-                  message: "Last Name must be at least 3 characters long!",
+                  message: (t("Last Name must be at least 3 characters long!")),
                 },
                 {
                   max: 30,
-                  message: "Last Name must be at most 30 characters long!",
+                  message: (t("Last Name must be at most 30 characters long!")),
                 },
               ]}
             >
@@ -127,11 +129,11 @@ function Register({ spanText }) {
             </Form.Item>
             <Form.Item
               name="email"
-              label="Email"
+              label= {t("Email")}
               rules={[
                 {
                   required: true,
-                  message: "Please enter your email!",
+                  message: (t("Please enter your email!")),
                 },
               ]}
             >
@@ -139,19 +141,19 @@ function Register({ spanText }) {
             </Form.Item>
             <Form.Item
               name="password"
-              label="Password"
+              label= {t("Password")}
               rules={[
                 {
                   required: true,
-                  message: "Please enter password!",
+                  message: (t("Please enter password!")),
                 },
                 {
                   min: 6,
-                  message: "Password must be at least 6 characters long!",
+                  message: (t("Password must be at least 6 characters long!")),
                 },
                 {
                   max: 40,
-                  message: "First Name must be at most 40 characters long!",
+                  message: (t("First Name must be at most 40 characters long!")),
                 },
               ]}
             >
@@ -160,10 +162,10 @@ function Register({ spanText }) {
 
             {role !== "Viewer" && (
               <>
-                <Form.Item name="phone" label="Phone Number">
+                <Form.Item name= {t("phone")} label= {t("Phone Number")}>
                   <Input />
                 </Form.Item>
-                <Form.Item name="website" label="Your Website">
+                <Form.Item name= {t("website")} label= {t("Your Website")}>
                   <Input />
                 </Form.Item>
               </>
@@ -233,7 +235,7 @@ function Register({ spanText }) {
             setOpen(true);
           }}
         >
-          {spanText ? spanText : "SIGN UP"}
+          {spanText ? spanText : (t("SIGN UP"))}
         </span>
 
         <CollectionCreateForm

@@ -1,7 +1,9 @@
 import React from "react";
 import "./UserDashboard.scss";
+import {useTranslation} from 'react-i18next';
 
 function Dashboard() {
+  const { t } = useTranslation();
   return (
     <>
       <div>
@@ -21,7 +23,7 @@ function Dashboard() {
                       aria-controls="account-left"
                       aria-selected="true"
                     >
-                      <i class="fas fa-user-circle"></i> My Account
+                      <i class="fas fa-user-circle"></i>{t("My Account")}
                     </a>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -34,7 +36,7 @@ function Dashboard() {
                       aria-controls="payment-left"
                       aria-selected="false"
                     >
-                      <i class="fas fa-credit-card"></i> Payment
+                      <i class="fas fa-credit-card"></i> {t("Payment")}
                     </a>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -47,7 +49,7 @@ function Dashboard() {
                       aria-controls="billing-left"
                       aria-selected="false"
                     >
-                      <i class="fas fa-receipt"></i> Billing History
+                      <i class="fas fa-receipt"></i> {t("Billing History")}
                     </a>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -60,7 +62,7 @@ function Dashboard() {
                       aria-controls="setting-left"
                       aria-selected="false"
                     >
-                      <i class="fas fa-cog"></i> Settings
+                      <i class="fas fa-cog"></i> {("Settings")}
                     </a>
                   </li>
                 </ul>

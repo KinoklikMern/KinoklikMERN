@@ -6,32 +6,35 @@ import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 const HomeBody = ({ role }) => {
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [filterQuery, setFilterQuery] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
+//For Translation
 
   const [filterTags, setFilterTags] = useState([
+    
     {
-      name: "Movie",
+      name: ("Movie"),
       isActive: false,
     },
     {
-      name: "TV Show",
+      name: ("TV Show"),
       isActive: false,
     },
     {
-      name: "Web Series",
+      name: ("Web Series"),
       isActive: false,
     },
     {
-      name: "Documentary",
+      name: ("Documentary"),
       isActive: false,
     },
     {
-      name: "all epks",
+      name: ("all epks"),
       isActive: true,
     },
   ]);

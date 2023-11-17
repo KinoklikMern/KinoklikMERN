@@ -255,7 +255,7 @@ export default function UploadActorPic({ user }) {
       const thumbnailBlob = dataURLtoBlob(thumbnailImage);
       if (!thumbnailBlob) {
         console.error("Failed to create blob from data URL.");
-        setMessage("An error occurred while processing the thumbnail image.");
+        setMessage(t("An error occurred while processing the thumbnail image."));
         return; // Stop the execution of the function here
       }
       formDataThumbnail = new FormData();
@@ -302,7 +302,7 @@ export default function UploadActorPic({ user }) {
             })
             .catch((err) => console.log("error: " + err.message));
         } else {
-          setMessage("video Time Must Be Less Than 5 Min");
+          setMessage(t("video Time Must Be Less Than 5 Min"));
         }
       }
       if (formDataThumbnail) {
@@ -395,11 +395,11 @@ export default function UploadActorPic({ user }) {
         })
         .catch((err) => {
           console.log(err);
-          setMessage("An unexpected error occurred.");
+          setMessage(t("An unexpected error occurred."));
         });
-      setMessage("upload success");
+      setMessage(t("upload success"));
     } else {
-      setMessage("error in Mime");
+      setMessage(t("error in Mime"));
     }
     if (true) {
     }
@@ -674,11 +674,11 @@ export default function UploadActorPic({ user }) {
             {/* {isUploading ? (
               <div>
                 <div className="spinner"></div>
-                <p>Uploading...</p>
+                <p>{t("Uploading...")}</p>
               </div>
             ) : (
               <> */}
-            <h2>Updated successfully!</h2>
+            <h2>{t('Updated successfully!')}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
               Ok

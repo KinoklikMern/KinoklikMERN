@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const DirectorForm = () => {
   const [image, setImage] = useState(null);
@@ -59,6 +60,9 @@ const DirectorForm = () => {
     console.log(biography);
   };
 
+  const { t } = useTranslation();
+
+
   return (
     <>
       <div
@@ -85,7 +89,7 @@ const DirectorForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Page Upload
+             {t('EPK Page Upload')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -99,7 +103,7 @@ const DirectorForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -108,7 +112,7 @@ const DirectorForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Director
+          {t('Director')}
         </h5>
         <br />
         <Row justify="space-around" className="text-center ">
@@ -126,7 +130,7 @@ const DirectorForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Director's Name"
+                  placeholder= {t("Director's Name")}
                   onChange={handleName}
                 />
                 <input
@@ -139,7 +143,7 @@ const DirectorForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Header"
+                  placeholder= {t("Header")}
                   onChange={handleHeader}
                 />
                 <textarea
@@ -151,7 +155,7 @@ const DirectorForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Director's Biography here."
+                  placeholder= {t("Enter Director's Biography here.")}
                   onChange={handleBiography}
                 />
                 <UploadFile setImage={setImage} />
@@ -190,7 +194,7 @@ const DirectorForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

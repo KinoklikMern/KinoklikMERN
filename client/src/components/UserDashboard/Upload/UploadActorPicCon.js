@@ -38,7 +38,7 @@ export default function UploadActorPicCon() {
               marginRight: "20px",
             }}
           >
-            Actor Page
+            {t("Actor Page")}
           </p>
         </a>
       </div>

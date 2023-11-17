@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const CinematographerForm = () => {
   const [image, setImage] = useState(null);
@@ -59,6 +60,8 @@ const CinematographerForm = () => {
     console.log(biography);
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -85,7 +88,7 @@ const CinematographerForm = () => {
               className="col align-items-start"
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-2 m-3">
@@ -99,7 +102,7 @@ const CinematographerForm = () => {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
           <div className="col"></div>
@@ -108,7 +111,7 @@ const CinematographerForm = () => {
           className="card-title "
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          Cinematographer
+          {t('Cinematographer')}
         </h5>
         <br />
         <Row justify="space-around" className="text-center ">
@@ -151,7 +154,7 @@ const CinematographerForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Cinematographer's Biography here."
+                  placeholder={t("Enter Cinematographer's Biography here.")}
                   onChange={handleBiography}
                 />
                 <UploadFile setImage={setImage} />
@@ -190,7 +193,7 @@ const CinematographerForm = () => {
               onClick={submit}
               value="save"
             >
-              Save
+              {t('Save')}
             </Button>
           </div>
         </Row>

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 function DetailsForm() {
+  const { t } = useTranslation();
   const [file, setFile] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
@@ -26,14 +27,14 @@ function DetailsForm() {
   };
 
   const epkRoles = [
-    "lead_actor",
-    "supporting_actor",
-    "director",
-    "producer",
-    "cinematographer",
-    "editor",
-    "writer",
-    "sound",
+    (t("lead_actor")),
+    (t("supporting_actor")),
+    (t("director")),
+    (t("producer")),
+    (t("cinematographer")),
+    (t("editor")),
+    (t("writer")),
+    (t("sound")),
   ];
 
   const makeEpkRole = (Y) => {
@@ -206,7 +207,7 @@ function DetailsForm() {
                 className="col align-items-start"
                 style={{ color: "#311465", fontWeight: "normal" }}
               >
-                EPK Dashboard
+                {t("EPK Dashboard")}
               </h2>
             </div>
             <div className="col-3 m-3">
@@ -224,7 +225,7 @@ function DetailsForm() {
                   fontSize: "20px",
                 }}
               >
-                View EPK Page
+                 {t("View EPK Page")}
               </Link>
             </div>
           </div>
@@ -241,13 +242,13 @@ function DetailsForm() {
                 className="card-title "
                 style={{ color: "#ffffff", fontWeight: "normal" }}
               >
-                Film Details
+                {t("Film Details")}
               </h5>
               <form className="row g-3">
                 <div className="col-3 mt-5">
                   <label htmlFor="filePoster" className="form-label text-dark">
                     {" "}
-                    <h4>Upload Poster / Thumbnail</h4>
+                    <h4>{t("Upload Poster / Thumbnail")}</h4>
                   </label>
                   <input
                     className="form-control form-control-sm"
@@ -272,9 +273,9 @@ function DetailsForm() {
                   >
                     <thead className="thead-dark">
                       <tr>
-                        <th>CREW NAME</th>
-                        <th>EPK ROLE</th>
-                        <th>ACTION</th>
+                        <th>{t("CREW NAME")}</th>
+                        <th>{t("EPK ROLE")}</th>
+                        <th>{t("ACTION")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -364,7 +365,7 @@ function DetailsForm() {
                           onClick={addCrewAndRoleToTable}
                           value="save"
                         >
-                          Add to Table
+                          {t("Add to Table")}
                         </Button>
                       ) : (
                         <Button
@@ -379,7 +380,7 @@ function DetailsForm() {
                           onClick={addCrewAndRoleToTable}
                           value="save"
                         >
-                          Add to Table
+                          {t("Add to Table")}
                         </Button>
                       )}
                     </div>
@@ -485,7 +486,7 @@ function DetailsForm() {
                           onClick={saveEpkDetails}
                           value="save"
                         >
-                          Save
+                          {t("Save")}
                         </Button>
                       ) : (
                         <Button
@@ -499,7 +500,7 @@ function DetailsForm() {
                           onClick={saveEpkDetails}
                           value="save"
                         >
-                          Save
+                          {t("Save")}
                         </Button>
                       )}
                     </div>

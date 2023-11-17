@@ -14,8 +14,11 @@ import {
   faUpload,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 function ReviewsForm() {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -126,7 +129,7 @@ function ReviewsForm() {
           addReviewToTable();
         }
       } else {
-        setMessage("File must be a image(jpeg or png)");
+        setMessage(t("File must be a image(jpeg or png)"));
       }
     }
   }
@@ -152,18 +155,6 @@ function ReviewsForm() {
       });
     setDisabled(true);
   }
-
-  const saveEpkReviewChanges = async (updatedReviewsList) => {
-    try {
-      const res = await http.put(`fepks/update/${fepkId}`, {
-        reviews: updatedReviewsList,
-      });
-      console.log("Changes saved:", res.data);
-      setDisabled(false);
-    } catch (err) {
-      console.error("Error saving changes:", err);
-    }
-  };
 
   const handleEditChange = (e, index, type) => {
     if (type === "file") {
@@ -194,7 +185,6 @@ function ReviewsForm() {
       updatedReviewsList[index][type] = e.target.value;
       setReviewsList(updatedReviewsList);
       setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
-      saveEpkReviewChanges(updatedReviewsList);
       // Update character length for text changes
       if (type === "text") {
         setCharacterLength({
@@ -204,11 +194,6 @@ function ReviewsForm() {
       }
       setDisabled(false);
     }
-  };
-
-  const triggerFileInput = (index) => {
-    setEditingReview(index); // Set the currently editing review's index
-    inputFileRef.current.click(); // Trigger the file input
   };
 
   return (
@@ -251,7 +236,7 @@ function ReviewsForm() {
                 fontSize: "25px",
               }}
             >
-              EPK Dashboard
+              {t('EPK Dashboard')}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -269,7 +254,7 @@ function ReviewsForm() {
                 fontSize: "20px",
               }}
             >
-              View EPK Page
+              {t('View EPK Page')}
             </Link>
           </div>
         </div>
@@ -284,9 +269,13 @@ function ReviewsForm() {
           <div className="card-body" style={{ minHeight: "500px" }}>
             <h5
               className="card-title "
-              style={{ color: "#311465", fontWeight: "normal" }}
+              style={{
+                color: "#311465",
+                fontWeight: "normal",
+                marginBottom: "-3%",
+              }}
             >
-              BUZZ
+              Film Buzz (Reviews & Awards)
             </h5>
             <form>
               <div className="row" style={{ marginRight: "-5%" }}>
@@ -375,7 +364,7 @@ function ReviewsForm() {
                       onClick={addAwardLogo}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   ) : (
                     <Button
@@ -390,7 +379,7 @@ function ReviewsForm() {
                       onClick={addAwardLogo}
                       value="save"
                     >
-                      Add to Table
+                      {t('Add to Table')}
                     </Button>
                   )}
                 </div>
@@ -404,10 +393,10 @@ function ReviewsForm() {
                   >
                     <thead className="thead-dark">
                       <tr>
-                        <th>Magazine</th>
-                        <th>Text</th>
-                        <th>Award Logo</th>
-                        <th>ACTIONS</th>
+                        <th>{t('Magazine')}</th>
+                        <th>{t('Text')}</th>
+                        <th>{t('Award Logo')}</th>
+                        <th>{t('ACTIONS')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -464,10 +453,6 @@ function ReviewsForm() {
                               />
                               {editingReview === index && (
                                 <>
-                                  <FontAwesomeIcon
-                                    icon={faUpload}
-                                    onClick={() => triggerFileInput(index)}
-                                  />
                                   <input
                                     className="form-control form-control-sm"
                                     filename={file}
@@ -541,7 +526,7 @@ function ReviewsForm() {
                       onClick={saveEpkReviews}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   ) : (
                     <Button
@@ -555,7 +540,7 @@ function ReviewsForm() {
                       onClick={saveEpkReviews}
                       value="save"
                     >
-                      Save
+                      {t('Save')}
                     </Button>
                   )}
                   <Modal
@@ -588,7 +573,7 @@ function ReviewsForm() {
                         className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                       >
-                        Ok
+                        {t('Ok')}
                       </button>
                     </div>
                   </Modal>

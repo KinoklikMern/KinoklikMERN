@@ -6,8 +6,10 @@ import Password from "../../components/FilmMakerDashboard/Setting/Password";
 import Profile from "../../components/FilmMakerDashboard/Setting/Profile";
 import Studio from "../../components/FilmMakerDashboard/Setting/Studio";
 import Sidebar from "../../components/UserDashboard/Sidebar";
+import { useTranslation } from 'react-i18next';
 
 export default function SettingPage() {
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [openTab, setOpenTab] = useState(1);
   const tabs = [
@@ -31,7 +33,7 @@ export default function SettingPage() {
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
       <div className='tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white md:tw-mb-8'>
-        <p className='tw-text-4xl'> {user.role} Dashboard</p>
+        <p className='tw-text-4xl'> {user.role} {t('Dashboard')}</p>
       </div>
       <div className='tw-flex tw-h-5/6 tw-flex-row tw-p-4 md:tw-mx-8 md:tw-p-0'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
@@ -55,7 +57,7 @@ export default function SettingPage() {
               >
                 <a
                   href='#'
-                  className='tw-inline-block tw-w-full tw-p-4 hover:tw-text-white'
+                  className='tw-inline-block tw-w-full tw-p-4 tw-text-lg hover:tw-bg-midnight hover:tw-text-white md:tw-text-2xl'
                 >
                   {tab.title}
                 </a>

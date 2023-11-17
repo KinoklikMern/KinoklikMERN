@@ -1,20 +1,22 @@
 //////////////////////////////////////////////
 // Create routes for filmMakerDashboard page
-// Edit by Tony 
+// Edit by Tony
 // On Jan 20, 2023
 //////////////////////////////////////////////
 import express from "express";
-import { getEpks, 
-            getEpkbyId, 
-            getUserbyId, 
-            getEpkRequests, 
-            getApprovedRequests,
-            getPendingRequests,
-            getRefusedRequests,
-            getDistributorsEpkRequests,
-            getFilmFestivalsEpkRequests,
-            getSalesAgentsEpkRequests
-        } from "../controllers/filmMakerDashboard.js";
+import {
+  getEpks,
+  getEpkbyId,
+  getUserbyId,
+  getEpkRequests,
+  getApprovedRequests,
+  getPendingRequests,
+  getRefusedRequests,
+  getDistributorsEpkRequests,
+  getFilmFestivalsEpkRequests,
+  getSalesAgentsEpkRequests,
+  searchFilmmakers,
+} from "../controllers/filmMakerDashboard.js";
 const router = express.Router();
 router.get("/", getEpks);
 router.get("/selectedepk/:id", getEpkbyId);
@@ -26,6 +28,6 @@ router.get("/getrefusedrequests/:id", getRefusedRequests);
 router.get("/getdistributorsepkrequests/:id", getDistributorsEpkRequests);
 router.get("/getfilmfestivalsepkrequests/:id", getFilmFestivalsEpkRequests);
 router.get("/getsalesagentsepkrequests/:id", getSalesAgentsEpkRequests);
+router.get("/searchFilmmakers", searchFilmmakers);
 
 export default router;
-
