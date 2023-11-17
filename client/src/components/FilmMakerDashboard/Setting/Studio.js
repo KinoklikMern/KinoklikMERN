@@ -185,7 +185,7 @@ export default function Studio() {
             <input
               type="text"
               name="name"
-              placeholder={userRole === "Actor" ? "Agent Name" : "Studio Name"}
+              placeholder={userRole === (t("Actor")) ? (t("Agent Name")) : (t("Studio Name"))}
               defaultValue={userStudioData.name}
               onChange={handleProfileChange}
               disabled={!hasAgent}
@@ -198,7 +198,7 @@ export default function Studio() {
               type="text"
               name="website"
               placeholder={
-                userRole === "Actor" ? "Agent Website" : "Studio Website"
+                userRole === (t("Actor")) ? (t("Agent Website")) : (t("Studio Website"))
               }
               defaultValue={userStudioData.website}
               onChange={handleProfileChange}
@@ -213,7 +213,7 @@ export default function Studio() {
               type="text"
               name="email"
               placeholder={
-                userRole === "Actor" ? "Agent Email" : "Studio Email"
+                userRole === (t("Actor")) ? (t("Agent Email")) : (t("Studio Email"))
               }
               defaultValue={userStudioData.email}
               onChange={handleProfileChange}
