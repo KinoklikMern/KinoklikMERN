@@ -4,8 +4,10 @@ import Sidebar from "../../components/UserDashboard/Sidebar";
 import EpkCard from "../../components/UserDashboard/EpkCard";
 import EmptyEpk from "../../components/UserDashboard/Requests/EmptyEpk";
 import Axios from "axios";
+import {useTranslation} from 'react-i18next';
 
 export default function RequestsPage() {
+  const { t } = useTranslation();
   const [epkListApproved, setEpkListApproved] = useState([]);
   const [epkListPending, setEpkListPending] = useState([]);
   const [epkListRefused, setEpkListRefused] = useState([]);
@@ -81,7 +83,7 @@ export default function RequestsPage() {
         <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white  tw-p-4 tw-scrollbar tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]  md:tw-ml-16 md:tw-w-5/6'>
           <div className='tw-flex tw-flex-col tw-gap-3  '>
             <span className='tw-bg-[#1E0039] tw-text-xl tw-text-white'>
-              Approved EPKs
+              {t("Approved EPKs")}
             </span>
             {epkListApproved.length === 0 ? (
               <EmptyEpk EpkStatus='approved' />
@@ -109,7 +111,7 @@ export default function RequestsPage() {
           </div>
           <div className='tw-flex tw-flex-col tw-gap-3'>
             <span className='tw-bg-[#1E0039] tw-text-xl tw-text-white'>
-              Pending EPKs
+              {t("Pending EPKs")}
             </span>
             {epkListPending.length === 0 ? (
               <EmptyEpk EpkStatus='pending' />
@@ -137,7 +139,7 @@ export default function RequestsPage() {
           </div>
           <div className='tw-flex tw-flex-col tw-gap-3'>
             <span className='tw-bg-[#1E0039] tw-text-xl tw-text-white'>
-              Refused EPKs
+            {t("Refused EPKs")}
             </span>
             {epkListRefused.length === 0 ? (
               <EmptyEpk EpkStatus='refused' />

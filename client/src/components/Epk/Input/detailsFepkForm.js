@@ -27,14 +27,14 @@ function DetailsForm() {
   };
 
   const epkRoles = [
-    "lead_actor",
-    "supporting_actor",
-    "director",
-    "producer",
-    "cinematographer",
-    "editor",
-    "writer",
-    "sound",
+    (t("lead_actor")),
+    (t("supporting_actor")),
+    (t("director")),
+    (t("producer")),
+    (t("cinematographer")),
+    (t("editor")),
+    (t("writer")),
+    (t("sound")),
   ];
 
   const makeEpkRole = (Y) => {

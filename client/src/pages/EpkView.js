@@ -400,22 +400,22 @@ function EpkView() {
     let IsDisabled = false;
     switch (props.status) {
       case null:
-        ButtonTxt = "Request Access";
+        ButtonTxt = (t("Request Access"));
         IsDisabled = false;
         break;
 
       case "pending":
-        ButtonTxt = "Awaiting approval";
+        ButtonTxt = (t("Awaiting approval"));
         IsDisabled = true;
         break;
 
       case "refused":
-        ButtonTxt = "Request refused";
+        ButtonTxt = (t("Request refused"));
         IsDisabled = true;
         break;
 
       default:
-        ButtonTxt = "Request Access";
+        ButtonTxt = (t("Request Access"));
         IsDisabled = false;
         break;
     }
@@ -604,7 +604,7 @@ function EpkView() {
             <div className={style.textLeft}>
               <p className={style.pre}>{fepkData.status}</p>
               <p className={style.genre}>{fepkData.genre}</p>
-              <p className={style.date}>Posted:&nbsp;{formatedDate}</p>
+              <p className={style.date}>{t("Posted")}:&nbsp;{formatedDate}</p>
             </div>
             <div>
               {" "}
@@ -626,7 +626,7 @@ function EpkView() {
             <div className={style.reportSection}>
               <button className={style.reportBtn} onClick={() => login()}>
                 <FontAwesomeIcon icon={faFlag} />
-                &nbsp; Report
+                &nbsp; {t("Report")}
               </button>
             </div>
           ) : (
@@ -1432,7 +1432,7 @@ function EpkView() {
                 className={isClick3 === true ? style.none : style.btnUni}
               >
                 {" "}
-                Request Access{" "}
+                {t("Request Access")}{" "}
               </button>
 
               <div
@@ -1645,7 +1645,7 @@ function EpkView() {
           })}
         {/* Starring / Cast section */}
         <div className={style.starring}>
-          <p className={style.starTitle}>Starring</p>
+          <p className={style.starTitle}>{t('Starring')}</p>
           {crewList.map((crewObj) => {
             return (
               <>
@@ -1823,7 +1823,7 @@ function EpkView() {
                       </p>
                     </div>
                     <div className={style.right}>
-                      <h3>Producer</h3>
+                      <h3>{t('Producer')}</h3>
                       <br />
                       <p>{crewObj.biography}</p>
                     </div>

@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import { useTranslation } from 'react-i18next';
 
 export default function Password() {
+ 
   const [disabled, setDisabled] = useState(true);
   const [pwdShow, setPwdShow] = useState(false);
   const [rePwdShow, setRePwdShow] = useState(false);
@@ -43,7 +44,7 @@ export default function Password() {
   function saveUserPassword() {
     //console.log(userStudioData);
     if (userPasswordData.newPassword !== userPasswordData.confirmPassword) {
-      setMessage("Passwords don't match!");
+      setMessage(t("Passwords don't match!"));
       setModalIsOpen(true);
     } else {
       Axios.put(
@@ -80,7 +81,7 @@ export default function Password() {
         <div className="tw-flex tw-gap-2">
           <input
             name="newPassword"
-            placeholder="New Password"
+            placeholder={t("New Password")}
             type={pwdShow ? "text" : "password"}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400"
@@ -98,7 +99,7 @@ export default function Password() {
         <div className="tw-flex tw-gap-2">
           <input
             name="confirmPassword"
-            placeholder="Confirm New Password"
+            placeholder={t("Confirm New Password")}
             type={rePwdShow ? "text" : "password"}
             onChange={handleProfileChange}
             className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400 "
