@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 export default function LoadingSpin() {
+  const { t } = useTranslation();
   return (
     <div className="tw-my-16 tw-flex tw-justify-center">
       <svg
@@ -19,7 +21,7 @@ export default function LoadingSpin() {
           fill="currentFill"
         />
       </svg>
-      Loading...
+      {t("Loading...")}
     </div>
   );
 }

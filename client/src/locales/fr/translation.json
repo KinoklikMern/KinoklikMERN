@@ -89,7 +89,7 @@
 "_comment From UserDashboard FollowingPage":"1 CHanges. Line 39 ",
 "_comment From UserDashboard RequestPage":"2 CHanges. Line 74, 84, 112,140, ",
 "Approved EPKs":"EPK approuvés",
-"Pending EPKs": "EPK en attente",
+"Pending EPKs": "EPK en Attente",
 "Refused EPKs": "EPK refusés",
 "_comment From UserDashboard SettingsPage":"9 CHanges. Line  15, 19, 23, 27, 34,66-69, ",
 "_comment From UserDashboard StarredPage":"1 CHange.",
@@ -838,25 +838,25 @@
 
 "for a celebrity, brand or business": "pour une célébrité, une marque ou une entreprise",
 
-"What's your First name?": "Quel est votre prénom?",
+"What's your First name ?": "Quel est votre prénom?",
 
-"components, login, registerForm, First name must be between 2 and 16 characters": "Le prénom doit être compris entre 2 et 16 caractères",
+"First name must be between 2 and 16 characters.": "Le prénom doit être compris entre 2 et 16 caractères.",
 
-"components, login, registerForm, Numbers and special characters are not allowed": "Les chiffres et caractères spéciaux ne sont pas autorisés",
+"Numbers and special characters are not allowed.": "Les chiffres et caractères spéciaux ne sont pas autorisés.",
 
-"What's your Last name": "Quel est votre nom de famille",
+"What's your Last name ?": "Quel est votre nom de famille",
 
-"components, login, registerForm, Last name must be between 2 and 16 characters": "Le nom de famille doit comporter entre 2 et 16 caractères",
+"Last name must be between 2 and 16 characters.": "Le nom de famille doit comporter entre 2 et 16 caractères.",
 
-" You'll need this when you log in and if you ever need to reset your password": "Vous en aurez besoin lorsque vous vous connecterez et si jamais vous devez réinitialiser votre mot de passe",
+" You'll need this when you log in and if you ever need to reset your password.": "Vous en aurez besoin lorsque vous vous connecterez et si jamais vous devez réinitialiser votre mot de passe.",
 
-"Enter a valid email address": "Entrez une adresse mail valide",
+"Enter a valid email address.": "Entrez une adresse mail valide.",
 
-"Enter a combination of at least six numbers,letters and punctuation marks(such as ! and &": "Saisissez une combinaison d'au moins six chiffres, lettres et signes de ponctuation (tels que ! et &",
+"Enter a combination of at least six numbers,letters and punctuation marks(such as ! and &).": "Saisissez une combinaison d'au moins six chiffres, lettres et signes de ponctuation (tels que ! et &).",
 
-"components, login, registerForm, Password must be atleast 6 characters": "Le mot de passe doit être au moins de 6 caractères",
+"Password must be atleast 6 characters.": "Le mot de passe doit être au moins de 6 caractères.",
 
-"components, login, registerForm, Password can't be more than 36 characters": "Le mot de passe ne peut pas contenir plus de 36 caractères",
+"Password can't be more than 36 characters": "Le mot de passe ne peut pas contenir plus de 36 caractères",
 
 "Sign Up": "S'inscrire",
 
@@ -909,9 +909,9 @@
 
 "Upload Poster": "Télécharger l'affiche",
 
-"Click or drag file to this area to upload": "Cliquez ou faites glisser le fichier vers cette zone pour le télécharger",
+" components dragupload Click or drag file to this area to upload": "Cliquez ou faites glisser le fichier vers cette zone pour le télécharger",
 
-"Dropped files": "Fichiers supprimés",
+"components dragupload  Dropped files": "Fichiers supprimés",
 
 "Could not upload the file!. File must be an image": "Impossible de télécharger le fichier !. Le fichier doit être une image",
 
@@ -1335,7 +1335,22 @@
 
    "error in Mime": "erreur dans Mime",
 
-   "Uploading...": "Téléchargement..."
+   "Uploading...": "Téléchargement...",
+
+   "Representation": "Représentation",
+
+   "Please fill out the required field": "Veuillez remplir le champ obligatoire",
+
+   "Please enter a valid location": "Veuillez entrer un emplacement valide",
+
+   "Actor Page": "Page Acteur",
+
+   "Awaiting approval": "En attente d'approbation",
+
+   "Request refused": "Demande refusée"
+
+
+   
 
 
 
