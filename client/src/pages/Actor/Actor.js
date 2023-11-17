@@ -3,6 +3,7 @@ import "./Actor.css";
 // import List from "./ListActor";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
 import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
+import ActorPageHeader from "../../components/EpkView/EpkHeader/ActorPageHeader";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/Footer";
 import { useParams } from "react-router-dom";
@@ -81,8 +82,15 @@ export default function Actor(props) {
         setEpkInfo(actorData);
 
         const images = [];
-        images.push(actorData.picture);
-        images.push(...actorData.profiles);
+        if (!actorData.picture.startsWith("https")) {
+          images.push(actorData.picture);
+        }
+
+        const imagesToPush = actorData.profiles.map((picture) => {
+          if (picture !== null && undefined && "") {
+            images.push(picture);
+          }
+        });
 
         setpics(images);
 
@@ -96,6 +104,11 @@ export default function Actor(props) {
         console.error("An error occurred while fetching data.", error);
       });
   }, [id]);
+
+  useEffect(() => {
+    console.log(pics.length);
+    console.log(pics);
+  }, [pics]);
 
   // user is added to the list of +(followers)
   function addUserToFollowers() {
@@ -234,44 +247,57 @@ export default function Actor(props) {
         <Navbar className={props.className} title={props.title} />
       </div>
       <div className="actor-navbar">
-        <EpkHeader epkInfo={epkInfo} role="actor" id={id} />
+        <ActorPageHeader epkInfo={epkInfo} role="actor" id={id} />
       </div>
       <div className="actor-container">
         <div>
-          <video
-            loop
-            ref={videoRef}
-            className="actor-image-container"
-            src={`${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`}
-            // poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
-            poster={`${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`}
-            controls
-          ></video>
-          <div
-            className="actor-profile"
-            style={{
-              backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
-            }}
-          >
-            <ArrowBackIosOutlined
-              className="arrow-actor-profile arrow-actor-profile1"
-              onClick={() => handleClick("left")}
+          {epkInfo.bannerImg && (
+            <video
+              loop
+              ref={videoRef}
+              className="actor-image-container"
+              src={
+                epkInfo.bannerImg && !epkInfo.bannerImg.startsWith("https")
+                  ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`
+                  : null
+              }
+              // poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
+              poster={
+                epkInfo.thumbnail && !epkInfo.thumbnail.startsWith("https")
+                  ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`
+                  : null
+              }
+              controls
+            ></video>
+          )}
+
+          {pics.length > 0 && (
+            <div
+              className="actor-profile"
               style={{
-                color: "#1E0039",
-                fontSize: "4rem",
-                display: "inline",
+                backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
               }}
-            />
-            <ArrowForwardIosOutlined
-              className="arrow-actor-profile arrow-actor-profile2"
-              onClick={() => handleClick("right")}
-              style={{
-                color: "#1E0039",
-                fontSize: "4rem",
-                display: "inline",
-              }}
-            />
-          </div>
+            >
+              <ArrowBackIosOutlined
+                className="arrow-actor-profile arrow-actor-profile1"
+                onClick={() => handleClick("left")}
+                style={{
+                  color: "#1E0039",
+                  fontSize: "4rem",
+                  display: "inline",
+                }}
+              />
+              <ArrowForwardIosOutlined
+                className="arrow-actor-profile arrow-actor-profile2"
+                onClick={() => handleClick("right")}
+                style={{
+                  color: "#1E0039",
+                  fontSize: "4rem",
+                  display: "inline",
+                }}
+              />
+            </div>
+          )}
           <div>
             {isPlaying ? (
               <PauseCircleOutlineIcon

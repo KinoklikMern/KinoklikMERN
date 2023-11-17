@@ -15,12 +15,32 @@ import messageRoutes from "./routes/message.routes.js";
 import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
+import axios from "axios";
 
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
 
 // end ////
 const app = express();
+
+//proxy to be able to get a thumbnail directly from video from database
+app.get("/video-proxy", async (req, res) => {
+  try {
+    const videoUrl = req.query.url; // Get the video URL from query parameters
+    const response = await axios({
+      method: "GET",
+      url: videoUrl,
+      responseType: "stream",
+    });
+
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "video/mp4"); // Set the correct content type
+    response.data.pipe(res); // Stream the video data to the client
+  } catch (error) {
+    console.error("Error proxying video:", error);
+    res.sendStatus(500);
+  }
+});
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
