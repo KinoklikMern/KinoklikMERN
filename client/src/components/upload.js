@@ -47,7 +47,7 @@ const UploadImage = () => {
           marginTop: 8,
         }}
       >
-        ('Upload Poster')
+        (t('Upload Poster'))
       </div>
     </div>
   );

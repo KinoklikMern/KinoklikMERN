@@ -7,7 +7,7 @@ function Bookmark() {
   return (
     <>
       <div>
-        {this("This is the bookmark.")}
+        {t("This is the bookmark.")}
       </div>
     </>
   );

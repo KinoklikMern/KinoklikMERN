@@ -763,7 +763,7 @@
 "Select City": "Sélectionnez une ville",
 "Select Province": "Sélectionnez une province",
 "Select Country": "Choisissez le pays",
-"Gender": "",
+"1Gender": "",
 "Age Range": "Tranche d'âge", 
 "or below":"ou ci-dessous",
 "or above":"ou au-dessus",
@@ -985,6 +985,8 @@
 "Confirm New Password": "Confirmer le nouveau mot de passe",
 
 "Save": "Enregistrez",
+
+"save": "enregistrez",
 
 "First Name": "Prénom",
 
@@ -1277,7 +1279,75 @@
 
    "Unread": "Non lu",
 
-   "Read": "Lu"
+   "Read": "Lu",
+
+   "Select a conversation to display": "Sélectionnez une conversation à afficher",
+
+   "Your message...": "Votre message...",
+
+   "Enter Cinematographer's Biography here.": "Entrez la biographie du directeur de la photographie ici.",
+
+   "lead_actor": "Acteur_principal",
+   "supporting_actor": "second_rôle",
+   "director": "directeur",
+   "producer": "producteur",
+   "cinematographer": "directeur de la photographie",
+   "editor": "éditeur",
+   "writer": "écrivain",
+   "sound": "son",
+
+   "Please fill out the required field(more than 3 char)": "Veuillez remplir le champ obligatoire (plus de 3 caractères)",
+
+   "Please enter a valid phone number (10 to 15 digits)": "Veuillez saisir un numéro de téléphone valide (10 à 15 chiffres)",
+
+   "Please enter a valid URL": "Veuillez saisir une URL valide",
+
+   "Please enter a valid number of followers": "Veuillez entrer un nombre valide d'abonnés",
+
+   "Please fix the validation errors before saving.": "Veuillez corriger les erreurs de validation avant d'enregistrer.",
+
+   "Other": "Autre",
+
+   "Montreal": "Montréal",
+
+   "Male": "Mâle",
+
+   "Female": "Femelle",
+
+   "Toned": "Tonique",
+   
+   "Facebook Followers": "Abonnés Facebook",
+
+   "Instagram Followers": "Abonnés Instagram",
+
+   "Twitter Followers": "Abonnés Twitter",
+
+   "Youtube Subs": "Abonnés Youtube",
+
+   "LinkedIn Followers": "Abonnés LinkedIn",
+
+   "An error occurred while processing the thumbnail image": "Une erreur s'est produite lors du traitement de l'image miniature",
+
+   "video Time Must Be Less Than 5 Min": "La durée de la vidéo doit être inférieure à 5 minutes",
+
+   "An unexpected error occurred": "Une erreur inattendue est apparue",
+
+   "upload success": "Télécharger le succès",
+
+   "error in Mime": "erreur dans Mime",
+
+   "Uploading...": "Téléchargement..."
+
+
+
+
+
+
+
+
+
+
+
 
 
 
