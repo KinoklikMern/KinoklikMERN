@@ -3,7 +3,7 @@ import image1 from "../../images/LandingPage/LongSynopsisBlurred.png";
 import image2 from "../../images/LandingPage/CastCrewScreenShot.png";
 import image3 from "../../images/LandingPage/AvatarFIghtingBird.png";
 import image4 from "../../images/LandingPage/EPK_DashboardCoverSection.png";
-import image5 from "../../images/LandingPage/LongSynopsisBlurred.png";
+import image5 from "../../images/LandingPage/ResourcesScreenshot.png";
 import image6 from "../../images/LandingPage/SebastianCordobaDemoReel.png";
 
 const Landing5 = () => {

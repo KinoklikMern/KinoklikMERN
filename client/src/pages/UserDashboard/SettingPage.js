@@ -55,7 +55,7 @@ export default function SettingPage() {
               >
                 <a
                   href='#'
-                  className='tw-inline-block tw-w-full tw-p-4 hover:tw-text-white'
+                  className='tw-inline-block tw-w-full tw-p-4 tw-text-lg hover:tw-bg-midnight hover:tw-text-white md:tw-text-2xl'
                 >
                   {tab.title}
                 </a>
