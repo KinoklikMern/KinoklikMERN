@@ -1,5 +1,11 @@
 
-{
+{ 
+    
+"You don’t have any EPK created.":"Vous n’avez créé aucun EPK.",
+"Start promoting your film right away!":"Commencez dès maintenant à promouvoir votre film !",
+
+"WishToBuy":"Envie d'acheter", 
+
     "_comment From components Auth|Registration Registration": "ReCheck For changes",
     "All fields are required.":"Tous les champs sont requis.", 
     "Invalid Email":"Email invalide",
@@ -8,10 +14,10 @@
     "Email is already in use.":"Cet email est déjà utilisé.",
     "already signed up?":"Déjà inscrit?",
     "Login":"Se connecter",
-
+    
     "Sign up for KinoKlik": "Inscrivez vous pour KinoKlik",
     "Next": "Suivant",
-    
+    "Back":"Retour",
     "_comment From components Auth|Registration RegistrationPersonalInfo": "ReCheck For changes",
     "I agree to the terms and conditions as set out by the user agreement":"J'accepte les termes et conditions énoncés dans le contrat d'utilisation",
     "I want to stay up to date and receive newsletters from KinoKlik!":"Je souhaite rester informé et recevoir les newsletters de KinoKlik !",
@@ -182,6 +188,11 @@
 "your password.": "votre mot de passe.",
 
 "_comment From Components AuthRegistration EmailVerification":"0 CHanges.",
+"Please enter the OTP to verify your account":"Veuillez entrer l'OTP pour vérifier votre compte",
+"OTP has been sent to your email":"l'OTP a été envoyé à votre adresse e-mail",
+"Verify Account":"Vérifier le compte",
+"Resend OTP":"Renvoyer l'OTP",
+
 "_comment From Components AuthRegistration Login":"2 CHanges.",
  "Please enter email":"Veuillez entrer votre Email",
  "Please enter password":"Veuillez entrer le mot de passe",
@@ -189,7 +200,6 @@
 "_comment From Components AuthRegistration LoginForm":"6 CHanges.",
 "Please provide both email and password":"Veuillez fournir à la fois votre e-mail et votre mot de passe",
 
-"Don't have an account yet?":"",
 
 "Forgot password?":"Mot de passe oublié?",
 "Reset my Password":"Réinitialiser mon mot de passe",
@@ -209,7 +219,7 @@
 
 
  "_comment From Components AuthRegistration registrationcopy":"0 CHanges. NOt done yet",
- 
+ "Confirm Password":"Confirmez le mot de passe",
 
  "_comment From Components AuthRegistration registration":"1 CHanges.",
  "Sign Up Line 163":"S'inscrire",
@@ -250,7 +260,6 @@
  "your password if an account exists for this email address":"votre mot de passe si un compte existe pour cette adresse email",
  "Line Reset Password":"",
  "Already have an account?":"Vous avez déjà un compte?",
- "Line Don't have an account yet?":"",
  "Line Create Account":"",
 
  "_comment From Components donate DonationModal":"0 CHanges.",
@@ -622,7 +631,7 @@
  "_comment From Components EpkView miscellaneous LoginModal":"0 CHanges.",
  "Sign In":"Se connecter",
  "Email address":"Adresse e-mail",
- "Line 99 Don't have an account yet?":"Vous n'avez pas encore de compte?",
+ "Don't have an account yet?":"Vous n'avez pas encore de compte?",
  "Line 101 Create Account":"Créer un compte",
 
  "_comment From Components EpkView miscellaneous NewMessageModal":"0 CHanges.",
@@ -650,7 +659,7 @@
  "Line 30 Profile":"Profil",
  "Line 39 Company":"Entreprise",
  "Line 47 Password":"Mot de passe",
- "Line 55 Account":"Compte",
+ "Account":"Compte",
  "Line 90 Upload":"Télécharger",
 
  "_comment From Components Filmaker filmMakerDashboardSecurityAccount":"0 CHanges.",
@@ -763,7 +772,7 @@
 "Select City": "Sélectionnez une ville",
 "Select Province": "Sélectionnez une province",
 "Select Country": "Choisissez le pays",
-"1Gender": "",
+"Gender": "",
 "Age Range": "Tranche d'âge", 
 "or below":"ou ci-dessous",
 "or above":"ou au-dessus",
@@ -808,7 +817,7 @@
     
 "I am": "Je suis",
 
-"LOGOUT": " Se Déconnecter",
+"LOGOUT": " Déconnecter",
 
 "LOGIN": "Se Connecter", 
     
@@ -891,11 +900,11 @@
 
 "CREATE EPK": "CRÉER Un EPK",
 
-"My Settings": "Mes Paramètres",
+"My Settings": "Paramètres",
 
 "My Dashboard": "Mon Tableau",
 
-"Logout": "Se Déconnecter",
+"Logout": "Déconnecter",
 
 "Notifications": "Notifications",
 
@@ -1005,7 +1014,7 @@
 
 "Studio Name": "Nom du studio",
 
-"Studio Website": "site web du studio.",
+"Studio Website": "Site web du studio.",
 
 "settings, Studio Website": "paramètres, site web du studio.",
 
@@ -1278,7 +1287,7 @@
 
    "Unread": "Non lu",
 
-   "Read": "Lu",
+"Read": "Lu",
 
    "Select a conversation to display": "Sélectionnez une conversation à afficher",
 

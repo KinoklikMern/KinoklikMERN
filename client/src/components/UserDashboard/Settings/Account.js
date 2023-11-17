@@ -57,7 +57,7 @@ export default function Account() {
   }
 
   function openModal() {
-    setMessage("Confirmed delete Account?");
+    setMessage(t("Confirmed delete Account?"));
     setModalIsOpen(true);
   }
 
@@ -81,7 +81,7 @@ export default function Account() {
     <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
       <div className="tw-col-start-4 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
         <input
-          placeholder="Account Type"
+          placeholder= {t("Account Type")}
           defaultValue={user.role}
           className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
         />
