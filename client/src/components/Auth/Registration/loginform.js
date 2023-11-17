@@ -119,7 +119,7 @@ function LoginForm() {
   return (
     <>
       <div className={Logincss.bg}>
-        <div className={Logincss.form_title}>Sign in</div>
+        <div className={Logincss.form_title}>{t('Sign in')}</div>
         {/* <div className={Logincss.form}> */}
         <form onSubmit={handleSubmit} className={Logincss.form}>
           <div className={Logincss.formbody}>

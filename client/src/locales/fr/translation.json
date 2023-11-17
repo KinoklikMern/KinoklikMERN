@@ -1,11 +1,12 @@
 
 {
+    "_comment From components Auth|Registration Registration": "ReCheck For changes",
     "All fields are required.":"Tous les champs sont requis.", 
     "Invalid Email":"Email invalide",
     "Passwords do not match.":"Les mots de passe ne correspondent pas.",
     "Password must be at least 8 characters long!":"Le mot de passe doit comporter au moins 8 caractères !",
     "Email is already in use.":"Cet email est déjà utilisé.",
-    "already signed up?":"déjà inscrit ?",
+    "already signed up?":"Déjà inscrit?",
     "Login":"Se connecter",
 
     "Sign up for KinoKlik": "Inscrivez vous pour KinoKlik",
@@ -249,7 +250,6 @@
  "your password if an account exists for this email address":"votre mot de passe si un compte existe pour cette adresse email",
  "Line Reset Password":"",
  "Already have an account?":"Vous avez déjà un compte?",
- "Line Sign In":"",
  "Line Don't have an account yet?":"",
  "Line Create Account":"",
 
@@ -620,7 +620,7 @@
  "_comment From Components EpkView EpkUniqueness EpkUniqueness":"0 CHanges.",
  "_comment From Components EpkView EpkWorker EpkWorker":"0 CHanges.",
  "_comment From Components EpkView miscellaneous LoginModal":"0 CHanges.",
- "Line50, 95 Sign In":"Se connecter",
+ "Sign In":"Se connecter",
  "Email address":"Adresse e-mail",
  "Line 99 Don't have an account yet?":"Vous n'avez pas encore de compte?",
  "Line 101 Create Account":"Créer un compte",
@@ -804,7 +804,6 @@
  "Welcome": "Bienvenue",
 
  "_comment From Components navbar NavbarButton":"0 CHanges.",
- "1 SIGN IN":"Connection",
  "1 REGISTER":"Enregistrer",
     
 "I am": "Je suis",
