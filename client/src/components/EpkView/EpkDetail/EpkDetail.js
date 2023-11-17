@@ -1,7 +1,7 @@
 import React from "react";
 import MessageIcon from "../../../images/icons/message.svg";
 import emptyPoster from "../../../images/empty_banner.jpeg";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function EpkDetail({ epkInfo, handler }) {
   const { t } = useTranslation();
@@ -123,27 +123,33 @@ export default function EpkDetail({ epkInfo, handler }) {
       </div>
       <div className="tw-my-8 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-text-center tw-text-xl">
         <div>
-          <p className='tw-font-light'>{t('Produced Year')}</p>
+          <p className="tw-font-light">{t("Produced Year")}</p>
           <p>{epkInfo.productionYear}</p>
         </div>
         <div>
-          <p className='tw-font-light'>{t('Duration')}</p>
-          <p>{epkInfo.durationMin} {t('Minutes')}</p>
+          <p className="tw-font-light">{t("Duration")}</p>
+          <p>
+            {epkInfo.durationMin} {t("Minutes")}
+          </p>
         </div>
         <div>
-          <p className='tw-font-light'>{t('Studio')}</p>
+          <p className="tw-font-light">{t("Studio")}</p>
           <p>{epkInfo.productionCo}</p>
         </div>
         <div>
-          <p className='tw-font-light'>{t('Distributed by')}</p>
+          <p className="tw-font-light">{t("Budget")}</p>
+          <p>{epkInfo.budget}</p>
+        </div>
+        <div>
+          <p className="tw-font-light">{t("Distributed by")}</p>
           <p>{epkInfo.distributionCo}</p>
         </div>
       </div>
       <div>
-        <div className='tw-mt-8 tw-flex tw-flex-col tw-gap-3'>
-          <div className='tw-relative tw-mx-auto'>
-            <span className='tw-flex tw-justify-center tw-text-[#1E0039]'>
-              {t('Created By')}
+        <div className="tw-mt-8 tw-flex tw-flex-col tw-gap-3">
+          <div className="tw-relative tw-mx-auto">
+            <span className="tw-flex tw-justify-center tw-text-[#1E0039]">
+              {t("Created By")}
             </span>
             <img
               className="tw-h-4/4 tw-w-4/4 tw-rounded-lg"
