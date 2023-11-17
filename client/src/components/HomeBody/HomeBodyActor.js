@@ -25,18 +25,6 @@ const HomeBodyActor = ({ role }) => {
           </div>
           <List title='all_actors' type={filterQuery} />
         </div>
-        <div>
-          <div className='listTitle'>
-            <span>{t('MOST STARRED')}</span>
-          </div>
-          <List title='most_starred' type={filterQuery} />
-        </div>
-        <div>
-          <div className='listTitle'>
-            <span>{t('MOST FOLLOWED')}</span>
-          </div>
-          <List title='most_followed' type={filterQuery} />
-        </div>
       </div>
     </>
   );
