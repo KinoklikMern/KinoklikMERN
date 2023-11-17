@@ -145,7 +145,7 @@ function LoglineForm() {
           });
       }
     } else {
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t(("File must be a image(jpeg or png)")));
     }
     setDisabled(true);
   };
@@ -249,7 +249,7 @@ function LoglineForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.logLine_long}
-                    placeholder="Log Line Long"
+                    placeholder={t("Log Line Long")}
                     onChange={handleLoglineChange}
                     name="logLine_long"
                     maxLength="160"
@@ -261,7 +261,7 @@ function LoglineForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.logLine_long}/160 characters
+                    {characterLength?.logLine_long}{t("/160 characters")}
                   </span>
                 </div>
 
@@ -291,7 +291,7 @@ function LoglineForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4>Upload Poster</h4>
+                    <h4>{t("Upload Poster")}</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
@@ -394,7 +394,7 @@ function LoglineForm() {
                   }}
                 >
                   <div style={{ textAlign: "center" }}>
-                    {"Log Line Saved Successfully!"}
+                    (t{"Log Line Saved Successfully!"})
                     <br />
                     <button
                       className="btn btn-secondary btn-sm"

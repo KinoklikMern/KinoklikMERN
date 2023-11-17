@@ -84,7 +84,7 @@ const SynopsisForm = () => {
   return (
     <>
       {" "}
-      <h1 className="text-center text-primary">synopsis</h1>
+      <h1 className="text-center text-primary">{t(synopsis)}</h1>
       <br />
       <Row
         justify="space-around"
@@ -109,7 +109,7 @@ const SynopsisForm = () => {
           )}
         </Col>
         <Col span={6} className="m-2 bg-light">
-          <h4>long synopsis</h4>
+          <h4>{t("long synopsis")}</h4>
           <textarea
             name="medium"
             style={{ height: "200px", width: "300px" }}

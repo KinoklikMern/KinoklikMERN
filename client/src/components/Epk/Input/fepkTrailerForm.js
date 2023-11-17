@@ -204,7 +204,7 @@ function TrailerForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h6 style={{ fontSize: "20px" }}>Upload Video</h6>
+                    <h6 style={{ fontSize: "20px" }}>{t("Upload Video")}</h6>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}

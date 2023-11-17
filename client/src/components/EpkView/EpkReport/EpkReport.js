@@ -158,7 +158,7 @@ export default function EpkReport({ epkInfo }) {
         <div className={style.reportSection}>
           <button className={style.reportBtn} onClick={() => login()}>
             <FontAwesomeIcon icon={faFlag} />
-            &nbsp; Report
+            &nbsp; {t("Report")}
           </button>
         </div>
       ) : (
@@ -171,7 +171,7 @@ export default function EpkReport({ epkInfo }) {
             }}
           >
             <FontAwesomeIcon icon={faFlag} />
-            &nbsp; Report
+            &nbsp; {t("Report")}
           </button>
           <div />
 
@@ -251,9 +251,7 @@ export default function EpkReport({ epkInfo }) {
                       type="text"
                       value="Copyrighted Intellectual Property Violation"
                       onClick={() =>
-                        chooseReason2(
-                          "Copyrighted Intellectual Property Violation"
-                        )
+                        chooseReason2(t("Copyrighted Intellectual Property Violation"))
                       }
                       readOnly
                     ></input>

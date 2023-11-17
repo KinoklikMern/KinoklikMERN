@@ -314,7 +314,7 @@ function StillsForm() {
                     type="outline-primary"
                     onClick={addImage}
                   >
-                    Add to Pictures Gallery
+                    {t("Add to Pictures Gallery")}
                   </Button>
                 </div>
               </div>
@@ -490,7 +490,7 @@ function StillsForm() {
                     }}
                   >
                     <div style={{ textAlign: "center" }}>
-                      {"Film Stills Saved Successfully!"}
+                      (t({"Film Stills Saved Successfully!"}))
                       <br />
                       <button
                         className="btn btn-secondary btn-sm"

@@ -5,8 +5,10 @@ import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import LoadingSpin from "../FilmMakerDashboard/LoadingSpin";
+import { useTranslation } from 'react-i18next';
 
 export const EPKSideMenu = ({ epkId, filmmakerId }) => {
+  const { t } = useTranslation();
   // const navigate = useNavigate();
   // const [isExpanded, setIsExpanded] = useState(false);
   const [showTransferFields, setShowTransferFields] = useState(false);
@@ -143,7 +145,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
               isTransferred ? "tw-cursor-not-allowed tw-opacity-50" : ""
             }`}
           >
-            Transfer Now
+            {t("Transfer Now")}
           </button>
         </div>
       </>
@@ -213,7 +215,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
           {/* Separate div for EPK Settings title with a specific height */}
           <div className="tw-mb-20 tw-flex tw-h-16 tw-items-center tw-justify-center">
             <h1 className="tw-text-cente tw-text-xl tw-text-white">
-              EPK Settings
+              {t("EPK Settings")}
             </h1>
           </div>
           {/* Flex container for buttons */}
@@ -227,7 +229,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
               onClick={handleMenuClick}
               className="tw-ml-4 tw-rounded tw-bg-white tw-px-2 tw-py-1 tw-text-[#1C0039]"
             >
-              Transfer Ownership
+               {t("Transfer Ownership")}
             </button>
           </div>
           {showTransferFields && (
@@ -266,10 +268,10 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
           <div className="tw-mx-auto tw-w-full tw-max-w-xs tw-rounded-lg tw-bg-white tw-p-6 tw-shadow-xl">
             <div className="tw-flex tw-flex-col">
               <p className="tw-mb-4 tw-text-sm tw-text-gray-500">
-                Please take note: If you transfer ownership of this EPK to
-                another Filmmaker or Producer account, it cannot be undone. The
-                new EPK Owner will have ownership of this EPK and it cannot be
-                reversed from your Dashboard.
+              {t("Please take note: If you transfer ownership of this EPK to")}
+                {t(" another Filmmaker or Producer account, it cannot be undone. The")}
+                {t(" new EPK Owner will have ownership of this EPK and it cannot be")}
+                {t(" reversed from your Dashboard.")}
               </p>
               <button
                 disabled={isTransferred} // Disable the button if the EPK has already been transferred
@@ -278,13 +280,13 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
                 }`}
                 onClick={handleTransferConfirmation}
               >
-                Transfer Now
+                {t("Transfer Now")}
               </button>
               <button
                 className="tw-mt-3 tw-w-full tw-rounded tw-bg-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-font-bold tw-text-gray-700 tw-shadow-lg hover:tw-bg-gray-400 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-gray-500 focus:tw-ring-offset-2"
                 onClick={() => setIsModalVisible(false)}
               >
-                Cancel
+                 {t("Cancel")}
               </button>
             </div>
           </div>

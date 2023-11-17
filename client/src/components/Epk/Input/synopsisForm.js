@@ -152,7 +152,7 @@ const SynopsisForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Short Synopsis, max 30 words"
+                  placeholder={t("Short Synopsis, max 30 words")}
                   onChange={handleShort}
                 />
                 <UploadFile setImage={setImage1} />
@@ -181,7 +181,7 @@ const SynopsisForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Medium Synopsis, max 70 words"
+                  placeholder={t("Medium Synopsis, max 70 words")}
                   onChange={handleMedium}
                 ></textarea>
                 <UploadFile setImage={setImage2} />
@@ -209,7 +209,7 @@ const SynopsisForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Long Synopsis, max 120 words"
+                  placeholder={t("Long Synopsis, max 120 words")}
                   onChange={handleLong}
                 ></textarea>
                 <UploadFile setImage={setImage3} />

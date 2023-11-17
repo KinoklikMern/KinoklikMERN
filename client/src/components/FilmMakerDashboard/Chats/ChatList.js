@@ -274,7 +274,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
   return (
     <div>
       {loading ? (
-        <div>Loading...</div>
+        <div>{t("Loading...")}</div>
       ) : filteredUnreadChats.length === 0 && filteredReadChats.length === 0 ? (
         <div className="tw-mx-4 tw-mt-4 tw-text-center tw-text-white">
           {t('No conversations to display')}
@@ -294,7 +294,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
               )
             : filteredUnreadChats.length > 0) && (
             <>
-              <div className="tw-mx-4 tw-mt-4 tw-text-white">Unread</div>
+              <div className="tw-mx-4 tw-mt-4 tw-text-white">{t("Unread")}</div>
               <div className="tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white"></div>
               {filteredUnreadChats.map((chat) => displayChatList(chat))}
             </>
@@ -309,7 +309,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
                   )
                 : true) && (
                 <>
-                  <div className="tw-mx-4 tw-mt-4 tw-text-white">Read</div>
+                  <div className="tw-mx-4 tw-mt-4 tw-text-white">{t("Read")}</div>
                   <div className="tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white"></div>
                 </>
               )}

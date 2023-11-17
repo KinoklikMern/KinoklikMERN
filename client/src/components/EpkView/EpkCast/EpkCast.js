@@ -37,7 +37,7 @@ export default function EpkCast({ epkInfo }) {
   ) : (
     <div className="tw-my-3 tw-bg-white tw-text-[#1E0039]">
       <div className="tw-flex tw-justify-center">
-        <p className="tw-text-[3rem]">Starring</p>
+        <p className="tw-text-[3rem]">{t("Starring")}</p>
       </div>
       <div className="tw-py-4">
         {actorsList.map((cast, index) => (

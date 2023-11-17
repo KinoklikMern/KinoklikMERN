@@ -68,7 +68,7 @@ const DonationModal = ({
               }}
             >
               <p>{t('Support the filmmaker by')}</p>
-              <p>{t('making a one-time donation.')}</p>
+              <p>{t(' making a one-time donation.')}</p>
             </h1>
 
             {epkDonatePayPal && (

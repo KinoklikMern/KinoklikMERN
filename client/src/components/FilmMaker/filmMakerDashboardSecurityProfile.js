@@ -12,6 +12,7 @@ import Modal from "react-modal";
 import { useTranslation } from 'react-i18next';
 
 export default function FilmMakerDashboardSecurityProfile() {
+  
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
@@ -21,6 +22,7 @@ export default function FilmMakerDashboardSecurityProfile() {
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
+  
   let userId;
   let userRole;
   if (!user) {
@@ -32,6 +34,7 @@ export default function FilmMakerDashboardSecurityProfile() {
   }
 
   useEffect(() => {
+    
     try {
       Axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/getUser`, {
         id: userId,
@@ -54,6 +57,7 @@ export default function FilmMakerDashboardSecurityProfile() {
     formData.append("file", event.target.files[0]);
 
     if (checkFileMimeType(file)) {
+      
       try {
         const response = await Axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/users/uploadUserAvatar`,
@@ -66,6 +70,7 @@ export default function FilmMakerDashboardSecurityProfile() {
         );
 
         if (response.data !== undefined) {
+          
           setFilename(response.data.key);
           setDisabled(false);
         }
@@ -74,7 +79,7 @@ export default function FilmMakerDashboardSecurityProfile() {
       }
     } else {
       console.log("error");
-      setMessage("File must be a image(jpeg or png)");
+      setMessage(t("File must be a image(jpeg or png)"));
     }
   }
 

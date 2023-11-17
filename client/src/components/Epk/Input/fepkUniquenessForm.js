@@ -268,7 +268,7 @@ function UniquenessForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.description_uniqueness}
-                    placeholder="Description (maximum 500 characters)"
+                    placeholder={t("Description (maximum 500 characters)")}
                     onChange={handleUniquenessChange}
                     name="description_uniqueness"
                     maxLength="500"
@@ -280,7 +280,7 @@ function UniquenessForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength.description_uniqueness}/500 characters
+                    {characterLength.description_uniqueness}{t("/500 characters")}
                   </span>
                 </div>
 
@@ -315,7 +315,7 @@ function UniquenessForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4>Upload Picture</h4>
+                    <h4>{t("Upload Picture")}</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}

@@ -291,7 +291,7 @@ function SynopsisForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.text_short}
-                    placeholder="Short Synopsis(maximum 160 characters)"
+                    placeholder={t("Short Synopsis(maximum 160 characters)")}
                     onChange={handleSynopsisChange}
                     name="text_short"
                   />
@@ -302,7 +302,7 @@ function SynopsisForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.text_short}/160 characters
+                    {characterLength?.text_short}{t("/160 characters")}
                   </span>
                 </div>
                 <div className="col my-4" style={{ position: "relative" }}>
@@ -320,7 +320,7 @@ function SynopsisForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.text_medium}
-                    placeholder="Medium Synopsis(maximum 350 characters)"
+                    placeholder={t("Medium Synopsis(maximum 350 characters)")}
                     onChange={handleSynopsisChange}
                     name="text_medium"
                   />
@@ -331,7 +331,7 @@ function SynopsisForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.text_medium}/350 characters
+                    {characterLength?.text_medium}{t("/350 characters")}
                   </span>
                   <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                     <Button
@@ -372,7 +372,7 @@ function SynopsisForm() {
                     }}
                     className="form-control mt-10"
                     defaultValue={fepk.text_long}
-                    placeholder="Long Synopsis(maximum 500 characters)"
+                    placeholder={t("Long Synopsis(maximum 500 characters)")}
                     onChange={handleSynopsisChange}
                     name="text_long"
                   />
@@ -383,7 +383,7 @@ function SynopsisForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.text_long}/500 characters
+                    {characterLength?.text_long}{t("/500 characters")}
                   </span>
 
                   <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
