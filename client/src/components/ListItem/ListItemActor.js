@@ -6,24 +6,28 @@ import "./ListItemActor.css";
 export default function ListItem({ title, type }) {
   const { user } = useSelector(({ user }) => ({ user }));
 
+  const titleToEndpoint = {
+    all_actors: "users/getactors",
+    // Add more titles and corresponding endpoints as needed
+  };
+
   const id = user?.id || "0";
   const [actors, setActors] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let response = null;
-
-        switch (title) {
-          case "all_actors":
-            response = await http.get(`users/getactors`);
-            break;
-          default:
-            return;
+        const endpoint = titleToEndpoint[title];
+    
+        if (!endpoint) {
+          // Handle the case where the title is not found
+          return;
         }
-
+    
+        const response = await http.get(endpoint);
+    
         let filteredActors = response.data;
-
+    
         if (type.length > 0) {
           type.forEach((filter) => {
             if (filter.startsWith("Age Range:")) {
@@ -66,8 +70,7 @@ export default function ListItem({ title, type }) {
             }
           });
         }
-
-        setActors(filteredActors);
+        setActors(filteredActors.reverse()); // Reverse the order before setting the state
       } catch (error) {
         console.error("Error fetching actors:", error);
       }
