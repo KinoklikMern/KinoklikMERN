@@ -6,7 +6,11 @@ import EmptyEpk from "../../components/UserDashboard/Starred/EmptyEpk";
 import Axios from "axios";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 import UploadActorPic from "../../components/UserDashboard/Upload/UploadActorPic";
+import { useTranslation } from 'react-i18next';
+
 export default function StarredPage() {
+  const { t } = useTranslation();
+
   const [epkList, setEpkList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +38,7 @@ export default function StarredPage() {
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
       <div className='tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white md:tw-mb-8'>
-        <p className='tw-text-4xl'>Starred</p>
+        <p className='tw-text-4xl'>{t('Starred')}</p>
       </div>
       <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
