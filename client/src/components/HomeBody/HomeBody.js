@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
 import "../List/List.css";
 import "../ListItem/ListItem.css";
+import EPKFilter from "../Filter/EPKFilter";
+import FilterButton from "../Filter/FilterButton";
 import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from 'react-i18next';
 
 const HomeBody = ({ role }) => {
-  const [fepks, setFepks] = useState([]);
-  const [filteredEPKs, setFilteredEPKs] = useState([]);
-  const [filterQuery, setFilterQuery] = useState([]);
-  const [currentStatus, setCurrentStatus] = useState("All");
+    const [fepks, setFepks] = useState([]);
+    const [filteredEPKs, setFilteredEPKs] = useState([]);
+    const [currentStatus, setCurrentStatus] = useState("All");
 //For Translation
 
   const [filterTags, setFilterTags] = useState([
@@ -39,78 +38,18 @@ const HomeBody = ({ role }) => {
     },
   ]);
 
-  // const actorId = "6483619d64b048f952a6fb5b";
-
-  const clickHandler = (name, isActive) => {
-    let newTags;
-    let newQuery;
-
-    if (name === "all epks") {
-      newTags = filterTags.map((tag) => ({
-        ...tag,
-        isActive: tag.name === name,
-      }));
-      newQuery = isActive
-        ? []
-        : ["Movie", "TV Show", "Web Series", "Documentary"];
-    } else {
-      newTags = filterTags.map((tag) =>
-        tag.name === name ? { ...tag, isActive: !isActive } : tag
-      );
-
-      if (isActive) {
-        newQuery = filterQuery.filter((item) => item !== name);
-      } else {
-        if (filterQuery.length === 4) {
-          newQuery = [name];
-        } else {
-          newQuery = [...filterQuery, name];
-        }
-      }
-
-      if (!isActive) {
-        newTags[4].isActive = false; // set "all epks" to inactive
-      }
-
-      if (
-        newQuery.length ===
-        newTags.filter((tag) => tag.name !== "all epks").length
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: true } : tag
-        );
-        newQuery = ["Movie", "TV Show", "Web Series", "Documentary"];
-      }
-
-      if (
-        newTags.filter((tag) => tag.name !== "all epks" && !tag.isActive)
-          .length === 4
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: true } : tag
-        );
-      }
-
-      if (
-        newTags.filter((tag) => tag.name !== "all epks" && tag.isActive)
-          .length !== 0
-      ) {
-        newTags = newTags.map((tag) =>
-          tag.name === "all epks" ? { ...tag, isActive: false } : tag
-        );
-      }
-    }
-
-    setFilterTags(newTags);
-    setFilterQuery(newQuery);
-  };
-
   useEffect(() => {
     http.get(`fepks/`).then((response) => {
       setFepks(response.data);
       setFilteredEPKs(response.data);
     });
   }, []);
+
+  const {
+    filterQuery,
+    setFilterQuery,
+    clickHandler,
+  } = EPKFilter(fepks, filterTags, setFilterTags);
 
   const handleStatusChange = (status) => {
     if (currentStatus === status) {
@@ -186,34 +125,6 @@ const HomeBody = ({ role }) => {
           })}
         </div>
       </div>
-    </>
-  );
-};
-
-// Extract FilterButton as a separate component
-const FilterButton = ({ name, isActive, clickHandler }) => {
-  return (
-    <>
-      <button
-        className={`tw-text-small tw-mb-1 tw-mr-5 tw-w-48 tw-rounded-full tw-border-2 tw-px-4 tw-py-2 tw-font-bold tw-uppercase md:tw-w-auto ${
-          !isActive
-            ? "tw-bg-[#1E0039] tw-text-[#AAAAAA]"
-            : "tw-bg-white tw-text-[#1E0039]"
-        }`}
-        type="button"
-        onClick={() => clickHandler(name, isActive)}
-      >
-        {name}
-        {!isActive ? (
-          <FontAwesomeIcon
-            className="tw-pl-5"
-            icon={faPlus}
-            style={{ color: "#aaaaaa" }}
-          />
-        ) : (
-          <FontAwesomeIcon className="tw-pl-5" icon={faCheck} />
-        )}
-      </button>
     </>
   );
 };
