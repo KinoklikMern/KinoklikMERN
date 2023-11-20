@@ -23,6 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { addToChat } from "../../api/epks";
 import { useTranslation } from "react-i18next";
+import Axios from "axios";
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ export default function Actor(props) {
   const [selectedFilmmakers, setSelectedFilmmakers] = useState([]);
   const videoRef = useRef();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [studioData, setStudioData] = useState(null);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -73,11 +75,12 @@ export default function Actor(props) {
   }
 
   useEffect(() => {
-    Promise.all([
-      http.get(`/users/getactor/${id}`),
-      http.get("/users/getallusers"),
-    ])
-      .then(([actorResponse, usersResponse]) => {
+    const fetchData = async () => {
+      try {
+        const [actorResponse, usersResponse] = await Promise.all([
+          http.get(`/users/getactor/${id}`),
+          http.get("/users/getallusers"),
+        ]);
         const actorData = actorResponse.data;
         setEpkInfo(actorData);
 
@@ -99,11 +102,21 @@ export default function Actor(props) {
         setKKFollower(actorData.kkFollowers.length);
         setRecommendations(actorData.recommendations);
         setAllUserList(usersResponse.data);
-      })
-      .catch((error) => {
-        console.error("An error occurred while fetching data.", error);
-      });
-  }, [id]);
+      // Fetch studio data
+      const response = await Axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${id}`
+      );
+      if (response.data) {
+        setStudioData(response.data);
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching data.", error);
+    }
+  };
+
+  fetchData();
+}, [id, userId]);
+
 
   useEffect(() => {
     console.log(pics.length);
@@ -534,6 +547,25 @@ export default function Actor(props) {
             {t("Recommendation sent successfully!")}
           </div>
         )}
+         <div>
+        {studioData && (
+      <>
+        <p
+          className="text-purple-800 text-3xl font-bold ml-5"
+          style={{
+            //display: "inline",
+            padding:"0px",
+            marginLeft: "500px",
+            color: "#1E0039",
+            fontSize: "24px",
+            fontWeight: "700",
+          }}
+        >
+          {t("Representated by:")} {studioData ? studioData.name || 'N/A' : ''}
+        </p>
+      </>
+    )}
+        </div>
         <div className="actor-city-container">
           <div className="actor-city-detail">
             <img
