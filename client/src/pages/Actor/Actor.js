@@ -124,17 +124,16 @@ export default function Actor(props) {
 }, [id, userId]);
 
   
-        return getMoviesByActors(id);
-      })
-      .then((movies) => {
-        // Update state with the list of movies
-        setEpksList(movies);        
-      })
-      .catch((error) => {
-        console.error("An error occurred while fetching data.", error);
-      });
-  }, [id]);
-
+useEffect(() => {
+  getMoviesByActors(id)
+    .then((movies) => {
+      // Update state with the list of movies
+      setEpksList(movies);
+    })
+    .catch((error) => {
+      console.error("An error occurred while fetching data.", error);
+    });
+}, [id]);
 
   useEffect(() => {
     console.log("This acore has movies: ");
