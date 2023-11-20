@@ -107,7 +107,7 @@ export default function Actor(props) {
       })
       .then((movies) => {
         // Update state with the list of movies
-        setEpksList(movies);
+        setEpksList(movies);        
       })
       .catch((error) => {
         console.error("An error occurred while fetching data.", error);
@@ -115,6 +115,7 @@ export default function Actor(props) {
   }, [id]);
 
   useEffect(() => {
+    console.log("This acore has movies: ");
     console.log(epksList);
   }, [epksList]);
 
@@ -630,7 +631,7 @@ export default function Actor(props) {
               <span
                 style={{
                   fontWeight: "700",
-                  marginRight: "60px",
+                  marginRight: "70px",
                 }}
               >
                 {t("Eye Color")}{" "}
@@ -680,25 +681,16 @@ export default function Actor(props) {
         </div>
         <div className="bottom-container">
           <p className="bottom-actor-container-title">
-            {t("current films by actor")} {epkInfo.firstName} {epkInfo.lastName}
+            {t("current films by actor")}{" "}
+            <span style={{ fontWeight: "bolder" }}>
+              {epkInfo.firstName} {epkInfo.lastName}
+            </span>
           </p>
-          <div className="movie-actor-play-container">
-            {/* TODO: getMoviesByActor */}
-            <div>
-              {epksList.length > 0 &&
-                epksList.map((epk) => (
-                  <a key={epk._id} href={`/epk/${epk.title}`}>
-                    <h1>{epk.title}</h1>
-                    <img
-                      src={
-                        epk.banner_url
-                          ? epk.banner_url.startsWith("https")
-                            ? epk.banner_url
-                            : `${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`
-                          : emptyBanner
-                      }
-                      alt={epk.title}
-                    />
+          {epksList && epksList.length > 0 && (
+            <div className="movie-actor-play-container">
+              {epksList.map((epk) => (
+                <a key={epk._id} href={`/epk/${epk.title}`}>
+                  <div className="listItem">
                     <img
                       src={
                         epk.image_details
@@ -709,10 +701,12 @@ export default function Actor(props) {
                       }
                       alt={epk.title}
                     />
-                  </a>
-                ))}
+                    <p>{epk.title}</p>
+                  </div>
+                </a>
+              ))}
             </div>
-          </div>
+          )}
         </div>
       </div>
       <Footer />

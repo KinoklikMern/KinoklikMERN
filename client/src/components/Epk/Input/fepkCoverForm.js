@@ -203,8 +203,6 @@ function FepkCoverForm() {
     e.currentTarget.style.display = "flex";
     e.currentTarget.style.justifyContent = "center";
     e.currentTarget.style.alignItems = "center";
-    e.currentTarget.innerHTML =
-      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
     setIsUploading(true);
     saveEpkCover(e);
   };
@@ -269,6 +267,7 @@ function FepkCoverForm() {
                 )
               );
             } else {
+              setIsUploading(false);
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
             }
@@ -811,7 +810,21 @@ function FepkCoverForm() {
                     onClick={handleSaveClick}
                     value='save'
                   >
-                    {t("Save")}
+                    {isUploading ? (
+                      <div
+                        className="spinner"
+                        style={{
+                          border: "4px solid rgba(0, 0, 0, 0.1)",
+                          borderTop: "4px solid blue",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          animation: "spin 1s linear infinite",
+                        }}
+                      ></div>
+                    ) : (
+                      t("save")
+                    )}
                   </Button>
                 ) : (
                   <Button
@@ -825,7 +838,21 @@ function FepkCoverForm() {
                     onClick={saveEpkCover}
                     value='save'
                   >
-                    {t("Save")}
+                    {isUploading ? (
+                      <div
+                        className="spinner"
+                        style={{
+                          border: "4px solid rgba(0, 0, 0, 0.1)",
+                          borderTop: "4px solid blue",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          animation: "spin 1s linear infinite",
+                        }}
+                      ></div>
+                    ) : (
+                      t("save")
+                    )}
                   </Button>
                 )}
               </div>
