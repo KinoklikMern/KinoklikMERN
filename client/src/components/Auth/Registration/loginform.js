@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Logincss from "./login.module.css";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import http from "../../../http-common";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 import io from "socket.io-client";
 import { useTranslation } from "react-i18next";
 
@@ -14,6 +16,7 @@ const socket = io(backendUrl);
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   // const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   // const [message, setMessage] = useState("");
@@ -22,6 +25,13 @@ function LoginForm() {
   // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const emailInputRef = useRef(null);
+
+  useEffect(() => {
+    // Automatically focus the email input field when the component loads
+    emailInputRef.current.focus();
+  }, []);
 
   // For Translation
   const { t } = useTranslation();
@@ -37,7 +47,12 @@ function LoginForm() {
     }
   };
 
-  const handleSubmit = async () => {
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     // Check if no email or password is provided
     if (!email || !password) {
       setError(t("Please provide both email and password."));
@@ -53,7 +68,6 @@ function LoginForm() {
         }
       );
 
-      // Yeming added
       console.log("data", data);
       http.get(`/users/lastactive/${data.id}`); //Update last active time
 
@@ -107,31 +121,45 @@ function LoginForm() {
   return (
     <>
       <div className={Logincss.bg}>
-        <div className={Logincss.form_title}>Sign in</div>
-        <div className={Logincss.form}>
+        <div className={Logincss.form_title}>{t("Sign in")}</div>
+        {/* <div className={Logincss.form}> */}
+        <form onSubmit={handleSubmit} className={Logincss.form}>
           <div className={Logincss.formbody}>
-            <div className="email">
+            <div className="email tw-align-center tw-relative tw-flex tw-justify-start">
               {/* <label className="form__label">Email </label> */}
               <input
                 type="email"
                 id="email"
-                className={Logincss.form_input}
+                className={`${Logincss.form_input} tw-flex-1 tw-rounded tw-border tw-pl-3 tw-pr-3`}
                 value={email}
                 onChange={(e) => handleInputChange(e)}
                 placeholder={t("Email")}
+                ref={emailInputRef}
               />
             </div>
             <br />
-            <div className="password">
+            <div className="password tw-align-center tw-relative tw-flex tw-justify-start">
               {/* <label className="form__label">Password </label> */}
               <input
-                className={Logincss.form_input}
-                type="password"
+                className={`${Logincss.form_input} tw-flex-1 tw-rounded tw-border tw-pl-3 tw-pr-12`}
+                // type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 value={password}
                 onChange={(e) => handleInputChange(e)}
                 placeholder={t("Password")}
               />
+
+              <button
+                type="button"
+                className="tw-absolute tw-inset-y-0 tw-right-0 tw-flex tw-w-10 tw-items-center tw-justify-center tw-bg-transparent tw-outline-none"
+                onClick={togglePasswordVisibility}
+              >
+                <FontAwesomeIcon
+                  icon={showPassword ? faEyeSlash : faEye}
+                  className="tw-text-lg tw-text-gray-500"
+                />
+              </button>
             </div>
             <br />
             <div className={Logincss.form_Message}>
@@ -139,7 +167,7 @@ function LoginForm() {
               {error && <div className={Logincss.error_text}>*{error}</div>}
               <br />
               <button
-                onClick={() => handleSubmit()}
+                // onClick={() => handleSubmit()}
                 type="submit"
                 className={Logincss.btn}
               >
@@ -161,7 +189,8 @@ function LoginForm() {
               </p>
             </div>
           </div>
-        </div>
+        </form>
+        {/* </div> */}
       </div>
     </>
   );

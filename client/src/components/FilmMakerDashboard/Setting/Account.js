@@ -43,7 +43,7 @@ export default function Account() {
   }
 
   function openModal() {
-    setMessage("Confirmed delete Account?");
+    setMessage(t("Confirmed delete Account?"));
     setModalIsOpen(true);
   }
 

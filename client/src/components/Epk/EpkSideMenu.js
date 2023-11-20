@@ -5,7 +5,7 @@ import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import LoadingSpin from "../FilmMakerDashboard/LoadingSpin";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export const EPKSideMenu = ({ epkId, filmmakerId }) => {
   const { t } = useTranslation();
@@ -180,7 +180,9 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
 
   return (
     <div
-      className={`tw-fixed tw-inset-y-0 tw-left-0 tw-z-40 tw-flex tw-h-screen ${
+      className={`tw-fixed tw-inset-y-0 tw-left-0 ${
+        isMenuVisible ? "tw-z-50" : "tw-z-30"
+      } tw-flex tw-h-screen ${
         isMenuVisible ? "tw-w-60 tw-bg-[#1C0039] tw-duration-300" : "tw-w-14"
       }`}
     >
@@ -229,7 +231,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
               onClick={handleMenuClick}
               className="tw-ml-4 tw-rounded tw-bg-white tw-px-2 tw-py-1 tw-text-[#1C0039]"
             >
-               {t("Transfer Ownership")}
+              {t("Transfer Ownership")}
             </button>
           </div>
           {showTransferFields && (
@@ -268,9 +270,15 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
           <div className="tw-mx-auto tw-w-full tw-max-w-xs tw-rounded-lg tw-bg-white tw-p-6 tw-shadow-xl">
             <div className="tw-flex tw-flex-col">
               <p className="tw-mb-4 tw-text-sm tw-text-gray-500">
-              {t("Please take note: If you transfer ownership of this EPK to")}
-                {t(" another Filmmaker or Producer account, it cannot be undone. The")}
-                {t(" new EPK Owner will have ownership of this EPK and it cannot be")}
+                {t(
+                  "Please take note: If you transfer ownership of this EPK to"
+                )}
+                {t(
+                  " another Filmmaker or Producer account, it cannot be undone. The"
+                )}
+                {t(
+                  " new EPK Owner will have ownership of this EPK and it cannot be"
+                )}
                 {t(" reversed from your Dashboard.")}
               </p>
               <button
@@ -286,7 +294,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
                 className="tw-mt-3 tw-w-full tw-rounded tw-bg-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-font-bold tw-text-gray-700 tw-shadow-lg hover:tw-bg-gray-400 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-gray-500 focus:tw-ring-offset-2"
                 onClick={() => setIsModalVisible(false)}
               >
-                 {t("Cancel")}
+                {t("Cancel")}
               </button>
             </div>
           </div>

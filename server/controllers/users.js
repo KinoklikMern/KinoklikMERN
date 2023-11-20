@@ -801,8 +801,9 @@ export const getActor = async (req, res) => {
 
 export const getProfileActor = async (req, res) => {
   try {
-    const profile = await User.find({ role: "Actor" }).select("-password");
-    if (!profile) {
+    const profile = await User.find({ role: "Actor" }).select("-password")
+      .sort({ createdAt: 1 }); 
+    if (!profile.length) {
       return res.json({ ok: false });
     }
     res.send(profile);

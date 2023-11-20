@@ -15,9 +15,11 @@ import EthnicityDropdown from "./EthnicityDropdown";
 import RepresentationDropdown from "./RepresentationDropdown";
 import CityDropdown from "./CityDropdown";
 import CountryDropdown from "./CountryDropdown";
+import { useTranslation } from 'react-i18next';
 // import StatusBtn from "../SwitchStatusBtn/Status";
 
 export default function FilterTag({ role }) {
+  const { t } = useTranslation();
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
 
   // Yeming added
@@ -33,37 +35,36 @@ export default function FilterTag({ role }) {
   const handleDropdownSelection = (name, value) => {
     setFilterQuery((prevFilterQuery) => {
       let updatedQuery = [...prevFilterQuery];
-
+  
       // Remove any existing entries for this dropdown
       updatedQuery = updatedQuery.filter(
-        (item) => item.split(":")[0].trim() !== name
+        (item) => !item.startsWith(`${name}:`)
       );
-
+  
       // Add the new entry if a value is selected
       if (value) {
         updatedQuery.push(`${name}: ${value}`);
       }
-
+  
       // Check if "Male" or "Female" buttons are active
       const isGenderActive = updatedQuery.some(
         (item) => item === "Male" || item === "Female"
       );
-
+  
       // Check if any of the dropdown values have been selected
       const anyDropdownValueSelected = [
-        "Age Range",
-        "Ethnicity",
-        "Representation",
-        "City",
-        "Country",
+        (t("Age Range")),
+        (t("Ethnicity")),
+        (t("Representation")),
+        (t("City")),
+        (t("Country")),
       ].some((dropdownName) =>
         updatedQuery.some((item) => item.startsWith(`${dropdownName}:`))
       );
-
+  
       // Update the "All Actors" button based on the selected dropdown values and gender
-      // const allActorsIsActive = !isGenderActive && anyDropdownValueSelected;
       const allActorsIsActive = !(isGenderActive || anyDropdownValueSelected);
-
+  
       // Update selected value based on the dropdown
       switch (name) {
         case "Age Range":
@@ -84,7 +85,7 @@ export default function FilterTag({ role }) {
         default:
           break;
       }
-
+  
       // Update the state of the "All Actors" button
       setFilterTags((prevFilterTags) =>
         prevFilterTags.map((tag) =>
@@ -93,14 +94,15 @@ export default function FilterTag({ role }) {
             : tag
         )
       );
-
+  
       // Close the dropdown
       setSelectedDropdown((prev) => (prev === name ? null : name));
-
+  
       console.log("selectDropdown", selectedDropdown);
       return updatedQuery;
     });
   };
+  
 
   const actorFilterTag = [
     {
@@ -144,11 +146,10 @@ export default function FilterTag({ role }) {
 
   console.log(filterQuery);
 
-  // ----- CHIHYIN -------
   const clickHandler = (name, isActive) => {
     let newTags;
     let newQuery;
-
+  
     if (name === "All Actors") {
       // Reset the dropdown state values to their default (null) when All Actors is clicked
       setSelectedAgeRange(null);
@@ -168,18 +169,18 @@ export default function FilterTag({ role }) {
           ? { ...tag, isActive: true }
           : { ...tag, isActive: false }
       );
-      newQuery = [name];
+      newQuery = Array.isArray(filterQuery) ? [...filterQuery.filter((item) => item !== "Male" && item !== "Female"), name] : [name];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
       );
-
+  
       if (isActive) {
-        newQuery = filterQuery.filter((item) => item !== name);
+        newQuery = Array.isArray(filterQuery) ? filterQuery.filter((item) => item !== name) : [];
       } else {
-        newQuery = [...filterQuery, name];
+        newQuery = Array.isArray(filterQuery) ? [...filterQuery, name] : [name];
       }
-
+  
       // Update "All Actors" tag
       const allActorsIsActive =
         !newQuery.includes("Male") &&
@@ -189,17 +190,18 @@ export default function FilterTag({ role }) {
         !selectedRepresentation &&
         !selectedCity &&
         !selectedCountry;
-
+  
       newTags = newTags.map((tag) =>
         tag.name === "All Actors"
           ? { ...tag, isActive: allActorsIsActive }
           : tag
       );
     }
-
+  
     setFilterTags(newTags);
     setFilterQuery(newQuery);
   };
+  
 
   // button components
   const FilterButton = ({ name, isActive, clickHandler, selectedValue }) => {

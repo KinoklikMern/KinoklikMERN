@@ -154,7 +154,7 @@ const CinematographerForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Cinematographer's Biography here."
+                  placeholder={t("Enter Cinematographer's Biography here.")}
                   onChange={handleBiography}
                 />
                 <UploadFile setImage={setImage} />

@@ -1,81 +1,50 @@
-import React from "react";
-import "./ListItemActor.css";
-import { useState, useRef, useEffect } from "react";
-import http from "../../http-common";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import http from "../../http-common";
+import "./ListItemActor.css";
 
+export default function ListItem({ title, type }) {
+  const { user } = useSelector(({ user }) => ({ user }));
 
+  const titleToEndpoint = {
+    all_actors: "users/getactors",
+    // Add more titles and corresponding endpoints as needed
+  };
 
-
-export default function ListItem({ title, status, type, role }) {
+  const id = user?.id || "0";
   const [actors, setActors] = useState([]);
-  const [following, setFollowing] = useState([]);
-
-  const { user } = useSelector((user) => ({ ...user }));
-  let id;
-  if (!user) {
-    id = "0";
-  } else {
-    id = user.id;
-  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let response = null;
-
-        switch (title) {
-          // case "starred":
-          //   response = await http.get(`users/starred/${user.id}`);
-          //   break;
-          // case "following":
-          //   response = await http.get(`users/getfollowing/${user.id}`);
-          //   break;
-          case "all_actors":
-            response = await http.get(`users/getactors`);
-            break;
-          case "most_starred":
-            response = await http.get(`users/mostlikes`);
-            break;
-          case "most_followed":
-            response = await http.get(`users/mostfollowed`);
-            break;
-         
-          default:
-            return;
+        const endpoint = titleToEndpoint[title];
+    
+        if (!endpoint) {
+          // Handle the case where the title is not found
+          return;
         }
-
+    
+        const response = await http.get(endpoint);
+    
         let filteredActors = response.data;
-
-        console.log("filteredActors", filteredActors);
-        console.log("type", type);
+    
         if (type.length > 0) {
           type.forEach((filter) => {
             if (filter.startsWith("Age Range:")) {
               const [minAge, maxAge] = filter
                 .replace("Age Range:", "")
                 .split("-")
-                .map((age) => parseInt(age, 10)); // iterate over these two strings and convert them to integers,a base of 10 (decimal)
+                .map((age) => parseInt(age, 10));
 
-              console.log("minAge:", minAge);
-              console.log("maxAge:", maxAge);
-
-              // Filter actors by age range
               filteredActors = filteredActors.filter(
                 (actor) => actor.age >= minAge && actor.age <= maxAge
               );
-            } else if (filter === "Male") {
-              filteredActors = filteredActors.filter(
-                (actor) => actor.sex === filter
-              );
-            } else if (filter === "Female") {
+            } else if (filter === "Male" || filter === "Female") {
               filteredActors = filteredActors.filter(
                 (actor) => actor.sex === filter
               );
             } else if (filter.startsWith("Ethnicity:")) {
               const ethnicity = filter.replace("Ethnicity:", "").trim();
-
-              // Filter actors by city
               filteredActors = filteredActors.filter(
                 (actor) => actor.ethnicity === ethnicity
               );
@@ -83,41 +52,25 @@ export default function ListItem({ title, status, type, role }) {
               const representation = filter
                 .replace("Representation:", "")
                 .trim();
+              const hasAgent = representation === "Yes";
 
-              // Map the filter value to a boolean representation
-              let hasAgent;
-
-              if (representation === "Yes") {
-                hasAgent = true;
-              } else if (representation === "No") {
-                hasAgent = false;
-              }
-
-              // Filter actors by representation
               filteredActors = filteredActors.filter(
                 (actor) => actor.hasAgent === hasAgent
               );
             } else if (filter.startsWith("City:")) {
               const city = filter.replace("City:", "").trim();
-
-              // Filter actors by city
               filteredActors = filteredActors.filter(
                 (actor) => actor.city === city
               );
             } else if (filter.startsWith("Country:")) {
               const country = filter.replace("Country:", "").trim();
-
-              // Filter actors by country
               filteredActors = filteredActors.filter(
                 (actor) => actor.country === country
               );
-            } else if (filter.includes("All Actors")) {
-              setActors(response.data);
             }
           });
         }
-
-        setActors(filteredActors);
+        setActors(filteredActors.reverse()); // Reverse the order before setting the state
       } catch (error) {
         console.error("Error fetching actors:", error);
       }
@@ -126,18 +79,17 @@ export default function ListItem({ title, status, type, role }) {
     fetchData();
   }, [title, type]);
 
+
   return (
     <>
-      {actors &&
-        //6483619d64b048f952a6fb5b
-        actors.map((actor) => (
-          <div className="listItemactor" key={actor._id}>
-            
-            <a href={`/actor/${actor._id}`}>
-              <img  className="actor-image"
-                src={`${process.env.REACT_APP_AWS_URL}/${actor.picture}`}
-                alt=""
-              />
+    {actors?.map((actor) => (
+      <div className="listItemactor" key={actor._id}>
+        <a href={`/actor/${actor._id}`}>
+          <img
+            className="actor-image"
+            src={`${process.env.REACT_APP_AWS_URL}/${actor.picture}`}
+            alt=""
+          />
               <div className="overlay">
                   <p className="actorname">{`${actor.firstName} ${actor.lastName}`}</p>
             </div>

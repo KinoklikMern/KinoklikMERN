@@ -357,7 +357,7 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    still.comment
+                    {t("still.comment")}
                   </p>
                   <button
                     onClick={() => stillApproval(still.user._id, "approved")}
