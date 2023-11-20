@@ -156,6 +156,18 @@ export default function UsersPage() {
           // Handle non-successful response
           alert("Request was not successful. Status code: " + res.status);
         }
+        //If the user was editd, the filtered user info should be updated
+        setUserFilterInfo((prev) => {
+          const userIndex = prev.findIndex((user) => user._id === item._id);
+          if (userIndex !== -1) {
+            const newUserInfo = [...prev];
+            newUserInfo[userIndex] = item;
+            return newUserInfo;
+          } else {
+            return prev;
+          }
+        });
+
         setActionStatus(1);
       })
       .catch((err) => {

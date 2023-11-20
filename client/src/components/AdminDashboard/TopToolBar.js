@@ -125,12 +125,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
     if (dataInfo !== undefined && roleFilter === 5) {
       setSum(dataInfo.length);
     }
-
-    //When chaged user in edit user page, the filter user list should be updated
-    if (dataInfo) {
-      handleRoleClick(roleFilter);
-    }
-  }, [dataInfo]);
+  }, [dataInfo, roleFilter]);
   return (
     <>
       <header className="tw-mt-[5px] tw-flex tw-w-full tw-flex-col tw-justify-end tw-rounded-xl tw-bg-gray-300">

@@ -6,10 +6,9 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
+import http from "../../../http-common";
 import io from "socket.io-client";
 import { useTranslation } from "react-i18next";
-
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
 
