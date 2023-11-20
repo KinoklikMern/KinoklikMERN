@@ -30,6 +30,7 @@ export const getFepks = async (req, res) => {
 // fetch all Fepks by Film maker ID
 export const getFepksByFilmmakerId = async (req, res) => {
   const id = req.params.id;
+  console.log("Received ID:", id);
   try {
     const fepks = await fepk
       .find()
@@ -55,61 +56,36 @@ export const getFepksByFilmmakerId = async (req, res) => {
   }
 };
 
-// // get movie by actor
-// export const getFepksByActorId = async (req, res) => {
-//   const id = req.params.id;
-//   try {
-//     const fepks = await fepk
-//       .find()
-//       .where({ actors: {$in: id} })
-//       .populate("film_maker") // includes all fields of this object
-//       .populate("crew.crewId") // includes all fields of this object
-//       .populate("likes") // includes all fields of this object
-//       .populate("favourites") // includes all fields of this object
-//       .populate("wishes_to_buy") // includes all fields of this object
-//       .populate("sharings") // includes all fields of this object
-//       .populate("mediumSynopsis.user") // includes all fields of this object
-//       .populate("longSynopsis.user") // includes all fields of this object
-//       .populate("uniqueness.user")
-//       .populate("stillsApproval.user")
-//       .populate("reports.user")
-//       // .populate("requests.user")
-//       .where("deleted")
-//       .equals(false);
-//     res.status(200).json(fepks);
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// };
-
 export const getFepksByActorId = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.actorId;
+  console.log("Received ID:", id);
   try {
     const fepks = await fepk
-      .find({ actors: { $in: [id] }, deleted: false }) // combine the two .where() conditions into one .find() condition
-      .populate("film_maker")
-      .populate("crew.crewId")
-      .populate("likes")
-      .populate("favourites")
-      .populate("wishes_to_donate") // includes all fields of this object
-      .populate("wishes_to_buy")
-      .populate("sharings")
-      .populate("mediumSynopsis.user")
-      .populate("longSynopsis.user")
-      .populate("uniqueness.user")
-      .populate("stillsApproval.user")
-      .populate("reports.user");
+      .find({ actors: { $in: [id] } })
+      // .populate("film_maker")
+      // .populate("crew.crewId")
+      // .populate("actors")
+      // .populate("likes")
+      // .populate("favourites")
+      // .populate("wishes_to_donate")
+      // .populate("wishes_to_buy")
+      // .populate("sharings")
+      // .populate("mediumSynopsis.user")
+      // .populate("longSynopsis.user")
+      // .populate("uniqueness.user")
+      // .populate("stillsApproval.user")
+      // .populate("reports.user");
+      .where("deleted")
+      .equals(false);
 
-    // Check if no movies are found and send back an empty array.
     if (!fepks.length) {
       return res.status(200).json([]);
     }
 
-    // If movies are found, send them back.
     res.status(200).json(fepks);
   } catch (error) {
-    console.error(error); // This will log the error which can be useful for debugging.
-    res.status(500).json({ message: "Internal Server Error" }); // Changed to 500 to indicate a server error.
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

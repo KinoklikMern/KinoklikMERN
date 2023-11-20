@@ -23,6 +23,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { addToChat } from "../../api/epks";
 import { useTranslation } from "react-i18next";
+import { getMoviesByActors } from "../../api/epks";
+import emptyBanner from "../../images/empty_banner.jpeg";
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -44,6 +46,7 @@ export default function Actor(props) {
   const [selectedFilmmakers, setSelectedFilmmakers] = useState([]);
   const videoRef = useRef();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [epksList, setEpksList] = useState([]);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -99,6 +102,12 @@ export default function Actor(props) {
         setKKFollower(actorData.kkFollowers.length);
         setRecommendations(actorData.recommendations);
         setAllUserList(usersResponse.data);
+
+        return getMoviesByActors(id);
+      })
+      .then((movies) => {
+        // Update state with the list of movies
+        setEpksList(movies);
       })
       .catch((error) => {
         console.error("An error occurred while fetching data.", error);
@@ -106,9 +115,8 @@ export default function Actor(props) {
   }, [id]);
 
   useEffect(() => {
-    console.log(pics.length);
-    console.log(pics);
-  }, [pics]);
+    console.log(epksList);
+  }, [epksList]);
 
   // user is added to the list of +(followers)
   function addUserToFollowers() {
@@ -676,7 +684,34 @@ export default function Actor(props) {
           </p>
           <div className="movie-actor-play-container">
             {/* TODO: getMoviesByActor */}
-            <div>{/* <List /> */}</div>
+            <div>
+              {epksList.length > 0 &&
+                epksList.map((epk) => (
+                  <a key={epk._id} href={`/epk/${epk.title}`}>
+                    <h1>{epk.title}</h1>
+                    <img
+                      src={
+                        epk.banner_url
+                          ? epk.banner_url.startsWith("https")
+                            ? epk.banner_url
+                            : `${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`
+                          : emptyBanner
+                      }
+                      alt={epk.title}
+                    />
+                    <img
+                      src={
+                        epk.image_details
+                          ? epk.banner_url.startsWith("https")
+                            ? epk.image_details
+                            : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                          : emptyBanner
+                      }
+                      alt={epk.title}
+                    />
+                  </a>
+                ))}
+            </div>
           </div>
         </div>
       </div>
