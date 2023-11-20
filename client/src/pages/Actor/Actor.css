@@ -170,26 +170,71 @@
 
 .bottom-container {
   margin-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 .bottom-actor-container-title {
-  color: black;
-  text-align: left;
-  padding: 10px;
+  color: #1e0039;
+  text-align: center;
+  padding: 1em;
 }
 
 .movie-actor-play-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  justify-content: flex-start;
+  margin: 0 1%;
+  padding: 2% 2%;
+  background-color: rgba(30, 0, 57, 0.22);
+  border-radius: 1em;
 }
 
-.movie-actor-play-title {
-  color: white;
+.movie-actor-play-container img {
+  max-width: 350px;
+  max-height: 400px;
+  border-radius: 0%;
+}
+@media screen and (max-width: 1350px) {
+  .movie-actor-play-container img {
+    max-height: 350px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .movie-actor-play-container img {
+    max-height: 280px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .movie-actor-play-container img {
+    max-height: 220px;
+  }
+}
+@media screen and (max-width: 780px) {
+  .movie-actor-play-container img {
+    max-height: 200px;
+  }
 }
 
-.movie-actor-play-img {
-  width: 250px;
-  height: 350px;
+.listItem p {
+  margin-top: 10px;
+  color: #1e0039;
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+} 
+
+.movie-actor-play-container::-webkit-scrollbar {
+  height: 1vh;
+  width: fit-content;
+}
+.movie-actor-play-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.movie-actor-play-container::-webkit-scrollbar-thumb {
+  background: #712cb0;
 }
 
 .movie-number,

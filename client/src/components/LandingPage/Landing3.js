@@ -103,17 +103,22 @@ const Landing3 = () => {
             <div className='tw-h-2/4 tw-text-xl tw-text-midnight'>
               {selectedCategory === "Filmmakers" ? (
                 `Present your film idea like a pro to industry professionals!`
-              ) : (
+              ) : selectedCategory === "Actors" ? (
                 <>
                   Present your <span className='tw-font-bold'>Actor Page</span>{" "}
                   like a pro to industry professionals with Headshots, Demo
                   Reel, and more!
                 </>
+              ) : (
+                <>
+                  Discover new films in their early stage to snatch up those
+                  film rights before your competition!
+                </>
               )}
             </div>
             <div className='tw-h-2/4'>
               <img
-                src={selectedCategory === "Filmmakers" ? image1 : image2}
+                src={selectedCategory === "Actors" ? image2 : image1}
                 alt='EPK'
                 className='tw-h-full tw-w-full tw-rounded-xl tw-object-cover'
               />
@@ -121,8 +126,12 @@ const Landing3 = () => {
           </div>
           <div className='tw-h-80 tw-w-full tw-rounded-2xl tw-bg-white tw-p-4 tw-shadow-[4.0px_8.0px_8.0px_rgba(30,0,57,0.90)] md:tw-w-60'>
             <div className='tw-h-2/4 tw-text-xl tw-text-midnight'>
-              Measure the industry's interest in your film by tracking your EPK
-              page data!
+              {selectedCategory === "Filmmakers"
+                ? `Measure the industry's interest in your film by tracking your EPK
+              page data!`
+                : selectedCategory === "Actors"
+                ? `Allow industry professionals to recommend you to other filmmakers!`
+                : `See and monitor the industry interest in the films you follow!`}
             </div>
             <div className='tw-flex tw-h-2/4 tw-items-center tw-justify-evenly tw-rounded-xl tw-bg-midnight'>
               <i class='fa-solid fa-dollar-sign tw-text-3xl tw-text-white'></i>
@@ -132,10 +141,26 @@ const Landing3 = () => {
           </div>
           <div className='tw-h-80 tw-w-full tw-rounded-2xl tw-bg-white tw-p-4 tw-shadow-[4.0px_8.0px_8.0px_rgba(30,0,57,0.90)] md:tw-w-60'>
             <div className='tw-h-2/4 tw-text-xl tw-text-midnight'>
-              Your film's cast & crew social media audience is{" "}
-              <span className='tw-font-bold'>automatically integrated</span> in
-              your EPK to calculate and show your film's potential
-              <span className='tw-font-bold'> Total Audience Reach!</span>
+              {selectedCategory === "Filmmakers" ? (
+                <>
+                  Your film's cast & crew social media audience is{" "}
+                  <span className='tw-font-bold'>automatically integrated</span>{" "}
+                  in your EPK to calculate and show your film's potential
+                  <span className='tw-font-bold'> Total Audience Reach!</span>
+                </>
+              ) : selectedCategory === "Actors" ? (
+                <>
+                  Display your entire social media audience{" "}
+                  <span className='tw-font-bold'>automatically integrated</span>{" "}
+                  on your Actors Page!
+                </>
+              ) : (
+                <>
+                  Track a film's{" "}
+                  <span className='tw-font-bold'>Total Audience Reach</span> EPK
+                  page to see the film's potential audience!
+                </>
+              )}
             </div>
             <div className='tw-flex tw-h-2/4 tw-items-end tw-justify-evenly'>
               <i class='fa-brands fa-facebook tw-text-3xl tw-text-midnight'></i>

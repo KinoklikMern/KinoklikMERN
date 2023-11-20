@@ -24,6 +24,9 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { addToChat } from "../../api/epks";
 import { useTranslation } from "react-i18next";
 import Axios from "axios";
+import { getMoviesByActors } from "../../api/epks";
+import emptyBanner from "../../images/empty_banner.jpeg";
+
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -46,6 +49,8 @@ export default function Actor(props) {
   const videoRef = useRef();
   const [isModalVisible, setModalVisible] = useState(false);
   const [studioData, setStudioData] = useState(null);
+  const [epksList, setEpksList] = useState([]);
+
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -102,6 +107,7 @@ export default function Actor(props) {
         setKKFollower(actorData.kkFollowers.length);
         setRecommendations(actorData.recommendations);
         setAllUserList(usersResponse.data);
+
       // Fetch studio data
       const response = await Axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${id}`
@@ -117,11 +123,23 @@ export default function Actor(props) {
   fetchData();
 }, [id, userId]);
 
+  
+        return getMoviesByActors(id);
+      })
+      .then((movies) => {
+        // Update state with the list of movies
+        setEpksList(movies);        
+      })
+      .catch((error) => {
+        console.error("An error occurred while fetching data.", error);
+      });
+  }, [id]);
+
 
   useEffect(() => {
-    console.log(pics.length);
-    console.log(pics);
-  }, [pics]);
+    console.log("This acore has movies: ");
+    console.log(epksList);
+  }, [epksList]);
 
   // user is added to the list of +(followers)
   function addUserToFollowers() {
@@ -654,7 +672,7 @@ export default function Actor(props) {
               <span
                 style={{
                   fontWeight: "700",
-                  marginRight: "60px",
+                  marginRight: "70px",
                 }}
               >
                 {t("Eye Color")}{" "}
@@ -704,12 +722,32 @@ export default function Actor(props) {
         </div>
         <div className="bottom-container">
           <p className="bottom-actor-container-title">
-            {t("current films by actor")} {epkInfo.firstName} {epkInfo.lastName}
+            {t("current films by actor")}{" "}
+            <span style={{ fontWeight: "bolder" }}>
+              {epkInfo.firstName} {epkInfo.lastName}
+            </span>
           </p>
-          <div className="movie-actor-play-container">
-            {/* TODO: getMoviesByActor */}
-            <div>{/* <List /> */}</div>
-          </div>
+          {epksList && epksList.length > 0 && (
+            <div className="movie-actor-play-container">
+              {epksList.map((epk) => (
+                <a key={epk._id} href={`/epk/${epk.title}`}>
+                  <div className="listItem">
+                    <img
+                      src={
+                        epk.image_details
+                          ? epk.banner_url.startsWith("https")
+                            ? epk.image_details
+                            : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                          : emptyBanner
+                      }
+                      alt={epk.title}
+                    />
+                    <p>{epk.title}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <Footer />

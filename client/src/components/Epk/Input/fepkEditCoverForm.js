@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
 import stripImage from "../../../images/stripe.jpg";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function FepkEditCoverForm() {
   const { t } = useTranslation();
@@ -96,46 +96,46 @@ function FepkEditCoverForm() {
     budget: fepk.budget,
   });
   const movieGenre = [
-    (t("action")),
-    (t("comedy")),
-    (t("documentary")),
-    (t("romance")),
-    (t("horror")),
-    (t("mystery")),
-    (t("drama")),
-    (t("western")),
-    (t("science fiction")),
-    (t("thriller")),
-    (t("crime")),
-    (t("animation")),
-    (t("musical")),
-    (t("war")),
-    (t("romantic comedy")),
-    (t("noir")),
-    (t("disaster")),
-    (t("dark comedy")),
-    (t("historical film")),
-    (t("slasher")),
-    (t("adventure")),
-    (t("gangster")),
-    (t("spy")),
-    (t("fantasy")),
-    (t("biographical")),
-    (t("found footage")),
-    (t("legal drama")),
-    (t("melodrama")),
-    (t("superhero")),
-    (t("slapstick")),
-    (t("monster")),
-    (t("historical fiction")),
-    (t("teen")),
-    (t("apocalyptic")),
-    (t("post-apocalyptic")),
-    (t("psychological thriller")),
-    (t("stop motion")),
-    (t("sports")),
-    (t("space opera")),
-    (t("mockumentary")),
+    t("action"),
+    t("comedy"),
+    t("documentary"),
+    t("romance"),
+    t("horror"),
+    t("mystery"),
+    t("drama"),
+    t("western"),
+    t("science fiction"),
+    t("thriller"),
+    t("crime"),
+    t("animation"),
+    t("musical"),
+    t("war"),
+    t("romantic comedy"),
+    t("noir"),
+    t("disaster"),
+    t("dark comedy"),
+    t("historical film"),
+    t("slasher"),
+    t("adventure"),
+    t("gangster"),
+    t("spy"),
+    t("fantasy"),
+    t("biographical"),
+    t("found footage"),
+    t("legal drama"),
+    t("melodrama"),
+    t("superhero"),
+    t("slapstick"),
+    t("monster"),
+    t("historical fiction"),
+    t("teen"),
+    t("apocalyptic"),
+    t("post-apocalyptic"),
+    t("psychological thriller"),
+    t("stop motion"),
+    t("sports"),
+    t("space opera"),
+    t("mockumentary"),
   ];
   const makeGenreItem = (X) => {
     return (
@@ -203,7 +203,9 @@ function FepkEditCoverForm() {
     if (name === "title") {
       http.get(`fepks/byTitle/${event.target.value}`).then((response) => {
         if (response.data !== null) {
-          setMessageTitleNo(t("This title exists! You are not allowed to use it again!"));
+          setMessageTitleNo(
+            t("This title exists! You are not allowed to use it again!")
+          );
           setMessageTitleYes("");
         } else {
           setMessageTitleYes(t("Title is available!"));
@@ -237,8 +239,6 @@ function FepkEditCoverForm() {
     e.currentTarget.style.display = "flex";
     e.currentTarget.style.justifyContent = "center";
     e.currentTarget.style.alignItems = "center";
-    e.currentTarget.innerHTML =
-      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
     setIsUploading(true);
     saveEpkCover(e);
   };
@@ -282,6 +282,7 @@ function FepkEditCoverForm() {
               .put(`fepks/update/${fepkId}`, epkCoverData)
               .then((res) => {
                 setModalIsOpen(true);
+                setIsUploading(false);
                 console.log("saved");
               })
               .catch((err) => {
@@ -339,7 +340,7 @@ function FepkEditCoverForm() {
                 fontSize: "25px",
               }}
             >
-              {t('EPK Dashboard')}
+              {t("EPK Dashboard")}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -357,7 +358,7 @@ function FepkEditCoverForm() {
                 fontSize: "20px",
               }}
             >
-              {t('View EPK Page')}
+              {t("View EPK Page")}
             </Link>
           </div>
         </div>
@@ -387,7 +388,7 @@ function FepkEditCoverForm() {
                 fontSize: "1rem",
               }}
             >
-              {t('Cover')}
+              {t("Cover")}
             </h5>
             <form className="row g-5">
               <div className="col me-5">
@@ -433,7 +434,9 @@ function FepkEditCoverForm() {
                         maxLength="160"
                         className="form-control mt-10"
                         defaultValue={fepk.logLine_short}
-                        placeholder={t("Log Line short (maximum 160 characters)")}
+                        placeholder={t(
+                          "Log Line short (maximum 160 characters)"
+                        )}
                         onChange={handleInputChange}
                         name="logLine_short"
                       />
@@ -445,7 +448,8 @@ function FepkEditCoverForm() {
                           marginBottom: "1rem",
                         }}
                       >
-                        {characterLength?.logLine_short}{t("/160 characters")}
+                        {characterLength?.logLine_short}
+                        {t("/160 characters")}
                       </span>
                     </div>
                     <div className="row" style={{ marginBottom: "-1.4rem" }}>
@@ -672,7 +676,7 @@ function FepkEditCoverForm() {
                         alt="no img"
                       />
                     ) : (
-                      <h3>{t('No Image')}</h3>
+                      <h3>{t("No Image")}</h3>
                     )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
@@ -684,7 +688,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>{t('Upload Banner')}</h4>
+                          <h4>{t("Upload Banner")}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -718,7 +722,7 @@ function FepkEditCoverForm() {
                             alt="no image"
                           />
                         ) : (
-                          <h3>{t('No Image')}</h3>
+                          <h3>{t("No Image")}</h3>
                         )}
                       </div>
                     </div>
@@ -730,7 +734,7 @@ function FepkEditCoverForm() {
                           style={{ fontSize: "25px" }}
                         >
                           {" "}
-                          <h4>{t('Upload Trailer')}</h4>
+                          <h4>{t("Upload Trailer")}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -756,7 +760,7 @@ function FepkEditCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h6>{t('NO VIDEO UPLOADED')}</h6>
+                          <h6>{t("NO VIDEO UPLOADED")}</h6>
                         )}
                       </div>
                     </div>
@@ -771,7 +775,11 @@ function FepkEditCoverForm() {
                 }}
               >
                 <div>
-                  <Tooltip title={t("In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.")}>
+                  <Tooltip
+                    title={t(
+                      "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK."
+                    )}
+                  >
                     <span>
                       {" "}
                       <InfoCircleFilled />
@@ -844,7 +852,21 @@ function FepkEditCoverForm() {
                 onClick={handleSaveClick}
                 value="save"
               >
-                {t('Save')}
+                {isUploading ? (
+                  <div
+                    className="spinner"
+                    style={{
+                      border: "4px solid rgba(0, 0, 0, 0.1)",
+                      borderTop: "4px solid blue",
+                      borderRadius: "50%",
+                      width: "20px",
+                      height: "20px",
+                      animation: "spin 1s linear infinite",
+                    }}
+                  ></div>
+                ) : (
+                  t("save")
+                )}
               </Button>
             ) : (
               <Button
@@ -858,7 +880,21 @@ function FepkEditCoverForm() {
                 onClick={handleSaveClick}
                 value="save"
               >
-                {t('Save')}
+                {isUploading ? (
+                  <div
+                    className="spinner"
+                    style={{
+                      border: "4px solid rgba(0, 0, 0, 0.1)",
+                      borderTop: "4px solid blue",
+                      borderRadius: "50%",
+                      width: "20px",
+                      height: "20px",
+                      animation: "spin 1s linear infinite",
+                    }}
+                  ></div>
+                ) : (
+                  t("save")
+                )}
               </Button>
             )}
             <Modal
@@ -891,7 +927,7 @@ function FepkEditCoverForm() {
                   className="btn btn-secondary btn-sm"
                   onClick={closeModal}
                 >
-                  {t('Ok')}
+                  {t("Ok")}
                 </button>
               </div>
             </Modal>

@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function TrailerForm() {
   const [file, setFile] = useState("");
@@ -72,8 +72,6 @@ function TrailerForm() {
     e.currentTarget.style.display = "flex";
     e.currentTarget.style.justifyContent = "center";
     e.currentTarget.style.alignItems = "center";
-    e.currentTarget.innerHTML =
-      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
     setIsUploading(true);
     saveEpkTrailer(e);
   };
@@ -102,6 +100,7 @@ function TrailerForm() {
             .then((res) => {
               setModalIsOpen(true);
               inputFileRef.current.value = "";
+              setIsUploading(false);
               console.log("saved");
             })
             .catch((err) => {
@@ -158,7 +157,7 @@ function TrailerForm() {
                 fontSize: "25px",
               }}
             >
-              {t('EPK Dashboard')}
+              {t("EPK Dashboard")}
             </h2>
           </div>
           <div className="col-3 m-3">
@@ -176,7 +175,7 @@ function TrailerForm() {
                 fontSize: "20px",
               }}
             >
-              {t('View EPK Page')}
+              {t("View EPK Page")}
             </Link>
           </div>
         </div>
@@ -193,7 +192,7 @@ function TrailerForm() {
               className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              {t('Film Trailer')}
+              {t("Film Trailer")}
             </h5>
             <form>
               <div className="row">
@@ -232,7 +231,7 @@ function TrailerForm() {
                       controls
                     ></video>
                   ) : (
-                    <h1>{t('NO VIDEO UPLOADED')}</h1>
+                    <h1>{t("NO VIDEO UPLOADED")}</h1>
                   )}
                 </div>
                 <div className="col-1">
@@ -258,7 +257,21 @@ function TrailerForm() {
                         onClick={handleSaveClick}
                         value="save"
                       >
-                        {t('Save')}
+                        {isUploading ? (
+                          <div
+                            className="spinner"
+                            style={{
+                              border: "4px solid rgba(0, 0, 0, 0.1)",
+                              borderTop: "4px solid blue",
+                              borderRadius: "50%",
+                              width: "20px",
+                              height: "20px",
+                              animation: "spin 1s linear infinite",
+                            }}
+                          ></div>
+                        ) : (
+                          t("save")
+                        )}
                       </Button>
                     ) : (
                       <Button
@@ -272,7 +285,21 @@ function TrailerForm() {
                         onClick={handleSaveClick}
                         value="save"
                       >
-                        {t('Save')}
+                        {isUploading ? (
+                          <div
+                            className="spinner"
+                            style={{
+                              border: "4px solid rgba(0, 0, 0, 0.1)",
+                              borderTop: "4px solid blue",
+                              borderRadius: "50%",
+                              width: "20px",
+                              height: "20px",
+                              animation: "spin 1s linear infinite",
+                            }}
+                          ></div>
+                        ) : (
+                          t("save")
+                        )}
                       </Button>
                     )}
                     <Modal
@@ -305,7 +332,7 @@ function TrailerForm() {
                           className="btn btn-secondary btn-sm"
                           onClick={closeModal}
                         >
-                          {t('Ok')}
+                          {t("Ok")}
                         </button>
                       </div>
                     </Modal>
