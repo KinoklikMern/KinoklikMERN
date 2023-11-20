@@ -127,7 +127,7 @@ router.get("/newest/:newId", getNewest);
 router.get("/popular/:popular", getMostPopular);
 
 // get actor by movie
-router.get("/getactorbymovie/:actorId", getFepksByActorId);
+router.get("/getmoviesbyactor/:actorId", getFepksByActorId);
 
 // transfer epk ownership
 router.put("/:epkId/transfer", transferEpkOwnership);

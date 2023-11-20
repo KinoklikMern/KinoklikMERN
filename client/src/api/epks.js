@@ -182,3 +182,18 @@ export const refuseRequest = (request) => {
     console.log(error.message);
   }
 };
+
+export const getMoviesByActors = async (actorId) => {
+  try {
+    const url = `${process.env.REACT_APP_BACKEND_URL}/fepks/getmoviesbyactor/${actorId}`;
+
+    const response = await axios.get(url);
+
+    const movies = response.data;
+
+    return movies;
+  } catch (error) {
+    console.error("Error fetching movies by actor:", error);
+    throw error;
+  }
+};
