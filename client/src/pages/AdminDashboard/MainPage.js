@@ -6,45 +6,34 @@ import TopToolBar from "../../components/AdminDashboard/TopToolBar";
 import Users from "../../images/icons/people-3-v3-white.svg";
 import DollarIcon from "../../images/icons/DollarIcon.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import starWhite from "../../images/icons/StarFULL.svg";
 import plusWhite from "../../images/icons/PlusWhite.svg";
 import referralIcon from "../../images/icons/referral-sign-white.svg";
-import Triangle from "../../images/icons/triangle.svg";
 import http from "../../http-common";
 
 export default function MainPage() {
   const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
-  const [openTab, setOpenTab] = useState(1);
 
   //Fetch data related
   const [userInfo, setUserInfo] = useState();
   const [epkInfo, setEpkInfo] = useState();
 
   const dropdownRef = useRef(null);
-  const [item, setItem] = useState({
-    name: "Vera Carpenter",
-    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80",
-    role: "Distributor",
-    phone: "647-818-1281",
-    email: "123@gmail.com",
-  });
 
   //dropdown
-  const [isOpen, setIsOpen] = useState(false);
-  const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
-
-  const handleToggle = () => {
-    console.log("handleToggle");
-    setIsOpen(!isOpen);
-  };
-
-  const handleSelect = (option) => {
-    console.log(`Selected: ${option}`);
-    setItem({ ...item, role: option });
-    setIsOpen(false);
-  };
+  //const [isOpen, setIsOpen] = useState(false);
+  //const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  // const handleToggle = () => {
+  //   console.log("handleToggle");
+  //   setIsOpen(!isOpen);
+  // };
+  // const handleSelect = (option) => {
+  //   console.log(`Selected: ${option}`);
+  //   setItem({ ...item, role: option });
+  //   setIsOpen(false);
+  // };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
@@ -66,9 +55,10 @@ export default function MainPage() {
       });
   }, []);
 
+  //Dropdown
   const handleDocumentClick = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-      setIsOpen(false);
+      //setIsOpen(false);
     }
   };
 
@@ -78,17 +68,17 @@ export default function MainPage() {
         {/* <p className="tw-text-4xl">Admin Dashboard</p> */}
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
-        <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
+        <div className="tw-ml-16 tw-mt-12 tw-h-[70vh]">
           <LeftSidebar selectedTab="Main Metrics" role={user.role} />
         </div>
-        <div className="tw-ml-16 tw-mt-8 tw-h-5/6 tw-w-5/6 tw-max-w-5xl tw-justify-between tw-overflow-auto tw-rounded-lg  tw-bg-white tw-p-4">
+        <div className="tw-ml-16 tw-mt-8 tw-h-5/6 tw-w-5/6 tw-min-w-min tw-justify-between tw-overflow-auto tw-rounded-lg  tw-bg-white tw-p-4">
           {/* line */}
           <div className="tw-h-0.5 tw-w-full tw-bg-[#1E0039]"></div>
           {/* box */}
           <TopToolBar selectedTab="Main Metrics" role={user.role} />
 
-          <div className="tw-sm:flex-col tw-sm:gap-10 tw-mt-6 tw-flex tw-w-full  tw-flex-row tw-items-center tw-justify-between">
-            <div className="tw-sm:flex-1 tw-sm:w-full tw-flex tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-border-[2px] tw-border-[#cac4cf] tw-bg-white tw-px-[50px] tw-py-[26px] tw-shadow-[35px_35px_60px_-15px_rgba(0,0,0,0.3)]">
+          <div className="tw-sm:flex-col tw-sm:gap-10 tw-mt-6 tw-flex   tw-w-full tw-flex-row tw-items-center tw-justify-between">
+            <div className="tw-sm:flex-1 tw-sm:w-full tw-flex tw-h-[28vh] tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-border-[2px] tw-border-[#cac4cf] tw-bg-white tw-px-[50px] tw-py-[26px] tw-shadow-[35px_35px_60px_-15px_rgba(0,0,0,0.3)]">
               <div className="tw-md:w-full tw-mb-12 tw-mt-8 tw-flex tw-w-[20%] tw-min-w-[134px] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-[#1E0039] tw-p-0.5">
                 <img
                   className="tw-mb-1 tw-h-[40px] tw-pt-[2px]"
@@ -96,10 +86,10 @@ export default function MainPage() {
                   alt="bookmark_One"
                 />
                 <p className="tw-md:text-base tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
-                  Total Users
+                  {t("Total Users")}
                 </p>
                 {userInfo === undefined ? (
-                  "Loading"
+                  t("Loading")
                 ) : (
                   <p className="tw-md:text-3xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
                     {userInfo.length}
@@ -113,7 +103,7 @@ export default function MainPage() {
                   alt="bookmark_One"
                 />
                 <p className="tw-md:text-xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
-                  Total EPKs
+                  {t("Total EPKs")}
                 </p>
                 {epkInfo === undefined ? (
                   "Loading"
@@ -126,7 +116,7 @@ export default function MainPage() {
             </div>
           </div>
 
-          <div className="tw-md:flex-1 tw-md:w-full tw-mt-8 tw-flex tw-w-full  tw-flex-col tw-items-center  tw-justify-start tw-rounded-[22px]  tw-bg-[#1E0039]">
+          <div className="tw-md:flex-1 tw-md:w-full tw-mt-8 tw-flex tw-h-[28vh]  tw-w-full tw-flex-col tw-items-center tw-justify-start tw-rounded-[22px]  tw-bg-[#1E0039]">
             <div className="tw-my-[10px] tw-flex tw-w-full tw-items-center">
               {/* DropdownBtn  */}
               {/* <div
@@ -164,13 +154,13 @@ export default function MainPage() {
               </div> */}
 
               <p className="tw-mt-[5px] tw-w-full   tw-text-center tw-font-bold tw-text-white">
-                ENGAGEMENT
+                {t("ENGAGEMENT")}
               </p>
             </div>
             <div className="tw-sm:flex-1 tw-sm:w-full tw-flex tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-bg-[#1E0039] tw-px-[30px] ">
               <div className="tw-md:w-full tw-my-[40px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5">
                 <p className="tw-md:text-base tw-sm:text-[28px]  tw-mt-[20px] tw-text-[18px] tw-font-bold tw-text-[#1E0039]">
-                  ENGAGEMENT EPKs
+                  {t("ENGAGEMENT EPKs")}
                 </p>
                 <div className="tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around">
                   <div className=" tw-w-[50px] tw-flex-col tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
@@ -225,7 +215,7 @@ export default function MainPage() {
               </div>
               <div className="tw-md:w-full  tw-my-[10px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5">
                 <p className="tw-md:text-base tw-sm:text-[28px] tw-mt-[20px]  tw-text-[18px] tw-font-bold tw-text-[#1E0039]">
-                  ENGAGEMENT ACTORs
+                  {t("ENGAGEMENT ACTORs")}
                 </p>
                 <div className="tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around">
                   <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">

@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useTranslation } from "react-i18next";
+import http from "../../http-common";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
 
@@ -141,6 +142,7 @@ export const SideProfileMenu = () => {
     const currentUser = JSON.parse(Cookies.get("user") || "null");
 
     if (currentUser && currentUser.id && socket) {
+      console.log("emit logout");
       socket.emit("logout", currentUser.id); // Notify server of intent to logout
       // Delay the disconnection slightly to ensure the logout event is processed
       setTimeout(() => {
@@ -156,6 +158,8 @@ export const SideProfileMenu = () => {
       payload: null,
     });
     console.log("Logout actions dispatched.");
+
+    http.get(`/users/lastactive/${currentUser.id}`); //Update last active time
     // console.log(`Logout actions dispatched for user:`, currentUser.id);
     // console.log(user);
     navigate("/");

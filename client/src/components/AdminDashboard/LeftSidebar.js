@@ -34,8 +34,8 @@ export default function LeftSidebar(props) {
       ActiveIcon: UsersActiveIcon,
       href: "/admindashboard/users",
       size: {
-        width: 62,
-        height: 62,
+        width: 60,
+        height: 60,
       },
     },
 
@@ -85,7 +85,7 @@ export default function LeftSidebar(props) {
               href={item.href}
               className="tw-flex tw-w-full tw-flex-col tw-text-white"
             >
-              <div className="tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-gap-[20px]">
+              <div className="tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-gap-[10px]">
                 <img
                   src={
                     SELECTED_TAB === item.Title

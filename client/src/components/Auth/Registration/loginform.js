@@ -4,9 +4,9 @@ import Logincss from "./login.module.css";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
+import http from "../../../http-common";
 import io from "socket.io-client";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
@@ -22,7 +22,7 @@ function LoginForm() {
   // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   // For Translation
   const { t } = useTranslation();
 
@@ -55,6 +55,7 @@ function LoginForm() {
 
       // Yeming added
       console.log("data", data);
+      http.get(`/users/lastactive/${data.id}`); //Update last active time
 
       // let userId;
       // if (data.user && data.user.id) {
@@ -142,20 +143,20 @@ function LoginForm() {
                 type="submit"
                 className={Logincss.btn}
               >
-                {t('Sign In')}
+                {t("Sign In")}
               </button>
               <br />
               <br />
               <p>
                 {t("Don't have an account yet?")}{" "}
                 <a href="/signup" className={Logincss.link}>
-                  {t('Create Account')}
+                  {t("Create Account")}
                 </a>
               </p>{" "}
               <p>
                 {t("Forgot password?")}{" "}
                 <a href="/sendresetpasswordlink" className={Logincss.link}>
-                  {t('Reset my Password')}
+                  {t("Reset my Password")}
                 </a>
               </p>
             </div>

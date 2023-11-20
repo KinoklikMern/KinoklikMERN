@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 import Triangle from "../../images/icons/triangle.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,21 +7,21 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
   const [roleFilter, setRoleFilter] = useState(5); //Select 'All Users' by default
   const [productionFilter, setProductionFilter] = useState(3); //Select 'All EPKs' by default
-  const [searchKeyWord, setSearchKeyWord] = useState("");
+  //const [searchKeyWord, setSearchKeyWord] = useState("");
   const [sum, setSum] = useState(0);
+  const inputRef = useRef(null);
 
-  const options = {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+  const currentDate = () => {
+    const options = {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    };
+    const dateFormatter = new Intl.DateTimeFormat("en-US", options);
+    const formattedString = dateFormatter.format(new Date());
+    return formattedString;
   };
-  const dateFormatter = new Intl.DateTimeFormat("en-US", options);
-
-  const formattedString = dateFormatter.format(new Date());
-
-  const [currentDate, setCurrentDate] = useState(formattedString);
-
   const handleSearchClick = () => {
     //Search users based on the selected filter
   };
@@ -50,6 +50,9 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
     setRoleFilter(index);
 
     //Filter Users based on the selected filter
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
     const filterRes = getFilteredUsers(index);
     setSum(filterRes.length);
     setFilteredData(filterRes);
@@ -117,6 +120,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
     }
   };
 
+  // eslint-disable-next-line
   useEffect(() => {
     if (dataInfo !== undefined && roleFilter === 5) {
       setSum(dataInfo.length);
@@ -132,19 +136,20 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
       <header className="tw-mt-[5px] tw-flex tw-w-full tw-flex-col tw-justify-end tw-rounded-xl tw-bg-gray-300">
         <div
           className={`${
-            selectedTab == "Main Metrics" || selectedTab == "Analytics"
+            selectedTab === "Main Metrics" || selectedTab === "Analytics"
               ? "tw-justify-end"
               : "tw-justify-between"
           } tw-md:flex-col tw-md:gap-5 tw-flex tw-h-[60px] tw-w-full tw-flex-row tw-items-center  tw-pr-10`}
         >
-          {selectedTab == "Main Metrics" ||
-          selectedTab == "Analytics" ? null : (
+          {selectedTab === "Main Metrics" ||
+          selectedTab === "Analytics" ? null : (
             <div className=" tw-relative tw-ml-6 tw-flex">
               <input
                 type="text"
                 placeholder="Search name..."
                 className="tw-h-[20px] tw-w-56 tw-rounded-xl tw-border  tw-border-gray-300 tw-bg-gray-100 tw-text-xs  focus:tw-border-[#1E0039]"
                 onChange={handleKeywordChanged}
+                ref={inputRef}
               />
               <div className="tw-absolute  tw-bottom-1.5 tw-right-3 tw-h-[16px] tw-text-gray-300">
                 <FontAwesomeIcon
@@ -158,10 +163,10 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
           )}
           <div className="tw-flex ">
             <p className="tw-md:ml-[0] tw-md:mt-0 mt-0.5 tw-md:text-base  tw-pr-8  tw-text-gray-700">
-              {currentDate.toString()}
+              {currentDate()}
             </p>
-            {selectedTab == "Main Metrics" ||
-            selectedTab == "Analytics" ? null : (
+            {selectedTab === "Main Metrics" ||
+            selectedTab === "Analytics" ? null : (
               <img
                 className="tw-md:ml-[0] tw-ml-2.5 tw-h-[16px] tw-rounded-none"
                 src={Triangle}
@@ -171,7 +176,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
           </div>
         </div>
 
-        {selectedTab == "Users" ? (
+        {selectedTab === "Users" ? (
           <div className="tw-md:flex-col tw-md:gap-5  tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-pr-10">
             <div>
               <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
@@ -339,7 +344,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
             </div>
           </div>
         ) : null}
-        {selectedTab == "EPKs" ? (
+        {selectedTab === "EPKs" ? (
           <div className="tw-md:flex-col tw-md:gap-5  tw-mb-2 tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-pr-10">
             <div>
               <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">

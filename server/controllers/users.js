@@ -64,15 +64,13 @@ export const register = async (req, res) => {
       );
     }
 
-    //Add the user to the Mailchimp list
-
-    let result = await addSubscribe(email, "fab1255128", firstName, lastName);
-
-    if (result.message) {
-      return res
-        .status(500)
-        .json({ message: result.message, emailExists: false });
-    }
+    //Add the user to the Mailchimp list,to be implemented
+    //let result = await addSubscribe(email, "fab1255128", firstName, lastName);
+    // if (result.message) {
+    //   return res
+    //     .status(500)
+    //     .json({ message: result.message, emailExists: false });
+    // }
 
     // Hash the password
     const cryptedPassword = await bcrypt.hash(password, 12);
@@ -414,6 +412,32 @@ export const getProfile = async (req, res) => {
     res.json({ ...profile.toObject() });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+//Update user's last active time
+export const updateLastActive = async (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+  try {
+    const userToUpdate = await User.findOne({ _id: userId })
+      .where("deleted")
+      .equals(false);
+
+    if (!userToUpdate) {
+      console.log("No User was found!");
+      //res.json({ error: "No User was found!" });
+    } else {
+      await userToUpdate.updateOne(
+        { lastActive: new Date() },
+        { where: { _id: userId } }
+      );
+      console.log("User last active time was updated!");
+      //res.status(200).json({ message: "Account was deleted!" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    //res.status(404).json({ message: error.message });
   }
 };
 

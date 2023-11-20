@@ -49,7 +49,6 @@ export default function UsersPage() {
   ];
 
   const handleToggle = () => {
-    console.log("handleToggle");
     setIsOpen(!isOpen);
   };
 
@@ -197,6 +196,7 @@ export default function UsersPage() {
     } else return true;
   };
 
+  //Upload user img in Edit page
   async function fileSelected(event) {
     const file = event.target.files[0];
     let formData = new FormData();
@@ -227,6 +227,7 @@ export default function UsersPage() {
     }
   }
 
+  //For dropdown
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
     return () => {
@@ -239,6 +240,7 @@ export default function UsersPage() {
     }
   };
 
+  //Init data
   useEffect(() => {
     Promise.all([http.get(`/fepks/`), http.get("/users/getallusers")])
       .then(([fepkResponse, usersResponse]) => {
@@ -254,6 +256,7 @@ export default function UsersPage() {
       });
   }, []);
 
+  //Get User related EPKs
   useEffect(() => {
     const relatedEPKs = async () => {
       const relatedEPKs = [];
@@ -305,17 +308,45 @@ export default function UsersPage() {
     };
     relatedEPKs();
   }, [item, epkInfo]);
+
+  const activeString = (item) => {
+    if (item.lastActive) {
+      const lastActive = new Date(item.lastActive);
+      const now = new Date();
+
+      if (
+        lastActive.getDate() === now.getDate() &&
+        lastActive.getMonth() === now.getMonth() &&
+        lastActive.getFullYear() === now.getFullYear()
+      ) {
+        return `Today`;
+      } else if (
+        lastActive.getDate() === now.getDate() - 1 &&
+        lastActive.getMonth() === now.getMonth() &&
+        lastActive.getFullYear() === now.getFullYear()
+      ) {
+        return `Yesterday`;
+      } else {
+        const diff = now - lastActive;
+        const diffInMinutes = Math.round(diff / 60000);
+        return `${Math.round(diffInMinutes / 1440)} days ago`;
+      }
+    } else {
+      return ``;
+    }
+  };
+
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-white">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]">
         {/* <p className="tw-text-4xl">Admin Dashboard</p> */}
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
-        <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
+        <div className="tw-ml-16 tw-mt-12 tw-h-[70vh]">
           <LeftSidebar selectedTab="Users" role={user.role} />
         </div>
         {/* tw-overflow-auto */}
-        <div className="tw-ml-16 tw-mt-8 tw-h-5/6 tw-w-5/6 tw-max-w-5xl tw-rounded-lg tw-bg-white tw-p-4">
+        <div className="tw-ml-16 tw-mt-8 tw-flex tw-h-5/6 tw-w-5/6  tw-flex-col tw-rounded-lg tw-bg-white tw-p-4">
           {/* line */}
           <div className="tw-h-0.5 tw-w-full tw-bg-[#1E0039]"></div>
           {/* box */}
@@ -339,7 +370,7 @@ export default function UsersPage() {
                   <p className=" tw-text-md tw-w-4/12 tw-py-3  tw-text-left  tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
                     Contact
                   </p>
-                  <p className="  tw-text-md tw-w-2/12 tw-py-3 tw-text-left tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
+                  <p className="tw-text-md  tw-w-2/12 tw-py-3 tw-text-left tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
                     Last Active
                   </p>
                   <p className="tw-text-md tw-w-1/12 tw-rounded-r-lg tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]">
@@ -350,7 +381,7 @@ export default function UsersPage() {
                 {userFilterInfo === undefined ? (
                   "Loading"
                 ) : (
-                  <div className="tw-mt-[10px] tw-h-[480px] tw-min-w-full tw-overflow-auto tw-rounded-lg tw-shadow">
+                  <div className=" tw-mt-[10px] tw-h-[50vh] tw-min-w-full tw-flex-col  tw-overflow-auto tw-rounded-lg tw-shadow">
                     {userFilterInfo.map((item, index) =>
                       item.deleted ? null : (
                         <div
@@ -406,7 +437,12 @@ export default function UsersPage() {
                           </div>
                           <div className="  tw-w-2/12 tw-px-5 tw-py-5 tw-text-sm ">
                             <p className="tw-whitespace-no-wrap ">
-                              {item.lastActive}
+                              {activeString(item)}
+                              {/* {onlineUsers[item._id]
+                                ? "Active"
+                                : item.lastActive === undefined
+                                ? "Never"
+                                : item.lastActive} */}
                             </p>
                           </div>
                           <div className="  tw-w-1/12 tw-py-5 tw-text-sm ">
@@ -630,7 +666,7 @@ export default function UsersPage() {
 
                     <div
                       ref={dropdownRef}
-                      className="tw-relative tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl  tw-border-none tw-text-center tw-shadow-lg"
+                      className="tw-relative  tw-h-5 tw-w-1/2 tw-rounded-2xl  tw-border-none tw-text-center tw-shadow-lg"
                     >
                       <button
                         onClick={handleToggle}
@@ -649,7 +685,7 @@ export default function UsersPage() {
                         />
                       </button>
                       {isOpen && (
-                        <ul className="tw-absolute tw-right-0 tw-origin-bottom-left   tw-rounded-md tw-bg-white tw-shadow-lg tw-ring-1 tw-ring-black tw-ring-opacity-5">
+                        <ul className="tw-absolute tw-right-0 tw-max-h-80 tw-origin-bottom-left tw-overflow-y-auto  tw-rounded-md tw-bg-white tw-shadow-lg tw-ring-1 tw-ring-black tw-ring-opacity-5">
                           {options.map((option, index) => (
                             <li
                               key={index}
@@ -680,7 +716,7 @@ export default function UsersPage() {
                       onChange={(e) =>
                         setItem({ ...item, email: e.target.value })
                       }
-                      className="tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500"
+                      className="tw-my-1 tw-h-5 tw-w-9/12 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center  tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500"
                     />
                   </div>
                 </div>
@@ -700,6 +736,9 @@ export default function UsersPage() {
                           />
                         </a>
                       ))}
+                      {epks.length === 0 ? (
+                        <div className="tw-block tw-h-[180px]"></div>
+                      ) : null}
                     </div>
                   </div>
                 ) : null}

@@ -32,10 +32,10 @@ export default function EPKsPage() {
         {/* <p className="tw-text-4xl">Admin Dashboard</p> */}
       </div>
       <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
-        <div className="tw-ml-16 tw-mt-12 tw-h-5/6">
+        <div className="tw-ml-16 tw-mt-12 tw-h-[70vh]">
           <LeftSidebar selectedTab="EPKs" role={user.role} />
         </div>
-        <div className="tw-ml-16 tw-mt-8 tw-h-5/6 tw-w-5/6 tw-max-w-5xl  tw-rounded-lg tw-bg-white tw-p-4">
+        <div className="tw-ml-16 tw-mt-8 tw-h-5/6 tw-w-5/6  tw-rounded-lg tw-bg-white tw-p-4">
           {/* line */}
           <div className="tw-h-0.5 tw-w-full tw-bg-[#1E0039]"></div>
           {/* box */}
@@ -45,8 +45,8 @@ export default function EPKsPage() {
             dataInfo={epkInfo}
           />
 
-          <div className="tw-mt-10 tw-max-w-5xl  tw-rounded-lg  tw-border-2 tw-border-[#cac4cf] tw-bg-white tw-p-4 tw-shadow-[20px_20px_30px_-15px_rgba(30,0,57,0.3)]">
-            <div className=" tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center ">
+          <div className="tw-mt-10  tw-min-h-min tw-min-w-min tw-rounded-lg tw-border-2 tw-border-[#cac4cf] tw-bg-white tw-p-4 tw-shadow-[20px_20px_30px_-15px_rgba(30,0,57,0.3)]">
+            <div className=" tw-flex  tw-w-full tw-flex-col tw-items-center tw-justify-center">
               <p className="tw-text-center tw-font-bold">EPKs</p>
               <div className="tw-mb-12 tw-mt-4 tw-flex tw-h-32 tw-w-32 tw-flex-col  tw-place-items-center tw-justify-center tw-rounded-lg  tw-bg-[#1E0039] tw-p-0.5">
                 <p className="tw-sm:text-base tw-mt-8 tw-text-3xl tw-font-light tw-text-white">
@@ -64,7 +64,7 @@ export default function EPKsPage() {
               {filteredEPKs === undefined || filteredEPKs.length === 0 ? (
                 ""
               ) : (
-                <div className=" tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-2 tw-py-8">
+                <div className="  tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-2 tw-py-8">
                   <div className="tw-flex tw-w-full  tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
                     {filteredEPKs.map((fepk, index) => (
                       <img
@@ -74,7 +74,7 @@ export default function EPKsPage() {
                             ? fepk.image_details
                             : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
                         }
-                        className="tw-m-2 tw-rounded-none hover:tw-cursor-pointer"
+                        className="tw-m-2 tw-h-[14vh] tw-rounded-none hover:tw-cursor-pointer"
                         alt="movie cover"
                         onClick={() => navigate(`/epk/${fepk.title}`)}
                       />
