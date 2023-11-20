@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
 import { FepkContext } from "../context/FepkContext";
 import EPKSideMenu from "../components/Epk/EpkSideMenu";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function FepkEditDashboard() {
   const { t } = useTranslation();
@@ -56,104 +56,106 @@ function FepkEditDashboard() {
       <LoadingSpin />
     </div>
   ) : (
-    <>
+    <div className="tw-flex tw-min-h-screen">
       <EPKSideMenu epkId={fepkId} filmmakerId={user.id} />
-      {access === true ? (
-        <div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: "1% 10%",
-              marginBottom: "0",
-            }}
-          >
-            <SectionButton
-              text={t("1. Cover")}
-              onClick={() => handleSectionClick("cover")}
-              sectionChosen={sectionChosen}
-              value="cover"
-            />
-            <SectionButton
-              text={t("2. Log Line")}
-              onClick={() => handleSectionClick("logLine")}
-              sectionChosen={sectionChosen}
-              value="logLine"
-            />
-            <SectionButton
-              text={t("3. Synopsis")}
-              onClick={() => handleSectionClick("synopsis")}
-              sectionChosen={sectionChosen}
-              value="synopsis"
-            />
-            <SectionButton
-              text={t("4. Cast & Crew")}
-              onClick={() => handleSectionClick("details")}
-              sectionChosen={sectionChosen}
-              value="details"
-            />
-            <SectionButton
-              text={t("5. Uniqueness")}
-              onClick={() => handleSectionClick("uniqueness")}
-              sectionChosen={sectionChosen}
-              value="uniqueness"
-            />
-            <SectionButton
-              text={t("6. Film Stills")}
-              onClick={() => handleSectionClick("stills")}
-              sectionChosen={sectionChosen}
-              value="stills"
-            />
-            <SectionButton
-              text={t("7. Film Trailer")}
-              onClick={() => handleSectionClick("trailer")}
-              sectionChosen={sectionChosen}
-              value="trailer"
-            />
-            <SectionButton
-              text={t("8. Film Buzz")}
-              onClick={() => handleSectionClick("reviews")}
-              sectionChosen={sectionChosen}
-              value="reviews"
-            />
-            <SectionButton
-              text={t("9. Resources")}
-              onClick={() => handleSectionClick("resources")}
-              sectionChosen={sectionChosen}
-              value="resources"
-            />
-            <SectionButton
-              text={t("10.Treatment")}
-              onClick={() => handleSectionClick("treatment")}
-              sectionChosen={sectionChosen}
-              value="treatment"
-              disabled={true}
-            />
+      <div className="tw-flex-grow">
+        {access === true ? (
+          <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "1% 10%",
+                marginBottom: "0",
+              }}
+            >
+              <SectionButton
+                text={t("1. Cover")}
+                onClick={() => handleSectionClick("cover")}
+                sectionChosen={sectionChosen}
+                value="cover"
+              />
+              <SectionButton
+                text={t("2. Log Line")}
+                onClick={() => handleSectionClick("logLine")}
+                sectionChosen={sectionChosen}
+                value="logLine"
+              />
+              <SectionButton
+                text={t("3. Synopsis")}
+                onClick={() => handleSectionClick("synopsis")}
+                sectionChosen={sectionChosen}
+                value="synopsis"
+              />
+              <SectionButton
+                text={t("4. Cast & Crew")}
+                onClick={() => handleSectionClick("details")}
+                sectionChosen={sectionChosen}
+                value="details"
+              />
+              <SectionButton
+                text={t("5. Uniqueness")}
+                onClick={() => handleSectionClick("uniqueness")}
+                sectionChosen={sectionChosen}
+                value="uniqueness"
+              />
+              <SectionButton
+                text={t("6. Film Stills")}
+                onClick={() => handleSectionClick("stills")}
+                sectionChosen={sectionChosen}
+                value="stills"
+              />
+              <SectionButton
+                text={t("7. Film Trailer")}
+                onClick={() => handleSectionClick("trailer")}
+                sectionChosen={sectionChosen}
+                value="trailer"
+              />
+              <SectionButton
+                text={t("8. Film Buzz")}
+                onClick={() => handleSectionClick("reviews")}
+                sectionChosen={sectionChosen}
+                value="reviews"
+              />
+              <SectionButton
+                text={t("9. Resources")}
+                onClick={() => handleSectionClick("resources")}
+                sectionChosen={sectionChosen}
+                value="resources"
+              />
+              <SectionButton
+                text={t("10.Treatment")}
+                onClick={() => handleSectionClick("treatment")}
+                sectionChosen={sectionChosen}
+                value="treatment"
+                disabled={true}
+              />
+            </div>
+            <div
+              style={{
+                margin: "0 5px",
+              }}
+            >
+              <br />
+              {sectionChosen === "cover" && <FepkEditCoverForm />}
+              {sectionChosen === "details" && <FepkDetailsForm />}
+              {sectionChosen === "logLine" && <LoglineForm />}
+              {sectionChosen === "synopsis" && <SynopsisForm />}
+              {sectionChosen === "uniqueness" && <UniquenessForm />}
+              {sectionChosen === "stills" && <StillsForm />}
+              {sectionChosen === "resources" && <ResourcesForm />}
+              {sectionChosen === "trailer" && <TrailerForm />}
+              {sectionChosen === "reviews" && <ReviewsForm />}
+              {/* add a "Treatment" component here */}
+            </div>
           </div>
-          <div
-            style={{
-              margin: "0 5px",
-            }}
-          >
-            <br />
-            {sectionChosen === "cover" && <FepkEditCoverForm />}
-            {sectionChosen === "details" && <FepkDetailsForm />}
-            {sectionChosen === "logLine" && <LoglineForm />}
-            {sectionChosen === "synopsis" && <SynopsisForm />}
-            {sectionChosen === "uniqueness" && <UniquenessForm />}
-            {sectionChosen === "stills" && <StillsForm />}
-            {sectionChosen === "resources" && <ResourcesForm />}
-            {sectionChosen === "trailer" && <TrailerForm />}
-            {sectionChosen === "reviews" && <ReviewsForm />}
-            {/* add a "Treatment" component here */}
+        ) : (
+          <div>
+            <FepkDashboardNoAccess />
           </div>
-        </div>
-      ) : (
-        <div>
-          <FepkDashboardNoAccess />
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 }
 export default FepkEditDashboard;

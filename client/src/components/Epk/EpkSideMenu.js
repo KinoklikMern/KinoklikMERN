@@ -179,12 +179,21 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
   );
 
   return (
+    // <div
+    //   className={`tw-fixed tw-inset-y-0 tw-left-0 ${
+    //     isMenuVisible ? "tw-z-50" : "tw-z-30"
+    //   } tw-flex tw-h-screen ${
+    //     isMenuVisible ? "tw-w-60 tw-bg-[#1C0039] tw-duration-300" : "tw-w-14"
+    //   }`}
+    // >
     <div
-      className={`tw-fixed tw-inset-y-0 tw-left-0 ${
-        isMenuVisible ? "tw-z-50" : "tw-z-30"
-      } tw-flex tw-h-screen ${
-        isMenuVisible ? "tw-w-60 tw-bg-[#1C0039] tw-duration-300" : "tw-w-14"
-      }`}
+      className={`${
+        isMenuVisible
+          ? "tw-fixed tw-inset-y-0 tw-left-0 tw-z-50"
+          : "tw-static tw-z-20"
+      } tw-transition-width tw-duration-300 ${
+        isMenuVisible ? "tw-w-60 tw-bg-[#1C0039]" : "tw-w-14"
+      } tw-h-screen`}
     >
       {/* Hamburger and vertical lines container */}
       <div className="tw-relative tw-left-2 tw-flex tw-h-full tw-flex-col tw-items-center tw-justify-center">
@@ -261,12 +270,14 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
 
       {/* Overlay for the side menu */}
       {isModalVisible && (
-        <div className="tw-absolute tw-inset-0 tw-bg-black tw-opacity-50"></div>
+        // <div className="tw-absolute tw-inset-0 tw-bg-black tw-opacity-50"></div>
+        <div className="tw-absolute tw-inset-0 tw-z-40 tw-bg-black tw-opacity-50"></div>
       )}
 
       {/* Modal Content */}
       {isModalVisible && (
-        <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-px-4">
+        // <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-px-4">
+        <div className="tw-absolute tw-left-0 tw-top-0 tw-z-50 tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-px-4">
           <div className="tw-mx-auto tw-w-full tw-max-w-xs tw-rounded-lg tw-bg-white tw-p-6 tw-shadow-xl">
             <div className="tw-flex tw-flex-col">
               <p className="tw-mb-4 tw-text-sm tw-text-gray-500">
