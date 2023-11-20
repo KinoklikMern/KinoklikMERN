@@ -284,9 +284,9 @@ function FepkDetailsForm() {
 
     if (userExists) {
       const { firstName, lastName } = userExists;
-      setEmailError(
+      setEmailError(t(
         `User with that email is already registered under name: ${firstName} ${lastName}`
-      );
+      ));
     } else {
       console.log("Sending invitation...");
 

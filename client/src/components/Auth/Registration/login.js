@@ -89,7 +89,7 @@ function Login({ spanText }) {
       setOpen(false);
     };
     const handleSubmit = async (values) => {
-      /*     console.log(email, password); */
+      console.log(values.email, values.password);
       try {
         const { data } = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/users/login`,

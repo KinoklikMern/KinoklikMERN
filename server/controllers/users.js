@@ -13,7 +13,7 @@ import { generateOTP, generateMailTransport } from "../utils/mail.js";
 import EmailVerificationToken from "../models/emailVerificationToken.js";
 import { isValidObjectId } from "mongoose";
 import { sendError } from "../utils/helper.js";
-
+import { addSubscribe } from "../utils/mailChimp.js";
 export const register = async (req, res) => {
   try {
     const {
@@ -27,6 +27,7 @@ export const register = async (req, res) => {
       bannerImg,
       thumbnail,
       headImg,
+      newsLetterOptions,
     } = req.body;
 
     // Normalize the email to lowercase
@@ -63,6 +64,14 @@ export const register = async (req, res) => {
       );
     }
 
+    //Add the user to the Mailchimp list,to be implemented
+    //let result = await addSubscribe(email, "fab1255128", firstName, lastName);
+    // if (result.message) {
+    //   return res
+    //     .status(500)
+    //     .json({ message: result.message, emailExists: false });
+    // }
+
     // Hash the password
     const cryptedPassword = await bcrypt.hash(password, 12);
 
@@ -75,6 +84,7 @@ export const register = async (req, res) => {
       website,
       password: cryptedPassword,
       isVerified: false, // Add this line to set isVerified to false initially
+      newsLetterOptions,
     }).save();
 
     // Generate 6 digit otp
@@ -405,6 +415,32 @@ export const getProfile = async (req, res) => {
   }
 };
 
+//Update user's last active time
+export const updateLastActive = async (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+  try {
+    const userToUpdate = await User.findOne({ _id: userId })
+      .where("deleted")
+      .equals(false);
+
+    if (!userToUpdate) {
+      console.log("No User was found!");
+      //res.json({ error: "No User was found!" });
+    } else {
+      await userToUpdate.updateOne(
+        { lastActive: new Date() },
+        { where: { _id: userId } }
+      );
+      console.log("User last active time was updated!");
+      //res.status(200).json({ message: "Account was deleted!" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    //res.status(404).json({ message: error.message });
+  }
+};
+
 //SEND INVITATION --------------(moved to invitations)-----------------------
 
 // export const sendInvitation = async (req, res) => {
@@ -702,7 +738,7 @@ export const changePassword = async (req, res) => {
 
 export const deleteAccount = async (req, res) => {
   const id = req.params.userId;
-  //console.log(id);
+  // console.log(id);
   try {
     const userToDelete = await User.findOne({ _id: id })
       .where("deleted")
