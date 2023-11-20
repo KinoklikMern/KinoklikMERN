@@ -204,8 +204,6 @@ function FepkCoverForm() {
     e.currentTarget.style.display = "flex";
     e.currentTarget.style.justifyContent = "center";
     e.currentTarget.style.alignItems = "center";
-    e.currentTarget.innerHTML =
-      '<div class="spinner" style="border: 4px solid rgba(0, 0, 0, 0.1); border-top: 4px solid blue; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;"></div>';
     setIsUploading(true);
     saveEpkCover(e);
   };
@@ -266,6 +264,7 @@ function FepkCoverForm() {
               console.error("Error submitting data:", res.data.error);
               setSubmitMessage(t(" An error occurred while saving your data. Please try again."));
             } else {
+              setIsUploading(false);
               console.log("saved");
               navigate(`/editFepk/${res.data._id}`);
             }
@@ -314,7 +313,7 @@ function FepkCoverForm() {
               className="col align-items-start"
               style={{ color: "#FFFFFF", fontWeight: "normal" }}
             >
-              {t('EPK Page Upload')}
+              {t("EPK Page Upload")}
             </h1>
           </div>
           <div className="col-3 m-3"></div>
@@ -329,7 +328,7 @@ function FepkCoverForm() {
                 fontSize: "25px",
               }}
             >
-              {t('EPK Dashboard')}
+              {t("EPK Dashboard")}
             </Link>
           </div>
         </div>
@@ -360,7 +359,7 @@ function FepkCoverForm() {
                 fontSize: "1.2rem",
               }}
             >
-              {t('Cover - Mandotory')}
+              {t("Cover - Mandotory")}
             </h5>
             <form className="row g-5">
               <div className="col me-5">
@@ -402,7 +401,9 @@ function FepkCoverForm() {
                         }}
                         maxLength="160"
                         className="form-control mt-10"
-                        placeholder={t("Log Line short (maximum 160 characters)")}
+                        placeholder={t(
+                          "Log Line short (maximum 160 characters)"
+                        )}
                         onChange={handleInputChange}
                         value={epkCoverData.logLine_short}
                         name="logLine_short"
@@ -415,7 +416,8 @@ function FepkCoverForm() {
                           marginBottom: "1rem",
                         }}
                       >
-                        {characterLength?.logLine_short}{t("/160 characters")}
+                        {characterLength?.logLine_short}
+                        {t("/160 characters")}
                       </span>
                     </div>
                     <div className="row" style={{ marginBottom: "-1.4rem" }}>
@@ -474,7 +476,7 @@ function FepkCoverForm() {
                           value={epkCoverData.budget}
                         >
                           <option value="" disabled>
-                            {t('Production Budget')}
+                            {t("Production Budget")}
                           </option>
                           {budgetRanges.map((budget) => (
                             <option key={budget} value={budget}>
@@ -500,7 +502,7 @@ function FepkCoverForm() {
                           value={epkCoverData.production_type}
                         >
                           <option value="" disabled>
-                            {t('Production Type')}
+                            {t("Production Type")}
                           </option>
                           {movieType.map((type) => (
                             <option key={type} value={type}>
@@ -526,7 +528,7 @@ function FepkCoverForm() {
                           value={epkCoverData.genre}
                         >
                           <option value="" disabled>
-                            {t('Genre')}
+                            {t("Genre")}
                           </option>
                           {movieGenre.map((genre) => (
                             <option key={genre} value={genre}>
@@ -550,7 +552,7 @@ function FepkCoverForm() {
                           value={epkCoverData.status}
                         >
                           <option value="" disabled>
-                            {t('Status')}
+                            {t("Status")}
                           </option>
                           {movieStatus.map((status) => (
                             <option key={status} value={status}>
@@ -617,7 +619,7 @@ function FepkCoverForm() {
                       className="form-label text-dark"
                       style={{ fontSize: "25px" }}
                     >
-                      <h4>{t('Upload Poster')}</h4>
+                      <h4>{t("Upload Poster")}</h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
@@ -641,7 +643,7 @@ function FepkCoverForm() {
                         alt="Preview"
                       />
                     ) : (
-                      <h3>{t('No Image')}</h3>
+                      <h3>{t("No Image")}</h3>
                     )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
@@ -652,7 +654,7 @@ function FepkCoverForm() {
                           className="form-label text-dark"
                           style={{ fontSize: "25px" }}
                         >
-                          <h4>{t('Upload Banner')}</h4>
+                          <h4>{t("Upload Banner")}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -676,7 +678,7 @@ function FepkCoverForm() {
                             alt="Preview"
                           />
                         ) : (
-                          <h3>{t('No Image')}</h3>
+                          <h3>{t("No Image")}</h3>
                         )}
                       </div>
                     </div>
@@ -687,7 +689,7 @@ function FepkCoverForm() {
                           className="form-label text-dark"
                           style={{ fontSize: "25px" }}
                         >
-                          <h4>{t('Upload Trailer')}</h4>
+                          <h4>{t("Upload Trailer")}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -707,7 +709,7 @@ function FepkCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h1>{t('NO VIDEO UPLOADED')}</h1>
+                          <h1>{t("NO VIDEO UPLOADED")}</h1>
                         )}
                       </div>
                     </div>
@@ -741,7 +743,11 @@ function FepkCoverForm() {
                 }}
               >
                 <div>
-                  <Tooltip title= {t("In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.")}>
+                  <Tooltip
+                    title={t(
+                      "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK."
+                    )}
+                  >
                     <span>
                       {" "}
                       <InfoCircleFilled />
@@ -812,7 +818,21 @@ function FepkCoverForm() {
                     onClick={handleSaveClick}
                     value="save"
                   >
-                    {t('Save')}
+                    {isUploading ? (
+                      <div
+                        className="spinner"
+                        style={{
+                          border: "4px solid rgba(0, 0, 0, 0.1)",
+                          borderTop: "4px solid blue",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          animation: "spin 1s linear infinite",
+                        }}
+                      ></div>
+                    ) : (
+                      t("save")
+                    )}
                   </Button>
                 ) : (
                   <Button
@@ -826,7 +846,21 @@ function FepkCoverForm() {
                     onClick={saveEpkCover}
                     value="save"
                   >
-                    {t('Save')}
+                    {isUploading ? (
+                      <div
+                        className="spinner"
+                        style={{
+                          border: "4px solid rgba(0, 0, 0, 0.1)",
+                          borderTop: "4px solid blue",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          animation: "spin 1s linear infinite",
+                        }}
+                      ></div>
+                    ) : (
+                      t("save")
+                    )}
                   </Button>
                 )}
               </div>
