@@ -36,6 +36,7 @@ import {
   getAllUsers,
   getUserById,
   getActorRecommendations,
+  updateLastActive,
 } from "../controllers/users.js";
 import {
   validate,
@@ -113,5 +114,7 @@ router.put("/actor/files/:id", actorUploadFiles);
 
 // get user by id
 router.get("/:id", getUserById);
+
+router.get("/lastactive/:id", updateLastActive);
 
 export default router;

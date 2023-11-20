@@ -230,6 +230,9 @@ const UserSchema = mongoose.Schema({
   youtube_subs: { type: String, default: "" },
   linkedin_url: { type: String, default: "" },
   linkedin_followers: { type: String, default: "" },
+
+  newsLetterOptions: { type: Array, default: [] },
+  lastActive: { type: Date, default: null },
   // Crew
   // crew: [
   //   {

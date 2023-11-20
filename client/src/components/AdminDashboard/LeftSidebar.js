@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
-import MainMetricsIcon from "../../images/icons/img_grid.svg";
-import MainMetricsWhiteIcon from "../../images/icons/img_grid_white_a700.svg";
-import UsersIcon from "../../images/icons/img_user.svg";
-import UsersActiveIcon from "../../images/icons/img_user_gray_900.svg";
-import AnalyticsIcon from "../../images/icons/img_analyticsicon1.svg";
-import AnalyticsActiveIcon from "../../images/icons/img_analyticsicon.svg";
+import React from "react";
+import MainMetricsIcon from "../../images/icons/dashFull.svg";
+import MainMetricsWhiteIcon from "../../images/icons/dashFull-white.svg";
+import UsersIcon from "../../images/icons/people-3-v3-white.svg";
+import UsersActiveIcon from "../../images/icons/people-3-v3.svg";
+import AnalyticsIcon from "../../images/icons/analytics-white.svg";
+import AnalyticsActiveIcon from "../../images/icons/analytics.svg";
 import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
-import adminImg from "../../images/img_ellipse9.png";
-import {useTranslation} from 'react-i18next';
+import adminImg from "../../images/admin-profile.png";
+import { useTranslation } from "react-i18next";
 
 export default function LeftSidebar(props) {
   const { t } = useTranslation();
   const SELECTED_TAB = props.selectedTab;
 
   const Role = props.role;
-  console.info("select", SELECTED_TAB);
+  // console.info("select", SELECTED_TAB);
 
   const sideBarList1 = [
     {
@@ -24,8 +24,8 @@ export default function LeftSidebar(props) {
       ActiveIcon: MainMetricsIcon,
       href: "/admindashboard/main",
       size: {
-        width: 50,
-        height: 50,
+        width: 80,
+        height: 80,
       },
     },
     {
@@ -34,8 +34,8 @@ export default function LeftSidebar(props) {
       ActiveIcon: UsersActiveIcon,
       href: "/admindashboard/users",
       size: {
-        width: 62,
-        height: 62,
+        width: 60,
+        height: 60,
       },
     },
 
@@ -61,74 +61,9 @@ export default function LeftSidebar(props) {
     },
   ];
 
-  // const sideBarList2 = [
-  //   {
-  //     Title: "Actor Page",
-  //     DefaultIcon: ActorPage,
-  //     ActiveIcon: ActorPage,
-  //     href: "/userdashboard/actor",
-  //     size: {
-  //       width: 60,
-  //       height: 60,
-  //     },
-  //   },
-  //   {
-  //     Title: "Starred",
-  //     DefaultIcon: StarIcon,
-  //     ActiveIcon: StarWhiteIcon,
-  //     href: "/userdashboard/starred",
-  //     size: {
-  //       width: 60,
-  //       height: 60,
-  //     },
-  //   },
-  //   {
-  //     Title: "Following",
-  //     DefaultIcon: PlusIcon,
-  //     ActiveIcon: PlusWhiteIcon,
-  //     href: "/userdashboard/following",
-  //     size: {
-  //       width: 70,
-  //       height: 70,
-  //     },
-  //   },
-
-  //   {
-  //     Title: "Requests",
-  //     DefaultIcon: BellIcon,
-  //     ActiveIcon: BellWhiteIcon,
-  //     href: "/userdashboard/requests",
-  //     size: {
-  //       width: 60,
-  //       height: 60,
-  //     },
-  //   },
-  //   {
-  //     Title: "Messages",
-  //     DefaultIcon: MessageIcon,
-  //     ActiveIcon: MessageWhiteIcon,
-  //     href: "/userdashboard/chat",
-  //     size: {
-  //       width: 60,
-  //       height: 60,
-  //     },
-  //   },
-  //   {
-  //     Title: "Settings",
-  //     DefaultIcon: SettingsIcon,
-  //     ActiveIcon: SettingsWhiteIcon,
-  //     href: "/userdashboard/settings",
-  //     size: {
-  //       width: 60,
-  //       height: 60,
-  //     },
-  //   },
-  // ];
-
-  // const sideBarList = Role === "Actor" ? sideBarList2 : sideBarList1;
   const sideBarList = sideBarList1;
 
-  console.log(sideBarList);
+  // console.log(sideBarList);
   return (
     <>
       <nav
@@ -150,7 +85,7 @@ export default function LeftSidebar(props) {
               href={item.href}
               className="tw-flex tw-w-full tw-flex-col tw-text-white"
             >
-              <div className="tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-gap-[20px]">
+              <div className="tw-flex tw-h-full tw-w-full tw-items-center tw-justify-center tw-gap-[10px]">
                 <img
                   src={
                     SELECTED_TAB === item.Title

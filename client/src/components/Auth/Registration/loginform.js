@@ -6,10 +6,9 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
+import http from "../../../http-common";
 import io from "socket.io-client";
 import { useTranslation } from "react-i18next";
-
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
 
@@ -25,6 +24,7 @@ function LoginForm() {
   // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const emailInputRef = useRef(null);
 
   useEffect(() => {
@@ -68,6 +68,7 @@ function LoginForm() {
       );
 
       console.log("data", data);
+      http.get(`/users/lastactive/${data.id}`); //Update last active time
 
       // let userId;
       // if (data.user && data.user.id) {
@@ -119,7 +120,7 @@ function LoginForm() {
   return (
     <>
       <div className={Logincss.bg}>
-        <div className={Logincss.form_title}>{t('Sign in')}</div>
+        <div className={Logincss.form_title}>{t("Sign in")}</div>
         {/* <div className={Logincss.form}> */}
         <form onSubmit={handleSubmit} className={Logincss.form}>
           <div className={Logincss.formbody}>
