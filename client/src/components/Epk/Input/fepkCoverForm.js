@@ -284,12 +284,10 @@ function FepkCoverForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          // padding: "0px 5px",
           marginLeft: "10%",
           marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
-          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
@@ -812,7 +810,7 @@ function FepkCoverForm() {
                   >
                     {isUploading ? (
                       <div
-                        className="spinner"
+                        className='spinner'
                         style={{
                           border: "4px solid rgba(0, 0, 0, 0.1)",
                           borderTop: "4px solid blue",
@@ -840,7 +838,7 @@ function FepkCoverForm() {
                   >
                     {isUploading ? (
                       <div
-                        className="spinner"
+                        className='spinner'
                         style={{
                           border: "4px solid rgba(0, 0, 0, 0.1)",
                           borderTop: "4px solid blue",

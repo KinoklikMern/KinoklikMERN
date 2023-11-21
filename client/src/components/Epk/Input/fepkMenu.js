@@ -7,9 +7,9 @@ import http from "../../../http-common";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-export default function BasicMenu() {
+export default function BasicMenu({ color }) {
   const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,26 +44,27 @@ export default function BasicMenu() {
   return (
     <div>
       <Button
-        id="basic-button"
+        id='basic-button'
         aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
+        aria-haspopup='true'
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
         <h6
-          className="col align-items-start"
-          style={{ color: "#FFFFFF", fontWeight: "normal" }}
+          className='col align-items-start'
+          style={{ color: color, fontWeight: "bold" }}
         >
           <FontAwesomeIcon
             icon={faCaretDown}
-            style={{ height: "15px", color: "#FFFFFF" }}
+            style={{ fontSize: "30px", color: color }}
           />{" "}
-          {t('Project:')}
+          {t("Project:")}
           <span
             style={{
               fontWeight: "bold",
               margin: "2px 0 0 2px",
-              color: "#FFFFFF",
+              color: color,
+              fontSize: "25px",
             }}
           >
             {fepk.title}
@@ -71,7 +72,7 @@ export default function BasicMenu() {
         </h6>
       </Button>
       <Menu
-        id="basic-menu"
+        id='basic-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -84,7 +85,10 @@ export default function BasicMenu() {
             <MenuItem key={val._id}>
               <a
                 href={`/editFepk/${val._id}`}
-                style={{ color: "#311465", textDecoration: "none" }}
+                style={{
+                  color: "#311465",
+                  textDecoration: "none",
+                }}
               >
                 {val.title}
               </a>

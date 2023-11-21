@@ -6,34 +6,33 @@ import EPKFilter from "../Filter/EPKFilter";
 import FilterButton from "../Filter/FilterButton";
 import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const HomeBody = ({ role }) => {
-    const [fepks, setFepks] = useState([]);
-    const [filteredEPKs, setFilteredEPKs] = useState([]);
-    const [currentStatus, setCurrentStatus] = useState("All");
-//For Translation
+  const [fepks, setFepks] = useState([]);
+  const [filteredEPKs, setFilteredEPKs] = useState([]);
+  const [currentStatus, setCurrentStatus] = useState("All");
+  //For Translation
 
   const [filterTags, setFilterTags] = useState([
-    
     {
-      name: ("Movie"),
+      name: "Movie",
       isActive: false,
     },
     {
-      name: ("TV Show"),
+      name: "TV Show",
       isActive: false,
     },
     {
-      name: ("Web Series"),
+      name: "Web Series",
       isActive: false,
     },
     {
-      name: ("Documentary"),
+      name: "Documentary",
       isActive: false,
     },
     {
-      name: ("all epks"),
+      name: "all epks",
       isActive: true,
     },
   ]);
@@ -45,11 +44,11 @@ const HomeBody = ({ role }) => {
     });
   }, []);
 
-  const {
-    filterQuery,
-    setFilterQuery,
-    clickHandler,
-  } = EPKFilter(fepks, filterTags, setFilterTags);
+  const { filterQuery, setFilterQuery, clickHandler } = EPKFilter(
+    fepks,
+    filterTags,
+    setFilterTags
+  );
 
   const handleStatusChange = (status) => {
     if (currentStatus === status) {
