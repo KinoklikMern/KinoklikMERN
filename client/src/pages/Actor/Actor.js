@@ -713,23 +713,26 @@ export default function Actor(props) {
           </p>
           {epksList && epksList.length > 0 && (
             <div className="movie-actor-play-container">
-              {epksList.map((epk) => (
-                <a key={epk._id} href={`/epk/${epk.title}`}>
-                  <div className="listItem">
-                    <img
-                      src={
-                        epk.image_details
-                          ? epk.banner_url.startsWith("https")
-                            ? epk.image_details
-                            : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
-                          : emptyBanner
-                      }
-                      alt={epk.title}
-                    />
-                    <p>{epk.title}</p>
-                  </div>
-                </a>
-              ))}
+              {epksList.map((epk) => {
+                const formattedTitle = epk.title.replace(/ /g, "_");
+                return (
+                  <a key={epk._id} href={`/epk/${formattedTitle}`}>
+                    <div className="listItem">
+                      <img
+                        src={
+                          epk.image_details
+                            ? epk.banner_url.startsWith("https")
+                              ? epk.image_details
+                              : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                            : emptyBanner
+                        }
+                        alt={epk.title}
+                      />
+                      <p>{epk.title}</p>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           )}
         </div>
