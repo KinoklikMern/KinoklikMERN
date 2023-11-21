@@ -9,6 +9,8 @@ import StatusBtn from "../SwitchStatusBtn/Status";
 import { useTranslation } from "react-i18next";
 
 const HomeBody = ({ role }) => {
+  const { t } = useTranslation();
+  
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
@@ -16,23 +18,23 @@ const HomeBody = ({ role }) => {
 
   const [filterTags, setFilterTags] = useState([
     {
-      name: "Movie",
+      name: t("Movie"),
       isActive: false,
     },
     {
-      name: "TV Show",
+      name: t("TV Show"),
       isActive: false,
     },
     {
-      name: "Web Series",
+      name: t("Web Series"),
       isActive: false,
     },
     {
-      name: "Documentary",
+      name: t("Documentary"),
       isActive: false,
     },
     {
-      name: "all epks",
+      name: t("all epks"),
       isActive: true,
     },
   ]);

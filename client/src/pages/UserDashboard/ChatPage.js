@@ -6,6 +6,7 @@ import ChatProvider from "../../context/ChatProvider";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {useTranslation} from 'react-i18next';
 
 export default function ChatPage() {
   // eslint-disable-next-line no-unused-vars
@@ -13,12 +14,13 @@ export default function ChatPage() {
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
   const [searchValue, setSearchValue] = useState("");
+  const { t } = useTranslation();
 
   return (
     <ChatProvider>
       <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
         <div className='tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white md:tw-mb-8'>
-          <p className='tw-text-4xl'>{user.role} Dashboard</p>
+          <p className='tw-text-4xl'>{user.role} {t("Dashboard")}</p>
         </div>
         <div className='tw-flex tw-h-5/6 tw-flex-row md:tw-mx-8'>
           <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>

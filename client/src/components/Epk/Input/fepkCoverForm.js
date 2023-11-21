@@ -223,7 +223,7 @@ function FepkCoverForm() {
     let titleLoglineMessage = "";
     let genreStatusMessage = "";
     if (!epkCoverData.title || !epkCoverData.logLine_short) {
-      titleLoglineMessage = " Title and Log Line needed.";
+      titleLoglineMessage = (t(" Title and Log Line needed."));
     }
     if (
       !epkCoverData.production_type ||

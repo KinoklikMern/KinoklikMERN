@@ -153,7 +153,7 @@ export default function NotificationPage() {
                       // className="tw-inline-block tw-w-full tw-p-4 hover:tw-text-white"
                       className="tw-inline-block tw-w-full hover:tw-text-white"
                     >
-                      Stars & Likes
+                      {t("Stars & Likes")}
                     </a>
                   </li>
                   <li

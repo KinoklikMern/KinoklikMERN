@@ -14,19 +14,19 @@ export default function SettingPage() {
   const { t } = useTranslation();
   const tabs = [
     {
-      title: "Profile",
+      title: t("Profile"),
       count: 1,
     },
     {
-      title: "Studio",
+      title: t("Studio"),
       count: 2,
     },
     {
-      title: "Password",
+      title: t("Password"),
       count: 3,
     },
     {
-      title: "Account",
+      title: t("Account"),
       count: 4,
     },
   ];

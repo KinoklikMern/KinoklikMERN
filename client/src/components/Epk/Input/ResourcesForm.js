@@ -156,7 +156,7 @@ const ResourcesForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Time"
+                  placeholder={t("Time")}
                   onChange={handleTime}
                 />
                 <textarea
@@ -168,7 +168,7 @@ const ResourcesForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Resources' Description here."
+                  placeholder={t("Enter Resources' Description here.")}
                   onChange={handleDescription}
                 />
                 <UploadFile setImage={setImage} />
