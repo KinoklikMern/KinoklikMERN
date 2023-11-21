@@ -62,6 +62,7 @@ export const getFepksByActorId = async (req, res) => {
   try {
     const fepks = await fepk
       .find({ actors: { $in: [id] } })
+      .sort({ createdAt: -1 })
       // .populate("film_maker")
       // .populate("crew.crewId")
       // .populate("actors")

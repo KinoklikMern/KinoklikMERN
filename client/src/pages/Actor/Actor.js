@@ -705,12 +705,14 @@ export default function Actor(props) {
           </div>
         </div>
         <div className="bottom-container">
-          <p className="bottom-actor-container-title">
-            {t("current films by actor")}{" "}
-            <span style={{ fontWeight: "bolder" }}>
-              {epkInfo.firstName} {epkInfo.lastName}
-            </span>
-          </p>
+          {epksList && epksList.length > 0 && (
+            <p className="bottom-actor-container-title">
+              {t("current films by actor")}{" "}
+              <span style={{ fontWeight: "bolder" }}>
+                {epkInfo.firstName} {epkInfo.lastName}
+              </span>
+            </p>
+          )}
           {epksList && epksList.length > 0 && (
             <div className="movie-actor-play-container">
               {epksList.map((epk) => {
@@ -728,7 +730,7 @@ export default function Actor(props) {
                         }
                         alt={epk.title}
                       />
-                      <p>{epk.title}</p>
+                      {/* <p>{epk.title}</p> */}
                     </div>
                   </a>
                 );
