@@ -25,7 +25,6 @@ export default function EPKsPage() {
       });
   }, []);
 
-  console.log("filteredEPKs", filteredEPKs);
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-bg-white">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]">
@@ -70,7 +69,8 @@ export default function EPKsPage() {
                       <img
                         key={index}
                         src={
-                          fepk.image_details.includes("https")
+                          fepk.image_details.includes("https") ||
+                          fepk.image_details === ""
                             ? fepk.image_details
                             : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
                         }
