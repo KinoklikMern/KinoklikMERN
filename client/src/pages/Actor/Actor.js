@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Actor.css";
 // import List from "./ListActor";
+import Axios from "axios";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
-import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
 import ActorPageHeader from "../../components/EpkView/EpkHeader/ActorPageHeader";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/Footer";
@@ -23,10 +23,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { addToChat } from "../../api/epks";
 import { useTranslation } from "react-i18next";
-import Axios from "axios";
 import { getMoviesByActors } from "../../api/epks";
 import emptyBanner from "../../images/empty_banner.jpeg";
-
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -36,7 +34,7 @@ export default function Actor(props) {
   const [range, setRange] = useState(2);
   // const [isMoved, setIsMoved] = useState(false);
   // const [slideNumber, setSlideNumber] = useState(0);
-  const [pics, setpics] = useState([]);
+  const [pics, setPics] = useState([]);
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -50,7 +48,6 @@ export default function Actor(props) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [studioData, setStudioData] = useState(null);
   const [epksList, setEpksList] = useState([]);
-
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -82,63 +79,50 @@ export default function Actor(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetching actor and users data
         const [actorResponse, usersResponse] = await Promise.all([
           http.get(`/users/getactor/${id}`),
           http.get("/users/getallusers"),
         ]);
+
         const actorData = actorResponse.data;
         setEpkInfo(actorData);
 
-        const images = [];
-        if (!actorData.picture.startsWith("https")) {
-          images.push(actorData.picture);
-        }
+        const images = actorData.picture.startsWith("https")
+          ? []
+          : [actorData.picture];
 
-        const imagesToPush = actorData.profiles.map((picture) => {
-          if (picture !== null && undefined && "") {
+        actorData.profiles.forEach((picture) => {
+          if (picture) {
             images.push(picture);
           }
         });
 
-        setpics(images);
-
+        setPics(images);
         setAge(actorData.age);
         setLikes(actorData.likes.length);
         setKKFollower(actorData.kkFollowers.length);
         setRecommendations(actorData.recommendations);
         setAllUserList(usersResponse.data);
 
-      // Fetch studio data
-      const response = await Axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${id}`
-      );
-      if (response.data) {
-        setStudioData(response.data);
+        // Fetch studio data
+        const studioResponse = await http.get(
+          `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${id}`
+        );
+        if (studioResponse.data) {
+          setStudioData(studioResponse.data);
+        }
+
+        // Fetch movies by actor
+        const movies = await getMoviesByActors(id);
+        setEpksList(movies);
+      } catch (error) {
+        console.error("An error occurred while fetching data.", error);
       }
-    } catch (error) {
-      console.error("An error occurred while fetching data.", error);
-    }
-  };
+    };
 
-  fetchData();
-}, [id, userId]);
-
-  
-useEffect(() => {
-  getMoviesByActors(id)
-    .then((movies) => {
-      // Update state with the list of movies
-      setEpksList(movies);
-    })
-    .catch((error) => {
-      console.error("An error occurred while fetching data.", error);
-    });
-}, [id]);
-
-  useEffect(() => {
-    console.log("This acore has movies: ");
-    console.log(epksList);
-  }, [epksList]);
+    fetchData();
+  }, [id]);
 
   // user is added to the list of +(followers)
   function addUserToFollowers() {
@@ -564,24 +548,25 @@ useEffect(() => {
             {t("Recommendation sent successfully!")}
           </div>
         )}
-         <div>
-        {studioData && (
-      <>
-        <p
-          className="text-purple-800 text-3xl font-bold ml-5"
-          style={{
-            //display: "inline",
-            padding:"0px",
-            marginLeft: "500px",
-            color: "#1E0039",
-            fontSize: "24px",
-            fontWeight: "700",
-          }}
-        >
-          {t("Representated by:")} {studioData ? studioData.name || 'N/A' : ''}
-        </p>
-      </>
-    )}
+        <div>
+          {studioData && (
+            <>
+              <p
+                className="text-purple-800 text-3xl font-bold ml-5"
+                style={{
+                  //display: "inline",
+                  padding: "0px",
+                  marginLeft: "500px",
+                  color: "#1E0039",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                }}
+              >
+                {t("Represented by:")}{" "}
+                {studioData ? studioData.name || "N/A" : ""}
+              </p>
+            </>
+          )}
         </div>
         <div className="actor-city-container">
           <div className="actor-city-detail">
@@ -728,23 +713,26 @@ useEffect(() => {
           </p>
           {epksList && epksList.length > 0 && (
             <div className="movie-actor-play-container">
-              {epksList.map((epk) => (
-                <a key={epk._id} href={`/epk/${epk.title}`}>
-                  <div className="listItem">
-                    <img
-                      src={
-                        epk.image_details
-                          ? epk.banner_url.startsWith("https")
-                            ? epk.image_details
-                            : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
-                          : emptyBanner
-                      }
-                      alt={epk.title}
-                    />
-                    <p>{epk.title}</p>
-                  </div>
-                </a>
-              ))}
+              {epksList.map((epk) => {
+                const formattedTitle = epk.title.replace(/ /g, "_");
+                return (
+                  <a key={epk._id} href={`/epk/${formattedTitle}`}>
+                    <div className="listItem">
+                      <img
+                        src={
+                          epk.image_details
+                            ? epk.banner_url.startsWith("https")
+                              ? epk.image_details
+                              : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                            : emptyBanner
+                        }
+                        alt={epk.title}
+                      />
+                      <p>{epk.title}</p>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           )}
         </div>
