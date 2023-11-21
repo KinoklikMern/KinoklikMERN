@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Actor.css";
 // import List from "./ListActor";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
-import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
+// import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
 import ActorPageHeader from "../../components/EpkView/EpkHeader/ActorPageHeader";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/Footer";
@@ -89,8 +89,14 @@ export default function Actor(props) {
           images.push(actorData.picture);
         }
 
-        const imagesToPush = actorData.profiles.map((picture) => {
-          if (picture !== null && undefined && "") {
+        // const imagesToPush = actorData.profiles.map((picture) => {
+        //   if (picture !== null && undefined && "") {
+        //     images.push(picture);
+        //   }
+        // });
+
+        actorData.profiles.forEach((picture) => {
+          if (picture) {
             images.push(picture);
           }
         });
