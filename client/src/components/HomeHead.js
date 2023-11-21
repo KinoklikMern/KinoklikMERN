@@ -54,7 +54,15 @@ const HomeHead = (props) => {
         const validActor = response.data
           .slice()
           .reverse()
-          .find((actor) => actor.bannerImg && actor.thumbnail && actor.picture);
+          .find(
+            (actor) =>
+              // actor.bannerImg &&
+              // !actor.bannerImg.startsWith("https") &&
+              actor.thumbnail &&
+              !actor.thumbnail.startsWith("https") &&
+              actor.picture &&
+              !actor.picture.startsWith("https")
+          );
         if (validActor) {
           setActor(validActor);
         }
@@ -73,6 +81,10 @@ const HomeHead = (props) => {
     }
   }, [props.role]);
 
+  useEffect(() => {
+    console.log("Actor:", actor);
+  }, [actor]);
+
   const formattedTitle = fepk.title?.replace(/ /g, "_");
 
   return (
@@ -81,8 +93,14 @@ const HomeHead = (props) => {
       style={{
         backgroundImage:
           props.role && props.role === "actor"
-            ? `url(${process.env.REACT_APP_AWS_URL}/${actor.thumbnail})`
-            : `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`,
+            ? actor.thumbnail && !actor.thumbnail.startsWith("https")
+              ? `url(${process.env.REACT_APP_AWS_URL}/${actor.thumbnail})`
+              : null
+            : fepk.banner_url &&
+              !fepk.banner_url.startsWith("https") &&
+              fepk.banner_url !== ""
+            ? `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`
+            : null,
       }}
     >
       <div className="tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end">
@@ -107,8 +125,14 @@ const HomeHead = (props) => {
                 className="homeHead-poster tw-invisible tw-object-cover md:tw-visible"
                 src={
                   props.role === "actor"
-                    ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
-                    : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                    ? actor.picture && !actor.picture.startsWith("https")
+                      ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
+                      : actor.picture
+                    : fepk.image_details &&
+                      !fepk.image_details.startsWith("https") &&
+                      fepk.banner_url !== ""
+                    ? `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
+                    : null
                 }
                 alt="/"
               />
