@@ -4,7 +4,7 @@
 "You don’t have any EPK created.":"Vous n’avez créé aucun EPK.",
 "Start promoting your film right away!":"Commencez dès maintenant à promouvoir votre film !",
 
-"WishToBuy":"Envie d'acheter", 
+"WishToBuy":"Envie D'acheter", 
 
     "_comment From components Auth|Registration Registration": "ReCheck For changes",
     "All fields are required.":"Tous les champs sont requis.", 
@@ -50,16 +50,16 @@
 "Account": "Compte",
 "_comment From AdminDashBoard EPKsPage":"no changes",
 "_comment From AdminDashBoard MainPage":"1 change",
-"Users & Filmmakers": "Utilisateurs et cinéastes",
+"Users & Filmmakers": "Utilisateurs et Cinéastes",
 "_comment From AdminDashBoard UsersPage":"no changes",
 
 "_comment From FimakerDashBoard ChatPage":"1 change",
-"Filmmaker Dashboard": "Tableau de bord du cinéaste",
+"Filmmaker Dashboard": "Tableau de Bord du Cinéaste",
 
 "_comment From FimakerDashBoard EPKPage":"1 change",
 "_comment From FimakerDashBoard NotificationPage":"7 changes, Scroll down further line 180 to 188, 349,357,371,382",
-"Stars & Likes": "Étoiles et j'aime",
-"All Request": "Tout les demandes",
+"Stars & Likes": "Étoiles et J'aime",
+"All Request": "Tout les Demandes",
 "Pending": "En Attente",
 "Approved": "Approuvé",
 "Refused": "Refuser",
@@ -117,6 +117,7 @@
 "Web Series":"Série Web",
 "Documentary": "Documentaire",
 "all epks":"tous les epks",
+"All EPKs": "Tous Les EPKs",
 "POST PRODUCTION":"POST-PRODUCTION",
 "PRODUCTION": "Production",
 "PRE PRODUCTION": "PRÉ-PRODUCTION",    
@@ -126,7 +127,7 @@
 "_comment From EpkView":"0 CHanges. Line 400, 405, 410, 415, 500, 513,520,523,543,657,682-685 ",
 "Close": "Fermer",
 "Send": "Envoyer",
-"Total Audience Reach":"Audience totale",
+"Total Audience Reach":"Audience Totale",
 "Why are you reporting this EPK?":"Pourquoi signalez-vous cet EPK ?",
 "This can be unwanted and unauthorized use": "Cela peut être une utilisation non désirée et non autorisée",
 " of content from another website on third-party websites inconnection with other content, negatively": " de contenu provenant d'un autre site web sur des sites tiers en lien avec d'autres contenus",
@@ -280,7 +281,7 @@
 "Line Save":"",
 
  "_comment From Components Epk Input coverForm":"0 CHanges. Line 146, 191",
- "EPK Page Upload":"Téléchargement de pages EPK",
+ "EPK Page Upload":"Téléchargement de Pages EPK",
  "Cover":"Couverture",
  "Upload Banner":"Télécharger la bannière",
  "Upload Trailer":"Télécharger la bande-annonce",
@@ -548,7 +549,7 @@
  "Studio:":"Studio:",
  "Distributed by:":"Distribué par:",
  "Line 37 Starring":"",
- "Production Year:":"Année de production:",
+ "Production Year:":"Année de Production:",
  "Duration:":"Durée:",
 
 
@@ -656,7 +657,7 @@
  "Create your own EPK now!":"Créez votre propre EPK maintenant !",
 
  "_comment From Components Filmaker filmMakerDashboardSecurity":"0 CHanges.",
- "Line 30 Profile":"Profil",
+ "Profile":"Profil",
  "Line 39 Company":"Entreprise",
  "Line 47 Password":"Mot de passe",
  "Account":"Compte",
@@ -835,7 +836,7 @@
 
 "Email address or phone number": "Adresse e-mail ou numéro de téléphone",
 
-"Password": "Mot de passe",
+"Password": "Mot de Passe",
 
 "Log In": "Se connecter",
 
@@ -1041,11 +1042,11 @@
 "There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois ",
 "filmmakers will assign you an EPK, it will appear here.": "Les réalisateurs vous attribueront un EPK, il apparaîtra ici",
 
-"Actor Dashboard": "Tableau de bord des acteurs",
+"Actor Dashboard": "Tableau de Bord des Acteurs",
 
 "View Actor Page": "Tableau de bord de l'acteur",
 
-"Add Image": "Ajouter une image",
+"Add Image": "Ajouter une Image",
 
 "You can only upload JPG/PNG file!": "Vous ne pouvez télécharger que des fichiers JPG/PNG !",
 
@@ -1372,7 +1373,52 @@
 
    "User with that email is already registered under name:": "L'utilisateur avec cette adresse e-mail est déjà enregistré sous le nom:",
 
-   " fepuniquenessform Uniqueness Saved Successfully": "Unicité enregistrée avec succès"
+   " fepuniquenessform Uniqueness Saved Successfully": "Unicité enregistrée avec succès",
+
+   "An error occurred while resending OTP": "Une erreur s'est produite lors du renvoi d'OTP",
+
+   "productionYear": "Année de Production",
+
+   "Invitation for that project was already sent to the person": "L'invitation pour ce projet a déjà été envoyée à la personne",
+
+   "Film Buzz (Reviews & Awards)": "Film Buzz (Critiques et Técompenses)",
+
+   "Review text (maximum 160 characters)": "Texte de Révision (160 caractères maximum)",
+
+   "Producer's Name": "Nom du Producteur",
+
+   "Time": "Temps",
+
+   "Filmmakers": "Cinéastes",
+
+   "Distributors": "Distributeurs",
+
+   "Film Festivals": "Festivals de Cinéma",
+
+   "Sales Agents": "Agents Commerciaux",
+
+   "Admins": "Administrateurs",
+
+   "Directors": "Directeurs",
+
+   "Editors": "Éditeurs",
+
+   "Writers": "Écrivains",
+
+   "Cinematographers": "Directeurs de la Photographie",
+
+   "Producers": "Producteurs",
+
+   "Sounds": "Des Sons",
+
+   "Last Active": "Dernier Actif"
+
+
+
+
+   
+
+
 
 
 }

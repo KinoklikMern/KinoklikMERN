@@ -3,8 +3,10 @@ import React, { useRef, useEffect, useState } from "react";
 import Triangle from "../../images/icons/triangle.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
+  const { t } = useTranslation();
   const [roleFilter, setRoleFilter] = useState(5); //Select 'All Users' by default
   const [productionFilter, setProductionFilter] = useState(3); //Select 'All EPKs' by default
   //const [searchKeyWord, setSearchKeyWord] = useState("");
@@ -183,7 +185,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(0)}
                 >
-                  Filmmakers
+                  {t("Filmmakers")}
                 </button>
                 <button
                   className={`${
@@ -193,7 +195,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(1)}
                 >
-                  Distributors
+                  {t("Distributors")}
                 </button>
                 <button
                   className={`${
@@ -203,7 +205,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(2)}
                 >
-                  Film Festivals
+                  {t("Film Festivals")}
                 </button>
 
                 <button
@@ -214,7 +216,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(3)}
                 >
-                  Sales Agents
+                  {t("Sales Agents")}
                 </button>
 
                 <button
@@ -225,7 +227,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(4)}
                 >
-                  Investors
+                  {t("Investors")}
                 </button>
                 <button
                   className={`${
@@ -235,7 +237,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(13)}
                 >
-                  Admins
+                  {t("Admins")}
                 </button>
                 <button
                   className={`${
@@ -245,7 +247,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(5)}
                 >
-                  All Users
+                  {t("All Users")}
                 </button>
               </div>
               <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
@@ -257,7 +259,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(14)}
                 >
-                  Directors
+                 {t("Directors")}
                 </button>
                 <button
                   className={`${
@@ -267,7 +269,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(6)}
                 >
-                  Actors
+                  {t("Actors")}
                 </button>
                 <button
                   className={`${
@@ -277,7 +279,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(7)}
                 >
-                  Editors
+                  {t("Editors")}
                 </button>
                 <button
                   className={`${
@@ -287,7 +289,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(8)}
                 >
-                  Writers
+                  {t("Writers")}
                 </button>
                 <button
                   className={`${
@@ -297,7 +299,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(9)}
                 >
-                  Cinematographers
+                  {t("Cinematographers")}
                 </button>
                 <button
                   className={`${
@@ -307,7 +309,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(10)}
                 >
-                  Producers
+                  {t("Producers")}
                 </button>
                 <button
                   className={`${
@@ -317,7 +319,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(11)}
                 >
-                  Sounds
+                  {t("Sounds")}
                 </button>
                 <button
                   className={`${
@@ -327,7 +329,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleRoleClick(12)}
                 >
-                  Viewers
+                  {t("Viewers")}
                 </button>
               </div>
             </div>
@@ -351,7 +353,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleBtnClick(0)}
                 >
-                  Pre-Production
+                  {t("Pre-Production")}
                 </button>
                 <button
                   className={`${
@@ -361,7 +363,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleBtnClick(1)}
                 >
-                  Production
+                  {t("Production")}
                 </button>
                 <button
                   className={`${
@@ -371,7 +373,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleBtnClick(2)}
                 >
-                  Post-Production
+                  {t("Post-Production")}
                 </button>
                 <button
                   className={`${
@@ -381,7 +383,7 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
                   } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
                   onClick={() => handleBtnClick(3)}
                 >
-                  All EPKs
+                  {t("All EPKs")}
                 </button>
               </div>
             </div>

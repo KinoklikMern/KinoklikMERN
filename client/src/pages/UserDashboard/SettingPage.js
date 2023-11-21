@@ -14,19 +14,19 @@ export default function SettingPage() {
   const [openTab, setOpenTab] = useState(1);
   const tabs = [
     {
-      title: "Profile",
+      title: t("Profile"),
       count: 1,
     },
     {
-      title: user.role === "Actor" ? "Agent" : "Studio",
+      title: user.role === t("Actor") ? "Agent" : "Studio",
       count: 2,
     },
     {
-      title: "Password",
+      title: t("Password"),
       count: 3,
     },
     {
-      title: "Account",
+      title: t("Account"),
       count: 4,
     },
   ];

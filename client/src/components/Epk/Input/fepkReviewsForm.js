@@ -275,7 +275,7 @@ function ReviewsForm() {
                 marginBottom: "-3%",
               }}
             >
-              Film Buzz (Reviews & Awards)
+              {t("(Film Buzz (Reviews & Awards)")}
             </h5>
             <form>
               <div className='row' style={{ marginRight: "-5%" }}>
@@ -289,8 +289,8 @@ function ReviewsForm() {
                       boxShadow: "1px 2px 9px #311465",
                       textAlign: "left",
                     }}
-                    className='form-control m-10'
-                    placeholder='Magazine/Blog/Journalist Name'
+                    className="form-control m-10"
+                    placeholder={t('Magazine/Blog/Journalist Name')}
                     onChange={handleReviewsChange}
                     name='magazine'
                   />
@@ -304,8 +304,8 @@ function ReviewsForm() {
                       textAlign: "left",
                       resize: "none",
                     }}
-                    className='form-control mt-10'
-                    placeholder='Review text (maximum 160 characters)'
+                    className="form-control mt-10"
+                    placeholder={t("Review text (maximum 160 characters)")}
                     onChange={handleReviewsChange}
                     name='text'
                     maxLength='160'
@@ -317,7 +317,7 @@ function ReviewsForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.text}/160 characters
+                    {characterLength?.text}{t("/160 characters")}
                   </span>
                   <label
                     htmlFor='fileAwardLogo'
@@ -325,7 +325,7 @@ function ReviewsForm() {
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4 style={{ fontSize: "20px" }}>Upload Logo</h4>
+                    <h4 style={{ fontSize: "20px" }}>{t("Upload Logo")}</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
@@ -438,7 +438,7 @@ function ReviewsForm() {
                                       justifyContent: "right",
                                     }}
                                   >
-                                    {characterLength[index]}/ 160 characters
+                                    {characterLength[index]}{("/ 160 characters")}
                                   </span>
                                 </div>
                               ) : (

@@ -682,7 +682,7 @@ export default function UploadActorPic({ user }) {
             <h2>{t("Updated successfully!")}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+              {t("Ok")}
             </button>
             {/* </>
             )} */}

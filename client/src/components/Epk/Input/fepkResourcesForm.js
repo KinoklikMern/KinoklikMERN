@@ -412,7 +412,7 @@ function ResourcesForm() {
                   >
                     <thead className='thead-dark'>
                       <tr>
-                        <th>Title</th>
+                        <th>{t("Title")}</th>
                         <th
                           style={{
                             width: "fit-content",

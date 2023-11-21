@@ -37,7 +37,7 @@ function RegistrationForm() {
 
   const [role, setRole] = useState({
     
-    label: (t('An amazing and talented visionary filmmaker')),
+    label: t('An amazing and talented visionary filmmaker'),
     value: "Filmmaker",
     image: filmmakerIcon,
   });
