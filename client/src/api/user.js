@@ -14,6 +14,16 @@ export const login = async (email, password) => {
   }
 };
 
+export const getAllUsers = () => {
+  try {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getactors`, {
+      method: "GET",
+    }).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const verifyUserEmail = async (userInfo) => {
   try {
     const { data } = await axios.post(

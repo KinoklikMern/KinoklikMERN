@@ -18,16 +18,16 @@ export default function ListItem({ title, type }) {
     const fetchData = async () => {
       try {
         const endpoint = titleToEndpoint[title];
-    
+
         if (!endpoint) {
           // Handle the case where the title is not found
           return;
         }
-    
+
         const response = await http.get(endpoint);
-    
+
         let filteredActors = response.data;
-    
+
         if (type.length > 0) {
           type.forEach((filter) => {
             if (filter.startsWith("Age Range:")) {
@@ -79,27 +79,29 @@ export default function ListItem({ title, type }) {
     fetchData();
   }, [title, type]);
 
-
   return (
     <>
-    {actors?.map((actor) => (
-      <div className="listItemactor" key={actor._id}>
-        <a href={`/actor/${actor._id}`}>
-          <img
-            className="actor-image"
-            src={`${process.env.REACT_APP_AWS_URL}/${actor.picture}`}
-            alt=""
-          />
-              <div className="overlay">
-                  <p className="actorname">{`${actor.firstName} ${actor.lastName}`}</p>
+      {actors?.map((actor) => (
+        <div className="listItemactor" key={actor._id}>
+          <a href={`/actor/${actor._id}`}>
+            <img
+              className="actor-image"
+              src={
+                actor.picture && !actor.picture.startsWith("https")
+                  ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
+                  : actor.picture
+              }
+              alt=""
+            />
+            <div className="overlay">
+              <p className="actorname">{`${actor.firstName} ${actor.lastName}`}</p>
             </div>
             <div className="overlay">
-                  <p className="actor-name">{`${actor.firstName} ${actor.lastName}`}</p>
+              <p className="actor-name">{`${actor.firstName} ${actor.lastName}`}</p>
             </div>
-            </a>
-           
-          </div>
-        ))}
+          </a>
+        </div>
+      ))}
     </>
   );
 }
