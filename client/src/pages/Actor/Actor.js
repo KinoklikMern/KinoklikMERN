@@ -78,6 +78,17 @@ export default function Actor(props) {
   }
 
   useEffect(() => {
+    const biography = document.querySelector(".actor-biography");
+    if (biography) {
+      const contentLength = biography.textContent.length;
+      console.log("Biography Character Length: " + contentLength);
+      if (contentLength > 500) {
+        biography.classList.add("scrollable");
+      }
+    }
+  }, [epkInfo]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetching actor and users data
@@ -714,7 +725,7 @@ export default function Actor(props) {
         <div className="bottom-container">
           {epksList && epksList.length > 0 && (
             <p className="bottom-actor-container-title">
-              {t("current films by actor")}{" "}
+              {t("Current films by actor")}{" "}
               <span style={{ fontWeight: "bolder" }}>
                 {epkInfo.firstName} {epkInfo.lastName}
               </span>

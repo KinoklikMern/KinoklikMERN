@@ -234,13 +234,12 @@
   height: 1vh;
   width: fit-content;
 }
-
 .movie-actor-play-container::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
-
 .movie-actor-play-container::-webkit-scrollbar-thumb {
   background: #712cb0;
+  border-radius: 10px;
 }
 
 .movie-number,
@@ -261,7 +260,7 @@
 }
 
 .actor-biography {
-  box-shadow: 0px 0px 5px 2px #1e0039;
+  box-shadow: 0px 0px 5px 2px #712CB0;
   grid-column: 6/ 9;
   width: auto;
   border-radius: 15px;
@@ -269,7 +268,18 @@
   align-self: self-end;
   margin-right: -30px;
   margin-left: -80px;
-  font-size: 0.9em;
+  max-height: 220px;
+  overflow: hidden;
+}
+.actor-biography.scrollable {
+  overflow-y: auto;
+}
+.actor-biography::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.actor-biography::-webkit-scrollbar-thumb {
+  background: #712cb0;
+  border-radius: 10px;
 }
 
 .actor-city-detail {
