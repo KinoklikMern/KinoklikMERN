@@ -5,6 +5,7 @@ import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from 'react-i18next';
 
 function DetailsForm() {
   const { t } = useTranslation();
@@ -400,7 +401,7 @@ function DetailsForm() {
                         }}
                         className="form-control m-10"
                         defaultValue={fepk.productionCo}
-                        placeholder="Production Company Name"
+                        placeholder= {t("Production Company Name")}
                         onChange={handleDetailsChange}
                         name="productionCo"
                       />

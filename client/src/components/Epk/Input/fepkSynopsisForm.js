@@ -90,7 +90,7 @@ function SynopsisForm() {
         // }
       } else {
         // Handle the case when response.data is undefined or empty
-        console.error(t("response.data is undefined or empty"));
+        console.error("response.data is undefined or empty")
       }
     });
   }, [characterLength, fepkId]);
@@ -613,7 +613,7 @@ function SynopsisForm() {
                     }}
                   >
                     <div style={{ textAlign: "center" }}>
-                      {"Synopsis is Saved Successfully!"}
+                      (t({"Synopsis is Saved Successfully!"}))
                       <br />
                       <button
                         className='btn btn-secondary btn-sm'

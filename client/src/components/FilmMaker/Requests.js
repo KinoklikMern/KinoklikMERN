@@ -314,7 +314,7 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    {t("unique.comment")}
+                    "unique.comment"
                   </p>
                   <button
                     onClick={() =>
@@ -357,7 +357,7 @@ export default function Requests() {
                       alt=""
                       style={{ width: "40px", height: "auto" }}
                     />
-                    {t("still.comment")}
+                    "still.comment"
                   </p>
                   <button
                     onClick={() => stillApproval(still.user._id, "approved")}
