@@ -36,6 +36,7 @@ function LoglineForm() {
       setDisabled(false);
       const url = URL.createObjectURL(file1);
       setPosterPreviewUrl(url);
+      setMessage("");
     }
   };
 
@@ -145,7 +146,7 @@ function LoglineForm() {
           });
       }
     } else {
-      setMessage(t("File must be a image(jpeg or png)"));
+      setMessage(t("File must be a image(jpeg, jpg or png)"));
     }
     setDisabled(true);
   };
@@ -169,25 +170,25 @@ function LoglineForm() {
         }}
       >
         <div
-          className='row'
+          className="row"
           style={{
             background:
               "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
           }}
         >
-          <div className='col-1'>
-            <Link className='navbar-brand text-headers-style' to='/home'>
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
               <img
                 style={{ width: "100%", height: "80px" }}
                 src={require("../../../images/logo.png")}
-                alt='Logo'
-                className='navbar-logo'
+                alt="Logo"
+                className="navbar-logo"
               />
             </Link>
           </div>
-          <div className='col-3  m-3'>
+          <div className="col-3  m-3">
             <h2
-              className='col align-items-start'
+              className="col align-items-start"
               style={{
                 color: "#FFFFFF",
                 fontWeight: "normal",
@@ -197,13 +198,13 @@ function LoglineForm() {
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className='col-3 m-3'>
-            <BasicMenu color='#FFFFFF' />
+          <div className="col-3 m-3">
+            <BasicMenu color="#FFFFFF" />
           </div>
-          <div className='col-1 m-3'></div>
-          <div className='col-2 m-3'>
+          <div className="col-1 m-3"></div>
+          <div className="col-2 m-3">
             <Link
-              className='col align-items-end'
+              className="col align-items-end"
               to={`/epk/${fepk.title}`}
               style={{
                 color: "#FFFFFF",
@@ -224,16 +225,16 @@ function LoglineForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ height: "500px" }}>
+          <div className="card-body" style={{ height: "500px" }}>
             <h5
-              className='card-title '
+              className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
               {t("Log Line")}
             </h5>
-            <form className='row g-3'>
-              <div className='col ms-'>
-                <div className='col my-1'>
+            <form className="row g-3">
+              <div className="col ms-">
+                <div className="col my-1">
                   <textarea
                     style={{
                       height: "80px",
@@ -247,12 +248,12 @@ function LoglineForm() {
                       //   ? "blur(5px)"
                       //   : "none",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.logLine_long}
                     placeholder={t("Log Line Long")}
                     onChange={handleLoglineChange}
-                    name='logLine_long'
-                    maxLength='160'
+                    name="logLine_long"
+                    maxLength="160"
                   />
                   <span
                     style={{
@@ -266,29 +267,29 @@ function LoglineForm() {
                   </span>
                 </div>
 
-                <div className='col d-grid gap-2 d-md-flex justify-content-md-end'>
+                <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                   <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                     style={{
                       height: "30px",
                       width: "120px",
                       boxShadow: "1px 2px 9px #311465",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={() =>
                       handleLoglineblurChange(!epkLoglineData.logLine_blur)
                     }
-                    name='logLine_blur'
+                    name="logLine_blur"
                   >
                     {epkLoglineData.logLine_blur ? "UnBlur" : "Blur"}
                   </Button>
                 </div>
-                <div className='col mt-5'>
+                <div className="col mt-5">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
@@ -296,14 +297,14 @@ function LoglineForm() {
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={file}
                     onChange={fileSelected}
                     ref={inputFileRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {posterPreviewUrl ? (
                     <img
@@ -314,7 +315,7 @@ function LoglineForm() {
                         margin: "inherit",
                         marginTop: "0",
                       }}
-                      alt='Preview'
+                      alt="Preview"
                     />
                   ) : fepk.image_logline && fepk.image_logline !== undefined ? (
                     <img
@@ -325,10 +326,15 @@ function LoglineForm() {
                         margin: "inherit",
                         marginTop: "0",
                       }}
-                      alt='no image'
+                      alt="no image"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
+                  )}
+                  {message && (
+                    <div className="message" style={{ color: "red" }}>
+                      {message}
+                    </div>
                   )}
                 </div>
               </div>
@@ -349,24 +355,24 @@ function LoglineForm() {
                       backgroundColor: "#ffffff",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={saveEpkLogline}
-                    value='save'
+                    value="save"
                   >
                     {t("Save")}
                   </Button>
                 ) : (
                   <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                     style={{
                       boxShadow: "1px 2px 9px #311465",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={saveEpkLogline}
-                    value='save'
+                    value="save"
                   >
                     {t("Save")}
                   </Button>
@@ -374,7 +380,7 @@ function LoglineForm() {
                 <Modal
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
-                  contentLabel='Example Modal'
+                  contentLabel="Example Modal"
                   appElement={document.getElementById("root")}
                   style={{
                     overlay: {
@@ -395,10 +401,10 @@ function LoglineForm() {
                   }}
                 >
                   <div style={{ textAlign: "center" }}>
-                    (t{"Log Line Saved Successfully!"})
+                    {t("Log Line Saved Successfully!")}
                     <br />
                     <button
-                      className='btn btn-secondary btn-sm'
+                      className="btn btn-secondary btn-sm"
                       onClick={closeModal}
                     >
                       {t("Ok")}

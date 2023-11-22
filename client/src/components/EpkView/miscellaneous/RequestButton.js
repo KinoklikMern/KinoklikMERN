@@ -38,7 +38,7 @@ export default function RequestButton({ status, handler }) {
           className="tw-shadow-[3px_3px_3px_#712CB0]"
           onClick={() => handler("request")}
         >
-          {t({ButtonTxt})}
+          {t(ButtonTxt)}
         </Button>
       </div>
     </>
