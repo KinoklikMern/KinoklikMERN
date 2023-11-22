@@ -202,18 +202,31 @@ function FepkEditCoverForm() {
     setCharacterLength({ ...characterLength, [name]: value.length });
     setEpkCoverData({ ...epkCoverData, [name]: value });
     setDisabled(false);
+
     if (name === "title") {
-      http.get(`fepks/byTitle/${event.target.value}`).then((response) => {
-        if (response.data !== null) {
-          setMessageTitleNo(
-            t("This title exists! You are not allowed to use it again!")
-          );
-          setMessageTitleYes("");
-        } else {
-          setMessageTitleYes(t("Title is available!"));
-          setMessageTitleNo("");
-        }
-      });
+      if (value.trim() !== "") {
+        http
+          .get(`fepks/byTitle/${value}`)
+          .then((response) => {
+            if (response.data !== null) {
+              setMessageTitleNo(
+                t("This title exists! You are not allowed to use it again!")
+              );
+              setMessageTitleYes("");
+            } else {
+              setMessageTitleYes(t("Title is available!"));
+              setMessageTitleNo("");
+            }
+          })
+          .catch((error) => {
+            // Handle errors, such as if the endpoint isn't found (404)
+            console.error("Error fetching title:", error);
+          });
+      } else {
+        // Reset messages if the title field is empty
+        setMessageTitleNo("");
+        setMessageTitleYes("");
+      }
     }
   };
 
@@ -244,64 +257,6 @@ function FepkEditCoverForm() {
     setIsUploading(true);
     saveEpkCover(e);
   };
-
-  // const saveEpkCover = (e) => {
-  //   console.log("Button clicked");
-  //   e.preventDefault();
-  //   if (characterLength.logLine_short <= 160) {
-  //     let formData = new FormData();
-  //     console.log(file1);
-  //     console.log(file2);
-  //     console.log(file3);
-
-  //     formData.append("file1", file1);
-  //     formData.append("file2", file2);
-  //     formData.append("file3", file3);
-  //     console.log(formData);
-  //     if (
-  //       checkFileMimeType(file1) &&
-  //       checkFileMimeType(file2) &&
-  //       checkFileMimeType(file3)
-  //     ) {
-  //       http
-  //         .post("fepks/uploadFiles", formData, {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //           },
-  //         })
-  //         .then((response) => {
-  //           if (response.data.file1 !== undefined) {
-  //             epkCoverData.banner_url = response.data.file1;
-  //           }
-  //           if (response.data.file2 !== undefined) {
-  //             epkCoverData.trailer_url = response.data.file2;
-  //           }
-  //           if (response.data.file3 !== undefined) {
-  //             epkCoverData.image_details = response.data.file3;
-  //           }
-  //           console.log(epkCoverData);
-  //           http
-  //             .put(`fepks/update/${fepkId}`, epkCoverData)
-  //             .then((res) => {
-  //               setModalIsOpen(true);
-  //               setIsUploading(false);
-  //               console.log("saved");
-  //             })
-  //             .catch((err) => {
-  //               console.log(err);
-  //             });
-  //         })
-  //         .catch((err) => {
-  //           console.log();
-  //           console.log(err);
-  //         });
-  //     }
-  //   } else {
-  //     setMessage(t("File must be an image(jpeg, jpg or png)"));
-  //     setIsUploading(false);
-  //   }
-  //   setDisabled(true);
-  // };
 
   const saveEpkCover = (e) => {
     e.preventDefault();
