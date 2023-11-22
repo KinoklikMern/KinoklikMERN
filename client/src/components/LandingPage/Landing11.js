@@ -6,6 +6,8 @@ const Landing11 = () => {
       <div className=' tw-w-2/4 md:tw-w-1/4'>
         <input
           type='email'
+          name='email'
+          required
           placeholder='Your-email@Example.com'
           className='tw-w-full tw-border-0 tw-border-b-4 tw-border-b-midnight focus:tw-border-midnight focus:tw-ring-0'
         />

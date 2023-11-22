@@ -109,10 +109,25 @@ const Landing3 = () => {
                   like a pro to industry professionals with Headshots, Demo
                   Reel, and more!
                 </>
-              ) : (
+              ) : selectedCategory === "Distributors" ? (
                 <>
                   Discover new films in their early stage to snatch up those
                   film rights before your competition!
+                </>
+              ) : selectedCategory === "Sales Agents" ? (
+                <>
+                  Discover new film projects in their early stage and contact
+                  the filmmaker directly!
+                </>
+              ) : selectedCategory === "Investors" ? (
+                <>
+                  Discover new film projects to invest in and contact the
+                  filmmaker directly!
+                </>
+              ) : (
+                <>
+                  Discover new film projects to invite to your film festival and
+                  message the filmmaker directly!
                 </>
               )}
             </div>
