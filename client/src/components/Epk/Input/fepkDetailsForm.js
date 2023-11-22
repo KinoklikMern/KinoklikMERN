@@ -187,7 +187,7 @@ function FepkDetailsForm() {
         .then((res) => {
           setCurrentFepkUsers([...currentFepkUsers, selectedUser]);
           setEpkFilmDetailsData(updatedEpkFilmDetailsData);
-          console.log("saved");
+          console.log(t("saved"));
         })
         .catch((err) => {
           console.log(err);
@@ -196,7 +196,7 @@ function FepkDetailsForm() {
 
       setDisabledAdd(true);
     } else {
-      console.log("User already added.");
+      console.log(t("User already added."));
     }
   }
 
@@ -214,7 +214,7 @@ function FepkDetailsForm() {
           }
         )
         .then(() => {
-          console.log("Invitation deleted");
+          console.log(t("Invitation deleted"));
 
           const updatedInvitationsList = invitationsByFilmmakerMovie.filter(
             (user) => user._id !== userToDelete._id
@@ -223,7 +223,7 @@ function FepkDetailsForm() {
           setInvitationsByFilmmakerMovie(updatedInvitationsList);
         })
         .catch((error) => {
-          console.error("Error deleting invitation:", error);
+          console.error((t("Error deleting invitation:")), error);
         });
     } else {
       const updatedFepkUsers = currentFepkUsers.filter(
@@ -290,7 +290,7 @@ function FepkDetailsForm() {
         )
       );
     } else {
-      console.log("Sending invitation...");
+      console.log(t("Sending invitation..."));
 
       // Clear previous errors
       setEmailError("");

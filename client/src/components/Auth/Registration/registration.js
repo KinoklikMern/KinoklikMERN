@@ -92,7 +92,7 @@ function RegistrationForm() {
       return;
     }
     if (agreeToTerms === false) {
-      setError("Please check the user agreement option!");
+      setError(t("Please check the user agreement option!"));
       return;
     }
 
