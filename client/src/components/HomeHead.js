@@ -72,7 +72,6 @@ const HomeHead = (props) => {
         // Find the most recent fepk with both banner_url and image_details
         const validFepk = response.data
           .slice()
-          .reverse()
           .find((fepk) => fepk.banner_url && fepk.image_details);
         if (validFepk) {
           setFepk(validFepk);
