@@ -159,7 +159,9 @@ export const SideProfileMenu = () => {
     });
     console.log("Logout actions dispatched.");
 
-    http.get(`/users/lastactive/${currentUser.id}`); //Update last active time
+    http.put(`/users/lastactive/${currentUser.id}`).then((response) => {
+      //console.log(response);
+    }); //Update last active time
     // console.log(`Logout actions dispatched for user:`, currentUser.id);
     // console.log(user);
     navigate("/");

@@ -13,7 +13,7 @@ import { generateOTP, generateMailTransport } from "../utils/mail.js";
 import EmailVerificationToken from "../models/emailVerificationToken.js";
 import { isValidObjectId } from "mongoose";
 import { sendError } from "../utils/helper.js";
-import { addSubscribe } from "../utils/mailChimp.js";
+import { addSubscriber } from "../utils/mailChimp.js";
 export const register = async (req, res) => {
   try {
     const {
@@ -64,12 +64,15 @@ export const register = async (req, res) => {
       );
     }
 
-    //Add the user to the Mailchimp list,to be implemented
-    //let result = await addSubscribe(email, "fab1255128", firstName, lastName);
+    // Add the user to mailchimp as a subscriber according to the newsletter options
+    // let result = await addSubscriber(
+    //   email,
+    //   firstName,
+    //   lastName,
+    //   newsLetterOptions
+    // );
     // if (result.message) {
-    //   return res
-    //     .status(500)
-    //     .json({ message: result.message, emailExists: false });
+    //   return res.status(400).json({ message: result.message });
     // }
 
     // Hash the password
@@ -418,7 +421,7 @@ export const getProfile = async (req, res) => {
 //Update user's last active time
 export const updateLastActive = async (req, res) => {
   const userId = req.params.id;
-  console.log(userId);
+  //console.log(userId);
   try {
     const userToUpdate = await User.findOne({ _id: userId })
       .where("deleted")
@@ -426,18 +429,18 @@ export const updateLastActive = async (req, res) => {
 
     if (!userToUpdate) {
       console.log("No User was found!");
-      //res.json({ error: "No User was found!" });
+      res.status(404).json({ error: "No User was found!" });
     } else {
       await userToUpdate.updateOne(
         { lastActive: new Date() },
         { where: { _id: userId } }
       );
-      console.log("User last active time was updated!");
-      //res.status(200).json({ message: "Account was deleted!" });
+      //console.log("User last active time was updated!");
+      res.status(200).json({ message: "LastActive field was updated!" });
     }
   } catch (error) {
-    console.log(error.message);
-    //res.status(404).json({ message: error.message });
+    //console.log("UpdateLastActive Error: " + error.message);
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -801,8 +804,9 @@ export const getActor = async (req, res) => {
 
 export const getProfileActor = async (req, res) => {
   try {
-    const profile = await User.find({ role: "Actor" }).select("-password")
-      .sort({ createdAt: 1 }); 
+    const profile = await User.find({ role: "Actor" })
+      .select("-password")
+      .sort({ createdAt: 1 });
     if (!profile.length) {
       return res.json({ ok: false });
     }
