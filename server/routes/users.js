@@ -115,6 +115,6 @@ router.put("/actor/files/:id", actorUploadFiles);
 // get user by id
 router.get("/:id", getUserById);
 
-router.get("/lastactive/:id", updateLastActive);
+router.put("/lastactive/:id", updateLastActive);
 
 export default router;
