@@ -13,12 +13,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import Triangle from "../../images/icons/triangle.svg";
 import http from "../../http-common";
+import { useTranslation } from 'react-i18next';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function UsersPage() {
+  const { t } = useTranslation();
   const { user } = useSelector((user) => ({ ...user }));
   const [actionStatus, setActionStatus] = useState(0); //0: list, 1: view, 2: edit,
   const dropdownRef = useRef(null);
@@ -32,20 +34,20 @@ export default function UsersPage() {
   //dropdown
   const [isOpen, setIsOpen] = useState(false);
   const options = [
-    "Filmmaker",
-    "Sales Agent",
-    "Distributor",
-    "Film Festival",
-    "Viewer",
-    "Investor",
-    "Actor",
-    "Director",
-    "Editor",
-    "Producer",
-    "Cinematographer",
-    "Sound",
-    "Writer",
-    "Admin",
+    (t("Filmmaker")),
+    (t( "Sales Agent")),
+    (t("Distributor")),
+    (t("Film Festival")),
+    (t("Viewer")),
+    (t("Investor")),
+    (t("Actor")),
+    (t("Director")),
+    (t("Editor")),
+    (t("Producer")),
+    (t("Cinematographer")),
+    (t("Sound")),
+    (t("Writer")),
+    (t("Admin")),
   ];
 
   const handleToggle = () => {
@@ -374,19 +376,19 @@ export default function UsersPage() {
               <div className=" tw-w-full tw-overflow-auto tw-py-4">
                 <div className="tw-scrollbar-width-thin tw-flex tw-h-[50px] tw-min-w-full tw-items-center tw-justify-between tw-overflow-auto tw-rounded-xl tw-bg-gray-300  tw-scrollbar-track-gray-300 tw-scrollbar-thumb-blue-500">
                   <p className="tw-text-md tw-w-3/12  tw-rounded-l-lg   tw-py-3 tw-text-center tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
-                    Name
+                    {t("Name")}
                   </p>
                   <p className=" tw-text-md tw-w-2/12 tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]">
-                    Role
+                  {t("Role")}
                   </p>
                   <p className=" tw-text-md tw-w-4/12 tw-py-3  tw-text-left  tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
-                    Contact
+                    {t("Contact")}
                   </p>
                   <p className="tw-text-md  tw-w-2/12 tw-py-3 tw-text-left tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
-                    Last Active
+                    {t("Last Active")}
                   </p>
                   <p className="tw-text-md tw-w-1/12 tw-rounded-r-lg tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]">
-                    Action
+                    {t("Action")}
                   </p>
                 </div>
 

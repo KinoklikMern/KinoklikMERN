@@ -416,7 +416,7 @@ function DetailsForm() {
                         }}
                         className="form-control m-10"
                         defaultValue={fepk.distributionCo}
-                        placeholder="Distribution Company Name"
+                        placeholder={t("Distribution Company Name")}
                         onChange={handleDetailsChange}
                         name="distributionCo"
                       />
@@ -438,7 +438,7 @@ function DetailsForm() {
                         defaultValue={fepk.productionYear}
                         placeholder="Year"
                         onChange={handleDetailsChange}
-                        name="productionYear"
+                        name={t("productionYear")}
                       />
                       <input
                         style={{

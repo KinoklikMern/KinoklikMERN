@@ -28,7 +28,7 @@ function Home({ role }) {
 
   return (
     <>
-      <div className='tw-overflow-hidden'>
+      <div className="tw-overflow-hidden">
         {user && (
           <>
             <HomeHead role={role} />

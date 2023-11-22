@@ -15,7 +15,7 @@ import {
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function ResourcesForm() {
   const { t } = useTranslation();
@@ -217,60 +217,47 @@ function ResourcesForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding: "0px 10px",
           marginLeft: "10%",
           marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
-          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
         <div
-          className="row"
+          className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg'
           style={{
             background:
               "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
           }}
         >
-          <div className="col-1">
-            <Link className="navbar-brand text-headers-style" to="/home">
-              <img
-                style={{ width: "100%", height: "80px" }}
-                src={require("../../../images/logo.png")}
-                alt="Logo"
-                className="navbar-logo"
-              />
-            </Link>
-          </div>
-          <div className="col-3  m-3">
+          <div className='col-3 m-3 tw-text-center'>
             <h2
-              className="col align-items-start"
+              className=''
               style={{
                 color: "#FFFFFF",
-                fontWeight: "normal",
+                fontWeight: "500",
                 fontSize: "25px",
               }}
             >
-              {t('EPK Dashboard')}
+              {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className="col-3 m-3">
-            <BasicMenu />
+          <div className='col-3 m-3 tw-text-center'>
+            <BasicMenu color='#FFFFFF' />
           </div>
-          <div className="col-1 m-3"></div>
-          <div className="col-2 m-3">
+          <div className='col-3 m-3 tw-text-center'>
             <Link
-              className="col align-items-end"
+              className=''
               to={`/epk/${fepk.title}`}
               style={{
                 color: "#FFFFFF",
                 textDecoration: "none",
-                fontWeight: "normal",
-                fontSize: "20px",
+                fontWeight: "500",
+                fontSize: "25px",
               }}
             >
-              {t('View EPK Page')}
+              {t("View EPK Page")}
             </Link>
           </div>
         </div>
@@ -282,16 +269,16 @@ function ResourcesForm() {
             fontWeight: "normal",
           }}
         >
-          <div className="card-body" style={{ height: "500px" }}>
+          <div className='card-body' style={{ height: "500px" }}>
             <h5
-              className="card-title "
+              className='card-title '
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              {t('Resources')}
+              {t("Resources")}
             </h5>
             <form>
-              <div className="row">
-                <div className="col-4 my-4">
+              <div className='row'>
+                <div className='col-4 my-4'>
                   <input
                     style={{
                       height: "30px",
@@ -301,10 +288,10 @@ function ResourcesForm() {
                       boxShadow: "1px 2px 9px #311465",
                       textAlign: "left",
                     }}
-                    className="form-control m-10"
+                    className='form-control m-10'
                     placeholder={t("Title")}
                     onChange={handleResourceChange}
-                    name="title"
+                    name='title'
                   />
                   <input
                     style={{
@@ -315,10 +302,10 @@ function ResourcesForm() {
                       boxShadow: "1px 2px 9px #311465",
                       textAlign: "left",
                     }}
-                    className="form-control m-10"
+                    className='form-control m-10'
                     placeholder={t("Duration Required")}
                     onChange={handleResourceChange}
-                    name="time"
+                    name='time'
                   />
                   <textarea
                     style={{
@@ -330,11 +317,11 @@ function ResourcesForm() {
                       textAlign: "left",
                       resize: "none",
                     }}
-                    className="form-control mt-10"
+                    className='form-control mt-10'
                     placeholder={t("Description(maximum 160 characters)")}
                     onChange={handleResourceChange}
-                    name="description"
-                    maxLength="160"
+                    name='description'
+                    maxLength='160'
                   />
                   <span
                     style={{
@@ -343,27 +330,28 @@ function ResourcesForm() {
                       justifyContent: "right",
                     }}
                   >
-                    {characterLength?.description}{t("/160 characters")}
+                    {characterLength?.description}
+                    {t("/160 characters")}
                   </span>
 
                   <label
-                    htmlFor="fileAwardLogo"
-                    className="form-label text-dark"
+                    htmlFor='fileAwardLogo'
+                    className='form-label text-dark'
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
-                    <h4>{t('Upload Image')}</h4>
+                    <h4>{t("Upload Image")}</h4>
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className="form-control form-control-sm"
+                    className='form-control form-control-sm'
                     filename={file}
                     onChange={fileSelected}
                     ref={inputFileRef}
-                    type="file"
-                    id="fileImageResources"
-                    name="files"
-                    accept="image/*"
+                    type='file'
+                    id='fileImageResources'
+                    name='files'
+                    accept='image/*'
                   />
                   {picturePreviewUrl && picturePreviewUrl !== undefined ? (
                     <img
@@ -373,7 +361,7 @@ function ResourcesForm() {
                         width: "auto",
                         marginTop: "5px",
                       }}
-                      alt="no img"
+                      alt='no img'
                     />
                   ) : // <h3>No Image</h3>
                   null}
@@ -387,33 +375,33 @@ function ResourcesForm() {
                         fontWeight: "bold",
                         width: "100%",
                       }}
-                      type="outline-primary"
+                      type='outline-primary'
                       block
                       onClick={addResourceImage}
-                      value="save"
+                      value='save'
                     >
-                      {t('Add to Table')}
+                      {t("Add to Table")}
                     </Button>
                   ) : (
                     <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                       style={{
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                         width: "100%",
                       }}
-                      type="outline-primary"
+                      type='outline-primary'
                       block
                       onClick={addResourceImage}
-                      value="save"
+                      value='save'
                     >
-                      {t('Add to Table')}
+                      {t("Add to Table")}
                     </Button>
                   )}
                 </div>
-                <div className="col-7 my-4">
+                <div className='col-7 my-4'>
                   <table
-                    className="table table-striped table-bordered"
+                    className='table table-striped table-bordered'
                     style={{
                       fontSize: "0.8rem",
                       textAlign: "center",
@@ -422,20 +410,20 @@ function ResourcesForm() {
                       marginLeft: "2%",
                     }}
                   >
-                    <thead className="thead-dark">
+                    <thead className='thead-dark'>
                       <tr>
-                        <th>Title</th>
+                        <th>{t("Title")}</th>
                         <th
                           style={{
                             width: "fit-content",
                             whiteSpace: "nowrap",
                           }}
                         >
-                          {t('Duration Required')}
+                          {t("Duration Required")}
                         </th>
-                        <th>{t('Description')}</th>
-                        <th>{t('Image')}</th>
-                        <th>{t('ACTIONS')}</th>
+                        <th>{t("Description")}</th>
+                        <th>{t("Image")}</th>
+                        <th>{t("ACTIONS")}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -476,8 +464,8 @@ function ResourcesForm() {
                                           "description"
                                         )
                                       }
-                                      name="text"
-                                      maxLength="160"
+                                      name='text'
+                                      maxLength='160'
                                       style={{ maxWidth: "160px" }}
                                     />
                                     <span
@@ -487,29 +475,30 @@ function ResourcesForm() {
                                         justifyContent: "right",
                                       }}
                                     >
-                                      {characterLength[index]}{t("/ 160 characters")}
+                                      {characterLength[index]}
+                                      {t("/ 160 characters")}
                                     </span>
                                   </div>
                                 </td>
                                 <td style={{ minWidth: "160px" }}>
                                   <img
                                     src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
-                                    alt=""
+                                    alt=''
                                     style={{ height: "50px", width: "auto" }}
                                   />
                                   {editMode && (
                                     <>
                                       <input
-                                        className="form-control form-control-sm"
+                                        className='form-control form-control-sm'
                                         filename={file}
                                         onChange={(e) =>
                                           handleEditChange(e, index, "image")
                                         }
                                         ref={inputFileRef}
-                                        type="file"
-                                        id="fileImageResources"
-                                        name="files"
-                                        accept="image/*"
+                                        type='file'
+                                        id='fileImageResources'
+                                        name='files'
+                                        accept='image/*'
                                       />
                                     </>
                                   )}
@@ -564,7 +553,7 @@ function ResourcesForm() {
                     <Modal
                       isOpen={modalIsOpen}
                       onRequestClose={closeModal}
-                      contentLabel="Example Modal"
+                      contentLabel='Example Modal'
                       appElement={document.getElementById("root")}
                       style={{
                         overlay: {
@@ -590,19 +579,21 @@ function ResourcesForm() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        <h2>{t('Your content has been successfully saved!')}</h2>
+                        <h2>
+                          {t("Your content has been successfully saved!")}
+                        </h2>
                         <br />
                         <button
-                          className="btn btn-secondary btn-sm"
+                          className='btn btn-secondary btn-sm'
                           onClick={closeModal}
                         >
-                          {t('Ok')}
+                          {t("Ok")}
                         </button>
                       </div>
                     </Modal>
                   </div>
                 </div>
-                <div className="col-1 mt-5">
+                <div className='col-1 mt-5'>
                   <div
                     style={{
                       height: "50px",
@@ -620,26 +611,26 @@ function ResourcesForm() {
                           backgroundColor: "#ffffff",
                           fontWeight: "bold",
                         }}
-                        type="outline-primary"
+                        type='outline-primary'
                         block
                         onClick={saveEpkResources}
-                        value="save"
+                        value='save'
                       >
-                        {t('Save')}
+                        {t("Save")}
                       </Button>
                     ) : (
                       <Button
-                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                        className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                         style={{
                           boxShadow: "1px 2px 9px #311465",
                           fontWeight: "bold",
                         }}
-                        type="outline-primary"
+                        type='outline-primary'
                         block
                         onClick={saveEpkResources}
-                        value="save"
+                        value='save'
                       >
-                        {t('Save')}
+                        {t("Save")}
                       </Button>
                     )}
                   </div>

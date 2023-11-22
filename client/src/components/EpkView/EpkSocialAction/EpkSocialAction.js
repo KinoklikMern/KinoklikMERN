@@ -107,6 +107,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
         : null, // Set to null if there are no donation links
       number: hasDonateLinks ? usersWishesToDonate : 0, // Set to 0 if there are no donation links
       width: "",
+      hover: "Donate",
     },
     {
       name: "wish_to_buy",
@@ -117,6 +118,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           : DollarIcon,
       number: usersWishesToBuy,
       width: "",
+      hover: "Buy",
     },
     {
       name: "favorites",
@@ -125,6 +127,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           ? PlusBlackIcon
           : PlusIcon,
       number: usersFavourites,
+      hover: "Add To Favorites",
     },
     {
       name: "likes",
@@ -133,6 +136,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           ? StarBlackIcon
           : StarIcon,
       number: usersLikes,
+      hover: "Like",
     },
     // {
     //   name: "K",
@@ -141,6 +145,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     {
       name: "share",
       icon: ShareIcon,
+      hover: "Share",
     },
   ];
 
@@ -300,14 +305,14 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   };
 
   return (
-    <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">
+    <div className='tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12'>
       {/* Social media sharing Icons */}
       {actionList.map(
         (action, index) =>
           action.icon !== null && (
             <div
               key={index}
-              className="tw-relative"
+              className='tw-relative'
               onMouseOver={() => handlers.hoverHandler("onMouseOver")}
               onMouseOut={() => handlers.hoverHandler("onMouseOut")}
             >
@@ -318,10 +323,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 closeModal={closeShareModal}
               />
               {action.name === "share" && showShareOptions && (
-                <div className="tw-absolute tw--top-[65%] tw-right-0 tw-flex tw-pb-12 tw-text-white">
+                <div className='tw-absolute tw--top-[65%] tw-right-0 tw-flex tw-pb-12 tw-text-white'>
                   <FacebookShareButton
                     url={urlShare}
-                    className="hover:tw-scale-125"
+                    className='hover:tw-scale-125'
                   >
                     <FacebookIcon
                       size={30}
@@ -331,7 +336,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                   </FacebookShareButton>
                   <LinkedinShareButton
                     url={urlShare}
-                    className="hover:tw-scale-125"
+                    className='hover:tw-scale-125'
                   >
                     <LinkedinIcon
                       size={30}
@@ -341,7 +346,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                   </LinkedinShareButton>
                   <TwitterShareButton
                     url={urlShare}
-                    className="hover:tw-scale-125"
+                    className='hover:tw-scale-125'
                   >
                     <TwitterIcon
                       size={30}
@@ -351,7 +356,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                   </TwitterShareButton>
                   <RedditShareButton
                     url={urlShare}
-                    className="hover:tw-scale-125"
+                    className='hover:tw-scale-125'
                   >
                     <RedditIcon
                       size={30}
@@ -361,7 +366,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                   </RedditShareButton>
                   <EmailShareButton
                     url={urlShare}
-                    className="hover:tw-scale-125"
+                    className='hover:tw-scale-125'
                   >
                     <EmailIcon size={30} round={true} />
                   </EmailShareButton>
@@ -373,6 +378,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 icon={action.icon}
                 number={action.number}
                 handlers={handlers}
+                title={`${action.hover}`}
               />
             </div>
           )

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Actor.css";
 // import List from "./ListActor";
+import Axios from "axios";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
 import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";
 import ActorPageHeader from "../../components/EpkView/EpkHeader/ActorPageHeader";
@@ -23,6 +24,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { addToChat } from "../../api/epks";
 import { useTranslation } from "react-i18next";
+import { getMoviesByActors } from "../../api/epks";
+import emptyBanner from "../../images/empty_banner.jpeg";
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -32,7 +35,7 @@ export default function Actor(props) {
   const [range, setRange] = useState(2);
   // const [isMoved, setIsMoved] = useState(false);
   // const [slideNumber, setSlideNumber] = useState(0);
-  const [pics, setpics] = useState([]);
+  const [pics, setPics] = useState([]);
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -44,6 +47,8 @@ export default function Actor(props) {
   const [selectedFilmmakers, setSelectedFilmmakers] = useState([]);
   const videoRef = useRef();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [studioData, setStudioData] = useState(null);
+  const [epksList, setEpksList] = useState([]);
 
   // fetching user
   const { user } = useSelector((user) => ({ ...user }));
@@ -73,42 +78,69 @@ export default function Actor(props) {
   }
 
   useEffect(() => {
-    Promise.all([
-      http.get(`/users/getactor/${id}`),
-      http.get("/users/getallusers"),
-    ])
-      .then(([actorResponse, usersResponse]) => {
+    const biography = document.querySelector(".actor-biography");
+    if (biography) {
+      const contentLength = biography.textContent.length;
+      console.log("Biography Character Length: " + contentLength);
+      if (contentLength > 500) {
+        biography.classList.add("scrollable");
+      }
+    }
+  }, [epkInfo]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetching actor and users data
+        const [actorResponse, usersResponse] = await Promise.all([
+          http.get(`/users/getactor/${id}`),
+          http.get("/users/getallusers"),
+        ]);
+
         const actorData = actorResponse.data;
         setEpkInfo(actorData);
 
-        const images = [];
-        if (!actorData.picture.startsWith("https")) {
-          images.push(actorData.picture);
-        }
+        const images = actorData.picture.startsWith("https")
+          ? []
+          : [actorData.picture];
 
-        const imagesToPush = actorData.profiles.map((picture) => {
-          if (picture !== null && undefined && "") {
+        // const imagesToPush = actorData.profiles.map((picture) => {
+        //   if (picture !== null && undefined && "") {
+        //     images.push(picture);
+        //   }
+        // });
+
+        actorData.profiles.forEach((picture) => {
+          if (picture) {
             images.push(picture);
           }
         });
 
-        setpics(images);
-
+        setPics(images);
         setAge(actorData.age);
         setLikes(actorData.likes.length);
         setKKFollower(actorData.kkFollowers.length);
         setRecommendations(actorData.recommendations);
         setAllUserList(usersResponse.data);
-      })
-      .catch((error) => {
-        console.error("An error occurred while fetching data.", error);
-      });
-  }, [id]);
 
-  useEffect(() => {
-    console.log(pics.length);
-    console.log(pics);
-  }, [pics]);
+        // Fetch studio data
+        const studioResponse = await http.get(
+          `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${id}`
+        );
+        if (studioResponse.data) {
+          setStudioData(studioResponse.data);
+        }
+
+        // Fetch movies by actor
+        const movies = await getMoviesByActors(id);
+        setEpksList(movies);
+      } catch (error) {
+        console.error("An error occurred while fetching data.", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   // user is added to the list of +(followers)
   function addUserToFollowers() {
@@ -516,7 +548,7 @@ export default function Actor(props) {
               style={{ width: "37px", height: "25px" }}
             />
             <p className="movie-number" style={{ fontSize: "24px" }}>
-              1
+              {epksList.length}
             </p>
           </div>
         </div>
@@ -534,6 +566,26 @@ export default function Actor(props) {
             {t("Recommendation sent successfully!")}
           </div>
         )}
+        <div>
+          {studioData && (
+            <>
+              <p
+                className="text-purple-800 text-3xl font-bold ml-5"
+                style={{
+                  //display: "inline",
+                  padding: "0px",
+                  marginLeft: "500px",
+                  color: "#1E0039",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                }}
+              >
+                {t("Represented by:")}{" "}
+                {studioData ? studioData.name || "N/A" : ""}
+              </p>
+            </>
+          )}
+        </div>
         <div className="actor-city-container">
           <div className="actor-city-detail">
             <img
@@ -622,7 +674,7 @@ export default function Actor(props) {
               <span
                 style={{
                   fontWeight: "700",
-                  marginRight: "60px",
+                  marginRight: "70px",
                 }}
               >
                 {t("Eye Color")}{" "}
@@ -671,13 +723,38 @@ export default function Actor(props) {
           </div>
         </div>
         <div className="bottom-container">
-          <p className="bottom-actor-container-title">
-            {t("current films by actor")} {epkInfo.firstName} {epkInfo.lastName}
-          </p>
-          <div className="movie-actor-play-container">
-            {/* TODO: getMoviesByActor */}
-            <div>{/* <List /> */}</div>
-          </div>
+          {epksList && epksList.length > 0 && (
+            <p className="bottom-actor-container-title">
+              {t("Current films by actor")}{" "}
+              <span style={{ fontWeight: "bolder" }}>
+                {epkInfo.firstName} {epkInfo.lastName}
+              </span>
+            </p>
+          )}
+          {epksList && epksList.length > 0 && (
+            <div className="movie-actor-play-container">
+              {epksList.map((epk) => {
+                const formattedTitle = epk.title.replace(/ /g, "_");
+                return (
+                  <a key={epk._id} href={`/epk/${formattedTitle}`}>
+                    <div className="listItem">
+                      <img
+                        src={
+                          epk.image_details
+                            ? epk.banner_url.startsWith("https")
+                              ? epk.image_details
+                              : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                            : emptyBanner
+                        }
+                        alt={epk.title}
+                      />
+                      {/* <p>{epk.title}</p> */}
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
       <Footer />
