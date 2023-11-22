@@ -548,7 +548,7 @@ export default function Actor(props) {
               style={{ width: "37px", height: "25px" }}
             />
             <p className="movie-number" style={{ fontSize: "24px" }}>
-              1
+              {epksList.length}
             </p>
           </div>
         </div>
