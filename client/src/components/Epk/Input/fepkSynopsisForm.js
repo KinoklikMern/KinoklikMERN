@@ -66,14 +66,12 @@ function SynopsisForm() {
       if (response.data) {
         setFepk(response.data);
         const { text_short, text_medium, text_long } = response.data;
-        //Aleksejs commented out because it was giving an error, seems to be working fine without that part
-        //if (text_short) {
-        setCharacterLength({
-          ...characterLength,
+        setCharacterLength((prevCharacterLength) => ({
+          ...prevCharacterLength,
           text_short: text_short ? text_short.length : 0,
           text_medium: text_medium ? text_medium.length : 0,
           text_long: text_long ? text_long.length : 0,
-        });
+        }));
         setEpkSynopsisData({
           image_synopsis: response.data.image_synopsis,
           image_synopsis_medium: response.data.image_synopsis_medium,
@@ -84,13 +82,9 @@ function SynopsisForm() {
           text_medium_blur: response.data.text_medium_blur,
           text_long_blur: response.data.text_long_blur,
         });
-        // } else {
-        //   // Handle the case when text_short is undefined or empty
-        //   console.error("text_short is undefined or empty");
-        // }
       } else {
         // Handle the case when response.data is undefined or empty
-        console.error("response.data is undefined or empty")
+        console.error("response.data is undefined or empty");
       }
     });
   }, [fepkId]);
