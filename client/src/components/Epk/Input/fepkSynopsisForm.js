@@ -43,6 +43,7 @@ function SynopsisForm() {
     setDisabled(false);
     const url = URL.createObjectURL(fileNew);
     setShortBannerPreviewUrl(url);
+    setMessage("");
   };
 
   const fileMediumSelected = (event) => {
@@ -51,6 +52,7 @@ function SynopsisForm() {
     setDisabled(false);
     const url = URL.createObjectURL(fileNew);
     setMediumBannerPreviewUrl(url);
+    setMessage("");
   };
 
   const fileLongSelected = (event) => {
@@ -59,6 +61,7 @@ function SynopsisForm() {
     setDisabled(false);
     const url = URL.createObjectURL(fileNew);
     setLongBannerPreviewUrl(url);
+    setMessage("");
   };
 
   useEffect(() => {
@@ -182,7 +185,7 @@ function SynopsisForm() {
       //     });
       // }
     } else {
-      setMessage(t("File must be a image(jpeg or png)"));
+      setMessage(t("File must be a image(jpeg, jpg or png)"));
     }
     setDisabled(true);
   };
@@ -552,6 +555,11 @@ function SynopsisForm() {
                     marginTop: "-15px",
                   }}
                 >
+                  {message && (
+                    <div className="message" style={{ color: "red" }}>
+                      {message}
+                    </div>
+                  )}
                   {disabled === true ? (
                     <Button
                       disabled
@@ -607,7 +615,7 @@ function SynopsisForm() {
                     }}
                   >
                     <div style={{ textAlign: "center" }}>
-                      (t({"Synopsis is Saved Successfully!"}))
+                      {t("Synopsis is Saved Successfully!")}
                       <br />
                       <button
                         className="btn btn-secondary btn-sm"
