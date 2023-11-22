@@ -33,12 +33,12 @@ export const optionsMain = [
 
 export const optionsSecondary = [
   {
-    label: ("Sales_Agent"),
+    label: "Sales Agent",
     value: "Sales Agent",
     image: salesAgentIcon,
   },
   {
-    label: ("Film_Festival"),
+    label: "Film Festival",
     value: "Film Festival",
     image: festivalIcon,
   },

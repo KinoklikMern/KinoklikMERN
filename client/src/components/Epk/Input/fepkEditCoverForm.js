@@ -204,7 +204,7 @@ function FepkEditCoverForm() {
       http.get(`fepks/byTitle/${event.target.value}`).then((response) => {
         if (response.data !== null) {
           setMessageTitleNo(
-            t("This title exists! You are not allowed to use it again!")
+            (t("This title exists! You are not allowed to use it again!"))
           );
           setMessageTitleYes("");
         } else {

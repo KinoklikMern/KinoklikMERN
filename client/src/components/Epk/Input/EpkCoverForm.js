@@ -130,7 +130,7 @@ function EpkCoverForm() {
           http
             .post("epks/epkcover", epkCoverData)
             .then((res) => {
-              console.log("saved");
+              console.log(t("saved"));
             })
             .catch((err) => {
               console.log(err);

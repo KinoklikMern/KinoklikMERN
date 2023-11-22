@@ -567,7 +567,7 @@ function ReviewsForm() {
                     }}
                   >
                     <div style={{ textAlign: "center" }}>
-                      {"Reviews Saved Successfully!"}
+                      (t({"Reviews Saved Successfully!"}))
                       <br />
                       <button
                         className='btn btn-secondary btn-sm'
