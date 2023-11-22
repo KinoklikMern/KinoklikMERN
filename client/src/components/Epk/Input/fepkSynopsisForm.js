@@ -93,8 +93,7 @@ function SynopsisForm() {
         console.error(t("response.data is undefined or empty"));
       }
     });
-  }, [characterLength, fepkId]);
-  //}, [fepkId]);
+  }, [fepkId]);
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;
@@ -166,6 +165,7 @@ function SynopsisForm() {
             .put(`fepks/update/${fepkId}`, epkSynopsisData)
             .then((res) => {
               setFepk(res.data);
+              console.log(epkSynopsisData);
               setModalIsOpen(true);
               console.log("saved");
             })
@@ -212,25 +212,25 @@ function SynopsisForm() {
         }}
       >
         <div
-          className='row'
+          className="row"
           style={{
             background:
               "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
           }}
         >
-          <div className='col-1'>
-            <Link className='navbar-brand text-headers-style' to='/home'>
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
               <img
                 style={{ width: "100%", height: "80px" }}
                 src={require("../../../images/logo.png")}
-                alt='Logo'
-                className='navbar-logo'
+                alt="Logo"
+                className="navbar-logo"
               />
             </Link>
           </div>
-          <div className='col-3  m-3'>
+          <div className="col-3  m-3">
             <h2
-              className='col align-items-start'
+              className="col align-items-start"
               style={{
                 color: "#FFFFFF",
                 fontWeight: "normal",
@@ -240,13 +240,13 @@ function SynopsisForm() {
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className='col-3 m-3'>
-            <BasicMenu color='#FFFFFF' />
+          <div className="col-3 m-3">
+            <BasicMenu color="#FFFFFF" />
           </div>
-          <div className='col-1 m-3'></div>
-          <div className='col-2 m-3'>
+          <div className="col-1 m-3"></div>
+          <div className="col-2 m-3">
             <Link
-              className='col align-items-end'
+              className="col align-items-end"
               to={`/epk/${fepk.title}`}
               style={{
                 color: "#FFFFFF",
@@ -267,16 +267,16 @@ function SynopsisForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ height: "500px" }}>
+          <div className="card-body" style={{ height: "500px" }}>
             <h5
-              className='card-title '
+              className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
               {t("Synopsis")}
             </h5>
             <form>
-              <div className='row g-3'>
-                <div className='col my-4' style={{ position: "relative" }}>
+              <div className="row g-3">
+                <div className="col my-4" style={{ position: "relative" }}>
                   <textarea
                     style={{
                       height: "100px",
@@ -289,11 +289,11 @@ function SynopsisForm() {
                       // position: "absolute",
                       // bottom: "0",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.text_short}
                     placeholder={t("Short Synopsis(maximum 160 characters)")}
                     onChange={handleSynopsisChange}
-                    name='text_short'
+                    name="text_short"
                   />
                   <span
                     style={{
@@ -306,7 +306,7 @@ function SynopsisForm() {
                     {t("/160 characters")}
                   </span>
                 </div>
-                <div className='col my-4' style={{ position: "relative" }}>
+                <div className="col my-4" style={{ position: "relative" }}>
                   <textarea
                     style={{
                       height: "100px",
@@ -319,11 +319,11 @@ function SynopsisForm() {
                       // position: "absolute",
                       // bottom: "0",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.text_medium}
                     placeholder={t("Medium Synopsis(maximum 350 characters)")}
                     onChange={handleSynopsisChange}
-                    name='text_medium'
+                    name="text_medium"
                   />
                   <span
                     style={{
@@ -335,9 +335,9 @@ function SynopsisForm() {
                     {characterLength?.text_medium}
                     {t("/350 characters")}
                   </span>
-                  <div className='col d-grid gap-2 d-md-flex justify-content-md-end'>
+                  <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
                         height: "30px",
                         width: "100px",
@@ -345,7 +345,7 @@ function SynopsisForm() {
                         fontWeight: "bold",
                         justifyContent: "right",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={() =>
                         handleSynopsisBlurChange(
@@ -353,13 +353,13 @@ function SynopsisForm() {
                           "text_medium_blur"
                         )
                       }
-                      name='text_medium_blur'
+                      name="text_medium_blur"
                     >
                       {epkSynopsisData.text_medium_blur ? "UnBlur" : "Blur"}
                     </Button>
                   </div>
                 </div>
-                <div className='col my-4' style={{ position: "relative" }}>
+                <div className="col my-4" style={{ position: "relative" }}>
                   <textarea
                     style={{
                       height: "100px",
@@ -372,11 +372,11 @@ function SynopsisForm() {
                       // position: "absolute",
                       // bottom: "0",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.text_long}
                     placeholder={t("Long Synopsis(maximum 500 characters)")}
                     onChange={handleSynopsisChange}
-                    name='text_long'
+                    name="text_long"
                   />
                   <span
                     style={{
@@ -389,16 +389,16 @@ function SynopsisForm() {
                     {t("/500 characters")}
                   </span>
 
-                  <div className='col d-grid gap-2 d-md-flex justify-content-md-end'>
+                  <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
                         height: "30px",
                         width: "120px",
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={() =>
                         handleSynopsisBlurChange(
@@ -406,18 +406,18 @@ function SynopsisForm() {
                           "text_long_blur"
                         )
                       }
-                      name='text_long_blur'
+                      name="text_long_blur"
                     >
                       {epkSynopsisData.text_long_blur ? "UnBlur" : "Blur"}
                     </Button>
                   </div>
                 </div>
               </div>
-              <div className='row g-3'>
-                <div className='col my-4'>
+              <div className="row g-3">
+                <div className="col my-4">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
@@ -425,14 +425,14 @@ function SynopsisForm() {
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={file}
                     onChange={fileSelected}
                     ref={inputFileRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {shortBannerPreviewUrl ? (
                     <img
@@ -443,7 +443,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Short Banner Preview'
+                      alt="Short Banner Preview"
                     />
                   ) : epkSynopsisData.image_synopsis ? (
                     <img
@@ -454,30 +454,30 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Short Banner'
+                      alt="Short Banner"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
                   )}
                 </div>
-                <div className='col my-4'>
+                <div className="col my-4">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={fileMedium}
                     onChange={fileMediumSelected}
                     ref={inputFileMediumRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {mediumBannerPreviewUrl ? (
                     <img
@@ -488,7 +488,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Medium Banner Preview'
+                      alt="Medium Banner Preview"
                     />
                   ) : epkSynopsisData.image_synopsis_medium ? (
                     <img
@@ -499,30 +499,30 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Medium Banner'
+                      alt="Medium Banner"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
                   )}
                 </div>
-                <div className='col my-4'>
+                <div className="col my-4">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={fileLong}
                     onChange={fileLongSelected}
                     ref={inputFileLongRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {longBannerPreviewUrl ? (
                     <img
@@ -533,7 +533,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Long Banner Preview'
+                      alt="Long Banner Preview"
                     />
                   ) : epkSynopsisData.image_synopsis_long ? (
                     <img
@@ -544,7 +544,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Long Banner'
+                      alt="Long Banner"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
@@ -567,24 +567,24 @@ function SynopsisForm() {
                         backgroundColor: "#ffffff",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={saveEpkSynopsis}
-                      value='save'
+                      value="save"
                     >
                       {t("Save")}
                     </Button>
                   ) : (
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={saveEpkSynopsis}
-                      value='save'
+                      value="save"
                     >
                       {t("Save")}
                     </Button>
@@ -592,7 +592,7 @@ function SynopsisForm() {
                   <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
-                    contentLabel='Example Modal'
+                    contentLabel="Example Modal"
                     appElement={document.getElementById("root")}
                     style={{
                       overlay: {
@@ -616,7 +616,7 @@ function SynopsisForm() {
                       {"Synopsis is Saved Successfully!"}
                       <br />
                       <button
-                        className='btn btn-secondary btn-sm'
+                        className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                       >
                         {t("Ok")}
