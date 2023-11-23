@@ -10,77 +10,65 @@ const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 
 export const searchMember = async (email) => {
   try {
-    const response2 = await mailchimp.searchMembers.search(
-      `email_address:${email}`
+    const response = await mailchimp.lists.getListMember(
+      audienceId,
+      md5(email.toLowerCase())
     );
 
-    const result = response2.full_search.total_items;
-    if (response2.full_search.total_items > 0) {
-      //Email exists
-      if (response2.full_search.members.status === "subscribed") {
-        return 1; //email exists and subscribed
-      } else {
-        return 2; //email exists but not subscribed
-      }
-    } else {
-      return 0; //email does not exist
-    }
+    return response.status;
   } catch (error) {
-    //const msg = JSON.parse(error.response.text);
-
-    return error.response.text;
+    //console.log("searchMember Error: " + msg.detail);
+    return error.status;
   }
 };
 
+export const listSubscribers = async () => {
+  try {
+    const response = await mailchimp.lists.getListMembersInfo(audienceId, {
+      count: 1000,
+      offset: 0,
+    });
+    //extract email and status from response
+    const subscribers = response.members.map((member) => {
+      return {
+        email: member.email_address,
+        status: member.status,
+        interests: member.interests,
+      };
+    });
+
+    console.info(subscribers);
+    return subscribers;
+  } catch (error) {
+    const msg = JSON.parse(error.response.text);
+    //console.log("AddSubscriber Error: " + msg.detail);
+    return { message: msg.detail };
+  }
+};
 export const addSubscriber = async (
   email,
   firstName,
   lastName,
   newsLetterOptions
 ) => {
-  const interestMap = await getAllLists(); //get interest map,keys' first letters are Capitalize
-
-  //Construct interest object
-  //newsLetterOptions = ["Filmmakers","Viewers","Ecosystem","Investors","Tech"]
-  const interest = {};
-  //init all interest to false
-  Object.keys(interestMap).forEach((key) => {
-    interest[interestMap[key]] = false;
-  });
-  newsLetterOptions.forEach((option) => {
-    interest[interestMap[option]] = true;
-  });
-
   try {
-    const flag = await searchMember(email);
-
-    if (flag === 0) {
-      //addListMember with interest
-      const response2 = await mailchimp.lists.addListMember(audienceId, {
+    //Set basic info to test email is valid or not, update interest later to reduce response time
+    const response = await mailchimp.lists.setListMember(
+      audienceId,
+      md5(email.toLowerCase()),
+      {
         email_address: email,
-        status: "subscribed",
+        status_if_new: "subscribed",
         merge_fields: {
           FNAME: firstName,
           LNAME: lastName,
         },
-        interests: interest,
-      });
-    } else {
-      //updateListMember with interest , And add email to subscriber
-      const response2 = await mailchimp.lists.updateListMember(
-        audienceId,
-        md5(email.toLowerCase()),
-        {
-          email_address: email,
-          status: "subscribed",
-          merge_fields: {
-            FNAME: firstName,
-            LNAME: lastName,
-          },
-          interests: interest,
-        }
-      );
-    }
+      }
+    );
+
+    //Update interest and status
+    updateMembersInterest(email, newsLetterOptions);
+    //console.log(listSubscribers());//for testing
   } catch (error) {
     const msg = JSON.parse(error.response.text);
     //console.log("AddSubscriber Error: " + msg.detail);
@@ -90,6 +78,52 @@ export const addSubscriber = async (
   return { message: null };
 };
 
+const updateMembersInterest = (email, newsLetterOptions) => {
+  getAllLists()
+    .then((res) => {
+      const interestMap = res;
+      //Construct interest object
+      //newsLetterOptions = ["Filmmakers","Viewers","Ecosystem","Investors","Tech"]
+      const interest = {};
+      //init all interest to false
+      Object.keys(interestMap).forEach((key) => {
+        interest[interestMap[key]] = false;
+      });
+      newsLetterOptions.forEach((option) => {
+        interest[interestMap[option]] = true;
+      });
+
+      searchMember(email).then((status) => {
+        //console.log("status : " + status);
+        if (status === "unsubscribed" || status === "cleaned") {
+          //trigger sending confirmation email to user for resubscribing
+          mailchimp.lists
+            .updateListMember(audienceId, md5(email.toLowerCase()), {
+              email_address: email,
+              status: "pending",
+              interests: interest,
+            })
+            .then((res) => {})
+            .catch((err) => {
+              console.log("TriggerConfirmError: " + err);
+            });
+        } else {
+          mailchimp.lists
+            .updateListMember(audienceId, md5(email.toLowerCase()), {
+              email_address: email,
+              status: "subscribed",
+              interests: interest,
+            })
+            .catch((err) => {
+              console.log("SetSubscribedError: " + err);
+            });
+        }
+      });
+    })
+    .catch((err) => {
+      console.log("Get Lists Info Error: " + err);
+    });
+};
 //Get interest group's name and id
 export const getAllLists = async () => {
   //get all lists(Audience list info)

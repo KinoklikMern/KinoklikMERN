@@ -14,6 +14,7 @@ import EmailVerificationToken from "../models/emailVerificationToken.js";
 import { isValidObjectId } from "mongoose";
 import { sendError } from "../utils/helper.js";
 import { addSubscriber } from "../utils/mailChimp.js";
+
 export const register = async (req, res) => {
   try {
     const {
@@ -65,15 +66,17 @@ export const register = async (req, res) => {
     }
 
     // Add the user to mailchimp as a subscriber according to the newsletter options
-    // let result = await addSubscriber(
-    //   email,
-    //   firstName,
-    //   lastName,
-    //   newsLetterOptions
-    // );
-    // if (result.message) {
-    //   return res.status(400).json({ message: result.message });
-    // }
+    let result = await addSubscriber(
+      email,
+      firstName,
+      lastName,
+      newsLetterOptions
+    );
+    if (result.message) {
+      return res
+        .status(500)
+        .json({ message: result.message, emailExists: false });
+    }
 
     // Hash the password
     const cryptedPassword = await bcrypt.hash(password, 12);
@@ -421,7 +424,7 @@ export const getProfile = async (req, res) => {
 //Update user's last active time
 export const updateLastActive = async (req, res) => {
   const userId = req.params.id;
-  //console.log(userId);
+
   try {
     const userToUpdate = await User.findOne({ _id: userId })
       .where("deleted")
