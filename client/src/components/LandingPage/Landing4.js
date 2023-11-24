@@ -1,14 +1,16 @@
 import React from "react";
 import southPaw from "../../images/movies/SouthPaw.png";
+import {useTranslation} from 'react-i18next';
 
 const Landing4 = () => {
+  const { t } = useTranslation();
   return (
     <div className="landing4 tw-h-[80vh] tw-items-center tw-justify-center lg:tw-pt-32">
       <div className="tw-text-center tw-text-5xl tw-font-bold">
-        Introducing KinoKlik EPK
+        {t("Introducing KinoKlik EPK")}
       </div>
       <div className="tw-mx-32 tw-py-2 tw-pl-32 tw-pr-32 tw-text-center sm:tw-text-xl lg:tw-text-4xl">
-        <p>a free film marketing software</p>
+        <p>{t("a free film marketing software")}</p>
       </div>
       <div className="  ">
         <img

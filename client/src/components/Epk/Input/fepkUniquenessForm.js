@@ -246,7 +246,7 @@ function UniquenessForm() {
                     }}
                     className="form-control m-10"
                     defaultValue={fepk.title_uniqueness}
-                    placeholder="Title"
+                    placeholder={t("Title")}
                     onChange={handleUniquenessChange}
                     name="title_uniqueness"
                   />

@@ -147,7 +147,7 @@ function FepkEditCoverForm() {
       </option>
     );
   };
-  const movieStatus = ["Preproduction", "Production", "Postproduction"];
+  const movieStatus = [t("Preproduction"), "Production", t("Postproduction")];
   const makeStatusItem = (Y) => {
     return (
       <option key={Y} value={Y}>
@@ -157,7 +157,7 @@ function FepkEditCoverForm() {
     );
   };
 
-  const movieType = ["Movie", "Documentary", "TV Show", "Web Series"];
+  const movieType = [t("Movie"), t("Documentary"), t("TV Show"), t("Web Series")];
   const makeTypeItem = (Z) => {
     return (
       <option key={Z} value={Z}>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import image1 from "../../images/LandingPage/Avatar1.png";
 import image2 from "../../images/LandingPage/ActorPageScreenShot.png";
+import {useTranslation} from 'react-i18next';
 
 const Landing3 = () => {
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("Filmmakers");
 
   const handleCategoryClick = (category) => {
@@ -13,20 +15,20 @@ const Landing3 = () => {
     <>
       <div className='tw-items-center tw-justify-center tw-py-10'>
         <div className='tw-text-center tw-text-5xl tw-font-bold'>
-          What is an EPK?
+          {t("What is an EPK?")}
         </div>
         <div className='tw-mx-12 tw-py-10 tw-text-justify tw-text-lg tw-text-midnight md:tw-text-2xl lg:tw-px-40'>
           <p>
-            An EPK, or{" "}
-            <span className='tw-font-bold'>Electronic Press Kit</span> is
-            typically a PDF document displaying information about your film,
-            such as a poster, short, medium and long synopsis, cast and crew
-            headshots and biographies, information to help film industry
-            professionals visualize the film you want to create.
+          {t("An EPK, or")}{" "}
+            <span className='tw-font-bold'>{t("Electronic Press Kit")}</span> {t("is")}
+            {t(" typically a PDF document displaying information about your film,")}
+            {t(" such as a poster, short, medium and long synopsis, cast and crew")}
+            {t(" headshots and biographies, information to help film industry")}
+            {t(" professionals visualize the film you want to create.")}
             <br />
             <br />
-            It's now {new Date().getFullYear()}. We now have KinoKlik EPK
-            software! For free!
+            {t("It's now")} {new Date().getFullYear()}.  {t("We now have KinoKlik EPK")}
+            {t("software! For free!")}
           </p>
         </div>
         <div className='tw-my-10 tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-5'>
@@ -39,7 +41,7 @@ const Landing3 = () => {
                 : "tw-text-midnight hover:tw-bg-midnight hover:tw-text-white"
             }`}
           >
-            Filmmakers
+            {t("Filmmakers")}
           </a>
           <a
             href='#Actors'
@@ -50,7 +52,7 @@ const Landing3 = () => {
                 : "tw-text-midnight hover:tw-bg-midnight hover:tw-text-white"
             }`}
           >
-            Actors
+            {t("Actors")}
           </a>
           <a
             href='#Distributors'
@@ -61,7 +63,7 @@ const Landing3 = () => {
                 : "tw-text-midnight hover:tw-bg-midnight hover:tw-text-white"
             }`}
           >
-            Distributors
+           {t("Distributors")}
           </a>
           <a
             href='#SalesAgents'
@@ -72,7 +74,7 @@ const Landing3 = () => {
                 : "tw-text-midnight hover:tw-bg-midnight hover:tw-text-white"
             }`}
           >
-            Sales Agents
+            {t("Sales Agents")}
           </a>
           <a
             href='#Investors'
@@ -83,7 +85,7 @@ const Landing3 = () => {
                 : "tw-text-midnight hover:tw-bg-midnight hover:tw-text-white"
             }`}
           >
-            Investors
+            {t("Investors")}
           </a>
           <a
             href='#FilmFestivals'
@@ -94,7 +96,7 @@ const Landing3 = () => {
                 : "tw-text-midnight hover:tw-bg-midnight hover:tw-text-white"
             }`}
           >
-            Film Festivals
+            {t("Film Festivals")}
           </a>
         </div>
 
@@ -102,32 +104,32 @@ const Landing3 = () => {
           <div className='tw-h-80 tw-w-full tw-rounded-2xl tw-bg-white tw-p-4 tw-shadow-[4.0px_8.0px_8.0px_rgba(30,0,57,0.90)] md:tw-w-60'>
             <div className='tw-h-2/4 tw-text-xl tw-text-midnight'>
               {selectedCategory === "Filmmakers" ? (
-                `Present your film idea like a pro to industry professionals!`
+                t(`Present your film idea like a pro to industry professionals!`)
               ) : selectedCategory === "Actors" ? (
                 <>
-                  Present your <span className='tw-font-bold'>Actor Page</span>{" "}
-                  like a pro to industry professionals with Headshots, Demo
-                  Reel, and more!
+                  {t("Present your")} <span className='tw-font-bold'>{t("Actor Page")}</span>{" "}
+                  {t("like a pro to industry professionals with Headshots, Demo")}
+                  {t(" Reel, and more!")}
                 </>
               ) : selectedCategory === "Distributors" ? (
                 <>
-                  Discover new films in their early stage to snatch up those
-                  film rights before your competition!
+                  {t("Discover new films in their early stage to snatch up those")}
+                  {t(" film rights before your competition!")}
                 </>
               ) : selectedCategory === "Sales Agents" ? (
                 <>
-                  Discover new film projects in their early stage and contact
-                  the filmmaker directly!
+                  {t("Discover new film projects in their early stage and contact")}
+                  {t(" the filmmaker directly!")}
                 </>
               ) : selectedCategory === "Investors" ? (
                 <>
-                  Discover new film projects to invest in and contact the
-                  filmmaker directly!
+                  {t("Discover new film projects to invest in and contact the")}
+                  {t(" filmmaker directly!")}
                 </>
               ) : (
                 <>
-                  Discover new film projects to invite to your film festival and
-                  message the filmmaker directly!
+                  {t("Discover new film projects to invite to your film festival and")}
+                  {t(" message the filmmaker directly!")}
                 </>
               )}
             </div>
@@ -142,11 +144,11 @@ const Landing3 = () => {
           <div className='tw-h-80 tw-w-full tw-rounded-2xl tw-bg-white tw-p-4 tw-shadow-[4.0px_8.0px_8.0px_rgba(30,0,57,0.90)] md:tw-w-60'>
             <div className='tw-h-2/4 tw-text-xl tw-text-midnight'>
               {selectedCategory === "Filmmakers"
-                ? `Measure the industry's interest in your film by tracking your EPK
-              page data!`
+                ? t(`Measure the industry's interest in your film by tracking your EPK page data!`)
+              
                 : selectedCategory === "Actors"
-                ? `Allow industry professionals to recommend you to other filmmakers!`
-                : `See and monitor the industry interest in the films you follow!`}
+                ? t(`Allow industry professionals to recommend you to other filmmakers!`)
+                : t(`See and monitor the industry interest in the films you follow!`)}
             </div>
             <div className='tw-flex tw-h-2/4 tw-items-center tw-justify-evenly tw-rounded-xl tw-bg-midnight'>
               <i class='fa-solid fa-dollar-sign tw-text-3xl tw-text-white'></i>
@@ -158,22 +160,22 @@ const Landing3 = () => {
             <div className='tw-h-2/4 tw-text-xl tw-text-midnight'>
               {selectedCategory === "Filmmakers" ? (
                 <>
-                  Your film's cast & crew social media audience is{" "}
-                  <span className='tw-font-bold'>automatically integrated</span>{" "}
-                  in your EPK to calculate and show your film's potential
-                  <span className='tw-font-bold'> Total Audience Reach!</span>
+                  {t("Your film's cast & crew social media audience is")}{" "}
+                  <span className='tw-font-bold'>{t("automatically integrated")}</span>{" "}
+                  {t("in your EPK to calculate and show your film's potential")}
+                  <span className='tw-font-bold'> {t("Total Audience Reach!")}</span>
                 </>
               ) : selectedCategory === "Actors" ? (
                 <>
-                  Display your entire social media audience{" "}
-                  <span className='tw-font-bold'>automatically integrated</span>{" "}
-                  on your Actors Page!
+                  {t("Display your entire social media audience")}{" "}
+                  <span className='tw-font-bold'>{t("automatically integrated")}</span>{" "}
+                  {t("on your Actors Page!")}
                 </>
               ) : (
                 <>
-                  Track a film's{" "}
-                  <span className='tw-font-bold'>Total Audience Reach</span> EPK
-                  page to see the film's potential audience!
+                  {t("Track a film's")}{" "}
+                  <span className='tw-font-bold'>{t("Total Audience Reach")}</span> EPK
+                  {t(" page to see the film's potential audience!")}
                 </>
               )}
             </div>
@@ -189,7 +191,7 @@ const Landing3 = () => {
               className='tw-inline-block tw-rounded-xl tw-bg-midnight tw-px-8 tw-py-2 tw-text-xl tw-font-bold tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-900 focus:tw-outline-none'
               href='/uploadFepk'
             >
-              Create EPK
+             {t("Create EPK")}
             </a>
           </div>
         </div>
