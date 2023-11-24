@@ -193,7 +193,7 @@ const CastForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Lead Actor Name"
+                  placeholder= {t("Lead Actor Name")}
                   onChange={(event) => {
                     setLeadActor2Name(event.target.value);
                   }}

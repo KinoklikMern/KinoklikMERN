@@ -120,9 +120,9 @@ function FepkCoverForm() {
     t("mockumentary"),
   ];
 
-  const movieStatus = ["Preproduction", "Production", "Postproduction"];
+  const movieStatus = [t("Preproduction"), "Production", t("Postproduction")];
 
-  const movieType = ["Movie", "Documentary", "TV Show", "Web Series"];
+  const movieType = [t("Movie"), t("Documentary"), t("TV Show"), t("Web Series")];
 
   const budgetRanges = [
     "0$ - 5,000$",

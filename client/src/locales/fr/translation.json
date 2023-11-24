@@ -336,7 +336,6 @@
  "_comment From Components Epk Input fepkEditCoverForm":"25 CHanges.",
  "This title exists! You are not allowed to use it again!":"Ce titre existe ! Vous n'êtes plus autorisé à l'utiliser !",
  "Title is available":"Le titre est disponible",
- "Cover - Mandotory":"Couverture - Obligatoire",
 
  "_comment From Components Epk Input fepkMenu":"0 CHanges.",
  
@@ -889,7 +888,7 @@
 
 "Actor Dashboard": "Tableau de Bord des Acteurs",
 
- "View Actor Page": "Tableau de bord de l'acteur",
+"View Actor Page": "Tableau de Bord de L'acteur",
 
 "Add Image": "Ajouter une Image",
 
@@ -1112,7 +1111,7 @@
 
    "Browse...": "Parcourir...",
 
-   "No file selected": "Aucun fichier sélectionné",
+   "No file selected.": "Aucun fichier sélectionné.",
 
    "From The Festivals": "Des Fêtes",
 
@@ -1245,14 +1244,250 @@
 
    "Sounds": "Des Sons",
 
-   "Last Active": "Dernier Actif"
+   "Last Active": "Dernier Actif",
 
+   "RESOURCES NEEDED": "RESSOURCES NÉCESSAIRES",
 
+   "Search...": "Recherche",
 
+   "You don’t have any EPK following.": "Vous n’avez aucun EPK suivant.",
 
+   "You don’t have any EPK wish to buy.": "Vous n’avez aucun EPK que vous souhaitez acheter.",
+
+   "Cover - Mandotory": "Couverture - Obligatoire",
+
+   "Blur": "Se Brouiller",
+
+   "UnBlur": "Supprimer le Flou",
+
+   "Cast & Crew": "Casting et équipe",
+
+   "Add Cast & Crew members to your EPK!": "Ajoutez des membres Cast et équipe  à votre EPK !",
+
+   "Save to EPK": "Enregistrer dans EPK",
+
+   "(Film Buzz (Reviews & Awards)": "(Film Buzz (Critiques et Récompenses)",
+
+   "Production Type": "Type de Production",
+
+   "Production Budget": "Budget de Production",
+
+   "Lead Actor Name": "Nom de L'acteur Principal",
+
+   "Cinematographer's Name": "Nom du Directeur de la Photographie",
+
+   "Upload Image": "Télécharger une Image",
+
+   "Please type your message to the Filmmaker EPK Owner": "Veuillez taper votre message au propriétaire du cinéaste EPK",
+
+   "Represented by:": "Représenté par:",
+
+   "Current films by actor ": "Films actuels par acteur",
+
+   "Asian" : "Asiatique",
+
+   "Caucasian": "Caucasien",
+
+   "Hispanic": "Hispanique",
+
+   "Native": "Indigène",
+
+   "Nudity or Sexual Content": "Nudité ou Contenu Sexuel",
+
+   "Edit": "Modifier",
+
+   "Film marketing.": "Commercialisation cinématographique",
+
+   "Refined.": "Raffiné.",
+
+   "Promote your film to industry professionals with KinoKlik's free": "Faites la promotion de votre film auprès des professionnels de l'industrie avec le service gratuit de KinoKlik.",
+
+   "Electronic Press Kit": "Dossier de Presse électronique",
+
+   "software!": "logiciel!",
+
+   "Browse EPKs": "Parcourir les EPK",
+
+   "Create EPK": "CRÉER Un EPK",
+
+   "Présentation de KinoKlik EPK": "Présentation de KinoKlik EPK",
+
+   "a free film marketing software": "un logiciel de marketing cinématographique gratuit",
+
+   "What is an EPK?": "Qu’est-ce qu’un EPK ?",
+
+   " An EPK, or": "Un EPK, ou",
+
+   "is": "est",
+
+   " typically a PDF document displaying information about your film,": " généralement un document PDF affichant des informations sur votre film,",
+
+   " such as a poster, short, medium and long synopsis, cast and crew": " comme une affiche, un synopsis court, moyen et long, les acteurs et l'équipe",
+
+   " headshots and biographies, information to help film industry": " portraits et biographies, informations pour aider l'industrie cinématographique",
+
+   " professionals visualize the film you want to create.": " les professionnels visualisent le film que vous souhaitez créer.",
+
+   "It's now": "C'est maintenant",
+
+   "We now have KinoKlik EPK": "Nous avons maintenant KinoKlik EPK",
+
+   "software! For free!": "logiciel! Gratuitement!",
+
+   "Present your": "Présentez votre",
+
+   "like a pro to industry professionals with Headshots, Demo": "comme un pro aux professionnels de l'industrie avec des portraits, Démo",
+
+    " Reel, and more!": " Reel, et plus encore",
+
+   "Discover new films in their early stage to snatch up those": "Découvrez de nouveaux films à leurs débuts pour les récupérer",
+
+   " film rights before your competition!": "les droits du film avant votre compétition!",
+
+   "Your film's cast & crew social media audience is": "L'audience des réseaux sociaux des acteurs & de l'équipe de votre film est",
+
+   "automatically integrated": "automatiquement intégré",
+
+   "in your EPK to calculate and show your film's potential": "dans votre EPK pour calculer & montrer le potentiel de votre film",
+
+   "Total Audience Reach!": "Audience Totale Atteinte!",
+
+   "Display your entire social media audience": "Affichez l’intégralité de votre audience sur les réseaux sociaux",
+
+   "on your Actors Page!": "sur votre page Acteurs!",
+
+   "Track a film's": "Suivre un film",
+
+   " page to see the film's potential audience!": " page pour voir le public potentiel du film!",
+
+   "Introducing KinoKlik EPK": "Présentation de KinoKlik EPK",
+
+   "free film marketing software": "logiciel de marketing cinématographique gratuit",
+
+   "Protect your film's Intelectual Property": "Protégez la propriété intellectuelle de votre film",
+
+   "section you chose directly from your EPK dashboard.": "section que vous avez choisie directement depuis votre tableau de bord EPK.",
+
+   "by blurring out any": "en estompant tout",
+
+   "free film marketing software.": "logiciel de marketing cinématographique gratuit",
+
+   "Add unlimited Actors information to your film EPK in the Cast &": "Ajoutez des informations illimitées sur les acteurs à votre film EPK dans Castign &",
+
+   " Crew section.": " Section équipage.",
+
+   "Display unlimited film stills and posters!": "Affichez un nombre illimité de photos et d'affiches de films!",
+
+   "Control all information you display about your film directly from": "Contrôlez toutes les informations que vous affichez sur votre film directement depuis",
    
+   " your EPK Dashboard.": " votre Tableau de Bord EPK.",
 
+   "Take advantage of the views and traffic to tell people what you": "Profitez des vues et du trafic pour dire aux gens ce que vous",
 
+   " need for your film! You never know who has access to that red": " besoin de votre film ! On ne sait jamais qui a accès à ce rouge",
 
+   " Ferrari or hard-to-find rooftop infinity pool.": " Ferrari ou piscine à débordement sur le toit difficile à trouver.",
+
+   "Discover up-and-coming Actors eager to join your film project and": "Découvrez des acteurs prometteurs désireux de rejoindre votre projet de film et",
+
+   " add them to your EPK. Follow, Star and Recommend Actors to other": " ajoutez-les à votre EPK. Suivez, jouez et recommandez des acteurs à d'autres",
+
+   " filmmakers directly from their Actor Page!": " cinéastes directement depuis leur page acteur!",
+
+   "One KinoKlik account.": "Un compte KinoKlik.",
+
+   "All your films EPKs.": "Tous vos EPK de films.",
+
+   "Are you a Distributor, a Film Festival, Sales Agent": "Vous êtes Distributeur, Festival de Films, Agent Commercial",
+
+   " or Investor searching for new upcoming film projects?": " ou un investisseur à la recherche de nouveaux projets de films à venir?",
+
+   "NEW FILMS": "NOUVEAUX FILMS",
+
+   "MOST POPULAR": "LE PLUS POPULAIRE",
+
+   "Present and promote your film's vision to industry professionals": "Présentez et faites la promotion de la vision de votre film auprès des professionnels de l'industrie",
+
+   " with KinoKlik EPK.": " avec KinoKlik EPK.",
+
+   "Step 1.": "Étape 1.",
+
+   "Create a free filmmaker account.": "Créez un compte de cinéaste gratuit.",
+
+   "Step 2.": "Étape 2.",
+
+   "Upload your film details to the EPK Page": "Téléchargez les détails de votre film sur la page EPK",
+
+   "Step 3.": "Étape 3.",
+
+   "Share your film EPK page with the world and track interest!": "Partagez votre page EPK de film avec le monde entier et suivez votre intérêt!",
+   
+   "Are you ready to create": "Êtes-vous prêt à créer",
+   
+   "Amazing": "Incroyable",
+
+   "film EPKs?": "des EPK de films ?",
+
+   "Frequently Asked Questions:": "Questions fréquemment posées:",
+
+   "Sign up for newsletter": "S'inscrire aux bulletin",
+
+   "What if you could promote your film to the world, for free?": "Et si vous pouviez promouvoir votre film dans le monde entier, gratuitement?",
+
+   "Whether you have just an idea for a movie, shot the trailer, or": "Que vous ayez juste une idée de film, que vous ayez tourné la bande-annonce ou",
+
+   " your film's in the can, use our free": " votre film est en boîte, utilisez notre service gratuit",
+
+   "Electronic Press Kit Software": "Logiciel de dossier de presse électronique",
+
+   "to promote your film": "pour promouvoir votre film", 
+
+   "directly to industry professionals and your audience.": "directement aux professionnels du secteur et à votre public.",
+
+   "Title is available!": "Le titre est disponible!",
+
+   "You don’t have any EPK starred.": "Vous n’avez aucun EPK suivi.",
+
+   "This title is ok!": "Ce titre est bien!",
+
+   "Discover new film projects in their early stage and contact": "Découvrez de nouveaux projets de films à leurs débuts et contactez-nous",
+
+   " the filmmaker directly!": " le cinéaste directement!",
+
+   "Discover new film projects to invest in and contact the": "Découvrez de nouveaux projets de films dans lesquels investir et contactez le",
+
+   " filmmaker directly!": " cinéaste directement!",
+
+   "Discover new film projects to invite to your film festival and": "Découvrez de nouveaux projets de films à inviter à votre festival de cinéma et",
+
+   "message the filmmaker directly!": "envoyez un message directement au cinéaste!",
+
+   "Measure the industry's interest in your film by tracking your EPK page data!": "Mesurez l'intérêt de l'industrie pour votre film en suivant votre EPK données de page!",
+
+   "Present your film idea like a pro to industry professionals!": "Présentez votre idée de film comme un pro aux professionnels du secteur!",
+
+   "Allow industry professionals to recommend you to other filmmakers!": "Permettez aux professionnels du secteur de vous recommander à d’autres cinéastes!",
+
+   "See and monitor the industry interest in the films you follow!": "Voyez et surveillez l’intérêt de l’industrie pour les films que vous suivez!",
+
+   "What exactly is KinoKlik?": "Qu’est-ce que KinoKlik exactement?",
+
+   "KinoKlik is an film Electronic Press Kit software enabling filmmakers to display, present and promote their film ideas in a professional matter, entirely for free. In parallel, it allows producers, distributors, investors, actors and film fans to discover up and coming film projects at different stages of their production. The KinoKlik EPK software enables filmmakers to upload their film information from poster, to synopsis to cast & crew hired, and film stills to an online EPK page and share their EPK page with film industry professionals to maximize the film's visibility and discovery!": "KinoKlik est un logiciel de dossier de presse électronique permettant aux cinéastes d'afficher, de présenter et de promouvoir leurs idées de films de manière professionnelle et entièrement gratuite. En parallèle, il permet aux producteurs, distributeurs, investisseurs, acteurs et cinéphiles de découvrir les projets de films en devenir à différentes étapes de leur production. Le logiciel KinoKlik EPK permet aux cinéastes de télécharger les informations de leur film depuis l'affiche, le synopsis des acteurs et de l'équipe embauchés, ainsi que les images fixes du film sur une page EPK en ligne et de partager leur page EPK avec des professionnels de l'industrie cinématographique pour maximiser la visibilité et la découverte du film!",
+
+   "Is KinoKlik free to use?": "L'utilisation de KinoKlik est-elle gratuite?",
+
+   "KinoKlik EPK software is entirely free to use.": "Le logiciel KinoKlik EPK est entièrement gratuit.",
+
+   "What if my film is not finished?": "Et si mon film n'est pas terminé?",
+
+   "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK get discovered by other film industry professionals!": "Si votre idée de film est encore dans votre tête (ou sur papier), c'est le moment idéal pour créer le dossier de presse électronique de votre film et partager votre idée de film avec le monde. Vous avez juste besoin d'un titre et d'un court synopsis pour commencer et faire découvrir l'EPK de votre film par d'autres professionnels de l'industrie cinématographique!",
+
+   "How can I protect my film's Intellectual Property?": "Comment puis-je protéger la propriété intellectuelle de mon film?",
+
+   "Your-email@Example.com": "Votre-email@Example.com",
+
+   "You don’t have any EPK approved.": "Vous n’avez aucun EPK approuvé",
+
+   "You don’t have any EPK refused.": "Vous n’avez aucun EPK refusé."
 
 }
