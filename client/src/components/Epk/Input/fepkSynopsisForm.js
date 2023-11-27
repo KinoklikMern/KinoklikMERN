@@ -548,7 +548,7 @@ function SynopsisForm() {
                   )}
                 </div>
                 {message && (
-                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginBottom: "-5%" }}>
+                    <div className="message" style={{ color: "red", fontSize: "1rem", marginBottom: "-5%", marginLeft: "28%" }}>
                       {message}
                     </div>
                   )}

@@ -401,7 +401,7 @@ function ResourcesForm() {
                     </Button>
                   )}
                   {message && (
-                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "5%" }}>
+                    <div className="message" style={{ color: "red", fontSize: "0.9rem", marginTop: "5%" }}>
                       {message}
                     </div>
                   )}
