@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as SettingDefaultIcon } from "../../images/icons/Settings-full-white.svg";
 import { ReactComponent as SettingPurpleIcon } from "../../images/icons/Settings-full-purple.svg";
@@ -12,6 +12,7 @@ import { ReactComponent as NotificationsDefaultIcon } from "../../images/icons/b
 import { ReactComponent as NotificationsPurpleIcon } from "../../images/icons/bell-purple.svg";
 import { ReactComponent as MessagesDefaultIcon } from "../../images/icons/message-icon.svg";
 import { ReactComponent as MessagesPurpleIcon } from "../../images/icons/message-purple.svg";
+import { getUserById } from "../../api/user";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
@@ -27,6 +28,7 @@ export const SideProfileMenu = () => {
   const dispatch = useDispatch();
   const [hoveredMenu, setHoveredMenu] = useState("");
   const { user } = useSelector((user) => ({ ...user }));
+  const [picture, setPicture] = useState("");
 
   const {
     notificationCount,
@@ -109,12 +111,31 @@ export const SideProfileMenu = () => {
   // Filter menu based on display property
   const filteredMenuList = menuList.filter((menu) => menu.display);
 
-  const picture = user
-    ? user.picture ===
-      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-      ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-      : `${process.env.REACT_APP_AWS_URL}/${user.picture}`
-    : null;
+  // const picture = user
+  //   ? user.picture ===
+  //     "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+  //     ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
+  //     : `${process.env.REACT_APP_AWS_URL}/${user.picture}`
+  //   : null;
+
+  useEffect(() => {
+    if (user && user.id) {
+      getUserById(user.id)
+        .then((res) => {
+          console.log("User data:", res);
+          setPicture(
+            res.picture.startsWith("https")
+              ? `${res.picture}`
+              : `${process.env.REACT_APP_AWS_URL}/${res.picture}`
+          );
+        })
+        .catch((error) => {
+          console.error("Error fetching user:", error);
+        });
+    } else {
+      console.log("User ID not available");
+    }
+  }, [user]);
 
   const logout = () => {
     // const currentUser = Cookies.get("user")
