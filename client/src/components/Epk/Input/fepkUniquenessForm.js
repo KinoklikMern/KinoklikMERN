@@ -355,7 +355,7 @@ function UniquenessForm() {
                     <h3>{t("No Image")}</h3>
                   )}
                   {message && (
-                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginBottom: "-3%" }}>
+                    <div className="message" style={{ color: "red", fontSize: "1rem", marginBottom: "-3%" }}>
                       {message}
                     </div>
                   )}

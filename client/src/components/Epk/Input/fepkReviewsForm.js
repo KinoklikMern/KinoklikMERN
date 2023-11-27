@@ -390,7 +390,7 @@ function ReviewsForm() {
                     </Button>
                   )}
                   {message && (
-                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "5%", marginBottom: "-25%" }}>
+                    <div className="message" style={{ color: "red", fontSize: "0.9rem", marginTop: "5%", marginBottom: "-25%" }}>
                       {message}
                     </div>
                   )}

@@ -20,6 +20,7 @@ function FepkEditCoverForm() {
   const inputFile3Ref = useRef(null);
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
+  const [messageImg, setMessageImg] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
   const [fepk, setFepk] = useState([]);
@@ -307,7 +308,7 @@ function FepkEditCoverForm() {
             console.log(err);
           });
       } else {
-        setMessage(t("Oops! Please use JPEG, JPG, or PNG images."));
+        setMessageImg(t("Oops! Please use JPEG, JPG, or PNG images."));
         setIsUploading(false);
       }
     } else {
@@ -688,9 +689,9 @@ function FepkEditCoverForm() {
                     ) : (
                       <h3>{t("No Image")}</h3>
                     )}
-                    {message && (
-                      <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "10%" }}>
-                        {message}
+                    {messageImg && (
+                      <div className="message" style={{ color: "red", fontSize: "1rem", marginTop: "10%" }}>
+                        {messageImg}
                       </div>
                     )}
                   </div>

@@ -17,6 +17,7 @@ function FepkCoverForm() {
   const inputFile2Ref = useRef(null);
   const inputFile3Ref = useRef(null);
   const [message, setMessage] = useState("");
+  const [messageImg, setMessageImg] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
@@ -278,7 +279,7 @@ function FepkCoverForm() {
           });
         });
     } else {
-      setMessage(t("Oops! Please use JPEG, JPG, or PNG images.)"));
+      setMessageImg(t("Oops! Please use JPEG, JPG, or PNG images.)"));
     }
     setDisabled(true);
   };
@@ -639,9 +640,9 @@ function FepkCoverForm() {
                     ) : (
                       <h3>{t("No Image")}</h3>
                     )}
-                    {message && (
-                      <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "10%" }}>
-                        {message}
+                    {messageImg && (
+                      <div className="message" style={{ color: "red", fontSize: "1rem", marginTop: "10%" }}>
+                        {messageImg}
                       </div>
                     )}
                   </div>
@@ -717,7 +718,7 @@ function FepkCoverForm() {
               </div>
               <h6
                 style={{
-                  color: "#311465",
+                  color: "red",
                   fontSize: "1rem",
                   marginTop: "-5%",
                 }}
