@@ -307,7 +307,7 @@ function FepkEditCoverForm() {
             console.log(err);
           });
       } else {
-        setMessage(t("File must be an image (jpeg, jpg, or png)"));
+        setMessage(t("Oops! Please use JPEG, JPG, or PNG images."));
         setIsUploading(false);
       }
     } else {
@@ -634,11 +634,6 @@ function FepkEditCoverForm() {
                         />
                       </div>
                     </div>
-                    {message && (
-                      <div className="message" style={{ color: "red" }}>
-                        {message}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
@@ -692,6 +687,11 @@ function FepkEditCoverForm() {
                       />
                     ) : (
                       <h3>{t("No Image")}</h3>
+                    )}
+                    {message && (
+                      <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "10%" }}>
+                        {message}
+                      </div>
                     )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>

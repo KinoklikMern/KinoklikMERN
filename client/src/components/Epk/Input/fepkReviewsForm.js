@@ -133,7 +133,7 @@ function ReviewsForm() {
           addReviewToTable();
         }
       } else {
-        setMessage(t("File must be an image(jpeg, jpg or png)"));
+        setMessage(t("Oops! Please use JPEG, JPG, or PNG images."));
       }
     }
   }
@@ -390,7 +390,7 @@ function ReviewsForm() {
                     </Button>
                   )}
                   {message && (
-                    <div className="message" style={{ color: "red" }}>
+                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "5%", marginBottom: "-25%" }}>
                       {message}
                     </div>
                   )}

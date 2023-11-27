@@ -133,7 +133,7 @@ function ResourcesForm() {
           addResourceToTable();
         }
       } else {
-        setMessage(t("File must be a image(jpeg, jpg or png)"));
+        setMessage(t("Oops! Please use JPEG, JPG, or PNG images."));
       }
     }
   }
@@ -401,7 +401,7 @@ function ResourcesForm() {
                     </Button>
                   )}
                   {message && (
-                    <div className="message" style={{ color: "red" }}>
+                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "5%" }}>
                       {message}
                     </div>
                   )}

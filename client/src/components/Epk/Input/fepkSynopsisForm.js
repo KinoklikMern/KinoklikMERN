@@ -185,7 +185,7 @@ function SynopsisForm() {
       //     });
       // }
     } else {
-      setMessage(t("File must be a image(jpeg, jpg or png)"));
+      setMessage(t("Oops! Please use JPEG, JPG, or PNG images."));
     }
     setDisabled(true);
   };
@@ -547,6 +547,11 @@ function SynopsisForm() {
                     <h3>{t("No Image")}</h3>
                   )}
                 </div>
+                {message && (
+                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginBottom: "-5%" }}>
+                      {message}
+                    </div>
+                  )}
                 <div
                   style={{
                     height: "50px",
@@ -554,12 +559,7 @@ function SynopsisForm() {
                     marginLeft: "100%",
                     marginTop: "-15px",
                   }}
-                >
-                  {message && (
-                    <div className="message" style={{ color: "red" }}>
-                      {message}
-                    </div>
-                  )}
+                >                  
                   {disabled === true ? (
                     <Button
                       disabled
