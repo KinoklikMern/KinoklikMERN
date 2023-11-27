@@ -278,7 +278,7 @@ function FepkCoverForm() {
           });
         });
     } else {
-      setMessage(t("File must be a image(jpeg, jpg or png)"));
+      setMessage(t("Oops! Please use JPEG, JPG, or PNG images.)"));
     }
     setDisabled(true);
   };
@@ -639,6 +639,11 @@ function FepkCoverForm() {
                     ) : (
                       <h3>{t("No Image")}</h3>
                     )}
+                    {message && (
+                      <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "10%" }}>
+                        {message}
+                      </div>
+                    )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
                     <div className="row">
@@ -712,22 +717,13 @@ function FepkCoverForm() {
               </div>
               <h6
                 style={{
-                  color: "red",
-                  fontSize: "0.9rem",
-                  marginTop: "-10%",
+                  color: "#311465",
+                  fontSize: "1rem",
+                  marginTop: "-5%",
                 }}
               >
                 {submitMessage}
-              </h6>
-              <h6
-                style={{
-                  color: "red",
-                  fontSize: "0.9rem",
-                  marginTop: "-10%",
-                }}
-              >
-                {message}
-              </h6>
+              </h6>              
               <div
                 className="row"
                 style={{
