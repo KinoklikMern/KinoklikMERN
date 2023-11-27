@@ -37,7 +37,7 @@ function RegistrationForm() {
 
   const [role, setRole] = useState({
     
-    label: (t('An amazing and talented visionary filmmaker')),
+    label: t('An amazing and talented visionary filmmaker'),
     value: "Filmmaker",
     image: filmmakerIcon,
   });
@@ -92,7 +92,7 @@ function RegistrationForm() {
       return;
     }
     if (agreeToTerms === false) {
-      setError("Please check the user agreement option!");
+      setError(t("Please check the user agreement option!"));
       return;
     }
 

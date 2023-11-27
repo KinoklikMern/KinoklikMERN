@@ -1,7 +1,9 @@
 import React from "react";
 import dashboard from "../../images/dashBoard.png";
+import {useTranslation} from 'react-i18next';
 
 const Landing52 = () => {
+  const { t } = useTranslation();
   return (
     <div className=' landing5  bg-midnight pb-20'>
       <div className='bg-midnight grid lg:grid-cols-2 2xl:grid-cols-5'>
@@ -13,26 +15,26 @@ const Landing52 = () => {
               alt='Movies'
             />
             <h1 className='mt-6 text-2xl font-bold text-white-900 sm:mt-8 sm:text-3xl lg:text-4xl xl:text-5xl'>
-              What if you could promote your film to the world, for free?
+              {t("What if you could promote your film to the world, for free?")}
             </h1>
             <h4 className='mt-2  text-white text-justify sm:mt-4 sm:text-xl'>
-              Whether you have just an idea for a movie, shot the trailer, or
-              your film's in the can, use our free
-              <b> Electronic Press Kit Software</b> to promote your film
-              directly to industry professionals and your audience.
+            {t("Whether you have just an idea for a movie, shot the trailer, or")}
+              {t(" your film's in the can, use our free")}
+              <b>  {t("Electronic Press Kit Software")}</b>  {t("to promote your film")}
+               {t("directly to industry professionals and your audience.")}
             </h4>
             <div className='mt-4 sm:mt-6 grid-cols-2'>
               <a
                 className='inline-block px-4 py-2 rounded-lg bg-white hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none  tracking-wider font-bold text-xl text-midnight shadow-lg sm:text-base mr-4'
                 href='/'
               >
-                Create EPK
+                {t("Create EPK")}
               </a>
               <a
                 className='inline-block px-4 py-2 rounded-lg bg-violet-800 hover:bg-violet-600 hover:-translate-y-0.5 focus:outline-none tracking-wider font-bold text-xl text-white shadow-lg sm:text-base'
                 href='/'
               >
-                Browse EPKs
+                {t("Browse EPKs")}
               </a>
             </div>
           </div>

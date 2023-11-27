@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import http from "../../http-common";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import {useTranslation} from 'react-i18next';
 
 const Landing8 = () => {
+  const { t } = useTranslation();
   // const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((user) => ({ ...user }));
@@ -44,11 +46,11 @@ const Landing8 = () => {
     <>
       <div className='tw-overflow-hidden tw-bg-gradient-to-t tw-from-white tw-to-midnight'>
         <h1 className='tw-py-28 tw-text-center tw-text-xl tw-font-bold tw-text-white md:tw-text-2xl lg:tw-text-3xl xl:tw-text-4xl'>
-          Are you a Distributor, a Film Festival, Sales Agent <br />
-          or Investor searching for new upcoming film projects?
+          {t("Are you a Distributor, a Film Festival, Sales Agent")} <br />
+          {t(" or Investor searching for new upcoming film projects?")}
         </h1>
         <h2 className='tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl'>
-          NEW FILMS
+          {t("NEW FILMS")}
         </h2>
         <div className='slide-right-left tw-my-6 tw-flex tw-gap-5'>
           {fepksNew.map((item) => (
@@ -68,7 +70,7 @@ const Landing8 = () => {
         </div>
 
         <h2 className='tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl'>
-          MOST POPULAR
+          {t("MOST POPULAR")}
         </h2>
         <div className='slide-left-right tw-my-6 tw-flex tw-gap-5'>
           {fepksPopular.map((item) => (
@@ -91,7 +93,7 @@ const Landing8 = () => {
             className='tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-midnight tw-px-4 tw-py-2 tw-text-xl tw-font-bold  tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5  hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base'
             href='/catalog'
           >
-            Browse EPKs
+            {t("Browse EPKs")}
           </a>
         </div>
       </div>

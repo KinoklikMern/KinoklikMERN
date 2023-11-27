@@ -129,7 +129,7 @@ const CinematographerForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Cinematographer's Name"
+                  placeholder={t("Cinematographer's Name")}
                   onChange={handleName}
                 />
                 <input

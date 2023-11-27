@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import {useTranslation} from 'react-i18next';
 
 export default function SingleQuestion({ question, answer }) {
+  const { t } = useTranslation();
   const [showAnswer, setShowAnswer] = useState(false);
 
   return (
@@ -13,7 +15,7 @@ export default function SingleQuestion({ question, answer }) {
             onClick={() => setShowAnswer(!showAnswer)}
             className='   tw-cursor-pointer  tw-font-semibold  tw-text-white sm:tw-text-xl lg:tw-text-3xl'
           >
-            {question}
+            {t(question)}
             &nbsp;&nbsp;&nbsp;
             {showAnswer ? (
               <button className='tw-bg-transparent'>
@@ -30,7 +32,7 @@ export default function SingleQuestion({ question, answer }) {
           </h2>
         </div>
         <div className='sm:tw-text-l tw-py-4  tw-text-justify tw-text-white lg:tw-text-xl'>
-          {showAnswer && <p>{answer}</p>}
+          {showAnswer && <p>{t(answer)}</p>}
         </div>
       </div>
     </>

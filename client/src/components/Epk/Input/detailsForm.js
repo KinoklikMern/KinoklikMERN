@@ -176,7 +176,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Directed By:"
+                  placeholder={t("Directed By:")}
                   onChange={(event) => {
                     setDirector(event.target.value);
                   }}
@@ -191,7 +191,7 @@ const DetailsForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Produced By:"
+                  placeholder={t("Produced By:")}
                   onChange={(event) => {
                     setProducer(event.target.value);
                   }}

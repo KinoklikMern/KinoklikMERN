@@ -187,7 +187,7 @@ const UniquenessForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Title"
+                  placeholder={t("Title")}
                   onChange={(event) => {
                     setUniqueness2Title(event.target.value);
                   }}

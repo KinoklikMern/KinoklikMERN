@@ -28,7 +28,7 @@ export default function UploadActorPic({ user }) {
   const [textareaValue, setTextareaValue] = useState(user.aboutMe);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState("");
-  const [characterLength, setCharacterLength] = useState(0);
+  // const [characterLength, setCharacterLength] = useState(0);
   // States for each image preview before saving
   const [previewImage1, setPreviewImage1] = useState(null);
   const [previewImage2, setPreviewImage2] = useState(null);
@@ -161,10 +161,9 @@ export default function UploadActorPic({ user }) {
       setActor(response.data);
       setProfs(response.data.profiles);
       setTextareaValue(response.data.aboutMe);
-      // ----- CHIHYIN -------
       if (response.data.aboutMe) {
         setTextareaValue(response.data.aboutMe);
-        setCharacterLength(response.data.aboutMe.length);
+        // setCharacterLength(response.data.aboutMe.length);
       }
       setActorData({
         bannerImg: response.data.bannerImg,
@@ -183,10 +182,10 @@ export default function UploadActorPic({ user }) {
     aboutMe: actor.aboutMe,
   });
 
-  const handleCount = (event) => {
-    const value = event.target.value;
-    setCharacterLength(value.length);
-  };
+  // const handleCount = (event) => {
+  //   const value = event.target.value;
+  //   setCharacterLength(value.length);
+  // };
 
   const checkFileMimeType = (file) => {
     const allowedMIMETypes = [
@@ -255,7 +254,9 @@ export default function UploadActorPic({ user }) {
       const thumbnailBlob = dataURLtoBlob(thumbnailImage);
       if (!thumbnailBlob) {
         console.error("Failed to create blob from data URL.");
-        setMessage(t("An error occurred while processing the thumbnail image."));
+        setMessage(
+          t("An error occurred while processing the thumbnail image.")
+        );
         return; // Stop the execution of the function here
       }
       formDataThumbnail = new FormData();
@@ -627,14 +628,14 @@ export default function UploadActorPic({ user }) {
       <div className="actor-dashbaord-about">
         <textarea
           className="actor-dash-textarea"
-          maxLength="500"
+          // maxLength="500"
           value={textareaValue}
           onChange={(e) => {
             setTextareaValue(e.target.value);
-            handleCount(e);
+            // handleCount(e);
           }}
         ></textarea>
-        <span
+        {/* <span
           style={{
             fontSize: "15px",
             display: "flex",
@@ -644,7 +645,7 @@ export default function UploadActorPic({ user }) {
         >
           {characterLength}
           {t("/500 characters")}
-        </span>
+        </span> */}
       </div>
       <div>
         <Modal
@@ -678,10 +679,10 @@ export default function UploadActorPic({ user }) {
               </div>
             ) : (
               <> */}
-            <h2>{t('Updated successfully!')}</h2>
+            <h2>{t("Updated successfully!")}</h2>
             <br />
             <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              Ok
+              {t("Ok")}
             </button>
             {/* </>
             )} */}

@@ -57,7 +57,7 @@ function LoginForm() {
       setError(t("Please provide both email and password."));
       return;
     }
-    console.log(email, password);
+    //console.log(email, password);
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/users/login`,
@@ -67,8 +67,12 @@ function LoginForm() {
         }
       );
 
-      console.log("data", data);
-      http.get(`/users/lastactive/${data.id}`); //Update last active time
+      //console.log("data", data);
+
+      //Update last active time
+      http.put(`/users/lastactive/${data.id}`).catch((error) => {
+        console.log(error);
+      });
 
       // let userId;
       // if (data.user && data.user.id) {

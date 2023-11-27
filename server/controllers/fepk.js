@@ -19,6 +19,7 @@ export const getFepks = async (req, res) => {
       .populate("stillsApproval")
       .populate("reports.user")
       // .populate("requests.user")
+      .sort({ createdAt: -1 })
       .where("deleted")
       .equals(false);
     res.status(200).json(fepks);
@@ -166,10 +167,10 @@ export const getFepkByTitle = async (req, res) => {
       .populate("reports.user")
       .where("deleted")
       .equals(false);
-    res.status(200).json(fepkOne);
     if (!fepkOne) {
       return res.status(404).json({ message: "FEPK not found" });
     }
+    res.status(200).json(fepkOne);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

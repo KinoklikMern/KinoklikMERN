@@ -11,7 +11,7 @@
 
 .actor-dash-textarea {
   width: 100%;
-  height: 100%;
+  height: 120%;
   outline: none;
   border: none;
 }
@@ -23,6 +23,7 @@
   align-items: center;
   justify-content: flex-end;
   padding: 0px 50px;
+  margin-top: -5%;
 }
 
 .upload-actor-prof-btn-save1 {
@@ -90,7 +91,7 @@
 
 .actor-dashbaord-about {
   width: 95%;
-  height: 15vh;
+  height: 18vh;
   box-shadow: 0px 0px 5px 2px purple;
   padding: 20px;
   text-align: center;

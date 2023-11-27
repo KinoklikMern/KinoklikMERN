@@ -204,7 +204,7 @@ const ReviewForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Film Review Text Here."
+                  placeholder={("Film Review Text Here.")}
                   onChange={(event) => {
                     setReview3Review(event.target.value);
                   }}
@@ -236,7 +236,7 @@ const ReviewForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Film Review Text Here."
+                  placeholder={("Film Review Text Here.")}
                   onChange={(event) => {
                     setReview4Review(event.target.value);
                   }}

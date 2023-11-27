@@ -128,7 +128,7 @@ const ProducerForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Producer's Name"
+                  placeholder={t("Producer's Name")}
                   onChange={handleName}
                 />
                 <input
@@ -153,7 +153,7 @@ const ProducerForm = () => {
                     marginBottom: "5px",
                     boxShadow: "1px 2px 9px #311465",
                   }}
-                  placeholder="Enter Producer's Biography here."
+                  placeholder={t("Enter Producer's Biography here.")}
                   onChange={handleBiography}
                 />
                 <UploadFile setImage={setImage} />
