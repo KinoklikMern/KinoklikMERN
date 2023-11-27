@@ -20,12 +20,12 @@ export const optionsMain = [
 
   {
     
-    label: "An amazing and talented visionary filmmaker",
+    label: ("An amazing and talented visionary filmmaker"),
     value: "Filmmaker",
     image: filmmakerIcon,
   },
   {
-    label: "A talented and passionate actor (and future star)",
+    label: ("A talented and passionate actor (and future star)"),
     value: "Actor",
     image: actorIcon,
   },
@@ -33,52 +33,52 @@ export const optionsMain = [
 
 export const optionsSecondary = [
   {
-    label: "Sales_Agent",
+    label: ("Sales Agent"),
     value: "Sales Agent",
     image: salesAgentIcon,
   },
   {
-    label: "Film_Festival",
+    label: ("Film Festival"),
     value: "Film Festival",
     image: festivalIcon,
   },
   {
-    label: "Investor",
+    label: ("Investor"),
     value: "Investor",
     image: investorIcon,
   },
   {
-    label: "Viewer",
+    label: ("Viewer"),
     value: "Viewer",
     image: viewerIcon,
   },
   {
-    label: "Producer",
+    label: ("Producer"),
     value: "Producer",
     image: producerIcon,
   },
   {
-    label: "Editor",
+    label: ("Editor"),
     value: "Editor",
     image: editorIcon,
   },
   {
-    label: "Writer",
+    label: ("Writer"),
     value: "Writer",
     image: writerIcon,
   },
   {
-    label: "Sound",
+    label: ("Sound"),
     value: "Sound",
     image: soundIcon,
   },
   {
-    label: "Cinematographer",
+    label: ("Cinematographer"),
     value: "Cinematographer",
     image: cinematographerIcon,
   },
   {
-    label: "Distributor",
+    label: ("Distributor"),
     value: "Distributor",
     image: distributorIcon,
   },
@@ -107,7 +107,7 @@ function RoleChoise({ role, setRole }) {
                 value={option.value}
                 onClick={(e) =>
                   setRole({
-                    label: option.label,
+                    label: t(option.label),
                     value: option.value,
                     image: option.image,
                   })
@@ -140,7 +140,7 @@ function RoleChoise({ role, setRole }) {
                     value={option.value}
                     onClick={(e) =>
                       setRole({
-                        label: option.label,
+                        label: t(option.label),
                         value: option.value,
                         image: option.image,
                       })

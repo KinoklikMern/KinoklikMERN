@@ -53,3 +53,20 @@ export const resendEmailVerificationToken = async (userId) => {
     return { error: error.message || error };
   }
 };
+
+export const getUserById = (userId) => {
+  return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`, {
+    method: "GET",
+  })
+    .then((res) => {
+      if (!res.ok) {
+        // If the response is not ok, throw an error
+        throw new Error(`HTTP error status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .catch((error) => {
+      console.error("Error fetching user:", error.message);
+      throw error; // Re-throw the error if you need to handle it later
+    });
+};

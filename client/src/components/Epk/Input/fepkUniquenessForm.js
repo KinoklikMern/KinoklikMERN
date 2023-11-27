@@ -34,6 +34,7 @@ function UniquenessForm() {
     setDisabled(false);
     const url = URL.createObjectURL(fileNew);
     setPicturerPreviewUrlPreviewUrl(url);
+    setMessage("");
   };
 
   useEffect(() => {
@@ -169,25 +170,25 @@ function UniquenessForm() {
         }}
       >
         <div
-          className='row'
+          className="row"
           style={{
             background:
               "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
           }}
         >
-          <div className='col-1'>
-            <Link className='navbar-brand text-headers-style' to='/home'>
+          <div className="col-1">
+            <Link className="navbar-brand text-headers-style" to="/home">
               <img
                 style={{ width: "100%", height: "80px" }}
                 src={require("../../../images/logo.png")}
-                alt='Logo'
-                className='navbar-logo'
+                alt="Logo"
+                className="navbar-logo"
               />
             </Link>
           </div>
-          <div className='col-3  m-3'>
+          <div className="col-3  m-3">
             <h2
-              className='col align-items-start'
+              className="col align-items-start"
               style={{
                 color: "#FFFFFF",
                 fontWeight: "normal",
@@ -197,13 +198,13 @@ function UniquenessForm() {
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className='col-3 m-3'>
-            <BasicMenu color='#FFFFFF' />
+          <div className="col-3 m-3">
+            <BasicMenu color="#FFFFFF" />
           </div>
-          <div className='col-1 m-3'></div>
-          <div className='col-2 m-3'>
+          <div className="col-1 m-3"></div>
+          <div className="col-2 m-3">
             <Link
-              className='col align-items-end'
+              className="col align-items-end"
               to={`/epk/${fepk.title}`}
               style={{
                 color: "#FFFFFF",
@@ -224,16 +225,16 @@ function UniquenessForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ height: "500px" }}>
+          <div className="card-body" style={{ height: "500px" }}>
             <h5
-              className='card-title '
+              className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
               {t("Uniqueness")}
             </h5>
-            <form className='row g-3'>
-              <div className='col ms-'>
-                <div className='col my-1'>
+            <form className="row g-3">
+              <div className="col ms-">
+                <div className="col my-1">
                   <input
                     style={{
                       height: "30px",
@@ -243,11 +244,11 @@ function UniquenessForm() {
                       boxShadow: "1px 2px 9px #311465",
                       textAlign: "left",
                     }}
-                    className='form-control m-10'
+                    className="form-control m-10"
                     defaultValue={fepk.title_uniqueness}
-                    placeholder='Title'
+                    placeholder={t("Title")}
                     onChange={handleUniquenessChange}
-                    name='title_uniqueness'
+                    name="title_uniqueness"
                   />
                   {/* </div>
                    <div className="col my-3"></div> 
@@ -265,12 +266,12 @@ function UniquenessForm() {
                       textAlign: "left",
                       resize: "none",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.description_uniqueness}
                     placeholder={t("Description (maximum 500 characters)")}
                     onChange={handleUniquenessChange}
-                    name='description_uniqueness'
-                    maxLength='500'
+                    name="description_uniqueness"
+                    maxLength="500"
                   />
                   <span
                     style={{
@@ -284,16 +285,16 @@ function UniquenessForm() {
                   </span>
                 </div>
 
-                <div className='col d-grid gap-2 d-md-flex justify-content-md-end'>
+                <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                   <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                     style={{
                       height: "30px",
                       width: "120px",
                       boxShadow: "1px 2px 9px #311465",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={() =>
                       handleUniquenessBlurChange(
@@ -301,17 +302,17 @@ function UniquenessForm() {
                         "uniqueness_blur"
                       )
                     }
-                    name='text_long_blur'
+                    name="text_long_blur"
                   >
                     {epkUniquenessData.uniqueness_blur ? "UnBlur" : "Blur"}
                   </Button>
                 </div>
                 {/* <div className="col my-3"></div> */}
 
-                <div className='col mt-1'>
+                <div className="col mt-1">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
@@ -319,14 +320,14 @@ function UniquenessForm() {
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={file}
                     onChange={fileSelected}
                     ref={inputFileRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {picturePreviewUrl ? (
                     <img
@@ -337,7 +338,7 @@ function UniquenessForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Picture Preview'
+                      alt="Picture Preview"
                     />
                   ) : fepk.image_uniqueness ? (
                     <img
@@ -348,10 +349,15 @@ function UniquenessForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Picture'
+                      alt="Picture"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
+                  )}
+                  {message && (
+                    <div className="message" style={{ color: "red" }}>
+                      {message}
+                    </div>
                   )}
                 </div>
               </div>
@@ -372,24 +378,24 @@ function UniquenessForm() {
                       backgroundColor: "#ffffff",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={saveEpkUniqueness}
-                    value='save'
+                    value="save"
                   >
                     {t("Save")}
                   </Button>
                 ) : (
                   <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                     style={{
                       boxShadow: "1px 2px 9px #311465",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={saveEpkUniqueness}
-                    value='save'
+                    value="save"
                   >
                     {t("Save")}
                   </Button>
@@ -397,7 +403,7 @@ function UniquenessForm() {
                 <Modal
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
-                  contentLabel='Example Modal'
+                  contentLabel="Example Modal"
                   appElement={document.getElementById("root")}
                   style={{
                     overlay: {
@@ -421,7 +427,7 @@ function UniquenessForm() {
                     {"Uniqueness Saved Successfully!"}
                     <br />
                     <button
-                      className='btn btn-secondary btn-sm'
+                      className="btn btn-secondary btn-sm"
                       onClick={closeModal}
                     >
                       {t("Ok")}

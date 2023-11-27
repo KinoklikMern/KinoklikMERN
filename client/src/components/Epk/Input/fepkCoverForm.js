@@ -38,6 +38,8 @@ function FepkCoverForm() {
     setFile1(file);
     const url = URL.createObjectURL(file);
     setBannerPreviewUrl(url);
+    setMessage("");
+    setDisabled(false);
   };
   // trailer
   const file2Selected = (event) => {
@@ -52,6 +54,8 @@ function FepkCoverForm() {
     setFile3(file);
     const url = URL.createObjectURL(file);
     setPosterPreviewUrl(url);
+    setMessage("");
+    setDisabled(false);
   };
 
   const [epkCoverData, setEpkCoverData] = useState({
@@ -116,9 +120,9 @@ function FepkCoverForm() {
     t("mockumentary"),
   ];
 
-  const movieStatus = ["Preproduction", "Production", "Postproduction"];
+  const movieStatus = [t("Preproduction"), "Production", t("Postproduction")];
 
-  const movieType = ["Movie", "Documentary", "TV Show", "Web Series"];
+  const movieType = [t("Movie"), t("Documentary"), t("TV Show"), t("Web Series")];
 
   const budgetRanges = [
     "0$ - 5,000$",
@@ -223,7 +227,7 @@ function FepkCoverForm() {
     let titleLoglineMessage = "";
     let genreStatusMessage = "";
     if (!epkCoverData.title || !epkCoverData.logLine_short) {
-      titleLoglineMessage = (t(" Title and Log Line needed."));
+      titleLoglineMessage = t(" Title and Log Line needed.");
     }
     if (
       !epkCoverData.production_type ||
@@ -274,7 +278,7 @@ function FepkCoverForm() {
           });
         });
     } else {
-      setMessage(t("File must be a image(jpeg or png)"));
+      setMessage(t("File must be a image(jpeg, jpg or png)"));
     }
     setDisabled(true);
   };
@@ -291,8 +295,8 @@ function FepkCoverForm() {
           backgroundColor: "white",
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
-          <div className='col-3 tw-m-3'>
+        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
+          <div className="col-3 tw-m-3">
             {/* <Link className='navbar-brand text-headers-style' to='/home'>
               <img
                 style={{ width: "100%", height: "80px" }}
@@ -302,7 +306,7 @@ function FepkCoverForm() {
               />
             </Link> */}
             <h5
-              className='card-title'
+              className="card-title"
               style={{
                 color: "#1E0039",
                 fontWeight: "bold",
@@ -312,16 +316,16 @@ function FepkCoverForm() {
               {t("Cover - Mandotory")}
             </h5>
           </div>
-          <div className='col-3 tw-m-3'>
+          <div className="col-3 tw-m-3">
             <h1
               style={{ color: "#1E0039", fontWeight: "bold", fontSize: "25px" }}
             >
               {t("EPK Page Upload")}
             </h1>
           </div>
-          <div className='col-3 tw-m-3'>
+          <div className="col-3 tw-m-3">
             <Link
-              to='/filmMakerDashboard'
+              to="/filmMakerDashboard"
               style={{
                 color: "#1E0039",
                 textDecoration: "none",
@@ -342,7 +346,7 @@ function FepkCoverForm() {
           }}
         >
           <div
-            className='card-body'
+            className="card-body"
             style={{
               height: "auto",
               marginLeft: "-1em",
@@ -351,11 +355,11 @@ function FepkCoverForm() {
               paddingBottom: "2%",
             }}
           >
-            <form className='row g-5'>
-              <div className='col me-5'>
-                <div className='row align-items-stretch'>
-                  <div className='col'>
-                    <div className='col mt-1 mb-5'>
+            <form className="row g-5">
+              <div className="col me-5">
+                <div className="row align-items-stretch">
+                  <div className="col">
+                    <div className="col mt-1 mb-5">
                       <input
                         style={{
                           height: "30px",
@@ -365,11 +369,11 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                           textAlign: "left",
                         }}
-                        className='form-control m-10'
+                        className="form-control m-10"
                         placeholder={t("Title")}
                         onChange={handleInputChange}
                         value={epkCoverData.title}
-                        name='title'
+                        name="title"
                       />
                       <h6 style={{ color: "red", fontSize: "1rem" }}>
                         {messageTitleNo}
@@ -378,7 +382,7 @@ function FepkCoverForm() {
                         {messageTitleYes}
                       </h6>
                     </div>
-                    <div className='col my-1'>
+                    <div className="col my-1">
                       <textarea
                         style={{
                           height: "80px",
@@ -389,14 +393,14 @@ function FepkCoverForm() {
                           textAlign: "left",
                           resize: "none",
                         }}
-                        maxLength='160'
-                        className='form-control mt-10'
+                        maxLength="160"
+                        className="form-control mt-10"
                         placeholder={t(
                           "Log Line short (maximum 160 characters)"
                         )}
                         onChange={handleInputChange}
                         value={epkCoverData.logLine_short}
-                        name='logLine_short'
+                        name="logLine_short"
                       />
                       <span
                         style={{
@@ -410,8 +414,8 @@ function FepkCoverForm() {
                         {t("/160 characters")}
                       </span>
                     </div>
-                    <div className='row' style={{ marginBottom: "-1.4rem" }}>
-                      <div className='col my-2'>
+                    <div className="row" style={{ marginBottom: "-1.4rem" }}>
+                      <div className="col my-2">
                         <input
                           style={{
                             height: "30px",
@@ -421,16 +425,16 @@ function FepkCoverForm() {
                             textAlign: "left",
                             fontSize: "14px",
                           }}
-                          className='form-control m-10 mb-4'
+                          className="form-control m-10 mb-4"
                           placeholder={t("Production Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.productionCo}
-                          name='productionCo'
+                          name="productionCo"
                         />
                       </div>
                     </div>
-                    <div className='row'>
-                      <div className='col my-2'>
+                    <div className="row">
+                      <div className="col my-2">
                         <input
                           style={{
                             height: "30px",
@@ -440,18 +444,18 @@ function FepkCoverForm() {
                             textAlign: "left",
                             fontSize: "14px",
                           }}
-                          className='form-control m-10 '
+                          className="form-control m-10 "
                           placeholder={t("Distribution Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.distributionCo}
-                          name='distributionCo'
+                          name="distributionCo"
                         />
                       </div>
                     </div>
                   </div>
-                  <div className='col'>
-                    <div className='row'>
-                      <div className='col my-2'>
+                  <div className="col">
+                    <div className="row">
+                      <div className="col my-2">
                         <select
                           style={{
                             height: "30px",
@@ -460,12 +464,12 @@ function FepkCoverForm() {
                             marginBottom: "5px",
                             boxShadow: "1px 2px 9px #311465",
                           }}
-                          className='form-select form-select-sm '
-                          name='budget'
+                          className="form-select form-select-sm "
+                          name="budget"
                           onChange={handleInputChange}
                           value={epkCoverData.budget}
                         >
-                          <option value='' disabled>
+                          <option value="" disabled>
                             {t("Production Budget")}
                           </option>
                           {budgetRanges.map((budget) => (
@@ -476,8 +480,8 @@ function FepkCoverForm() {
                         </select>
                       </div>
                     </div>
-                    <div className='row'>
-                      <div className='col my-2'>
+                    <div className="row">
+                      <div className="col my-2">
                         <select
                           style={{
                             height: "30px",
@@ -486,12 +490,12 @@ function FepkCoverForm() {
                             marginBottom: "5px",
                             boxShadow: "1px 2px 9px #311465",
                           }}
-                          className='form-select form-select-sm '
+                          className="form-select form-select-sm "
                           name={t("production_type")}
                           onChange={handleInputChange}
                           value={epkCoverData.production_type}
                         >
-                          <option value='' disabled>
+                          <option value="" disabled>
                             {t("Production Type")}
                           </option>
                           {movieType.map((type) => (
@@ -502,8 +506,8 @@ function FepkCoverForm() {
                         </select>
                       </div>
                     </div>
-                    <div className='row' style={{ marginBottom: "3rem" }}>
-                      <div className='col my-2'>
+                    <div className="row" style={{ marginBottom: "3rem" }}>
+                      <div className="col my-2">
                         <select
                           style={{
                             height: "30px",
@@ -512,12 +516,12 @@ function FepkCoverForm() {
                             marginBottom: "5px",
                             boxShadow: "1px 2px 9px #311465",
                           }}
-                          className='form-select form-select-sm '
-                          name='genre'
+                          className="form-select form-select-sm "
+                          name="genre"
                           onChange={handleInputChange}
                           value={epkCoverData.genre}
                         >
-                          <option value='' disabled>
+                          <option value="" disabled>
                             {t("Genre")}
                           </option>
                           {movieGenre.map((genre) => (
@@ -527,7 +531,7 @@ function FepkCoverForm() {
                           ))}
                         </select>
                       </div>
-                      <div className='col my-2'>
+                      <div className="col my-2">
                         <select
                           style={{
                             height: "30px",
@@ -536,12 +540,12 @@ function FepkCoverForm() {
                             marginBottom: "5px",
                             boxShadow: "1px 2px 9px #311465",
                           }}
-                          className='form-select form-select-sm '
-                          name='status'
+                          className="form-select form-select-sm "
+                          name="status"
                           onChange={handleInputChange}
                           value={epkCoverData.status}
                         >
-                          <option value='' disabled>
+                          <option value="" disabled>
                             {t("Status")}
                           </option>
                           {movieStatus.map((status) => (
@@ -552,8 +556,8 @@ function FepkCoverForm() {
                         </select>
                       </div>
                     </div>
-                    <div className='row'>
-                      <div className='col my-2'>
+                    <div className="row">
+                      <div className="col my-2">
                         <input
                           style={{
                             height: "30px",
@@ -563,17 +567,17 @@ function FepkCoverForm() {
                             textAlign: "left",
                             fontSize: "14px",
                           }}
-                          className='form-control'
-                          type='number'
-                          min='1895'
+                          className="form-control"
+                          type="number"
+                          min="1895"
                           placeholder={t("Production Year")}
                           onChange={handleInputChange}
-                          name='productionYear'
+                          name="productionYear"
                         />
                       </div>
                     </div>
-                    <div className='row'>
-                      <div className='col my-2'>
+                    <div className="row">
+                      <div className="col my-2">
                         <input
                           style={{
                             height: "30px",
@@ -583,12 +587,12 @@ function FepkCoverForm() {
                             textAlign: "left",
                             fontSize: "14px",
                           }}
-                          type='number'
-                          min='0'
-                          className='form-control m-10'
+                          type="number"
+                          min="0"
+                          className="form-control m-10"
                           placeholder={t("Duration Minutes")}
                           onChange={handleInputChange}
-                          name='durationMin'
+                          name="durationMin"
                         />
                       </div>
                     </div>
@@ -596,31 +600,31 @@ function FepkCoverForm() {
                 </div>
               </div>
               <div
-                className='col'
+                className="col"
                 style={{
                   boxShadow: "1px 2px 9px #311465",
                   borderRadius: "5px",
                 }}
               >
-                <div className='row gx-6'>
-                  <div className='col'>
+                <div className="row gx-6">
+                  <div className="col">
                     <label
-                      htmlFor='filePoster'
-                      className='form-label text-dark'
+                      htmlFor="filePoster"
+                      className="form-label text-dark"
                       style={{ fontSize: "25px" }}
                     >
                       <h4>{t("Upload Poster")}</h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
-                      className='form-control form-control-sm'
+                      className="form-control form-control-sm"
                       filename={file3}
                       onChange={file3Selected}
                       ref={inputFile3Ref}
-                      type='file'
-                      id='filePoster'
-                      name='files'
-                      accept='image/*'
+                      type="file"
+                      id="filePoster"
+                      name="files"
+                      accept="image/*"
                     ></input>
                     {posterPreviewUrl ? (
                       <img
@@ -630,32 +634,32 @@ function FepkCoverForm() {
                           width: "auto",
                           marginTop: "5px",
                         }}
-                        alt='Preview'
+                        alt="Preview"
                       />
                     ) : (
                       <h3>{t("No Image")}</h3>
                     )}
                   </div>
-                  <div className='col' style={{ height: "450px" }}>
-                    <div className='row'>
-                      <div className='col'>
+                  <div className="col" style={{ height: "450px" }}>
+                    <div className="row">
+                      <div className="col">
                         <label
-                          htmlFor='fileBanner'
-                          className='form-label text-dark'
+                          htmlFor="fileBanner"
+                          className="form-label text-dark"
                           style={{ fontSize: "25px" }}
                         >
                           <h4>{t("Upload Banner")}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
-                          className='form-control form-control-sm'
+                          className="form-control form-control-sm"
                           filename={file1}
                           onChange={file1Selected}
                           ref={inputFile1Ref}
-                          type='file'
-                          id='fileBanner'
-                          name='files'
-                          accept='image/*'
+                          type="file"
+                          id="fileBanner"
+                          name="files"
+                          accept="image/*"
                         ></input>
                         {bannerPreviewUrl ? (
                           <img
@@ -665,32 +669,32 @@ function FepkCoverForm() {
                               width: "auto",
                               marginTop: "5px",
                             }}
-                            alt='Preview'
+                            alt="Preview"
                           />
                         ) : (
                           <h3>{t("No Image")}</h3>
                         )}
                       </div>
                     </div>
-                    <div className='row'>
-                      <div className='col'>
+                    <div className="row">
+                      <div className="col">
                         <label
-                          htmlFor='fileTrailer'
-                          className='form-label text-dark'
+                          htmlFor="fileTrailer"
+                          className="form-label text-dark"
                           style={{ fontSize: "25px" }}
                         >
                           <h4>{t("Upload Trailer")}</h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
-                          className='form-control form-control-sm'
+                          className="form-control form-control-sm"
                           filename={file2}
                           ref={inputFile2Ref}
                           onChange={file2Selected}
-                          type='file'
-                          id='fileTrailer'
-                          name='files'
-                          accept='video/*'
+                          type="file"
+                          id="fileTrailer"
+                          name="files"
+                          accept="video/*"
                         ></input>
                         {trailerPreviewUrl ? (
                           <video
@@ -725,7 +729,7 @@ function FepkCoverForm() {
                 {message}
               </h6>
               <div
-                className='row'
+                className="row"
                 style={{
                   marginTop: "-2%",
                   paddingRight: "25%",
@@ -744,7 +748,7 @@ function FepkCoverForm() {
                     </span>
                   </Tooltip>
                 </div>
-                <div className='col'>
+                <div className="col">
                   <input
                     style={{
                       height: "30px",
@@ -758,14 +762,14 @@ function FepkCoverForm() {
                       backgroundPosition: "left",
                       backgroundSize: "80px 60px",
                     }}
-                    className='form-control'
+                    className="form-control"
                     defaultValue={epkCoverData.DonatePayPal_url}
-                    placeholder='URL: www.paypal.com/mymovie'
+                    placeholder="URL: www.paypal.com/mymovie"
                     onChange={handleInputChange}
-                    name='DonatePayPal_url'
+                    name="DonatePayPal_url"
                   />
                 </div>
-                <div className='col'>
+                <div className="col">
                   <input
                     style={{
                       height: "30px",
@@ -778,11 +782,11 @@ function FepkCoverForm() {
                       backgroundPosition: "left",
                       backgroundSize: "80px 40px",
                     }}
-                    className='form-control'
+                    className="form-control"
                     defaultValue={epkCoverData.DonateStripe_url}
-                    placeholder='URL: www.stripe.com/mymovie'
+                    placeholder="URL: www.stripe.com/mymovie"
                     onChange={handleInputChange}
-                    name='DonateStripe_url'
+                    name="DonateStripe_url"
                   />
                 </div>
               </div>
@@ -803,14 +807,14 @@ function FepkCoverForm() {
                       backgroundColor: "#ffffff",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={handleSaveClick}
-                    value='save'
+                    value="save"
                   >
                     {isUploading ? (
                       <div
-                        className='spinner'
+                        className="spinner"
                         style={{
                           border: "4px solid rgba(0, 0, 0, 0.1)",
                           borderTop: "4px solid blue",
@@ -826,19 +830,19 @@ function FepkCoverForm() {
                   </Button>
                 ) : (
                   <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                     style={{
                       boxShadow: "1px 2px 9px #311465",
                       fontWeight: "bold",
                     }}
-                    type='outline-primary'
+                    type="outline-primary"
                     block
                     onClick={saveEpkCover}
-                    value='save'
+                    value="save"
                   >
                     {isUploading ? (
                       <div
-                        className='spinner'
+                        className="spinner"
                         style={{
                           border: "4px solid rgba(0, 0, 0, 0.1)",
                           borderTop: "4px solid blue",
