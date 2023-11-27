@@ -85,10 +85,10 @@ const [filterTags, setFilterTags] = useState([
 
   return (
     <>
-      <div>
+      <div  className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-p-10 md:tw-flex-row space-x-6">
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-1 md:tw-flex-row">
+      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-28 md:tw-flex-row space-x-6">
      
           {filterTags.map((tag, index) => (
             <FilterButton
