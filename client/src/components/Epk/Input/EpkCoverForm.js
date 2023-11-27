@@ -141,7 +141,7 @@ function EpkCoverForm() {
           console.log(err);
         });
     } else {
-      setMessage(t(("File must be a image(jpeg or png)")));
+      setMessage(t(("Oops! Please use JPEG, JPG, or PNG images.")));
     }
   };
 

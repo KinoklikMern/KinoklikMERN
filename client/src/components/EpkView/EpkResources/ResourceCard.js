@@ -17,7 +17,7 @@ export default function ResourceCard({ resourceInfo, fepkTitle }) {
   const currentUrl = window.location.href.startsWith("http")
     ? window.location.href
     : `https://${window.location.href}`;
-  const urlShare = `We are currently looking for ${resourceInfo.title} for our film ${fepkTitle},  please check our EPK built with #KinoKlik #EPK on ${currentUrl}`;
+  const urlShare = `We are currently looking for ${resourceInfo.title} for our film ${fepkTitle}, please check our EPK built with #KinoKlik #EPK on ${currentUrl}`;
 
   return (
     <div className="tw-m-6 tw-flex tw-flex-col tw-justify-around tw-rounded-3xl tw-bg-[#1e0039]/20 md:tw-flex-row">

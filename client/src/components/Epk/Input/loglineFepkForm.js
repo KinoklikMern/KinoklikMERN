@@ -146,7 +146,7 @@ function LoglineForm() {
           });
       }
     } else {
-      setMessage(t("File must be a image(jpeg, jpg or png)"));
+      setMessage(t("Oops! Please use JPEG, JPG, or PNG images."));
     }
     setDisabled(true);
   };
@@ -332,7 +332,7 @@ function LoglineForm() {
                     <h3>{t("No Image")}</h3>
                   )}
                   {message && (
-                    <div className="message" style={{ color: "red" }}>
+                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginBottom: "-3%" }}>
                       {message}
                     </div>
                   )}

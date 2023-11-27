@@ -71,7 +71,7 @@ function FepkDetailsForm() {
   ];
 
   const makeEpkRole = (Y) => {
-    return <option value={Y}> {Y}</option>;
+    return <option key={Y} value={Y}> {Y}</option>;
   };
 
   //-------------------------
