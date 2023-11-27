@@ -331,6 +331,7 @@ export default function Actor(props) {
                   color: "#1E0039",
                   fontSize: "4rem",
                   display: "inline",
+                  height: "5rem"
                 }}
               />
               <ArrowForwardIosOutlined
@@ -340,6 +341,7 @@ export default function Actor(props) {
                   color: "#1E0039",
                   fontSize: "4rem",
                   display: "inline",
+                  height: "5rem"
                 }}
               />
             </div>
