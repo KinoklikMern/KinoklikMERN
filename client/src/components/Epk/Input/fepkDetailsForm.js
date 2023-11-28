@@ -417,36 +417,18 @@ function FepkDetailsForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding: "0px 10px",
           marginLeft: "10%",
           marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
-          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
         <form>
-          <div
-            className="row"
-            style={{
-              background:
-                "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
-            }}
-          >
-            <div className="col-1">
-              <Link className="navbar-brand text-headers-style" to="/home">
-                <img
-                  style={{ width: "100%", height: "80px" }}
-                  src={require("../../../images/logo.png")}
-                  alt="Logo"
-                  className="navbar-logo"
-                />
-              </Link>
-            </div>
-            <div className="col-3  m-3">
+          <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5">
+            <div className="col-3 tw-m-3 tw-text-center">
               <h2
-                className="col align-items-start"
+                className=""
                 style={{
                   color: "#FFFFFF",
                   fontWeight: "normal",
@@ -456,11 +438,10 @@ function FepkDetailsForm() {
                 {t("EPK Dashboard")}
               </h2>
             </div>
-            <div className="col-3 m-3">
+            <div className="col-3 tw-m-3 tw-text-center">
               <BasicMenu color="#FFFFFF" />
             </div>
-            <div className="col-1 m-3"></div>
-            <div className="col-2 m-3">
+            <div className="col-3 tw-m-3 tw-text-center">
               <Link
                 className="col align-items-end"
                 to={`/epk/${fepk.title}`}
@@ -468,7 +449,7 @@ function FepkDetailsForm() {
                   color: "#FFFFFF",
                   textDecoration: "none",
                   fontWeight: "normal",
-                  fontSize: "20px",
+                  fontSize: "25px",
                 }}
               >
                 {t("View EPK Page")}
