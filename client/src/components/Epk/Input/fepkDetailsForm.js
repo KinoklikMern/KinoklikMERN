@@ -395,15 +395,14 @@ function FepkDetailsForm() {
   //close modal
   const closeModal = () => {
     setModalIsOpen(false);
-    setSearchValue(""); // Reset the search input
-    setInvitationEmailValue(""); // Reset the invitation email
-    setEmailError(""); // Clear any email errors
+    setSearchValue("");
+    setInvitationEmailValue("");
+    setEmailError("");
     setInvitationData({
-      // Reset the invitation data to initial state
       firstName: "",
       lastName: "",
       email: "",
-      role: invitedUserRole, // Assuming invitedUserRole is the initial role
+      role: invitedUserRole,
       invitedBy: "",
       movie: "",
       invitedByName: "",
@@ -425,10 +424,10 @@ function FepkDetailsForm() {
         }}
       >
         <form>
-          <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5'>
-            <div className='col-3 tw-m-3 tw-text-center'>
+          <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5">
+            <div className="col-3 tw-m-3 tw-text-center">
               <h2
-                className=''
+                className=""
                 style={{
                   color: "#FFFFFF",
                   fontWeight: "normal",
@@ -438,10 +437,10 @@ function FepkDetailsForm() {
                 {t("EPK Dashboard")}
               </h2>
             </div>
-            <div className='col-3 tw-m-3 tw-text-center'>
-              <BasicMenu color='#FFFFFF' />
+            <div className="col-3 tw-m-3 tw-text-center">
+              <BasicMenu color="#FFFFFF" />
             </div>
-            <div className='col-3 tw-m-3 tw-text-center'>
+            <div className="col-3 tw-m-3 tw-text-center">
               <Link
                 className="col align-items-end"
                 to={`/epk/${fepk.title}`}
