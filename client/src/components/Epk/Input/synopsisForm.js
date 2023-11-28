@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const SynopsisForm = () => {
   const { t } = useTranslation();
@@ -92,28 +92,28 @@ const SynopsisForm = () => {
           backgroundColor: "white",
         }}
       >
-        <div className="row">
-          <div className="col-1">
-            <Link className="navbar-brand text-headers-style" to="/home">
+        <div className='row'>
+          <div className='col-1'>
+            <Link className='navbar-brand text-headers-style' to='/home'>
               <img
                 src={require("../../../images/logo.png")}
-                alt="Logo"
-                className="navbar-logo"
+                alt='Logo'
+                className='navbar-logo'
               />
             </Link>
           </div>
-          <div className="col-3  m-3">
+          <div className='col-3  m-3'>
             <h2
-              className="col align-items-start"
+              className='col align-items-start'
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              {t('EPK Dashboard')}
+              {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className="col-2 m-3">
+          <div className='col-2 m-3'>
             <Link
-              className="col align-items-end"
-              to="/Epk"
+              className='col align-items-end'
+              to='/Epk'
               style={{
                 color: "#311465",
                 textDecoration: "none",
@@ -121,29 +121,29 @@ const SynopsisForm = () => {
                 fontSize: "20px",
               }}
             >
-              {t('View EPK Page')}
+              {t("View EPK Page")}
             </Link>
           </div>
-          <div className="col"></div>
+          <div className='col'></div>
         </div>
         <h5
-          className="card-title "
+          className='card-title '
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          {t('Synopsis')}
+          {t("Synopsis")}
         </h5>
 
         <Row
-          justify="space-around"
-          className="text-center "
+          justify='space-around'
+          className='text-center '
           /*  style={{height: "70vh" }}*/
         >
-          <Col style={{ width: "1300px", height: "500px" }} className="m-2">
-            <div className="row">
-              <div className="col">
+          <Col style={{ width: "1300px", height: "500px" }} className='m-2'>
+            <div className='row'>
+              <div className='col'>
                 {/* <h4>Short Synopsis</h4> */}
                 <textarea
-                  name="short"
+                  name='short'
                   style={{
                     height: "200px",
                     width: "300px",
@@ -160,7 +160,7 @@ const SynopsisForm = () => {
                 {image1 && (
                   <img
                     src={image1}
-                    alt="hey"
+                    alt='hey'
                     style={{
                       height: "200px",
                       boxShadow: "1px 2px 9px #000000",
@@ -169,10 +169,10 @@ const SynopsisForm = () => {
                 )}
               </div>
 
-              <div className="col">
+              <div className='col'>
                 {/* <h4>Medium Synopsis</h4> */}
                 <textarea
-                  name="medium"
+                  name='medium'
                   style={{
                     height: "200px",
                     width: "300px",
@@ -189,7 +189,7 @@ const SynopsisForm = () => {
                 {image2 && (
                   <img
                     src={image2}
-                    alt="hey"
+                    alt='hey'
                     style={{
                       height: "200px",
                       boxShadow: "1px 2px 9px #000000",
@@ -197,10 +197,10 @@ const SynopsisForm = () => {
                   />
                 )}
               </div>
-              <div className="col">
+              <div className='col'>
                 {/* <h4>Long Synopsis</h4> */}
                 <textarea
-                  name="long"
+                  name='long'
                   style={{
                     height: "200px",
                     width: "300px",
@@ -217,7 +217,7 @@ const SynopsisForm = () => {
                 {image3 && (
                   <img
                     src={image3}
-                    alt="hey"
+                    alt='hey'
                     style={{
                       height: "200px",
                       boxShadow: "1px 2px 9px #000000",
@@ -228,7 +228,7 @@ const SynopsisForm = () => {
             </div>
           </Col>
         </Row>
-        <Row justify="space-around" className="text-center ">
+        <Row justify='space-around' className='text-center '>
           <div
             style={{
               height: "50px",
@@ -242,12 +242,12 @@ const SynopsisForm = () => {
                 backgroundColor: "#ffffff",
                 fontWeight: "bold",
               }}
-              type="outline-primary"
+              type='outline-primary'
               block
               onClick={submit}
-              value="save"
+              value='save'
             >
-              {t('Save')}
+              {t("Save")}
             </Button>
           </div>
         </Row>
