@@ -70,6 +70,10 @@
   font-size: 4rem;
   display: inline;
   cursor: pointer;
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 10px;
 }
 
 .arrow-actor-profile2 {
@@ -234,9 +238,11 @@
   height: 1vh;
   width: fit-content;
 }
+
 .movie-actor-play-container::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
+
 .movie-actor-play-container::-webkit-scrollbar-thumb {
   background: #712cb0;
   border-radius: 10px;
@@ -271,12 +277,15 @@
   max-height: 220px;
   overflow: hidden;
 }
+
 .actor-biography.scrollable {
   overflow-y: auto;
 }
+
 .actor-biography::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
+
 .actor-biography::-webkit-scrollbar-thumb {
   background: #712cb0;
   border-radius: 10px;

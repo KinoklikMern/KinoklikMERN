@@ -199,35 +199,17 @@ function StillsForm() {
       <div
         style={{
           boxShadow: "inset 1px 2px 9px #311465",
-          padding: "0px 10px",
           marginLeft: "10%",
           marginBottom: "2%",
           width: "80%",
           borderRadius: "10px",
-          // background: "linear-gradient(rgba(128,128,128,0.65),transparent)",
           backgroundColor: "white",
         }}
       >
-        <div
-          className="row"
-          style={{
-            background:
-              "linear-gradient(to bottom, #1E0039 0%, #1E0039 35%, #1E0039 35%, #FFFFFF 100%)",
-          }}
-        >
-          <div className="col-1">
-            <Link className="navbar-brand text-headers-style" to="/home">
-              <img
-                style={{ width: "100%", height: "80px" }}
-                src={require("../../../images/logo.png")}
-                alt="Logo"
-                className="navbar-logo"
-              />
-            </Link>
-          </div>
-          <div className="col-3  m-3">
+        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5'>
+          <div className='col-3 tw-m-3 tw-text-center'>
             <h2
-              className="col align-items-start"
+              className=''
               style={{
                 color: "#FFFFFF",
                 fontWeight: "normal",
@@ -237,19 +219,18 @@ function StillsForm() {
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className="col-3 m-3">
-            <BasicMenu color="#FFFFFF" />
+          <div className='col-3 tw-m-3 tw-text-center'>
+            <BasicMenu color='#FFFFFF' />
           </div>
-          <div className="col-1 m-3"></div>
-          <div className="col-2 m-3">
+          <div className='col-3 tw-m-3 tw-text-center'>
             <Link
-              className="col align-items-end"
+              className='col align-items-end'
               to={`/epk/${fepk.title}`}
               style={{
                 color: "#FFFFFF",
                 textDecoration: "none",
                 fontWeight: "normal",
-                fontSize: "20px",
+                fontSize: "25px",
               }}
             >
               {t("View EPK Page")}
@@ -264,18 +245,18 @@ function StillsForm() {
             fontWeight: "normal",
           }}
         >
-          <div className="card-body" style={{ height: "500px" }}>
+          <div className='card-body' style={{ height: "500px" }}>
             <h5
-              className="card-title "
+              className='card-title '
               style={{ color: "#311465", fontWeight: "normal" }}
             >
               {t("Film Stills")}
             </h5>
-            <form className="row">
-              <div className="col-12 col-md-4 mt-5">
+            <form className='row'>
+              <div className='col-12 col-md-4 mt-5'>
                 <label
-                  htmlFor="filePoster"
-                  className="form-label text-dark"
+                  htmlFor='filePoster'
+                  className='form-label text-dark'
                   style={{ fontSize: "25px" }}
                 >
                   {" "}
@@ -283,14 +264,14 @@ function StillsForm() {
                 </label>
                 <input
                   style={{ fontSize: "15px" }}
-                  className="form-control form-control-sm"
+                  className='form-control form-control-sm'
                   filename={file}
                   onChange={fileSelected}
                   ref={inputFileRef}
-                  type="file"
-                  id="filePoster"
-                  name="files"
-                  accept="image/*"
+                  type='file'
+                  id='filePoster'
+                  name='files'
+                  accept='image/*'
                 />
                 {picturePreviewUrl && picturePreviewUrl !== undefined ? (
                   <img
@@ -300,33 +281,40 @@ function StillsForm() {
                       width: "auto",
                       marginTop: "10px",
                     }}
-                    alt="no img"
+                    alt='no img'
                   />
                 ) : // <h3>No Image</h3>
                 null}
-                <div className="tw-cursor-pointer hover:tw-scale-110">
+                <div className='tw-cursor-pointer hover:tw-scale-110'>
                   {/* <FontAwesomeIcon icon={faPlus} onClick={addImage} /> */}
                   <Button
-                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                     style={{
                       boxShadow: "1px 2px 9px #311465",
                       textAlign: "center",
                     }}
-                    type="outline-primary"
+                    type='outline-primary'
                     onClick={addImage}
                   >
                     {t("Add to Pictures Gallery")}
                   </Button>
                   {message && (
-                    <div className="message" style={{ color: "#311465", fontSize: "1rem", marginTop: "5%" }}>
+                    <div
+                      className='message'
+                      style={{
+                        color: "red",
+                        fontSize: "0.9rem",
+                        marginTop: "5%",
+                      }}
+                    >
                       {message}
                     </div>
                   )}
                 </div>
               </div>
-              <div className="col-12 col-md-6 mt-3">
+              <div className='col-12 col-md-6 mt-3'>
                 <table
-                  className="table table-striped table-bordered"
+                  className='table table-striped table-bordered'
                   style={{
                     fontSize: "12px",
                     textAlign: "center",
@@ -334,7 +322,7 @@ function StillsForm() {
                     tableLayout: "auto",
                   }}
                 >
-                  <thead className="thead-dark">
+                  <thead className='thead-dark'>
                     <tr>
                       <th>{t("IMAGE")}</th>
                       <th>{t("EDIT")}</th>
@@ -350,22 +338,22 @@ function StillsForm() {
                               <td>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
-                                  alt=""
+                                  alt=''
                                   style={{ height: "50px", width: "auto" }}
                                 />
                                 {editMode && (
                                   <>
                                     <input
-                                      className="form-control form-control-sm"
+                                      className='form-control form-control-sm'
                                       filename={file}
                                       onChange={(e) =>
                                         handleEditChange(e, index, "image")
                                       }
                                       ref={inputFileRef}
-                                      type="file"
-                                      id="filePoster"
-                                      name="files"
-                                      accept="image/*"
+                                      type='file'
+                                      id='filePoster'
+                                      name='files'
+                                      accept='image/*'
                                     />
                                   </>
                                 )}
@@ -408,19 +396,19 @@ function StillsForm() {
                           </td>
                           <td>
                             <Button
-                              className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                              className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                               style={{
                                 height: "30px",
                                 width: "80px",
                                 boxShadow: "1px 2px 9px #311465",
                                 fontWeight: "bold",
                               }}
-                              type="outline-primary"
+                              type='outline-primary'
                               block
                               onClick={() =>
                                 handleStillsBlurChange(!still.blur, still)
                               }
-                              name="blur"
+                              name='blur'
                             >
                               {still.blur ? "UnBlur" : "Blur"}
                             </Button>
@@ -431,7 +419,7 @@ function StillsForm() {
                   </tbody>
                 </table>
               </div>
-              <div className="col-12 col-md-2 mt-5">
+              <div className='col-12 col-md-2 mt-5'>
                 <div
                   style={{
                     height: "50px",
@@ -449,24 +437,24 @@ function StillsForm() {
                         backgroundColor: "#ffffff",
                         fontWeight: "bold",
                       }}
-                      type="outline-primary"
+                      type='outline-primary'
                       block
                       onClick={saveEpkStills}
-                      value="save"
+                      value='save'
                     >
                       {t("Save")}
                     </Button>
                   ) : (
                     <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                       style={{
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                       }}
-                      type="outline-primary"
+                      type='outline-primary'
                       block
                       onClick={saveEpkStills}
-                      value="save"
+                      value='save'
                     >
                       {t("Save")}
                     </Button>
@@ -475,7 +463,7 @@ function StillsForm() {
                   <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
-                    contentLabel="Example Modal"
+                    contentLabel='Example Modal'
                     appElement={document.getElementById("root")}
                     style={{
                       overlay: {
@@ -499,7 +487,7 @@ function StillsForm() {
                       {t("Film Stills Saved Successfully!")}
                       <br />
                       <button
-                        className="btn btn-secondary btn-sm"
+                        className='btn btn-secondary btn-sm'
                         onClick={closeModal}
                       >
                         {t("Ok")}

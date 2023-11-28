@@ -5,7 +5,7 @@ import Password from "../../components/FilmMakerDashboard/Setting/Password";
 import Profile from "../../components/FilmMakerDashboard/Setting/Profile";
 import Studio from "../../components/FilmMakerDashboard/Setting/Studio";
 import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function SettingPage() {
   // eslint-disable-next-line no-unused-vars
@@ -42,7 +42,8 @@ export default function SettingPage() {
         <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-w-full tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 md:tw-ml-16 md:tw-w-5/6'>
           <ul className='tw-flex tw-divide-x tw-divide-[#1E0039] tw-border-b tw-border-gray-200 tw-text-center tw-text-sm tw-font-medium tw-text-gray-500 tw-shadow-md tw-shadow-[#1E0039]/50'>
             {tabs.map((tab) => (
-              <li key={tab.title}
+              <li
+                key={tab.title}
                 className={
                   "tw-w-1/4 tw-grow tw-text-2xl tw-shadow-md tw-shadow-[#1E0039]/50 " +
                   (openTab === tab.count
@@ -56,7 +57,7 @@ export default function SettingPage() {
               >
                 <a
                   href={tab.title}
-                  className='tw-inline-block tw-w-full tw-p-4 hover:tw-bg-[#1E0039] hover:tw-text-white'
+                  className='tw-inline-block tw-w-full tw-p-2 tw-text-[1rem] hover:tw-bg-midnight hover:tw-text-white md:tw-p-4 md:tw-text-xl lg:tw-text-2xl'
                 >
                   {tab.title}
                 </a>

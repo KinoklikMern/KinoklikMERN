@@ -4,7 +4,7 @@ import Axios from "axios";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 Modal.setAppElement(document.body);
 
@@ -58,26 +58,26 @@ export default function Account() {
   }
 
   return (
-    <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
-      <div className="tw-col-start-4 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
+    <div className='tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4 xl:tw-grid'>
+      <div className='tw-col-start-4 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center'>
         <input
           readOnly
-          placeholder= {t("Account Type")}
+          placeholder={t("Account Type")}
           defaultValue={userRole}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
         />
         <button
           onClick={openModal}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
         >
-          {t('Delete Account')}
+          {t("Delete Account")}
         </button>
       </div>
       <div>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          contentLabel="Example Modal"
+          contentLabel='Example Modal'
           style={{
             overlay: {
               backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -100,23 +100,23 @@ export default function Account() {
             <h2>{message}</h2>
             <br />
             {confirmed ? (
-              <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-                {t('Ok')}
+              <button className='btn btn-secondary btn-sm' onClick={closeModal}>
+                {t("Ok")}
               </button>
             ) : (
               <>
                 <button
-                  className="btn btn-secondary btn-sm mr-2"
+                  className='btn btn-secondary btn-sm mr-2'
                   onClick={closeModal}
                 >
-                  {t('Cancel')}
+                  {t("Cancel")}
                 </button>
                 <button
-                  className="btn btn-secondary btn-sm"
+                  className='btn btn-secondary btn-sm'
                   onClick={deleteAccount}
                   style={{ marginLeft: "25px" }}
                 >
-                  {t('Confirm')}
+                  {t("Confirm")}
                 </button>
               </>
             )}

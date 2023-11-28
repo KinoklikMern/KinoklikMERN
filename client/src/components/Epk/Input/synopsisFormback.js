@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //import UploadImage from "../../upload";
 import UploadFile from "../../FileUpload";
 import { Col, Row } from "antd";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const SynopsisForm = () => {
   const { t } = useTranslation();
@@ -84,17 +84,17 @@ const SynopsisForm = () => {
   return (
     <>
       {" "}
-      <h1 className="text-center text-primary">{t(synopsis)}</h1>
+      <h1 className='text-center text-primary'>{t("synopsis")}</h1>
       <br />
       <Row
-        justify="space-around"
-        className="text-center "
+        justify='space-around'
+        className='text-center '
         /*  style={{height: "70vh" }}*/
       >
-        <Col span={6} className="m-2 bg-light">
-          <h4>{t('short synopsis')}</h4>
+        <Col span={6} className='m-2 bg-light'>
+          <h4>{t("short synopsis")}</h4>
           <textarea
-            name="short"
+            name='short'
             style={{ height: "200px", width: "300px" }}
             placeholder={t("max 30 words")}
             onChange={handleShort}
@@ -103,15 +103,15 @@ const SynopsisForm = () => {
           {image1 && (
             <img
               src={image1}
-              alt="hey"
+              alt='hey'
               style={{ height: "350px", width: "300px" }}
             />
           )}
         </Col>
-        <Col span={6} className="m-2 bg-light">
+        <Col span={6} className='m-2 bg-light'>
           <h4>{t("long synopsis")}</h4>
           <textarea
-            name="medium"
+            name='medium'
             style={{ height: "200px", width: "300px" }}
             placeholder={t("max 70 words")}
             onChange={handleMedium}
@@ -120,31 +120,31 @@ const SynopsisForm = () => {
           {image2 && (
             <img
               src={image2}
-              alt="hey"
+              alt='hey'
               style={{ height: "350px", width: "300px" }}
             />
           )}
         </Col>
-        <Col span={6} className="m-2 bg-light">
-          <h4>{t('medium synopsis')}</h4>
+        <Col span={6} className='m-2 bg-light'>
+          <h4>{t("medium synopsis")}</h4>
           <textarea
-            name="long"
+            name='long'
             style={{ height: "200px", width: "300px" }}
-            placeholder="max 120 words"
+            placeholder='max 120 words'
             onChange={handleLong}
           ></textarea>
           <UploadFile setImage={setImage3} />
           {image3 && (
             <img
               src={image3}
-              alt="hey"
+              alt='hey'
               style={{ height: "350px", width: "300px" }}
             />
           )}
         </Col>
       </Row>
       <Row>
-        <button className="btn btn-primary" onClick={submit} value="save" />
+        <button className='btn btn-primary' onClick={submit} value='save' />
       </Row>
     </>
   );

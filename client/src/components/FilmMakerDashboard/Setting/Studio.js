@@ -3,12 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import Axios from "axios";
-import { validatename, validateWebsite, validateEmail, validatePhone, validatelocation } from "./validation";
-import { useTranslation } from 'react-i18next';
-
+import {
+  validatename,
+  validateWebsite,
+  validateEmail,
+  validatePhone,
+  validatelocation,
+} from "./validation";
+import { useTranslation } from "react-i18next";
 
 export default function Studio() {
- const { t } = useTranslation();
+  const { t } = useTranslation();
   const [userStudioData, setUserStudioData] = useState({
     name: "",
     website: "",
@@ -20,15 +25,15 @@ export default function Studio() {
   });
 
   const [validationStudioErrors, setValidationStudioErrors] = useState({
-    name: '',
-    email: '',
-    website: '',
-    city: '',
-    province: '',
-    country: '',
-    phone: '',
+    name: "",
+    email: "",
+    website: "",
+    city: "",
+    province: "",
+    country: "",
+    phone: "",
   });
-  
+
   const [disabled, setDisabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [hasAgent, setHasAgent] = useState(true);
@@ -83,43 +88,52 @@ export default function Studio() {
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
-  
-    if (name === 'name') {
+
+    if (name === "name") {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validatename(value) ? '' : (t('Please fill out the required field')),
+        [name]: validatename(value)
+          ? ""
+          : t("Please fill out the required field"),
       }));
-    } else if ( name === 'city' || name === 'province' || name === 'country') {
+    } else if (name === "city" || name === "province" || name === "country") {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validatelocation(value) ? '' : (t('Please enter a valid location')),
+        [name]: validatelocation(value)
+          ? ""
+          : t("Please enter a valid location"),
       }));
-    }else if (name === 'website') {
+    } else if (name === "website") {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: validateWebsite(value) ? '' : (t('Please enter a valid URL')),
+        [name]: validateWebsite(value) ? "" : t("Please enter a valid URL"),
       }));
-    } else if (name === 'email') {
+    } else if (name === "email") {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        email: validateEmail(value) ? '' : (t('Please enter a valid email address')),
+        email: validateEmail(value)
+          ? ""
+          : t("Please enter a valid email address"),
       }));
-    } else if (name === 'phone') {
+    } else if (name === "phone") {
       setValidationStudioErrors((prevErrors) => ({
         ...prevErrors,
-        phone: validatePhone(value) ? '' : (t('Please enter a valid phone number (10 to 15 digits)')),
+        phone: validatePhone(value)
+          ? ""
+          : t("Please enter a valid phone number (10 to 15 digits)"),
       }));
     }
-  
+
     setUserStudioData({ ...userStudioData, [name]: value });
-  
+
     // Check for validation errors
-    const hasErrors = Object.values(validationStudioErrors).some((error) => error);
-  
+    const hasErrors = Object.values(validationStudioErrors).some(
+      (error) => error
+    );
+
     // Set the "Save" button state based on validation errors and hasAgent value
     setDisabled(!hasAgent || hasErrors);
   };
-  
 
   function saveUserStudio() {
     //console.log(userStudioData);
@@ -153,11 +167,13 @@ export default function Studio() {
   }
 
   return (
-    <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
-      <div className="tw-col-start-2 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
+    <div className='tw-h-full tw-py-4 lg:tw-px-24'>
+      <div className='tw-mt-8 tw-flex tw-flex-col'>
         {userRole === "Actor" && (
-          <div className="tw-mb-3 tw-flex tw-items-center">
-            <p className="tw-mb-0 tw-ml-9 tw-text-[#1E0039]">{t("Representation")}</p>
+          <div className='tw-mb-3 tw-flex tw-items-center'>
+            <p className='tw-mb-0 tw-ml-9 tw-text-[#1E0039]'>
+              {t("Representation")}
+            </p>
             <button
               onClick={() => handlePermission(true)}
               className={`tw-ml-5 tw-rounded-lg tw-px-2 tw-py-1 ${
@@ -183,94 +199,112 @@ export default function Studio() {
         {hasAgent && (
           <>
             <input
-              type="text"
-              name="name"
-              placeholder={userRole === (t("Actor")) ? (t("Agent Name")) : (t("Studio Name"))}
+              type='text'
+              name='name'
+              placeholder={
+                userRole === t("Actor") ? t("Agent Name") : t("Studio Name")
+              }
               defaultValue={userStudioData.name}
               onChange={handleProfileChange}
               disabled={!hasAgent}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
             />
-             {validationStudioErrors.name && (
-            <div className="tw-text-red-500">{validationStudioErrors.name}</div>
+            {validationStudioErrors.name && (
+              <div className='tw-text-red-500'>
+                {validationStudioErrors.name}
+              </div>
             )}
             <input
-              type="text"
-              name="website"
+              type='text'
+              name='website'
               placeholder={
-                userRole === (t("Actor")) ? (t("Agent Website")) : (t("Studio Website"))
+                userRole === t("Actor")
+                  ? t("Agent Website")
+                  : t("Studio Website")
               }
               defaultValue={userStudioData.website}
               onChange={handleProfileChange}
               disabled={!hasAgent}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
             />
-             {validationStudioErrors.website && (
-           <div className="tw-text-red-500">{validationStudioErrors.website}</div>
+            {validationStudioErrors.website && (
+              <div className='tw-text-red-500'>
+                {validationStudioErrors.website}
+              </div>
             )}
-             
+
             <input
-              type="text"
-              name="email"
+              type='text'
+              name='email'
               placeholder={
-                userRole === (t("Actor")) ? (t("Agent Email")) : (t("Studio Email"))
+                userRole === t("Actor") ? t("Agent Email") : t("Studio Email")
               }
               defaultValue={userStudioData.email}
               onChange={handleProfileChange}
               disabled={!hasAgent}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
             />
-             {validationStudioErrors.email && (
-           <div className="tw-text-red-500">{validationStudioErrors.email}</div>
+            {validationStudioErrors.email && (
+              <div className='tw-text-red-500'>
+                {validationStudioErrors.email}
+              </div>
             )}
             <input
-              type="text"
-              name="phone"
+              type='text'
+              name='phone'
               placeholder={t("Phone")}
               defaultValue={userStudioData.phone}
               onChange={handleProfileChange}
               disabled={!hasAgent}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
             />
             {validationStudioErrors.phone && (
-            <div className="tw-text-red-500">{validationStudioErrors.phone}</div>
-             )}
+              <div className='tw-text-red-500'>
+                {validationStudioErrors.phone}
+              </div>
+            )}
             <input
-              type="text"
-              name="city"
+              type='text'
+              name='city'
               placeholder={t("City")}
               defaultValue={userStudioData.city}
               onChange={handleProfileChange}
               disabled={!hasAgent}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
             />
             {validationStudioErrors.city && (
-            <div className="tw-text-red-500">{validationStudioErrors.city}</div>
-             )}
+              <div className='tw-text-red-500'>
+                {validationStudioErrors.city}
+              </div>
+            )}
             <input
-              type="text"
-              name="province"
+              type='text'
+              name='province'
               placeholder={t("Province")}
               defaultValue={userStudioData.province}
               onChange={handleProfileChange}
               disabled={!hasAgent}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
             />
             {validationStudioErrors.province && (
-            <div className="tw-text-red-500">{validationStudioErrors.province}</div>
-             )}
+              <div className='tw-text-red-500'>
+                {validationStudioErrors.province}
+              </div>
+            )}
             <input
-              type="text"
-              name="country"
+              type='text'
+              name='country'
               placeholder={t("Country")}
               defaultValue={userStudioData.country}
               onChange={handleProfileChange}
               disabled={!hasAgent}
-              className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
             />
             {validationStudioErrors.country && (
-            <div className="tw-text-red-500">{validationStudioErrors.country}</div>
-             )}
+              <div className='tw-text-red-500'>
+                {validationStudioErrors.country}
+              </div>
+            )}
           </>
         )}
       </div>
@@ -278,7 +312,7 @@ export default function Studio() {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          contentLabel="Example Modal"
+          contentLabel='Example Modal'
           appElement={document.getElementById("root")}
           style={{
             overlay: {
@@ -301,23 +335,23 @@ export default function Studio() {
           <div style={{ textAlign: "center" }}>
             <h2>{t("Updated successfully!")}</h2>
             <br />
-            <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-            {t("Ok")}
+            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
+              {t("Ok")}
             </button>
           </div>
         </Modal>
       </div>
-      <div className="tw-col-start-4 tw-place-self-end tw-px-12">
+      <div className='tw-text-end'>
         {disabled === true ? (
           <button
             disabled
-            className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
+            className='tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none'
           >
             {t("Save")}
           </button>
         ) : (
           <button
-            className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
+            className='tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50'
             onClick={() => saveUserStudio()}
           >
             {t("Save")}

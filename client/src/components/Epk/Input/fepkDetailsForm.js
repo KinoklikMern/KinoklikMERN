@@ -425,10 +425,10 @@ function FepkDetailsForm() {
         }}
       >
         <form>
-          <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5">
-            <div className="col-3 tw-m-3 tw-text-center">
+          <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5'>
+            <div className='col-3 tw-m-3 tw-text-center'>
               <h2
-                className=""
+                className=''
                 style={{
                   color: "#FFFFFF",
                   fontWeight: "normal",
@@ -438,10 +438,10 @@ function FepkDetailsForm() {
                 {t("EPK Dashboard")}
               </h2>
             </div>
-            <div className="col-3 tw-m-3 tw-text-center">
-              <BasicMenu color="#FFFFFF" />
+            <div className='col-3 tw-m-3 tw-text-center'>
+              <BasicMenu color='#FFFFFF' />
             </div>
-            <div className="col-3 tw-m-3 tw-text-center">
+            <div className='col-3 tw-m-3 tw-text-center'>
               <Link
                 className="col align-items-end"
                 to={`/epk/${fepk.title}`}

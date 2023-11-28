@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const LoglineForm = () => {
   const [image, setImage] = useState(null);
@@ -53,28 +53,28 @@ const LoglineForm = () => {
           backgroundColor: "white",
         }}
       >
-        <div className="row">
-          <div className="col-1">
-            <Link className="navbar-brand text-headers-style" to="/home">
+        <div className='row'>
+          <div className='col-1'>
+            <Link className='navbar-brand text-headers-style' to='/home'>
               <img
                 src={require("../../../images/logo.png")}
-                alt="Logo"
-                className="navbar-logo"
+                alt='Logo'
+                className='navbar-logo'
               />
             </Link>
           </div>
-          <div className="col-3  m-3">
+          <div className='col-3  m-3'>
             <h2
-              className="col align-items-start"
+              className='col align-items-start'
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              {t('EPK Dashboard')}
+              {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className="col-2 m-3">
+          <div className='col-2 m-3'>
             <Link
-              className="col align-items-end"
-              to="/Epk"
+              className='col align-items-end'
+              to='/Epk'
               style={{
                 color: "#311465",
                 textDecoration: "none",
@@ -82,25 +82,25 @@ const LoglineForm = () => {
                 fontSize: "20px",
               }}
             >
-              {t('View EPK Page')}
+              {t("View EPK Page")}
             </Link>
           </div>
-          <div className="col"></div>
+          <div className='col'></div>
         </div>
         <h5
-          className="card-title "
+          className='card-title '
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          {t('Logline')}
+          {t("Logline")}
         </h5>
-        <Row justify="space-around" className="text-center ">
-          <Col style={{ width: "1000px" }} className="m-2 ">
-            <div className="row" style={{ height: "500px" }}>
+        <Row justify='space-around' className='text-center '>
+          <Col style={{ width: "1000px" }} className='m-2 '>
+            <div className='row' style={{ height: "500px" }}>
               <div>
-                <div className="col">
+                <div className='col'>
                   {/* <h4>Logline</h4> */}
                   <input
-                    name="name"
+                    name='name'
                     style={{
                       height: "30px",
                       width: "800px",
@@ -110,7 +110,7 @@ const LoglineForm = () => {
                       boxShadow: "1px 2px 9px #311465",
                       textAlign: "center",
                     }}
-                    placeholder="Logline..."
+                    placeholder='Logline...'
                     onChange={handleMessage}
                   />
                 </div>
@@ -118,11 +118,11 @@ const LoglineForm = () => {
                   <UploadFile setImage={setImage} />
                 </div>
               </div>
-              <div className="col">
+              <div className='col'>
                 {image && (
                   <img
                     src={image}
-                    alt="dir"
+                    alt='dir'
                     style={{
                       height: "400px",
                       boxShadow: "1px 2px 9px #000000",
@@ -133,7 +133,7 @@ const LoglineForm = () => {
             </div>
           </Col>
         </Row>
-        <Row justify="space-around" className="text-center ">
+        <Row justify='space-around' className='text-center '>
           <div
             style={{
               height: "50px",
@@ -147,12 +147,12 @@ const LoglineForm = () => {
                 backgroundColor: "#ffffff",
                 fontWeight: "bold",
               }}
-              type="outline-primary"
+              type='outline-primary'
               block
               onClick={submit}
-              value="save"
+              value='save'
             >
-              {t('Save')}
+              {t("Save")}
             </Button>
           </div>
         </Row>

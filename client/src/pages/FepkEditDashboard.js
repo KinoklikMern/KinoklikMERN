@@ -52,82 +52,75 @@ function FepkEditDashboard() {
   }, [fepkId, filmmaker_id, setFepkMaker]);
 
   return loading ? (
-    <div className="tw-h-screen">
+    <div className='tw-h-screen'>
       <LoadingSpin />
     </div>
   ) : (
-    <div className="tw-flex tw-min-h-screen">
+    <div className='tw-flex tw-min-h-screen'>
       <EPKSideMenu epkId={fepkId} filmmakerId={user.id} />
-      <div className="tw-flex-grow">
+      <div className='tw-flex-grow'>
         {access === true ? (
           <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "1% 10%",
-                marginBottom: "0",
-              }}
-            >
+            <div className='tw-mt-5 tw-flex tw-flex-wrap tw-items-center tw-justify-center md:tw-gap-7'>
               <SectionButton
                 text={t("1. Cover")}
                 onClick={() => handleSectionClick("cover")}
                 sectionChosen={sectionChosen}
-                value="cover"
+                value='cover'
               />
               <SectionButton
                 text={t("2. Log Line")}
                 onClick={() => handleSectionClick("logLine")}
                 sectionChosen={sectionChosen}
-                value="logLine"
+                value='logLine'
               />
               <SectionButton
                 text={t("3. Synopsis")}
                 onClick={() => handleSectionClick("synopsis")}
                 sectionChosen={sectionChosen}
-                value="synopsis"
+                value='synopsis'
               />
               <SectionButton
                 text={t("4. Cast & Crew")}
                 onClick={() => handleSectionClick("details")}
                 sectionChosen={sectionChosen}
-                value="details"
+                value='details'
               />
               <SectionButton
                 text={t("5. Uniqueness")}
                 onClick={() => handleSectionClick("uniqueness")}
                 sectionChosen={sectionChosen}
-                value="uniqueness"
+                value='uniqueness'
               />
               <SectionButton
                 text={t("6. Film Stills")}
                 onClick={() => handleSectionClick("stills")}
                 sectionChosen={sectionChosen}
-                value="stills"
+                value='stills'
               />
               <SectionButton
                 text={t("7. Film Trailer")}
                 onClick={() => handleSectionClick("trailer")}
                 sectionChosen={sectionChosen}
-                value="trailer"
+                value='trailer'
               />
               <SectionButton
                 text={t("8. Film Buzz")}
                 onClick={() => handleSectionClick("reviews")}
                 sectionChosen={sectionChosen}
-                value="reviews"
+                value='reviews'
               />
               <SectionButton
                 text={t("9. Resources")}
                 onClick={() => handleSectionClick("resources")}
                 sectionChosen={sectionChosen}
-                value="resources"
+                value='resources'
               />
               <SectionButton
                 text={t("10.Treatment")}
                 onClick={() => handleSectionClick("treatment")}
                 sectionChosen={sectionChosen}
-                value="treatment"
+                value='treatment'
                 disabled={true}
               />
             </div>
