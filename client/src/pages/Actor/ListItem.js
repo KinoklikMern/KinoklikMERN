@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 
 export default function ListItem() {
   const [fepks, setFepks] = useState([]);
-  
-  const { user } = useSelector((user) => ({ ...user }));
+
+  const user = useSelector((state) => state.user);
   let id;
   if (!user) {
     id = "0";
@@ -17,27 +17,24 @@ export default function ListItem() {
   }
 
   useEffect(() => {
-        http.get(`/getactorbymovie/${id}`).then((response) => {
-            setFepks(response.data);
-        });  
+    http.get(`/getactorbymovie/${id}`).then((response) => {
+      setFepks(response.data);
+    });
   }, []);
 
   return (
     <>
       {fepks &&
-      
-      fepks.map((fepk) => (
-          <div className="listItem" key={fepk._id}>
+        fepks.map((fepk) => (
+          <div className='listItem' key={fepk._id}>
             <a href={`epk/${fepk.title}`}>
               <img
                 src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                alt=""
+                alt=''
               />
             </a>
           </div>
-        ))
-      
-      }
+        ))}
     </>
   );
 }

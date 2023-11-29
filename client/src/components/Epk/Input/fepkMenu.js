@@ -16,7 +16,7 @@ export default function BasicMenu({ color }) {
   const open = Boolean(anchorEl);
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const filmmaker_id = user.id;
 
   let { fepkId } = useParams();

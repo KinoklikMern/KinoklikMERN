@@ -9,10 +9,9 @@ import FilmmakerSideBar from "./filmMakerSideBar";
 import Modal from "react-modal";
 //import Modal from "@material-ui/core/Modal";
 //import "react-modal/styles.css";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function FilmMakerDashboardSecurityProfile() {
-  
   const [message, setMessage] = useState([]);
   const inputFileRef = useRef(null);
   const [filename, setFilename] = useState("");
@@ -21,8 +20,8 @@ export default function FilmMakerDashboardSecurityProfile() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
-  
+  const user = useSelector((state) => state.user);
+
   let userId;
   let userRole;
   if (!user) {
@@ -34,7 +33,6 @@ export default function FilmMakerDashboardSecurityProfile() {
   }
 
   useEffect(() => {
-    
     try {
       Axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/getUser`, {
         id: userId,
@@ -57,7 +55,6 @@ export default function FilmMakerDashboardSecurityProfile() {
     formData.append("file", event.target.files[0]);
 
     if (checkFileMimeType(file)) {
-      
       try {
         const response = await Axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/users/uploadUserAvatar`,
@@ -70,7 +67,6 @@ export default function FilmMakerDashboardSecurityProfile() {
         );
 
         if (response.data !== undefined) {
-          
           setFilename(response.data.key);
           setDisabled(false);
         }
@@ -127,141 +123,140 @@ export default function FilmMakerDashboardSecurityProfile() {
     setModalIsOpen(false);
   }
 
-
   const { t } = useTranslation();
 
   return (
-    <div className="filmmakerdash-container container-fluid">
-      <div className="sidebar-container">
+    <div className='filmmakerdash-container container-fluid'>
+      <div className='sidebar-container'>
         <FilmmakerSideBar />
 
-        <div className="sidebar-right sidebar-right-setting-container">
+        <div className='sidebar-right sidebar-right-setting-container'>
           <article
-            className="tab-pane fade show active"
-            role="tabpanel"
-            aria-labelledby="llanfairpwllgwyngyll-left-tab"
-            id="dashboard"
+            className='tab-pane fade show active'
+            role='tabpanel'
+            aria-labelledby='llanfairpwllgwyngyll-left-tab'
+            id='dashboard'
           >
             <form>
-              <div className=" sidebar-rightcontainer">
-                <div className="item Dashboard">
-                  <div className="row row-cols-1 row-cols-md-3 g-4">
-                    <ul id="settingsbar">
+              <div className=' sidebar-rightcontainer'>
+                <div className='item Dashboard'>
+                  <div className='row row-cols-1 row-cols-md-3 g-4'>
+                    <ul id='settingsbar'>
                       <li style={{ backgroundColor: "#391083" }}>
                         <Link
-                          to="/filmMakerDashboardSecurityProfile"
-                          className="security-links"
+                          to='/filmMakerDashboardSecurityProfile'
+                          className='security-links'
                         >
-                          {t('Profile')}
+                          {t("Profile")}
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="/filmMakerDashboardSecurityCompany"
-                          className="security-links"
+                          to='/filmMakerDashboardSecurityCompany'
+                          className='security-links'
                         >
-                          {t('Studio')}
+                          {t("Studio")}
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="/filmMakerDashboardSecurityPassword"
-                          className="security-links"
+                          to='/filmMakerDashboardSecurityPassword'
+                          className='security-links'
                         >
-                          {t('Password')}
+                          {t("Password")}
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="/filmMakerDashboardSecurityAccount"
-                          className="security-links"
+                          to='/filmMakerDashboardSecurityAccount'
+                          className='security-links'
                         >
-                          {t('Account')}
+                          {t("Account")}
                         </Link>
                       </li>
                     </ul>
                   </div>
-                  <div className="profile-inputs profile-inputs-margin">
+                  <div className='profile-inputs profile-inputs-margin'>
                     <input
-                      type="text"
-                      name="firstName"
-                      placeholder= {t("First Name")}
+                      type='text'
+                      name='firstName'
+                      placeholder={t("First Name")}
                       defaultValue={userProfileData.firstName}
                       onChange={handleProfileChange}
                     ></input>
                     <input
-                      type="text"
-                      name="lastName"
-                      placeholder= {t("Last Name")}
+                      type='text'
+                      name='lastName'
+                      placeholder={t("Last Name")}
                       defaultValue={userProfileData.lastName}
                       onChange={handleProfileChange}
                     ></input>
                     <input
-                      type="text"
-                      name="email"
-                      placeholder= {t("Email")}
+                      type='text'
+                      name='email'
+                      placeholder={t("Email")}
                       defaultValue={userProfileData.email}
                       onChange={handleProfileChange}
                     ></input>
                     <input
-                      type="text"
-                      name="phone"
-                      placeholder= {t("Phone")}
+                      type='text'
+                      name='phone'
+                      placeholder={t("Phone")}
                       defaultValue={userProfileData.phone}
                       onChange={handleProfileChange}
                     ></input>
                     <input
-                      type="text"
-                      name="website"
-                      placeholder= {t("Website")}
+                      type='text'
+                      name='website'
+                      placeholder={t("Website")}
                       defaultValue={userProfileData.website}
                       onChange={handleProfileChange}
                     ></input>
                     <input
-                      type="text"
-                      name="city"
-                      placeholder= {t("City")}
+                      type='text'
+                      name='city'
+                      placeholder={t("City")}
                       defaultValue={userProfileData.city}
                       onChange={handleProfileChange}
                     ></input>
                     <input
-                      type="text"
-                      name="province"
-                      placeholder= {t("Province")}
+                      type='text'
+                      name='province'
+                      placeholder={t("Province")}
                       defaultValue={userProfileData.province}
                       onChange={handleProfileChange}
                     ></input>
                     <input
-                      type="text"
-                      name="country"
-                      placeholder= {t("Country")}
+                      type='text'
+                      name='country'
+                      placeholder={t("Country")}
                       defaultValue={userProfileData.country}
                       onChange={handleProfileChange}
                     ></input>
                   </div>
-                  <div className="side-id-2">
+                  <div className='side-id-2'>
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`}
-                      alt="User Avatar"
-                      className="flex tw-max-h-18"
+                      alt='User Avatar'
+                      className='flex tw-max-h-18'
                     />
                     <label
-                      htmlFor="userAvatar"
-                      className="form-label text-dark"
+                      htmlFor='userAvatar'
+                      className='form-label text-dark'
                       style={{ fontSize: "25px" }}
                     >
                       {" "}
-                      <h6 style={{ fontSize: "20px" }}>{t('Upload Avatar')}</h6>
+                      <h6 style={{ fontSize: "20px" }}>{t("Upload Avatar")}</h6>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
-                      className="form-control form-control-sm"
+                      className='form-control form-control-sm'
                       onChange={fileSelected}
                       ref={inputFileRef}
-                      type="file"
-                      id="userAvatar"
-                      name="files"
-                      accept="image/*"
+                      type='file'
+                      id='userAvatar'
+                      name='files'
+                      accept='image/*'
                     ></input>
                   </div>
                   {/* <div style={{ display: "block", padding: 30 }}> */}
@@ -270,7 +265,7 @@ export default function FilmMakerDashboardSecurityProfile() {
                     <Modal
                       isOpen={modalIsOpen}
                       onRequestClose={closeModal}
-                      contentLabel="Example Modal"
+                      contentLabel='Example Modal'
                       appElement={document.getElementById("root")}
                       style={{
                         overlay: {
@@ -296,32 +291,32 @@ export default function FilmMakerDashboardSecurityProfile() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        <h2>{t('Updated profile successfully!')}</h2>
+                        <h2>{t("Updated profile successfully!")}</h2>
                         <br />
                         <button
-                          className="btn btn-secondary btn-sm"
+                          className='btn btn-secondary btn-sm'
                           onClick={closeModal}
                         >
-                          {t('Ok')}
+                          {t("Ok")}
                         </button>
                       </div>
                     </Modal>
                   </div>
-                  <div className="d-flex justify-content-end settingsSaveBtn">
+                  <div className='d-flex justify-content-end settingsSaveBtn'>
                     {disabled === true ? (
                       <button
                         disabled
-                        className="btn btn-secondary"
+                        className='btn btn-secondary'
                         onClick={() => saveUserProfile()}
                       >
-                        {t('Save')}
+                        {t("Save")}
                       </button>
                     ) : (
                       <button
-                        className="btn btn-secondary"
+                        className='btn btn-secondary'
                         onClick={() => saveUserProfile()}
                       >
-                        {t('Save')}
+                        {t("Save")}
                       </button>
                     )}
                   </div>

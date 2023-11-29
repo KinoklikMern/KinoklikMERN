@@ -14,7 +14,7 @@ import http from "../../http-common";
 
 export default function MainPage() {
   const { t } = useTranslation();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
 
   //Fetch data related
   const [userInfo, setUserInfo] = useState();
@@ -63,52 +63,52 @@ export default function MainPage() {
   };
 
   return (
-    <div className="tw-flex tw-h-screen tw-flex-col tw-bg-white">
-      <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]">
+    <div className='tw-flex tw-h-screen tw-flex-col tw-bg-white'>
+      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]'>
         {/* <p className="tw-text-4xl">Admin Dashboard</p> */}
       </div>
-      <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
-        <div className="tw-ml-16 tw-mt-12 tw-h-[70vh]">
-          <LeftSidebar selectedTab="Main Metrics" role={user.role} />
+      <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
+        <div className='tw-ml-16 tw-mt-12 tw-h-[70vh]'>
+          <LeftSidebar selectedTab='Main Metrics' role={user.role} />
         </div>
-        <div className="tw-ml-16 tw-mt-8 tw-h-5/6 tw-w-5/6 tw-min-w-min tw-justify-between tw-overflow-auto tw-rounded-lg  tw-bg-white tw-p-4">
+        <div className='tw-ml-16 tw-mt-8 tw-h-5/6 tw-w-5/6 tw-min-w-min tw-justify-between tw-overflow-auto tw-rounded-lg  tw-bg-white tw-p-4'>
           {/* line */}
-          <div className="tw-h-0.5 tw-w-full tw-bg-[#1E0039]"></div>
+          <div className='tw-h-0.5 tw-w-full tw-bg-[#1E0039]'></div>
           {/* box */}
-          <TopToolBar selectedTab="Main Metrics" role={user.role} />
+          <TopToolBar selectedTab='Main Metrics' role={user.role} />
 
-          <div className="tw-sm:flex-col tw-sm:gap-10 tw-mt-6 tw-flex   tw-w-full tw-flex-row tw-items-center tw-justify-between">
-            <div className="tw-sm:flex-1 tw-sm:w-full tw-flex tw-h-[28vh] tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-border-[2px] tw-border-[#cac4cf] tw-bg-white tw-px-[50px] tw-py-[26px] tw-shadow-[35px_35px_60px_-15px_rgba(0,0,0,0.3)]">
-              <div className="tw-md:w-full tw-mb-12 tw-mt-8 tw-flex tw-w-[20%] tw-min-w-[134px] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-[#1E0039] tw-p-0.5">
+          <div className='tw-sm:flex-col tw-sm:gap-10 tw-mt-6 tw-flex   tw-w-full tw-flex-row tw-items-center tw-justify-between'>
+            <div className='tw-sm:flex-1 tw-sm:w-full tw-flex tw-h-[28vh] tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-border-[2px] tw-border-[#cac4cf] tw-bg-white tw-px-[50px] tw-py-[26px] tw-shadow-[35px_35px_60px_-15px_rgba(0,0,0,0.3)]'>
+              <div className='tw-md:w-full tw-mb-12 tw-mt-8 tw-flex tw-w-[20%] tw-min-w-[134px] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-[#1E0039] tw-p-0.5'>
                 <img
-                  className="tw-mb-1 tw-h-[40px] tw-pt-[2px]"
+                  className='tw-mb-1 tw-h-[40px] tw-pt-[2px]'
                   src={Users}
-                  alt="bookmark_One"
+                  alt='bookmark_One'
                 />
-                <p className="tw-md:text-base tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
+                <p className='tw-md:text-base tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white'>
                   {t("Total Users")}
                 </p>
                 {userInfo === undefined ? (
                   t("Loading")
                 ) : (
-                  <p className="tw-md:text-3xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
+                  <p className='tw-md:text-3xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white'>
                     {userInfo.length}
                   </p>
                 )}
               </div>
-              <div className="tw-md:w-full tw-mb-12 tw-mt-8 tw-flex tw-w-[20%] tw-min-w-[134px] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-[#1E0039] tw-p-0.5">
+              <div className='tw-md:w-full tw-mb-12 tw-mt-8 tw-flex tw-w-[20%] tw-min-w-[134px] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-[#1E0039] tw-p-0.5'>
                 <img
-                  className="tw-mb-1 tw-h-[46px]"
+                  className='tw-mb-1 tw-h-[46px]'
                   src={StartWhiteIcon}
-                  alt="bookmark_One"
+                  alt='bookmark_One'
                 />
-                <p className="tw-md:text-xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
+                <p className='tw-md:text-xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white'>
                   {t("Total EPKs")}
                 </p>
                 {epkInfo === undefined ? (
                   "Loading"
                 ) : (
-                  <p className="tw-md:text-3xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white">
+                  <p className='tw-md:text-3xl tw-sm:text-[28px] tw-mt-1 tw-text-[18px] tw-text-white'>
                     {epkInfo.length}
                   </p>
                 )}
@@ -116,8 +116,8 @@ export default function MainPage() {
             </div>
           </div>
 
-          <div className="tw-md:flex-1 tw-md:w-full tw-mt-8 tw-flex tw-h-[28vh]  tw-w-full tw-flex-col tw-items-center tw-justify-start tw-rounded-[22px]  tw-bg-[#1E0039]">
-            <div className="tw-my-[10px] tw-flex tw-w-full tw-items-center">
+          <div className='tw-md:flex-1 tw-md:w-full tw-mt-8 tw-flex tw-h-[28vh]  tw-w-full tw-flex-col tw-items-center tw-justify-start tw-rounded-[22px]  tw-bg-[#1E0039]'>
+            <div className='tw-my-[10px] tw-flex tw-w-full tw-items-center'>
               {/* DropdownBtn  */}
               {/* <div
                 ref={dropdownRef}
@@ -153,58 +153,58 @@ export default function MainPage() {
                 )}
               </div> */}
 
-              <p className="tw-mt-[5px] tw-w-full   tw-text-center tw-font-bold tw-text-white">
+              <p className='tw-mt-[5px] tw-w-full   tw-text-center tw-font-bold tw-text-white'>
                 {t("ENGAGEMENT")}
               </p>
             </div>
-            <div className="tw-sm:flex-1 tw-sm:w-full tw-flex tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-bg-[#1E0039] tw-px-[30px] ">
-              <div className="tw-md:w-full tw-my-[40px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5">
-                <p className="tw-md:text-base tw-sm:text-[28px]  tw-mt-[20px] tw-text-[18px] tw-font-bold tw-text-[#1E0039]">
+            <div className='tw-sm:flex-1 tw-sm:w-full tw-flex tw-w-full tw-items-center tw-justify-between tw-rounded-[22px] tw-bg-[#1E0039] tw-px-[30px] '>
+              <div className='tw-md:w-full tw-my-[40px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5'>
+                <p className='tw-md:text-base tw-sm:text-[28px]  tw-mt-[20px] tw-text-[18px] tw-font-bold tw-text-[#1E0039]'>
                   {t("ENGAGEMENT EPKs")}
                 </p>
-                <div className="tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around">
-                  <div className=" tw-w-[50px] tw-flex-col tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
+                <div className='tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around'>
+                  <div className=' tw-w-[50px] tw-flex-col tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] '>
                     <img
-                      className="tw-mt-1 tw-h-[20px] tw-scale-90 "
+                      className='tw-mt-1 tw-h-[20px] tw-scale-90 '
                       src={DollarIcon}
-                      alt="Dollar icon"
+                      alt='Dollar icon'
                     />
                     {epkInfo === undefined ? (
                       0
                     ) : (
-                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                      <p className='tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white'>
                         {epkInfo.reduce((sum, item) => {
                           return sum + item.wishes_to_buy.length;
                         }, 0)}
                       </p>
                     )}
                   </div>
-                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
+                  <div className='tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] '>
                     <img
-                      className="tw-mt-1 tw-h-[20px] tw-scale-150 tw-fill-[#FFF] "
+                      className='tw-mt-1 tw-h-[20px] tw-scale-150 tw-fill-[#FFF] '
                       src={starWhite}
-                      alt="Star icon"
+                      alt='Star icon'
                     />
                     {epkInfo === undefined ? (
                       0
                     ) : (
-                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                      <p className='tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white'>
                         {epkInfo.reduce((sum, item) => {
                           return sum + item.likes.length;
                         }, 0)}
                       </p>
                     )}
                   </div>
-                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
+                  <div className='tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] '>
                     <img
-                      className="tw-mt-1 tw-h-[20px] tw-scale-90 "
+                      className='tw-mt-1 tw-h-[20px] tw-scale-90 '
                       src={plusWhite}
-                      alt="Plus icon"
+                      alt='Plus icon'
                     />
                     {epkInfo === undefined ? (
                       0
                     ) : (
-                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                      <p className='tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white'>
                         {epkInfo.reduce((sum, item) => {
                           return sum + item.favourites.length;
                         }, 0)}
@@ -213,21 +213,21 @@ export default function MainPage() {
                   </div>
                 </div>
               </div>
-              <div className="tw-md:w-full  tw-my-[10px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5">
-                <p className="tw-md:text-base tw-sm:text-[28px] tw-mt-[20px]  tw-text-[18px] tw-font-bold tw-text-[#1E0039]">
+              <div className='tw-md:w-full  tw-my-[10px] tw-flex tw-w-[40%] tw-flex-col tw-items-center tw-justify-center tw-gap-[9px] tw-rounded-[18px] tw-bg-white tw-p-0.5'>
+                <p className='tw-md:text-base tw-sm:text-[28px] tw-mt-[20px]  tw-text-[18px] tw-font-bold tw-text-[#1E0039]'>
                   {t("ENGAGEMENT ACTORs")}
                 </p>
-                <div className="tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around">
-                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
+                <div className='tw-mb-[40px] tw-mt-[20px] tw-flex tw-w-full tw-items-center tw-justify-around'>
+                  <div className='tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] '>
                     <img
-                      className="tw-mt-1 tw-h-[20px] tw-scale-150 tw-fill-[#FFF] "
+                      className='tw-mt-1 tw-h-[20px] tw-scale-150 tw-fill-[#FFF] '
                       src={starWhite}
-                      alt="Star icon"
+                      alt='Star icon'
                     />
                     {userInfo === undefined ? (
                       0
                     ) : (
-                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                      <p className='tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white'>
                         {userInfo
                           .filter((user) => user.role === "Actor")
                           .reduce((sum, item) => {
@@ -237,16 +237,16 @@ export default function MainPage() {
                     )}
                   </div>
 
-                  <div className="tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
+                  <div className='tw-w-[50px] tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] '>
                     <img
-                      className="tw-mt-1 tw-h-[20px] tw-scale-90 "
+                      className='tw-mt-1 tw-h-[20px] tw-scale-90 '
                       src={plusWhite}
-                      alt="Plus icon"
+                      alt='Plus icon'
                     />
                     {userInfo === undefined ? (
                       0
                     ) : (
-                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                      <p className='tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white'>
                         {userInfo
                           .filter((user) => user.role === "Actor")
                           .reduce((sum, item) => {
@@ -255,17 +255,17 @@ export default function MainPage() {
                       </p>
                     )}
                   </div>
-                  <div className=" tw-w-[50px] tw-flex-col tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] ">
+                  <div className=' tw-w-[50px] tw-flex-col tw-items-center tw-justify-center tw-rounded-[18px] tw-bg-[#1E0039] '>
                     <img
-                      className="tw-mt-1 tw-h-[20px] tw-scale-105 "
+                      className='tw-mt-1 tw-h-[20px] tw-scale-105 '
                       src={referralIcon}
-                      alt="referral Icon"
+                      alt='referral Icon'
                     />
 
                     {userInfo === undefined ? (
                       0
                     ) : (
-                      <p className="tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white">
+                      <p className='tw-md:text-base tw-sm:text-[12px]  tw-mb-1 tw-text-center tw-text-[14px] tw-text-white'>
                         {userInfo
                           .filter((user) => user.role === "Actor")
                           .reduce((sum, item) => {

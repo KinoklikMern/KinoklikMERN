@@ -5,12 +5,12 @@ import io from "socket.io-client";
 import avatarDemo from "../../../images/avatarDefault.jpeg";
 import { ChatState } from "../../../context/ChatProvider";
 import { NotificationContext } from "../../../context/NotificationContext";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 let socket, selectedChatCompare;
 export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
   const { t } = useTranslation();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
@@ -153,15 +153,15 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
 
   return (
     <>
-      <div className="tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039]">
-        <span className="tw-self-center tw-text-xl tw-text-white">
+      <div className='tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039]'>
+        <span className='tw-self-center tw-text-xl tw-text-white'>
           {selectedChat
             ? `Message exchange with ${selectedChat.chatName}`
-            : (t("Select a conversation to display"))}
+            : t("Select a conversation to display")}
         </span>
       </div>
 
-      <div className="tw-h-5/6 tw-overflow-y-auto">
+      <div className='tw-h-5/6 tw-overflow-y-auto'>
         {/* in come message */}
 
         {messages?.map((message) => (
@@ -170,19 +170,19 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
               isLoggedUser(message.sender) ? "tw-flex-row-reverse" : ""
             }`}
           >
-            <div className="tw-relative tw-m-1 tw-h-12 tw-w-12 tw-flex-none tw-overflow-hidden tw-rounded-lg">
+            <div className='tw-relative tw-m-1 tw-h-12 tw-w-12 tw-flex-none tw-overflow-hidden tw-rounded-lg'>
               <img
-                className="tw-h-12 tw-w-12 tw-flex-none tw-rounded-lg"
+                className='tw-h-12 tw-w-12 tw-flex-none tw-rounded-lg'
                 src={
                   message.sender.picture ==
                   "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
                     ? message.sender.picture
                     : `${process.env.REACT_APP_AWS_URL}/${message.sender.picture}`
                 }
-                alt="profile image"
+                alt='profile image'
               />
 
-              <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xxs tw-text-white">
+              <div className='tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xxs tw-text-white'>
                 {message.sender.role}
               </div>
             </div>
@@ -214,26 +214,26 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
         ))}
       </div>
       <div>
-        <div className="tw-relative tw-flex tw-items-center tw-rounded-lg">
+        <div className='tw-relative tw-flex tw-items-center tw-rounded-lg'>
           <textarea
             value={newMessage}
             onChange={typingHandler}
-            className="tw-block tw-w-full tw-self-center tw-rounded-lg tw-border tw-border-gray-100/50 tw-bg-gray-500/50 tw-px-3 tw-pt-2 tw-text-base tw-text-white placeholder:tw-text-white focus:tw-border-gray-100 focus:tw-ring-gray-100"
+            className='tw-block tw-w-full tw-self-center tw-rounded-lg tw-border tw-border-gray-100/50 tw-bg-gray-500/50 tw-px-3 tw-pt-2 tw-text-base tw-text-white placeholder:tw-text-white focus:tw-border-gray-100 focus:tw-ring-gray-100'
             placeholder={t("Your message...")}
           ></textarea>
           <button
             onClick={sendMessage}
-            type="submit"
-            className="tw-absolute tw-inset-y-0 tw-right-0 tw-cursor-pointer tw-justify-center tw-bg-white/0 tw-p-2 tw-text-[#1E0039] hover:tw-scale-125 hover:tw-text-blue-200"
+            type='submit'
+            className='tw-absolute tw-inset-y-0 tw-right-0 tw-cursor-pointer tw-justify-center tw-bg-white/0 tw-p-2 tw-text-[#1E0039] hover:tw-scale-125 hover:tw-text-blue-200'
           >
             <svg
-              aria-hidden="true"
-              className="tw-h-8 tw-w-8 tw-rotate-45"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden='true'
+              className='tw-h-8 tw-w-8 tw-rotate-45'
+              fill='currentColor'
+              viewBox='0 0 20 20'
+              xmlns='http://www.w3.org/2000/svg'
             >
-              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+              <path d='M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z'></path>
             </svg>
           </button>
         </div>

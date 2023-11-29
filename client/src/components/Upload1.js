@@ -1,16 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
 function Upload1() {
-  
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const handleSubmit = () => {
-    
     console.log(fileDataURL);
   };
 
@@ -50,21 +48,21 @@ function Upload1() {
     <>
       <form>
         <p>
-          <label htmlFor="image"> {t('Browse images')} </label>
+          <label htmlFor='image'> {t("Browse images")} </label>
           <input
-            type="file"
-            id="image"
-            accept=".png, .jpg, .jpeg"
+            type='file'
+            id='image'
+            accept='.png, .jpg, .jpeg'
             onChange={changeHandler}
           />
         </p>
         <p>
-          <input type="Bottun" label="Upload" onClick={handleSubmit} />
+          <input type='Bottun' label='Upload' onClick={handleSubmit} />
         </p>
       </form>
       {fileDataURL ? (
-        <p className="img-preview-wrapper">
-          {<img src={fileDataURL} alt="preview" />}
+        <p className='img-preview-wrapper'>
+          {<img src={fileDataURL} alt='preview' />}
         </p>
       ) : null}
     </>

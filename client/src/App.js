@@ -111,7 +111,7 @@ function App() {
   const NavbarDefaultClass =
     "tw-bg-gradient-to-b tw-from-[#4b1a77] tw-to-[#1f0439]";
   // const KinoKlikTitle = "KinoKlik";
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const className = user ? NavbarHomeClass : NavbarDefaultClass;
   const [fepkId, setFepkId] = useState("");
   const [fepkMaker, setFepkMaker] = useState("");

@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 // import http from "../../http-common.js";
 import heroImage from "../../images/LandingPage_Hero.png";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const Landing1 = () => {
   const { t } = useTranslation();
   // const dispatch = useDispatch();
   // const [fepks, setFepks] = useState([]);
   const navigate = useNavigate();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
 
   // eslint-disable-next-line no-unused-vars
   const createEpk = async () => {
@@ -53,10 +53,12 @@ const Landing1 = () => {
                 {t("Refined.")}
               </h1>
               <p className='tw-my-12 tw-text-xl tw-font-semibold tw-text-white md:tw-text-2xl'>
-                {t("Promote your film to industry professionals with KinoKlik's free")}
+                {t(
+                  "Promote your film to industry professionals with KinoKlik's free"
+                )}
                 <br />
                 <span className='tw-text-[#FF00F5]'>
-                {t("Electronic Press Kit")}
+                  {t("Electronic Press Kit")}
                 </span>{" "}
                 {t("software!")}
               </p>

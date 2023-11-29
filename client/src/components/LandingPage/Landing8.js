@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import http from "../../http-common";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const Landing8 = () => {
   const { t } = useTranslation();
   // const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
+
   // save newest file data that get from api
   const [fepksNew, setFepks] = useState([]);
   const [fepksPopular, setPopularFepks] = useState([]);

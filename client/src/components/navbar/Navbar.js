@@ -10,7 +10,7 @@ function Navbar(props) {
   const [toggle, setToggle] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
 
   return (
     <nav className={`tw-w-full ${props.className}`}>

@@ -16,7 +16,7 @@ import Trailer from "../components/Epk/Present/Trailer";
 import Footer from "../components/Footer";
 
 function EPK() {
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const id = 5;
 
   //Cover
@@ -286,7 +286,7 @@ function EPK() {
 
   return (
     <>
-      <div className="container">
+      <div className='container'>
         {/* {coverList && coverList.map((s) => <EpkCover coverFile={s} />)} */}
         {detailsList && detailsList.map((s) => <Details detailsFile={s} />)}
         {loglineList && loglineList.map((s) => <Logline loglineFile={s} />)}

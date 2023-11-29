@@ -4,7 +4,7 @@ import Axios from "axios";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 //Modal.setAppElement(document.body);
 export default function Account() {
@@ -17,7 +17,7 @@ export default function Account() {
   const dispatch = useDispatch();
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   let userRole;
   if (!user) {
@@ -78,18 +78,18 @@ export default function Account() {
 
   return (
     // <form className="tw-h-full">
-    <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
-      <div className="tw-col-start-4 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center">
+    <div className='tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4'>
+      <div className='tw-col-start-4 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center'>
         <input
-          placeholder= {t("Account Type")}
+          placeholder={t("Account Type")}
           defaultValue={user.role}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
         />
         <button
           onClick={() => openModal()}
-          className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
         >
-          {t('Delete Account')}
+          {t("Delete Account")}
         </button>
         {/* <button className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 ">
           Confirm Delete Account
@@ -99,7 +99,7 @@ export default function Account() {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          contentLabel="Example Modal"
+          contentLabel='Example Modal'
           appElement={document.getElementById("root")}
           style={{
             overlay: {
@@ -129,27 +129,27 @@ export default function Account() {
             <br />
             {confirmed ? (
               <button
-                className="btn btn-secondary btn-sm"
+                className='btn btn-secondary btn-sm'
                 onClick={() => closeModal()}
               >
-                {t('Ok')}
+                {t("Ok")}
               </button>
             ) : (
               <>
                 <button
-                  className="btn btn-secondary btn-sm"
+                  className='btn btn-secondary btn-sm'
                   onClick={() => closeModal()}
                 >
-                  {t('Cancel')}
+                  {t("Cancel")}
                 </button>
                 <button
-                  className="btn btn-secondary btn-sm"
+                  className='btn btn-secondary btn-sm'
                   onClick={() => {
                     // setConfirmed(true);
                     deleteAccount();
                   }}
                 >
-                  {t('Confirm')}
+                  {t("Confirm")}
                 </button>
               </>
             )}

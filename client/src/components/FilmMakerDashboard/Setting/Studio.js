@@ -44,7 +44,7 @@ export default function Studio() {
   };
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   let userRole;
   if (!user) {

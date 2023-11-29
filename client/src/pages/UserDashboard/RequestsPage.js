@@ -4,7 +4,7 @@ import Sidebar from "../../components/UserDashboard/Sidebar";
 import EpkCard from "../../components/UserDashboard/EpkCard";
 import EmptyEpk from "../../components/UserDashboard/Requests/EmptyEpk";
 import Axios from "axios";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function RequestsPage() {
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ export default function RequestsPage() {
   const [epkListPending, setEpkListPending] = useState([]);
   const [epkListRefused, setEpkListRefused] = useState([]);
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   if (!user) {
     userId = "0";
@@ -73,7 +73,9 @@ export default function RequestsPage() {
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
       <div className='tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white md:tw-mb-8'>
-        <p className='tw-text-4xl'>{user.role} {t("Dashboard")}</p>
+        <p className='tw-text-4xl'>
+          {user.role} {t("Dashboard")}
+        </p>
       </div>
       <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
@@ -139,7 +141,7 @@ export default function RequestsPage() {
           </div>
           <div className='tw-flex tw-flex-col tw-gap-3'>
             <span className='tw-bg-[#1E0039] tw-text-xl tw-text-white'>
-            {t("Refused EPKs")}
+              {t("Refused EPKs")}
             </span>
             {epkListRefused.length === 0 ? (
               <EmptyEpk EpkStatus='refused' />

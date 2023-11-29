@@ -5,7 +5,7 @@ import LoginForm from "../components/Auth/Registration/loginform";
 
 function FepkUploadDashboard() {
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let filmmaker_role;
   if (!user) {
     filmmaker_role = "noUser";

@@ -16,7 +16,7 @@ export default function Password() {
   const { t } = useTranslation();
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   let userRole;
   if (!user) {

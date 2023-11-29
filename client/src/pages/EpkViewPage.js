@@ -27,7 +27,7 @@ import emptyBanner from "../images/empty_banner.jpeg";
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   // const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();
   const [requestStatus, setRequestStatus] = useState();

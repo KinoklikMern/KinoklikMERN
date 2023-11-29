@@ -18,7 +18,7 @@ import { FepkContext } from "../context/FepkContext";
 import FilterTag from "../components/Filter/FilterTag";
 import Landing11 from "../components/LandingPage/Landing11";
 function Home({ role }) {
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   // eslint-disable-next-line no-unused-vars
   const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
   useEffect(() => {
@@ -28,7 +28,7 @@ function Home({ role }) {
 
   return (
     <>
-      <div className="tw-overflow-hidden">
+      <div className='tw-overflow-hidden'>
         {user && (
           <>
             <HomeHead role={role} />

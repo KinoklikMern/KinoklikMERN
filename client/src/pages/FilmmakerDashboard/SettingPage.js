@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 export default function SettingPage() {
   // eslint-disable-next-line no-unused-vars
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const [openTab, setOpenTab] = useState(1);
   const { t } = useTranslation();
   const tabs = [

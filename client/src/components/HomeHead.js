@@ -35,7 +35,7 @@ const HomeHead = (props) => {
   const [actor, setActor] = useState({});
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   let userRole;
   if (!user) {

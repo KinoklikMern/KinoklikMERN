@@ -5,10 +5,10 @@ import { ChatState } from "../../../context/ChatProvider.js";
 import NotificationItem from "./NotificationItem.js";
 import ChatListItem from "./ChatListItem.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function ChatList({ fetchAgain, userId, searchValue }) {
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const { selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
   const [chats, setChats] = useState([]);
@@ -276,8 +276,8 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
       {loading ? (
         <div>{t("Loading...")}</div>
       ) : filteredUnreadChats.length === 0 && filteredReadChats.length === 0 ? (
-        <div className="tw-mx-4 tw-mt-4 tw-text-center tw-text-white">
-          {t('No conversations to display')}
+        <div className='tw-mx-4 tw-mt-4 tw-text-center tw-text-white'>
+          {t("No conversations to display")}
         </div>
       ) : (
         <>
@@ -294,8 +294,8 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
               )
             : filteredUnreadChats.length > 0) && (
             <>
-              <div className="tw-mx-4 tw-mt-4 tw-text-white">{t("Unread")}</div>
-              <div className="tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white"></div>
+              <div className='tw-mx-4 tw-mt-4 tw-text-white'>{t("Unread")}</div>
+              <div className='tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white'></div>
               {filteredUnreadChats.map((chat) => displayChatList(chat))}
             </>
           )}
@@ -309,8 +309,10 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
                   )
                 : true) && (
                 <>
-                  <div className="tw-mx-4 tw-mt-4 tw-text-white">{t("Read")}</div>
-                  <div className="tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white"></div>
+                  <div className='tw-mx-4 tw-mt-4 tw-text-white'>
+                    {t("Read")}
+                  </div>
+                  <div className='tw-mx-4 tw-mb-4 tw-flex tw-border-b tw-border-white'></div>
                 </>
               )}
 

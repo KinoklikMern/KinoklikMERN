@@ -1,7 +1,7 @@
 import React from "react";
 import EpkReport from "../EpkReport/EpkReport";
 import { useSelector } from "react-redux";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function EpkCover({ epkInfo }) {
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ export default function EpkCover({ epkInfo }) {
       ? ""
       : `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
 
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
 
   const formatedDate = (timestamp) => {
     return new Date(timestamp).toLocaleString("en-US", {

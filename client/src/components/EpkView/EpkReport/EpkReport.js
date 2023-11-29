@@ -11,10 +11,10 @@ import {
   faCircleInfo,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function EpkReport({ epkInfo }) {
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   let userRole;
   if (!user) {
@@ -149,7 +149,7 @@ export default function EpkReport({ epkInfo }) {
       {isClickDot === false || isClose === true ? (
         <div className={style.dotSection}>
           <FontAwesomeIcon
-            color="white"
+            color='white'
             onClick={() => clickStateDot()}
             icon={faEllipsisVertical}
           />
@@ -189,7 +189,7 @@ export default function EpkReport({ epkInfo }) {
             {isClickReport === false ? (
               <>
                 <p className={style.reportTitle}>
-                  {t('Why are you reporting this EPK?')}
+                  {t("Why are you reporting this EPK?")}
                 </p>
                 <form className={style.form1}>
                   <div className={style.inputContainer}>
@@ -197,9 +197,9 @@ export default function EpkReport({ epkInfo }) {
                       className={
                         chosen1 === true ? style.selected : style.form1Input
                       }
-                      type="text"
-                      value="Spam"
-                      onhover="tw-color-red-500"
+                      type='text'
+                      value='Spam'
+                      onhover='tw-color-red-500'
                       onClick={() => chooseReason("Spam")}
                       readOnly
                     ></input>
@@ -212,7 +212,9 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon1 === true ? (
                       <div className={style.reportMessage}>
-                        {t('This can be unwanted and unauthorized use of content from another website on third-party websites in connection with other content, negatively affecting your experience and reputation on our platform.')}
+                        {t(
+                          "This can be unwanted and unauthorized use of content from another website on third-party websites in connection with other content, negatively affecting your experience and reputation on our platform."
+                        )}
                       </div>
                     ) : (
                       ""
@@ -223,8 +225,8 @@ export default function EpkReport({ epkInfo }) {
                       className={
                         chosen2 === true ? style.selected : style.form1Input
                       }
-                      type="text"
-                      value="Nudity or Sexual Content"
+                      type='text'
+                      value='Nudity or Sexual Content'
                       onClick={() => chooseReason1("Nudity or Sexual Content")}
                       readOnly
                     ></input>
@@ -237,7 +239,9 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon2 === true ? (
                       <div className={style.reportMessage}>
-                        {t('This can be any content that appears to be pronographic, sexual exploitation or solicitation and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks. Nudity in photos of paintings and sculptures are permitted.')}
+                        {t(
+                          "This can be any content that appears to be pronographic, sexual exploitation or solicitation and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks. Nudity in photos of paintings and sculptures are permitted."
+                        )}
                       </div>
                     ) : (
                       ""
@@ -248,10 +252,12 @@ export default function EpkReport({ epkInfo }) {
                       className={
                         chosen3 === true ? style.selected : style.form1Input
                       }
-                      type="text"
-                      value="Copyrighted Intellectual Property Violation"
+                      type='text'
+                      value='Copyrighted Intellectual Property Violation'
                       onClick={() =>
-                        chooseReason2(t("Copyrighted Intellectual Property Violation"))
+                        chooseReason2(
+                          t("Copyrighted Intellectual Property Violation")
+                        )
                       }
                       readOnly
                     ></input>
@@ -264,7 +270,9 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon3 === true ? (
                       <div className={style.reportMessage}>
-                        {t('This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform.')}
+                        {t(
+                          "This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform."
+                        )}
                       </div>
                     ) : (
                       ""
@@ -272,16 +280,16 @@ export default function EpkReport({ epkInfo }) {
                   </div>
 
                   <div className={style.inputContainer}>
-                    {!chosen4 && <label for="Other">Other: </label>}
+                    {!chosen4 && <label for='Other'>Other: </label>}
                     <input
                       className={
                         chosen4 === true ? style.selected : style.comment
                       }
-                      type="text"
-                      name="comment"
+                      type='text'
+                      name='comment'
                       onChange={handleInputChange}
                       onClick={chooseOtherReason}
-                      placeholder= {t("type here")}
+                      placeholder={t("type here")}
                     ></input>
                     <FontAwesomeIcon
                       className={
@@ -292,7 +300,9 @@ export default function EpkReport({ epkInfo }) {
                     />
                     {isClickInfoIcon4 === true ? (
                       <div className={style.reportMessage}>
-                        {t('Other: any other reason you may want to report this EPK.')}
+                        {t(
+                          "Other: any other reason you may want to report this EPK."
+                        )}
                       </div>
                     ) : (
                       ""
@@ -303,13 +313,15 @@ export default function EpkReport({ epkInfo }) {
                     onClick={() => clickReport()}
                     className={style.submitReport}
                   >
-                    {t('Report!')}
+                    {t("Report!")}
                   </button>
                 </form>
               </>
             ) : (
               <p className={style.reportP}>
-                {t('Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.')}
+                {t(
+                  "Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly."
+                )}
               </p>
             )}
           </div>

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Axios from "axios";
 import Modal from "react-modal";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function Password() {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ export default function Password() {
   const [message, setMessage] = useState([]);
 
   // fetching user
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   let userRole;
   if (!user) {
@@ -74,19 +74,19 @@ export default function Password() {
 
   return (
     //<form className="tw-h-full">
-    <div className="tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4">
-      <div className="tw-col-start-3 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center ">
-        <div className="tw-flex tw-gap-2">
+    <div className='tw-grid tw-h-full tw-grid-cols-4 tw-gap-2 tw-py-4'>
+      <div className='tw-col-start-3 tw-mt-8 tw-flex tw-flex-col tw-justify-self-center '>
+        <div className='tw-flex tw-gap-2'>
           <input
-            name="newPassword"
+            name='newPassword'
             placeholder={t("New Password")}
             type={pwdShow ? "text" : "password"}
             onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400"
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400'
           />
 
           <span
-            className="tw-w-1/6 tw-self-center"
+            className='tw-w-1/6 tw-self-center'
             onClick={() => {
               setPwdShow(!pwdShow);
             }}
@@ -94,17 +94,17 @@ export default function Password() {
             <FontAwesomeIcon icon={pwdShow ? faEye : faEyeSlash} />
           </span>
         </div>
-        <div className="tw-flex tw-gap-2">
+        <div className='tw-flex tw-gap-2'>
           <input
-            name="confirmPassword"
+            name='confirmPassword'
             placeholder={t("Confirm New Password")}
             type={rePwdShow ? "text" : "password"}
             onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400 "
+            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400 '
           />
 
           <span
-            className="tw-w-1/6 tw-self-center"
+            className='tw-w-1/6 tw-self-center'
             onClick={() => {
               setRePwdShow(!rePwdShow);
             }}
@@ -117,7 +117,7 @@ export default function Password() {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          contentLabel="Example Modal"
+          contentLabel='Example Modal'
           appElement={document.getElementById("root")}
           style={{
             overlay: {
@@ -145,26 +145,26 @@ export default function Password() {
           <div style={{ textAlign: "center" }}>
             <h2>{message}</h2>
             <br />
-            <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-            {t('OK')}
+            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
+              {t("OK")}
             </button>
           </div>
         </Modal>
       </div>
-      <div className="tw-col-start-4 tw-place-self-end tw-px-12">
+      <div className='tw-col-start-4 tw-place-self-end tw-px-12'>
         {disabled === true ? (
           <button
             disabled
-            className="tw-rounded-full tw-py-2 tw-px-8 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
+            className='tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none'
           >
-            {t('Save')}
+            {t("Save")}
           </button>
         ) : (
           <button
-            className="tw-rounded-full tw-py-2 tw-px-8 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
+            className='tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50'
             onClick={() => saveUserPassword()}
           >
-            {t('Save')}
+            {t("Save")}
           </button>
         )}
       </div>

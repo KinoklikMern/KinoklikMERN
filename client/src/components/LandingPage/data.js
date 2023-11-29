@@ -1,5 +1,3 @@
-
-
 export const data = [
   {
     _id: 1,
@@ -16,12 +14,12 @@ export const data = [
     _id: 3,
     question: "What if my film is not finished?",
     answer:
-      "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK get discovered by other film industry professionals!",
+      "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK discovered by film industry professionals!",
   },
   {
     _id: 4,
     question: "How can I protect my film's Intellectual Property?",
     answer:
-      "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK get discovered by other film industry professionals!",
+      "We understand you want to promote your film to the world, but also protect your story and IP, and KinoKlik EPK allows you to do just that! While you can upload anything you want about your film's story, from poster, logline, synopsis, film stills and more, you can simultaneously blur out any sections you want to protect and require users to request access. You can approve access to anyone you want directly from your dashboard.",
   },
 ];

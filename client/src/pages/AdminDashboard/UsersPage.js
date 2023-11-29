@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import Triangle from "../../images/icons/triangle.svg";
 import http from "../../http-common";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,7 +21,7 @@ function classNames(...classes) {
 
 export default function UsersPage() {
   const { t } = useTranslation();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const [actionStatus, setActionStatus] = useState(0); //0: list, 1: view, 2: edit,
   const dropdownRef = useRef(null);
   const [userInfo, setUserInfo] = useState();
@@ -34,20 +34,20 @@ export default function UsersPage() {
   //dropdown
   const [isOpen, setIsOpen] = useState(false);
   const options = [
-    (t("Filmmaker")),
-    (t( "Sales Agent")),
-    (t("Distributor")),
-    (t("Film Festival")),
-    (t("Viewer")),
-    (t("Investor")),
-    (t("Actor")),
-    (t("Director")),
-    (t("Editor")),
-    (t("Producer")),
-    (t("Cinematographer")),
-    (t("Sound")),
-    (t("Writer")),
-    (t("Admin")),
+    t("Filmmaker"),
+    t("Sales Agent"),
+    t("Distributor"),
+    t("Film Festival"),
+    t("Viewer"),
+    t("Investor"),
+    t("Actor"),
+    t("Director"),
+    t("Editor"),
+    t("Producer"),
+    t("Cinematographer"),
+    t("Sound"),
+    t("Writer"),
+    t("Admin"),
   ];
 
   const handleToggle = () => {
@@ -351,43 +351,43 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="tw-flex tw-h-screen tw-flex-col tw-bg-white">
-      <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]">
+    <div className='tw-flex tw-h-screen tw-flex-col tw-bg-white'>
+      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-[#1E0039]'>
         {/* <p className="tw-text-4xl">Admin Dashboard</p> */}
       </div>
-      <div className="tw-mx-8 tw-flex tw-h-5/6 tw-flex-row">
-        <div className="tw-ml-16 tw-mt-12 tw-h-[70vh]">
-          <LeftSidebar selectedTab="Users" role={user.role} />
+      <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
+        <div className='tw-ml-16 tw-mt-12 tw-h-[70vh]'>
+          <LeftSidebar selectedTab='Users' role={user.role} />
         </div>
         {/* tw-overflow-auto */}
-        <div className="tw-ml-16 tw-mt-8 tw-flex tw-h-5/6 tw-w-5/6  tw-flex-col tw-rounded-lg tw-bg-white tw-p-4">
+        <div className='tw-ml-16 tw-mt-8 tw-flex tw-h-5/6 tw-w-5/6  tw-flex-col tw-rounded-lg tw-bg-white tw-p-4'>
           {/* line */}
-          <div className="tw-h-0.5 tw-w-full tw-bg-[#1E0039]"></div>
+          <div className='tw-h-0.5 tw-w-full tw-bg-[#1E0039]'></div>
           {/* box */}
           <TopToolBar
-            selectedTab="Users"
+            selectedTab='Users'
             setFilteredData={setUserFilterInfo}
             dataInfo={userInfo}
           />
 
           {/* List */}
           {actionStatus === 0 ? (
-            <div className=" tw-w-full tw-rounded-md tw-bg-white ">
-              <div className=" tw-w-full tw-overflow-auto tw-py-4">
-                <div className="tw-scrollbar-width-thin tw-flex tw-h-[50px] tw-min-w-full tw-items-center tw-justify-between tw-overflow-auto tw-rounded-xl tw-bg-gray-300  tw-scrollbar-track-gray-300 tw-scrollbar-thumb-blue-500">
-                  <p className="tw-text-md tw-w-3/12  tw-rounded-l-lg   tw-py-3 tw-text-center tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
+            <div className=' tw-w-full tw-rounded-md tw-bg-white '>
+              <div className=' tw-w-full tw-overflow-auto tw-py-4'>
+                <div className='tw-scrollbar-width-thin tw-flex tw-h-[50px] tw-min-w-full tw-items-center tw-justify-between tw-overflow-auto tw-rounded-xl tw-bg-gray-300  tw-scrollbar-track-gray-300 tw-scrollbar-thumb-blue-500'>
+                  <p className='tw-text-md tw-w-3/12  tw-rounded-l-lg   tw-py-3 tw-text-center tw-font-normal tw-tracking-wider tw-text-[#1E0039]'>
                     {t("Name")}
                   </p>
-                  <p className=" tw-text-md tw-w-2/12 tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]">
-                  {t("Role")}
+                  <p className=' tw-text-md tw-w-2/12 tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]'>
+                    {t("Role")}
                   </p>
-                  <p className=" tw-text-md tw-w-4/12 tw-py-3  tw-text-left  tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
+                  <p className=' tw-text-md tw-w-4/12 tw-py-3  tw-text-left  tw-font-normal tw-tracking-wider tw-text-[#1E0039]'>
                     {t("Contact")}
                   </p>
-                  <p className="tw-text-md  tw-w-2/12 tw-py-3 tw-text-left tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
+                  <p className='tw-text-md  tw-w-2/12 tw-py-3 tw-text-left tw-font-normal tw-tracking-wider tw-text-[#1E0039]'>
                     {t("Last Active")}
                   </p>
-                  <p className="tw-text-md tw-w-1/12 tw-rounded-r-lg tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]">
+                  <p className='tw-text-md tw-w-1/12 tw-rounded-r-lg tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]'>
                     {t("Action")}
                   </p>
                 </div>
@@ -395,7 +395,7 @@ export default function UsersPage() {
                 {userFilterInfo === undefined ? (
                   "Loading"
                 ) : (
-                  <div className=" tw-mt-[10px] tw-h-[50vh] tw-min-w-full tw-flex-col  tw-overflow-auto tw-rounded-lg tw-shadow">
+                  <div className=' tw-mt-[10px] tw-h-[50vh] tw-min-w-full tw-flex-col  tw-overflow-auto tw-rounded-lg tw-shadow'>
                     {userFilterInfo.map((item, index) =>
                       item.deleted ? null : (
                         <div
@@ -409,48 +409,48 @@ export default function UsersPage() {
                           onMouseEnter={() => handleMouseEnter(index)}
                           onMouseLeave={handleMouseLeave}
                         >
-                          <div className="tw-w-3/12 tw-px-2 tw-py-5 tw-text-sm">
-                            <div className="shadow-xl tw-flex tw-items-center">
-                              <div className="tw-relative tw-h-14 tw-w-14 tw-flex-shrink-0">
+                          <div className='tw-w-3/12 tw-px-2 tw-py-5 tw-text-sm'>
+                            <div className='shadow-xl tw-flex tw-items-center'>
+                              <div className='tw-relative tw-h-14 tw-w-14 tw-flex-shrink-0'>
                                 {item.picture.includes("https") ? (
                                   <img
-                                    className="tw-h-full tw-w-full tw-justify-center "
+                                    className='tw-h-full tw-w-full tw-justify-center '
                                     src={item.picture}
-                                    alt=""
+                                    alt=''
                                   />
                                 ) : (
                                   <img
-                                    className="tw-h-full tw-w-full tw-justify-center "
+                                    className='tw-h-full tw-w-full tw-justify-center '
                                     src={`${process.env.REACT_APP_AWS_URL}/${item.picture}`}
-                                    alt=""
+                                    alt=''
                                   />
                                 )}
-                                <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-h-3 tw-items-start tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-[8px]  tw-text-white">
-                                  <p className="tw-leading-3">{item.role}</p>
+                                <div className='tw-absolute tw-inset-x-1 tw-bottom-0 tw-h-3 tw-items-start tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-[8px]  tw-text-white'>
+                                  <p className='tw-leading-3'>{item.role}</p>
                                 </div>
                               </div>
-                              <div className="tw-ml-3">
-                                <p className="tw-whitespace-no-wrap ">
+                              <div className='tw-ml-3'>
+                                <p className='tw-whitespace-no-wrap '>
                                   {item.firstName} {item.lastName}
                                 </p>
                               </div>
                             </div>
                           </div>
-                          <div className=" tw-w-2/12  tw-py-5 tw-text-sm ">
-                            <p className="tw-whitespace-no-wrap ">
+                          <div className=' tw-w-2/12  tw-py-5 tw-text-sm '>
+                            <p className='tw-whitespace-no-wrap '>
                               {item.role}
                             </p>
                           </div>
-                          <div className=" tw-w-4/12 tw-py-5 tw-text-sm">
-                            <p className="tw-whitespace-no-wrap ">
+                          <div className=' tw-w-4/12 tw-py-5 tw-text-sm'>
+                            <p className='tw-whitespace-no-wrap '>
                               {item.phone}
                             </p>
-                            <p className="tw-whitespace-no-wrap ">
+                            <p className='tw-whitespace-no-wrap '>
                               {item.email}
                             </p>
                           </div>
-                          <div className="  tw-w-2/12 tw-px-5 tw-py-5 tw-text-sm ">
-                            <p className="tw-whitespace-no-wrap ">
+                          <div className='  tw-w-2/12 tw-px-5 tw-py-5 tw-text-sm '>
+                            <p className='tw-whitespace-no-wrap '>
                               {activeString(item)}
                               {/* {onlineUsers[item._id]
                                 ? "Active"
@@ -459,16 +459,16 @@ export default function UsersPage() {
                                 : item.lastActive} */}
                             </p>
                           </div>
-                          <div className="  tw-w-1/12 tw-py-5 tw-text-sm ">
-                            <div className="tw-relative  tw-flex tw-px-1 tw-py-1 tw-font-semibold tw-leading-tight ">
+                          <div className='  tw-w-1/12 tw-py-5 tw-text-sm '>
+                            <div className='tw-relative  tw-flex tw-px-1 tw-py-1 tw-font-semibold tw-leading-tight '>
                               <img
                                 src={
                                   getRowClass(index)
                                     ? MessageIconWhite
                                     : MessageIcon
                                 }
-                                className="tw-flex tw-h-[20px] tw-cursor-pointer tw-rounded-none tw-fill-red-500"
-                                alt="View icon"
+                                className='tw-flex tw-h-[20px] tw-cursor-pointer tw-rounded-none tw-fill-red-500'
+                                alt='View icon'
                                 onClick={() => handleViewClick(item)}
                               />
                               <img
@@ -477,8 +477,8 @@ export default function UsersPage() {
                                     ? EditPencilIconWhite
                                     : EditPencilIcon
                                 }
-                                className="tw-flex tw-h-[20px] tw-cursor-pointer"
-                                alt="Edit icon"
+                                className='tw-flex tw-h-[20px] tw-cursor-pointer'
+                                alt='Edit icon'
                                 onClick={() => handleEditClick(item)}
                               />
 
@@ -488,8 +488,8 @@ export default function UsersPage() {
                                     ? TrashIconWhite
                                     : TrashIcon
                                 }
-                                className="tw-flex tw-h-[28px] tw-cursor-pointer"
-                                alt="Trash Icon"
+                                className='tw-flex tw-h-[28px] tw-cursor-pointer'
+                                alt='Trash Icon'
                                 onClick={() => handleDeleteClick(item)}
                               />
                             </div>
@@ -505,16 +505,16 @@ export default function UsersPage() {
 
           {/* View */}
           {actionStatus === 1 ? (
-            <div className="tw-mt-12 tw-w-full tw-rounded-xl  tw-bg-gray-300">
-              <div className=" tw-flex tw-h-12 tw-w-full tw-items-center tw-justify-between tw-rounded-xl tw-bg-[#1E0039]">
-                <div className="tw-ml-4 tw-cursor-pointer tw-text-white">
+            <div className='tw-mt-12 tw-w-full tw-rounded-xl  tw-bg-gray-300'>
+              <div className=' tw-flex tw-h-12 tw-w-full tw-items-center tw-justify-between tw-rounded-xl tw-bg-[#1E0039]'>
+                <div className='tw-ml-4 tw-cursor-pointer tw-text-white'>
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     style={{ color: "#fafafa" }}
                     onClick={handleBackClick}
                   />
                 </div>
-                <div className="tw-mr-3 tw-flex tw-w-16 tw-justify-around tw-text-white">
+                <div className='tw-mr-3 tw-flex tw-w-16 tw-justify-around tw-text-white'>
                   {/* <img
                     src={MessageIconWhite}
                     className="tw-flex tw-h-5  tw-cursor-pointer tw-rounded-none "
@@ -523,39 +523,39 @@ export default function UsersPage() {
                   /> */}
                   <img
                     src={EditPencilIconWhite}
-                    className="tw-flex tw-h-[20px] tw-cursor-pointer"
-                    alt="Edit icon"
+                    className='tw-flex tw-h-[20px] tw-cursor-pointer'
+                    alt='Edit icon'
                     onClick={() => handleEditClick(item)}
                   />
                   <img
                     src={TrashIconWhite}
-                    className="tw-flex tw-h-[28px] tw-cursor-pointer"
-                    alt="Trash Icon"
+                    className='tw-flex tw-h-[28px] tw-cursor-pointer'
+                    alt='Trash Icon'
                     onClick={() => handleDeleteClick(item)}
                   />
                 </div>
               </div>
-              <div className=" tw-justify-left tw-w-full tw-flex-col tw-rounded-xl tw-bg-gray-300 ">
-                <div className="tw-flex tw-w-full tw-pl-8 tw-pt-2">
-                  <div className="tw-relative tw-w-24  tw-flex-shrink-0">
+              <div className=' tw-justify-left tw-w-full tw-flex-col tw-rounded-xl tw-bg-gray-300 '>
+                <div className='tw-flex tw-w-full tw-pl-8 tw-pt-2'>
+                  <div className='tw-relative tw-w-24  tw-flex-shrink-0'>
                     <img
-                      className="tw-h-full tw-w-full tw-justify-center "
+                      className='tw-h-full tw-w-full tw-justify-center '
                       src={
                         item.picture.includes("https")
                           ? item.picture
                           : `${process.env.REACT_APP_AWS_URL}/${item.picture}`
                       }
-                      alt=""
+                      alt=''
                     />
-                    <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-flex tw-h-4 tw-items-center tw-justify-center tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white">
-                      <p className=" tw-leading-3">
+                    <div className='tw-absolute tw-inset-x-1 tw-bottom-0 tw-flex tw-h-4 tw-items-center tw-justify-center tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white'>
+                      <p className=' tw-leading-3'>
                         {item.role.includes("_")
                           ? item.role.replace("_", " ")
                           : item.role}
                       </p>
                     </div>
                   </div>
-                  <div className="tw-text-md tw-whitespace-no-wrap  tw-pl-6 tw-text-[#1E0039] ">
+                  <div className='tw-text-md tw-whitespace-no-wrap  tw-pl-6 tw-text-[#1E0039] '>
                     <p>
                       {item.firstName} {item.lastName}
                     </p>
@@ -569,8 +569,8 @@ export default function UsersPage() {
                   </div>
                 </div>
                 {epks !== undefined ? (
-                  <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
-                    <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
+                  <div className='tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24'>
+                    <div className='tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2'>
                       {epks.map((epk, index) => (
                         <a key={index} href={`/epk/${epk.title}`}>
                           <img
@@ -579,13 +579,13 @@ export default function UsersPage() {
                                 ? epk.image_details
                                 : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
                             }
-                            className="  tw-m-2 tw-rounded-none"
-                            alt="movie cover"
+                            className='  tw-m-2 tw-rounded-none'
+                            alt='movie cover'
                           />
                         </a>
                       ))}
                       {epks.length === 0 ? (
-                        <div className="tw-block tw-h-[180px]"></div>
+                        <div className='tw-block tw-h-[180px]'></div>
                       ) : null}
                     </div>
                   </div>
@@ -596,66 +596,66 @@ export default function UsersPage() {
 
           {/* Edit */}
           {actionStatus === 2 ? (
-            <div className="tw-mt-12 tw-w-full tw-rounded-xl  tw-bg-gray-300">
-              <div className=" tw-flex tw-h-12 tw-w-full tw-items-center tw-justify-between tw-rounded-xl tw-bg-[#1E0039]">
-                <div className="tw-ml-4 tw-cursor-pointer tw-text-white">
+            <div className='tw-mt-12 tw-w-full tw-rounded-xl  tw-bg-gray-300'>
+              <div className=' tw-flex tw-h-12 tw-w-full tw-items-center tw-justify-between tw-rounded-xl tw-bg-[#1E0039]'>
+                <div className='tw-ml-4 tw-cursor-pointer tw-text-white'>
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     style={{ color: "#fafafa" }}
                     onClick={handleBackClick}
                   />
                 </div>
-                <div className="tw-mr-3 tw-flex tw-w-16 tw-justify-around tw-text-white">
+                <div className='tw-mr-3 tw-flex tw-w-16 tw-justify-around tw-text-white'>
                   <FontAwesomeIcon
                     icon={faFloppyDisk}
-                    className="tw-mt-1 tw-cursor-pointer"
+                    className='tw-mt-1 tw-cursor-pointer'
                     onClick={handleSaveClick}
                   />
                   <img
                     src={TrashIconWhite}
-                    className="tw-flex tw-h-[28px] tw-cursor-pointer"
-                    alt="Trash Icon"
+                    className='tw-flex tw-h-[28px] tw-cursor-pointer'
+                    alt='Trash Icon'
                     onClick={() => handleDeleteClick(item)}
                   />
                 </div>
               </div>
-              <div className=" tw-justify-left tw-w-full tw-flex-col tw-rounded-xl tw-bg-gray-300 ">
-                <div className="tw-flex tw-w-full tw-pl-8 tw-pt-2">
-                  <div className="tw-relative tw-h-24 tw-w-24  tw-flex-shrink-0">
+              <div className=' tw-justify-left tw-w-full tw-flex-col tw-rounded-xl tw-bg-gray-300 '>
+                <div className='tw-flex tw-w-full tw-pl-8 tw-pt-2'>
+                  <div className='tw-relative tw-h-24 tw-w-24  tw-flex-shrink-0'>
                     <label
-                      htmlFor="profileImageUpload"
-                      className="tw-h-full tw-w-full tw-justify-center"
+                      htmlFor='profileImageUpload'
+                      className='tw-h-full tw-w-full tw-justify-center'
                     >
                       <img
-                        className="tw-h-full tw-w-full tw-cursor-pointer tw-justify-center"
+                        className='tw-h-full tw-w-full tw-cursor-pointer tw-justify-center'
                         src={
                           item.picture.includes("https")
                             ? item.picture
                             : `${process.env.REACT_APP_AWS_URL}/${item.picture}`
                         }
-                        alt=""
+                        alt=''
                       />
                     </label>
                     <input
-                      id="profileImageUpload"
-                      type="file"
+                      id='profileImageUpload'
+                      type='file'
                       onChange={fileSelected}
                       // ref={inputFileRef}
-                      accept="image/*"
-                      className="tw-hidden"
+                      accept='image/*'
+                      className='tw-hidden'
                     />
-                    <div className="tw-absolute tw-inset-x-1 tw-bottom-0 tw-flex tw-h-4 tw-items-center tw-justify-center tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white">
-                      <p className="tw-leading-3">
+                    <div className='tw-absolute tw-inset-x-1 tw-bottom-0 tw-flex tw-h-4 tw-items-center tw-justify-center tw-rounded-lg tw-bg-gray-500 tw-bg-opacity-75 tw-text-center tw-text-xs  tw-text-white'>
+                      <p className='tw-leading-3'>
                         {item.role.includes("_")
                           ? item.role.replace("_", " ")
                           : item.role}
                       </p>
                     </div>
                   </div>
-                  <div className="tw-text-md  tw-pl-6 tw-text-[#1E0039]">
-                    <div className="tw-flex tw-w-full tw-gap-1">
+                  <div className='tw-text-md  tw-pl-6 tw-text-[#1E0039]'>
+                    <div className='tw-flex tw-w-full tw-gap-1'>
                       <input
-                        type="text"
+                        type='text'
                         value={
                           actionStatus === 2
                             ? item.firstName
@@ -664,48 +664,48 @@ export default function UsersPage() {
                         onChange={(e) =>
                           setItem({ ...item, firstName: e.target.value })
                         }
-                        className="tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
+                        className='tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg'
                       />
                       {actionStatus === 2 ? (
                         <input
-                          type="text"
+                          type='text'
                           defaultValue={item.lastName}
                           onChange={(e) =>
                             setItem({ ...item, lastName: e.target.value })
                           }
-                          className="tw-my-1 tw-h-5 tw-w-1/2  tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg"
+                          className='tw-my-1 tw-h-5 tw-w-1/2  tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-placeholder-[#1E0039] tw-shadow-lg'
                         />
                       ) : null}
                     </div>
 
                     <div
                       ref={dropdownRef}
-                      className="tw-relative  tw-h-5 tw-w-1/2 tw-rounded-2xl  tw-border-none tw-text-center tw-shadow-lg"
+                      className='tw-relative  tw-h-5 tw-w-1/2 tw-rounded-2xl  tw-border-none tw-text-center tw-shadow-lg'
                     >
                       <button
                         onClick={handleToggle}
-                        type="button"
-                        className="tw-hover:bg-indigo-700 tw-focus:outline-none tw-focus:ring tw-focus:ring-indigo-300 tw-focus:ring-opacity-50  tw-flex tw-h-5 tw-w-full tw-items-center tw-justify-center tw-rounded-2xl tw-bg-white tw-text-[#1E0039] "
-                        id="options-menu"
-                        aria-haspopup="listbox"
+                        type='button'
+                        className='tw-hover:bg-indigo-700 tw-focus:outline-none tw-focus:ring tw-focus:ring-indigo-300 tw-focus:ring-opacity-50  tw-flex tw-h-5 tw-w-full tw-items-center tw-justify-center tw-rounded-2xl tw-bg-white tw-text-[#1E0039] '
+                        id='options-menu'
+                        aria-haspopup='listbox'
                       >
                         {item.role.includes("_")
                           ? item.role.replace("_", " ")
                           : item.role}
                         <img
-                          className=" tw-absolute tw-right-5 tw-ml-2.5 tw-h-3 tw-rounded-none"
+                          className=' tw-absolute tw-right-5 tw-ml-2.5 tw-h-3 tw-rounded-none'
                           src={Triangle}
-                          alt="polygonThree"
+                          alt='polygonThree'
                         />
                       </button>
                       {isOpen && (
-                        <ul className="tw-absolute tw-right-0 tw-max-h-80 tw-origin-bottom-left tw-overflow-y-auto  tw-rounded-md tw-bg-white tw-shadow-lg tw-ring-1 tw-ring-black tw-ring-opacity-5">
+                        <ul className='tw-absolute tw-right-0 tw-max-h-80 tw-origin-bottom-left tw-overflow-y-auto  tw-rounded-md tw-bg-white tw-shadow-lg tw-ring-1 tw-ring-black tw-ring-opacity-5'>
                           {options.map((option, index) => (
                             <li
                               key={index}
                               onClick={(e) => handleSelect(option)}
-                              className="tw-block tw-w-full tw-px-4 tw-py-2 tw-text-sm tw-text-[#1E0039] hover:tw-bg-[#1E0039] hover:tw-text-white"
-                              role="menuitem"
+                              className='tw-block tw-w-full tw-px-4 tw-py-2 tw-text-sm tw-text-[#1E0039] hover:tw-bg-[#1E0039] hover:tw-text-white'
+                              role='menuitem'
                             >
                               {option}
                             </li>
@@ -715,28 +715,28 @@ export default function UsersPage() {
                     </div>
 
                     <input
-                      type="text"
-                      placeholder="Phone no."
+                      type='text'
+                      placeholder='Phone no.'
                       value={item.phone}
                       onChange={(e) =>
                         setItem({ ...item, phone: e.target.value })
                       }
-                      className="tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500"
+                      className='tw-my-1 tw-h-5 tw-w-1/2 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500'
                     />
                     <input
-                      type="text"
-                      placeholder="Email"
+                      type='text'
+                      placeholder='Email'
                       value={item.email}
                       onChange={(e) =>
                         setItem({ ...item, email: e.target.value })
                       }
-                      className="tw-my-1 tw-h-5 tw-w-9/12 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center  tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500"
+                      className='tw-my-1 tw-h-5 tw-w-9/12 tw-rounded-2xl tw-border-none tw-p-2 tw-text-center  tw-shadow-lg placeholder:tw-text-sm placeholder:tw-text-red-500'
                     />
                   </div>
                 </div>
                 {epks !== undefined ? (
-                  <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
-                    <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
+                  <div className='tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24'>
+                    <div className='tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2'>
                       {epks.map((epk, index) => (
                         <a key={index} href={`/epk/${epk.title}`}>
                           <img
@@ -745,13 +745,13 @@ export default function UsersPage() {
                                 ? epk.image_details
                                 : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
                             }
-                            className="  tw-m-2 tw-rounded-none"
-                            alt="movie cover"
+                            className='  tw-m-2 tw-rounded-none'
+                            alt='movie cover'
                           />
                         </a>
                       ))}
                       {epks.length === 0 ? (
-                        <div className="tw-block tw-h-[180px]"></div>
+                        <div className='tw-block tw-h-[180px]'></div>
                       ) : null}
                     </div>
                   </div>

@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 
 export default function SettingPage() {
   const { t } = useTranslation();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   const [openTab, setOpenTab] = useState(1);
   const tabs = [
     {

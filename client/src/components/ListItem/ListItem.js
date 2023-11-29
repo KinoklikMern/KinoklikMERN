@@ -13,7 +13,7 @@ export default function ListItem({ title, status, type, role }) {
   // const [actors, setActors] = useState([]);
   // fetching user
   //: `epk/${fepk.title}`
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let id;
   if (!user) {
     id = "0";

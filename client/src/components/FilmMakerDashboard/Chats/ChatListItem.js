@@ -4,7 +4,7 @@ import { ChatState } from "../../../context/ChatProvider.js";
 
 function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
   const { selectedChat, setSelectedChat } = ChatState();
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
 
   // Check if the current chat item is the selected chat
   const isSelected = chat?._id === selectedChat?._id;
@@ -17,7 +17,7 @@ function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
       } tw-bg-[#341a4d] tw-text-gray-400 hover:tw-bg-gray-300/25 hover:tw-text-white`}
     >
       <div
-        className="tw-relative tw-flex tw-rounded-lg"
+        className='tw-relative tw-flex tw-rounded-lg'
         onClick={() => {
           setSelectedChat(chat);
         }}
@@ -28,26 +28,26 @@ function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
           alt="profile image"
         /> */}
 
-        <div className="tw-relative tw-m-1 tw-ml-6 tw-h-16 tw-w-16 tw-flex-none tw-overflow-hidden tw-rounded-lg">
+        <div className='tw-relative tw-m-1 tw-ml-6 tw-h-16 tw-w-16 tw-flex-none tw-overflow-hidden tw-rounded-lg'>
           <img
-            className="tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg"
+            className='tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg'
             src={getChatSender(user, chat?.users)?.avatar}
-            alt="profile image"
+            alt='profile image'
           />
 
           {isOnline && (
-            <span className="tw-absolute tw-right-0 tw-top-0 tw-h-3 tw-w-3 tw-rounded-full tw-border-2 tw-border-white tw-bg-green-500"></span>
+            <span className='tw-absolute tw-right-0 tw-top-0 tw-h-3 tw-w-3 tw-rounded-full tw-border-2 tw-border-white tw-bg-green-500'></span>
           )}
 
-          <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xs tw-text-white">
+          <div className='tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xs tw-text-white'>
             {getChatSender(user, chat?.users)?.type}
           </div>
         </div>
 
-        <span className="tw-grow tw-self-center tw-pl-8">
+        <span className='tw-grow tw-self-center tw-pl-8'>
           {getChatSender(user, chat?.users)?.name}
         </span>
-        <span className="tw-self-center tw-pr-4">
+        <span className='tw-self-center tw-pr-4'>
           {formatTimestamp(chat?.updatedAt)}
         </span>
       </div>

@@ -34,7 +34,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   //
   // const [fepkId, setFepkId, fepkMaker, setFepkMaker] = useContext(FepkContext);
 
-  const { user } = useSelector((user) => ({ ...user }));
+  const user = useSelector((state) => state.user);
   let userId;
   let userRole;
 
