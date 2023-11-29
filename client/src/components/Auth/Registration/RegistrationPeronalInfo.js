@@ -50,10 +50,11 @@ function RegistrationPersonalInfo({
   const handleNewsletterOptionChange = (option) => {
     const initOptions = {
       filmmakers: false,
+      actors: false,
       viewers: false,
       ecosystem: false,
       investors: false,
-      technical: false,
+      general: false,
       allNewsletters: false,
     };
     if (option === "allNewsletters" && newsletterOptions[option] === true) {
@@ -230,7 +231,16 @@ function RegistrationPersonalInfo({
                   checked={newsletterOptions.filmmakers}
                   onChange={() => handleNewsletterOptionChange("filmmakers")}
                 />
-                {t("Filmmakers (Directors & Producers)")}
+                {t("Filmmakers")}
+              </label>
+              <label className="audience">
+                <input
+                  name="newsletterOption"
+                  type="checkbox"
+                  checked={newsletterOptions.actors}
+                  onChange={() => handleNewsletterOptionChange("actors")}
+                />
+                {t("Actors")}
               </label>
               <label className="audience">
                 <input
@@ -241,15 +251,7 @@ function RegistrationPersonalInfo({
                 />
                 {t("Viewers")}
               </label>
-              <label className="audience">
-                <input
-                  name="newsletterOption"
-                  checked={newsletterOptions.ecosystem}
-                  onChange={() => handleNewsletterOptionChange("ecosystem")}
-                  type="checkbox"
-                />
-                {t("Film Ecosystem & Industry Players")}
-              </label>
+
               <label className="audience">
                 <input
                   name="newsletterOption"
@@ -257,16 +259,25 @@ function RegistrationPersonalInfo({
                   checked={newsletterOptions.investors}
                   onChange={() => handleNewsletterOptionChange("investors")}
                 />
-                {t("Investors & VCs Updates")}
+                {t("Investors")}
+              </label>
+              <label className="audience">
+                <input
+                  name="newsletterOption"
+                  checked={newsletterOptions.ecosystem}
+                  onChange={() => handleNewsletterOptionChange("ecosystem")}
+                  type="checkbox"
+                />
+                {t("Film Industry")}
               </label>
               <label className="audience">
                 <input
                   name="newsletterOption"
                   type="checkbox"
-                  checked={newsletterOptions.technical}
-                  onChange={() => handleNewsletterOptionChange("technical")}
+                  checked={newsletterOptions.general}
+                  onChange={() => handleNewsletterOptionChange("general")}
                 />
-                {t("KinoKlik Technical Updates")}
+                {t("KinoKlik General")}
               </label>
               <label className="audience">
                 <input
