@@ -93,6 +93,7 @@ const updateMembersInterest = (email, newsLetterOptions) => {
         interest[interestMap[option]] = true;
       });
 
+      //console.log(interest);
       searchMember(email).then((status) => {
         //console.log("status : " + status);
         if (status === "unsubscribed" || status === "cleaned") {
@@ -142,13 +143,17 @@ export const getAllLists = async () => {
 
   //get all interest categories
   const response1 = await mailchimp.lists.getListInterestCategories(audienceId);
-  const categories = response1.categories[0];
-  //console.log(categories);
+  console.log(response1.categories);
+  //Find the interest category by name
+  const foundGroup = response1.categories.find(
+    (item) => item.title === "NewsLetterSubscription"
+  ); //Title is created in mailchimp,
+  console.log(foundGroup); //must be sure this group exists, if not, here foundGroup will be undefined
 
   //get all interest categories
   const response2 = await mailchimp.lists.listInterestCategoryInterests(
     audienceId,
-    categories.id
+    foundGroup.id
   );
   const groups = response2.interests;
   //console.log(groups);
