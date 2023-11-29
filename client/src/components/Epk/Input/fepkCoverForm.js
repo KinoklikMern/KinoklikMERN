@@ -17,6 +17,7 @@ function FepkCoverForm() {
   const inputFile2Ref = useRef(null);
   const inputFile3Ref = useRef(null);
   const [message, setMessage] = useState("");
+  const [messageImg, setMessageImg] = useState("");
   const [submitMessage, setSubmitMessage] = useState("");
   const [messageTitleNo, setMessageTitleNo] = useState("");
   const [messageTitleYes, setMessageTitleYes] = useState("");
@@ -26,6 +27,8 @@ function FepkCoverForm() {
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
   const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [donatePayPalValidationMessage, setDonatePayPalValidationMessage] = useState("");
+  const [donateStripeValidationMessage, setDonateStripeValidationMessage] = useState("");
   const { t } = useTranslation();
 
   // fetching user
@@ -145,6 +148,15 @@ function FepkCoverForm() {
     "7,500,000$ - 10,000,000$",
   ];
 
+  const validateDonate = (donate) => {
+    const websiteRegex = /^https:\/\/([a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+    return donate === '' || websiteRegex.test(donate);
+  };
+
+  const messages = {
+    invalidDonateUrlMessage: "Invalid donation URL format",
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setCharacterLength({ ...characterLength, [name]: value.length });
@@ -180,6 +192,14 @@ function FepkCoverForm() {
       setDisabled(true);
       setMessageTitleNo("");
       setMessageTitleYes("");
+    }
+      // Validate donation URLs dynamically
+    if (name === "DonatePayPal_url") {
+      setDonatePayPalValidationMessage(validateDonate(value) ? "" : t(messages.invalidDonateUrlMessage));
+    }
+
+    if (name === "DonateStripe_url") {
+      setDonateStripeValidationMessage(validateDonate(value) ? "" : t(messages.invalidDonateUrlMessage));
     }
   };
 
@@ -241,6 +261,16 @@ function FepkCoverForm() {
       return; // Exit the function early if any check fails
     }
 
+     if (!validateDonate(epkCoverData.DonatePayPal_url)) {
+      setDonatePayPalValidationMessage(t("pls input Valid URL"));
+       return;
+     }
+
+     if (!validateDonate(epkCoverData.DonateStripe_url)) {
+      setDonateStripeValidationMessage(t("pls input Valid URL"));
+       return;
+     }
+
     if (
       checkFileMimeType(file1) &&
       checkFileMimeType(file2) &&
@@ -278,7 +308,7 @@ function FepkCoverForm() {
           });
         });
     } else {
-      setMessage(t("File must be a image(jpeg, jpg or png)"));
+      setMessageImg(t("Oops! Please use JPEG, JPG, or PNG images.)"));
     }
     setDisabled(true);
   };
@@ -639,6 +669,11 @@ function FepkCoverForm() {
                     ) : (
                       <h3>{t("No Image")}</h3>
                     )}
+                    {messageImg && (
+                      <div className="message" style={{ color: "red", fontSize: "1rem", marginTop: "10%" }}>
+                        {messageImg}
+                      </div>
+                    )}
                   </div>
                   <div className="col" style={{ height: "450px" }}>
                     <div className="row">
@@ -713,21 +748,12 @@ function FepkCoverForm() {
               <h6
                 style={{
                   color: "red",
-                  fontSize: "0.9rem",
-                  marginTop: "-10%",
+                  fontSize: "1rem",
+                  marginTop: "-5%",
                 }}
               >
                 {submitMessage}
-              </h6>
-              <h6
-                style={{
-                  color: "red",
-                  fontSize: "0.9rem",
-                  marginTop: "-10%",
-                }}
-              >
-                {message}
-              </h6>
+              </h6>              
               <div
                 className="row"
                 style={{
@@ -764,10 +790,20 @@ function FepkCoverForm() {
                     }}
                     className="form-control"
                     defaultValue={epkCoverData.DonatePayPal_url}
-                    placeholder="URL: www.paypal.com/mymovie"
+                    placeholder="https://www.paypal.com/mymovie"
                     onChange={handleInputChange}
                     name="DonatePayPal_url"
                   />
+                  <h6 style={{ color: "red", fontSize: "1rem" }}>
+                  {donatePayPalValidationMessage && (
+                    <span
+                      className="validation-message"
+                      style={{ color: "red", fontSize: "1rem" }}
+                    >
+                      {donatePayPalValidationMessage}
+                    </span>
+                  )}
+                 </h6>
                 </div>
                 <div className="col">
                   <input
@@ -784,11 +820,23 @@ function FepkCoverForm() {
                     }}
                     className="form-control"
                     defaultValue={epkCoverData.DonateStripe_url}
-                    placeholder="URL: www.stripe.com/mymovie"
+                    placeholder="https://www.stripe.com/mymovie"
                     onChange={handleInputChange}
                     name="DonateStripe_url"
                   />
+                  <h6 style={{ color: "red", fontSize: "1rem" }}>
+                    {donateStripeValidationMessage && (
+                      <span
+                        className="validation-message"
+                        style={{ color: "red", fontSize: "1rem" }}
+                      >
+                        {donateStripeValidationMessage}
+                      </span>
+                    )}
+                  </h6>
+
                 </div>
+             
               </div>
               <div
                 style={{

@@ -232,11 +232,25 @@ export default function Actor(props) {
     }
   };
 
+  // const handleClick = (direction) => {
+  //   if (direction === "left" && indexPic > 0) {
+  //     setPicIndex(indexPic - 1);
+  //   } else if (direction === "right" && indexPic < pics.length - 1) {
+  //     setPicIndex(indexPic + 1);
+  //   }
+  // };
+
   const handleClick = (direction) => {
-    if (direction === "left" && indexPic > 0) {
-      setPicIndex(indexPic - 1);
-    } else if (direction === "right" && indexPic < pics.length - 1) {
-      setPicIndex(indexPic + 1);
+    if (direction === "left") {
+      // Move to the previous image
+      setPicIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : pics.length - 1
+      );
+    } else if (direction === "right") {
+      // Move to the next image
+      setPicIndex((prevIndex) =>
+        prevIndex < pics.length - 1 ? prevIndex + 1 : 0
+      );
     }
   };
 
@@ -317,6 +331,7 @@ export default function Actor(props) {
                   color: "#1E0039",
                   fontSize: "4rem",
                   display: "inline",
+                  height: "5rem"
                 }}
               />
               <ArrowForwardIosOutlined
@@ -326,6 +341,7 @@ export default function Actor(props) {
                   color: "#1E0039",
                   fontSize: "4rem",
                   display: "inline",
+                  height: "5rem"
                 }}
               />
             </div>

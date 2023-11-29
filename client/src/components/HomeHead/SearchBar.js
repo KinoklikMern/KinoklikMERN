@@ -55,23 +55,23 @@ export default function SearchBar() {
   };
 
   return (
-    <div className=" tw-flex tw-flex-col tw-text-white">
-      <div className="tw-group tw-relative tw-mx-12">
-        <div className="tw-invisible tw-absolute tw-right-0 tw-top-0 group-hover:tw-visible ">
+    <div className=' tw-flex tw-flex-col tw-text-white'>
+      <div className='tw-group tw-relative tw-mx-12'>
+        <div className='tw-invisible tw-absolute tw-right-0 tw-top-0 group-hover:tw-visible '>
           <input
-            type="search"
-            className="tw-flex tw-h-full tw-rounded-full tw-border-0 tw-border-b-2 tw-border-r-2 tw-border-white/75 tw-bg-gray-600/50 tw-duration-300 md:tw-w-64 lg:tw-w-96"
+            type='search'
+            className='tw-flex tw-h-full tw-rounded-full tw-border-0 tw-border-b-2 tw-border-r-2 tw-border-white/75 tw-bg-gray-600/50 tw-duration-300 md:tw-w-64 lg:tw-w-96'
             onChange={searchHandler}
           />
           {searchList.length !== 0 && (
-            <div className="tw-max-h-56 tw-divide-y  tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039]">
+            <div className='tw-max-h-56 tw-divide-y  tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039]'>
               {searchList?.map((item) => (
                 <a
                   key={item._id}
                   href={
                     item.title ? `/epk/${item.title}` : `/actor/${item._id}`
                   }
-                  className="tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105"
+                  className='tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105'
                 >
                   <p>{item.title || `${item.firstName} ${item.lastName}`}</p>
                   <span>
@@ -87,8 +87,8 @@ export default function SearchBar() {
                             : `${process.env.REACT_APP_AWS_URL}/${item.picture}`
                           : emptyBanner
                       }
-                      alt=""
-                      style={{ height: "50px" }}
+                      alt=''
+                      className='tw-h-12 tw-w-12 tw-object-cover'
                     />
                   </span>
                 </a>
@@ -100,9 +100,9 @@ export default function SearchBar() {
         <div>
           <img
             src={SearchIcon}
-            alt=""
+            alt=''
             style={{ width: "65%", height: "65%" }}
-            className="tw-flex tw-cursor-pointer tw-self-end "
+            className='tw-flex tw-cursor-pointer tw-self-end '
           />
         </div>
       </div>

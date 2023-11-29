@@ -10,6 +10,7 @@ function EpkCoverForm() {
   const inputFile2Ref = useRef(null);
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
+  const { t } = useTranslation();
 
   const file1Selected = (event) => {
     const file = event.target.files[0];
@@ -141,11 +142,9 @@ function EpkCoverForm() {
           console.log(err);
         });
     } else {
-      setMessage(t(("File must be a image(jpeg or png)")));
+      setMessage(t(("Oops! Please use JPEG, JPG, or PNG images.")));
     }
   };
-
-  const { t } = useTranslation();
 
   return (
     <div className="container">
@@ -253,7 +252,7 @@ function EpkCoverForm() {
                       accept="video/*"
                     ></input>
                   </div>
-                </div>
+                </div>ㄋㄩ
               </div>
               <div className="d-flex justify-content-end">
                 <button

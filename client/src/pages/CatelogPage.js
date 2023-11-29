@@ -6,8 +6,6 @@ import EPKFilter from "../components/Filter/EPKFilter";
 import FilterButton from "../components/Filter/FilterButton";
 import StatusBtn from "../components/SwitchStatusBtn/Status";
 import http from "../http-common";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../components/HomeHead/SearchBar";
 import {useTranslation} from 'react-i18next';
 
@@ -85,10 +83,13 @@ const [filterTags, setFilterTags] = useState([
 
   return (
     <>
-      <div>
+     <div className="tw-flex tw-items-end tw-justify-end  tw-bg-[#1e0039]">
+          <SearchBar />
+        </div>
+      <div  className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-p-10 md:tw-flex-row space-x-6">
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-1 md:tw-flex-row">
+      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-28 md:tw-flex-row space-x-6">
      
           {filterTags.map((tag, index) => (
             <FilterButton
