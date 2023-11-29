@@ -152,6 +152,13 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
 
   console.log("messages", messages);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
+  };
+
   return (
     <>
       <div className='tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039]'>
@@ -162,7 +169,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
         </span>
       </div>
 
-      <div className='tw-h-5/6 tw-overflow-y-auto'>
+      <div className='no-scrollbar tw-h-5/6 tw-overflow-auto'>
         {/* in come message */}
 
         {messages?.map((message) => (
@@ -215,30 +222,29 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
           </div>
         ))}
       </div>
-      <div>
-        <div className='tw-relative tw-flex tw-items-center tw-rounded-lg'>
-          <textarea
-            value={newMessage}
-            onChange={typingHandler}
-            className='tw-block tw-w-full tw-self-center tw-rounded-lg tw-border tw-border-gray-100/50 tw-bg-gray-500/50 tw-px-3 tw-pt-2 tw-text-base tw-text-white placeholder:tw-text-white focus:tw-border-gray-100 focus:tw-ring-gray-100'
-            placeholder={t("Your message...")}
-          ></textarea>
-          <button
-            onClick={sendMessage}
-            type='submit'
-            className='tw-absolute tw-inset-y-0 tw-right-0 tw-cursor-pointer tw-justify-center tw-bg-white/0 tw-p-2 tw-text-[#1E0039] hover:tw-scale-125 hover:tw-text-blue-200'
+      <div className='tw-relative tw-mt-[-10px] tw-flex tw-items-center tw-rounded-lg'>
+        <textarea
+          value={newMessage}
+          onChange={typingHandler}
+          onKeyDown={handleKeyDown}
+          className='tw-block tw-w-full tw-self-center tw-rounded-lg tw-border tw-border-gray-100/50 tw-bg-gray-500/50 tw-px-3 tw-pt-2 tw-text-base tw-text-midnight placeholder:tw-text-white focus:tw-border-gray-100 focus:tw-ring-gray-100'
+          placeholder={t("Your message...")}
+        ></textarea>
+        <button
+          onClick={sendMessage}
+          type='submit'
+          className='tw-absolute tw-inset-y-0 tw-right-0 tw-cursor-pointer tw-justify-center tw-bg-white/0 tw-p-2 tw-text-[#1E0039] hover:tw-text-blue-200'
+        >
+          <svg
+            aria-hidden='true'
+            className='tw-h-8 tw-w-8 tw-rotate-45'
+            fill='currentColor'
+            viewBox='0 0 20 20'
+            xmlns='http://www.w3.org/2000/svg'
           >
-            <svg
-              aria-hidden='true'
-              className='tw-h-8 tw-w-8 tw-rotate-45'
-              fill='currentColor'
-              viewBox='0 0 20 20'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path d='M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z'></path>
-            </svg>
-          </button>
-        </div>
+            <path d='M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z'></path>
+          </svg>
+        </button>
       </div>
     </>
   );

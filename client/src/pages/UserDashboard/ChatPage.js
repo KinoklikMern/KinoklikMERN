@@ -30,10 +30,10 @@ export default function ChatPage() {
           </div>
           <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-w-full tw-rounded-lg tw-bg-white tw-p-4 md:tw-ml-16 md:tw-w-5/6'>
             <div className='tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3'>
-              <div className='tw--m-4 tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d]'>
+              <div className='-tw-m-4 tw-overflow-auto tw-rounded-lg tw-rounded-r-none tw-bg-[#341a4d]'>
                 {/* search bar */}
 
-                <div className='shadow-sm tw-relative tw-mx-4 tw-mb-8 tw-rounded-md'>
+                <div className='shadow-sm tw-relative tw-mx-4 tw-my-8 tw-rounded-md'>
                   <input
                     type='text'
                     value={searchValue}
@@ -51,7 +51,7 @@ export default function ChatPage() {
                 {/* chatlist */}
                 <ChatList fetchAgain={fetchAgain} searchValue={searchValue} />
               </div>
-              <div className='tw-col-span-2 tw-mx-4 tw-overflow-y-auto'>
+              <div className='tw-col-span-2 tw-mx-4 tw-mb-2 tw-overflow-hidden'>
                 <MessageBox
                   fetchAgain={fetchAgain}
                   setFetchAgain={fetchAgain}
