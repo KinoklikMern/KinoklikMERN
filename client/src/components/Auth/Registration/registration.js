@@ -16,8 +16,7 @@ import salesAgentIcon from "../../../images/icons/salesAgentIcon.svg";
 import festivalIcon from "../../../images/icons/festivalIcon.svg";
 import investorIcon from "../../../images/icons/investorIcon.svg";
 import editorIcon from "../../../images/icons/editorIcon.svg";
-import {useTranslation} from 'react-i18next';
-
+import { useTranslation } from "react-i18next";
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
@@ -36,8 +35,7 @@ function RegistrationForm() {
   const { t } = useTranslation();
 
   const [role, setRole] = useState({
-    
-    label: t('An amazing and talented visionary filmmaker'),
+    label: t("An amazing and talented visionary filmmaker"),
     value: "Filmmaker",
     image: filmmakerIcon,
   });
@@ -46,10 +44,11 @@ function RegistrationForm() {
   const [receiveNewsletter, setReceiveNewsletter] = useState(true);
   const initOptions = {
     filmmakers: false,
+    actors: false,
     viewers: false,
     ecosystem: false,
     investors: false,
-    technical: false,
+    general: false,
     allNewsletters: true,
   };
   const [newsletterOptions, setNewsletterOptions] = useState(initOptions);
@@ -61,8 +60,6 @@ function RegistrationForm() {
   }, [nextClicked]);
 
   const handleSubmit = async () => {
-    console.log(firstName, lastName, email, password, confirmPassword, role);
-
     // Validate the form fields
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (
@@ -99,10 +96,17 @@ function RegistrationForm() {
     //Find newsLetter options
     let userOptions = [];
     // If the user wants to receive the newsletter
+    //console.log(newsletterOptions["allNewsletters"]);
     if (receiveNewsletter) {
-      userOptions = Object.keys(newsletterOptions).filter((key) => {
-        return key !== "allNewsletters" && newsletterOptions[key] === true;
-      });
+      if (newsletterOptions["allNewsletters"] === true) {
+        userOptions = Object.keys(newsletterOptions).filter(
+          (key) => key !== "allNewsletters"
+        );
+      } else {
+        userOptions = Object.keys(newsletterOptions).filter((key) => {
+          return key !== "allNewsletters" && newsletterOptions[key] === true;
+        });
+      }
     }
 
     try {
@@ -149,7 +153,9 @@ function RegistrationForm() {
     <>
       <div className={SignupCss.bg}>
         {!nextClicked && (
-          <div className={SignupCss.form_titleMain}>{t('Sign up for KinoKlik')} </div>
+          <div className={SignupCss.form_titleMain}>
+            {t("Sign up for KinoKlik")}{" "}
+          </div>
         )}
 
         {/* <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div> */}
@@ -187,7 +193,7 @@ function RegistrationForm() {
 
             {nextClicked ? (
               <button onClick={handleSubmit} className={SignupCss.btn}>
-                {t('Sign Up')}
+                {t("Sign Up")}
               </button>
             ) : null}
             {
@@ -195,16 +201,16 @@ function RegistrationForm() {
                 className={nextClicked ? SignupCss.back : SignupCss.next}
                 onClick={() => setNextClicked(!nextClicked)}
               >
-                {!nextClicked ? (t("Next")) : (t("Back"))}
+                {!nextClicked ? t("Next") : t("Back")}
               </button>
             }
 
             <div className={SignupCss.form_Message}>
               {!nextClicked ? (
                 <p>
-                  {t('already signed up?')}{" "}
+                  {t("already signed up?")}{" "}
                   <Link to="/login" className={SignupCss.link}>
-                    {t('Login')}
+                    {t("Login")}
                   </Link>
                 </p>
               ) : null}

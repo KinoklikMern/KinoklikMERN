@@ -10,77 +10,65 @@ const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 
 export const searchMember = async (email) => {
   try {
-    const response2 = await mailchimp.searchMembers.search(
-      `email_address:${email}`
+    const response = await mailchimp.lists.getListMember(
+      audienceId,
+      md5(email.toLowerCase())
     );
 
-    const result = response2.full_search.total_items;
-    if (response2.full_search.total_items > 0) {
-      //Email exists
-      if (response2.full_search.members.status === "subscribed") {
-        return 1; //email exists and subscribed
-      } else {
-        return 2; //email exists but not subscribed
-      }
-    } else {
-      return 0; //email does not exist
-    }
+    return response.status;
   } catch (error) {
-    //const msg = JSON.parse(error.response.text);
-
-    return error.response.text;
+    //console.log("searchMember Error: " + msg.detail);
+    return error.status;
   }
 };
 
+export const listSubscribers = async () => {
+  try {
+    const response = await mailchimp.lists.getListMembersInfo(audienceId, {
+      count: 1000,
+      offset: 0,
+    });
+    //extract email and status from response
+    const subscribers = response.members.map((member) => {
+      return {
+        email: member.email_address,
+        status: member.status,
+        interests: member.interests,
+      };
+    });
+
+    console.info(subscribers);
+    return subscribers;
+  } catch (error) {
+    const msg = JSON.parse(error.response.text);
+    //console.log("AddSubscriber Error: " + msg.detail);
+    return { message: msg.detail };
+  }
+};
 export const addSubscriber = async (
   email,
   firstName,
   lastName,
   newsLetterOptions
 ) => {
-  const interestMap = await getAllLists(); //get interest map,keys' first letters are Capitalize
-
-  //Construct interest object
-  //newsLetterOptions = ["Filmmakers","Viewers","Ecosystem","Investors","Tech"]
-  const interest = {};
-  //init all interest to false
-  Object.keys(interestMap).forEach((key) => {
-    interest[interestMap[key]] = false;
-  });
-  newsLetterOptions.forEach((option) => {
-    interest[interestMap[option]] = true;
-  });
-
   try {
-    const flag = await searchMember(email);
-
-    if (flag === 0) {
-      //addListMember with interest
-      const response2 = await mailchimp.lists.addListMember(audienceId, {
+    //Set basic info to test email is valid or not, update interest later to reduce response time
+    const response = await mailchimp.lists.setListMember(
+      audienceId,
+      md5(email.toLowerCase()),
+      {
         email_address: email,
-        status: "subscribed",
+        status_if_new: "subscribed",
         merge_fields: {
           FNAME: firstName,
           LNAME: lastName,
         },
-        interests: interest,
-      });
-    } else {
-      //updateListMember with interest , And add email to subscriber
-      const response2 = await mailchimp.lists.updateListMember(
-        audienceId,
-        md5(email.toLowerCase()),
-        {
-          email_address: email,
-          status: "subscribed",
-          merge_fields: {
-            FNAME: firstName,
-            LNAME: lastName,
-          },
-          interests: interest,
-        }
-      );
-    }
+      }
+    );
+
+    //Update interest and status
+    updateMembersInterest(email, newsLetterOptions);
+    //console.log(listSubscribers());//for testing
   } catch (error) {
     const msg = JSON.parse(error.response.text);
     //console.log("AddSubscriber Error: " + msg.detail);
@@ -90,6 +78,51 @@ export const addSubscriber = async (
   return { message: null };
 };
 
+const updateMembersInterest = (email, newsLetterOptions) => {
+  getAllLists()
+    .then((res) => {
+      const interestMap = res;
+      //Construct interest object
+      const interest = {};
+      //init all interest to false
+      Object.keys(interestMap).forEach((key) => {
+        interest[interestMap[key]] = false;
+      });
+      newsLetterOptions.forEach((option) => {
+        interest[interestMap[option]] = true;
+      });
+
+      //console.log(interest);
+      searchMember(email).then((status) => {
+        if (status === "unsubscribed" || status === "cleaned") {
+          //trigger sending confirmation email to user for resubscribing
+          mailchimp.lists
+            .updateListMember(audienceId, md5(email.toLowerCase()), {
+              email_address: email,
+              status: "pending",
+              interests: interest,
+            })
+            .then((res) => {})
+            .catch((err) => {
+              console.log("TriggerConfirmError: " + err);
+            });
+        } else {
+          mailchimp.lists
+            .updateListMember(audienceId, md5(email.toLowerCase()), {
+              email_address: email,
+              status: "subscribed",
+              interests: interest,
+            })
+            .catch((err) => {
+              console.log("SetSubscribedError: " + err);
+            });
+        }
+      });
+    })
+    .catch((err) => {
+      console.log("Get Lists Info Error: " + err);
+    });
+};
 //Get interest group's name and id
 export const getAllLists = async () => {
   //get all lists(Audience list info)
@@ -108,13 +141,16 @@ export const getAllLists = async () => {
 
   //get all interest categories
   const response1 = await mailchimp.lists.getListInterestCategories(audienceId);
-  const categories = response1.categories[0];
-  //console.log(categories);
+  //Find the interest category by name
+  const foundGroup = response1.categories.find(
+    (item) => item.title === "KinoKlik EPK Newsletter Subscription"
+  ); //Title is created in mailchimp,
+  //console.log(foundGroup); //must be sure this group exists, if not, here foundGroup will be undefined
 
   //get all interest categories
   const response2 = await mailchimp.lists.listInterestCategoryInterests(
     audienceId,
-    categories.id
+    foundGroup.id
   );
   const groups = response2.interests;
   //console.log(groups);
@@ -122,7 +158,26 @@ export const getAllLists = async () => {
   //generate interest map based on interest categories
   const interestMap = {};
   groups.forEach((group) => {
-    interestMap[group.name.toLowerCase()] = group.id;
+    switch (group.name) {
+      case "Actors":
+        interestMap["actors"] = group.id;
+        break;
+      case "Viewers":
+        interestMap["viewers"] = group.id;
+        break;
+      case "Film Industry":
+        interestMap["ecosystem"] = group.id;
+        break;
+      case "Investors":
+        interestMap["investors"] = group.id;
+        break;
+      case "KinoKlik General":
+        interestMap["general"] = group.id;
+        break;
+      default:
+        interestMap["filmmakers"] = group.id; //"Filmmakers"
+        break;
+    }
   });
 
   return interestMap;
