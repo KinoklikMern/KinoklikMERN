@@ -83,7 +83,6 @@ const updateMembersInterest = (email, newsLetterOptions) => {
     .then((res) => {
       const interestMap = res;
       //Construct interest object
-      //newsLetterOptions = ["Filmmakers","Viewers","Ecosystem","Investors","Tech"]
       const interest = {};
       //init all interest to false
       Object.keys(interestMap).forEach((key) => {
@@ -95,7 +94,6 @@ const updateMembersInterest = (email, newsLetterOptions) => {
 
       //console.log(interest);
       searchMember(email).then((status) => {
-        //console.log("status : " + status);
         if (status === "unsubscribed" || status === "cleaned") {
           //trigger sending confirmation email to user for resubscribing
           mailchimp.lists
@@ -143,12 +141,11 @@ export const getAllLists = async () => {
 
   //get all interest categories
   const response1 = await mailchimp.lists.getListInterestCategories(audienceId);
-  console.log(response1.categories);
   //Find the interest category by name
   const foundGroup = response1.categories.find(
-    (item) => item.title === "NewsLetterSubscription"
+    (item) => item.title === "KinoKlik EPK Newsletter Subscription"
   ); //Title is created in mailchimp,
-  console.log(foundGroup); //must be sure this group exists, if not, here foundGroup will be undefined
+  //console.log(foundGroup); //must be sure this group exists, if not, here foundGroup will be undefined
 
   //get all interest categories
   const response2 = await mailchimp.lists.listInterestCategoryInterests(
@@ -161,7 +158,26 @@ export const getAllLists = async () => {
   //generate interest map based on interest categories
   const interestMap = {};
   groups.forEach((group) => {
-    interestMap[group.name.toLowerCase()] = group.id;
+    switch (group.name) {
+      case "Actors":
+        interestMap["actors"] = group.id;
+        break;
+      case "Viewers":
+        interestMap["viewers"] = group.id;
+        break;
+      case "Film Industry":
+        interestMap["ecosystem"] = group.id;
+        break;
+      case "Investors":
+        interestMap["investors"] = group.id;
+        break;
+      case "KinoKlik General":
+        interestMap["general"] = group.id;
+        break;
+      default:
+        interestMap["filmmakers"] = group.id; //"Filmmakers"
+        break;
+    }
   });
 
   return interestMap;
