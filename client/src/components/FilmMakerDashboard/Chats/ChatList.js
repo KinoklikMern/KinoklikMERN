@@ -210,6 +210,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
     // Display as Regular Chat
     return (
       <ChatListItem
+        key={chat._id}
         chat={chat}
         getChatSender={getChatSender}
         formatTimestamp={formatTimestamp}

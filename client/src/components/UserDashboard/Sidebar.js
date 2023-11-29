@@ -13,7 +13,7 @@ import ActorPage from "../../images/icons/actorpage.svg";
 import ActorPageWhite from "../../images/icons/actorpageWhite.svg";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useSelector } from "react-redux";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar(props) {
   const { t } = useTranslation();
@@ -24,7 +24,6 @@ export default function Sidebar(props) {
   // Yeming added
   const { messageCount, userInfo, clearMessageCount } =
     useContext(NotificationContext);
-    
 
   // Access the user ID from Redux store
   const userId = useSelector((state) => state.user.id);
@@ -33,7 +32,6 @@ export default function Sidebar(props) {
   const [isScrollable, setIsScrollable] = useState(false);
 
   const sideBarList1 = [
-    
     {
       Title: "Starred",
       DefaultIcon: StarIcon,
@@ -200,12 +198,12 @@ export default function Sidebar(props) {
           >
             <a
               href={item.href}
-              className="tw-flex tw-flex-col tw-text-[#1E0039]"
+              className='tw-flex tw-flex-col tw-text-[#1E0039]'
               onClick={
                 item.Title === "Messages" ? clearMessageCount : undefined
               }
             >
-              <div className="tw-flex tw-justify-center ">
+              <div className='tw-flex tw-justify-center '>
                 <img
                   src={
                     SELECTED_TAB === item.Title
@@ -232,7 +230,7 @@ export default function Sidebar(props) {
               {item.Title === "Messages" &&
               messageCount > 0 &&
               userInfo === userId ? (
-                <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
+                <div className='tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white'>
                   {item.Title === "Messages" && messageCount > 9
                     ? "9+"
                     : messageCount}
@@ -244,19 +242,19 @@ export default function Sidebar(props) {
       </nav>
 
       {/* Tab bar for medium and small screens */}
-      <div className="tw-fixed tw-bottom-0 tw-left-0 tw-right-0 tw-z-50 tw-mx-auto tw-flex tw-w-full tw-bg-white tw-shadow-md md:tw-hidden">
-        <nav className="tw-flex tw-w-full tw-justify-between">
+      <div className='tw-fixed tw-bottom-0 tw-left-0 tw-right-0 tw-z-50 tw-mx-auto tw-flex tw-w-full tw-bg-white tw-shadow-md md:tw-hidden'>
+        <nav className='tw-flex tw-w-full tw-justify-between'>
           {sideBarList.map((item, index) => (
             <div
               key={index}
               className={
-                "tw-group tw-relative tw-flex tw-w-1/4 tw-flex-col tw-items-center " +
+                "tw-group tw-relative tw-flex tw-w-1/4 tw-flex-col tw-items-center tw-py-2 " +
                 (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
               }
             >
               <a
                 href={item.href}
-                className="tw-flex tw-flex-col tw-text-[#1E0039]"
+                className='tw-flex tw-flex-col tw-text-[#1E0039]'
                 onClick={
                   item.Title === "Messages" ? clearMessageCount : undefined
                 }
@@ -269,8 +267,9 @@ export default function Sidebar(props) {
                   }
                   alt={item.Title}
                   style={{
-                    width: item.size.width,
-                    height: item.size.height,
+                    width: "100%",
+                    height: "3rem",
+                    padding: "2px",
                     maxWidth: "sm:tw-w-5",
                     maxHeight: "sm:tw-h-5",
                   }}
@@ -288,7 +287,7 @@ export default function Sidebar(props) {
                 {item.Title === "Messages" &&
                 messageCount > 0 &&
                 userInfo === userId ? (
-                  <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-xs sm:tw-h-6 sm:tw-w-6">
+                  <div className='tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-xs sm:tw-h-6 sm:tw-w-6'>
                     {item.Title === "Messages" && messageCount > 9
                       ? "9+"
                       : messageCount}

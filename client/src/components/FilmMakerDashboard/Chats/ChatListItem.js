@@ -32,7 +32,7 @@ function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
           <img
             className='tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg'
             src={getChatSender(user, chat?.users)?.avatar}
-            alt='profile image'
+            alt='profile img'
           />
 
           {isOnline && (

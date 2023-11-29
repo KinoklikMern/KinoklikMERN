@@ -29,12 +29,11 @@ export default function FollowingPage() {
       ).then((rs) => {
         setEpkList(rs.data);
         setLoading(false);
-        console.log(epkList);
       });
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, [epkList, userId]);
+  }, [userId]);
 
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
@@ -55,9 +54,9 @@ export default function FollowingPage() {
               <EmptyEpk />
             ) : (
               <>
-                <div className='tw-ml-16 tw-grid tw-grid-cols-1 tw-gap-2  tw-p-2  md:tw-grid-cols-2  lg:tw-grid-cols-3 '>
+                <div className='tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 '>
                   {epkList.map((epk) => (
-                    <EpkCard EpkInfo={epk} />
+                    <EpkCard EpkInfo={epk} key={epk._id} />
                   ))}
                 </div>
               </>

@@ -61,14 +61,11 @@ export default function RequestsPage() {
             );
           })
         );
-        console.log(epkListApproved);
-        console.log(epkListPending);
-        console.log(epkListRefused);
       });
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, [epkListApproved, epkListPending, epkListRefused, userId]);
+  }, [userId]);
 
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
@@ -82,7 +79,7 @@ export default function RequestsPage() {
           <Sidebar selectedTab='Requests' role={user.role} />
         </div>
 
-        <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white  tw-p-4 tw-scrollbar tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]  md:tw-ml-16 md:tw-w-5/6'>
+        <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]  md:tw-ml-16 md:tw-w-5/6'>
           <div className='tw-flex tw-flex-col tw-gap-3  '>
             <span className='tw-bg-[#1E0039] tw-text-xl tw-text-white'>
               {t("Approved EPKs")}
@@ -103,7 +100,7 @@ export default function RequestsPage() {
               </>
             ) : (
               <>
-                <div className='tw-ml-16 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 '>
+                <div className='tw-my-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 '>
                   {epkListApproved.map((epk) => (
                     <EpkCard EpkInfo={epk} />
                   ))}
@@ -131,9 +128,9 @@ export default function RequestsPage() {
               </>
             ) : (
               <>
-                <div className='tw-ml-16 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 '>
+                <div className='tw-my-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 '>
                   {epkListPending.map((epk) => (
-                    <EpkCard EpkInfo={epk} />
+                    <EpkCard EpkInfo={epk} key={epk._id} />
                   ))}
                 </div>
               </>
@@ -151,7 +148,7 @@ export default function RequestsPage() {
                   <div className='tw-flex tw-gap-2 tw-p-2'>
                     {epkListRefused.map((epk) => (
                       <div className='tw-w-1/3 tw-flex-none' key={epk._id}>
-                        <EpkCard EpkInfo={epk} />
+                        <EpkCard EpkInfo={epk} key={epk._id} />
                       </div>
                     ))}
                   </div>
@@ -159,9 +156,9 @@ export default function RequestsPage() {
               </>
             ) : (
               <>
-                <div className='tw-ml-16 tw-mt-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 '>
+                <div className='tw-my-1 tw-grid tw-grid-cols-1 tw-gap-2 tw-p-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 '>
                   {epkListRefused.map((epk) => (
-                    <EpkCard EpkInfo={epk} />
+                    <EpkCard EpkInfo={epk} key={epk._id} />
                   ))}
                 </div>
               </>

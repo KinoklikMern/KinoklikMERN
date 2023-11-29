@@ -102,12 +102,13 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
     socket = io(process.env.REACT_APP_BACKEND_URL);
     socket.emit("setup", user);
     socket.on("connection", () => setSocketConnected(true));
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
+
   useEffect(() => {
     // console.log("selectchat", selectedChatCompare);
     socket.on("message recieved", (newMessageRecieved) => {
@@ -166,6 +167,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
 
         {messages?.map((message) => (
           <div
+            key={message._id}
             className={`tw-m-4 tw-flex ${
               isLoggedUser(message.sender) ? "tw-flex-row-reverse" : ""
             }`}
@@ -174,12 +176,12 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
               <img
                 className='tw-h-12 tw-w-12 tw-flex-none tw-rounded-lg'
                 src={
-                  message.sender.picture ==
+                  message.sender.picture ===
                   "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
                     ? message.sender.picture
                     : `${process.env.REACT_APP_AWS_URL}/${message.sender.picture}`
                 }
-                alt='profile image'
+                alt='profile img'
               />
 
               <div className='tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xxs tw-text-white'>
