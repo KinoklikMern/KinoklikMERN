@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../../FileUpload";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const UniquenessForm = () => {
   const { t } = useTranslation();
@@ -75,32 +75,32 @@ const UniquenessForm = () => {
         }}
       >
         <div
-          className="row"
+          className='row'
           style={{
             background: "linear-gradient(to bottom, #1E0039, #FFFFFF)",
           }}
         >
-          <div className="col-1">
-            <Link className="navbar-brand text-headers-style" to="/home">
+          <div className='col-1'>
+            <Link className='navbar-brand text-headers-style' to='/home'>
               <img
                 src={require("../../../images/logo.png")}
-                alt="Logo"
-                className="navbar-logo"
+                alt='Logo'
+                className='navbar-logo'
               />
             </Link>
           </div>
-          <div className="col-3  m-3">
+          <div className='col-3  m-3'>
             <h2
-              className="col align-items-start"
+              className='col align-items-start'
               style={{ color: "#311465", fontWeight: "normal" }}
             >
-              {t('EPK Dashboard')}
+              {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className="col-2 m-3">
+          <div className='col-2 m-3'>
             <Link
-              className="col align-items-end"
-              to="/Epk"
+              className='col align-items-end'
+              to='/Epk'
               style={{
                 color: "#311465",
                 textDecoration: "none",
@@ -108,30 +108,32 @@ const UniquenessForm = () => {
                 fontSize: "20px",
               }}
             >
-              {t('View EPK Page')}
+              {t("View EPK Page")}
             </Link>
           </div>
-          <div className="col-5">
+          <div className='col-5'>
             <br />
             <p>
-              {t('Tell the world what makes your film and production special. This is where you sell the world (and the media) your film. Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?')}
+              {t(
+                "Tell the world what makes your film and production special. This is where you sell the world (and the media) your film. Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?"
+              )}
             </p>
           </div>
         </div>
         <h5
-          className="card-title "
+          className='card-title '
           style={{ marginLeft: "10%", color: "#ffffff", fontWeight: "normal" }}
         >
-          {('Uniqueness')}
+          {"Uniqueness"}
         </h5>
-        <Row justify="space-around" className="text-center ">
-          <Col style={{ width: "1400px", height: "600px" }} className="m-2">
-            <div className="row">
-              <div className="col">
+        <Row justify='space-around' className='text-center '>
+          <Col style={{ width: "1400px", height: "600px" }} className='m-2'>
+            <div className='row'>
+              <div className='col'>
                 {/* <h3>Lead Actor</h3> */}
 
                 <input
-                  name="name"
+                  name='name'
                   style={{
                     height: "30px",
                     width: "350px",
@@ -140,14 +142,14 @@ const UniquenessForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Title"
+                  placeholder='Title'
                   onChange={(event) => {
                     setUniqueness1Title(event.target.value);
                   }}
                 />
 
                 <textarea
-                  name="biography"
+                  name='biography'
                   style={{
                     height: "200px",
                     width: "350px",
@@ -156,7 +158,7 @@ const UniquenessForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Description"
+                  placeholder='Description'
                   onChange={(event) => {
                     setUniqueness1Description(event.target.value);
                   }}
@@ -166,7 +168,7 @@ const UniquenessForm = () => {
                 {uniqueness1Img_url && (
                   <img
                     src={uniqueness1Img_url}
-                    alt="dir"
+                    alt='dir'
                     style={{
                       height: "300px",
                       boxShadow: "1px 2px 9px #000000",
@@ -174,11 +176,11 @@ const UniquenessForm = () => {
                   />
                 )}
               </div>
-              <div className="col">
+              <div className='col'>
                 {/* <h3>Lead Actor</h3> */}
 
                 <input
-                  name="name"
+                  name='name'
                   style={{
                     height: "30px",
                     width: "350px",
@@ -194,7 +196,7 @@ const UniquenessForm = () => {
                 />
 
                 <textarea
-                  name="biography"
+                  name='biography'
                   style={{
                     height: "200px",
                     width: "350px",
@@ -203,7 +205,7 @@ const UniquenessForm = () => {
                     boxShadow: "1px 2px 9px #311465",
                     textAlign: "center",
                   }}
-                  placeholder="Description"
+                  placeholder='Description'
                   onChange={(event) => {
                     setUniqueness2Description(event.target.value);
                   }}
@@ -212,7 +214,7 @@ const UniquenessForm = () => {
                 {uniqueness2Img_url && (
                   <img
                     src={uniqueness2Img_url}
-                    alt="dir"
+                    alt='dir'
                     style={{
                       height: "300px",
                       boxShadow: "1px 2px 9px #000000",
@@ -231,7 +233,7 @@ const UniquenessForm = () => {
                     )} */}
           </Col>
         </Row>
-        <Row justify="space-around" className="text-center ">
+        <Row justify='space-around' className='text-center '>
           <div
             style={{
               height: "50px",
@@ -245,12 +247,12 @@ const UniquenessForm = () => {
                 backgroundColor: "#ffffff",
                 fontWeight: "bold",
               }}
-              type="outline-primary"
+              type='outline-primary'
               block
               onClick={submit}
-              value="save"
+              value='save'
             >
-              {t('Save')}
+              {t("Save")}
             </Button>
           </div>
         </Row>

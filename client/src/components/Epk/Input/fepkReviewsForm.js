@@ -212,13 +212,13 @@ function ReviewsForm() {
           backgroundColor: "white",
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5'>
+        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
           <div className='col-3 tw-m-3 tw-text-center'>
             <h2
               className=''
               style={{
-                color: "#FFFFFF",
-                fontWeight: "normal",
+                color: "#1E0039",
+                fontWeight: "bold",
                 fontSize: "25px",
               }}
             >
@@ -226,16 +226,16 @@ function ReviewsForm() {
             </h2>
           </div>
           <div className='col-3 tw-m-3 tw-text-center'>
-            <BasicMenu color='#FFFFFF' />
+            <BasicMenu color='#1E0039' />
           </div>
           <div className='col-3 tw-m-3 tw-text-center'>
             <Link
               className='col align-items-end'
               to={`/epk/${fepk.title}`}
               style={{
-                color: "#FFFFFF",
+                color: "#1E0039",
                 textDecoration: "none",
-                fontWeight: "normal",
+                fontWeight: "bold",
                 fontSize: "25px",
               }}
             >
