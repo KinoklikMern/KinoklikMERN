@@ -750,7 +750,7 @@ export default function Actor(props) {
           {epksList && epksList.length > 0 && (
             <div className='movie-actor-play-container'>
               {epksList.map((epk) => {
-                const formattedTitle = epk.title.replace(/ /g, "_");
+                const formattedTitle = epk.title.replace(/ /g, "-");
                 return (
                   <a key={epk._id} href={`/epk/${formattedTitle}`}>
                     <div className='listItem'>

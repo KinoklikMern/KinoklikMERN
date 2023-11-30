@@ -265,7 +265,6 @@ function ResourcesForm() {
         <div
           style={{
             marginLeft: "10%",
-            marginRight: "15%",
             color: "#311465",
             fontWeight: "normal",
           }}
@@ -421,9 +420,10 @@ function ResourcesForm() {
                     style={{
                       fontSize: "0.8rem",
                       textAlign: "center",
-                      tableLayout: "auto",
+                      tableLayout: "fixed",
                       // width: "100%",
-                      marginLeft: "2%",
+                      marginLeft: "5%",
+                      marginRight: "-15%",
                     }}
                   >
                     <thead className='thead-dark'>
@@ -622,7 +622,7 @@ function ResourcesForm() {
                     style={{
                       height: "50px",
                       width: "100px",
-                      marginLeft: "100%",
+                      marginLeft: "-120%",
                       marginTop: "350px",
                     }}
                   >

@@ -148,7 +148,7 @@ export const getFepkbyId = async (req, res) => {
 // fetch Fepk by Title
 export const getFepkByTitle = async (req, res) => {
   // const title = req.params.title;
-  const title = req.params.title.replace(/_/g, " ");
+  const title = req.params.title.replace(/-/g, " ");
   try {
     const fepkOne = await fepk
       .findOne({ title: { $regex: new RegExp(`^${title}$`, "i") } })
