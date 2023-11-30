@@ -91,6 +91,11 @@ function ResourcesForm() {
       setEpkResourcesData({ ...epkResourcesData, resources: resourcesList });
       setDisabledAdd(true);
       setDisabled(false);
+      setResource({
+        title: "",
+        time: "",
+        description: "",
+      });
     }
   }
   const handleResourceChange = (event) => {
@@ -288,6 +293,7 @@ function ResourcesForm() {
                     placeholder={t("Title")}
                     onChange={handleResourceChange}
                     name='title'
+                    value={resource.title}
                   />
                   <input
                     style={{
@@ -302,6 +308,7 @@ function ResourcesForm() {
                     placeholder={t("Duration Required")}
                     onChange={handleResourceChange}
                     name='time'
+                    value={resource.time}
                   />
                   <textarea
                     style={{
@@ -318,6 +325,7 @@ function ResourcesForm() {
                     onChange={handleResourceChange}
                     name='description'
                     maxLength='160'
+                    value={resource.description}
                   />
                   <span
                     style={{
@@ -490,7 +498,11 @@ function ResourcesForm() {
                                 </td>
                                 <td style={{ minWidth: "160px" }}>
                                   <img
-                                    src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                    src={
+                                      resource?.image
+                                        ? `${process.env.REACT_APP_AWS_URL}/${resource.image}`
+                                        : null
+                                    }
                                     alt=''
                                     style={{ height: "50px", width: "auto" }}
                                   />
@@ -519,7 +531,11 @@ function ResourcesForm() {
                                 <td>{resource.description}</td>
                                 <td>
                                   <img
-                                    src={`${process.env.REACT_APP_AWS_URL}/${resource.image}`}
+                                    src={
+                                      resource?.image
+                                        ? `${process.env.REACT_APP_AWS_URL}/${resource.image}`
+                                        : null
+                                    }
                                     style={{ height: "50px", width: "auto" }}
                                   />
                                 </td>

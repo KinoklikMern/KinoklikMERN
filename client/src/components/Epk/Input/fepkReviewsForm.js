@@ -449,7 +449,11 @@ function ReviewsForm() {
                             </td>
                             <td>
                               <img
-                                src={`${process.env.REACT_APP_AWS_URL}/${review.award_logo}`}
+                                src={
+                                  review?.award_logo
+                                    ? `${process.env.REACT_APP_AWS_URL}/${review.award_logo}`
+                                    : null
+                                }
                                 alt=''
                                 style={{ height: "40px", width: "auto" }}
                               />

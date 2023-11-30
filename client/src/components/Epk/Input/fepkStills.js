@@ -30,6 +30,7 @@ function StillsForm() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
+  const [fileChosen, setFileChosen] = useState(false);
 
   const { t } = useTranslation();
 
@@ -42,6 +43,7 @@ function StillsForm() {
     const url = URL.createObjectURL(fileNew);
     setPicturerPreviewUrlPreviewUrl(url);
     setMessage("");
+    setFileChosen(true);
   };
 
   useEffect(() => {
@@ -98,6 +100,7 @@ function StillsForm() {
               setDisabled(false);
               setPicturerPreviewUrlPreviewUrl("");
               inputFileRef.current.value = "";
+              setFileChosen(false);
             }
           })
           .catch((err) => {
@@ -287,17 +290,35 @@ function StillsForm() {
                 null}
                 <div className='tw-cursor-pointer hover:tw-scale-110'>
                   {/* <FontAwesomeIcon icon={faPlus} onClick={addImage} /> */}
-                  <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
-                    style={{
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "center",
-                    }}
-                    type='outline-primary'
-                    onClick={addImage}
-                  >
-                    {t("Add to Pictures Gallery")}
-                  </Button>
+                  {fileChosen ? (
+                    <Button
+                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        textAlign: "center",
+                      }}
+                      type='outline-primary'
+                      onClick={addImage}
+                    >
+                      {t("Add to Pictures Gallery")}
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        color: "grey",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                        width: "auto",
+                      }}
+                      type='outline-primary'
+                      onClick={addImage}
+                    >
+                      {t("Add to Pictures Gallery")}
+                    </Button>
+                  )}
+
                   {message && (
                     <div
                       className='message'
