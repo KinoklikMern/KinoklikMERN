@@ -11,9 +11,10 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from "react-share";
+import emptyBanner from "../../../images/empty_banner.jpeg";
 
 export default function ResourceCard({ resourceInfo, fepkTitle }) {
-  const image_resource = `${process.env.REACT_APP_AWS_URL}/${resourceInfo.image}`;
+  const image_resource = resourceInfo.image ? `${process.env.REACT_APP_AWS_URL}/${resourceInfo.image}` : emptyBanner;
   const currentUrl = window.location.href.startsWith("http")
     ? window.location.href
     : `https://${window.location.href}`;

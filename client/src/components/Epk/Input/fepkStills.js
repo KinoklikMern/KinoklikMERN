@@ -30,6 +30,7 @@ function StillsForm() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
+  const [fileChosen, setFileChosen] = useState(false);
 
   const { t } = useTranslation();
 
@@ -42,6 +43,7 @@ function StillsForm() {
     const url = URL.createObjectURL(fileNew);
     setPicturerPreviewUrlPreviewUrl(url);
     setMessage("");
+    setFileChosen(true);
   };
 
   useEffect(() => {
@@ -98,6 +100,7 @@ function StillsForm() {
               setDisabled(false);
               setPicturerPreviewUrlPreviewUrl("");
               inputFileRef.current.value = "";
+              setFileChosen(false);
             }
           })
           .catch((err) => {
@@ -206,10 +209,10 @@ function StillsForm() {
           backgroundColor: "white",
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5'>
-          <div className='col-3 tw-m-3 tw-text-center'>
+        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-50% tw-to-100% tw-py-5">
+          <div className="col-3 tw-m-3 tw-text-center">
             <h2
-              className=''
+              className=""
               style={{
                 color: "#FFFFFF",
                 fontWeight: "normal",
@@ -219,12 +222,12 @@ function StillsForm() {
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
-            <BasicMenu color='#FFFFFF' />
+          <div className="col-3 tw-m-3 tw-text-center">
+            <BasicMenu color="#FFFFFF" />
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
+          <div className="col-3 tw-m-3 tw-text-center">
             <Link
-              className='col align-items-end'
+              className="col align-items-end"
               to={`/epk/${fepk.title}`}
               style={{
                 color: "#FFFFFF",
@@ -245,18 +248,18 @@ function StillsForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ height: "500px" }}>
+          <div className="card-body" style={{ height: "500px" }}>
             <h5
-              className='card-title '
+              className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
               {t("Film Stills")}
             </h5>
-            <form className='row'>
-              <div className='col-12 col-md-4 mt-5'>
+            <form className="row">
+              <div className="col-12 col-md-4 mt-5">
                 <label
-                  htmlFor='filePoster'
-                  className='form-label text-dark'
+                  htmlFor="filePoster"
+                  className="form-label text-dark"
                   style={{ fontSize: "25px" }}
                 >
                   {" "}
@@ -264,14 +267,14 @@ function StillsForm() {
                 </label>
                 <input
                   style={{ fontSize: "15px" }}
-                  className='form-control form-control-sm'
+                  className="form-control form-control-sm"
                   filename={file}
                   onChange={fileSelected}
                   ref={inputFileRef}
-                  type='file'
-                  id='filePoster'
-                  name='files'
-                  accept='image/*'
+                  type="file"
+                  id="filePoster"
+                  name="files"
+                  accept="image/*"
                 />
                 {picturePreviewUrl && picturePreviewUrl !== undefined ? (
                   <img
@@ -281,26 +284,44 @@ function StillsForm() {
                       width: "auto",
                       marginTop: "10px",
                     }}
-                    alt='no img'
+                    alt="no img"
                   />
                 ) : // <h3>No Image</h3>
                 null}
-                <div className='tw-cursor-pointer hover:tw-scale-110'>
+                <div className="tw-cursor-pointer hover:tw-scale-110">
                   {/* <FontAwesomeIcon icon={faPlus} onClick={addImage} /> */}
-                  <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
-                    style={{
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "center",
-                    }}
-                    type='outline-primary'
-                    onClick={addImage}
-                  >
-                    {t("Add to Pictures Gallery")}
-                  </Button>
+                  {fileChosen ? (
+                    <Button
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        textAlign: "center",
+                      }}
+                      type="outline-primary"
+                      onClick={addImage}
+                    >
+                      {t("Add to Pictures Gallery")}
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        color: "grey",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                        width: "auto",
+                      }}
+                      type="outline-primary"
+                      onClick={addImage}
+                    >
+                      {t("Add to Pictures Gallery")}
+                    </Button>
+                  )}
+
                   {message && (
                     <div
-                      className='message'
+                      className="message"
                       style={{
                         color: "red",
                         fontSize: "0.9rem",
@@ -312,9 +333,9 @@ function StillsForm() {
                   )}
                 </div>
               </div>
-              <div className='col-12 col-md-6 mt-3'>
+              <div className="col-12 col-md-6 mt-3">
                 <table
-                  className='table table-striped table-bordered'
+                  className="table table-striped table-bordered"
                   style={{
                     fontSize: "12px",
                     textAlign: "center",
@@ -322,7 +343,7 @@ function StillsForm() {
                     tableLayout: "auto",
                   }}
                 >
-                  <thead className='thead-dark'>
+                  <thead className="thead-dark">
                     <tr>
                       <th>{t("IMAGE")}</th>
                       <th>{t("EDIT")}</th>
@@ -338,22 +359,22 @@ function StillsForm() {
                               <td>
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
-                                  alt=''
+                                  alt=""
                                   style={{ height: "50px", width: "auto" }}
                                 />
                                 {editMode && (
                                   <>
                                     <input
-                                      className='form-control form-control-sm'
+                                      className="form-control form-control-sm"
                                       filename={file}
                                       onChange={(e) =>
                                         handleEditChange(e, index, "image")
                                       }
                                       ref={inputFileRef}
-                                      type='file'
-                                      id='filePoster'
-                                      name='files'
-                                      accept='image/*'
+                                      type="file"
+                                      id="filePoster"
+                                      name="files"
+                                      accept="image/*"
                                     />
                                   </>
                                 )}
@@ -396,19 +417,19 @@ function StillsForm() {
                           </td>
                           <td>
                             <Button
-                              className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                              className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                               style={{
                                 height: "30px",
                                 width: "80px",
                                 boxShadow: "1px 2px 9px #311465",
                                 fontWeight: "bold",
                               }}
-                              type='outline-primary'
+                              type="outline-primary"
                               block
                               onClick={() =>
                                 handleStillsBlurChange(!still.blur, still)
                               }
-                              name='blur'
+                              name="blur"
                             >
                               {still.blur ? "UnBlur" : "Blur"}
                             </Button>
@@ -419,7 +440,7 @@ function StillsForm() {
                   </tbody>
                 </table>
               </div>
-              <div className='col-12 col-md-2 mt-5'>
+              <div className="col-12 col-md-2 mt-5">
                 <div
                   style={{
                     height: "50px",
@@ -437,24 +458,24 @@ function StillsForm() {
                         backgroundColor: "#ffffff",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={saveEpkStills}
-                      value='save'
+                      value="save"
                     >
                       {t("Save")}
                     </Button>
                   ) : (
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={saveEpkStills}
-                      value='save'
+                      value="save"
                     >
                       {t("Save")}
                     </Button>
@@ -463,7 +484,7 @@ function StillsForm() {
                   <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
-                    contentLabel='Example Modal'
+                    contentLabel="Example Modal"
                     appElement={document.getElementById("root")}
                     style={{
                       overlay: {
@@ -487,7 +508,7 @@ function StillsForm() {
                       {t("Film Stills Saved Successfully!")}
                       <br />
                       <button
-                        className='btn btn-secondary btn-sm'
+                        className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                       >
                         {t("Ok")}
