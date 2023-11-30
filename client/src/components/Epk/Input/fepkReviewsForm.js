@@ -260,7 +260,7 @@ function ReviewsForm() {
                 marginBottom: "-3%",
               }}
             >
-              {t("(Film Buzz (Reviews & Awards)")}
+              {t("Film Buzz (Reviews & Awards)")}
             </h5>
             <form>
               <div className="row" style={{ marginRight: "-5%" }}>
@@ -513,8 +513,7 @@ function ReviewsForm() {
                   style={{
                     height: "50px",
                     width: "120px",
-                    marginLeft: "100%",
-                    marginTop: "-1%",
+                    marginLeft: "95%",
                     marginBottom: "3%",
                   }}
                 >

@@ -1,0 +1,46 @@
+.upload-actor-pic-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #1E0039;
+  height: 100vh;
+}
+
+.dashboard-header {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 24px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 4rem;
+}
+
+.actor-page-link {
+  background-color: black;
+  padding: 2px;
+  border-radius: 2xl;
+  font-size: 3rem;
+  margin-right: 20px;
+}
+
+.content-area {
+  display: flex;
+  height: 83.33%;
+  margin: 8px;
+}
+
+.main-content {
+  overflow: auto;
+  background-color: white;
+  padding: 4px;
+  border-radius: lg;
+  margin-left: 16px;
+  height: 83.33%;
+  width: 83.33%;
+  display: grid;
+  justify-items: center;
+}
