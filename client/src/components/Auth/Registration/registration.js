@@ -153,20 +153,20 @@ function RegistrationForm() {
     <>
       <div className={SignupCss.bg}>
         {!nextClicked && (
-          <div className={SignupCss.form_titleMain}>
-            {t("Sign up for KinoKlik")}{" "}
-          </div>
-        )}
+          <div className="tw-text-3xl md:tw-text-4xl tw-font-bold tw-text-center tw-text-[#712cb0] tw-pt-4">SIGN UP</div>
+          )}
+  
 
         {/* <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div> */}
 
         <div
-          className={SignupCss.form}
+          // className={SignupCss.form}
           // style={{
           //   margin: "2px",
           // }}
         >
-          <div className={SignupCss.form_body}>
+          <div >
+          {/* // className={SignupCss.form_body} */}
             {!nextClicked ? (
               <RoleChoice role={role} setRole={setRole} />
             ) : (
@@ -188,21 +188,25 @@ function RegistrationForm() {
                 setNewsletterOptions={setNewsletterOptions}
                 agreeToTerms={agreeToTerms}
                 setAgreeToTerms={setAgreeToTerms}
+                handleSubmit={handleSubmit}
+                setNextClicked={setNextClicked}
+                handleBack={handleBack}
+                showBackButton={!nextClicked} 
               />
             )}
 
             {nextClicked ? (
-              <button onClick={handleSubmit} className={SignupCss.btn}>
+              <button onClick={handleSubmit}  className="tw-mx-auto tw-my-4 tw-block tw-bg-[#712cb0] tw-text-white tw-border-[0.5px] tw-border-white tw-text-lg tw-font-medium tw-cursor-pointer tw-transition-all tw-duration-300 tw-rounded-lg tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-w-[130px] tw-text-center  hover:tw-bg-white [#712cb0] hover:tw-text-[#712cb0]"
+              >
                 {t("Sign Up")}
               </button>
             ) : null}
             {
-              <button
-                className={nextClicked ? SignupCss.back : SignupCss.next}
-                onClick={() => setNextClicked(!nextClicked)}
-              >
-                {!nextClicked ? t("Next") : t("Back")}
-              </button>
+              <button 
+              onClick={() => setNextClicked(!nextClicked)}
+              className="tw-mx-auto tw-my-4 tw-block tw-bg-white tw-text-[#712cb0] tw-border-[0.5px] tw-border-[#712cb0] tw-text-lg tw-font-medium tw-cursor-pointer tw-transition-all tw-duration-300 tw-ease-in-out tw-rounded-lg tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-w-[100px] tw-text-center hover:tw-bg-[#712cb0] hover:tw-text-white">
+              {!nextClicked ? "Next" : "Back"}
+            </button>
             }
 
             <div className={SignupCss.form_Message}>

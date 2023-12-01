@@ -3,12 +3,12 @@ link for registration is /signup */
 
 /*SIGN_UP AND REGISTRATION PERSONAL INFO*/
 .bg {
-  height: 105vh;
+  /* height: 105vh;
   width: 100%;
   position: relative;
   top: 0;
   left: 0;
-  margin: 0 auto;
+  margin: 0 auto; */
   background-repeat: none;
   background-size: cover;
   background-position: bottom center;

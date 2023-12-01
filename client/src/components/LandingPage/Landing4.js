@@ -2,6 +2,7 @@ import React from "react";
 import southPaw from "../../images/movies/SouthPaw.png";
 import {useTranslation} from 'react-i18next';
 
+
 const Landing4 = () => {
   const { t } = useTranslation();
   return (
