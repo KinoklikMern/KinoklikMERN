@@ -99,56 +99,47 @@ function RegistrationPersonalInfo({
 
   return (
     <>
-      <div className={SignupCss.personalInfo}>
-        <div className={SignupCss.rolesMain}>
-          <div className={SignupCss.form_titleMainPAndRole}>
-            <div className={SignupCss.form_titleMainPI}>
+      <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-py-4">
+        <div>
+          <div>
+            <div className="tw-mb-4 tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0]">
               {t("Sign up for KinoKlik")}{" "}
             </div>
-            {/* <div className={SignupCss.mainText}>{role.label}</div> */}
+
             <div className={SignupCss.imageAndTextPI}>
               <div
                 className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}
               >
-                {/* <button> */}
                 <img src={role.image} alt="Filmmaker Icon"></img>
-
-                {/* </button> */}
               </div>
               <div className={SignupCss.textImgMainPI}>{role.label}</div>
             </div>
           </div>
         </div>
-        <div className={SignupCss.nameFields}>
-          {/*<div className={SignupCss.form_input}>*/}
-          <div>
-            {/* <label className="form__label">First Name </label> */}
-            <input
-              className={SignupCss.form_input}
-              type="text"
-              value={firstName}
-              onChange={(e) => handleInputChange(e)}
-              id="firstName"
-              placeholder={t("First Name")}
-            />
-          </div>
-          {/* <div className={SignupCss.form_input}>*/}
-          <div>
-            {/* <label className="form__label">Last Name </label> */}
-            <input
-              className={SignupCss.form_input}
-              type="text"
-              value={lastName}
-              onChange={(e) => handleInputChange(e)}
-              id="lastName"
-              placeholder={t("Last Name")}
-            />
-          </div>
-        </div>
-        <div className={SignupCss.form_input}>
-          {/* <label className="form__label">Email </label> */}
+        {/*CSS FOR THE FORM*/}
+
+        <div className="tw-mb-4 tw-flex tw-w-full tw-max-w-[385px] tw-flex-col tw-gap-4 md:tw-w-96 md:tw-max-w-none md:tw-flex-row">
           <input
-            className={SignupCss.form_input}
+            className="tw-focus:border-purple-700 tw-w-full tw-flex-1 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
+            type="text"
+            value={firstName}
+            onChange={(e) => handleInputChange(e)}
+            id="firstName"
+            placeholder={t("First Name")}
+          />
+          <input
+            className="tw-focus:border-purple-700 tw-w-full tw-flex-1 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
+            type="text"
+            value={lastName}
+            onChange={(e) => handleInputChange(e)}
+            id="lastName"
+            placeholder={t("Last Name")}
+          />
+        </div>
+
+        <div>
+          <input
+            className="tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 md:tw-w-96   "
             type="text"
             id="email"
             value={email}
@@ -158,10 +149,8 @@ function RegistrationPersonalInfo({
         </div>
 
         <div>
-          {/* className={SignupCss.form_input} */}
-          {/* <label className="form__label">Password </label> */}
           <input
-            className={SignupCss.form_input2}
+            className="tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
             type="password"
             id="password"
             value={password}
@@ -170,10 +159,8 @@ function RegistrationPersonalInfo({
           />
         </div>
         <div>
-          {/* className={SignupCss.form_input} */}
-          {/* <label className="form__label">Confirm Password </label> */}
           <input
-            className={SignupCss.form_input2}
+            className="tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
             type="password"
             id="confirmPassword"
             value={confirmPassword}
@@ -293,17 +280,6 @@ function RegistrationPersonalInfo({
             </div>
           )}
         </div>
-        {/* <div className="SignupCss.buttonsSignUpAndBack">
-          <button onClick={handleSubmit} className={SignupCss.btn}>
-            Sign Up
-          </button>
-
-          {showBackButton && ( // Conditionally render the "Back" button here
-            <button onClick={handleBack} className={SignupCss.back}>
-              Back
-            </button>
-          )}
-        </div> */}
       </div>
     </>
   );

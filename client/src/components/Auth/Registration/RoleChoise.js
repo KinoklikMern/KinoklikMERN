@@ -16,69 +16,64 @@ import {useTranslation} from 'react-i18next';
 //import i18n from 'i18next'; 
 
 
-export const optionsMain = [
-
+export const options = [
   {
-    
-    label: ("An amazing and talented visionary filmmaker"),
+    label: "An amazing and talented visionary filmmaker",
     value: "Filmmaker",
     image: filmmakerIcon,
   },
   {
-    label: ("A talented and passionate actor (and future star)"),
+    label: "A talented and passionate actor (and future star)",
     value: "Actor",
     image: actorIcon,
   },
-];
-
-export const optionsSecondary = [
   {
-    label: ("Sales Agent"),
+    label: "Sales_Agent",
     value: "Sales Agent",
     image: salesAgentIcon,
   },
   {
-    label: ("Film Festival"),
+    label: "Film_Festival",
     value: "Film Festival",
     image: festivalIcon,
   },
   {
-    label: ("Investor"),
+    label: "Investor",
     value: "Investor",
     image: investorIcon,
   },
   {
-    label: ("Viewer"),
+    label: "Viewer",
     value: "Viewer",
     image: viewerIcon,
   },
   {
-    label: ("Producer"),
+    label: "Producer",
     value: "Producer",
     image: producerIcon,
   },
   {
-    label: ("Editor"),
+    label: "Editor",
     value: "Editor",
     image: editorIcon,
   },
   {
-    label: ("Writer"),
+    label: "Writer",
     value: "Writer",
     image: writerIcon,
   },
   {
-    label: ("Sound"),
+    label: "Sound",
     value: "Sound",
     image: soundIcon,
   },
   {
-    label: ("Cinematographer"),
+    label: "Cinematographer",
     value: "Cinematographer",
     image: cinematographerIcon,
   },
   {
-    label: ("Distributor"),
+    label: "Distributor",
     value: "Distributor",
     image: distributorIcon,
   },
@@ -91,18 +86,44 @@ function RoleChoise({ role, setRole }) {
    // label: t(option.labelKey),
 //  }));
   console.log(role);
-  return (
-    <>
-      <div className={SignupCss.roles}>
-        <div className={SignupCss.form_title}>{t('I am')}:</div>
-        <div className={SignupCss.rolesMain}>
-          {optionsMain.map((option) => (
+
+   // Helper function to get the role name based on the option value
+const getRoleName = (value) => {
+  switch (value) {
+    case "Filmmaker": return "Film Director";
+    case "Actor": return "Actor";
+    case "Sales Agent": return "Sales Agent";
+    case "Film Festival": return "Film Festival";
+    case "Viewer": return "Viewer";
+    case "Investor": return "Investor";
+    case "Producer": return "Producer";
+    case "Editor": return "Editor";
+    case "Writer": return "Writer";
+    case "Sound": return "Sound";
+    case "Cinematographer": return "Cinematographer";
+    case "Distributor": return "Distributor";
+    default: return "";
+  }
+};
+
+return (
+  <>
+    <div className="tw-mx-auto tw-max-w-screen-lg tw-px-4 md:tw-px-6 lg:tw-px-2">
+      <div className="tw-grid tw-grid-cols-2 tw-gap-2 md:tw-grid-cols-4 lg:tw-grid-cols-6">
+        {options.map((option) => (
+          <div
+            key={option.value}
+            className="tw-mb-4 tw-flex tw-flex-col tw-items-center"
+          >
+            {" "}
+            {/* Centered flex column */}
             <div
-              key={option.value}
               className={`${SignupCss.roleImgMain} ${
                 role.value === option.value ? SignupCss.selected : ""
-              }`}
+              } tw-mb-2`}
             >
+              {" "}
+              {/* Add margin bottom */}
               <button
                 value={option.value}
                 onClick={(e) =>
@@ -112,58 +133,26 @@ function RoleChoise({ role, setRole }) {
                     image: option.image,
                   })
                 }
+                className="tw-flex tw-flex-col tw-items-center tw-justify-center" // Align items center
               >
-                <img src={option.image} alt={`${option.value} Icon`}></img>
+                <img
+                  src={option.image}
+                  alt={`${option.value} Icon`}
+                  className="tw-mb-2"
+                />{" "}
+                {/* Add margin bottom */}
                 <div className={SignupCss.mainText}>{t(option.label)}</div>
               </button>
             </div>
-          ))}
-        </div>
-        <div className={SignupCss.rolesSecondary}>
-          {optionsSecondary
-            // That complex is because I want to wrap every 4 lines with div of line
-            .reduce((acc, option, index) => {
-              const groupIndex = Math.floor(index / 5);
-              if (!acc[groupIndex]) {
-                acc[groupIndex] = [];
-              }
-              acc[groupIndex].push(
-                <div
-                  key={option.value}
-                  className={`${SignupCss.roleImgSecondary} ${
-                    role.value === option.value
-                      ? SignupCss.selectedSecondary
-                      : ""
-                  }`}
-                >
-                  <button
-                    value={option.value}
-                    onClick={(e) =>
-                      setRole({
-                        label: t(option.label),
-                        value: option.value,
-                        image: option.image,
-                      })
-                    }
-                  >
-                    <img src={option.image} alt={`${option.value} Icon`}></img>
-                    <div className={SignupCss.secondaryText}>
-                      {t(option.label)}
-                    </div>
-                  </button>
-                </div>
-              );
-              return acc;
-            }, [])
-            .map((group, index) => (
-              <div key={index} className={SignupCss.line}>
-                {group}
-              </div>
-            ))}
-        </div>
+            <div className="tw-mt-2 tw-text-center tw-font-bold tw-text-violet-800">
+              {getRoleName(option.value)}
+            </div>
+          </div>
+        ))}
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 }
 
 export default RoleChoise;
