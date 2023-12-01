@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 // import http from "../../http-common.js";
 import heroImage from "../../images/LandingPage_Hero.png";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from 'react-i18next';
+import { gsap } from 'gsap';
 
 const Landing1 = () => {
   const { t } = useTranslation();
@@ -41,16 +42,52 @@ const Landing1 = () => {
   // const firstElement = Math.max(0, lastElement - 4);
   // const filteredFepks = fepks.slice(firstElement, lastElement);
 
+  //GSAP animation 
+  const headingRef = useRef(null);
+  const subHeadingRef = useRef(null);
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    const heading = headingRef.current;
+    const subHeading = subHeadingRef.current;
+    const image = imageRef.current;
+
+    let tl;
+    if (heading && subHeading && image) {
+      tl = gsap.timeline({ defaults: { ease: "power1.out" } });
+
+      tl.from(heading, {
+        opacity: 0,
+        y: -50,
+        duration: 1,
+      })
+        .from(subHeading, {
+          opacity: 0,
+          y: -30,
+          duration: 1,
+        }, "-=0.5")
+        .from(image, {
+          opacity: 0,
+          duration: 1.5,
+        }, "-=0.5");
+    }
+
+    return () => {
+      // Cleanup GSAP instances
+      if (tl) tl.kill();
+    };
+  }, []);
+
   return (
     <>
       <div className='tw-bg-midnight lg:tw-h-[100vh]'>
         <div className='md:tw-p-24'>
           <div className='tw-flex tw-w-full tw-items-center'>
             <div className='tw-p-7 lg:tw-w-2/4'>
-              <h1 className='tw-mt-6 tw-text-start tw-text-6xl tw-font-bold tw-text-white md:tw-text-7xl'>
+              <h1 ref={headingRef} className='tw-mt-6 tw-text-start tw-text-6xl tw-font-bold tw-text-white md:tw-text-7xl'>
                 {t("Film marketing.")}
                 <br />
-                {t("Refined.")}
+                <span ref={subHeadingRef}>{t("Refined.")}</span>
               </h1>
               <p className='tw-my-12 tw-text-xl tw-font-semibold tw-text-white md:tw-text-2xl'>
                 {t(
@@ -89,7 +126,7 @@ const Landing1 = () => {
                   alt=''
                 />
               ))} */}
-              <img src={heroImage} alt='' className=' tw-h-full' />
+              <img ref={imageRef} src={heroImage} alt='' className=' tw-h-full' />
             </div>
           </div>
         </div>
