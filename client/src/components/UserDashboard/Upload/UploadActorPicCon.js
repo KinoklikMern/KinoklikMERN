@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import EmptyEpk from "../Requests/EmptyEpk";
 import LoadingSpin from "../../FilmMakerDashboard/LoadingSpin";
-import List from "../../../pages/Actor/ListActor";
+import List from "../../../pages/Actor/ListItem";
 import { useTranslation } from "react-i18next";
 import { getMoviesByActors } from "../../../api/epks";
 
@@ -29,10 +29,6 @@ export default function UploadActorPicCon() {
       setLoading(false);
     }
   }, [userId]);
-
-   useEffect(() => {
-    console.log(epkList);
-  }, [epkList]);
 
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
@@ -77,7 +73,9 @@ export default function UploadActorPicCon() {
             ) : (
               <>
                 <UploadActorPic user={user} />
-                <List />
+                <div>
+                  <List />
+                </div>                
               </>
             )}
           </div>

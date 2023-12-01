@@ -24,17 +24,21 @@ export default function ListItem() {
 
   return (
     <>
-      {fepks &&
-        fepks.map((fepk) => (
-          <div className='listItem' key={fepk._id}>
-            <a href={`/epk/${fepk.title?.replace(/ /g, "-")}`}>
-              <img
-                src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                alt=''
-              />
-            </a>
-          </div>
-        ))}
+    <div className="bottom-container ">
+      <div className="listContainer">      
+        {fepks &&
+          fepks.map((fepk) => (
+            <div className='listItem' key={fepk._id}>
+              <a href={`/epk/${fepk.title?.replace(/ /g, "-")}`}>
+                <img
+                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                  alt=''
+                />
+              </a>
+            </div>
+          ))}
+      </div>
+    </div>
     </>
   );
 }

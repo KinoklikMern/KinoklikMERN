@@ -11,7 +11,7 @@ export default function EmptyEpk() {
       </div>
       <div className="tw-flex tw-justify-center">
         <div className="tw-text-2xl tw-font-light tw-text-[#1E0039]">
-          <span className="tw-block">{t('You don’t have any EPK starred.')}</span>
+          <span className="tw-block">{t('There are currently no EPKs attached to your Actor Page. Once filmmakers will assign you an EPK, it will appear here.')}</span>
           <span className="tw-block">
             {/* Start promoting your film right away! */}
           </span>
