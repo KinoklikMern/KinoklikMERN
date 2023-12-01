@@ -103,7 +103,7 @@ const HomeBody = ({ role }) => {
               // Skip rendering this item if image_details (poster) because it looks
               return null;
             }
-            const formattedTitle = fepk.title.replace(/ /g, "_");
+            const formattedTitle = fepk.title.replace(/ /g, "-");
             return (
               <React.Fragment key={fepk._id}>
                 <div className="listItem tw-p-3">

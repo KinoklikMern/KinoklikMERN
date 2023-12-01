@@ -366,7 +366,7 @@ function FepkEditCoverForm() {
           <div className='col-2 m-3 tw-text-center'>
             <Link
               className=''
-              to={`/epk/${fepk.title}`}
+              to={`/epk/${fepk.title?.replace(/ /g, "-")}`}
               style={{
                 color: "#1E0039",
                 textDecoration: "none",
