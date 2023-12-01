@@ -161,6 +161,9 @@ function ReviewsForm() {
         console.log(err);
       });
     setDisabled(true);
+    setPicturePreviewUrl("");
+    setPictureEditPreviewUrl("");
+    setFile("");
   }
 
   const handleEditChange = (e, index, type) => {
@@ -179,7 +182,7 @@ function ReviewsForm() {
     setDisabled(false);
   };
 
-  const exitEditMode = (e, index, type) => {
+  const exitEditMode = (index) => {
     if (pictureEditPreviewUrl) {
       const selectedFile = file;
       setFile(selectedFile);
@@ -207,10 +210,11 @@ function ReviewsForm() {
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      const updatedReviewsList = [...reviewsList];
+      saveEpkReviews({ ...epkReviewsData, reviews: updatedReviewsList });
+      setEditingReview(null);
     }
-    const updatedReviewsList = [...reviewsList];
-    saveEpkReviews({ ...epkReviewsData, reviews: updatedReviewsList });
-    setEditingReview(null);
   };
 
   return (
@@ -465,14 +469,12 @@ function ReviewsForm() {
                                 // Edit Mode
                                 <>
                                   {pictureEditPreviewUrl ? (
-                                    // Preview Image in Edit Mode
                                     <img
                                       src={pictureEditPreviewUrl}
                                       alt=""
                                       style={{ height: "40px", width: "auto" }}
                                     />
                                   ) : (
-                                    // Regular Image in Edit Mode (if no Preview)
                                     <img
                                       src={
                                         review.award_logo
@@ -517,9 +519,7 @@ function ReviewsForm() {
                               {editingReview === index ? (
                                 <FontAwesomeIcon
                                   icon={faCheck}
-                                  onClick={(e) =>
-                                    exitEditMode(e, index, "file")
-                                  }
+                                  onClick={() => exitEditMode(index)}
                                   style={{ marginRight: "15px" }}
                                 />
                               ) : (
