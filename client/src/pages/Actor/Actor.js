@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Actor.css";
-// import List from "./ListActor";
 import Axios from "axios";
 import worldIcon from "../../images/icons/noun-world-icon.svg";
 import EpkHeader from "../../components/EpkView/EpkHeader/EpkHeader";

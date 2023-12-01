@@ -459,6 +459,7 @@ function ResourcesForm() {
                                     onChange={(e) =>
                                       handleEditChange(e, index, "title")
                                     }
+                                    style={{ maxWidth: "95%" }}
                                   />
                                 </td>
                                 <td>
@@ -467,6 +468,7 @@ function ResourcesForm() {
                                     onChange={(e) =>
                                       handleEditChange(e, index, "time")
                                     }
+                                    style={{ maxWidth: "95%" }}
                                   />
                                 </td>
                                 <td>
@@ -482,13 +484,14 @@ function ResourcesForm() {
                                       }
                                       name='text'
                                       maxLength='160'
-                                      style={{ maxWidth: "160px" }}
+                                      style={{ maxWidth: "95%" }}
                                     />
                                     <span
                                       style={{
                                         fontSize: "10px",
                                         display: "flex",
                                         justifyContent: "right",
+                                        maxWidth: "95%"
                                       }}
                                     >
                                       {characterLength[index]}

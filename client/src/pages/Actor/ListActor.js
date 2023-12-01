@@ -26,22 +26,25 @@ export default function List() {
     }
   };
   return (
-    <div className="list">
-      <div className="wrapper" >
-        <ArrowBackIosOutlined
-          className="sliderArrow left"
-          onClick={() => handleClick("left")}
-          style={{ display: !isMoved && "none" }}
-        />
-        <div className="container" ref={listRef}> 
-            <ListItem />
-        </div>
-        <ArrowForwardIosOutlined
-          className="sliderArrow right"
-          onClick={() => handleClick("right")}
-        />
-      </div>
+    // <div className="list">
+    //   <div className="wrapper" >
+    //     <ArrowBackIosOutlined
+    //       className="sliderArrow left"
+    //       onClick={() => handleClick("left")}
+    //       style={{ display: !isMoved && "none" }}
+    //     />
+    //     <div className="container" ref={listRef}> 
+    //         <ListItem />
+    //     </div>
+    //     <ArrowForwardIosOutlined
+    //       className="sliderArrow right"
+    //       onClick={() => handleClick("right")}
+    //     />
+    //   </div>
 
+    // </div>
+    <div className="list">
+      <ListItem />
     </div>
   );
 }
