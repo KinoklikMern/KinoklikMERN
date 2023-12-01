@@ -161,7 +161,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
 
   return (
     <>
-      <div className='tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039]'>
+      <div className='tw-invisible tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039] md:tw-visible'>
         <span className='tw-self-center tw-text-xl tw-text-white'>
           {selectedChat
             ? `Message exchange with ${selectedChat.chatName}`

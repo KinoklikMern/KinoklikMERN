@@ -29,8 +29,8 @@ export default function ChatPage() {
             <Sidebar selectedTab='Messages' role={user.role} />
           </div>
           <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-w-full tw-rounded-lg tw-bg-white tw-p-4 md:tw-ml-16 md:tw-w-5/6'>
-            <div className='tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3'>
-              <div className='-tw-m-4 tw-overflow-auto tw-rounded-lg tw-rounded-r-none tw-bg-[#341a4d]'>
+            <div className='tw-h-full md:tw-grid md:tw-grid-cols-3 md:tw-gap-4'>
+              <div className='-tw-m-4 tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d] md:tw-rounded-r-none'>
                 {/* search bar */}
 
                 <div className='shadow-sm tw-relative tw-mx-4 tw-my-8 tw-rounded-md'>
