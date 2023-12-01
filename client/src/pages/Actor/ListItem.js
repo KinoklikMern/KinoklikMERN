@@ -17,24 +17,28 @@ export default function ListItem() {
   }
 
   useEffect(() => {
-    http.get(`/getactorbymovie/${id}`).then((response) => {
+    http.get(`/fepks/getmoviesbyactor/${id}`).then((response) => {
       setFepks(response.data);
     });
   }, []);
 
   return (
     <>
-      {fepks &&
-        fepks.map((fepk) => (
-          <div className='listItem' key={fepk._id}>
-            <a href={`epk/${fepk.title}`}>
-              <img
-                src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                alt=''
-              />
-            </a>
-          </div>
-        ))}
+    <div className="bottom-container ">
+      <div className="listContainer">      
+        {fepks &&
+          fepks.map((fepk) => (
+            <div className='listItem' key={fepk._id}>
+              <a href={`/epk/${fepk.title?.replace(/ /g, "-")}`}>
+                <img
+                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                  alt=''
+                />
+              </a>
+            </div>
+          ))}
+      </div>
+    </div>
     </>
   );
 }

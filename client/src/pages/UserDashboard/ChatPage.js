@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/UserDashboard/Sidebar";
 import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
 import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
+import { useNavigate, useParams } from "react-router-dom";
+
 export default function ChatPage() {
   // eslint-disable-next-line no-unused-vars
   const [fetchAgain, setFetchAgain] = useState(false);
@@ -15,6 +17,16 @@ export default function ChatPage() {
   const user = useSelector((state) => state.user);
   const [searchValue, setSearchValue] = useState("");
   const { t } = useTranslation();
+
+  const { userId } = useParams();
+  const navigate = useNavigate(); // Initialize navigate function
+
+  useEffect(() => {
+    if (userId) {
+      // If there's a selected user ID, navigate to the chat page for that user
+      navigate(`/userdashboard/chat/${userId}`);
+    }
+  }, [userId, navigate]);
 
   return (
     <ChatProvider>
@@ -49,7 +61,15 @@ export default function ChatPage() {
                   </div>
                 </div>
                 {/* chatlist */}
-                <ChatList fetchAgain={fetchAgain} searchValue={searchValue} />
+                {userId ? (
+                  <ChatList
+                    fetchAgain={fetchAgain}
+                    userId={userId}
+                    searchValue={searchValue}
+                  />
+                ) : (
+                  <ChatList fetchAgain={fetchAgain} searchValue={searchValue} />
+                )}
               </div>
               <div className='tw-col-span-2 tw-mx-4 tw-mb-2 tw-overflow-hidden'>
                 <MessageBox

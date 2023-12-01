@@ -70,9 +70,11 @@
   font-size: 4rem;
   display: inline;
   cursor: pointer;
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0.7) 0%,
-      rgba(255, 255, 255, 0.1) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
   border-radius: 10px;
 }
 
@@ -168,8 +170,16 @@
   grid-column: 11/12;
 }
 
+.actor-icon-movie-container button {
+  margin-left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .movie-number {
   margin-left: 5px;
+  margin-right: 20px;
 }
 
 .bottom-container {
@@ -266,7 +276,7 @@
 }
 
 .actor-biography {
-  box-shadow: 0px 0px 5px 2px #712CB0;
+  box-shadow: 0px 0px 5px 2px #712cb0;
   grid-column: 6/ 9;
   width: auto;
   border-radius: 15px;

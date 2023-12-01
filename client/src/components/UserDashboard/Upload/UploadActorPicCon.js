@@ -2,24 +2,33 @@
 import UploadActorPic from "./UploadActorPic";
 import Sidebar from "../Sidebar";
 import { useSelector } from "react-redux";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EmptyEpk from "../Requests/EmptyEpk";
 import LoadingSpin from "../../FilmMakerDashboard/LoadingSpin";
-import List from "../../../pages/Actor/ListActor";
+import List from "../../../pages/Actor/ListItem";
 import { useTranslation } from "react-i18next";
+import { getMoviesByActors } from "../../../api/epks";
 
 export default function UploadActorPicCon() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [epkList, setEpkList] = useState([]);
+  const [error, setError] = useState(null);
 
   const user = useSelector((state) => state.user);
-  let userId;
-  if (!user) {
-    userId = "0";
-  } else {
-    userId = user.id;
-  }
+  const userId = user ? user.id : "0";
+
+  useEffect(() => {
+    setLoading(true);
+    try {
+      const movies = getMoviesByActors(userId);
+      setEpkList(movies);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [userId]);
 
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
@@ -64,7 +73,9 @@ export default function UploadActorPicCon() {
             ) : (
               <>
                 <UploadActorPic user={user} />
-                <List />
+                <div>
+                  <List />
+                </div>                
               </>
             )}
           </div>

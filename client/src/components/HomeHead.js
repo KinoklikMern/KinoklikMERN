@@ -84,7 +84,7 @@ const HomeHead = (props) => {
     console.log("Actor:", actor);
   }, [actor]);
 
-  const formattedTitle = fepk.title?.replace(/ /g, "_");
+  const formattedTitle = fepk.title?.replace(/ /g, "-");
 
   return (
     <div

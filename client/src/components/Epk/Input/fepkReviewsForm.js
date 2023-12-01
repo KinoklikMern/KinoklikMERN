@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "antd";
-import Modal from "react-modal";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
@@ -35,24 +34,27 @@ function ReviewsForm() {
   });
   const [editingReview, setEditingReview] = useState(null);
 
-  //modal
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
   //Picture prewiev
-  const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
+  const [picturePreviewUrl, setPicturePreviewUrl] = useState("");
+  const [pictureEditPreviewUrl, setPictureEditPreviewUrl] = useState("");
 
   let { fepkId } = useParams();
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
     setFile(fileNew);
     setDisabled(false);
     const url = URL.createObjectURL(fileNew);
-    setPicturerPreviewUrlPreviewUrl(url);
+    setPicturePreviewUrl(url);
+    setMessage("");
+  };
+
+  const fileEditSelected = (event) => {
+    const fileNew = event.target.files[0];
+    setFile(fileNew);
+    //setDisabled(false);
+    const url = URL.createObjectURL(fileNew);
+    setPictureEditPreviewUrl(url);
     setMessage("");
   };
 
@@ -85,9 +87,10 @@ function ReviewsForm() {
 
   function addReviewToTable() {
     if (review.magazine !== "" && review.text !== "") {
-      reviewsList.push(review);
-      setEpkReviewsData({ ...epkReviewsData, reviews: reviewsList });
-      setDisabledAdd(true);
+      const newReviewsList = [...reviewsList, review];
+      setReviewsList(newReviewsList);
+      setEpkReviewsData({ ...epkReviewsData, reviews: newReviewsList });
+      saveEpkReviews({ ...epkReviewsData, reviews: newReviewsList });
       setDisabled(false);
       setReview({ text: "", magazine: "" });
     }
@@ -121,7 +124,7 @@ function ReviewsForm() {
                 console.log(key);
                 review.award_logo = key;
                 addReviewToTable();
-                setPicturerPreviewUrlPreviewUrl("");
+                setPicturePreviewUrl("");
                 inputFileRef.current.value = "";
               }
             })
@@ -144,14 +147,14 @@ function ReviewsForm() {
     );
     setReviewsList(newReviewsList);
     setEpkReviewsData({ ...epkReviewsData, reviews: newReviewsList });
+    saveEpkReviews({ ...epkReviewsData, reviews: newReviewsList });
     setDisabled(false);
   }
 
-  function saveEpkReviews() {
+  function saveEpkReviews(epkToSave) {
     http
-      .put(`fepks/update/${fepkId}`, epkReviewsData)
+      .put(`fepks/update/${fepkId}`, epkToSave)
       .then((res) => {
-        setModalIsOpen(true);
         console.log("saved");
       })
       .catch((err) => {
@@ -161,8 +164,24 @@ function ReviewsForm() {
   }
 
   const handleEditChange = (e, index, type) => {
-    if (type === "file") {
-      const selectedFile = e.target.files[0];
+    const newText = e.target.value;
+    const updatedReviewsList = [...reviewsList];
+    updatedReviewsList[index][type] = e.target.value;
+    setReviewsList(updatedReviewsList);
+    setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
+    // Update character length for text changes
+    if (type === "text") {
+      setCharacterLength({
+        ...characterLength,
+        [index]: newText.length,
+      });
+    }
+    setDisabled(false);
+  };
+
+  const exitEditMode = (e, index, type) => {
+    if (pictureEditPreviewUrl) {
+      const selectedFile = file;
       setFile(selectedFile);
       let formData = new FormData();
       formData.append("file", selectedFile);
@@ -177,27 +196,21 @@ function ReviewsForm() {
           const updatedReviewsList = [...reviewsList];
           updatedReviewsList[index].award_logo = response.data.key;
           setReviewsList(updatedReviewsList);
-          setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
-          setDisabled(false);
+          setEpkReviewsData({
+            ...epkReviewsData,
+            reviews: updatedReviewsList,
+          });
+          //setDisabled(false);
+          saveEpkReviews({ ...epkReviewsData, reviews: updatedReviewsList });
+          setEditingReview(null);
         })
         .catch((err) => {
           console.log(err);
         });
-    } else {
-      const newText = e.target.value;
-      const updatedReviewsList = [...reviewsList];
-      updatedReviewsList[index][type] = e.target.value;
-      setReviewsList(updatedReviewsList);
-      setEpkReviewsData({ ...epkReviewsData, reviews: updatedReviewsList });
-      // Update character length for text changes
-      if (type === "text") {
-        setCharacterLength({
-          ...characterLength,
-          [index]: newText.length,
-        });
-      }
-      setDisabled(false);
     }
+    const updatedReviewsList = [...reviewsList];
+    saveEpkReviews({ ...epkReviewsData, reviews: updatedReviewsList });
+    setEditingReview(null);
   };
 
   return (
@@ -212,10 +225,10 @@ function ReviewsForm() {
           backgroundColor: "white",
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
-          <div className='col-3 tw-m-3 tw-text-center'>
+        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
+          <div className="col-3 tw-m-3 tw-text-center">
             <h2
-              className=''
+              className=""
               style={{
                 color: "#1E0039",
                 fontWeight: "bold",
@@ -225,12 +238,12 @@ function ReviewsForm() {
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
-            <BasicMenu color='#1E0039' />
+          <div className="col-3 tw-m-3 tw-text-center">
+            <BasicMenu color="#1E0039" />
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
+          <div className="col-3 tw-m-3 tw-text-center">
             <Link
-              className='col align-items-end'
+              className="col align-items-end"
               to={`/epk/${fepk.title}`}
               style={{
                 color: "#1E0039",
@@ -251,20 +264,20 @@ function ReviewsForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ minHeight: "500px" }}>
+          <div className="card-body" style={{ minHeight: "500px" }}>
             <h5
-              className='card-title '
+              className="card-title "
               style={{
                 color: "#311465",
                 fontWeight: "normal",
                 marginBottom: "-3%",
               }}
             >
-              {t("(Film Buzz (Reviews & Awards)")}
+              {t("Film Buzz (Reviews & Awards)")}
             </h5>
             <form>
-              <div className='row' style={{ marginRight: "-5%" }}>
-                <div className='col my-5'>
+              <div className="row" style={{ marginRight: "-5%" }}>
+                <div className="col my-5">
                   <input
                     style={{
                       height: "30px",
@@ -274,10 +287,10 @@ function ReviewsForm() {
                       boxShadow: "1px 2px 9px #311465",
                       textAlign: "left",
                     }}
-                    className='form-control m-10'
+                    className="form-control m-10"
                     placeholder={t("Magazine/Blog/Journalist Name")}
                     onChange={handleReviewsChange}
-                    name='magazine'
+                    name="magazine"
                     value={review.magazine}
                   />
                   <textarea
@@ -290,11 +303,11 @@ function ReviewsForm() {
                       textAlign: "left",
                       resize: "none",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     placeholder={t("Review text (maximum 160 characters)")}
                     onChange={handleReviewsChange}
-                    name='text'
-                    maxLength='160'
+                    name="text"
+                    maxLength="160"
                     value={review.text}
                   />
                   <span
@@ -308,8 +321,8 @@ function ReviewsForm() {
                     {t("/160 characters")}
                   </span>
                   <label
-                    htmlFor='fileAwardLogo'
-                    className='form-label text-dark'
+                    htmlFor="fileAwardLogo"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
@@ -317,14 +330,14 @@ function ReviewsForm() {
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={file}
                     onChange={fileSelected}
                     ref={inputFileRef}
-                    type='file'
-                    id='fileAwardLogo'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="fileAwardLogo"
+                    name="files"
+                    accept="image/*"
                   />
                   {picturePreviewUrl ? (
                     <img
@@ -334,7 +347,7 @@ function ReviewsForm() {
                         width: "auto",
                         marginTop: "5px",
                       }}
-                      alt='Preview'
+                      alt="Preview"
                     />
                   ) : null}
                   {disabledAdd === true ? (
@@ -347,32 +360,32 @@ function ReviewsForm() {
                         fontWeight: "bold",
                         width: "100%",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={addAwardLogo}
-                      value='save'
+                      value="save"
                     >
-                      {t("Add to Table")}
+                      {t("Save to EPK")}
                     </Button>
                   ) : (
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                         width: "100%",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={addAwardLogo}
-                      value='save'
+                      value="save"
                     >
-                      {t("Add to Table")}
+                      {t("Save to EPK")}
                     </Button>
                   )}
                   {message && (
                     <div
-                      className='message'
+                      className="message"
                       style={{
                         color: "red",
                         fontSize: "0.9rem",
@@ -384,15 +397,15 @@ function ReviewsForm() {
                     </div>
                   )}
                 </div>
-                <div className='col-8 my-5'>
+                <div className="col-8 my-5">
                   <table
-                    className='table table-striped table-bordered'
+                    className="table table-striped table-bordered"
                     style={{
                       fontSize: "12px",
                       textAlign: "center",
                     }}
                   >
-                    <thead className='thead-dark'>
+                    <thead className="thead-dark">
                       <tr>
                         <th>{t("Magazine")}</th>
                         <th>{t("Text")}</th>
@@ -429,8 +442,8 @@ function ReviewsForm() {
                                     onChange={(e) =>
                                       handleEditChange(e, index, "text")
                                     }
-                                    name='text'
-                                    maxLength='160'
+                                    name="text"
+                                    maxLength="160"
                                   />
                                   <span
                                     style={{
@@ -448,30 +461,50 @@ function ReviewsForm() {
                               )}
                             </td>
                             <td>
-                              <img
-                                src={
-                                  review?.award_logo
-                                    ? `${process.env.REACT_APP_AWS_URL}/${review.award_logo}`
-                                    : null
-                                }
-                                alt=''
-                                style={{ height: "40px", width: "auto" }}
-                              />
-                              {editingReview === index && (
+                              {editingReview === index ? (
+                                // Edit Mode
                                 <>
+                                  {pictureEditPreviewUrl ? (
+                                    // Preview Image in Edit Mode
+                                    <img
+                                      src={pictureEditPreviewUrl}
+                                      alt=""
+                                      style={{ height: "40px", width: "auto" }}
+                                    />
+                                  ) : (
+                                    // Regular Image in Edit Mode (if no Preview)
+                                    <img
+                                      src={
+                                        review.award_logo
+                                          ? `${process.env.REACT_APP_AWS_URL}/${review.award_logo}`
+                                          : null
+                                      }
+                                      alt=""
+                                      style={{ height: "40px", width: "auto" }}
+                                    />
+                                  )}
                                   <input
-                                    className='form-control form-control-sm'
+                                    className="form-control form-control-sm"
                                     filename={file}
-                                    onChange={(e) =>
-                                      handleEditChange(e, index, "file")
-                                    }
+                                    onChange={fileEditSelected}
                                     ref={inputFileRef}
-                                    type='file'
-                                    id='fileAwardLogo'
-                                    name='files'
-                                    accept='image/*'
+                                    type="file"
+                                    id="fileAwardLogo"
+                                    name="files"
+                                    accept="image/*"
                                   />
                                 </>
+                              ) : (
+                                // Non-Edit Mode
+                                <img
+                                  src={
+                                    review.award_logo
+                                      ? `${process.env.REACT_APP_AWS_URL}/${review.award_logo}`
+                                      : null
+                                  }
+                                  alt=""
+                                  style={{ height: "40px", width: "auto" }}
+                                />
                               )}
                             </td>
 
@@ -484,9 +517,9 @@ function ReviewsForm() {
                               {editingReview === index ? (
                                 <FontAwesomeIcon
                                   icon={faCheck}
-                                  onClick={() => {
-                                    setEditingReview(null);
-                                  }}
+                                  onClick={(e) =>
+                                    exitEditMode(e, index, "file")
+                                  }
                                   style={{ marginRight: "15px" }}
                                 />
                               ) : (
@@ -507,82 +540,6 @@ function ReviewsForm() {
                       })}
                     </tbody>
                   </table>
-                </div>
-                <div
-                  className='col-1'
-                  style={{
-                    height: "50px",
-                    width: "120px",
-                    marginLeft: "100%",
-                    marginTop: "-1%",
-                    marginBottom: "3%",
-                  }}
-                >
-                  {disabled === true ? (
-                    <Button
-                      disabled
-                      style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        color: "grey",
-                        backgroundColor: "#ffffff",
-                        fontWeight: "bold",
-                      }}
-                      type='outline-primary'
-                      block
-                      onClick={saveEpkReviews}
-                      value='save'
-                    >
-                      {t("Save")}
-                    </Button>
-                  ) : (
-                    <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
-                      style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        fontWeight: "bold",
-                      }}
-                      type='outline-primary'
-                      block
-                      onClick={saveEpkReviews}
-                      value='save'
-                    >
-                      {t("Save")}
-                    </Button>
-                  )}
-                  <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel='Example Modal'
-                    appElement={document.getElementById("root")}
-                    style={{
-                      overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                      },
-                      content: {
-                        position: "absolute",
-                        border: "2px solid #000",
-                        backgroundColor: "white",
-                        boxShadow: "2px solid black",
-                        height: 120,
-                        width: 300,
-                        margin: "auto",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      },
-                    }}
-                  >
-                    <div style={{ textAlign: "center" }}>
-                      {t("Reviews Saved Successfully!")}
-                      <br />
-                      <button
-                        className='btn btn-secondary btn-sm'
-                        onClick={closeModal}
-                      >
-                        {t("Ok")}
-                      </button>
-                    </div>
-                  </Modal>
                 </div>
               </div>
             </form>

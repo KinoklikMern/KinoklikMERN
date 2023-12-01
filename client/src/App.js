@@ -128,185 +128,190 @@ function App() {
   return (
     <FepkContext.Provider value={fepkToProvider}>
       <Routes>
-        <Route path='/accessdenied' element={<AccessDeniedPage />} />
-        <Route path='/' element={<MainLayout className={className} />}>
+        <Route path="/accessdenied" element={<AccessDeniedPage />} />
+        <Route path="/" element={<MainLayout className={className} />}>
           <Route index element={<Home />} />
         </Route>
-        <Route path='/actors' element={<MainLayout className={className} />}>
-          <Route index element={<Home role='actor' />} />
+        <Route path="/actors" element={<MainLayout className={className} />}>
+          <Route index element={<Home role="actor" />} />
         </Route>
 
-        <Route path='/actor/:id' element={<Actor />} />
+        <Route path="/actor/:id" element={<Actor />} />
 
         <Route element={<AuthRoutes />}>
-          <Route path='/' element={<DashboardLayout className={className} />}>
-            <Route path='dashboard/epks' element={<DashboardEpks />} />
+          <Route path="/" element={<DashboardLayout className={className} />}>
+            <Route path="dashboard/epks" element={<DashboardEpks />} />
             <Route
-              path='dashboard/notifications'
+              path="dashboard/notifications"
               element={<DashboardNotification />}
             />
-            <Route path='dashboard/chat' element={<DashboardChat />} />
-            <Route path='dashboard/settings' element={<DashboardSettings />} />
-            <Route path='dashboard/chat/:userId' element={<DashboardChat />} />
-            <Route path='dashboard/starred' element={<DashboardStarred />} />
+            <Route path="dashboard/chat" element={<DashboardChat />} />
+            <Route path="dashboard/settings" element={<DashboardSettings />} />
+            <Route path="dashboard/chat/:userId" element={<DashboardChat />} />
+            <Route path="dashboard/starred" element={<DashboardStarred />} />
             <Route
-              path='dashboard/following'
+              path="dashboard/following"
               element={<DashboardFollowing />}
             />
             <Route
-              path='dashboard/wishtobuy'
+              path="dashboard/wishtobuy"
               element={<DashboardWishToBuy />}
             />
 
             <Route
-              path='userdashboard/starred'
+              path="userdashboard/starred"
               element={<UserDashboardStarred />}
             />
             <Route
-              path='userdashboard/following'
+              path="userdashboard/following"
               element={<UserDashboardFollowing />}
             />
             <Route
-              path='userdashboard/requests'
+              path="userdashboard/requests"
               element={<UserDashboardRequests />}
             />
             <Route
-              path='userdashboard/settings'
+              path="userdashboard/settings"
               element={<UserDashboardSettings />}
             />
-            <Route path='userdashboard/actor' element={<UploadActorPicCon />} />
+            <Route path="userdashboard/actor" element={<UploadActorPicCon />} />
 
-            <Route path='userdashboard/chat' element={<UserDashboardChat />} />
+            <Route path="userdashboard/chat" element={<UserDashboardChat />} />
+
+            <Route
+              path="userdashboard/chat/:userId"
+              element={<UserDashboardChat />}
+            />
 
             {/* AdminDashboard */}
             <Route
-              path='admindashboard/main'
+              path="admindashboard/main"
               element={<AdminDashboardMain />}
             />
             <Route
-              path='admindashboard/users'
+              path="admindashboard/users"
               element={<AdminDashboardUsers />}
             />
             <Route
-              path='admindashboard/analytics'
+              path="admindashboard/analytics"
               element={<AdminDashboardAnalytics />}
             />
             <Route
-              path='admindashboard/epks'
+              path="admindashboard/epks"
               element={<AdminDashboardEPKs />}
             />
           </Route>
         </Route>
 
-        <Route path='/' element={<MainLayout className={NavbarDefaultClass} />}>
+        <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
           {/* <Route index element={<Home />} /> */}
-          <Route path='catalog' element={<CatelogPage />} />
-          <Route path='epk/:title' element={<EpkViewPage />} />
-          <Route path='upload' element={<UploadMovie />} />
-          <Route path='my_list' element={<MyList />} />
-          <Route path='edit_profile' element={<Home />} />
-          <Route path='signup' element={<RegistrationForm />} />
+          <Route path="catalog" element={<CatelogPage />} />
+          <Route path="epk/:title" element={<EpkViewPage />} />
+          <Route path="upload" element={<UploadMovie />} />
+          <Route path="my_list" element={<MyList />} />
+          <Route path="edit_profile" element={<Home />} />
+          <Route path="signup" element={<RegistrationForm />} />
 
-          <Route path='verification' element={<EmailVerification />} />
-          <Route path='success' element={<RegistrationSuccess />} />
-          <Route path='login' element={<LoginForm />} />
+          <Route path="verification" element={<EmailVerification />} />
+          <Route path="success" element={<RegistrationSuccess />} />
+          <Route path="login" element={<LoginForm />} />
           <Route
-            path='sendresetpasswordlink'
+            path="sendresetpasswordlink"
             element={<SendResetPasswordLinkPage />}
           />
-          <Route path='checkemail/:email' element={<CheckEmailPage />} />
-          <Route path='resetpassword' element={<ResetPasswordPage />} />
+          <Route path="checkemail/:email" element={<CheckEmailPage />} />
+          <Route path="resetpassword" element={<ResetPasswordPage />} />
           <Route
-            path='resetpasswordsuccesss'
+            path="resetpasswordsuccesss"
             element={<ResetPasswordSuccessPage />}
           />
 
-          <Route path='filmMakerDashboard' element={<FilmMakerDashboard />} />
+          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route
-            path='FilmMakerSelectedEpk'
+            path="FilmMakerSelectedEpk"
             element={<FilmMakerSelectedEpk />}
           />
 
-          <Route path='filmMakerConnect' element={<FilmMakerConnect />} />
+          <Route path="filmMakerConnect" element={<FilmMakerConnect />} />
           <Route
-            path='FilmMakerNotifications'
+            path="FilmMakerNotifications"
             element={<FilmMakerNotifications />}
           />
 
           <Route
-            path='filmMakerDashboardSecurity'
+            path="filmMakerDashboardSecurity"
             element={<FilmMakerDashboardSecurity />}
           />
           <Route
-            path='filmMakerDashboardSecurityCompany'
+            path="filmMakerDashboardSecurityCompany"
             element={<FilmMakerDashboardSecurityCompany />}
           />
           <Route
-            path='filmMakerDashboardSecurityPassword'
+            path="filmMakerDashboardSecurityPassword"
             element={<FilmMakerDashboardSecurityPassword />}
           />
           <Route
-            path='filmMakerDashboardSecurityAccount'
+            path="filmMakerDashboardSecurityAccount"
             element={<FilmMakerDashboardSecurityAccount />}
           />
           <Route
-            path='filmMakerDashboardSecurityProfile'
+            path="filmMakerDashboardSecurityProfile"
             element={<FilmMakerDashboardSecurityProfile />}
           />
-          <Route path='bookmark' element={<Bookmark />} />
+          <Route path="bookmark" element={<Bookmark />} />
 
-          <Route path='forFilmMakers' element={<ForFilmMakers />} />
-          <Route path='forIndustryProf' element={<ForIndustryProf />} />
-          <Route path='coverForm' element={<CoverForm />} />
-          <Route path='cover' element={<Cover />} />
+          <Route path="forFilmMakers" element={<ForFilmMakers />} />
+          <Route path="forIndustryProf" element={<ForIndustryProf />} />
+          <Route path="coverForm" element={<CoverForm />} />
+          <Route path="cover" element={<Cover />} />
 
-          <Route path='detailsForm' element={<DetailsForm />} />
-          <Route path='details' element={<Details />} />
+          <Route path="detailsForm" element={<DetailsForm />} />
+          <Route path="details" element={<Details />} />
 
-          <Route path='logline' element={<Logline />} />
-          <Route path='loglineForm' element={<LoglineForm />} />
-          <Route path='epkCover' element={<EpkCoverForm />} />
-          <Route path='userDashboard' element={<UserDashboard />} />
-          <Route path='synopsis' element={<Synopsis />} />
-          <Route path='synopsisForm' element={<SynopsisForm />} />
+          <Route path="logline" element={<Logline />} />
+          <Route path="loglineForm" element={<LoglineForm />} />
+          <Route path="epkCover" element={<EpkCoverForm />} />
+          <Route path="userDashboard" element={<UserDashboard />} />
+          <Route path="synopsis" element={<Synopsis />} />
+          <Route path="synopsisForm" element={<SynopsisForm />} />
 
-          <Route path='uniqueness' element={<Uniqueness />} />
-          <Route path='uniquenessForm' element={<UniquenessForm />} />
+          <Route path="uniqueness" element={<Uniqueness />} />
+          <Route path="uniquenessForm" element={<UniquenessForm />} />
 
-          <Route path='cast' element={<Cast />} />
-          <Route path='castForm' element={<CastForm />} />
+          <Route path="cast" element={<Cast />} />
+          <Route path="castForm" element={<CastForm />} />
 
-          <Route path='director' element={<Director />} />
-          <Route path='directorForm' element={<DirectorForm />} />
+          <Route path="director" element={<Director />} />
+          <Route path="directorForm" element={<DirectorForm />} />
 
-          <Route path='producer' element={<Producer />} />
-          <Route path='producerForm' element={<ProducerForm />} />
-          <Route path='cinematographer' element={<Cinematographer />} />
-          <Route path='cinematographerForm' element={<CinematographerForm />} />
+          <Route path="producer" element={<Producer />} />
+          <Route path="producerForm" element={<ProducerForm />} />
+          <Route path="cinematographer" element={<Cinematographer />} />
+          <Route path="cinematographerForm" element={<CinematographerForm />} />
 
-          <Route path='stills' element={<Stills />} />
-          <Route path='stillsForm' element={<StillsForm />} />
+          <Route path="stills" element={<Stills />} />
+          <Route path="stillsForm" element={<StillsForm />} />
 
-          <Route path='review' element={<Review />} />
-          <Route path='reviewForm' element={<ReviewForm />} />
+          <Route path="review" element={<Review />} />
+          <Route path="reviewForm" element={<ReviewForm />} />
 
-          <Route path='resourcesForm' element={<ResourcesForm />} />
-          <Route path='resources' element={<Resources />} />
+          <Route path="resourcesForm" element={<ResourcesForm />} />
+          <Route path="resources" element={<Resources />} />
 
-          <Route path='epk/:title' element={<EPK />} />
+          <Route path="epk/:title" element={<EPK />} />
           <Route element={<AuthRoutes />}>
-            <Route path='uploadFepk' element={<FepkUploadDashboard />} />
-            <Route path='editFepk/:fepkId' element={<FepkEditDashboard />} />
+            <Route path="uploadFepk" element={<FepkUploadDashboard />} />
+            <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
           </Route>
-          <Route path='uploadEpk' element={<EpkDashboard />} />
-          <Route path='resourcesForm' element={<ResourcesForm />} />
-          <Route path='trailer' element={<Trailer />} />
-          <Route path='resources' element={<Resources />} />
-          <Route path='epkview/:title' element={<EpkView />} />
+          <Route path="uploadEpk" element={<EpkDashboard />} />
+          <Route path="resourcesForm" element={<ResourcesForm />} />
+          <Route path="trailer" element={<Trailer />} />
+          <Route path="resources" element={<Resources />} />
+          <Route path="epkview/:title" element={<EpkView />} />
         </Route>
-        <Route path='epk' element={<EPK />} />
-        <Route path='approvals/:fepkId' element={<TestApproval />} />
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path="epk" element={<EPK />} />
+        <Route path="approvals/:fepkId" element={<TestApproval />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </FepkContext.Provider>
   );
