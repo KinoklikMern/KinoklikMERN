@@ -953,7 +953,13 @@ export const refuseRequests = async (req, res) => {
 export const getNewest = async (req, res) => {
   try {
     const getfips = await fepk
-      .find()
+      .find({
+        image_details: {
+          $exists: true,
+          $ne: null,
+          $ne: "",
+        },
+      })
       .populate("film_maker") // includes all fields of this object
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object
@@ -979,7 +985,13 @@ export const getNewest = async (req, res) => {
 export const getMostPopular = async (req, res) => {
   try {
     const popularFind = await fepk
-      .find()
+      .find({
+        image_details: {
+          $exists: true,
+          $ne: null,
+          $ne: "",
+        },
+      })
       .sort({ "likes.length": -1 })
       .limit(6)
       .populate("film_maker") // includes all fields of this object
