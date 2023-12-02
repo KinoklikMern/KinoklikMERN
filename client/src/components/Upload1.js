@@ -7,13 +7,13 @@ const imageMimeType = /image\/(png|jpg|jpeg)/i;
 function Upload1() {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
+  const { t } = useTranslation();
 
   const handleSubmit = () => {
     console.log(fileDataURL);
   };
 
   const changeHandler = (e) => {
-    const { t } = useTranslation();
     const file = e.target.files[0];
     if (!file.type.match(imageMimeType)) {
       alert(t("Image mime type is not valid"));
@@ -41,8 +41,6 @@ function Upload1() {
       }
     };
   }, [file]);
-
-  const { t } = useTranslation();
 
   return (
     <>

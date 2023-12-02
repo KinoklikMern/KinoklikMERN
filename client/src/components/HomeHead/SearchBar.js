@@ -7,6 +7,7 @@ import emptyBanner from "../../images/empty_banner.jpeg";
 export default function SearchBar() {
   const [finalSearchList, setFinalSearchList] = useState([]);
   const [searchList, setSearchList] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [searchChar, setSearchChar] = useState("");
 
   useEffect(() => {

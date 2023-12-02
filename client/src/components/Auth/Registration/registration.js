@@ -1,4 +1,4 @@
-import React, { useState, setState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SignupCss from "./signup.module.css";
 import { Link } from "react-router-dom";
@@ -7,15 +7,15 @@ import RegistrationSuccess from "./RegistrationSuccess";
 import RoleChoice from "./RoleChoise";
 import RegistrationPersonalInfo from "./RegistrationPeronalInfo";
 import filmmakerIcon from "../../../images/icons/filmmakerIcon.svg";
-import actorIcon from "../../../images/icons/actorIcon.svg";
-import producerIcon from "../../../images/icons/producerIcon.svg";
-import viewerIcon from "../../../images/icons/viewerIcon.svg";
-import writerIcon from "../../../images/icons/writerIcon.svg";
-import soundIcon from "../../../images/icons/soundIcon.svg";
-import salesAgentIcon from "../../../images/icons/salesAgentIcon.svg";
-import festivalIcon from "../../../images/icons/festivalIcon.svg";
-import investorIcon from "../../../images/icons/investorIcon.svg";
-import editorIcon from "../../../images/icons/editorIcon.svg";
+// import actorIcon from "../../../images/icons/actorIcon.svg";
+// import producerIcon from "../../../images/icons/producerIcon.svg";
+// import viewerIcon from "../../../images/icons/viewerIcon.svg";
+// import writerIcon from "../../../images/icons/writerIcon.svg";
+// import soundIcon from "../../../images/icons/soundIcon.svg";
+// import salesAgentIcon from "../../../images/icons/salesAgentIcon.svg";
+// import festivalIcon from "../../../images/icons/festivalIcon.svg";
+// import investorIcon from "../../../images/icons/investorIcon.svg";
+// import editorIcon from "../../../images/icons/editorIcon.svg";
 import { useTranslation } from "react-i18next";
 
 function RegistrationForm() {
@@ -153,20 +153,21 @@ function RegistrationForm() {
     <>
       <div className={SignupCss.bg}>
         {!nextClicked && (
-          <div className="tw-text-3xl md:tw-text-4xl tw-font-bold tw-text-center tw-text-[#712cb0] tw-pt-4">SIGN UP</div>
-          )}
-  
+          <div className='tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0] md:tw-text-4xl'>
+            SIGN UP
+          </div>
+        )}
 
         {/* <div className={SignupCss.form_titleMain}>Sign up for KinoKlik </div> */}
 
         <div
-          // className={SignupCss.form}
-          // style={{
-          //   margin: "2px",
-          // }}
+        // className={SignupCss.form}
+        // style={{
+        //   margin: "2px",
+        // }}
         >
-          <div >
-          {/* // className={SignupCss.form_body} */}
+          <div>
+            {/* // className={SignupCss.form_body} */}
             {!nextClicked ? (
               <RoleChoice role={role} setRole={setRole} />
             ) : (
@@ -191,29 +192,32 @@ function RegistrationForm() {
                 handleSubmit={handleSubmit}
                 setNextClicked={setNextClicked}
                 handleBack={handleBack}
-                showBackButton={!nextClicked} 
+                showBackButton={!nextClicked}
               />
             )}
 
             {nextClicked ? (
-              <button onClick={handleSubmit}  className="tw-mx-auto tw-my-4 tw-block tw-bg-[#712cb0] tw-text-white tw-border-[0.5px] tw-border-white tw-text-lg tw-font-medium tw-cursor-pointer tw-transition-all tw-duration-300 tw-rounded-lg tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-w-[130px] tw-text-center  hover:tw-bg-white [#712cb0] hover:tw-text-[#712cb0]"
+              <button
+                onClick={handleSubmit}
+                className='[#712cb0] tw-mx-auto tw-my-4 tw-block tw-w-[130px] tw-cursor-pointer tw-rounded-lg tw-border-[0.5px] tw-border-white tw-bg-[#712cb0] tw-text-center tw-text-lg tw-font-medium tw-text-white tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-transition-all  tw-duration-300 hover:tw-bg-white hover:tw-text-[#712cb0]'
               >
                 {t("Sign Up")}
               </button>
             ) : null}
             {
-              <button 
-              onClick={() => setNextClicked(!nextClicked)}
-              className="tw-mx-auto tw-my-4 tw-block tw-bg-white tw-text-[#712cb0] tw-border-[0.5px] tw-border-[#712cb0] tw-text-lg tw-font-medium tw-cursor-pointer tw-transition-all tw-duration-300 tw-ease-in-out tw-rounded-lg tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-w-[100px] tw-text-center hover:tw-bg-[#712cb0] hover:tw-text-white">
-              {!nextClicked ? "Next" : "Back"}
-            </button>
+              <button
+                onClick={() => setNextClicked(!nextClicked)}
+                className='tw-mx-auto tw-my-4 tw-block tw-w-[100px] tw-cursor-pointer tw-rounded-lg tw-border-[0.5px] tw-border-[#712cb0] tw-bg-white tw-text-center tw-text-lg tw-font-medium tw-text-[#712cb0] tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-transition-all tw-duration-300 tw-ease-in-out hover:tw-bg-[#712cb0] hover:tw-text-white'
+              >
+                {!nextClicked ? "Next" : "Back"}
+              </button>
             }
 
             <div className={SignupCss.form_Message}>
               {!nextClicked ? (
                 <p>
                   {t("already signed up?")}{" "}
-                  <Link to="/login" className={SignupCss.link}>
+                  <Link to='/login' className={SignupCss.link}>
                     {t("Login")}
                   </Link>
                 </p>

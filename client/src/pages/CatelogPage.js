@@ -7,16 +7,16 @@ import FilterButton from "../components/Filter/FilterButton";
 import StatusBtn from "../components/SwitchStatusBtn/Status";
 import http from "../http-common";
 import SearchBar from "../components/HomeHead/SearchBar";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function CatelogPage() {
   const { t } = useTranslation();
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
-//For Translation
+  //For Translation
 
-const [filterTags, setFilterTags] = useState([
+  const [filterTags, setFilterTags] = useState([
     {
       name: t("Movie"),
       isActive: false,
@@ -46,11 +46,11 @@ const [filterTags, setFilterTags] = useState([
     });
   }, []);
 
-  const {
-    filterQuery,
-    setFilterQuery,
-    clickHandler,
-  } = EPKFilter(fepks, filterTags, setFilterTags);
+  const { filterQuery, clickHandler } = EPKFilter(
+    fepks,
+    filterTags,
+    setFilterTags
+  );
 
   const handleStatusChange = (status) => {
     if (currentStatus === status) {
@@ -83,51 +83,48 @@ const [filterTags, setFilterTags] = useState([
 
   return (
     <>
-     <div className="tw-flex tw-items-end tw-justify-end  tw-bg-[#1e0039]">
-          <SearchBar />
-        </div>
-      <div  className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-p-10 md:tw-flex-row space-x-6">
+      <div className='tw-flex tw-items-end tw-justify-end  tw-bg-[#1e0039]'>
+        <SearchBar />
+      </div>
+      <div className='space-x-6 tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-p-10 md:tw-flex-row'>
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-28 md:tw-flex-row space-x-6">
-     
-          {filterTags.map((tag, index) => (
-            <FilterButton
-              key={index}
-              name={tag.name}
-              clickHandler={clickHandler}
-              isActive={tag.isActive}
-              />
-            ))}
-          </div>
-          <div className="home tw-flex tw-justify-center tw-overflow-y-auto">
-            <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5">
-              {filteredEPKs.map((fepk) => {
-                if (fepk.image_details === "") {
-                  // Skip rendering this item if image_details (poster) because it looks
-                  return null;
-                }
-                const formattedTitle = fepk.title.replace(/ /g, "_");
-                return (
-                  <React.Fragment key={fepk._id}>
-                    <div className="listItem tw-p-3">
-                      <a
-                        href={`/epk/${formattedTitle}`}
-                      >
-                        <img
-                          src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                          alt=""
-                          className="tw-aspect-1 tw-w-full"
-                        />
-                      </a>
-                    </div>
-                  </React.Fragment>
-                );
-              })}
-            </div>
-          </div>
-        </>
-      );
-    };
+      <div className='space-x-6 tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-28 md:tw-flex-row'>
+        {filterTags.map((tag, index) => (
+          <FilterButton
+            key={index}
+            name={tag.name}
+            clickHandler={clickHandler}
+            isActive={tag.isActive}
+          />
+        ))}
+      </div>
+      <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
+        <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
+          {filteredEPKs.map((fepk) => {
+            if (fepk.image_details === "") {
+              // Skip rendering this item if image_details (poster) because it looks
+              return null;
+            }
+            const formattedTitle = fepk.title.replace(/ /g, "_");
+            return (
+              <React.Fragment key={fepk._id}>
+                <div className='listItem tw-p-3'>
+                  <a href={`/epk/${formattedTitle}`}>
+                    <img
+                      src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                      alt=''
+                      className='tw-aspect-1 tw-w-full'
+                    />
+                  </a>
+                </div>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default CatelogPage;

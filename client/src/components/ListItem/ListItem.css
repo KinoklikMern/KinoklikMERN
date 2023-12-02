@@ -6,11 +6,11 @@
 .listItem img {
   height: 100%;
   object-fit: cover;
+}
 
-  &:hover {
-    scale: 1.05;
-    transition: all 1s ease;
-  }
+.listItem img:hover {
+  scale: 1.05;
+  transition: all 1s ease;
 }
 
 @media (max-width: 700px) {

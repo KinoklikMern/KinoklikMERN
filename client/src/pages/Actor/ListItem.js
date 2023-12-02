@@ -1,7 +1,6 @@
 import React from "react";
 import "./ListItem.css";
-import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
@@ -20,25 +19,25 @@ export default function ListItem() {
     http.get(`/fepks/getmoviesbyactor/${id}`).then((response) => {
       setFepks(response.data);
     });
-  }, []);
+  }, [id]);
 
   return (
     <>
-    <div className="bottom-container ">
-      <div className="listContainer">      
-        {fepks &&
-          fepks.map((fepk) => (
-            <div className='listItem' key={fepk._id}>
-              <a href={`/epk/${fepk.title?.replace(/ /g, "-")}`}>
-                <img
-                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                  alt=''
-                />
-              </a>
-            </div>
-          ))}
+      <div className='bottom-container '>
+        <div className='listContainer'>
+          {fepks &&
+            fepks.map((fepk) => (
+              <div className='listItem' key={fepk._id}>
+                <a href={`/epk/${fepk.title?.replace(/ /g, "-")}`}>
+                  <img
+                    src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                    alt=''
+                  />
+                </a>
+              </div>
+            ))}
+        </div>
       </div>
-    </div>
     </>
   );
 }

@@ -62,7 +62,7 @@ function UniquenessForm() {
         console.error("response.data is undefined or empty");
       }
     });
-  }, []);
+  }, [fepkId]);
 
   if (!epkUniquenessData) {
     epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;

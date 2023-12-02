@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ChatState } from "../../../context/ChatProvider.js";
@@ -77,7 +77,7 @@ function NotificationItem({ chat, getChatSender, formatTimestamp, notif }) {
           <img
             className='tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg'
             src={getChatSender(user, chat?.users)?.avatar}
-            alt='profile image'
+            alt='profile img'
           />
 
           <div className='tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xs tw-text-white'>

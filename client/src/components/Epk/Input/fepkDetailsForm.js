@@ -1,18 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Button, Col, Row } from "antd";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
+import { Button } from "antd";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import Modal from "react-modal";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faPlus,
-  faTrashCan,
-  faUserPlus,
-  faUserCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
 function FepkDetailsForm() {
@@ -24,7 +19,6 @@ function FepkDetailsForm() {
   const [status, setStatus] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [disabledAdd, setDisabledAdd] = useState(true);
-  const [message, setMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [role, setRole] = useState("");
   //toggle search result
@@ -80,6 +74,9 @@ function FepkDetailsForm() {
   };
 
   //-------------------------
+  const [epkFilmDetailsData, setEpkFilmDetailsData] = useState({
+    actors: fepk?.actors ?? [],
+  });
 
   useEffect(() => {
     console.log("useEffect is running");
@@ -107,15 +104,11 @@ function FepkDetailsForm() {
       .then((invitations) => {
         setInvitationsByFilmmakerMovie(invitations.data);
       });
-  }, []);
+  }, [epkFilmDetailsData, fepkId]);
 
   useEffect(() => {
     setInvitationEmailValue("");
   }, [searchValue]);
-
-  const [epkFilmDetailsData, setEpkFilmDetailsData] = useState({
-    actors: fepk?.actors ?? [],
-  });
 
   const handleSearch = (event) => {
     setEmailError("");

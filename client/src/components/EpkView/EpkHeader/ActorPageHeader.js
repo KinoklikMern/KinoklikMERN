@@ -7,12 +7,12 @@ import {
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function ActorPageHeader({ epkInfo, id }) {
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
     useState(0);
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const [socialMediasList, setSocialMediasList] = useState([
     {
@@ -45,7 +45,8 @@ export default function ActorPageHeader({ epkInfo, id }) {
         const instagramFollowers = parseInt(followers.instagram) || 0;
         const twitterFollowers = parseInt(followers.twitter) || 0;
 
-        const totalFollowers = facebookFollowers + instagramFollowers + twitterFollowers;
+        const totalFollowers =
+          facebookFollowers + instagramFollowers + twitterFollowers;
 
         const updatedSocialMediasList = socialMediasList.map((media) => {
           let followerCount = 0;
@@ -72,6 +73,7 @@ export default function ActorPageHeader({ epkInfo, id }) {
     } else {
       console.log("ID is not defined");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [epkInfo]);
 
   function formatCompactNumber(number) {
@@ -88,17 +90,17 @@ export default function ActorPageHeader({ epkInfo, id }) {
     }
   }
   return (
-    <div className="tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row">
-      <div className="tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-6">
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
+    <div className='tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row'>
+      <div className='tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-6'>
+        <span className='tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl'>
           {t("Total Audience Reach")}
         </span>
-        <img src={Audience} alt="audience icon" className="tw-h-10 tw-w-10" />
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
+        <img src={Audience} alt='audience icon' className='tw-h-10 tw-w-10' />
+        <span className='tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl'>
           {socialMediafollowerTotalNum}
         </span>
       </div>
-      <div className="tw-mx-auto tw-mt-4 tw-flex tw-justify-between tw-gap-5 md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 md:tw-gap-10">
+      <div className='tw-mx-auto tw-mt-4 tw-flex tw-justify-between tw-gap-5 md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 md:tw-gap-10'>
         {socialMediasList?.map((media, index) => (
           <SocialMedia
             key={index}

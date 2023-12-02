@@ -1,14 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { React, useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-import HomeMainFilm from "../components/HomeMainFilm";
 import "../styles/Homehead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faBars, faComment } from "@fortawesome/free-solid-svg-icons";
-import LeftJoker from "../images/LeftJocker.png";
-
-//import { ShareIcon } from "../images/Share .svg";
-
 import UploadFilmIcon from "../images/icons/UploadFilmIcon.svg";
 import VolumeIcon2 from "../images/icons/VolumeIcon2.svg";
 import DollarIcon from "../images/icons/DollarIcon.svg";
@@ -18,19 +10,7 @@ import PlusIcon from "../images/icons/Plus.svg";
 import http from "../http-common";
 import { useSelector } from "react-redux";
 
-import {
-  faShareNodes,
-  // faBars,
-  // faMagnifyingGlass,
-  // faFilm,
-  // faVolumeHigh,
-  // faWindowRestore,
-  faDollarSign,
-  // faSave,
-  // faShareAlt,
-  // faPlusCircle,
-  faStar,
-} from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faStar } from "@fortawesome/free-solid-svg-icons";
 
 const HomeHead = () => {
   const [clickedStar, setClickedStar] = useState(false);
@@ -96,7 +76,7 @@ const HomeHead = () => {
     http.get(`fepks/`).then((response) => {
       let last = response.data.length - 1;
       setFepk(response.data[last]);
-      console.log(fepk);
+      // console.log(fepk);
     });
   }, []);
   //console.log(fepk);

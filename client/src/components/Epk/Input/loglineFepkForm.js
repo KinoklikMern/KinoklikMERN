@@ -18,7 +18,6 @@ function LoglineForm() {
     logLine_long: 0,
   });
   const inputFileRef = useRef(null);
-  const [blur, setBlur] = useState("");
   const [epkLoglineData, setEpkLoglineData] = useState([]);
 
   //Poster prewiev

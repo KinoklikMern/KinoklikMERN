@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import { React, useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
-import avatarDefault from "../../../images/avatar1.jpeg";
 import { useTranslation } from "react-i18next";
 
 export default function Profile() {
@@ -32,12 +32,12 @@ export default function Profile() {
         id: userId,
       }).then((rs) => {
         setUserProfileData(rs.data);
-        console.log(userProfileData);
+        // console.log(userProfileData);
       });
     } catch (error) {
       alert(error.response.data.message);
     }
-  }, []);
+  }, [userId]);
 
   if (filename !== "") {
     userProfileData.picture = filename;

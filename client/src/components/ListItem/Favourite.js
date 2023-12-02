@@ -1,7 +1,6 @@
 import React from "react";
 import "./ListItem.css";
-import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
 
@@ -20,7 +19,7 @@ export default function Favourite() {
     http.get(`fepks/favourite/byuser/${id}`).then((response) => {
       setFepks(response.data);
     });
-  }, []);
+  }, [id]);
   return (
     <>
       {fepks &&

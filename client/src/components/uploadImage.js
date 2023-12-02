@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 //import styles from "../styles/Home.module.css";
 
 export default function UploadImage() {
@@ -23,7 +23,7 @@ export default function UploadImage() {
   }, [image]);
 
   return (
-    <div className="container">
+    <div className='container'>
       <form>
         {preview ? (
           <img
@@ -40,15 +40,15 @@ export default function UploadImage() {
               fileInputRef.current.click();
             }}
           >
-           {t('Add Image')}
+            {t("Add Image")}
           </button>
         )}
 
         <input
-          type="file"
+          type='file'
           style={{ display: "none" }}
           ref={fileInputRef}
-          accept="image/*"
+          accept='image/*'
           onChange={(event) => {
             const file = event.target.files[0];
             if (file && file.type.substr(0, 5) === "image") {
@@ -58,8 +58,8 @@ export default function UploadImage() {
             }
           }}
         />
-        <input type="textbox" />
-        <input type="button" onClick={handleSubmit} />
+        <input type='textbox' />
+        <input type='button' onClick={handleSubmit} />
       </form>
     </div>
   );

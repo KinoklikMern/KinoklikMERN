@@ -1,11 +1,8 @@
+/* eslint-disable no-unused-vars */
 import ListItem from "./ListItem";
 import "./ListActor.css";
 import React from "react";
-import {
-    ArrowBackIosOutlined,
-    ArrowForwardIosOutlined,
-  } from "@mui/icons-material";
-  import { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function List() {
   const [isMoved, setIsMoved] = useState(false);
@@ -33,7 +30,7 @@ export default function List() {
     //       onClick={() => handleClick("left")}
     //       style={{ display: !isMoved && "none" }}
     //     />
-    //     <div className="container" ref={listRef}> 
+    //     <div className="container" ref={listRef}>
     //         <ListItem />
     //     </div>
     //     <ArrowForwardIosOutlined
@@ -43,7 +40,7 @@ export default function List() {
     //   </div>
 
     // </div>
-    <div className="list">
+    <div className='list'>
       <ListItem />
     </div>
   );

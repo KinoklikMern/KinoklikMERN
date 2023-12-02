@@ -27,7 +27,7 @@ export default function StarredPage() {
       ).then((rs) => {
         setEpkList(rs.data);
         setLoading(false);
-        console.log(epkList);
+        // console.log(epkList);
       });
     } catch (error) {
       alert(error.response.data.message);

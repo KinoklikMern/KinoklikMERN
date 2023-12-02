@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import io from "socket.io-client";
-import avatarDemo from "../../../images/avatarDefault.jpeg";
 import { ChatState } from "../../../context/ChatProvider";
 import { NotificationContext } from "../../../context/NotificationContext";
 import { useTranslation } from "react-i18next";
@@ -25,7 +26,6 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
-    const currentDate = new Date().toLocaleDateString();
     const formatDate = date.toLocaleDateString("en-US", {
       weekday: "long",
       year: "numeric",

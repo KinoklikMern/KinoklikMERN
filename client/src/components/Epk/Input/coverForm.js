@@ -1,16 +1,16 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import http from "../../../http-common";
-import { Button, Col, Row } from "antd";
-import { useTranslation } from 'react-i18next';
+import { Button } from "antd";
+import { useTranslation } from "react-i18next";
 
 function CoverForm() {
-
   //const [movieId, setMovieId] = useState("");
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
   const file1Selected = (event) => {
     const file = event.target.files[0];
@@ -30,48 +30,51 @@ function CoverForm() {
     trailer_url: "",
     kickstarter_url: "",
   });
+
+  const { t } = useTranslation();
+
   const movieGenre = [
-    (t("Genre...")),
-    (t("action")),
-    (t("comedy")),
-    (t("documentary")),
-    (t("romance")),
-    (t("horror")),
-    (t("mystery")),
-    (t("drama")),
-    (t("western")),
-    (t("science fiction")),
-    (t("thriller")),
-    (t("crime")),
-    (t("animation")),
-    (t("musical")),
-    (t("war")),
-    (t("romantic comedy")),
-    (t("noir")),
-    (t("disaster")),
-    (t("dark comedy")),
-    (t("historical film")),
-    (t("slasher")),
-    (t("adventure")),
-    (t("gangster")),
-    (t("spy")),
-    (t("fantasy")),
-    (t("biographical")),
-    (t("found footage")),
-    (t("legal drama")),
-    (t("melodrama")),
-    (t("superhero")),
-    (t("slapstick")),
-    (t("monster")),
-    (t("historical fiction")),
-    (t("teen")),
-    (t("apocalyptic")),
-    (t("post-apocalyptic")),
-    (t("psychological thriller")),
-    (t("stop motion")),
-    (t("sports")),
-    (t("space opera")),
-    (t("mockumentary")),
+    t("Genre..."),
+    t("action"),
+    t("comedy"),
+    t("documentary"),
+    t("romance"),
+    t("horror"),
+    t("mystery"),
+    t("drama"),
+    t("western"),
+    t("science fiction"),
+    t("thriller"),
+    t("crime"),
+    t("animation"),
+    t("musical"),
+    t("war"),
+    t("romantic comedy"),
+    t("noir"),
+    t("disaster"),
+    t("dark comedy"),
+    t("historical film"),
+    t("slasher"),
+    t("adventure"),
+    t("gangster"),
+    t("spy"),
+    t("fantasy"),
+    t("biographical"),
+    t("found footage"),
+    t("legal drama"),
+    t("melodrama"),
+    t("superhero"),
+    t("slapstick"),
+    t("monster"),
+    t("historical fiction"),
+    t("teen"),
+    t("apocalyptic"),
+    t("post-apocalyptic"),
+    t("psychological thriller"),
+    t("stop motion"),
+    t("sports"),
+    t("space opera"),
+    t("mockumentary"),
   ];
   const makeGenreItem = (X) => {
     return <option value={X}> {X}</option>;
@@ -139,7 +142,6 @@ function CoverForm() {
       setMessage(t("File must be a image(jpeg or png)"));
     }
   };
-  const { t } = useTranslation();
 
   return (
     <>
@@ -153,28 +155,28 @@ function CoverForm() {
         }}
       >
         <form>
-          <div className="row">
-            <div className="col-1">
-              <Link className="navbar-brand text-headers-style" to="/home">
+          <div className='row'>
+            <div className='col-1'>
+              <Link className='navbar-brand text-headers-style' to='/home'>
                 <img
                   src={require("../../../images/logo.png")}
-                  alt="Logo"
-                  className="navbar-logo"
+                  alt='Logo'
+                  className='navbar-logo'
                 />
               </Link>
             </div>
-            <div className="col-3  m-3">
+            <div className='col-3  m-3'>
               <h2
-                className="col align-items-start"
+                className='col align-items-start'
                 style={{ color: "#311465", fontWeight: "normal" }}
               >
                 {t("EPK Page Upload")}
               </h2>
             </div>
-            <div className="col-2 m-3">
+            <div className='col-2 m-3'>
               <Link
-                className="col align-items-end"
-                to="/Epk"
+                className='col align-items-end'
+                to='/Epk'
                 style={{
                   color: "#311465",
                   textDecoration: "none",
@@ -185,7 +187,7 @@ function CoverForm() {
                 {t("View EPK Page")}
               </Link>
             </div>
-            <div className="col"></div>
+            <div className='col'></div>
           </div>
           <div
             style={{
@@ -195,16 +197,16 @@ function CoverForm() {
               fontWeight: "normal",
             }}
           >
-            <div className="card-body" style={{ height: "500px" }}>
+            <div className='card-body' style={{ height: "500px" }}>
               <h5
-                className="card-title "
+                className='card-title '
                 style={{ color: "#ffffff", fontWeight: "normal" }}
               >
                 {t("Cover")}
               </h5>
-              <form className="row g-3">
-                <div className="col ms-">
-                  <div className="col my-1">
+              <form className='row g-3'>
+                <div className='col ms-'>
+                  <div className='col my-1'>
                     <input
                       style={{
                         height: "30px",
@@ -214,14 +216,14 @@ function CoverForm() {
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "center",
                       }}
-                      className="form-control m-10"
+                      className='form-control m-10'
                       defaultValue={epkCoverData.title}
-                      placeholder="Title"
+                      placeholder='Title'
                       onChange={handleInputChange}
-                      name="title"
+                      name='title'
                     />
                   </div>
-                  <div className="col my-1">
+                  <div className='col my-1'>
                     <input
                       style={{
                         height: "30px",
@@ -231,15 +233,15 @@ function CoverForm() {
                         boxShadow: "1px 2px 9px #311465",
                         textAlign: "center",
                       }}
-                      className="form-control mt-10"
+                      className='form-control mt-10'
                       defaultValue={epkCoverData.LogLine}
-                      placeholder="Log Line"
+                      placeholder='Log Line'
                       onChange={handleInputChange}
-                      name="logLine"
+                      name='logLine'
                     />
                   </div>
-                  <div className="row mt-2">
-                    <div className="col my-2">
+                  <div className='row mt-2'>
+                    <div className='col my-2'>
                       <select
                         style={{
                           height: "30px",
@@ -248,14 +250,14 @@ function CoverForm() {
                           marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
-                        className="form-select form-select-sm "
-                        name="genre"
+                        className='form-select form-select-sm '
+                        name='genre'
                         onChange={handleInputChange}
                       >
                         {movieGenre.map(makeGenreItem)}
                       </select>
                     </div>
-                    <div className="col my-1">
+                    <div className='col my-1'>
                       <input
                         style={{
                           height: "30px",
@@ -264,11 +266,11 @@ function CoverForm() {
                           marginBottom: "5px",
                           boxShadow: "1px 2px 9px #311465",
                         }}
-                        className="form-control"
+                        className='form-control'
                         defaultValue={epkCoverData.minutes}
-                        placeholder="Minutes"
+                        placeholder='Minutes'
                         onChange={handleInputChange}
-                        name="minutes"
+                        name='minutes'
                       />
                     </div>
                   </div>
@@ -281,52 +283,52 @@ function CoverForm() {
                         marginBottom: "5px",
                         boxShadow: "1px 2px 9px #311465",
                       }}
-                      className="form-control"
+                      className='form-control'
                       defaultValue={epkCoverData.kickstarter_url}
-                      placeholder="KickStarter URL"
+                      placeholder='KickStarter URL'
                       onChange={handleInputChange}
-                      name="kickstarter_url"
+                      name='kickstarter_url'
                     />
                   </div>
                 </div>
-                <div className="col border border-2">
-                  <div className="row gx-5">
-                    <div className="col mt-5">
+                <div className='col border border-2'>
+                  <div className='row gx-5'>
+                    <div className='col mt-5'>
                       <label
-                        htmlFor="fileBanner"
-                        className="form-label text-dark"
+                        htmlFor='fileBanner'
+                        className='form-label text-dark'
                       >
                         {" "}
                         {t("Upload Banner")}
                       </label>
                       <input
-                        className="form-control form-control-sm"
+                        className='form-control form-control-sm'
                         filename={file1}
                         onChange={file1Selected}
                         ref={inputFile1Ref}
-                        type="file"
-                        id="fileBanner"
-                        name="files"
-                        accept="image/*"
+                        type='file'
+                        id='fileBanner'
+                        name='files'
+                        accept='image/*'
                       ></input>
                     </div>
-                    <div className="col mt-5">
+                    <div className='col mt-5'>
                       <label
-                        htmlFor="fileTrailer"
-                        className="form-label text-dark"
+                        htmlFor='fileTrailer'
+                        className='form-label text-dark'
                       >
                         {" "}
                         {t("Upload Trailer")}
                       </label>
                       <input
-                        className="form-control form-control-sm"
+                        className='form-control form-control-sm'
                         filename={file2}
                         ref={inputFile2Ref}
                         onChange={file2Selected}
-                        type="file"
-                        id="fileTrailer"
-                        name="files"
-                        accept="video/*"
+                        type='file'
+                        id='fileTrailer'
+                        name='files'
+                        accept='video/*'
                       ></input>
                     </div>
                   </div>
@@ -345,10 +347,10 @@ function CoverForm() {
                       backgroundColor: "#ffffff",
                       fontWeight: "bold",
                     }}
-                    type="outline-primary"
+                    type='outline-primary'
                     block
                     onClick={saveEpkCover}
-                    value="save"
+                    value='save'
                   >
                     {t("Save")}
                   </Button>

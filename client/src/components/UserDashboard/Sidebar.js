@@ -13,10 +13,8 @@ import ActorPage from "../../images/icons/actorpage.svg";
 import ActorPageWhite from "../../images/icons/actorpageWhite.svg";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
 
 export default function Sidebar(props) {
-  const { t } = useTranslation();
   const SELECTED_TAB = props.selectedTab;
   const Role = props.role;
   console.info("select", SELECTED_TAB);

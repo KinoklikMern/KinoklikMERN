@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "antd";
 import Modal from "react-modal";
@@ -41,7 +42,7 @@ function TrailerForm() {
       console.log(response.data.title);
       //console.log("trailer url:", response.data.trailer_url);
     });
-  }, []);
+  }, [fepkId]);
 
   const [epkTrailerData, setEpkTrailerData] = useState({
     trailer_url: fepk.trailer_url,

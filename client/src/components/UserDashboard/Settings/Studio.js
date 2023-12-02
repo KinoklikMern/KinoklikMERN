@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import Axios from "axios";
 import { useTranslation } from "react-i18next";
@@ -36,12 +37,12 @@ export default function Studio() {
         `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`
       ).then((rs) => {
         if (rs.data) setUserStudioData(rs.data);
-        console.log(userStudioData);
+        // console.log(userStudioData);
       });
     } catch (error) {
       console.log(error.response.data.message);
     }
-  }, []);
+  }, [userId]);
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
