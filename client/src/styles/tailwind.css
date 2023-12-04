@@ -25,6 +25,18 @@
 ::selection {
   background: #4b1277;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1e0039;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #33005f;
+}
 /*
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.

@@ -83,10 +83,10 @@ const HomeBody = ({ role }) => {
 
   return (
     <>
-      <div className='space-x-6 tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-p-10 md:tw-flex-row'>
+      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-py-8 md:tw-flex-row'>
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className='space-x-6 tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-24 md:tw-flex-row'>
+      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] md:tw-flex-row'>
         {filterTags.map((tag, index) => (
           <FilterButton
             key={index}
@@ -97,27 +97,26 @@ const HomeBody = ({ role }) => {
         ))}
       </div>
       <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
-        <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
+        <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-pb-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
           {filteredEPKs.map((fepk) => {
             if (fepk.image_details === "") {
               // Skip rendering this item if image_details (poster) because it looks
               return null;
             }
-            const formattedTitle = fepk.title.replace(/ /g, "-");
             return (
               <React.Fragment key={fepk._id}>
-                <div className='listItem tw-p-3'>
+                <div className='listItem tw-my-8 tw-p-3 md:tw-my-24'>
                   <a
                     href={
                       role === "actor"
                         ? `/actor/${fepk._id}`
-                        : `epk/${formattedTitle}`
+                        : `epk/${fepk.title}`
                     }
                   >
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                       alt=''
-                      className='tw-aspect-1 tw-w-full'
+                      className='tw-w-full'
                     />
                   </a>
                 </div>

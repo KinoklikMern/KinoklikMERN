@@ -1,8 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import image1 from "../../images/LandingPage/Avatar1.png";
 import image2 from "../../images/LandingPage/ActorPageScreenShot.png";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslation } from "react-i18next";
 
 const Landing3 = () => {
@@ -14,70 +12,69 @@ const Landing3 = () => {
   const paragraphTextRef = useRef(null);
   const createEPKRef = useRef(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  // useEffect(() => {
+  //   gsap.registerPlugin(ScrollTrigger);
 
-    const background = backgroundRef.current;
-    const title = titleRef.current;
-    const paragraphText = paragraphTextRef.current;
-    const filmmakers = filmmakersRef.current;
-    const createEPK = createEPKRef.current;
+  //   const background = backgroundRef.current;
+  //   const title = titleRef.current;
+  //   const paragraphText = paragraphTextRef.current;
+  //   const filmmakers = filmmakersRef.current;
+  //   const createEPK = createEPKRef.current;
 
-    if (background && title && paragraphText && filmmakers && createEPK) {
-      ScrollTrigger.create({
-        trigger: filmmakers,
-        start: "center center",
-        onEnter: () => {
-          gsap.to(background, {
-            backgroundColor: '#3f2556',
-            duration: 1,
-            ease: "none"
-          });
-          gsap.to([title, paragraphText], {
-            color: '#FFFFFF',
-            duration: 1,
-            ease: "none"
-          });
-        }
-      });
+  //   if (background && title && paragraphText && filmmakers && createEPK) {
+  //     ScrollTrigger.create({
+  //       trigger: filmmakers,
+  //       start: "center center",
+  //       onEnter: () => {
+  //         gsap.to(background, {
+  //           backgroundColor: '#3f2556',
+  //           duration: 1,
+  //           ease: "none"
+  //         });
+  //         gsap.to([title, paragraphText], {
+  //           color: '#FFFFFF',
+  //           duration: 1,
+  //           ease: "none"
+  //         });
+  //       }
+  //     });
 
-      ScrollTrigger.create({
-        trigger: createEPK,
-        start: "top center",
-        onEnter: () => {
-          gsap.to(background, {
-            backgroundColor: '#FFFFFF',
-            duration: 1,
-            ease: "none"
-          });
-          gsap.to([title, paragraphText], {
-            color: '#000000',
-            duration: 1,
-            ease: "none"
-          });
-        },
-        onLeaveBack: () => {
-          if (background && title && paragraphText) {
-            gsap.to(background, {
-              backgroundColor: '#3f2556',
-              duration: 1,
-              ease: "none"
-            });
-            gsap.to([title, paragraphText], {
-              color: '#FFFFFF',
-              duration: 1,
-              ease: "none"
-            });
-          }
-        }
-      });
-    }
+  //     ScrollTrigger.create({
+  //       trigger: createEPK,
+  //       start: "top center",
+  //       onEnter: () => {
+  //         gsap.to(background, {
+  //           backgroundColor: '#FFFFFF',
+  //           duration: 1,
+  //           ease: "none"
+  //         });
+  //         gsap.to([title, paragraphText], {
+  //           color: '#000000',
+  //           duration: 1,
+  //           ease: "none"
+  //         });
+  //       },
+  //       onLeaveBack: () => {
+  //         if (background && title && paragraphText) {
+  //           gsap.to(background, {
+  //             backgroundColor: '#3f2556',
+  //             duration: 1,
+  //             ease: "none"
+  //           });
+  //           gsap.to([title, paragraphText], {
+  //             color: '#FFFFFF',
+  //             duration: 1,
+  //             ease: "none"
+  //           });
+  //         }
+  //       }
+  //     });
+  //   }
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
-
+  //   return () => {
+  //     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  //   };
+  // }, []);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -85,13 +82,17 @@ const Landing3 = () => {
 
   return (
     <>
-      <div ref={backgroundRef} className='tw-items-center tw-justify-center tw-py-10'>
+      <div
+        ref={backgroundRef}
+        className='tw-items-center tw-justify-center tw-py-10'
+      >
         <div ref={titleRef} className='tw-text-center tw-text-5xl tw-font-bold'>
           {t("What is an EPK?")}
         </div>
-        <div 
-        ref={paragraphTextRef}
-        className='tw-mx-12 tw-py-10 tw-text-justify tw-text-lg tw-text-midnight md:tw-text-2xl lg:tw-px-40'>
+        <div
+          ref={paragraphTextRef}
+          className='tw-mx-12 tw-py-10 tw-text-justify tw-text-lg tw-text-midnight md:tw-text-2xl lg:tw-px-40'
+        >
           <p>
             {t("An EPK, or")}{" "}
             <span className='tw-font-bold'>{t("Electronic Press Kit")}</span>{" "}
@@ -111,8 +112,10 @@ const Landing3 = () => {
             {t("software! For free!")}
           </p>
         </div>
-        <div 
-          ref={filmmakersRef} className='tw-my-10 tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-5'>
+        <div
+          ref={filmmakersRef}
+          className='tw-my-10 tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-5'
+        >
           <a
             href='#Filmmakers'
             onClick={() => handleCategoryClick("Filmmakers")}
@@ -301,8 +304,8 @@ const Landing3 = () => {
               {t("Create EPK")}
             </a>
           </div>
-          <div  ref={createEPKRef} className="tw-mb-10"></div> 
-        </div >
+          <div ref={createEPKRef} className='tw-mb-10'></div>
+        </div>
       </div>
     </>
   );

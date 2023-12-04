@@ -83,13 +83,13 @@ function CatelogPage() {
 
   return (
     <>
-      <div className='tw-flex tw-items-end tw-justify-end  tw-bg-[#1e0039]'>
+      <div className='tw-flex tw-items-end tw-justify-end tw-bg-[#1e0039]'>
         <SearchBar />
       </div>
-      <div className='space-x-6 tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-p-10 md:tw-flex-row'>
+      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-py-8 md:tw-flex-row'>
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className='space-x-6 tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-pb-28 md:tw-flex-row'>
+      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] md:tw-flex-row'>
         {filterTags.map((tag, index) => (
           <FilterButton
             key={index}
@@ -106,15 +106,15 @@ function CatelogPage() {
               // Skip rendering this item if image_details (poster) because it looks
               return null;
             }
-            const formattedTitle = fepk.title.replace(/ /g, "_");
+
             return (
               <React.Fragment key={fepk._id}>
-                <div className='listItem tw-p-3'>
-                  <a href={`/epk/${formattedTitle}`}>
+                <div className='listItem tw-my-8 tw-p-3 md:tw-my-24'>
+                  <a href={`/epk/${fepk.title}`}>
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                       alt=''
-                      className='tw-aspect-1 tw-w-full'
+                      className='tw-w-full'
                     />
                   </a>
                 </div>

@@ -1,6 +1,4 @@
-import React, { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef } from "react";
 //import "./Landing5.css";
 import { useTranslation } from "react-i18next";
 
@@ -12,72 +10,72 @@ const Landing9 = () => {
   const amazingRef = useRef(null);
   const stepHeadlineRef = useRef(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  // useEffect(() => {
+  //   gsap.registerPlugin(ScrollTrigger);
 
-    // Animation for "Amazing"
-    const animateAmazing = () => {
-      const tl = gsap.timeline();
-      tl.to(amazingRef.current, {
-        rotation: 30,
-        duration: 0.5,
-        ease: "power1.inOut",
-      })
-        .to(amazingRef.current, {
-          rotation: 0,
-          duration: 0.5,
-          ease: "power1.inOut",
-        })
-        .to(amazingRef.current, {
-          rotation: 30,
-          duration: 0.5,
-          ease: "power1.inOut",
-        })
-        .to(amazingRef.current, {
-          rotation: 0,
-          duration: 0.5,
-          ease: "power1.inOut",
-        })
-        .to(amazingRef.current, {
-          rotation: 15,
-          duration: 0.5,
-          ease: "power1.inOut",
-        });
-    };
+  //   // Animation for "Amazing"
+  //   const animateAmazing = () => {
+  //     const tl = gsap.timeline();
+  //     tl.to(amazingRef.current, {
+  //       rotation: 30,
+  //       duration: 0.5,
+  //       ease: "power1.inOut",
+  //     })
+  //       .to(amazingRef.current, {
+  //         rotation: 0,
+  //         duration: 0.5,
+  //         ease: "power1.inOut",
+  //       })
+  //       .to(amazingRef.current, {
+  //         rotation: 30,
+  //         duration: 0.5,
+  //         ease: "power1.inOut",
+  //       })
+  //       .to(amazingRef.current, {
+  //         rotation: 0,
+  //         duration: 0.5,
+  //         ease: "power1.inOut",
+  //       })
+  //       .to(amazingRef.current, {
+  //         rotation: 15,
+  //         duration: 0.5,
+  //         ease: "power1.inOut",
+  //       });
+  //   };
 
-    ScrollTrigger.create({
-      trigger: amazingRef.current,
-      start: "top center",
-      onEnter: animateAmazing,
-      onEnterBack: animateAmazing,
-    });
+  //   ScrollTrigger.create({
+  //     trigger: amazingRef.current,
+  //     start: "top center",
+  //     onEnter: animateAmazing,
+  //     onEnterBack: animateAmazing,
+  //   });
 
-    // Animations for steps
-    const steps = [step1Ref, step2Ref, step3Ref];
+  //   // Animations for steps
+  //   const steps = [step1Ref, step2Ref, step3Ref];
 
-    steps.forEach((step) => {
-      const element = step.current;
-      const headline = element.querySelector("h2");
-      const paragraph = element.querySelector("p"); // Get the paragraph inside the step
+  //   steps.forEach((step) => {
+  //     const element = step.current;
+  //     const headline = element.querySelector("h2");
+  //     const paragraph = element.querySelector("p"); // Get the paragraph inside the step
 
-      // Initial state for paragraph
-      gsap.set(paragraph, { opacity: 0 });
+  //     // Initial state for paragraph
+  //     gsap.set(paragraph, { opacity: 0 });
 
-      // Mouse enter animation - reveal paragraph and change to purple
-      element.addEventListener("mouseenter", () => {
-        gsap.to(element, { backgroundColor: "#fff", duration: 0.3 }); // Purple color
-        gsap.to(headline, { color: "#1E0039", duration: 0.3 });
-        gsap.to(paragraph, { color: "#1E0039", opacity: 1, duration: 0.3 });
-      });
+  //     // Mouse enter animation - reveal paragraph and change to purple
+  //     element.addEventListener("mouseenter", () => {
+  //       gsap.to(element, { backgroundColor: "#fff", duration: 0.3 }); // Purple color
+  //       gsap.to(headline, { color: "#1E0039", duration: 0.3 });
+  //       gsap.to(paragraph, { color: "#1E0039", opacity: 1, duration: 0.3 });
+  //     });
 
-      // Mouse leave animation - hide paragraph and change back to original color
-      element.addEventListener("mouseleave", () => {
-        gsap.to(element, { backgroundColor: "#1E0039", duration: 0.3 });
-        gsap.to(headline, { color: "#fff", duration: 0.3 });
-        gsap.to(paragraph, { opacity: 0, duration: 0.3 });
-      });
-    });
-  }, []);
+  //     // Mouse leave animation - hide paragraph and change back to original color
+  //     element.addEventListener("mouseleave", () => {
+  //       gsap.to(element, { backgroundColor: "#1E0039", duration: 0.3 });
+  //       gsap.to(headline, { color: "#fff", duration: 0.3 });
+  //       gsap.to(paragraph, { opacity: 0, duration: 0.3 });
+  //     });
+  //   });
+  // }, []);
 
   return (
     <>
