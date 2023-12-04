@@ -28,8 +28,8 @@ function DetailsForm() {
   };
 
   const epkRoles = [
-    (t("lead_actor")),
-    (t("supporting_actor")),
+    (t("lead actor")),
+    (t("supporting actor")),
     (t("director")),
     (t("producer")),
     (t("cinematographer")),
