@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const EPKFilter = (initialData, filterTags, setFilterTags) => {
   const [filteredEPKs, setFilteredEPKs] = useState(initialData);
   const [filterQuery, setFilterQuery] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
+  const { t } = useTranslation();
 
   useEffect(() => {
     let filtered = initialData;
@@ -38,14 +40,14 @@ const EPKFilter = (initialData, filterTags, setFilterTags) => {
     let newTags;
     let newQuery;
 
-    if (name === "all epks") {
+    if (name === (t("all epks"))) {
       newTags = filterTags.map((tag) => ({
         ...tag,
         isActive: tag.name === name,
       }));
       newQuery = isActive
         ? []
-        : ["Movie", "TV Show", "Web Series", "Documentary"];
+        : [(t("Movie")), "TV Show", "Web Series", "Documentary"];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag

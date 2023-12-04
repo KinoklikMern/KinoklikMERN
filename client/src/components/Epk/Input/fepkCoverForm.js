@@ -187,11 +187,11 @@ function FepkCoverForm() {
       setDisabled(false);
       http.get(`fepks/byTitles/${event.target.value}`).then((response) => {
         if (response.data.length > 0) {
-          setMessageTitleNo("This title exists! Choose another one!");
+          setMessageTitleNo(t("This title exists! Choose another one!"));
           setMessageTitleYes("");
           console.log(response.data);
         } else {
-          setMessageTitleYes("This title is ok!");
+          setMessageTitleYes(t("This title is ok!"));
           setMessageTitleNo("");
         }
       });

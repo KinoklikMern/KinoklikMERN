@@ -28,12 +28,12 @@ export const options = [
     image: actorIcon,
   },
   {
-    label: "Sales_Agent",
+    label: "Sales Agent",
     value: "Sales Agent",
     image: salesAgentIcon,
   },
   {
-    label: "Film_Festival",
+    label: "Film Festival",
     value: "Film Festival",
     image: festivalIcon,
   },
@@ -90,18 +90,18 @@ function RoleChoise({ role, setRole }) {
    // Helper function to get the role name based on the option value
 const getRoleName = (value) => {
   switch (value) {
-    case "Filmmaker": return "Film Director";
-    case "Actor": return "Actor";
-    case "Sales Agent": return "Sales Agent";
-    case "Film Festival": return "Film Festival";
-    case "Viewer": return "Viewer";
-    case "Investor": return "Investor";
-    case "Producer": return "Producer";
-    case "Editor": return "Editor";
-    case "Writer": return "Writer";
-    case "Sound": return "Sound";
-    case "Cinematographer": return "Cinematographer";
-    case "Distributor": return "Distributor";
+    case "Filmmaker": return (t("Film Director"));
+    case "Actor": return (t("Actor"));
+    case "Sales Agent": return (t("Sales Agent"));
+    case "Film Festival": return (t("Film Festival"));
+    case "Viewer": return (t("Viewer"));
+    case "Investor": return (t("Investor"));
+    case "Producer": return (t("Producer"));
+    case "Editor": return (t("Editor"));
+    case "Writer": return (t("Writer"));
+    case "Sound": return (t("Sound"));
+    case "Cinematographer": return (t("Cinematographer"));
+    case "Distributor": return (t("Distributor"));
     default: return "";
   }
 };
