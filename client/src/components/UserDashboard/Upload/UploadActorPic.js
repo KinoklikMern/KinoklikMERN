@@ -413,9 +413,9 @@ export default function UploadActorPic({ user }) {
 
   return (
     <>
-      <div className="actor-upload-pic-container">
+      <div className='actor-upload-pic-container'>
         <div
-          className="actor-upload-profile-pic"
+          className='actor-upload-profile-pic'
           style={{
             backgroundImage: previewImage1
               ? `url(${previewImage1})`
@@ -426,42 +426,42 @@ export default function UploadActorPic({ user }) {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="actor-prof-file1">
+          <div className='actor-prof-file1'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file1}
               ref={inputFile1Ref}
               onChange={file1Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file1"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file1'
             />
             <label
-              htmlFor="actor-file1"
-              className="actor-prof-file"
+              htmlFor='actor-file1'
+              className='actor-prof-file'
               style={{
                 fontSize: "20px",
               }}
             >
               {t("Upload Headshot")}
             </label>
-            <div className="uploaded-image-preview-container"></div>
+            <div className='uploaded-image-preview-container'></div>
           </div>
-          <div className="actor-prof-file2">
+          <div className='actor-prof-file2'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file2}
               ref={inputFile2Ref}
               onChange={file2Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file2"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file2'
             />
             <label
-              htmlFor="actor-file2"
-              className="actor-prof-file"
+              htmlFor='actor-file2'
+              className='actor-prof-file'
               style={{
                 backgroundImage: previewImage2
                   ? `url(${previewImage2})`
@@ -475,20 +475,20 @@ export default function UploadActorPic({ user }) {
               +
             </label>
           </div>
-          <div className="actor-prof-file3">
+          <div className='actor-prof-file3'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file3}
               ref={inputFile3Ref}
               onChange={file3Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file3"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file3'
             />
             <label
-              htmlFor="actor-file3"
-              className="actor-prof-file"
+              htmlFor='actor-file3'
+              className='actor-prof-file'
               style={{
                 backgroundImage: previewImage3
                   ? `url(${previewImage3})`
@@ -502,20 +502,20 @@ export default function UploadActorPic({ user }) {
               +
             </label>
           </div>
-          <div className="actor-prof-file4">
+          <div className='actor-prof-file4'>
             <input
-              className="actor-upload-profile-pic-btn"
+              className='actor-upload-profile-pic-btn'
               filename={file4}
               ref={inputFile4Ref}
               onChange={file4Selected}
-              type="file"
-              name="files"
-              accept="image/*"
-              id="actor-file4"
+              type='file'
+              name='files'
+              accept='image/*'
+              id='actor-file4'
             />
             <label
-              htmlFor="actor-file4"
-              className="actor-prof-file"
+              htmlFor='actor-file4'
+              className='actor-prof-file'
               style={{
                 backgroundImage: previewImage4
                   ? `url(${previewImage4})`
@@ -530,41 +530,41 @@ export default function UploadActorPic({ user }) {
             </label>
           </div>
         </div>
-        <div className="col mt-5">
+        <div className='col mt-5'>
           <label
-            htmlFor="fileBanner"
-            className="form-label text-dark"
+            htmlFor='fileBanner'
+            className='form-label text-dark'
             style={{ fontSize: "25px" }}
           >
             {t("Upload Demo reel Video")}
           </label>
           <input
-            className="form-control form-control-sm"
+            className='form-control form-control-sm'
             ref={inputFileBannerRef}
             onChange={fileBannerSelected}
-            type="file"
-            id="fileBanner"
-            name="files"
-            accept="video/*"
+            type='file'
+            id='fileBanner'
+            name='files'
+            accept='video/*'
           ></input>
           {trailerPreview !== "" ? (
             // Display the selected file's video preview
             <video
-              width="320"
-              height="240"
+              width='320'
+              height='240'
               controls
               ref={videoRef}
               poster={thumbnailImage}
             >
-              <source src={trailerPreview} type="video/mp4" />
+              <source src={trailerPreview} type='video/mp4' />
               {t("Your browser does not support the video tag.")}
             </video>
           ) : (
             // Display the existing video if trailerPreview is empty
             actorData.bannerImg && (
               <video
-                width="320"
-                height="240"
+                width='320'
+                height='240'
                 controls
                 ref={videoRef}
                 poster={thumbnailImage}
@@ -575,7 +575,7 @@ export default function UploadActorPic({ user }) {
                       ? "block"
                       : "none",
                 }}
-                crossOrigin="anonymous"
+                crossOrigin='anonymous'
               >
                 <source
                   src={
@@ -583,7 +583,7 @@ export default function UploadActorPic({ user }) {
                       ? actorData.bannerImg
                       : `http://localhost:8000/video-proxy?url=${process.env.REACT_APP_AWS_URL}/${actorData.bannerImg}`
                   }
-                  type="video/mp4"
+                  type='video/mp4'
                 />
                 {t("Your browser does not support the video tag.")}
               </video>
@@ -599,18 +599,18 @@ export default function UploadActorPic({ user }) {
         {thumbnailImage && (
           <img
             src={thumbnailImage}
-            alt="Thumbnail Preview"
+            alt='Thumbnail Preview'
             style={{ width: "200px", height: "150px" }}
           />
         )}{" "}
         {/* <p>{message}</p> */}
         <button
-          className="upload-actor-prof-btn1 upload-actor-prof-btn-save1"
+          className='upload-actor-prof-btn1 upload-actor-prof-btn-save1'
           onClick={handleSaveClick}
         >
           {isUploading ? (
             <div
-              className="spinner"
+              className='spinner'
               style={{
                 border: "4px solid rgba(0, 0, 0, 0.1)",
                 borderTop: "4px solid blue",
@@ -625,9 +625,9 @@ export default function UploadActorPic({ user }) {
           )}
         </button>
       </div>
-      <div className="actor-dashbaord-about">
+      <div className='actor-dashbaord-about'>
         <textarea
-          className="actor-dash-textarea"
+          className='actor-dash-textarea'
           // maxLength="500"
           value={textareaValue}
           onChange={(e) => {
@@ -651,7 +651,7 @@ export default function UploadActorPic({ user }) {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          contentLabel="Example Modal"
+          contentLabel='Example Modal'
           appElement={document.getElementById("root")}
           style={{
             overlay: {
@@ -681,7 +681,7 @@ export default function UploadActorPic({ user }) {
               <> */}
             <h2>{t("Updated successfully!")}</h2>
             <br />
-            <button className="btn btn-secondary btn-sm" onClick={closeModal}>
+            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
               {t("Ok")}
             </button>
             {/* </>
@@ -689,8 +689,8 @@ export default function UploadActorPic({ user }) {
           </div>
         </Modal>
       </div>
-      <div className="actor-save-about">
-        <button className="upload-actor-prof-btn1" onClick={editAbout}>
+      <div className='actor-save-about'>
+        <button className='upload-actor-prof-btn1' onClick={editAbout}>
           {t("save")}
         </button>
       </div>

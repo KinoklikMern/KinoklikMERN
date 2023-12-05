@@ -6,10 +6,10 @@ import EPKFilter from "../Filter/EPKFilter";
 import FilterButton from "../Filter/FilterButton";
 import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
-import { useTranslation } from "react-i18next";
+//import { useTranslation } from "react-i18next";
 
 const HomeBody = ({ role }) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
@@ -18,23 +18,23 @@ const HomeBody = ({ role }) => {
 
   const [filterTags, setFilterTags] = useState([
     {
-      name: t("Movie"),
+      name: "Movie",
       isActive: false,
     },
     {
-      name: t("TV Show"),
+      name: "TV Show",
       isActive: false,
     },
     {
-      name: t("Web Series"),
+      name: "Web Series",
       isActive: false,
     },
     {
-      name: t("Documentary"),
+      name: "Documentary",
       isActive: false,
     },
     {
-      name: t("all epks"),
+      name: "all epks",
       isActive: true,
     },
   ]);
@@ -96,7 +96,7 @@ const HomeBody = ({ role }) => {
           />
         ))}
       </div>
-      <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
+      <div className='home tw-overflow-y-auto'>
         <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-pb-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
           {filteredEPKs.map((fepk) => {
             if (fepk.image_details === "") {

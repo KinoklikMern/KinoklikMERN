@@ -99,7 +99,7 @@ function CatelogPage() {
           />
         ))}
       </div>
-      <div className='home tw-flex tw-justify-center tw-overflow-y-auto'>
+      <div className='home tw-overflow-y-auto'>
         <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
           {filteredEPKs.map((fepk) => {
             if (fepk.image_details === "") {

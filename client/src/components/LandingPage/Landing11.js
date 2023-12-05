@@ -1,13 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect }, { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import http from "../../http-common";
 const Landing11 = () => {
   const { t } = useTranslation();
   const emailRef = useRef(null);
-  // const inputRef = useRef(null);
+  const inputRef = useRef(null);
 
-  // useEffect(() => {
-  //   gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
   //   gsap.from(inputRef.current, {
   //     scrollTrigger: {
@@ -41,12 +43,13 @@ const Landing11 = () => {
     }
   };
   return (
-    <div className="tw-flex tw-flex-col tw-items-center tw-justify-evenly tw-py-16 md:tw-flex-row">
-      <div className=" tw-w-2/4 md:tw-w-1/4">
+    
+    <div className='tw-flex tw-flex-col tw-items-center tw-justify-evenly tw-py-16 md:tw-flex-row'>
+      <div className=' tw-w-2/4 tw-overflow-hidden md:tw-w-1/4'>
         <input
           type="email"
           name="email"
-          ref={emailRef}
+          ref={inputRef}
           required
           placeholder={t("Your-email@Example.com")}
           className="tw-w-full tw-border-0 tw-border-b-4 tw-border-b-midnight focus:tw-border-midnight focus:tw-ring-0"

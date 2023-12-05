@@ -23,15 +23,16 @@ export default function ListItem() {
 
   return (
     <>
-      <div className='bottom-container '>
+      <div className='tw-w-full'>
         <div className='listContainer'>
           {fepks &&
             fepks.map((fepk) => (
-              <div className='listItem' key={fepk._id}>
-                <a href={`/epk/${fepk.title?.replace(/ /g, "-")}`}>
+              <div className='' key={fepk._id}>
+                <a href={`/epk/${fepk.title}`}>
                   <img
                     src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                     alt=''
+                    className='tw-h-full tw-w-56'
                   />
                 </a>
               </div>
