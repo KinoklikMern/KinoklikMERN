@@ -58,7 +58,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
     }
   };
 
-  console.log("select", selectedChat);
+  // console.log("select", selectedChat);
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
@@ -150,7 +150,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
     }
   };
 
-  console.log("messages", messages);
+  // console.log("messages", messages);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -162,14 +162,14 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
   return (
     <>
       <div className='tw-invisible tw-flex tw-h-12 tw-justify-center tw-rounded-full tw-bg-[#1E0039] md:tw-visible'>
-        <span className='tw-self-center tw-text-xl tw-text-white'>
+        <span className='tw-self-center tw-text-white md:tw-text-base lg:tw-text-lg'>
           {selectedChat
             ? `Message exchange with ${selectedChat.chatName}`
             : t("Select a conversation to display")}
         </span>
       </div>
 
-      <div className='no-scrollbar tw-h-5/6 tw-overflow-auto'>
+      <div className='no-scrollbar tw-flex tw-h-5/6 tw-flex-col tw-overflow-auto'>
         {/* in come message */}
 
         {messages?.map((message) => (
@@ -181,7 +181,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
           >
             <div className='tw-relative tw-m-1 tw-h-12 tw-w-12 tw-flex-none tw-overflow-hidden tw-rounded-lg'>
               <img
-                className='tw-h-12 tw-w-12 tw-flex-none tw-rounded-lg'
+                className='tw-h-12 tw-w-12 tw-flex-none tw-rounded-full tw-object-cover'
                 src={
                   message.sender.picture ===
                   "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
@@ -191,7 +191,7 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
                 alt='profile img'
               />
 
-              <div className='tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-bg-black/50 tw-text-center tw-text-xxs tw-text-white'>
+              <div className='tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-w-full tw-rounded-full tw-bg-black/50 tw-text-center tw-text-xxs tw-text-white'>
                 {message.sender.role}
               </div>
             </div>
@@ -222,14 +222,14 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
           </div>
         ))}
       </div>
-      <div className='tw-relative tw-mt-[-10px] tw-flex tw-items-center tw-rounded-lg'>
-        <textarea
+      <div className='tw-relative tw-flex tw-items-center tw-rounded-lg'>
+        <input
           value={newMessage}
           onChange={typingHandler}
           onKeyDown={handleKeyDown}
-          className='tw-block tw-w-full tw-self-center tw-rounded-lg tw-border tw-border-gray-100/50 tw-bg-gray-500/50 tw-px-3 tw-pt-2 tw-text-base tw-text-midnight placeholder:tw-text-white focus:tw-border-gray-100 focus:tw-ring-gray-100'
+          className='tw-w-full tw-rounded-lg tw-border tw-border-gray-100/50 tw-bg-gray-500/50 tw-px-2 tw-py-3 tw-text-base tw-text-midnight placeholder:tw-text-white focus:tw-border-gray-100 focus:tw-ring-gray-100'
           placeholder={t("Your message...")}
-        ></textarea>
+        />
         <button
           onClick={sendMessage}
           type='submit'

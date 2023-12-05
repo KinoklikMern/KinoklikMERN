@@ -50,7 +50,7 @@ export default function ChatPage() {
                     type='text'
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    className='tw-block tw-w-full tw-rounded-md tw-border tw-bg-gradient-to-b tw-from-[#868585] tw-to-[#1E0039] tw-py-2 tw-pl-9 tw-pr-10 tw-text-white tw-shadow-sm placeholder:tw-text-white focus:tw-border-white focus:tw-ring-1 focus:tw-ring-white sm:tw-text-sm'
+                    className='tw-w-full tw-rounded-md tw-border tw-bg-gradient-to-b tw-from-[#868585] tw-to-[#1E0039] tw-py-2 tw-pl-9 tw-pr-10 tw-text-white tw-shadow-sm placeholder:tw-text-white focus:tw-border-white focus:tw-ring-1 focus:tw-ring-white sm:tw-text-sm'
                     placeholder='Search...'
                   />
                   <div className='tw-absolute tw-inset-y-0 tw-right-0 tw-flex tw-items-center tw-pr-3'>
@@ -71,7 +71,7 @@ export default function ChatPage() {
                   <ChatList fetchAgain={fetchAgain} searchValue={searchValue} />
                 )}
               </div>
-              <div className='tw-col-span-2 tw-mx-4 tw-mb-2 tw-overflow-hidden'>
+              <div className='tw-col-span-2 tw-mx-4 tw-h-full tw-overflow-hidden'>
                 <MessageBox
                   fetchAgain={fetchAgain}
                   setFetchAgain={fetchAgain}

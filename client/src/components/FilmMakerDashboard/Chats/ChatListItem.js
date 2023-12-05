@@ -12,12 +12,12 @@ function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
   console.log("sender", getChatSender(user, chat?.users));
   return (
     <div
-      className={`tw-mx-4 tw-my-4 tw-flex tw-flex-col tw-rounded-full ${
+      className={`tw-mx-4 tw-my-4 tw-flex tw-flex-wrap tw-items-center tw-rounded-full ${
         isSelected ? "tw-border-white-500 tw-border" : ""
       } tw-bg-[#341a4d] tw-text-gray-400 hover:tw-bg-gray-300/25 hover:tw-text-white`}
     >
       <div
-        className='tw-relative tw-flex tw-rounded-lg'
+        className='tw-relative tw-flex tw-w-full tw-flex-wrap tw-items-center tw-justify-around tw-rounded-lg md:tw-text-sm lg:tw-text-base xl:tw-text-lg'
         onClick={() => {
           setSelectedChat(chat);
         }}
@@ -28,9 +28,9 @@ function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
           alt="profile image"
         /> */}
 
-        <div className='tw-relative tw-m-1 tw-ml-6 tw-h-16 tw-w-16 tw-flex-none tw-overflow-hidden tw-rounded-lg'>
+        <div className='tw-relative tw-m-1 tw-flex tw-h-16 tw-w-16 tw-flex-wrap tw-overflow-hidden tw-rounded-lg'>
           <img
-            className='tw-h-16 tw-w-16 tw-flex-none tw-rounded-lg'
+            className='tw-h-10 tw-w-10 tw-rounded-lg tw-object-cover xl:tw-h-16 xl:tw-w-16'
             src={getChatSender(user, chat?.users)?.avatar}
             alt='profile img'
           />
@@ -44,12 +44,8 @@ function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
           </div>
         </div>
 
-        <span className='tw-grow tw-self-center tw-pl-8'>
-          {getChatSender(user, chat?.users)?.name}
-        </span>
-        <span className='tw-self-center tw-pr-4'>
-          {formatTimestamp(chat?.updatedAt)}
-        </span>
+        <span className=''>{getChatSender(user, chat?.users)?.name}</span>
+        <span className=''>{formatTimestamp(chat?.updatedAt)}</span>
       </div>
     </div>
   );
