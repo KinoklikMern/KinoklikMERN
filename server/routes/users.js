@@ -37,12 +37,14 @@ import {
   getUserById,
   getActorRecommendations,
   updateLastActive,
+  signupForNewsletter,
 } from "../controllers/users.js";
 import {
   validate,
   validatePassword,
   loginValidator,
 } from "../middlwares/validator.js";
+
 const upload = multer({ dest: "images/" });
 const router = express.Router();
 
@@ -116,5 +118,6 @@ router.put("/actor/files/:id", actorUploadFiles);
 router.get("/:id", getUserById);
 
 router.put("/lastactive/:id", updateLastActive);
+router.put("/signupfornewsletter", signupForNewsletter);
 
 export default router;
