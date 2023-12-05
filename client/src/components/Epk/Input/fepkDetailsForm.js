@@ -318,10 +318,10 @@ function FepkDetailsForm() {
         .then((response) => {
           if (response.data && response.data.length > 0) {
             // Invitation already exists
-            setEmailError(
+            setEmailError(t(
               "Invitation for that project was already sent to the person"
-            );
-            console.log("Invitation already exists");
+            ));
+            console.log(t("Invitation already exists"));
           } else {
             // Clear previous errors
             setEmailError("");
@@ -350,16 +350,16 @@ function FepkDetailsForm() {
                   invitedUser,
                 ]);
 
-                console.log("Invitation saved and user added to frontend");
+                console.log(t("Invitation saved and user added to frontend"));
               })
               .catch((error) => {
-                console.error("Error sending invitation:", error);
+                console.error(t("Error sending invitation:"), error);
                 // Handle the error appropriately.
               });
           }
         })
         .catch((error) => {
-          console.error("Error checking for existing invitation:", error);
+          console.error(t("Error checking for existing invitation:"), error);
           // Handle the error appropriately.
         });
     }

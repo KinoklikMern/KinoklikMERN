@@ -6,10 +6,10 @@ import EPKFilter from "../Filter/EPKFilter";
 import FilterButton from "../Filter/FilterButton";
 import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
-import { useTranslation } from "react-i18next";
+//import { useTranslation } from "react-i18next";
 
 const HomeBody = ({ role }) => {
-  const { t } = useTranslation();
+ // const { t } = useTranslation();
 
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
@@ -18,23 +18,23 @@ const HomeBody = ({ role }) => {
 
   const [filterTags, setFilterTags] = useState([
     {
-      name: t("Movie"),
+      name: 'Movie',
       isActive: false,
     },
     {
-      name: t("TV Show"),
+      name: 'TV Show',
       isActive: false,
     },
     {
-      name: t("Web Series"),
+      name: 'Web Series',
       isActive: false,
     },
     {
-      name: t("Documentary"),
+      name: 'Documentary',
       isActive: false,
     },
     {
-      name: t("all epks"),
+      name: 'all epks',
       isActive: true,
     },
   ]);

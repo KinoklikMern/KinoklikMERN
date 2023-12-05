@@ -73,9 +73,9 @@ export default function Filmmaker() {
                     name=""
                     placeholder= {t("Last Name")}
                   ></input>
-                  <input type="text" id="" name="" placeholder="Email"></input>
-                  <input type="text" id="" name="" placeholder="Phone"></input>
-                  <input type="text" id="" name="" placeholder="City"></input>
+                  <input type="text" id="" name="" placeholder={t("Email")}></input>
+                  <input type="text" id="" name="" placeholder={t("Phone")}></input>
+                  <input type="text" id="" name="" placeholder={t("City")}></input>
                   <input
                     type="text"
                     id=""
