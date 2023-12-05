@@ -1,52 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./SwitchBtn.css";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-export default function SwitchBtn({role}) {
+export default function SwitchBtn({ role }) {
   const { t } = useTranslation();
-  const [activeBtn, setActiveBtn] = useState(role === "actor" ? "actor": "epk");
+  const [activeBtn, setActiveBtn] = useState("epk");
+  const location = useLocation();
 
-  function handleClick(button) {
-    if(activeBtn === "epk"){
-      if(button === "actor"){
-        setActiveBtn("actor");
-      }
-      else{
-        setActiveBtn("epk");
-      }
-    }
-    else if(activeBtn === "actor"){
-      if(button === "actor"){
-        setActiveBtn("actor");
-      }
-      else{
-        setActiveBtn("epk");
-      }
-    }
-  }
+  useEffect(() => {
+    const path = location.pathname;
+    setActiveBtn(path === "/actors" ? "actor" : "epk");
+  }, [location.pathname]);
 
   return (
-    <div className="switch-container">
-        <div className="switch-btn">
-        <a href="/">
-        <button
-          id="epk-btn"
-          className={activeBtn === "epk" ? "active" : ""}
-          onClick={() => handleClick("epk")}
-        >
-          EPKs
-        </button>
-        </a>
-        <a href="/actors">
-        <button
-          id="actor-btn"
-          className={activeBtn === "actor" ? "active" : ""}
-          onClick={() => handleClick("actor")}
-        >
-          {t('Actors')}
-        </button>
-        </a>
-    </div>
+    <div className='switch-container'>
+      <div className='switch-btn'>
+        <Link to='/'>
+          <button id='epk-btn' className={activeBtn === "epk" ? "active" : ""}>
+            EPKs
+          </button>
+        </Link>
+        <Link to='/actors'>
+          <button
+            id='actor-btn'
+            className={activeBtn === "actor" ? "active" : ""}
+          >
+            {t("Actors")}
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
