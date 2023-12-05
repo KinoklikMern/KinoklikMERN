@@ -53,6 +53,7 @@ export const addSubscriber = async (
 ) => {
   try {
     //Set basic info to test email is valid or not, update interest later to reduce response time
+
     const response = await mailchimp.lists.setListMember(
       audienceId,
       md5(email.toLowerCase()),
@@ -72,6 +73,7 @@ export const addSubscriber = async (
   } catch (error) {
     const msg = JSON.parse(error.response.text);
     //console.log("AddSubscriber Error: " + msg.detail);
+
     return { message: msg.detail };
   }
 

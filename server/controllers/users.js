@@ -1107,3 +1107,21 @@ export const getUserById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const signupForNewsletter = async (req, res) => {
+  const { email } = req.body;
+
+  const defaultOptions = ["general"];
+
+  try {
+    const result = await addSubscriber(email, "-", "-", defaultOptions);
+    if (result.message) {
+      return res.status(500).json({ message: result.message });
+    }
+    res.json({
+      message: "You have successfully subscribed to our newsletter!",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
