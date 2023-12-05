@@ -71,16 +71,13 @@ export default function CastCard({
   };
   return (
     <div
-      className={`tw-my-16 tw-flex tw-justify-between tw-gap-36 tw-text-inherit ${
-        !isReverse && " tw-flex-row-reverse"
-      }`}
+      className={`tw-my-16 tw-flex sm:tw-justify-between sm:tw-gap-36 tw-text-inherit ${index % 2 === 0 ? 'sm:tw-flex-row' : 'sm:tw-flex-row-reverse'} tw-flex-col`}
     >
-      <div className="tw-flex tw-w-1/3 tw-flex-col tw-items-center">
+      <div className="tw-flex tw-flex-col tw-items-center tw-w-full">
         <img
-        ref={imageRef}
+          ref={imageRef}
           src={image}
-          style={{ width: "50%", height: "auto" }}
-          className={cardShadowStyle}
+          className={`${cardShadowStyle} tw-w-3/4 md:tw-w-2/3 lg:tw-w-1/2 tw-max-w-xs tw-min-w-[150px] tw-h-auto`} 
           alt=""
         />
         <a
@@ -88,16 +85,16 @@ export default function CastCard({
           className={`${isActor ? "hover:tw-text-[#712CB0]" : ""}`}
           style={{ textDecoration: "none" }}
         >
-          <p  ref={castNameRef}  className="tw-text-[2rem] tw-font-semibold">{castName}</p>
+          <p ref={castNameRef} className="tw-text-[2rem] tw-font-semibold tw-mt-4">{castName}</p>
         </a>
       </div>
-      <div className="tw-mx-12 tw-flex tw-w-1/3 tw-flex-col tw-justify-center tw-gap-6 tw-self-center">
+      <div className="tw-mx-12 tw-px-4 sm:tw-px-0 tw-flex tw-flex-col tw-justify-center tw-gap-6 tw-self-center tw-w-full">
         {hasRoleTitle && (
-          <p className="tw-text-center tw-text-[3rem]">
+          <p className="tw-text-center tw-font-semibold tw-text-2xl sm:tw-text-xl md:tw-text-2xl lg:tw-text-3xl">
             {formatChars(epkRole)}
           </p>
         )}
-        <p ref={textRef} className="tw-text-center tw-text-2xl">{text}</p>
+        <p ref={textRef} className="tw-text-center tw-text-xl">{text}</p>
       </div>
     </div>
   );

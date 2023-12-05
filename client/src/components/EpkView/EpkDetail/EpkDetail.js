@@ -66,7 +66,7 @@ export default function EpkDetail({ epkInfo, handler }) {
             alt="avatar img"
           />
           <div className="tw-text-center">
-            <h3 className="tw-text-lg tw-leading-7 tw-tracking-tight">
+            <h3 className="tw-text-lg md:tw-text-sm tw-leading-7 tw-tracking-tight">
               {crewInfo.name}
             </h3>
             <p className="tw-text-sm tw-leading-6">
@@ -97,16 +97,16 @@ export default function EpkDetail({ epkInfo, handler }) {
     );
   };
   return (
-    <div className="tw-grid tw-grid-cols-4 tw-gap-6 tw-rounded-lg tw-bg-white tw-px-2 tw-text-[#1E0039] md:tw-pl-8">
-      <div className="md:tw-m-6">
+    <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-4 tw-gap-6 tw-rounded-lg tw-bg-white tw-px-2 tw-text-[#1E0039] md:tw-pl-8">
+      <div className="md:tw-m-6 tw-mb-6 md:tw-mb-0">
         <img
           src={image_detail}
           alt=""
           style={{ width: "310px", height: "420px" }}
-          className="hidden md:block tw-invisible tw-my-4 tw-object-cover tw-shadow-[6px_6px_3px_#1E0039] md:tw-visible md:tw-h-full"
+          className="tw-block tw-my-4 tw-object-cover tw-shadow-[6px_6px_3px_#1E0039] md:tw-h-full"
         />
       </div>
-      <div className="tw-my-8 tw-grid tw-grid-cols-3 tw-gap-3">
+      <div className="tw-my-8 tw-grid tw-grid-cols-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4">
         {epkInfo.crew.length > 0
           ? epkInfo.crew.map((person, index) => (
               <CrewAvatar
