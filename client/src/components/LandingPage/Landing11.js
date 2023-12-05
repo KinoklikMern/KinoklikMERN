@@ -1,32 +1,31 @@
-import React, { useRef, useEffect }, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import http from "../../http-common";
 const Landing11 = () => {
   const { t } = useTranslation();
-  const emailRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-  //   gsap.from(inputRef.current, {
-  //     scrollTrigger: {
-  //       trigger: inputRef.current,
-  //       start: "top bottom",
-  //       end: "bottom top",
-  //       toggleActions: "restart pause resume pause",
-  //     },
-  //     width: "0",   // Start from zero width
-  //     opacity: 0,   // Start from fully transparent
-  //     duration: 1,  // Duration of the animation
-  //     ease: "power1.out",
-  //   });
-  // }, []);
+    gsap.from(inputRef.current, {
+      scrollTrigger: {
+        trigger: inputRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        toggleActions: "restart pause resume pause",
+      },
+      width: "0", // Start from zero width
+      opacity: 0, // Start from fully transparent
+      duration: 1, // Duration of the animation
+      ease: "power1.out",
+    });
+  }, []);
 
   const signupForNewsletter = () => {
-    const email = emailRef.current.value;
+    const email = inputRef.current.value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email !== "" && emailRegex.test(email)) {
@@ -43,13 +42,12 @@ const Landing11 = () => {
     }
   };
   return (
-    
-    <div className='tw-flex tw-flex-col tw-items-center tw-justify-evenly tw-py-16 md:tw-flex-row'>
-      <div className=' tw-w-2/4 tw-overflow-hidden md:tw-w-1/4'>
+    <div className="tw-flex tw-flex-col tw-items-center tw-justify-evenly tw-py-16 md:tw-flex-row">
+      <div className=" tw-w-2/4 tw-overflow-hidden md:tw-w-1/4">
         <input
+          ref={inputRef}
           type="email"
           name="email"
-          ref={inputRef}
           required
           placeholder={t("Your-email@Example.com")}
           className="tw-w-full tw-border-0 tw-border-b-4 tw-border-b-midnight focus:tw-border-midnight focus:tw-ring-0"
