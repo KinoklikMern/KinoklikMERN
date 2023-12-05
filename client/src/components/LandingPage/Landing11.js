@@ -1,31 +1,34 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Landing11 = () => {
   const { t } = useTranslation();
-  // const inputRef = useRef(null);
+  const inputRef = useRef(null);
 
-  // useEffect(() => {
-  //   gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-  //   gsap.from(inputRef.current, {
-  //     scrollTrigger: {
-  //       trigger: inputRef.current,
-  //       start: "top bottom",
-  //       end: "bottom top",
-  //       toggleActions: "restart pause resume pause",
-  //     },
-  //     width: "0",   // Start from zero width
-  //     opacity: 0,   // Start from fully transparent
-  //     duration: 1,  // Duration of the animation
-  //     ease: "power1.out",
-  //   });
-  // }, []);
+    gsap.from(inputRef.current, {
+      scrollTrigger: {
+        trigger: inputRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        toggleActions: "restart pause resume pause",
+      },
+      width: "0", // Start from zero width
+      opacity: 0, // Start from fully transparent
+      duration: 1, // Duration of the animation
+      ease: "power1.out",
+    });
+  }, []);
 
   return (
     <div className='tw-flex tw-flex-col tw-items-center tw-justify-evenly tw-py-16 md:tw-flex-row'>
-      <div className=' tw-w-2/4 md:tw-w-1/4'>
+      <div className=' tw-w-2/4 tw-overflow-hidden md:tw-w-1/4'>
         <input
+          ref={inputRef}
           type='email'
           name='email'
           required
