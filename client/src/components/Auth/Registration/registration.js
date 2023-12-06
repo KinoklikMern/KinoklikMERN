@@ -145,7 +145,7 @@ function RegistrationForm() {
 
   const handleBack = () => {
     setNextClicked(false); // Set nextClicked to false
-    // Navigate back to the previous page (RegistrationForm)
+    // Navigate back to the previous page (RegistrationForm) 8888
     navigate("/signup");
   };
 
