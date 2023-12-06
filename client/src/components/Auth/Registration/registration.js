@@ -154,7 +154,7 @@ function RegistrationForm() {
       <div className={SignupCss.bg}>
         {!nextClicked && (
           <div className='tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0] md:tw-text-4xl'>
-            {t('SIGN UP')}
+            SIGN UP
           </div>
         )}
 
