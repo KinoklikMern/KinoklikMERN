@@ -368,7 +368,7 @@ function FepkCoverForm() {
           </div>
           <div className='col-3 tw-m-3'>
             <Link
-              to='/filmMakerDashboard'
+              to='/dashboard/epks' // filmMakerDashboard
               style={{
                 color: "#1E0039",
                 textDecoration: "none",

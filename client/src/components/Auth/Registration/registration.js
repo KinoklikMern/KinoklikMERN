@@ -154,7 +154,7 @@ function RegistrationForm() {
       <div className={SignupCss.bg}>
         {!nextClicked && (
           <div className='tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0] md:tw-text-4xl'>
-            {t('SIGN UP')}
+            {t("SIGN UP")}
           </div>
         )}
 
@@ -209,7 +209,7 @@ function RegistrationForm() {
                 onClick={() => setNextClicked(!nextClicked)}
                 className='tw-mx-auto tw-my-4 tw-block tw-w-[100px] tw-cursor-pointer tw-rounded-lg tw-border-[0.5px] tw-border-[#712cb0] tw-bg-white tw-text-center tw-text-lg tw-font-medium tw-text-[#712cb0] tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-transition-all tw-duration-300 tw-ease-in-out hover:tw-bg-[#712cb0] hover:tw-text-white'
               >
-                {!nextClicked ? (t("Next")) : (t("Back"))}
+                {!nextClicked ? t("Next") : t("Back")}
               </button>
             }
 

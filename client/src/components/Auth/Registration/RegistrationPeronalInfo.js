@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, setState } from "react";
+import React from "react";
 import SignupCss from "./signup.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -99,10 +99,10 @@ function RegistrationPersonalInfo({
 
   return (
     <>
-      <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-py-4">
+      <div className='tw-flex tw-flex-col tw-items-center tw-justify-center tw-py-4'>
         <div>
           <div>
-            <div className="tw-mb-4 tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0]">
+            <div className='tw-mb-4 tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0]'>
               {t("Sign up for KinoKlik")}{" "}
             </div>
 
@@ -110,7 +110,7 @@ function RegistrationPersonalInfo({
               <div
                 className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}
               >
-                <img src={role.image} alt="Filmmaker Icon"></img>
+                <img src={role.image} alt='Filmmaker Icon'></img>
               </div>
               <div className={SignupCss.textImgMainPI}>{role.label}</div>
             </div>
@@ -118,30 +118,30 @@ function RegistrationPersonalInfo({
         </div>
         {/*CSS FOR THE FORM*/}
 
-        <div className="tw-mb-4 tw-flex tw-w-full tw-max-w-[385px] tw-flex-col tw-gap-4 md:tw-w-96 md:tw-max-w-none md:tw-flex-row">
+        <div className='tw-mb-4 tw-flex tw-w-full tw-max-w-[385px] tw-flex-col tw-gap-4 md:tw-w-96 md:tw-max-w-none md:tw-flex-row'>
           <input
-            className="tw-focus:border-purple-700 tw-w-full tw-flex-1 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
-            type="text"
+            className='tw-focus:border-purple-700 tw-w-full tw-flex-1 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 '
+            type='text'
             value={firstName}
             onChange={(e) => handleInputChange(e)}
-            id="firstName"
+            id='firstName'
             placeholder={t("First Name")}
           />
           <input
-            className="tw-focus:border-purple-700 tw-w-full tw-flex-1 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
-            type="text"
+            className='tw-focus:border-purple-700 tw-w-full tw-flex-1 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 '
+            type='text'
             value={lastName}
             onChange={(e) => handleInputChange(e)}
-            id="lastName"
+            id='lastName'
             placeholder={t("Last Name")}
           />
         </div>
 
         <div>
           <input
-            className="tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 md:tw-w-96   "
-            type="text"
-            id="email"
+            className='tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 md:tw-w-96   '
+            type='text'
+            id='email'
             value={email}
             onChange={(e) => handleInputChange(e)}
             placeholder={t("Email")}
@@ -150,9 +150,9 @@ function RegistrationPersonalInfo({
 
         <div>
           <input
-            className="tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
-            type="password"
-            id="password"
+            className='tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 '
+            type='password'
+            id='password'
             value={password}
             onChange={(e) => handleInputChange(e)}
             placeholder={t("Password")}
@@ -160,9 +160,9 @@ function RegistrationPersonalInfo({
         </div>
         <div>
           <input
-            className="tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 "
-            type="password"
-            id="confirmPassword"
+            className='tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 '
+            type='password'
+            id='confirmPassword'
             value={confirmPassword}
             onChange={(e) => handleInputChange(e)}
             placeholder={t("Confirm Password")}
@@ -173,7 +173,7 @@ function RegistrationPersonalInfo({
         <div className={SignupCss.termsAndConditions}>
           <label className={SignupCss.termsCheckboxLabel}>
             <input
-              type="checkbox"
+              type='checkbox'
               checked={agreeToTerms}
               onChange={() => setAgreeToTerms(!agreeToTerms)}
             />
@@ -194,7 +194,7 @@ function RegistrationPersonalInfo({
           <div className={SignupCss.yesNo}>
             <label className={SignupCss.yesAndNo}>
               <input
-                type="radio"
+                type='radio'
                 checked={receiveNewsletter}
                 onChange={() => setReceiveNewsletter(true)}
               />
@@ -202,7 +202,7 @@ function RegistrationPersonalInfo({
             </label>
             <label className={SignupCss.yesAndNo}>
               <input
-                type="radio"
+                type='radio'
                 checked={!receiveNewsletter}
                 onChange={() => setReceiveNewsletter(false)}
               />
@@ -211,65 +211,65 @@ function RegistrationPersonalInfo({
           </div>
           {receiveNewsletter && (
             <div className={SignupCss.listOfAudiences}>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  name="newsletterOption"
-                  type="checkbox"
+                  name='newsletterOption'
+                  type='checkbox'
                   checked={newsletterOptions.filmmakers}
                   onChange={() => handleNewsletterOptionChange("filmmakers")}
                 />
                 {t("Filmmakers")}
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  name="newsletterOption"
-                  type="checkbox"
+                  name='newsletterOption'
+                  type='checkbox'
                   checked={newsletterOptions.actors}
                   onChange={() => handleNewsletterOptionChange("actors")}
                 />
                 {t("Actors")}
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  name="newsletterOption"
-                  type="checkbox"
+                  name='newsletterOption'
+                  type='checkbox'
                   checked={newsletterOptions.viewers}
                   onChange={() => handleNewsletterOptionChange("viewers")}
                 />
                 {t("Viewers")}
               </label>
 
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  name="newsletterOption"
-                  type="checkbox"
+                  name='newsletterOption'
+                  type='checkbox'
                   checked={newsletterOptions.investors}
                   onChange={() => handleNewsletterOptionChange("investors")}
                 />
                 {t("Investors")}
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  name="newsletterOption"
+                  name='newsletterOption'
                   checked={newsletterOptions.ecosystem}
                   onChange={() => handleNewsletterOptionChange("ecosystem")}
-                  type="checkbox"
+                  type='checkbox'
                 />
                 {t("Film Industry")}
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  name="newsletterOption"
-                  type="checkbox"
+                  name='newsletterOption'
+                  type='checkbox'
                   checked={newsletterOptions.general}
                   onChange={() => handleNewsletterOptionChange("general")}
                 />
                 {t("KinoKlik General")}
               </label>
-              <label className="audience">
+              <label className='audience'>
                 <input
-                  name="newsletterOption"
-                  type="checkbox"
+                  name='newsletterOption'
+                  type='checkbox'
                   checked={newsletterOptions.allNewsletters}
                   onChange={() =>
                     handleNewsletterOptionChange("allNewsletters")
