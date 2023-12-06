@@ -1,13 +1,15 @@
 import React from "react";
 import "./DropDown.css";
+import {useTranslation} from 'react-i18next';
 
 const EthnicityDropdown = ({ selectedValue, onOptionSelect }) => {
+  const { t } = useTranslation();
   const ethnicities = [
-    "Asian",
-    "African American",
-    "Caucasion",
-    "Hispanic",
-    "Native",
+    t("Asian"),
+    t("African American"),
+    t("Caucasion"),
+    t("Hispanic"),
+    t("Native"),
   ];
 
   return (

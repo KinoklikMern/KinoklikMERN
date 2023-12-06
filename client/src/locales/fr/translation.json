@@ -13,21 +13,22 @@
     "Passwords do not match.":"Les mots de passe ne correspondent pas.",
     "Password must be at least 8 characters long!":"Le mot de passe doit comporter au moins 8 caractères !",
     "Email is already in use.":"Cet email est déjà utilisé.",
-    "already signed up?":"Déjà inscrit?",
+    "already signed up?":"Vouz avez déjà un compte?",
     "Login":"Se connecter",
     
-    "Sign up for KinoKlik": "Inscrivez vous pour KinoKlik",
-    "Next": "Suivant",
+    "Sign up for KinoKlik": "Inscrivez-vous pour KinoKlik",
+    "Next": "S'inscrire",
     "Back":"Retour",
     "_comment From components Auth|Registration RegistrationPersonalInfo": "ReCheck For changes",
     "I agree to the terms and conditions as set out by the user agreement":"J'accepte les termes et conditions énoncés dans le contrat d'utilisation",
-    "I want to stay up to date and receive newsletters from KinoKlik!":"Je souhaite rester informé et recevoir les newsletters de KinoKlik !",
-    "Viewers":"Les spectateurs",
-    "Film Industry": "Industrie du cinéma",
-    "Investors & VCs Updates":"Mises à jour des investisseurs et des sociétés de capital-risque",
-    "KinoKlik General":"KinoKlik Général",
-    "All Newsletters":"Lettres d'information",
-    "Filmmakers (Directors & Producers)":"Réalisateur (Réalisateurs et Producteurs)",
+    "I want to stay up to date and receive newsletters from KinoKlik!":"Je veux rester informé et recevoir des infolettres de KinoKlik!",
+    "Viewers":"Spectateurs",
+    "Film Ecosystem & Industry Players": "Acteurs de L'écosystème cinématographique de l'industrie",
+    "Investors & VCs Updates":"Investisseurs et capital-risque",
+    "KinoKlik Technical Updates":"Mises à jour techniques de KinoKlik",
+    "All Newsletters":"Tous les infolettres",
+   
+    "Filmmakers (Directors & Producers)":"Réalisateur",
 
 
     "_comment From Input coverForm and detailsFepkForm also miscellaneis Request Button": "ReCheck For changes",
@@ -113,12 +114,12 @@
  "This is the bookmark": "C'est le signet",
 
  "_comment From Catalogue":"8 CHanges.",
- "TV Show":"Émission de télévision",
- "Web Series":"Série Web",
- "Documentary": "Documentaire",
- "all epks":"Tous les epks",
- "All EPKs": "Tous Les EPKs",
- "POST PRODUCTION":"POST-PRODUCTION",
+ "TV Show":"Épisodes TV",
+ "Web Series":"Épisodes-Web",
+ "Documentary": "Documentaires",
+ "all epks":"Tous EPK",
+ "All EPKs": "Tous",
+"POST PRODUCTION":"POST-PRODUCTION",
 
  "_comment From EPKs":"0 CHanges.",
  "_comment From EpkDashboard":"0 CHanges.",
@@ -198,7 +199,7 @@
  "Reset my Password":"Réinitialiser mon mot de passe",
 
  "_comment From Components AuthRegistration LoginFormViewPage":"2 CHanges.",
- "password":"mot de passe",
+ "password":"Mot de passe",
  
  
  "_comment From Components AuthRegistration register":"7 CHanges.",
@@ -212,14 +213,14 @@
 
 
  "_comment From Components AuthRegistration registrationcopy":"1 CHanges. NOt done yet",
- "Confirm Password":"Confirmez le mot de passe",
+ "Confirm Password":"Confirmer mot de passe",
 
  "_comment From Components AuthRegistration registration":"1 CHanges.",
 
 
  "_comment From Components AuthRegistration RegistrationSuccess":"3 CHanges.",
  "Congratulations!":"Félicitations!",
- "Your account has been verified!":"Votre compte a été vérifié!",
+ "Your account has been verified!":"Votre compte a été créé.",
 
  "_comment From Components AuthRegistration ResetPassword":"0 CHanges.",
  "Reset your password":"réinitialisez votre mot de passe",
@@ -581,7 +582,7 @@
  "_comment From Components FilmMakeDashboard Settings Profile":"15 CHanges.",
  "Height":"Hauteur",
  "Eye Color":"Couleur des yeux",
- "Black":"Noir",
+ "Black": "Noir",
  "Brown":"Brun",
  "Blue":"Bleue",
  "Hazel":"Noisette",
@@ -828,9 +829,9 @@
 
  "First Name": "Prénom",
 
- "Last Name": "Nom de famille",
+ "Last Name": "Nom",
 
- "Email": "E-mail",
+ "Email": "Courriel",
 
  "Phone": "Téléphone",
 
@@ -939,7 +940,7 @@
 
  "10.Traitement": "10.Treatment",
 
- "Upload EPK": "Télécharger DPÉ ",
+ "Upload EPK": "Télécharger l'EPK",
 
  "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !",
 
@@ -1086,7 +1087,7 @@
 
    " reversed from your Dashboard.": " inversé depuis votre tableau de bord",
 
-   "Present your film like a PRO, for FREE with KinoKlik EPK!": "Présentez votre film comme un PRO, GRATUITEMENT avec KinoKlik EPK !",
+   "Present your film like a PRO, for FREE with KinoKlik EPK!": "Présentez votre film comme un PRO, GRATUITEMENT avec Dossier de Press Electronique de KinoKlik!",
 
    "Produced Year": "Année de Production",
 
@@ -1468,6 +1469,10 @@
    "You don't have any EPK approved.": "Vous n’avez aucun EPK approuvé",
 
    "You don't have any EPK refused.": "Vous n’avez aucun EPK refusé.",
+
+   "Phone no.": "Pas de téléphone",
+
+   "Search name ...": "Rechercher le nom...",
    
    "Error checking for existing invitation:":"Erreur lors de la vérification d'une invitation existante :",
 
@@ -1475,6 +1480,10 @@
 
    "SIGN UP":"S'INSCRIRE",
 
-   "Film Director":"Réalisateur"
+   "Film Director":"Réalisateur",
+
+   "You don’t have any EPK starred.": "Vous n’avez aucun EPK suivi.",
+
+   "You don't have any EPK following.": "Vous n’avez aucun EPK suivant."
 
 }

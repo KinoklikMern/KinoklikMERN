@@ -1,8 +1,15 @@
+
+@media only screen and (max-width: 600px) {
+  /* Styles for screens smaller than 600px */
+}
+
 .actor-container {
   width: 90%;
   background-color: white;
   margin: 0px 5%;
   border-radius: 40px;
+  max-width: 100%;
+  height: auto;
 }
 
 .actor-top-container {

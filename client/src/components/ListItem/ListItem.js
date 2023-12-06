@@ -3,11 +3,13 @@ import "./ListItem.css";
 import { useState, useEffect } from "react";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
+import {useTranslation} from 'react-i18next';
 
 export default function ListItem({ title, status, type, role }) {
+  const { t } = useTranslation();
   let production_type = type;
   if (type && type.length === 0) {
-    production_type = ["Movie", "TV Show", "Web Series", "Documentary"];
+    production_type = ["Movie", "TV Show", "Web Series", t("Documentary")];
   }
   const [fepks, setFepks] = useState([]);
   // const [actors, setActors] = useState([]);
