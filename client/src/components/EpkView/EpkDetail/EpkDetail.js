@@ -106,7 +106,7 @@ export default function EpkDetail({ epkInfo, handler }) {
           className="tw-block tw-my-4 tw-object-cover tw-shadow-[6px_6px_3px_#1E0039] md:tw-h-full"
         />
       </div>
-      <div className="tw-my-8 tw-grid tw-grid-cols-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4">
+      <div className="tw-my-8 tw-grid tw-grid-cols-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-">
         {epkInfo.crew.length > 0
           ? epkInfo.crew.map((person, index) => (
               <CrewAvatar

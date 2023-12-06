@@ -338,7 +338,7 @@ function FepkCoverForm() {
           backgroundColor: "white",
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
+        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5 tw-text-center'>
           <div className='col-3 tw-m-3'>
             {/* <Link className='navbar-brand text-headers-style' to='/home'>
               <img
@@ -348,33 +348,19 @@ function FepkCoverForm() {
                 className='navbar-logo'
               />
             </Link> */}
-            <h5
-              className='card-title'
-              style={{
-                color: "#1E0039",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
+            <h5 className='tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
               {t("Cover - Mandotory")}
             </h5>
           </div>
           <div className='col-3 tw-m-3'>
-            <h1
-              style={{ color: "#1E0039", fontWeight: "bold", fontSize: "25px" }}
-            >
+            <h5 className='tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
               {t("EPK Page Upload")}
-            </h1>
+            </h5>
           </div>
           <div className='col-3 tw-m-3'>
             <Link
-              to='/dashboard/epks' // filmMakerDashboard
-              style={{
-                color: "#1E0039",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              to='/dashboard/epks'
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
             >
               {t("EPK Dashboard")}
             </Link>
