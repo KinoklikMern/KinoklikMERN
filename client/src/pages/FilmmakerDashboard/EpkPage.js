@@ -7,6 +7,7 @@ import { getFepksByFilmmakerId } from "../../api/epks";
 import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 import { useTranslation } from "react-i18next";
+import EpkTextInfo from "../../components/FilmMakerDashboard/Epks/EpkTextInfo";
 
 export default function EpkPage() {
   const { t } = useTranslation();
@@ -37,7 +38,10 @@ export default function EpkPage() {
               <EmptyEpk />
             ) : (
               <>
-                <div className='tw-my-16 tw-mb-4 tw-flex tw-justify-center'>
+              <div>
+                  <EpkTextInfo />
+                </div>
+                <div className='tw-mb-4 tw-flex tw-justify-center'>
                   <NewEpkBtn />
                 </div>
                 <div className='tw-ml-16 tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 '>

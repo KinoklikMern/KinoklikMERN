@@ -10,6 +10,7 @@ import { approveRequest, refuseRequest } from "../../api/epks";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import NotificationTextInfo from "../../components/FilmMakerDashboard/Notifications/NotificationTextInfo";
 // import { FepkContext } from "../../context/FepkContext";
 
 export default function NotificationPage() {
@@ -101,6 +102,7 @@ export default function NotificationPage() {
 
           <Sidebar selectedTab='Notifications' />
         </div>
+        
         <div className='tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white md:tw-ml-16'>
           {loading ? (
             <LoadingSpin />
@@ -109,6 +111,7 @@ export default function NotificationPage() {
               <EmptyEpk />
             </div>
           ) : (
+            
             <div className='tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3'>
               <div className='tw-overflow-auto'>
                 {epkList?.map((epk, index) => (
@@ -124,6 +127,9 @@ export default function NotificationPage() {
                       });
                     }}
                   >
+                    <div>
+                  <NotificationTextInfo/>
+                </div> 
                     <NotificationEpkCard
                       epkInfo={epk}
                       imgIsSelected={selectedEpk === index ? true : false}
