@@ -138,28 +138,6 @@ export const SideProfileMenu = () => {
   }, [user]);
 
   const logout = () => {
-    // const currentUser = Cookies.get("user")
-    //   ? JSON.parse(Cookies.get("user"))
-    //   : null;
-
-    // // Cookies.set("user", null);
-    // Cookies.remove("user"); // Use remove instead of set to null
-    // // console.log(user);
-    // // console.log("log out");
-
-    // // Dispatching the USER_OFFLINE action
-    // if (currentUser && currentUser.id) {
-    //   // If using socket.io and you have a socket instance available
-    //   if (socket && socket.connected) {
-    //     // Inform the server of the logout
-    //     socket.emit("logout", currentUser.id);
-    //     // Disconnect the socket
-    //     socket.disconnect();
-    //   }
-    //   // console.log(`Dispatching USER_OFFLINE for user:`, currentUser.id);
-    //   // dispatch({ type: "USER_OFFLINE", payload: { userId: currentUser.id } });
-    // }
-
     const currentUser = JSON.parse(Cookies.get("user") || "null");
 
     if (currentUser && currentUser.id && socket) {
@@ -174,24 +152,20 @@ export const SideProfileMenu = () => {
     // Clear user data from cookies
     Cookies.remove("user");
 
-    dispatch({
-      type: "LOGOUT",
-      payload: null,
-    });
-    console.log("Logout actions dispatched.");
+    // Check if currentUser is not null before accessing its properties
+    if (currentUser && currentUser.id) {
+      dispatch({
+        type: "LOGOUT",
+        payload: null,
+      });
+      console.log("Logout actions dispatched.");
 
-    http.put(`/users/lastactive/${currentUser.id}`).then((response) => {
-      //console.log(response);
-    }); //Update last active time
-    // console.log(`Logout actions dispatched for user:`, currentUser.id);
-    // console.log(user);
+      http.put(`/users/lastactive/${currentUser.id}`).then((response) => {}); //Update last active time
+    }
+
     navigate("/");
   };
 
-  // console.log("sidemenu userId:", userId);
-  // console.log("sidemenu userInfo:", userInfo);
-  // console.log("sidemenu messageCount:", messageCount);
-  // console.log("sidemenu notificationCount:", notificationCount);
   return (
     <>
       <div className='tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-w-72 tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible'>
@@ -204,13 +178,6 @@ export const SideProfileMenu = () => {
                 className='tw-h-14 tw-w-14 tw-rounded-full tw-object-cover'
               />
             </div>
-            {/* <div className="tw-mx-4 tw-inline-block">
-              <FontAwesomeIcon
-                icon={faBars}
-                size="2xl"
-                style={{ color: "#fff" }}
-              />
-            </div> */}
           </div>
         </div>
         <div className='tw-flex tw-h-screen tw-flex-col tw-items-end tw-justify-center tw-gap-5'>
