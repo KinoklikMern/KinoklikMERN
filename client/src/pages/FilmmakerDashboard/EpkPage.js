@@ -23,10 +23,10 @@ export default function EpkPage() {
 
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]'>
-      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
+      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-center tw-text-white md:tw-justify-start md:tw-pl-24'>
         <p className='tw-text-4xl'>{t("Filmmaker Dashboard")}</p>
       </div>
-      <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
+      <div className='tw-flex tw-h-5/6 tw-flex-row md:tw-mx-8'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
           <Sidebar selectedTab='EPKs' />
         </div>
@@ -38,13 +38,13 @@ export default function EpkPage() {
               <EmptyEpk />
             ) : (
               <>
-              <div>
+                <div>
                   <EpkTextInfo />
                 </div>
-                <div className='tw-mb-4 tw-flex tw-justify-center'>
+                <div className='tw-mb-4 tw-flex tw-cursor-pointer tw-justify-center'>
                   <NewEpkBtn />
                 </div>
-                <div className='tw-ml-16 tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2  lg:tw-grid-cols-3 '>
+                <div className='tw-mx-auto tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 '>
                   {epkList.map((epk) => (
                     <EpkCard key={epk._id} EpkInfo={epk} />
                   ))}

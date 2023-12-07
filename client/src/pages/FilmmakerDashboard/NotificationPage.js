@@ -93,17 +93,17 @@ export default function NotificationPage() {
 
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]'>
-      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
+      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-center tw-text-white md:tw-justify-start md:tw-pl-24'>
         <p className='tw-text-4xl'>{t("Filmmaker Dashboard")}</p>
       </div>
-      <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
+      <div className='tw-flex tw-h-5/6 tw-flex-row md:tw-mx-8'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
           {/* <Sidebar selectedTab="Notifications" /> */}
 
           <Sidebar selectedTab='Notifications' />
         </div>
-        
-        <div className='tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white md:tw-ml-16'>
+
+        <div className='tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 md:tw-ml-16'>
           {loading ? (
             <LoadingSpin />
           ) : epkList.length === 0 ? (
@@ -111,7 +111,6 @@ export default function NotificationPage() {
               <EmptyEpk />
             </div>
           ) : (
-            
             <div className='tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3'>
               <div className='tw-overflow-auto'>
                 {epkList?.map((epk, index) => (
@@ -128,8 +127,8 @@ export default function NotificationPage() {
                     }}
                   >
                     <div>
-                  <NotificationTextInfo/>
-                </div> 
+                      <NotificationTextInfo />
+                    </div>
                     <NotificationEpkCard
                       epkInfo={epk}
                       imgIsSelected={selectedEpk === index ? true : false}

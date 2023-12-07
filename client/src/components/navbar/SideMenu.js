@@ -146,6 +146,7 @@ export const SideProfileMenu = () => {
       // Delay the disconnection slightly to ensure the logout event is processed
       setTimeout(() => {
         socket.disconnect(); // Disconnect the socket
+        console.log("Socket disconnected");
       }, 1000);
     }
 
@@ -160,7 +161,14 @@ export const SideProfileMenu = () => {
       });
       console.log("Logout actions dispatched.");
 
-      http.put(`/users/lastactive/${currentUser.id}`).then((response) => {}); //Update last active time
+      http
+        .put(`/users/lastactive/${currentUser.id}`)
+        .then((response) => {
+          console.log("Last active time updated:", response);
+        })
+        .catch((error) => {
+          console.error("Error updating last active time:", error);
+        });
     }
 
     navigate("/");

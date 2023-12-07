@@ -12,7 +12,7 @@ const HomeBottom = () => {
   const user = useSelector((state) => state.user);
   const [isShowMessage, setIsShowMessage] = useState(false);
   const navigate = useNavigate();
-  console.log(user);
+  // console.log(user);
   const clickHandler = () => {
     if (user?.role !== "Filmmaker") {
       setIsShowMessage(true);
