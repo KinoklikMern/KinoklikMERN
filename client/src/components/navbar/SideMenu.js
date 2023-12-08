@@ -122,7 +122,7 @@ export const SideProfileMenu = () => {
     if (user && user.id) {
       getUserById(user.id)
         .then((res) => {
-          console.log("User data:", res);
+          // console.log("User data:", res);
           setPicture(
             res.picture.startsWith("https")
               ? `${res.picture}`
