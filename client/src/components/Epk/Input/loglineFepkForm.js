@@ -169,12 +169,12 @@ function LoglineForm() {
         <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
           <div className='col-3 tw-m-3 tw-text-center'>
             <h2
-              className=''
-              style={{
-                color: "#1E0039",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'
+              // style={{
+              //   color: "#1E0039",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("EPK Dashboard")}
             </h2>
@@ -184,14 +184,14 @@ function LoglineForm() {
           </div>
           <div className='col-3 tw-m-3 tw-text-center'>
             <Link
-              className='col align-items-end'
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
               to={`/epk/${fepk.title}`}
-              style={{
-                color: "#1E0039",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              // style={{
+              //   color: "#1E0039",
+              //   textDecoration: "none",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("View EPK Page")}
             </Link>
@@ -324,23 +324,28 @@ function LoglineForm() {
                     </div>
                   )}
                 </div>
-              </div>
+              {/* Save Button */}
               <div
-                style={{
-                  height: "50px",
-                  width: "120px",
-                  marginLeft: "100%",
-                  marginTop: "20px",
-                }}
-              >
+              className="tw-flex tw-flex-1 tw-grid tw-gap-2 tw-flex tw-md-block tw-justify-end "
+        
+            style={{
+              // height: "50px",
+              // width: "120px",
+              // marginLeft: "80%",
+              marginTop: "20px",
+              }}
+              > 
                 {disabled === true ? (
+                  
                   <Button
                     disabled
                     style={{
+                      width: "120px",
                       boxShadow: "1px 2px 9px #311465",
                       color: "grey",
                       backgroundColor: "#ffffff",
                       fontWeight: "bold",
+                     
                     }}
                     type='outline-primary'
                     block
@@ -349,10 +354,13 @@ function LoglineForm() {
                   >
                     {t("Save")}
                   </Button>
+                  
                 ) : (
                   <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                  
+                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white '
                     style={{
+                      width: '120px',
                       boxShadow: "1px 2px 9px #311465",
                       fontWeight: "bold",
                     }}
@@ -363,7 +371,10 @@ function LoglineForm() {
                   >
                     {t("Save")}
                   </Button>
+                  
                 )}
+                </div>
+                
                 <Modal
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
@@ -398,6 +409,7 @@ function LoglineForm() {
                     </button>
                   </div>
                 </Modal>
+              
               </div>
             </form>
           </div>

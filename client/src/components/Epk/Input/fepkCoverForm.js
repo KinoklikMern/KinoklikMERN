@@ -592,6 +592,7 @@ function FepkCoverForm() {
                       </div>
                     </div>
                     <div className='row'>
+                       {/* Production Year*/}
                       <div className='col my-2'>
                         <input
                           style={{
@@ -612,6 +613,7 @@ function FepkCoverForm() {
                       </div>
                     </div>
                     <div className='row'>
+                      {/* Duration Minutes*/}
                       <div className='col my-2'>
                         <input
                           style={{
@@ -858,7 +860,7 @@ function FepkCoverForm() {
                   </h6>
                 </div>
               </div>
-              <div className="tw-flex tw-h-12 tw-w-24 tw-relative tw-ml-[73%] mt-4 "
+              <div className="tw-flex tw-h-12 tw-w-24 tw-relative tw-ml-[72%] mt-4 "
                 // style={{
                 //   height: "50px",
                 //   width: "100px",
