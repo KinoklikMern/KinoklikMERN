@@ -163,6 +163,7 @@ function App() {
               element={<UserDashboardFollowing />}
             />{" "}
             */}
+            <Route path="dashboard/saved" element={<DashboardSaved />} />
             <Route path="userdashboard/saved" element={<DashboardSaved />} />
             <Route
               path="userdashboard/requests"
