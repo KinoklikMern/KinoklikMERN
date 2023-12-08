@@ -60,12 +60,13 @@ export default function BasicMenu({ color }) {
           />{" "}
           {t("Project:")}
           <span
-            style={{
-              fontWeight: "bold",
-              margin: "2px 0 0 2px",
-              color: color,
-              fontSize: "25px",
-            }}
+          className="tw-text-center tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
+            // style={{
+            //   fontWeight: "bold",
+            //   margin: "2px 0 0 2px",
+            //   color: color,
+            //   fontSize: "25px",
+            // }}
           >
             {fepk.title}
           </span>

@@ -209,12 +209,12 @@ function SynopsisForm() {
         <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
           <div className='col-3 tw-m-3 tw-text-center'>
             <h2
-              className=''
-              style={{
-                color: "#1E0039",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
+              // style={{
+              //   color: "#1E0039",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("EPK Dashboard")}
             </h2>
@@ -224,14 +224,14 @@ function SynopsisForm() {
           </div>
           <div className='col-3 tw-m-3 tw-text-center'>
             <Link
-              className='col align-items-end'
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
               to={`/epk/${fepk.title}`}
-              style={{
-                color: "#1E0039",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              // style={{
+              //   color: "#1E0039",
+              //   textDecoration: "none",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("View EPK Page")}
             </Link>
@@ -245,7 +245,9 @@ function SynopsisForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ height: "500px" }}>
+          <div className='card-body' 
+          // style={{ height: "500px" }}
+          >
             <h5
               className='card-title '
               style={{ color: "#311465", fontWeight: "normal" }}
@@ -253,8 +255,10 @@ function SynopsisForm() {
               {t("Synopsis")}
             </h5>
             <form>
+               {/* First Row: Small, Medium, Long Synopsis + buttons/*/}
               <div className='row g-3'>
-                <div className='col my-4' style={{ position: "relative" }}>
+                {/* Short Synopsis */}
+                <div className='col-sm-12 col-md-6 col-lg-4  my-4' style={{ position: "relative" }}>
                   <textarea
                     style={{
                       height: "100px",
@@ -284,7 +288,8 @@ function SynopsisForm() {
                     {t("/160 characters")}
                   </span>
                 </div>
-                <div className='col my-4' style={{ position: "relative" }}>
+                  {/* Medium Synopsis + Button*/}
+                <div className='col-sm-12 col-md-6 col-lg-4 my-4' style={{ position: "relative" }}>
                   <textarea
                     style={{
                       height: "100px",
@@ -337,7 +342,8 @@ function SynopsisForm() {
                     </Button>
                   </div>
                 </div>
-                <div className='col my-4' style={{ position: "relative" }}>
+                 {/* Long Synopsis + Button*/}
+                <div className='col-sm-12 col-md-6 col-lg-4  my-4' style={{ position: "relative" }}>
                   <textarea
                     style={{
                       height: "100px",
@@ -391,8 +397,11 @@ function SynopsisForm() {
                   </div>
                 </div>
               </div>
+
+               {/* The second row with Upload Poster and images */}
               <div className='row g-3'>
-                <div className='col my-4'>
+                 {/* Upload Poster section #1*/}
+                <div className='col-sm-12 col-md-6 col-lg-4 my-4'>
                   <label
                     htmlFor='filePoster'
                     className='form-label text-dark'
@@ -438,7 +447,8 @@ function SynopsisForm() {
                     <h3>{t("No Image")}</h3>
                   )}
                 </div>
-                <div className='col my-4'>
+                 {/* Upload Poster section #2*/}
+                <div className='col-sm-12 col-md-6 col-lg-4 my-4'>
                   <label
                     htmlFor='filePoster'
                     className='form-label text-dark'
@@ -483,7 +493,8 @@ function SynopsisForm() {
                     <h3>{t("No Image")}</h3>
                   )}
                 </div>
-                <div className='col my-4'>
+                 {/* Upload Poster section #3*/}
+                <div className='col-sm-12 col-md-6 col-lg-4 my-4'>
                   <label
                     htmlFor='filePoster'
                     className='form-label text-dark'
@@ -541,18 +552,22 @@ function SynopsisForm() {
                     {message}
                   </div>
                 )}
+                  {/* Save Button */}
                 <div
+                className="tw-flex tw-flex-1 tw-grid tw-gap-2 tw-flex tw-md-block tw-justify-end "
                   style={{
-                    height: "50px",
-                    width: "120px",
-                    marginLeft: "100%",
-                    marginTop: "-15px",
+                    // height: "50px",
+                    // width: "120px",
+                    // marginLeft: "100%",
+                    marginTop: "20px",
+                    marginBottom:"15px"
                   }}
                 >
                   {disabled === true ? (
                     <Button
                       disabled
                       style={{
+                        width: "120px",
                         boxShadow: "1px 2px 9px #311465",
                         color: "grey",
                         backgroundColor: "#ffffff",
@@ -569,6 +584,7 @@ function SynopsisForm() {
                     <Button
                       className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                       style={{
+                        width: '120px',
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                       }}
