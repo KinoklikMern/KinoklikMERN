@@ -83,13 +83,14 @@ import DashboardEpks from "./pages/FilmmakerDashboard/EpkPage";
 import DashboardNotification from "./pages/FilmmakerDashboard/NotificationPage";
 import DashboardSettings from "./pages/FilmmakerDashboard/SettingPage";
 import DashboardChat from "./pages/FilmmakerDashboard/ChatPage";
-import DashboardFollowing from "./pages/FilmmakerDashboard/FollowingPage";
-import DashboardStarred from "./pages/FilmmakerDashboard/StarredPage";
-import DashboardWishToBuy from "./pages/FilmmakerDashboard/WishToBuyPage";
+// import DashboardFollowing from "./pages/FilmmakerDashboard/FollowingPage";
+// import DashboardStarred from "./pages/FilmmakerDashboard/StarredPage";
+// import DashboardWishToBuy from "./pages/FilmmakerDashboard/WishToBuyPage";
+import DashboardSaved from "./pages/FilmmakerDashboard/SavedPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 
-import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
-import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
+// import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
+// import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
 import UserDashboardSettings from "./pages/UserDashboard/SettingPage";
 import UserDashboardRequests from "./pages/UserDashboard/RequestsPage";
 import UserDashboardChat from "./pages/UserDashboard/ChatPage";
@@ -148,24 +149,25 @@ function App() {
             <Route path="dashboard/chat" element={<DashboardChat />} />
             <Route path="dashboard/settings" element={<DashboardSettings />} />
             <Route path="dashboard/chat/:userId" element={<DashboardChat />} />
-            <Route path="dashboard/starred" element={<DashboardStarred />} />
-            <Route
+            {/* <Route path="dashboard/starred" element={<DashboardStarred />} /> */}
+            {/* <Route
               path="dashboard/following"
               element={<DashboardFollowing />}
-            />
-            <Route
+            /> */}
+            {/* <Route
               path="dashboard/wishtobuy"
               element={<DashboardWishToBuy />}
-            />
-
-            <Route
+            /> */}
+            <Route path="dashboard/saved" element={<DashboardSaved />} />
+            {/* <Route
               path="userdashboard/starred"
               element={<UserDashboardStarred />}
             />
             <Route
               path="userdashboard/following"
               element={<UserDashboardFollowing />}
-            />
+            /> */}
+            <Route path="userdashboard/saved" element={<DashboardSaved />} />
             <Route
               path="userdashboard/requests"
               element={<UserDashboardRequests />}
