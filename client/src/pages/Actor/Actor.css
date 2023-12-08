@@ -377,10 +377,11 @@
 }
 
 .results-div {
-  margin-top: 0;
+  margin-top: 5px;
   padding: 5px;
   height: auto;
   min-height: 30px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
