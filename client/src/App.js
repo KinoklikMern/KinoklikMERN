@@ -18,17 +18,13 @@ import ResetPasswordPage from "./pages/login/ResetPasswordPage";
 import ResetPasswordSuccessPage from "./pages/login/ResetPasswordSuccessPage";
 
 // add by Tony
-import FilmMakerDashboard from "./pages/FlimMaker/filmMakerDashboard";
 import FilmMakerSelectedEpk from "./pages/FlimMaker/filmMakerSelectedEpk";
 // end
 
-import FilmMakerConnect from "./components/FilmMaker/filmMakerConnect";
-import FilmMakerNotifications from "./components/FilmMaker/filmMakerNotifications";
 import FilmMakerDashboardSecurity from "./components/FilmMaker/filmMakerDashboardSecurity";
 import FilmMakerDashboardSecurityCompany from "./components/FilmMaker/filmMakerDashboardSecurityCompany";
 import FilmMakerDashboardSecurityPassword from "./components/FilmMaker/filmMakerDashboardSecurityPassword";
 import FilmMakerDashboardSecurityAccount from "./components/FilmMaker/filmMakerDashboardSecurityAccount";
-import FilmMakerDashboardSecurityProfile from "./components/FilmMaker/filmMakerDashboardSecurityProfile";
 import Bookmark from "./pages/Bookmark";
 
 import ForFilmMakers from "./components/ForFilmMakers";
@@ -157,16 +153,16 @@ function App() {
             {/* <Route
               path="dashboard/wishtobuy"
               element={<DashboardWishToBuy />}
-            /> */}
-            <Route path="dashboard/saved" element={<DashboardSaved />} />
-            {/* <Route
+            />
+            <Route
               path="userdashboard/starred"
               element={<UserDashboardStarred />}
             />
             <Route
               path="userdashboard/following"
               element={<UserDashboardFollowing />}
-            /> */}
+            />{" "}
+            */}
             <Route path="userdashboard/saved" element={<DashboardSaved />} />
             <Route
               path="userdashboard/requests"
@@ -177,14 +173,11 @@ function App() {
               element={<UserDashboardSettings />}
             />
             <Route path="userdashboard/actor" element={<UploadActorPicCon />} />
-
             <Route path="userdashboard/chat" element={<UserDashboardChat />} />
-
             <Route
               path="userdashboard/chat/:userId"
               element={<UserDashboardChat />}
             />
-
             {/* AdminDashboard */}
             <Route
               path="admindashboard/main"
@@ -228,16 +221,9 @@ function App() {
             element={<ResetPasswordSuccessPage />}
           />
 
-          <Route path="filmMakerDashboard" element={<FilmMakerDashboard />} />
           <Route
             path="FilmMakerSelectedEpk"
             element={<FilmMakerSelectedEpk />}
-          />
-
-          <Route path="filmMakerConnect" element={<FilmMakerConnect />} />
-          <Route
-            path="FilmMakerNotifications"
-            element={<FilmMakerNotifications />}
           />
 
           <Route
@@ -256,10 +242,7 @@ function App() {
             path="filmMakerDashboardSecurityAccount"
             element={<FilmMakerDashboardSecurityAccount />}
           />
-          <Route
-            path="filmMakerDashboardSecurityProfile"
-            element={<FilmMakerDashboardSecurityProfile />}
-          />
+
           <Route path="bookmark" element={<Bookmark />} />
 
           <Route path="forFilmMakers" element={<ForFilmMakers />} />

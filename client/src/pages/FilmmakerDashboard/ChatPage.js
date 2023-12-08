@@ -27,7 +27,7 @@ export default function ChatPage() {
 
   return (
     <div className='tw-flex tw-h-screen tw-flex-col tw-bg-[#1E0039]'>
-      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
+      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-center tw-text-white md:tw-justify-start md:tw-pl-24'>
         <p className='tw-text-4xl'>{t("Filmmaker Dashboard")}</p>
       </div>
       <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>

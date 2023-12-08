@@ -33,6 +33,7 @@ function FepkCoverForm() {
   const [donateStripeValidationMessage, setDonateStripeValidationMessage] =
     useState("");
   const { t } = useTranslation();
+  
 
   // fetching user
   const user = useSelector((state) => state.user);
@@ -336,9 +337,10 @@ function FepkCoverForm() {
           width: "80%",
           borderRadius: "10px",
           backgroundColor: "white",
+        
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
+        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5 tw-text-center'>
           <div className='col-3 tw-m-3'>
             {/* <Link className='navbar-brand text-headers-style' to='/home'>
               <img
@@ -348,33 +350,19 @@ function FepkCoverForm() {
                 className='navbar-logo'
               />
             </Link> */}
-            <h5
-              className='card-title'
-              style={{
-                color: "#1E0039",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
+            <h5 className='tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
               {t("Cover - Mandotory")}
             </h5>
           </div>
           <div className='col-3 tw-m-3'>
-            <h1
-              style={{ color: "#1E0039", fontWeight: "bold", fontSize: "25px" }}
-            >
+            <h5 className='tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
               {t("EPK Page Upload")}
-            </h1>
+            </h5>
           </div>
           <div className='col-3 tw-m-3'>
             <Link
-              to='/filmMakerDashboard'
-              style={{
-                color: "#1E0039",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              to='/dashboard/epks'
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
             >
               {t("EPK Dashboard")}
             </Link>
@@ -382,29 +370,25 @@ function FepkCoverForm() {
         </div>
         <div
           style={{
-            marginLeft: "5%",
+            marginLeft: "7%",
             marginRight: "5%",
             color: "#311465",
             fontWeight: "normal",
           }}
         >
-          <div
-            className='card-body'
-            style={{
-              height: "auto",
-              marginLeft: "-1em",
-              marginRight: "-1rem",
-              marginBottom: "1%",
-              paddingBottom: "2%",
-            }}
-          >
-            <form className='row g-5'>
+          <div className="tw-card-body tw-h-auto tw--ml-4 tw--mr-4 tw-mb-1 tw-pb-2">
+            {/* Format of all the inputs from Title to Upload Trailer  */}
+            <form className='row '>
               <div className='col me-5'>
+                {/* First 2 columns*/}
                 <div className='row align-items-stretch'>
-                  <div className='col'>
-                    <div className='col mt-1 mb-5'>
+                  {/* The 1st column*/}
+                  <div className=' col-lg-6 '>
+                    {/* Title input */}
+                    <div className='col mt-1 mb-5 '> 
                       <input
                         style={{
+                          
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
@@ -425,6 +409,7 @@ function FepkCoverForm() {
                         {messageTitleYes}
                       </h6>
                     </div>
+                    {/* Log line */}
                     <div className='col my-1'>
                       <textarea
                         style={{
@@ -457,6 +442,7 @@ function FepkCoverForm() {
                         {t("/160 characters")}
                       </span>
                     </div>
+                     {/* Production (div inside the div)*/}
                     <div className='row' style={{ marginBottom: "-1.4rem" }}>
                       <div className='col my-2'>
                         <input
@@ -476,6 +462,7 @@ function FepkCoverForm() {
                         />
                       </div>
                     </div>
+                    {/* Distribution (div inside the div)*/}
                     <div className='row'>
                       <div className='col my-2'>
                         <input
@@ -496,8 +483,10 @@ function FepkCoverForm() {
                       </div>
                     </div>
                   </div>
-                  <div className='col'>
+                  {/* The 2nd column*/}
+                  <div className='col-lg-6'>
                     <div className='row'>
+                       {/* Budget*/}
                       <div className='col my-2'>
                         <select
                           style={{
@@ -524,6 +513,7 @@ function FepkCoverForm() {
                       </div>
                     </div>
                     <div className='row'>
+                      {/* Production type*/}
                       <div className='col my-2'>
                         <select
                           style={{
@@ -550,6 +540,7 @@ function FepkCoverForm() {
                       </div>
                     </div>
                     <div className='row' style={{ marginBottom: "3rem" }}>
+                      {/* Genre*/}
                       <div className='col my-2'>
                         <select
                           style={{
@@ -574,6 +565,7 @@ function FepkCoverForm() {
                           ))}
                         </select>
                       </div>
+                      {/* Status*/}
                       <div className='col my-2'>
                         <select
                           style={{
@@ -640,20 +632,24 @@ function FepkCoverForm() {
                       </div>
                     </div>
                   </div>
+                  {/* The end of the 2nd column)*/}
                 </div>
               </div>
+               {/* The 3rd column)*/}
+              
               <div
-                className='col'
+                className=' col-10  col-md-4 col-lg-6 m-1 ms-3'
                 style={{
                   boxShadow: "1px 2px 9px #311465",
                   borderRadius: "5px",
                 }}
               >
-                <div className='row gx-6'>
-                  <div className='col'>
+                <div className='row'>
+                  {/* Poster*/}
+                  <div className='col my-2'>
                     <label
                       htmlFor='filePoster'
-                      className='form-label text-dark'
+                      className='form-label text-dark '
                       style={{ fontSize: "25px" }}
                     >
                       <h4>{t("Upload Poster")}</h4>
@@ -697,7 +693,8 @@ function FepkCoverForm() {
                   </div>
                   <div className='col' style={{ height: "450px" }}>
                     <div className='row'>
-                      <div className='col'>
+                      {/* Banner*/}
+                      <div className='col my-2'>
                         <label
                           htmlFor='fileBanner'
                           className='form-label text-dark'
@@ -731,8 +728,10 @@ function FepkCoverForm() {
                         )}
                       </div>
                     </div>
+                    {/* Div for the trailer*/}
                     <div className='row'>
-                      <div className='col'>
+                      {/* Trailer*/}
+                      <div className='col my-2'>
                         <label
                           htmlFor='fileTrailer'
                           className='form-label text-dark'
@@ -761,10 +760,13 @@ function FepkCoverForm() {
                           <h1>{t("NO VIDEO UPLOADED")}</h1>
                         )}
                       </div>
+                      {/* End of the trailer*/}
                     </div>
                   </div>
                 </div>
               </div>
+           
+              
               <h6
                 style={{
                   color: "red",
@@ -856,13 +858,13 @@ function FepkCoverForm() {
                   </h6>
                 </div>
               </div>
-              <div
-                style={{
-                  height: "50px",
-                  width: "auto",
-                  marginLeft: "90%",
-                  marginTop: "-1%",
-                }}
+              <div className="tw-flex tw-h-12 tw-w-24 tw-relative tw-ml-[73%] mt-4 "
+                // style={{
+                //   height: "50px",
+                //   width: "100px",
+                //   marginLeft: "75%",
+                //   marginTop: "2%",
+                // }}
               >
                 {disabled === true ? (
                   <Button
@@ -896,7 +898,7 @@ function FepkCoverForm() {
                   </Button>
                 ) : (
                   <Button
-                    className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                    
                     style={{
                       boxShadow: "1px 2px 9px #311465",
                       fontWeight: "bold",

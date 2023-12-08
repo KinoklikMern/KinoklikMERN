@@ -25,6 +25,7 @@ import { getMoviesByActors } from "../../api/epks";
 import emptyBanner from "../../images/empty_banner.jpeg";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 
+
 export default function Actor(props) {
   const { t } = useTranslation();
   const [epkInfo, setEpkInfo] = useState({});
@@ -461,7 +462,7 @@ export default function Actor(props) {
                 type='text'
                 className='form-control shared-styles'
                 value={searchValue}
-                placeholder='Search name ...'
+                placeholder={t('Search name ...')}
                 onChange={handleSearch}
               />
               <div className='selected-filmmakers-display'>
