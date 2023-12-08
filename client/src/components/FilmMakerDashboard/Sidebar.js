@@ -1,21 +1,23 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
-import StarIcon1 from "../../images/icons/StarEmpty.svg";
-import StarWhiteIcon1 from "../../images/icons/StarFULL.svg";
-import PlusIcon from "../../images/icons/PlusEmpty.svg";
-import PlusWhiteIcon from "../../images/icons/PlusFULL.svg";
-import DollarIcon from "../../images/icons/DollarEmpty.svg";
-import DollarWhiteIcon from "../../images/icons/DollarFull.svg";
+// import StarIcon1 from "../../images/icons/StarEmpty.svg";
+// import StarWhiteIcon1 from "../../images/icons/StarFULL.svg";
+// import PlusIcon from "../../images/icons/PlusEmpty.svg";
+// import PlusWhiteIcon from "../../images/icons/PlusFULL.svg";
+// import DollarIcon from "../../images/icons/DollarEmpty.svg";
+// import DollarWhiteIcon from "../../images/icons/DollarFull.svg";
 import BellIcon from "../../images/icons/bellEmpty.svg";
 import BellWhiteIcon from "../../images/icons/bellFull.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
 import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
 import MessageIcon from "../../images/icons/message.svg";
 import MessageWhiteIcon from "../../images/icons/message-white.svg";
+import SavedIcon from "../../images/Save.ico";
+import SavedWhiteIcon from "../../images/icons/save.svg";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useSelector } from "react-redux";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar(props) {
   const { t } = useTranslation();
@@ -53,7 +55,7 @@ export default function Sidebar(props) {
   // console.log("notificationCount", notificationCount);
   const sideBarList = [
     {
-      Title: (t("EPKs")),
+      Title: t("EPKs"),
       DefaultIcon: StarIcon,
       ActiveIcon: StartWhiteIcon,
       href: "/dashboard/epks",
@@ -63,7 +65,7 @@ export default function Sidebar(props) {
       },
     },
     {
-      Title: (t("Notifications")),
+      Title: t("Notifications"),
       DefaultIcon: BellIcon,
       ActiveIcon: BellWhiteIcon,
       href: "/dashboard/notifications",
@@ -73,7 +75,7 @@ export default function Sidebar(props) {
       },
     },
     {
-      Title: (t("Messages")),
+      Title: t("Messages"),
       DefaultIcon: MessageIcon,
       ActiveIcon: MessageWhiteIcon,
       href: "/dashboard/chat",
@@ -83,31 +85,41 @@ export default function Sidebar(props) {
       },
     },
 
+    // {
+    //   Title: t("Starred"),
+    //   DefaultIcon: StarIcon1,
+    //   ActiveIcon: StarWhiteIcon1,
+    //   href: "/dashboard/starred",
+    //   size: {
+    //     width: 50,
+    //     height: 50,
+    //   },
+    // },
+    // {
+    //   Title: t("Following"),
+    //   DefaultIcon: PlusIcon,
+    //   ActiveIcon: PlusWhiteIcon,
+    //   href: "/dashboard/following",
+    //   size: {
+    //     width: 50,
+    //     height: 50,
+    //   },
+    // },
+    // {
+    //   Title: t("WishToBuy"),
+    //   DefaultIcon: DollarIcon,
+    //   ActiveIcon: DollarWhiteIcon,
+    //   href: "/dashboard/wishtobuy",
+    //   size: {
+    //     width: 40,
+    //     height: 40,
+    //   },
+    // },
     {
-      Title: (t("Starred")),
-      DefaultIcon: StarIcon1,
-      ActiveIcon: StarWhiteIcon1,
-      href: "/dashboard/starred",
-      size: {
-        width: 50,
-        height: 50,
-      },
-    },
-    {
-      Title: (t("Following")),
-      DefaultIcon: PlusIcon,
-      ActiveIcon: PlusWhiteIcon,
-      href: "/dashboard/following",
-      size: {
-        width: 50,
-        height: 50,
-      },
-    },
-    {
-      Title: (t("WishToBuy")),
-      DefaultIcon: DollarIcon,
-      ActiveIcon: DollarWhiteIcon,
-      href: "/dashboard/wishtobuy",
+      Title: t("Saved"),
+      DefaultIcon: SavedIcon,
+      ActiveIcon: SavedWhiteIcon,
+      href: "/dashboard/saved",
       size: {
         width: 40,
         height: 40,
@@ -125,7 +137,7 @@ export default function Sidebar(props) {
     //   },
     // },
     {
-      Title: (t("Settings")),
+      Title: t("Settings"),
       DefaultIcon: SettingsIcon,
       ActiveIcon: SettingsWhiteIcon,
       href: "/dashboard/settings",
@@ -136,15 +148,12 @@ export default function Sidebar(props) {
     },
   ];
 
-  // console.log("filmmaker", filmmakerInfo);
-  // console.log("userId", userId);
-  // console.log("messageCount", messageCount);
   return (
     <>
       {/* <nav className="tw-hidden tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16 md:tw-flex"> */}
       {/* <nav className="overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between tw-gap-3 tw-space-y-1 tw-rounded-lg tw-bg-[#fff] tw-py-4 md:tw-flex"> */}
       <nav
-        className={`overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between tw-gap-3 tw-space-y-1 tw-rounded-lg tw-bg-[#fff] tw-py-4 md:tw-flex ${
+        className={`overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between  tw-space-y-1 tw-rounded-lg tw-bg-[#fff] tw-py-4 md:tw-flex ${
           isScrollable ? "tw-w-20" : ""
         }`}
         ref={sidebarRef}
