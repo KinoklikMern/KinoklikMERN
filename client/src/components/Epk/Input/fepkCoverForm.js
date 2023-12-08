@@ -33,7 +33,6 @@ function FepkCoverForm() {
   const [donateStripeValidationMessage, setDonateStripeValidationMessage] =
     useState("");
   const { t } = useTranslation();
-  
 
   // fetching user
   const user = useSelector((state) => state.user);
@@ -337,7 +336,6 @@ function FepkCoverForm() {
           width: "80%",
           borderRadius: "10px",
           backgroundColor: "white",
-        
         }}
       >
         <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5 tw-text-center'>
@@ -350,19 +348,19 @@ function FepkCoverForm() {
                 className='navbar-logo'
               />
             </Link> */}
-            <h5 className='tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
+            <h5 className='tw-text-base tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
               {t("Cover - Mandotory")}
             </h5>
           </div>
           <div className='col-3 tw-m-3'>
-            <h5 className='tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
+            <h5 className='tw-text-base tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl'>
               {t("EPK Page Upload")}
             </h5>
           </div>
           <div className='col-3 tw-m-3'>
             <Link
               to='/dashboard/epks'
-              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
+              className='tw-text-base tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
             >
               {t("EPK Dashboard")}
             </Link>
@@ -376,19 +374,18 @@ function FepkCoverForm() {
             fontWeight: "normal",
           }}
         >
-          <div className="tw-card-body tw-h-auto tw--ml-4 tw--mr-4 tw-mb-1 tw-pb-2">
+          <div className='tw-card-body tw-mb-1 tw-flex tw-h-auto tw-items-center tw-justify-center tw-pb-2'>
             {/* Format of all the inputs from Title to Upload Trailer  */}
-            <form className='row '>
-              <div className='col me-5'>
+            <form className='row tw-container'>
+              <div className='col'>
                 {/* First 2 columns*/}
-                <div className='row align-items-stretch'>
+                <div className='row'>
                   {/* The 1st column*/}
-                  <div className=' col-lg-6 '>
+                  <div className='col-lg-6'>
                     {/* Title input */}
-                    <div className='col mt-1 mb-5 '> 
+                    <div className='col mb-5 '>
                       <input
                         style={{
-                          
                           height: "30px",
                           width: "100%",
                           borderRadius: "5px",
@@ -396,7 +393,7 @@ function FepkCoverForm() {
                           boxShadow: "1px 2px 9px #311465",
                           textAlign: "left",
                         }}
-                        className='form-control m-10'
+                        className='form-control'
                         placeholder={t("Title")}
                         onChange={handleInputChange}
                         value={epkCoverData.title}
@@ -435,16 +432,16 @@ function FepkCoverForm() {
                           fontSize: "15px",
                           display: "flex",
                           justifyContent: "right",
-                          marginBottom: "1rem",
+                          marginBottom: "0.8rem",
                         }}
                       >
                         {characterLength?.logLine_short}
                         {t("/160 characters")}
                       </span>
                     </div>
-                     {/* Production (div inside the div)*/}
-                    <div className='row' style={{ marginBottom: "-1.4rem" }}>
-                      <div className='col my-2'>
+                    {/* Production (div inside the div)*/}
+                    <div className='row'>
+                      <div className='col'>
                         <input
                           style={{
                             height: "30px",
@@ -454,7 +451,7 @@ function FepkCoverForm() {
                             textAlign: "left",
                             fontSize: "14px",
                           }}
-                          className='form-control m-10 mb-4'
+                          className='form-control tw-mb-3'
                           placeholder={t("Production Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.productionCo}
@@ -464,7 +461,7 @@ function FepkCoverForm() {
                     </div>
                     {/* Distribution (div inside the div)*/}
                     <div className='row'>
-                      <div className='col my-2'>
+                      <div className='col'>
                         <input
                           style={{
                             height: "30px",
@@ -474,7 +471,7 @@ function FepkCoverForm() {
                             textAlign: "left",
                             fontSize: "14px",
                           }}
-                          className='form-control m-10 '
+                          className='form-control mt-1'
                           placeholder={t("Distribution Company Name")}
                           onChange={handleInputChange}
                           value={epkCoverData.distributionCo}
@@ -485,9 +482,9 @@ function FepkCoverForm() {
                   </div>
                   {/* The 2nd column*/}
                   <div className='col-lg-6'>
-                    <div className='row'>
-                       {/* Budget*/}
-                      <div className='col my-2'>
+                    <div className='row tw-mt-4 lg:tw-mt-0'>
+                      {/* Budget*/}
+                      <div className='col'>
                         <select
                           style={{
                             height: "30px",
@@ -635,24 +632,23 @@ function FepkCoverForm() {
                   {/* The end of the 2nd column)*/}
                 </div>
               </div>
-               {/* The 3rd column)*/}
-              
+              {/* The 3rd column)*/}
+
               <div
-                className=' col-10  col-md-4 col-lg-6 m-1 ms-3'
+                className='row tw-mx-auto'
                 style={{
                   boxShadow: "1px 2px 9px #311465",
                   borderRadius: "5px",
                 }}
               >
-                <div className='row'>
+                <div className='row tw-mx-auto'>
                   {/* Poster*/}
                   <div className='col my-2'>
                     <label
                       htmlFor='filePoster'
                       className='form-label text-dark '
-                      style={{ fontSize: "25px" }}
                     >
-                      <h4>{t("Upload Poster")}</h4>
+                      <h4 className='md:tw-text-2xl'>{t("Upload Poster")}</h4>
                     </label>
                     <input
                       style={{ fontSize: "15px" }}
@@ -698,9 +694,10 @@ function FepkCoverForm() {
                         <label
                           htmlFor='fileBanner'
                           className='form-label text-dark'
-                          style={{ fontSize: "25px" }}
                         >
-                          <h4>{t("Upload Banner")}</h4>
+                          <h4 className='md:tw-text-2xl'>
+                            {t("Upload Banner")}
+                          </h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -735,9 +732,10 @@ function FepkCoverForm() {
                         <label
                           htmlFor='fileTrailer'
                           className='form-label text-dark'
-                          style={{ fontSize: "25px" }}
                         >
-                          <h4>{t("Upload Trailer")}</h4>
+                          <h4 className='md:tw-text-2xl'>
+                            {t("Upload Trailer")}
+                          </h4>
                         </label>
                         <input
                           style={{ fontSize: "15px" }}
@@ -757,7 +755,9 @@ function FepkCoverForm() {
                             controls
                           ></video>
                         ) : (
-                          <h1>{t("NO VIDEO UPLOADED")}</h1>
+                          <h1 className='md:tw-text-2xl'>
+                            {t("NO VIDEO UPLOADED")}
+                          </h1>
                         )}
                       </div>
                       {/* End of the trailer*/}
@@ -765,8 +765,7 @@ function FepkCoverForm() {
                   </div>
                 </div>
               </div>
-           
-              
+
               <h6
                 style={{
                   color: "red",
@@ -776,155 +775,143 @@ function FepkCoverForm() {
               >
                 {submitMessage}
               </h6>
-              <div
-                className='row'
-                style={{
-                  marginTop: "-2%",
-                  paddingRight: "25%",
-                  paddingLeft: "3%",
-                }}
-              >
-                <div>
-                  <Tooltip
-                    title={t(
-                      "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK."
-                    )}
-                  >
-                    <span>
-                      {" "}
-                      <InfoCircleFilled />
-                    </span>
-                  </Tooltip>
-                </div>
-                <div className='col'>
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      paddingLeft: "90px",
-                      backgroundImage: `url(${paypalImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "left",
-                      backgroundSize: "80px 60px",
-                    }}
-                    className='form-control'
-                    defaultValue={epkCoverData.DonatePayPal_url}
-                    placeholder='https://www.paypal.com/mymovie'
-                    onChange={handleInputChange}
-                    name='DonatePayPal_url'
-                  />
-                  <h6 style={{ color: "red", fontSize: "1rem" }}>
-                    {donatePayPalValidationMessage && (
-                      <span
-                        className='validation-message'
-                        style={{ color: "red", fontSize: "1rem" }}
-                      >
-                        {donatePayPalValidationMessage}
+              <div className='tw-w-full'>
+                <div className='row tw-flex tw-items-center tw-justify-center'>
+                  <div>
+                    <Tooltip
+                      title={t(
+                        "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK."
+                      )}
+                    >
+                      <span>
+                        {" "}
+                        <InfoCircleFilled />
                       </span>
-                    )}
-                  </h6>
-                </div>
-                <div className='col'>
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      paddingLeft: "90px",
-                      backgroundImage: `url(${stripImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "left",
-                      backgroundSize: "80px 40px",
-                    }}
-                    className='form-control'
-                    defaultValue={epkCoverData.DonateStripe_url}
-                    placeholder='https://www.stripe.com/mymovie'
-                    onChange={handleInputChange}
-                    name='DonateStripe_url'
-                  />
-                  <h6 style={{ color: "red", fontSize: "1rem" }}>
-                    {donateStripeValidationMessage && (
-                      <span
-                        className='validation-message'
-                        style={{ color: "red", fontSize: "1rem" }}
-                      >
-                        {donateStripeValidationMessage}
-                      </span>
-                    )}
-                  </h6>
+                    </Tooltip>
+                  </div>
+                  <div className='col'>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${paypalImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 60px",
+                      }}
+                      className='form-control'
+                      defaultValue={epkCoverData.DonatePayPal_url}
+                      placeholder='https://www.paypal.com/mymovie'
+                      onChange={handleInputChange}
+                      name='DonatePayPal_url'
+                    />
+                    <h6 style={{ color: "red", fontSize: "1rem" }}>
+                      {donatePayPalValidationMessage && (
+                        <span
+                          className='validation-message'
+                          style={{ color: "red", fontSize: "1rem" }}
+                        >
+                          {donatePayPalValidationMessage}
+                        </span>
+                      )}
+                    </h6>
+                  </div>
+                  <div className='col'>
+                    <input
+                      style={{
+                        height: "30px",
+                        width: "100%",
+                        borderRadius: "5px",
+                        boxShadow: "1px 2px 9px #311465",
+                        paddingLeft: "90px",
+                        backgroundImage: `url(${stripImage})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "left",
+                        backgroundSize: "80px 40px",
+                      }}
+                      className='form-control'
+                      defaultValue={epkCoverData.DonateStripe_url}
+                      placeholder='https://www.stripe.com/mymovie'
+                      onChange={handleInputChange}
+                      name='DonateStripe_url'
+                    />
+                    <h6 style={{ color: "red", fontSize: "1rem" }}>
+                      {donateStripeValidationMessage && (
+                        <span
+                          className='validation-message'
+                          style={{ color: "red", fontSize: "1rem" }}
+                        >
+                          {donateStripeValidationMessage}
+                        </span>
+                      )}
+                    </h6>
+                  </div>
                 </div>
               </div>
-              <div className="tw-flex tw-h-12 tw-w-24 tw-relative tw-ml-[73%] mt-4 "
-                // style={{
-                //   height: "50px",
-                //   width: "100px",
-                //   marginLeft: "75%",
-                //   marginTop: "2%",
-                // }}
-              >
-                {disabled === true ? (
-                  <Button
-                    disabled
-                    style={{
-                      boxShadow: "1px 2px 9px #311465",
-                      color: "grey",
-                      backgroundColor: "#ffffff",
-                      fontWeight: "bold",
-                    }}
-                    type='outline-primary'
-                    block
-                    onClick={handleSaveClick}
-                    value='save'
-                  >
-                    {isUploading ? (
-                      <div
-                        className='spinner'
-                        style={{
-                          border: "4px solid rgba(0, 0, 0, 0.1)",
-                          borderTop: "4px solid blue",
-                          borderRadius: "50%",
-                          width: "20px",
-                          height: "20px",
-                          animation: "spin 1s linear infinite",
-                        }}
-                      ></div>
-                    ) : (
-                      t("save")
-                    )}
-                  </Button>
-                ) : (
-                  <Button
-                    
-                    style={{
-                      boxShadow: "1px 2px 9px #311465",
-                      fontWeight: "bold",
-                    }}
-                    type='outline-primary'
-                    block
-                    onClick={saveEpkCover}
-                    value='save'
-                  >
-                    {isUploading ? (
-                      <div
-                        className='spinner'
-                        style={{
-                          border: "4px solid rgba(0, 0, 0, 0.1)",
-                          borderTop: "4px solid blue",
-                          borderRadius: "50%",
-                          width: "20px",
-                          height: "20px",
-                          animation: "spin 1s linear infinite",
-                        }}
-                      ></div>
-                    ) : (
-                      t("save")
-                    )}
-                  </Button>
-                )}
+              <div className='tw-flex tw-w-full tw-justify-end'>
+                <div className='tw-flex tw-h-12 tw-w-24 tw-items-center'>
+                  {disabled === true ? (
+                    <Button
+                      disabled
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        color: "grey",
+                        backgroundColor: "#ffffff",
+                        fontWeight: "bold",
+                      }}
+                      type='outline-primary'
+                      block
+                      onClick={handleSaveClick}
+                      value='save'
+                    >
+                      {isUploading ? (
+                        <div
+                          className='spinner'
+                          style={{
+                            border: "4px solid rgba(0, 0, 0, 0.1)",
+                            borderTop: "4px solid blue",
+                            borderRadius: "50%",
+                            width: "20px",
+                            height: "20px",
+                            animation: "spin 1s linear infinite",
+                          }}
+                        ></div>
+                      ) : (
+                        t("save")
+                      )}
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{
+                        boxShadow: "1px 2px 9px #311465",
+                        fontWeight: "bold",
+                      }}
+                      type='outline-primary'
+                      block
+                      onClick={saveEpkCover}
+                      value='save'
+                    >
+                      {isUploading ? (
+                        <div
+                          className='spinner'
+                          style={{
+                            border: "4px solid rgba(0, 0, 0, 0.1)",
+                            borderTop: "4px solid blue",
+                            borderRadius: "50%",
+                            width: "20px",
+                            height: "20px",
+                            animation: "spin 1s linear infinite",
+                          }}
+                        ></div>
+                      ) : (
+                        t("save")
+                      )}
+                    </Button>
+                  )}
+                </div>
               </div>
             </form>
           </div>
