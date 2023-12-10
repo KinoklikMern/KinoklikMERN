@@ -199,7 +199,6 @@ export default function EpkReport({ epkInfo }) {
                       }
                       type='text'
                       value='Spam'
-                      onhover='tw-color-red-500'
                       onClick={() => chooseReason("Spam")}
                       readOnly
                     ></input>
@@ -280,7 +279,7 @@ export default function EpkReport({ epkInfo }) {
                   </div>
 
                   <div className={style.inputContainer}>
-                    {!chosen4 && <label for='Other'>Other: </label>}
+                    {!chosen4 && <label htmlFor='Other'>Other: </label>}
                     <input
                       className={
                         chosen4 === true ? style.selected : style.comment

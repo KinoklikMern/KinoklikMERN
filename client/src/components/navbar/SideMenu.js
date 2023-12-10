@@ -60,20 +60,6 @@ export const SideProfileMenu = () => {
       hoverIcon: <SettingPurpleIcon />,
       display: true,
     },
-    // {
-    //   name: "My Dashboard",
-    //   url: `${
-    //     user.role === "Admin"
-    //       ? "admindashboard/main"
-    //       : user.role === "Filmmaker"
-    //       ? "/dashboard/epks"
-    //       : user.role === "Actor"
-    //       ? "/userdashboard/actor"
-    //       : "/userdashboard/starred"
-    //   }`,
-    //   defaultIcon: <DashbordDefaultIcon />,
-    //   hoverIcon: <DashbordPurpleIcon />,
-    // },
     {
       name: t("Notifications"),
       url: "/dashboard/notifications",
@@ -105,18 +91,9 @@ export const SideProfileMenu = () => {
       display: true,
     },
   ];
-  // const filteredMenuList =
-  //   user?.role !== "Filmmaker" ? menuList.slice(1) : menuList;
 
   // Filter menu based on display property
   const filteredMenuList = menuList.filter((menu) => menu.display);
-
-  // const picture = user
-  //   ? user.picture ===
-  //     "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-  //     ? "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
-  //     : `${process.env.REACT_APP_AWS_URL}/${user.picture}`
-  //   : null;
 
   useEffect(() => {
     if (user && user.id) {
@@ -139,6 +116,8 @@ export const SideProfileMenu = () => {
 
   const logout = () => {
     const currentUser = JSON.parse(Cookies.get("user") || "null");
+
+    console.log(currentUser);
 
     if (currentUser && currentUser.id && socket) {
       console.log("emit logout");
@@ -171,6 +150,7 @@ export const SideProfileMenu = () => {
         });
     }
 
+    console.log("logout button clicked");
     navigate("/");
   };
 
