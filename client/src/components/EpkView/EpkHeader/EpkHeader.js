@@ -39,27 +39,21 @@ export default function EpkHeader({ epkInfo }) {
 
   useEffect(() => {
     const fetchAndSumActorFollowers = async () => {
-      //Initial followers number is nubem of followers of film creator
-      let totalFacebookFollowers = parseInt(
-        epkInfo.film_maker.facebook_followers,
-        10
-      );
-      let totalInstagramFollowers = parseInt(
-        epkInfo.film_maker.instagram_followers,
-        10
-      );
-      let totalTwitterFollowers = parseInt(
-        epkInfo.film_maker.twitter_followers,
-        10
-      );
+      let totalFacebookFollowers =
+        parseInt(epkInfo.film_maker.facebook_followers, 10) || 0;
+      let totalInstagramFollowers =
+        parseInt(epkInfo.film_maker.instagram_followers, 10) || 0;
+      let totalTwitterFollowers =
+        parseInt(epkInfo.film_maker.twitter_followers, 10) || 0;
 
-      const actorPromises = epkInfo.actors.map(async (actor) => {
+      // Iterate through each actor in the actors array
+      for (const actor of epkInfo.actors) {
         try {
           const res = await getActorFollowersNumber(actor._id);
-          totalFacebookFollowers += parseInt(res.facebook, 10);
-          totalInstagramFollowers += parseInt(res.instagram, 10);
-          totalTwitterFollowers += parseInt(res.twitter, 10);
-          console.log(res.facebook);
+          // Update total followers for each platform
+          totalFacebookFollowers += parseInt(res.facebook, 10) || 0;
+          totalInstagramFollowers += parseInt(res.instagram, 10) || 0;
+          totalTwitterFollowers += parseInt(res.twitter, 10) || 0;
         } catch (error) {
           console.error(
             "Failed to fetch followers for actor",
@@ -67,11 +61,9 @@ export default function EpkHeader({ epkInfo }) {
             error
           );
         }
-      });
+      }
 
-      await Promise.all(actorPromises);
-
-      // Once all promises are resolved, update the state
+      // Update state once all actor followers are fetched
       setSocialMediaFollowerTotalNum(
         formatCompactNumber(
           totalFacebookFollowers +
@@ -118,17 +110,17 @@ export default function EpkHeader({ epkInfo }) {
     }
   }
   return (
-    <div className="tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row">
-      <div className="tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-6">
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
+    <div className='tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row'>
+      <div className='tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-6'>
+        <span className='tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl'>
           {t("Total Audience Reach")}
         </span>
-        <img src={Audience} alt="audience icon" className="tw-h-10 tw-w-10" />
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
+        <img src={Audience} alt='audience icon' className='tw-h-10 tw-w-10' />
+        <span className='tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl'>
           {socialMediafollowerTotalNum}
         </span>
       </div>
-      <div className="tw-mx-auto tw-mt-4 tw-flex tw-justify-between tw-gap-5 md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 md:tw-gap-10">
+      <div className='tw-mx-auto tw-mt-4 tw-flex tw-justify-between tw-gap-5 md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 md:tw-gap-10'>
         {socialMediasList?.map((media, index) => (
           <SocialMedia
             key={index}
