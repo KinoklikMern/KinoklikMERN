@@ -9,7 +9,12 @@ import { NotificationContext } from "../../../context/NotificationContext";
 import { useTranslation } from "react-i18next";
 
 let socket, selectedChatCompare;
-export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
+export default function MessageBox({
+  fetchAgain,
+  setFetchAgain,
+  userId,
+  onBackToChatList,
+}) {
   const { t } = useTranslation();
   const user = useSelector((state) => state.user);
   const [messages, setMessages] = useState([]);
@@ -171,6 +176,20 @@ export default function MessageBox({ fetchAgain, setFetchAgain, userId }) {
 
       <div className='no-scrollbar tw-flex tw-h-5/6 tw-flex-col tw-overflow-auto'>
         {/* in come message */}
+
+        <button
+          onClick={onBackToChatList}
+          className='tw-bg-transparent tw-text-midnight hover:tw-text-gray-600 md:tw-hidden'
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            height='20'
+            width='20'
+            viewBox='0 0 512 512'
+          >
+            <path d='M459.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4L288 214.3V256v41.7L459.5 440.6zM256 352V256 128 96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160C4.2 237.5 0 246.5 0 256s4.2 18.5 11.5 24.6l192 160c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V352z' />
+          </svg>
+        </button>
 
         {messages?.map((message) => (
           <div
