@@ -204,31 +204,31 @@ export default function SavedPage() {
   };
 
   return (
-    <div className="tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]">
-      <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
+    <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
+      <div className='tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white'>
         {userRole === "Filmmaker" || userRole === "FILM_MAKER" ? (
-          <p className="tw-text-4xl">{t("Filmmaker Dashboard")}</p>
+          <p className='tw-text-4xl'>{t("Filmmaker Dashboard")}</p>
         ) : (
-          <p className="tw-text-4xl">
+          <p className='tw-text-4xl'>
             {userRole} {t("Dashboard")}
           </p>
         )}
       </div>
-      <div className="tw-flex tw-h-5/6 tw-flex-row md:tw-mx-8">
-        <div className="tw-mt-12 tw-h-5/6 md:tw-ml-16">
+      <div className='tw-flex tw-h-5/6 tw-flex-row md:tw-mx-8'>
+        <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
           {userRole === "Filmmaker" || userRole === "FILM_MAKER" ? (
-            <Sidebar selectedTab="Saved" />
+            <Sidebar selectedTab='Saved' />
           ) : (
-            <ActorSidebar selectedTab="Saved" role={userRole} />
+            <ActorSidebar selectedTab='Saved' role={userRole} />
           )}
         </div>
-        <div className="tw-scrollbar-w-36 tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar tw-scrollbar-track-gray-500  tw-scrollbar-thumb-[#1E0039] md:tw-ml-16">
-          <div className="tw-flex tw-h-1/6 tw-w-full tw-flex-col tw-items-center tw-justify-center">
-            <div className="tw-flex tw-w-full tw-justify-between">
-              <div className="tw-flex tw-h-9 tw-w-2/5 tw-items-center tw-justify-start tw-pl-2 tw-text-sm tw-text-[#1E0039] md:tw-text-base">
+        <div className='tw-scrollbar-w-36 tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-6 tw-scrollbar tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]  md:tw-ml-16 md:tw-p-4'>
+          <div className='tw-flex tw-h-1/6 tw-w-full tw-flex-col tw-items-center tw-justify-center'>
+            <div className='tw-flex tw-w-full tw-justify-between'>
+              <div className='tw-flex tw-h-9 tw-w-2/5 tw-items-center tw-justify-start tw-pl-2 tw-text-sm tw-text-[#1E0039] md:tw-text-base'>
                 Find all the film EPKs you've saved here.
               </div>
-              <div className="tw-flex tw-h-9 tw-w-3/5 tw-items-center tw-justify-center  tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]">
+              <div className='tw-flex tw-h-9 tw-w-3/5 tw-items-center tw-justify-center  tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
                 <div
                   className={`${
                     itemFilter === 0
@@ -253,10 +253,9 @@ export default function SavedPage() {
             </div>
             {itemFilter === 0 ? (
               // Film EPKs filter
-              <div className="tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row">
-                <div className="md:tw-w-1/6"></div>
-                <div className="md:tw-w-2/6">
-                  <div className="tw-mb-2 tw-flex tw-h-7  tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]">
+              <div className='tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row'>
+                <div className='md:tw-w-3/6'>
+                  <div className='tw-mb-2 tw-flex tw-h-7  tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
                     <button
                       className={`${
                         typeFilter === 0
@@ -279,7 +278,7 @@ export default function SavedPage() {
                         src={
                           typeFilter === 1 ? StarWhiteIcon : StarMidnightIcon
                         }
-                        alt="Star"
+                        alt='Star'
                         style={{
                           width: 22,
                           height: 22,
@@ -297,12 +296,12 @@ export default function SavedPage() {
                     >
                       <img
                         src={typeFilter === 2 ? PlusWhiteIcon : PlusIcon}
-                        alt="Plus"
+                        alt='Plus'
                         style={{
                           width: 20,
                           height: 20,
                         }}
-                        className="tw-mt-0.5"
+                        className='tw-mt-0.5'
                       />
                     </button>
                     <button
@@ -315,18 +314,18 @@ export default function SavedPage() {
                     >
                       <img
                         src={typeFilter === 3 ? DollarWhiteIcon : DollarIcon}
-                        alt="Dollar"
+                        alt='Dollar'
                         style={{
                           width: 18,
                           height: 18,
                         }}
-                        className="tw-scale-75"
+                        className='tw-scale-75'
                       />
                     </button>
                   </div>
                 </div>
-                <div className="md:tw-w-3/6">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between  tw-rounded-xl  tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6 ">
+                <div className='md:tw-w-3/6'>
+                  <div className='tw-mb-2 tw-flex tw-h-7 tw-justify-between  tw-rounded-xl  tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6 '>
                     <button
                       className={`${
                         productionFilter === 0
@@ -372,10 +371,10 @@ export default function SavedPage() {
               </div>
             ) : (
               // Actors Filter
-              <div className="tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row">
-                <div className="md:tw-w-2/5"></div>
-                <div className="md:tw-w-1/5">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]">
+              <div className='tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row'>
+                <div className='md:tw-w-2/5'></div>
+                <div className='md:tw-w-1/5'>
+                  <div className='tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
                     <button
                       className={`${
                         typeFilter === 2
@@ -386,12 +385,12 @@ export default function SavedPage() {
                     >
                       <img
                         src={typeFilter === 2 ? PlusWhiteIcon : PlusIcon}
-                        alt="Plus"
+                        alt='Plus'
                         style={{
                           width: 20,
                           height: 20,
                         }}
-                        className="tw-mt-0.5"
+                        className='tw-mt-0.5'
                       />
                     </button>
                     <button
@@ -406,7 +405,7 @@ export default function SavedPage() {
                         src={
                           typeFilter === 1 ? StarWhiteIcon : StarMidnightIcon
                         }
-                        alt="Star"
+                        alt='Star'
                         style={{
                           width: 22,
                           height: 22,
@@ -416,8 +415,8 @@ export default function SavedPage() {
                     </button>
                   </div>
                 </div>
-                <div className="md:tw-w-5/12">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-gap-2 tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs md:tw-ml-6 ">
+                <div className='md:tw-w-5/12'>
+                  <div className='tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-gap-2 tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs md:tw-ml-6 '>
                     <button
                       className={`${
                         maleFilter === true
@@ -429,12 +428,12 @@ export default function SavedPage() {
                       {t("Male")}
                       {!maleFilter ? (
                         <FontAwesomeIcon
-                          className="tw-pl-3"
+                          className='tw-pl-3'
                           icon={faPlus}
                           style={{ color: "#aaaaaa" }}
                         />
                       ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
+                        <FontAwesomeIcon className='tw-pl-3' icon={faCheck} />
                       )}
                     </button>
                     <button
@@ -448,12 +447,12 @@ export default function SavedPage() {
                       {t("Female")}
                       {!femaleFilter ? (
                         <FontAwesomeIcon
-                          className="tw-pl-3"
+                          className='tw-pl-3'
                           icon={faPlus}
                           style={{ color: "#aaaaaa" }}
                         />
                       ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
+                        <FontAwesomeIcon className='tw-pl-3' icon={faCheck} />
                       )}
                     </button>
                     <button
@@ -467,12 +466,12 @@ export default function SavedPage() {
                       {t("All Actors")}
                       {!femaleFilter || !maleFilter ? (
                         <FontAwesomeIcon
-                          className="tw-pl-3"
+                          className='tw-pl-3'
                           icon={faPlus}
                           style={{ color: "#aaaaaa" }}
                         />
                       ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
+                        <FontAwesomeIcon className='tw-pl-3' icon={faCheck} />
                       )}
                     </button>
                   </div>
@@ -480,11 +479,11 @@ export default function SavedPage() {
               </div>
             )}
           </div>
-          <div className="tw-scrollbar-w-36 tw-mt-10 tw-h-5/6 tw-overflow-auto tw-rounded-lg tw-bg-gray-300 tw-p-4 tw-scrollbar  tw-scrollbar-track-white tw-scrollbar-thumb-[#6627a7] md:tw-mt-0">
+          <div className='tw-scrollbar-w-36 tw-mt-10 tw-h-5/6 tw-overflow-auto tw-rounded-lg tw-bg-gray-300 tw-p-4 tw-scrollbar  tw-scrollbar-track-white tw-scrollbar-thumb-[#6627a7] md:tw-mt-0'>
             {itemFilter === 0 ? (
               // Film EPKs
               <div
-                className="tw-flex tw-flex-col tw-gap-12"
+                className='tw-flex tw-flex-col tw-gap-12'
                 style={{
                   display: "grid",
                   justifyItems: "center",
@@ -496,7 +495,7 @@ export default function SavedPage() {
                   <EmptyEpk flag={2} />
                 ) : (
                   <>
-                    <div className="tw-grid tw-grid-cols-2 tw-gap-2 tw-overflow-hidden tw-p-2 md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-8">
+                    <div className='tw-grid tw-grid-cols-2 tw-gap-2 tw-overflow-hidden tw-p-2 md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-8'>
                       {filteredEpkList.map((epk, index) => (
                         <a key={index} href={`/epk/${epk.title}`}>
                           <img
@@ -505,8 +504,8 @@ export default function SavedPage() {
                                 ? moviePic
                                 : `${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`
                             }
-                            className="tw-aspect-1 tw-h-40 tw-w-full tw-rounded-lg tw-object-cover "
-                            alt="movie cover"
+                            className='tw-aspect-1 tw-h-40 tw-w-full tw-rounded-lg tw-object-cover '
+                            alt='movie cover'
                           />
                         </a>
                       ))}
@@ -517,7 +516,7 @@ export default function SavedPage() {
             ) : (
               // Actors
               <div
-                className="tw-flex tw-flex-col tw-gap-12"
+                className='tw-flex tw-flex-col tw-gap-12'
                 style={{
                   display: "grid",
                   justifyItems: "center",
@@ -529,7 +528,7 @@ export default function SavedPage() {
                   <EmptyEpk flag={1} />
                 ) : (
                   <>
-                    <div className="tw-grid tw-grid-cols-2 tw-gap-2 tw-p-2  md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-10">
+                    <div className='tw-grid tw-grid-cols-2 tw-gap-2 tw-p-2  md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-10'>
                       {filteredActorList.map((actor, index) => (
                         <a key={index} href={`/actor/${actor._id}`}>
                           <img
@@ -539,11 +538,11 @@ export default function SavedPage() {
                                 ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
                                 : actor.picture
                             }
-                            className="tw-aspect-1 tw-h-40  tw-w-full tw-rounded-3xl tw-object-cover "
-                            alt="movie cover"
+                            className='tw-aspect-1 tw-h-40  tw-w-full tw-rounded-3xl tw-object-cover '
+                            alt='movie cover'
                           />
-                          <div className="tw-w-full tw-overflow-hidden tw-whitespace-nowrap tw-text-center">
-                            <p className="tw-max-w-full tw-truncate ">{`${actor.firstName} ${actor.lastName}`}</p>
+                          <div className='tw-w-full tw-overflow-hidden tw-whitespace-nowrap tw-text-center'>
+                            <p className='tw-max-w-full tw-truncate '>{`${actor.firstName} ${actor.lastName}`}</p>
                           </div>
                         </a>
                       ))}

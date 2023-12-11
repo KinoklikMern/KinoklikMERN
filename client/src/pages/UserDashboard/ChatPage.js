@@ -88,7 +88,11 @@ export default function ChatPage() {
                   />
                 )}
               </div>
-              <div className='tw-col-span-2 tw-mx-4 tw-h-full tw-overflow-hidden'>
+              <div
+                className={`tw-col-span-2 tw-mx-4 tw-h-full tw-overflow-hidden ${
+                  selectedChat ? "" : "tw-hidden"
+                }`}
+              >
                 <MessageBox
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
