@@ -29,6 +29,7 @@ export const register = async (req, res) => {
       thumbnail,
       headImg,
       newsLetterOptions,
+      gender,
     } = req.body;
 
     // Normalize the email to lowercase
@@ -91,6 +92,7 @@ export const register = async (req, res) => {
       password: cryptedPassword,
       isVerified: false, // Add this line to set isVerified to false initially
       newsLetterOptions,
+      sex: gender,
     }).save();
 
     // Generate 6 digit otp
