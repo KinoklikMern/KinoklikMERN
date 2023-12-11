@@ -55,10 +55,6 @@ const HomeHead = (props) => {
     }
   }, [props.role]);
 
-  useEffect(() => {
-    console.log("Actor:", actor);
-  }, [actor]);
-
   const formattedTitle = fepk.title?.replace(/ /g, "-");
 
   return (
