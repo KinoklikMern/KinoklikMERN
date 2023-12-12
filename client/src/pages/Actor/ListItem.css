@@ -1,10 +1,7 @@
 .listContainer {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 2em;
+  gap: 2rem;
   overflow-x: auto;
-  overflow-y: hidden;
-  justify-content: flex-start;
 }
 
 .listContainer img {
