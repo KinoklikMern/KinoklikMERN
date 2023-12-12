@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
-
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function ChatPage() {
@@ -17,9 +16,9 @@ export default function ChatPage() {
   const user = useSelector((state) => state.user);
   const [searchValue, setSearchValue] = useState("");
   const { t } = useTranslation();
-
   const { userId } = useParams();
   const navigate = useNavigate(); // Initialize navigate function
+  const [selectedChat, setSelectedChat] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -27,6 +26,15 @@ export default function ChatPage() {
       navigate(`/userdashboard/chat/${userId}`);
     }
   }, [userId, navigate]);
+
+  const handleChatSelected = () => {
+    setSelectedChat(true);
+  };
+
+  const handleGoBack = () => {
+    setSelectedChat(false);
+    console.log(selectedChat);
+  };
 
   return (
     <ChatProvider>
@@ -40,9 +48,13 @@ export default function ChatPage() {
           <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>
             <Sidebar selectedTab='Messages' role={user.role} />
           </div>
-          <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-w-full tw-rounded-lg tw-bg-white tw-p-4 md:tw-ml-16 md:tw-w-5/6'>
+          <div className='tw-scrollbar-w-36 tw-mt-12 tw-h-5/6 tw-w-full tw-rounded-lg tw-bg-white tw-px-4 md:tw-ml-16 md:tw-w-5/6 md:tw-p-4'>
             <div className='tw-h-full md:tw-grid md:tw-grid-cols-3 md:tw-gap-4'>
-              <div className='-tw-m-4 tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d] md:tw-rounded-r-none'>
+              <div
+                className={`-tw-m-4 ${
+                  selectedChat ? "tw-h-0" : "tw-h-full"
+                } tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d] md:tw-h-auto md:tw-rounded-r-none`}
+              >
                 {/* search bar */}
 
                 <div className='shadow-sm tw-relative tw-mx-4 tw-my-8 tw-rounded-md'>
@@ -66,15 +78,25 @@ export default function ChatPage() {
                     fetchAgain={fetchAgain}
                     userId={userId}
                     searchValue={searchValue}
+                    onChatItemClick={handleChatSelected}
                   />
                 ) : (
-                  <ChatList fetchAgain={fetchAgain} searchValue={searchValue} />
+                  <ChatList
+                    fetchAgain={fetchAgain}
+                    searchValue={searchValue}
+                    onChatItemClick={handleChatSelected}
+                  />
                 )}
               </div>
-              <div className='tw-col-span-2 tw-mx-4 tw-h-full tw-overflow-hidden'>
+              <div
+                className={`tw-col-span-2 tw-mx-4 tw-h-full tw-overflow-hidden ${
+                  selectedChat ? "" : "tw-hidden"
+                }`}
+              >
                 <MessageBox
                   fetchAgain={fetchAgain}
-                  setFetchAgain={fetchAgain}
+                  setFetchAgain={setFetchAgain}
+                  onBackToChatList={handleGoBack} // Handle going back to chat list
                 />
               </div>
             </div>

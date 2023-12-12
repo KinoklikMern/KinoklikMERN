@@ -9,7 +9,12 @@ import ChatListItem from "./ChatListItem.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
 import { useTranslation } from "react-i18next";
 
-export default function ChatList({ fetchAgain, userId, searchValue }) {
+export default function ChatList({
+  fetchAgain,
+  userId,
+  searchValue,
+  onChatItemClick,
+}) {
   const user = useSelector((state) => state.user);
   const { selectedChat, setSelectedChat, notification, setNotification } =
     ChatState();
@@ -217,6 +222,7 @@ export default function ChatList({ fetchAgain, userId, searchValue }) {
         getChatSender={getChatSender}
         formatTimestamp={formatTimestamp}
         isOnline={isSenderOnline} // Pass the online status to the ChatListItem
+        onChatItemClick={onChatItemClick}
       />
     );
   };

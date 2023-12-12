@@ -1,44 +1,17 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useMatch } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Link, useMatch } from "react-router-dom";
 import "./NavbarToggle.css";
-import { useDispatch } from "react-redux";
 import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FepkContext } from "../../context/FepkContext";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
 import { getUserById } from "../../api/user";
-
-//import Login from "../Auth/Registration/login";
-//import Register from "../Auth/Registration/register";
 
 function NavbarButtons({ user, setToggle, toggle }) {
   const { t } = useTranslation();
-  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
-    React.useContext(FepkContext);
-  const [userToggle, setUserToggle] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [active, setActive] = useState("Home");
+  const [fepkId, fepkMaker] = React.useContext(FepkContext);
   const [picture, setPicture] = useState("");
-
-  const logout = () => {
-    Cookies.set("user", null);
-    console.log(user);
-    console.log("log out");
-    dispatch({
-      type: "LOGOUT",
-      payload: null,
-    });
-    console.log(user);
-    navigate("/");
-  };
 
   useEffect(() => {
     if (user && user.id) {
@@ -80,23 +53,23 @@ function NavbarButtons({ user, setToggle, toggle }) {
     <>
       {!user ? (
         <>
-          <div className="tw-hidden md:tw-flex">
+          <div className='tw-hidden md:tw-flex'>
             <Link
-              to="/login"
-              className="md:ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400"
+              to='/login'
+              className='md:ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400'
             >
               {t("SIGN IN")}
             </Link>
 
             <Link
               to={user ? "/uploadFepk" : "/signup"}
-              className="md:ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400"
+              className='md:ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400'
             >
               {t("CREATE EPK")}
             </Link>
           </div>
           <div
-            className="tw-flex tw-items-center md:tw-hidden"
+            className='tw-flex tw-items-center md:tw-hidden'
             onClick={() => setToggle((prev) => !prev)}
           >
             <button
@@ -104,29 +77,29 @@ function NavbarButtons({ user, setToggle, toggle }) {
                 toggle ? "activeNavItem" : ""
               }`}
             >
-              <div className="bars" id="bar1"></div>
-              <div className="bars" id="bar2"></div>
-              <div className="bars" id="bar3"></div>
+              <div className='bars' id='bar1'></div>
+              <div className='bars' id='bar2'></div>
+              <div className='bars' id='bar3'></div>
             </button>
           </div>
         </>
       ) : (
         <>
           {/* ------modified by rucheng-------- */}
-          <div className="tw-flex tw-items-center tw-justify-center tw-p-4">
+          <div className='tw-flex tw-items-center tw-justify-center tw-p-4'>
             {/* ------modified by CHIHYIN-------- */}
-            <div className="tw-mx-10 tw-inline-block tw-justify-center">
+            <div className='tw-mx-10 tw-inline-block tw-justify-center'>
               {editForFilmmaker || editForActor ? (
                 <Link to={editPageUrl}>
-                  <FontAwesomeIcon icon={faPen} color="white" />
+                  <FontAwesomeIcon icon={faPen} color='white' />
                 </Link>
               ) : null}
             </div>
-            <div className="tw-group tw-mx-4 tw-inline-block">
+            <div className='tw-group tw-mx-4 tw-inline-block'>
               <img
                 src={picture}
-                alt="User Avatar"
-                className="tw-h-14 tw-w-14 tw-rounded-full tw-object-cover"
+                alt='User Avatar'
+                className='tw-h-14 tw-w-14 tw-rounded-full tw-object-cover'
               />
               <SideProfileMenu />
             </div>

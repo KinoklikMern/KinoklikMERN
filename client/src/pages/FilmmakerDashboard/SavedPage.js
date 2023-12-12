@@ -222,13 +222,13 @@ export default function SavedPage() {
             <ActorSidebar selectedTab='Saved' role={userRole} />
           )}
         </div>
-        <div className='tw-scrollbar-w-36 tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-4 tw-scrollbar tw-scrollbar-track-gray-500  tw-scrollbar-thumb-[#1E0039] md:tw-ml-16'>
+        <div className='tw-scrollbar-w-36 tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-6 tw-scrollbar tw-scrollbar-track-gray-500 tw-scrollbar-thumb-[#1E0039]  md:tw-ml-16 md:tw-p-4'>
           <div className='tw-flex tw-h-1/6 tw-w-full tw-flex-col tw-items-center tw-justify-center'>
             <div className='tw-flex tw-w-full tw-justify-between'>
-              <div className='tw-w-2/5 tw-pl-2 tw-text-sm tw-text-[#1E0039] md:tw-text-base'>
+              <div className='tw-flex tw-h-9 tw-w-2/5 tw-items-center tw-justify-start tw-pl-2 tw-text-sm tw-text-[#1E0039] md:tw-text-base'>
                 Find all the film EPKs you've saved here.
               </div>
-              <div className='tw-flex tw-h-full tw-w-3/5 tw-items-center tw-justify-center  tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
+              <div className='tw-flex tw-h-9 tw-w-3/5 tw-items-center tw-justify-center  tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
                 <div
                   className={`${
                     itemFilter === 0
@@ -255,7 +255,7 @@ export default function SavedPage() {
               // Film EPKs filter
               <div className='tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row'>
                 <div className='md:tw-w-3/6'>
-                  <div className='tw-mb-2 tw-flex tw-h-5  tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
+                  <div className='tw-mb-2 tw-flex tw-h-7  tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
                     <button
                       className={`${
                         typeFilter === 0
@@ -325,7 +325,7 @@ export default function SavedPage() {
                   </div>
                 </div>
                 <div className='md:tw-w-3/6'>
-                  <div className='tw-mb-2 tw-flex tw-h-5 tw-justify-between  tw-rounded-xl  tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6 '>
+                  <div className='tw-mb-2 tw-flex tw-h-7 tw-justify-between  tw-rounded-xl  tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6 '>
                     <button
                       className={`${
                         productionFilter === 0
@@ -372,8 +372,9 @@ export default function SavedPage() {
             ) : (
               // Actors Filter
               <div className='tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row'>
+                <div className='md:tw-w-2/5'></div>
                 <div className='md:tw-w-1/5'>
-                  <div className='tw-mb-2 tw-flex tw-h-5 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
+                  <div className='tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]'>
                     <button
                       className={`${
                         typeFilter === 2
@@ -415,7 +416,7 @@ export default function SavedPage() {
                   </div>
                 </div>
                 <div className='md:tw-w-5/12'>
-                  <div className='tw-mb-2 tw-flex tw-h-5 tw-justify-between tw-gap-2 tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs md:tw-ml-6 '>
+                  <div className='tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-gap-2 tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs md:tw-ml-6 '>
                     <button
                       className={`${
                         maleFilter === true

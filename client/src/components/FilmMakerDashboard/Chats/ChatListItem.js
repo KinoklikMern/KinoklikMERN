@@ -2,14 +2,19 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { ChatState } from "../../../context/ChatProvider.js";
 
-function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
+function ChatListItem({
+  chat,
+  getChatSender,
+  formatTimestamp,
+  isOnline,
+  onChatItemClick,
+}) {
   const { selectedChat, setSelectedChat } = ChatState();
   const user = useSelector((state) => state.user);
 
   // Check if the current chat item is the selected chat
   const isSelected = chat?._id === selectedChat?._id;
 
-  console.log("sender", getChatSender(user, chat?.users));
   return (
     <div
       className={`tw-mx-4 tw-my-4 tw-flex tw-flex-wrap tw-items-center tw-rounded-full ${
@@ -20,6 +25,7 @@ function ChatListItem({ chat, getChatSender, formatTimestamp, isOnline }) {
         className='tw-relative tw-flex tw-w-full tw-flex-wrap tw-items-center tw-justify-around tw-rounded-lg md:tw-text-sm lg:tw-text-base xl:tw-text-lg'
         onClick={() => {
           setSelectedChat(chat);
+          onChatItemClick(chat);
         }}
       >
         {/* <img

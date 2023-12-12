@@ -102,7 +102,6 @@ import { FepkContext } from "./context/FepkContext";
 import CatelogPage from "./pages/CatelogPage";
 import EpkViewPage from "./pages/EpkViewPage";
 import UploadActorPicCon from "./components/UserDashboard/Upload/UploadActorPicCon";
-import useTokenExpiration from "./hooks/useTokenExpiration.js";
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -122,8 +121,6 @@ function App() {
     filterQuery,
     setFilterQuery,
   ];
-
-  useTokenExpiration();
 
   return (
     <FepkContext.Provider value={fepkToProvider}>

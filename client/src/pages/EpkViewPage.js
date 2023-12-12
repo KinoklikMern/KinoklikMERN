@@ -39,7 +39,7 @@ function EpkViewPage() {
   const [imageDetails, setImageDetails] = useState("");
 
   let { title } = useParams();
-  title = title.replace(/%20/g, "_"); // Replace %20 with _
+  // title = title.replace(/%20/g, "_"); // Replace %20 with _
 
   const handleClose = (modalType) => {
     if (user) {

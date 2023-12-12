@@ -120,7 +120,7 @@ export const SideProfileMenu = () => {
     console.log(currentUser);
 
     if (currentUser && currentUser.id && socket) {
-      console.log("emit logout");
+      console.log("1");
       socket.emit("logout", currentUser.id); // Notify server of intent to logout
       // Delay the disconnection slightly to ensure the logout event is processed
       setTimeout(() => {
@@ -132,13 +132,16 @@ export const SideProfileMenu = () => {
     // Clear user data from cookies
     Cookies.remove("user");
 
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+
+    console.log("2");
+
     // Check if currentUser is not null before accessing its properties
     if (currentUser && currentUser.id) {
-      dispatch({
-        type: "LOGOUT",
-        payload: null,
-      });
-      console.log("Logout actions dispatched.");
+      console.log("3");
 
       http
         .put(`/users/lastactive/${currentUser.id}`)
@@ -150,7 +153,7 @@ export const SideProfileMenu = () => {
         });
     }
 
-    console.log("logout button clicked");
+    console.log("4");
     navigate("/");
   };
 
