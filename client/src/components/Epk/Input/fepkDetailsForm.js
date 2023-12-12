@@ -318,9 +318,9 @@ function FepkDetailsForm() {
         .then((response) => {
           if (response.data && response.data.length > 0) {
             // Invitation already exists
-            setEmailError(t(
-              "Invitation for that project was already sent to the person"
-            ));
+            setEmailError(
+              t("Invitation for that project was already sent to the person")
+            );
             console.log(t("Invitation already exists"));
           } else {
             // Clear previous errors
@@ -417,10 +417,10 @@ function FepkDetailsForm() {
         }}
       >
         <form>
-          <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
-            <div className='col-3 tw-m-3 tw-text-center'>
+          <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
+            <div className="col-3 tw-m-3 tw-text-center">
               <h2
-                className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
+                className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
                 // style={{
                 //   color: "#1E0039",
                 //   fontWeight: "bold",
@@ -430,12 +430,12 @@ function FepkDetailsForm() {
                 {t("EPK Dashboard")}
               </h2>
             </div>
-            <div className='col-3 tw-m-3 tw-text-center'>
-              <BasicMenu color='#1E0039' />
+            <div className="col-3 tw-m-3 tw-text-center">
+              <BasicMenu color="#1E0039" />
             </div>
-            <div className='col-3 tw-m-3 tw-text-center'>
+            <div className="col-3 tw-m-3 tw-text-center">
               <Link
-                className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
+                className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
                 to={`/epk/${fepk.title}`}
                 // style={{
                 //   color: "#1E0039",
@@ -456,13 +456,21 @@ function FepkDetailsForm() {
               fontWeight: "normal",
             }}
           >
-            <div className='card-body' style={{ height: "500px" }}>
-              <div className='row'>
-                <div className='col'>
-                  <div className='row'>
-                    <div className='col my-1'>
+            <div
+              className="card-body pb-2"
+              style={
+                {
+                  // height: "500px"
+                }
+              }
+            >
+              <div className="row">
+                {/*Titles, Search Input, Save To EPK button */}
+                <div className="col">
+                  <div className="row">
+                    <div className="col my-1">
                       <h5
-                        className='card-title '
+                        className="card-title "
                         style={{
                           color: "#311465",
                           marginTop: "1%",
@@ -472,7 +480,7 @@ function FepkDetailsForm() {
                         {t("Cast & Crew")}
                       </h5>
                       <h5
-                        className='card-title '
+                        className="card-title "
                         style={{
                           color: "black",
                           marginBottom: "3%",
@@ -481,10 +489,10 @@ function FepkDetailsForm() {
                       >
                         {t("Add Cast & Crew members to your EPK!")}
                       </h5>
-                      <div className='row'>
-                        <div className='col-3 mt-2'>
-                          <div className='row'>
-                            <div className='col-9 '>
+                      <div className="row">
+                        <div className="col-3 mt-2">
+                          <div className="row">
+                            <div className="col-9 ">
                               <input
                                 style={{
                                   height: "30px",
@@ -495,11 +503,11 @@ function FepkDetailsForm() {
                                   textAlign: "left",
                                   fontSize: "14px",
                                 }}
-                                className='form-control'
+                                className="form-control"
                                 //defaultValue={""}
                                 value={searchValue}
                                 //value=""
-                                placeholder='Search...'
+                                placeholder="Search..."
                                 onChange={handleSearch}
                               />
                               {isResultsVisible && filteredData.length !== 0 ? (
@@ -611,10 +619,10 @@ function FepkDetailsForm() {
                                   textAlign: "left",
                                   fontSize: "14px",
                                 }}
-                                className='form-control m-10'
+                                className="form-control m-10"
                                 value={userName}
                                 placeholder={t("Name")}
-                                name='name'
+                                name="name"
                                 readOnly
                                 //onChange={handleCrewChange}
                               />
@@ -628,10 +636,10 @@ function FepkDetailsForm() {
                                   textAlign: "left",
                                   fontSize: "14px",
                                 }}
-                                className='form-control m-10'
+                                className="form-control m-10"
                                 value={role}
                                 placeholder={t("Role")}
-                                name='role'
+                                name="role"
                                 readOnly
                                 //onChange={handleCrewChange}
                               />
@@ -659,11 +667,11 @@ function FepkDetailsForm() {
                                   textAlign: "left",
                                   fontSize: "14px",
                                 }}
-                                className='form-control m-10'
+                                className="form-control m-10"
                                 // defaultValue=""
                                 value={invitationData.firstName}
                                 placeholder={t("First Name")}
-                                name='firstName'
+                                name="firstName"
                                 onChange={(e) => {
                                   setInvitationData((prevState) => ({
                                     ...prevState,
@@ -681,11 +689,11 @@ function FepkDetailsForm() {
                                   textAlign: "left",
                                   fontSize: "14px",
                                 }}
-                                className='form-control m-10'
+                                className="form-control m-10"
                                 // defaultValue=""
                                 value={invitationData.lastName}
                                 placeholder={t("Last Name")}
-                                name='lastName'
+                                name="lastName"
                                 onChange={(e) => {
                                   setInvitationData((prevState) => ({
                                     ...prevState,
@@ -703,10 +711,10 @@ function FepkDetailsForm() {
                                   textAlign: "left",
                                   fontSize: "14px",
                                 }}
-                                className='form-control m-10'
+                                className="form-control m-10"
                                 value={invitationEmailValue}
                                 placeholder={t("Email Address")}
-                                name='email'
+                                name="email"
                                 // onChange={(e) =>
                                 //   setInvitationEmailValue(e.target.value)
                                 // }
@@ -733,13 +741,13 @@ function FepkDetailsForm() {
                                   marginBottom: "20px",
                                   boxShadow: "1px 2px 9px #311465",
                                 }}
-                                className='form-select form-select-sm'
-                                name='epkRole'
+                                className="form-select form-select-sm"
+                                name="epkRole"
                                 onChange={(e) =>
                                   setInvitedUserRole(e.target.value)
                                 }
                               >
-                                <option value='' disabled>
+                                <option value="" disabled>
                                   {t("Epk role...")}
                                 </option>
                                 {epkRoles.map(makeEpkRole)}
@@ -764,10 +772,10 @@ function FepkDetailsForm() {
                                       ? "#ffffff"
                                       : undefined,
                                 }}
-                                type='outline-primary'
+                                type="outline-primary"
                                 block
                                 onClick={sendInvitation}
-                                value='save'
+                                value="save"
                               >
                                 {t("Send Invitation")}
                               </Button>
@@ -776,31 +784,31 @@ function FepkDetailsForm() {
                             <Button
                               disabled
                               style={{
+                                width: "120px",
                                 boxShadow: "1px 2px 9px #311465",
                                 color: "grey",
                                 backgroundColor: "#ffffff",
                                 fontWeight: "bold",
-                                width: "auto",
                               }}
-                              type='outline-primary'
+                              type="outline-primary"
                               block
                               onClick={addUserToTable}
-                              value='save'
+                              value="save"
                             >
                               {t("Save to EPK")}
                             </Button>
                           ) : (
                             <Button
-                              className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                              className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                               style={{
                                 boxShadow: "1px 2px 9px #311465",
                                 fontWeight: "bold",
-                                width: "auti",
+                                width: "120px",
                               }}
-                              type='outline-primary'
+                              type="outline-primary"
                               block
                               onClick={addUserToTable}
-                              value='save'
+                              value="save"
                             >
                               {t("Save to EPK")}
                             </Button>
@@ -810,28 +818,31 @@ function FepkDetailsForm() {
                     </div>
                   </div>
                 </div>
-                <div className='col'>
-                  <div className='row'>
-                    <div className='col my-2'>
+                {/*Table with results */}
+                {/* <div className="col"> */}
+                  {/* <div className="row"> */}
+                    <div className="col my-2">
+                      {/* Responsive table container */}
                       <div
-                        className='col-5 mt-2'
-                        style={{
-                          // overflow: "auto",
-                          height: "440px",
-                          width: "auto",
-                          scrollbarWidth: "none",
-                          marginLeft: "-18%",
-                        }}
+                        className="overflow-x-auto"
+                        // style={{
+                        //   // overflow: "auto",
+                        //   height: "440px",
+                        //   width: "auto",
+                        //   scrollbarWidth: "none",
+                        //   marginLeft: "-18%",
+                        // }}
                       >
+                        {/* Table */}
                         <table
-                          className='table table-striped table-bordered'
+                          className="table table-striped table-bordered "
                           style={{
                             fontSize: "0.8rem",
                             textAlign: "center",
                             tableLayout: "auto",
                           }}
                         >
-                          <thead className='thead-dark'>
+                          <thead className="thead-dark">
                             <tr>
                               <th>{t("NAME")}</th>
                               <th>{t("EPK ROLE")}</th>
@@ -869,7 +880,7 @@ function FepkDetailsForm() {
                                   <td>
                                     <img
                                       src={imageUrlDisplay}
-                                      alt=''
+                                      alt=""
                                       style={{
                                         height: "35px",
                                         width: "auto",
@@ -883,8 +894,8 @@ function FepkDetailsForm() {
                                           ? user.facebook_url
                                           : "#"
                                       }
-                                      target='_blank'
-                                      rel='noopener noreferrer'
+                                      target="_blank"
+                                      rel="noopener noreferrer"
                                     >
                                       {user.facebook_followers
                                         ? user.facebook_followers
@@ -898,8 +909,8 @@ function FepkDetailsForm() {
                                           ? user.instagram_url
                                           : "#"
                                       }
-                                      target='_blank'
-                                      rel='noopener noreferrer'
+                                      target="_blank"
+                                      rel="noopener noreferrer"
                                     >
                                       {user.instagram_followers
                                         ? user.instagram_followers
@@ -913,8 +924,8 @@ function FepkDetailsForm() {
                                           ? user.twitter_url
                                           : "#"
                                       }
-                                      target='_blank'
-                                      rel='noopener noreferrer'
+                                      target="_blank"
+                                      rel="noopener noreferrer"
                                     >
                                       {user.twitter_followers
                                         ? user.twitter_followers
@@ -944,8 +955,8 @@ function FepkDetailsForm() {
                             })}
                           </tbody>
                         </table>
-                      </div>
-                    </div>
+                      {/* </div> */}
+                    {/* </div> */}
                   </div>
                 </div>
               </div>
@@ -957,7 +968,7 @@ function FepkDetailsForm() {
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
-            contentLabel='Example Modal'
+            contentLabel="Example Modal"
             appElement={document.getElementById("root")}
             style={{
               overlay: {
@@ -978,9 +989,10 @@ function FepkDetailsForm() {
             }}
           >
             <div style={{ textAlign: "center" }}>
-              {t("Invitation is Sent Successfully!")}
+            <div style={{ color: "green" }}>{t("Invitation is Sent Successfully!")}</div>
               <br />
-              <button className='btn btn-secondary btn-sm' onClick={closeModal}>
+              <button className="btn btn-secondary btn-sm" onClick={closeModal}>
+              style={{ backgroundColor: "#712CB0", color: "white" }}
                 {t("Ok")}
               </button>
             </div>

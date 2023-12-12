@@ -218,12 +218,12 @@ function StillsForm() {
         <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
           <div className='col-3 tw-m-3 tw-text-center'>
             <h2
-              className=''
-              style={{
-                color: "#1E0039",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
+              // style={{
+              //   color: "#1E0039",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("EPK Dashboard")}
             </h2>
@@ -233,14 +233,14 @@ function StillsForm() {
           </div>
           <div className='col-3 tw-m-3 tw-text-center'>
             <Link
-              className='col align-items-end'
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xld'
               to={`/epk/${fepk.title}`}
-              style={{
-                color: "#1E0039",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              // style={{
+              //   color: "#1E0039",
+              //   textDecoration: "none",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("View EPK Page")}
             </Link>
@@ -254,7 +254,9 @@ function StillsForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ height: "500px" }}>
+          <div className='card-body' 
+          // style={{ height: "500px" }}
+          >
             <h5
               className='card-title '
               style={{ color: "#311465", fontWeight: "normal" }}

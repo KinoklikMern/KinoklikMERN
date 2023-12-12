@@ -132,12 +132,12 @@ function TrailerForm() {
         <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
           <div className='col-3 tw-m-3 tw-text-center'>
             <h2
-              className=''
-              style={{
-                color: "#1E0039",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
+              // style={{
+              //   color: "#1E0039",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("EPK Dashboard")}
             </h2>
@@ -147,19 +147,20 @@ function TrailerForm() {
           </div>
           <div className='col-3 tw-m-3 tw-text-center'>
             <Link
-              className='col align-items-end'
+              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
               to={`/epk/${fepk.title}`}
-              style={{
-                color: "#1E0039",
-                textDecoration: "none",
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
+              // style={{
+              //   color: "#1E0039",
+              //   textDecoration: "none",
+              //   fontWeight: "bold",
+              //   fontSize: "25px",
+              // }}
             >
               {t("View EPK Page")}
             </Link>
           </div>
         </div>
+        {/*Purple Frame*/ }
         <div
           style={{
             marginLeft: "10%",
@@ -168,16 +169,20 @@ function TrailerForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' style={{ height: "500px" }}>
+          <div className='card-body'
+          // style={{ height: "500px" }}
+          >
+            {/*Title*/ }
             <h5
               className='card-title '
               style={{ color: "#311465", fontWeight: "normal" }}
             >
               {t("Film Trailer")}
             </h5>
-            <form>
-              <div className='row'>
-                <div className='col-2 mt-3'>
+            <form className="tw-flex tw-flex-col lg:tw-flex-col xl:tw-flex-row">
+              {/* <div className='row'> */}
+                {/*Upload video*/ }
+                <div className='tw-flex-1 tw-mb-4 xl:tw-mb-0'>
                   <label
                     htmlFor='fileTrailer'
                     className='form-label text-dark'
@@ -198,36 +203,52 @@ function TrailerForm() {
                     accept='video/*'
                   />
                 </div>
-                <div className='col-9 mt-3' style={{ textAlign: "center" }}>
+
+                <div className='tw-flex tw-flex-col'>
+                 {/*Video itself*/ }
+                <div className='tw-flex-1 tw-mb-4 xl:tw-mb-0 xl:tw-ml-8' 
+                // style={{ textAlign: "center" }}
+                >
                   {trailerPreviewUrl ? (
                     <video
                       src={trailerPreviewUrl}
-                      style={{ width: "100%", height: "400px" }}
+                      style={{ width: "100%", 
+                      marginBottom:"15px",
+                      
+                      // height: "400px" 
+                    }}
                       controls
                     ></video>
                   ) : fepk.trailer_url ? (
                     <video
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}
-                      style={{ width: "100%", height: "400px" }}
+                      style={{ width: "100%", 
+                      
+                      // height: "400px" 
+                    }}
                       controls
                     ></video>
                   ) : (
                     <h1>{t("NO VIDEO UPLOADED")}</h1>
                   )}
                 </div>
-                <div className='col-1'>
+                 {/*Button SAVE*/ }
+                <div className='tw-flex tw-flex-1 tw-grid tw-gap-2 tw-flex tw-md-block tw-justify-end tw-mt-4'>
                   <div
-                    style={{
-                      height: "50px",
-                      width: "100px",
-                      marginLeft: "100%",
-                      marginTop: "400px",
-                    }}
+                   style={{
+                    //   height: "50px",
+                    //   width: "100px",
+                    //   marginLeft: "100%",
+                    //   marginTop: "400px",
+                    marginTop: "20px",
+                    marginBottom:"15px"
+                   }}
                   >
                     {disabled === true ? (
                       <Button
                         disabled
                         style={{
+                          width: "120px",
                           boxShadow: "1px 2px 9px #311465",
                           color: "grey",
                           backgroundColor: "#ffffff",
@@ -258,6 +279,7 @@ function TrailerForm() {
                       <Button
                         className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                         style={{
+                          width: '120px',
                           boxShadow: "1px 2px 9px #311465",
                           fontWeight: "bold",
                         }}
@@ -283,6 +305,9 @@ function TrailerForm() {
                         )}
                       </Button>
                     )}
+                    </div>
+                    </div>
+                    </div>
                     <Modal
                       isOpen={modalIsOpen}
                       onRequestClose={closeModal}
@@ -307,19 +332,20 @@ function TrailerForm() {
                       }}
                     >
                       <div style={{ textAlign: "center" }}>
-                        {"Trailer Saved Successfully!"}
+                      <div style={{ color: "green" }}> {"Trailer Saved Successfully!"}</div>
                         <br />
                         <button
                           className='btn btn-secondary btn-sm'
                           onClick={closeModal}
+                          style={{ backgroundColor: "#712CB0", color: "white" }}
                         >
                           {t("Ok")}
                         </button>
                       </div>
                     </Modal>
-                  </div>
-                </div>
-              </div>
+                  
+               
+              {/* </div> */}
             </form>
           </div>
         </div>

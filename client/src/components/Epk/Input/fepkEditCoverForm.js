@@ -972,11 +972,12 @@ function FepkEditCoverForm() {
               }}
             >
               <div style={{ textAlign: "center" }}>
-                {t("EPK Cover Saved Successfully!")}
+              <div style={{ color: "green" }}>{t("EPK Cover Saved Successfully!")}</div>
                 <br />
                 <button
                   className='btn btn-secondary btn-sm'
                   onClick={closeModal}
+                  style={{ backgroundColor: "#712CB0", color: "white" }}
                 >
                   {t("Ok")}
                 </button>

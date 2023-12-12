@@ -554,7 +554,7 @@ function SynopsisForm() {
                 )}
                   {/* Save Button */}
                 <div
-                className="tw-flex tw-flex-1 tw-grid tw-gap-2 tw-flex tw-md-block tw-justify-end "
+                className="tw-flex tw-flex-1 tw-grid tw-gap-2 tw-flex tw-md-block tw-justify-end tw-mt-4"
                   style={{
                     // height: "50px",
                     // width: "120px",
@@ -620,11 +620,12 @@ function SynopsisForm() {
                     }}
                   >
                     <div style={{ textAlign: "center" }}>
-                      {t("Synopsis is Saved Successfully!")}
+                    <div style={{ color: "green" }}>{t("Synopsis is Saved Successfully!")}</div>
                       <br />
                       <button
                         className='btn btn-secondary btn-sm'
                         onClick={closeModal}
+                        style={{ backgroundColor: "#712CB0", color: "white" }}
                       >
                         {t("Ok")}
                       </button>

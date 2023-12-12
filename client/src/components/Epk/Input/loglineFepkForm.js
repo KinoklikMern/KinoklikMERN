@@ -399,11 +399,12 @@ function LoglineForm() {
                   }}
                 >
                   <div style={{ textAlign: "center" }}>
-                    {t("Log Line Saved Successfully!")}
+                  <div style={{ color: "green" }}> {t("Log Line Saved Successfully!")}</div>
                     <br />
                     <button
                       className='btn btn-secondary btn-sm'
                       onClick={closeModal}
+                      style={{ backgroundColor: "#712CB0", color: "white" }}
                     >
                       {t("Ok")}
                     </button>
