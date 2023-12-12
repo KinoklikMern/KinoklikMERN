@@ -36,6 +36,9 @@ const fepkSchema = mongoose.Schema({
     enum: ["Preproduction", "Production", "Postproduction"],
     required: true,
   },
+  language: {
+    type: String,
+  },
   production_type: {
     type: String,
     enum: ["Movie", "Documentary", "TV Show", "Web Series"],
