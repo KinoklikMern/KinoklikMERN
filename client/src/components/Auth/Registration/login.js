@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 //Bootstrap and jQuery libraries
 import { useNavigate } from "react-router-dom";
@@ -26,9 +26,9 @@ function Login({ spanText }) {
     return (
       <Modal
         open={open}
-        title="Login"
-        okText="Login"
-        cancelText="Cancel"
+        title='Login'
+        okText='Login'
+        cancelText='Cancel'
         onCancel={onCancel}
         onOk={() => {
           form
@@ -44,40 +44,39 @@ function Login({ spanText }) {
       >
         <Form
           form={form}
-          layout="vertical"
-          name="form_in_modal"
+          layout='vertical'
+          name='form_in_modal'
           initialValues={{
             modifier: "public",
           }}
         >
           <Form.Item
-            name="email"
-            label="Email"
+            name='email'
+            label='Email'
             rules={[
               {
                 required: true,
-                message: (t("Please enter email!")),
+                message: t("Please enter email!"),
               },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="password"
-            label="Password"
+            name='password'
+            label='Password'
             rules={[
               {
                 required: true,
-                message: (t("Please enter password!")),
+                message: t("Please enter password!"),
               },
             ]}
-            cla
           >
-            <Input type="password" />
+            <Input type='password' />
           </Form.Item>
         </Form>
-        {error && <div className="error_text">{error}</div>}
-        {success && <div className="success_text">{success}</div>}
+        {error && <div className='error_text'>{error}</div>}
+        {success && <div className='success_text'>{success}</div>}
       </Modal>
     );
   };
