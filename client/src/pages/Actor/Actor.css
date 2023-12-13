@@ -1,5 +1,5 @@
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 880px) {
   /* Styles for screens smaller than 600px */
 }
 
@@ -15,6 +15,14 @@
 .actor-top-container {
   position: relative;
 }
+
+/* Media query for smaller screens (cell phones) */
+@media screen and (max-width: 880px) {
+  .actor-top-container {
+    position: relative;
+  }
+}
+
 
 .actor-navbar {
   width: 90%;
@@ -44,8 +52,19 @@
   object-fit: cover;
 }
 
+
+/* Adjust the z-index of other elements that you want to be above the image */
+.actor-modal.is-open{
+  z-index: 1001;
+}
+
+.shared-style {
+  z-index: 1001;
+}
+
+
 #actor-image {
-  width: 150px;
+  width: px;
   height: 200px;
 }
 
@@ -63,9 +82,10 @@
   /*background-image: url('../../../public/img1.png');*/
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: 1000;
-  width: 360px;
-  height: 480px;
+  width: 30vw;
+  height: 65vh;
+  /*width: 360px;*/
+  /*height: 480px;*/
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(1, 1fr);
@@ -73,9 +93,20 @@
   z-index: 1000;
 }
 
+/* Adjust the size for smaller screens */
+@media screen and (max-width: 880px) {
+  .actor-profile {
+    
+    width: 50%; /* Decrease width on smaller screens */
+    height: 50%;
+    max-width: flex; /* Remove the maximum width for smaller screens if needed */
+     /* Allow the height to adjust proportionally */
+  }
+}
+
 .arrow-actor-profile {
   font-size: 4rem;
-  display: inline;
+  
   cursor: pointer;
   background: linear-gradient(
     to bottom,
@@ -101,10 +132,44 @@
   display: grid;
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(1, 10vh);
+  justify-content: center;
   align-items: center;
   margin: 5px 40px 0px 40px;
   grid-column-gap: 20px;
 }
+
+/* Media query for smaller screens (cell phone) */
+@media screen and (max-width: 880px) {
+  .actor-middle-container {
+    display: flex;
+    flex-direction: column; /* Display items vertically on smaller screens */
+    align-items: center;
+    margin: 5px 10px 0px 10px; /* Adjust the margin for smaller screens */
+  }
+}
+
+
+.Actor-Role.actor-detail-item {
+  /* Default styles for larger screens */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, auto);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+
+ /* Media query for smaller screens (cell phone) */
+ @media screen and (max-width: 880px) {
+  display: flex;
+  flex-direction: column; /* Display items vertically on smaller screens */
+  align-items: center;
+  margin: 5px 10px; /* Adjust the margin for smaller screens */
+}
+}
+
+
+
+
 
 .btn-follow,
 .btn-Recommend,
@@ -117,6 +182,8 @@
   color: white;
   font-weight: bold;
   transition: 0.2s;
+  width: 100%; /* Make the buttons full width */
+  margin-bottom: 10px; /* Add some spacing between buttons */
 }
 
 .btn-follow {
@@ -132,31 +199,16 @@
   grid-column: 7/8;
 }
 
-.btn-star:hover {
-  background-color: rgb(226, 226, 226);
-  color: #1e0039;
-  cursor: pointer;
-}
-
-.btn-Recommend:hover {
-  background-color: rgb(226, 226, 226);
-  color: #1e0039;
-  cursor: pointer;
-}
-
-.btn-Recommend:disabled {
-  cursor: default;
-  background-color: rgb(226, 226, 226);
-  color: #1e0039;
-}
-
+.btn-star:hover,
+.btn-Recommend:hover,
 .btn-follow:hover {
   background-color: rgb(226, 226, 226);
   color: #1e0039;
   cursor: pointer;
 }
 
-.btn-Recommend:disabled {
+.btn-Recommend:disabled,
+.btn-follow:disabled {
   cursor: default;
   background-color: rgb(226, 226, 226);
   color: #1e0039;
@@ -191,8 +243,31 @@
 
 .bottom-container {
   margin-bottom: 30px;
-  padding-bottom: 20px;
+  padding-bottom: 20%;
 }
+
+/* Media query for smaller screens */
+@media screen and (max-width: 880px) {
+  .btn-follow,
+  .btn-Recommend,
+  .btn-star {
+    width: 48%; /* Make the buttons take up 48% of the width to fit 2 by 2 */
+  }
+
+  .btn-follow,
+  .btn-Recommend {
+    margin-right: 4%; /* Add some spacing between pairs of buttons */
+  }
+
+  .actor-icon-movie-container button {
+    margin-left: 0%; /* Reset margin for buttons inside .actor-icon-movie-container */
+  }
+}
+
+
+
+
+
 
 .bottom-actor-container-title {
   color: #1e0039;
@@ -289,10 +364,10 @@
   border-radius: 15px;
   padding: 15px;
   align-self: self-end;
-  margin-right: -30px;
-  margin-left: -80px;
-  max-height: 220px;
-  overflow: hidden;
+  margin-right: -1px;
+  margin-left: -120px;
+  max-height: 230px;
+  overflow: auto;
 }
 
 .actor-biography.scrollable {
@@ -316,19 +391,29 @@
   align-items: flex-start;
 }
 
+/* Default styles for desktop screens */
 .actor-city-ethnicity {
   height: 100%;
   grid-column: 1/3;
   justify-self: center;
-  /* grid-row: 1/3; */
   display: grid;
-  /* grid-template-columns: repeat(1, 1fr);*/
-  /* grid-template-rows: repeat(2, 1fr); */
   grid-template-rows: auto;
   align-items: center;
   justify-content: center;
   margin-left: -10px;
 }
+
+/* Media query for smaller screens (cell phones) */
+@media only screen and (max-width: 880px) {
+   .actor-city-ethnicity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /*  adjust the justification for smaller screens */
+    margin-left: 10px; /* Adjust the margin for smaller screens */
+  }
+}
+
 
 .actor-page-star {
   color: white;
@@ -415,6 +500,35 @@
   cursor: pointer;
 }
 
+/* Media query for smaller screens */
+@media screen and (max-width: 880px) {
+  .selected-filmmaker-display img {
+    max-width: 80%; /* Decrease the maximum width for smaller screens */
+  }
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 880px) {
+  .selected-filmmakers-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .selected-filmmaker-display {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px; /* Add some spacing around each filmmaker display */
+  }
+
+  .selected-filmmaker-display img {
+    max-width: 100%; /* Make sure the image doesn't exceed the container width */
+    height: auto;   /* Allow the height to adjust proportionally */
+    border-radius: 50%; /* Make it a circle */
+  }
+}
+
 .btn-send {
   display: inline-block;
   height: 40px;
@@ -429,4 +543,31 @@
   cursor: pointer;
   line-height: 35px;
   text-align: center;
+}
+
+
+/* Media query for smaller screens (cell phones) */
+@media screen and (max-width: 880px) {
+  .text-purple-800.text-3xl.font-bold.ml-5 {
+    margin-left: auto; /* Center the text horizontally on smaller screens */
+    margin-right: auto;
+    grid-column: span 12; /* Make the text span all 12 columns */
+  }
+}
+
+/* Media query for smaller screens (cell phones) */
+@media screen and (max-width: 880px) {
+  .grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px; /* Adjust the margin for smaller screens */
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  margin: 20px 0 35px 35px;
 }
