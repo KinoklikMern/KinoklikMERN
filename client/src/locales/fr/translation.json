@@ -230,7 +230,8 @@
  "_comment From Components AuthRegistration ResetPasswordSuccess":"0 CHanges.",
  "Password Changed!":"Mot de passe changé!",
  "Your password has been changed successfully":"Votre mot de passe a été changé avec succès",
- 
+ "Redirecting in ":"Redirection en ",
+ " seconds...":" secondes...",
  "_comment From Components AuthRegistration RoleChoise":"12 CHanges.",
  "An amazing and talented visionary filmmaker":"Cinéaste",
  "A talented and passionate actor (and future star)":"Acteur",
