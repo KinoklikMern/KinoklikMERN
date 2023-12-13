@@ -3,7 +3,7 @@ import "./ListItem.css";
 import { useState, useEffect } from "react";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function ListItem({ title, status, type, role }) {
   const { t } = useTranslation();
@@ -92,16 +92,13 @@ export default function ListItem({ title, status, type, role }) {
     <>
       {fepks &&
         fepks.map((fepk) => {
-          // Replace spaces '%20' with underscores
-          const formattedTitle = fepk.title.replace(/ /g, "_");
-
           return (
             <div className='listItem' key={fepk._id}>
               <a
                 href={
                   role === "actor"
                     ? `/actor/6487758c553b5011282f72a5`
-                    : `epk/${formattedTitle}`
+                    : `epk/${fepk.title}`
                 }
               >
                 <img
