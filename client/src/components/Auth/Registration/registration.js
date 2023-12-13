@@ -69,10 +69,14 @@ function RegistrationForm() {
       !email ||
       !password ||
       !confirmPassword ||
-      !role ||
-      !gender
+      !role
     ) {
       setError(t("All fields are required."));
+      return;
+    }
+
+    if (role.value === "Actor" && !gender) {
+      setError(t("Please select gender!"));
       return;
     }
 
