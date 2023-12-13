@@ -1,67 +1,82 @@
 import React from "react";
 import SynopsisContent from "./SynopsisContent";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
   const IMAGE_URL_PRIFIX = `${process.env.REACT_APP_AWS_URL}`;
   const { t } = useTranslation();
 
   return (
-    <div className="tw-flex tw-flex-col tw-items-center tw-gap-12 tw-bg-opacity-100 tw-text-center">
+    <div className="tw-flex tw-flex-col tw-items-center tw-gap-6 tw-bg-opacity-100 tw-text-center">
       {epkInfo.text_short && (
-        <div className="tw-w-full tw-p-3 tw-text-white">
-          <span className="tw-my-3 tw-text-[2rem] tw-font-semibold">
-            {t('Short Synopsis')}
+        <>
+          <span className="tw-my-3 tw-text-[2rem] tw-font-semibold tw-text-white">
+            {t("Short Synopsis")}
           </span>
-          <SynopsisContent
-            name="short"
-            image={
-              epkInfo.image_synopsis
-                ? `${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`
-                : ""
-            }
-            text={epkInfo.text_short}
-          />
-        </div>
+          <div className="tw-flex tw-w-full tw-flex-col tw-items-center tw-bg-white tw-p-3 lg:tw-flex-row">
+          {epkInfo.image_synopsis && (
+              <div className="tw-flex tw-max-h-[500px] tw-w-full tw-items-center tw-justify-center lg:tw-w-3/5">
+              <img
+                src={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis}`}
+                alt="Short Synopsis"
+                className="tw-h-auto tw-max-w-full tw-object-contain tw-object-center"
+                style={{ maxHeight: "500px" }}
+              />
+            </div>
+          )}
+            <div className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${epkInfo.image_synopsis ? 'lg:tw-w-2/5' : 'tw-w-full'}`}>
+              {epkInfo.text_short}
+            </div>
+          </div>
+        </>
       )}
-      {console.log(epkInfo.image_synopsis_medium)}
-      {epkInfo.text_medium && (
-        <div className="tw-w-full tw-p-3 tw-text-white">
-          <span className="tw-text-[2rem] tw-font-semibold">
-            {" "}
-            {t("Medium Synopsis")}{" "}
+
+{epkInfo.text_medium && (
+        <>
+          <span className="tw-my-3 tw-text-[2rem] tw-font-semibold tw-text-white">
+            {t("Medium Synopsis")}
           </span>
-          <SynopsisContent
-            name="medium"
-            image={
-              epkInfo.image_synopsis_medium
-                ? `${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis_medium}`
-                : ""
-            }
-            text={epkInfo.text_medium}
-            status={requestStatus}
-            handler={handler}
-          />
-        </div>
+          <div className="tw-flex tw-w-full tw-flex-col-reverse tw-items-center tw-bg-white tw-p-3 lg:tw-flex-row">
+            <div className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${epkInfo.image_synopsis_medium ? 'lg:tw-w-2/5' : 'tw-w-full'}`}>
+              {epkInfo.text_medium}
+            </div>
+            {epkInfo.image_synopsis_medium && (
+              <div className="tw-flex tw-max-h-[500px] tw-w-full tw-items-center tw-justify-center lg:tw-w-3/5">
+                <img
+                  src={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis_medium}`}
+                  alt="Medium Synopsis"
+                  className="tw-h-auto tw-max-w-full tw-object-contain tw-object-center"
+                  style={{ maxHeight: "500px" }}
+                />
+              </div>
+            )}
+          </div>
+        </>
       )}
-      {epkInfo.text_long && (
-        <div className="tw-w-full tw-p-3 tw-text-white">
-          <span className="tw-text-[2rem] tw-font-semibold">
-            {" "}
-            {t('Long Synopsis')}{" "}
+
+      
+
+{epkInfo.text_long && (
+        <>
+          <span className="tw-my-3 tw-text-[2rem] tw-font-semibold tw-text-white">
+            {t("Long Synopsis")}
           </span>
-          <SynopsisContent
-            name="long"
-            image={
-              epkInfo.image_synopsis_long
-                ? `${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis_long}`
-                : ""
-            }
-            text={epkInfo.text_long}
-            status={requestStatus}
-            handler={handler}
-          />
-        </div>
+          <div className="tw-flex tw-w-full tw-flex-col tw-items-center tw-bg-white tw-p-3 lg:tw-flex-row">
+            {epkInfo.image_synopsis_long && (
+              <div className="tw-flex tw-max-h-[500px] tw-w-full tw-items-center tw-justify-center lg:tw-w-3/5">
+                <img
+                  src={`${IMAGE_URL_PRIFIX}/${epkInfo.image_synopsis_long}`}
+                  alt="Long Synopsis"
+                  className="tw-h-auto tw-max-w-full tw-object-contain tw-object-center"
+                  style={{ maxHeight: "500px" }}
+                />
+              </div>
+            )}
+            <div className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${epkInfo.image_synopsis_long ? 'lg:tw-w-2/5' : 'tw-w-full'}`}>
+              {epkInfo.text_long}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

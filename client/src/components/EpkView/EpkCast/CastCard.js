@@ -71,7 +71,7 @@ export default function CastCard({
   };
   return (
     <div
-      className={`tw-my-16 tw-flex sm:tw-justify-between sm:tw-gap-36 tw-text-inherit ${index % 2 === 0 ? 'sm:tw-flex-row' : 'sm:tw-flex-row-reverse'} tw-flex-col`}
+      className={`tw-my-16 tw-flex sm:tw-justify-between tw-text-inherit ${index % 2 === 0 ? 'sm:tw-flex-row' : 'sm:tw-flex-row-reverse'} tw-flex-col`}
     >
       <div className="tw-flex tw-flex-col tw-items-center tw-w-full">
         <img
@@ -81,14 +81,15 @@ export default function CastCard({
           alt=""
         />
         <a
+       
           href={actorUrl}
-          className={`${isActor ? "hover:tw-text-[#712CB0]" : ""}`}
+          className={`${isActor ? "hover:tw-text-[#712CB0] tw-mt-4" : ""}`}
           style={{ textDecoration: "none" }}
         >
           <p ref={castNameRef} className="tw-text-[2rem] tw-font-semibold tw-mt-4">{castName}</p>
         </a>
       </div>
-      <div className="tw-mx-12 tw-px-4 sm:tw-px-0 tw-flex tw-flex-col tw-justify-center tw-gap-6 tw-self-center tw-w-full">
+      <div className="tw-mx-12 tw-px-4 sm:tw-px-0 tw-flex tw-flex-col tw-justify-center  tw-self-center tw-w-full">
         {hasRoleTitle && (
           <p className="tw-text-center tw-font-semibold tw-text-2xl sm:tw-text-xl md:tw-text-2xl lg:tw-text-3xl">
             {formatChars(epkRole)}

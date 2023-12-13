@@ -7,9 +7,17 @@ export default function EpkLogline({ epkInfo, requestStatus, handler }) {
 
   return (
     epkInfo.image_logline && (
-      <div className='tw-my-16 tw-rounded-lg tw-bg-white'>
+     
+        <>
+          <div className="tw-text-white tw-flex tw-justify-center tw-mt-8"> {/* Added top and bottom margin */}
+            <span className="tw-text-[2rem] tw-font-semibold"> 
+              Log Line {/* Title */}
+            </span>
+          </div>
+  
+      <div className='tw-my-8 tw-rounded-lg tw-bg-white'>
         <div className='tw-relative tw-flex tw-flex-col tw-items-center tw-pt-12'>
-          <p className='tw-px-12 tw-text-center tw-text-[2rem] tw-font-semibold tw-text-[#1E0039]'>
+          <p className='tw-px-12 tw-text-center tw-text-[1rem] tw-font-semibold tw-text-[#1E0039]'>
             {epkInfo.logLine_long}
           </p>
           <div className='tw-p-3'>
@@ -28,6 +36,7 @@ export default function EpkLogline({ epkInfo, requestStatus, handler }) {
           </div>
         </div>
       </div>
+      </>
     )
   );
 }
