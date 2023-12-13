@@ -36,7 +36,7 @@ export default function UploadActorPicCon() {
         <p className='tw-text-4xl'>{t("Actor Dashboard")}</p>
         <a href={`/actor/${userId}`}>
           <p className='tw-mt-5 tw-rounded-2xl tw-bg-white tw-p-2 tw-font-semibold tw-text-midnight md:tw-mr-24 md:tw-mt-0 md:tw-text-3xl'>
-            {t("Actor Page")}
+            {t("View Actor Page")}
           </p>
         </a>
       </div>

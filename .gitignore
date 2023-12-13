@@ -1,2 +1,10 @@
 #Debugging
 .vscode/launch.json
+
+# Ignore node_modules
+node_modules/
+
+# Ignore .vscode
+.vscode/
+
+.DS_Store
