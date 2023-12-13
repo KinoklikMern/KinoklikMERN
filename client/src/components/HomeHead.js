@@ -55,8 +55,6 @@ const HomeHead = (props) => {
     }
   }, [props.role]);
 
-  const formattedTitle = fepk.title?.replace(/ /g, "-");
-
   return (
     <div
       className='tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat'
@@ -88,7 +86,7 @@ const HomeHead = (props) => {
               href={
                 props.role === "actor"
                   ? `actor/${actor._id}`
-                  : `epk/${formattedTitle}`
+                  : `epk/${fepk.title}`
               }
             >
               <img
@@ -114,7 +112,7 @@ const HomeHead = (props) => {
               href={
                 props.role === "actor"
                   ? `actor/${actor._id}`
-                  : `epk/${formattedTitle}`
+                  : `epk/${fepk.title}`
               }
             >
               <h1 className='movieTitle tw-mx-auto tw-text-5xl tw-font-semibold lg:tw-text-6xl xl:tw-text-8xl'>

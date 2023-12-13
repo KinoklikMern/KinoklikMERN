@@ -628,24 +628,11 @@ export default function UploadActorPic({ user }) {
       <div className='actor-dashbaord-about'>
         <textarea
           className='actor-dash-textarea'
-          // maxLength="500"
           value={textareaValue}
           onChange={(e) => {
             setTextareaValue(e.target.value);
-            // handleCount(e);
           }}
         ></textarea>
-        {/* <span
-          style={{
-            fontSize: "15px",
-            display: "flex",
-            justifyContent: "right",
-            marginTop: "20px",
-          }}
-        >
-          {characterLength}
-          {t("/500 characters")}
-        </span> */}
       </div>
       <div>
         <Modal

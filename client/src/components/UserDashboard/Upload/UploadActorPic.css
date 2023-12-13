@@ -11,9 +11,14 @@
 
 .actor-dash-textarea {
   width: 100%;
-  height: 120%;
+  height: 100%;
   outline: none;
   border: none;
+  resize: none;
+}
+
+.actor-dash-textarea:focus {
+  box-shadow: 0 0 2px 2px purple;
 }
 
 .actor-save-about {
@@ -227,5 +232,58 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Media Query for Small Screens */
+@media screen and (max-width: 1120px) {
+  .actor-upload-pic-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    margin-top: 10px;
+  }
+
+  .actor-dash-textarea {
+    resize: none;
+  }
+
+  .upload-actor-prof-btn-save1 {
+    justify-self: center;
+    align-self: center;
+    grid-row: auto;
+    grid-column: auto;
+    margin: 10px 0;
+  }
+
+  .actor-upload-profile-pic {
+    margin-top: 10%;
+  }
+
+  .upload-banner-actor,
+  .actor-prof-file,
+  .actor-dashbaord-about,
+  .actor-dashbaord-com,
+  .actor-dash-com-detail,
+  .actor-dash-com-detail2 {
+    width: 100%;
+  }
+
+  .upload-actor-prof-btn1 {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .actor-dash-com-icon {
+    margin-right: 0;
+  }
+
+  .actor-prof-file,
+  .actor-prof-file2,
+  .actor-prof-file3,
+  .actor-prof-file4,
+  .actor-prof-file1 {
+    margin-bottom: 10px;
   }
 }
