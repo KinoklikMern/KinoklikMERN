@@ -32,5 +32,9 @@
     "sass": "^1.69.5",
     "socket.io": "^4.6.1",
     "stripe": "^13.11.0"
+  },
+  "resolutions": {
+    "minimist": "1.2.6",
+    "lodash": "4.17.21"
   }
 }
