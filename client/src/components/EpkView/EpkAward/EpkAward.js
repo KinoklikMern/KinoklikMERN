@@ -7,16 +7,21 @@ export default function EpkAward({ epkInfo }) {
 
   return (
     epkInfo.reviews.length !== 0 && (
-      <div className="tw-bg-white tw-text-[#1E0039]">
-        <p className="tw-pt-6 tw-text-center tw-text-3xl tw-font-bold ">
-          {t('BUZZ')}
-        </p>
-        <div className="tw-grid tw-grid-cols-2">
-          {epkInfo.reviews.map((award) => (
-            <AwardCard key={award._id} awardInfo={award} />
-          ))}
+      <>
+        <div className="tw-text-white tw-flex tw-justify-center tw-mt-4 tw-mb-4"> {/* Added top and bottom margin */}
+          <span className="tw-text-[2rem] tw-font-semibold"> 
+            {t('Buzz')} {/* Title */}
+          </span>
         </div>
-      </div>
+
+        <div className="tw-bg-white tw-text-[#1E0039]">
+          <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2">
+            {epkInfo.reviews.map((award) => (
+              <AwardCard key={award._id} awardInfo={award} />
+            ))}
+          </div>
+        </div>
+      </>
     )
   );
 }

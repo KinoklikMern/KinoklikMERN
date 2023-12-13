@@ -15,47 +15,51 @@ export default function EpkCast({ epkInfo }) {
       actor.role.includes("Actor")
     );
 
-  return castList.length !== 0 ? (
-    <div className="tw-my-3 tw-bg-white tw-text-[#1E0039]">
-      <div className="tw-flex tw-justify-center">
-        <p className="tw-text-[3rem]">{t('Starring')}</p>
-      </div>
-      <div className="tw-py-4">
-        {castList.map((cast, index) => (
-          <CastCard
-            key={cast.crewId._id}
-            index={index}
-            image={`${IMAGE_URL_PRIFIX}/${cast.image}`}
-            text={cast.biography}
-            castName={cast.crewId.name}
-            epkRole={cast.epkRole}
-            actorUrl={`/actor/${cast.crewId._id}`}
-          />
-        ))}
-      </div>
-    </div>
-  ) : (
-    <div className="tw-my-3 tw-bg-white tw-text-[#1E0039]">
-      <div className="tw-flex tw-justify-center">
-        <p className="tw-text-[3rem]">{t("Starring")}</p>
-      </div>
-      <div className="tw-py-4">
-        {actorsList.map((cast, index) => (
-          <CastCard
-            key={cast._id}
-            index={index}
-            image={
-              cast.picture.startsWith("https")
-                ? `${cast.picture}`
-                : `${IMAGE_URL_PRIFIX}/${cast.picture}`
-            }
-            text={cast.aboutMe}
-            castName={cast.firstName + " " + cast.lastName}
-            epkRole={cast.role}
-            actorUrl={`/actor/${cast._id}`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+    return (
+      <>
+        <div className="tw-my-3 tw-text-white tw-flex tw-justify-center tw-mb-8 tw-mt-12">
+          <span className="tw-text-[2rem] tw-font-semibold"> 
+            {t('Starring')} {/* Title */}
+          </span>
+        </div>
+  
+        {castList.length !== 0 ? (
+          <div className="tw-my-3 tw-bg-white tw-text-[#1E0039] ">
+            <div className="tw-py-4">
+              {castList.map((cast, index) => (
+                <CastCard
+                  key={cast.crewId._id}
+                  index={index}
+                  image={`${IMAGE_URL_PRIFIX}/${cast.image}`}
+                  text={cast.biography}
+                  castName={cast.crewId.name}
+                  epkRole={cast.epkRole}
+                  actorUrl={`/actor/${cast.crewId._id}`}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="tw-my-3 tw-bg-white tw-text-[#1E0039]">
+            <div className="tw-py-4">
+              {actorsList.map((cast, index) => (
+                <CastCard
+                  key={cast._id}
+                  index={index}
+                  image={
+                    cast.picture.startsWith("https")
+                      ? `${cast.picture}`
+                      : `${IMAGE_URL_PRIFIX}/${cast.picture}`
+                  }
+                  text={cast.aboutMe}
+                  castName={cast.firstName + " " + cast.lastName}
+                  epkRole={cast.role}
+                  actorUrl={`/actor/${cast._id}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }

@@ -7,10 +7,15 @@ export default function EpkResources({ epkInfo }) {
 
   return (
     epkInfo.resources.length !== 0 && (
+      <>
+        <div className="tw-text-white tw-flex tw-justify-center tw-mt-4 tw-mb-4"> {/* Added top and bottom margin */}
+          <span className="tw-text-[2rem] tw-font-semibold"> 
+            {t('Resources Needed')} {/* Title */}
+          </span>
+        </div>
+
+
       <div className='tw-my-3 tw-rounded-lg tw-bg-white tw-p-3'>
-        <p className='tw-text-center tw-text-3xl tw-font-bold tw-text-[#1E0039]'>
-          {t('RESOURCES NEEDED')}
-        </p>
         {epkInfo.resources.map((resource) => (
           <ResourceCard
             key={resource._id}
@@ -19,6 +24,7 @@ export default function EpkResources({ epkInfo }) {
           />
         ))}
       </div>
+      </>
     )
   );
 }
