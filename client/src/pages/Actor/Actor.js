@@ -484,9 +484,9 @@ export default function Actor(props) {
                         alt={filmmaker.firstName}
                         style={{
                           display: "inline",
-                          width: "30px",
-                          height: "30px",
-                          borderRadius: "25%",
+                          maxWidth: "100%", // Set maximum width to 100%
+                          height: "auto",   // Allow height to adjust proportionally
+                          borderRadius: "50%", // Make it a circle
                           marginRight: "10px",
                         }}
                       />
@@ -619,7 +619,7 @@ export default function Actor(props) {
                 style={{
                   //display: "inline",
                   padding: "0px",
-                  marginLeft: "500px",
+                  //marginLeft: "500px",
                   color: "#1E0039",
                   fontSize: "24px",
                   fontWeight: "700",
@@ -654,7 +654,7 @@ export default function Actor(props) {
             <p
               className='actor-age-show'
               style={{
-                display: "block",
+                display: "flex",
                 marginLeft: "30px",
                 color: "#1E0039",
                 fontSize: "16px",
