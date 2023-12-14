@@ -16,7 +16,7 @@ import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
 import axios from "axios";
-
+import path from "path";
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
 
@@ -92,6 +92,23 @@ const io = new Server(server, {
   cors: {
     origin: `${process.env.BASE_URL}`,
   },
+});
+
+// build path for deployment
+const _dirname = path.dirname("");
+const buildPath = path.join(_dirname, "../client/build");
+
+app.use(express.static(buildPath));
+
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "../client/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
 });
 
 io.on("connection", async (socket) => {
