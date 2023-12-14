@@ -308,13 +308,15 @@ export default function Actor(props) {
       <div className="actor-navbar">
         <ActorPageHeader epkInfo={epkInfo} role="actor" id={id} />
       </div>
-      <div className="actor-container">
-        <div>
+      {/*IMAGES + VIDEO */}
+      {/* <div className="actor-container"> */}
+      <div className="tw-w-9/10 tw-mx-[5%] tw-h-auto tw-max-w-full tw-rounded-[40px] tw-bg-white">
+        <div className="tw-relative">
           {epkInfo.bannerImg && (
             <video
               loop
               ref={videoRef}
-              className="actor-image-container"
+              className="tw-z-[-1] tw-block  tw-w-full tw-bg-[#1e0039] tw-bg-cover "
               src={
                 epkInfo.bannerImg && !epkInfo.bannerImg.startsWith("https")
                   ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`
@@ -329,37 +331,43 @@ export default function Actor(props) {
               controls
             ></video>
           )}
-
+          {/* Image Container with Arrows */}
           {pics.length > 0 && (
             <div
-              className="actor-profile"
+            // className="actor-profile"
+              className=" tw-absolute tw-z-10 tw-h-[60%] tw-w-[20%] tw-top-[10%] tw-left-[15%]"
               style={{
                 backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
               }}
             >
               <ArrowBackIosOutlined
-                className="arrow-actor-profile arrow-actor-profile1"
-                onClick={() => handleClick("left")}
-                style={{
-                  color: "#1E0039",
-                  fontSize: "4rem",
-                  display: "inline",
-                  height: "4rem",
-                }}
-              />
-              <ArrowForwardIosOutlined
-                className="arrow-actor-profile arrow-actor-profile2"
-                onClick={() => handleClick("right")}
-                style={{
-                  color: "#1E0039",
-                  fontSize: "4rem",
-                  display: "inline",
-                  height: "4rem",
-                }}
-              />
+              className="tw-absolute tw-left-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl sm:tw-text-2xl xs:tw-text-xl tw-text-white"
+              // className="arrow-actor-profile arrow-actor-profile1"
+              onClick={() => handleClick("left")}
+              style={{
+                // color: "#1E0039",
+                // fontSize: "4rem",
+                // display: "inline",
+                // height: "4rem",
+              }}
+            />
+            <ArrowForwardIosOutlined
+              className="tw-absolute tw-right-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl sm:tw-text-2xl xs:tw-text-xl tw-text-white"
+              // className="arrow-actor-profile arrow-actor-profile2"
+              onClick={() => handleClick("right")}
+              // style={{
+              //   color: "#1E0039",
+              //   fontSize: "4rem",
+              //   display: "inline",
+              //   height: "4rem",
+              // }}
+            />
             </div>
           )}
-          <div>
+          <div className="tw-absolute tw-bottom-5 tw-left-5">
             {isPlaying ? (
               <PauseCircleOutlineIcon
                 className="actor-play-icon"
@@ -618,8 +626,8 @@ export default function Actor(props) {
                 className="text-purple-800 text-3xl font-bold ml-5"
                 style={{
                   //display: "inline",
-                  padding: "0px",
-                  //marginLeft: "500px",
+                  padding: "30px",
+                  marginLeft: "10px",
                   color: "#1E0039",
                   fontSize: "24px",
                   fontWeight: "700",
