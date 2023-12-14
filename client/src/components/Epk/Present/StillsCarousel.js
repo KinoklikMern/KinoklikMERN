@@ -5,15 +5,15 @@ import { useEffect, useState } from "react";
 import http from "../../../http-common";
 
 function StillsCarousel(props) {
-  let { title } = props.title;
+  let { id } = props.id;
   const [stills, setStills] = useState([]);
 
   useEffect(() => {
-    http.get(`fepks/byTitle/${title}`).then((response) => {
+    http.get(`fepks/${id}`).then((response) => {
       setStills(response.data.stills);
       console.log(stills);
     });
-  }, [stills, title]);
+  }, [stills, id]);
 
   return (
     <div>

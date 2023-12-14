@@ -18,7 +18,7 @@ import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
 import NewMessageModal from "../components/EpkView/miscellaneous/NewMessageModal";
 import { useParams } from "react-router-dom";
-import { getFepksByTitle } from "../api/epks";
+import { getFepksById } from "../api/epks";
 import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
 import Banner from "../components/EpkView/EpkBanner/EpkBanner";
@@ -38,7 +38,7 @@ function EpkViewPage() {
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
   const [imageDetails, setImageDetails] = useState("");
 
-  let { title } = useParams();
+  let { id } = useParams();
   // title = title.replace(/%20/g, "_"); // Replace %20 with _
 
   const handleClose = (modalType) => {
@@ -84,22 +84,26 @@ function EpkViewPage() {
   };
 
   useEffect(() => {
-    getFepksByTitle(title).then((res) => {
-      console.log(res);
-      setEpkInfo(res);
-      setFepkId(res._id);
-      setFepkMaker(res.film_maker);
-      if (user?.id === res.film_maker._id) {
-        setRequestStatus("approved");
+    getFepksById(id).then((res) => {
+      if (res.message) {
+        alert(res.message);
       } else {
-        res.requests.forEach((request) => {
-          if (request.user === user?.id) {
-            setRequestStatus(request.status);
-          }
-        });
+        //Find epk
+        setEpkInfo(res);
+        setFepkId(res._id);
+        setFepkMaker(res.film_maker);
+        if (user?.id === res.film_maker._id) {
+          setRequestStatus("approved");
+        } else {
+          res.requests.forEach((request) => {
+            if (request.user === user?.id) {
+              setRequestStatus(request.status);
+            }
+          });
+        }
       }
     });
-  }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
+  }, [id, refresh, setFepkId, setFepkMaker, user?.id]);
 
   useEffect(() => {
     if (
@@ -117,8 +121,8 @@ function EpkViewPage() {
 
   return (
     epkInfo && (
-      <div className='tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039]'>
-        <div className='tw-w-11/12'>
+      <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039]">
+        <div className="tw-w-11/12">
           <EpkHeader epkInfo={epkInfo} />
           <EpkCover epkInfo={epkInfo} />
           {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}

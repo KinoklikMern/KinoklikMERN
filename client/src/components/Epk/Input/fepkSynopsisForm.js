@@ -206,10 +206,10 @@ function SynopsisForm() {
           backgroundColor: "white",
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
-          <div className='col-3 tw-m-3 tw-text-center'>
+        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
+          <div className="col-3 tw-m-3 tw-text-center">
             <h2
-              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
+              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
               // style={{
               //   color: "#1E0039",
               //   fontWeight: "bold",
@@ -219,13 +219,13 @@ function SynopsisForm() {
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
-            <BasicMenu color='#1E0039' />
+          <div className="col-3 tw-m-3 tw-text-center">
+            <BasicMenu color="#1E0039" />
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
+          <div className="col-3 tw-m-3 tw-text-center">
             <Link
-              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
-              to={`/epk/${fepk.title}`}
+              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",
@@ -245,20 +245,24 @@ function SynopsisForm() {
             fontWeight: "normal",
           }}
         >
-          <div className='card-body' 
-          // style={{ height: "500px" }}
+          <div
+            className="card-body"
+            // style={{ height: "500px" }}
           >
             <h5
-              className='card-title '
+              className="card-title "
               style={{ color: "#311465", fontWeight: "normal" }}
             >
               {t("Synopsis")}
             </h5>
             <form>
-               {/* First Row: Small, Medium, Long Synopsis + buttons/*/}
-              <div className='row g-3'>
+              {/* First Row: Small, Medium, Long Synopsis + buttons/*/}
+              <div className="row g-3">
                 {/* Short Synopsis */}
-                <div className='col-sm-12 col-md-6 col-lg-4  my-4' style={{ position: "relative" }}>
+                <div
+                  className="col-sm-12 col-md-6 col-lg-4  my-4"
+                  style={{ position: "relative" }}
+                >
                   <textarea
                     style={{
                       height: "100px",
@@ -271,11 +275,11 @@ function SynopsisForm() {
                       // position: "absolute",
                       // bottom: "0",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.text_short}
                     placeholder={t("Short Synopsis(maximum 160 characters)")}
                     onChange={handleSynopsisChange}
-                    name='text_short'
+                    name="text_short"
                   />
                   <span
                     style={{
@@ -288,8 +292,11 @@ function SynopsisForm() {
                     {t("/160 characters")}
                   </span>
                 </div>
-                  {/* Medium Synopsis + Button*/}
-                <div className='col-sm-12 col-md-6 col-lg-4 my-4' style={{ position: "relative" }}>
+                {/* Medium Synopsis + Button*/}
+                <div
+                  className="col-sm-12 col-md-6 col-lg-4 my-4"
+                  style={{ position: "relative" }}
+                >
                   <textarea
                     style={{
                       height: "100px",
@@ -302,11 +309,11 @@ function SynopsisForm() {
                       // position: "absolute",
                       // bottom: "0",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.text_medium}
                     placeholder={t("Medium Synopsis(maximum 350 characters)")}
                     onChange={handleSynopsisChange}
-                    name='text_medium'
+                    name="text_medium"
                   />
                   <span
                     style={{
@@ -318,9 +325,9 @@ function SynopsisForm() {
                     {characterLength?.text_medium}
                     {t("/350 characters")}
                   </span>
-                  <div className='col d-grid gap-2 d-md-flex justify-content-md-end'>
+                  <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
                         height: "30px",
                         width: "100px",
@@ -328,7 +335,7 @@ function SynopsisForm() {
                         fontWeight: "bold",
                         justifyContent: "right",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={() =>
                         handleSynopsisBlurChange(
@@ -336,14 +343,17 @@ function SynopsisForm() {
                           "text_medium_blur"
                         )
                       }
-                      name='text_medium_blur'
+                      name="text_medium_blur"
                     >
                       {epkSynopsisData.text_medium_blur ? "UnBlur" : "Blur"}
                     </Button>
                   </div>
                 </div>
-                 {/* Long Synopsis + Button*/}
-                <div className='col-sm-12 col-md-6 col-lg-4  my-4' style={{ position: "relative" }}>
+                {/* Long Synopsis + Button*/}
+                <div
+                  className="col-sm-12 col-md-6 col-lg-4  my-4"
+                  style={{ position: "relative" }}
+                >
                   <textarea
                     style={{
                       height: "100px",
@@ -356,11 +366,11 @@ function SynopsisForm() {
                       // position: "absolute",
                       // bottom: "0",
                     }}
-                    className='form-control mt-10'
+                    className="form-control mt-10"
                     defaultValue={fepk.text_long}
                     placeholder={t("Long Synopsis(maximum 500 characters)")}
                     onChange={handleSynopsisChange}
-                    name='text_long'
+                    name="text_long"
                   />
                   <span
                     style={{
@@ -373,16 +383,16 @@ function SynopsisForm() {
                     {t("/500 characters")}
                   </span>
 
-                  <div className='col d-grid gap-2 d-md-flex justify-content-md-end'>
+                  <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
                         height: "30px",
                         width: "120px",
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={() =>
                         handleSynopsisBlurChange(
@@ -390,7 +400,7 @@ function SynopsisForm() {
                           "text_long_blur"
                         )
                       }
-                      name='text_long_blur'
+                      name="text_long_blur"
                     >
                       {epkSynopsisData.text_long_blur ? "UnBlur" : "Blur"}
                     </Button>
@@ -398,13 +408,13 @@ function SynopsisForm() {
                 </div>
               </div>
 
-               {/* The second row with Upload Poster and images */}
-              <div className='row g-3'>
-                 {/* Upload Poster section #1*/}
-                <div className='col-sm-12 col-md-6 col-lg-4 my-4'>
+              {/* The second row with Upload Poster and images */}
+              <div className="row g-3">
+                {/* Upload Poster section #1*/}
+                <div className="col-sm-12 col-md-6 col-lg-4 my-4">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
@@ -412,14 +422,14 @@ function SynopsisForm() {
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={file}
                     onChange={fileSelected}
                     ref={inputFileRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {shortBannerPreviewUrl ? (
                     <img
@@ -430,7 +440,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Short Banner Preview'
+                      alt="Short Banner Preview"
                     />
                   ) : epkSynopsisData.image_synopsis ? (
                     <img
@@ -441,31 +451,31 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Short Banner'
+                      alt="Short Banner"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
                   )}
                 </div>
-                 {/* Upload Poster section #2*/}
-                <div className='col-sm-12 col-md-6 col-lg-4 my-4'>
+                {/* Upload Poster section #2*/}
+                <div className="col-sm-12 col-md-6 col-lg-4 my-4">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={fileMedium}
                     onChange={fileMediumSelected}
                     ref={inputFileMediumRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {mediumBannerPreviewUrl ? (
                     <img
@@ -476,7 +486,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Medium Banner Preview'
+                      alt="Medium Banner Preview"
                     />
                   ) : epkSynopsisData.image_synopsis_medium ? (
                     <img
@@ -487,31 +497,31 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Medium Banner'
+                      alt="Medium Banner"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
                   )}
                 </div>
-                 {/* Upload Poster section #3*/}
-                <div className='col-sm-12 col-md-6 col-lg-4 my-4'>
+                {/* Upload Poster section #3*/}
+                <div className="col-sm-12 col-md-6 col-lg-4 my-4">
                   <label
-                    htmlFor='filePoster'
-                    className='form-label text-dark'
+                    htmlFor="filePoster"
+                    className="form-label text-dark"
                     style={{ fontSize: "25px" }}
                   >
                     {" "}
                   </label>
                   <input
                     style={{ fontSize: "15px" }}
-                    className='form-control form-control-sm'
+                    className="form-control form-control-sm"
                     filename={fileLong}
                     onChange={fileLongSelected}
                     ref={inputFileLongRef}
-                    type='file'
-                    id='filePoster'
-                    name='files'
-                    accept='image/*'
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
                   ></input>
                   {longBannerPreviewUrl ? (
                     <img
@@ -522,7 +532,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Long Banner Preview'
+                      alt="Long Banner Preview"
                     />
                   ) : epkSynopsisData.image_synopsis_long ? (
                     <img
@@ -533,7 +543,7 @@ function SynopsisForm() {
                         marginTop: "5px",
                         marginLeft: "50px",
                       }}
-                      alt='Long Banner'
+                      alt="Long Banner"
                     />
                   ) : (
                     <h3>{t("No Image")}</h3>
@@ -541,7 +551,7 @@ function SynopsisForm() {
                 </div>
                 {message && (
                   <div
-                    className='message'
+                    className="message"
                     style={{
                       color: "red",
                       fontSize: "1rem",
@@ -552,15 +562,15 @@ function SynopsisForm() {
                     {message}
                   </div>
                 )}
-                  {/* Save Button */}
+                {/* Save Button */}
                 <div
-                className="tw-flex tw-flex-1 tw-grid tw-gap-2 tw-flex tw-md-block tw-justify-end tw-mt-4"
+                  className="tw-md-block tw-mt-4 tw-flex tw-flex tw-grid tw-flex-1 tw-justify-end tw-gap-2"
                   style={{
                     // height: "50px",
                     // width: "120px",
                     // marginLeft: "100%",
                     marginTop: "20px",
-                    marginBottom:"15px"
+                    marginBottom: "15px",
                   }}
                 >
                   {disabled === true ? (
@@ -573,25 +583,25 @@ function SynopsisForm() {
                         backgroundColor: "#ffffff",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={saveEpkSynopsis}
-                      value='save'
+                      value="save"
                     >
                       {t("Save")}
                     </Button>
                   ) : (
                     <Button
-                      className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                       style={{
-                        width: '120px',
+                        width: "120px",
                         boxShadow: "1px 2px 9px #311465",
                         fontWeight: "bold",
                       }}
-                      type='outline-primary'
+                      type="outline-primary"
                       block
                       onClick={saveEpkSynopsis}
-                      value='save'
+                      value="save"
                     >
                       {t("Save")}
                     </Button>
@@ -599,7 +609,7 @@ function SynopsisForm() {
                   <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
-                    contentLabel='Example Modal'
+                    contentLabel="Example Modal"
                     appElement={document.getElementById("root")}
                     style={{
                       overlay: {
@@ -620,10 +630,12 @@ function SynopsisForm() {
                     }}
                   >
                     <div style={{ textAlign: "center" }}>
-                    <div style={{ color: "green" }}>{t("Synopsis is Saved Successfully!")}</div>
+                      <div style={{ color: "green" }}>
+                        {t("Synopsis is Saved Successfully!")}
+                      </div>
                       <br />
                       <button
-                        className='btn btn-secondary btn-sm'
+                        className="btn btn-secondary btn-sm"
                         onClick={closeModal}
                         style={{ backgroundColor: "#712CB0", color: "white" }}
                       >

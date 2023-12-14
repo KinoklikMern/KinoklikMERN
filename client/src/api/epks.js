@@ -21,6 +21,16 @@ export const getFepksByFilmmakerId = (filmmakerId) => {
   }
 };
 
+export const getFepksById = (id) => {
+  try {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks/${id}`, {
+      method: "GET",
+    }).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getFepksByTitle = (title) => {
   try {
     return fetch(

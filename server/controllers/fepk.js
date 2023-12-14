@@ -125,7 +125,7 @@ export const getFepkbyId = async (req, res) => {
     const fepkOne = await fepk
       .findOne({ _id: id })
       .populate("film_maker") // includes all fields of this object
-      //.populate("crew.crewId") // includes all fields of this object
+      .populate("crew.crewId") // includes all fields of this object
       .populate("actors")
       .populate("likes") // includes all fields of this object
       .populate("favourites") // includes all fields of this object
@@ -147,7 +147,8 @@ export const getFepkbyId = async (req, res) => {
 
 // fetch Fepk by Title
 export const getFepkByTitle = async (req, res) => {
-  const title = req.params.title;
+  let title = req.params.title;
+
   try {
     const fepkOne = await fepk
       .findOne({ title: { $regex: new RegExp(`^${title}$`, "i") } })

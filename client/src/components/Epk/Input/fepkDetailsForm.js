@@ -436,7 +436,7 @@ function FepkDetailsForm() {
             <div className="col-3 tw-m-3 tw-text-center">
               <Link
                 className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-                to={`/epk/${fepk.title}`}
+                to={`/epk/${fepk._id}`}
                 // style={{
                 //   color: "#1E0039",
                 //   textDecoration: "none",
@@ -820,142 +820,136 @@ function FepkDetailsForm() {
                 </div>
                 {/*Table with results */}
                 {/* <div className="col"> */}
-                  {/* <div className="row"> */}
-                    <div className="col my-2">
-                      {/* Responsive table container */}
-                      <div
-                        className="overflow-x-auto"
-                        // style={{
-                        //   // overflow: "auto",
-                        //   height: "440px",
-                        //   width: "auto",
-                        //   scrollbarWidth: "none",
-                        //   marginLeft: "-18%",
-                        // }}
-                      >
-                        {/* Table */}
-                        <table
-                          className="table table-striped table-bordered "
-                          style={{
-                            fontSize: "0.8rem",
-                            textAlign: "center",
-                            tableLayout: "auto",
-                          }}
-                        >
-                          <thead className="thead-dark">
-                            <tr>
-                              <th>{t("NAME")}</th>
-                              <th>{t("EPK ROLE")}</th>
-                              <th>{t("IMAGE")}</th>
-                              <th>{t("FB")}</th>
-                              <th>{t("IG")}</th>
-                              <th>{t("TW")}</th>
-                              <th>{t("STATUS")}</th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {combinedUsers.map((user) => {
-                              let imageUrlDisplay;
-                              if (
-                                user.picture &&
-                                !user.picture.startsWith("http")
-                              ) {
-                                imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
-                              } else {
-                                imageUrlDisplay = user.picture;
-                              }
-                              return (
-                                <tr
-                                  key={user._id}
+                {/* <div className="row"> */}
+                <div className="col my-2">
+                  {/* Responsive table container */}
+                  <div
+                    className="overflow-x-auto"
+                    // style={{
+                    //   // overflow: "auto",
+                    //   height: "440px",
+                    //   width: "auto",
+                    //   scrollbarWidth: "none",
+                    //   marginLeft: "-18%",
+                    // }}
+                  >
+                    {/* Table */}
+                    <table
+                      className="table table-striped table-bordered "
+                      style={{
+                        fontSize: "0.8rem",
+                        textAlign: "center",
+                        tableLayout: "auto",
+                      }}
+                    >
+                      <thead className="thead-dark">
+                        <tr>
+                          <th>{t("NAME")}</th>
+                          <th>{t("EPK ROLE")}</th>
+                          <th>{t("IMAGE")}</th>
+                          <th>{t("FB")}</th>
+                          <th>{t("IG")}</th>
+                          <th>{t("TW")}</th>
+                          <th>{t("STATUS")}</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {combinedUsers.map((user) => {
+                          let imageUrlDisplay;
+                          if (
+                            user.picture &&
+                            !user.picture.startsWith("http")
+                          ) {
+                            imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${user.picture}`;
+                          } else {
+                            imageUrlDisplay = user.picture;
+                          }
+                          return (
+                            <tr
+                              key={user._id}
+                              style={{
+                                textAlign: "center",
+                                verticalAlign: "middle",
+                              }}
+                            >
+                              <td>{user.firstName + " " + user.lastName}</td>
+                              <td>{user.role}</td>
+                              <td>
+                                <img
+                                  src={imageUrlDisplay}
+                                  alt=""
                                   style={{
-                                    textAlign: "center",
-                                    verticalAlign: "middle",
+                                    height: "35px",
+                                    width: "auto",
                                   }}
+                                />
+                              </td>
+                              <td>
+                                <a
+                                  href={
+                                    user.facebook_url ? user.facebook_url : "#"
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
                                 >
-                                  <td>
-                                    {user.firstName + " " + user.lastName}
-                                  </td>
-                                  <td>{user.role}</td>
-                                  <td>
-                                    <img
-                                      src={imageUrlDisplay}
-                                      alt=""
-                                      style={{
-                                        height: "35px",
-                                        width: "auto",
-                                      }}
-                                    />
-                                  </td>
-                                  <td>
-                                    <a
-                                      href={
-                                        user.facebook_url
-                                          ? user.facebook_url
-                                          : "#"
-                                      }
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      {user.facebook_followers
-                                        ? user.facebook_followers
-                                        : "-"}
-                                    </a>
-                                  </td>
-                                  <td>
-                                    <a
-                                      href={
-                                        user.instagram_url
-                                          ? user.instagram_url
-                                          : "#"
-                                      }
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      {user.instagram_followers
-                                        ? user.instagram_followers
-                                        : "-"}
-                                    </a>
-                                  </td>
-                                  <td>
-                                    <a
-                                      href={
-                                        user.twitter_url
-                                          ? user.twitter_url
-                                          : "#"
-                                      }
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      {user.twitter_followers
-                                        ? user.twitter_followers
-                                        : "-"}
-                                    </a>
-                                  </td>
-                                  <td>
-                                    {user.status
-                                      ? user.status
-                                      : currentFepkUsers
-                                          .map((user) => user._id)
-                                          .includes(user._id)
-                                      ? "Added"
-                                      : "Invited"}
-                                  </td>
-                                  <td
-                                    style={{
-                                      textAlign: "center",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={() => deleteFromUsersList(user)}
-                                  >
-                                    <FontAwesomeIcon icon={faTrashCan} />
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                      {/* </div> */}
+                                  {user.facebook_followers
+                                    ? user.facebook_followers
+                                    : "-"}
+                                </a>
+                              </td>
+                              <td>
+                                <a
+                                  href={
+                                    user.instagram_url
+                                      ? user.instagram_url
+                                      : "#"
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {user.instagram_followers
+                                    ? user.instagram_followers
+                                    : "-"}
+                                </a>
+                              </td>
+                              <td>
+                                <a
+                                  href={
+                                    user.twitter_url ? user.twitter_url : "#"
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {user.twitter_followers
+                                    ? user.twitter_followers
+                                    : "-"}
+                                </a>
+                              </td>
+                              <td>
+                                {user.status
+                                  ? user.status
+                                  : currentFepkUsers
+                                      .map((user) => user._id)
+                                      .includes(user._id)
+                                  ? "Added"
+                                  : "Invited"}
+                              </td>
+                              <td
+                                style={{
+                                  textAlign: "center",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => deleteFromUsersList(user)}
+                              >
+                                <FontAwesomeIcon icon={faTrashCan} />
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                    {/* </div> */}
                     {/* </div> */}
                   </div>
                 </div>
@@ -989,10 +983,12 @@ function FepkDetailsForm() {
             }}
           >
             <div style={{ textAlign: "center" }}>
-            <div style={{ color: "green" }}>{t("Invitation is Sent Successfully!")}</div>
+              <div style={{ color: "green" }}>
+                {t("Invitation is Sent Successfully!")}
+              </div>
               <br />
               <button className="btn btn-secondary btn-sm" onClick={closeModal}>
-              style={{ backgroundColor: "#712CB0", color: "white" }}
+                style={{ backgroundColor: "#712CB0", color: "white" }}
                 {t("Ok")}
               </button>
             </div>

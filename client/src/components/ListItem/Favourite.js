@@ -24,11 +24,11 @@ export default function Favourite() {
     <>
       {fepks &&
         fepks.map((fepk) => (
-          <div className='listItem' key={fepk._id}>
-            <a href={`epkview/${fepk.title}`}>
+          <div className="listItem" key={fepk._id}>
+            <a href={`epkview/${fepk._id}`}>
               <img
                 src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                alt=''
+                alt=""
               />
             </a>
           </div>

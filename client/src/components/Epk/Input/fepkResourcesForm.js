@@ -262,7 +262,7 @@ function ResourcesForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk.title}`}
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",
@@ -449,13 +449,11 @@ function ResourcesForm() {
                   >
                     <thead className="thead-dark">
                       <tr>
-                        <th >{t("Title")}</th>
-                        <th >
-                          {t("Duration Required")}
-                        </th>
-                        <th >{t("Description")}</th>
-                        <th >{t("Image")}</th>
-                        <th >{t("ACTIONS")}</th>
+                        <th>{t("Title")}</th>
+                        <th>{t("Duration Required")}</th>
+                        <th>{t("Description")}</th>
+                        <th>{t("Image")}</th>
+                        <th>{t("ACTIONS")}</th>
                       </tr>
                     </thead>
                     <tbody>
