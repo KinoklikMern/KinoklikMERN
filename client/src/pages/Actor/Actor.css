@@ -104,6 +104,7 @@
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
+}
 
 <<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
@@ -115,6 +116,7 @@
   height: 45vh; /* Maintain the aspect ratio */
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
+}
 }
 
 .arrow-actor-profile {
@@ -149,6 +151,7 @@
     height: 3rem; 
   }
 }
+}
 
 /* Media query for even smaller screens */
 <<<<<<< Updated upstream
@@ -162,7 +165,7 @@
     height: 3rem;
   }
 }
-
+}
 .actor-image-text {
   color: white;
 }
