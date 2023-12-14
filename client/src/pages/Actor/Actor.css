@@ -93,20 +93,25 @@
   z-index: 1000;
 }
 
-/* Adjust the size for smaller screens */
 @media screen and (max-width: 880px) {
   .actor-profile {
-    
-    width: 50%; /* Decrease width on smaller screens */
-    height: 50%;
-    max-width: flex; /* Remove the maximum width for smaller screens if needed */
-     /* Allow the height to adjust proportionally */
+    width: 70vw;
+  height: 45vh; /* Maintain the aspect ratio */
+    max-width: 100%; /* Set the maximum width to 100% for smaller screens */
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .actor-profile {
+    width: 70vw;
+  height: 45vh; /* Maintain the aspect ratio */
+    max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
 
 .arrow-actor-profile {
   font-size: 4rem;
-  
+  width: 50px;
   cursor: pointer;
   background: linear-gradient(
     to bottom,
@@ -122,6 +127,24 @@
 
 .arrow-actor-profile1 {
   justify-self: start;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 872px) {
+  .arrow-actor-profile2,
+  .arrow-actor-profile1 {
+    width: 80%;
+    height: 3rem; 
+  }
+}
+
+/* Media query for even smaller screens */
+@media screen and (max-width: 825px) {
+  .arrow-actor-profile2,
+  .arrow-actor-profile1 {
+    width: 60%;
+    height: 3rem;
+  }
 }
 
 .actor-image-text {
@@ -141,10 +164,14 @@
 /* Media query for smaller screens (cell phone) */
 @media screen and (max-width: 880px) {
   .actor-middle-container {
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(1, 10vh);
     display: flex;
-    flex-direction: column; /* Display items vertically on smaller screens */
+    flex-direction: column; /* items vertically on smaller screens */
     align-items: center;
-    margin: 5px 10px 0px 10px; /* Adjust the margin for smaller screens */
+    justify-content: center;
+    margin: 5px 100px 0px 100px; /* the margin for smaller screens */
+    grid-column-gap: 20px;
   }
 }
 
@@ -161,9 +188,9 @@
  /* Media query for smaller screens (cell phone) */
  @media screen and (max-width: 880px) {
   display: flex;
-  flex-direction: column; /* Display items vertically on smaller screens */
+  flex-direction: column; /* Display items vertically */
   align-items: center;
-  margin: 5px 10px; /* Adjust the margin for smaller screens */
+  margin: 5px 10px; /* the margin for smaller screens */
 }
 }
 
@@ -183,7 +210,7 @@
   font-weight: bold;
   transition: 0.2s;
   width: 100%; /* Make the buttons full width */
-  margin-bottom: 10px; /* Add some spacing between buttons */
+  margin-bottom: 10px; /* spacing between buttons */
 }
 
 .btn-follow {
@@ -256,7 +283,7 @@
 
   .btn-follow,
   .btn-Recommend {
-    margin-right: 4%; /* Add some spacing between pairs of buttons */
+    margin-right: 4%; /* spacing between pairs of buttons */
   }
 
   .actor-icon-movie-container button {
@@ -422,9 +449,6 @@
   display: inline;
 }
 
-.arrow-actor-profile {
-  width: 50px;
-}
 
 .actor-modal {
   display: none;
@@ -448,7 +472,7 @@
   display: block;
 }
 
-*/ .shared-styles {
+ .shared-styles {
   height: 30px;
   width: 100%;
   border-radius: 5px;
