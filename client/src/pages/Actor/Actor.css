@@ -1,5 +1,5 @@
 
-@media only screen and (max-width: 880px) {
+@media only screen and (max-width: 1245px) {
   /* Styles for screens smaller than 600px */
 }
 
@@ -17,7 +17,7 @@
 }
 
 /* Media query for smaller screens (cell phones) */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .actor-top-container {
     position: relative;
   }
@@ -93,7 +93,7 @@
   z-index: 1000;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .actor-profile {
     width: 70vw;
   height: 45vh; /* Maintain the aspect ratio */
@@ -101,7 +101,7 @@
   }
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1245px) {
   .actor-profile {
     width: 70vw;
   height: 45vh; /* Maintain the aspect ratio */
@@ -130,7 +130,7 @@
 }
 
 /* Media query for smaller screens */
-@media screen and (max-width: 872px) {
+@media screen and (max-width: 1245px) {
   .arrow-actor-profile2,
   .arrow-actor-profile1 {
     width: 80%;
@@ -139,7 +139,7 @@
 }
 
 /* Media query for even smaller screens */
-@media screen and (max-width: 825px) {
+@media screen and (max-width: 1245px) {
   .arrow-actor-profile2,
   .arrow-actor-profile1 {
     width: 60%;
@@ -162,7 +162,7 @@
 }
 
 /* Media query for smaller screens (cell phone) */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .actor-middle-container {
     grid-template-columns: repeat(11, 1fr);
     grid-template-rows: repeat(1, 10vh);
@@ -186,16 +186,13 @@
   align-items: center;
 
  /* Media query for smaller screens (cell phone) */
- @media screen and (max-width: 880px) {
+ @media screen and (max-width: 1245px) {
   display: flex;
   flex-direction: column; /* Display items vertically */
   align-items: center;
   margin: 5px 10px; /* the margin for smaller screens */
 }
 }
-
-
-
 
 
 .btn-follow,
@@ -274,13 +271,14 @@
 }
 
 /* Media query for smaller screens */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .btn-follow,
   .btn-Recommend,
   .btn-star {
     width: 48%; /* Make the buttons take up 48% of the width to fit 2 by 2 */
   }
 
+  .btn-star,
   .btn-follow,
   .btn-Recommend {
     margin-right: 4%; /* spacing between pairs of buttons */
@@ -290,10 +288,6 @@
     margin-left: 0%; /* Reset margin for buttons inside .actor-icon-movie-container */
   }
 }
-
-
-
-
 
 
 .bottom-actor-container-title {
@@ -374,6 +368,7 @@
   color: #1e0039;
   font-weight: bold;
   font-size: 24px;
+  margin-top: 4%;
 }
 
 .actor-city-container {
@@ -525,14 +520,14 @@
 }
 
 /* Media query for smaller screens */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .selected-filmmaker-display img {
     max-width: 80%; /* Decrease the maximum width for smaller screens */
   }
 }
 
 /* Media query for smaller screens */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .selected-filmmakers-display {
     display: flex;
     flex-wrap: wrap;
@@ -571,16 +566,17 @@
 
 
 /* Media query for smaller screens (cell phones) */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .text-purple-800.text-3xl.font-bold.ml-5 {
     margin-left: auto; /* Center the text horizontally on smaller screens */
     margin-right: auto;
     grid-column: span 12; /* Make the text span all 12 columns */
+    
   }
 }
 
 /* Media query for smaller screens (cell phones) */
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1245px) {
   .grid-container {
     display: flex;
     flex-direction: column;
@@ -594,4 +590,5 @@
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(1, 1fr);
   margin: 20px 0 35px 35px;
+  margin-top: 4%;
 }
