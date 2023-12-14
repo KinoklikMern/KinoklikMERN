@@ -93,7 +93,11 @@
   z-index: 1000;
 }
 
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 880px) {
+>>>>>>> Stashed changes
   .actor-profile {
     width: 70vw;
   height: 45vh; /* Maintain the aspect ratio */
@@ -101,7 +105,11 @@
   }
 }
 
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 1300px) {
+>>>>>>> Stashed changes
   .actor-profile {
     width: 70vw;
   height: 45vh; /* Maintain the aspect ratio */
@@ -130,7 +138,11 @@
 }
 
 /* Media query for smaller screens */
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 872px) {
+>>>>>>> Stashed changes
   .arrow-actor-profile2,
   .arrow-actor-profile1 {
     width: 80%;
@@ -139,7 +151,11 @@
 }
 
 /* Media query for even smaller screens */
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 825px) {
+>>>>>>> Stashed changes
   .arrow-actor-profile2,
   .arrow-actor-profile1 {
     width: 60%;
