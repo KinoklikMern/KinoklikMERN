@@ -11,6 +11,7 @@ import StillsForm from "../components/Epk/Input/fepkStills";
 import TrailerForm from "../components/Epk/Input/fepkTrailerForm";
 import ReviewsForm from "../components/Epk/Input/fepkReviewsForm";
 import ResourcesForm from "../components/Epk/Input/fepkResourcesForm";
+import SalesCalculatorForm from "../components/Epk/Input/fepkSalesCalculatorForm"
 import FepkDetailsForm from "../components/Epk/Input/fepkDetailsForm";
 import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess";
 import { useSelector } from "react-redux";
@@ -123,6 +124,12 @@ function FepkEditDashboard() {
                 value='treatment'
                 disabled={true}
               />
+              <SectionButton
+                  text={t("11.Sales Calculator")}
+                  onClick={() => handleSectionClick("sales_calculator")}
+                  sectionChosen={sectionChosen}
+                  value='sales_calculator'
+              />
             </div>
             <div
               style={{
@@ -139,6 +146,7 @@ function FepkEditDashboard() {
               {sectionChosen === "resources" && <ResourcesForm />}
               {sectionChosen === "trailer" && <TrailerForm />}
               {sectionChosen === "reviews" && <ReviewsForm />}
+              {sectionChosen === "sales_calculator" && <SalesCalculatorForm />}
               {/* add a "Treatment" component here */}
             </div>
           </div>
