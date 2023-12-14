@@ -618,8 +618,8 @@ export default function Actor(props) {
                 className="text-purple-800 text-3xl font-bold ml-5"
                 style={{
                   //display: "inline",
-                  padding: "0px",
-                  //marginLeft: "500px",
+                  padding: "30px",
+                  marginLeft: "10px",
                   color: "#1E0039",
                   fontSize: "24px",
                   fontWeight: "700",
