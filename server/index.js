@@ -52,7 +52,6 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 // build path for deployment
-
 app.use(express.static(buildPath));
 
 //invitations
@@ -72,14 +71,11 @@ app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
 
 app.get("/*", function (req, res) {
-  res.sendFile(
-    path.join(__dirname, "../client/build/index.html"),
-    function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
+  res.sendFile(path.join(buildPath, "index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
     }
-  );
+  });
 });
 
 app.use("/*", handleNotFound);
