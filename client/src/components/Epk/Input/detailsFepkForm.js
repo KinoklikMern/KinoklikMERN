@@ -5,7 +5,7 @@ import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function DetailsForm() {
   const { t } = useTranslation();
@@ -28,14 +28,14 @@ function DetailsForm() {
   };
 
   const epkRoles = [
-    (t("lead actor")),
-    (t("supporting actor")),
-    (t("director")),
-    (t("producer")),
-    (t("cinematographer")),
-    (t("editor")),
-    (t("writer")),
-    (t("sound")),
+    t("lead actor"),
+    t("supporting actor"),
+    t("director"),
+    t("producer"),
+    t("cinematographer"),
+    t("editor"),
+    t("writer"),
+    t("sound"),
   ];
 
   const makeEpkRole = (Y) => {
@@ -218,7 +218,7 @@ function DetailsForm() {
             <div className="col-2 m-3">
               <Link
                 className="col align-items-end"
-                to={`/Epk/${fepk.title}`}
+                to={`/epk/${fepk._id}`}
                 style={{
                   color: "#311465",
                   textDecoration: "none",
@@ -226,7 +226,7 @@ function DetailsForm() {
                   fontSize: "20px",
                 }}
               >
-                 {t("View EPK Page")}
+                {t("View EPK Page")}
               </Link>
             </div>
           </div>
@@ -401,7 +401,7 @@ function DetailsForm() {
                         }}
                         className="form-control m-10"
                         defaultValue={fepk.productionCo}
-                        placeholder= {t("Production Company Name")}
+                        placeholder={t("Production Company Name")}
                         onChange={handleDetailsChange}
                         name="productionCo"
                       />

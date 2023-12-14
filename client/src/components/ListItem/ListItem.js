@@ -93,12 +93,12 @@ export default function ListItem({ title, status, type, role }) {
       {fepks &&
         fepks.map((fepk) => {
           return (
-            <div className='listItem' key={fepk._id}>
+            <div className="listItem" key={fepk._id}>
               <a
                 href={
                   role === "actor"
                     ? `/actor/6487758c553b5011282f72a5`
-                    : `epk/${fepk.title}`
+                    : `epk/${fepk._id}`
                 }
               >
                 <img
@@ -107,7 +107,7 @@ export default function ListItem({ title, status, type, role }) {
                       ? `${process.env.REACT_APP_AWS_URL}/${fepk.picture}`
                       : `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
                   }
-                  alt=''
+                  alt=""
                 />
               </a>
             </div>

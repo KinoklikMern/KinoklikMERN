@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import Triangle from "../../images/icons/triangle.svg";
 import http from "../../http-common";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -34,20 +34,20 @@ export default function UsersPage() {
   //dropdown
   const [isOpen, setIsOpen] = useState(false);
   const options = [
-    (t("Filmmaker")),
-    (t( "Sales Agent")),
-    (t("Distributor")),
-    (t("Film Festival")),
-    (t("Viewer")),
-    (t("Investor")),
-    (t("Actor")),
-    (t("Director")),
-    (t("Editor")),
-    (t("Producer")),
-    (t("Cinematographer")),
-    (t("Sound")),
-    (t("Writer")),
-    (t("Admin")),
+    t("Filmmaker"),
+    t("Sales Agent"),
+    t("Distributor"),
+    t("Film Festival"),
+    t("Viewer"),
+    t("Investor"),
+    t("Actor"),
+    t("Director"),
+    t("Editor"),
+    t("Producer"),
+    t("Cinematographer"),
+    t("Sound"),
+    t("Writer"),
+    t("Admin"),
   ];
 
   const handleToggle = () => {
@@ -278,7 +278,7 @@ export default function UsersPage() {
       if (epkInfo !== undefined && item !== undefined) {
         await Promise.all(
           epkInfo.map(async (epk) => {
-            http.get(`/fepks/byTitle/${epk.title}`).then((res) => {
+            http.get(`/fepks/${epk._id}`).then((res) => {
               const epkData = res.data;
               if (item?.role === "Actor" && epkData.actors.length > 0) {
                 if (epkData.actors.some((actor) => actor?._id === item?._id)) {
@@ -379,7 +379,7 @@ export default function UsersPage() {
                     {t("Name")}
                   </p>
                   <p className=" tw-text-md tw-w-2/12 tw-py-3  tw-text-left tw-font-normal  tw-tracking-wider tw-text-[#1E0039]">
-                  {t("Role")}
+                    {t("Role")}
                   </p>
                   <p className=" tw-text-md tw-w-4/12 tw-py-3  tw-text-left  tw-font-normal tw-tracking-wider tw-text-[#1E0039]">
                     {t("Contact")}
@@ -572,7 +572,7 @@ export default function UsersPage() {
                   <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
                     <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
                       {epks.map((epk, index) => (
-                        <a key={index} href={`/epk/${epk.title}`}>
+                        <a key={index} href={`/epk/${epk._id}`}>
                           <img
                             src={
                               epk.image_details.includes("https")
@@ -738,7 +738,7 @@ export default function UsersPage() {
                   <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
                     <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
                       {epks.map((epk, index) => (
-                        <a key={index} href={`/epk/${epk.title}`}>
+                        <a key={index} href={`/epk/${epk._id}`}>
                           <img
                             src={
                               epk.image_details.includes("https")

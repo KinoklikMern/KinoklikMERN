@@ -52,7 +52,7 @@ function EpkView() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
   // fetching user
-  let { title } = useParams();
+  let { id } = useParams();
   const user = useSelector((state) => state.user);
   let userId;
   let userRole;
@@ -139,7 +139,7 @@ function EpkView() {
 
   useEffect(() => {
     try {
-      http.get(`fepks/byTitle/${title}`).then((response) => {
+      http.get(`fepks/${id}`).then((response) => {
         setFepkData(response.data);
         setCrewList(response.data.crew);
         setUsersWishesToDonate(response.data.wishes_to_donate?.length || 0);
@@ -168,7 +168,7 @@ function EpkView() {
     } catch (error) {
       console.log(error);
     }
-  }, [fepkId, fepkMaker, setFepkId, setFepkMaker, title]);
+  }, [fepkId, fepkMaker, setFepkId, setFepkMaker, id]);
 
   stillsImages.forEach((still) => {
     stillsImg.push(still.image);
@@ -421,8 +421,8 @@ function EpkView() {
     }
     return (
       <>
-        <div className='d-flex justify-content-center'>
-          <Button variant='light' onClick={handleShow} disabled={IsDisabled}>
+        <div className="d-flex justify-content-center">
+          <Button variant="light" onClick={handleShow} disabled={IsDisabled}>
             {ButtonTxt}
           </Button>
         </div>
@@ -505,24 +505,24 @@ function EpkView() {
           <Modal.Body>
             <Form>
               <Form.Group
-                className='my-3'
-                controlId='exampleForm.ControlTextarea1'
+                className="my-3"
+                controlId="exampleForm.ControlTextarea1"
                 value={requestMsg}
                 onChange={handleChange}
               >
                 <Form.Control
-                  as='textarea'
+                  as="textarea"
                   rows={4}
-                  placeholder='Type your message...'
+                  placeholder="Type your message..."
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary' onClick={props.close}>
+            <Button variant="secondary" onClick={props.close}>
               {t("Close")}
             </Button>
-            <Button variant='primary' onClick={handleSubmit}>
+            <Button variant="primary" onClick={handleSubmit}>
               {t("Send")}
             </Button>
           </Modal.Footer>
@@ -550,7 +550,7 @@ function EpkView() {
             <img
               className={style.peopleIcon}
               src={People}
-              alt='audience icon'
+              alt="audience icon"
             />
             <p className={style.totalNumber}>
               {mFormatter(
@@ -591,7 +591,7 @@ function EpkView() {
             <div>
               <img
                 src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_details}`}
-                alt='poster'
+                alt="poster"
                 className={style.imgPoster}
               ></img>
             </div>
@@ -619,7 +619,7 @@ function EpkView() {
           {isClickDot === false || isClose === true ? (
             <div className={style.dotSection}>
               <FontAwesomeIcon
-                color='white'
+                color="white"
                 onClick={() => clickStateDot()}
                 icon={faEllipsisVertical}
               />
@@ -667,9 +667,9 @@ function EpkView() {
                           className={
                             chosen1 === true ? style.selected : style.form1Input
                           }
-                          type='text'
-                          value='Spam'
-                          onhover='tw-color-red-500'
+                          type="text"
+                          value="Spam"
+                          onhover="tw-color-red-500"
                           onClick={() => chooseReason("Spam")}
                           readOnly
                         ></input>
@@ -706,8 +706,8 @@ function EpkView() {
                           className={
                             chosen2 === true ? style.selected : style.form1Input
                           }
-                          type='text'
-                          value='Nudity or Sexual Content'
+                          type="text"
+                          value="Nudity or Sexual Content"
                           onClick={() =>
                             chooseReason1("Nudity or Sexual Content")
                           }
@@ -748,8 +748,8 @@ function EpkView() {
                           className={
                             chosen3 === true ? style.selected : style.form1Input
                           }
-                          type='text'
-                          value='Copyrighted Intellectual Property Violation'
+                          type="text"
+                          value="Copyrighted Intellectual Property Violation"
                           onClick={() =>
                             chooseReason2(
                               t("Copyrighted Intellectual Property Violation")
@@ -783,15 +783,15 @@ function EpkView() {
                       </div>
 
                       <div className={style.inputContainer}>
-                        <label for='Other'>{t("Other:")} </label>
+                        <label for="Other">{t("Other:")} </label>
                         <input
                           className={
                             chosen4 === true ? style.selected : style.comment
                           }
-                          type='text'
-                          name='comment'
+                          type="text"
+                          name="comment"
                           onChange={handleInputChange}
-                          placeholder='type here'
+                          placeholder="type here"
                         ></input>
                         <FontAwesomeIcon
                           className={
@@ -840,17 +840,17 @@ function EpkView() {
         {/* icon-bar section */}
         <div className={style.iconContainer}>
           <div>
-            <a href='#action'>
+            <a href="#action">
               {userId === "0" ? (
                 <FontAwesomeIcon
                   icon={faDollarSign}
-                  size='lg'
+                  size="lg"
                   onClick={() => login()}
                 />
               ) : (
                 <FontAwesomeIcon
                   icon={faDollarSign}
-                  size='lg'
+                  size="lg"
                   onClick={() => addUserToWishesToDonate()}
                 />
               )}
@@ -859,17 +859,17 @@ function EpkView() {
           </div>
 
           <div>
-            <a href='#action' onClick={handleDollarIconClick}>
-              <FontAwesomeIcon icon={faDollarSign} size='lg' />
+            <a href="#action" onClick={handleDollarIconClick}>
+              <FontAwesomeIcon icon={faDollarSign} size="lg" />
             </a>
 
             <span>{usersWishesToBuy}</span>
           </div>
           <div>
-            <a href='#action' onClick={handlePlusIconClick}>
+            <a href="#action" onClick={handlePlusIconClick}>
               <FontAwesomeIcon
                 icon={faPlus}
-                size='lg'
+                size="lg"
                 color={userId !== "0" ? "fa-duotone" : undefined}
               />
             </a>
@@ -877,8 +877,8 @@ function EpkView() {
             <span>{usersFavourites}</span>
           </div>
           <div>
-            <a href='#action' onClick={handleStarIconClick}>
-              <FontAwesomeIcon icon={faStar} size='lg' />
+            <a href="#action" onClick={handleStarIconClick}>
+              <FontAwesomeIcon icon={faStar} size="lg" />
             </a>
             <span>{usersLikes}</span>
           </div>
@@ -923,10 +923,10 @@ function EpkView() {
                 </EmailShareButton>
               </div>
             )}
-            <a href='#action'>
+            <a href="#action">
               <FontAwesomeIcon
                 icon={faShareNodes}
-                size='lg'
+                size="lg"
                 onMouseOver={() => addUserToSharings()}
                 onClick={() => closeSharingMenu()}
               />
@@ -939,7 +939,7 @@ function EpkView() {
           <div>
             <img
               src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_details}`}
-              alt='poster'
+              alt="poster"
               className={style.imgDetail}
             />
           </div>
@@ -1016,7 +1016,7 @@ function EpkView() {
           <div>
             <img
               src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_logline}`}
-              alt='logline'
+              alt="logline"
               className={style.imgLogline}
             ></img>
           </div>
@@ -1030,7 +1030,7 @@ function EpkView() {
           <div className={style.content}>
             <img
               src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-              alt='hey'
+              alt="hey"
               className={style.imgSynopsis}
             />
             <h3 className={style.text}>{fepkData.text_short}</h3>
@@ -1049,8 +1049,8 @@ function EpkView() {
                   login();
                   clickState1();
                 }}
-                type='button'
-                data-toggle='modal'
+                type="button"
+                data-toggle="modal"
                 className={isClick1 === true ? style.none : style.btnSy}
               >
                 {" "}
@@ -1058,45 +1058,45 @@ function EpkView() {
               </button>
 
               <div
-                className='modal fade'
-                tabindex='-1'
-                role='dialog'
-                aria-labelledby='accessModal'
-                aria-hidden='true'
+                className="modal fade"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="accessModal"
+                aria-hidden="true"
               >
-                <div className='modal-dialog modal-dialog-centered'>
-                  <div className='modal-content'>
-                    <div className='modal-header'>
-                      <h5 className='modal-title' id='exampleModalLongTitle'>
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLongTitle">
                         {t("Request Access to Medium Synopsis")}
                       </h5>
                       <button
-                        type='button'
-                        className='close'
-                        data-dismiss='modal'
-                        aria-label='Close'
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
                       >
-                        <span aria-hidden='true'>&times;</span>
+                        <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div className='modal-body'>
+                    <div className="modal-body">
                       <form>
                         <input
-                          className='form-control'
+                          className="form-control"
                           defaultValue={mediumSynopsis.comment}
-                          name='requestComment'
+                          name="requestComment"
                         />
                       </form>
                     </div>
-                    <div className='modal-footer'>
+                    <div className="modal-footer">
                       <button
-                        type='button'
-                        className='btn btn-secondary'
-                        data-dismiss='modal'
+                        type="button"
+                        className="btn btn-secondary"
+                        data-dismiss="modal"
                       >
                         {t("Close")}
                       </button>
-                      <button type='button' className='btn btn-primary'>
+                      <button type="button" className="btn btn-primary">
                         {t("Save changes")}
                       </button>
                     </div>
@@ -1107,7 +1107,7 @@ function EpkView() {
             <div className={style.content1}>
               <img
                 src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                alt='hey'
+                alt="hey"
                 className={style.imgSynopsis}
               />
               <h3 className={style.text}>{mediumFakeText}</h3>
@@ -1129,7 +1129,7 @@ function EpkView() {
               <div className={style.content1}>
                 <img
                   src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                  alt='hey'
+                  alt="hey"
                   className={style.imgSynopsis}
                 />
                 <h3 className={style.text}>{mediumFakeText}</h3>
@@ -1160,7 +1160,7 @@ function EpkView() {
                     <div className={style.content1}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                        alt='hey'
+                        alt="hey"
                         className={style.imgSynopsis}
                       />
                       <h3 className={style.text}>{mediumFakeText}</h3>
@@ -1182,7 +1182,7 @@ function EpkView() {
               <div>
                 <img
                   src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                  alt='hey'
+                  alt="hey"
                   className={style.imgSynopsis}
                 />
                 <h3 className={style.text}>{fepkData.text_medium}</h3>
@@ -1202,7 +1202,7 @@ function EpkView() {
                     <div>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                        alt='hey'
+                        alt="hey"
                         className={style.imgSynopsis}
                       />
                       <h3 className={style.text}>{fepkData.text_medium}</h3>
@@ -1233,7 +1233,7 @@ function EpkView() {
                     <div className={style.content1}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                        alt='hey'
+                        alt="hey"
                         className={style.imgSynopsis}
                       />
                       <h3 className={style.text}>{mediumFakeText}</h3>
@@ -1252,8 +1252,8 @@ function EpkView() {
             </div>
             <div className={style.position}>
               <button
-                type='button'
-                data-toggle='modal'
+                type="button"
+                data-toggle="modal"
                 onClick={() => {
                   login();
                   clickState2();
@@ -1265,45 +1265,45 @@ function EpkView() {
               </button>
 
               <div
-                className='modal fade'
-                tabindex='-1'
-                role='dialog'
-                aria-labelledby='accessModal'
-                aria-hidden='true'
+                className="modal fade"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="accessModal"
+                aria-hidden="true"
               >
-                <div className='modal-dialog modal-dialog-centered'>
-                  <div className='modal-content'>
-                    <div className='modal-header'>
-                      <h5 className='modal-title' id='exampleModalLongTitle'>
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLongTitle">
                         {t("Request Access to Long Synopsis")}
                       </h5>
                       <button
-                        type='button'
-                        className='close'
-                        data-dismiss='modal'
-                        aria-label='Close'
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
                       >
-                        <span aria-hidden='true'>&times;</span>
+                        <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div className='modal-body'>
+                    <div className="modal-body">
                       <form>
                         <input
-                          className='form-control'
+                          className="form-control"
                           defaultValue={longSynopsis.comment}
-                          name='requestComment'
+                          name="requestComment"
                         />
                       </form>
                     </div>
-                    <div className='modal-footer'>
+                    <div className="modal-footer">
                       <button
-                        type='button'
-                        className='btn btn-secondary'
-                        data-dismiss='modal'
+                        type="button"
+                        className="btn btn-secondary"
+                        data-dismiss="modal"
                       >
                         {t("Close")}
                       </button>
-                      <button type='button' className='btn btn-primary'>
+                      <button type="button" className="btn btn-primary">
                         {t("Save changes")}
                       </button>
                     </div>
@@ -1314,7 +1314,7 @@ function EpkView() {
             <div className={style.content1}>
               <img
                 src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                alt='hey'
+                alt="hey"
                 className={style.imgSynopsis}
               />
               <h3 className={style.text}>{longFakeText}</h3>
@@ -1352,7 +1352,7 @@ function EpkView() {
               <div className={style.content1}>
                 <img
                   src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                  alt='hey'
+                  alt="hey"
                   className={style.imgSynopsis}
                 />
                 <h3 className={style.text}>{longFakeText}</h3>
@@ -1382,7 +1382,7 @@ function EpkView() {
                     <div className={style.content1}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                        alt='hey'
+                        alt="hey"
                         className={style.imgSynopsis}
                       />
                       <h3 className={style.text}>{longFakeText}</h3>
@@ -1403,7 +1403,7 @@ function EpkView() {
               <div>
                 <img
                   src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                  alt='hey'
+                  alt="hey"
                   className={style.imgSynopsis}
                 />
                 <h3 className={style.text}>{fepkData.text_long}</h3>
@@ -1422,7 +1422,7 @@ function EpkView() {
                     <div>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                        alt='hey'
+                        alt="hey"
                         className={style.imgSynopsis}
                       />
                       <h3 className={style.text}>{fepkData.text_long}</h3>
@@ -1448,7 +1448,7 @@ function EpkView() {
                     <div className={style.content1}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_synopsis}`}
-                        alt='hey'
+                        alt="hey"
                         className={style.imgSynopsis}
                       />
                       <h3 className={style.text}>{longFakeText}</h3>
@@ -1469,8 +1469,8 @@ function EpkView() {
                   login();
                   clickState3();
                 }}
-                type='button'
-                data-toggle='modal'
+                type="button"
+                data-toggle="modal"
                 className={isClick3 === true ? style.none : style.btnUni}
               >
                 {" "}
@@ -1478,45 +1478,45 @@ function EpkView() {
               </button>
 
               <div
-                className='modal fade'
-                tabindex='-1'
-                role='dialog'
-                aria-labelledby='accessModal'
-                aria-hidden='true'
+                className="modal fade"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="accessModal"
+                aria-hidden="true"
               >
-                <div className='modal-dialog modal-dialog-centered'>
-                  <div className='modal-content'>
-                    <div className='modal-header'>
-                      <h5 className='modal-title' id='exampleModalLongTitle'>
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLongTitle">
                         {t("Request Access to Uniqueness")}
                       </h5>
                       <button
-                        type='button'
-                        className='close'
-                        data-dismiss='modal'
-                        aria-label='Close'
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
                       >
-                        <span aria-hidden='true'>&times;</span>
+                        <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div className='modal-body'>
+                    <div className="modal-body">
                       <form>
                         <input
-                          className='form-control'
+                          className="form-control"
                           defaultValue={uniqueness.comment}
-                          name='requestComment'
+                          name="requestComment"
                         />
                       </form>
                     </div>
-                    <div className='modal-footer'>
+                    <div className="modal-footer">
                       <button
-                        type='button'
-                        className='btn btn-secondary'
-                        data-dismiss='modal'
+                        type="button"
+                        className="btn btn-secondary"
+                        data-dismiss="modal"
                       >
                         {t("Close")}
                       </button>
-                      <button type='button' className='btn btn-primary'>
+                      <button type="button" className="btn btn-primary">
                         {t("Save changes")}
                       </button>
                     </div>
@@ -1528,7 +1528,7 @@ function EpkView() {
               <div className={style.content1}>
                 <img
                   src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                  alt='uniqueness'
+                  alt="uniqueness"
                   className={style.imgUnique}
                 />
               </div>
@@ -1552,7 +1552,7 @@ function EpkView() {
                 <div className={style.content1}>
                   <img
                     src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                    alt='uniqueness'
+                    alt="uniqueness"
                     className={style.imgUnique}
                   />
                 </div>
@@ -1588,7 +1588,7 @@ function EpkView() {
                       <div className={style.content1}>
                         <img
                           src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                          alt='uniqueness'
+                          alt="uniqueness"
                           className={style.imgUnique}
                         />
                       </div>
@@ -1612,7 +1612,7 @@ function EpkView() {
                 <div>
                   <img
                     src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                    alt='uniqueness'
+                    alt="uniqueness"
                     className={style.imgUnique}
                   />
                 </div>
@@ -1638,7 +1638,7 @@ function EpkView() {
                       <div>
                         <img
                           src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                          alt='uniqueness'
+                          alt="uniqueness"
                           className={style.imgUnique}
                         />
                       </div>
@@ -1670,7 +1670,7 @@ function EpkView() {
                       <div className={style.content1}>
                         <img
                           src={`https://kinomovie.s3.amazonaws.com/${fepkData.image_uniqueness}`}
-                          alt='uniqueness'
+                          alt="uniqueness"
                           className={style.imgUnique}
                         />{" "}
                       </div>
@@ -1698,7 +1698,7 @@ function EpkView() {
                       <div className={style.imgleft}>
                         <img
                           src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                          alt='starring'
+                          alt="starring"
                           className={style.starimg}
                         />
                         <br />
@@ -1734,7 +1734,7 @@ function EpkView() {
                       <div className={style.imgleft}>
                         <img
                           src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                          alt='starring'
+                          alt="starring"
                           className={style.starimg}
                         />
                         <br />
@@ -1770,7 +1770,7 @@ function EpkView() {
                     <div className={style.left}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                        alt='director'
+                        alt="director"
                         className={style.producerimg}
                       ></img>
                       <br />
@@ -1808,7 +1808,7 @@ function EpkView() {
                     <div className={style.left}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                        alt='starring'
+                        alt="starring"
                         className={style.producerimg}
                       ></img>
                       <br />
@@ -1844,7 +1844,7 @@ function EpkView() {
                     <div className={style.left}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                        alt='director'
+                        alt="director"
                         className={style.producerimg}
                       ></img>
                       <br />
@@ -1882,7 +1882,7 @@ function EpkView() {
                     <div className={style.left}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                        alt='starring'
+                        alt="starring"
                         className={style.producerimg}
                       ></img>
                       <br />
@@ -1918,7 +1918,7 @@ function EpkView() {
                     <div className={style.left}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                        alt='cinematographer'
+                        alt="cinematographer"
                         className={style.producerimg}
                       ></img>
                       <br />
@@ -1956,7 +1956,7 @@ function EpkView() {
                     <div className={style.left}>
                       <img
                         src={`https://kinomovie.s3.amazonaws.com/${crewObj.image}`}
-                        alt='starring'
+                        alt="starring"
                         className={style.producerimg}
                       ></img>
                       <h1>{crewObj.crewId.name}</h1>
@@ -1982,7 +1982,7 @@ function EpkView() {
           })}
         </div>
         {/* stills section */}
-        <StillsCarousel title={{ title }} />
+        <StillsCarousel id={{ id }} />
         {/* the case when user not logged in and if logged in not requested yet*/}
         {/* {userId === "0" ? (
           <div className={style.stills}>
@@ -2261,7 +2261,7 @@ function EpkView() {
                 <div>
                   <img
                     src={`https://kinomovie.s3.amazonaws.com/${resource.image}`}
-                    alt='resource pics'
+                    alt="resource pics"
                     className={style.imgResource}
                   />
                 </div>
@@ -2286,7 +2286,7 @@ function EpkView() {
                       sx={{ color: "white", fontSize: 40 }}
                       onClick={() => openUrl(resource.twitter_url)}
                     />
-                    <FontAwesomeIcon icon={faEnvelope} color='white' />
+                    <FontAwesomeIcon icon={faEnvelope} color="white" />
                   </h4>
                 </div>
               </div>
@@ -2319,7 +2319,7 @@ function EpkView() {
               <div>
                 <img
                   src={`https://kinomovie.s3.amazonaws.com/${award.award_logo}`}
-                  alt='award pics'
+                  alt="award pics"
                   className={style.imgAward}
                 />
               </div>

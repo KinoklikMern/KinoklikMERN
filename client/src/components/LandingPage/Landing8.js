@@ -45,23 +45,23 @@ const Landing8 = () => {
   };
   return (
     <>
-      <div className='tw-overflow-hidden tw-bg-gradient-to-t tw-from-white tw-to-midnight'>
-        <h1 className='tw-py-28 tw-text-center tw-text-xl tw-font-bold tw-text-white md:tw-text-2xl lg:tw-text-3xl xl:tw-text-4xl'>
+      <div className="tw-overflow-hidden tw-bg-gradient-to-t tw-from-white tw-to-midnight">
+        <h1 className="tw-py-28 tw-text-center tw-text-xl tw-font-bold tw-text-white md:tw-text-2xl lg:tw-text-3xl xl:tw-text-4xl">
           {t("Are you a Distributor, a Film Festival, Sales Agent")} <br />
           {t(" or Investor searching for new upcoming film projects?")}
         </h1>
-        <h2 className='tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl'>
+        <h2 className="tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl">
           {t("NEW FILMS")}
         </h2>
-        <div className='slide-right-left tw-my-6 tw-flex tw-gap-5'>
+        <div className="slide-right-left tw-my-6 tw-flex tw-gap-5">
           {fepksNew.map((item) => (
             <div
-              className='tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600'
+              className="tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
               key={item._id}
             >
-              <a href={`epk/${item.title}`}>
+              <a href={`epk/${item._id}`}>
                 <img
-                  className='tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105 '
+                  className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105 "
                   src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
                   alt={item.title}
                 />
@@ -70,18 +70,18 @@ const Landing8 = () => {
           ))}
         </div>
 
-        <h2 className='tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl'>
+        <h2 className="tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl">
           {t("MOST POPULAR")}
         </h2>
-        <div className='slide-left-right tw-my-6 tw-flex tw-gap-5'>
+        <div className="slide-left-right tw-my-6 tw-flex tw-gap-5">
           {fepksPopular.map((item) => (
             <div
-              className='tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600'
+              className="tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
               key={item._id}
             >
-              <a href={`epk/${item.title}`}>
+              <a href={`epk/${item._id}`}>
                 <img
-                  className='tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105'
+                  className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105"
                   src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
                   alt={item.title}
                 />
@@ -89,10 +89,10 @@ const Landing8 = () => {
             </div>
           ))}
         </div>
-        <div className='tw-flex tw-items-center tw-justify-center tw-p-6'>
+        <div className="tw-flex tw-items-center tw-justify-center tw-p-6">
           <a
-            className='tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-midnight tw-px-4 tw-py-2 tw-text-xl tw-font-bold  tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5  hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base'
-            href='/catalog'
+            className="tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-midnight tw-px-4 tw-py-2 tw-text-xl tw-font-bold  tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5  hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base"
+            href="/catalog"
           >
             {t("Browse EPKs")}
           </a>

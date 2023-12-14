@@ -83,10 +83,10 @@ const HomeBody = ({ role }) => {
 
   return (
     <>
-      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-py-8 md:tw-flex-row'>
+      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-py-8 md:tw-flex-row">
         <StatusBtn onStatusChange={handleStatusChange} />
       </div>
-      <div className='tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] md:tw-flex-row'>
+      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] md:tw-flex-row">
         {filterTags.map((tag, index) => (
           <FilterButton
             key={index}
@@ -96,8 +96,8 @@ const HomeBody = ({ role }) => {
           />
         ))}
       </div>
-      <div className='home tw-overflow-y-auto'>
-        <div className='tw-grid tw-grid-cols-1 tw-gap-4 tw-pb-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5'>
+      <div className="home tw-overflow-y-auto">
+        <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-pb-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5">
           {filteredEPKs.map((fepk) => {
             if (fepk.image_details === "") {
               // Skip rendering this item if image_details (poster) because it looks
@@ -105,18 +105,18 @@ const HomeBody = ({ role }) => {
             }
             return (
               <React.Fragment key={fepk._id}>
-                <div className='listItem tw-my-8 tw-p-3 md:tw-my-24'>
+                <div className="listItem tw-my-8 tw-p-3 md:tw-my-24">
                   <a
                     href={
                       role === "actor"
                         ? `/actor/${fepk._id}`
-                        : `epk/${fepk.title}`
+                        : `epk/${fepk._id}`
                     }
                   >
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                      alt=''
-                      className='tw-w-full'
+                      alt=""
+                      className="tw-w-full"
                     />
                   </a>
                 </div>
