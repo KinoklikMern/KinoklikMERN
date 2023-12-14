@@ -65,12 +65,12 @@ app.use("/message", messageRoutes);
 app.use("/*", handleNotFound);
 app.use(errorHandler);
 
-const server = app.listen(8000, () =>
-  console.log(`App Running on PORT ${PORT}`)
-);
-
 const CONNECTION_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 8000;
+
+const server = app.listen(PORT, () =>
+  console.log(`App Running on PORT ${PORT}`)
+);
 
 mongoose.set("strictQuery", true); //Needs to be set for Mongoose 7, as default is false
 mongoose.connect(
@@ -80,8 +80,11 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   (err) => {
-    if (err) throw err;
-    console.log(`Connected to MongoDB on PORT: ${PORT}!!!`);
+    if (err) {
+      console.error("MongoDB connection error:", err);
+    } else {
+      console.log(`Connected to MongoDB on PORT: ${PORT}!!!`);
+    }
   }
 );
 
