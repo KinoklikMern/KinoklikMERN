@@ -17,8 +17,13 @@ import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
 import axios from "axios";
 import path from "path";
+import { fileURLToPath } from "url";
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const buildPath = path.join(__dirname, "../client/build");
 
 // end ////
 const app = express();
@@ -46,6 +51,10 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
+// build path for deployment
+
+app.use(express.static(buildPath));
+
 //invitations
 app.use("/invitations", invitationRoutes);
 
@@ -61,6 +70,17 @@ app.use("/filmmaker", filmMakerDashboard);
 // rucheng edit
 app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
+
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "../client/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
 
 app.use("/*", handleNotFound);
 app.use(errorHandler);
@@ -95,23 +115,6 @@ const io = new Server(server, {
   cors: {
     origin: `${process.env.BASE_URL}`,
   },
-});
-
-// build path for deployment
-const _dirname = path.dirname("");
-const buildPath = path.join(_dirname, "../client/build");
-
-app.use(express.static(buildPath));
-
-app.get("/*", function (req, res) {
-  res.sendFile(
-    path.join(__dirname, "../client/build/index.html"),
-    function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
-    }
-  );
 });
 
 io.on("connection", async (socket) => {
