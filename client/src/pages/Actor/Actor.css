@@ -100,7 +100,7 @@
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
-}
+
 
 @media screen and (max-width: 1245px) {
   .actor-profile {
@@ -109,7 +109,7 @@
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
-}
+
 
 .arrow-actor-profile {
   font-size: 4rem;
@@ -139,7 +139,7 @@
     height: 3rem; 
   }
 }
-}
+
 
 /* Media query for even smaller screens */
 @media screen and (max-width: 1245px) {
@@ -149,7 +149,7 @@
     height: 3rem;
   }
 }
-}
+
 .actor-image-text {
   color: white;
 }
