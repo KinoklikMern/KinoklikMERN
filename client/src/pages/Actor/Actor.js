@@ -104,6 +104,11 @@ export default function Actor(props) {
         const actorData = actorResponse.data;
         setEpkInfo(actorData);
 
+        // Check if bannerImg exists and is valid
+        if (!actorData.bannerImg || actorData.bannerImg.startsWith("https")) {
+          setShowVideoErrorMsg(true);
+        }
+
         const images = actorData.picture.startsWith("https")
           ? []
           : [actorData.picture];
