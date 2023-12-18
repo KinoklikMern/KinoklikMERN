@@ -16,9 +16,14 @@ import { errorHandler } from "./middlwares/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
 import axios from "axios";
-
+import path from "path";
+import { fileURLToPath } from "url";
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const buildPath = path.join(__dirname, "../client/build");
 
 // end ////
 const app = express();
@@ -46,6 +51,9 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
+// build path for deployment
+app.use(express.static(buildPath));
+
 //invitations
 app.use("/invitations", invitationRoutes);
 
@@ -62,15 +70,23 @@ app.use("/filmmaker", filmMakerDashboard);
 app.use("/chat", chatRoutes);
 app.use("/message", messageRoutes);
 
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(buildPath, "index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
+
 app.use("/*", handleNotFound);
 app.use(errorHandler);
 
-const server = app.listen(8000, () =>
-  console.log(`App Running on PORT ${PORT}`)
-);
-
 const CONNECTION_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 8000;
+
+const server = app.listen(PORT, () =>
+  console.log(`App Running on PORT ${PORT}`)
+);
 
 mongoose.set("strictQuery", true); //Needs to be set for Mongoose 7, as default is false
 mongoose.connect(
@@ -80,8 +96,11 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   (err) => {
-    if (err) throw err;
-    console.log(`Connected to MongoDB on PORT: ${PORT}!!!`);
+    if (err) {
+      console.error("MongoDB connection error:", err);
+    } else {
+      console.log(`Connected to MongoDB on PORT: ${PORT}!!!`);
+    }
   }
 );
 

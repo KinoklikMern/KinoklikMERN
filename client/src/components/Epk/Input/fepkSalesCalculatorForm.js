@@ -28,11 +28,11 @@ function SalesCalculatorForm() {
   const [possibleSales, setPossibleSales] = useState('0');
   const [potentialSales, setPotentialSales] = useState('0');
 
-  const [budget, setBudget] = useState('');
+  const [budget, setBudget] = useState('0');
   const [genre, setGenre] = useState('');
   const [language, setLanguage] = useState('');
   const [followersCount, setFollowersCount] = useState('');
-  const [predictionSale, setPredictionSale] = useState('');
+  const [predictionSale, setPredictionSale] = useState('0');
   const [homepage, setHomepage] = useState('');
 
   const handlePredict = () => {
@@ -41,14 +41,15 @@ function SalesCalculatorForm() {
   };
 
   const handleCalculate = () => {
-    // Calculate Possible Sales
-    const possibleSalesValue = totalAudienceReach * filmPrice;
-    setPossibleSales(possibleSalesValue);
-
     // Calculate Potential Sales
-    const potentialSalesValue = possibleSalesValue * engagementRate / 100;
+    const potentialSalesValue = totalAudienceReach * filmPrice * engagementRate / 100;
     setPotentialSales(potentialSalesValue);
   };
+
+    const calculatePossibleSales = (totalAudienceReach, filmPrice) => {
+        const possibleSalesValue = totalAudienceReach * filmPrice;
+        setPossibleSales(possibleSalesValue);
+    };
 
 
   return (
@@ -116,7 +117,7 @@ function SalesCalculatorForm() {
                       className="form-control m-10"
                       type="number"
                       value={totalAudienceReach}
-                      onChange={(e) => setTotalAudienceReach(e.target.value)}
+                      onChange={(e) => {setTotalAudienceReach(e.target.value); calculatePossibleSales(e.target.value, filmPrice);}}
                   />
                 </label>
 
@@ -136,9 +137,15 @@ function SalesCalculatorForm() {
                       className="form-control m-10"
                       type="number"
                       value={filmPrice}
-                      onChange={(e) => setFilmPrice(e.target.value)}
+                      onChange={(e) => {setFilmPrice(e.target.value);  calculatePossibleSales(totalAudienceReach, e.target.value);}}
                   />
                 </label>
+
+                <br />
+                  <p style={{
+                      marginTop: "20px",
+                      fontWeight: 'bold'
+                  }}>Possible Sales: {possibleSales} $</p>
 
                 <br />
 
@@ -152,14 +159,13 @@ function SalesCalculatorForm() {
                         step="1"
                         value={engagementRate}
                         onChange={(e) => setEngagementRate(e.target.value)}
-                        style={{ width: '80%' , background: '#1E0039'}}
+                        style={{ width: '200px'}}
                     />
                     <span style={{ marginLeft: '5px', width: '20%' }}>{engagementRate}%</span>
                   </div>
                 </label>
 
                 <br />
-
 
                 <Button
                     style={{
@@ -177,12 +183,12 @@ function SalesCalculatorForm() {
                 </Button>
 
                 <br />
+                <br />
 
                 <p style={{
                   marginTop: "20px",
-                }}>Possible Sales: {possibleSales} $</p>
-                <p style={{
-                  marginTop: "20px",
+                    fontSize: '1.25em',
+                    fontWeight: 'bold'
                 }}>Potential Sales: {potentialSales} $</p>
               </div>
 
