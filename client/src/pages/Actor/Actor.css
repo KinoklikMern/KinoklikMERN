@@ -30,10 +30,12 @@
 }
 
 .actor-play-icon {
-  position: absolute;
+  color: #1E0039;
+    font-size: 6rem;
+  /* position: absolute;
   left: 50%;
   top: 70vh;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
 .actor-image-container {
