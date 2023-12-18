@@ -318,29 +318,29 @@
   border-radius: 0%;
 }
 
-@media screen and (max-width: 1350px) {
-  .movie-actor-play-container img {
-    max-height: 350px;
+@media screen and (max-width: 1245px) {
+  .movie-actor-play-container  {
+    display: grid;
+  flex-wrap: nowrap;
+  position:center;
+  gap: 2em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  justify-content: flex-start;
+  margin: 0 1%;
+  padding: 2% 2% 0 2%;
+  background-color: rgba(30, 0, 57, 0.22);
+  border-radius: 1em;
   }
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1245px) {
   .movie-actor-play-container img {
-    max-height: 280px;
+    height: 600px;
+    display: flex;
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .movie-actor-play-container img {
-    max-height: 220px;
-  }
-}
-
-@media screen and (max-width: 780px) {
-  .movie-actor-play-container img {
-    max-height: 200px;
-  }
-}
 
 .listItem p {
   margin-top: 10px;
