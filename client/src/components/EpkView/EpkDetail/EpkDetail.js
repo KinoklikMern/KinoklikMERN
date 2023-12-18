@@ -18,7 +18,7 @@ export default function EpkDetail({ epkInfo, handler }) {
 
   //That piece of code is added just to be able to use both "crew" and "actor" (basically new version of crew but held in 1 collection of users)
   const normalizeAvatarCrewData = (person) => {
-    console.log("Person:", person);
+    // console.log("Person:", person);
     let imageUrl;
     if (person.picture) {
       imageUrl = person.picture.startsWith("https")
@@ -41,7 +41,7 @@ export default function EpkDetail({ epkInfo, handler }) {
   };
 
   const CrewAvatar = ({ crewInfo }) => {
-    console.log("Crew Info:", crewInfo);
+    // console.log("Crew Info:", crewInfo);
     const actorUrl =
       crewInfo.role === "Actor" && crewInfo.id ? `/actor/${crewInfo.id}` : "#";
     const formatChars = (chars) => {

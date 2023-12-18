@@ -318,7 +318,11 @@ function FepkCoverForm() {
             } else {
               setIsUploading(false);
               console.log("saved");
-              navigate(`/editFepk/${res.data._id}`);
+              navigate(
+                res.data.title
+                  ? `/editFepk/${res.data.title.replace(/ /g, "-").trim()}`
+                  : "/"
+              );
             }
           });
         });

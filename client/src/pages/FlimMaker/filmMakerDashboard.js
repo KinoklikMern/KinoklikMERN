@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 // import "./filmMakerDashboardPage.scss";
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function Filmmaker() {
   const [epkList, setEpkList] = useState([]);
@@ -58,7 +58,9 @@ export default function Filmmaker() {
                   ? () => (
                       <div>
                         <p className="icon-plus">
-                        {t("You don`t have any EPK created.To start promoting your ")}
+                          {t(
+                            "You don`t have any EPK created.To start promoting your "
+                          )}
                           {t(" film right away.")}
                         </p>
                         <Button> {t("Create your free film EPK now!")} </Button>
@@ -111,7 +113,11 @@ export default function Filmmaker() {
                         </div>
                       </Link>
                       <Link
-                        to={`/editFepk/${epk._id}`}
+                        to={
+                          epk.title
+                            ? `/editFepk/${epk.title.replace(/ /g, "-").trim()}`
+                            : "/"
+                        }
                         style={{ color: "white", float: "right" }}
                       >
                         {t("update")}

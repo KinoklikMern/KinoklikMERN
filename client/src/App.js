@@ -202,7 +202,7 @@ function App() {
         <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
           {/* <Route index element={<Home />} /> */}
           <Route path="catalog" element={<CatelogPage />} />
-          <Route path="epk/:id" element={<EpkViewPage />} />
+          <Route path="epk/:title" element={<EpkViewPage />} />
           <Route path="upload" element={<UploadMovie />} />
           <Route path="my_list" element={<MyList />} />
           <Route path="edit_profile" element={<Home />} />
@@ -287,7 +287,7 @@ function App() {
           <Route path="epk/:title" element={<EPK />} />
           <Route element={<AuthRoutes />}>
             <Route path="uploadFepk" element={<FepkUploadDashboard />} />
-            <Route path="editFepk/:fepkId" element={<FepkEditDashboard />} />
+            <Route path="editFepk/:title" element={<FepkEditDashboard />} />
           </Route>
           <Route path="uploadEpk" element={<EpkDashboard />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />

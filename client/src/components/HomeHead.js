@@ -112,7 +112,9 @@ const HomeHead = (props) => {
               href={
                 props.role === "actor"
                   ? `actor/${actor._id}`
-                  : `epk/${fepk._id}`
+                  : fepk.title
+                  ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                  : "/"
               }
             >
               <h1 className="movieTitle tw-mx-auto tw-text-5xl tw-font-semibold lg:tw-text-6xl xl:tw-text-8xl">

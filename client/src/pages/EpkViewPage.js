@@ -18,7 +18,7 @@ import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
 import NewMessageModal from "../components/EpkView/miscellaneous/NewMessageModal";
 import { useParams } from "react-router-dom";
-import { getFepksById } from "../api/epks";
+import { getFepksByTitle } from "../api/epks";
 import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
 import Banner from "../components/EpkView/EpkBanner/EpkBanner";
@@ -38,8 +38,7 @@ function EpkViewPage() {
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
   const [imageDetails, setImageDetails] = useState("");
 
-  let { id } = useParams();
-  // title = title.replace(/%20/g, "_"); // Replace %20 with _
+  let { title } = useParams();
 
   const handleClose = (modalType) => {
     if (user) {
@@ -84,7 +83,7 @@ function EpkViewPage() {
   };
 
   useEffect(() => {
-    getFepksById(id).then((res) => {
+    getFepksByTitle(title).then((res) => {
       if (res.message) {
         alert(res.message);
       } else {
@@ -103,7 +102,7 @@ function EpkViewPage() {
         }
       }
     });
-  }, [id, refresh, setFepkId, setFepkMaker, user?.id]);
+  }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
 
   useEffect(() => {
     if (

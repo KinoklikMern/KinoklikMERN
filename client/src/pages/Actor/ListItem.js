@@ -28,7 +28,7 @@ export default function ListItem() {
           {fepks &&
             fepks.map((fepk) => (
               <div className="" key={fepk._id}>
-                <a href={`/epk/${fepk._id}`}>
+                <a href={`/epk/${fepk.title.replace(/ /g, "-").trim()}`}>
                   <img
                     src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                     alt=""

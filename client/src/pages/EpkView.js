@@ -157,8 +157,7 @@ function EpkView() {
         setRequests(response.data.requests);
         setFepkId(response.data._id);
         setFepkMaker(response.data.film_maker);
-        console.log(fepkId);
-        console.log(fepkMaker);
+        // console.log("epkview" + fepkId);
 
         // Move this inside the first http.get's 'then' block
         http.get(`/fepks/followers/${response.data._id}`).then((res) => {
@@ -166,7 +165,7 @@ function EpkView() {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.log("epkview" + error);
     }
   }, [fepkId, fepkMaker, setFepkId, setFepkMaker, id]);
 

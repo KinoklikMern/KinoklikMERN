@@ -19,7 +19,7 @@ export default function BasicMenu({ color }) {
   const user = useSelector((state) => state.user);
   const filmmaker_id = user.id;
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
   // const navigate = useNavigate();
 
   const [fepkList, setFepkList] = React.useState([]);
@@ -29,10 +29,12 @@ export default function BasicMenu({ color }) {
     http.get(`/fepks/byfilmmaker/${filmmaker_id}`).then((response) => {
       setFepkList(response.data);
     });
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
-    });
-  }, [fepkId, filmmaker_id]);
+    http
+      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+      .then((response) => {
+        setFepk(response.data);
+      });
+  }, [title, filmmaker_id]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,14 +46,14 @@ export default function BasicMenu({ color }) {
   return (
     <div>
       <Button
-        id='basic-button'
+        id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup='true'
+        aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
         <h6
-          className='col align-items-start'
+          className="col align-items-start"
           style={{ color: color, fontWeight: "bold" }}
         >
           <FontAwesomeIcon
@@ -60,7 +62,7 @@ export default function BasicMenu({ color }) {
           />{" "}
           {t("Project:")}
           <span
-          className="tw-text-center tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
+            className="tw-text-center tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
             // style={{
             //   fontWeight: "bold",
             //   margin: "2px 0 0 2px",
@@ -73,7 +75,7 @@ export default function BasicMenu({ color }) {
         </h6>
       </Button>
       <Menu
-        id='basic-menu'
+        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -85,7 +87,11 @@ export default function BasicMenu({ color }) {
           return (
             <MenuItem key={val._id}>
               <a
-                href={`/editFepk/${val._id}`}
+                href={
+                  val.title
+                    ? `/editFepk/${val.title.replace(/ /g, "-").trim()}`
+                    : "/"
+                }
                 style={{
                   color: "#311465",
                   textDecoration: "none",

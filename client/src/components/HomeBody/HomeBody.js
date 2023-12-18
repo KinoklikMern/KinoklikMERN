@@ -110,7 +110,9 @@ const HomeBody = ({ role }) => {
                     href={
                       role === "actor"
                         ? `/actor/${fepk._id}`
-                        : `epk/${fepk._id}`
+                        : fepk.title
+                        ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                        : "/"
                     }
                   >
                     <img

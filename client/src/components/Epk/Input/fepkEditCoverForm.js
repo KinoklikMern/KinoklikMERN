@@ -37,7 +37,7 @@ function FepkEditCoverForm() {
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
 
   //banner
   const file1Selected = (event) => {
@@ -69,13 +69,16 @@ function FepkEditCoverForm() {
   };
 
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
+    http.get(`/fepks/byTitle/${title}`).then((response) => {
       setFepk(response.data);
-      console.log(response.data);
-      setCharacterLength({ logLine_short: response.data.logLine_short.length });
+      //console.log(response.data);
+      setCharacterLength({
+        logLine_short: response.data.logLine_short.length,
+      });
+
       // console.log(response.data);
     });
-  }, [fepkId]);
+  }, [title]);
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -302,7 +305,7 @@ function FepkEditCoverForm() {
             }
             console.log(epkCoverData);
             http
-              .put(`fepks/update/${fepkId}`, epkCoverData)
+              .put(`fepks/update/${fepk._id}`, epkCoverData)
               .then((res) => {
                 setModalIsOpen(true);
                 setIsUploading(false);
@@ -369,7 +372,11 @@ function FepkEditCoverForm() {
           <div className="col-2 tw-m-3 tw-text-center">
             <Link
               className="tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
+              to={
+                fepk.title
+                  ? `/epk/${fepk.title.replace(/ /g, "-").trim()}`
+                  : "/"
+              }
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

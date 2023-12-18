@@ -497,7 +497,14 @@ export default function SavedPage() {
                   <>
                     <div className="tw-grid tw-grid-cols-2 tw-gap-2 tw-overflow-hidden tw-p-2 md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-8">
                       {filteredEpkList.map((epk, index) => (
-                        <a key={index} href={`/epk/${epk._id}`}>
+                        <a
+                          key={index}
+                          href={
+                            epk.title
+                              ? `/epk/${epk.title.replace(/ /g, "-").trim()}`
+                              : `/`
+                          }
+                        >
                           <img
                             src={
                               epk.banner_url === ""

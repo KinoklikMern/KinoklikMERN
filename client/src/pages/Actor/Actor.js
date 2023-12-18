@@ -334,8 +334,8 @@ export default function Actor(props) {
           {/* Image Container with Arrows */}
           {pics.length > 0 && (
             <div
-            // className="actor-profile"
-              className=" tw-absolute tw-z-10 tw-h-[60%] tw-w-[20%] tw-top-[10%] tw-left-[15%]"
+              // className="actor-profile"
+              className=" tw-absolute tw-left-[15%] tw-top-[10%] tw-z-10 tw-h-[60%] tw-w-[20%]"
               style={{
                 backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
                 backgroundSize: "contain",
@@ -344,27 +344,29 @@ export default function Actor(props) {
               }}
             >
               <ArrowBackIosOutlined
-              className="tw-absolute tw-left-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl sm:tw-text-2xl xs:tw-text-xl tw-text-white"
-              // className="arrow-actor-profile arrow-actor-profile1"
-              onClick={() => handleClick("left")}
-              style={{
-                // color: "#1E0039",
-                // fontSize: "4rem",
-                // display: "inline",
-                // height: "4rem",
-              }}
-            />
-            <ArrowForwardIosOutlined
-              className="tw-absolute tw-right-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl sm:tw-text-2xl xs:tw-text-xl tw-text-white"
-              // className="arrow-actor-profile arrow-actor-profile2"
-              onClick={() => handleClick("right")}
-              // style={{
-              //   color: "#1E0039",
-              //   fontSize: "4rem",
-              //   display: "inline",
-              //   height: "4rem",
-              // }}
-            />
+                className="xs:tw-text-xl tw-absolute tw-left-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
+                // className="arrow-actor-profile arrow-actor-profile1"
+                onClick={() => handleClick("left")}
+                style={
+                  {
+                    // color: "#1E0039",
+                    // fontSize: "4rem",
+                    // display: "inline",
+                    // height: "4rem",
+                  }
+                }
+              />
+              <ArrowForwardIosOutlined
+                className="xs:tw-text-xl tw-absolute tw-right-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
+                // className="arrow-actor-profile arrow-actor-profile2"
+                onClick={() => handleClick("right")}
+                // style={{
+                //   color: "#1E0039",
+                //   fontSize: "4rem",
+                //   display: "inline",
+                //   height: "4rem",
+                // }}
+              />
             </div>
           )}
           <div className="tw-absolute tw-bottom-5 tw-left-5">
@@ -788,7 +790,14 @@ export default function Actor(props) {
             <div className="movie-actor-play-container">
               {epksList.map((epk) => {
                 return (
-                  <a key={epk._id} href={`/epk/${epk._id}`}>
+                  <a
+                    key={epk._id}
+                    href={
+                      epk.title
+                        ? `/epk/${epk.title.replace(/ /g, "-").trim()}`
+                        : "/"
+                    }
+                  >
                     <div className="listItem">
                       <img
                         src={
