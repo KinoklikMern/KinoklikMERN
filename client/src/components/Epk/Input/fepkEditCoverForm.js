@@ -351,7 +351,7 @@ function FepkEditCoverForm() {
               //   fontSize: "25px",
               // }}
             >
-              {t("Cover - Mandotory")}
+              {t("Cover - Mandatory")}
             </h5>
           </div>
           <div className="col-2 tw-m-3 tw-text-center">

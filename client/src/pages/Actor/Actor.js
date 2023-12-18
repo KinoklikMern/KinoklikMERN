@@ -47,6 +47,7 @@ export default function Actor(props) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [studioData, setStudioData] = useState(null);
   const [epksList, setEpksList] = useState([]);
+  const [showVideoErrorMsg, setShowVideoErrorMsg] = useState(false);
 
   const navigate = useNavigate();
 
@@ -102,6 +103,11 @@ export default function Actor(props) {
 
         const actorData = actorResponse.data;
         setEpkInfo(actorData);
+
+        // Check if bannerImg exists and is valid
+        if (!actorData.bannerImg || actorData.bannerImg.startsWith("https")) {
+          setShowVideoErrorMsg(true);
+        }
 
         const images = actorData.picture.startsWith("https")
           ? []
@@ -267,15 +273,31 @@ export default function Actor(props) {
     }
   };
 
+  // const playVideo = () => {
+  //   const video = videoRef.current;
+  //   if (isPlaying) {
+  //     video.pause();
+  //   } else {
+  //     video.play();
+  //   }
+  //   setIsPlaying(!isPlaying);
+  // };
+
   const playVideo = () => {
     const video = videoRef.current;
-    if (isPlaying) {
-      video.pause();
+    if (video && video.src) {
+      if (isPlaying) {
+        video.pause();
+      } else {
+        video.play();
+      }
+      setIsPlaying(!isPlaying);
+      setShowVideoErrorMsg(false);
     } else {
-      video.play();
+      setShowVideoErrorMsg(true);
     }
-    setIsPlaying(!isPlaying);
   };
+
   const displaySex = (sex) => {
     switch (sex) {
       case "Male":
@@ -312,35 +334,58 @@ export default function Actor(props) {
       {/* <div className="actor-container"> */}
       <div className="tw-w-9/10 tw-mx-[5%] tw-h-auto tw-max-w-full tw-rounded-[40px] tw-bg-white">
         <div className="tw-relative">
-          {epkInfo.bannerImg && (
-            <video
-              loop
-              ref={videoRef}
-              className="tw-z-[-1] tw-block  tw-w-full tw-bg-[#1e0039] tw-bg-cover "
-              src={
-                epkInfo.bannerImg && !epkInfo.bannerImg.startsWith("https")
-                  ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`
-                  : null
-              }
-              // poster={thumbnailFromUploadActorPic || thumbnailFromLocalStorage}
-              poster={
-                epkInfo.thumbnail && !epkInfo.thumbnail.startsWith("https")
-                  ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`
-                  : null
-              }
-              controls
-            ></video>
+          {epkInfo.bannerImg ? (
+            <div className="video-container">
+              <video
+                loop
+                ref={videoRef}
+                className="tw-z-[-1] tw-block  tw-w-full tw-bg-[#1e0039] tw-bg-cover "
+                src={
+                  epkInfo.bannerImg && !epkInfo.bannerImg.startsWith("https")
+                    ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`
+                    : null
+                }
+                poster={
+                  epkInfo.thumbnail && !epkInfo.thumbnail.startsWith("https")
+                    ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`
+                    : null
+                }
+                controls
+              ></video>
+              <div
+                className="tw-absolute tw-bottom-1/2 tw-left-1/2 tw-right-1/2 tw-top-1/2 tw-items-center"
+                onClick={playVideo}
+                style={{ display: showVideoErrorMsg ? "none" : "flex" }}
+              >
+                {isPlaying ? (
+                  <PauseCircleOutlineIcon
+                    className="actor-play-icon"
+                    style={{ color: "#1E0039", fontSize: "3rem" }}
+                  />
+                ) : (
+                  <PlayCircleIcon
+                    className="actor-play-icon"
+                    style={{ color: "#1E0039", fontSize: "3rem" }}
+                  />
+                )}
+              </div>
+            </div>
+          ) : null}
+          {showVideoErrorMsg && (
+            <p className="md:tw-txsm:tw-text-[15px] xsm:tw-text-[5px] tw-absolute tw-left-1/2 tw-top-1/2 tw--translate-x-1/2 tw--translate-y-1/2 tw-transform tw-text-center tw-text-[10px] tw-text-white sm:tw-text-[10px] lg:tw-text-[20px]">
+              Video source not available
+            </p>
           )}
           {/* Image Container with Arrows */}
           {pics.length > 0 && (
             <div
-              // className="actor-profile"
-              className=" tw-absolute tw-left-[15%] tw-top-[10%] tw-z-10 tw-h-[60%] tw-w-[20%]"
+              className="tw-absolute tw-left-[3%] tw-top-[10%] tw-z-10 tw-h-[80%] tw-w-[35%]"
               style={{
                 backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
+                opacity: isPlaying ? 0.7 : 1, // opacity change
               }}
             >
               <ArrowBackIosOutlined
@@ -369,7 +414,9 @@ export default function Actor(props) {
               />
             </div>
           )}
-          <div className="tw-absolute tw-bottom-5 tw-left-5">
+
+          {/* <div className="tw-absolute tw-top-1/2 tw-left-1/2 tw-transform tw--translate-x-1/2 tw--translate-y-1/2 ">
+         
             {isPlaying ? (
               <PauseCircleOutlineIcon
                 className="actor-play-icon"
@@ -391,7 +438,7 @@ export default function Actor(props) {
                 onClick={playVideo}
               />
             )}
-          </div>
+          </div> */}
         </div>
 
         <div className="actor-middle-container">
