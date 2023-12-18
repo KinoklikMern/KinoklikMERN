@@ -28,6 +28,8 @@ const buildPath = path.join(__dirname, "../client/build");
 // end ////
 const app = express();
 
+app.use(cors());
+
 //proxy to be able to get a thumbnail directly from video from database
 app.get("/video-proxy", async (req, res) => {
   try {
@@ -49,7 +51,6 @@ app.get("/video-proxy", async (req, res) => {
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
 
 // build path for deployment
 app.use(express.static(buildPath));
