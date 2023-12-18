@@ -83,7 +83,15 @@ export default function EPKsPage() {
                             }
                             className=" tw-aspect-1 tw-h-full tw-rounded-none  tw-object-cover hover:tw-cursor-pointer"
                             alt="Movie Cover"
-                            onClick={() => navigate(`/epk/${fepk._id}`)}
+                            onClick={() =>
+                              navigate(
+                                fepk.title
+                                  ? `/epk/${fepk.title
+                                      .replace(/ /g, "-")
+                                      .trim()}`
+                                  : `/`
+                              )
+                            }
                           />
                         </div>
                       ))}

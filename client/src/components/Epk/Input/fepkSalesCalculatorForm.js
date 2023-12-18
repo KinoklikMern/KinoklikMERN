@@ -10,30 +10,29 @@ function SalesCalculatorForm() {
   const [fepk, setFepk] = useState([]);
   const { t } = useTranslation();
 
-
-
-  let { fepkId } = useParams();
-
+  let { title } = useParams();
 
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
-      console.log(response.data.title);
-    });
-  }, [fepkId]);
+    http
+      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+      .then((response) => {
+        setFepk(response.data);
+        // console.log(response.data.title);
+      });
+  }, [title]);
 
-  const [totalAudienceReach, setTotalAudienceReach] = useState('0');
-  const [filmPrice, setFilmPrice] = useState('0');
-  const [engagementRate, setEngagementRate] = useState('0');
-  const [possibleSales, setPossibleSales] = useState('0');
-  const [potentialSales, setPotentialSales] = useState('0');
+  const [totalAudienceReach, setTotalAudienceReach] = useState("0");
+  const [filmPrice, setFilmPrice] = useState("0");
+  const [engagementRate, setEngagementRate] = useState("0");
+  const [possibleSales, setPossibleSales] = useState("0");
+  const [potentialSales, setPotentialSales] = useState("0");
 
-  const [budget, setBudget] = useState('0');
-  const [genre, setGenre] = useState('');
-  const [language, setLanguage] = useState('');
-  const [followersCount, setFollowersCount] = useState('');
-  const [predictionSale, setPredictionSale] = useState('0');
-  const [homepage, setHomepage] = useState('');
+  const [budget, setBudget] = useState("0");
+  const [genre, setGenre] = useState("");
+  const [language, setLanguage] = useState("");
+  const [followersCount, setFollowersCount] = useState("");
+  const [predictionSale, setPredictionSale] = useState("0");
+  const [homepage, setHomepage] = useState("");
 
   const handlePredict = () => {
     const predictionSaleValue = budget * followersCount;
@@ -42,15 +41,15 @@ function SalesCalculatorForm() {
 
   const handleCalculate = () => {
     // Calculate Potential Sales
-    const potentialSalesValue = totalAudienceReach * filmPrice * engagementRate / 100;
+    const potentialSalesValue =
+      (totalAudienceReach * filmPrice * engagementRate) / 100;
     setPotentialSales(potentialSalesValue);
   };
 
-    const calculatePossibleSales = (totalAudienceReach, filmPrice) => {
-        const possibleSalesValue = totalAudienceReach * filmPrice;
-        setPossibleSales(possibleSalesValue);
-    };
-
+  const calculatePossibleSales = (totalAudienceReach, filmPrice) => {
+    const possibleSalesValue = totalAudienceReach * filmPrice;
+    setPossibleSales(possibleSalesValue);
+  };
 
   return (
     <>
@@ -65,59 +64,66 @@ function SalesCalculatorForm() {
           minHeight: "750px",
         }}
       >
-        <div className='tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5'>
-          <div className='col-3 tw-m-3 tw-text-center'>
-            <h2
-              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
-            >
+        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
+          <div className="col-3 tw-m-3 tw-text-center">
+            <h2 className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl">
               {t("EPK Dashboard")}
             </h2>
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
-            <BasicMenu color='#1E0039' />
+          <div className="col-3 tw-m-3 tw-text-center">
+            <BasicMenu color="#1E0039" />
           </div>
-          <div className='col-3 tw-m-3 tw-text-center'>
+          <div className="col-3 tw-m-3 tw-text-center">
             <Link
-              className='tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl'
-              to={`/epk/${fepk.title}`}
+              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
+              to={
+                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
+              }
             >
               {t("View EPK Page")}
             </Link>
           </div>
         </div>
-        {/*Purple Frame*/ }
+        {/*Purple Frame*/}
         <div
           style={{
             marginLeft: "10%",
             marginRight: "15%",
             color: "#311465",
             fontWeight: "normal",
-            display: "flex"
+            display: "flex",
           }}
         >
-          <div style={{
-            width: "100%",
-          }}>
+          <div
+            style={{
+              width: "100%",
+            }}
+          >
             <h1>Sales Calculator - TVOD</h1>
-            <div style={{
-              marginTop: "20px",
-            }}>
+            <div
+              style={{
+                marginTop: "20px",
+              }}
+            >
               <div>
                 <label>
                   Total Audience Reach:
                   <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                      }}
-                      className="form-control m-10"
-                      type="number"
-                      value={totalAudienceReach}
-                      onChange={(e) => {setTotalAudienceReach(e.target.value); calculatePossibleSales(e.target.value, filmPrice);}}
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
+                    className="form-control m-10"
+                    type="number"
+                    value={totalAudienceReach}
+                    onChange={(e) => {
+                      setTotalAudienceReach(e.target.value);
+                      calculatePossibleSales(e.target.value, filmPrice);
+                    }}
                   />
                 </label>
 
@@ -126,58 +132,70 @@ function SalesCalculatorForm() {
                 <label>
                   Film Price ($):
                   <input
-                      style={{
-                        height: "30px",
-                        width: "100%",
-                        borderRadius: "5px",
-                        marginBottom: "20px",
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "left",
-                      }}
-                      className="form-control m-10"
-                      type="number"
-                      value={filmPrice}
-                      onChange={(e) => {setFilmPrice(e.target.value);  calculatePossibleSales(totalAudienceReach, e.target.value);}}
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
+                    className="form-control m-10"
+                    type="number"
+                    value={filmPrice}
+                    onChange={(e) => {
+                      setFilmPrice(e.target.value);
+                      calculatePossibleSales(
+                        totalAudienceReach,
+                        e.target.value
+                      );
+                    }}
                   />
                 </label>
 
                 <br />
-                  <p style={{
-                      marginTop: "20px",
-                      fontWeight: 'bold'
-                  }}>Possible Sales: {possibleSales} $</p>
+                <p
+                  style={{
+                    marginTop: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Possible Sales: {possibleSales} $
+                </p>
 
                 <br />
 
                 <label>
                   Engagement Rate:
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        step="1"
-                        value={engagementRate}
-                        onChange={(e) => setEngagementRate(e.target.value)}
-                        style={{ width: '200px'}}
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value={engagementRate}
+                      onChange={(e) => setEngagementRate(e.target.value)}
+                      style={{ width: "200px" }}
                     />
-                    <span style={{ marginLeft: '5px', width: '20%' }}>{engagementRate}%</span>
+                    <span style={{ marginLeft: "5px", width: "20%" }}>
+                      {engagementRate}%
+                    </span>
                   </div>
                 </label>
 
                 <br />
 
                 <Button
-                    style={{
-                      width: "120px",
-                      boxShadow: "1px 2px 9px #311465",
-                      backgroundColor: "#ffffff",
-                      fontWeight: "bold",
-                      marginTop: "20px",
-                    }}
-                    type="outline-primary"
-                    block
-                    onClick={handleCalculate}
+                  style={{
+                    width: "120px",
+                    boxShadow: "1px 2px 9px #311465",
+                    backgroundColor: "#ffffff",
+                    fontWeight: "bold",
+                    marginTop: "20px",
+                  }}
+                  type="outline-primary"
+                  block
+                  onClick={handleCalculate}
                 >
                   {t("Calculate")}
                 </Button>
@@ -185,43 +203,48 @@ function SalesCalculatorForm() {
                 <br />
                 <br />
 
-                <p style={{
-                  marginTop: "20px",
-                    fontSize: '1.25em',
-                    fontWeight: 'bold'
-                }}>Potential Sales: {potentialSales} $</p>
+                <p
+                  style={{
+                    marginTop: "20px",
+                    fontSize: "1.25em",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Potential Sales: {potentialSales} $
+                </p>
               </div>
-
             </div>
           </div>
-          <div style={{
-            width: "100%"
-          }}>
+          <div
+            style={{
+              width: "100%",
+            }}
+          >
             <h1>Box Office Crystal Ball</h1>
             <div
-                style={{
-                  marginLeft: '10%',
-                  marginRight: '15%',
-                  color: '#311465',
-                  fontWeight: 'normal',
-                  display: 'flex',
-                }}
+              style={{
+                marginLeft: "10%",
+                marginRight: "15%",
+                color: "#311465",
+                fontWeight: "normal",
+                display: "flex",
+              }}
             >
               <div>
                 <label>
                   Budget ($):
                   <input
-                      type="number"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
-                      style={{
-                        height: '30px',
-                        width: '100%',
-                        borderRadius: '5px',
-                        marginBottom: '20px',
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                      }}
+                    type="number"
+                    value={budget}
+                    onChange={(e) => setBudget(e.target.value)}
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
                   />
                 </label>
 
@@ -230,16 +253,16 @@ function SalesCalculatorForm() {
                 <label>
                   Genre:
                   <select
-                      value={genre}
-                      onChange={(e) => setGenre(e.target.value)}
-                      style={{
-                        height: '30px',
-                        width: '100%',
-                        borderRadius: '5px',
-                        marginBottom: '20px',
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                      }}
+                    value={genre}
+                    onChange={(e) => setGenre(e.target.value)}
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
                   >
                     <option value="action">Action</option>
                     <option value="drama">Drama</option>
@@ -251,16 +274,16 @@ function SalesCalculatorForm() {
                 <label>
                   Homepage:
                   <select
-                      value={homepage}
-                      onChange={(e) => setHomepage(e.target.value)}
-                      style={{
-                        height: '30px',
-                        width: '100%',
-                        borderRadius: '5px',
-                        marginBottom: '20px',
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                      }}
+                    value={homepage}
+                    onChange={(e) => setHomepage(e.target.value)}
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
                   >
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -272,16 +295,16 @@ function SalesCalculatorForm() {
                 <label>
                   Language:
                   <select
-                      value={language}
-                      onChange={(e) => setLanguage(e.target.value)}
-                      style={{
-                        height: '30px',
-                        width: '100%',
-                        borderRadius: '5px',
-                        marginBottom: '20px',
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                      }}
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
                   >
                     <option value="english">English</option>
                     <option value="spanish">Spanish</option>
@@ -293,16 +316,16 @@ function SalesCalculatorForm() {
                 <label>
                   Followers Count:
                   <select
-                      value={followersCount}
-                      onChange={(e) => setFollowersCount(e.target.value)}
-                      style={{
-                        height: '30px',
-                        width: '100%',
-                        borderRadius: '5px',
-                        marginBottom: '20px',
-                        boxShadow: '1px 2px 9px #311465',
-                        textAlign: 'left',
-                      }}
+                    value={followersCount}
+                    onChange={(e) => setFollowersCount(e.target.value)}
+                    style={{
+                      height: "30px",
+                      width: "100%",
+                      borderRadius: "5px",
+                      marginBottom: "20px",
+                      boxShadow: "1px 2px 9px #311465",
+                      textAlign: "left",
+                    }}
                   >
                     <option value="10000">10,000</option>
                     <option value="50000">50,000</option>
@@ -312,22 +335,24 @@ function SalesCalculatorForm() {
                 <br />
 
                 <Button
-                    style={{
-                      width: '120px',
-                      boxShadow: '1px 2px 9px #311465',
-                      backgroundColor: '#ffffff',
-                      fontWeight: 'bold',
-                      marginTop: '20px',
-                    }}
-                    type="outline-primary"
-                    onClick={handlePredict}
+                  style={{
+                    width: "120px",
+                    boxShadow: "1px 2px 9px #311465",
+                    backgroundColor: "#ffffff",
+                    fontWeight: "bold",
+                    marginTop: "20px",
+                  }}
+                  type="outline-primary"
+                  onClick={handlePredict}
                 >
                   Predict
                 </Button>
 
                 <br />
 
-                <p style={{ marginTop: '20px' }}>Prediction Sale: {predictionSale} $</p>
+                <p style={{ marginTop: "20px" }}>
+                  Prediction Sale: {predictionSale} $
+                </p>
               </div>
             </div>
           </div>

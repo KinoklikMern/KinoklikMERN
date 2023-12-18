@@ -26,7 +26,7 @@ function UniquenessForm() {
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -38,31 +38,33 @@ function UniquenessForm() {
   };
 
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      if (response.data) {
-        setFepk(response.data);
-        const { description_uniqueness } = response.data;
-        //Aleksejs commented out because it was giving an error, seems to be working fine without that part
-        //if (description_uniqueness) {
-        setCharacterLength({
-          description_uniqueness: description_uniqueness.length,
-        });
-        setEpkUniquenessData({
-          image_uniqueness: response.data.image_uniqueness,
-          title_uniqueness: response.data.title_uniqueness,
-          description_uniqueness,
-          uniqueness_blur: response.data.uniqueness_blur,
-        });
-        // } else {
-        //   // Handle the case when description_uniqueness is undefined or empty
-        //   console.error("description_uniqueness is undefined or empty");
-        // }
-      } else {
-        // Handle the case when response.data is undefined or empty
-        console.error("response.data is undefined or empty");
-      }
-    });
-  }, [fepkId]);
+    http
+      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+      .then((response) => {
+        if (response.data) {
+          setFepk(response.data);
+          const { description_uniqueness } = response.data;
+          //Aleksejs commented out because it was giving an error, seems to be working fine without that part
+          //if (description_uniqueness) {
+          setCharacterLength({
+            description_uniqueness: description_uniqueness.length,
+          });
+          setEpkUniquenessData({
+            image_uniqueness: response.data.image_uniqueness,
+            title_uniqueness: response.data.title_uniqueness,
+            description_uniqueness,
+            uniqueness_blur: response.data.uniqueness_blur,
+          });
+          // } else {
+          //   // Handle the case when description_uniqueness is undefined or empty
+          //   console.error("description_uniqueness is undefined or empty");
+          // }
+        } else {
+          // Handle the case when response.data is undefined or empty
+          console.error("response.data is undefined or empty");
+        }
+      });
+  }, [title]);
 
   if (!epkUniquenessData) {
     epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
@@ -119,7 +121,7 @@ function UniquenessForm() {
                 epkUniquenessData.image_uniqueness = response.data.key;
               }
               http
-                .put(`fepks/update/${fepkId}`, epkUniquenessData)
+                .put(`fepks/update/${fepk._id}`, epkUniquenessData)
                 .then((res) => {
                   setModalIsOpen(true);
                   console.log("saved");
@@ -134,7 +136,7 @@ function UniquenessForm() {
             });
         } else {
           http
-            .put(`fepks/update/${fepkId}`, epkUniquenessData)
+            .put(`fepks/update/${fepk._id}`, epkUniquenessData)
             .then((res) => {
               setModalIsOpen(true);
 
@@ -186,7 +188,9 @@ function UniquenessForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
+              to={
+                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
+              }
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

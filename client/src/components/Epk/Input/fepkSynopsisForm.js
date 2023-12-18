@@ -35,7 +35,7 @@ function SynopsisForm() {
   //Translation
   const { t } = useTranslation();
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -65,32 +65,34 @@ function SynopsisForm() {
   };
 
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      if (response.data) {
-        setFepk(response.data);
-        const { text_short, text_medium, text_long } = response.data;
-        setCharacterLength((prevCharacterLength) => ({
-          ...prevCharacterLength,
-          text_short: text_short ? text_short.length : 0,
-          text_medium: text_medium ? text_medium.length : 0,
-          text_long: text_long ? text_long.length : 0,
-        }));
-        setEpkSynopsisData({
-          image_synopsis: response.data.image_synopsis,
-          image_synopsis_medium: response.data.image_synopsis_medium,
-          image_synopsis_long: response.data.image_synopsis_long,
-          text_short: response.data.text_short,
-          text_medium: response.data.text_medium,
-          text_long: response.data.text_long,
-          text_medium_blur: response.data.text_medium_blur,
-          text_long_blur: response.data.text_long_blur,
-        });
-      } else {
-        // Handle the case when response.data is undefined or empty
-        console.error("response.data is undefined or empty");
-      }
-    });
-  }, [fepkId]);
+    http
+      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+      .then((response) => {
+        if (response.data) {
+          setFepk(response.data);
+          const { text_short, text_medium, text_long } = response.data;
+          setCharacterLength((prevCharacterLength) => ({
+            ...prevCharacterLength,
+            text_short: text_short ? text_short.length : 0,
+            text_medium: text_medium ? text_medium.length : 0,
+            text_long: text_long ? text_long.length : 0,
+          }));
+          setEpkSynopsisData({
+            image_synopsis: response.data.image_synopsis,
+            image_synopsis_medium: response.data.image_synopsis_medium,
+            image_synopsis_long: response.data.image_synopsis_long,
+            text_short: response.data.text_short,
+            text_medium: response.data.text_medium,
+            text_long: response.data.text_long,
+            text_medium_blur: response.data.text_medium_blur,
+            text_long_blur: response.data.text_long_blur,
+          });
+        } else {
+          // Handle the case when response.data is undefined or empty
+          console.error("response.data is undefined or empty");
+        }
+      });
+  }, [title]);
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;
@@ -159,7 +161,7 @@ function SynopsisForm() {
             epkSynopsisData.image_synopsis_long = response.data.file3;
           }
           http
-            .put(`fepks/update/${fepkId}`, epkSynopsisData)
+            .put(`fepks/update/${fepk._id}`, epkSynopsisData)
             .then((res) => {
               setFepk(res.data);
               console.log(epkSynopsisData);
@@ -225,7 +227,9 @@ function SynopsisForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
+              to={
+                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
+              }
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

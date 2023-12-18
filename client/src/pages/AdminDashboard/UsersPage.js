@@ -572,7 +572,10 @@ export default function UsersPage() {
                   <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
                     <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
                       {epks.map((epk, index) => (
-                        <a key={index} href={`/epk/${epk._id}`}>
+                        <a
+                          key={index}
+                          href={`/epk/${epk.title.replace(/ /g, "-").trim()}`}
+                        >
                           <img
                             src={
                               epk.image_details.includes("https")
@@ -738,7 +741,14 @@ export default function UsersPage() {
                   <div className="tw-w-full tw-justify-center tw-rounded-lg tw-bg-gray-300 tw-px-4 tw-pb-8 tw-pt-24">
                     <div className="tw-flex tw-w-full tw-justify-start tw-gap-4 tw-overflow-y-auto tw-rounded-lg tw-bg-[#9b94ab] tw-py-2">
                       {epks.map((epk, index) => (
-                        <a key={index} href={`/epk/${epk._id}`}>
+                        <a
+                          key={index}
+                          href={
+                            epk.title
+                              ? `/epk/${epk.title.replace(/ /g, "-").trim()}`
+                              : "/"
+                          }
+                        >
                           <img
                             src={
                               epk.image_details.includes("https")

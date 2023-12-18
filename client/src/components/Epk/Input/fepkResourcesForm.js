@@ -32,7 +32,7 @@ function ResourcesForm() {
   });
   const [editMode, setEditMode] = useState({ status: false, rowKey: null });
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
 
   //Picture prewiev
   const [picturePreviewUrl, setPicturePreviewUrl] = useState("");
@@ -57,11 +57,13 @@ function ResourcesForm() {
   };
 
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
-      setResourcesList(response.data.resources);
-    });
-  }, [fepkId]);
+    http
+      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+      .then((response) => {
+        setFepk(response.data);
+        setResourcesList(response.data.resources);
+      });
+  }, [title]);
 
   useEffect(() => {
     console.log(resourcesList);
@@ -158,7 +160,7 @@ function ResourcesForm() {
   function saveEpkResources(epkToSave) {
     console.log(epkResourcesData);
     http
-      .put(`fepks/update/${fepkId}`, epkToSave)
+      .put(`fepks/update/${fepk._id}`, epkToSave)
       .then((res) => {
         console.log("saved");
       })
@@ -262,7 +264,9 @@ function ResourcesForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
+              to={
+                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
+              }
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

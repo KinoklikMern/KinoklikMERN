@@ -46,7 +46,7 @@ function DetailsForm() {
     http.get(`/fepks/${fepkId}`).then((response) => {
       setFepk(response.data);
       setCrewList(response.data.crew);
-      console.log(response.data.title);
+      // console.log(response.data.title);
     });
     http.get("/crews/").then((res) => {
       setAllCrewList(res.data);
@@ -218,7 +218,11 @@ function DetailsForm() {
             <div className="col-2 m-3">
               <Link
                 className="col align-items-end"
-                to={`/epk/${fepk._id}`}
+                to={
+                  fepk.title
+                    ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                    : "/"
+                }
                 style={{
                   color: "#311465",
                   textDecoration: "none",

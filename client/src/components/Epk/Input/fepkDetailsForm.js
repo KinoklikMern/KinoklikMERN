@@ -34,7 +34,7 @@ function FepkDetailsForm() {
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
 
   //roles for invited users
   const [invitedUserRole, setInvitedUserRole] = useState("Actor");
@@ -79,9 +79,12 @@ function FepkDetailsForm() {
   });
 
   useEffect(() => {
-    console.log("useEffect is running");
+    // console.log("useEffect is running");
 
-    Promise.all([http.get(`/fepks/${fepkId}`), http.get("/users/getallusers")])
+    Promise.all([
+      http.get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`),
+      http.get("/users/getallusers"),
+    ])
       .then(([fepkResponse, userResponse]) => {
         setFepk(fepkResponse.data);
         //setUserList(fepkResponse.data.crew); no need????
@@ -104,7 +107,7 @@ function FepkDetailsForm() {
       .then((invitations) => {
         setInvitationsByFilmmakerMovie(invitations.data);
       });
-  }, [epkFilmDetailsData, fepkId]);
+  }, [epkFilmDetailsData, title]);
 
   useEffect(() => {
     setInvitationEmailValue("");
@@ -181,7 +184,7 @@ function FepkDetailsForm() {
       //setEpkFilmDetailsData(updatedEpkFilmDetailsData);
 
       http
-        .put(`fepks/update/${fepkId}`, updatedEpkFilmDetailsData)
+        .put(`fepks/update/${fepk._id}`, updatedEpkFilmDetailsData)
         .then((res) => {
           setCurrentFepkUsers([...currentFepkUsers, selectedUser]);
           setEpkFilmDetailsData(updatedEpkFilmDetailsData);
@@ -235,7 +238,7 @@ function FepkDetailsForm() {
 
       // Make an HTTP request to the backend to persist this change
       http
-        .put(`fepks/update/${fepkId}`, updatedEpkFilmDetailsData)
+        .put(`fepks/update/${fepk._id}`, updatedEpkFilmDetailsData)
         .then((res) => {
           // Successful database update, so we update the frontend state
           setEpkFilmDetailsData(updatedEpkFilmDetailsData);
@@ -436,7 +439,11 @@ function FepkDetailsForm() {
             <div className="col-3 tw-m-3 tw-text-center">
               <Link
                 className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-                to={`/epk/${fepk._id}`}
+                to={
+                  fepk.title
+                    ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                    : "/"
+                }
                 // style={{
                 //   color: "#1E0039",
                 //   textDecoration: "none",

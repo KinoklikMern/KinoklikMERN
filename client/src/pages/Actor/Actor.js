@@ -372,9 +372,7 @@ export default function Actor(props) {
             </div>
           ) : null}
           {showVideoErrorMsg && (
-            <p
-            className="tw-text-white tw-text-center tw-absolute tw-top-1/2 tw-left-1/2 tw-transform tw--translate-x-1/2 tw--translate-y-1/2 tw-text-[10px] lg:tw-text-[20px] md:tw-txsm:tw-text-[15px] sm:tw-text-[10px] xsm:tw-text-[5px]"
-            >
+            <p className="md:tw-txsm:tw-text-[15px] xsm:tw-text-[5px] tw-absolute tw-left-1/2 tw-top-1/2 tw--translate-x-1/2 tw--translate-y-1/2 tw-transform tw-text-center tw-text-[10px] tw-text-white sm:tw-text-[10px] lg:tw-text-[20px]">
               Video source not available
             </p>
           )}
@@ -839,7 +837,14 @@ export default function Actor(props) {
             <div className="movie-actor-play-container">
               {epksList.map((epk) => {
                 return (
-                  <a key={epk._id} href={`/epk/${epk._id}`}>
+                  <a
+                    key={epk._id}
+                    href={
+                      epk.title
+                        ? `/epk/${epk.title.replace(/ /g, "-").trim()}`
+                        : "/"
+                    }
+                  >
                     <div className="listItem">
                       <img
                         src={
