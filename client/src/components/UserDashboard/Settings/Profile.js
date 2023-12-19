@@ -224,7 +224,10 @@ export default function Profile() {
           <div style={{ textAlign: "center" }}>
             <h2>{t("Updated profile successfully!")}</h2>
             <br />
-            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
+            <button
+              className='btn btn-secondary btn-sm tw-border-none tw-bg-midnight tw-px-3'
+              onClick={closeModal}
+            >
               {t("Ok")}
             </button>
           </div>
