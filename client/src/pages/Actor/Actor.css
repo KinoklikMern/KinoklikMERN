@@ -92,6 +92,16 @@
   align-items: end;
   z-index: 1000;
 }
+
+@media screen and (max-width: 1245px) {
+  .actor-profile {
+    width: 70vw;
+  height: 45vh; /* Maintain the aspect ratio */
+    max-width: 100%; /* Set the maximum width to 100% for smaller screens */
+  }
+}
+
+
 @media screen and (max-width: 1245px) {
   .actor-profile {
     width: 70vw;
@@ -127,6 +137,16 @@
   .arrow-actor-profile1 {
     width: 80%;
     height: 3rem; 
+  }
+}
+
+
+/* Media query for even smaller screens */
+@media screen and (max-width: 1245px) {
+  .arrow-actor-profile2,
+  .arrow-actor-profile1 {
+    width: 60%;
+    height: 3rem;
   }
 }
 
