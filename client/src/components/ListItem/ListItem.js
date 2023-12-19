@@ -98,7 +98,9 @@ export default function ListItem({ title, status, type, role }) {
                 href={
                   role === "actor"
                     ? `/actor/6487758c553b5011282f72a5`
-                    : `epk/${fepk._id}`
+                    : fepk.title
+                    ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                    : "/"
                 }
               >
                 <img

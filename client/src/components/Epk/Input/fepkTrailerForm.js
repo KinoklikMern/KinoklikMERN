@@ -26,7 +26,7 @@ function TrailerForm() {
     setModalIsOpen(false);
   };
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -37,12 +37,14 @@ function TrailerForm() {
   };
 
   useEffect(() => {
-    http.get(`/fepks/${fepkId}`).then((response) => {
-      setFepk(response.data);
-      console.log(response.data.title);
-      //console.log("trailer url:", response.data.trailer_url);
-    });
-  }, [fepkId]);
+    http
+      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+      .then((response) => {
+        setFepk(response.data);
+        // console.log(response.data.title);
+        //console.log("trailer url:", response.data.trailer_url);
+      });
+  }, [title]);
 
   const [epkTrailerData, setEpkTrailerData] = useState({
     trailer_url: fepk.trailer_url,
@@ -96,7 +98,7 @@ function TrailerForm() {
             epkTrailerData.trailer_url = response.data.key;
           }
           http
-            .put(`fepks/update/${fepkId}`, epkTrailerData)
+            .put(`fepks/update/${fepk._id}`, epkTrailerData)
             .then((res) => {
               setModalIsOpen(true);
               inputFileRef.current.value = "";
@@ -148,7 +150,9 @@ function TrailerForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
+              to={
+                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
+              }
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

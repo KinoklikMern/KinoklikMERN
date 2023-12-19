@@ -69,7 +69,11 @@ export default function SearchBar() {
               {searchList?.map((item) => (
                 <a
                   key={item._id}
-                  href={item.title ? `/epk/${item._id}` : `/actor/${item._id}`}
+                  href={
+                    item.title
+                      ? `/epk/${item.title.replace(/ /g, "-").trim()}`
+                      : `/actor/${item._id}`
+                  }
                   className="tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105"
                 >
                   <p>{item.title || `${item.firstName} ${item.lastName}`}</p>

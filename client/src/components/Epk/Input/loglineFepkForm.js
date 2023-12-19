@@ -26,7 +26,7 @@ function LoglineForm() {
   //modal
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  let { fepkId } = useParams();
+  let { title } = useParams();
 
   const fileSelected = (event) => {
     const file1 = event.target.files[0];
@@ -41,7 +41,7 @@ function LoglineForm() {
 
   useEffect(() => {
     http
-      .get(`/fepks/${fepkId}`)
+      .get(`/fepks/byTitle/${title.replace(/-/g, " ").trim()}`)
       .then((response) => {
         if (response.data) {
           setFepk(response.data);
@@ -67,7 +67,7 @@ function LoglineForm() {
         // Handle the error if the HTTP request fails
         console.error("HTTP request failed:", error);
       });
-  }, [fepkId]);
+  }, [title]);
 
   const handleLoglineChange = (event) => {
     const { name, value } = event.target;
@@ -119,7 +119,7 @@ function LoglineForm() {
               epkLoglineData.image_logline = response.data.key;
             }
             http
-              .put(`fepks/update/${fepkId}`, epkLoglineData)
+              .put(`fepks/update/${fepk._id}`, epkLoglineData)
               .then((res) => {
                 setModalIsOpen(true);
                 console.log("saved");
@@ -129,13 +129,12 @@ function LoglineForm() {
               });
           })
           .catch((err) => {
-            console.log();
             console.log(err);
           });
       } else {
         console.log(epkLoglineData);
         http
-          .put(`fepks/update/${fepkId}`, epkLoglineData)
+          .put(`fepks/update/${fepk._id}`, epkLoglineData)
           .then((res) => {
             setModalIsOpen(true);
             console.log("saved");
@@ -185,7 +184,9 @@ function LoglineForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
+              to={
+                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
+              }
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

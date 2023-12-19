@@ -7,7 +7,7 @@ import { useSnackbar } from "notistack";
 import LoadingSpin from "../FilmMakerDashboard/LoadingSpin";
 import { useTranslation } from "react-i18next";
 
-export const EPKSideMenu = ({ epkId, filmmakerId }) => {
+export const EPKSideMenu = ({ epk, filmmakerId }) => {
   const { t } = useTranslation();
   // const navigate = useNavigate();
   // const [isExpanded, setIsExpanded] = useState(false);
@@ -43,7 +43,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
   const handleTransferConfirmation = () => {
     console.log("Transfer to:", selectedFilmmaker);
 
-    if (!selectedFilmmaker || !epkId) {
+    if (!selectedFilmmaker || !epk._id) {
       console.error("No filmmaker selected or EPK ID missing.");
       return;
     }
@@ -56,7 +56,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
       return;
     }
 
-    const url = `${process.env.REACT_APP_BACKEND_URL}/fepks/${epkId}/transfer`;
+    const url = `${process.env.REACT_APP_BACKEND_URL}/fepks/${epk._id}/transfer`;
     const data = { newFilmmakerId: selectedFilmmaker._id };
 
     setLoading(true);
@@ -69,7 +69,7 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
           { variant: "success" }
         );
         // setIsTransferred(true); // Set the transferred status to true after a successful transfer
-        localStorage.setItem(`transferred_${epkId}`, filmmakerId); // Store the transferred state in localStorage
+        localStorage.setItem(`transferred_${epk._id}`, filmmakerId); // Store the transferred state in localStorage
         setIsTransferred(true);
       })
       .catch((error) => {
@@ -112,9 +112,9 @@ export const EPKSideMenu = ({ epkId, filmmakerId }) => {
   useEffect(() => {
     // Check the localStorage to see if the EPK has been transferred already
     const currentUserId = filmmakerId;
-    const transferredFrom = localStorage.getItem(`transferred_${epkId}`);
+    const transferredFrom = localStorage.getItem(`transferred_${epk._id}`);
     setIsTransferred(transferredFrom === currentUserId);
-  }, [epkId, filmmakerId]);
+  }, [epk._id, filmmakerId]);
 
   // Function to render the selected filmmaker
   const renderSelectedFilmmaker = () =>

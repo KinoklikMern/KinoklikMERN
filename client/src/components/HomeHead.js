@@ -57,7 +57,7 @@ const HomeHead = (props) => {
 
   return (
     <div
-      className="tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
+      className='tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat'
       style={{
         backgroundImage:
           props.role && props.role === "actor"
@@ -71,26 +71,28 @@ const HomeHead = (props) => {
             : null,
       }}
     >
-      <div className="tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end">
+      <div className='tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end'>
         <SearchBar />
       </div>
 
       <section
-        id="home"
-        className="tw-h-full tw-bg-gradient-to-t tw-from-[#000]/70 tw-via-[#000]/50 tw-to-transparent tw-pt-0"
+        id='home'
+        className='tw-h-full tw-bg-gradient-to-t tw-from-[#000]/70 tw-via-[#000]/50 tw-to-transparent tw-pt-0'
       >
-        <div className="tw-flex tw-pt-24">
-          <div className="tw-flex tw-w-0 md:tw-w-2/4">
+        <div className='tw-flex tw-pt-24'>
+          <div className='tw-flex tw-w-0 md:tw-w-2/4'>
             <a
-              className="tw-mx-auto"
+              className='tw-mx-auto'
               href={
                 props.role === "actor"
                   ? `actor/${actor._id}`
-                  : `epk/${fepk._id}`
+                  : fepk && fepk.title
+                  ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                  : "/"
               }
             >
               <img
-                className="homeHead-poster tw-invisible tw-object-cover md:tw-visible"
+                className='homeHead-poster tw-invisible tw-object-cover md:tw-visible'
                 src={
                   props.role === "actor"
                     ? actor.picture && !actor.picture.startsWith("https")
@@ -102,20 +104,22 @@ const HomeHead = (props) => {
                     ? `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
                     : null
                 }
-                alt="/"
+                alt='/'
               />
             </a>
           </div>
 
-          <div className="tw-mx-auto tw-my-auto tw-w-full md:tw-w-2/4">
+          <div className='tw-mx-auto tw-my-auto tw-w-full md:tw-w-2/4'>
             <a
               href={
                 props.role === "actor"
                   ? `actor/${actor._id}`
-                  : `epk/${fepk._id}`
+                  : fepk.title
+                  ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                  : "/"
               }
             >
-              <h1 className="movieTitle tw-mx-auto tw-text-5xl tw-font-semibold lg:tw-text-6xl xl:tw-text-8xl">
+              <h1 className='movieTitle tw-mx-auto tw-text-5xl tw-font-semibold lg:tw-text-6xl xl:tw-text-8xl'>
                 {props.role === "actor"
                   ? actor.firstName + " " + actor.lastName
                   : fepk.title}
@@ -123,8 +127,8 @@ const HomeHead = (props) => {
             </a>
           </div>
         </div>
-        <p className="movieIntro tw-my-8 tw-px-2 tw-text-xl">
-          {fepk.logLine_short}
+        <p className='movieIntro tw-my-8 tw-px-2 tw-text-xl'>
+          {props.role === "actor" ? "" : fepk.logLine_short}
         </p>
         {/* <HomeMainFilm /> */}
       </section>

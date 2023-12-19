@@ -8,7 +8,13 @@ export default function EpkCard(props) {
     <div className="tw-flex tw-flex-row tw-items-center tw-justify-center">
       <div className="tw-m-1 tw-max-w-xs tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">
         {/* <div className="tw-m-1 tw-w-40  tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105"> */}
-        <a href={`/epk/${epkInfo._id}`}>
+        <a
+          href={
+            epkInfo.title
+              ? `/epk/${epkInfo.title.replace(/ /g, "-").trim()}`
+              : "/"
+          }
+        >
           <div className="tw-border-b tw-border-gray-200">
             <img
               className="tw-w-full tw-rounded-b-none tw-rounded-t-lg tw-object-cover"
