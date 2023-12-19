@@ -5,14 +5,16 @@ import { useTranslation } from 'react-i18next';
 
 const customStyles = {
   content: {
-    maxWidth: "37%",
-    height: "550px",
+    maxWidth: "40%",
+    height: "55%",
     margin: "auto",
     top: "50%",
+    bottom: "25%",
     transform: "translateY(-50%)",
     backgroundColor: "#503764E0",
     border: "none",
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
   },
 
@@ -30,6 +32,8 @@ const DonationModal = ({
   epkImage,
   epkDonatePayPal,
   epkDonateStripe,
+
+  
 }) => {
   const handleDonationPaypalSubmit = () => {
     // Redirect to the PayPal donation page or URL
@@ -61,9 +65,9 @@ const DonationModal = ({
             <h1
               style={{
                 color: "white",
-                marginTop: "55px",
-                marginBottom: "75px",
-                fontSize: "45px",
+                marginTop: "1px",
+                marginBottom: "1px",
+                fontSize: "2.7vw",
                 textAlign: "center",
               }}
             >
@@ -77,13 +81,14 @@ const DonationModal = ({
                 style={{
                   color: "#0081C9",
                   marginTop: "10%",
-                  marginLeft: "20%",
+                  marginLeft: "5%",
                   backgroundColor: "#FFD600",
-                  width: "70%",
-                  height: "60px",
+                  width: "100%",
+                  height: "6.7vh",
                   borderRadius: "5px",
                   border: "1px solid #1E0039",
-                  fontSize: "30px",
+                  fontSize: "2.2vw",
+                  padding: "0.1%",
                   boxShadow: "4px 4px 10px 0px #1E0039",
                   fontWeight: "bold",
                 }}
@@ -97,14 +102,15 @@ const DonationModal = ({
                 onClick={handleDonationStripeSubmit}
                 style={{
                   marginTop: "2%",
-                  marginLeft: "20%",
+                  marginLeft: "5%",
                   backgroundColor: "#5B1DDF",
-                  width: "70%",
-                  height: "60px",
+                  width: "100%",
+                  height: "6.7vh",
                   borderRadius: "5px",
                   border: "1px solid #1E0039",
                   boxShadow: "4px 4px 10px 0px #1E0039",
-                  fontSize: "30px",
+                  fontSize: "2.2vw",
+                  padding: "0.1%",
                   fontWeight: "bold",
                   alignSelf: "center",
                 }}
@@ -124,7 +130,7 @@ const DonationModal = ({
               src={epkImage}
               alt="EPK Img"
               className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
-              style={{ width: "75%", height: "75%", marginTop: "20%" }}
+              style={{ width: "100%", height: "auto", marginTop: "10%" }}
             />
           </Col>
         </Row>
