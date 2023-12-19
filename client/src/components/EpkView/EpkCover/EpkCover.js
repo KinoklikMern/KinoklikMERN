@@ -47,7 +47,7 @@ export default function EpkCover({ epkInfo }) {
         </div>
       </div>
 
-      <div className="tw-flex tw-justify-between tw-bg-white/10 tw-px-6">
+      <div className="tw-flex tw-justify-between tw-bg-black/50 tw-px-6">
         <div className="tw-flex tw-w-5/6 tw-items-center tw-justify-between">
           <p className="tw-text-white md:tw-text-xl">
             {t("Posted")}: <span>{formatedDate(epkInfo.createdAt)}</span>
