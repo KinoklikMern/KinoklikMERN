@@ -725,7 +725,7 @@ function EpkView() {
                           <div className={style.reportMessage}>
                             {t("This can be any content that appears to be")}
                             {t(
-                              " pronographic, sexual exploitation or solicitation"
+                              " pornographic, sexual exploitation or solicitation"
                             )}
                             {t(
                               " and/or content that shows sexual intercourse,"

@@ -105,7 +105,7 @@
 @media screen and (max-width: 1245px) {
   .actor-profile {
     width: 70vw;
-  height: 45vh; /* Maintain the aspect ratio */
+    height: 45vh; /* Maintain the aspect ratio */
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
