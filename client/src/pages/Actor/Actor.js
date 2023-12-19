@@ -7,13 +7,15 @@ import Footer from "../../components/Footer";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import starIcon from "../../images/icons/Star FULL.svg";
-import refralIcon from "../../images/icons/referral sign.svg";
+// import refralIcon from "../../images/icons/referral sign.svg";
 import http from "../../http-common";
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import StarIcon from "@mui/icons-material/Star";
+import AddIcon from "@mui/icons-material/Add";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 // import { useLocation } from "react-router-dom";
@@ -353,18 +355,18 @@ export default function Actor(props) {
                 controls
               ></video>
               <div
-                className="tw-absolute tw-bottom-1/2 tw-left-1/2 tw-right-1/2 tw-top-1/2 tw-items-center"
+                className="tw-absolute tw-left-1/2 tw-top-1/2  tw-flex tw-items-center tw-justify-center"
                 onClick={playVideo}
                 style={{ display: showVideoErrorMsg ? "none" : "flex" }}
               >
                 {isPlaying ? (
                   <PauseCircleOutlineIcon
-                    className="actor-play-icon"
+                    className=""
                     style={{ color: "#1E0039", fontSize: "3rem" }}
                   />
                 ) : (
                   <PlayCircleIcon
-                    className="actor-play-icon"
+                    className=""
                     style={{ color: "#1E0039", fontSize: "3rem" }}
                   />
                 )}
@@ -372,9 +374,7 @@ export default function Actor(props) {
             </div>
           ) : null}
           {showVideoErrorMsg && (
-            <p
-            className="tw-text-white tw-text-center tw-absolute tw-top-1/2 tw-left-1/2 tw-transform tw--translate-x-1/2 tw--translate-y-1/2 tw-text-[10px] lg:tw-text-[20px] md:tw-txsm:tw-text-[15px] sm:tw-text-[10px] xsm:tw-text-[5px]"
-            >
+            <p className="md:tw-txsm:tw-text-[15px] xsm:tw-text-[5px] tw-absolute tw-left-1/2 tw-top-1/2 tw--translate-x-1/2 tw--translate-y-1/2 tw-transform tw-text-center tw-text-[10px] tw-text-white sm:tw-text-[10px] lg:tw-text-[20px]">
               Video source not available
             </p>
           )}
@@ -387,7 +387,7 @@ export default function Actor(props) {
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
-                opacity: isPlaying ? 0.7 : 1, // opacity change
+                opacity: isPlaying ? 0.4 : 1, // opacity change
               }}
             >
               <ArrowBackIosOutlined
@@ -443,34 +443,75 @@ export default function Actor(props) {
           </div> */}
         </div>
 
-        <div className="actor-middle-container">
-          <p
-            className="Actor-Role actor-detail-item"
-            style={{
-              fontSize: "30px",
-              fontWeight: "bold",
-              gridColumn: "1/3",
-            }}
-          >
+        <div className="tw-m-4  tw-grid tw-grid-cols-12 tw-items-center md:tw-justify-center">
+          {/* First Row: Actor's Name, Gender, Role, Play Picture, Number of Play, Message */}
+
+          {/*Actorès name*/}
+          <p className="tw-text-md tw-col-span-4 tw-text-center tw-font-bold tw-text-black md:tw-col-span-2 lg:tw-col-span-1">
             {epkInfo.firstName} {epkInfo.lastName}
           </p>
-          <p
-            className="Actor-Role actor-detail-item"
-            style={{
-              gridColumn: "3/4",
-              fontSize: "30px",
-              fontWeight: "bold",
-            }}
-          >
+          {/*Gender*/}
+          <p className="tw-text-md md: tw-col-span-2 tw-text-center tw-font-bold tw-text-black md:tw-col-span-1">
             {displaySex(epkInfo.sex)}
           </p>
-          <p className="actor-detail-item Actor-Role">{t("Actor")}</p>
+
+          {/*Role*/}
+          <p className="tw-text-md tw-col-span-2 tw-text-center tw-font-bold  tw-text-black md:tw-col-span-1">
+            {t("Actor")}
+          </p>
+
+          {/* Play Picture and Number of Play */}
+          <div className="tw-col-span-2 tw-flex tw-flex-row tw-items-center md:tw-col-span-1">
+            <img src="../Vector.png" alt="" className="tw-h-6 tw-w-9" />
+            {/*Number of play*/}
+            <p
+              className=" follower-number actor-detail-item"
+              style={{
+                color: "black",
+                // fontSize: "24px"
+              }}
+            >
+              {epksList.length}
+            </p>
+          </div>
+
+          {/*Message*/}
+          {!isOwnActorPage && (
+            <div className="tw-col-span-2 tw-bg-white tw-text-center tw-text-lg md:tw-col-span-1 md:tw-text-2xl">
+              <button
+                onClick={() => {
+                  const chatUrl = userIsFilmmaker
+                    ? `/dashboard/chat/${id}`
+                    : `/userdashboard/chat/${id}`;
+                  navigate(chatUrl);
+                }}
+                className="tw-bg-white"
+              >
+                <FontAwesomeIcon
+                  icon={faMessage}
+                  style={{
+                    width: "37px",
+                    height: "25px",
+                  }}
+                />
+              </button>
+            </div>
+          )}
+
+          {/*Follow button*/}
+
           <button
-            className="btn-follow actor-detail-item"
+            className="tw-col-span-6 tw-flex tw-h-9 tw-max-w-[150px] tw-items-center tw-justify-center tw-rounded-full tw-border-none tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white  md:tw-col-span-1 "
+            style={{ justifySelf: "end" }}
             onClick={addUserToFollowers}
           >
-            {t("Follow +")}
+            <span className="tw-hidden md:tw-hidden lg:tw-inline">
+              {t("Follow")}
+            </span>
+            <AddIcon className="actor-page-star" style={{ color: "white" }} />
           </button>
+
+          {/*Number of followers*/}
           <p
             className="follower-number actor-detail-item"
             style={{ fontSize: "24px" }}
@@ -478,35 +519,49 @@ export default function Actor(props) {
             {kkFollower}
           </p>
 
+          {/*Selected*/}
+
           <button
-            className="btn-star actor-detail-item"
+            className="tw-col-span-6 tw-flex tw-h-9 tw-max-w-[150px] tw-items-center tw-justify-center tw-rounded-full tw-border-none tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white tw-transition-all tw-duration-200 md:tw-col-span-1 "
+            style={{ justifySelf: "end" }}
             onClick={addUserToLikes}
           >
-            <span style={{ display: "inline" }}>{t("Star")}</span>
+            <span className="tw-hidden md:tw-hidden lg:tw-inline">
+              {t("Star")}
+            </span>
             <StarIcon
               className="actor-page-star"
-              style={{ color: "white", marginLeft: "10px" }}
+              style={{ color: "white", 
+              // marginLeft: "10px" 
+            }}
             />
           </button>
+          {/*Number of added to selected*/}
           <p
             className="follower-number actor-detail-item"
             style={{ fontSize: "24px" }}
           >
             {likes}
           </p>
+
+          {/*Recommended*/}
           <button
-            className="btn-Recommend actor-detail-item"
+            className="tw-col-span-6 tw-flex tw-h-9 tw-max-w-[150px] tw-items-center tw-justify-center tw-rounded-full tw-border-none tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white tw-transition-all tw-duration-200 md:tw-col-span-1 "
+            style={{ justifySelf: "end" }}
             onClick={openModal}
             disabled={epkInfo._id === (user ? user.id : null)}
           >
-            <span style={{ display: "inline" }}>{t("Recommend")}</span>{" "}
-            <img
-              src={refralIcon}
+            <span className="tw-hidden md:tw-hidden lg:tw-inline">
+              {t("Recommend")}
+            </span>{" "}
+            <ConnectWithoutContactIcon
               className="actor-page-star"
-              style={{ fill: "white", color: "white" }}
-              alt=""
+              style={{ color: "white", 
+              // marginLeft: "10px" 
+            }}
             />
           </button>
+          {/*Big div with modal window - do not touch*/}
           <div className={`actor-modal ${modalIsOpen ? "is-open" : ""}`}>
             <div
               className="shared-style"
@@ -584,7 +639,10 @@ export default function Actor(props) {
                         }}
                       >
                         <div
-                          style={{ marginRight: "30px", marginBottom: "10px" }}
+                          style={{
+                            marginRight: "30px",
+                            marginBottom: "10px",
+                          }}
                         >
                           <img
                             src={filmmaker.picture}
@@ -623,38 +681,14 @@ export default function Actor(props) {
               )}
             </div>{" "}
           </div>
+          {/*Number of recommendations*/}
           <p
-            className="follower-number-Recommend actor-detail-item"
+            className="follower-number actor-detail-item"
             style={{ fontSize: "24px" }}
           >
             {recommendations}
           </p>
-
-          <div className="actor-detail-item actor-icon-movie-container">
-            <img
-              src="../Vector.png"
-              alt=""
-              style={{ width: "37px", height: "25px" }}
-            />
-            <p className="movie-number" style={{ fontSize: "24px" }}>
-              {epksList.length}
-            </p>
-            {!isOwnActorPage && (
-              <button
-                onClick={() => {
-                  const chatUrl = userIsFilmmaker
-                    ? `/dashboard/chat/${id}`
-                    : `/userdashboard/chat/${id}`;
-                  navigate(chatUrl);
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faMessage}
-                  style={{ width: "37px", height: "25px" }}
-                />
-              </button>
-            )}
-          </div>
+          {/* Play Picture and Number of Play */}
         </div>
         {isModalVisible && (
           <div
@@ -673,23 +707,15 @@ export default function Actor(props) {
         <div>
           {studioData && (
             <>
-              <p
-                className="text-purple-800 text-3xl font-bold ml-5"
-                style={{
-                  //display: "inline",
-                  padding: "30px",
-                  marginLeft: "10px",
-                  color: "#1E0039",
-                  fontSize: "24px",
-                  fontWeight: "700",
-                }}
-              >
+              {/* Represented by */}
+              <p className="tw-text-black-800 tw-lg:ml-5 tw-md:text-center tw-sm:text-center tw-ml-5 tw-px-12 tw-py-4 tw-text-3xl tw-text-xl tw-font-bold tw-font-bold tw-text-[#1E0039]">
                 {t("Represented by:")}{" "}
                 {studioData ? studioData.name || "N/A" : ""}
               </p>
             </>
           )}
         </div>
+
         <div className="actor-city-container">
           <div className="actor-city-detail">
             <img
@@ -839,7 +865,14 @@ export default function Actor(props) {
             <div className="movie-actor-play-container">
               {epksList.map((epk) => {
                 return (
-                  <a key={epk._id} href={`/epk/${epk._id}`}>
+                  <a
+                    key={epk._id}
+                    href={
+                      epk.title
+                        ? `/epk/${epk.title.replace(/ /g, "-").trim()}`
+                        : "/"
+                    }
+                  >
                     <div className="listItem">
                       <img
                         src={

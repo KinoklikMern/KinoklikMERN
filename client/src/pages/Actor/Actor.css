@@ -30,12 +30,10 @@
 }
 
 .actor-play-icon {
-  color: #1E0039;
-    font-size: 6rem;
-  /* position: absolute;
+  position: absolute;
   left: 50%;
   top: 70vh;
-  cursor: pointer; */
+  cursor: pointer;
 }
 
 .actor-image-container {
@@ -95,23 +93,31 @@
   z-index: 1000;
 }
 
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 880px) {
+>>>>>>> Stashed changes
   .actor-profile {
     width: 70vw;
   height: 45vh; /* Maintain the aspect ratio */
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
+}
 
-
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 1300px) {
+>>>>>>> Stashed changes
   .actor-profile {
     width: 70vw;
   height: 45vh; /* Maintain the aspect ratio */
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
-
+}
 
 .arrow-actor-profile {
   font-size: 4rem;
@@ -134,24 +140,32 @@
 }
 
 /* Media query for smaller screens */
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 872px) {
+>>>>>>> Stashed changes
   .arrow-actor-profile2,
   .arrow-actor-profile1 {
     width: 80%;
     height: 3rem; 
   }
 }
-
+}
 
 /* Media query for even smaller screens */
+<<<<<<< Updated upstream
 @media screen and (max-width: 1245px) {
+=======
+@media screen and (max-width: 825px) {
+>>>>>>> Stashed changes
   .arrow-actor-profile2,
   .arrow-actor-profile1 {
     width: 60%;
     height: 3rem;
   }
 }
-
+}
 .actor-image-text {
   color: white;
 }
@@ -183,12 +197,12 @@
 
 .Actor-Role.actor-detail-item {
   /* Default styles for larger screens */
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(1, auto);
   gap: 10px;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 
  /* Media query for smaller screens (cell phone) */
  @media screen and (max-width: 1245px) {
@@ -255,7 +269,7 @@
 .actor-icon-movie-container {
   display: flex;
   align-items: center;
-  grid-column: 11/12;
+  /* grid-column: 11/12; */
 }
 
 .actor-icon-movie-container button {
@@ -320,29 +334,29 @@
   border-radius: 0%;
 }
 
-@media screen and (max-width: 1245px) {
-  .movie-actor-play-container  {
-    display: grid;
-  flex-wrap: nowrap;
-  position:center;
-  gap: 2em;
-  overflow-x: auto;
-  overflow-y: hidden;
-  justify-content: flex-start;
-  margin: 0 1%;
-  padding: 2% 2% 0 2%;
-  background-color: rgba(30, 0, 57, 0.22);
-  border-radius: 1em;
-  }
-}
-
-@media screen and (max-width: 1245px) {
+@media screen and (max-width: 1350px) {
   .movie-actor-play-container img {
-    height: 600px;
-    display: flex;
+    max-height: 350px;
   }
 }
 
+@media screen and (max-width: 1280px) {
+  .movie-actor-play-container img {
+    max-height: 280px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .movie-actor-play-container img {
+    max-height: 220px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .movie-actor-play-container img {
+    max-height: 200px;
+  }
+}
 
 .listItem p {
   margin-top: 10px;
