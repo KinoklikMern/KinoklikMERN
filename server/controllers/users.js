@@ -110,7 +110,7 @@ export const register = async (req, res) => {
     var transport = generateMailTransport();
 
     transport.sendMail({
-      from: "info@kinoklik.com",
+      from: "info@kinoklik.ca",
       to: user.email,
       subject: "Email Verification",
       html: `
@@ -162,8 +162,7 @@ export const verifyEmail = async (req, res) => {
     if (user.isVerified) return sendError(res, "User is already verified!");
 
     const token = await EmailVerificationToken.findOne({ owner: userId });
-    if (!token)
-      return sendError(res, "Token not found! Please click 'Resend OTP'.");
+    if (!token) return sendError(res, "token not found!");
     const isMatched = await token.compareToken(OTP);
     if (!isMatched) return sendError(res, "Please submit a valid OTP!");
     user.isVerified = true;
@@ -174,7 +173,7 @@ export const verifyEmail = async (req, res) => {
     var transport = generateMailTransport();
 
     transport.sendMail({
-      from: "info@kinoklik.com",
+      from: "info@kinoklik.ca",
       to: user.email,
       subject: "Welcome Email",
       html: "<h1>Welcome to our app and thanks for choosing us.</h1>",
@@ -232,7 +231,7 @@ export const resendEmailVerificationToken = async (req, res) => {
     var transport = generateMailTransport();
 
     transport.sendMail({
-      from: "info@kinoklik.com",
+      from: "info@kinoklik.ca",
       to: user.email,
       subject: "Email Verification",
       html: `
@@ -300,7 +299,7 @@ export const login = async (request, response) => {
           var transport = generateMailTransport();
 
           transport.sendMail({
-            from: "info@kinoklik.com",
+            from: "info@kinoklik.ca",
             to: user.email,
             subject: "Email Verification",
             html: `
@@ -508,7 +507,7 @@ export const forgetPassword = async (req, res) => {
 
   // console.log(resetPasswordUrl);
   transport.sendMail({
-    from: "info@kinoklik.com",
+    from: "info@kinoklik.ca",
     to: user.email,
     subject: "Reset Password Link",
     html: `
@@ -566,7 +565,7 @@ export const resetPassword = async (req, res) => {
   // console.log(transport.verify);
 
   transport.sendMail({
-    from: "info@kinoklik.com",
+    from: "info@kinoklik.ca",
     to: user.email,
     subject: "Password Reset Successfully",
     html: `
