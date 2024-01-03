@@ -6,7 +6,7 @@ import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { useTranslation } from "react-i18next";
 
-function SalesCalculatorForm() {
+function SalesCalcu-latorForm() {
   const [fepk, setFepk] = useState([]);
   const { t } = useTranslation();
 
