@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
 import Banner from "../components/EpkView/EpkBanner/EpkBanner";
 import emptyBanner from "../images/empty_banner.jpeg";
+import EpkSalesCalculator from "../components/EpkView/EpkSalesCalculator/EpkSalesCaculator";
 
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -202,7 +203,7 @@ function EpkViewPage() {
               epkDonateStripe={epkInfo.DonateStripe_url}
             />
           )}
-
+          <EpkSalesCalculator />
           <Banner />
         </div>
       </div>
