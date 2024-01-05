@@ -220,7 +220,7 @@ function SalesCalculatorForm() {
               width: "100%",
             }}
           >
-            <h1>Box Office Crystal Ball</h1>
+            <h1>Box Office Crystal Ball2</h1>
             <div
               style={{
                 marginLeft: "10%",
