@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
+
 
 function SynopsisForm() {
   const [file, setFile] = useState("");
@@ -35,7 +37,8 @@ function SynopsisForm() {
   //Translation
   const { t } = useTranslation();
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -64,35 +67,63 @@ function SynopsisForm() {
     setMessage("");
   };
 
-  useEffect(() => {
-    http
-      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
-      .then((response) => {
-        if (response.data) {
-          setFepk(response.data);
-          const { text_short, text_medium, text_long } = response.data;
-          setCharacterLength((prevCharacterLength) => ({
-            ...prevCharacterLength,
-            text_short: text_short ? text_short.length : 0,
-            text_medium: text_medium ? text_medium.length : 0,
-            text_long: text_long ? text_long.length : 0,
-          }));
-          setEpkSynopsisData({
-            image_synopsis: response.data.image_synopsis,
-            image_synopsis_medium: response.data.image_synopsis_medium,
-            image_synopsis_long: response.data.image_synopsis_long,
-            text_short: response.data.text_short,
-            text_medium: response.data.text_medium,
-            text_long: response.data.text_long,
-            text_medium_blur: response.data.text_medium_blur,
-            text_long_blur: response.data.text_long_blur,
-          });
-        } else {
-          // Handle the case when response.data is undefined or empty
-          console.error("response.data is undefined or empty");
-        }
-      });
-  }, [title]);
+  // useEffect(() => {
+  //   http
+  //     .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+  //     .then((response) => {
+  //       if (response.data) {
+  //         setFepk(response.data);
+  //         const { text_short, text_medium, text_long } = response.data;
+  //         setCharacterLength((prevCharacterLength) => ({
+  //           ...prevCharacterLength,
+  //           text_short: text_short ? text_short.length : 0,
+  //           text_medium: text_medium ? text_medium.length : 0,
+  //           text_long: text_long ? text_long.length : 0,
+  //         }));
+  //         setEpkSynopsisData({
+  //           image_synopsis: response.data.image_synopsis,
+  //           image_synopsis_medium: response.data.image_synopsis_medium,
+  //           image_synopsis_long: response.data.image_synopsis_long,
+  //           text_short: response.data.text_short,
+  //           text_medium: response.data.text_medium,
+  //           text_long: response.data.text_long,
+  //           text_medium_blur: response.data.text_medium_blur,
+  //           text_long_blur: response.data.text_long_blur,
+  //         });
+  //       } else {
+  //         // Handle the case when response.data is undefined or empty
+  //         console.error("response.data is undefined or empty");
+  //       }
+  //     });
+  // }, [title]);
+
+   useEffect(() => {
+     getFepksById(id).then((response) => {
+       if (response) {
+         setFepk(response);
+         const { text_short, text_medium, text_long } = response;
+         setCharacterLength((prevCharacterLength) => ({
+           ...prevCharacterLength,
+           text_short: text_short ? text_short.length : 0,
+           text_medium: text_medium ? text_medium.length : 0,
+           text_long: text_long ? text_long.length : 0,
+         }));
+         setEpkSynopsisData({
+           image_synopsis: response.image_synopsis,
+           image_synopsis_medium: response.image_synopsis_medium,
+           image_synopsis_long: response.image_synopsis_long,
+           text_short: response.text_short,
+           text_medium: response.text_medium,
+           text_long: response.text_long,
+           text_medium_blur: response.text_medium_blur,
+           text_long_blur: response.text_long_blur,
+         });
+       } else {
+         // Handle the case when response.data is undefined or empty
+         console.error("response.data is undefined or empty");
+       }
+     });
+   }, [id]);
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;
@@ -227,9 +258,7 @@ function SynopsisForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={
-                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

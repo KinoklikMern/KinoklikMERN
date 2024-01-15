@@ -499,11 +499,7 @@ export default function SavedPage() {
                       {filteredEpkList.map((epk, index) => (
                         <a
                           key={index}
-                          href={
-                            epk.title
-                              ? `/epk/${epk.title.replace(/ /g, "-").trim()}`
-                              : `/`
-                          }
+                          href={epk.title ? `/epk/${epk._id}` : `/`}
                         >
                           <img
                             src={

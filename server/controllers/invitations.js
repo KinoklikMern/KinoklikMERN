@@ -66,8 +66,11 @@ export const sendInvitation = async (req, res) => {
 
   if (!email) return res.status(404).json({ message: "email is missing!" });
 
-  // Direct link to your signup page
-  const signUpLink = `http://localhost:3000/signup`;
+  // Direct link to the signup page
+  //const signUpLink = `http://localhost:3000/signup`;
+
+  //production
+  const signUpLink = `https://www.kinoklik.ca/signup`;
 
   // Save the invitation
   try {

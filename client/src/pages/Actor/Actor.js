@@ -531,9 +531,10 @@ export default function Actor(props) {
             </span>
             <StarIcon
               className="actor-page-star"
-              style={{ color: "white", 
-              // marginLeft: "10px" 
-            }}
+              style={{
+                color: "white",
+                // marginLeft: "10px"
+              }}
             />
           </button>
           {/*Number of added to selected*/}
@@ -556,9 +557,10 @@ export default function Actor(props) {
             </span>{" "}
             <ConnectWithoutContactIcon
               className="actor-page-star"
-              style={{ color: "white", 
-              // marginLeft: "10px" 
-            }}
+              style={{
+                color: "white",
+                // marginLeft: "10px"
+              }}
             />
           </button>
           {/*Big div with modal window - do not touch*/}
@@ -865,14 +867,7 @@ export default function Actor(props) {
             <div className="movie-actor-play-container">
               {epksList.map((epk) => {
                 return (
-                  <a
-                    key={epk._id}
-                    href={
-                      epk.title
-                        ? `/epk/${epk.title.replace(/ /g, "-").trim()}`
-                        : "/"
-                    }
-                  >
+                  <a key={epk._id} href={`/epk/${epk._id}`}>
                     <div className="listItem">
                       <img
                         src={

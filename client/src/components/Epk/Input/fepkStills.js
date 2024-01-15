@@ -8,6 +8,7 @@ import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function StillsForm() {
   const [file, setFile] = useState("");
@@ -26,7 +27,8 @@ function StillsForm() {
 
   const { t } = useTranslation();
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -48,20 +50,30 @@ function StillsForm() {
     setFileChosen(true);
   };
 
-  useEffect(() => {
-    http
-      .get(
-        `/fepks/byTitle/${title.replace(/ /g, "-").trim()}
-`
-      )
-      .then((response) => {
-        setFepk(response.data);
-        setStillsList(response.data.stills);
+  //   useEffect(() => {
+  //     http
+  //       .get(
+  //         `/fepks/byTitle/${title.replace(/ /g, "-").trim()}
+  // `
+  //       )
+  //       .then((response) => {
+  //         setFepk(response.data);
+  //         setStillsList(response.data.stills);
 
-        setEpkStillsData(response.data.stills);
-        //      console.log(response.data.title);
-      });
-  }, [title]);
+  //         setEpkStillsData(response.data.stills);
+  //         //      console.log(response.data.title);
+  //       });
+  //   }, [title]);
+
+  useEffect(() => {
+    getFepksById(id).then((response) => {
+      setFepk(response);
+      setStillsList(response.stills);
+
+      setEpkStillsData(response.stills);
+      //      console.log(response.data.title);
+    });
+  }, [id]);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -239,9 +251,7 @@ function StillsForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="lg:tw-text-2xld tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl"
-              to={
-                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

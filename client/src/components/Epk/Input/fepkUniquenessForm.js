@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function UniquenessForm() {
   const { t } = useTranslation();
@@ -26,7 +27,8 @@ function UniquenessForm() {
   //Picture prewiev
   const [picturePreviewUrl, setPicturerPreviewUrlPreviewUrl] = useState("");
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -37,34 +39,61 @@ function UniquenessForm() {
     setMessage("");
   };
 
+  // useEffect(() => {
+  //   http
+  //     .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+  //     .then((response) => {
+  //       if (response.data) {
+  //         setFepk(response.data);
+  //         const { description_uniqueness } = response.data;
+  //         //Aleksejs commented out because it was giving an error, seems to be working fine without that part
+  //         //if (description_uniqueness) {
+  //         setCharacterLength({
+  //           description_uniqueness: description_uniqueness.length,
+  //         });
+  //         setEpkUniquenessData({
+  //           image_uniqueness: response.data.image_uniqueness,
+  //           title_uniqueness: response.data.title_uniqueness,
+  //           description_uniqueness,
+  //           uniqueness_blur: response.data.uniqueness_blur,
+  //         });
+  //         // } else {
+  //         //   // Handle the case when description_uniqueness is undefined or empty
+  //         //   console.error("description_uniqueness is undefined or empty");
+  //         // }
+  //       } else {
+  //         // Handle the case when response.data is undefined or empty
+  //         console.error("response.data is undefined or empty");
+  //       }
+  //     });
+  // }, [title]);
+
   useEffect(() => {
-    http
-      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
-      .then((response) => {
-        if (response.data) {
-          setFepk(response.data);
-          const { description_uniqueness } = response.data;
-          //Aleksejs commented out because it was giving an error, seems to be working fine without that part
-          //if (description_uniqueness) {
-          setCharacterLength({
-            description_uniqueness: description_uniqueness.length,
-          });
-          setEpkUniquenessData({
-            image_uniqueness: response.data.image_uniqueness,
-            title_uniqueness: response.data.title_uniqueness,
-            description_uniqueness,
-            uniqueness_blur: response.data.uniqueness_blur,
-          });
-          // } else {
-          //   // Handle the case when description_uniqueness is undefined or empty
-          //   console.error("description_uniqueness is undefined or empty");
-          // }
-        } else {
-          // Handle the case when response.data is undefined or empty
-          console.error("response.data is undefined or empty");
-        }
-      });
-  }, [title]);
+    getFepksById(id).then((response) => {
+      if (response) {
+        setFepk(response);
+        const { description_uniqueness } = response;
+        //Aleksejs commented out because it was giving an error, seems to be working fine without that part
+        //if (description_uniqueness) {
+        setCharacterLength({
+          description_uniqueness: description_uniqueness.length,
+        });
+        setEpkUniquenessData({
+          image_uniqueness: response.image_uniqueness,
+          title_uniqueness: response.title_uniqueness,
+          description_uniqueness,
+          uniqueness_blur: response.uniqueness_blur,
+        });
+        // } else {
+        //   // Handle the case when description_uniqueness is undefined or empty
+        //   console.error("description_uniqueness is undefined or empty");
+        // }
+      } else {
+        // Handle the case when response.data is undefined or empty
+        console.error("response.data is undefined or empty");
+      }
+    });
+  }, [id]);
 
   if (!epkUniquenessData) {
     epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
@@ -188,9 +217,7 @@ function UniquenessForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={
-                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

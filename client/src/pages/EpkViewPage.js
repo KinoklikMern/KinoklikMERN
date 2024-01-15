@@ -18,7 +18,7 @@ import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
 import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
 import NewMessageModal from "../components/EpkView/miscellaneous/NewMessageModal";
 import { useParams } from "react-router-dom";
-import { getFepksByTitle } from "../api/epks";
+import { getFepksByTitle, getFepksById } from "../api/epks";
 import { useSelector } from "react-redux";
 import { FepkContext } from "../context/FepkContext";
 import Banner from "../components/EpkView/EpkBanner/EpkBanner";
@@ -29,7 +29,6 @@ function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
     React.useContext(FepkContext);
   const user = useSelector((state) => state.user);
-  // const { title } = useParams();
   const [epkInfo, setEpkInfo] = useState();
   const [requestStatus, setRequestStatus] = useState();
   const [refresh, setRefresh] = useState(false);
@@ -39,7 +38,8 @@ function EpkViewPage() {
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
   const [imageDetails, setImageDetails] = useState("");
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   const handleClose = (modalType) => {
     if (user) {
@@ -83,12 +83,36 @@ function EpkViewPage() {
     }
   };
 
+  // useEffect(() => {
+  //   getFepksByTitle(title).then((res) => {
+  //     if (res.message) {
+  //       alert(res.message);
+  //     } else {
+  //       //Find epk
+  //       setEpkInfo(res);
+  //       setFepkId(res._id);
+  //       setFepkMaker(res.film_maker);
+  //       if (user?.id === res.film_maker._id) {
+  //         setRequestStatus("approved");
+  //       } else {
+  //         res.requests.forEach((request) => {
+  //           if (request.user === user?.id) {
+  //             setRequestStatus(request.status);
+  //           }
+  //         });
+  //       }
+  //     }
+  //   });
+  // }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
+
   useEffect(() => {
-    getFepksByTitle(title).then((res) => {
+    getFepksById(id).then((res) => {
       if (res.message) {
         alert(res.message);
+        console.log(id);
       } else {
         //Find epk
+        console.log("res:", res);
         setEpkInfo(res);
         setFepkId(res._id);
         setFepkMaker(res.film_maker);
@@ -103,7 +127,7 @@ function EpkViewPage() {
         }
       }
     });
-  }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
+  }, [id, refresh, setFepkId, setFepkMaker, user?.id]);
 
   useEffect(() => {
     if (
