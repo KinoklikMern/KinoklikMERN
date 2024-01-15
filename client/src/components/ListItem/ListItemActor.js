@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 import http from "../../http-common";
 import "./ListItemActor.css";
 
 export default function ListItem({ title, type }) {
-  const { user } = useSelector(({ user }) => ({ user }));
+  //const { user } = useSelector(({ user }) => ({ user }));
+
+  const selectUserData = useMemo(() => (state) => state.user, []);
+  const user = useSelector(selectUserData);
 
   const titleToEndpoint = {
     all_actors: "users/getactors",
@@ -84,22 +88,22 @@ export default function ListItem({ title, type }) {
   return (
     <>
       {actors?.map((actor) => (
-        <div className='listItemactor' key={actor._id}>
+        <div className="listItemactor" key={actor._id}>
           <a href={`/actor/${actor._id}`}>
             <img
-              className='actor-image'
+              className="actor-image"
               src={
                 actor.picture && !actor.picture.startsWith("https")
                   ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
                   : actor.picture
               }
-              alt=''
+              alt=""
             />
-            <div className='overlay'>
-              <p className='actorname'>{`${actor.firstName} ${actor.lastName}`}</p>
+            <div className="overlay">
+              <p className="actorname">{`${actor.firstName} ${actor.lastName}`}</p>
             </div>
-            <div className='overlay'>
-              <p className='actor-name'>{`${actor.firstName} ${actor.lastName}`}</p>
+            <div className="overlay">
+              <p className="actor-name">{`${actor.firstName} ${actor.lastName}`}</p>
             </div>
           </a>
         </div>

@@ -8,6 +8,7 @@ import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
 import stripImage from "../../../images/stripe.jpg";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function FepkEditCoverForm() {
   const { t } = useTranslation();
@@ -37,7 +38,8 @@ function FepkEditCoverForm() {
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   //banner
   const file1Selected = (event) => {
@@ -68,17 +70,30 @@ function FepkEditCoverForm() {
     setMessage("");
   };
 
+  // useEffect(() => {
+  //   http.get(`/fepks/byTitle/${title}`).then((response) => {
+  //     setFepk(response.data);
+  //     //console.log(response.data);
+  //     setCharacterLength({
+  //       logLine_short: response.data.logLine_short.length,
+  //     });
+
+  //     // console.log(response.data);
+  //   });
+  // }, [title]);
+
   useEffect(() => {
-    http.get(`/fepks/byTitle/${title}`).then((response) => {
-      setFepk(response.data);
+    getFepksById(id).then((response) => {
+      console.log("Response na cover", response);
+      setFepk(response);
       //console.log(response.data);
       setCharacterLength({
-        logLine_short: response.data.logLine_short.length,
+        logLine_short: response.logLine_short.length,
       });
 
       // console.log(response.data);
     });
-  }, [title]);
+  }, [id]);
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -215,30 +230,58 @@ function FepkEditCoverForm() {
     setEpkCoverData({ ...epkCoverData, [name]: value });
     setDisabled(false);
 
-    if (name === "title") {
-      if (value.trim() !== "") {
-        http
-          .get(`fepks/byTitle/${value}`)
-          .then((response) => {
-            if (response.data !== null) {
-              setMessageTitleNo(
-                t("This title exists! You are not allowed to use it again!")
-              );
-              setMessageTitleYes("");
-            } else {
-              setMessageTitleYes(t("Title is available!"));
-              setMessageTitleNo("");
-            }
-          })
-          .catch((error) => {
-            // Handle errors, such as if the endpoint isn't found (404)
-            console.error("Error fetching title:", error);
-          });
-      } else {
-        // Reset messages if the title field is empty
-        setMessageTitleNo("");
-        setMessageTitleYes("");
-      }
+    // if (name === "title") {
+    //   if (value.trim() !== "") {
+    //     http
+    //       .get(`fepks/byTitle/${value}`)
+    //       .then((response) => {
+    //         if (response.data !== null) {
+    //           setMessageTitleNo(
+    //             t("This title exists! You are not allowed to use it again!")
+    //           );
+    //           setMessageTitleYes("");
+    //         } else {
+    //           setMessageTitleYes(t("Title is available!"));
+    //           setMessageTitleNo("");
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         // Handle errors, such as if the endpoint isn't found (404)
+    //         console.error("Error fetching title:", error);
+    //       });
+    //   } else {
+    //     // Reset messages if the title field is empty
+    //     setMessageTitleNo("");
+    //     setMessageTitleYes("");
+    //   }
+    // }
+
+    if (name === "title" && event.target.value.trim() !== "") {
+      setDisabled(false);
+      let encodedTitle = encodeURI(event.target.value.trim());
+      encodedTitle = encodedTitle.replace(/\(/g, "%28").replace(/\)/g, "%29");
+      //http.get(`fepks/byTitles/${event.target.value}`).then((response) => {
+      console.log(encodedTitle);
+      http.get(`fepks/byTitles/${encodedTitle}`).then((response) => {
+        if (event.target.value.trim() !== "") {
+          if (response.data.length > 0) {
+            setMessageTitleNo(t("This title exists! Choose another one!"));
+            setMessageTitleYes("");
+            setDisabled(true);
+            console.log(response.data);
+          } else {
+            setMessageTitleYes(t("This title is ok!"));
+            setMessageTitleNo("");
+            setDisabled(false);
+          }
+        }
+      });
+    }
+
+    if (name === "title" && event.target.value.trim() === "") {
+      setDisabled(true);
+      setMessageTitleNo("");
+      setMessageTitleYes("");
     }
   };
 
@@ -372,11 +415,7 @@ function FepkEditCoverForm() {
           <div className="col-2 tw-m-3 tw-text-center">
             <Link
               className="tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
-              to={
-                fepk.title
-                  ? `/epk/${fepk.title.replace(/ /g, "-").trim()}`
-                  : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

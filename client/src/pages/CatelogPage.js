@@ -110,13 +110,7 @@ function CatelogPage() {
             return (
               <React.Fragment key={fepk._id}>
                 <div className="listItem tw-my-8 tw-p-3 md:tw-my-24">
-                  <a
-                    href={
-                      fepk.title
-                        ? `/epk/${fepk.title.replace(/ /g, "-").trim()}`
-                        : `/`
-                    }
-                  >
+                  <a href={fepk.title ? `/epk/${fepk._id}` : `/`}>
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                       alt=""

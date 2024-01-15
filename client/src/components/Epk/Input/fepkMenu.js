@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 export default function BasicMenu({ color }) {
   const { t } = useTranslation();
@@ -19,22 +20,22 @@ export default function BasicMenu({ color }) {
   const user = useSelector((state) => state.user);
   const filmmaker_id = user.id;
 
-  let { title } = useParams();
+  // let { title } = useParams();
+  let { id } = useParams();
   // const navigate = useNavigate();
 
   const [fepkList, setFepkList] = React.useState([]);
   const [fepk, setFepk] = React.useState([]);
 
   React.useEffect(() => {
+    getFepksById(id).then((response) => {
+      console.log("fepk menu id", id);
+      setFepk(response);
+    });
     http.get(`/fepks/byfilmmaker/${filmmaker_id}`).then((response) => {
       setFepkList(response.data);
     });
-    http
-      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
-      .then((response) => {
-        setFepk(response.data);
-      });
-  }, [title, filmmaker_id]);
+  }, [id, filmmaker_id]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,6 +43,14 @@ export default function BasicMenu({ color }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  React.useEffect(() => {
+    console.log("fepkList", fepkList);
+  }, [fepkList]);
+
+  React.useEffect(() => {
+    console.log("fepk", fepk);
+  }, [fepk]);
 
   return (
     <div>
@@ -87,11 +96,7 @@ export default function BasicMenu({ color }) {
           return (
             <MenuItem key={val._id}>
               <a
-                href={
-                  val.title
-                    ? `/editFepk/${val.title.replace(/ /g, "-").trim()}`
-                    : "/"
-                }
+                href={val.title ? `/editFepk/${val._id}` : "/"}
                 style={{
                   color: "#311465",
                   textDecoration: "none",

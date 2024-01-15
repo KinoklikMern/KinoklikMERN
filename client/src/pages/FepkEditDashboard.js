@@ -19,6 +19,7 @@ import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
 import { FepkContext } from "../context/FepkContext";
 import EPKSideMenu from "../components/Epk/EpkSideMenu";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../api/epks";
 
 function FepkEditDashboard() {
   const { t } = useTranslation();
@@ -41,16 +42,28 @@ function FepkEditDashboard() {
     filmmaker_id = user.id;
   }
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
+
+  // useEffect(() => {
+  //   http.get(`/fepks/byTitle/${title}`).then((response) => {
+  //     setAccess(response.data.film_maker._id === filmmaker_id);
+  //     setFepk(response.data);
+  //     setFepkMaker("");
+  //     setLoading(false);
+  //   });
+  // }, [title, filmmaker_id, setFepkMaker]);
 
   useEffect(() => {
-    http.get(`/fepks/byTitle/${title}`).then((response) => {
-      setAccess(response.data.film_maker._id === filmmaker_id);
-      setFepk(response.data);
+    console.log(id);
+    getFepksById(id).then((response) => {
+      console.log(response);
+      setAccess(response.film_maker._id === filmmaker_id);
+      setFepk(response);
       setFepkMaker("");
       setLoading(false);
     });
-  }, [title, filmmaker_id, setFepkMaker]);
+  }, [id, filmmaker_id, setFepkMaker]);
 
   return loading ? (
     <div className="tw-h-screen">

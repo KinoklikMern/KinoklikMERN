@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function LoglineForm() {
   const { t } = useTranslation();
@@ -26,7 +27,8 @@ function LoglineForm() {
   //modal
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   const fileSelected = (event) => {
     const file1 = event.target.files[0];
@@ -39,20 +41,50 @@ function LoglineForm() {
     }
   };
 
+  // useEffect(() => {
+  //   http
+  //     .get(`/fepks/byTitle/${title.replace(/-/g, " ").trim()}`)
+  //     .then((response) => {
+  //       if (response.data) {
+  //         setFepk(response.data);
+  //         //if (response.data.logLine_long) {
+  //         setCharacterLength({
+  //           logLine_long: response.data.logLine_long.length,
+  //         });
+  //         setEpkLoglineData({
+  //           image_logline: response.data.image_logline,
+  //           logLine_long: response.data.logLine_long,
+  //           logLine_blur: response.data.logLine_blur,
+  //         });
+  //         // } else {
+  //         //   // Handle the case when logLine_long is undefined or empty
+  //         //   console.error("logLine_long is undefined or empty");
+  //         // }
+  //       } else {
+  //         // Handle the case when response.data is undefined or empty
+  //         console.error("response.data is undefined or empty");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       // Handle the error if the HTTP request fails
+  //       console.error("HTTP request failed:", error);
+  //     });
+  // }, [title]);
+
   useEffect(() => {
-    http
-      .get(`/fepks/byTitle/${title.replace(/-/g, " ").trim()}`)
+    getFepksById(id)
       .then((response) => {
-        if (response.data) {
-          setFepk(response.data);
+        if (response) {
+          console.log("LogLone response:", response)
+          setFepk(response);
           //if (response.data.logLine_long) {
           setCharacterLength({
-            logLine_long: response.data.logLine_long.length,
+            logLine_long: response.logLine_long.length,
           });
           setEpkLoglineData({
-            image_logline: response.data.image_logline,
-            logLine_long: response.data.logLine_long,
-            logLine_blur: response.data.logLine_blur,
+            image_logline: response.image_logline,
+            logLine_long: response.logLine_long,
+            logLine_blur: response.logLine_blur,
           });
           // } else {
           //   // Handle the case when logLine_long is undefined or empty
@@ -67,7 +99,7 @@ function LoglineForm() {
         // Handle the error if the HTTP request fails
         console.error("HTTP request failed:", error);
       });
-  }, [title]);
+  }, [id]);
 
   const handleLoglineChange = (event) => {
     const { name, value } = event.target;
@@ -184,9 +216,7 @@ function LoglineForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={
-                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

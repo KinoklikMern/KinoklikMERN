@@ -118,15 +118,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
               {/* Filmmaker */}
               {epk && filmmakerId ? (
                 isFilmmaker && user?.id === filmmakerId && fepkId !== "" ? (
-                  <Link
-                    to={
-                      !isActorRole
-                        ? title
-                          ? `/editFepk/${title.replace(/ /g, "-")}`
-                          : "/"
-                        : ""
-                    }
-                  >
+                  <Link to={!isActorRole ? `/editFepk/${fepkId}` : ""}>
                     <FontAwesomeIcon icon={faPen} color="white" />
                   </Link>
                 ) : null
