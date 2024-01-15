@@ -106,7 +106,7 @@ function FepkDetailsForm() {
       .then((invitations) => {
         setInvitationsByFilmmakerMovie(invitations.data);
       });
-  }, [id]);
+  }, [epkFilmDetailsData, id]);
 
   useEffect(() => {
     setInvitationEmailValue("");
