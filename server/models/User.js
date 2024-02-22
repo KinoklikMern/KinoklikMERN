@@ -263,6 +263,10 @@ const UserSchema = mongoose.Schema({
   //     twitter_followers: { type: String },
   //   },
   // ],
+  otp: {
+    type: String,
+    default: "",
+  },
 });
 
 // Mongoose will assume there is a collection called the plural of this name (i.e., 'users' in this case).

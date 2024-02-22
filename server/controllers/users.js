@@ -82,6 +82,9 @@ export const register = async (req, res) => {
     // Hash the password
     const cryptedPassword = await bcrypt.hash(password, 12);
 
+    // Generate 6 digit otp
+    const OTP = generateOTP();
+
     const user = await new User({
       firstName,
       lastName,
@@ -93,18 +96,16 @@ export const register = async (req, res) => {
       isVerified: false, // Add this line to set isVerified to false initially
       newsLetterOptions,
       sex: gender,
+      otp: OTP,
     }).save();
 
-    // Generate 6 digit otp
-    const OTP = generateOTP();
-
     // store otp inside our db
-    const newEmailVerificationToken = new EmailVerificationToken({
-      owner: user._id,
-      token: OTP,
-    });
+    // const newEmailVerificationToken = new EmailVerificationToken({
+    //   owner: user._id,
+    //   token: OTP,
+    // });
 
-    await newEmailVerificationToken.save();
+    // await newEmailVerificationToken.save();
     // send that otp to our user
     // copy from mailtrap.io
     var transport = generateMailTransport();
@@ -151,8 +152,8 @@ export const verifyEmail = async (req, res) => {
   const { userId, OTP } = req.body;
 
   try {
-    console.log("Received userId:", userId);
-    console.log("Received OTP:", OTP);
+    // console.log("Received userId:", userId);
+    // console.log("Received OTP:", OTP);
 
     if (!isValidObjectId(userId)) return sendError(res, "Invalid user!");
 
@@ -161,14 +162,21 @@ export const verifyEmail = async (req, res) => {
 
     if (user.isVerified) return sendError(res, "User is already verified!");
 
-    const token = await EmailVerificationToken.findOne({ owner: userId });
-    if (!token) return sendError(res, "token not found!");
-    const isMatched = await token.compareToken(OTP);
-    if (!isMatched) return sendError(res, "Please submit a valid OTP!");
+    // console.log("UserId" + userId);
+    // const token = await EmailVerificationToken.findOne({ owner: userId });
+    //if (!token) return sendError(res, "token not found!");
+
+    if (user.otp === "") {
+      return sendError(res, "Token not found!");
+    }
+    if (user.otp !== OTP) return sendError(res, "Please submit a valid OTP!");
+
+    // const isMatched = await token.compareToken(OTP);
+    // if (!isMatched) return sendError(res, "Please submit a valid OTP!");
     user.isVerified = true;
     await user.save();
 
-    await EmailVerificationToken.findByIdAndDelete(token._id);
+    //await EmailVerificationToken.findByIdAndDelete(token._id);
 
     var transport = generateMailTransport();
 
@@ -207,10 +215,17 @@ export const resendEmailVerificationToken = async (req, res) => {
     if (user.isVerified)
       return sendError(res, "This email is already verified!");
 
-    const alreadyHasToken = await EmailVerificationToken.findOne({
-      owner: userId,
-    });
-    if (alreadyHasToken)
+    // const alreadyHasToken = await EmailVerificationToken.findOne({
+    //   owner: userId,
+    // });
+    // if (alreadyHasToken)
+    //   return sendError(
+    //     res,
+    //     "Only after one hour you can request another token!"
+    //   );
+    const now = new Date();
+    if (now - user.updatedAt < 3600000)
+      // 1 hour
       return sendError(
         res,
         "Only after one hour you can request another token!"
@@ -218,14 +233,19 @@ export const resendEmailVerificationToken = async (req, res) => {
 
     // Generate 6 digit otp
     const OTP = generateOTP();
+    await User.updateOne(
+      { _id: user._id },
+      { $set: { otp: OTP, updatedAt: now } }
+    );
+    //await user.updateOne({ otp: OTP });
 
     // store otp inside our db
-    const newEmailVerificationToken = new EmailVerificationToken({
-      owner: user._id,
-      token: OTP,
-    });
+    // const newEmailVerificationToken = new EmailVerificationToken({
+    //   owner: user._id,
+    //   token: OTP,
+    // });
 
-    await newEmailVerificationToken.save();
+    //await newEmailVerificationToken.save();
     // send that otp to our user
     // copy from mailtrap.io
     var transport = generateMailTransport();
@@ -280,20 +300,11 @@ export const login = async (request, response) => {
             "The email address you entered is not connected to an account",
         });
       } else {
-        const existingToken = await EmailVerificationToken.findOne({
-          owner: user._id,
-        });
-
-        if (!user.isVerified && !existingToken) {
-          // If the user is not verified and there's no existing token, send OTP for verification
-          const OTP = generateOTP(); // Generate OTP
-
-          // Store the OTP in the database for verification
-          const emailVerificationToken = new EmailVerificationToken({
-            owner: user._id,
-            token: OTP,
-          });
-          await emailVerificationToken.save();
+        // const existingToken = await EmailVerificationToken.findOne({
+        //   owner: user._id,
+        // });
+        if (!user.isVerified) {
+          // If the user is not verified, send OTP for verification
 
           // Send OTP to the user's email
           var transport = generateMailTransport();
@@ -304,7 +315,7 @@ export const login = async (request, response) => {
             subject: "Email Verification",
             html: `
               <p>Your verification OTP</p>
-              <h1>${OTP}</h1>
+              <h1>${user.otp}</h1>
             `,
           });
 
@@ -319,6 +330,41 @@ export const login = async (request, response) => {
             },
           });
         }
+        // if (!user.isVerified && !existingToken) {
+        //   // If the user is not verified and there's no existing token, send OTP for verification
+        //   const OTP = generateOTP(); // Generate OTP
+
+        //   // Store the OTP in the database for verification
+        //   const emailVerificationToken = new EmailVerificationToken({
+        //     owner: user._id,
+        //     token: OTP,
+        //   });
+        //   await emailVerificationToken.save();
+
+        //   // Send OTP to the user's email
+        //   var transport = generateMailTransport();
+
+        //   transport.sendMail({
+        //     from: "info@kinoklik.ca",
+        //     to: user.email,
+        //     subject: "Email Verification",
+        //     html: `
+        //       <p>Your verification OTP</p>
+        //       <h1>${OTP}</h1>
+        //     `,
+        //   });
+
+        //   return response.json({
+        //     message: "New OTP has been sent to your registered email account.",
+        //     user: {
+        //       id: user._id,
+        //       email: user.email,
+        //       firstName: user.firstName,
+        //       lastName: user.lastName,
+        //       role: user.role,
+        //     },
+        //   });
+        // }
 
         const isSame = await bcrypt.compare(password, user.password);
 
