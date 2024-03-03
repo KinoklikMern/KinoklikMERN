@@ -47,11 +47,10 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          cd src/api/crystal_ball
+          cd client/src/api/crystal_ball
           pip install -r requirements.txt
 
       - name: Run Python app
         run: |
-          cd src/api/crystal_ball
+          cd client/src/api/crystal_ball
           python3 api.py
-
