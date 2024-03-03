@@ -42,6 +42,7 @@ jobs:
         run: |
           cd client/src/api/crystal_ball
           pip install -r requirements.txt
+          pip install flask-cors
 
       - name: Run Python app
         run: |
