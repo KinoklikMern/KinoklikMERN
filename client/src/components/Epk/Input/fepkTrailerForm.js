@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function TrailerForm() {
   const [file, setFile] = useState("");
@@ -26,7 +27,8 @@ function TrailerForm() {
     setModalIsOpen(false);
   };
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -36,15 +38,21 @@ function TrailerForm() {
     setTrailerPreviewUrl(url);
   };
 
+  // useEffect(() => {
+  //   http
+  //     .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+  //     .then((response) => {
+  //       setFepk(response.data);
+  //       // console.log(response.data.title);
+  //       //console.log("trailer url:", response.data.trailer_url);
+  //     });
+  // }, [title]);
+
   useEffect(() => {
-    http
-      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
-      .then((response) => {
-        setFepk(response.data);
-        // console.log(response.data.title);
-        //console.log("trailer url:", response.data.trailer_url);
-      });
-  }, [title]);
+    getFepksById(id).then((response) => {
+      setFepk(response);
+    });
+  }, [id]);
 
   const [epkTrailerData, setEpkTrailerData] = useState({
     trailer_url: fepk.trailer_url,
@@ -150,9 +158,7 @@ function TrailerForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={
-                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

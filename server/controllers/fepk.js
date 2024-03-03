@@ -177,11 +177,16 @@ export const getFepkByTitle = async (req, res) => {
 };
 
 // fetch Fepks by Title (check if title exists)
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
 export const getFepksByTitle = async (req, res) => {
   const title = req.params.title;
   try {
     const fepks = await fepk
-      .find({ title: { $regex: new RegExp(`^${title}$`, "i") } })
+      .find({ title: { $regex: new RegExp(`^${escapeRegex(title)}$`, "i") } })
+      //.find({ title: `${title}` })
       .populate("film_maker") // includes all fields of this object
       .populate("crew.crewId") // includes all fields of this object
       .populate("likes") // includes all fields of this object

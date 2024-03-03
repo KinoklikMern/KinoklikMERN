@@ -9,6 +9,7 @@ import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function FepkDetailsForm() {
   const { t } = useTranslation();
@@ -34,7 +35,8 @@ function FepkDetailsForm() {
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   //roles for invited users
   const [invitedUserRole, setInvitedUserRole] = useState("Actor");
@@ -81,33 +83,30 @@ function FepkDetailsForm() {
   useEffect(() => {
     // console.log("useEffect is running");
 
-    Promise.all([
-      http.get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`),
-      http.get("/users/getallusers"),
-    ])
+    Promise.all([getFepksById(id), http.get("/users/getallusers")])
       .then(([fepkResponse, userResponse]) => {
-        setFepk(fepkResponse.data);
+        setFepk(fepkResponse);
         //setUserList(fepkResponse.data.crew); no need????
         setAllUserList(userResponse.data);
-        setCurrentFepkUsers(fepkResponse.data.actors);
+        setCurrentFepkUsers(fepkResponse.actors);
 
         //initial data for epkFilmDetailsData
         setEpkFilmDetailsData({
           ...epkFilmDetailsData,
-          actors: fepkResponse.data.actors,
+          actors: fepkResponse.actors,
         });
 
         return http.get("invitations/get-invitation-by-filmmaker-movie", {
           params: {
-            movie: fepkResponse.data._id,
-            invitedBy: fepkResponse.data.film_maker._id,
+            movie: fepkResponse._id,
+            invitedBy: fepkResponse.film_maker._id,
           },
         });
       })
       .then((invitations) => {
         setInvitationsByFilmmakerMovie(invitations.data);
       });
-  }, [epkFilmDetailsData, title]);
+  }, [epkFilmDetailsData, id]);
 
   useEffect(() => {
     setInvitationEmailValue("");
@@ -439,11 +438,7 @@ function FepkDetailsForm() {
             <div className="col-3 tw-m-3 tw-text-center">
               <Link
                 className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-                to={
-                  fepk.title
-                    ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
-                    : "/"
-                }
+                to={`/epk/${fepk._id}`}
                 // style={{
                 //   color: "#1E0039",
                 //   textDecoration: "none",
@@ -994,8 +989,11 @@ function FepkDetailsForm() {
                 {t("Invitation is Sent Successfully!")}
               </div>
               <br />
-              <button className="btn btn-secondary btn-sm" onClick={closeModal}>
+              <button
+                className="btn btn-secondary btn-sm"
+                onClick={closeModal}
                 style={{ backgroundColor: "#712CB0", color: "white" }}
+              >
                 {t("Ok")}
               </button>
             </div>

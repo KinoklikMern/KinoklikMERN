@@ -7,6 +7,7 @@ import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function ResourcesForm() {
   const { t } = useTranslation();
@@ -32,7 +33,8 @@ function ResourcesForm() {
   });
   const [editMode, setEditMode] = useState({ status: false, rowKey: null });
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   //Picture prewiev
   const [picturePreviewUrl, setPicturePreviewUrl] = useState("");
@@ -56,14 +58,21 @@ function ResourcesForm() {
     setMessage("");
   };
 
+  // useEffect(() => {
+  //   http
+  //     .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+  //     .then((response) => {
+  //       setFepk(response.data);
+  //       setResourcesList(response.data.resources);
+  //     });
+  // }, [title]);
+
   useEffect(() => {
-    http
-      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
-      .then((response) => {
-        setFepk(response.data);
-        setResourcesList(response.data.resources);
-      });
-  }, [title]);
+    getFepksById(id).then((response) => {
+      setFepk(response);
+      setResourcesList(response.resources);
+    });
+  }, [id]);
 
   useEffect(() => {
     console.log(resourcesList);
@@ -264,9 +273,7 @@ function ResourcesForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={
-                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

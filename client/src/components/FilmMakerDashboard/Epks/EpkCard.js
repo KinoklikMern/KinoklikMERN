@@ -19,13 +19,7 @@ export default function EpkCard(props) {
   return (
     <div className="tw-flex tw-flex-row">
       <div className="tw-m-4 tw-max-w-xs tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">
-        <a
-          href={
-            epkInfo.title
-              ? `/editFepk/${epkInfo.title.replace(/ /g, "-").trim()}`
-              : "/"
-          }
-        >
+        <a href={epkInfo.title ? `/editFepk/${epkInfo._id}` : "/"}>
           <img
             className="tw-w-full tw-rounded-b-none tw-rounded-t-lg tw-object-cover"
             src={BANNER_IMG}

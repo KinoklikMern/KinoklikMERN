@@ -15,7 +15,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
   const [picture, setPicture] = useState("");
   const [epk, setEpk] = useState();
   const [filmmakerId, setFilmmakerId] = useState();
-  const [title, setTitle] = useState();
+  //const [title, setTitle] = useState();
 
   useEffect(() => {
     if (user && user.id) {
@@ -46,9 +46,9 @@ function NavbarButtons({ user, setToggle, toggle }) {
           if (fepk.film_maker && fepk.film_maker._id) {
             setFilmmakerId(fepk.film_maker._id);
           }
-          if (fepk.title) {
-            setTitle(fepk.title);
-          }
+          // if (fepk.title) {
+          //   setTitle(fepk.title);
+          // }
         }
       })
       .catch((error) => {
@@ -118,15 +118,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
               {/* Filmmaker */}
               {epk && filmmakerId ? (
                 isFilmmaker && user?.id === filmmakerId && fepkId !== "" ? (
-                  <Link
-                    to={
-                      !isActorRole
-                        ? title
-                          ? `/editFepk/${title.replace(/ /g, "-")}`
-                          : "/"
-                        : ""
-                    }
-                  >
+                  <Link to={!isActorRole ? `/editFepk/${fepkId}` : ""}>
                     <FontAwesomeIcon icon={faPen} color="white" />
                   </Link>
                 ) : null

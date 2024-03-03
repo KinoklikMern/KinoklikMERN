@@ -46,6 +46,10 @@ const HomeBody = ({ role }) => {
     });
   }, []);
 
+    useEffect(() => {
+     console.log(fepks)
+    }, [fepks]);
+
   const { filterQuery, clickHandler } = EPKFilter(
     fepks,
     filterTags,
@@ -111,7 +115,7 @@ const HomeBody = ({ role }) => {
                       role === "actor"
                         ? `/actor/${fepk._id}`
                         : fepk.title
-                        ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
+                        ? `epk/${fepk._id}`
                         : "/"
                     }
                   >

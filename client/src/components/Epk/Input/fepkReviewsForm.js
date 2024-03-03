@@ -6,6 +6,7 @@ import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { getFepksById } from "../../../api/epks";
 
 function ReviewsForm() {
   const { t } = useTranslation();
@@ -31,7 +32,8 @@ function ReviewsForm() {
   const [picturePreviewUrl, setPicturePreviewUrl] = useState("");
   const [pictureEditPreviewUrl, setPictureEditPreviewUrl] = useState("");
 
-  let { title } = useParams();
+  //let { title } = useParams();
+  let { id } = useParams();
 
   const fileSelected = (event) => {
     const fileNew = event.target.files[0];
@@ -51,15 +53,23 @@ function ReviewsForm() {
     setMessage("");
   };
 
+  // useEffect(() => {
+  //   http
+  //     .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
+  //     .then((response) => {
+  //       setFepk(response.data);
+  //       setReviewsList(response.data.reviews);
+  //       // console.log(response.data.title);
+  //     });
+  // }, [title]);
+
   useEffect(() => {
-    http
-      .get(`/fepks/byTitle/${title.replace(/ /g, "-").trim()}`)
-      .then((response) => {
-        setFepk(response.data);
-        setReviewsList(response.data.reviews);
-        // console.log(response.data.title);
-      });
-  }, [title]);
+    getFepksById(id).then((response) => {
+      setFepk(response);
+      setReviewsList(response.reviews);
+      // console.log(response.data.title);
+    });
+  }, [id]);
 
   const checkFileMimeType = (file) => {
     if (file !== "") {
@@ -243,9 +253,7 @@ function ReviewsForm() {
           <div className="col-3 tw-m-3 tw-text-center">
             <Link
               className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={
-                fepk.title ? `epk/${fepk.title.replace(/ /g, "-").trim()}` : "/"
-              }
+              to={`/epk/${fepk._id}`}
               // style={{
               //   color: "#1E0039",
               //   textDecoration: "none",

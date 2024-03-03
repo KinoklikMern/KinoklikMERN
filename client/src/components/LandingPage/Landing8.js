@@ -59,13 +59,7 @@ const Landing8 = () => {
               className="tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
               key={item._id}
             >
-              <a
-                href={
-                  item.title
-                    ? `epk/${item.title.replace(/ /g, "-").trim()}`
-                    : "/"
-                }
-              >
+              <a href={item.title ? `epk/${item._id}` : "/"}>
                 <img
                   className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105 "
                   src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
@@ -85,7 +79,7 @@ const Landing8 = () => {
               className="tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
               key={item._id}
             >
-              <a href={`epk/${item.title.replace(/ /g, "-").trim()}`}>
+              <a href={`epk/${item._id}`}>
                 <img
                   className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105"
                   src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}

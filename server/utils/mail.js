@@ -36,7 +36,7 @@ export const generateMailTransport = () => {
 
   // Mailtrap
   return nodemailer.createTransport({
-    host: "live.smtp.mailtrap.io",
+    host: "sandbox.smtp.mailtrap.io",
     port: 587,
     auth: {
       user: process.env.MAIL_TRAP_USER,

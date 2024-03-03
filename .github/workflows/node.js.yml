@@ -32,7 +32,8 @@ jobs:
           cd client
           npm install
           npm run build
-          
+
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -42,9 +43,10 @@ jobs:
         run: |
           cd client/src/api/crystal_ball
           pip install -r requirements.txt
-          pip install flask-cors
+          # Optionally, you can add an explicit installation for flask-cors here
+          # pip install flask-cors
 
       - name: Run Python app
         run: |
           cd client/src/api/crystal_ball
-          python3 api.py     
+          python3 api.py
