@@ -32,3 +32,26 @@ jobs:
           cd client
           npm install
           npm run build
+
+  run-python:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12.0
+
+      - name: Install Python dependencies
+        run: |
+          cd src/api/crystal_ball
+          pip install -r requirements.txt
+
+      - name: Run Python app
+        run: |
+          cd src/api/crystal_ball
+          python3 api.py
+
