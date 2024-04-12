@@ -23,7 +23,7 @@ function Navbar(props) {
         {/* Mobile Button */}
       </div>
       {/* Mobile Menu */}
-      {!user && <NavbarMenu toggle={toggle} />}
+      {!user && <NavbarMenu toggle={toggle} setToggle={setToggle} />}
     </nav>
   );
 }

@@ -9,9 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
-import LanguageToggle from "./LanguageToggle";
-import {useTranslation} from 'react-i18next';
-
+import { useTranslation } from "react-i18next";
 
 function Footer() {
   const { t } = useTranslation();
@@ -29,42 +27,42 @@ function Footer() {
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
-                {t('KinoKlik EPK')}
+                {t("KinoKlik EPK")}
               </h5>
               <Link to='/forFilmMakers' className='footer-li tw-mb-2 tw-block'>
-                {t('For Filmmakers')}
+                {t("For Filmmakers")}
               </Link>
               <Link to='/forIndustryProf' className='footer-li tw-block'>
-                {t('For Industry')} <br />
-                {t('Professionals')}
+                {t("For Industry")} <br />
+                {t("Professionals")}
               </Link>
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
-              {t('Company')}
+                {t("Company")}
               </h5>
               <a href='#aboutus' className='footer-li tw-mb-2 tw-block'>
-                {t('About Us')}
+                {t("About Us")}
               </a>
               <a href='#contactus' className='footer-li tw-mb-2 tw-block'>
-                {t('Contact Us')}
+                {t("Contact Us")}
               </a>
               <a href='#support' className='footer-li tw-block'>
-                {t('Support')}
+                {t("Support")}
               </a>
             </div>
             <div className='footer-columns tw-mb-4 tw-text-center md:tw-mb-0'>
               <h5 className='tw-mb-4 tw-text-left tw-text-lg tw-font-semibold'>
-              {t('Relations')}
+                {t("Relations")}
               </h5>
               <a href='#partners' className='footer-li tw-mb-2 tw-block'>
-                {t('Partners')}
+                {t("Partners")}
               </a>
               <a href='#investors' className='footer-li tw-mb-2 tw-block'>
-                {t('Investors')}
+                {t("Investors")}
               </a>
               <a href='#media' className='footer-li tw-block'>
-                {t('Media & Blog')}
+                {t("Media & Blog")}
               </a>
             </div>
             <div className='footer-links tw-col-span-2 tw-flex tw-justify-center tw-text-center md:tw-col-span-1 md:tw-justify-normal'>
@@ -103,9 +101,9 @@ function Footer() {
             </div>
           </div>
 
-          <LanguageToggle />
-          <div className='tw-text-gray-300'>
-            &copy; {new Date().getFullYear()} {t('KinoKlik. All Rights Reserved.')}
+          <div className='tw-mt-2 tw-text-gray-300'>
+            &copy; {new Date().getFullYear()}{" "}
+            {t("KinoKlik. All Rights Reserved.")}
           </div>
         </footer>
       </div>
