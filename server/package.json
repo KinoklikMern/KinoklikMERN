@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.24.5",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "aws-sdk": "^2.1318.0",
     "axios": "^1.6.2",
@@ -34,7 +35,7 @@
     "stripe": "^13.11.0"
   },
   "resolutions": {
-    "minimist": "1.2.6",
+    "minimist": "1.2.8",
     "lodash": "4.17.21"
   }
 }
