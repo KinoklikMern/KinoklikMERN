@@ -5,9 +5,9 @@ name: Node.js and Python CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   pull_request:
-    branches: ["main"]
+    branches: ['main']
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
           cd client
           npm install
           npm run build
-          
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -43,6 +43,9 @@ jobs:
           pip install --upgrade pip
           pip install -r client/src/api/crystal_ball/requirements.txt
 
-      - name: Run Flask API
+      - name: Install Gunicorn
+        run: pip install gunicorn
+
+      - name: Run Flask API with Gunicorn
         working-directory: client/src/api/crystal_ball
-        run: python api.py 
+        run: gunicorn -b 0.0.0.0:5000 api:app
