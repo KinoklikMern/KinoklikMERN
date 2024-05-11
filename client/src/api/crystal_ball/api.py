@@ -32,5 +32,5 @@ def predict():
         print("Error during prediction:", e)  # Log the error for debugging
         return jsonify({'error': str(e)}), 500
 
-port = int(os.environ.get('PORT', 5000))
+port = int(os.environ.get('FLASK_PORT', 5000))
 app.run(port=port, debug=True)
