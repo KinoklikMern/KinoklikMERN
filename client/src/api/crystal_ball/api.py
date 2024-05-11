@@ -32,5 +32,5 @@ def predict():
         print("Error during prediction:", e)  # Log the error for debugging
         return jsonify({'error': str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)  # Enable debug for development
+port = int(os.environ.get('PORT', 5000))
+app.run(port=port, debug=True)
