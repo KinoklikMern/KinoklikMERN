@@ -1,19 +1,19 @@
-import User from "../models/User.js";
-import { validateEmail, validateLength } from "../helpers/validation.js";
-import { generateToken } from "../helpers/tokens.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import nodemailer from "nodemailer";
-import { uploadFileToS3 } from "../s3.js";
+import User from '../models/User.js';
+import { validateEmail, validateLength } from '../helpers/validation.js';
+import { generateToken } from '../helpers/tokens.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
+import { uploadFileToS3 } from '../s3.js';
 // Nada
-import PasswordResetToken from "../models/passwordResetToken.js";
-import { ObjectID, ObjectId } from "mongodb";
+import PasswordResetToken from '../models/passwordResetToken.js';
+import { ObjectID, ObjectId } from 'mongodb';
 // const PasswordResetToken = require("../models/passwordResetToken");
-import { generateOTP, generateMailTransport } from "../utils/mail.js";
-import EmailVerificationToken from "../models/emailVerificationToken.js";
-import { isValidObjectId } from "mongoose";
-import { sendError } from "../utils/helper.js";
-import { addSubscriber } from "../utils/mailChimp.js";
+import { generateOTP, generateMailTransport } from '../utils/mail.js';
+import EmailVerificationToken from '../models/emailVerificationToken.js';
+import { isValidObjectId } from 'mongoose';
+import { sendError } from '../utils/helper.js';
+import { addSubscriber } from '../utils/mailChimp.js';
 
 export const register = async (req, res) => {
   try {
@@ -36,13 +36,13 @@ export const register = async (req, res) => {
     const normalizedEmail = email.toLowerCase();
 
     if (!validateEmail(normalizedEmail)) {
-      return sendError(res, "Invalid email address");
+      return sendError(res, 'Invalid email address');
     }
     const emailCheck = await User.findOne({ email: normalizedEmail });
     if (emailCheck) {
       return res.status(409).json({
         message:
-          "This email address already exists. Try with a different email address",
+          'This email address already exists. Try with a different email address',
         emailExists: true,
       });
     }
@@ -50,19 +50,19 @@ export const register = async (req, res) => {
     if (!validateLength(firstName, 3, 30)) {
       return sendError(
         res,
-        "First name must be between 3 and 30 characters long."
+        'First name must be between 3 and 30 characters long.'
       );
     }
     if (!validateLength(lastName, 3, 30)) {
       return sendError(
         res,
-        "Last name must be between 3 and 30 characters long."
+        'Last name must be between 3 and 30 characters long.'
       );
     }
     if (!validateLength(password, 6, 40)) {
       return sendError(
         res,
-        "Password must be between 6 and 40 characters long."
+        'Password must be between 6 and 40 characters long.'
       );
     }
 
@@ -93,31 +93,23 @@ export const register = async (req, res) => {
       phone,
       website,
       password: cryptedPassword,
-      isVerified: false, // Add this line to set isVerified to false initially
+      isVerified: false,
       newsLetterOptions,
       sex: gender,
       otp: OTP,
     }).save();
 
-    // store otp inside our db
-    // const newEmailVerificationToken = new EmailVerificationToken({
-    //   owner: user._id,
-    //   token: OTP,
-    // });
-
-    // await newEmailVerificationToken.save();
-    // send that otp to our user
-    // copy from mailtrap.io
     var transport = generateMailTransport();
 
     transport.sendMail({
-      from: "info@kinoklik.ca",
+      from: 'info@kinoklik.ca',
       to: user.email,
-      subject: "Email Verification",
-      html: `
-    <p>Your verification OTP</p>
-    <h1>${OTP}</h1>
-    `,
+      subject: 'Email Verification',
+      templateId: 'd-c8d9248b91314639880759cdd5e78448',
+      dynamic_template_data: {
+        name: firstName,
+        otp: OTP,
+      },
     });
 
     res.status(201).json({
@@ -130,19 +122,6 @@ export const register = async (req, res) => {
       },
       emailExists: false,
     });
-
-    // const token = generateToken({ id: user._id.toString() }, "7d");
-    // res.send({
-    //   id: user._id,
-    //   picture: user.picture,
-    //   firstName: user.firstName,
-    //   lastName: user.lastName,
-    //   role: user.role,
-    //   phone: user.phone,
-    //   website: user.website,
-    //   token: token,
-    //   message: "User was registered successfully! ",
-    // });
   } catch (error) {
     res.status(500).json({ message: error.message, emailExists: false });
   }
@@ -155,21 +134,21 @@ export const verifyEmail = async (req, res) => {
     // console.log("Received userId:", userId);
     // console.log("Received OTP:", OTP);
 
-    if (!isValidObjectId(userId)) return sendError(res, "Invalid user!");
+    if (!isValidObjectId(userId)) return sendError(res, 'Invalid user!');
 
     const user = await User.findById(userId);
-    if (!user) return sendError(res, "User not found!", 404);
+    if (!user) return sendError(res, 'User not found!', 404);
 
-    if (user.isVerified) return sendError(res, "User is already verified!");
+    if (user.isVerified) return sendError(res, 'User is already verified!');
 
     // console.log("UserId" + userId);
     // const token = await EmailVerificationToken.findOne({ owner: userId });
     //if (!token) return sendError(res, "token not found!");
 
-    if (user.otp === "") {
-      return sendError(res, "Token not found!");
+    if (user.otp === '') {
+      return sendError(res, 'Token not found!');
     }
-    if (user.otp !== OTP) return sendError(res, "Please submit a valid OTP!");
+    if (user.otp !== OTP) return sendError(res, 'Please submit a valid OTP!');
 
     // const isMatched = await token.compareToken(OTP);
     // if (!isMatched) return sendError(res, "Please submit a valid OTP!");
@@ -181,10 +160,13 @@ export const verifyEmail = async (req, res) => {
     var transport = generateMailTransport();
 
     transport.sendMail({
-      from: "info@kinoklik.ca",
+      from: 'info@kinoklik.ca',
       to: user.email,
-      subject: "Welcome Email",
-      html: "<h1>Welcome to our app and thanks for choosing us.</h1>",
+      subject: 'Welcome to KinoKlik',
+      templateId: 'd-5022ad5499dc45c9a152ec0f22d2aa1d',
+      dynamic_template_data: {
+        name: firstName,
+      },
     });
 
     // const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
@@ -197,11 +179,11 @@ export const verifyEmail = async (req, res) => {
       //   email: user.email,
       //   token: jwtToken,
       // },
-      message: "Your email is verified.",
+      message: 'Your email is verified.',
     });
   } catch (error) {
-    console.error("Error in verifyEmail:", error.message);
-    return sendError(res, "An error occurred while verifying the email.");
+    console.error('Error in verifyEmail:', error.message);
+    return sendError(res, 'An error occurred while verifying the email.');
   }
 };
 
@@ -210,10 +192,10 @@ export const resendEmailVerificationToken = async (req, res) => {
 
   try {
     const user = await User.findById(userId);
-    if (!user) return sendError(res, "User not found!", 404);
+    if (!user) return sendError(res, 'User not found!', 404);
 
     if (user.isVerified)
-      return sendError(res, "This email is already verified!");
+      return sendError(res, 'This email is already verified!');
 
     // const alreadyHasToken = await EmailVerificationToken.findOne({
     //   owner: userId,
@@ -228,7 +210,7 @@ export const resendEmailVerificationToken = async (req, res) => {
       // 1 hour
       return sendError(
         res,
-        "Only after one hour you can request another token!"
+        'Only after one hour you can request another token!'
       );
 
     // Generate 6 digit otp
@@ -251,17 +233,18 @@ export const resendEmailVerificationToken = async (req, res) => {
     var transport = generateMailTransport();
 
     transport.sendMail({
-      from: "info@kinoklik.ca",
+      from: 'info@kinoklik.ca',
       to: user.email,
-      subject: "Email Verification",
-      html: `
-  <p>Your verification OTP</p>
-  <h1>${OTP}</h1>
-  `,
+      subject: 'Email Verification',
+      templateId: 'd-c8d9248b91314639880759cdd5e78448',
+      dynamic_template_data: {
+        name: firstName,
+        otp: OTP,
+      },
     });
 
     res.json({
-      message: "New OTP has been sent to your registered email account.",
+      message: 'New OTP has been sent to your registered email account.',
       user: {
         id: user._id,
         email: user.email,
@@ -271,10 +254,10 @@ export const resendEmailVerificationToken = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error resending OTP:", error);
+    console.error('Error resending OTP:', error);
     return res
       .status(500)
-      .json({ error: "An error occurred while resending OTP" });
+      .json({ error: 'An error occurred while resending OTP' });
   }
 };
 
@@ -291,13 +274,13 @@ export const login = async (request, response) => {
       const user = await User.findOne({
         email: email,
       })
-        .where("deleted")
+        .where('deleted')
         .equals(false);
 
       if (!user) {
         return response.status(400).json({
           message:
-            "The email address you entered is not connected to an account",
+            'The email address you entered is not connected to an account',
         });
       } else {
         // const existingToken = await EmailVerificationToken.findOne({
@@ -310,17 +293,18 @@ export const login = async (request, response) => {
           var transport = generateMailTransport();
 
           transport.sendMail({
-            from: "info@kinoklik.ca",
+            from: 'info@kinoklik.ca',
             to: user.email,
-            subject: "Email Verification",
-            html: `
-              <p>Your verification OTP</p>
-              <h1>${user.otp}</h1>
-            `,
+            subject: 'Email Verification',
+            templateId: 'd-c8d9248b91314639880759cdd5e78448',
+            dynamic_template_data: {
+              name: firstName,
+              otp: OTP,
+            },
           });
 
           return response.json({
-            message: "New OTP has been sent to your registered email account.",
+            message: 'New OTP has been sent to your registered email account.',
             user: {
               id: user._id,
               email: user.email,
@@ -373,7 +357,7 @@ export const login = async (request, response) => {
           // If password is correct but user isn't verified
           return response.json({
             isVerified: false,
-            message: "Your account is not verified. Please verify your email.",
+            message: 'Your account is not verified. Please verify your email.',
             user: {
               id: user._id,
               email: user.email,
@@ -387,15 +371,15 @@ export const login = async (request, response) => {
         if (!isSame) {
           return response
             .status(400)
-            .json({ message: "Invalid credentials. Please try again" });
+            .json({ message: 'Invalid credentials. Please try again' });
         }
-        const token = generateToken({ id: user._id.toString() }, "1d");
+        const token = generateToken({ id: user._id.toString() }, '1d');
 
-        response.cookie("token", token, {
-          path: "/",
+        response.cookie('token', token, {
+          path: '/',
           httpOnly: true,
           expires: new Date(Date.now() + 1000 * 86400), // 1 day
-          sameSite: "none",
+          sameSite: 'none',
           secure: true,
         });
         if (isSame) {
@@ -408,7 +392,7 @@ export const login = async (request, response) => {
             token: token,
             // Yeming added
             isVerified: user.isVerified,
-            message: "Login success!",
+            message: 'Login success!',
           });
         }
       }
@@ -436,20 +420,20 @@ export const login = async (request, response) => {
 // };
 
 export const logout = async (req, res) => {
-  res.cookie("token", "", {
-    path: "/",
+  res.cookie('token', '', {
+    path: '/',
     httpOnly: true,
     expires: new Date(0),
-    sameSite: "none",
+    sameSite: 'none',
     secure: true,
   });
-  return res.status(200).json({ message: "Successfully Logged Out" });
+  return res.status(200).json({ message: 'Successfully Logged Out' });
 };
 
 export const getUser = async (req, res) => {
   const id = req.body.id;
   try {
-    const user = await User.findOne({ _id: id }).where("deleted").equals(false);
+    const user = await User.findOne({ _id: id }).where('deleted').equals(false);
     res.send(user);
   } catch (error) {
     console.log(error.message);
@@ -459,7 +443,7 @@ export const getUser = async (req, res) => {
 export const getProfile = async (req, res) => {
   try {
     const { email } = req.params;
-    const profile = await User.findOne({ email }).select("-password");
+    const profile = await User.findOne({ email }).select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -475,19 +459,19 @@ export const updateLastActive = async (req, res) => {
 
   try {
     const userToUpdate = await User.findOne({ _id: userId })
-      .where("deleted")
+      .where('deleted')
       .equals(false);
 
     if (!userToUpdate) {
-      console.log("No User was found!");
-      res.status(404).json({ error: "No User was found!" });
+      console.log('No User was found!');
+      res.status(404).json({ error: 'No User was found!' });
     } else {
       await userToUpdate.updateOne(
         { lastActive: new Date() },
         { where: { _id: userId } }
       );
       //console.log("User last active time was updated!");
-      res.status(200).json({ message: "LastActive field was updated!" });
+      res.status(200).json({ message: 'LastActive field was updated!' });
     }
   } catch (error) {
     //console.log("UpdateLastActive Error: " + error.message);
@@ -526,15 +510,15 @@ export const updateLastActive = async (req, res) => {
 export const forgetPassword = async (req, res) => {
   const { email } = req.body;
 
-  if (!email) return res.status(404).json({ message: "email is missing!" });
+  if (!email) return res.status(404).json({ message: 'email is missing!' });
 
   const user = await User.findOne({ email });
-  if (!user) return res.status(404).json({ message: "User not found!" });
+  if (!user) return res.status(404).json({ message: 'User not found!' });
 
   const alreadyHasToken = await PasswordResetToken.findOne({ owner: user._id });
   if (alreadyHasToken)
     return res.status(404).json({
-      message: "Only after one hour you can request for another token!",
+      message: 'Only after one hour you can request for another token!',
     });
 
   // const token = await generateRandomByte().toString("utf-8");
@@ -549,21 +533,20 @@ export const forgetPassword = async (req, res) => {
 
   const tokenHash = await bcrypt.hash(token, 12);
   // the token will expire in 1 hour.
-  const resetPasswordUrl = `http://localhost:3000/resetpassword?token=${tokenHash}&id=${user._id}`;
+  const resetPasswordUrl = `${process.env.BASE_URL}/resetpassword?token=${tokenHash}&id=${user._id}`;
 
   // console.log(resetPasswordUrl);
   transport.sendMail({
-    from: "info@kinoklik.ca",
+    from: 'info@kinoklik.ca',
     to: user.email,
-    subject: "Reset Password Link",
-    html: `
-    <h2>Reset Password</h2>
-        <p>A password change has been requested for your account. If this was you, please use the link below to reset your password.</p>
-        <a href='${resetPasswordUrl}'>Change Password</a>
-      `,
+    subject: 'Reset Password Link',
+    templateId: 'd-cc856ab1114e4ad4b63a84bdce3dbc99',
+    dynamic_template_data: {
+      resetPasswordUrl: resetPasswordUrl,
+    },
   });
 
-  res.status(200).json({ message: "Link sent to your email!" });
+  res.status(200).json({ message: 'Link sent to your email!' });
 };
 
 export const sendResetPasswordTokenStatus = (req, res) => {
@@ -575,20 +558,20 @@ export const resetPassword = async (req, res) => {
 
   if (newPassword.trim() !== retypePassword.trim()) {
     return res.status(422).json({
-      message: "The new password must match the re-entered password",
+      message: 'The new password must match the re-entered password',
     });
   }
 
   const user = await User.findById(userId);
   if (!user)
     return res.status(404).json({
-      message: "User not found",
+      message: 'User not found',
     });
 
   const matched = await user.comparePassword(newPassword);
   if (matched)
     return res.status(404).json({
-      message: "The new password must be different from the old one!",
+      message: 'The new password must be different from the old one!',
     });
 
   const cryptedPassword = await bcrypt.hash(newPassword, 12);
@@ -605,15 +588,15 @@ export const resetPassword = async (req, res) => {
   console.log(expired);
   if (!expired)
     return res.status(404).json({
-      message: "Token expired",
+      message: 'Token expired',
     });
   // const transport = generateMailTransporter();
   // console.log(transport.verify);
 
   transport.sendMail({
-    from: "info@kinoklik.ca",
+    from: 'info@kinoklik.ca',
     to: user.email,
-    subject: "Password Reset Successfully",
+    subject: 'Password Reset Successfully',
     html: `
       <h1>Password Reset Successfully</h1>
       <p>Now you can use the new password.</p>
@@ -622,7 +605,7 @@ export const resetPassword = async (req, res) => {
   });
 
   res.json({
-    message: "Password reset successfully, now you can use your new password.",
+    message: 'Password reset successfully, now you can use your new password.',
   });
 };
 
@@ -631,7 +614,7 @@ export const updateProfile = async (req, res) => {
   try {
     const userOne = await User.findOne({ _id: id });
     if (!userOne) {
-      res.json({ error: "No User was found!" });
+      res.json({ error: 'No User was found!' });
     } else {
       const updatedProfile = req.body;
       //console.log(updatedProfile);
@@ -652,7 +635,7 @@ export const actorUploadFiles = async (req, res) => {
   try {
     const userOne = await User.findOne({ _id: id });
     if (!userOne) {
-      res.json({ error: "No User was found!" });
+      res.json({ error: 'No User was found!' });
     } else {
       const updatedProfile = {
         //...userOne,
@@ -686,7 +669,7 @@ export const uploadUserAvatar = async (req, res) => {
   const file = req.file;
   const result = await uploadFileToS3(file);
   if (!result) {
-    res.status(406).send({ message: "File extention not supported!" });
+    res.status(406).send({ message: 'File extention not supported!' });
   } else {
     //console.log(result);
     res.status(200).send({ key: result.Key });
@@ -698,7 +681,7 @@ export const uploadActorBanner = async (req, res) => {
   const file = req.file;
   const result = await uploadFileToS3(file);
   if (!result) {
-    res.status(406).send({ message: "File extention not supported!" });
+    res.status(406).send({ message: 'File extention not supported!' });
   } else {
     res.status(200).send({ key: result.Key });
   }
@@ -707,40 +690,40 @@ export const uploadActorBanner = async (req, res) => {
 // upload profiles
 export const uploadActorProfiles = async (req, res) => {
   let totalResult = {};
-  console.log("here");
+  console.log('here');
   console.log(req.files);
-  if ("file1" in req.files) {
+  if ('file1' in req.files) {
     const file1 = req.files.file1[0];
     const result1 = await uploadFileToS3(file1);
     if (!result1) {
-      res.status(406).send({ message: "File extention not supported!" });
+      res.status(406).send({ message: 'File extention not supported!' });
     } else {
       console.log(result1);
-      totalResult["file1"] = result1.Key;
+      totalResult['file1'] = result1.Key;
     }
   }
 
-  console.log("file2" in req.files);
-  if ("file2" in req.files) {
+  console.log('file2' in req.files);
+  if ('file2' in req.files) {
     const file2 = req.files.file2[0];
     const result2 = await uploadFileToS3(file2);
     if (!result2) {
-      res.status(406).send({ message: "File extention not supported!" });
+      res.status(406).send({ message: 'File extention not supported!' });
     } else {
       console.log(totalResult);
-      totalResult["file2"] = result2.Key;
+      totalResult['file2'] = result2.Key;
     }
   }
 
-  console.log("file3" in req.files);
-  if ("file3" in req.files) {
+  console.log('file3' in req.files);
+  if ('file3' in req.files) {
     const file3 = req.files.file3[0];
     const result3 = await uploadFileToS3(file3);
     if (!result3) {
-      res.status(406).send({ message: "File extention not supported!" });
+      res.status(406).send({ message: 'File extention not supported!' });
     } else {
       console.log(totalResult);
-      totalResult["file3"] = result3.Key;
+      totalResult['file3'] = result3.Key;
     }
   }
 
@@ -754,7 +737,7 @@ export const updateStudio = async (req, res) => {
   try {
     const userOne = await User.findOne({ _id: id });
     if (!userOne) {
-      res.json({ error: "No User was found!" });
+      res.json({ error: 'No User was found!' });
     } else {
       const updatedProfile = req.body;
       //console.log(updatedProfile);
@@ -778,14 +761,14 @@ export const changePassword = async (req, res) => {
   const matched = await user.comparePassword(newPassword);
   if (matched)
     res.status(404).json({
-      message: "The new password must be different from the old one!",
+      message: 'The new password must be different from the old one!',
     });
   else {
     const cryptedPassword = await bcrypt.hash(newPassword, 12);
     user.password = cryptedPassword;
     await user.save();
     res.status(200).json({
-      message: "Change Password successfully!",
+      message: 'Change Password successfully!',
     });
   }
 };
@@ -795,15 +778,15 @@ export const deleteAccount = async (req, res) => {
   // console.log(id);
   try {
     const userToDelete = await User.findOne({ _id: id })
-      .where("deleted")
+      .where('deleted')
       .equals(false);
     //console.log(userToDelete);
     if (!userToDelete) {
-      res.json({ error: "No User was found!" });
+      res.json({ error: 'No User was found!' });
     } else {
       await userToDelete.updateOne({ deleted: true }, { where: { _id: id } });
       //console.log(userToDelete);
-      res.status(200).json({ message: "Account was deleted!" });
+      res.status(200).json({ message: 'Account was deleted!' });
     }
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -833,7 +816,7 @@ transport.verify(function (error, success) {
   if (error) {
     console.log(error);
   } else {
-    console.log("Server is ready to take our messages");
+    console.log('Server is ready to take our messages');
   }
 });
 
@@ -842,7 +825,7 @@ transport.verify(function (error, success) {
 export const getActor = async (req, res) => {
   try {
     const actorFind = await User.findOne({
-      role: "Actor",
+      role: 'Actor',
       firstName: req.body.firstName,
       lastName: req.body.lastName,
     });
@@ -855,8 +838,8 @@ export const getActor = async (req, res) => {
 
 export const getProfileActor = async (req, res) => {
   try {
-    const profile = await User.find({ role: "Actor" })
-      .select("-password")
+    const profile = await User.find({ role: 'Actor' })
+      .select('-password')
       .sort({ createdAt: 1 });
     if (!profile.length) {
       return res.json({ ok: false });
@@ -870,7 +853,7 @@ export const getProfileActor = async (req, res) => {
 //get all users
 export const getAllUsers = async (req, res) => {
   try {
-    const profile = await User.find().select("-password");
+    const profile = await User.find().select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -883,9 +866,9 @@ export const getAllUsers = async (req, res) => {
 // get starred actor
 export const getActoStarred = async (req, res) => {
   try {
-    const profile = await User.find({ role: "Actor" })
+    const profile = await User.find({ role: 'Actor' })
       .where({ likes: { $in: [req.params.id] } })
-      .select("-password");
+      .select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -896,10 +879,10 @@ export const getActoStarred = async (req, res) => {
 };
 export const getMostLikes = async (req, res) => {
   try {
-    const profile = await User.find({ role: "Actor" })
+    const profile = await User.find({ role: 'Actor' })
       .sort({ likes: -1 })
       .limit(10)
-      .select("-password");
+      .select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -910,10 +893,10 @@ export const getMostLikes = async (req, res) => {
 };
 export const getMostFollowed = async (req, res) => {
   try {
-    const profile = await User.find({ role: "Actor" })
+    const profile = await User.find({ role: 'Actor' })
       .sort({ follower: -1 })
       .limit(10)
-      .select("-password");
+      .select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -924,7 +907,7 @@ export const getMostFollowed = async (req, res) => {
 };
 export const getLikes = async (req, res) => {
   try {
-    const profile = await User.find({ role: "Actor", _id: req.params.id })
+    const profile = await User.find({ role: 'Actor', _id: req.params.id })
       //.where({ likes: {$in: [req.param.id]} })
       .select({ likes: 1 });
     if (!profile) {
@@ -963,9 +946,9 @@ export const getActorFollowing = async (req, res) => {
   //   res.status(404).json({ message: error.message });
   // }
   try {
-    const profile = await User.find({ role: "Actor" })
+    const profile = await User.find({ role: 'Actor' })
       .where({ kkFollowers: { $in: [req.params.id] } })
-      .select("-password");
+      .select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -990,7 +973,7 @@ export const getFollowingActor = async (req, res) => {
   try {
     const profile = await User.findOne({ _id: req.params.id })
       .select({ following: 1 })
-      .populate("following");
+      .populate('following');
 
     const result = await User.find({ _id: { $in: profile.following } });
 
@@ -1059,9 +1042,9 @@ export const getActorFollowers = async (req, res) => {
   try {
     const actorId = req.params.actorid;
     const userId = req.params.userid;
-    const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
+    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
     if (!actorProfile) {
-      return res.status(404).json({ error: "No Actor was found!" });
+      return res.status(404).json({ error: 'No Actor was found!' });
     }
     let iskkFollowed = actorProfile.kkFollowers.includes(userId);
     if (!iskkFollowed) {
@@ -1071,7 +1054,7 @@ export const getActorFollowers = async (req, res) => {
     }
     await actorProfile.save();
     const updatedActorProfile = await User.findOne({
-      role: "Actor",
+      role: 'Actor',
       _id: actorId,
     }).select({ kkFollowers: 1 });
     res.json({ ...updatedActorProfile.toObject() });
@@ -1085,9 +1068,9 @@ export const getActorLikes = async (req, res) => {
   try {
     const actorId = req.params.actorid;
     const userId = req.params.userid;
-    const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
+    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
     if (!actorProfile) {
-      return res.status(404).json({ error: "No Actor was found!" });
+      return res.status(404).json({ error: 'No Actor was found!' });
     }
     let isLiked = actorProfile.likes.includes(userId);
     if (!isLiked) {
@@ -1097,7 +1080,7 @@ export const getActorLikes = async (req, res) => {
     }
     await actorProfile.save();
     const updatedActorProfile = await User.findOne({
-      role: "Actor",
+      role: 'Actor',
       _id: actorId,
     }).select({ likes: 1 });
     res.json({ ...updatedActorProfile.toObject() });
@@ -1109,17 +1092,17 @@ export const getActorLikes = async (req, res) => {
 // Increment the recommendation count for an actor on KinoKlik
 export const getActorRecommendations = async (req, res) => {
   try {
-    console.log("Actor ID:", req.params.actorid);
-    console.log("Count:", req.body.count);
+    console.log('Actor ID:', req.params.actorid);
+    console.log('Count:', req.body.count);
 
     const actorId = req.params.actorid;
     const count = req.body.count; // The count of selected filmmakers
-    const actorProfile = await User.findOne({ role: "Actor", _id: actorId });
+    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
 
-    console.log("Actor Profile:", actorProfile);
+    console.log('Actor Profile:', actorProfile);
 
     if (!actorProfile) {
-      return res.status(404).json({ error: "No Actor was found!" });
+      return res.status(404).json({ error: 'No Actor was found!' });
     }
 
     actorProfile.recommendations = (actorProfile.recommendations || 0) + count;
@@ -1136,7 +1119,7 @@ export const uploadActorThumbnail = async (req, res) => {
   const file = req.file;
   const result = await uploadFileToS3(file);
   if (!result) {
-    res.status(406).send({ message: "File extention not supported!" });
+    res.status(406).send({ message: 'File extention not supported!' });
   } else {
     res.status(200).send({ key: result.Key });
   }
@@ -1145,11 +1128,11 @@ export const uploadActorThumbnail = async (req, res) => {
 // Yeming added
 export const getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).select("-password");
+    const user = await User.findById(req.params.id).select('-password');
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -1159,15 +1142,15 @@ export const getUserById = async (req, res) => {
 export const signupForNewsletter = async (req, res) => {
   const { email } = req.body;
 
-  const defaultOptions = ["general"];
+  const defaultOptions = ['general'];
 
   try {
-    const result = await addSubscriber(email, "-", "-", defaultOptions);
+    const result = await addSubscriber(email, '-', '-', defaultOptions);
     if (result.message) {
       return res.status(500).json({ message: result.message });
     }
     res.json({
-      message: "You have successfully subscribed to our newsletter!",
+      message: 'You have successfully subscribed to our newsletter!',
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
