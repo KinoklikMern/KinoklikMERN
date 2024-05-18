@@ -14,6 +14,7 @@ import EmailVerificationToken from '../models/emailVerificationToken.js';
 import { isValidObjectId } from 'mongoose';
 import { sendError } from '../utils/helper.js';
 import { addSubscriber } from '../utils/mailChimp.js';
+import axios from 'axios';
 
 export const register = async (req, res) => {
   try {
@@ -99,18 +100,16 @@ export const register = async (req, res) => {
       otp: OTP,
     }).save();
 
-    var transport = generateMailTransport();
+    // Send email using SendGrid's Web API
+    const templateId = 'd-c8d9248b91314639880759cdd5e78448';
+    const sender = 'info@kinoklik.ca';
+    const recipient = user.email;
+    const dynamicTemplateData = {
+      name: user.firstName,
+      otp: user.otp,
+    };
 
-    transport.sendMail({
-      from: 'info@kinoklik.ca',
-      to: user.email,
-      subject: 'Email Verification',
-      templateId: 'd-c8d9248b91314639880759cdd5e78448',
-      dynamic_template_data: {
-        name: firstName,
-        otp: OTP,
-      },
-    });
+    await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
     res.status(201).json({
       user: {
@@ -124,6 +123,39 @@ export const register = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: error.message, emailExists: false });
+  }
+};
+
+const sendEmail = async (
+  templateId,
+  sender,
+  recipient,
+  dynamicTemplateData
+) => {
+  try {
+    const apiKey = process.env.SENDGRID_KEY;
+    const url = 'https://api.sendgrid.com/v3/mail/send';
+
+    const payload = {
+      personalizations: [
+        {
+          to: [{ email: recipient }],
+          dynamic_template_data: dynamicTemplateData,
+        },
+      ],
+      from: { email: sender },
+      template_id: templateId,
+    };
+
+    await axios.post(url, payload, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error('Error sending email:', error.response.data);
+    throw error;
   }
 };
 
@@ -157,17 +189,15 @@ export const verifyEmail = async (req, res) => {
 
     //await EmailVerificationToken.findByIdAndDelete(token._id);
 
-    var transport = generateMailTransport();
+    // Send email using SendGrid's Web API
+    const templateId = 'd-5022ad5499dc45c9a152ec0f22d2aa1d';
+    const sender = 'info@kinoklik.ca';
+    const recipient = user.email;
+    const dynamicTemplateData = {
+      name: user.firstName,
+    };
 
-    transport.sendMail({
-      from: 'info@kinoklik.ca',
-      to: user.email,
-      subject: 'Welcome to KinoKlik',
-      templateId: 'd-5022ad5499dc45c9a152ec0f22d2aa1d',
-      dynamic_template_data: {
-        name: firstName,
-      },
-    });
+    await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
     // const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
 
@@ -219,29 +249,17 @@ export const resendEmailVerificationToken = async (req, res) => {
       { _id: user._id },
       { $set: { otp: OTP, updatedAt: now } }
     );
-    //await user.updateOne({ otp: OTP });
 
-    // store otp inside our db
-    // const newEmailVerificationToken = new EmailVerificationToken({
-    //   owner: user._id,
-    //   token: OTP,
-    // });
+    // Send email using SendGrid's Web API
+    const templateId = 'd-c8d9248b91314639880759cdd5e78448';
+    const sender = 'info@kinoklik.ca';
+    const recipient = user.email;
+    const dynamicTemplateData = {
+      name: user.firstName,
+      otp: OTP,
+    };
 
-    //await newEmailVerificationToken.save();
-    // send that otp to our user
-    // copy from mailtrap.io
-    var transport = generateMailTransport();
-
-    transport.sendMail({
-      from: 'info@kinoklik.ca',
-      to: user.email,
-      subject: 'Email Verification',
-      templateId: 'd-c8d9248b91314639880759cdd5e78448',
-      dynamic_template_data: {
-        name: firstName,
-        otp: OTP,
-      },
-    });
+    await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
     res.json({
       message: 'New OTP has been sent to your registered email account.',
@@ -289,19 +307,16 @@ export const login = async (request, response) => {
         if (!user.isVerified) {
           // If the user is not verified, send OTP for verification
 
-          // Send OTP to the user's email
-          var transport = generateMailTransport();
+          // Send email using SendGrid's Web API
+          const templateId = 'd-c8d9248b91314639880759cdd5e78448';
+          const sender = 'info@kinoklik.ca';
+          const recipient = user.email;
+          const dynamicTemplateData = {
+            name: user.firstName,
+            otp: user.otp,
+          };
 
-          transport.sendMail({
-            from: 'info@kinoklik.ca',
-            to: user.email,
-            subject: 'Email Verification',
-            templateId: 'd-c8d9248b91314639880759cdd5e78448',
-            dynamic_template_data: {
-              name: firstName,
-              otp: OTP,
-            },
-          });
+          await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
           return response.json({
             message: 'New OTP has been sent to your registered email account.',
@@ -535,16 +550,14 @@ export const forgetPassword = async (req, res) => {
   // the token will expire in 1 hour.
   const resetPasswordUrl = `${process.env.BASE_URL}/resetpassword?token=${tokenHash}&id=${user._id}`;
 
-  // console.log(resetPasswordUrl);
-  transport.sendMail({
-    from: 'info@kinoklik.ca',
-    to: user.email,
-    subject: 'Reset Password Link',
-    templateId: 'd-cc856ab1114e4ad4b63a84bdce3dbc99',
-    dynamic_template_data: {
-      resetPasswordUrl: resetPasswordUrl,
-    },
-  });
+  const templateId = 'd-cc856ab1114e4ad4b63a84bdce3dbc99';
+  const sender = 'info@kinoklik.ca';
+  const recipient = user.email;
+  const dynamicTemplateData = {
+    resetPasswordUrl: resetPasswordUrl,
+  };
+
+  await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
   res.status(200).json({ message: 'Link sent to your email!' });
 };

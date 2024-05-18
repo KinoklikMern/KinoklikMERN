@@ -11,17 +11,7 @@ export const generateOTP = (otp_length = 6) => {
   return OTP;
 };
 
-// exports.generateMailTransporter = () =>
-//     nodemailer.createTransport({
-//         host: "smtp.mailtrap.io",
-//         port: 2525,
-//         auth: {
-//             user: process.env.MAIL_TRAP_USER,
-//             pass: process.env.MAIL_TRAP_PASS
-//         }
-//     });
-
-// Yeming edit
+// Production
 export const generateMailTransport = () => {
   // SendGrid
   if (process.env.NODE_ENV === 'production') {
@@ -44,15 +34,3 @@ export const generateMailTransport = () => {
     },
   });
 };
-
-// Gmail SMTP
-// export const generateMailTransport = () =>
-//   nodemailer.createTransport({
-//     host: "smtp.gmail.com", // replace with your SMTP server address
-//     port: 465, // replace with your SMTP server port
-//     secure: true, // use SSL
-//     auth: {
-//       user: process.env.MAIL_TRAP_USER, // replace with your email address
-//       pass: process.env.MAIL_TRAP_PASS, // replace with your email password
-//     },
-//   });
