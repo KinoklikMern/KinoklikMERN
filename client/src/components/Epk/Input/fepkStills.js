@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { getFepksById } from "../../../api/epks";
+import Modal from "react-modal";
 
 function StillsForm() {
   const [file, setFile] = useState("");
@@ -26,6 +27,8 @@ function StillsForm() {
   const [fileChosen, setFileChosen] = useState(false);
 
   const { t } = useTranslation();
+  //modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //let { title } = useParams();
   let { id } = useParams();
@@ -149,31 +152,51 @@ function StillsForm() {
     setEpkStillsData({ ...epkStillsData, stills: newStillsList });
     saveEpkStills({ ...epkStillsData, stills: newStillsList });
     setDisabled(false);
+    setModalIsOpen(true);
   }
 
+  // const handleStillsBlurChange = (value, still) => {
+  //   // Use filter to find the element with the specified `_id` in the `stills` array
+  //   const updatedStills = stillsList.filter(
+  //     (stillsElement) => stillsElement === still
+  //   );
+  //   // Update the `blur` field of the first element in the filtered array
+  //   updatedStills[0].blur = value;
+  //   // Update the corresponding field of the `epkStillsData` object
+  //   const newStillsList = [
+  //     ...stillsList.filter((stillsElement) => stillsElement !== still),
+  //     ...updatedStills,
+  //   ];
+  //   // console.log(newStillsList);
+  //   // Update the state with the updated object
+  //   setStillsList(newStillsList);
+  //   setEpkStillsData({ ...epkStillsData, stills: newStillsList });
+  //   // console.log(epkStillsData);
+  //   setDisabled(false);
+  // };
+
   const handleStillsBlurChange = (value, still) => {
-    // Use filter to find the element with the specified `_id` in the `stills` array
-    const updatedStills = stillsList.filter(
-      (stillsElement) => stillsElement === still
-    );
-    // Update the `blur` field of the first element in the filtered array
-    updatedStills[0].blur = value;
-    // Update the corresponding field of the `epkStillsData` object
-    const newStillsList = [
-      ...stillsList.filter((stillsElement) => stillsElement !== still),
-      ...updatedStills,
-    ];
-    // console.log(newStillsList);
-    // Update the state with the updated object
-    setStillsList(newStillsList);
-    setEpkStillsData({ ...epkStillsData, stills: newStillsList });
-    // console.log(epkStillsData);
-    setDisabled(false);
+    // Map through the existing `stillsList` to create a new array
+    const updatedStillsList = stillsList.map((stillItem) => {
+      if (stillItem === still) {
+        return { ...stillItem, blur: value };
+      }
+      return stillItem;
+    });
+    // Update the `stillsList` and `epkStillsData` with the new array
+    setStillsList(updatedStillsList);
+    setEpkStillsData((prevData) => ({
+      ...prevData,
+      stills: updatedStillsList,
+    }));
+    // Call saveEpkStills function with the updated epk data to save the changes immediately
+    saveEpkStills({ ...epkStillsData, stills: updatedStillsList });
+    setModalIsOpen(true);
   };
 
   function saveEpkStills(epkToSave) {
     //console.log(epkStillsData);
-
+    console.log("saving", epkToSave);
     http
       .put(`fepks/update/${fepk._id}`, epkToSave)
       .then((res) => {
@@ -218,6 +241,11 @@ function StillsForm() {
     }
     setDisabled(false);
     setEditMode({ status: false, rowKey: null });
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -477,6 +505,41 @@ function StillsForm() {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Save Confirmation"
+        appElement={document.getElementById("root")}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+          content: {
+            position: "absolute",
+            border: "2px solid #000",
+            backgroundColor: "white",
+            boxShadow: "2px solid black",
+            height: 120,
+            width: 300,
+            margin: "auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          },
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div style={{ color: "green" }}>Film Stills Saved Successfully!</div>
+          <br />
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={closeModal}
+            style={{ backgroundColor: "#712CB0", color: "white" }}
+          >
+            {t("Ok")}
+          </button>
+        </div>
+      </Modal>
     </>
   );
 }
