@@ -8,7 +8,6 @@ import http from "../../../http-common";
 import { useTranslation } from "react-i18next";
 import { getFepksById } from "../../../api/epks";
 
-
 function SynopsisForm() {
   const [file, setFile] = useState("");
   const [fileMedium, setFileMedium] = useState("");
@@ -97,33 +96,33 @@ function SynopsisForm() {
   //     });
   // }, [title]);
 
-   useEffect(() => {
-     getFepksById(id).then((response) => {
-       if (response) {
-         setFepk(response);
-         const { text_short, text_medium, text_long } = response;
-         setCharacterLength((prevCharacterLength) => ({
-           ...prevCharacterLength,
-           text_short: text_short ? text_short.length : 0,
-           text_medium: text_medium ? text_medium.length : 0,
-           text_long: text_long ? text_long.length : 0,
-         }));
-         setEpkSynopsisData({
-           image_synopsis: response.image_synopsis,
-           image_synopsis_medium: response.image_synopsis_medium,
-           image_synopsis_long: response.image_synopsis_long,
-           text_short: response.text_short,
-           text_medium: response.text_medium,
-           text_long: response.text_long,
-           text_medium_blur: response.text_medium_blur,
-           text_long_blur: response.text_long_blur,
-         });
-       } else {
-         // Handle the case when response.data is undefined or empty
-         console.error("response.data is undefined or empty");
-       }
-     });
-   }, [id]);
+  useEffect(() => {
+    getFepksById(id).then((response) => {
+      if (response) {
+        setFepk(response);
+        const { text_short, text_medium, text_long } = response;
+        setCharacterLength((prevCharacterLength) => ({
+          ...prevCharacterLength,
+          text_short: text_short ? text_short.length : 0,
+          text_medium: text_medium ? text_medium.length : 0,
+          text_long: text_long ? text_long.length : 0,
+        }));
+        setEpkSynopsisData({
+          image_synopsis: response.image_synopsis,
+          image_synopsis_medium: response.image_synopsis_medium,
+          image_synopsis_long: response.image_synopsis_long,
+          text_short: response.text_short,
+          text_medium: response.text_medium,
+          text_long: response.text_long,
+          text_medium_blur: response.text_medium_blur,
+          text_long_blur: response.text_long_blur,
+        });
+      } else {
+        // Handle the case when response.data is undefined or empty
+        console.error("response.data is undefined or empty");
+      }
+    });
+  }, [id]);
 
   const handleSynopsisChange = (event) => {
     const { name, value } = event.target;
@@ -133,7 +132,10 @@ function SynopsisForm() {
   };
 
   const handleSynopsisBlurChange = (value, name) => {
-    setEpkSynopsisData({ ...epkSynopsisData, [name]: value });
+    setEpkSynopsisData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
     setDisabled(false);
   };
 
