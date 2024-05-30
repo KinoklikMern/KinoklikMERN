@@ -18,7 +18,9 @@ function UniquenessForm() {
   const [characterLength, setCharacterLength] = useState({
     description_uniqueness: 0,
   });
-  const [epkUniquenessData, setEpkUniquenessData] = useState([]);
+  const [epkUniquenessData, setEpkUniquenessData] = useState({
+    uniqueness_blur: false, // Initialize the blur state
+  });
   const inputFileRef = useRef(null);
 
   //modal
@@ -73,8 +75,6 @@ function UniquenessForm() {
       if (response) {
         setFepk(response);
         const { description_uniqueness } = response;
-        //Aleksejs commented out because it was giving an error, seems to be working fine without that part
-        //if (description_uniqueness) {
         setCharacterLength({
           description_uniqueness: description_uniqueness.length,
         });
@@ -84,20 +84,11 @@ function UniquenessForm() {
           description_uniqueness,
           uniqueness_blur: response.uniqueness_blur,
         });
-        // } else {
-        //   // Handle the case when description_uniqueness is undefined or empty
-        //   console.error("description_uniqueness is undefined or empty");
-        // }
       } else {
-        // Handle the case when response.data is undefined or empty
         console.error("response.data is undefined or empty");
       }
     });
   }, [id]);
-
-  if (!epkUniquenessData) {
-    epkUniquenessData.uniqueness_blur = fepk.uniqueness_blur;
-  }
 
   const handleUniquenessChange = (event) => {
     const { name, value } = event.target;
@@ -106,8 +97,11 @@ function UniquenessForm() {
     setDisabled(false);
   };
 
-  const handleUniquenessBlurChange = (value, name) => {
-    setEpkUniquenessData({ ...epkUniquenessData, [name]: value });
+  const handleUniquenessBlurChange = () => {
+    setEpkUniquenessData((prevState) => ({
+      ...prevState,
+      uniqueness_blur: !prevState.uniqueness_blur,
+    }));
     setDisabled(false);
   };
 
@@ -320,12 +314,7 @@ function UniquenessForm() {
                   }}
                   type="outline-primary"
                   block
-                  onClick={() =>
-                    handleUniquenessBlurChange(
-                      !epkUniquenessData.uniqueness_blur,
-                      "uniqueness_blur"
-                    )
-                  }
+                  onClick={handleUniquenessBlurChange}
                   name="text_long_blur"
                 >
                   {epkUniquenessData.uniqueness_blur ? "UnBlur" : "Blur"}
