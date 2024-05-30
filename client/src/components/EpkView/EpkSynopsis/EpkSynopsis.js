@@ -70,8 +70,8 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
                   alt="Medium Synopsis"
                   className="tw-h-auto tw-max-w-full tw-object-contain tw-object-center"
                   style={
-                    requestStatus !== "approved"
-                      ? blurStyle
+                    requestStatus !== "approved" && epkInfo.text_medium_blur
+                      ? { ...blurStyle, maxHeight: "500px" }
                       : { maxHeight: "500px" }
                   }
                 />
@@ -91,7 +91,7 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
               <div
                 className="tw-flex tw-max-h-[500px] tw-w-full tw-items-center tw-justify-center lg:tw-w-3/5"
                 style={
-                  requestStatus !== "approved" && epkInfo.text_medium_blur
+                  requestStatus !== "approved" && epkInfo.text_long_blur
                     ? blurStyle
                     : {}
                 }
@@ -101,8 +101,8 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
                   alt="Long Synopsis"
                   className="tw-h-auto tw-max-w-full tw-object-contain tw-object-center"
                   style={
-                    requestStatus !== "approved"
-                      ? blurStyle
+                    requestStatus !== "approved" && epkInfo.text_long_blur
+                      ? { ...blurStyle, maxHeight: "500px" }
                       : { maxHeight: "500px" }
                   }
                 />
