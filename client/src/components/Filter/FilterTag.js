@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "../HomeBody/HomeBody.css";
 import "../List/List.css";
 import "./DropDown.css";
@@ -20,7 +21,7 @@ import CountryDropdown from "./CountryDropdown";
 
 export default function FilterTag({ role }) {
   const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
-
+  const location = useLocation();
   // Yeming added
 
   // State to manage selected values for specific dropdowns
@@ -97,7 +98,7 @@ export default function FilterTag({ role }) {
       // Close the dropdown
       setSelectedDropdown((prev) => (prev === name ? null : name));
 
-      console.log("selectDropdown", selectedDropdown);
+      // console.log("selectDropdown", selectedDropdown);
       return updatedQuery;
     });
   };
@@ -138,9 +139,15 @@ export default function FilterTag({ role }) {
     },
   ];
 
+  //Make sure the filter tags are reset when the user switches between EPKs and Actors 2024-6-13
   const [filterTags, setFilterTags] = useState(
-    role === "actor" ? actorFilterTag : []
+    // role === "actor" ? actorFilterTag : []
+    location.pathname === "/actors" ? actorFilterTag : []
   );
+  useEffect(() => {
+    setFilterTags(location.pathname === "/actors" ? actorFilterTag : []);
+  }, [location.pathname]);
+  //
 
   const clickHandler = (name, isActive) => {
     let newTags;
@@ -212,7 +219,6 @@ export default function FilterTag({ role }) {
     const isDropdownActive = selectedDropdown === name;
     // const isDropdownActive = selectedDropdown === selectedValue;
 
-    console.log(role);
     return (
       <div className="filter-button-container">
         {name === "Age Range" ||
