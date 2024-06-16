@@ -2,18 +2,18 @@ import React from "react";
 import SignupCss from "./signup.module.css";
 import filmmakerIcon from "../../../images/icons/filmmakerIcon.svg";
 import actorIcon from "../../../images/icons/actorIcon.svg";
-import producerIcon from "../../../images/icons/producerIcon.svg";
-import viewerIcon from "../../../images/icons/viewerIcon.svg";
-import writerIcon from "../../../images/icons/writerIcon.svg";
-import soundIcon from "../../../images/icons/soundIcon.svg";
-import cinematographerIcon from "../../../images/icons/cinematographerIcon.svg";
-import salesAgentIcon from "../../../images/icons/salesAgentIcon.svg";
-import festivalIcon from "../../../images/icons/festivalIcon.svg";
-import investorIcon from "../../../images/icons/investorIcon.svg";
+// import producerIcon from "../../../images/icons/producerIcon.svg";
+// import viewerIcon from "../../../images/icons/viewerIcon.svg";
+// import writerIcon from "../../../images/icons/writerIcon.svg";
+// import soundIcon from "../../../images/icons/soundIcon.svg";
+// import cinematographerIcon from "../../../images/icons/cinematographerIcon.svg";
+// import salesAgentIcon from "../../../images/icons/salesAgentIcon.svg";
+// import festivalIcon from "../../../images/icons/festivalIcon.svg";
+// import investorIcon from "../../../images/icons/investorIcon.svg";
 import editorIcon from "../../../images/icons/editorIcon.svg";
-import distributorIcon from "../../../images/icons/distributorIcon.svg";
+// import distributorIcon from "../../../images/icons/distributorIcon.svg";
 import {useTranslation} from 'react-i18next';
-//import i18n from 'i18next'; 
+// import i18n from 'i18next'; 
 
 
 export const options = [
@@ -28,55 +28,60 @@ export const options = [
     image: actorIcon,
   },
   {
-    label: "Sales Agent",
-    value: "Sales Agent",
-    image: salesAgentIcon,
-  },
-  {
-    label: "Film Festival",
-    value: "Film Festival",
-    image: festivalIcon,
-  },
-  {
-    label: "Investor",
-    value: "Investor",
-    image: investorIcon,
-  },
-  {
-    label: "Viewer",
-    value: "Viewer",
-    image: viewerIcon,
-  },
-  {
-    label: "Producer",
-    value: "Producer",
-    image: producerIcon,
-  },
-  {
-    label: "Editor",
-    value: "Editor",
+    label: "Industry Professional Description",
+    value: "Industry Professional",
     image: editorIcon,
   },
-  {
-    label: "Writer",
-    value: "Writer",
-    image: writerIcon,
-  },
-  {
-    label: "Sound",
-    value: "Sound",
-    image: soundIcon,
-  },
-  {
-    label: "Cinematographer",
-    value: "Cinematographer",
-    image: cinematographerIcon,
-  },
-  {
-    label: "Distributor",
-    value: "Distributor",
-    image: distributorIcon,
-  },
+  // {
+  //   label: "Sales Agent",
+  //   value: "Sales Agent",
+  //   image: salesAgentIcon,
+  // },
+  // {
+  //   label: "Film Festival",
+  //   value: "Film Festival",
+  //   image: festivalIcon,
+  // },
+  // {
+  //   label: "Investor",
+  //   value: "Investor",
+  //   image: investorIcon,
+  // },
+  // {
+  //   label: "Viewer",
+  //   value: "Viewer",
+  //   image: viewerIcon,
+  // },
+  // {
+  //   label: "Producer",
+  //   value: "Producer",
+  //   image: producerIcon,
+  // },
+  // {
+  //   label: "Editor",
+  //   value: "Editor",
+  //   image: editorIcon,
+  // },
+  // {
+  //   label: "Writer",
+  //   value: "Writer",
+  //   image: writerIcon,
+  // },
+  // {
+  //   label: "Sound",
+  //   value: "Sound",
+  //   image: soundIcon,
+  // },
+  // {
+  //   label: "Cinematographer",
+  //   value: "Cinematographer",
+  //   image: cinematographerIcon,
+  // },
+  // {
+  //   label: "Distributor",
+  //   value: "Distributor",
+  //   image: distributorIcon,
+  // },
 ];
 
 function RoleChoise({ role, setRole }) {
@@ -90,26 +95,41 @@ function RoleChoise({ role, setRole }) {
    // Helper function to get the role name based on the option value
 const getRoleName = (value) => {
   switch (value) {
-    case "Filmmaker": return (t("Film Director"));
-    case "Actor": return (t("Actor"));
-    case "Sales Agent": return (t("Sales Agent"));
-    case "Film Festival": return (t("Film Festival"));
-    case "Viewer": return (t("Viewer"));
-    case "Investor": return (t("Investor"));
-    case "Producer": return (t("Producer"));
-    case "Editor": return (t("Editor"));
-    case "Writer": return (t("Writer"));
-    case "Sound": return (t("Sound"));
-    case "Cinematographer": return (t("Cinematographer"));
-    case "Distributor": return (t("Distributor"));
-    default: return "";
+    case "Filmmaker":
+      return t("Filmmaker");
+    case "Actor":
+      return t("Actor");
+    case "Sales Agent":
+      return t("Sales Agent");
+    case "Film Festival":
+      return t("Film Festival");
+    case "Viewer":
+      return t("Viewer");
+    case "Investor":
+      return t("Investor");
+    case "Producer":
+      return t("Producer");
+    case "Editor":
+      return t("Editor");
+    case "Writer":
+      return t("Writer");
+    case "Sound":
+      return t("Sound");
+    case "Cinematographer":
+      return t("Cinematographer");
+    case "Distributor":
+      return t("Distributor");
+    case "Industry Professional":
+      return t("Industry Professional");
+    default:
+      return "";
   }
 };
 
 return (
   <>
     <div className="tw-mx-auto tw-max-w-screen-lg tw-px-4 md:tw-px-6 lg:tw-px-2">
-      <div className="tw-grid tw-grid-cols-2 tw-gap-2 md:tw-grid-cols-4 lg:tw-grid-cols-6">
+      <div className="tw-grid tw-grid-cols-2 tw-my-20 tw-gap-2 md:tw-grid-cols-4 lg:tw-grid-cols-3">
         {options.map((option) => (
           <div
             key={option.value}

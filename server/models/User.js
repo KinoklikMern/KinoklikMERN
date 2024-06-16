@@ -49,6 +49,7 @@ const UserSchema = mongoose.Schema({
       "Cinematographer",
       "Sound",
       "Writer",
+      "Industry Professional"
     ],
   },
   following: {
