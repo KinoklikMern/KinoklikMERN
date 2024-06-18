@@ -30,6 +30,30 @@ function RegistrationPersonalInfo({
   const navigate = useNavigate();
   const [fontColor, setFontColor] = useState(0);
 
+  // const options = [
+  //   {
+  //     value: "Sales Agent",
+  //   },
+  //   {
+  //     value: "Film Festival",
+  //   },
+  //   {
+  //     value: "Investor",
+  //   },
+  //   {
+  //     value: "Producer",
+  //   },
+  //   {
+  //     value: "Writer",
+  //   },
+  //   {
+  //     value: "Cinematographer",
+  //   },
+  //   {
+  //     value: "Distributor",
+  //   },
+  // ];
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "firstName") {
@@ -111,6 +135,25 @@ function RegistrationPersonalInfo({
             <div className="tw-mb-4 tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0]">
               {t("Sign up for KinoKlik")}{" "}
             </div>
+
+            {/* <div className={SignupCss.imageAndTextPI}>
+              <div
+                className={`${SignupCss.roleImgMainPI} ${SignupCss.selected}`}
+              >
+                <img src={role.image} alt="Filmmaker Icon" />
+              </div>
+              {role.value === "Industry Professional" ? (
+                <div className={SignupCss.textImgMainPI}>
+                  {options.map((option, index) => (
+                    <p className="tw-mb-1" key={index}>
+                      {option.value}
+                    </p> // Mapping through options to list each value
+                  ))}
+                </div>
+              ) : (
+                <div className={SignupCss.textImgMainPI}>{role.label}</div>
+              )}
+            </div> */}
 
             <div className={SignupCss.imageAndTextPI}>
               <div
