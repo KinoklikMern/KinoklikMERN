@@ -29,7 +29,7 @@ export const register = async (req, res) => {
       bannerImg,
       thumbnail,
       headImg,
-      newsLetterOptions,
+      receiveNewsletter,
       gender,
     } = req.body;
 
@@ -72,7 +72,7 @@ export const register = async (req, res) => {
       email,
       firstName,
       lastName,
-      newsLetterOptions
+      receiveNewsletter
     );
     if (result.message) {
       return res
@@ -95,7 +95,7 @@ export const register = async (req, res) => {
       website,
       password: cryptedPassword,
       isVerified: false,
-      newsLetterOptions,
+      receiveNewsletter,
       sex: gender,
       otp: OTP,
     }).save();
@@ -1158,7 +1158,7 @@ export const signupForNewsletter = async (req, res) => {
   const defaultOptions = ['general'];
 
   try {
-    const result = await addSubscriber(email, '-', '-', defaultOptions);
+    const result = await addSubscriber(email, '-', '-', true);
     if (result.message) {
       return res.status(500).json({ message: result.message });
     }
