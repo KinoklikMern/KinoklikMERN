@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import UploadIcon from "../images/icons/UploadIcon.svg";
+// import UploadIcon from "../images/icons/UploadIcon.svg";
 import "../styles/HomeBottom.css";
 import { useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const HomeBottom = () => {
@@ -28,10 +28,10 @@ const HomeBottom = () => {
           show={isShowMessage}
           onHide={() => setIsShowMessage(false)}
           centered
-          className='p-3'
+          className="p-3"
         >
-          <Modal.Header className='border-0'>
-            <Modal.Title className='text-center'>
+          <Modal.Header className="border-0">
+            <Modal.Title className="text-center">
               {t(
                 "Only Filmmaker account can upload film EPK. Please register a"
               )}
@@ -66,12 +66,23 @@ const HomeBottom = () => {
   };
 
   return (
-    <div className='upload'>
-      <p className='uploadtext'>
+    <div className="upload" style={{ padding: "20px 0" }}>
+      <p className="uploadtext">
         {t("Promote your film for free, with KinoKlik EPK !")}
       </p>
-      <div onClick={clickHandler} className='uploadFilm'>
-        <img src={UploadIcon} className='uploadIcon' alt='' />
+      <div onClick={clickHandler} className="uploadFilm">
+        {/* <img src={UploadIcon} className="uploadIcon" alt="" /> */}
+        <Link to="/uploadFepk" onClick={clickHandler} className="uploadFilm">
+          <button
+            className="tw-rounded tw-px-8 tw-py-2 tw-font-bold tw-uppercase tw-text-white"
+            style={{
+              background: "linear-gradient(to right, #1E0039, #4b015e)",
+              borderRadius: "12px",
+            }}
+          >
+            {t("Upload EPK")}
+          </button>
+        </Link>
       </div>
       <PopupModal />
     </div>
