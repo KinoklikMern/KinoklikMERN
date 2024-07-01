@@ -225,7 +225,7 @@
  "_comment From Components AuthRegistration ResetPassword":"0 CHanges.",
  "Reset your password":"réinitialisez votre mot de passe",
  "Enter a new password below to change your password":"Entrez un nouveau mot de passe ci-dessous pour changer votre mot de passe",
- "Reset Password":"",
+ "Reset Password":"Réinitialiser le Mot de Passe",
 
  "_comment From Components AuthRegistration ResetPasswordSuccess":"0 CHanges.",
  "Password Changed!":"Mot de passe changé!",
