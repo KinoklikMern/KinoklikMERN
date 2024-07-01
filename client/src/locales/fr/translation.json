@@ -1,1494 +1,1457 @@
+{
+  "You don't have any EPK created.": "Vous n'avez créé aucun EPK.",
+  "Start promoting your film right away!": "Commencez dès maintenant à promouvoir votre film !",
+
+  "WishToBuy": "Envie D'acheter",
+
+  "_comment From components Auth|Registration Registration": "ReCheck For changes",
+  "All fields are required.": "Tous les champs sont requis.",
+  "Invalid Email": "Email invalide",
+  "Passwords do not match.": "Les mots de passe ne correspondent pas.",
+  "Password must be at least 8 characters long!": "Le mot de passe doit comporter au moins 8 caractères !",
+  "Email is already in use.": "Cet email est déjà utilisé.",
+  "already signed up?": "Vouz avez déjà un compte?",
+  "Login": "Se connecter",
+
+  "Sign up for KinoKlik": "Inscrivez-vous pour KinoKlik",
+  "Next": "S'inscrire",
+  "Back": "Retour",
+  "_comment From components Auth|Registration RegistrationPersonalInfo": "ReCheck For changes",
+  "I agree to the terms and conditions as set out by the user agreement": "J'accepte les termes et conditions énoncés dans le contrat d'utilisation",
+  "I want to stay up to date and receive newsletters from KinoKlik!": "Je veux rester informé et recevoir des infolettres de KinoKlik!",
+  "Viewers": "Spectateurs",
+  "Film Ecosystem & Industry Players": "Acteurs de L'écosystème cinématographique de l'industrie",
+  "Investors & VCs Updates": "Investisseurs et capital-risque",
+  "KinoKlik Technical Updates": "Mises à jour techniques de KinoKlik",
+  "All Newsletters": "Tous les infolettres",
+
+  "Filmmakers (Directors & Producers)": "Réalisateur",
+
+  "_comment From Input coverForm and detailsFepkForm also miscellaneis Request Button": "ReCheck For changes",
+
+  "_comment From Actors Page": "This is a comment. 8 changes",
+  "Actors": "Acteurs",
+  "Actress": "Actrice",
+  "Star": "Étoile",
+  "Recommend": "Recommander",
+  "Recommend Actor To Filmmaker:": "Recommander Acteurs au Filmaker:",
+  "No filmaker found.": "Aucun cinéaste trouvé.",
+  "Recommendation sent successfully!": "Recommandation envoyée avec succès!",
+  "current films by actor": "films actuels par acteur",
+
+  "_comment From ListActors Page and ListItem": "No changes",
+  "_comment From AdminDashBoard AnalyticsPAge": "5 changes",
+  "Analytics": "Analytique",
+  "Actor": "Acteur",
+  "Agent": "Agent",
+  "Studio": "Studio",
+  "Account": "Compte",
+  "_comment From AdminDashBoard EPKsPage": "no changes",
+  "_comment From AdminDashBoard MainPage": "1 change",
+  "Users & Filmmakers": "Utilisateurs et Cinéastes",
+  "_comment From AdminDashBoard UsersPage": "no changes",
+
+  "_comment From FimakerDashBoard ChatPage": "1 change",
+  "Filmmaker Dashboard": "Tableau de Bord du Cinéaste",
+
+  "_comment From FimakerDashBoard EPKPage": "1 change",
+  "_comment From FimakerDashBoard NotificationPage": "7 changes, Scroll down further line 180 to 188, 349,357,371,382",
+  "Stars & Likes": "Étoiles et J'aime",
+  "All Request": "Tout les Demandes",
+  "Pending": "En Attente",
+  "Approved": "Approuvé",
+  "Refused": "Refuser",
+  "Approve": "Approuvé",
+  "Deny": "Refuser",
+
+  "_comment From FimakerDashBoard SettingsPage": "9 changes, Line 15,19,23,27,34,65-68",
+
+  "_comment From FilmMaker filmMakerDashboared ": "5 changes, Line 47",
+  "Create New Film EPK": "Créer un nouveau film EPK",
+  "You don`t have any EPK created.To start promoting your ": "Vous n'avez pas créé d'EPK. Pour commencer à promouvoir votre ",
+
+  " film right away.": " film tout de suite",
+
+  "Create your free film EPK now!": "Créez votre EPK de film gratuit maintenant !",
+  "Update": "Mise à jour",
+  "update": "Mise à jour",
+
+  "_comment From FilmMaker filmMakerSelected": "2 changes, Line 115, Line 122",
+  "EPK Requests": "Demande EPK",
+
+  "_comment From login CHeckEmailPage": "0 CHanges ",
+  "_comment From login index": "0 CHanges ",
+  "_comment From login ResetPassWordPage": "0 CHanges ",
+  "_comment From login ResetPassWordSuccess": "0 CHanges ",
+  "_comment From login SendResetPassWordLinkPage": "0 CHanges ",
+
+  "_comment From UserDashboard ChatPage": "1 CHanges ",
+  "User Dashboard": "Tableau de bord utilisateur",
+  "_comment From UserDashboard FollowingPage": "1 CHanges. Line 39 ",
+  "_comment From UserDashboard RequestPage": "2 CHanges. Line 74, 84, 112,140, ",
+  "Approved EPKs": "EPK approuvés",
+  "Pending EPKs": "EPK en Attente",
+  "Refused EPKs": "EPK refusés",
+  "_comment From UserDashboard SettingsPage": "9 CHanges. Line  15, 19, 23, 27, 34,66-69, ",
+  "_comment From UserDashboard StarredPage": "1 CHange.",
+  "Starred": "Favoris",
+
+  "_comment From AccessDeniedPage": "4 CHanges.",
+  "Access denied": "Accès refusé",
+  "Sorry, you need to sign in to get access to this page.": "Désolé, vous devez vous connecter pour accéder à cette page.",
+  "Sign in": "Se connecter",
+  "Go back home": "Revenir à la page principale",
+
+  "_comment From BookMark": "1 CHanges.",
+  "This is the bookmark": "C'est le signet",
+
+  "_comment From Catalogue": "8 CHanges.",
+  "TV Show": "Épisodes TV",
+  "Web Series": "Épisodes-Web",
+  "Documentary": "Documentaires",
+  "all epks": "Tous EPK",
+  "All EPKs": "Tous",
+  "POST PRODUCTION": "POST-PRODUCTION",
+
+  "_comment From EPKs": "0 CHanges.",
+  "_comment From EpkDashboard": "0 CHanges.",
+  "_comment From EpkView": "8 CHanges. Line 400, 405, 410, 415, 500, 513,520,523,543,657,682-685 ",
+  "Close": "Fermer",
+  "Send": "Envoyer",
+  "Total Audience Reach": "Audience Totale",
+  "Why are you reporting this EPK?": "Pourquoi signalez-vous cet EPK ?",
+  "This can be unwanted and unauthorized use": "Cela peut être une utilisation non désirée et non autorisée",
+  " of content from another website on third-party websites inconnection with other content, negatively": " de contenu provenant d'un autre site web sur des sites tiers en lien avec d'autres contenus",
+  " affecting your experience and reputation on our": " affectant négativement votre expérience et réputation sur notre",
+  " platform.": " plateforme.",
+
+  "This can be any content that appears to be pornographic, sexual exploitation or solicitation and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks. Nudity in photos of paintings and sculptures are permitted.": "Cela peut être tout contenu qui semble être pornographique, une exploitation ou sollicitation sexuelle et/ou du contenu montrant des rapports sexuels, des organes génitaux et des gros plans de fesses entièrement nues. La nudité dans les photos de peintures et de sculptures est autorisée.",
+  "Other:": "Autre:",
+  "Other: any other reason you may want to report this": "Autre : toute autre raison pour laquelle vous souhaiteriez signaler ceci",
+
+  " EPK.": " EPK.",
+
+  "Report!": "Rapporter!",
+
+  "Thank you for reporting this film EPK. We are currently": "Merci d'avoir faire une rapport. On est entraint de faire une ",
+  " inverstigation and have notified the filmmaker accordingly.": " investigation. On a deja fait une rapport avec le createur du film. Merci!",
+  "Request Access to Medium Synopsis": "Demande l'acces au Synopsis Medium",
+
+  "Save changes": "Sauvegarder les changements",
+
+  "Long Synopsis": "Synopsis Longue",
+  "Request Access to Long Synopsis Line 1233": "Demande l'access au longue Synopsis",
+  "Close Line 1259,1472": "Fermer",
+  "Request Access to Uniqueness": "Demande l'acces au unicite",
+  "biography": "Biographie",
+  "Producer": "Producteur",
+
+  "_comment From EpkViewPage": "0 CHanges.",
+  "_comment From MyList": "1 CHanges.",
+  "This is the My List ": "C'est ma liste",
+
+  "_comment From TestApproval": "0 CHanges.",
+  "_comment From UploadEPK": "0 CHanges.",
+  "_comment From UploadMovie": "0 CHanges.",
+
+  "_comment From UserDashboard": "4 CHanges. Line 24, 37,50,63",
+  "My Account": "Mon Compte",
+  "Payment": "Payment",
+
+  "_comment From Components AdminDashBoard LeftSideBar": "5 CHanges.",
+  "Main Metrics": "Principales mesures",
+  "Users": "Utilisateurs",
+  "Line Analytics": "",
+  "EPKs": "EPKs",
+  "KinoKlik Admin": "Administrateur KinoKlik",
+
+  "_comment From Components AuthRegistration CheckEmail": "4 CHanges.",
+  "Check Your Email": "Vérifiez votre courrier électronique",
+  "Please check the email address": "Veuillez vérifier l'adresse email",
+  "for instructions to reset your password.": "pour savoir comment réinitialiser votre mot de passe.",
+
+  "_comment From Components AuthRegistration EmailVerification": "0 CHanges.",
+  "Please enter the OTP to verify your account": "Veuillez entrer l'OTP pour vérifier votre compte",
+  "OTP has been sent to your email": "l'OTP a été envoyé à votre adresse e-mail",
+  "Verify Account": "Vérifier le compte",
+  "Resend OTP": "Renvoyer l'OTP",
+
+  "_comment From Components AuthRegistration Login": "2 CHanges.",
+  "Please enter email": "Veuillez entrer votre Email",
+  "Please enter password": "Veuillez entrer le mot de passe",
+
+  "_comment From Components AuthRegistration LoginForm": "6 CHanges.",
+  "Please provide both email and password": "Veuillez fournir à la fois votre e-mail et votre mot de passe",
+
+  "Forgot password?": "Mot de passe oublié?",
+  "Reset my Password": "Réinitialiser mon mot de passe",
+
+  "_comment From Components AuthRegistration LoginFormViewPage": "2 CHanges.",
+  "password": "Mot de passe",
+
+  "_comment From Components AuthRegistration register": "7 CHanges.",
+  "Please enter your first name!": "Entrez votre prénom s'il vous plait!",
+  "First Name must be at least 3 characters long!": "Le prénom doit contenir au moins 3 caractères !",
+  "First Name must be at most 30 characters long!": "Le prénom doit contenir au maximum 30 caractères !",
+  "Please enter your email!": "Veuillez entrer votre email!",
+  "Please enter password!": "Veuillez entrer le mot de passe!",
+  "Password must be at least 6 characters long!": "Le mot de passe doit contenir au moins 6 caractères!",
+  "First Name must be at most 40 characters long!": "Le prénom doit contenir au maximum 40 caractères !",
+
+  "_comment From Components AuthRegistration registrationcopy": "1 CHanges. NOt done yet",
+  "Confirm Password": "Confirmer mot de passe",
+
+  "_comment From Components AuthRegistration registration": "1 CHanges.",
+
+  "_comment From Components AuthRegistration RegistrationSuccess": "3 CHanges.",
+  "Congratulations!": "Félicitations!",
+  "Your account has been verified!": "Votre compte a été créé.",
+
+  "_comment From Components AuthRegistration ResetPassword": "0 CHanges.",
+  "Reset your password": "réinitialisez votre mot de passe",
+  "Enter a new password below to change your password": "Entrez un nouveau mot de passe ci-dessous pour changer votre mot de passe",
+  "Reset Password": "Réinitialiser le Mot de Passe",
+
+  "_comment From Components AuthRegistration ResetPasswordSuccess": "0 CHanges.",
+  "Password Changed!": "Mot de passe changé!",
+  "Your password has been changed successfully": "Votre mot de passe a été changé avec succès",
+  "Redirecting in ": "Redirection en ",
+  " seconds...": " secondes...",
+  "_comment From Components AuthRegistration RoleChoise": "12 CHanges.",
+  "An amazing and talented visionary filmmaker": "Cinéaste",
+  "A talented and passionate actor (and future star)": "Acteur",
+  "Investor": "Investisseur",
+  "Editor": "Éditeur",
+  "Writer": "Écrivain",
+  "Sound": "Son",
+  "Cinematographer": "Directeur de la photographie",
+  "Distributor": "Distributeur",
+
+  "_comment From Components AuthRegistration SendResetPassword": "6 CHanges.",
+  "Forgot your password?": "Vous avez oublié votre mot de passe?",
+  "You will receive an email with instructions to reset": "Vous recevrez un e-mail avec des instructions pour réinitialiser",
+  "your password if an account exists for this email address.": "votre mot de passe si un compte existe pour cette adresse email",
+  "Already have an account?": "Vous avez déjà un compte?",
+
+  "_comment From Components donate DonationModal": "4 CHanges.",
+  "Support the filmmaker by": "Soutenez le cinéaste en",
+  "making a one-time donation.": "faire un don unique.",
+  "Donate with PayPal": "Faites un don avec PayPal",
+  "Donate with Stripe": "Faites un don avec Stripe",
+
+  "_comment From Components Epk Input castForm": "3 CHanges.",
+  "EPK Dashboard": "Tableau de bord EPK",
+  "View EPK Page": "Voir la page EPK",
+  "Starring/Cast": "Vedette/Casting",
+
+  "_comment From Components Epk Input cinematographerForm": "2 CHanges.Line 88, 102",
+  "_comment From Components Epk Input coverForm": "0 CHanges. Line 146, 191",
+  "EPK Page Upload": "Téléchargement de Pages EPK",
+  "Cover": "Couverture",
+  "Upload Banner": "Télécharger la bannière",
+  "Upload Trailer": "Télécharger la bande-annonce",
+
+  "_comment From Components Epk Input detailsFepkForm": "20 CHanges.",
+  "Upload Poster / Thumbail": "Télécharger une affiche/une vignette",
+  "CREW NAME": "NOM DE L'ÉQUIPAGE",
+  "EPK ROLE": "RÔLE EPK",
+  "ACTION": "ACTON",
+  "Add to Table": "Ajouter au tableau",
+  "lead actor": "Acteur Principal",
+  "supporting actor": "Second Role",
+
+  "_comment From Components Epk Input detailsForm": "18 CHanges.",
+  "Produced By:": "Produit par:",
+  "Writen By:": "Écrit par:",
+  "Cinematography By": "Cinématographie Par:",
+  "Sound By:": "Son par:",
+  "Supporting Actor Name:": "Nom de l'acteur secondaire:",
+  "Film Details": "Détails du film",
+  "Key Crew": "Équipe clé",
+  "Starring": "En Vedette",
+  "Lead Actor Name:": "Nom de l'acteur principal:",
+
+  "_comment From Components Epk Input directorForm": "4 CHanges.",
+  "Header": "Entête",
+  "Enter Director's Biography here.": "",
+  "Director": "Directeur",
+  "Director's Name": "Nom du réalisateur",
+
+  "_comment From Components Epk Input EpkCoverForm": "7 CHanges.",
+  "EPK Upload Page": "Page de téléchargement EPK",
+  "Show EPK": "Afficher l'EPK",
+  "EPK Cover Section": "Section de couverture de l'EPK",
+  "Upload Banner Line 224": "Télécharger la bannière",
+  "Upload Trailer Line 240": "Télécharger la bande-annonce",
+
+  "_comment From Components Epk Input fepkCoverForm": "8 CHanges.",
+  "This title exists! Choose another one!": "Ce titre existe ! Choisissez-en un autre!",
+  "This title is ok!": "Ce titre est bien!",
+
+  "_comment From Components Epk Input fepkDashboardNoAccess": "0 CHanges.",
+  "_comment From Components Epk Input fepkdetailsForm": "22 CHanges.",
+  "Saved": "Enregistré",
+  "User already added.": "Utilisateur déjà ajouté.",
+  "Invitation deleted": "Invitation supprimée",
+  "Error deleting invitation:": "Erreur lors de la suppression de l'invitation :",
+  "user deleted": "utilisateur supprimé",
+  "Sending invitation...": "Envoi d'une invitation...",
+  "Invitation already exists": "L'invitation existe déjà",
+  "Invitation saved and user added to frontend": "Invitation enregistrée et utilisateur ajouté au frontend",
+  "Line 940 User is not found. Ivite via email:": "L'utilisateur est introuvable. Invitez par e-mail :",
+  "Send Invitation": "Envoyer une invitation",
+  "Add to EPK": "Ajouter à l'EPK",
+  "NAME": "NOM",
+  "IMAGE": "IMAGE",
+  "FACE": "FACE",
+  "INSTA": "INSTA",
+  "TWIT": "TWIT",
+  "STATUS": "STATUT",
+
+  "_comment From Components Epk Input fepkEditCoverForm": "25 CHanges.",
+  "This title exists! You are not allowed to use it again!": "Ce titre existe ! Vous n'êtes plus autorisé à l'utiliser !",
+  "Title is available": "Le titre est disponible",
+
+  "_comment From Components Epk Input fepkMenu": "0 CHanges.",
+
+  "_comment From Components Epk Input fepkResourcesForm": "20 CHanges.",
+  "Resources": "Ressources",
+  "Duration Required": "Durée requise",
+  "Description": "Description",
+  "Image": "Image",
+  "Your content has been successfully saved!": "Votre contenu a été enregistré avec succès !",
+
+  "_comment From Components Epk Input fepkReviewsForm": "15 CHanges.",
+  "BUZZ": "BUZZ",
+  "Upload Logo": "Télécharger le logo",
+  "Film Buzz (Reviews & Awards)": "Film Buzz (Critiques et Récompenses)",
+  "Review text (maximum 160 characters)": "Texte de Révision (160 caractères maximum)",
+  "Magazine": "Publication",
+  "Text": "Texte",
+  "Award Logo": "Logo du prix",
+  "ACTIONS": "ACTIONS",
+  "Reviews Saved Successfully!": "Commentaires enregistrés avec succès !",
+
+  "_comment From Components Epk Input fepkStills": "12 CHanges.",
+  "EDIT": "MODIFIER",
+  "Film Stills": "Images fixes du film",
+  "Upload Picture": "Charger une photo",
+
+  "_comment From Components Epk Input fepkSynopsisForm": "14 CHanges.",
+  "Synopsis is Saved Successfully!": "Le synopsis a été enregistré avec succès !",
+  "Synopsis": "Synopsis",
+  "Short Synopsis(maximum 160 characters)": "Court résumé (maximum 160 caractères)",
+  "Medium Synopsis(maximum 350 characters)": "Synopsis moyen (maximum 350 caractères)",
+  "/160 characters": "/160 caractères",
+
+  "_comment From Components Epk Input fepkTrailerForm": "2 CHanges.",
+  "Film Trailer": "Bande annonce de film",
+
+  "_comment From Components Epk Input fepkUniquenessForm": "9 CHanges.",
+
+  "_comment From Components Epk Input loglineFepkForm": "9 CHanges.",
+  "Log Line": "Ligne de connexion",
+
+  "_comment From Components Epk Input loglineForm": "3 CHanges.",
+  "Logline": "Connexion",
+
+  "_comment From Components Epk Input producerForm": "4 CHanges.",
+  "EPK DashBoard": "Tableau de bord EPK",
+
+  "_comment From Components Epk Input requestApproval": "13 CHanges.",
+  "Medium Synopsis Requests:": "Demandes de résumé moyen :",
+  "Hi! I need your approval to see the medium synopsis section!": "Salut! J'ai besoin de votre approbation pour voir la section résumé moyen !",
+  "approve": "approuver",
+  "refuse": "refuser",
+  "Uniqueness Requests:": "Demandes d'unicité :",
+  "Hi! I need your approval to see the uniqueness section!": "Salut! J'ai besoin de votre approbation pour voir la section unicité !",
+  "Stills Requests": "Demandes d'images fixes",
+  "Hi! I need your approval to see the stills section!": "Salut! J'ai besoin de votre approbation pour voir la section photos !",
+
+  "_comment From Components Epk Input ResourcesForm": "2 CHanges.",
+
+  "_comment From Components Epk Input reviewForm": "3 CHanges.",
+  "Reviews": "Commentaires",
+
+  "_comment From Components Epk Input stillsForm": "3 CHanges.",
+  "EPK Dashborad": "Tableau de bord EPK",
+  "Stills": "Images fixes",
+
+  "_comment From Components Epk Input synopsisForm": "2 CHanges.",
+
+  "_comment From Components Epk Input synopsisFormback": "0 CHanges.",
+  "Short Synopsis": "Court Synopsis",
+  "Medium Synopsis": "Moyen Synopsis",
+
+  "_comment From Components Epk Input TrailerForm": "0 CHanges.",
+
+  "_comment From Components Epk Input uniquenessForm": "5 CHanges.",
+  "Tell the world what makes your film and production special. This is where you sell the world (and the media) your film. Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?": "Dites au monde ce qui rend votre film et votre production spéciaux. C'est ici que vous vendez au monde (et aux médias) votre film. Votre film est-il inspiré d'une histoire vraie ? Est-ce basé sur une affaire pénale ? Présente-t-il une véritable maison hantée ou une apparition de célébrité ?",
+  "Uniqueness": "Unicité",
+
+  "_comment From Components Epk Present allSynpsis": "0 CHanges.",
+  "_comment From Components Epk Present cast": "1CHanges.",
+
+  "_comment From Components Epk Present cinematographer": "1 CHanges.",
+
+  "_comment From Components Epk Present Cover": "2 CHanges.",
+  "Report": "Raport",
+
+  "_comment From Components Epk Present details": "11 CHanges.",
+  "Directed by:": "Dirigé par:",
+  "Produced by:": "Produit par:",
+  "Writer:": "écrivain",
+  "Cinematographer:": "Directeur de la Photographie",
+  "Editor:": "Éditeur:",
+  "Sound:": "Son:",
+  "Studio:": "Studio:",
+  "Distributed by:": "Distribué par:",
+  "Production Year:": "Année de Production:",
+  "Duration:": "Durée:",
+
+  "_comment From Components Epk Present director": "1 CHanges.",
+
+  "_comment From Components Epk Present logline": "0 CHanges.",
+
+  "_comment From Components Epk Present producer": "1 CHanges.",
+
+  "_comment From Components Epk Present Resources": "0 CHanges.",
+
+  "_comment From Components Epk Present review": "0 CHanges.",
+
+  "_comment From Components Epk Present stills": "0 CHanges.",
+
+  "_comment From Components Epk Present synopsis": "1 CHanges.",
+
+  "_comment From Components Epk Present Trailer": "1 CHanges.",
+  "Text text text...": "Texte texte texte...",
+
+  "_comment From Components Epk Present uniqueness": "0 CHanges.",
+
+  "_comment From Components EpkView EpkAward AwardCard": "0 CHanges.",
+  "_comment From Components EpkView EpkAward EpkAward": "1 CHanges.",
+
+  "_comment From Components EpkView EpkCast CastCard": "0 CHanges.",
+  "_comment From Components EpkView EpkCast EpkCast": "1 CHanges.",
+
+  "_comment From Components EpkView EpkCover EpkCover": "0 CHanges.",
+  "_comment From Components EpkView EpkDetail EpkDetail": "6 CHanges.",
+  "Producer Year": "Année du producteur",
+  "Duration": "Durée",
+  "Minutes": "Minutes",
+  "Distributed by": "Distribué par",
+  "Created By": "Créé par",
+
+  "_comment From Components EpkView EpkHeader EpkHeader": "0 CHanges.",
+  "_comment From Components EpkView SocialMedia SocialMedia": "0 CHanges.",
+  "_comment From Components EpkView EpkLogline EpkLogline": "0 CHanges.",
+  "_comment From Components EpkView EpkReport EpkReport": "6 CHanges.",
+  "This can be unwanted and unauthorized use of content": "Il peut s'agir d'une utilisation indésirable et non autorisée du contenu",
+
+  " from another website on third-party websites in": " d'un autre site Web sur des sites Web tiers en",
+
+  " connection with other content, negatively affecting": " relation avec d'autres contenus, affectant négativement",
+
+  " your experience and reputation on our platform": " votre expérience et votre réputation sur notre plateforme",
 
-{  
-
-    
- "You don't have any EPK created.":"Vous n'avez créé aucun EPK.",
- "Start promoting your film right away!":"Commencez dès maintenant à promouvoir votre film !",
-
- "WishToBuy":"Envie D'acheter", 
-
-    "_comment From components Auth|Registration Registration": "ReCheck For changes",
-    "All fields are required.":"Tous les champs sont requis.", 
-    "Invalid Email":"Email invalide",
-    "Passwords do not match.":"Les mots de passe ne correspondent pas.",
-    "Password must be at least 8 characters long!":"Le mot de passe doit comporter au moins 8 caractères !",
-    "Email is already in use.":"Cet email est déjà utilisé.",
-    "already signed up?":"Vouz avez déjà un compte?",
-    "Login":"Se connecter",
-    
-    "Sign up for KinoKlik": "Inscrivez-vous pour KinoKlik",
-    "Next": "S'inscrire",
-    "Back":"Retour",
-    "_comment From components Auth|Registration RegistrationPersonalInfo": "ReCheck For changes",
-    "I agree to the terms and conditions as set out by the user agreement":"J'accepte les termes et conditions énoncés dans le contrat d'utilisation",
-    "I want to stay up to date and receive newsletters from KinoKlik!":"Je veux rester informé et recevoir des infolettres de KinoKlik!",
-    "Viewers":"Spectateurs",
-    "Film Ecosystem & Industry Players": "Acteurs de L'écosystème cinématographique de l'industrie",
-    "Investors & VCs Updates":"Investisseurs et capital-risque",
-    "KinoKlik Technical Updates":"Mises à jour techniques de KinoKlik",
-    "All Newsletters":"Tous les infolettres",
-   
-    "Filmmakers (Directors & Producers)":"Réalisateur",
-
-
-    "_comment From Input coverForm and detailsFepkForm also miscellaneis Request Button": "ReCheck For changes",
-
-    "_comment From Actors Page": "This is a comment. 8 changes",
- "Actors": "Acteurs",
- "Actress": "Actrice",  
- "Star": "Étoile",
- "Recommend": "Recommander",
- "Recommend Actor To Filmmaker:": "Recommander Acteurs au Filmaker:",
- "No filmaker found.": "Aucun cinéaste trouvé.",
- "Recommendation sent successfully!": "Recommandation envoyée avec succès!",
- "current films by actor": "films actuels par acteur",
-
- "_comment From ListActors Page and ListItem": "No changes",
- "_comment From AdminDashBoard AnalyticsPAge":"5 changes",
- "Analytics":"Analytique",
- "Actor":"Acteur",
- "Agent": "Agent",
- "Studio": "Studio",
- "Account": "Compte",
- "_comment From AdminDashBoard EPKsPage":"no changes",
- "_comment From AdminDashBoard MainPage":"1 change",
- "Users & Filmmakers": "Utilisateurs et Cinéastes",
- "_comment From AdminDashBoard UsersPage":"no changes",
-
- "_comment From FimakerDashBoard ChatPage":"1 change",
- "Filmmaker Dashboard": "Tableau de Bord du Cinéaste",
-
- "_comment From FimakerDashBoard EPKPage":"1 change",
- "_comment From FimakerDashBoard NotificationPage":"7 changes, Scroll down further line 180 to 188, 349,357,371,382",
- "Stars & Likes": "Étoiles et J'aime",
- "All Request": "Tout les Demandes",
- "Pending": "En Attente",
- "Approved": "Approuvé",
- "Refused": "Refuser",
- "Approve": "Approuvé",
- "Deny": "Refuser",
- 
- "_comment From FimakerDashBoard SettingsPage":"9 changes, Line 15,19,23,27,34,65-68",
-
-
- "_comment From FilmMaker filmMakerDashboared ":"5 changes, Line 47",
- "Create New Film EPK": "Créer un nouveau film EPK",
- "You don`t have any EPK created.To start promoting your ":
- "Vous n'avez pas créé d'EPK. Pour commencer à promouvoir votre ",
-
- " film right away.": " film tout de suite",
-
-
- "Create your free film EPK now!":"Créez votre EPK de film gratuit maintenant !",
- "Update": "Mise à jour",
- "update": "Mise à jour",
-
- "_comment From FilmMaker filmMakerSelected":"2 changes, Line 115, Line 122",
- "EPK Requests": "Demande EPK",
-
- "_comment From login CHeckEmailPage":"0 CHanges ",
- "_comment From login index":"0 CHanges ",
- "_comment From login ResetPassWordPage":"0 CHanges ",
- "_comment From login ResetPassWordSuccess":"0 CHanges ",
- "_comment From login SendResetPassWordLinkPage":"0 CHanges ",
-
- "_comment From UserDashboard ChatPage":"1 CHanges ",
- "User Dashboard": "Tableau de bord utilisateur",
- "_comment From UserDashboard FollowingPage":"1 CHanges. Line 39 ",
- "_comment From UserDashboard RequestPage":"2 CHanges. Line 74, 84, 112,140, ",
- "Approved EPKs":"EPK approuvés",
- "Pending EPKs": "EPK en Attente",
- "Refused EPKs": "EPK refusés",
- "_comment From UserDashboard SettingsPage":"9 CHanges. Line  15, 19, 23, 27, 34,66-69, ",
- "_comment From UserDashboard StarredPage":"1 CHange.",
- "Starred":"Favoris",
-
- "_comment From AccessDeniedPage":"4 CHanges.",
- "Access denied": "Accès refusé", 
- "Sorry, you need to sign in to get access to this page.": 
- "Désolé, vous devez vous connecter pour accéder à cette page.",
- "Sign in": "Se connecter",
- "Go back home": "Revenir à la page principale",
-
- "_comment From BookMark":"1 CHanges.",
- "This is the bookmark": "C'est le signet",
-
- "_comment From Catalogue":"8 CHanges.",
- "TV Show":"Épisodes TV",
- "Web Series":"Épisodes-Web",
- "Documentary": "Documentaires",
- "all epks":"Tous EPK",
- "All EPKs": "Tous",
-"POST PRODUCTION":"POST-PRODUCTION",
-
- "_comment From EPKs":"0 CHanges.",
- "_comment From EpkDashboard":"0 CHanges.",
- "_comment From EpkView":"8 CHanges. Line 400, 405, 410, 415, 500, 513,520,523,543,657,682-685 ",
- "Close": "Fermer",
- "Send": "Envoyer",
- "Total Audience Reach":"Audience Totale",
- "Why are you reporting this EPK?":"Pourquoi signalez-vous cet EPK ?",
- "This can be unwanted and unauthorized use": "Cela peut être une utilisation non désirée et non autorisée",
- " of content from another website on third-party websites inconnection with other content, negatively": " de contenu provenant d'un autre site web sur des sites tiers en lien avec d'autres contenus",
- " affecting your experience and reputation on our": " affectant négativement votre expérience et réputation sur notre",
- " platform.": " plateforme.",
-
- "This can be any content that appears to be pornographic, sexual exploitation or solicitation and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks. Nudity in photos of paintings and sculptures are permitted.":
- "Cela peut être tout contenu qui semble être pornographique, une exploitation ou sollicitation sexuelle et/ou du contenu montrant des rapports sexuels, des organes génitaux et des gros plans de fesses entièrement nues. La nudité dans les photos de peintures et de sculptures est autorisée.",
- "Other:":"Autre:",    
- "Other: any other reason you may want to report this":"Autre : toute autre raison pour laquelle vous souhaiteriez signaler ceci",
-
- " EPK.": " EPK.",
-
- "Report!":"Rapporter!",
-
- "Thank you for reporting this film EPK. We are currently": "Merci d'avoir faire une rapport. On est entraint de faire une ",
- " inverstigation and have notified the filmmaker accordingly.":" investigation. On a deja fait une rapport avec le createur du film. Merci!",
- "Request Access to Medium Synopsis":"Demande l'acces au Synopsis Medium",
-
- "Save changes":"Sauvegarder les changements",
-
- "Long Synopsis":"Synopsis Longue",
- "Request Access to Long Synopsis Line 1233":"Demande l'access au longue Synopsis",
- "Close Line 1259,1472":"Fermer",
- "Request Access to Uniqueness":"Demande l'acces au unicite",
- "biography":"Biographie",
- "Producer":"Producteur",
-
- "_comment From EpkViewPage":"0 CHanges.",
- "_comment From MyList":"1 CHanges.",
- "This is the My List ":"C'est ma liste",
-
- "_comment From TestApproval":"0 CHanges.",
- "_comment From UploadEPK":"0 CHanges.",
- "_comment From UploadMovie":"0 CHanges.",
-
- "_comment From UserDashboard":"4 CHanges. Line 24, 37,50,63",
- "My Account":"Mon Compte",
- "Payment":"Payment",
-
-
- "_comment From Components AdminDashBoard LeftSideBar":"5 CHanges.",
- "Main Metrics":"Principales mesures",
- "Users":"Utilisateurs",
- "Line Analytics":"",
- "EPKs":"EPKs",
- "KinoKlik Admin":"Administrateur KinoKlik",
-
- "_comment From Components AuthRegistration CheckEmail":"4 CHanges.",
- "Check Your Email": "Vérifiez votre courrier électronique",
- "Please check the email address": "Veuillez vérifier l'adresse email",
- "instructions to resert": "instructions pour réinitialiser",
- "your password.": "votre mot de passe.",
-
- "_comment From Components AuthRegistration EmailVerification":"0 CHanges.",
- "Please enter the OTP to verify your account":"Veuillez entrer l'OTP pour vérifier votre compte",
- "OTP has been sent to your email":"l'OTP a été envoyé à votre adresse e-mail",
- "Verify Account":"Vérifier le compte",
- "Resend OTP":"Renvoyer l'OTP",
-
- "_comment From Components AuthRegistration Login":"2 CHanges.",
- "Please enter email":"Veuillez entrer votre Email",
- "Please enter password":"Veuillez entrer le mot de passe",
-
- "_comment From Components AuthRegistration LoginForm":"6 CHanges.",
- "Please provide both email and password":"Veuillez fournir à la fois votre e-mail et votre mot de passe",
-
-
- "Forgot password?":"Mot de passe oublié?",
- "Reset my Password":"Réinitialiser mon mot de passe",
-
- "_comment From Components AuthRegistration LoginFormViewPage":"2 CHanges.",
- "password":"Mot de passe",
- 
- 
- "_comment From Components AuthRegistration register":"7 CHanges.",
- "Please enter your first name!":"Entrez votre prénom s'il vous plait!",
- "First Name must be at least 3 characters long!":"Le prénom doit contenir au moins 3 caractères !",
- "First Name must be at most 30 characters long!":"Le prénom doit contenir au maximum 30 caractères !",
- "Please enter your email!":"Veuillez entrer votre email!",
- "Please enter password!":"Veuillez entrer le mot de passe!",
- "Password must be at least 6 characters long!":"Le mot de passe doit contenir au moins 6 caractères!",
- "First Name must be at most 40 characters long!":"Le prénom doit contenir au maximum 40 caractères !",
-
-
- "_comment From Components AuthRegistration registrationcopy":"1 CHanges. NOt done yet",
- "Confirm Password":"Confirmer mot de passe",
-
- "_comment From Components AuthRegistration registration":"1 CHanges.",
-
-
- "_comment From Components AuthRegistration RegistrationSuccess":"3 CHanges.",
- "Congratulations!":"Félicitations!",
- "Your account has been verified!":"Votre compte a été créé.",
-
- "_comment From Components AuthRegistration ResetPassword":"0 CHanges.",
- "Reset your password":"réinitialisez votre mot de passe",
- "Enter a new password below to change your password":"Entrez un nouveau mot de passe ci-dessous pour changer votre mot de passe",
- "Reset Password":"Réinitialiser le Mot de Passe",
-
- "_comment From Components AuthRegistration ResetPasswordSuccess":"0 CHanges.",
- "Password Changed!":"Mot de passe changé!",
- "Your password has been changed successfully":"Votre mot de passe a été changé avec succès",
- "Redirecting in ":"Redirection en ",
- " seconds...":" secondes...",
- "_comment From Components AuthRegistration RoleChoise":"12 CHanges.",
- "An amazing and talented visionary filmmaker":"Cinéaste",
- "A talented and passionate actor (and future star)":"Acteur",
- "Investor":"Investisseur",
- "Editor": "Éditeur",
- "Writer":"Écrivain",
- "Sound":"Son",
- "Cinematographer":"Directeur de la photographie",
- "Distributor":"Distributeur",
-
- "_comment From Components AuthRegistration SendResetPassword":"6 CHanges.",
- "Forgot your password?":"Vous avez oublié votre mot de passe?",
- "You will receive an email with instructions to reset":"Vous recevrez un e-mail avec des instructions pour réinitialiser",
- "your password if an account exists for this email address":"votre mot de passe si un compte existe pour cette adresse email",
- "Already have an account?":"Vous avez déjà un compte?",
-
- "_comment From Components donate DonationModal":"4 CHanges.",
- "Support the filmmaker by": "Soutenez le cinéaste en",
- "making a one-time donation.": "faire un don unique.",
- "Donate with PayPal":"Faites un don avec PayPal",
- "Donate with Stripe":"Faites un don avec Stripe",
-
- "_comment From Components Epk Input castForm":"3 CHanges.",
- "EPK Dashboard":"Tableau de bord EPK",
- "View EPK Page":"Voir la page EPK",
- "Starring/Cast":"Vedette/Casting",
-
- "_comment From Components Epk Input cinematographerForm":"2 CHanges.Line 88, 102",
- "_comment From Components Epk Input coverForm":"0 CHanges. Line 146, 191",
- "EPK Page Upload":"Téléchargement de Pages EPK",
- "Cover":"Couverture",
- "Upload Banner":"Télécharger la bannière",
- "Upload Trailer":"Télécharger la bande-annonce",
-
- "_comment From Components Epk Input detailsFepkForm":"20 CHanges.",
- "Upload Poster / Thumbail":"Télécharger une affiche/une vignette",
- "CREW NAME":"NOM DE L'ÉQUIPAGE",
- "EPK ROLE":"RÔLE EPK",
- "ACTION":"ACTON",
- "Add to Table":"Ajouter au tableau",
- "lead actor":"Acteur Principal",
- "supporting actor":"Second Role",
- 
- "_comment From Components Epk Input detailsForm":"18 CHanges.",
- "Produced By:":"Produit par:",
- "Writen By:":"Écrit par:",
- "Cinematography By":"Cinématographie Par:",
- "Sound By:":"Son par:",
- "Supporting Actor Name:":"Nom de l'acteur secondaire:",
- "Film Details":"Détails du film",
- "Key Crew":"Équipe clé",
- "Starring":"En Vedette",
- "Lead Actor Name:":"Nom de l'acteur principal:",
-
- "_comment From Components Epk Input directorForm":"4 CHanges.",
- "Header":"Entête",
- "Enter Director's Biography here.":"",
- "Director":"Directeur",
- "Director's Name":"Nom du réalisateur",
-
- "_comment From Components Epk Input EpkCoverForm":"7 CHanges.",
- "EPK Upload Page":"Page de téléchargement EPK",
- "Show EPK":"Afficher l'EPK",
- "EPK Cover Section":"Section de couverture de l'EPK",
- "Upload Banner Line 224":"Télécharger la bannière",
- "Upload Trailer Line 240":"Télécharger la bande-annonce",
-
-
- "_comment From Components Epk Input fepkCoverForm":"8 CHanges.",
- "This title exists! Choose another one!":"Ce titre existe ! Choisissez-en un autre!",
- "This title is ok!": "Ce titre est bien!",
-
-
- "_comment From Components Epk Input fepkDashboardNoAccess":"0 CHanges.",
- "_comment From Components Epk Input fepkdetailsForm":"22 CHanges.",
- "Saved":"Enregistré",
- "User already added.":"Utilisateur déjà ajouté.",
- "Invitation deleted":"Invitation supprimée",
- "Error deleting invitation:":"Erreur lors de la suppression de l'invitation :",
- "user deleted":"utilisateur supprimé",
- "Sending invitation...":"Envoi d'une invitation...",
- "Invitation already exists":"L'invitation existe déjà",
- "Invitation saved and user added to frontend":"Invitation enregistrée et utilisateur ajouté au frontend",
- "Line 940 User is not found. Ivite via email:":"L'utilisateur est introuvable. Invitez par e-mail :",
- "Send Invitation":"Envoyer une invitation",
- "Add to EPK":"Ajouter à l'EPK",
- "NAME":"NOM",
- "IMAGE":"IMAGE",
- "FACE":"FACE",
- "INSTA":"INSTA",
- "TWIT":"TWIT",
- "STATUS":"STATUT",
-
-
- "_comment From Components Epk Input fepkEditCoverForm":"25 CHanges.",
- "This title exists! You are not allowed to use it again!":"Ce titre existe ! Vous n'êtes plus autorisé à l'utiliser !",
- "Title is available":"Le titre est disponible",
-
- "_comment From Components Epk Input fepkMenu":"0 CHanges.",
- 
- "_comment From Components Epk Input fepkResourcesForm":"20 CHanges.",
- "Resources":"Ressources",
- "Duration Required":"Durée requise",
- "Description":"Description",
- "Image":"Image",
- "Your content has been successfully saved!":"Votre contenu a été enregistré avec succès !",
-
- "_comment From Components Epk Input fepkReviewsForm":"15 CHanges.",
- "BUZZ":"BUZZ",
- "Upload Logo":"Télécharger le logo",
- "Film Buzz (Reviews & Awards)": "Film Buzz (Critiques et Récompenses)",
- "Review text (maximum 160 characters)":"Texte de Révision (160 caractères maximum)",
- "Magazine":"Publication",
- "Text":"Texte",
- "Award Logo":"Logo du prix",
- "ACTIONS":"ACTIONS",
- "Reviews Saved Successfully!":"Commentaires enregistrés avec succès !",
-
- "_comment From Components Epk Input fepkStills":"12 CHanges.",
- "EDIT":"MODIFIER",
- "Film Stills":"Images fixes du film",
- "Upload Picture":"Charger une photo",
-
-
-
- "_comment From Components Epk Input fepkSynopsisForm":"14 CHanges.",
- "Synopsis is Saved Successfully!":"Le synopsis a été enregistré avec succès !",
- "Synopsis":"Synopsis",
- "Short Synopsis(maximum 160 characters)": "Court résumé (maximum 160 caractères)",
- "Medium Synopsis(maximum 350 characters)": "Synopsis moyen (maximum 350 caractères)",
- "/160 characters": "/160 caractères",
-
- "_comment From Components Epk Input fepkTrailerForm":"2 CHanges.",
- "Film Trailer":"Bande annonce de film",
-  
- "_comment From Components Epk Input fepkUniquenessForm":"9 CHanges.",
- 
- "_comment From Components Epk Input loglineFepkForm":"9 CHanges.",
- "Log Line":"Ligne de connexion",
- 
-
- "_comment From Components Epk Input loglineForm":"3 CHanges.",
- "Logline":"Connexion",
- 
- "_comment From Components Epk Input producerForm":"4 CHanges.",
- "EPK DashBoard":"Tableau de bord EPK",
- 
- "_comment From Components Epk Input requestApproval":"13 CHanges.",
- "Medium Synopsis Requests:":"Demandes de résumé moyen :",
- "Hi! I need your approval to see the medium synopsis section!"
- :"Salut! J'ai besoin de votre approbation pour voir la section résumé moyen !",
- "approve":"approuver",
- "refuse":"refuser",
- "Uniqueness Requests:":"Demandes d'unicité :",
- "Hi! I need your approval to see the uniqueness section!":"Salut! J'ai besoin de votre approbation pour voir la section unicité !",
- "Stills Requests":"Demandes d'images fixes",
- "Hi! I need your approval to see the stills section!":"Salut! J'ai besoin de votre approbation pour voir la section photos !",
- 
- "_comment From Components Epk Input ResourcesForm":"2 CHanges.",
-
- "_comment From Components Epk Input reviewForm":"3 CHanges.",
- "Reviews":"Commentaires",
-
-
- "_comment From Components Epk Input stillsForm":"3 CHanges.",
- "EPK Dashborad":"Tableau de bord EPK",
- "Stills":"Images fixes",
-
-
- "_comment From Components Epk Input synopsisForm":"2 CHanges.",
-
-
- "_comment From Components Epk Input synopsisFormback":"0 CHanges.",
- "Short Synopsis": "Court Synopsis",
- "Medium Synopsis":"Moyen Synopsis",
-
-
- "_comment From Components Epk Input TrailerForm":"0 CHanges.",
- 
- 
- "_comment From Components Epk Input uniquenessForm":"5 CHanges.",
- "Tell the world what makes your film and production special. This is where you sell the world (and the media) your film. Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?"
- :"Dites au monde ce qui rend votre film et votre production spéciaux. C'est ici que vous vendez au monde (et aux médias) votre film. Votre film est-il inspiré d'une histoire vraie ? Est-ce basé sur une affaire pénale ? Présente-t-il une véritable maison hantée ou une apparition de célébrité ?",
- "Uniqueness":"Unicité",
-
- "_comment From Components Epk Present allSynpsis":"0 CHanges.",
- "_comment From Components Epk Present cast":"1CHanges.",
-
- "_comment From Components Epk Present cinematographer":"1 CHanges.",
- 
- "_comment From Components Epk Present Cover":"2 CHanges.",
- "Report": "Raport",
-
- "_comment From Components Epk Present details":"11 CHanges.",
- "Directed by:":"Dirigé par:",
- "Produced by:":"Produit par:",
- "Writer:":"écrivain",
- "Cinematographer:":"Directeur de la Photographie",
- "Editor:":"Éditeur:",
- "Sound:":"Son:",
- "Studio:":"Studio:",
- "Distributed by:":"Distribué par:",
- "Production Year:":"Année de Production:",
- "Duration:":"Durée:",
-
-
- "_comment From Components Epk Present director":"1 CHanges.",
- 
- "_comment From Components Epk Present logline":"0 CHanges.",
-
-
- "_comment From Components Epk Present producer":"1 CHanges.",
-
- 
- "_comment From Components Epk Present Resources":"0 CHanges.",
- 
- "_comment From Components Epk Present review":"0 CHanges.",
- 
- "_comment From Components Epk Present stills":"0 CHanges.",
-
- "_comment From Components Epk Present synopsis":"1 CHanges.",
-
- "_comment From Components Epk Present Trailer":"1 CHanges.",
- "Text text text...":"Texte texte texte...",
-
- "_comment From Components Epk Present uniqueness":"0 CHanges.",
-
- "_comment From Components EpkView EpkAward AwardCard":"0 CHanges.",
- "_comment From Components EpkView EpkAward EpkAward":"1 CHanges.",
-
- "_comment From Components EpkView EpkCast CastCard":"0 CHanges.",
- "_comment From Components EpkView EpkCast EpkCast":"1 CHanges.",
-
- "_comment From Components EpkView EpkCover EpkCover":"0 CHanges.",
- "_comment From Components EpkView EpkDetail EpkDetail":"6 CHanges.",
- "Producer Year":"Année du producteur",
- "Duration":"Durée",
- "Minutes":"Minutes",
- "Distributed by":"Distribué par",
- "Created By":"Créé par",
-
-
- "_comment From Components EpkView EpkHeader EpkHeader":"0 CHanges.",
- "_comment From Components EpkView SocialMedia SocialMedia":"0 CHanges.",
- "_comment From Components EpkView EpkLogline EpkLogline":"0 CHanges.",
- "_comment From Components EpkView EpkReport EpkReport":"6 CHanges.",
- "This can be unwanted and unauthorized use of content"
- :"Il peut s'agir d'une utilisation indésirable et non autorisée du contenu",
-
- " from another website on third-party websites in": " d'un autre site Web sur des sites Web tiers en",
-
- " connection with other content, negatively affecting": " relation avec d'autres contenus, affectant négativement",
-   
- " your experience and reputation on our platform": " votre expérience et votre réputation sur notre plateforme",
- 
   "This can be any content that appears to be": "Il peut s'agir de tout contenu qui semble être une ",
   " pronographic, sexual exploitation or solicitation": " exploitation ou une sollicitation pronographique,",
   " and/or content that shows sexual intercourse, genitals and close-ups of fully-nude buttocks.": " sexuelle et/ou un contenu montrant des rapports sexuels, des organes génitaux et des gros plans de fesses entièrement nues.",
   " Nudity in photos of paintings and sculptures are permitted.": " La nudité sur les photos de peintures et de sculptures est autorisée.",
-  "This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform.":
-  "Cela peut être une utilisation non désirée, non autorisée ou contraire à l'éthique de contenu provenant d'un autre site web, affectant négativement votre expérience et la réputation sur notre plateforme.",
+  "This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform.": "Cela peut être une utilisation non désirée, non autorisée ou contraire à l'éthique de contenu provenant d'un autre site web, affectant négativement votre expérience et la réputation sur notre plateforme.",
   "Copyrighted Intellectual Property Violation": "Violation de la propriété intellectuelle protégée par le droit d'auteur",
-  "type here":"écrivez ici",
-  "Other: any other reason you may want to report this EPK.":"Autre: autre raison pour laquelle vous souhaiterez peut-être signaler cet EPK.",
-  "Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.":"Merci d'avoir rapporté ce film EPK. Nous sommes actuellement en train d'enquêter et avons informé le cinéaste en conséquence.",
-
- "_comment From Components EpkView EpkResources EpkResources":"0 CHanges.",
- "_comment From Components EpkView EpkResources ResourceCard":"0 CHanges.",
- "_comment From Components EpkView EpkSocialAction ActionIcon":"0 CHanges.",
- "_comment From Components EpkView EpkSocialAction EpkSocialAction":"0 CHanges.",
- "_comment From Components EpkView EpkStills EpkStills":"0 CHanges.",
- "_comment From Components EpkView EpkSynopsis EpkSynopsis":"0 CHanges.",
- "_comment From Components EpkView EpkSynopsis SynopsisContent":"0 CHanges.",
- "_comment From Components EpkView EpkTrailer EpkTrailer":"0 CHanges.",
- "_comment From Components EpkView EpkUniqueness EpkUniqueness":"0 CHanges.",
- "_comment From Components EpkView EpkWorker EpkWorker":"0 CHanges.",
- "_comment From Components EpkView miscellaneous LoginModal":"4 CHanges.",
- "Sign In":"Se connecter",
- "Email address":"Adresse e-mail",
- "Don't have an account yet?":"Vous n'avez pas encore de compte?",
-
- "_comment From Components EpkView miscellaneous NewMessageModal":"2 CHanges.",
- "Please type your message to the Filmmaker EPK Owner"
- :"Veuillez taper votre message au propriétaire du cinéaste EPK",
- 
-
- "_comment From Components EpkView miscellaneous RequestButton":"0 CHanges.",
- "_comment From Components EpkView miscellaneous RequestModal":"2 CHanges.",
- "Submit":"Soumettre",
-
- "_comment From Components Festival Festival":"0 CHanges.",
- 
- "_comment From Components Filmaker filmMakerConnect":"2 CHanges.",
- "Filmaker Dashboard":"Tableau de bord du cinéaste",
- "Connect Page":"Page de connexion",
- "_comment From Components Filmaker filmMakerDashboard":"3 CHanges.",
- "You don't have any EPK created. Start promoting away!":"",
- "Create your own EPK now!":"Créez votre propre EPK maintenant !",
-
- "_comment From Components Filmaker filmMakerDashboardSecurity":"5 CHanges.",
- "Profile":"Profil",
-
- "_comment From Components Filmaker filmMakerDashboardSecurityAccount":"6 CHanges.",
- 
- "_comment From Components Filmaker filmMakerDashboardSecurityCompany":"5 CHanges.",
-
- "_comment From Components Filmaker filmMakerDashboardSecurityPassword":"11 CHanges.",
-
- "_comment From Components Filmaker filmMakerDashboardSecurityProfile":"0 CHanges.",
- "Upload Avatar":"Télécharger l'avatar",
- "Updated profile successfully!":"Profil mis à jour avec succès!",
- 
- "_comment From Components Filmaker filmMakerNotifications":"2 CHanges.",
- "Notifications Page":"Page de notifications",
- 
- "_comment From Components Filmaker filmMakerSideBar":"0 CHanges.",
- "_comment From Components Filmaker Requests":"11 CHanges.",
- "All Users":"Tous les utilisateurs",
- "Viewer":"Téléspectateur",
- "Film Festival":"Festival du film",
- "Sales Agent":"Agent de ventes",
- "All EPK":"Tous les EPK",
- "Denied":"Refusé",
- "User Name:":"Nom d'utilisateur:",
- "Comment":"Commentaire",
-
- "_comment From Components Filmaker Stars":"0 CHanges.",
- "_comment From Components FilmMakeDashboard Chats ChatList":"0 CHanges.",
- "no conversations to display":"aucune conversation à afficher",
-
- "_comment From Components FilmMakeDashboard Chats ChatListItem":"0 CHanges.",
- "_comment From Components FilmMakeDashboard Chats MessageBox":"0 CHanges.",
- "_comment From Components FilmMakeDashboard Chats NotificationItem":"0 CHanges.",
- "_comment From Components FilmMakeDashboard EPKs EmptyEpk":"0 CHanges.",
- "You don't have any EPK created":"Vous n'avez créé aucun EPK",
- "Start promoting you film right away!":"commencez immédiatement à promouvoir votre film !",
-
- "_comment From Components FilmMakeDashboard EPKs EpkCard":"0 CHanges.",
- "_comment From Components FilmMakeDashboard EPKs NewEpkBtn":"0 CHanges.",
- "_comment From Components FilmMakeDashboard Notifications NotificationEpkCard":"0 CHanges.",
- "_comment From Components FilmMakeDashboard Notifications RequestCard":"0 CHanges.",
- "_comment From Components FilmMakeDashboard Notifications UserCard":"0 CHanges.",
- "_comment From Components FilmMakeDashboard Settings Account":"3 CHanges.",
- "Account Type":"Type de compte",
-
-
- "_comment From Components FilmMakeDashboard Settings Password":"3 CHanges.",
-
- "_comment From Components FilmMakeDashboard Settings Profile":"15 CHanges.",
- "Height":"Hauteur",
- "Eye Color":"Couleur des yeux",
- "Black": "Noir",
- "Brown":"Brun",
- "Blue":"Bleue",
- "Hazel":"Noisette",
- "Grey":"Gris",
- "Green":"Vert",
- "Amber":"Ambre",
- "Red":"Rouge",
- "Violet":"Violet",
- "Hair Color":"Couleur de cheveux",
- "Auburn":"Auburn",
- "Salt & Pepper":"Sel poivre",
- "Chestnut":"Châtaigne",
- "Bald":"Chauve",
- "Body Build":"Musculation",
- "Slim":"Mince",
- "Medium":"Moyen",
- "Muscular":"Musclé",
- "Large": "Grand",
- "Very Large": "Très grand",
- "Athletic/Toned": "Athlétique/tonique",
- "Curvy": "Courbé",
- "Updates profile successfully!": "Profil mis à jour avec succès !",
- "Select City": "Sélectionnez une ville",
- "Select Province": "Sélectionnez une province",
- "Select Country": "Choisissez le pays",
- "Gender": "Genre",
- "Age Range": "Tranche d'âge", 
- "or below": "ou ci-dessous",
- "or above": "ou au-dessus",
+  "type here": "écrivez ici",
+  "Other: any other reason you may want to report this EPK.": "Autre: autre raison pour laquelle vous souhaiterez peut-être signaler cet EPK.",
+  "Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.": "Merci d'avoir rapporté ce film EPK. Nous sommes actuellement en train d'enquêter et avons informé le cinéaste en conséquence.",
+
+  "_comment From Components EpkView EpkResources EpkResources": "0 CHanges.",
+  "_comment From Components EpkView EpkResources ResourceCard": "0 CHanges.",
+  "_comment From Components EpkView EpkSocialAction ActionIcon": "0 CHanges.",
+  "_comment From Components EpkView EpkSocialAction EpkSocialAction": "0 CHanges.",
+  "_comment From Components EpkView EpkStills EpkStills": "0 CHanges.",
+  "_comment From Components EpkView EpkSynopsis EpkSynopsis": "0 CHanges.",
+  "_comment From Components EpkView EpkSynopsis SynopsisContent": "0 CHanges.",
+  "_comment From Components EpkView EpkTrailer EpkTrailer": "0 CHanges.",
+  "_comment From Components EpkView EpkUniqueness EpkUniqueness": "0 CHanges.",
+  "_comment From Components EpkView EpkWorker EpkWorker": "0 CHanges.",
+  "_comment From Components EpkView miscellaneous LoginModal": "4 CHanges.",
+  "Sign In": "Se connecter",
+  "Email address": "Adresse e-mail",
+  "Already hava an account?": "Vous avez déjà un compte?",
+  "Don't have an account yet?": "Vous n'avez pas encore de compte?",
+
+  "_comment From Components EpkView miscellaneous NewMessageModal": "2 CHanges.",
+  "Please type your message to the Filmmaker EPK Owner": "Veuillez taper votre message au propriétaire du cinéaste EPK",
+
+  "_comment From Components EpkView miscellaneous RequestButton": "0 CHanges.",
+  "_comment From Components EpkView miscellaneous RequestModal": "2 CHanges.",
+  "Submit": "Soumettre",
+
+  "_comment From Components Festival Festival": "0 CHanges.",
+
+  "_comment From Components Filmaker filmMakerConnect": "2 CHanges.",
+  "Filmaker Dashboard": "Tableau de bord du cinéaste",
+  "Connect Page": "Page de connexion",
+  "_comment From Components Filmaker filmMakerDashboard": "3 CHanges.",
+  "You don't have any EPK created. Start promoting away!": "",
+  "Create your own EPK now!": "Créez votre propre EPK maintenant !",
+
+  "_comment From Components Filmaker filmMakerDashboardSecurity": "5 CHanges.",
+  "Profile": "Profil",
+
+  "_comment From Components Filmaker filmMakerDashboardSecurityAccount": "6 CHanges.",
+
+  "_comment From Components Filmaker filmMakerDashboardSecurityCompany": "5 CHanges.",
+
+  "_comment From Components Filmaker filmMakerDashboardSecurityPassword": "11 CHanges.",
+
+  "_comment From Components Filmaker filmMakerDashboardSecurityProfile": "0 CHanges.",
+  "Upload Avatar": "Télécharger l'avatar",
+  "Updated profile successfully!": "Profil mis à jour avec succès!",
+
+  "_comment From Components Filmaker filmMakerNotifications": "2 CHanges.",
+  "Notifications Page": "Page de notifications",
+
+  "_comment From Components Filmaker filmMakerSideBar": "0 CHanges.",
+  "_comment From Components Filmaker Requests": "11 CHanges.",
+  "All Users": "Tous les utilisateurs",
+  "Viewer": "Téléspectateur",
+  "Film Festival": "Festival du film",
+  "Sales Agent": "Agent de ventes",
+  "All EPK": "Tous les EPK",
+  "Denied": "Refusé",
+  "User Name:": "Nom d'utilisateur:",
+  "Comment": "Commentaire",
+
+  "_comment From Components Filmaker Stars": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard Chats ChatList": "0 CHanges.",
+  "no conversations to display": "aucune conversation à afficher",
+
+  "_comment From Components FilmMakeDashboard Chats ChatListItem": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard Chats MessageBox": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard Chats NotificationItem": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard EPKs EmptyEpk": "0 CHanges.",
+  "You don't have any EPK created": "Vous n'avez créé aucun EPK",
+  "Start promoting you film right away!": "commencez immédiatement à promouvoir votre film !",
+
+  "_comment From Components FilmMakeDashboard EPKs EpkCard": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard EPKs NewEpkBtn": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard Notifications NotificationEpkCard": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard Notifications RequestCard": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard Notifications UserCard": "0 CHanges.",
+  "_comment From Components FilmMakeDashboard Settings Account": "3 CHanges.",
+  "Account Type": "Type de compte",
+
+  "_comment From Components FilmMakeDashboard Settings Password": "3 CHanges.",
+
+  "_comment From Components FilmMakeDashboard Settings Profile": "15 CHanges.",
+  "Height": "Hauteur",
+  "Eye Color": "Couleur des yeux",
+  "Black": "Noir",
+  "Brown": "Brun",
+  "Blue": "Bleue",
+  "Hazel": "Noisette",
+  "Grey": "Gris",
+  "Green": "Vert",
+  "Amber": "Ambre",
+  "Red": "Rouge",
+  "Violet": "Violet",
+  "Hair Color": "Couleur de cheveux",
+  "Auburn": "Auburn",
+  "Salt & Pepper": "Sel poivre",
+  "Chestnut": "Châtaigne",
+  "Bald": "Chauve",
+  "Body Build": "Musculation",
+  "Slim": "Mince",
+  "Medium": "Moyen",
+  "Muscular": "Musclé",
+  "Large": "Grand",
+  "Very Large": "Très grand",
+  "Athletic/Toned": "Athlétique/tonique",
+  "Curvy": "Courbé",
+  "Updates profile successfully!": "Profil mis à jour avec succès !",
+  "Select City": "Sélectionnez une ville",
+  "Select Province": "Sélectionnez une province",
+  "Select Country": "Choisissez le pays",
+  "Gender": "Genre",
+  "Age Range": "Tranche d'âge",
+  "or below": "ou ci-dessous",
+  "or above": "ou au-dessus",
 
- "_comment From Components FilmMakeDashboard Settings Studio":"5 CHanges.",
- "Yes":"Oui",
- "No":"Non",
+  "_comment From Components FilmMakeDashboard Settings Studio": "5 CHanges.",
+  "Yes": "Oui",
+  "No": "Non",
 
- "_comment From Components FilmMakeDashboard LoadingSpin":"1 CHanges.",
- "Loading":"Chargement",
+  "_comment From Components FilmMakeDashboard LoadingSpin": "1 CHanges.",
+  "Loading": "Chargement",
 
- "_comment From Components FilmMakeDashboard Sidebar":"3 CHanges.",
- "Messages":"Messages",
+  "_comment From Components FilmMakeDashboard Sidebar": "3 CHanges.",
+  "Messages": "Messages",
 
- "_comment From Components Filter AgeRangeDropdown":"0 CHanges.",
- "_comment From Components Filter CityDropdown":"0 CHanges.",
- "_comment From Components Filter CountryDropdown":"0 CHanges.",
- "_comment From Components Filter EthinicityDropdown":"0 CHanges.",
- "_comment From Components Filter FilterTag":"0 CHanges.",
- "_comment From Components Filter RepresentationDropdown":"0 CHanges.",
- "_comment From Components HomeBody HomeBody":"0 CHanges.",
- "_comment From Components HomeBody HomeBodyActor":"7 CHanges.",
- "STARRED":"ÉTOILE",
- "FOLLOWING":"SUIVANT",
- "MOST STARRED":"LE PLUS ÉTOILÉ",
- "MOST FOLLOWED":"LES PLUS SUIVIES",
- "PRODUCTION":"Production",
- "PRE PRODUCTION":"PRÉ-PRODUCTION",
- "All ACTORS":"Tous les acteurs",
+  "_comment From Components Filter AgeRangeDropdown": "0 CHanges.",
+  "_comment From Components Filter CityDropdown": "0 CHanges.",
+  "_comment From Components Filter CountryDropdown": "0 CHanges.",
+  "_comment From Components Filter EthinicityDropdown": "0 CHanges.",
+  "_comment From Components Filter FilterTag": "0 CHanges.",
+  "_comment From Components Filter RepresentationDropdown": "0 CHanges.",
+  "_comment From Components HomeBody HomeBody": "0 CHanges.",
+  "_comment From Components HomeBody HomeBodyActor": "7 CHanges.",
+  "STARRED": "ÉTOILE",
+  "FOLLOWING": "SUIVANT",
+  "MOST STARRED": "LE PLUS ÉTOILÉ",
+  "MOST FOLLOWED": "LES PLUS SUIVIES",
+  "PRODUCTION": "Production",
+  "PRE PRODUCTION": "PRÉ-PRODUCTION",
+  "All ACTORS": "Tous les acteurs",
 
- "_comment From Components HomeHead SearchBar":"0 CHanges.",
+  "_comment From Components HomeHead SearchBar": "0 CHanges.",
 
- "For Industry":"Professionels d'industrie",
+  "For Industry": "Professionels d'industrie",
 
- "Welcome": "Bienvenue",
+  "Welcome": "Bienvenue",
 
- "_comment From Components navbar NavbarButton":"1 CHanges.",
-    
- "I am": "Je suis",
+  "_comment From Components navbar NavbarButton": "1 CHanges.",
 
- "LOGOUT": " Déconnecter",
+  "I am": "Je suis",
 
- "LOGIN": "Se Connecter", 
-    
- "actor, feduploaddashborad, Filmmaker": "Cinéaste",
-      
- "components, Listtern, ListernActors, Terms, Sign Up": "S'inscrire",
+  "LOGOUT": " Déconnecter",
 
- "Email address is required": "Adresse e-mail est nécessaire",
+  "LOGIN": "Se Connecter",
 
- "Must be a valid email": "Doit être un e-mail valide",
+  "actor, feduploaddashborad, Filmmaker": "Cinéaste",
 
- "Password is required": "Mot de passe requis",
+  "components, Listtern, ListernActors, Terms, Sign Up": "S'inscrire",
 
- "Facebook helps you connect and share with the people in your life": "Facebook vous aide à vous connecter et à partager avec les personnes qui vous entourent",
+  "Email address is required": "Adresse e-mail est nécessaire",
 
- "Email address or phone number": "Adresse e-mail ou numéro de téléphone",
+  "Must be a valid email": "Doit être un e-mail valide",
 
- "Password": "Mot de Passe",
+  "Password is required": "Mot de passe requis",
 
- "Log In": "Se connecter",
+  "Facebook helps you connect and share with the people in your life": "Facebook vous aide à vous connecter et à partager avec les personnes qui vous entourent",
 
- "Forgotten password?": "Mot de passe oublié",
+  "Email address or phone number": "Adresse e-mail ou numéro de téléphone",
 
- "Create Account": "Créer un compte",
+  "Password": "Mot de Passe",
 
- "Create a Page": "Créer une page",
+  "Log In": "Se connecter",
 
- "for a celebrity, brand or business": "pour une célébrité, une marque ou une entreprise",
+  "Forgotten password?": "Mot de passe oublié",
 
- "What's your First name ?": "Quel est votre prénom?",
+  "Create Account": "Créer un compte",
 
- "First name must be between 2 and 16 characters.": "Le prénom doit être compris entre 2 et 16 caractères.",
+  "Create a Page": "Créer une page",
 
- "Numbers and special characters are not allowed.": "Les chiffres et caractères spéciaux ne sont pas autorisés.",
+  "for a celebrity, brand or business": "pour une célébrité, une marque ou une entreprise",
 
- "What's your Last name ?": "Quel est votre nom de famille",
+  "What's your First name ?": "Quel est votre prénom?",
 
- "Last name must be between 2 and 16 characters.": "Le nom de famille doit comporter entre 2 et 16 caractères.",
+  "First name must be between 2 and 16 characters.": "Le prénom doit être compris entre 2 et 16 caractères.",
 
- " You'll need this when you log in and if you ever need to reset your password.": "Vous en aurez besoin lorsque vous vous connecterez et si jamais vous devez réinitialiser votre mot de passe.",
+  "Numbers and special characters are not allowed.": "Les chiffres et caractères spéciaux ne sont pas autorisés.",
 
- "Enter a valid email address.": "Entrez une adresse mail valide.",
+  "What's your Last name ?": "Quel est votre nom de famille",
 
- "Enter a combination of at least six numbers,letters and punctuation marks(such as ! and &).": "Saisissez une combinaison d'au moins six chiffres, lettres et signes de ponctuation (tels que ! et &).",
+  "Last name must be between 2 and 16 characters.": "Le nom de famille doit comporter entre 2 et 16 caractères.",
 
- "Password must be atleast 6 characters.": "Le mot de passe doit être au moins de 6 caractères.",
+  " You'll need this when you log in and if you ever need to reset your password.": "Vous en aurez besoin lorsque vous vous connecterez et si jamais vous devez réinitialiser votre mot de passe.",
 
- "Password can't be more than 36 characters": "Le mot de passe ne peut pas contenir plus de 36 caractères",
+  "Enter a valid email address.": "Entrez une adresse mail valide.",
 
- "Sign Up": "S'inscrire",
+  "Enter a combination of at least six numbers,letters and punctuation marks(such as ! and &).": "Saisissez une combinaison d'au moins six chiffres, lettres et signes de ponctuation (tels que ! et &).",
 
- "it's quick and easy": "c'est simple et rapide",
+  "Password must be atleast 6 characters.": "Le mot de passe doit être au moins de 6 caractères.",
 
- "First name": "Prénom",
+  "Password can't be more than 36 characters": "Le mot de passe ne peut pas contenir plus de 36 caractères",
 
- "Surname": "nom de famille",
+  "Sign Up": "S'inscrire",
 
- "email address": "adresse e-mail",
+  "it's quick and easy": "c'est simple et rapide",
 
- "New password": "Nouveau mot de passe",
+  "First name": "Prénom",
 
- "By clicking Sign Up, you agree to our": "En cliquant sur S'inscrire, vous acceptez notre",
+  "Surname": "nom de famille",
 
- "Terms, Data Policy": "Conditions, Politique de données",
+  "email address": "adresse e-mail",
 
- "and": "et",
+  "New password": "Nouveau mot de passe",
 
- "Cookie Policy": "Cookie Politique.",
+  "Re-enter new password": "Réintroduire le nouveau mot de passe",
 
- "You may receive SMS notifications from us": "Vous pouvez recevoir des notifications par SMS de notre part",
- "and can opt out at any time": "et peut se désinscrire à tout moment",
+  "By clicking Sign Up, you agree to our": "En cliquant sur S'inscrire, vous acceptez notre",
 
- "Movie": "Film",
+  "Terms, Data Policy": "Conditions, Politique de données",
 
- "Movies": "Films",
+  "and": "et",
 
- "SIGN IN": "SE CONNECTER",
+  "Cookie Policy": "Cookie Politique.",
 
- "REGISTER": "S'INSCRIRE",
+  "You may receive SMS notifications from us": "Vous pouvez recevoir des notifications par SMS de notre part",
+  "and can opt out at any time": "et peut se désinscrire à tout moment",
 
- "CREATE EPK": "CRÉER Un EPK",
+  "Movie": "Film",
 
- "My Settings": "Paramètres",
+  "Movies": "Films",
 
- "My Dashboard": "Mon Tableau",
+  "SIGN IN": "SE CONNECTER",
 
- "Logout": "Déconnecter",
+  "REGISTER": "S'INSCRIRE",
 
- "Notifications": "Notifications",
+  "CREATE EPK": "CRÉER Un EPK",
 
- "Following": "Suivant",
+  "My Settings": "Paramètres",
 
- "Requests": "Demandes",
+  "My Dashboard": "Mon Tableau",
 
- "Settings": "Paramètres",
+  "Logout": "Déconnecter",
 
- "Upload Poster": "Télécharger l'affiche",
+  "Notifications": "Notifications",
 
- "Comment Component dragUpload":"4 CHanges",
- "Click or drag file to this area to upload": "Cliquez ou faites glisser le fichier vers cette zone pour le télécharger",
- "Dropped files": "Fichiers supprimés",
+  "Following": "Suivant",
 
+  "Requests": "Demandes",
 
- "Could not upload the file!. File must be an image": "Impossible de télécharger le fichier !. Le fichier doit être une image",
+  "Settings": "Paramètres",
 
- "Upload": "Télécharger",
+  "Upload Poster": "Télécharger l'affiche",
 
- "For Filmmakers": "Pour les cinéastes",
+  "Comment Component dragUpload": "4 CHanges",
+  "Click or drag file to this area to upload": "Cliquez ou faites glisser le fichier vers cette zone pour le télécharger",
+  "Dropped files": "Fichiers supprimés",
 
- "Professionals": "de L'industrie",
+  "Could not upload the file!. File must be an image": "Impossible de télécharger le fichier !. Le fichier doit être une image",
 
- "Company": "Entreprise",
+  "Upload": "Télécharger",
 
- "About Us": "À propos de nous",
+  "For Filmmakers": "Pour les cinéastes",
 
- "Contact Us": "Contactez-nous",
+  "Professionals": "de L'industrie",
 
- "Support": "Soutien",
+  "Company": "Entreprise",
 
- "Relations": "Relations",
+  "About Us": "À propos de nous",
 
- "Partners": "Les partenaires",
+  "Contact Us": "Contactez-nous",
 
- "Investors": "Investisseurs",
+  "Support": "Soutien",
 
- "Media & Blog": "Médias & Blogue",
+  "Relations": "Relations",
 
- "KinoKlik. All Rights Reserved.": "KinoKlik. Tous droits réservés.",
+  "Partners": "Les partenaires",
 
- "For Film Makers": "Pour les cinéastes",
+  "Investors": "Investisseurs",
 
- "For Industry Professionals": "Pour les professionnels de l'industrie",
+  "Media & Blog": "Médias & Blogue",
 
- "Home": "Maison",
+  "KinoKlik. All Rights Reserved.": "KinoKlik. Tous droits réservés.",
 
- "My list": "Ma liste",
+  "For Film Makers": "Pour les cinéastes",
 
- "logout": "Se déconnecter",
+  "For Industry Professionals": "Pour les professionnels de l'industrie",
 
- "Dashboard": "Tableau de bord",
+  "Home": "Maison",
 
- "Edit Profile": "Edit le profil",
+  "My list": "Ma liste",
 
- "Upload a movie": "Télécharger un film",
+  "logout": "Se déconnecter",
 
- "Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Cinéaste peut télécharger un film EPK. Veuillez enregistrer un",
+  "Dashboard": "Tableau de bord",
 
- "Filmmaker account to complete this action.": "Compte cinéaste pour réaliser cette action.",
+  "Edit Profile": "Edit le profil",
 
- "OK": "D'ACCORD",
+  "Upload a movie": "Télécharger un film",
 
- "Promote your film for free, with KinoKlik EPK !": "Faites la promotion de votre film gratuitement, avec KinoKlik EPK !",
+  "Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Cinéaste peut télécharger un film EPK. Veuillez enregistrer un",
 
- "components, upload1, Image mime type is not valid": "Le type d'image MIME n'est pas valide",
+  "Filmmaker account to complete this action.": "Compte cinéaste pour réaliser cette action.",
 
- "Browse images": "Parcourir les images",
+  "OK": "D'ACCORD",
 
- "You don't have any EPK following": "Vous n'avez aucun EPK suivi.",
+  "Promote your film for free, with KinoKlik EPK !": "Faites la promotion de votre film gratuitement, avec KinoKlik EPK !",
 
- "You don't have any EPK": "Vous n'avez aucun EPK",
+  "components, upload1, Image mime type is not valid": "Le type d'image MIME n'est pas valide",
 
- "Delete Account": "Supprimer le compte",
+  "Browse images": "Parcourir les images",
 
- "Cancel": "Annuler",
+  "You don't have any EPK following": "Vous n'avez aucun EPK suivi.",
 
- "Ok": "D'ACCORD",
+  "You don't have any EPK": "Vous n'avez aucun EPK",
 
- "Confirm": "Confirmer",
+  "Delete Account": "Supprimer le compte",
 
- "New Password": "Nouveau mot de passe",
+  "Cancel": "Annuler",
 
- "Confirm New Password": "Confirmer le nouveau mot de passe",
+  "Ok": "D'ACCORD",
 
- "Save": "Enregistrez",
+  "Confirm": "Confirmer",
 
- "save": "enregistrez",
+  "New Password": "Nouveau mot de passe",
 
- "First Name": "Prénom",
+  "Confirm New Password": "Confirmer le nouveau mot de passe",
 
- "Last Name": "Nom",
+  "Save": "Enregistrez",
 
- "Email": "Courriel",
+  "save": "enregistrez",
 
- "Phone": "Téléphone",
+  "First Name": "Prénom",
 
- "Website": "Site web",
+  "Last Name": "Nom",
 
- "City": "Ville",
+  "Email": "Courriel",
 
- "Province": "Province",
+  "Phone": "Téléphone",
 
- "Country": "Pays",
+  "Website": "Site web",
 
- "Studio Name": "Nom du studio",
+  "City": "Ville",
 
- "Studio Website": "Site web du studio.",
+  "Province": "Province",
 
- "settings, Studio Website": "paramètres, site web du studio.",
+  "Country": "Pays",
 
- "Studio Email": "Courriel du Studio",
+  "Studio Name": "Nom du studio",
 
- "Updated studio successfully!": "Studio mis à jour avec succès !",
+  "Studio Website": "Site web du studio.",
 
- "You don't have any EPK starred.": "Vous n'avez aucun EPK suivi.",
+  "settings, Studio Website": "paramètres, site web du studio.",
 
- "Upload Headshot": "Télécharger une photo du visage",
+  "Studio Email": "Courriel du Studio",
 
- "Upload Demo reel Video": "Télécharger une vidéo de démo",
+  "Updated studio successfully!": "Studio mis à jour avec succès !",
 
- "Your browser does not support the video tag.": "Votre navigateur ne prend pas en charge la balise vidéo.",
+  "You don't have any EPK starred.": "Vous n'avez aucun EPK suivi.",
 
- "Capture Thumbnail": "Capturer une vignette",
+  "Upload Headshot": "Télécharger une photo du visage",
 
- "  Search here...": "  Cherche ici...",
+  "Upload Demo reel Video": "Télécharger une vidéo de démo",
 
- "/500 characters": "/500 caractères",
+  "Your browser does not support the video tag.": "Votre navigateur ne prend pas en charge la balise vidéo.",
 
- "Updated successfully!": "Mis à jour avec succès!",
+  "Capture Thumbnail": "Capturer une vignette",
 
- "There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois ",
- "filmmakers will assign you an EPK, it will appear here.": "Les réalisateurs vous attribueront un EPK, il apparaîtra ici",
+  "  Search here...": "  Cherche ici...",
 
- "Actor Dashboard": "Tableau de Bord des Acteurs",
+  "/500 characters": "/500 caractères",
 
-"View Actor Page": "Tableau de Bord de L'acteur",
+  "Updated successfully!": "Mis à jour avec succès!",
 
- "Add Image": "Ajouter une Image",
+  "There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois ",
+  "filmmakers will assign you an EPK, it will appear here.": "Les réalisateurs vous attribueront un EPK, il apparaîtra ici",
 
- "You can only upload JPG/PNG file!": "Vous ne pouvez télécharger que des fichiers JPG/PNG!",
+  "Actor Dashboard": "Tableau de Bord des Acteurs",
 
- "Image must smaller than 2MB!": "L'image doit être inférieure à  2 MB!",
+  "View Actor Page": "Tableau de Bord de L'acteur",
 
- "Passwords don't match!": "Les mots de passe ne correspondent pas!",
+  "Add Image": "Ajouter une Image",
 
- "mage mime type is not valid": "Le type MIME de l'image n'est pas valide",
+  "You can only upload JPG/PNG file!": "Vous ne pouvez télécharger que des fichiers JPG/PNG!",
 
- "File must be a image(jpeg or png)": "Le fichier doit être une image (jpeg ou png)",
+  "Image must smaller than 2MB!": "L'image doit être inférieure à  2 MB!",
 
- "error": "erreur",
+  "Passwords don't match!": "Les mots de passe ne correspondent pas!",
 
- "Confirmed delete Account?": "Suppression du compte confirmée ? Erreur",
+  "mage mime type is not valid": "Le type MIME de l'image n'est pas valide",
 
- "log out": "Se déconnecter",
+  "File must be a image(jpeg or png)": "Le fichier doit être une image (jpeg ou png)",
 
- "'${info.file.name} file uploaded successfully.'": "${info.file.name} fichier téléchargé avec succès.",
+  "error": "erreur",
 
- "`${info.file.name} file upload failed.`": "`${info.file.name} Le téléchargement du fichier a échoué.`",
+  "Confirmed delete Account?": "Suppression du compte confirmée ? Erreur",
 
- "Pre-Production": "Pré-Production",
+  "log out": "Se déconnecter",
 
- "Production": "Production",
+  "'${info.file.name} file uploaded successfully.'": "${info.file.name} fichier téléchargé avec succès.",
 
- "Post-Production": "Post-Production",
+  "`${info.file.name} file upload failed.`": "`${info.file.name} Le téléchargement du fichier a échoué.`",
 
- "Hey, check out this Actor": "Salut, regarde cet acteur :",
+  "Pre-Production": "Pré-Production",
 
- "Age-Range": "âge-Gamme",
+  "Production": "Production",
 
- "Ethnicity": "Origine Ethnique",
+  "Post-Production": "Post-Production",
 
- "Stars": "étoiles",
+  "Hey, check out this Actor": "Salut, regarde cet acteur :",
 
- "Send Your Request": "Envoyez votre demande",
+  "Age-Range": "âge-Gamme",
 
- "Posted": "Publié",
+  "Ethnicity": "Origine Ethnique",
 
- "Billing History": "Historique de Facturation",
+  "Stars": "étoiles",
 
- "Request Access": "Demande D'accès",
+  "Send Your Request": "Envoyez votre demande",
 
- "1. Cover": "1. Couverture",
+  "Posted": "Publié",
 
- "2. Log Line": "ligne de journal",
+  "Billing History": "Historique de Facturation",
 
- "3. Synopsis": "3. Synopsis",
+  "Request Access": "Demande D'accès",
 
- "4. Cast & Crew": "4. Casting et équipe",
+  "1. Cover": "1. Couverture",
 
- "5. Uniqueness": "5. Unicité",
+  "2. Log Line": "ligne de journal",
 
- "6. Film Stills": "6. Images fixes du film",
+  "3. Synopsis": "3. Synopsis",
 
- "7. Film Trailer": "7. Bande-annonce du film",
+  "4. Cast & Crew": "4. Casting et équipe",
 
- "8. Film Buzz": "8. Buzz cinématographique",
+  "5. Uniqueness": "5. Unicité",
 
- "9. Resources": "9. Ressources",
+  "6. Film Stills": "6. Images fixes du film",
 
- "10.Traitement": "10.Treatment",
+  "7. Film Trailer": "7. Bande-annonce du film",
 
- "Upload EPK": "Télécharger l'EPK",
+  "8. Film Buzz": "8. Buzz cinématographique",
 
- "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !",
+  "9. Resources": "9. Ressources",
 
- "Upload Poster / Thumbnail": "Télécharger une affiche/une vignette",
+  "10.Traitement": "10.Treatment",
 
- "Title": "Titre",
+  "Upload EPK": "Télécharger l'EPK",
 
- "Log Line short (maximum 160 characters)": "Ligne de journal courte (160 caractères maximum)",
+  "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !",
 
+  "Upload Poster / Thumbnail": "Télécharger une affiche/une vignette",
 
- "Production Company Name": "Nom de la société de production",
+  "Title": "Titre",
 
- "Distribution Company Name": "Nom de la société de distribution",
+  "Log Line short (maximum 160 characters)": "Ligne de journal courte (160 caractères maximum)",
 
- "production_type": "type_de_production",
+  "Production Company Name": "Nom de la société de production",
 
- "Production Year": "Année de Production",
+  "Distribution Company Name": "Nom de la société de distribution",
 
- "Genre": "Genre",
+  "production_type": "type_de_production",
 
- "Duration Minutes": "Durée Minutes",
+  "Production Year": "Année de Production",
 
- "Tell us the productiob type, genre and status": "Dites-nous le type de production, le genre et le statut",
+  "Genre": "Genre",
 
- "Status": "Statut",
+  "Duration Minutes": "Durée Minutes",
 
- "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.": "Afin de collecter des dons pour votre film, veuillez saisir ici l'URL de votre PayPal ou de votre bouton Stripe. Votre icône de don apparaîtra sous la section de couverture de l'EPK.",
+  "Tell us the productiob type, genre and status": "Dites-nous le type de production, le genre et le statut",
 
- "NO VIDEO UPLOADED": "AUCUNE VIDÉO TÉLÉCHARGÉE",
+  "Status": "Statut",
 
- "No Image": "Pas D'image",
+  "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.": "Afin de collecter des dons pour votre film, veuillez saisir ici l'URL de votre PayPal ou de votre bouton Stripe. Votre icône de don apparaîtra sous la section de couverture de l'EPK.",
 
- "Role": "Rôle",
+  "NO VIDEO UPLOADED": "AUCUNE VIDÉO TÉLÉCHARGÉE",
 
- "Email Address": "Adresse E-Mail",
+  "No Image": "Pas D'image",
 
- "Epk role...": "Epk rôle...",
+  "Role": "Rôle",
 
- "Invitation is Sent Successfully!": "L'invitation a été envoyée avec succès !",
+  "Email Address": "Adresse E-Mail",
 
- "Please enter a valid email address": "S'il vous plaît, mettez une adresse email valide",
+  "Epk role...": "Epk rôle...",
 
- "Genre...": "Genre...",
+  "Invitation is Sent Successfully!": "L'invitation a été envoyée avec succès !",
 
- "action": "action",
+  "Please enter a valid email address": "S'il vous plaît, mettez une adresse email valide",
 
-    "comedy": "Comédie",
-    "documentary":  "Documentaire",
-    "romance": "Romance",
-    "horror": "Horreur",
-    "mystery": "Mystère",
-    "drama": "Drame",
-    "western": "Occidental",
-    "science fiction": "La science-fiction",
-    "thriller": "Thriller",
-    "crime":  "Crime",
-    "animation": "Animation",
-    "musical": "Musical",
-    "war": "Guerre",
-    "romantic comedy": "Comédie Romantique",
-    "noir": "Noir",
-    "disaster": "Catastrophe",
-    "dark comedy": "Comédie Noire",
-    "historical film": "Film Historique",
-    "slasher": "Slasheur",
-    "adventure": "Aventure",
-    "gangster": "Bandit",
-    "spy": "Espionner",
-    "fantasy": "Fantaisie",
-    "biographical": "Biographique",
-    "found footage": "Images Trouvées",
-    "legal drama": "Drame Juridique",
-    "melodrama": "Mélodrame",
-    "superhero": "Super-Héros",
-    "slapstick": "La Comédie Bouffonne", 
-    "monster": "Bonjour",
-    "historical fiction": "Fiction Historique",
-    "teen": "Adolescent",
-    "apocalyptic": "Apocalyptique",
-    "post-apocalyptic": "Post-Apocalyptique",
-    "psychological thriller": "Thriller Psychologique",
-    "stop motion": "Stop Motion",
-    "sports": "Des Sports",
-    "space opera": "Space Opéra",
-    "mockumentary": "Faux Documentaire",
+  "Genre...": "Genre...",
 
-    " Title and Log Line needed.": " Titre et ligne de journal nécessaires.",
+  "action": "action",
 
-    " An error occurred while saving your data. Please try again.": " Une erreur s'est produite lors de l'enregistrement de vos données. Veuillez réessayer.",
+  "comedy": "Comédie",
+  "documentary": "Documentaire",
+  "romance": "Romance",
+  "horror": "Horreur",
+  "mystery": "Mystère",
+  "drama": "Drame",
+  "western": "Occidental",
+  "science fiction": "La science-fiction",
+  "thriller": "Thriller",
+  "crime": "Crime",
+  "animation": "Animation",
+  "musical": "Musical",
+  "war": "Guerre",
+  "romantic comedy": "Comédie Romantique",
+  "noir": "Noir",
+  "disaster": "Catastrophe",
+  "dark comedy": "Comédie Noire",
+  "historical film": "Film Historique",
+  "slasher": "Slasheur",
+  "adventure": "Aventure",
+  "gangster": "Bandit",
+  "spy": "Espionner",
+  "fantasy": "Fantaisie",
+  "biographical": "Biographique",
+  "found footage": "Images Trouvées",
+  "legal drama": "Drame Juridique",
+  "melodrama": "Mélodrame",
+  "superhero": "Super-Héros",
+  "slapstick": "La Comédie Bouffonne",
+  "monster": "Bonjour",
+  "historical fiction": "Fiction Historique",
+  "teen": "Adolescent",
+  "apocalyptic": "Apocalyptique",
+  "post-apocalyptic": "Post-Apocalyptique",
+  "psychological thriller": "Thriller Psychologique",
+  "stop motion": "Stop Motion",
+  "sports": "Des Sports",
+  "space opera": "Space Opéra",
+  "mockumentary": "Faux Documentaire",
 
-    "Description(maximum 160 characters)": "Description (maximum 160 caractères)",
+  " Title and Log Line needed.": " Titre et ligne de journal nécessaires.",
 
-    "Add to Pictures Gallery": "Ajouter à la galerie de photos",
+  " An error occurred while saving your data. Please try again.": " Une erreur s'est produite lors de l'enregistrement de vos données. Veuillez réessayer.",
 
-    "Film Stills Saved Successfully!": "Images fixes du film enregistrées avec succès !",
+  "Description(maximum 160 characters)": "Description (maximum 160 caractères)",
 
-    "/350 characters": "/350 caractères",
+  "Add to Pictures Gallery": "Ajouter à la galerie de photos",
 
-    "Long Synopsis(maximum 500 characters)": "Synopsis long (500 caractères maximum)",
+  "Film Stills Saved Successfully!": "Images fixes du film enregistrées avec succès !",
 
-    "Upload Video": "Télécharger une video",
+  "/350 characters": "/350 caractères",
 
-    "Description (maximum 500 characters)": "Description (500 caractères maximum)",
+  "Long Synopsis(maximum 500 characters)": "Synopsis long (500 caractères maximum)",
 
-    "Log Line Long": "Ligne de journal longue",
+  "Upload Video": "Télécharger une video",
 
-    "Log Line Saved Successfully!": "Ligne de journal enregistrée avec succès !",
+  "Description (maximum 500 characters)": "Description (500 caractères maximum)",
 
-    "Enter Producer's Biography here.": "Entrez la biographie du producteur ici.",
+  "Log Line Long": "Ligne de journal longue",
 
-    "Film Review Text Here.": "Texte de la critique du film ici.",
+  "Log Line Saved Successfully!": "Ligne de journal enregistrée avec succès !",
 
-    "Magazine/Blog/Journalist Name": "Magazine/blog/Nom du journaliste",
+  "Enter Producer's Biography here.": "Entrez la biographie du producteur ici.",
 
-    "Short Synopsis, max 30 words": "Synopsis court, 30 mots maximum",
+  "Film Review Text Here.": "Texte de la critique du film ici.",
 
-    "Medium Synopsis, max 70 words": "Synopsis moyen, maximum 70 mots",
+  "Magazine/Blog/Journalist Name": "Magazine/blog/Nom du journaliste",
 
-    "Long Synopsis, max 120 words": "Synopsis long, maximum 120 mots",
+  "Short Synopsis, max 30 words": "Synopsis court, 30 mots maximum",
 
-    "synopsis": "synopsis",
+  "Medium Synopsis, max 70 words": "Synopsis moyen, maximum 70 mots",
 
-    "long synopsis": "synopsis long",
+  "Long Synopsis, max 120 words": "Synopsis long, maximum 120 mots",
 
-    "report": "rapport",
+  "synopsis": "synopsis",
 
-    "Preproduction": "Préproduction",
+  "long synopsis": "synopsis long",
 
-    "They told him revenge was not the answer. They were severely wrong.": "Ils lui ont dit que la vengeance n'était pas la solution. Ils avaient gravement tort.",
+  "report": "rapport",
 
-    "Drama": "Drame",
+  "Preproduction": "Préproduction",
 
-    "Transfer Now": "Transférer maintenant",
+  "They told him revenge was not the answer. They were severely wrong.": "Ils lui ont dit que la vengeance n'était pas la solution. Ils avaient gravement tort.",
 
-    "EPK Settings": "EPK Paramètres",
+  "Drama": "Drame",
 
-    "Transfer Ownership": "Transfert de Propriété",
+  "Transfer Now": "Transférer maintenant",
 
-    "Please take note: If you transfer ownership of this EPK to": "Veuillez noter : si vous transférez la propriété de cet EPK à",
+  "EPK Settings": "EPK Paramètres",
 
-    " another Filmmaker or Producer account, it cannot be undone. The": " un autre compte de cinéaste ou de producteur, il ne peut pas être annulé. Le",
+  "Transfer Ownership": "Transfert de Propriété",
 
-    " new EPK Owner will have ownership of this EPK and it cannot be": " le nouveau propriétaire de l'EPK sera propriétaire de cet EPK et il ne pourra pas être",
+  "Please take note: If you transfer ownership of this EPK to": "Veuillez noter : si vous transférez la propriété de cet EPK à",
 
-   " reversed from your Dashboard.": " inversé depuis votre tableau de bord",
+  " another Filmmaker or Producer account, it cannot be undone. The": " un autre compte de cinéaste ou de producteur, il ne peut pas être annulé. Le",
 
-   "Present your film like a PRO, for FREE with KinoKlik EPK!": "Présentez votre film comme un PRO, GRATUITEMENT avec Dossier de Press Electronique de KinoKlik!",
+  " new EPK Owner will have ownership of this EPK and it cannot be": " le nouveau propriétaire de l'EPK sera propriétaire de cet EPK et il ne pourra pas être",
 
-   "Produced Year": "Année de Production",
+  " reversed from your Dashboard.": " inversé depuis votre tableau de bord",
 
-   "message": "message",
+  "Present your film like a PRO, for FREE with KinoKlik EPK!": "Présentez votre film comme un PRO, GRATUITEMENT avec Dossier de Press Electronique de KinoKlik!",
 
-   "This can be unwanted and unauthorized use of content from another website on third-party websites in connection with other content, negatively affecting your experience and reputation on our platform.": "l peut s'agir d'une utilisation indésirable et non autorisée du contenu d'un autre site Web sur des sites Web tiers en relation avec d'autres contenus, affectant négativement votre expérience et votre réputation sur notre plateforme.",
+  "Produced Year": "Année de Production",
 
-   "Browse...": "Parcourir...",
+  "message": "message",
 
-   "No file selected.": "Aucun fichier sélectionné.",
+  "This can be unwanted and unauthorized use of content from another website on third-party websites in connection with other content, negatively affecting your experience and reputation on our platform.": "l peut s'agir d'une utilisation indésirable et non autorisée du contenu d'un autre site Web sur des sites Web tiers en relation avec d'autres contenus, affectant négativement votre expérience et votre réputation sur notre plateforme.",
 
-   "From The Festivals": "Des Fêtes",
+  "Browse...": "Parcourir...",
 
-   "medium.comment": "moyen.commentaire",
+  "No file selected.": "Aucun fichier sélectionné.",
 
-   "long.comment": "long.commentaire",
+  "From The Festivals": "Des Fêtes",
 
-   "unique.comment": "commentaire.unique",
+  "medium.comment": "moyen.commentaire",
 
-   "Loading...": "Chargement...",
+  "long.comment": "long.commentaire",
 
-   "Unread": "Non lu",
+  "unique.comment": "commentaire.unique",
 
-   "Read": "Lu",
+  "Loading...": "Chargement...",
 
-   "Select a conversation to display": "Sélectionnez une conversation à afficher",
+  "Unread": "Non lu",
 
-   "Your message...": "Votre message...",
+  "Read": "Lu",
 
-   "Enter Cinematographer's Biography here.": "Entrez la biographie du directeur de la photographie ici.",
+  "Select a conversation to display": "Sélectionnez une conversation à afficher",
 
-   "lead_actor": "Acteur_principal",
-   "supporting_actor": "second_rôle",
-   "director": "directeur",
-   "producer": "producteur",
-   "cinematographer": "directeur de la photographie",
-   "editor": "éditeur",
-   "writer": "écrivain",
-   "sound": "son",
+  "Your message...": "Votre message...",
 
-   "Please fill out the required field(more than 3 char)": "Veuillez remplir le champ obligatoire (plus de 3 caractères)",
+  "Enter Cinematographer's Biography here.": "Entrez la biographie du directeur de la photographie ici.",
 
-   "Please enter a valid phone number (10 to 15 digits)": "Veuillez saisir un numéro de téléphone valide (10 à 15 chiffres)",
+  "lead_actor": "Acteur_principal",
+  "supporting_actor": "second_rôle",
+  "director": "directeur",
+  "producer": "producteur",
+  "cinematographer": "directeur de la photographie",
+  "editor": "éditeur",
+  "writer": "écrivain",
+  "sound": "son",
 
-   "Please enter a valid URL": "Veuillez saisir une URL valide",
+  "Please fill out the required field(more than 3 char)": "Veuillez remplir le champ obligatoire (plus de 3 caractères)",
 
-   "Please enter a valid number of followers": "Veuillez entrer un nombre valide d'abonnés",
+  "Please enter a valid phone number (10 to 15 digits)": "Veuillez saisir un numéro de téléphone valide (10 à 15 chiffres)",
 
-   "Please fix the validation errors before saving.": "Veuillez corriger les erreurs de validation avant d'enregistrer.",
+  "Please enter a valid URL": "Veuillez saisir une URL valide",
 
-   "Other": "Autre",
+  "Please enter a valid number of followers": "Veuillez entrer un nombre valide d'abonnés",
 
-   "Montreal": "Montréal",
+  "Please fix the validation errors before saving.": "Veuillez corriger les erreurs de validation avant d'enregistrer.",
 
-   "Male": "Mâle",
+  "Other": "Autre",
 
-   "Female": "Femelle",
+  "Montreal": "Montréal",
 
-   "Toned": "Tonique",
-   
-   "Facebook Followers": "Abonnés Facebook",
+  "Male": "Mâle",
 
-   "Instagram Followers": "Abonnés Instagram",
+  "Female": "Femelle",
 
-   "Twitter Followers": "Abonnés Twitter",
+  "Toned": "Tonique",
 
-   "Youtube Subs": "Abonnés Youtube",
+  "Facebook Followers": "Abonnés Facebook",
 
-   "LinkedIn Followers": "Abonnés LinkedIn",
+  "Instagram Followers": "Abonnés Instagram",
 
-   "An error occurred while processing the thumbnail image": "Une erreur s'est produite lors du traitement de l'image miniature",
+  "Twitter Followers": "Abonnés Twitter",
 
-   "video Time Must Be Less Than 5 Min": "La durée de la vidéo doit être inférieure à 5 minutes",
+  "Youtube Subs": "Abonnés Youtube",
 
-   "An unexpected error occurred": "Une erreur inattendue est apparue",
+  "LinkedIn Followers": "Abonnés LinkedIn",
 
-   "upload success": "Télécharger le succès",
+  "An error occurred while processing the thumbnail image": "Une erreur s'est produite lors du traitement de l'image miniature",
 
-   "error in Mime": "erreur dans Mime",
+  "video Time Must Be Less Than 5 Min": "La durée de la vidéo doit être inférieure à 5 minutes",
 
-   "Uploading...": "Téléchargement...",
+  "An unexpected error occurred": "Une erreur inattendue est apparue",
 
-   "Representation": "Représentation",
+  "upload success": "Télécharger le succès",
 
-   "Please fill out the required field": "Veuillez remplir le champ obligatoire",
+  "error in Mime": "erreur dans Mime",
 
-   "Please enter a valid location": "Veuillez entrer un emplacement valide",
+  "Uploading...": "Téléchargement...",
 
-   "Actor Page": "Page Acteur",
+  "Representation": "Représentation",
 
-   "Awaiting approval": "En attente d'approbation",
+  "Please fill out the required field": "Veuillez remplir le champ obligatoire",
 
-   "Request refused": "Demande refusée",
+  "Please enter a valid location": "Veuillez entrer un emplacement valide",
 
-   "eg. Hello Filmmaker, I'm interested to see your film EPK and possibly purchase the rights. Let's connect and talk! ": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons ! ",
+  "Actor Page": "Page Acteur",
 
-   "still.comment": "encore.commentaire",
+  "Awaiting approval": "En attente d'approbation",
 
-   "USA": "Etats-Unis",
+  "Request refused": "Demande refusée",
 
-   "Add request successfully!": "Ajouter la demande avec succès!",
+  "eg. Hello Filmmaker, I'm interested to see your film EPK and possibly purchase the rights. Let's connect and talk! ": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons ! ",
 
-   "Follow +": "Suivre +",
+  "still.comment": "encore.commentaire",
 
-   "EPK Cover Saved Successfully!": "Couverture EPK enregistrée avec succès !",
+  "USA": "Etats-Unis",
 
-   "User with that email is already registered under name:": "L'utilisateur avec cette adresse e-mail est déjà enregistré sous le nom:",
+  "Add request successfully!": "Ajouter la demande avec succès!",
 
-   " fepuniquenessform Uniqueness Saved Successfully": "Unicité enregistrée avec succès",
+  "Follow +": "Suivre +",
 
-   "An error occurred while resending OTP": "Une erreur s'est produite lors du renvoi d'OTP",
+  "EPK Cover Saved Successfully!": "Couverture EPK enregistrée avec succès !",
 
-   "productionYear": "Année de Production",
+  "User with that email is already registered under name:": "L'utilisateur avec cette adresse e-mail est déjà enregistré sous le nom:",
 
-   "Invitation for that project was already sent to the person": "L'invitation pour ce projet a déjà été envoyée à la personne",
+  " fepuniquenessform Uniqueness Saved Successfully": "Unicité enregistrée avec succès",
 
-   "Producer's Name": "Nom du Producteur",
+  "An error occurred while resending OTP": "Une erreur s'est produite lors du renvoi d'OTP",
 
-   "Time": "Temps",
+  "productionYear": "Année de Production",
 
-   "Filmmakers": "Cinéastes",
+  "Invitation for that project was already sent to the person": "L'invitation pour ce projet a déjà été envoyée à la personne",
 
-   "Distributors": "Distributeurs",
+  "Producer's Name": "Nom du Producteur",
 
-   "Film Festivals": "Festivals de Cinéma",
+  "Time": "Temps",
 
-   "Sales Agents": "Agents Commerciaux",
+  "Filmmakers": "Cinéastes",
 
-   "Admins": "Administrateurs",
+  "Distributors": "Distributeurs",
 
-   "Directors": "Directeurs",
+  "Film Festivals": "Festivals de Cinéma",
 
-   "Editors": "Éditeurs",
+  "Sales Agents": "Agents Commerciaux",
 
-   "Writers": "Écrivains",
+  "Admins": "Administrateurs",
 
-   "Cinematographers": "Directeurs de la Photographie",
+  "Directors": "Directeurs",
 
-   "Producers": "Producteurs",
+  "Editors": "Éditeurs",
 
-   "Sounds": "Des Sons",
+  "Writers": "Écrivains",
 
-   "Last Active": "Dernier Actif",
+  "Cinematographers": "Directeurs de la Photographie",
 
-   "RESOURCES NEEDED": "RESSOURCES NÉCESSAIRES",
+  "Producers": "Producteurs",
 
-   "Search...": "Recherche",
+  "Sounds": "Des Sons",
 
-   "You don’t have any EPK following.": "Vous n’avez aucun EPK suivant.",
+  "Last Active": "Dernier Actif",
 
-   "You don’t have any EPK wish to buy.": "Vous n’avez aucun EPK que vous souhaitez acheter.",
+  "RESOURCES NEEDED": "RESSOURCES NÉCESSAIRES",
 
-   "Cover - Mandotory": "Couverture - Obligatoire",
+  "Search...": "Recherche",
 
-   "Blur": "Se Brouiller",
+  "You don’t have any EPK following.": "Vous n’avez aucun EPK suivant.",
 
-   "UnBlur": "Supprimer le Flou",
+  "You don’t have any EPK wish to buy.": "Vous n’avez aucun EPK que vous souhaitez acheter.",
 
-   "Cast & Crew": "Casting et équipe",
+  "Cover - Mandotory": "Couverture - Obligatoire",
 
-   "Add Cast & Crew members to your EPK!": "Ajoutez des membres Cast et équipe  à votre EPK !",
+  "Blur": "Se Brouiller",
 
-   "Save to EPK": "Enregistrer dans EPK",
+  "UnBlur": "Supprimer le Flou",
 
-   "(Film Buzz (Reviews & Awards)": "(Film Buzz (Critiques et Récompenses)",
+  "Cast & Crew": "Casting et équipe",
 
-   "Production Type": "Type de Production",
+  "Add Cast & Crew members to your EPK!": "Ajoutez des membres Cast et équipe  à votre EPK !",
 
-   "Production Budget": "Budget de Production",
+  "Save to EPK": "Enregistrer dans EPK",
 
-   "Lead Actor Name": "Nom de L'acteur Principal",
+  "(Film Buzz (Reviews & Awards)": "(Film Buzz (Critiques et Récompenses)",
 
-   "Cinematographer's Name": "Nom du Directeur de la Photographie",
+  "Production Type": "Type de Production",
 
-   "Upload Image": "Télécharger une Image",
+  "Production Budget": "Budget de Production",
 
-   "Represented by:": "Représenté par:",
+  "Lead Actor Name": "Nom de L'acteur Principal",
 
-   "Current films by actor ": "Films actuels par acteur",
-   "Current films by actor": "Films actuels par acteur/actrice",
-   "Asian" : "Asiatique",
+  "Cinematographer's Name": "Nom du Directeur de la Photographie",
 
-   "Caucasian": "Caucasien",
+  "Upload Image": "Télécharger une Image",
 
-   "Hispanic": "Hispanique",
+  "Represented by:": "Représenté par:",
 
-   "Native": "Indigène",
+  "Current films by actor ": "Films actuels par acteur",
+  "Current films by actor": "Films actuels par acteur/actrice",
+  "Asian": "Asiatique",
 
-   "Nudity or Sexual Content": "Nudité ou Contenu Sexuel",
+  "Caucasian": "Caucasien",
 
-   "Edit": "Modifier",
+  "Hispanic": "Hispanique",
 
-   "Film marketing.": "Commercialisation cinématographique",
+  "Native": "Indigène",
 
-   "Refined.": "Raffiné.",
+  "Nudity or Sexual Content": "Nudité ou Contenu Sexuel",
 
-   "Promote your film to industry professionals with KinoKlik's free": "Faites la promotion de votre film auprès des professionnels de l'industrie avec le service gratuit de KinoKlik.",
+  "Edit": "Modifier",
 
-   "Electronic Press Kit": "Dossier de Presse électronique",
+  "Film marketing.": "Commercialisation cinématographique",
 
-   "software!": "logiciel!",
+  "Refined.": "Raffiné.",
 
-   "Browse EPKs": "Parcourir les EPK",
+  "Promote your film to industry professionals with KinoKlik's free": "Faites la promotion de votre film auprès des professionnels de l'industrie avec le service gratuit de KinoKlik.",
 
-   "Create EPK": "CRÉER Un EPK",
+  "Electronic Press Kit": "Dossier de Presse électronique",
 
-   "Présentation de KinoKlik EPK": "Présentation de KinoKlik EPK",
+  "software!": "logiciel!",
 
-   "a free film marketing software": "un logiciel de marketing cinématographique gratuit",
+  "Browse EPKs": "Parcourir les EPK",
 
-   "What is an EPK?": "Qu’est-ce qu’un EPK ?",
+  "Create EPK": "CRÉER Un EPK",
 
-   " An EPK, or": "Un EPK, ou",
+  "Présentation de KinoKlik EPK": "Présentation de KinoKlik EPK",
 
-   "is": "est",
+  "a free film marketing software": "un logiciel de marketing cinématographique gratuit",
 
-   " typically a PDF document displaying information about your film,": " généralement un document PDF affichant des informations sur votre film,",
+  "What is an EPK?": "Qu’est-ce qu’un EPK ?",
 
-   " such as a poster, short, medium and long synopsis, cast and crew": " comme une affiche, un synopsis court, moyen et long, les acteurs et l'équipe",
+  " An EPK, or": "Un EPK, ou",
 
-   " headshots and biographies, information to help film industry": " portraits et biographies, informations pour aider l'industrie cinématographique",
+  "is": "est",
 
-   " professionals visualize the film you want to create.": " les professionnels visualisent le film que vous souhaitez créer.",
+  " typically a PDF document displaying information about your film,": " généralement un document PDF affichant des informations sur votre film,",
 
-   "It's now": "C'est maintenant",
+  " such as a poster, short, medium and long synopsis, cast and crew": " comme une affiche, un synopsis court, moyen et long, les acteurs et l'équipe",
 
-   "We now have KinoKlik EPK": "Nous avons maintenant KinoKlik EPK",
+  " headshots and biographies, information to help film industry": " portraits et biographies, informations pour aider l'industrie cinématographique",
 
-   "software! For free!": "logiciel! Gratuitement!",
+  " professionals visualize the film you want to create.": " les professionnels visualisent le film que vous souhaitez créer.",
 
-   "Present your": "Présentez votre",
+  "It's now": "C'est maintenant",
 
-   "like a pro to industry professionals with Headshots, Demo": "comme un pro aux professionnels de l'industrie avec des portraits, Démo",
+  "We now have KinoKlik EPK": "Nous avons maintenant KinoKlik EPK",
 
-    " Reel, and more!": " Reel, et plus encore",
+  "software! For free!": "logiciel! Gratuitement!",
 
-   "Discover new films in their early stage to snatch up those": "Découvrez de nouveaux films à leurs débuts pour les récupérer",
+  "Present your": "Présentez votre",
 
-   " film rights before your competition!": "les droits du film avant votre compétition!",
+  "like a pro to industry professionals with Headshots, Demo": "comme un pro aux professionnels de l'industrie avec des portraits, Démo",
 
-   "Your film's cast & crew social media audience is": "L'audience des réseaux sociaux des acteurs & de l'équipe de votre film est",
+  " Reel, and more!": " Reel, et plus encore",
 
-   "automatically integrated": "automatiquement intégré",
+  "Discover new films in their early stage to snatch up those": "Découvrez de nouveaux films à leurs débuts pour les récupérer",
 
-   "in your EPK to calculate and show your film's potential": "dans votre EPK pour calculer & montrer le potentiel de votre film",
+  " film rights before your competition!": "les droits du film avant votre compétition!",
 
-   "Total Audience Reach!": "Audience Totale Atteinte!",
+  "Your film's cast & crew social media audience is": "L'audience des réseaux sociaux des acteurs & de l'équipe de votre film est",
 
-   "Display your entire social media audience": "Affichez l’intégralité de votre audience sur les réseaux sociaux",
+  "automatically integrated": "automatiquement intégré",
 
-   "on your Actors Page!": "sur votre page Acteurs!",
+  "in your EPK to calculate and show your film's potential": "dans votre EPK pour calculer & montrer le potentiel de votre film",
 
-   "Track a film's": "Suivre un film",
+  "Total Audience Reach!": "Audience Totale Atteinte!",
 
-   " page to see the film's potential audience!": " page pour voir le public potentiel du film!",
+  "Display your entire social media audience": "Affichez l’intégralité de votre audience sur les réseaux sociaux",
 
-   "Introducing KinoKlik EPK": "Présentation de KinoKlik EPK",
+  "on your Actors Page!": "sur votre page Acteurs!",
 
-   "free film marketing software": "logiciel de marketing cinématographique gratuit",
+  "Track a film's": "Suivre un film",
 
-   "Protect your film's Intelectual Property": "Protégez la propriété intellectuelle de votre film",
+  " page to see the film's potential audience!": " page pour voir le public potentiel du film!",
 
-   "section you chose directly from your EPK dashboard.": "section que vous avez choisie directement depuis votre tableau de bord EPK.",
+  "Introducing KinoKlik EPK": "Présentation de KinoKlik EPK",
 
-   "by blurring out any": "en estompant tout",
+  "free film marketing software": "logiciel de marketing cinématographique gratuit",
 
-   "free film marketing software.": "logiciel de marketing cinématographique gratuit",
+  "Protect your film's Intelectual Property": "Protégez la propriété intellectuelle de votre film",
 
-   "Add unlimited Actors information to your film EPK in the Cast &": "Ajoutez des informations illimitées sur les acteurs à votre film EPK dans Castign &",
+  "section you chose directly from your EPK dashboard.": "section que vous avez choisie directement depuis votre tableau de bord EPK.",
 
-   " Crew section.": " Section équipage.",
+  "by blurring out any": "en estompant tout",
 
-   "Display unlimited film stills and posters!": "Affichez un nombre illimité de photos et d'affiches de films!",
+  "free film marketing software.": "logiciel de marketing cinématographique gratuit",
 
-   "Control all information you display about your film directly from": "Contrôlez toutes les informations que vous affichez sur votre film directement depuis",
-   
-   " your EPK Dashboard.": " votre Tableau de Bord EPK.",
+  "Add unlimited Actors information to your film EPK in the Cast &": "Ajoutez des informations illimitées sur les acteurs à votre film EPK dans Castign &",
 
-   "Take advantage of the views and traffic to tell people what you": "Profitez des vues et du trafic pour dire aux gens ce que vous",
+  " Crew section.": " Section équipage.",
 
-   " need for your film! You never know who has access to that red": " besoin de votre film ! On ne sait jamais qui a accès à ce rouge",
+  "Display unlimited film stills and posters!": "Affichez un nombre illimité de photos et d'affiches de films!",
 
-   " Ferrari or hard-to-find rooftop infinity pool.": " Ferrari ou piscine à débordement sur le toit difficile à trouver.",
+  "Control all information you display about your film directly from": "Contrôlez toutes les informations que vous affichez sur votre film directement depuis",
 
-   "Discover up-and-coming Actors eager to join your film project and": "Découvrez des acteurs prometteurs désireux de rejoindre votre projet de film et",
+  " your EPK Dashboard.": " votre Tableau de Bord EPK.",
 
-   " add them to your EPK. Follow, Star and Recommend Actors to other": " ajoutez-les à votre EPK. Suivez, jouez et recommandez des acteurs à d'autres",
+  "Take advantage of the views and traffic to tell people what you": "Profitez des vues et du trafic pour dire aux gens ce que vous",
 
-   " filmmakers directly from their Actor Page!": " cinéastes directement depuis leur page acteur!",
+  " need for your film! You never know who has access to that red": " besoin de votre film ! On ne sait jamais qui a accès à ce rouge",
 
-   "One KinoKlik account.": "Un compte KinoKlik.",
+  " Ferrari or hard-to-find rooftop infinity pool.": " Ferrari ou piscine à débordement sur le toit difficile à trouver.",
 
-   "All your films EPKs.": "Tous vos EPK de films.",
+  "Discover up-and-coming Actors eager to join your film project and": "Découvrez des acteurs prometteurs désireux de rejoindre votre projet de film et",
 
-   "Are you a Distributor, a Film Festival, Sales Agent": "Vous êtes Distributeur, Festival de Films, Agent Commercial",
+  " add them to your EPK. Follow, Star and Recommend Actors to other": " ajoutez-les à votre EPK. Suivez, jouez et recommandez des acteurs à d'autres",
 
-   " or Investor searching for new upcoming film projects?": " ou un investisseur à la recherche de nouveaux projets de films à venir?",
+  " filmmakers directly from their Actor Page!": " cinéastes directement depuis leur page acteur!",
 
-   "NEW FILMS": "NOUVEAUX FILMS",
+  "One KinoKlik account.": "Un compte KinoKlik.",
 
-   "MOST POPULAR": "LE PLUS POPULAIRE",
+  "All your films EPKs.": "Tous vos EPK de films.",
 
-   "Present and promote your film's vision to industry professionals": "Présentez et faites la promotion de la vision de votre film auprès des professionnels de l'industrie",
+  "Are you a Distributor, a Film Festival, Sales Agent": "Vous êtes Distributeur, Festival de Films, Agent Commercial",
 
-   " with KinoKlik EPK.": " avec KinoKlik EPK.",
+  " or Investor searching for new upcoming film projects?": " ou un investisseur à la recherche de nouveaux projets de films à venir?",
 
-   "Step 1.": "Étape 1.",
+  "NEW FILMS": "NOUVEAUX FILMS",
 
-   "Create a free filmmaker account.": "Créez un compte de cinéaste gratuit.",
+  "MOST POPULAR": "LE PLUS POPULAIRE",
 
-   "Step 2.": "Étape 2.",
+  "Present and promote your film's vision to industry professionals": "Présentez et faites la promotion de la vision de votre film auprès des professionnels de l'industrie",
 
-   "Upload your film details to the EPK Page": "Téléchargez les détails de votre film sur la page EPK",
+  " with KinoKlik EPK.": " avec KinoKlik EPK.",
 
-   "Step 3.": "Étape 3.",
+  "Step 1.": "Étape 1.",
 
-   "Share your film EPK page with the world and track interest!": "Partagez votre page EPK de film avec le monde entier et suivez votre intérêt!",
-   
-   "Are you ready to create": "Êtes-vous prêt à créer",
-   
-   "Amazing": "Incroyable",
+  "Create a free filmmaker account.": "Créez un compte de cinéaste gratuit.",
 
-   "film EPKs?": "des EPK de films ?",
+  "Step 2.": "Étape 2.",
 
-   "Frequently Asked Questions:": "Questions fréquemment posées:",
+  "Upload your film details to the EPK Page": "Téléchargez les détails de votre film sur la page EPK",
 
-   "Sign up for newsletter": "S'inscrire aux bulletin",
+  "Step 3.": "Étape 3.",
 
-   "What if you could promote your film to the world, for free?": "Et si vous pouviez promouvoir votre film dans le monde entier, gratuitement?",
+  "Share your film EPK page with the world and track interest!": "Partagez votre page EPK de film avec le monde entier et suivez votre intérêt!",
 
-   "Whether you have just an idea for a movie, shot the trailer, or": "Que vous ayez juste une idée de film, que vous ayez tourné la bande-annonce ou",
+  "Are you ready to create": "Êtes-vous prêt à créer",
 
-   " your film's in the can, use our free": " votre film est en boîte, utilisez notre service gratuit",
+  "Amazing": "Incroyable",
 
-   "Electronic Press Kit Software": "Logiciel de dossier de presse électronique",
+  "film EPKs?": "des EPK de films ?",
 
-   "to promote your film": "pour promouvoir votre film", 
+  "Frequently Asked Questions:": "Questions fréquemment posées:",
 
-   "directly to industry professionals and your audience.": "directement aux professionnels du secteur et à votre public.",
+  "Sign up for newsletter": "S'inscrire aux bulletin",
 
-   "Title is available!": "Le titre est disponible!",
+  "What if you could promote your film to the world, for free?": "Et si vous pouviez promouvoir votre film dans le monde entier, gratuitement?",
 
-   "Discover new film projects in their early stage and contact": "Découvrez de nouveaux projets de films à leurs débuts et contactez-nous",
+  "Whether you have just an idea for a movie, shot the trailer, or": "Que vous ayez juste une idée de film, que vous ayez tourné la bande-annonce ou",
 
-   " the filmmaker directly!": " le cinéaste directement!",
+  " your film's in the can, use our free": " votre film est en boîte, utilisez notre service gratuit",
 
-   "Discover new film projects to invest in and contact the": "Découvrez de nouveaux projets de films dans lesquels investir et contactez le",
+  "Electronic Press Kit Software": "Logiciel de dossier de presse électronique",
 
-   " filmmaker directly!": " cinéaste directement!",
+  "to promote your film": "pour promouvoir votre film",
 
-   "Discover new film projects to invite to your film festival and": "Découvrez de nouveaux projets de films à inviter à votre festival de cinéma et",
+  "directly to industry professionals and your audience.": "directement aux professionnels du secteur et à votre public.",
 
-   "message the filmmaker directly!": "envoyez un message directement au cinéaste!",
+  "Title is available!": "Le titre est disponible!",
 
-   "Measure the industry's interest in your film by tracking your EPK page data!": "Mesurez l'intérêt de l'industrie pour votre film en suivant votre EPK données de page!",
+  "Discover new film projects in their early stage and contact": "Découvrez de nouveaux projets de films à leurs débuts et contactez-nous",
 
-   "Present your film idea like a pro to industry professionals!": "Présentez votre idée de film comme un pro aux professionnels du secteur!",
+  " the filmmaker directly!": " le cinéaste directement!",
 
-   "Allow industry professionals to recommend you to other filmmakers!": "Permettez aux professionnels du secteur de vous recommander à d’autres cinéastes!",
+  "Discover new film projects to invest in and contact the": "Découvrez de nouveaux projets de films dans lesquels investir et contactez le",
 
-   "See and monitor the industry interest in the films you follow!": "Voyez et surveillez l’intérêt de l’industrie pour les films que vous suivez!",
+  " filmmaker directly!": " cinéaste directement!",
 
-   "What exactly is KinoKlik?": "Qu’est-ce que KinoKlik exactement?",
+  "Discover new film projects to invite to your film festival and": "Découvrez de nouveaux projets de films à inviter à votre festival de cinéma et",
 
-   "KinoKlik is an film Electronic Press Kit software enabling filmmakers to display, present and promote their film ideas in a professional matter, entirely for free. In parallel, it allows producers, distributors, investors, actors and film fans to discover up and coming film projects at different stages of their production. The KinoKlik EPK software enables filmmakers to upload their film information from poster, to synopsis to cast & crew hired, and film stills to an online EPK page and share their EPK page with film industry professionals to maximize the film's visibility and discovery!": "KinoKlik est un logiciel de dossier de presse électronique permettant aux cinéastes d'afficher, de présenter et de promouvoir leurs idées de films de manière professionnelle et entièrement gratuite. En parallèle, il permet aux producteurs, distributeurs, investisseurs, acteurs et cinéphiles de découvrir les projets de films en devenir à différentes étapes de leur production. Le logiciel KinoKlik EPK permet aux cinéastes de télécharger les informations de leur film depuis l'affiche, le synopsis des acteurs et de l'équipe embauchés, ainsi que les images fixes du film sur une page EPK en ligne et de partager leur page EPK avec des professionnels de l'industrie cinématographique pour maximiser la visibilité et la découverte du film!",
+  "message the filmmaker directly!": "envoyez un message directement au cinéaste!",
 
-   "Is KinoKlik free to use?": "L'utilisation de KinoKlik est-elle gratuite?",
+  "Measure the industry's interest in your film by tracking your EPK page data!": "Mesurez l'intérêt de l'industrie pour votre film en suivant votre EPK données de page!",
 
-   "KinoKlik EPK software is entirely free to use.": "Le logiciel KinoKlik EPK est entièrement gratuit.",
+  "Present your film idea like a pro to industry professionals!": "Présentez votre idée de film comme un pro aux professionnels du secteur!",
 
-   "What if my film is not finished?": "Et si mon film n'est pas terminé?",
+  "Allow industry professionals to recommend you to other filmmakers!": "Permettez aux professionnels du secteur de vous recommander à d’autres cinéastes!",
 
-   "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK get discovered by other film industry professionals!": "Si votre idée de film est encore dans votre tête (ou sur papier), c'est le moment idéal pour créer le dossier de presse électronique de votre film et partager votre idée de film avec le monde. Vous avez juste besoin d'un titre et d'un court synopsis pour commencer et faire découvrir l'EPK de votre film par d'autres professionnels de l'industrie cinématographique!",
+  "See and monitor the industry interest in the films you follow!": "Voyez et surveillez l’intérêt de l’industrie pour les films que vous suivez!",
 
-   "How can I protect my film's Intellectual Property?": "Comment puis-je protéger la propriété intellectuelle de mon film?",
+  "What exactly is KinoKlik?": "Qu’est-ce que KinoKlik exactement?",
 
-   "Your-email@Example.com": "Votre-email@Example.com",
+  "KinoKlik is an film Electronic Press Kit software enabling filmmakers to display, present and promote their film ideas in a professional matter, entirely for free. In parallel, it allows producers, distributors, investors, actors and film fans to discover up and coming film projects at different stages of their production. The KinoKlik EPK software enables filmmakers to upload their film information from poster, to synopsis to cast & crew hired, and film stills to an online EPK page and share their EPK page with film industry professionals to maximize the film's visibility and discovery!": "KinoKlik est un logiciel de dossier de presse électronique permettant aux cinéastes d'afficher, de présenter et de promouvoir leurs idées de films de manière professionnelle et entièrement gratuite. En parallèle, il permet aux producteurs, distributeurs, investisseurs, acteurs et cinéphiles de découvrir les projets de films en devenir à différentes étapes de leur production. Le logiciel KinoKlik EPK permet aux cinéastes de télécharger les informations de leur film depuis l'affiche, le synopsis des acteurs et de l'équipe embauchés, ainsi que les images fixes du film sur une page EPK en ligne et de partager leur page EPK avec des professionnels de l'industrie cinématographique pour maximiser la visibilité et la découverte du film!",
 
-   "You don't have any EPK approved.": "Vous n’avez aucun EPK approuvé",
+  "Is KinoKlik free to use?": "L'utilisation de KinoKlik est-elle gratuite?",
 
-   "You don't have any EPK refused.": "Vous n’avez aucun EPK refusé.",
+  "KinoKlik EPK software is entirely free to use.": "Le logiciel KinoKlik EPK est entièrement gratuit.",
 
-   "Phone no.": "Pas de téléphone",
+  "What if my film is not finished?": "Et si mon film n'est pas terminé?",
 
-   "Search name ...": "Rechercher le nom...",
-   
-   "Error checking for existing invitation:":"Erreur lors de la vérification d'une invitation existante :",
+  "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK get discovered by other film industry professionals!": "Si votre idée de film est encore dans votre tête (ou sur papier), c'est le moment idéal pour créer le dossier de presse électronique de votre film et partager votre idée de film avec le monde. Vous avez juste besoin d'un titre et d'un court synopsis pour commencer et faire découvrir l'EPK de votre film par d'autres professionnels de l'industrie cinématographique!",
 
-   "Error sending invitation:":"Erreur lors de l'envoi de l'invitation :",
+  "How can I protect my film's Intellectual Property?": "Comment puis-je protéger la propriété intellectuelle de mon film?",
 
-   "SIGN UP":"S'INSCRIRE",
+  "Your-email@Example.com": "Votre-email@Example.com",
 
-   "Film Director":"Réalisateur",
+  "You don't have any EPK approved.": "Vous n’avez aucun EPK approuvé",
 
-   "You don’t have any EPK starred.": "Vous n’avez aucun EPK suivi.",
+  "You don't have any EPK refused.": "Vous n’avez aucun EPK refusé.",
 
-   "You don't have any EPK following.": "Vous n’avez aucun EPK suivant.",
+  "Phone no.": "Pas de téléphone",
 
-   "Find all your film EPKs that you’ve created here.": "Retrouvez tous les EPK de vos films que vous avez créés ici.",
+  "Search name ...": "Rechercher le nom...",
 
-   "Find all the users film industry professionals who favourite and follow your film, and those who requests access to your protected EPKs.": "Retrouvez tous les utilisateurs professionnels de l'industrie cinématographique qui mettent en favoris et suivent votre film, ainsi que ceux qui demandent l'accès à vos EPK protégés."
+  "Error checking for existing invitation:": "Erreur lors de la vérification d'une invitation existante :",
 
+  "Error sending invitation:": "Erreur lors de l'envoi de l'invitation :",
+
+  "SIGN UP": "S'INSCRIRE",
+
+  "Film Director": "Réalisateur",
+
+  "You don’t have any EPK starred.": "Vous n’avez aucun EPK suivi.",
+
+  "You don't have any EPK following.": "Vous n’avez aucun EPK suivant.",
+
+  "Find all your film EPKs that you’ve created here.": "Retrouvez tous les EPK de vos films que vous avez créés ici.",
+
+  "Find all the users film industry professionals who favourite and follow your film, and those who requests access to your protected EPKs.": "Retrouvez tous les utilisateurs professionnels de l'industrie cinématographique qui mettent en favoris et suivent votre film, ainsi que ceux qui demandent l'accès à vos EPK protégés."
 }
