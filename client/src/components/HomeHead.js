@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { React, useState, useEffect } from "react";
-import "../styles/Homehead.css";
-import http from "../http-common";
-import { useSelector } from "react-redux";
-import SearchBar from "./HomeHead/SearchBar";
+import { React, useState, useEffect } from 'react';
+import '../styles/Homehead.css';
+import http from '../http-common';
+import { useSelector } from 'react-redux';
+import SearchBar from './HomeHead/SearchBar';
 
 const HomeHead = (props) => {
   const [fepk, setFepk] = useState({});
@@ -14,8 +14,8 @@ const HomeHead = (props) => {
   let userId;
   let userRole;
   if (!user) {
-    userId = "0";
-    userRole = "noUser";
+    userId = '0';
+    userRole = 'noUser';
   } else {
     userId = user.id;
     userRole = user.role;
@@ -23,7 +23,7 @@ const HomeHead = (props) => {
 
   //showing the latest added movie
   useEffect(() => {
-    if (props.role === "actor") {
+    if (props.role === 'actor') {
       http.get(`users/getactors/`).then((response) => {
         // Find the most recent actor with a bannerImg and picture
         const validActor = response.data
@@ -34,9 +34,9 @@ const HomeHead = (props) => {
               // actor.bannerImg &&
               // !actor.bannerImg.startsWith("https") &&
               actor.thumbnail &&
-              !actor.thumbnail.startsWith("https") &&
+              !actor.thumbnail.startsWith('https') &&
               actor.picture &&
-              !actor.picture.startsWith("https")
+              !actor.picture.startsWith('https')
           );
         if (validActor) {
           setActor(validActor);
@@ -60,13 +60,13 @@ const HomeHead = (props) => {
       className="tw-h-[100vh] tw-overflow-hidden tw-bg-cover tw-bg-center tw-bg-no-repeat"
       style={{
         backgroundImage:
-          props.role && props.role === "actor"
-            ? actor.thumbnail && !actor.thumbnail.startsWith("https")
+          props.role && props.role === 'actor'
+            ? actor.thumbnail && !actor.thumbnail.startsWith('https')
               ? `url(${process.env.REACT_APP_AWS_URL}/${actor.thumbnail})`
               : null
             : fepk.banner_url &&
-              !fepk.banner_url.startsWith("https") &&
-              fepk.banner_url !== ""
+              !fepk.banner_url.startsWith('https') &&
+              fepk.banner_url !== ''
             ? `url(${process.env.REACT_APP_AWS_URL}/${fepk.banner_url})`
             : null,
       }}
@@ -84,23 +84,23 @@ const HomeHead = (props) => {
             <a
               className="tw-mx-auto"
               href={
-                props.role === "actor"
+                props.role === 'actor'
                   ? `actor/${actor._id}`
                   : fepk && fepk.title
                   ? `epk/${fepk._id}`
-                  : "/"
+                  : '/'
               }
             >
               <img
                 className="homeHead-poster tw-invisible tw-object-cover md:tw-visible"
                 src={
-                  props.role === "actor"
-                    ? actor.picture && !actor.picture.startsWith("https")
+                  props.role === 'actor'
+                    ? actor.picture && !actor.picture.startsWith('https')
                       ? `${process.env.REACT_APP_AWS_URL}/${actor.picture}`
                       : actor.picture
                     : fepk.image_details &&
-                      !fepk.image_details.startsWith("https") &&
-                      fepk.banner_url !== ""
+                      !fepk.image_details.startsWith('https') &&
+                      fepk.banner_url !== ''
                     ? `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`
                     : null
                 }
@@ -112,23 +112,23 @@ const HomeHead = (props) => {
           <div className="tw-mx-auto tw-my-auto tw-w-full md:tw-w-2/4">
             <a
               href={
-                props.role === "actor"
+                props.role === 'actor'
                   ? `actor/${actor._id}`
-                  : fepk.title
-                  ? `epk/${fepk.title.replace(/ /g, "-").trim()}`
-                  : "/"
+                  : fepk && fepk.title
+                  ? `epk/${fepk._id}`
+                  : '/'
               }
             >
               <h1 className="movieTitle tw-mx-auto tw-text-5xl tw-font-semibold lg:tw-text-6xl xl:tw-text-8xl">
-                {props.role === "actor"
-                  ? actor.firstName + " " + actor.lastName
+                {props.role === 'actor'
+                  ? actor.firstName + ' ' + actor.lastName
                   : fepk.title}
               </h1>
             </a>
           </div>
         </div>
         <p className="movieIntro tw-my-8 tw-px-2 tw-text-xl">
-          {props.role === "actor" ? "" : fepk.logLine_short}
+          {props.role === 'actor' ? '' : fepk.logLine_short}
         </p>
         {/* <HomeMainFilm /> */}
       </section>

@@ -1,6 +1,6 @@
-import React from "react";
-import successemail from "../../../images/icons/success-email.png";
-import Logincss from "./login.module.css";
+import React from 'react';
+import successemail from '../../../images/icons/success-email.png';
+import Logincss from './login.module.css';
 import { useTranslation } from 'react-i18next';
 
 export default function CheckEmail(props) {
@@ -26,9 +26,9 @@ export default function CheckEmail(props) {
             <p>
               {t('Please check the email address')}
               <br />
-              <span className={Logincss.link}>{emailAddress}</span> for
-              {t('instructions to reset')}
-              <br /> {t('your password.')}
+              <span className={Logincss.link}>{emailAddress}</span>
+              <br />
+              {t('for instructions to reset your password.')}
             </p>
             <br />
 
