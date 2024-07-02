@@ -42,6 +42,8 @@ export default function Profile() {
     facebook_followers: "",
     instagram_url: "",
     instagram_followers: "",
+    role: "",
+    specialization: "",
     twitter_url: "",
     twitter_followers: "",
     youtube_subs: "",
@@ -530,6 +532,24 @@ export default function Profile() {
             <div className="message" style={{ color: "red" }}>
               {message}
             </div>
+          )}
+          {userProfileData.role === "Industry Professional" && (
+            <select
+              type="text"
+              name="specialization"
+              value={userProfileData.specialization}
+              onChange={handleProfileChange}
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            >
+              <option value="">{t("Select Specialization")}</option>
+              <option value="Distributor">{t("Distributor")}</option>
+              <option value="Sales Agent">{t("Sales Agent")}</option>
+              <option value="Film Festival">{t("Film Festival")}</option>
+              <option value="Producer">{t("Producer")}</option>
+              <option value="Writer">{t("Writer")}</option>
+              <option value="Cinematographer">{t("Cinematographer")}</option>
+              <option value="Investor">{t("Investor")}</option>
+            </select>
           )}
 
           {/* Save Button */}
