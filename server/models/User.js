@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -8,11 +8,11 @@ const UserSchema = mongoose.Schema({
   },
   phone: {
     type: String,
-    default: '',
+    default: "",
   },
   website: {
     type: String,
-    default: '',
+    default: "",
   },
   password: {
     type: String,
@@ -34,22 +34,27 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     enum: [
-      'Admin',
-      'Filmmaker',
-      'Sales Agent',
-      'Distributor',
-      'Film Festival',
-      'Viewer',
-      'Investor',
-      'Actor',
-      'Director',
-      'Editor',
-      'Producer',
-      'Cinematographer',
-      'Sound',
-      'Writer',
-      'Industry Professional',
+      "Admin",
+      "Filmmaker",
+      "Sales Agent",
+      "Distributor",
+      "Film Festival",
+      "Viewer",
+      "Investor",
+      "Actor",
+      "Director",
+      "Editor",
+      "Producer",
+      "Cinematographer",
+      "Sound",
+      "Writer",
+      "Industry Professional",
     ],
+  },
+  specialization: {
+    type: String,
+    maxlength: 30,
+    minlength: 3,
   },
   following: {
     type: Array,
@@ -63,7 +68,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     trim: true,
     default:
-      'https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png',
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
   profiles: [
     {
@@ -73,15 +78,15 @@ const UserSchema = mongoose.Schema({
   ],
   city: {
     type: String,
-    default: '',
+    default: "",
   },
   province: {
     type: String,
-    default: '',
+    default: "",
   },
   country: {
     type: String,
-    default: '',
+    default: "",
   },
   createdAt: {
     type: Date,
@@ -100,19 +105,19 @@ const UserSchema = mongoose.Schema({
     type: String,
     trim: true,
     default:
-      'https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png',
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
   thumbnail: {
     type: String,
     trim: true,
     default:
-      'https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844377/banners/sample_banner1.png',
+      "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844377/banners/sample_banner1.png",
   },
   aboutMe: {
     type: String,
     trim: true,
     default:
-      'Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example',
+      "Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example Biography text here example",
   },
   comunicate: {
     type: [
@@ -125,13 +130,13 @@ const UserSchema = mongoose.Schema({
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   ],
   kkFollowers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   ],
   recommendations: {
@@ -168,22 +173,22 @@ const UserSchema = mongoose.Schema({
   bodyBuild: {
     type: String,
   },
-  facebook_url: { type: String, default: '' },
-  facebook_followers: { type: String, default: '' },
-  instagram_url: { type: String, default: '' },
-  instagram_followers: { type: String, default: '' },
-  twitter_url: { type: String, default: '' },
-  twitter_followers: { type: String, default: '' },
-  youtube_url: { type: String, default: '' },
-  youtube_subs: { type: String, default: '' },
-  linkedin_url: { type: String, default: '' },
-  linkedin_followers: { type: String, default: '' },
+  facebook_url: { type: String, default: "" },
+  facebook_followers: { type: String, default: "" },
+  instagram_url: { type: String, default: "" },
+  instagram_followers: { type: String, default: "" },
+  twitter_url: { type: String, default: "" },
+  twitter_followers: { type: String, default: "" },
+  youtube_url: { type: String, default: "" },
+  youtube_subs: { type: String, default: "" },
+  linkedin_url: { type: String, default: "" },
+  linkedin_followers: { type: String, default: "" },
 
   receiveNewsletter: { type: Boolean, default: true },
   lastActive: { type: Date, default: null },
   otp: {
     type: String,
-    default: '',
+    default: "",
   },
 });
 
@@ -193,6 +198,6 @@ UserSchema.methods.comparePassword = async function (password) {
   return result;
 };
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 
 export default User;
