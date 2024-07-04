@@ -110,7 +110,7 @@ const Landing5 = () => {
           <div className="md:tw-w-2/4">
             <p className="tw-mx-auto tw-rounded-xl tw-bg-[#3f2556] tw-p-5 tw-text-center tw-font-semibold tw-text-white md:tw-text-2xl xl:tw-w-2/4">
               {t("Protect your film's Intelectual Property")} (IP){" "}
-              {t("by blurring out any")}
+              {t("by blurring out any ")}
               {t("section you chose directly from your EPK dashboard.")}
             </p>
           </div>
