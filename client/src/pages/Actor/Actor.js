@@ -199,6 +199,9 @@ export default function Actor(props) {
       return console.error("No filmmakers selected for recommendation");
     }
 
+    console.log("User Role:", user.role); // Add this
+    console.log("Selected Filmmakers:", selectedFilmmakers); // Add this
+
     const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
     const message2 = `<a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
 
