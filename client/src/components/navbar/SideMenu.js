@@ -162,7 +162,7 @@ export const SideProfileMenu = () => {
       <div
         className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible"
         style={{
-          width: isMobile ? "38%" : "18rem",
+          width: isMobile ? "50%" : "18rem",
         }}
       >
         <div className="tw-p-4">
@@ -194,11 +194,7 @@ export const SideProfileMenu = () => {
               >
                 <p
                   className={`tw-pb-2 ${
-                    isMobile
-                      ? menu.name === "Notifications"
-                        ? "tw-text-xxs"
-                        : "tw-text-xs"
-                      : "tw-text-2xl"
+                    isMobile ? "tw-text-xs" : "tw-text-2xl"
                   }`} // Adjust the font size based on screen size
                   style={{
                     flexGrow: isMobile ? 1 : "initial",

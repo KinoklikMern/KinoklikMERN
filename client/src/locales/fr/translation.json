@@ -1,5 +1,5 @@
 {
-  "You don't have any EPK created.": "Vous n'avez créé aucun EPK.",
+  "You don't have any EPK created.": "Vous n'avez créé aucun DPE.",
   "Start promoting your film right away!": "Commencez dès maintenant à promouvoir votre film !",
 
   "WishToBuy": "Envie D'acheter",
@@ -67,17 +67,17 @@
   "_comment From FimakerDashBoard SettingsPage": "9 changes, Line 15,19,23,27,34,65-68",
 
   "_comment From FilmMaker filmMakerDashboared ": "5 changes, Line 47",
-  "Create New Film EPK": "Créer un nouveau film EPK",
-  "You don`t have any EPK created.To start promoting your ": "Vous n'avez pas créé d'EPK. Pour commencer à promouvoir votre ",
+  "Create New Film EPK": "Créer un nouveau film DPE",
+  "You don`t have any EPK created.To start promoting your ": "Vous n'avez pas créé de DPE. Pour commencer à promouvoir votre ",
 
   " film right away.": " film tout de suite",
 
-  "Create your free film EPK now!": "Créez votre EPK de film gratuit maintenant !",
+  "Create your free film EPK now!": "Créez votre DPE de film gratuit maintenant !",
   "Update": "Mise à jour",
   "update": "Mise à jour",
 
   "_comment From FilmMaker filmMakerSelected": "2 changes, Line 115, Line 122",
-  "EPK Requests": "Demande EPK",
+  "EPK Requests": "Demande DPE",
 
   "_comment From login CHeckEmailPage": "0 CHanges ",
   "_comment From login index": "0 CHanges ",
@@ -89,9 +89,9 @@
   "User Dashboard": "Tableau de bord utilisateur",
   "_comment From UserDashboard FollowingPage": "1 CHanges. Line 39 ",
   "_comment From UserDashboard RequestPage": "2 CHanges. Line 74, 84, 112,140, ",
-  "Approved EPKs": "EPK approuvés",
-  "Pending EPKs": "EPK en Attente",
-  "Refused EPKs": "EPK refusés",
+  "Approved EPKs": "DPE approuvés",
+  "Pending EPKs": "DPE en Attente",
+  "Refused EPKs": "DPE refusés",
   "_comment From UserDashboard SettingsPage": "9 CHanges. Line  15, 19, 23, 27, 34,66-69, ",
   "_comment From UserDashboard StarredPage": "1 CHange.",
   "Starred": "Favoris",
@@ -109,7 +109,7 @@
   "TV Show": "Épisodes TV",
   "Web Series": "Épisodes-Web",
   "Documentary": "Documentaires",
-  "all epks": "Tous EPK",
+  "all epks": "Tous DPE",
   "All EPKs": "Tous",
   "POST PRODUCTION": "POST-PRODUCTION",
 
@@ -119,7 +119,7 @@
   "Close": "Fermer",
   "Send": "Envoyer",
   "Total Audience Reach": "Audience Totale",
-  "Why are you reporting this EPK?": "Pourquoi signalez-vous cet EPK ?",
+  "Why are you reporting this EPK?": "Pourquoi signalez-vous cet DPE ?",
   "This can be unwanted and unauthorized use": "Cela peut être une utilisation non désirée et non autorisée",
   " of content from another website on third-party websites inconnection with other content, negatively": " de contenu provenant d'un autre site web sur des sites tiers en lien avec d'autres contenus",
   " affecting your experience and reputation on our": " affectant négativement votre expérience et réputation sur notre",
@@ -129,7 +129,7 @@
   "Other:": "Autre:",
   "Other: any other reason you may want to report this": "Autre : toute autre raison pour laquelle vous souhaiteriez signaler ceci",
 
-  " EPK.": " EPK.",
+  " EPK.": " DPE.",
 
   "Report!": "Rapporter!",
 
@@ -162,7 +162,7 @@
   "Main Metrics": "Principales mesures",
   "Users": "Utilisateurs",
   "Line Analytics": "",
-  "EPKs": "EPKs",
+  "EPKs": "DPEs",
   "KinoKlik Admin": "Administrateur KinoKlik",
 
   "_comment From Components AuthRegistration CheckEmail": "4 CHanges.",
@@ -240,13 +240,13 @@
   "Donate with Stripe": "Faites un don avec Stripe",
 
   "_comment From Components Epk Input castForm": "3 CHanges.",
-  "EPK Dashboard": "Tableau de bord EPK",
-  "View EPK Page": "Voir la page EPK",
+  "EPK Dashboard": "Tableau de bord DPE",
+  "View EPK Page": "Voir la page DPE",
   "Starring/Cast": "Vedette/Casting",
 
   "_comment From Components Epk Input cinematographerForm": "2 CHanges.Line 88, 102",
   "_comment From Components Epk Input coverForm": "0 CHanges. Line 146, 191",
-  "EPK Page Upload": "Téléchargement de Pages EPK",
+  "EPK Page Upload": "Téléchargement de Pages DPE",
   "Cover": "Couverture",
   "Upload Banner": "Télécharger la bannière",
   "Upload Trailer": "Télécharger la bande-annonce",
@@ -254,7 +254,7 @@
   "_comment From Components Epk Input detailsFepkForm": "20 CHanges.",
   "Upload Poster / Thumbail": "Télécharger une affiche/une vignette",
   "CREW NAME": "NOM DE L'ÉQUIPAGE",
-  "EPK ROLE": "RÔLE EPK",
+  "EPK ROLE": "RÔLE DPE",
   "ACTION": "ACTON",
   "Add to Table": "Ajouter au tableau",
   "lead actor": "Acteur Principal",
@@ -278,9 +278,9 @@
   "Director's Name": "Nom du réalisateur",
 
   "_comment From Components Epk Input EpkCoverForm": "7 CHanges.",
-  "EPK Upload Page": "Page de téléchargement EPK",
-  "Show EPK": "Afficher l'EPK",
-  "EPK Cover Section": "Section de couverture de l'EPK",
+  "EPK Upload Page": "Page de téléchargement DPE",
+  "Show EPK": "Afficher le DPE",
+  "EPK Cover Section": "Section de couverture de le DPE",
   "Upload Banner Line 224": "Télécharger la bannière",
   "Upload Trailer Line 240": "Télécharger la bande-annonce",
 
@@ -300,7 +300,7 @@
   "Invitation saved and user added to frontend": "Invitation enregistrée et utilisateur ajouté au frontend",
   "Line 940 User is not found. Ivite via email:": "L'utilisateur est introuvable. Invitez par e-mail :",
   "Send Invitation": "Envoyer une invitation",
-  "Add to EPK": "Ajouter à l'EPK",
+  "Add to EPK": "Ajouter à le DPE",
   "NAME": "NOM",
   "IMAGE": "IMAGE",
   "FACE": "FACE",
@@ -356,7 +356,7 @@
   "Logline": "Connexion",
 
   "_comment From Components Epk Input producerForm": "4 CHanges.",
-  "EPK DashBoard": "Tableau de bord EPK",
+  "EPK DashBoard": "Tableau de bord DPE",
 
   "_comment From Components Epk Input requestApproval": "13 CHanges.",
   "Medium Synopsis Requests:": "Demandes de résumé moyen :",
@@ -374,7 +374,7 @@
   "Reviews": "Commentaires",
 
   "_comment From Components Epk Input stillsForm": "3 CHanges.",
-  "EPK Dashborad": "Tableau de bord EPK",
+  "EPK Dashborad": "Tableau de bord DPE",
   "Stills": "Images fixes",
 
   "_comment From Components Epk Input synopsisForm": "2 CHanges.",
@@ -461,8 +461,8 @@
   "This can be unwanted, unauthorized or unethical use of content from another website, negatively affecting your experience and the reputation on our platform.": "Cela peut être une utilisation non désirée, non autorisée ou contraire à l'éthique de contenu provenant d'un autre site web, affectant négativement votre expérience et la réputation sur notre plateforme.",
   "Copyrighted Intellectual Property Violation": "Violation de la propriété intellectuelle protégée par le droit d'auteur",
   "type here": "écrivez ici",
-  "Other: any other reason you may want to report this EPK.": "Autre: autre raison pour laquelle vous souhaiterez peut-être signaler cet EPK.",
-  "Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.": "Merci d'avoir rapporté ce film EPK. Nous sommes actuellement en train d'enquêter et avons informé le cinéaste en conséquence.",
+  "Other: any other reason you may want to report this EPK.": "Autre: autre raison pour laquelle vous souhaiterez peut-être signaler cet DPE.",
+  "Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.": "Merci d'avoir rapporté ce film DPE. Nous sommes actuellement en train d'enquêter et avons informé le cinéaste en conséquence.",
 
   "_comment From Components EpkView EpkResources EpkResources": "0 CHanges.",
   "_comment From Components EpkView EpkResources ResourceCard": "0 CHanges.",
@@ -481,7 +481,7 @@
   "Don't have an account yet?": "Vous n'avez pas encore de compte?",
 
   "_comment From Components EpkView miscellaneous NewMessageModal": "2 CHanges.",
-  "Please type your message to the Filmmaker EPK Owner": "Veuillez taper votre message au propriétaire du cinéaste EPK",
+  "Please type your message to the Filmmaker EPK Owner": "Veuillez taper votre message au propriétaire du cinéaste DPE",
 
   "_comment From Components EpkView miscellaneous RequestButton": "0 CHanges.",
   "_comment From Components EpkView miscellaneous RequestModal": "2 CHanges.",
@@ -494,7 +494,7 @@
   "Connect Page": "Page de connexion",
   "_comment From Components Filmaker filmMakerDashboard": "3 CHanges.",
   "You don't have any EPK created. Start promoting away!": "",
-  "Create your own EPK now!": "Créez votre propre EPK maintenant !",
+  "Create your own EPK now!": "Créez votre propre DPE maintenant !",
 
   "_comment From Components Filmaker filmMakerDashboardSecurity": "5 CHanges.",
   "Profile": "Profil",
@@ -518,7 +518,7 @@
   "Viewer": "Téléspectateur",
   "Film Festival": "Festival du film",
   "Sales Agent": "Agent de ventes",
-  "All EPK": "Tous les EPK",
+  "All EPK": "Tous les DPE",
   "Denied": "Refusé",
   "User Name:": "Nom d'utilisateur:",
   "Comment": "Commentaire",
@@ -531,7 +531,7 @@
   "_comment From Components FilmMakeDashboard Chats MessageBox": "0 CHanges.",
   "_comment From Components FilmMakeDashboard Chats NotificationItem": "0 CHanges.",
   "_comment From Components FilmMakeDashboard EPKs EmptyEpk": "0 CHanges.",
-  "You don't have any EPK created": "Vous n'avez créé aucun EPK",
+  "You don't have any EPK created": "Vous n'avez créé aucun DPE",
   "Start promoting you film right away!": "commencez immédiatement à promouvoir votre film !",
 
   "_comment From Components FilmMakeDashboard EPKs EpkCard": "0 CHanges.",
@@ -697,7 +697,7 @@
 
   "REGISTER": "S'INSCRIRE",
 
-  "CREATE EPK": "CRÉER Un EPK",
+  "CREATE EPK": "CRÉER Un DPE",
 
   "My Settings": "Paramètres",
 
@@ -761,21 +761,21 @@
 
   "Upload a movie": "Télécharger un film",
 
-  "Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Cinéaste peut télécharger un film EPK. Veuillez enregistrer un",
+  "Only Filmmaker account can upload film EPK. Please register a": "Seul le compte Cinéaste peut télécharger un film DPE. Veuillez enregistrer un",
 
   "Filmmaker account to complete this action.": "Compte cinéaste pour réaliser cette action.",
 
   "OK": "D'ACCORD",
 
-  "Promote your film for free, with KinoKlik EPK !": "Faites la promotion de votre film gratuitement, avec KinoKlik EPK !",
+  "Promote your film for free, with KinoKlik EPK !": "Faites la promotion de votre film gratuitement, avec KinoKlik DPE !",
 
   "components, upload1, Image mime type is not valid": "Le type d'image MIME n'est pas valide",
 
   "Browse images": "Parcourir les images",
 
-  "You don't have any EPK following": "Vous n'avez aucun EPK suivi.",
+  "You don't have any EPK following": "Vous n'avez aucun DPE suivi.",
 
-  "You don't have any EPK": "Vous n'avez aucun EPK",
+  "You don't have any EPK": "Vous n'avez aucun DPE",
 
   "Delete Account": "Supprimer le compte",
 
@@ -819,7 +819,7 @@
 
   "Updated studio successfully!": "Studio mis à jour avec succès !",
 
-  "You don't have any EPK starred.": "Vous n'avez aucun EPK suivi.",
+  "You don't have any EPK starred.": "Vous n'avez aucun DPE suivi.",
 
   "Upload Headshot": "Télécharger une photo du visage",
 
@@ -835,8 +835,8 @@
 
   "Updated successfully!": "Mis à jour avec succès!",
 
-  "There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun EPK attaché à votre page d'acteur. Une fois ",
-  "filmmakers will assign you an EPK, it will appear here.": "Les réalisateurs vous attribueront un EPK, il apparaîtra ici",
+  "There are currently no EPKs attached to your Actor Page. Once": "Il n'y a actuellement aucun DPE attaché à votre page d'acteur. Une fois ",
+  "filmmakers will assign you an EPK, it will appear here.": "Les réalisateurs vous attribueront un DPE, il apparaîtra ici",
 
   "Actor Dashboard": "Tableau de Bord des Acteurs",
 
@@ -906,9 +906,9 @@
 
   "10.Traitement": "10.Treatment",
 
-  "Upload EPK": "Télécharger l'EPK",
+  "Upload EPK": "Télécharger le DPE",
 
-  "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !",
+  "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons !": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film DPE et éventuellement d'acheter les droits. Connectons-nous et parlons !",
 
   "Upload Poster / Thumbnail": "Télécharger une affiche/une vignette",
 
@@ -932,7 +932,7 @@
 
   "Status": "Statut",
 
-  "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.": "Afin de collecter des dons pour votre film, veuillez saisir ici l'URL de votre PayPal ou de votre bouton Stripe. Votre icône de don apparaîtra sous la section de couverture de l'EPK.",
+  "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.": "Afin de collecter des dons pour votre film, veuillez saisir ici l'URL de votre PayPal ou de votre bouton Stripe. Votre icône de don apparaîtra sous la section de couverture de le DPE.",
 
   "NO VIDEO UPLOADED": "AUCUNE VIDÉO TÉLÉCHARGÉE",
 
@@ -942,7 +942,7 @@
 
   "Email Address": "Adresse E-Mail",
 
-  "Epk role...": "Epk rôle...",
+  "Epk role...": "DPE rôle...",
 
   "Invitation is Sent Successfully!": "L'invitation a été envoyée avec succès !",
 
@@ -1040,17 +1040,17 @@
 
   "Transfer Now": "Transférer maintenant",
 
-  "EPK Settings": "EPK Paramètres",
+  "EPK Settings": "DPE Paramètres",
 
   "Transfer Ownership": "Transfert de Propriété",
 
-  "Please take note: If you transfer ownership of this EPK to": "Veuillez noter : si vous transférez la propriété de cet EPK à",
+  "Please take note: If you transfer ownership of this EPK to": "SVP veuillez noter: si vous transférez la propriété de ce DPE vers un autre compte de cinéaste,",
 
-  " another Filmmaker or Producer account, it cannot be undone. The": " un autre compte de cinéaste ou de producteur, il ne peut pas être annulé. Le",
+  " another Filmmaker or Producer account, it cannot be undone. The": " cette action ne peut pas être annulée ou inversée de votre compte par la suite.",
 
-  " new EPK Owner will have ownership of this EPK and it cannot be": " le nouveau propriétaire de l'EPK sera propriétaire de cet EPK et il ne pourra pas être",
+  " new EPK Owner will have ownership of this EPK and it cannot be": " Le nouveau compte de cinéaste sera propriétaire de ce DPE et cette action ne pourra être inversée",
 
-  " reversed from your Dashboard.": " inversé depuis votre tableau de bord",
+  " reversed from your Dashboard.": " qu'à partir du tableau de bord du nouveau compte de cinéaste.",
 
   "Present your film like a PRO, for FREE with KinoKlik EPK!": "Présentez votre film comme un PRO, GRATUITEMENT avec Dossier de Press Electronique de KinoKlik!",
 
@@ -1147,7 +1147,7 @@
 
   "Request refused": "Demande refusée",
 
-  "eg. Hello Filmmaker, I'm interested to see your film EPK and possibly purchase the rights. Let's connect and talk! ": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film EPK et éventuellement d'acheter les droits. Connectons-nous et parlons ! ",
+  "eg. Hello Filmmaker, I'm interested to see your film EPK and possibly purchase the rights. Let's connect and talk! ": "par exemple. Bonjour Cinéaste, je suis intéressé de voir votre film DPE et éventuellement d'acheter les droits. Connectons-nous et parlons ! ",
 
   "still.comment": "encore.commentaire",
 
@@ -1157,7 +1157,7 @@
 
   "Follow +": "Suivre +",
 
-  "EPK Cover Saved Successfully!": "Couverture EPK enregistrée avec succès !",
+  "EPK Cover Saved Successfully!": "Couverture DPE enregistrée avec succès !",
 
   "User with that email is already registered under name:": "L'utilisateur avec cette adresse e-mail est déjà enregistré sous le nom:",
 
@@ -1201,9 +1201,9 @@
 
   "Search...": "Recherche",
 
-  "You don’t have any EPK following.": "Vous n’avez aucun EPK suivant.",
+  "You don’t have any EPK following.": "Vous n’avez aucun DPE suivant.",
 
-  "You don’t have any EPK wish to buy.": "Vous n’avez aucun EPK que vous souhaitez acheter.",
+  "You don’t have any EPK wish to buy.": "Vous n’avez aucun DPE que vous souhaitez acheter.",
 
   "Cover - Mandotory": "Couverture - Obligatoire",
 
@@ -1213,9 +1213,9 @@
 
   "Cast & Crew": "Casting et équipe",
 
-  "Add Cast & Crew members to your EPK!": "Ajoutez des membres Cast et équipe  à votre EPK !",
+  "Add Cast & Crew members to your EPK!": "Ajoutez des membres Cast et équipe  à votre DPE !",
 
-  "Save to EPK": "Enregistrer dans EPK",
+  "Save to EPK": "Enregistrer dans DPE",
 
   "(Film Buzz (Reviews & Awards)": "(Film Buzz (Critiques et Récompenses)",
 
@@ -1255,17 +1255,17 @@
 
   "software!": "logiciel!",
 
-  "Browse EPKs": "Parcourir les EPK",
+  "Browse EPKs": "Parcourir les DPE",
 
-  "Create EPK": "CRÉER Un EPK",
+  "Create EPK": "CRÉER Un DPE",
 
-  "Présentation de KinoKlik EPK": "Présentation de KinoKlik EPK",
+  "Présentation de KinoKlik EPK": "Présentation de KinoKlik DPE",
 
   "a free film marketing software": "un logiciel de marketing cinématographique gratuit",
 
-  "What is an EPK?": "Qu’est-ce qu’un EPK ?",
+  "What is an EPK?": "Qu’est-ce qu’un DPE ?",
 
-  " An EPK, or": "Un EPK, ou",
+  " An EPK, or": "Un DPE, ou",
 
   "is": "est",
 
@@ -1279,7 +1279,7 @@
 
   "It's now": "C'est maintenant",
 
-  "We now have KinoKlik EPK": "Nous avons maintenant KinoKlik EPK",
+  "We now have KinoKlik EPK": "Nous avons maintenant KinoKlik DPE",
 
   "software! For free!": "logiciel! Gratuitement!",
 
@@ -1297,7 +1297,7 @@
 
   "automatically integrated": "automatiquement intégré",
 
-  "in your EPK to calculate and show your film's potential": "dans votre EPK pour calculer & montrer le potentiel de votre film",
+  "in your EPK to calculate and show your film's potential": "dans votre DPE pour calculer & montrer le potentiel de votre film",
 
   "Total Audience Reach!": "Audience Totale Atteinte!",
 
@@ -1309,19 +1309,19 @@
 
   " page to see the film's potential audience!": " page pour voir le public potentiel du film!",
 
-  "Introducing KinoKlik EPK": "Présentation de KinoKlik EPK",
+  "Introducing KinoKlik EPK": "Présentation de KinoKlik DPE",
 
   "free film marketing software": "logiciel de marketing cinématographique gratuit",
 
   "Protect your film's Intelectual Property": "Protégez la propriété intellectuelle de votre film",
 
-  "section you chose directly from your EPK dashboard.": "section que vous avez choisie directement depuis votre tableau de bord EPK.",
+  "section you chose directly from your EPK dashboard.": "section que vous avez choisie directement depuis votre tableau de bord DPE.",
 
   "by blurring out any": "en estompant tout",
 
   "free film marketing software.": "logiciel de marketing cinématographique gratuit",
 
-  "Add unlimited Actors information to your film EPK in the Cast &": "Ajoutez des informations illimitées sur les acteurs à votre film EPK dans Castign &",
+  "Add unlimited Actors information to your film EPK in the Cast &": "Ajoutez des informations illimitées sur les acteurs à votre film DPE dans Castign &",
 
   " Crew section.": " Section équipage.",
 
@@ -1329,7 +1329,7 @@
 
   "Control all information you display about your film directly from": "Contrôlez toutes les informations que vous affichez sur votre film directement depuis",
 
-  " your EPK Dashboard.": " votre Tableau de Bord EPK.",
+  " your EPK Dashboard.": " votre Tableau de Bord DPE.",
 
   "Take advantage of the views and traffic to tell people what you": "Profitez des vues et du trafic pour dire aux gens ce que vous",
 
@@ -1339,13 +1339,13 @@
 
   "Discover up-and-coming Actors eager to join your film project and": "Découvrez des acteurs prometteurs désireux de rejoindre votre projet de film et",
 
-  " add them to your EPK. Follow, Star and Recommend Actors to other": " ajoutez-les à votre EPK. Suivez, jouez et recommandez des acteurs à d'autres",
+  " add them to your EPK. Follow, Star and Recommend Actors to other": " ajoutez-les à votre DPE. Suivez, jouez et recommandez des acteurs à d'autres",
 
   " filmmakers directly from their Actor Page!": " cinéastes directement depuis leur page acteur!",
 
   "One KinoKlik account.": "Un compte KinoKlik.",
 
-  "All your films EPKs.": "Tous vos EPK de films.",
+  "All your films EPKs.": "Tous vos DPE de films.",
 
   "Are you a Distributor, a Film Festival, Sales Agent": "Vous êtes Distributeur, Festival de Films, Agent Commercial",
 
@@ -1357,7 +1357,7 @@
 
   "Present and promote your film's vision to industry professionals": "Présentez et faites la promotion de la vision de votre film auprès des professionnels de l'industrie",
 
-  " with KinoKlik EPK.": " avec KinoKlik EPK.",
+  " with KinoKlik EPK.": " avec KinoKlik DPE.",
 
   "Step 1.": "Étape 1.",
 
@@ -1365,17 +1365,17 @@
 
   "Step 2.": "Étape 2.",
 
-  "Upload your film details to the EPK Page": "Téléchargez les détails de votre film sur la page EPK",
+  "Upload your film details to the EPK Page": "Téléchargez les détails de votre film sur la page DPE",
 
   "Step 3.": "Étape 3.",
 
-  "Share your film EPK page with the world and track interest!": "Partagez votre page EPK de film avec le monde entier et suivez votre intérêt!",
+  "Share your film EPK page with the world and track interest!": "Partagez votre page DPE de film avec le monde entier et suivez votre intérêt!",
 
   "Are you ready to create": "Êtes-vous prêt à créer",
 
   "Amazing": "Incroyable",
 
-  "film EPKs?": "des EPK de films ?",
+  "film EPKs?": "des DPE de films ?",
 
   "Frequently Asked Questions:": "Questions fréquemment posées:",
 
@@ -1407,7 +1407,7 @@
 
   "message the filmmaker directly!": "envoyez un message directement au cinéaste!",
 
-  "Measure the industry's interest in your film by tracking your EPK page data!": "Mesurez l'intérêt de l'industrie pour votre film en suivant votre EPK données de page!",
+  "Measure the industry's interest in your film by tracking your EPK page data!": "Mesurez l'intérêt de l'industrie pour votre film en suivant votre DPE données de page!",
 
   "Present your film idea like a pro to industry professionals!": "Présentez votre idée de film comme un pro aux professionnels du secteur!",
 
@@ -1417,23 +1417,23 @@
 
   "What exactly is KinoKlik?": "Qu’est-ce que KinoKlik exactement?",
 
-  "KinoKlik is an film Electronic Press Kit software enabling filmmakers to display, present and promote their film ideas in a professional matter, entirely for free. In parallel, it allows producers, distributors, investors, actors and film fans to discover up and coming film projects at different stages of their production. The KinoKlik EPK software enables filmmakers to upload their film information from poster, to synopsis to cast & crew hired, and film stills to an online EPK page and share their EPK page with film industry professionals to maximize the film's visibility and discovery!": "KinoKlik est un logiciel de dossier de presse électronique permettant aux cinéastes d'afficher, de présenter et de promouvoir leurs idées de films de manière professionnelle et entièrement gratuite. En parallèle, il permet aux producteurs, distributeurs, investisseurs, acteurs et cinéphiles de découvrir les projets de films en devenir à différentes étapes de leur production. Le logiciel KinoKlik EPK permet aux cinéastes de télécharger les informations de leur film depuis l'affiche, le synopsis des acteurs et de l'équipe embauchés, ainsi que les images fixes du film sur une page EPK en ligne et de partager leur page EPK avec des professionnels de l'industrie cinématographique pour maximiser la visibilité et la découverte du film!",
+  "KinoKlik is an film Electronic Press Kit software enabling filmmakers to display, present and promote their film ideas in a professional matter, entirely for free. In parallel, it allows producers, distributors, investors, actors and film fans to discover up and coming film projects at different stages of their production. The KinoKlik EPK software enables filmmakers to upload their film information from poster, to synopsis to cast & crew hired, and film stills to an online EPK page and share their EPK page with film industry professionals to maximize the film's visibility and discovery!": "KinoKlik est un logiciel de dossier de presse électronique permettant aux cinéastes d'afficher, de présenter et de promouvoir leurs idées de films de manière professionnelle et entièrement gratuite. En parallèle, il permet aux producteurs, distributeurs, investisseurs, acteurs et cinéphiles de découvrir les projets de films en devenir à différentes étapes de leur production. Le logiciel KinoKlik DPE permet aux cinéastes de télécharger les informations de leur film depuis l'affiche, le synopsis des acteurs et de l'équipe embauchés, ainsi que les images fixes du film sur une page DPE en ligne et de partager leur page DPE avec des professionnels de l'industrie cinématographique pour maximiser la visibilité et la découverte du film!",
 
   "Is KinoKlik free to use?": "L'utilisation de KinoKlik est-elle gratuite?",
 
-  "KinoKlik EPK software is entirely free to use.": "Le logiciel KinoKlik EPK est entièrement gratuit.",
+  "KinoKlik EPK software is entirely free to use.": "Le logiciel KinoKlik DPE est entièrement gratuit.",
 
   "What if my film is not finished?": "Et si mon film n'est pas terminé?",
 
-  "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK get discovered by other film industry professionals!": "Si votre idée de film est encore dans votre tête (ou sur papier), c'est le moment idéal pour créer le dossier de presse électronique de votre film et partager votre idée de film avec le monde. Vous avez juste besoin d'un titre et d'un court synopsis pour commencer et faire découvrir l'EPK de votre film par d'autres professionnels de l'industrie cinématographique!",
+  "If your film idea is still in your head (or on paper) this is the perfect time to create your film's Electronic Press Kit and share your film idea with the world. You just need a title and a short synopsis to get started and get your film's EPK get discovered by other film industry professionals!": "Si votre idée de film est encore dans votre tête (ou sur papier), c'est le moment idéal pour créer le dossier de presse électronique de votre film et partager votre idée de film avec le monde. Vous avez juste besoin d'un titre et d'un court synopsis pour commencer et faire découvrir le DPE de votre film par d'autres professionnels de l'industrie cinématographique!",
 
   "How can I protect my film's Intellectual Property?": "Comment puis-je protéger la propriété intellectuelle de mon film?",
 
   "Your-email@Example.com": "Votre-email@Example.com",
 
-  "You don't have any EPK approved.": "Vous n’avez aucun EPK approuvé",
+  "You don't have any EPK approved.": "Vous n’avez aucun DPE approuvé",
 
-  "You don't have any EPK refused.": "Vous n’avez aucun EPK refusé.",
+  "You don't have any EPK refused.": "Vous n’avez aucun DPE refusé.",
 
   "Phone no.": "Pas de téléphone",
 
@@ -1447,11 +1447,11 @@
 
   "Film Director": "Réalisateur",
 
-  "You don’t have any EPK starred.": "Vous n’avez aucun EPK suivi.",
+  "You don’t have any EPK starred.": "Vous n’avez aucun DPE suivi.",
 
-  "You don't have any EPK following.": "Vous n’avez aucun EPK suivant.",
+  "You don't have any EPK following.": "Vous n’avez aucun DPE suivant.",
 
-  "Find all your film EPKs that you’ve created here.": "Retrouvez tous les EPK de vos films que vous avez créés ici.",
+  "Find all your film EPKs that you’ve created here.": "Retrouvez tous les DPE de vos films que vous avez créés ici.",
 
-  "Find all the users film industry professionals who favourite and follow your film, and those who requests access to your protected EPKs.": "Retrouvez tous les utilisateurs professionnels de l'industrie cinématographique qui mettent en favoris et suivent votre film, ainsi que ceux qui demandent l'accès à vos EPK protégés."
+  "Find all the users film industry professionals who favourite and follow your film, and those who requests access to your protected EPKs.": "Retrouvez tous les utilisateurs professionnels de l'industrie cinématographique qui mettent en favoris et suivent votre film, ainsi que ceux qui demandent l'accès à vos DPE protégés."
 }
