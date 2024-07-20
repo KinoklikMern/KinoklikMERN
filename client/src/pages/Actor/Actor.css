@@ -1,4 +1,3 @@
-
 @media only screen and (max-width: 1245px) {
   /* Styles for screens smaller than 600px */
 }
@@ -23,7 +22,6 @@
   }
 }
 
-
 .actor-navbar {
   width: 90%;
   margin: 0px 5%;
@@ -40,28 +38,20 @@
   background-color: #1e0039;
   width: 100%;
   height: 80vh;
-  /*background-image: url('../../../public/img.png');*/
   background-size: cover;
-  /*background-repeat: no-repeat;*/
-  /*display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    justify-content: center;*/
   z-index: -1;
   display: block;
   object-fit: cover;
 }
 
-
 /* Adjust the z-index of other elements that you want to be above the image */
-.actor-modal.is-open{
+.actor-modal.is-open {
   z-index: 1001;
 }
 
 .shared-style {
   z-index: 1001;
 }
-
 
 #actor-image {
   width: px;
@@ -96,11 +86,10 @@
 @media screen and (max-width: 1245px) {
   .actor-profile {
     width: 70vw;
-  height: 45vh; /* Maintain the aspect ratio */
+    height: 45vh; /* Maintain the aspect ratio */
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
-
 
 @media screen and (max-width: 1245px) {
   .actor-profile {
@@ -109,7 +98,6 @@
     max-width: 100%; /* Set the maximum width to 100% for smaller screens */
   }
 }
-
 
 .arrow-actor-profile {
   font-size: 4rem;
@@ -136,10 +124,9 @@
   .arrow-actor-profile2,
   .arrow-actor-profile1 {
     width: 80%;
-    height: 3rem; 
+    height: 3rem;
   }
 }
-
 
 /* Media query for even smaller screens */
 @media screen and (max-width: 1245px) {
@@ -178,7 +165,6 @@
   }
 }
 
-
 .Actor-Role.actor-detail-item {
   /* Default styles for larger screens */
   /* display: grid;
@@ -188,15 +174,14 @@
   justify-content: center;
   align-items: center; */
 
- /* Media query for smaller screens (cell phone) */
- @media screen and (max-width: 1245px) {
-  display: flex;
-  flex-direction: column; /* Display items vertically */
-  align-items: center;
-  margin: 5px 10px; /* the margin for smaller screens */
+  /* Media query for smaller screens (cell phone) */
+  @media screen and (max-width: 1245px) {
+    display: flex;
+    flex-direction: column; /* Display items vertically */
+    align-items: center;
+    margin: 5px 10px; /* the margin for smaller screens */
+  }
 }
-}
-
 
 .btn-follow,
 .btn-Recommend,
@@ -291,7 +276,6 @@
     margin-left: 0%; /* Reset margin for buttons inside .actor-icon-movie-container */
   }
 }
-
 
 .bottom-actor-container-title {
   color: #1e0039;
@@ -408,14 +392,6 @@
   border-radius: 10px;
 }
 
-.actor-city-detail {
-  height: 10%;
-  grid-column: 1/2;
-  grid-row: 1/2;
-  display: flex;
-  align-items: flex-start;
-}
-
 /* Default styles for desktop screens */
 .actor-city-ethnicity {
   height: 100%;
@@ -430,7 +406,7 @@
 
 /* Media query for smaller screens (cell phones) */
 @media only screen and (max-width: 880px) {
-   .actor-city-ethnicity {
+  .actor-city-ethnicity {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -439,14 +415,12 @@
   }
 }
 
-
 .actor-page-star {
   color: white;
   height: 30px;
   fill: white;
   display: inline;
 }
-
 
 .actor-modal {
   display: none;
@@ -470,7 +444,7 @@
   display: block;
 }
 
- .shared-styles {
+.shared-styles {
   height: 30px;
   width: 100%;
   border-radius: 5px;
@@ -546,7 +520,7 @@
 
   .selected-filmmaker-display img {
     max-width: 100%; /* Make sure the image doesn't exceed the container width */
-    height: auto;   /* Allow the height to adjust proportionally */
+    height: auto; /* Allow the height to adjust proportionally */
     border-radius: 50%; /* Make it a circle */
   }
 }
@@ -567,14 +541,12 @@
   text-align: center;
 }
 
-
 /* Media query for smaller screens (cell phones) */
 @media screen and (max-width: 1245px) {
   .text-purple-800.text-3xl.font-bold.ml-5 {
     margin-left: auto; /* Center the text horizontally on smaller screens */
     margin-right: auto;
     grid-column: span 12; /* Make the text span all 12 columns */
-    
   }
 }
 
