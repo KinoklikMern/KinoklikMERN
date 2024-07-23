@@ -264,13 +264,21 @@ export default function Actor(props) {
   const playVideo = () => {
     const video = videoRef.current;
     if (video && video.src) {
-      if (isPlaying) {
-        video.pause();
+      if (video.paused) {
+        video
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+            setShowVideoErrorMsg(false);
+          })
+          .catch((error) => {
+            console.error('Error playing video:', error);
+            setShowVideoErrorMsg(true);
+          });
       } else {
-        video.play();
+        video.pause();
+        setIsPlaying(false);
       }
-      setIsPlaying(!isPlaying);
-      setShowVideoErrorMsg(false);
     } else {
       setShowVideoErrorMsg(true);
     }
@@ -331,18 +339,19 @@ export default function Actor(props) {
               ></video>
               <div
                 className="tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-items-center tw-justify-center"
-                onClick={playVideo}
                 style={{ display: showVideoErrorMsg ? 'none' : 'flex' }}
               >
                 {isPlaying ? (
                   <PauseCircleOutlineIcon
-                    className=""
+                    className="tw-cursor-pointer"
                     style={{ color: '#1E0039', fontSize: '3rem' }}
+                    onClick={playVideo}
                   />
                 ) : (
                   <PlayCircleIcon
-                    className=""
+                    className="tw-cursor-pointer"
                     style={{ color: '#1E0039', fontSize: '3rem' }}
+                    onClick={playVideo}
                   />
                 )}
               </div>
@@ -361,7 +370,7 @@ export default function Actor(props) {
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                opacity: isPlaying ? 0.4 : 1,
+                opacity: isPlaying ? '0.4' : '1',
               }}
             >
               <ArrowBackIosOutlined
@@ -418,46 +427,53 @@ export default function Actor(props) {
             </p>
           </div>
 
-          <div className="tw-flex tw-flex-col tw-items-center tw-justify-center">
-            <div className="tw-flex tw-flex-row tw-items-center tw-justify-center">
-              <div className="tw-flex tw-flex-col">
+          <div className="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center">
+            <div className="tw-flex tw-w-full tw-flex-row tw-flex-wrap tw-items-center tw-justify-center">
+              <div className="tw-m-1 tw-flex tw-w-auto tw-flex-col md:tw-m-2">
                 <button
-                  className="tw-mx-2 tw-flex tw-h-9 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white"
+                  className="tw-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full tw-bg-[#712cb0] tw-px-3 tw-py-2 tw-text-[0.7rem] tw-font-bold tw-text-white md:tw-px-4 md:tw-text-[0.85rem]"
                   onClick={addUserToFollowers}
                 >
                   {t('Follow')}
-                  <AddIcon className="tw-ml-2" style={{ color: 'white' }} />
+                  <AddIcon
+                    className="tw-ml-1 tw-h-4 tw-w-4 md:tw-ml-2 md:tw-h-5 md:tw-w-5"
+                    style={{ color: 'white' }}
+                  />
                 </button>
-                <p className="follower-number actor-detail-item tw-mx-2 tw-my-0 tw-text-center tw-text-xl tw-font-bold tw-text-black">
+                <p className="follower-number actor-detail-item tw-my-1 tw-text-center tw-text-base tw-font-bold tw-text-black md:tw-text-xl">
                   {kkFollower}
                 </p>
               </div>
 
-              <div className="tw-flex tw-flex-col">
+              <div className="tw-m-1 tw-flex tw-w-auto tw-flex-col md:tw-m-2">
                 <button
-                  className="tw-mx-2 tw-flex tw-h-9 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white"
+                  className="tw-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full tw-bg-[#712cb0] tw-px-3 tw-py-2 tw-text-[0.7rem] tw-font-bold tw-text-white md:tw-px-4 md:tw-text-[0.85rem]"
                   onClick={addUserToLikes}
                 >
                   {t('Star')}
-                  <StarIcon className="tw-ml-2" style={{ color: 'white' }} />
+                  <StarIcon
+                    className="tw-ml-1 tw-h-4 tw-w-4 md:tw-ml-2 md:tw-h-5 md:tw-w-5"
+                    style={{ color: 'white' }}
+                  />
                 </button>
-                <p className="follower-number actor-detail-item tw-mx-2 tw-my-0 tw-text-center tw-text-xl tw-font-bold tw-text-black">
+                <p className="follower-number actor-detail-item tw-my-1 tw-text-center tw-text-base tw-font-bold tw-text-black md:tw-text-xl">
                   {likes}
                 </p>
               </div>
-              <div className="tw-flex tw-flex-col">
+
+              <div className="tw-m-1 tw-flex tw-w-auto tw-flex-col md:tw-m-2">
                 <button
-                  className="tw-mx-2 tw-flex tw-h-9 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white"
+                  className="tw-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full tw-bg-[#712cb0] tw-px-3 tw-py-2 tw-text-[0.7rem] tw-font-bold tw-text-white md:tw-px-4 md:tw-text-[0.85rem]"
                   onClick={openModal}
                   disabled={epkInfo._id === (user ? user.id : null)}
                 >
                   {t('Recommend')}
                   <ConnectWithoutContactIcon
-                    className="tw-ml-2"
+                    className="tw-ml-1 tw-h-4 tw-w-4 md:tw-ml-2 md:tw-h-5 md:tw-w-5"
                     style={{ color: 'white' }}
                   />
                 </button>
-                <p className="follower-number actor-detail-item tw-mx-2 tw-my-0 tw-text-center tw-text-xl tw-font-bold tw-text-black">
+                <p className="follower-number actor-detail-item tw-my-1 tw-text-center tw-text-base tw-font-bold tw-text-black md:tw-text-xl">
                   {recommendations}
                 </p>
               </div>
@@ -685,7 +701,7 @@ export default function Actor(props) {
 
         {/* Represented By Section */}
         {studioData && (
-          <div className="tw-m-4 tw-flex tw-items-center tw-justify-center tw-rounded-lg tw-bg-white tw-p-4 md:tw-justify-start">
+          <div className="tw-m-4 tw-flex tw-items-center tw-justify-center tw-rounded-lg tw-bg-white md:tw-justify-start md:tw-p-4">
             <div className="tw-flex tw-gap-3 md:tw-w-1/2">
               <p className="tw-text-black-800 tw-lg:ml-5 tw-md:text-center tw-sm:text-center tw-text-xl tw-text-[#1E0039]">
                 {t('Represented by:')}{' '}
