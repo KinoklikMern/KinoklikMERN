@@ -8,6 +8,10 @@ import StatusBtn from "../components/SwitchStatusBtn/Status";
 import http from "../http-common";
 import SearchBar from "../components/HomeHead/SearchBar";
 import { useTranslation } from "react-i18next";
+import "../components/SwitchBtn/SwitchBtn.css";
+import FilterTagInCatelog from "../components/Filter/FilterTagInCatelog";
+import { FepkContext } from "../context/FepkContext.js";
+import ListItem from "../components/ListItem/ListItemActor.js";
 
 function CatelogPage() {
   const { t } = useTranslation();
@@ -15,6 +19,13 @@ function CatelogPage() {
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
   //For Translation
+
+  //Add actors
+  const [activeBtn, setActiveBtn] = useState("epk");
+  const [actors, setActors] = useState([]);
+  const [filteredActors, setFilteredActors] = useState([]);
+  const [filterQueryActors, setFilterQueryActors] =
+    React.useContext(FepkContext);
 
   const [filterTags, setFilterTags] = useState([
     {
@@ -44,9 +55,14 @@ function CatelogPage() {
       setFepks(response.data);
       setFilteredEPKs(response.data);
     });
-  }, []);
 
-  const { filterQuery, clickHandler } = EPKFilter(
+    http.get(`users/getactors`).then((response) => {
+      setActors(response.data);
+      setFilteredActors(response.data);
+    });
+  }, [activeBtn]);
+
+  const { filterQuery, clickHandler, setFilterQuery } = EPKFilter(
     fepks,
     filterTags,
     setFilterTags
@@ -60,6 +76,39 @@ function CatelogPage() {
       setCurrentStatus(status);
       const filtered = fepks.filter((fepk) => fepk.status === status);
       setFilteredEPKs(filtered);
+    }
+  };
+
+  const handleClick = (btnId) => {
+    setActiveBtn(btnId);
+    if (btnId !== "actor") {
+      setFilterQueryActors([]);
+      setFilterQuery([]);
+      setCurrentStatus("All");
+      setFilteredEPKs(fepks);
+    } else {
+      setFilterTags([
+        {
+          name: t("Movie"),
+          isActive: false,
+        },
+        {
+          name: t("TV Show"),
+          isActive: false,
+        },
+        {
+          name: t("Web Series"),
+          isActive: false,
+        },
+        {
+          name: t("Documentary"),
+          isActive: false,
+        },
+        {
+          name: t("all epks"),
+          isActive: true,
+        },
+      ]);
     }
   };
 
@@ -86,43 +135,75 @@ function CatelogPage() {
       <div className="tw-flex tw-items-end tw-justify-end tw-bg-[#1e0039]">
         <SearchBar />
       </div>
-      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-py-8 md:tw-flex-row">
-        <StatusBtn onStatusChange={handleStatusChange} />
-      </div>
-      <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] md:tw-flex-row">
-        {filterTags.map((tag, index) => (
-          <FilterButton
-            key={index}
-            name={tag.name}
-            clickHandler={clickHandler}
-            isActive={tag.isActive}
-          />
-        ))}
-      </div>
-      <div className="home tw-overflow-y-auto">
-        <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5">
-          {filteredEPKs.map((fepk) => {
-            if (fepk.image_details === "") {
-              // Skip rendering this item if image_details (poster) because it looks
-              return null;
-            }
+      <div className="switch-container">
+        <div className="switch-btn">
+          <button
+            id="epk-btn"
+            className={activeBtn === "epk" ? "active" : ""}
+            onClick={() => handleClick("epk")}
+          >
+            EPKs
+          </button>
 
-            return (
-              <React.Fragment key={fepk._id}>
-                <div className="listItem tw-my-8 tw-p-3 md:tw-my-24">
-                  <a href={fepk.title ? `/epk/${fepk._id}` : `/`}>
-                    <img
-                      src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                      alt=""
-                      className="tw-w-full"
-                    />
-                  </a>
-                </div>
-              </React.Fragment>
-            );
-          })}
+          <button
+            id="actor-btn"
+            className={activeBtn === "actor" ? "active" : ""}
+            onClick={() => handleClick("actor")}
+          >
+            {t("Actors")}
+          </button>
         </div>
       </div>
+      {activeBtn === "epk" ? (
+        <>
+          <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] tw-py-8 md:tw-flex-row">
+            <StatusBtn onStatusChange={handleStatusChange} />
+          </div>
+          <div className="tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] md:tw-flex-row">
+            {filterTags.map((tag, index) => (
+              <FilterButton
+                key={index}
+                name={tag.name}
+                clickHandler={clickHandler}
+                isActive={tag.isActive}
+              />
+            ))}
+          </div>
+          <div className="home tw-overflow-y-auto">
+            <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-py-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-5">
+              {filteredEPKs.map((fepk) => {
+                if (fepk.image_details === "") {
+                  // Skip rendering this item if image_details (poster) because it looks
+                  return null;
+                }
+
+                return (
+                  <React.Fragment key={fepk._id}>
+                    <div className="listItem tw-my-8 tw-p-3 md:tw-my-24">
+                      <a href={fepk.title ? `/epk/${fepk._id}` : `/`}>
+                        <img
+                          src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                          alt=""
+                          className="tw-w-full"
+                        />
+                      </a>
+                    </div>
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <FilterTagInCatelog isActive={activeBtn} />
+          <div className="home tw-flex tw-justify-center tw-overflow-y-auto">
+            <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-px-3 tw-py-2 sm:tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-4 xl:tw-grid-cols-5 2xl:tw-grid-cols-7">
+              <ListItem title="all_actors" type={filterQueryActors} />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
