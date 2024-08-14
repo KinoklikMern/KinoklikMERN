@@ -22,8 +22,6 @@ function CatelogPage() {
 
   //Add actors
   const [activeBtn, setActiveBtn] = useState("epk");
-  const [actors, setActors] = useState([]);
-  const [filteredActors, setFilteredActors] = useState([]);
   const [filterQueryActors, setFilterQueryActors] =
     React.useContext(FepkContext);
 
