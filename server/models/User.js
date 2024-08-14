@@ -54,7 +54,7 @@ const UserSchema = mongoose.Schema({
   specialization: {
     type: String,
     maxlength: 30,
-    minlength: 3,
+    //minlength: 3,
   },
   following: {
     type: Array,
