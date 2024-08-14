@@ -22,7 +22,6 @@ import CountryDropdown from "./CountryDropdown.js";
 export default function FilterTagInCatelog({ isActive }) {
   const [filterQueryActors, setFilterQueryActors] =
     React.useContext(FepkContext);
-  const location = useLocation();
   // Yeming added
 
   // State to manage selected values for specific dropdowns
