@@ -53,11 +53,6 @@ function CatelogPage() {
       setFepks(response.data);
       setFilteredEPKs(response.data);
     });
-
-    http.get(`users/getactors`).then((response) => {
-      setActors(response.data);
-      setFilteredActors(response.data);
-    });
   }, [activeBtn]);
 
   const { filterQuery, clickHandler, setFilterQuery } = EPKFilter(
