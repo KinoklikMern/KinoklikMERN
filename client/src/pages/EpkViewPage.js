@@ -1,29 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import EpkHeader from "../components/EpkView/EpkHeader/EpkHeader";
-import EpkCover from "../components/EpkView/EpkCover/EpkCover";
-import EpkSocialAction from "../components/EpkView/EpkSocialAction/EpkSocialAction";
-import EpkDetail from "../components/EpkView/EpkDetail/EpkDetail";
-import EpkLogline from "../components/EpkView/EpkLogline/EpkLogline";
-import EpkSynopsis from "../components/EpkView/EpkSynopsis/EpkSynopsis";
-import EpkUniqueness from "../components/EpkView/EpkUniqueness/EpkUniqueness";
-import EpkCast from "../components/EpkView/EpkCast/EpkCast";
-import EpkWorker from "../components/EpkView/EpkWorker/EpkWorker";
-import EpkStills from "../components/EpkView/EpkStills/EpkStills";
-import EpkResources from "../components/EpkView/EpkResources/EpkResources";
-import EpkTrailer from "../components/EpkView/EpkTrailer/EpkTrailer";
-import EpkAward from "../components/EpkView/EpkAward/EpkAward";
-import DonationModal from "../components/donate/DonationModal";
-import RequestModal from "../components/EpkView/miscellaneous/RequestModal";
-import LoginModal from "../components/EpkView/miscellaneous/LoginModal";
-import NewMessageModal from "../components/EpkView/miscellaneous/NewMessageModal";
-import { useParams } from "react-router-dom";
-import { getFepksByTitle, getFepksById } from "../api/epks";
-import { useSelector } from "react-redux";
-import { FepkContext } from "../context/FepkContext";
-import Banner from "../components/EpkView/EpkBanner/EpkBanner";
-import emptyBanner from "../images/empty_banner.jpeg";
-import EpkSalesCalculator from "../components/EpkView/EpkSalesCalculator/EpkSalesCaculator";
+import React, { useState, useEffect } from 'react';
+import EpkHeader from '../components/EpkView/EpkHeader/EpkHeader';
+import EpkCover from '../components/EpkView/EpkCover/EpkCover';
+import EpkSocialAction from '../components/EpkView/EpkSocialAction/EpkSocialAction';
+import EpkDetail from '../components/EpkView/EpkDetail/EpkDetail';
+import EpkLogline from '../components/EpkView/EpkLogline/EpkLogline';
+import EpkSynopsis from '../components/EpkView/EpkSynopsis/EpkSynopsis';
+import EpkUniqueness from '../components/EpkView/EpkUniqueness/EpkUniqueness';
+import EpkCast from '../components/EpkView/EpkCast/EpkCast';
+import EpkWorker from '../components/EpkView/EpkWorker/EpkWorker';
+import EpkStills from '../components/EpkView/EpkStills/EpkStills';
+import EpkResources from '../components/EpkView/EpkResources/EpkResources';
+import EpkTrailer from '../components/EpkView/EpkTrailer/EpkTrailer';
+import EpkAward from '../components/EpkView/EpkAward/EpkAward';
+import DonationModal from '../components/donate/DonationModal';
+import RequestModal from '../components/EpkView/miscellaneous/RequestModal';
+import LoginModal from '../components/EpkView/miscellaneous/LoginModal';
+import NewMessageModal from '../components/EpkView/miscellaneous/NewMessageModal';
+import { useParams } from 'react-router-dom';
+import { getFepksByTitle, getFepksById } from '../api/epks';
+import { useSelector } from 'react-redux';
+import { FepkContext } from '../context/FepkContext';
+import Banner from '../components/EpkView/EpkBanner/EpkBanner';
+import emptyBanner from '../images/empty_banner.jpeg';
+import EpkSalesCalculator from '../components/EpkView/EpkSalesCalculator/EpkSalesCaculator';
 
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -36,7 +36,7 @@ function EpkViewPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
-  const [imageDetails, setImageDetails] = useState("");
+  const [imageDetails, setImageDetails] = useState('');
 
   //let { title } = useParams();
   let { id } = useParams();
@@ -45,15 +45,15 @@ function EpkViewPage() {
     if (user) {
       // eslint-disable-next-line default-case
       switch (modalType) {
-        case "message":
+        case 'message':
           setShowMessageModal(false);
           break;
 
-        case "request":
+        case 'request':
           setShowRequestModal(false);
           break;
 
-        case "wish_to_donate":
+        case 'wish_to_donate':
           setShowDonationModal(true); // Show the donation modal
           break;
       }
@@ -63,19 +63,20 @@ function EpkViewPage() {
   };
 
   const handleShow = (modalType) => {
-    if (user) {
-      // eslint-disable-next-line default-case
+    if (modalType === 'login') {
+      setShowLoginModal(true);
+    } else if (user) {
       switch (modalType) {
-        case "message":
+        case 'message':
           setShowMessageModal(true);
           break;
-
-        case "request":
+        case 'request':
           setShowRequestModal(true);
           break;
-
-        case "wish_to_donate":
+        case 'wish_to_donate':
           setShowDonationModal(true);
+          break;
+        default:
           break;
       }
     } else {
@@ -112,12 +113,12 @@ function EpkViewPage() {
         console.log(id);
       } else {
         //Find epk
-        console.log("res:", res);
+        console.log('res:', res);
         setEpkInfo(res);
         setFepkId(res._id);
         setFepkMaker(res.film_maker);
         if (user?.id === res.film_maker._id) {
-          setRequestStatus("approved");
+          setRequestStatus('approved');
         } else {
           res.requests.forEach((request) => {
             if (request.user === user?.id) {
@@ -132,8 +133,8 @@ function EpkViewPage() {
   useEffect(() => {
     if (
       !epkInfo?.image_details ||
-      epkInfo?.image_details === "" ||
-      epkInfo.image_details.startsWith("https")
+      epkInfo?.image_details === '' ||
+      epkInfo.image_details.startsWith('https')
     ) {
       setImageDetails(emptyBanner);
     } else {

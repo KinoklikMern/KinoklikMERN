@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext } from "react";
-import ActionIcon from "./ActionIcon";
-import DonationIcon from "../../../images/icons/Donation.svg";
-import DonationBlackIcon from "../../../images/icons/DonationBlack.svg";
-import DollarIcon from "../../../images/icons/DollarIcon.svg";
-import DollarBlackIcon from "../../../images/icons/DollarBlackIcon.svg";
-import PlusIcon from "../../../images/icons/PlusWhite.svg";
-import PlusBlackIcon from "../../../images/icons/PlusBlack.svg";
-import StarIcon from "../../../images/icons/StarWhite.svg";
-import StarBlackIcon from "../../../images/icons/StarBlack.svg";
+import React, { useState, useEffect, useContext } from 'react';
+import ActionIcon from './ActionIcon';
+import DonationIcon from '../../../images/icons/Donation.svg';
+import DonationBlackIcon from '../../../images/icons/DonationBlack.svg';
+import DollarIcon from '../../../images/icons/DollarIcon.svg';
+import DollarBlackIcon from '../../../images/icons/DollarBlackIcon.svg';
+import PlusIcon from '../../../images/icons/PlusWhite.svg';
+import PlusBlackIcon from '../../../images/icons/PlusBlack.svg';
+import StarIcon from '../../../images/icons/StarWhite.svg';
+import StarBlackIcon from '../../../images/icons/StarBlack.svg';
 //import KIcon from "../../../images/icons/K.svg";
-import ShareIcon from "../../../images/icons/share.svg";
-import http from "../../../http-common";
-import { useSelector } from "react-redux";
+import ShareIcon from '../../../images/icons/share.svg';
+import http from '../../../http-common';
+import { useSelector } from 'react-redux';
 import {
   EmailShareButton,
   EmailIcon,
@@ -24,10 +24,10 @@ import {
   RedditIcon,
   TwitterShareButton,
   TwitterIcon,
-} from "react-share";
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
-import SocialShareModal from "./SocialShareModal";
-import { NotificationContext } from "../../../context/NotificationContext";
+} from 'react-share';
+import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
+import SocialShareModal from './SocialShareModal';
+import { NotificationContext } from '../../../context/NotificationContext';
 // import { FepkContext } from "../../../context/FepkContext";
 
 export default function EpkSocialAction({ epkInfo, handler }) {
@@ -39,8 +39,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   let userRole;
 
   if (!user) {
-    userId = "0";
-    userRole = "noUser";
+    userId = '0';
+    userRole = 'noUser';
   } else {
     userId = user.id;
     userRole = user.role;
@@ -62,7 +62,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const [usersLikes, setUsersLikes] = useState(epkInfo.likes.length);
   // const [sharingClicked, setSharingClicked] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
-  const currentUrl = window.location.href.startsWith("http")
+  const currentUrl = window.location.href.startsWith('http')
     ? window.location.href
     : `https://${window.location.href}`;
   const urlShare = `I’ve created my new film ${epkInfo.title} #EPK using #KinoKlik free software. Check it out at ${currentUrl} and let me know! #ElectronicPressKit #FilmEPK #NewFilmInProgress`;
@@ -98,7 +98,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
 
   const actionList = [
     {
-      name: "wish_to_donate",
+      name: 'wish_to_donate',
       icon: hasDonateLinks
         ? fepkInfo?.wishes_to_donate?.filter((item) => item._id === userId)
             .length !== 0
@@ -106,46 +106,46 @@ export default function EpkSocialAction({ epkInfo, handler }) {
           : DonationIcon
         : null, // Set to null if there are no donation links
       number: hasDonateLinks ? usersWishesToDonate : 0, // Set to 0 if there are no donation links
-      width: "",
-      hover: "Donate",
+      width: '',
+      hover: 'Donate',
     },
     {
-      name: "wish_to_buy",
+      name: 'wish_to_buy',
       icon:
         fepkInfo?.wishes_to_buy.filter((item) => item._id === userId).length !==
         0
           ? DollarBlackIcon
           : DollarIcon,
       number: usersWishesToBuy,
-      width: "",
-      hover: "Buy",
+      width: '',
+      hover: 'Buy',
     },
     {
-      name: "favorites",
+      name: 'favorites',
       icon:
         fepkInfo?.favourites.filter((item) => item._id === userId).length !== 0
           ? PlusBlackIcon
           : PlusIcon,
       number: usersFavourites,
-      hover: "Add To Favorites",
+      hover: 'Add To Favorites',
     },
     {
-      name: "likes",
+      name: 'likes',
       icon:
         fepkInfo?.likes.filter((item) => item._id === userId).length !== 0
           ? StarBlackIcon
           : StarIcon,
       number: usersLikes,
-      hover: "Like",
+      hover: 'Like',
     },
     // {
     //   name: "K",
     //   icon: KIcon,
     // },
     {
-      name: "share",
+      name: 'share',
       icon: ShareIcon,
-      hover: "Share",
+      hover: 'Share',
     },
   ];
 
@@ -160,20 +160,17 @@ export default function EpkSocialAction({ epkInfo, handler }) {
 
   const handlers = {
     clickHandler: (name) => {
-      // console.log("State before action:", {
-      //   usersWishesToBuy,
-      //   usersFavourites,
-      //   usersLikes,
-      // });
-
-      if (!user) {
+      if (name === 'share') {
+        // Allow sharing without authentication
+        setIsShareModalOpen(true);
+      } else if (!user) {
         handler();
       } else {
         let incrementValue = 0;
 
         switch (name) {
-          case "wish_to_donate":
-            handler("wish_to_donate"); // Use the handler function to open the donation modal
+          case 'wish_to_donate':
+            handler('wish_to_donate'); // Use the handler function to open the donation modal
 
             // Make an HTTP GET request using the Axios library (you can import Axios if it's not already imported)
             // Replace 'axios.get' with your actual HTTP request method
@@ -190,7 +187,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
               });
             break;
 
-          case "wish_to_buy":
+          case 'wish_to_buy':
             // Determine if adding or removing from wishlist
             // const isAddingToWishlist =
             //   fepkInfo?.wishes_to_buy.filter((item) => item._id === userId)
@@ -222,7 +219,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 console.error(error);
               });
             break;
-          case "favorites":
+          case 'favorites':
             // Determine if adding or removing from favouritelist
             // const isAddingToFavouritelist =
             //   fepkInfo?.favourites.filter((item) => item._id === userId)
@@ -248,7 +245,7 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 console.error(error);
               });
             break;
-          case "likes":
+          case 'likes':
             // Determine if adding or removing from favouritelist
             // const isAddingToLikelist =
             //   fepkInfo?.likes.filter((item) => item._id === userId).length ===
@@ -273,13 +270,6 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 console.error(error);
               });
             break;
-          // case "K":
-          //   openUrl(epkInfo.kickstarter_url);
-          //   break;
-          case "share":
-            // closeSharingMenu();
-            setIsShareModalOpen(true);
-            break;
           default:
             break;
         }
@@ -288,10 +278,10 @@ export default function EpkSocialAction({ epkInfo, handler }) {
     hoverHandler: (eventName) => {
       // console.log(eventName);
       switch (eventName) {
-        case "onMouseOver":
+        case 'onMouseOver':
           setShowShareOptions(true);
           break;
-        case "onMouseOut":
+        case 'onMouseOut':
           setShowShareOptions(false);
           break;
         default:
@@ -305,17 +295,17 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   };
 
   return (
-    <div className='tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12'>
+    <div className="tw-relative tw-flex tw-justify-between tw-bg-opacity-100 tw-px-6 tw-py-12">
       {/* Social media sharing Icons */}
       {actionList.map(
         (action, index) =>
           action.icon !== null && (
             <div
               key={index}
-              className='tw-relative'
-              {...(action.name === "share" && {
-                onMouseOver: () => handlers.hoverHandler("onMouseOver"),
-                onMouseOut: () => handlers.hoverHandler("onMouseOut"),
+              className="tw-relative"
+              {...(action.name === 'share' && {
+                onMouseOver: () => handlers.hoverHandler('onMouseOver'),
+                onMouseOut: () => handlers.hoverHandler('onMouseOut'),
               })}
             >
               {/* Social media sharing modal */}
@@ -324,51 +314,51 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 urlShare={urlShare}
                 closeModal={closeShareModal}
               />
-              {action.name === "share" && showShareOptions && (
-                <div className='tw-absolute tw--top-[65%] tw-right-0 tw-flex tw-pb-12 tw-text-white'>
+              {action.name === 'share' && showShareOptions && (
+                <div className="tw-absolute tw--top-[65%] tw-right-0 tw-flex tw-pb-12 tw-text-white">
                   <FacebookShareButton
                     url={urlShare}
-                    className='hover:tw-scale-125'
+                    className="hover:tw-scale-125"
                   >
                     <FacebookIcon
                       size={30}
                       round={true}
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                     />
                   </FacebookShareButton>
                   <LinkedinShareButton
                     url={urlShare}
-                    className='hover:tw-scale-125'
+                    className="hover:tw-scale-125"
                   >
                     <LinkedinIcon
                       size={30}
                       round={true}
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                     />
                   </LinkedinShareButton>
                   <TwitterShareButton
                     url={urlShare}
-                    className='hover:tw-scale-125'
+                    className="hover:tw-scale-125"
                   >
                     <TwitterIcon
                       size={30}
                       round={true}
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                     />
                   </TwitterShareButton>
                   <RedditShareButton
                     url={urlShare}
-                    className='hover:tw-scale-125'
+                    className="hover:tw-scale-125"
                   >
                     <RedditIcon
                       size={30}
                       round={true}
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                     />
                   </RedditShareButton>
                   <EmailShareButton
                     url={urlShare}
-                    className='hover:tw-scale-125'
+                    className="hover:tw-scale-125"
                   >
                     <EmailIcon size={30} round={true} />
                   </EmailShareButton>
