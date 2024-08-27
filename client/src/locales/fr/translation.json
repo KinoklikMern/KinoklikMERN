@@ -932,6 +932,8 @@
 
   "Status": "Statut",
 
+  "Language": "Langue",
+
   "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK.": "Afin de collecter des dons pour votre film, veuillez saisir ici l'URL de votre PayPal ou de votre bouton Stripe. Votre icône de don apparaîtra sous la section de couverture de le DPE.",
 
   "NO VIDEO UPLOADED": "AUCUNE VIDÉO TÉLÉCHARGÉE",
@@ -994,7 +996,11 @@
 
   " Title and Log Line needed.": " Titre et ligne de journal nécessaires.",
 
-  " An error occurred while saving your data. Please try again.": " Une erreur s'est produite lors de l'enregistrement de vos données. Veuillez réessayer.",
+  "EPK was created successfully!": " Le DPE a été créé avec succès ! ",
+
+  "the EPK Dashboard is now open and you can create your film EPK.": "Le tableau de bord du DPE est maintenant ouvert et vous pouvez créer votre DPE du film.",
+
+  "An error occurred while saving your data. Please try again.": " Une erreur s'est produite lors de l'enregistrement de vos données. Veuillez réessayer.",
 
   "Description(maximum 160 characters)": "Description (maximum 160 caractères)",
 

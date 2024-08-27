@@ -131,10 +131,10 @@ function FepkCoverForm() {
   const languageType = [t("English"), t("French"), t("Spanish")];
 
   const movieType = [
-    t("Movie"),
-    t("Documentary"),
-    t("TV Show"),
-    t("Web Series"),
+    { key: "Movie", label: t("Movie") },
+    { key: "Documentary", label: t("Documentary") },
+    { key: "TV Show", label: t("TV Show") },
+    { key: "Web Series", label: t("Web Series") },
   ];
 
   const budgetRanges = [
@@ -321,11 +321,8 @@ function FepkCoverForm() {
             } else {
               setIsUploading(false);
               console.log("saved");
-              navigate(
-                res.data.title
-                  ? `/editFepk/${res.data._id}`
-                  : "/"
-              );
+              localStorage.setItem("showModal", "true");
+              navigate(res.data.title ? `/editFepk/${res.data._id}` : "/");
             }
           });
         });
@@ -529,17 +526,17 @@ function FepkCoverForm() {
                             marginBottom: "5px",
                             boxShadow: "1px 2px 9px #311465",
                           }}
-                          className="form-select form-select-sm "
-                          name={t("production_type")}
+                          className="form-select form-select-sm"
+                          name="production_type"
                           onChange={handleInputChange}
                           value={epkCoverData.production_type}
                         >
                           <option value="" disabled>
                             {t("Production Type")}
                           </option>
-                          {movieType.map((type) => (
-                            <option key={type} value={type}>
-                              {type}
+                          {movieType.map(({ key, label }) => (
+                            <option key={key} value={key}>
+                              {label}
                             </option>
                           ))}
                         </select>
