@@ -20,6 +20,7 @@ import { FepkContext } from "../context/FepkContext";
 import EPKSideMenu from "../components/Epk/EpkSideMenu";
 import { useTranslation } from "react-i18next";
 import { getFepksById } from "../api/epks";
+import Modal from "react-modal";
 
 function FepkEditDashboard() {
   const { t } = useTranslation();
@@ -28,6 +29,7 @@ function FepkEditDashboard() {
   const [loading, setLoading] = useState(true);
   const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
   const [sectionChosen, setSectionChosen] = useState("cover");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleSectionClick = (section) => {
     setSectionChosen(section);
@@ -56,6 +58,15 @@ function FepkEditDashboard() {
 
   useEffect(() => {
     console.log(id);
+
+    // Check if the modal should be shown
+    const showModal = localStorage.getItem("showModal");
+    if (showModal === "true") {
+      setModalIsOpen(true);
+      // Clear the flag after displaying the modal
+      localStorage.removeItem("showModal");
+    }
+
     getFepksById(id).then((response) => {
       console.log(response);
       setAccess(response.film_maker._id === filmmaker_id);
@@ -64,6 +75,10 @@ function FepkEditDashboard() {
       setLoading(false);
     });
   }, [id, filmmaker_id, setFepkMaker]);
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   return loading ? (
     <div className="tw-h-screen">
@@ -75,6 +90,49 @@ function FepkEditDashboard() {
       <div className="tw-flex-grow">
         {access === true ? (
           <div>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+              appElement={document.getElementById("root")}
+              style={{
+                overlay: {
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                },
+                content: {
+                  position: "absolute",
+                  border: "2px solid #000",
+                  backgroundColor: "white",
+                  boxShadow: "2px solid black",
+                  height: 180,
+                  width: 380,
+                  margin: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                },
+              }}
+            >
+              <div style={{ textAlign: "center" }}>
+                <div style={{ color: "green" }}>
+                  {" "}
+                  <div>{t("EPK was created successfully!")}</div>
+                  <div>
+                    {t(
+                      "the EPK Dashboard is now open and you can create your film EPK."
+                    )}
+                  </div>
+                </div>
+                <br />
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={closeModal}
+                  style={{ backgroundColor: "#712CB0", color: "white" }}
+                >
+                  {t("Ok")}
+                </button>
+              </div>
+            </Modal>
             <div className="tw-mt-5 tw-flex tw-flex-wrap tw-items-center tw-justify-center md:tw-gap-7">
               <SectionButton
                 text={t("1. Cover")}
