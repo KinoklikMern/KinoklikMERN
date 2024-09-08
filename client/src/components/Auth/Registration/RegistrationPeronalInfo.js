@@ -59,7 +59,7 @@ function RegistrationPersonalInfo({
     <>
       <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-py-4">
         <div>
-          <div>
+          <div className="tw-flex tw-flex-col tw-items-center">
             <div className="tw-mb-4 tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0]">
               {t('Sign up for KinoKlik')}
             </div>

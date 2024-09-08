@@ -1,0 +1,136 @@
+{
+  "countries": [
+    {
+      "name": "Canada",
+      "provinces": [
+        {
+          "name": "Ontario",
+          "cities": ["Toronto", "Ottawa", "Hamilton", "Mississauga"]
+        },
+        {
+          "name": "Quebec",
+          "cities": ["Montreal", "Quebec City", "Laval", "Gatineau"]
+        },
+        {
+          "name": "British Columbia",
+          "cities": ["Vancouver", "Victoria", "Surrey", "Burnaby"]
+        },
+        {
+          "name": "Alberta",
+          "cities": ["Calgary", "Edmonton", "Red Deer", "Lethbridge"]
+        },
+        {
+          "name": "Manitoba",
+          "cities": ["Winnipeg", "Brandon", "Steinbach", "Thompson"]
+        },
+        {
+          "name": "Saskatchewan",
+          "cities": ["Saskatoon", "Regina", "Prince Albert", "Moose Jaw"]
+        },
+        {
+          "name": "Nova Scotia",
+          "cities": ["Halifax", "Dartmouth", "Sydney", "Truro"]
+        },
+        {
+          "name": "New Brunswick",
+          "cities": ["Fredericton", "Saint John", "Moncton", "Dieppe"]
+        },
+        {
+          "name": "Newfoundland and Labrador",
+          "cities": [
+            "St. John's",
+            "Mount Pearl",
+            "Corner Brook",
+            "Conception Bay South"
+          ]
+        },
+        {
+          "name": "Prince Edward Island",
+          "cities": ["Charlottetown", "Summerside", "Stratford", "Cornwall"]
+        },
+        {
+          "name": "Yukon",
+          "cities": [
+            "Whitehorse",
+            "Dawson City",
+            "Watson Lake",
+            "Haines Junction"
+          ]
+        },
+        {
+          "name": "Northwest Territories",
+          "cities": ["Yellowknife", "Hay River", "Inuvik", "Fort Smith"]
+        },
+        {
+          "name": "Nunavut",
+          "cities": ["Iqaluit", "Rankin Inlet", "Arviat", "Baker Lake"]
+        }
+      ]
+    },
+    {
+      "name": "USA",
+      "states": [
+        {
+          "name": "California",
+          "cities": ["Los Angeles", "San Francisco", "San Diego", "San Jose"]
+        },
+        {
+          "name": "Texas",
+          "cities": ["Houston", "Dallas", "Austin", "San Antonio"]
+        },
+        {
+          "name": "New York",
+          "cities": ["New York City", "Buffalo", "Rochester", "Syracuse"]
+        },
+        {
+          "name": "Florida",
+          "cities": ["Miami", "Orlando", "Tampa", "Jacksonville"]
+        },
+        {
+          "name": "Illinois",
+          "cities": ["Chicago", "Springfield", "Aurora", "Naperville"]
+        },
+        {
+          "name": "Pennsylvania",
+          "cities": ["Philadelphia", "Pittsburgh", "Allentown", "Erie"]
+        },
+        {
+          "name": "Ohio",
+          "cities": ["Columbus", "Cleveland", "Cincinnati", "Toledo"]
+        },
+        {
+          "name": "Georgia",
+          "cities": ["Atlanta", "Savannah", "Augusta", "Columbus"]
+        },
+        {
+          "name": "North Carolina",
+          "cities": ["Charlotte", "Raleigh", "Greensboro", "Durham"]
+        },
+        {
+          "name": "Michigan",
+          "cities": ["Detroit", "Grand Rapids", "Ann Arbor", "Lansing"]
+        },
+        {
+          "name": "New Jersey",
+          "cities": ["Newark", "Jersey City", "Paterson", "Elizabeth"]
+        },
+        {
+          "name": "Virginia",
+          "cities": ["Virginia Beach", "Richmond", "Norfolk", "Chesapeake"]
+        },
+        {
+          "name": "Washington",
+          "cities": ["Seattle", "Spokane", "Tacoma", "Vancouver"]
+        },
+        {
+          "name": "Arizona",
+          "cities": ["Phoenix", "Tucson", "Mesa", "Chandler"]
+        },
+        {
+          "name": "Massachusetts",
+          "cities": ["Boston", "Worcester", "Springfield", "Cambridge"]
+        }
+      ]
+    }
+  ]
+}

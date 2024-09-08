@@ -91,10 +91,10 @@ const Landing1 = () => {
       <div className="tw-bg-midnight lg:tw-h-[100vh]">
         <div className="md:tw-p-24">
           <div className="tw-flex tw-w-full tw-items-center">
-            <div className="tw-p-7 lg:tw-w-2/4">
+            <div className="tw-w-full tw-p-7 lg:tw-w-2/4">
               <h1
                 ref={headingRef}
-                className="tw-mt-6 tw-text-start tw-text-6xl tw-font-bold tw-text-white md:tw-text-7xl"
+                className="tw-mt-6 tw-text-start tw-font-bold tw-text-white min-[430px]:tw-text-[2.50rem] sm:tw-text-6xl md:tw-text-7xl"
               >
                 {t('Film marketing.')}
                 <br />
@@ -110,15 +110,15 @@ const Landing1 = () => {
                 </span>{' '}
                 {t('software!')}
               </p>
-              <div className="tw-mt-4 tw-grid-cols-2 sm:tw-mt-6">
+              <div className="tw-mt-4 tw-flex tw-items-center tw-justify-between sm:tw-mt-6 md:tw-justify-normal">
                 <a
-                  className="tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-[#FF00F5] tw-px-3 tw-py-1 tw-text-xl tw-font-bold tw-tracking-wider tw-text-midnight  tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base md:tw-px-4 md:tw-py-2"
+                  className="tw-inline-block tw-rounded-lg tw-bg-[#FF00F5] tw-px-3 tw-py-1 tw-text-base tw-font-bold tw-text-midnight tw-shadow-lg hover:tw--translate-y-0.5  hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-xl md:tw-mr-4 md:tw-px-4 md:tw-py-2 md:tw-tracking-wider"
                   href="/signup"
                 >
                   {t('Create EPK')}
                 </a>
                 <a
-                  className="tw-inline-block tw-rounded-lg tw-bg-white tw-px-3 tw-py-1 tw-text-xl tw-font-bold tw-tracking-wider tw-text-[#1E0039] tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base md:tw-px-4 md:tw-py-2"
+                  className="tw-inline-block tw-rounded-lg tw-bg-white tw-px-3 tw-py-1 tw-text-base tw-font-bold tw-text-[#1E0039] tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-xl md:tw-px-4 md:tw-py-2 md:tw-tracking-wider"
                   href="/catalog"
                 >
                   {t('Browse EPKs')}
