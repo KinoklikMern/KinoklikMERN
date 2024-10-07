@@ -4,7 +4,6 @@ import filmmakerIcon from "../../../images/icons/filmmakerIcon.svg";
 import actorIcon from "../../../images/icons/actorIcon.svg";
 import editorIcon from "../../../images/icons/editorIcon.svg";
 import { useTranslation } from "react-i18next";
-// import i18n from 'i18next';
 
 export const options = [
   {
@@ -22,6 +21,56 @@ export const options = [
     value: "Industry Professional",
     image: editorIcon,
   },
+  {
+    label: "Distributor",
+    value: "Distributor",
+    image: "",
+  },
+  {
+    label: "Sales Agent",
+    value: "Sales Agent",
+    image: "",
+  },
+  {
+    label: "Film Festival",
+    value: "Film Festival",
+    image: "",
+  },
+  {
+    label: "Producer",
+    value: "Producer",
+    image: "",
+  },
+  // {
+  //   label: "Viewer",
+  //   value: "Viewer",
+  //   image: "",
+  // },
+  // {
+  //   label: "Editor",
+  //   value: "Editor",
+  //   image: "",
+  // },
+  {
+    label: "Writer",
+    value: "Writer",
+    image: "",
+  },
+  // {
+  //   label: "Sound",
+  //   value: "Sound",
+  //   image: "",
+  // },
+  {
+    label: "Cinematographer",
+    value: "Cinematographer",
+    image: "",
+  },
+  {
+    label: "Investor",
+    value: "Investor",
+    image: "",
+  },
 ];
 
 function RoleChoise({ role, setRole, onNext }) {
@@ -35,7 +84,6 @@ function RoleChoise({ role, setRole, onNext }) {
     });
     onNext();
   };
-  console.log(role);
 
   // Helper function to get the role name based on the option value
   const getRoleName = (value) => {
@@ -75,7 +123,7 @@ function RoleChoise({ role, setRole, onNext }) {
     <>
       <div className="tw-mx-auto tw-max-w-screen-lg tw-px-4 md:tw-px-6 lg:tw-px-2">
         <div className="tw-my-20 tw-grid tw-grid-cols-2 tw-gap-2 md:tw-grid-cols-4 lg:tw-grid-cols-3">
-          {options.map((option) => (
+          {options.slice(0, 3).map((option) => (
             <div
               key={option.value}
               className="tw-mb-4 tw-flex tw-flex-col tw-items-center"
