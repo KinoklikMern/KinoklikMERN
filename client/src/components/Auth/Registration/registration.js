@@ -123,7 +123,7 @@ function RegistrationForm() {
       <div className={SignupCss.bg}>
         {!nextClicked && (
           <div className="tw-pt-4 tw-text-center tw-text-3xl tw-font-bold tw-text-[#712cb0] md:tw-text-4xl">
-            {t('SIGN UP')}
+            {t("SIGN UP")}
           </div>
         )}
 
@@ -144,6 +144,7 @@ function RegistrationForm() {
                 setPassword={setPassword}
                 setConfirmPassword={setConfirmPassword}
                 role={role}
+                setRole={setRole}
                 receiveNewsletter={receiveNewsletter}
                 setReceiveNewsletter={setReceiveNewsletter}
                 agreeToTerms={agreeToTerms}
@@ -163,13 +164,13 @@ function RegistrationForm() {
                   onClick={handleSubmit}
                   className="[#712cb0] tw-mx-auto tw-my-4 tw-block tw-w-[130px] tw-cursor-pointer tw-rounded-lg tw-border-[0.5px] tw-border-white tw-bg-[#712cb0] tw-text-center tw-text-lg tw-font-medium tw-text-white tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-transition-all tw-duration-300 hover:tw-bg-white hover:tw-text-[#712cb0]"
                 >
-                  {t('Sign Up')}
+                  {t("Sign Up")}
                 </button>
                 <button
                   onClick={() => setNextClicked(false)}
                   className="tw-mx-auto tw-my-4 tw-block tw-w-[100px] tw-cursor-pointer tw-rounded-lg tw-border-[0.5px] tw-border-[#712cb0] tw-bg-white tw-text-center tw-text-lg tw-font-medium tw-text-[#712cb0] tw-shadow-[0_4px_8px_0_rgba(96,35,170,0.2),0_6px_20px_0_rgba(175,63,227,0.19)] tw-transition-all tw-duration-300 tw-ease-in-out hover:tw-bg-[#712cb0] hover:tw-text-white"
                 >
-                  {t('Back')}
+                  {t("Back")}
                 </button>
               </>
             )}
@@ -177,9 +178,9 @@ function RegistrationForm() {
             <div className={SignupCss.form_Message}>
               {!nextClicked ? (
                 <p>
-                  {t('Already have an account?')}{' '}
+                  {t("Already have an account?")}{" "}
                   <Link to="/login" className={SignupCss.link}>
-                    {t('Login here')}
+                    {t("Login here")}
                   </Link>
                 </p>
               ) : null}
