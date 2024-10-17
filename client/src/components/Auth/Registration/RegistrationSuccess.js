@@ -17,10 +17,10 @@ const RegistrationSuccess = () => {
   return (
     <div className={`tw-flex tw-flex-col tw-justify-center ${SuccessCss.bg}`}>
       <div className="tw-text-center">
-        <h2 className="tw-text-8xl tw-font-semibold tw-text-white">
+        <h2 className="tw-text-4xl md:tw-text-6xl tw-font-semibold tw-text-white">
           {t('Congratulations!')}
         </h2>
-        <h3 className="mt-3 tw-text-5xl tw-font-semibold tw-text-white">
+        <h3 className="mt-3 tw-text-2xl md:tw-text-4xl tw-font-semibold tw-text-white">
           {t('Your account has been verified!')}
         </h3>
       </div>
