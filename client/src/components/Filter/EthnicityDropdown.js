@@ -7,7 +7,7 @@ const EthnicityDropdown = ({ selectedValue, onOptionSelect }) => {
   const ethnicities = [
     t("Asian"),
     t("African American"),
-    t("Caucasion"),
+    t("Caucasian"),
     t("Hispanic"),
     t("Native"),
   ];
