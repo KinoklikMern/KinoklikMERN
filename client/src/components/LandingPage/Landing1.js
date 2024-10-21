@@ -138,10 +138,10 @@ const Landing1 = () => {
                 />
               ))} */}
               <img
-                ref={imageRef}
-                src={heroImage}
-                alt=""
-                className=" tw-h-full"
+                  ref={imageRef}
+                  src={heroImage}
+                  alt=""
+                  className="tw-w-full tw-h-auto tw-object-cover"
               />
             </div>
           </div>
