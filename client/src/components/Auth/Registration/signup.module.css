@@ -3,7 +3,8 @@ link for registration is /signup */
 
 /*SIGN_UP AND REGISTRATION PERSONAL INFO*/
 .bg {
-  height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
   /* width: 100%;
   position: relative;
   top: 0;
@@ -20,7 +21,7 @@ link for registration is /signup */
 }
 
 .form {
-  position: absolute;
+  position: relative;
   color: black;
   top: 60%;
   left: 50%;
@@ -744,5 +745,12 @@ input[type="radio"]:checked {
 
   .form_input2 {
     width: 100%;
+  }
+}
+
+@media (max-height: 600px) {
+  .form {
+    top: auto;
+    transform: none;
   }
 }
