@@ -47,8 +47,8 @@ export default function EpkCover({ epkInfo }) {
         </div>
       </div>
 
-      <div className="tw-flex tw-justify-between tw-bg-black/50 tw-px-6">
-        <div className="tw-flex tw-w-5/6 tw-items-center tw-justify-between">
+      <div className="tw-flex tw-justify-between tw-bg-black/50 tw-px-6 tw-py-1">
+        <div className="tw-flex tw-w-11/12 tw-items-center tw-justify-between tw-flex-wrap tw-gap-x-4">
           <p className="tw-text-white md:tw-text-xl">
             {t("Posted")}: <span>{formatedDate(epkInfo.createdAt)}</span>
           </p>
@@ -56,9 +56,9 @@ export default function EpkCover({ epkInfo }) {
           <p className="tw-text-white md:tw-text-xl">
             {epkInfo.production_type}
           </p>
-          <p className="tw-text-white md:tw-text-xl">{epkInfo.genre}</p>
+          <p className="tw-text-white md:tw-text-xl tw-capitalize ">{epkInfo.genre}</p>
         </div>
-        <div className="tw-flex tw-w-1/6 tw-cursor-pointer tw-justify-end">
+        <div className="tw-flex tw-w-1/12 tw-cursor-pointer tw-justify-end">
           {user?.id !== epkInfo.film_maker._id ? (
             <EpkReport epkInfo={epkInfo} />
           ) : null}
