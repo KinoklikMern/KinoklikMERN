@@ -1,6 +1,6 @@
 .home {
   background-color: #1e0039;
-  height: 100vh;
+  min-height: 100vh; /* Changed to min-height */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -10,7 +10,6 @@
 }
 
 .home .listTitle {
-  height: 50px;
   color: white;
   font-size: 25px;
   font-weight: 500;
@@ -19,10 +18,10 @@
   background-color: #2e1f3b;
   display: flex;
   align-items: center;
+  padding: 10px 0; /* Replaced height with padding */
 }
 
 .home .sponsTitle {
-  height: 82px;
   color: white;
   font-size: 30px;
   font-weight: 500;
@@ -31,4 +30,30 @@
   background-color: black;
   display: flex;
   align-items: center;
+  padding: 20px 0;
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .home .listTitle {
+    font-size: 20px;
+    text-indent: 30px;
+  }
+
+  .home .sponsTitle {
+    font-size: 24px;
+    text-indent: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home .listTitle {
+    font-size: 18px;
+    text-indent: 20px;
+  }
+
+  .home .sponsTitle {
+    font-size: 22px;
+    text-indent: 20px;
+  }
 }
