@@ -167,7 +167,7 @@ export default function Sidebar(props) {
             //   (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
             // }
             className={`tw-group tw-relative ${
-              SELECTED_TAB === item.Title ? "tw-rounded-xl tw-bg-[#1E0039]" : ""
+              SELECTED_TAB === item.Title ? "tw-xl tw-bg-[#1E0039]" : ""
             } tw-flex tw-justify-center`}
           >
             <a

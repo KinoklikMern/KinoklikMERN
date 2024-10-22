@@ -206,32 +206,39 @@ function ResourcesForm() {
     if (pictureEditPreviewUrl) {
       const selectedFile = file;
       setFile(selectedFile);
-      let formData = new FormData();
-      formData.append("file", selectedFile);
 
-      http
-        .post("fepks/uploadFile", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          const updatedResourcesList = [...resourcesList];
-          updatedResourcesList[index].image = response.data.key;
-          setResourcesList(updatedResourcesList);
-          setEpkResourcesData({
-            ...epkResourcesData,
-            resources: updatedResourcesList,
-          });
-          saveEpkResources({
-            ...epkResourcesData,
-            resources: updatedResourcesList,
-          });
-          setEditMode({ status: false, rowKey: null });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // Perform the MIME type check here
+      if (checkFileMimeType(selectedFile)) {
+        let formData = new FormData();
+        formData.append("file", selectedFile);
+
+        http
+            .post("fepks/uploadFile", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              const updatedResourcesList = [...resourcesList];
+              updatedResourcesList[index].image = response.data.key;
+              setResourcesList(updatedResourcesList);
+              setEpkResourcesData({
+                ...epkResourcesData,
+                resources: updatedResourcesList,
+              });
+              saveEpkResources({
+                ...epkResourcesData,
+                resources: updatedResourcesList,
+              });
+              setEditMode({ status: false, rowKey: null });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+      } else {
+        // Set the message for invalid file format
+        setMessage(t("Oops! Please use JPEG, JPG, or PNG images."));
+      }
     } else {
       const updatedResourcesList = [...resourcesList];
       saveEpkResources({
@@ -241,6 +248,7 @@ function ResourcesForm() {
       setEditMode({ status: false, rowKey: null });
     }
   };
+
 
   return (
     <>
