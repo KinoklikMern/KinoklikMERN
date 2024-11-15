@@ -189,45 +189,10 @@ function LoglineForm() {
     <>
       <div
         style={{
-          boxShadow: "inset 1px 2px 9px #311465",
-          marginLeft: "10%",
-          marginBottom: "2%",
-          width: "80%",
-          borderRadius: "10px",
-          backgroundColor: "white",
+
         }}
       >
-        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
-          <div className="col-3 tw-m-3 tw-text-center">
-            <h2
-              className="tw-text-lg tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
-              // style={{
-              //   color: "#1E0039",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("EPK Dashboard")}
-            </h2>
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <BasicMenu color="#1E0039" />
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <Link
-              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
-              // style={{
-              //   color: "#1E0039",
-              //   textDecoration: "none",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("View EPK Page")}
-            </Link>
-          </div>
-        </div>
+
         <div
           style={{
             marginLeft: "10%",
@@ -237,41 +202,35 @@ function LoglineForm() {
           }}
         >
           <div className="card-body" style={{ height: "500px" }}>
-            <h5
-              className="card-title "
-              style={{ color: "#311465", fontWeight: "normal" }}
-            >
-              {t("Log Line")}
-            </h5>
             <form className="row g-3">
               <div className="col ms-">
                 <div className="col my-1">
                   <textarea
-                    style={{
-                      height: "80px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "left",
-                      resize: "none",
-                      // filter: epkLoglineData.logLine_blur
-                      //   ? "blur(5px)"
-                      //   : "none",
-                    }}
-                    className="form-control mt-10"
-                    defaultValue={fepk.logLine_long}
-                    placeholder={t("Log Line Long")}
-                    onChange={handleLoglineChange}
-                    name="logLine_long"
-                    maxLength="160"
+                      style={{
+                        height: "80px",
+                        width: "100%",
+                        borderRadius: "15px",
+                        // marginBottom: "5px",
+                        // boxShadow: "1px 2px 9px #311465",
+                        textAlign: "left",
+                        // resize: "none",
+                        // filter: epkLoglineData.logLine_blur
+                        //   ? "blur(5px)"
+                        //   : "none",
+                      }}
+                      className="form-control mt-10"
+                      defaultValue={fepk.logLine_long}
+                      placeholder={t("Log Line Long")}
+                      onChange={handleLoglineChange}
+                      name="logLine_long"
+                      maxLength="160"
                   />
                   <span
-                    style={{
-                      fontSize: "15px",
-                      display: "flex",
-                      justifyContent: "right",
-                    }}
+                      style={{
+                        fontSize: "15px",
+                        display: "flex",
+                        justifyContent: "right",
+                      }}
                   >
                     {characterLength?.logLine_long}
                     {t("/160 characters")}
@@ -280,159 +239,159 @@ function LoglineForm() {
 
                 <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
                   <Button
-                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                    style={{
-                      height: "30px",
-                      width: "120px",
-                      boxShadow: "1px 2px 9px #311465",
-                      fontWeight: "bold",
-                    }}
-                    type="outline-primary"
-                    block
-                    onClick={() =>
-                      handleLoglineblurChange(!epkLoglineData.logLine_blur)
-                    }
-                    name="logLine_blur"
+                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                      style={{
+                        height: "30px",
+                        width: "120px",
+                        borderRadius: "15px",
+                        marginBottom: "5px",
+                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                      }}
+                      type="outline-primary"
+                      block
+                      onClick={() =>
+                          handleLoglineblurChange(!epkLoglineData.logLine_blur)
+                      }
+                      name="logLine_blur"
                   >
                     {epkLoglineData.logLine_blur ? "UnBlur" : "Blur"}
                   </Button>
                 </div>
-                <div className="col mt-5">
-                  <label
-                    htmlFor="filePoster"
-                    className="form-label text-dark"
-                    style={{ fontSize: "25px" }}
-                  >
-                    {" "}
-                    <h4>{t("Upload Poster")}</h4>
-                  </label>
-                  <input
-                    style={{ fontSize: "15px" }}
-                    className="form-control form-control-sm"
-                    filename={file}
-                    onChange={fileSelected}
-                    ref={inputFileRef}
-                    type="file"
-                    id="filePoster"
-                    name="files"
-                    accept="image/*"
-                  ></input>
-                  {posterPreviewUrl ? (
-                    <img
-                      src={posterPreviewUrl}
-                      style={{
-                        height: "120px",
-                        width: "auto",
-                        margin: "inherit",
-                        marginTop: "0",
-                      }}
-                      alt="Preview"
-                    />
-                  ) : fepk.image_logline && fepk.image_logline !== undefined ? (
-                    <img
-                      src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_logline}`}
-                      style={{
-                        height: "120px",
-                        width: "auto",
-                        margin: "inherit",
-                        marginTop: "0",
-                      }}
-                      alt="no image"
-                    />
-                  ) : (
-                    <h3>{t("No Image")}</h3>
-                  )}
-                  {message && (
-                    <div
-                      className="message"
-                      style={{
-                        color: "red",
-                        fontSize: "1rem",
-                        marginBottom: "-3%",
-                      }}
+                <div className="col mt-5 text-center">
+                  {/* Picture Upload Text */}
+                  <div className="mb-2">
+                    <label
+                        htmlFor="filePoster"
+                        className="form-label text-dark text-2xl cursor-pointer"
                     >
-                      {message}
-                    </div>
+                      <h4>{t("Picture Upload")}</h4>
+                    </label>
+                  </div>
+
+                  {/* Hidden file input */}
+                  <input
+                      style={{display: "none"}}
+                      className="form-control form-control-sm"
+                      filename={file}
+                      onChange={fileSelected}
+                      ref={inputFileRef}
+                      type="file"
+                      id="filePoster"
+                      name="files"
+                      accept="image/*"
+                  />
+
+                  {/* Clickable image for file upload */}
+                  {posterPreviewUrl || (fepk.image_logline && fepk.image_logline !== undefined) ? (
+                      <img
+                          src={posterPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.image_logline}`}
+                          style={{
+                            height: "120px",
+                            width: "auto",
+                            margin: "0 auto",
+                            display: "block",
+                            cursor: "pointer", // Makes the image look clickable
+                          }}
+                          alt="Preview"
+                          onClick={() => inputFileRef.current.click()} // Triggers file input click
+                      />
+                  ) : (
+                      <h3 onClick={() => inputFileRef.current.click()} style={{cursor: "pointer"}}>
+                        {t("No Image")}
+                      </h3>
+                  )}
+
+                  {message && (
+                      <div
+                          className="message"
+                          style={{
+                            color: "red",
+                            fontSize: "1rem",
+                            marginBottom: "-3%",
+                          }}
+                      >
+                        {message}
+                      </div>
                   )}
                 </div>
+
                 {/* Save Button */}
                 <div
-                  className="tw-md-block tw-flex tw-flex tw-grid tw-flex-1 tw-justify-end tw-gap-2 "
-                  style={{
-                    // height: "50px",
-                    // width: "120px",
-                    // marginLeft: "80%",
-                    marginTop: "20px",
-                  }}
+                    className="tw-md-block tw-flex tw-flex tw-grid tw-flex-1 tw-justify-end tw-gap-2 "
+                    style={{
+                      // height: "50px",
+                      // width: "120px",
+                      // marginLeft: "80%",
+                      marginTop: "20px",
+                    }}
                 >
                   {disabled === true ? (
-                    <Button
-                      disabled
-                      style={{
-                        width: "120px",
-                        boxShadow: "1px 2px 9px #311465",
-                        color: "grey",
-                        backgroundColor: "#ffffff",
-                        fontWeight: "bold",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={saveEpkLogline}
-                      value="save"
-                    >
-                      {t("Save")}
-                    </Button>
+                      <Button
+                          disabled
+                          style={{
+                            width: "120px",
+                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            color: "grey",
+                            // fontWeight: "bold",
+                          }}
+                          type="outline-primary"
+                          block
+                          onClick={saveEpkLogline}
+                          value="save"
+
+                      >
+                        {t("Save")}
+                      </Button>
                   ) : (
-                    <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white "
-                      style={{
-                        width: "120px",
-                        boxShadow: "1px 2px 9px #311465",
-                        fontWeight: "bold",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={saveEpkLogline}
-                      value="save"
-                    >
-                      {t("Save")}
-                    </Button>
+                      <Button
+                          className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                          style={{
+                            width: "120px",
+                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            fontWeight: "bold",
+                          }}
+                          type="outline-primary"
+                          block
+                          onClick={saveEpkLogline}
+                      >
+                        {t("Save")}
+                      </Button>
                   )}
                 </div>
 
                 <Modal
-                  isOpen={modalIsOpen}
-                  onRequestClose={closeModal}
-                  contentLabel="Example Modal"
-                  appElement={document.getElementById("root")}
-                  style={{
-                    overlay: {
-                      backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    },
-                    content: {
-                      position: "absolute",
-                      border: "2px solid #000",
-                      backgroundColor: "white",
-                      boxShadow: "2px solid black",
-                      height: 120,
-                      width: 300,
-                      margin: "auto",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    },
-                  }}
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Example Modal"
+                    appElement={document.getElementById("root")}
+                    style={{
+                      overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                      },
+                      content: {
+                        position: "absolute",
+                        border: "2px solid #000",
+                        backgroundColor: "white",
+                        boxShadow: "2px solid black",
+                        height: 120,
+                        width: 300,
+                        margin: "auto",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      },
+                    }}
                 >
-                  <div style={{ textAlign: "center" }}>
-                    <div style={{ color: "green" }}>
+                  <div style={{textAlign: "center"}}>
+                    <div style={{color: "green"}}>
                       {" "}
                       {t("Log Line Saved Successfully!")}
                     </div>
-                    <br />
+                    <br/>
                     <button
-                      className="btn btn-secondary btn-sm"
-                      onClick={closeModal}
-                      style={{ backgroundColor: "#712CB0", color: "white" }}
+                        className="btn btn-secondary btn-sm"
+                        onClick={closeModal}
+                        style={{backgroundColor: "#712CB0", color: "white"}}
                     >
                       {t("Ok")}
                     </button>
@@ -446,4 +405,5 @@ function LoglineForm() {
     </>
   );
 }
+
 export default LoglineForm;
