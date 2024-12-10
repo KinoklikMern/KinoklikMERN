@@ -383,14 +383,15 @@ function FepkEditCoverForm() {
           // width: "80%",
           // borderRadius: "10px",
           backgroundColor: "transparent",
-
+          margin: "0 auto",
         }}
       >
         {/* form div */}
         <div
           style={{
-            marginLeft: "7%",
-            marginRight: "5%",
+            // marginLeft: "7%",
+            // marginRight: "5%",
+            margin: "0 auto",
             color: "#311465",
             fontWeight: "normal",
           }}
@@ -405,15 +406,14 @@ function FepkEditCoverForm() {
             }}
           > */}
 
-          <div className="tw-card-body tw--ml-4 tw--mr-4 tw-mb-1 tw-h-auto tw-pb-2">
+          <div className="tw-card-body tw--mr-4 tw-mb-1 tw-h-auto tw-pb-2 tw-ml-4">
             {/* Format of all the inputs from Title to Upload Trailer  */}
             <form className="row d-flex flex-column flex-md-row">
 
-              <div className="col me-5">
                 {/* First 2 columns*/}
-                <div className="row align-items-stretch">
+                <div className="row ">
                   {/* The 1st column*/}
-                  <div className="col-lg-6">
+                  <div className="col-lg-4">
                     {/*Title*/}
                     <div className="col mt-1 mb-5">
                       <input
@@ -496,7 +496,7 @@ function FepkEditCoverForm() {
                     </div>
                     {/* Distribution (div inside the div)*/}
                     <div className="row">
-                      <div className="col my-2">
+                      <div className="col">
                         <input
                             style={{
                               height: "30px",
@@ -517,7 +517,7 @@ function FepkEditCoverForm() {
                     </div>
                   </div>
                   {/* The 2nd column*/}
-                  <div className="col-lg-6">
+                  <div className="col-lg-4">
                     <div className="row">
                       {/* Budget*/}
                       <div className="col my-2">
@@ -682,171 +682,261 @@ function FepkEditCoverForm() {
                         />
                       </div>
                     </div>
-                  </div>
+
                   {/* The end of the 2nd column)*/}
-                </div>
+
               </div>
               {/* The 3rd column)*/}
-              <div
-                  className="col-10 col-md-4 col-lg-6 m-1 ms-3"
-                  style={{
-                    borderRadius: "5px",
-                  }}
-              >
-                <div className="row">
-                  {/* Poster */}
-                  <div className="col-12 col-md-6 my-2">
-                    <label
-                        htmlFor="filePoster"
-                        className="form-label text-dark"
-                        style={{fontSize: "25px"}}
+              <div className="col-lg-4">
+                <div className=" text-center">
+                  {/* Picture Upload Text */}
+                  <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">
+                    {/* Picture Upload Button */}
+                    <div
+                        className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"
+                        style={{
+                          width: "200px",
+                          boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                        }}
                     >
-                      <h4>{t("Upload Poster")}</h4>
-                    </label>
-                    <input
-                        style={{fontSize: "15px"}}
-                        className="form-control form-control-sm"
-                        filename={file3}
-                        onChange={file3Selected}
-                        ref={inputFile3Ref}
-                        type="file"
-                        id="filePoster"
-                        name="files"
-                        accept="image/*"
-                    />
-                    {posterPreviewUrl ? (
-                        <img
-                            src={posterPreviewUrl}
-                            style={{
-                              height: "auto",
-                              width: "auto",
-                              marginTop: "5px",
-                            }}
-                            alt="Preview"
-                        />
-                    ) : fepk.image_details ? (
-                        <img
-                            src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                            style={{
-                              height: "auto",
-                              width: "auto",
-                              marginTop: "5px",
-                            }}
-                            alt="no img"
-                        />
-                    ) : (
-                        <h3>{t("No Image")}</h3>
-                    )}
-                    {messageImg && (
-                        <div
-                            className="message"
-                            style={{
-                              color: "red",
-                              fontSize: "1rem",
-                              marginTop: "10%",
-                            }}
+                      <label
+                          htmlFor="filePoster"
+                          className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"
+                      >
+        <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+          {t("Poster Upload")}
+        </span>
+                        {/* Upload Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="tw-h-5"
                         >
-                          {messageImg}
-                        </div>
-                    )}
-                  </div>
-
-                  {/* Banner and Trailer */}
-                  <div className="col-12 col-md-6" style={{height: "auto"}}>
-                    <div className="row">
-                      {/* Banner */}
-                      <div className="col my-2">
-                        <label
-                            htmlFor="fileBanner"
-                            className="form-label text-dark"
-                            style={{fontSize: "25px"}}
-                        >
-                          <h4>{t("Upload Banner")}</h4>
-                        </label>
-                        <input
-                            style={{fontSize: "15px"}}
-                            className="form-control form-control-sm"
-                            filename={file1}
-                            onChange={file1Selected}
-                            ref={inputFile1Ref}
-                            type="file"
-                            id="fileBanner"
-                            name="files"
-                            accept="image/*"
-                        />
-                        {bannerPreviewUrl ? (
-                            <img
-                                src={bannerPreviewUrl}
-                                style={{
-                                  height: "auto",
-                                  width: "auto",
-                                  marginTop: "5px",
-                                }}
-                                alt="Preview"
-                            />
-                        ) : fepk.banner_url ? (
-                            <img
-                                src={`${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`}
-                                style={{
-                                  height: "auto",
-                                  width: "auto",
-                                  marginTop: "5px",
-                                }}
-                                alt="no img"
-                            />
-                        ) : (
-                            <h3>{t("No Image")}</h3>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Trailer */}
-                    <div className="row">
-                      <div className="col-12 mb-3">
-                        <label
-                            htmlFor="fileTrailer"
-                            className="form-label text-dark"
-                            style={{fontSize: "25px"}}
-                        >
-                          <h4>{t("Upload Trailer")}</h4>
-                        </label>
-                        <input
-                            style={{fontSize: "15px"}}
-                            className="form-control form-control-sm"
-                            filename={file2}
-                            ref={inputFile2Ref}
-                            onChange={file2Selected}
-                            type="file"
-                            id="fileTrailer"
-                            name="files"
-                            accept="video/*"
-                        />
-                        {trailerPreviewUrl ? (
-                            <video
-                                src={trailerPreviewUrl}
-                                controls
-                                style={{width: "100%", height: "auto", borderRadius: "0"}}
-                            ></video>
-                        ) : fepk.trailer_url ? (
-                            <video
-                                src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}
-                                controls
-                                style={{width: "100%", height: "auto", borderRadius: "0"}}
-                            ></video>
-                        ) : (
-                            <h6>{t("NO VIDEO UPLOADED")}</h6>
-                        )}
-                      </div>
+                          <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                          />
+                        </svg>
+                      </label>
                     </div>
                   </div>
+
+                  {/* Hidden file input */}
+                  <input
+                      style={{display: "none"}}
+                      className="form-control form-control-sm"
+                      filename={file3}
+                      onChange={file3Selected}
+                      ref={inputFile3Ref}
+                      type="file"
+                      id="filePoster"
+                      name="files"
+                      accept="image/*"
+                  />
+
+                  {/* Clickable image for file upload */}
+                  {posterPreviewUrl || (fepk.image_details && fepk.image_details !== undefined) ? (
+                      <img
+                          src={posterPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                          style={{
+                            height: "120px",
+                            width: "auto",
+                            margin: "0 auto",
+                            display: "block",
+                            cursor: "pointer",
+                            marginTop: "10px",
+                          }}
+                          alt="Preview"
+                          onClick={() => inputFile3Ref.current.click()}
+                      />
+                  ) : (
+                      <h3
+                          onClick={() => inputFile3Ref.current.click()}
+                          style={{cursor: "pointer", marginTop: "10px"}}
+                      >
+                        {t("No Image")}
+                      </h3>
+                  )}
+
+                  {messageImg && (
+                      <div
+                          className="message"
+                          style={{
+                            color: "red",
+                            fontSize: "1rem",
+                            marginTop: "10px",
+                          }}
+                      >
+                        {messageImg}
+                      </div>
+                  )}
                 </div>
+
+                {/* Banner and Trailer */}
+                <div className=" text-center">
+                  {/* Banner Upload Text */}
+                  <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">
+                    {/* Banner Upload Button */}
+                    <div
+                        className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"
+                        style={{
+                          width: "200px",
+                          boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                        }}
+                    >
+                      <label
+                          htmlFor="fileBanner"
+                          className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"
+                      >
+        <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+          {t("Cover Upload")}
+        </span>
+                        {/* Upload Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="tw-h-5"
+                        >
+                          <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                          />
+                        </svg>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Hidden file input */}
+                  <input
+                      style={{display: "none"}}
+                      className="form-control form-control-sm"
+                      filename={file1}
+                      onChange={file1Selected}
+                      ref={inputFile1Ref}
+                      type="file"
+                      id="fileBanner"
+                      name="files"
+                      accept="image/*"
+                  />
+
+                  {/* Clickable image for file upload */}
+                  {bannerPreviewUrl || (fepk.banner_url && fepk.banner_url !== undefined) ? (
+                      <img
+                          src={bannerPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`}
+                          style={{
+                            height: "120px",
+                            width: "auto",
+                            margin: "0 auto",
+                            display: "block",
+                            cursor: "pointer",
+                            marginTop: "10px",
+                          }}
+                          alt="Preview"
+                          onClick={() => inputFile1Ref.current.click()}
+                      />
+                  ) : (
+                      <h3
+                          onClick={() => inputFile1Ref.current.click()}
+                          style={{cursor: "pointer", marginTop: "10px"}}
+                      >
+                        {t("No Image")}
+                      </h3>
+                  )}
+                </div>
+
+
+                {/*          <div className="col mt-5 text-center">*/}
+                {/*            /!* Trailer Upload Text *!/*/}
+                {/*            <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">*/}
+                {/*              /!* Trailer Upload Button *!/*/}
+                {/*              <div*/}
+                {/*                  className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"*/}
+                {/*                  style={{*/}
+                {/*                    width: "200px",*/}
+                {/*                    boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",*/}
+                {/*                  }}*/}
+                {/*              >*/}
+                {/*                <label*/}
+                {/*                    htmlFor="fileTrailer"*/}
+                {/*                    className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"*/}
+                {/*                >*/}
+                {/*<span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">*/}
+                {/*  {t("Teaser Trailer Upload")}*/}
+                {/*</span>*/}
+                {/*                  /!* Upload Icon *!/*/}
+                {/*                  <svg*/}
+                {/*                      xmlns="http://www.w3.org/2000/svg"*/}
+                {/*                      fill="none"*/}
+                {/*                      viewBox="0 0 24 24"*/}
+                {/*                      strokeWidth="1.5"*/}
+                {/*                      stroke="currentColor"*/}
+                {/*                      className="tw-h-5"*/}
+                {/*                  >*/}
+                {/*                    <path*/}
+                {/*                        strokeLinecap="round"*/}
+                {/*                        strokeLinejoin="round"*/}
+                {/*                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"*/}
+                {/*                    />*/}
+                {/*                  </svg>*/}
+                {/*                </label>*/}
+                {/*              </div>*/}
+                {/*            </div>*/}
+
+                {/*            /!* Hidden file input *!/*/}
+                {/*            <input*/}
+                {/*                style={{display: "none"}}*/}
+                {/*                className="form-control form-control-sm"*/}
+                {/*                filename={file2}*/}
+                {/*                ref={inputFile2Ref}*/}
+                {/*                onChange={file2Selected}*/}
+                {/*                type="file"*/}
+                {/*                id="fileTrailer"*/}
+                {/*                name="files"*/}
+                {/*                accept="video/*"*/}
+                {/*            />*/}
+
+                {/*            /!* Clickable video preview for upload *!/*/}
+                {/*            {trailerPreviewUrl || (fepk.trailer_url && fepk.trailer_url !== undefined) ? (*/}
+                {/*                <video*/}
+                {/*                    src={trailerPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}*/}
+                {/*                    controls*/}
+                {/*                    style={{*/}
+                {/*                      width: "100%",*/}
+                {/*                      height: "auto",*/}
+                {/*                      borderRadius: "8px",*/}
+                {/*                      marginTop: "10px",*/}
+                {/*                      cursor: "pointer",*/}
+                {/*                    }}*/}
+                {/*                    onClick={() => inputFile2Ref.current.click()} // Triggers file input click*/}
+                {/*                ></video>*/}
+                {/*            ) : (*/}
+                {/*                <h6*/}
+                {/*                    onClick={() => inputFile2Ref.current.click()}*/}
+                {/*                    style={{cursor: "pointer", marginTop: "10px", color: "gray"}}*/}
+                {/*                >*/}
+                {/*                  {t("No Video Uploaded")}*/}
+                {/*                </h6>*/}
+                {/*            )}*/}
+                {/*          </div>*/}
+
               </div>
+
 
               <div
                   className="row"
                   style={{
-                    paddingRight: "20%",
-                    paddingLeft: "5%",
+                    // paddingRight: "20%",
+                    // paddingLeft: "5%",
+                    maxWidth: "600px",
+                    margin: "0 auto"
                   }}
               >
                 <div>
@@ -857,17 +947,22 @@ function FepkEditCoverForm() {
                   >
                     <span>
                       {" "}
-                      <InfoCircleFilled/>
+                      <InfoCircleFilled style={{ color: "gray",}}/>
                     </span>
                   </Tooltip>
                 </div>
 
-                <div className="row mt-3 col-12">
-                  <div className="col-12 mt-4">
+                <div className="row"
+                     style={{
+                       marginLeft: "-20px",
+                       width: "120%",
+                     }}
+                >
+                  <div className="">
                     <input
                         style={{
                           height: "30px",
-                          width: "120%",
+                          width: "100%",
                           marginBottom: "5px",
                           borderRadius: "15px",
                           boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
@@ -907,8 +1002,10 @@ function FepkEditCoverForm() {
                 {/*  />*/}
                 {/*</div>*/}
               </div>
+                </div>
             </form>
           </div>
+
         </div>
         <div
             className="mt-4 tw-relative tw-ml-[70%] tw-flex tw-h-12 tw-w-24 "

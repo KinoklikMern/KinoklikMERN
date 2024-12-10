@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import NavbarBrand from "./NavbarBrand.js";
 import NavbarButtons from "./NavbarButtons.js";
 import NavbarMenu from "./NavbarMenu.js";
+import BasicMenu from "../Epk/Input/fepkMenu";
 
 function Navbar(props) {
     const [toggle, setToggle] = useState(false);
@@ -21,13 +22,23 @@ function Navbar(props) {
 
                 {/* Centered Film Link as Floating Button */}
                 {props.filmName && props.filmLink && (
-                    <Link
-                        to={props.filmLink}
-                        className="tw-absolute tw-left-1/2 tw-transform -tw-translate-x-1/2 tw-bg-customColor tw-text-white tw-font-bold tw-rounded-full tw-shadow-md hover:tw-bg-opacity-90 tw-px-4 tw-py-2 tw-text-sm md:tw-text-base lg:tw-text-lg tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis"
-                        style={{padding: '0 1rem', maxWidth: 'calc(100% - 15rem)'}}
+                    <div
+                        className="tw-absolute tw-left-1/2 tw-transform -tw-translate-x-1/2 tw-flex tw-items-center"
+                        style={{ maxWidth: "calc(100% - 15rem)" }}
                     >
-                        {props.filmName}
-                    </Link>
+                        <Link
+                            to={props.filmLink}
+                            className="tw-bg-customColor tw-text-white tw-font-bold tw-rounded-full tw-shadow-md hover:tw-bg-opacity-90 tw-px-4 tw-py-2 tw-text-sm md:tw-text-base lg:tw-text-lg tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis"
+                            style={{ padding: "0 1rem" }}
+                        >
+                            {props.filmName}
+                        </Link>
+
+                        {/* Arrow dropdown menu */}
+                        <div>
+                            <BasicMenu color="customColor" />
+                        </div>
+                    </div>
                 )}
 
                 {/* Buttons */}

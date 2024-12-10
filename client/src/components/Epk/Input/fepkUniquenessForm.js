@@ -184,45 +184,45 @@ function UniquenessForm() {
     <>
       <div
         style={{
-          boxShadow: "inset 1px 2px 9px #311465",
-          marginLeft: "10%",
-          marginBottom: "2%",
-          width: "80%",
-          borderRadius: "10px",
-          backgroundColor: "white",
+          // boxShadow: "inset 1px 2px 9px #311465",
+          // marginLeft: "10%",
+          // marginBottom: "2%",
+          // width: "80%",
+          // borderRadius: "10px",
+          // backgroundColor: "white",
         }}
       >
-        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
-          <div className="col-3 tw-m-3 tw-text-center">
-            <h2
-              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              // style={{
-              //   color: "#1E0039",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("EPK Dashboard")}
-            </h2>
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <BasicMenu color="#1E0039" />
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <Link
-              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
-              // style={{
-              //   color: "#1E0039",
-              //   textDecoration: "none",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("View EPK Page")}
-            </Link>
-          </div>
-        </div>
+        {/*<div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <h2*/}
+        {/*      className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"*/}
+        {/*      // style={{*/}
+        {/*      //   color: "#1E0039",*/}
+        {/*      //   fontWeight: "bold",*/}
+        {/*      //   fontSize: "25px",*/}
+        {/*      // }}*/}
+        {/*    >*/}
+        {/*      {t("EPK Dashboard")}*/}
+        {/*    </h2>*/}
+        {/*  </div>*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <BasicMenu color="#1E0039" />*/}
+        {/*  </div>*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <Link*/}
+        {/*      className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"*/}
+        {/*      to={`/epk/${fepk._id}`}*/}
+        {/*      // style={{*/}
+        {/*      //   color: "#1E0039",*/}
+        {/*      //   textDecoration: "none",*/}
+        {/*      //   fontWeight: "bold",*/}
+        {/*      //   fontSize: "25px",*/}
+        {/*      // }}*/}
+        {/*    >*/}
+        {/*      {t("View EPK Page")}*/}
+        {/*    </Link>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
         <div
           style={{
             marginLeft: "10%",
@@ -243,7 +243,7 @@ function UniquenessForm() {
                 marginBottom: "10px",
               }}
             >
-              {t("Uniqueness")}
+              {/*{t("Uniqueness")}*/}
             </h5>
             <form className="col g-3">
               {/* Title and Description Fields */}
@@ -276,9 +276,9 @@ function UniquenessForm() {
                   style={{
                     height: "120px",
                     width: "100%",
-                    borderRadius: "5px",
-                    marginBottom: "5px",
-                    boxShadow: "1px 2px 9px #311465",
+                    borderRadius: "15px",
+                    marginBottom: "15px",
+                      boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
                     textAlign: "left",
                     resize: "none",
                   }}
@@ -321,67 +321,96 @@ function UniquenessForm() {
                 </Button>
               </div>
               {/* <div className="col my-3"></div> */}
-              {/* Upload Picture Section */}
-              <div className="col ">
-                <label
-                  htmlFor="filePoster"
-                  className="form-label text-dark"
-                  style={{ fontSize: "25px" }}
-                >
-                  {" "}
-                  <h4>{t("Upload Picture")}</h4>
-                </label>
-                <input
-                  style={{ fontSize: "15px" }}
-                  className="form-control form-control-sm"
-                  filename={file}
-                  onChange={fileSelected}
-                  ref={inputFileRef}
-                  type="file"
-                  id="filePoster"
-                  name="files"
-                  accept="image/*"
-                ></input>
-                {/* Picture Preview */}
-                {picturePreviewUrl ? (
-                  <img
-                    src={picturePreviewUrl}
-                    style={{
-                      height: "120px",
-                      width: "auto",
-                      marginTop: "5px",
-                      marginLeft: "50px",
-                    }}
-                    alt="Picture Preview"
-                  />
-                ) : fepk.image_uniqueness ? (
-                  <img
-                    src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_uniqueness}`}
-                    style={{
-                      height: "120px",
-                      width: "auto",
-                      marginTop: "5px",
-                      marginLeft: "50px",
-                    }}
-                    alt="Picture"
-                  />
-                ) : (
-                  <h3>{t("No Image")}</h3>
-                )}
-                {message && (
-                  <div
-                    className="message"
-                    style={{
-                      color: "red",
-                      fontSize: "1rem",
-                      marginBottom: "-3%",
-                    }}
-                  >
-                    {message}
-                  </div>
-                )}
-              </div>
-              {/* </div> */}
+                {/* Upload Picture Section */}
+                <div className="col mt-5 text-center">
+                    {/* Picture Upload Text */}
+                    <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">
+                        {/* Picture Upload Button */}
+                        <div
+                            className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"
+                            style={{
+                                width: "200px",
+                                boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            }}
+                        >
+                            <label
+                                htmlFor="filePoster"
+                                className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"
+                            >
+                <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+                    {t("Picture Upload")}
+                </span>
+                                {/* Upload Icon */}
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    className="tw-h-5"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                                    />
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Hidden file input */}
+                    <input
+                        style={{ display: "none" }}
+                        className="form-control form-control-sm"
+                        filename={file}
+                        onChange={fileSelected}
+                        ref={inputFileRef}
+                        type="file"
+                        id="filePoster"
+                        name="files"
+                        accept="image/*"
+                    />
+
+                    {/* Picture Preview */}
+                    {picturePreviewUrl || (fepk.image_uniqueness && fepk.image_uniqueness !== undefined) ? (
+                        <img
+                            src={picturePreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.image_uniqueness}`}
+                            style={{
+                                height: "120px",
+                                width: "auto",
+                                margin: "0 auto",
+                                display: "block",
+                                cursor: "pointer",
+                                marginTop: "10px",
+                            }}
+                            alt="Picture Preview"
+                            onClick={() => inputFileRef.current.click()} // Triggers file input click
+                        />
+                    ) : (
+                        <h3
+                            onClick={() => inputFileRef.current.click()}
+                            style={{ cursor: "pointer", marginTop: "10px" }}
+                        >
+                            {t("No Image")}
+                        </h3>
+                    )}
+
+                    {message && (
+                        <div
+                            className="message"
+                            style={{
+                                color: "red",
+                                fontSize: "1rem",
+                                marginTop: "10px",
+                            }}
+                        >
+                            {message}
+                        </div>
+                    )}
+                </div>
+
+                {/* </div> */}
               {/* Save Button */}
               <div
                 className="col tw-md-block tw-mt-4 tw-flex tw-flex tw-grid tw-flex-1 tw-justify-end tw-gap-2"
@@ -399,10 +428,9 @@ function UniquenessForm() {
                     disabled
                     style={{
                       width: "120px",
-                      boxShadow: "1px 2px 9px #311465",
+                      boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
                       color: "grey",
-                      backgroundColor: "#ffffff",
-                      fontWeight: "bold",
+                      // fontWeight: "bold",
                     }}
                     type="outline-primary"
                     block
@@ -416,7 +444,7 @@ function UniquenessForm() {
                     className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                     style={{
                       width: "120px",
-                      boxShadow: "1px 2px 9px #311465",
+                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
                       fontWeight: "bold",
                     }}
                     type="outline-primary"

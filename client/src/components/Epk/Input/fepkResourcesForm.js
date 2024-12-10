@@ -254,380 +254,452 @@ function ResourcesForm() {
     <>
       <div
         style={{
-          boxShadow: "inset 1px 2px 9px #311465",
-          marginLeft: "10%",
-          marginBottom: "2%",
-          width: "80%",
-          borderRadius: "10px",
-          backgroundColor: "white",
+          // boxShadow: "inset 1px 2px 9px #311465",
+          // marginLeft: "10%",
+          // marginBottom: "2%",
+          // width: "80%",
+          // borderRadius: "10px",
+          // backgroundColor: "white",
         }}
       >
-        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
-          <div className="col-3 tw-m-3 tw-text-center">
-            <h2
-              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              // style={{
-              //   color: "#1E0039",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("EPK Dashboard")}
-            </h2>
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <BasicMenu color="#1E0039" />
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <Link
-              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
-              // style={{
-              //   color: "#1E0039",
-              //   textDecoration: "none",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("View EPK Page")}
-            </Link>
-          </div>
-        </div>
+        {/*<div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <h2*/}
+        {/*      className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"*/}
+        {/*      // style={{*/}
+        {/*      //   color: "#1E0039",*/}
+        {/*      //   fontWeight: "bold",*/}
+        {/*      //   fontSize: "25px",*/}
+        {/*      // }}*/}
+        {/*    >*/}
+        {/*      {t("EPK Dashboard")}*/}
+        {/*    </h2>*/}
+        {/*  </div>*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <BasicMenu color="#1E0039" />*/}
+        {/*  </div>*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <Link*/}
+        {/*      className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"*/}
+        {/*      to={`/epk/${fepk._id}`}*/}
+        {/*      // style={{*/}
+        {/*      //   color: "#1E0039",*/}
+        {/*      //   textDecoration: "none",*/}
+        {/*      //   fontWeight: "bold",*/}
+        {/*      //   fontSize: "25px",*/}
+        {/*      // }}*/}
+        {/*    >*/}
+        {/*      {t("View EPK Page")}*/}
+        {/*    </Link>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
         <div
           style={{
-            marginLeft: "10%",
-            color: "#311465",
-            fontWeight: "normal",
+            // marginLeft: "10%",
+            // color: "#311465",
+            // fontWeight: "normal",
           }}
         >
-          <div
-            className="card-body"
-            style={
-              {
-                // height: "500px"
-              }
-            }
-          >
-            <h5
-              className="card-title "
-              style={{ color: "#311465", fontWeight: "normal" }}
+            <div
+                className=""
+                style={
+                    {
+                        // height: "500px"
+                    }
+                }
             >
-              {t("Resources")}
-            </h5>
-            <form>
-              <div className="tw-flex tw-flex-col lg:tw-flex-row">
-                <div className="my-4 tw-w-3/4 lg:tw-w-1/3 ">
-                  {/* <div className='col-4 my-4'> */}
-                  <input
+                <h5
+                    className="card-title "
+                    style={{color: "#311465", fontWeight: "bold", textAlign: "center",}}
+                >
+                    {t("Resources Cards")}
+                </h5>
+
+                <p
+                    className="tw-text-xxs"
                     style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "20px",
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "left",
+                        color: "gray",
+                        lineHeight: "1.2",
                     }}
-                    className="form-control m-10"
-                    placeholder={t("Title")}
-                    onChange={handleResourceChange}
-                    name="title"
-                    value={resource.title}
-                  />
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "20px",
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "left",
-                    }}
-                    className="form-control m-10"
-                    placeholder={t("Duration Required")}
-                    onChange={handleResourceChange}
-                    name="time"
-                    value={resource.time}
-                  />
-                  <textarea
-                    style={{
-                      height: "60px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      textAlign: "left",
-                      resize: "none",
-                    }}
-                    className="form-control mt-10"
-                    placeholder={t("Description(maximum 160 characters)")}
-                    onChange={handleResourceChange}
-                    name="description"
-                    maxLength="160"
-                    value={resource.description}
-                  />
-                  <span
-                    style={{
-                      fontSize: "15px",
-                      display: "flex",
-                      justifyContent: "right",
-                    }}
-                  >
+                >
+                    {t(
+                        "Tell the world what unique resources you need to make your film, i.e. a red Ferrari, an outdoor boxing gym, a Penthouse pool, a cottage, a Golden Retriever puppy, etc). Use the Resources Cards to ask people for help, as it doubles as free ads for your film!"
+                    )}
+                </p>
+                <form>
+                    <div className="tw-flex tw-flex-col lg:tw-flex-row">
+                        <div className="my-1 lg:tw-w-1/3 ">
+                            <div className="tw-flex tw-gap-4 my-4">
+                                <input
+                                    style={{
+                                        height: "30px",
+                                        width: "100%",
+                                        maxWidth: "calc(50% - 8px)",
+                                        borderRadius: "5px",
+                                        boxShadow: "1px 2px 9px #311465",
+                                        textAlign: "center",
+                                    }}
+                                    className="form-control"
+                                    placeholder={t("Resource Title")}
+                                    onChange={handleResourceChange}
+                                    name="title"
+                                    value={resource.title}
+                                    maxLength="25"
+                                />
+                                {/* Duration Dropdown */}
+                                <div className="tw-flex tw-items-center tw-gap-2"
+                                     style={{width: "100%", maxWidth: "50%"}}>
+                                    <label htmlFor="duration-select" className="tw-text-sm">
+                                        {t("Duration")}:
+                                    </label>
+                                    <select
+                                        id="duration-select"
+                                        name="time"
+                                        value={resource.time || ""}
+                                        onChange={handleResourceChange}
+                                        className="tw-block"
+                                        style={{
+                                            height: "30px",
+                                            width: "100%",
+                                            borderRadius: "5px",
+                                            boxShadow: "1px 2px 9px #311465",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <option value="" disabled>
+                                            {t("Days")}
+                                        </option>
+                                        {Array.from({length: 30}, (_, i) => (
+                                            <option key={i + 1} value={i + 1}>
+                                                {i + 1} {t("days")}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <textarea
+                                style={{
+                                    height: "60px",
+                                    width: "100%",
+                                    borderRadius: "15px",
+                                    marginBottom: "5px",
+                                    boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                    textAlign: "left",
+                                    resize: "none",
+                                }}
+                                className="form-control mt-10"
+                                placeholder={t("Description(maximum 160 characters)")}
+                                onChange={handleResourceChange}
+                                name="description"
+                                maxLength="160"
+                                value={resource.description}
+                            />
+                            <span
+                                style={{
+                                    fontSize: "15px",
+                                    display: "flex",
+                                    justifyContent: "right",
+                                }}
+                            >
                     {characterLength?.description}
-                    {t("/160 characters")}
+                                {t("/160 characters")}
                   </span>
 
-                  <label
-                    htmlFor="fileAwardLogo"
-                    className="form-label text-dark"
-                    style={{ fontSize: "25px" }}
-                  >
-                    {" "}
-                    <h4>{t("Upload Image")}</h4>
-                  </label>
-                  <input
-                    style={{ fontSize: "15px" }}
-                    className="form-control form-control-sm"
-                    filename={file}
-                    onChange={fileSelected}
-                    ref={inputFileRef}
-                    type="file"
-                    id="fileImageResources"
-                    name="files"
-                    accept="image/*"
-                  />
-                  {picturePreviewUrl && picturePreviewUrl !== undefined ? (
-                    <img
-                      src={picturePreviewUrl}
-                      style={{
-                        height: "120px",
-                        width: "auto",
-                        marginTop: "5px",
-                      }}
-                      alt="no img"
-                    />
-                  ) : // <h3>No Image</h3>
-                  null}
-                  {disabledAdd === true ? (
-                    <Button
-                      disabled
-                      style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        color: "grey",
-                        backgroundColor: "#ffffff",
-                        fontWeight: "bold",
-                        width: "120px",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={addResourceImage}
-                      value="save"
-                    >
-                      {t("Save to EPK")}
-                    </Button>
-                  ) : (
-                    <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                      style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        fontWeight: "bold",
-                        width: "120px",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={addResourceImage}
-                      value="save"
-                    >
-                      {t("Save to EPK")}
-                    </Button>
-                  )}
-                  {message && (
-                    <div
-                      className="message"
-                      style={{
-                        color: "red",
-                        fontSize: "0.9rem",
-                        marginTop: "5%",
-                      }}
-                    >
-                      {message}
-                    </div>
-                  )}
-                </div>
-                {/*Table with results */}
-                <div className="my-4 my-4 tw-w-3/4 tw-overflow-x-auto tw-px-4 lg:tw-w-3/5 lg:tw-overflow-visible">
-                  <table
-                    className="table table-striped table-bordered tw-min-w-full "
-                    style={{
-                      fontSize: "0.8rem",
-                      // textAlign: "center",
-                      //  tableLayout: "fixed",
-                      //  width: "100%",
-                      marginLeft: "5%",
-                      marginRight: "5%",
-                    }}
-                  >
-                    <thead className="thead-dark">
-                      <tr>
-                        <th>{t("Title")}</th>
-                        <th>{t("Duration Required")}</th>
-                        <th>{t("Description")}</th>
-                        <th>{t("Image")}</th>
-                        <th>{t("ACTIONS")}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {resourcesList.map((resource, index) => {
-                        return (
-                          <tr
-                            key={index}
-                            style={{
-                              verticalAlign: "middle",
-                            }}
-                          >
-                            {editMode.status && editMode.rowKey === index ? (
-                              <>
-                                <td>
-                                  <input
-                                    value={resource.title}
-                                    onChange={(e) =>
-                                      handleEditChange(e, index, "title")
-                                    }
-                                    style={{ maxWidth: "95%" }}
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    value={resource.time}
-                                    onChange={(e) =>
-                                      handleEditChange(e, index, "time")
-                                    }
-                                    style={{ maxWidth: "95%" }}
-                                  />
-                                </td>
-                                <td>
-                                  <div>
-                                    <textarea
-                                      value={resource.description}
-                                      onChange={(e) =>
-                                        handleEditChange(
-                                          e,
-                                          index,
-                                          "description"
-                                        )
-                                      }
-                                      name="text"
-                                      maxLength="160"
-                                      style={{ maxWidth: "160px" }}
-                                    />
-                                    <span
-                                      style={{
-                                        fontSize: "10px",
-                                        display: "flex",
-                                        justifyContent: "right",
-                                        maxWidth: "95%",
-                                      }}
+                            {/* Picture Upload Section */}
+                            <div className="tw-mt-4 tw-text-center">
+                                {/* Hidden File Input */}
+                                <input
+                                    style={{display: "none"}}
+                                    className="form-control form-control-sm"
+                                    filename={file}
+                                    onChange={fileSelected}
+                                    ref={inputFileRef}
+                                    type="file"
+                                    id="fileImageResources"
+                                    name="files"
+                                    accept="image/*"
+                                />
+
+                                {/* Upload Button */}
+                                <div
+                                    className="tw-mb-2 tw-flex tw-items-center tw-justify-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md tw-cursor-pointer hover:tw-scale-110"
+                                    style={{
+                                        width: "200px",
+                                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                        margin: "0 auto",
+                                        marginTop: "15px",
+                                        marginBottom: "120px",
+                                    }}
+                                    onClick={() => inputFileRef.current.click()} // Trigger file input click
+                                >
+    <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+      {t("Picture Upload")}
+    </span>
+                                    {/* Upload Icon */}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                        className="tw-h-5 tw-ml-2"
                                     >
-                                      {characterLength[index]}
-                                      {t("/ 160 characters")}
-                                    </span>
-                                  </div>
-                                </td>
-                                <td style={{ minWidth: "160px" }}>
-                                  {pictureEditPreviewUrl ? (
-                                    <img
-                                      src={pictureEditPreviewUrl}
-                                      alt="Preview"
-                                      style={{
-                                        height: "50px",
-                                        width: "auto",
-                                      }}
-                                    />
-                                  ) : (
-                                    <img
-                                      src={
-                                        resource?.image
-                                          ? `${process.env.REACT_APP_AWS_URL}/${resource.image}`
-                                          : null
-                                      }
-                                      alt="Current img"
-                                      style={{
-                                        height: "50px",
-                                        width: "auto",
-                                      }}
-                                    />
-                                  )}
-                                  {editMode && (
-                                    <>
-                                      <input
-                                        className="form-control form-control-sm"
-                                        filename={file}
-                                        onChange={fileEditSelected}
-                                        ref={inputFileRef}
-                                        type="file"
-                                        id="fileImageResources"
-                                        name="files"
-                                        accept="image/*"
-                                      />
-                                    </>
-                                  )}
-                                </td>
-                              </>
-                            ) : (
-                              <>
-                                <td>{resource.title}</td>
-                                <td>{resource.time}</td>
-                                <td>{resource.description}</td>
-                                <td>
-                                  <img
-                                    src={
-                                      resource?.image
-                                        ? `${process.env.REACT_APP_AWS_URL}/${resource.image}`
-                                        : null
-                                    }
-                                    style={{ height: "50px", width: "auto" }}
-                                  />
-                                </td>
-                              </>
-                            )}
-                            <td
-                              style={{
-                                textAlign: "center",
-                                cursor: "pointer",
-                              }}
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                                        />
+                                    </svg>
+                                </div>
+
+                                {/* Picture Preview */}
+                                {picturePreviewUrl ? (
+                                    <div className="tw-flex tw-justify-center tw-mt-3">
+                                        <img
+                                            src={picturePreviewUrl}
+                                            alt="Preview"
+                                            style={{
+                                                height: "120px",
+                                                width: "auto",
+                                                borderRadius: "5px",
+                                                boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                                marginTop: "-110px",
+                                            }}
+                                        />
+                                    </div>
+                                ) : null}
+
+                                {/* Save Button */}
+                                {disabledAdd === true ? (
+                                    <Button
+                                        disabled
+                                        style={{
+                                            width: "160px",
+                                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                            color: "gray",
+                                            margin: "0 auto",
+                                            display: "block",
+                                            marginTop: "15px",
+                                            borderRadius: "15px",
+                                        }}
+                                        type="outline-primary"
+                                        onClick={addResourceImage}
+                                    >
+                                        {t("Save to Film Page")}
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                                        style={{
+                                            width: "160px",
+                                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                            fontWeight: "bold",
+                                            margin: "0 auto",
+                                            display: "block",
+                                            marginTop: "15px",
+                                            borderRadius: "15px",
+                                        }}
+                                        type="outline-primary"
+                                        onClick={addResourceImage}
+                                    >
+                                        {t("Save to Film Page")}
+                                    </Button>
+                                )}
+
+                                {/* Message */}
+                                {message && (
+                                    <div
+                                        className="message"
+                                        style={{
+                                            color: "red",
+                                            fontSize: "0.9rem",
+                                            marginTop: "5%",
+                                        }}
+                                    >
+                                        {message}
+                                    </div>
+                                )}
+                            </div>
+
+                        </div>
+
+                        {/*Table with results */}
+                        <div
+                            className="lg:tw-mx-8 my-4 tw-overflow-x-auto lg:tw-w-3/5"
+                            style={{
+                                boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            }}
+                        >
+                            <table
+                                className="table bg-transparent"
+                                style={{
+                                    fontSize: "0.75rem", // Smaller text
+                                    tableLayout: "auto",
+                                    textAlign: "center",
+                                }}
                             >
-                              {editMode.status && editMode.rowKey === index ? (
-                                <FontAwesomeIcon
-                                  icon={faCheck}
-                                  onClick={() => exitEditMode(index)}
-                                  style={{ marginRight: "15px" }}
-                                />
-                              ) : (
-                                <FontAwesomeIcon
-                                  icon={faPen}
-                                  onClick={() => enterEditMode(index)}
-                                  style={{ marginRight: "15px" }}
-                                />
-                              )}
-                              {"  "}
-                              <FontAwesomeIcon
-                                icon={faTrashCan}
-                                onClick={() =>
-                                  deleteFromResourcesList(resource)
-                                }
-                              />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </form>
-          </div>
+                                <thead className="thead-dark">
+                                <tr>
+                                    <th className="tw-text-center bg-transparent">{t("IMAGE")}</th>
+                                    <th className="tw-text-center bg-transparent">{t("TITLE")}</th>
+                                    <th className="tw-text-center bg-transparent">{t("DURATION")}</th>
+                                    <th className="tw-text-center bg-transparent">{t("TEXT")}</th>
+                                    <th className="tw-text-center bg-transparent">{t("EDIT")}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {resourcesList.map((resource, index) => (
+                                    <tr
+                                        key={index}
+                                        className="bg-transparent"
+                                        style={{
+                                            verticalAlign: "middle",
+                                        }}
+                                    >
+                                        {editMode.status && editMode.rowKey === index ? (
+                                            <>
+                                                <td className="bg-transparent" style={{minWidth: "160px"}}>
+                                                    {pictureEditPreviewUrl ? (
+                                                        <img
+                                                            src={pictureEditPreviewUrl}
+                                                            alt="Preview"
+                                                            style={{
+                                                                height: "50px",
+                                                                width: "auto",
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src={
+                                                                resource?.image
+                                                                    ? `${process.env.REACT_APP_AWS_URL}/${resource.image}`
+                                                                    : null
+                                                            }
+                                                            alt="Current img"
+                                                            style={{
+                                                                height: "50px",
+                                                                width: "auto",
+                                                            }}
+                                                        />
+                                                    )}
+                                                    {editMode && (
+                                                        <>
+                                                            <input
+                                                                className="form-control form-control-sm"
+                                                                filename={file}
+                                                                onChange={fileEditSelected}
+                                                                ref={inputFileRef}
+                                                                type="file"
+                                                                id="fileImageResources"
+                                                                name="files"
+                                                                accept="image/*"
+                                                            />
+                                                        </>
+                                                    )}
+                                                </td>
+                                                <td className="bg-transparent">
+                                                    <input
+                                                        value={resource.title}
+                                                        onChange={(e) => handleEditChange(e, index, "title")}
+
+                                                    />
+                                                </td>
+                                                <td className="bg-transparent">
+                                                    <input
+                                                        value={resource.time}
+                                                        onChange={(e) => handleEditChange(e, index, "time")}
+
+                                                    />
+                                                </td>
+                                                <td className="bg-transparent">
+                                                    <div>
+                  <textarea
+                      value={resource.description}
+                      onChange={(e) =>
+                          handleEditChange(e, index, "description")
+                      }
+                      name="text"
+                      maxLength="160"
+                      style={{maxWidth: "160px"}}
+                  />
+                                                        <span
+                                                            style={{
+                                                                fontSize: "10px",
+                                                                display: "flex",
+                                                                justifyContent: "right",
+
+                                                            }}
+                                                        >
+                    {characterLength[index]}
+                                                            {t("/ 160 characters")}
+                  </span>
+                                                    </div>
+                                                </td>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <td className="bg-transparent">
+                                                    <img
+                                                        src={
+                                                            resource?.image
+                                                                ? `${process.env.REACT_APP_AWS_URL}/${resource.image}`
+                                                                : null
+                                                        }
+                                                        style={{height: "50px", width: "auto"}}
+                                                    />
+                                                </td>
+                                                <td className="bg-transparent tw-text-left tw-leading-tight">
+                                                    {resource.title}
+                                                </td>
+                                                <td className="bg-transparent tw-text-left tw-leading-tight">
+                                                    {resource.time} {t("days")}
+                                                </td>
+                                                <td className="bg-transparent tw-text-left tw-leading-tight">
+                                                    {resource.description}
+                                                </td>
+                                            </>
+                                        )}
+                                        <td
+                                            className="bg-transparent"
+                                            style={{
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            {editMode.status && editMode.rowKey === index ? (
+                                                <FontAwesomeIcon
+                                                    icon={faCheck}
+                                                    onClick={() => exitEditMode(index)}
+                                                    style={{marginRight: "15px"}}
+                                                />
+                                            ) : (
+                                                <FontAwesomeIcon
+                                                    icon={faPen}
+                                                    onClick={() => enterEditMode(index)}
+                                                    style={{marginRight: "15px"}}
+                                                />
+                                            )}
+                                            {"  "}
+                                            <FontAwesomeIcon
+                                                icon={faTrashCan}
+                                                onClick={() => deleteFromResourcesList(resource)}
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
       </div>
     </>
   );
 }
+
 export default ResourcesForm;

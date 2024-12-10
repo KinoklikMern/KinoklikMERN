@@ -141,11 +141,12 @@ function FepkEditDashboard() {
 
                 <div className="tw-w-full tw-border-t tw-border-gray-400 tw-my-2" style={{height: '1px'}}/>
 
+
                 <div
                     ref={carouselRef}
                     className="tw-overflow-x-auto tw-flex tw-space-x-4 tw-py-3 tw-scrollbar-none"
                     style={{
-                      maxWidth: "100vw",
+                      maxWidth: "95vw",
                       overflowX: "scroll",
                       whiteSpace: "nowrap",
                       paddingLeft: window.innerWidth <= 768 ? "20vw" : "0",
@@ -158,12 +159,15 @@ function FepkEditDashboard() {
                           key={name}
                           ref={(el) => (sectionRefs.current[name] = el)}
                           onClick={() => handleSectionClick(name)}
-                          className={`tw-inline-block tw-cursor-pointer tw-transition-transform ${
-                              sectionChosen === name ? "tw-text-lg tw-font-bold" : ""
+                          className={`tw-inline-block tw-cursor-pointer tw-transition-transform text-transparent bg-clip-text bg-gradient-to-r from-[#ff00a0] to-[#1e0039] hover:from-[#ff0077] hover:to-[#3e0069] ${
+                              sectionChosen === name ? "tw-text-lg tw-font-bold " : ""
                           }`}
                           style={{
                             fontSize: sectionChosen === name ? "1.5rem" : "1rem",
                             opacity: sectionChosen === name ? 1 : 0.5,
+                            background: 'linear-gradient(to right, #ff00a0, #1e0039)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
                           }}
                       >
                         {label}

@@ -237,167 +237,188 @@ function LoglineForm() {
                   </span>
                 </div>
 
-                <div className="col d-grid gap-2 d-md-flex justify-content-md-end">
-                  <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                      style={{
-                        height: "30px",
-                        width: "120px",
-                        borderRadius: "15px",
-                        marginBottom: "5px",
-                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
-                      }}
-                      type="outline-primary"
-                      block
-                      onClick={() =>
-                          handleLoglineblurChange(!epkLoglineData.logLine_blur)
-                      }
-                      name="logLine_blur"
-                  >
-                    {epkLoglineData.logLine_blur ? "UnBlur" : "Blur"}
-                  </Button>
-                </div>
-                <div className="col mt-5 text-center">
-                  {/* Picture Upload Text */}
-                  <div className="mb-2">
-                    <label
-                        htmlFor="filePoster"
-                        className="form-label text-dark text-2xl cursor-pointer"
-                    >
-                      <h4>{t("Picture Upload")}</h4>
-                    </label>
-                  </div>
+                {/*<div className="col d-grid gap-2 d-md-flex justify-content-md-end">*/}
+                {/*  <Button*/}
+                {/*      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"*/}
+                {/*      style={{*/}
+                {/*        height: "30px",*/}
+                {/*        width: "120px",*/}
+                {/*        borderRadius: "15px",*/}
+                {/*        marginBottom: "5px",*/}
+                {/*        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",*/}
+                {/*      }}*/}
+                {/*      type="outline-primary"*/}
+                {/*      block*/}
+                {/*      onClick={() =>*/}
+                {/*          handleLoglineblurChange(!epkLoglineData.logLine_blur)*/}
+                {/*      }*/}
+                {/*      name="logLine_blur"*/}
+                {/*  >*/}
+                {/*    {epkLoglineData.logLine_blur ? "UnBlur" : "Blur"}*/}
+                {/*  </Button>*/}
+                {/*</div>*/}
+                  <div className="col mt-5 text-center">
+                      {/* Picture Upload Text */}
+                      <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">
+                          {/* Picture Upload Button */}
+                          <div
+                              className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"
+                              style={{
+                                  width: "200px",
+                                  boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                              }}
+                          >
+                              <label
+                                  htmlFor="filePoster"
+                                  className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"
+                              >
+    <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+      {t("Picture Upload")}
+    </span>
+                                  {/* Upload Icon */}
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                       stroke-width="1.5"
+                                       stroke="currentColor" className="tw-h-5">
+                                      <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
+                                  </svg>
 
-                  {/* Hidden file input */}
-                  <input
-                      style={{display: "none"}}
-                      className="form-control form-control-sm"
-                      filename={file}
-                      onChange={fileSelected}
-                      ref={inputFileRef}
-                      type="file"
-                      id="filePoster"
-                      name="files"
-                      accept="image/*"
-                  />
-
-                  {/* Clickable image for file upload */}
-                  {posterPreviewUrl || (fepk.image_logline && fepk.image_logline !== undefined) ? (
-                      <img
-                          src={posterPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.image_logline}`}
-                          style={{
-                            height: "120px",
-                            width: "auto",
-                            margin: "0 auto",
-                            display: "block",
-                            cursor: "pointer", // Makes the image look clickable
-                          }}
-                          alt="Preview"
-                          onClick={() => inputFileRef.current.click()} // Triggers file input click
-                      />
-                  ) : (
-                      <h3 onClick={() => inputFileRef.current.click()} style={{cursor: "pointer"}}>
-                        {t("No Image")}
-                      </h3>
-                  )}
-
-                  {message && (
-                      <div
-                          className="message"
-                          style={{
-                            color: "red",
-                            fontSize: "1rem",
-                            marginBottom: "-3%",
-                          }}
-                      >
-                        {message}
+                              </label>
+                          </div>
                       </div>
-                  )}
-                </div>
 
-                {/* Save Button */}
-                <div
-                    className="tw-md-block tw-flex tw-flex tw-grid tw-flex-1 tw-justify-end tw-gap-2 "
-                    style={{
-                      // height: "50px",
-                      // width: "120px",
-                      // marginLeft: "80%",
-                      marginTop: "20px",
-                    }}
-                >
-                  {disabled === true ? (
-                      <Button
-                          disabled
+
+                          {/* Hidden file input */}
+                          <input
+                              style={{display: "none"}}
+                              className="form-control form-control-sm"
+                              filename={file}
+                              onChange={fileSelected}
+                              ref={inputFileRef}
+                              type="file"
+                              id="filePoster"
+                              name="files"
+                              accept="image/*"
+                          />
+
+                          {/* Clickable image for file upload */}
+                          {posterPreviewUrl || (fepk.image_logline && fepk.image_logline !== undefined) ? (
+                              <img
+                                  src={posterPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.image_logline}`}
+                                  style={{
+                                      height: "120px",
+                                      width: "auto",
+                                      margin: "0 auto",
+                                      display: "block",
+                                      cursor: "pointer",
+                                      marginTop: "10px",
+                                  }}
+                                  alt="Preview"
+                                  onClick={() => inputFileRef.current.click()} // Triggers file input click
+                              />
+                          ) : (
+                              <h3 onClick={() => inputFileRef.current.click()} style={{cursor: "pointer"}}>
+                                  {/*{t("No Image")}*/}
+                              </h3>
+                          )}
+
+                          {message && (
+                              <div
+                                  className="message"
+                                  style={{
+                                      color: "red",
+                                      fontSize: "1rem",
+                                      marginBottom: "-3%",
+                                  }}
+                              >
+                                  {message}
+                              </div>
+                          )}
+                      </div>
+
+                      {/* Save Button */}
+                      <div
+                          className="tw-md-block tw-flex tw-flex tw-grid tw-flex-1 tw-justify-end tw-gap-2 "
                           style={{
-                            width: "120px",
-                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
-                            color: "grey",
-                            // fontWeight: "bold",
+                              // height: "50px",
+                              // width: "120px",
+                              // marginLeft: "80%",
+                              marginTop: "20px",
                           }}
-                          type="outline-primary"
-                          block
-                          onClick={saveEpkLogline}
-                          value="save"
-
                       >
-                        {t("Save")}
-                      </Button>
-                  ) : (
-                      <Button
-                          className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                          {disabled === true ? (
+                              <Button
+                                  disabled
+                                  style={{
+                                      width: "120px",
+                                      boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                      color: "grey",
+                                      // fontWeight: "bold",
+                                  }}
+                                  type="outline-primary"
+                                  block
+                                  onClick={saveEpkLogline}
+                                  value="save"
+
+                              >
+                                  {t("Save")}
+                              </Button>
+                          ) : (
+                              <Button
+                                  className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                                  style={{
+                                      width: "120px",
+                                      boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                      fontWeight: "bold",
+                                  }}
+                                  type="outline-primary"
+                                  block
+                                  onClick={saveEpkLogline}
+                              >
+                                  {t("Save")}
+                              </Button>
+                          )}
+                      </div>
+
+                      <Modal
+                          isOpen={modalIsOpen}
+                          onRequestClose={closeModal}
+                          contentLabel="Example Modal"
+                          appElement={document.getElementById("root")}
                           style={{
-                            width: "120px",
-                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
-                            fontWeight: "bold",
+                              overlay: {
+                                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                              },
+                              content: {
+                                  position: "absolute",
+                                  border: "2px solid #000",
+                                  backgroundColor: "white",
+                                  boxShadow: "2px solid black",
+                                  height: 120,
+                                  width: 300,
+                                  margin: "auto",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                              },
                           }}
-                          type="outline-primary"
-                          block
-                          onClick={saveEpkLogline}
                       >
-                        {t("Save")}
-                      </Button>
-                  )}
-                </div>
-
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Example Modal"
-                    appElement={document.getElementById("root")}
-                    style={{
-                      overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                      },
-                      content: {
-                        position: "absolute",
-                        border: "2px solid #000",
-                        backgroundColor: "white",
-                        boxShadow: "2px solid black",
-                        height: 120,
-                        width: 300,
-                        margin: "auto",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      },
-                    }}
-                >
-                  <div style={{textAlign: "center"}}>
-                    <div style={{color: "green"}}>
-                      {" "}
-                      {t("Log Line Saved Successfully!")}
-                    </div>
-                    <br/>
-                    <button
-                        className="btn btn-secondary btn-sm"
-                        onClick={closeModal}
-                        style={{backgroundColor: "#712CB0", color: "white"}}
-                    >
-                      {t("Ok")}
-                    </button>
+                          <div style={{textAlign: "center"}}>
+                              <div style={{color: "green"}}>
+                                  {" "}
+                                  {t("Log Line Saved Successfully!")}
+                              </div>
+                              <br/>
+                              <button
+                                  className="btn btn-secondary btn-sm"
+                                  onClick={closeModal}
+                                  style={{backgroundColor: "#712CB0", color: "white"}}
+                              >
+                                  {t("Ok")}
+                              </button>
+                          </div>
+                      </Modal>
                   </div>
-                </Modal>
-              </div>
             </form>
           </div>
         </div>
