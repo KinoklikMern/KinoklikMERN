@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import Modal from "react-modal";
 import http from "../../../http-common";

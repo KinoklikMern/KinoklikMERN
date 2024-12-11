@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { getFepksById } from "../../../api/epks";
 
 export default function BasicMenu({ color }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

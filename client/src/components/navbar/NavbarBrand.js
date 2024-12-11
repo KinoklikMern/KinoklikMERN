@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import KinoKlikIcon from "../../images/logo.png";
-import {isElement} from "react-dom/test-utils";
+// import {isElement} from "react-dom/test-utils";
 
 function NavbarBrand({ isGrayBackground }) {
     return (

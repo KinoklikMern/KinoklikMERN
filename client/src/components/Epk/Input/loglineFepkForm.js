@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "antd";
 import Modal from "react-modal";
-import { Link, useParams } from "react-router-dom";
-import BasicMenu from "./fepkMenu";
+import { useParams } from "react-router-dom";
+// import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { useTranslation } from "react-i18next";
 import { getFepksById } from "../../../api/epks";

@@ -5,17 +5,17 @@ import { Button, Tooltip } from "antd";
 import { InfoCircleFilled, ArrowLeftOutlined} from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import paypalImage from "../../../images/paypal.png";
-import stripImage from "../../../images/stripe.jpg";
+// import stripImage from "../../../images/stripe.jpg";
 import { useTranslation } from "react-i18next";
 
 
 function FepkCoverForm() {
   const navigate = useNavigate();
   const [file1, setFile1] = useState("");
-  const [file2, setFile2] = useState("");
+  // const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
   const inputFile1Ref = useRef(null);
-  const inputFile2Ref = useRef(null);
+  // const inputFile2Ref = useRef(null);
   const inputFile3Ref = useRef(null);
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
@@ -27,11 +27,11 @@ function FepkCoverForm() {
   const [characterLength, setCharacterLength] = useState({ logLine_short: 0 });
   const [posterPreviewUrl, setPosterPreviewUrl] = useState("");
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
-  const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
+  // const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [donatePayPalValidationMessage, setDonatePayPalValidationMessage] =
     useState("");
-  const [donateStripeValidationMessage, setDonateStripeValidationMessage] =
+  // const [donateStripeValidationMessage, setDonateStripeValidationMessage] =
     useState("");
   const { t } = useTranslation();
 

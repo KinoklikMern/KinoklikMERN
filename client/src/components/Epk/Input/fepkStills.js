@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "antd";
-import { Link, useParams } from "react-router-dom";
-import BasicMenu from "./fepkMenu";
+import { useParams } from "react-router-dom";
+// import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faCheck, faPen } from "@fortawesome/free-solid-svg-icons";

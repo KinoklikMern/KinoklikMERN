@@ -3,10 +3,10 @@ import http from "../../../http-common";
 import Modal from "react-modal";
 import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { Link, useParams } from "react-router-dom";
-import BasicMenu from "./fepkMenu";
+import { useParams } from "react-router-dom";
+// import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
-import stripImage from "../../../images/stripe.jpg";
+// import stripImage from "../../../images/stripe.jpg";
 import { useTranslation } from "react-i18next";
 import { getFepksById } from "../../../api/epks";
 
@@ -17,7 +17,7 @@ function FepkEditCoverForm() {
   const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
   const inputFile1Ref = useRef(null);
-  const inputFile2Ref = useRef(null);
+  // const inputFile2Ref = useRef(null);
   const inputFile3Ref = useRef(null);
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
@@ -33,7 +33,7 @@ function FepkEditCoverForm() {
   //Banner prewiev
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
   //Trailer preview
-  const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
+  // const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
 
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -52,13 +52,13 @@ function FepkEditCoverForm() {
   };
 
   //video
-  const file2Selected = (event) => {
-    const file = event.target.files[0];
-    setFile2(file);
-    setDisabled(false);
-    const url = URL.createObjectURL(file);
-    setTrailerPreviewUrl(url);
-  };
+  // const file2Selected = (event) => {
+  //   const file = event.target.files[0];
+  //   setFile2(file);
+  //   setDisabled(false);
+  //   const url = URL.createObjectURL(file);
+  //   setTrailerPreviewUrl(url);
+  // };
 
   //poster
   const file3Selected = (event) => {
@@ -406,7 +406,7 @@ function FepkEditCoverForm() {
             }}
           > */}
 
-          <div className="tw-card-body tw--mr-4 tw-mb-1 tw-h-auto tw-pb-2 tw-ml-4">
+          <div className="tw-card-body tw-h-auto ">
             {/* Format of all the inputs from Title to Upload Trailer  */}
             <form className="row d-flex flex-column flex-md-row">
 
@@ -415,7 +415,7 @@ function FepkEditCoverForm() {
                   {/* The 1st column*/}
                   <div className="col-lg-4">
                     {/*Title*/}
-                    <div className="col mt-1 mb-5">
+                    <div className="col mb-3">
                       <input
                           style={{
                             height: "30px",

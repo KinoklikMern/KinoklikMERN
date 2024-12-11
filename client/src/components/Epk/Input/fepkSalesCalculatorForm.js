@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, {useState, useEffect, useRef} from "react";
 import {Button} from "antd";
-import {Link, useParams} from "react-router-dom";
-import BasicMenu from "./fepkMenu";
-import http from "../../../http-common";
+import { useParams} from "react-router-dom";
+// import BasicMenu from "./fepkMenu";
+// import http from "../../../http-common";
 import {useTranslation} from "react-i18next";
 import axios from "axios";
 import {getFepksById} from "../../../api/epks";

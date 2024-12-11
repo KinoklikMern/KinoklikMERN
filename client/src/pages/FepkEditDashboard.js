@@ -24,7 +24,7 @@ function FepkEditDashboard() {
   const [fepk, setFepk] = useState([]);
   const [access, setAccess] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
+  const [setFepkMaker] = React.useContext(FepkContext);
   const [sectionChosen, setSectionChosen] = useState("cover");
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -44,7 +44,7 @@ function FepkEditDashboard() {
     getFepksById(id).then((response) => {
       setAccess(response.film_maker._id === user.id);
       setFepk(response);
-      setFepkMaker("");
+      // setFepkMaker("");
       setLoading(false);
     });
   }, [id, user.id, setFepkMaker]);

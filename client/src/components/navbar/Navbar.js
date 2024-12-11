@@ -50,7 +50,6 @@ function Navbar(props) {
         </nav>
 
     );
-    console.log(props.className);
 }
 
 export default Navbar;
