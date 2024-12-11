@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { useSnackbar } from "notistack";
 import LoadingSpin from "../FilmMakerDashboard/LoadingSpin";
 import { useTranslation } from "react-i18next";
