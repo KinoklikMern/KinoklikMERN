@@ -223,11 +223,11 @@ function FepkCoverForm() {
       );
     }
 
-    if (name === "DonateStripe_url") {
-      setDonateStripeValidationMessage(
-        validateDonate(value) ? "" : t(messages.invalidDonateUrlMessage)
-      );
-    }
+    // if (name === "DonateStripe_url") {
+    //   setDonateStripeValidationMessage(
+    //     validateDonate(value) ? "" : t(messages.invalidDonateUrlMessage)
+    //   );
+    // }
   };
 
   const checkFileMimeType = (file) => {
@@ -263,10 +263,10 @@ function FepkCoverForm() {
     e.preventDefault();
     let formData = new FormData();
     console.log(file1);
-    console.log(file2);
+    // console.log(file2);
     console.log(file3);
     formData.append("file1", file1);
-    formData.append("file2", file2);
+    // formData.append("file2", file2);
     formData.append("file3", file3);
     console.log(formData);
     console.log([...formData.entries()]);
@@ -293,14 +293,14 @@ function FepkCoverForm() {
       return;
     }
 
-    if (!validateDonate(epkCoverData.DonateStripe_url)) {
-      setDonateStripeValidationMessage(t("pls input Valid URL"));
-      return;
-    }
+    // if (!validateDonate(epkCoverData.DonateStripe_url)) {
+    //   setDonateStripeValidationMessage(t("pls input Valid URL"));
+    //   return;
+    // }
 
     if (
       checkFileMimeType(file1) &&
-      checkFileMimeType(file2) &&
+      // checkFileMimeType(file2) &&
       checkFileMimeType(file3)
     ) {
       http
