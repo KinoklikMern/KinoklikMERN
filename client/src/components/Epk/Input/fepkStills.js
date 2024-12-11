@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "antd";
-import { Link, useParams } from "react-router-dom";
-import BasicMenu from "./fepkMenu";
+import { useParams } from "react-router-dom";
+// import BasicMenu from "./fepkMenu";
 import http from "../../../http-common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
@@ -252,49 +252,49 @@ function StillsForm() {
     <>
       <div
         style={{
-          boxShadow: "inset 1px 2px 9px #311465",
-          marginLeft: "10%",
-          marginBottom: "2%",
-          width: "80%",
-          borderRadius: "10px",
-          backgroundColor: "white",
+          // boxShadow: "inset 1px 2px 9px #311465",
+          // marginLeft: "10%",
+          // marginBottom: "2%",
+          // width: "80%",
+          // borderRadius: "10px",
+          // backgroundColor: "white",
         }}
       >
-        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
-          <div className="col-3 tw-m-3 tw-text-center">
-            <h2
-              className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-              // style={{
-              //   color: "#1E0039",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("EPK Dashboard")}
-            </h2>
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <BasicMenu color="#1E0039" />
-          </div>
-          <div className="col-3 tw-m-3 tw-text-center">
-            <Link
-              className="lg:tw-text-2xld tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl"
-              to={`/epk/${fepk._id}`}
-              // style={{
-              //   color: "#1E0039",
-              //   textDecoration: "none",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("View EPK Page")}
-            </Link>
-          </div>
-        </div>
+        {/*<div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <h2*/}
+        {/*      className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"*/}
+        {/*      // style={{*/}
+        {/*      //   color: "#1E0039",*/}
+        {/*      //   fontWeight: "bold",*/}
+        {/*      //   fontSize: "25px",*/}
+        {/*      // }}*/}
+        {/*    >*/}
+        {/*      {t("EPK Dashboard")}*/}
+        {/*    </h2>*/}
+        {/*  </div>*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <BasicMenu color="#1E0039" />*/}
+        {/*  </div>*/}
+        {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+        {/*    <Link*/}
+        {/*      className="lg:tw-text-2xld tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl"*/}
+        {/*      to={`/epk/${fepk._id}`}*/}
+        {/*      // style={{*/}
+        {/*      //   color: "#1E0039",*/}
+        {/*      //   textDecoration: "none",*/}
+        {/*      //   fontWeight: "bold",*/}
+        {/*      //   fontSize: "25px",*/}
+        {/*      // }}*/}
+        {/*    >*/}
+        {/*      {t("View EPK Page")}*/}
+        {/*    </Link>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
         <div
           style={{
-            marginLeft: "10%",
-            marginRight: "10%",
+            // marginLeft: "10%",
+            // marginRight: "10%",
             color: "#311465",
             fontWeight: "normal",
           }}
@@ -303,114 +303,159 @@ function StillsForm() {
             className="card-body"
             // style={{ height: "500px" }}
           >
-            <h5
-              className="card-title "
-              style={{ color: "#311465", fontWeight: "normal" }}
-            >
-              {t("Film Stills")}
-            </h5>
+            {/*<h5*/}
+            {/*  className="card-title "*/}
+            {/*  style={{ color: "#311465", fontWeight: "normal" }}*/}
+            {/*>*/}
+            {/*  {t("Film Stills")}*/}
+            {/*</h5>*/}
             <form className="row">
-              <div className="col-12 col-md-4 mt-5">
-                <label
-                  htmlFor="filePoster"
-                  className="form-label text-dark"
-                  style={{ fontSize: "25px" }}
-                >
-                  {" "}
-                  <h4>{t("Upload Picture")}</h4>
-                </label>
-                <input
-                  style={{ fontSize: "15px" }}
-                  className="form-control form-control-sm"
-                  filename={file}
-                  onChange={fileSelected}
-                  ref={inputFileRef}
-                  type="file"
-                  id="filePoster"
-                  name="files"
-                  accept="image/*"
-                />
-                {picturePreviewUrl && picturePreviewUrl !== undefined ? (
-                  <img
-                    src={picturePreviewUrl}
-                    style={{
-                      height: "120px",
-                      width: "auto",
-                      marginTop: "10px",
-                    }}
-                    alt="no img"
-                  />
-                ) : // <h3>No Image</h3>
-                null}
-                <div className="tw-cursor-pointer hover:tw-scale-110">
-                  {/* <FontAwesomeIcon icon={faPlus} onClick={addImage} /> */}
-                  {fileChosen ? (
-                    <Button
-                      className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+              {/* Upload Picture Section */}
+              <div className="col mt-1 text-center">
+                {/* Picture Upload Text */}
+                <div className="tw-flex tw-justify-center tw-items-center tw-mt-1">
+                  {/* Picture Upload Button */}
+                  <div
+                      className="tw-mb-1 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"
                       style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        textAlign: "center",
+                        width: "200px",
+                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                        margin: "0 auto",
+                        marginTop: "15px",
+                        marginBottom: "120px",
                       }}
-                      type="outline-primary"
-                      onClick={addImage}
+                  >
+                    <label
+                        htmlFor="filePoster"
+                        className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"
                     >
-                      {t("Save to EPK")}
-                    </Button>
-                  ) : (
-                    <Button
-                      disabled
-                      style={{
-                        boxShadow: "1px 2px 9px #311465",
-                        color: "grey",
-                        backgroundColor: "#ffffff",
-                        fontWeight: "bold",
-                        width: "auto",
-                      }}
-                      type="outline-primary"
-                      onClick={addImage}
-                    >
-                      {t("Save to EPK")}
-                    </Button>
-                  )}
+                <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+                    {t("Picture Upload")}
+                </span>
+                      {/* Upload Icon */}
+                      <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="tw-h-5"
+                      >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                        />
+                      </svg>
+                    </label>
+                  </div>
+                </div>
 
-                  {message && (
+                {/* Hidden file input */}
+                <input
+                    style={{ display: "none" }}
+                    className="form-control form-control-sm"
+                    filename={file}
+                    onChange={fileSelected}
+                    ref={inputFileRef}
+                    type="file"
+                    id="filePoster"
+                    name="files"
+                    accept="image/*"
+                />
+
+                {/* Picture Preview */}
+                {picturePreviewUrl && (
+                    <div className="tw-flex tw-justify-center tw-mt-3">
+                      <img
+                          src={picturePreviewUrl}
+                          alt="Preview"
+                          style={{
+                            height: "120px",
+                            width: "auto",
+                            borderRadius: "5px",
+                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            marginTop: "-110px",
+                          }}
+                      />
+                    </div>
+                )}
+
+                {/* Save Button */}
+                <div className="tw-cursor-pointer hover:tw-scale-110 tw-mt-4">
+                  {fileChosen ? (
+                      <Button
+                          className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                          style={{
+                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            textAlign: "center",
+                            fontWeight: "bold",
+                          }}
+                          type="outline-primary"
+                          onClick={addImage}
+                      >
+                        {t("Save to Film Page")}
+                      </Button>
+                  ) : (
+                      <Button
+                          disabled
+                          style={{
+                            boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            color: "grey",
+
+                            width: "auto",
+                          }}
+                          type="outline-primary"
+                          onClick={addImage}
+                      >
+                        {t("Save to Film Page")}
+                      </Button>
+                  )}
+                </div>
+
+                {message && (
                     <div
-                      className="message"
-                      style={{
-                        color: "red",
-                        fontSize: "0.9rem",
-                        marginTop: "5%",
-                      }}
+                        className="message"
+                        style={{
+                          color: "red",
+                          fontSize: "0.9rem",
+                          marginTop: "10px",
+                        }}
                     >
                       {message}
                     </div>
-                  )}
-                </div>
+                )}
+
+
               </div>
-              <div className="col-12 col-md-6 mt-3">
+              <div className="col-12 col-md-6 mt-3"
+                   style={{
+                     boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                   }}
+              >
                 <table
-                  className="table table-striped table-bordered"
+                  className="table bg-transparent"
                   style={{
-                    fontSize: "12px",
+                    fontSize: "0.8rem",
                     textAlign: "center",
                     verticalAlign: "middle",
                     tableLayout: "auto",
                   }}
                 >
                   <thead className="thead-dark">
-                    <tr>
-                      <th>{t("IMAGE")}</th>
-                      <th>{t("EDIT")}</th>
-                      <th></th>
+                    <tr class="bg-transparent">
+                      <th class="bg-transparent">{t("IMAGE")}</th>
+                      <th class="bg-transparent">{t("EDIT")}</th>
+
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="bg-transparent">
                     {stillsList.map((still, index) => {
                       return (
-                        <tr key={index}>
+                        <tr class="bg-transparent" key={index}>
                           {editMode.status && editMode.rowKey === index ? (
                             <>
-                              <td>
+                              <td class="bg-transparent">
                                 {pictureEditPreviewUrl &&
                                 pictureEditPreviewUrl !== undefined ? (
                                   <img
@@ -443,7 +488,7 @@ function StillsForm() {
                             </>
                           ) : (
                             <>
-                              <td>
+                              <td class="bg-transparent">
                                 <img
                                   src={`${process.env.REACT_APP_AWS_URL}/${still.image}`}
                                   style={{ height: "80px", width: "auto" }}
@@ -451,7 +496,7 @@ function StillsForm() {
                               </td>
                             </>
                           )}
-                          <td
+                          <td class="bg-transparent"
                             style={{
                               textAlign: "center",
                               cursor: "pointer",
@@ -476,7 +521,7 @@ function StillsForm() {
                               onClick={() => deleteFromStillsList(still)}
                             />
                           </td>
-                          <td>
+                          <td class="bg-transparent">
                             <Button
                               className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
                               style={{

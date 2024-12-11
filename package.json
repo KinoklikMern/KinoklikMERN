@@ -27,6 +27,7 @@
     "nodemailer": "^6.9.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.20",
+    "react-i18next": "^15.1.0",
     "sass": "^1.69.5",
     "socket.io": "^4.6.1",
     "stripe": "^13.11.0"

@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         midnight: "#1E0039",
         customColor: "#712cb0",
+        backgroundGray: "#ECF0F1",
       },
       borderRadius: {
         side: "5.5rem",

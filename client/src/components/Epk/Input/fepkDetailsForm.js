@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BasicMenu from "./fepkMenu";
 import Modal from "react-modal";
 import http from "../../../http-common";
@@ -410,50 +410,51 @@ function FepkDetailsForm() {
     <>
       <div
         style={{
-          boxShadow: "inset 1px 2px 9px #311465",
-          marginLeft: "10%",
-          marginBottom: "2%",
-          width: "80%",
-          borderRadius: "10px",
-          backgroundColor: "white",
+          // boxShadow: "inset 1px 2px 9px #311465",
+          // marginLeft: "10%",
+          // marginBottom: "2%",
+          // width: "80%",
+          // borderRadius: "10px",
+          // backgroundColor: "white",
+          // boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
         }}
       >
         <form>
-          <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">
-            <div className="col-3 tw-m-3 tw-text-center">
-              <h2
-                className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-                // style={{
-                //   color: "#1E0039",
-                //   fontWeight: "bold",
-                //   fontSize: "25px",
-                // }}
-              >
-                {t("EPK Dashboard")}
-              </h2>
-            </div>
-            <div className="col-3 tw-m-3 tw-text-center">
-              <BasicMenu color="#1E0039" />
-            </div>
-            <div className="col-3 tw-m-3 tw-text-center">
-              <Link
-                className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"
-                to={`/epk/${fepk._id}`}
-                // style={{
-                //   color: "#1E0039",
-                //   textDecoration: "none",
-                //   fontWeight: "bold",
-                //   fontSize: "25px",
-                // }}
-              >
-                {t("View EPK Page")}
-              </Link>
-            </div>
-          </div>
+          {/*<div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">*/}
+          {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+          {/*    <h2*/}
+          {/*      className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"*/}
+          {/*      // style={{*/}
+          {/*      //   color: "#1E0039",*/}
+          {/*      //   fontWeight: "bold",*/}
+          {/*      //   fontSize: "25px",*/}
+          {/*      // }}*/}
+          {/*    >*/}
+          {/*      {t("EPK Dashboard")}*/}
+          {/*    </h2>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+          {/*    <BasicMenu color="#1E0039" />*/}
+          {/*  </div>*/}
+          {/*  <div className="col-3 tw-m-3 tw-text-center">*/}
+          {/*    <Link*/}
+          {/*      className="tw-text-lg tw-font-bold tw-text-[#1E0039] tw-no-underline md:tw-text-xl lg:tw-text-2xl"*/}
+          {/*      to={`/epk/${fepk._id}`}*/}
+          {/*      // style={{*/}
+          {/*      //   color: "#1E0039",*/}
+          {/*      //   textDecoration: "none",*/}
+          {/*      //   fontWeight: "bold",*/}
+          {/*      //   fontSize: "25px",*/}
+          {/*      // }}*/}
+          {/*    >*/}
+          {/*      {t("View EPK Page")}*/}
+          {/*    </Link>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <div
             style={{
-              marginLeft: "5%",
-              marginRight: "3%",
+              // marginLeft: "5%",
+              // marginRight: "3%",
               color: "#311465",
               fontWeight: "normal",
             }}
@@ -467,394 +468,435 @@ function FepkDetailsForm() {
               }
             >
               <div className="row">
-                {/*Titles, Search Input, Save To EPK button */}
+                {/*Titles, Search Input, Add to Film Page button */}
                 <div className="col">
                   <div className="row">
                     <div className="col my-1">
+                      {/*<h5*/}
+                      {/*  className="card-title "*/}
+                      {/*  style={{*/}
+                      {/*    color: "#311465",*/}
+                      {/*    marginTop: "1%",*/}
+                      {/*    marginBottom: "1%",*/}
+                      {/*  }}*/}
+                      {/*>*/}
+                      {/*  {t("Cast & Crew")}*/}
+                      {/*</h5>*/}
                       <h5
-                        className="card-title "
-                        style={{
-                          color: "#311465",
-                          marginTop: "1%",
-                          marginBottom: "1%",
-                        }}
+                          className="card-title "
+                          style={{
+                            color: "black",
+                            marginBottom: "3%",
+                            fontSize: "0.9rem",
+                          }}
                       >
-                        {t("Cast & Crew")}
+                        {t("Add Cast & Crew members to your Film Page")}
                       </h5>
-                      <h5
-                        className="card-title "
-                        style={{
-                          color: "black",
-                          marginBottom: "3%",
-                          fontSize: "1.3rem",
-                        }}
-                      >
-                        {t("Add Cast & Crew members to your EPK!")}
-                      </h5>
-                      <div className="row">
-                        <div className="col-3 mt-2">
-                          <div className="row">
-                            <div className="col-9 ">
-                              <input
-                                style={{
-                                  height: "30px",
-                                  width: "auto",
-                                  borderRadius: "5px",
-                                  marginBottom: "24px",
-                                  boxShadow: "1px 2px 9px #311465",
-                                  textAlign: "left",
-                                  fontSize: "14px",
-                                }}
-                                className="form-control"
-                                //defaultValue={""}
-                                value={searchValue}
-                                //value=""
-                                placeholder="Search..."
-                                onChange={handleSearch}
-                              />
-                              {isResultsVisible && filteredData.length !== 0 ? (
-                                <div
+                      <div className="d-flex flex-wrap justify-content-between">
+                        <div className="flex-grow-1 me-2">
+                          <input
+                              style={{
+                                height: "30px",
+                                // width: "auto",
+                                borderRadius: "15px",
+                                // marginBottom: "24px",
+                                boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                textAlign: "left",
+                                fontSize: "14px",
+                              }}
+                              className="form-control w-100"
+                              //defaultValue={""}
+                              value={searchValue}
+                              //value=""
+                              placeholder="Search..."
+                              onChange={handleSearch}
+                          />
+                          {isResultsVisible && filteredData.length !== 0 ? (
+                              <div
                                   style={{
                                     height: "100px",
-                                    width: "15%",
+                                    width: "100%",
                                     backgroundColor: "white",
                                     borderRadius: "5px",
                                     marginBottom: "5px",
                                     overflow: "auto",
-                                    position: "absolute",
+                                    position: "relative",
                                     zIndex: "1",
+                                    maxHeight: "150px",
                                   }}
-                                >
-                                  {filteredData.map((userObj) => {
-                                    // Determine the display name based on available properties
-                                    const displayName = `${
+                              >
+                                {filteredData.map((userObj) => {
+                                  // Determine the display name based on available properties
+                                  const displayName = `${
                                       userObj.firstName || ""
-                                    } ${userObj.lastName || ""}`.trim();
+                                  } ${userObj.lastName || ""}`.trim();
 
-                                    // Determine the appropriate image URL
-                                    let imageUrlDisplay;
-                                    if (
+                                  // Determine the appropriate image URL
+                                  let imageUrlDisplay;
+                                  if (
                                       userObj.picture &&
                                       !userObj.picture.startsWith("http")
-                                    ) {
-                                      imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${userObj.picture}`;
-                                    } else {
-                                      imageUrlDisplay = userObj.picture;
-                                    }
+                                  ) {
+                                    imageUrlDisplay = `${process.env.REACT_APP_AWS_URL}/${userObj.picture}`;
+                                  } else {
+                                    imageUrlDisplay = userObj.picture;
+                                  }
 
-                                    return (
+                                  return (
                                       <div
-                                        key={userObj._id}
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "space-between",
-                                          cursor: "pointer",
-                                          margin: "7% 3%",
-                                          height: "auto",
-                                        }}
+                                          key={userObj._id}
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            cursor: "pointer",
+                                            // margin: "7% 3%",
+                                            height: "auto",
+                                          }}
                                       >
                                         <div>
                                           <p
-                                            style={{
-                                              fontSize: "0.9rem",
-                                            }}
-                                            onClick={() =>
-                                              displayChosenUserData(userObj)
-                                            }
+                                              style={{
+                                                fontSize: "0.9rem",
+                                              }}
+                                              onClick={() =>
+                                                  displayChosenUserData(userObj)
+                                              }
                                           >
                                             {displayName}
                                           </p>
                                         </div>
                                         <div
-                                          style={
-                                            {
-                                              // marginLeft: "10%",
+                                            style={
+                                              {
+                                                // marginLeft: "10%",
+
+                                              }
                                             }
-                                          }
                                         >
                                           {!imageUrlDisplay ? (
-                                            <FontAwesomeIcon
-                                              icon={faUser}
-                                              style={{
-                                                width: "25px",
-                                                height: "25px",
-                                                borderRadius: "25%",
-                                              }}
-                                            />
+                                              <FontAwesomeIcon
+                                                  icon={faUser}
+                                                  style={{
+                                                    width: "25px",
+                                                    height: "25px",
+                                                    borderRadius: "25%",
+                                                  }}
+                                              />
                                           ) : (
-                                            <img
-                                              src={imageUrlDisplay}
-                                              style={{
-                                                width: "25px",
-                                                height: "25px",
-                                                borderRadius: "25%",
-                                              }}
-                                              alt={displayName}
-                                            />
+                                              <img
+                                                  src={imageUrlDisplay}
+                                                  style={{
+                                                    width: "25px",
+                                                    height: "25px",
+                                                    borderRadius: "25%",
+                                                  }}
+                                                  alt={displayName}
+                                              />
                                           )}
                                         </div>
                                       </div>
-                                    );
-                                  })}
-                                </div>
-                              ) : (
-                                <div
+                                  );
+                                })}
+                              </div>
+                          ) : (
+                              <div
                                   style={{
                                     // height: "100px",
                                     // width: "100%",
                                     marginBottom: "0px",
                                   }}
-                                ></div>
-                              )}
-                            </div>
-                          </div>
-                          {filteredData.length > 0 && (
-                            <>
-                              <input
-                                style={{
-                                  height: "30px",
-                                  width: "auto",
-                                  borderRadius: "5px",
-                                  marginBottom: "20px",
-                                  boxShadow: "1px 2px 9px #311465",
-                                  textAlign: "left",
-                                  fontSize: "14px",
-                                }}
-                                className="form-control m-10"
-                                value={userName}
-                                placeholder={t("Name")}
-                                name="name"
-                                readOnly
-                                //onChange={handleCrewChange}
-                              />
-                              <input
-                                style={{
-                                  height: "30px",
-                                  width: "auto",
-                                  borderRadius: "5px",
-                                  marginBottom: "20px",
-                                  boxShadow: "1px 2px 9px #311465",
-                                  textAlign: "left",
-                                  fontSize: "14px",
-                                }}
-                                className="form-control m-10"
-                                value={role}
-                                placeholder={t("Role")}
-                                name="role"
-                                readOnly
-                                //onChange={handleCrewChange}
-                              />
-                            </>
+                              ></div>
                           )}
-                          {showEmailInput ? (
-                            <>
-                              <p
-                                style={{
-                                  fontSize: "0.8rem",
-                                  color: "red",
-                                  marginTop: "-12%",
-                                  marginBottom: "3%",
-                                }}
-                              >
-                                {t("User is not found. Invite via email:")}
-                              </p>
-                              <input
-                                style={{
-                                  height: "30px",
-                                  width: "auto",
-                                  borderRadius: "5px",
-                                  marginBottom: "20px",
-                                  boxShadow: "1px 2px 9px #311465",
-                                  textAlign: "left",
-                                  fontSize: "14px",
-                                }}
-                                className="form-control m-10"
-                                // defaultValue=""
-                                value={invitationData.firstName}
-                                placeholder={t("First Name")}
-                                name="firstName"
-                                onChange={(e) => {
-                                  setInvitationData((prevState) => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value,
-                                  }));
-                                }}
-                              />
-                              <input
-                                style={{
-                                  height: "30px",
-                                  width: "auto",
-                                  borderRadius: "5px",
-                                  marginBottom: "20px",
-                                  boxShadow: "1px 2px 9px #311465",
-                                  textAlign: "left",
-                                  fontSize: "14px",
-                                }}
-                                className="form-control m-10"
-                                // defaultValue=""
-                                value={invitationData.lastName}
-                                placeholder={t("Last Name")}
-                                name="lastName"
-                                onChange={(e) => {
-                                  setInvitationData((prevState) => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value,
-                                  }));
-                                }}
-                              />
-                              <input
-                                style={{
-                                  height: "30px",
-                                  width: "auto",
-                                  borderRadius: "5px",
-                                  marginBottom: "20px",
-                                  boxShadow: "1px 2px 9px #311465",
-                                  textAlign: "left",
-                                  fontSize: "14px",
-                                }}
-                                className="form-control m-10"
-                                value={invitationEmailValue}
-                                placeholder={t("Email Address")}
-                                name="email"
-                                // onChange={(e) =>
-                                //   setInvitationEmailValue(e.target.value)
-                                // }
-                                onChange={handleEmailChange}
-                              />
-                              {emailError && (
+
+                          {filteredData.length > 0 && (
+                              <>
+                                <input
+                                    style={{
+                                      height: "30px",
+                                      width: "100%",
+                                      borderRadius: "15px",
+                                      marginBottom: "20px",
+                                      boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                      textAlign: "left",
+                                      fontSize: "14px",
+                                      marginTop: "24px",
+                                    }}
+                                    className="form-control m-10"
+                                    value={userName}
+                                    placeholder={t("Name")}
+                                    name="name"
+                                    readOnly
+                                    //onChange={handleCrewChange}
+                                />
+                                <input
+                                    style={{
+                                      height: "30px",
+                                      width: "100%",
+                                      borderRadius: "15px",
+                                      // marginBottom: "20px",
+                                      boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                      textAlign: "left",
+                                      fontSize: "14px",
+                                    }}
+                                    className="form-control m-10"
+                                    value={role}
+                                    placeholder={t("Role")}
+                                    name="role"
+                                    readOnly
+                                    //onChange={handleCrewChange}
+                                />
+                              </>
+                          )}
+                          <div className="flex flex-col items-center w-full max-w-md mt-5">
+                            {showEmailInput ? (
+                                <>
+                                  <p
+                                      style={{
+                                        fontSize: "0.8rem",
+                                        color: "red",
+                                        marginTop: "-5%",
+                                        marginBottom: "3%",
+                                      }}
+                                  >
+                                    {t("User is not found. Invite via email:")}
+                                  </p>
+                                  <div className="tw-flex tw-w-full tw-space-x-2 tw-mb-5">
+                                    {/* First Name */}
+                                  <input
+                                      style={{
+                                        height: "30px",
+                                        borderRadius: "15px",
+                                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                        textAlign: "left",
+                                        fontSize: "14px",
+                                      }}
+                                      className="form-control tw-w-1/2"
+                                      // defaultValue=""
+                                      value={invitationData.firstName}
+                                      placeholder={t("First Name")}
+                                      name="firstName"
+                                      onChange={(e) => {
+                                        setInvitationData((prevState) => ({
+                                          ...prevState,
+                                          [e.target.name]: e.target.value,
+                                        }));
+                                      }}
+                                  />
+                                    {/* Last Name Input */}
+                                  <input
+                                      style={{
+                                        height: "30px",
+                                        borderRadius: "15px",
+                                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                        textAlign: "left",
+                                        fontSize: "14px",
+                                      }}
+                                      className="form-control tw-w-1/2"
+                                      // defaultValue=""
+                                      value={invitationData.lastName}
+                                      placeholder={t("Last Name")}
+                                      name="lastName"
+                                      onChange={(e) => {
+                                        setInvitationData((prevState) => ({
+                                          ...prevState,
+                                          [e.target.name]: e.target.value,
+                                        }));
+                                      }}
+                                  />
+                                  </div>
+
+                                  {/* Email Input */}
+                                  <input
+                                      style={{
+                                        height: "30px",
+                                        width: "100%",
+                                        borderRadius: "15px",
+                                        marginBottom: "20px",
+                                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                        textAlign: "left",
+                                        fontSize: "14px",
+                                      }}
+                                      className="form-control"
+                                      value={invitationEmailValue}
+                                      placeholder={t("Email Address")}
+                                      name="email"
+                                      // onChange={(e) =>
+                                      //   setInvitationEmailValue(e.target.value)
+                                      // }
+                                      onChange={handleEmailChange}
+                                  />
+                                  {emailError && (
+                                      <div
+                                          style={{
+                                            fontSize: "0.8rem",
+                                            color: "red",
+                                            width: "120%",
+                                            // marginBottom: "3%",
+                                          }}
+                                      >
+                                        {emailError}
+                                      </div>
+                                  )}
+                                  <select
+                                      style={{
+                                        height: "30px",
+                                        width: "100%",
+                                        borderRadius: "15px",
+                                        marginBottom: "20px",
+                                        boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                                      }}
+                                      className="form-select form-select-sm"
+                                      name="epkRole"
+                                      onChange={(e) =>
+                                          setInvitedUserRole(e.target.value)
+                                      }
+                                  >
+                                    <option value="" disabled>
+                                      {t("Film Page role...")}
+                                    </option>
+                                    {epkRoles.map(makeEpkRole)}
+                                  </select>
+                                  <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        marginBottom: "50px",
+                                      }}
+                                  >
+                                  <Button
+                                      disabled={!!emailError || !invitationEmailValue}
+                                      className={
+                                        !!emailError || !invitationEmailValue
+                                            ? "" // no hover effect when disabled
+                                            : "hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white" // apply hover effect when enabled
+                                      }
+                                      style={{
+                                        boxShadow: "1px 2px 9px #311465",
+                                        fontWeight: "bold",
+                                        width: "auto",
+                                        height: "25px",
+                                        borderRadius: "15px",
+                                        fontSize: "0.7rem",
+                                        color:
+                                            !!emailError || !invitationEmailValue
+                                                ? "grey"
+                                                : undefined,
+                                        backgroundColor:
+                                            !!emailError || !invitationEmailValue
+                                                ? "#ffffff"
+                                                : undefined,
+                                      }}
+                                      type="outline-primary"
+                                      block
+                                      onClick={sendInvitation}
+                                      value="save"
+                                  >
+                                    {t("Send Invitation")}
+                                  </Button>
+                                  </div>
+                                </>
+                            ) : disabledAdd ? (
                                 <div
-                                  style={{
-                                    fontSize: "0.8rem",
-                                    color: "red",
-                                    width: "120%",
-                                    marginTop: "-10%",
-                                    marginBottom: "3%",
-                                  }}
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      marginBottom: "50px",
+                                    }}
                                 >
-                                  {emailError}
+                                <Button
+                                    disabled
+                                    style={{
+                                      width: "150px",
+                                      boxShadow: "1px 2px 9px #311465",
+                                      color: "grey",
+                                      backgroundColor: "#ffffff",
+                                      fontWeight: "bold",
+                                      height: "25px",
+                                      borderRadius: "15px",
+                                      fontSize: "0.7rem",
+                                    }}
+                                    type="outline-primary"
+                                    block
+                                    onClick={addUserToTable}
+                                    value="save"
+                                >
+                                  {t("Add to Film Page")}
+                                </Button>
+                                </div>
+                            ) : (
+                                <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      marginBottom: "50px",
+                                    }}
+                                >
+                                <Button
+                                    className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
+                                    style={{
+                                      boxShadow: "1px 2px 9px #311465",
+                                      fontWeight: "bold",
+                                      width: "150px",
+                                      height: "25px",
+                                      borderRadius: "15px",
+                                      fontSize: "0.7rem",
+
+                                    }}
+                                    type="outline-primary"
+                                    block
+                                    onClick={addUserToTable}
+                                    value="save"
+                                >
+                                  {t("Add to Film Page")}
+                                </Button>
                                 </div>
                               )}
-                              <select
-                                style={{
-                                  height: "30px",
-                                  width: "auto",
-                                  borderRadius: "5px",
-                                  marginBottom: "20px",
-                                  boxShadow: "1px 2px 9px #311465",
-                                }}
-                                className="form-select form-select-sm"
-                                name="epkRole"
-                                onChange={(e) =>
-                                  setInvitedUserRole(e.target.value)
-                                }
-                              >
-                                <option value="" disabled>
-                                  {t("Epk role...")}
-                                </option>
-                                {epkRoles.map(makeEpkRole)}
-                              </select>
-                              <Button
-                                disabled={!!emailError || !invitationEmailValue}
-                                className={
-                                  !!emailError || !invitationEmailValue
-                                    ? "" // no hover effect when disabled
-                                    : "hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white" // apply hover effect when enabled
-                                }
-                                style={{
-                                  boxShadow: "1px 2px 9px #311465",
-                                  fontWeight: "bold",
-                                  width: "auto",
-                                  color:
-                                    !!emailError || !invitationEmailValue
-                                      ? "grey"
-                                      : undefined,
-                                  backgroundColor:
-                                    !!emailError || !invitationEmailValue
-                                      ? "#ffffff"
-                                      : undefined,
-                                }}
-                                type="outline-primary"
-                                block
-                                onClick={sendInvitation}
-                                value="save"
-                              >
-                                {t("Send Invitation")}
-                              </Button>
-                            </>
-                          ) : disabledAdd ? (
-                            <Button
-                              disabled
-                              style={{
-                                width: "120px",
-                                boxShadow: "1px 2px 9px #311465",
-                                color: "grey",
-                                backgroundColor: "#ffffff",
-                                fontWeight: "bold",
-                              }}
-                              type="outline-primary"
-                              block
-                              onClick={addUserToTable}
-                              value="save"
-                            >
-                              {t("Save to EPK")}
-                            </Button>
-                          ) : (
-                            <Button
-                              className="hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white"
-                              style={{
-                                boxShadow: "1px 2px 9px #311465",
-                                fontWeight: "bold",
-                                width: "120px",
-                              }}
-                              type="outline-primary"
-                              block
-                              onClick={addUserToTable}
-                              value="save"
-                            >
-                              {t("Save to EPK")}
-                            </Button>
-                          )}
+                          </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/*Table with results */}
+                  {/*Table with results */}
                 {/* <div className="col"> */}
                 {/* <div className="row"> */}
-                <div className="col my-2">
+                <div className="col my-2"
+                     style={{
+                       boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                     }}
+                >
                   {/* Responsive table container */}
                   <div
-                    className="overflow-x-auto"
-                    // style={{
-                    //   // overflow: "auto",
-                    //   height: "440px",
-                    //   width: "auto",
-                    //   scrollbarWidth: "none",
-                    //   marginLeft: "-18%",
-                    // }}
+                    // className="overflow-x-auto"
+
                   >
                     {/* Table */}
                     <table
-                      className="table table-striped table-bordered "
+                      className="table bg-transparent"
                       style={{
                         fontSize: "0.8rem",
                         textAlign: "center",
                         tableLayout: "auto",
+
+
                       }}
                     >
                       <thead className="thead-dark">
-                        <tr>
-                          <th>{t("NAME")}</th>
-                          <th>{t("EPK ROLE")}</th>
-                          <th>{t("IMAGE")}</th>
-                          <th>{t("FB")}</th>
-                          <th>{t("IG")}</th>
-                          <th>{t("TW")}</th>
-                          <th>{t("STATUS")}</th>
-                          <th></th>
-                        </tr>
+                      <tr class="bg-transparent">
+                        <th class="bg-transparent">{t("PICTURE")}</th>
+                        <th class="bg-transparent">{t("NAME")}</th>
+                        <th class="bg-transparent">{t("ROLE")}</th>
+
+                        {/*<th>{t("FB")}</th>*/}
+                        {/*<th>{t("IG")}</th>*/}
+                        {/*<th>{t("TW")}</th>*/}
+                        <th class="bg-transparent">{t("STATUS")}</th>
+                        <th class="bg-transparent"></th>
+                      </tr>
                       </thead>
                       <tbody>
                         {combinedUsers.map((user) => {
@@ -868,85 +910,91 @@ function FepkDetailsForm() {
                             imageUrlDisplay = user.picture;
                           }
                           return (
-                            <tr
-                              key={user._id}
-                              style={{
-                                textAlign: "center",
-                                verticalAlign: "middle",
-                              }}
-                            >
-                              <td>{user.firstName + " " + user.lastName}</td>
-                              <td>{user.role}</td>
-                              <td>
-                                <img
-                                  src={imageUrlDisplay}
-                                  alt=""
+                              <tr
+                                  class="bg-transparent"
+                                  key={user._id}
                                   style={{
-                                    height: "35px",
-                                    width: "auto",
+                                    textAlign: "center",
+                                    verticalAlign: "middle",
+                                    fontSize: "0.7rem",
                                   }}
-                                />
-                              </td>
-                              <td>
-                                <a
-                                  href={
-                                    user.facebook_url ? user.facebook_url : "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {user.facebook_followers
-                                    ? user.facebook_followers
-                                    : "-"}
-                                </a>
-                              </td>
-                              <td>
-                                <a
-                                  href={
-                                    user.instagram_url
-                                      ? user.instagram_url
-                                      : "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {user.instagram_followers
-                                    ? user.instagram_followers
-                                    : "-"}
-                                </a>
-                              </td>
-                              <td>
-                                <a
-                                  href={
-                                    user.twitter_url ? user.twitter_url : "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {user.twitter_followers
-                                    ? user.twitter_followers
-                                    : "-"}
-                                </a>
-                              </td>
-                              <td>
-                                {user.status
-                                  ? user.status
-                                  : currentFepkUsers
-                                      .map((user) => user._id)
-                                      .includes(user._id)
-                                  ? "Added"
-                                  : "Invited"}
-                              </td>
-                              <td
-                                style={{
-                                  textAlign: "center",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => deleteFromUsersList(user)}
                               >
-                                <FontAwesomeIcon icon={faTrashCan} />
-                              </td>
-                            </tr>
+                                <td class="bg-transparent">
+                                  <img
+                                      src={imageUrlDisplay}
+                                      alt=""
+                                      style={{
+                                        height: "75px",
+                                        width: "75px",
+                                        borderRadius: "0px",
+                                        objectFit: "cover"
+                                      }}
+                                  />
+                                </td>
+                                <td class="bg-transparent">{user.firstName + " " + user.lastName}</td>
+                                <td class="bg-transparent">{user.role}</td>
+
+                                {/*<td>*/}
+                                {/*  <a*/}
+                                {/*    href={*/}
+                                {/*      user.facebook_url ? user.facebook_url : "#"*/}
+                                {/*    }*/}
+                                {/*    target="_blank"*/}
+                                {/*    rel="noopener noreferrer"*/}
+                                {/*  >*/}
+                                {/*    {user.facebook_followers*/}
+                                {/*      ? user.facebook_followers*/}
+                                {/*      : "-"}*/}
+                                {/*  </a>*/}
+                                {/*</td>*/}
+                                {/*<td>*/}
+                                {/*  <a*/}
+                                {/*    href={*/}
+                                {/*      user.instagram_url*/}
+                                {/*        ? user.instagram_url*/}
+                                {/*        : "#"*/}
+                                {/*    }*/}
+                                {/*    target="_blank"*/}
+                                {/*    rel="noopener noreferrer"*/}
+                                {/*  >*/}
+                                {/*    {user.instagram_followers*/}
+                                {/*      ? user.instagram_followers*/}
+                                {/*      : "-"}*/}
+                                {/*  </a>*/}
+                                {/*</td>*/}
+                                {/*<td>*/}
+                                {/*  <a*/}
+                                {/*    href={*/}
+                                {/*      user.twitter_url ? user.twitter_url : "#"*/}
+                                {/*    }*/}
+                                {/*    target="_blank"*/}
+                                {/*    rel="noopener noreferrer"*/}
+                                {/*  >*/}
+                                {/*    {user.twitter_followers*/}
+                                {/*      ? user.twitter_followers*/}
+                                {/*      : "-"}*/}
+                                {/*  </a>*/}
+                                {/*</td>*/}
+                                <td class="bg-transparent">
+                                  {user.status
+                                      ? user.status
+                                      : currentFepkUsers
+                                          .map((user) => user._id)
+                                          .includes(user._id)
+                                          ? "Added"
+                                          : "Invited"}
+                                </td>
+                                <td
+                                    class="bg-transparent"
+                                    style={{
+                                      textAlign: "center",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() => deleteFromUsersList(user)}
+                                >
+                                  <FontAwesomeIcon icon={faTrashCan}/>
+                                </td>
+                              </tr>
                           );
                         })}
                       </tbody>
@@ -962,9 +1010,9 @@ function FepkDetailsForm() {
 
         <div>
           <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
             appElement={document.getElementById("root")}
             style={{
               overlay: {

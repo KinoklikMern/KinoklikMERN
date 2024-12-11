@@ -3,10 +3,10 @@ import http from "../../../http-common";
 import Modal from "react-modal";
 import { Button, Tooltip } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { Link, useParams } from "react-router-dom";
-import BasicMenu from "./fepkMenu";
+import { useParams } from "react-router-dom";
+// import BasicMenu from "./fepkMenu";
 import paypalImage from "../../../images/paypal.png";
-import stripImage from "../../../images/stripe.jpg";
+// import stripImage from "../../../images/stripe.jpg";
 import { useTranslation } from "react-i18next";
 import { getFepksById } from "../../../api/epks";
 
@@ -14,10 +14,10 @@ function FepkEditCoverForm() {
   const { t } = useTranslation();
 
   const [file1, setFile1] = useState("");
-  const [file2, setFile2] = useState("");
+  // const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
   const inputFile1Ref = useRef(null);
-  const inputFile2Ref = useRef(null);
+  // const inputFile2Ref = useRef(null);
   const inputFile3Ref = useRef(null);
   // eslint-disable-next-line no-unused-vars
   const [message, setMessage] = useState("");
@@ -33,7 +33,7 @@ function FepkEditCoverForm() {
   //Banner prewiev
   const [bannerPreviewUrl, setBannerPreviewUrl] = useState("");
   //Trailer preview
-  const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
+  // const [trailerPreviewUrl, setTrailerPreviewUrl] = useState("");
 
   //To work with modal notifications
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -52,13 +52,13 @@ function FepkEditCoverForm() {
   };
 
   //video
-  const file2Selected = (event) => {
-    const file = event.target.files[0];
-    setFile2(file);
-    setDisabled(false);
-    const url = URL.createObjectURL(file);
-    setTrailerPreviewUrl(url);
-  };
+  // const file2Selected = (event) => {
+  //   const file = event.target.files[0];
+  //   setFile2(file);
+  //   setDisabled(false);
+  //   const url = URL.createObjectURL(file);
+  //   setTrailerPreviewUrl(url);
+  // };
 
   //poster
   const file3Selected = (event) => {
@@ -320,12 +320,12 @@ function FepkEditCoverForm() {
     if (characterLength.logLine_short <= 160) {
       let formData = new FormData();
       formData.append("file1", file1);
-      formData.append("file2", file2);
+      // formData.append("file2", file2);
       formData.append("file3", file3);
 
       if (
         checkFileMimeType(file1) &&
-        checkFileMimeType(file2) &&
+        // checkFileMimeType(file2) &&
         checkFileMimeType(file3)
       ) {
         console.log(formData);
@@ -340,9 +340,9 @@ function FepkEditCoverForm() {
             if (response.data.file1 !== undefined) {
               epkCoverData.banner_url = response.data.file1;
             }
-            if (response.data.file2 !== undefined) {
-              epkCoverData.trailer_url = response.data.file2;
-            }
+            // if (response.data.file2 !== undefined) {
+            //   epkCoverData.trailer_url = response.data.file2;
+            // }
             if (response.data.file3 !== undefined) {
               epkCoverData.image_details = response.data.file3;
             }
@@ -374,63 +374,24 @@ function FepkEditCoverForm() {
 
   return (
     <>
+      {/* main div */}
       <div
         style={{
-          boxShadow: "inset 1px 2px 9px #311465",
-          marginLeft: "10%",
-          marginBottom: "2%",
-          width: "80%",
-          borderRadius: "10px",
-          backgroundColor: "white",
+          // boxShadow: "inset 1px 2px 9px #311465",
+          // marginLeft: "10%",
+          // marginBottom: "2%",
+          // width: "80%",
+          // borderRadius: "10px",
+          backgroundColor: "transparent",
+          margin: "0 auto",
         }}
       >
-        <div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5 tw-text-center">
-          <div className="col-2 tw-m-3 tw-text-center">
-            <h5
-              className=" tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
-              // style={{
-              //   color: "#1E0039",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("Cover - Mandatory")}
-            </h5>
-          </div>
-          <div className="col-2 tw-m-3 tw-text-center">
-            <h5
-              className=" tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
-              // style={{
-              //   color: "#1E0039",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("EPK Dashboard")}
-            </h5>
-          </div>
-          <div className="col-2 tw-m-3">
-            <BasicMenu color="#1E0039" />
-          </div>
-          <div className="col-2 tw-m-3 tw-text-center">
-            <Link
-              className="tw-text-sm tw-font-bold tw-text-[#1E0039] md:tw-text-xl lg:tw-text-2xl"
-              to={`/epk/${fepk._id}`}
-              // style={{
-              //   color: "#1E0039",
-              //   textDecoration: "none",
-              //   fontWeight: "bold",
-              //   fontSize: "25px",
-              // }}
-            >
-              {t("View EPK Page")}
-            </Link>
-          </div>
-        </div>
+        {/* form div */}
         <div
           style={{
-            marginLeft: "7%",
-            marginRight: "5%",
+            // marginLeft: "7%",
+            // marginRight: "5%",
+            margin: "0 auto",
             color: "#311465",
             fontWeight: "normal",
           }}
@@ -444,143 +405,133 @@ function FepkEditCoverForm() {
               marginBottom: "5%",
             }}
           > */}
-          <h5
-            className="card-title "
-            style={{
-              color: "#311465",
-              fontWeight: "normal",
-              marginBottom: "1%",
-              fontSize: "1rem",
-            }}
-          >
-            {t("Cover")}
-          </h5>
-          <div className="tw-card-body tw--ml-4 tw--mr-4 tw-mb-1 tw-h-auto tw-pb-2">
+
+          <div className="tw-card-body tw-h-auto ">
             {/* Format of all the inputs from Title to Upload Trailer  */}
-            <form className="row">
-              <div className="col me-5">
+            <form className="row d-flex flex-column flex-md-row">
+
                 {/* First 2 columns*/}
-                <div className="row align-items-stretch">
+                <div className="row ">
                   {/* The 1st column*/}
-                  <div className="col-lg-6">
+                  <div className="col-lg-4">
                     {/*Title*/}
-                    <div className="col mt-1 mb-5">
+                    <div className="col mb-3">
                       <input
-                        style={{
-                          height: "30px",
-                          width: "100%",
-                          borderRadius: "5px",
-                          marginBottom: "5px",
-                          boxShadow: "1px 2px 9px #311465",
-                          textAlign: "left",
-                        }}
-                        className="form-control m-10"
-                        defaultValue={fepk.title}
-                        placeholder={t("Title")}
-                        onChange={handleInputChange}
-                        name="title"
+                          style={{
+                            height: "30px",
+                            width: "100%",
+                            borderRadius: "15px",
+                            // marginBottom: "5px",
+                            // boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                          }}
+                          className="form-control m-10"
+                          defaultValue={fepk.title}
+                          placeholder={t("Title")}
+                          onChange={handleInputChange}
+                          name="title"
                       />
-                      <h6 style={{ color: "red", fontSize: "1rem" }}>
+                      <h6 style={{color: "red", fontSize: "1rem"}}>
                         {messageTitleNo}
                       </h6>
-                      <h6 style={{ color: "green", fontSize: "1rem" }}>
+                      <h6 style={{color: "green", fontSize: "1rem"}}>
                         {messageTitleYes}
                       </h6>
-                      <h6 style={{ color: "green", fontSize: "1rem" }}>
+                      <h6 style={{color: "green", fontSize: "1rem"}}>
                         {message}
                       </h6>
                     </div>
                     {/* Log line */}
                     <div className="col my-1">
                       <textarea
-                        style={{
-                          height: "80px",
-                          width: "100%",
-                          borderRadius: "5px",
-                          marginBottom: "0px",
-                          boxShadow: "1px 2px 9px #311465",
-                          textAlign: "left",
-                          resize: "none",
-                        }}
-                        maxLength="160"
-                        className="form-control mt-10"
-                        defaultValue={fepk.logLine_short}
-                        placeholder={t(
-                          "Log Line short (maximum 160 characters)"
-                        )}
-                        onChange={handleInputChange}
-                        name="logLine_short"
+                          style={{
+                            height: "80px",
+                            width: "100%",
+                            borderRadius: "25px",
+                            marginBottom: "0px",
+                            // boxShadow: "1px 2px 9px #311465",
+                            textAlign: "left",
+                            resize: "none",
+                          }}
+                          maxLength="160"
+                          className="form-control mt-10"
+                          defaultValue={fepk.logLine_short}
+                          placeholder={t(
+                              "Log Line short (maximum 160 characters)"
+                          )}
+                          onChange={handleInputChange}
+                          name="logLine_short"
                       />
                       <span
-                        style={{
-                          fontSize: "15px",
-                          display: "flex",
-                          justifyContent: "right",
-                          marginBottom: "1rem",
-                        }}
+                          style={{
+                            fontSize: "15px",
+                            display: "flex",
+                            justifyContent: "right",
+                            marginBottom: "1rem",
+                          }}
                       >
                         {characterLength?.logLine_short}
                         {t("/160 characters")}
                       </span>
                     </div>
                     {/* Production (div inside the div)*/}
-                    <div className="row" style={{ marginBottom: "-1.4rem" }}>
+                    <div className="row" style={{marginBottom: "-1.4rem"}}>
                       <div className="col my-2">
                         <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control m-10 mb-4"
-                          defaultValue={fepk.productionCo}
-                          placeholder={t("Production Company Name")}
-                          onChange={handleInputChange}
-                          name="productionCo"
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              // boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            className="form-control m-10 mb-4"
+                            defaultValue={fepk.productionCo}
+                            placeholder={t("Production Company Name")}
+                            onChange={handleInputChange}
+                            name="productionCo"
                         />
                       </div>
                     </div>
                     {/* Distribution (div inside the div)*/}
                     <div className="row">
-                      <div className="col my-2">
+                      <div className="col">
                         <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control m-10 "
-                          //value={fepk.distributionCo}
-                          defaultValue={fepk.distributionCo}
-                          placeholder={t("Distribution Company Name")}
-                          onChange={handleInputChange}
-                          name="distributionCo"
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              // boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            className="form-control m-10 "
+                            //value={fepk.distributionCo}
+                            defaultValue={fepk.distributionCo}
+                            placeholder={t("Distribution Company Name")}
+                            onChange={handleInputChange}
+                            name="distributionCo"
                         />
                       </div>
                     </div>
                   </div>
                   {/* The 2nd column*/}
-                  <div className="col-lg-6">
+                  <div className="col-lg-4">
                     <div className="row">
                       {/* Budget*/}
                       <div className="col my-2">
                         <select
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                          }}
-                          className="form-select form-select-sm "
-                          name="budget"
-                          onChange={handleInputChange}
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              marginBottom: "5px",
+                              boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            }}
+                            className="form-select form-select-sm tw-bg-backgroundGray "
+                            name="budget"
+                            onChange={handleInputChange}
                         >
                           <option defaultValue={fepk.budget}>
                             {fepk.budget ? fepk.budget : "Production Budget"}
@@ -593,22 +544,22 @@ function FepkEditCoverForm() {
                       {/* Production type*/}
                       <div className="col my-2">
                         <select
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                          }}
-                          className="form-select form-select-sm "
-                          name="production_type"
-                          onChange={handleInputChange}
-                          defaultValue={fepk.production_type || ""}
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              marginBottom: "5px",
+                              boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            }}
+                            className="form-select form-select-sm tw-bg-backgroundGray "
+                            name="production_type"
+                            onChange={handleInputChange}
+                            defaultValue={fepk.production_type || ""}
                         >
                           <option value="" disabled>
                             {fepk.production_type
-                              ? fepk.production_type
-                              : "Production Type"}
+                                ? fepk.production_type
+                                : "Production Type"}
                           </option>
                           {movieType.map(makeTypeItem)}
                         </select>
@@ -618,42 +569,42 @@ function FepkEditCoverForm() {
                       {/* Genre*/}
                       <div className="col my-2">
                         <select
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                          }}
-                          className="form-select form-select-sm "
-                          name="genre"
-                          onChange={handleInputChange}
-                          defaultValue={fepk.genre || ""}
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              marginBottom: "5px",
+                              boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            }}
+                            className="form-select form-select-sm tw-bg-backgroundGray"
+                            name="genre"
+                            onChange={handleInputChange}
+                            defaultValue={fepk.genre || ""}
                         >
                           <option value="" disabled>
                             {fepk.genre ? fepk.genre : "Genre"}
                           </option>
                           {movieGenre
-                            .sort((a, b) =>
-                              a.toLowerCase().localeCompare(b.toLowerCase())
-                            )
-                            .map(makeGenreItem)}
+                              .sort((a, b) =>
+                                  a.toLowerCase().localeCompare(b.toLowerCase())
+                              )
+                              .map(makeGenreItem)}
                         </select>
                       </div>
                       {/* Status*/}
                       <div className="col my-2">
                         <select
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                          }}
-                          className="form-select form-select-sm "
-                          name="status"
-                          onChange={handleInputChange}
-                          defaultValue={fepk.status || ""}
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              marginBottom: "5px",
+                              boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            }}
+                            className="form-select form-select-sm tw-bg-backgroundGray"
+                            name="status"
+                            onChange={handleInputChange}
+                            defaultValue={fepk.status || ""}
                         >
                           <option value="" disabled>
                             {fepk.status ? fepk.status : "Status"}
@@ -662,21 +613,21 @@ function FepkEditCoverForm() {
                         </select>
                       </div>
                     </div>
-                    <div className="row" style={{ marginBottom: "-0.2rem" }}>
+                    <div className="row" style={{marginBottom: "-0.2rem"}}>
                       {/* Language type*/}
                       <div className="col my-2">
                         <select
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            marginBottom: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                          }}
-                          className="form-select form-select-sm "
-                          name="language"
-                          onChange={handleInputChange}
-                          defaultValue={fepk.language || ""}
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              marginBottom: "5px",
+                              boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                            }}
+                            className="form-select form-select-sm tw-bg-backgroundGray"
+                            name="language"
+                            onChange={handleInputChange}
+                            defaultValue={fepk.language || ""}
                         >
                           <option value="" disabled>
                             {fepk.language ? fepk.language : "Language"}
@@ -689,22 +640,22 @@ function FepkEditCoverForm() {
                       {/* Production Year*/}
                       <div className="col my-2">
                         <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          className="form-control"
-                          type="number"
-                          min="1895"
-                          //value={fepk.productionYear}
-                          defaultValue={fepk.productionYear}
-                          placeholder={t("Production Year")}
-                          onChange={handleInputChange}
-                          name="productionYear"
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              // boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            className="form-control"
+                            type="number"
+                            min="1895"
+                            //value={fepk.productionYear}
+                            defaultValue={fepk.productionYear}
+                            placeholder={t("Production Year")}
+                            onChange={handleInputChange}
+                            name="productionYear"
                         />
                       </div>
                     </div>
@@ -712,49 +663,71 @@ function FepkEditCoverForm() {
                       {/* Duration Minutes*/}
                       <div className="col my-2">
                         <input
-                          style={{
-                            height: "30px",
-                            width: "100%",
-                            borderRadius: "5px",
-                            boxShadow: "1px 2px 9px #311465",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                          type="number"
-                          min="0"
-                          className="form-control m-10"
-                          //value={fepk.durationMin}
-                          defaultValue={fepk.durationMin}
-                          placeholder={t("Duration Minutes")}
-                          onChange={handleInputChange}
-                          name="durationMin"
+                            style={{
+                              height: "30px",
+                              width: "100%",
+                              borderRadius: "15px",
+                              // boxShadow: "1px 2px 9px #311465",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
+                            type="number"
+                            min="0"
+                            className="form-control m-10"
+                            //value={fepk.durationMin}
+                            defaultValue={fepk.durationMin}
+                            placeholder={t("Duration Minutes")}
+                            onChange={handleInputChange}
+                            name="durationMin"
                         />
                       </div>
                     </div>
-                  </div>
+
                   {/* The end of the 2nd column)*/}
-                </div>
+
               </div>
               {/* The 3rd column)*/}
-              <div
-                className="col-10  col-md-4 col-lg-6 m-1 ms-3"
-                style={{
-                  boxShadow: "1px 2px 9px #311465",
-                  borderRadius: "5px",
-                }}
-              >
-                <div className="row">
-                  {/* Poster*/}
-                  <div className="col my-2">
-                    <label
-                      htmlFor="filePoster"
-                      className="form-label text-dark"
-                      style={{ fontSize: "25px" }}
+              <div className="col-lg-4">
+                <div className=" text-center">
+                  {/* Picture Upload Text */}
+                  <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">
+                    {/* Picture Upload Button */}
+                    <div
+                        className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"
+                        style={{
+                          width: "200px",
+                          boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                        }}
                     >
-                      <h4>{t("Upload Poster")}</h4>
-                    </label>
-                    <input
-                      style={{ fontSize: "15px" }}
+                      <label
+                          htmlFor="filePoster"
+                          className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"
+                      >
+        <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+          {t("Poster Upload")}
+        </span>
+                        {/* Upload Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="tw-h-5"
+                        >
+                          <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                          />
+                        </svg>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Hidden file input */}
+                  <input
+                      style={{display: "none"}}
                       className="form-control form-control-sm"
                       filename={file3}
                       onChange={file3Selected}
@@ -763,300 +736,377 @@ function FepkEditCoverForm() {
                       id="filePoster"
                       name="files"
                       accept="image/*"
-                    ></input>
-                    {posterPreviewUrl ? (
+                  />
+
+                  {/* Clickable image for file upload */}
+                  {posterPreviewUrl || (fepk.image_details && fepk.image_details !== undefined) ? (
                       <img
-                        src={posterPreviewUrl}
-                        style={{
-                          height: "120px",
-                          width: "auto",
-                          marginTop: "5px",
-                        }}
-                        alt="Preview"
+                          src={posterPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
+                          style={{
+                            height: "120px",
+                            width: "auto",
+                            margin: "0 auto",
+                            display: "block",
+                            cursor: "pointer",
+                            marginTop: "10px",
+                          }}
+                          alt="Preview"
+                          onClick={() => inputFile3Ref.current.click()}
                       />
-                    ) : fepk.image_details &&
-                      fepk.image_details !== undefined ? (
-                      <img
-                        src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                        style={{
-                          height: "240px",
-                          width: "auto",
-                          marginTop: "5px",
-                        }}
-                        alt="no img"
-                      />
-                    ) : (
-                      <h3>{t("No Image")}</h3>
-                    )}
-                    {messageImg && (
+                  ) : (
+                      <h3
+                          onClick={() => inputFile3Ref.current.click()}
+                          style={{cursor: "pointer", marginTop: "10px"}}
+                      >
+                        {t("No Image")}
+                      </h3>
+                  )}
+
+                  {messageImg && (
                       <div
-                        className="message"
-                        style={{
-                          color: "red",
-                          fontSize: "1rem",
-                          marginTop: "10%",
-                        }}
+                          className="message"
+                          style={{
+                            color: "red",
+                            fontSize: "1rem",
+                            marginTop: "10px",
+                          }}
                       >
                         {messageImg}
                       </div>
-                    )}
-                  </div>
-                  <div className="col" style={{ height: "450px" }}>
-                    <div className="row">
-                      {/* Banner*/}
-                      <div className="col my-2">
-                        <label
-                          htmlFor="fileBanner"
-                          className="form-label text-dark"
-                          style={{ fontSize: "25px" }}
-                        >
-                          {" "}
-                          <h4>{t("Upload Banner")}</h4>
-                        </label>
-                        <input
-                          style={{ fontSize: "15px" }}
-                          className="form-control form-control-sm"
-                          filename={file1}
-                          onChange={file1Selected}
-                          ref={inputFile1Ref}
-                          type="file"
-                          id="fileBanner"
-                          name="files"
-                          accept="image/*"
-                        ></input>
-                        {bannerPreviewUrl ? (
-                          <img
-                            src={bannerPreviewUrl}
-                            style={{
-                              height: "100px",
-                              width: "auto",
-                              marginTop: "5px",
-                            }}
-                            alt="Preview"
-                          />
-                        ) : fepk.banner_url && fepk.banner_url !== undefined ? (
-                          <img
-                            src={`${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`}
-                            style={{
-                              height: "100px",
-                              width: "auto",
-                              marginTop: "5px",
-                            }}
-                            alt="no img"
-                          />
-                        ) : (
-                          <h3>{t("No Image")}</h3>
-                        )}
-                      </div>
-                    </div>
-                    {/* Div for the trailer*/}
-                    <div className="row">
-                      {/* Trailer*/}
-                      <div className="col my-2">
-                        <label
-                          htmlFor="fileTrailer"
-                          className="form-label text-dark"
-                          style={{ fontSize: "25px" }}
-                        >
-                          {" "}
-                          <h4>{t("Upload Trailer")}</h4>
-                        </label>
-                        <input
-                          style={{ fontSize: "15px" }}
-                          className="form-control form-control-sm"
-                          filename={file2}
-                          ref={inputFile2Ref}
-                          onChange={file2Selected}
-                          type="file"
-                          id="fileTrailer"
-                          name="files"
-                          accept="video/*"
-                        ></input>
-                        {trailerPreviewUrl ? (
-                          <video
-                            src={trailerPreviewUrl}
-                            // style={{ width: "100%", height: "150px" }}
-                            controls
-                          ></video>
-                        ) : fepk.trailer_url ? (
-                          <video
-                            src={`${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}
-                            // style={{ width: "100%", height: "150px" }}
-                            controls
-                          ></video>
-                        ) : (
-                          <h6>{t("NO VIDEO UPLOADED")}</h6>
-                        )}
-                      </div>
-                      {/* End of the trailer*/}
-                    </div>
-                  </div>
+                  )}
                 </div>
+
+                {/* Banner and Trailer */}
+                <div className=" text-center">
+                  {/* Banner Upload Text */}
+                  <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">
+                    {/* Banner Upload Button */}
+                    <div
+                        className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"
+                        style={{
+                          width: "200px",
+                          boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                        }}
+                    >
+                      <label
+                          htmlFor="fileBanner"
+                          className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"
+                      >
+        <span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">
+          {t("Cover Upload")}
+        </span>
+                        {/* Upload Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="tw-h-5"
+                        >
+                          <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                          />
+                        </svg>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Hidden file input */}
+                  <input
+                      style={{display: "none"}}
+                      className="form-control form-control-sm"
+                      filename={file1}
+                      onChange={file1Selected}
+                      ref={inputFile1Ref}
+                      type="file"
+                      id="fileBanner"
+                      name="files"
+                      accept="image/*"
+                  />
+
+                  {/* Clickable image for file upload */}
+                  {bannerPreviewUrl || (fepk.banner_url && fepk.banner_url !== undefined) ? (
+                      <img
+                          src={bannerPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.banner_url}`}
+                          style={{
+                            height: "120px",
+                            width: "auto",
+                            margin: "0 auto",
+                            display: "block",
+                            cursor: "pointer",
+                            marginTop: "10px",
+                          }}
+                          alt="Preview"
+                          onClick={() => inputFile1Ref.current.click()}
+                      />
+                  ) : (
+                      <h3
+                          onClick={() => inputFile1Ref.current.click()}
+                          style={{cursor: "pointer", marginTop: "10px"}}
+                      >
+                        {t("No Image")}
+                      </h3>
+                  )}
+                </div>
+
+
+                {/*          <div className="col mt-5 text-center">*/}
+                {/*            /!* Trailer Upload Text *!/*/}
+                {/*            <div className="tw-flex tw-justify-center tw-items-center tw-mt-5">*/}
+                {/*              /!* Trailer Upload Button *!/*/}
+                {/*              <div*/}
+                {/*                  className="tw-mb-2 tw-flex tw-items-center tw-px-4 tw-py-2 tw-rounded-lg tw-shadow-md"*/}
+                {/*                  style={{*/}
+                {/*                    width: "200px",*/}
+                {/*                    boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.6)",*/}
+                {/*                  }}*/}
+                {/*              >*/}
+                {/*                <label*/}
+                {/*                    htmlFor="fileTrailer"*/}
+                {/*                    className="tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-w-full"*/}
+                {/*                >*/}
+                {/*<span className="tw-text-[1rem] tw-font-medium tw-text-gray-800">*/}
+                {/*  {t("Teaser Trailer Upload")}*/}
+                {/*</span>*/}
+                {/*                  /!* Upload Icon *!/*/}
+                {/*                  <svg*/}
+                {/*                      xmlns="http://www.w3.org/2000/svg"*/}
+                {/*                      fill="none"*/}
+                {/*                      viewBox="0 0 24 24"*/}
+                {/*                      strokeWidth="1.5"*/}
+                {/*                      stroke="currentColor"*/}
+                {/*                      className="tw-h-5"*/}
+                {/*                  >*/}
+                {/*                    <path*/}
+                {/*                        strokeLinecap="round"*/}
+                {/*                        strokeLinejoin="round"*/}
+                {/*                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"*/}
+                {/*                    />*/}
+                {/*                  </svg>*/}
+                {/*                </label>*/}
+                {/*              </div>*/}
+                {/*            </div>*/}
+
+                {/*            /!* Hidden file input *!/*/}
+                {/*            <input*/}
+                {/*                style={{display: "none"}}*/}
+                {/*                className="form-control form-control-sm"*/}
+                {/*                filename={file2}*/}
+                {/*                ref={inputFile2Ref}*/}
+                {/*                onChange={file2Selected}*/}
+                {/*                type="file"*/}
+                {/*                id="fileTrailer"*/}
+                {/*                name="files"*/}
+                {/*                accept="video/*"*/}
+                {/*            />*/}
+
+                {/*            /!* Clickable video preview for upload *!/*/}
+                {/*            {trailerPreviewUrl || (fepk.trailer_url && fepk.trailer_url !== undefined) ? (*/}
+                {/*                <video*/}
+                {/*                    src={trailerPreviewUrl || `${process.env.REACT_APP_AWS_URL}/${fepk.trailer_url}`}*/}
+                {/*                    controls*/}
+                {/*                    style={{*/}
+                {/*                      width: "100%",*/}
+                {/*                      height: "auto",*/}
+                {/*                      borderRadius: "8px",*/}
+                {/*                      marginTop: "10px",*/}
+                {/*                      cursor: "pointer",*/}
+                {/*                    }}*/}
+                {/*                    onClick={() => inputFile2Ref.current.click()} // Triggers file input click*/}
+                {/*                ></video>*/}
+                {/*            ) : (*/}
+                {/*                <h6*/}
+                {/*                    onClick={() => inputFile2Ref.current.click()}*/}
+                {/*                    style={{cursor: "pointer", marginTop: "10px", color: "gray"}}*/}
+                {/*                >*/}
+                {/*                  {t("No Video Uploaded")}*/}
+                {/*                </h6>*/}
+                {/*            )}*/}
+                {/*          </div>*/}
+
               </div>
+
+
               <div
-                className="row"
-                style={{
-                  paddingRight: "25%",
-                  paddingLeft: "3%",
-                }}
+                  className="row"
+                  style={{
+                    // paddingRight: "20%",
+                    // paddingLeft: "5%",
+                    maxWidth: "600px",
+                    margin: "0 auto"
+                  }}
               >
                 <div>
                   <Tooltip
-                    title={t(
-                      "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK."
-                    )}
+                      title={t(
+                          "In order to collect donations, for your film, please enter your PayPal or Stripe Button URL here. Your Donation icon will appear under the cover section in the EPK."
+                      )}
                   >
                     <span>
                       {" "}
-                      <InfoCircleFilled />
+                      <InfoCircleFilled style={{ color: "gray",}}/>
                     </span>
                   </Tooltip>
                 </div>
-                <div className="col">
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginBottom: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      paddingLeft: "90px",
-                      backgroundImage: `url(${paypalImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "left",
-                      backgroundSize: "80px 60px",
-                    }}
-                    className="form-control"
-                    defaultValue={fepk.DonatePayPal_url}
-                    placeholder="URL: www.paypal.com/mymovie"
-                    onChange={handleInputChange}
-                    name="DonatePayPal_url"
-                  />
+
+                <div className="row"
+                     style={{
+                       marginLeft: "-20px",
+                       width: "120%",
+                     }}
+                >
+                  <div className="">
+                    <input
+                        style={{
+                          height: "30px",
+                          width: "100%",
+                          marginBottom: "5px",
+                          borderRadius: "15px",
+                          boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                          paddingLeft: "90px",
+                          backgroundImage: `url(${paypalImage})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "left",
+                          backgroundSize: "80px 60px",
+                        }}
+                        className="form-control"
+                        defaultValue={fepk.DonatePayPal_url}
+                        placeholder="URL: www.paypal.com/mymovie"
+                        onChange={handleInputChange}
+                        name="DonatePayPal_url"
+                    />
+                  </div>
                 </div>
-                <div className="col">
-                  <input
-                    style={{
-                      height: "30px",
-                      width: "100%",
-                      borderRadius: "5px",
-                      boxShadow: "1px 2px 9px #311465",
-                      paddingLeft: "90px",
-                      backgroundImage: `url(${stripImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "left",
-                      backgroundSize: "80px 40px",
-                    }}
-                    className="form-control"
-                    defaultValue={fepk.DonateStripe_url}
-                    placeholder="URL: www.stripe.com/mymovie"
-                    onChange={handleInputChange}
-                    name="DonateStripe_url"
-                  />
-                </div>
+
+                {/*<div className="col">*/}
+                {/*  <input*/}
+                {/*    style={{*/}
+                {/*      height: "30px",*/}
+                {/*      width: "100%",*/}
+                {/*      borderRadius: "5px",*/}
+                {/*      boxShadow: "1px 2px 9px #311465",*/}
+                {/*      paddingLeft: "90px",*/}
+                {/*      backgroundImage: `url(${stripImage})`,*/}
+                {/*      backgroundRepeat: "no-repeat",*/}
+                {/*      backgroundPosition: "left",*/}
+                {/*      backgroundSize: "80px 40px",*/}
+                {/*    }}*/}
+                {/*    className="form-control"*/}
+                {/*    defaultValue={fepk.DonateStripe_url}*/}
+                {/*    placeholder="URL: www.stripe.com/mymovie"*/}
+                {/*    onChange={handleInputChange}*/}
+                {/*    name="DonateStripe_url"*/}
+                {/*  />*/}
+                {/*</div>*/}
               </div>
+                </div>
             </form>
           </div>
+
         </div>
         <div
-          className="mt-4 tw-relative tw-ml-[70%] tw-flex tw-h-12 tw-w-24 "
-          // style={{
-          //   height: "50px",
-          //   width: "80px",
-          //   marginLeft: "90%",
-          //   marginTop: "3%",
-          // }}
+            className="mt-4 tw-relative tw-ml-[70%] tw-flex tw-h-12 tw-w-24 "
+            // style={{
+            //   height: "50px",
+            //   width: "80px",
+            //   marginLeft: "90%",
+            //   marginTop: "3%",
+            // }}
         >
           {disabled === true ? (
-            <Button
-              disabled
-              style={{
-                boxShadow: "1px 2px 9px #311465",
-                color: "grey",
-                backgroundColor: "#ffffff",
-                fontWeight: "bold",
-              }}
-              type="outline-primary"
-              block
-              onClick={handleSaveClick}
-              value="save"
-            >
-              {isUploading ? (
-                <div
-                  className="spinner"
+              <Button
+                  disabled
                   style={{
-                    border: "4px solid rgba(0, 0, 0, 0.1)",
-                    borderTop: "4px solid blue",
-                    borderRadius: "50%",
-                    width: "20px",
-                    height: "20px",
-                    animation: "spin 1s linear infinite",
+                    width: "120px",
+                    boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                    color: "grey",
+                    // fontWeight: "bold",
                   }}
-                ></div>
-              ) : (
-                t("save")
-              )}
-            </Button>
+                  type="outline-primary"
+                  block
+                  onClick={handleSaveClick}
+                  value="save"
+              >
+                {isUploading ? (
+                    <div
+                        className="spinner"
+                        style={{
+                          border: "4px solid rgba(0, 0, 0, 0.1)",
+                          borderTop: "4px solid blue",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          animation: "spin 1s linear infinite",
+                        }}
+                    ></div>
+                ) : (
+                    t("save")
+                )}
+              </Button>
           ) : (
-            <Button
-              // className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
-              style={{
-                boxShadow: "1px 2px 9px #311465",
-                fontWeight: "bold",
-              }}
-              type="outline-primary"
-              block
-              onClick={handleSaveClick}
-              value="save"
-            >
-              {isUploading ? (
-                <div
-                  className="spinner"
+              <Button
+                  className='hover:tw-scale-110 hover:tw-bg-[#712CB0] hover:tw-text-white'
                   style={{
-                    border: "4px solid rgba(0, 0, 0, 0.1)",
-                    borderTop: "4px solid blue",
-                    borderRadius: "50%",
-                    width: "20px",
-                    height: "20px",
-                    animation: "spin 1s linear infinite",
+                    boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
+                    fontWeight: "bold",
                   }}
-                ></div>
-              ) : (
-                t("save")
-              )}
-            </Button>
+                  type="outline-primary"
+                  block
+                  onClick={handleSaveClick}
+                  value="save"
+              >
+                {isUploading ? (
+                    <div
+                        className="spinner"
+                        style={{
+                          border: "4px solid rgba(0, 0, 0, 0.1)",
+                          borderTop: "4px solid blue",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          animation: "spin 1s linear infinite",
+                        }}
+                    ></div>
+                ) : (
+                    t("save")
+                )}
+              </Button>
           )}
           <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
-            appElement={document.getElementById("root")}
-            style={{
-              overlay: {
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-              },
-              content: {
-                position: "absolute",
-                border: "2px solid #000",
-                backgroundColor: "white",
-                boxShadow: "2px solid black",
-                height: 120,
-                width: 300,
-                margin: "auto",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              },
-            }}
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+              appElement={document.getElementById("root")}
+              style={{
+                overlay: {
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                },
+                content: {
+                  position: "absolute",
+                  border: "2px solid #000",
+                  backgroundColor: "white",
+                  boxShadow: "2px solid black",
+                  height: 120,
+                  width: 300,
+                  margin: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                },
+              }}
           >
-            <div style={{ textAlign: "center" }}>
-              <div style={{ color: "green" }}>
+            <div style={{textAlign: "center"}}>
+              <div style={{color: "green"}}>
                 {t("EPK Cover Saved Successfully!")}
               </div>
-              <br />
+              <br/>
               <button
-                className="btn btn-secondary btn-sm"
-                onClick={closeModal}
-                style={{ backgroundColor: "#712CB0", color: "white" }}
+                  className="btn btn-secondary btn-sm"
+                  onClick={closeModal}
+                  style={{backgroundColor: "#712CB0", color: "white"}}
               >
                 {t("Ok")}
               </button>

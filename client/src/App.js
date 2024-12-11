@@ -102,6 +102,8 @@ import { FepkContext } from "./context/FepkContext";
 import CatelogPage from "./pages/CatelogPage";
 import EpkViewPage from "./pages/EpkViewPage";
 import UploadActorPicCon from "./components/UserDashboard/Upload/UploadActorPicCon";
+import EditFepkLayout from "./layouts/EditFepkLayout";
+
 
 function App() {
   const NavbarHomeClass = "tw-bg-opacity-25 tw-absolute";
@@ -165,6 +167,8 @@ function App() {
             */}
             <Route path="dashboard/saved" element={<DashboardSaved />} />
             <Route path="userdashboard/saved" element={<DashboardSaved />} />
+
+
             <Route
               path="userdashboard/requests"
               element={<UserDashboardRequests />}
@@ -289,7 +293,6 @@ function App() {
           <Route element={<AuthRoutes />}>
             <Route path="uploadFepk" element={<FepkUploadDashboard />} />
             {/* <Route path="editFepk/:title" element={<FepkEditDashboard />} /> */}
-            <Route path="editFepk/:id" element={<FepkEditDashboard />} />
           </Route>
           <Route path="uploadEpk" element={<EpkDashboard />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />
@@ -300,7 +303,12 @@ function App() {
         <Route path="epk" element={<EPK />} />
         <Route path="approvals/:fepkId" element={<TestApproval />} />
         <Route path="*" element={<Navigate to="/" />} />
+        <Route element={<EditFepkLayout title="Edit EPK" />}>
+          <Route path="editFepk/:id" element={<FepkEditDashboard />} />
+        </Route>
+
       </Routes>
+
     </FepkContext.Provider>
   );
 }
