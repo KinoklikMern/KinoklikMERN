@@ -108,10 +108,10 @@ function LoglineForm() {
     setDisabled(false);
   };
 
-  const handleLoglineblurChange = (value) => {
-    setEpkLoglineData({ ...epkLoglineData, logLine_blur: value });
-    setDisabled(false);
-  };
+  // const handleLoglineblurChange = (value) => {
+  //   setEpkLoglineData({ ...epkLoglineData, logLine_blur: value });
+  //   setDisabled(false);
+  // };
 
   const checkFileMimeType = (file) => {
     if (file !== "") {

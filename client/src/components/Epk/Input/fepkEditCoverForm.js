@@ -14,7 +14,7 @@ function FepkEditCoverForm() {
   const { t } = useTranslation();
 
   const [file1, setFile1] = useState("");
-  const [file2, setFile2] = useState("");
+  // const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
   const inputFile1Ref = useRef(null);
   // const inputFile2Ref = useRef(null);
@@ -320,12 +320,12 @@ function FepkEditCoverForm() {
     if (characterLength.logLine_short <= 160) {
       let formData = new FormData();
       formData.append("file1", file1);
-      formData.append("file2", file2);
+      // formData.append("file2", file2);
       formData.append("file3", file3);
 
       if (
         checkFileMimeType(file1) &&
-        checkFileMimeType(file2) &&
+        // checkFileMimeType(file2) &&
         checkFileMimeType(file3)
       ) {
         console.log(formData);
@@ -340,9 +340,9 @@ function FepkEditCoverForm() {
             if (response.data.file1 !== undefined) {
               epkCoverData.banner_url = response.data.file1;
             }
-            if (response.data.file2 !== undefined) {
-              epkCoverData.trailer_url = response.data.file2;
-            }
+            // if (response.data.file2 !== undefined) {
+            //   epkCoverData.trailer_url = response.data.file2;
+            // }
             if (response.data.file3 !== undefined) {
               epkCoverData.image_details = response.data.file3;
             }

@@ -369,7 +369,7 @@ function StillsForm() {
                     <div className="tw-flex tw-justify-center tw-mt-3">
                       <img
                           src={picturePreviewUrl}
-                          alt="Picture Preview"
+                          alt="Preview"
                           style={{
                             height: "120px",
                             width: "auto",

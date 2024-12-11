@@ -7,7 +7,7 @@ import http from "../../../http-common";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import { getFepksById } from "../../../api/epks";
 
 export default function BasicMenu({ color }) {
