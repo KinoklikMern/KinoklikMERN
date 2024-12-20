@@ -110,27 +110,29 @@ export default function EpkHeader({ epkInfo }) {
     }
   }
   return (
-    <div className="tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row">
-      <div className="tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-6">
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
-          {t("Total Audience Reach")}
-        </span>
-        <img src={Audience} alt="audience icon" className="tw-h-10 tw-w-10" />
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
+      <div className="tw-w-full tw-flex tw-justify-evenly tw-items-center tw-gap-5 tw-py-4">
+
+          {/* Audience Reach */}
+          <div className="tw-flex tw-items-center ">
+            <img src={Audience} alt="audience icon"
+                 className="tw-h-6 tw-w-6 tw-filter tw-brightness-50 tw-contrast-200"/>
+            <span className="tw-text-m tw-font-semibold tw-text-customGray">
           {socialMediafollowerTotalNum}
         </span>
+          </div>
+
+          {socialMediasList?.map((media, index) => (
+              <SocialMedia
+                  key={index}
+                  icon={media.fontawesome_icon}
+                  followerNum={media.followers}
+                  name={media.name}
+                  color={"#868585"}
+              />
+          ))}
+
+
+
       </div>
-      <div className="tw-mx-auto tw-mt-4 tw-flex tw-justify-between tw-gap-5 md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 md:tw-gap-10">
-        {socialMediasList?.map((media, index) => (
-          <SocialMedia
-            key={index}
-            icon={media.fontawesome_icon}
-            followerNum={media.followers}
-            name={media.name}
-            color={media.color}
-          />
-        ))}
-      </div>
-    </div>
   );
 }
