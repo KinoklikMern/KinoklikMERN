@@ -233,12 +233,8 @@ function SynopsisForm() {
     <>
       <div
         style={{
-          // boxShadow: "inset 1px 2px 9px #311465",
-          // marginLeft: "10%",
-          // marginBottom: "2%",
-          // width: "80%",
-          // borderRadius: "10px",
-          // backgroundColor: "white",
+            width: window.innerWidth >= 768 ? "80%" : "100%",
+            margin: window.innerWidth >= 768 ? "0 auto" : "0",
         }}
       >
         {/*<div className="tw-flex tw-items-center tw-justify-center tw-rounded-t-lg tw-bg-gradient-to-b tw-from-midnight tw-from-10% tw-via-transparent tw-via-20% tw-to-transparent tw-py-5">*/}
@@ -415,7 +411,7 @@ function SynopsisForm() {
 
                   {/* Second Row: Medium synopsis + image */}
                   <div
-                      className="container-fluid row g-1 d-flex align-items-center mt-2"
+                      className="container-fluid row g-1 d-flex align-items-center mt-4"
                       style={{
                           borderRadius: "15px",
                           boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
@@ -563,7 +559,7 @@ function SynopsisForm() {
 
                   {/* Third Row: Long synopsis + image */}
                   <div
-                      className="container-fluid row g-1 d-flex align-items-center mt-2"
+                      className="container-fluid row g-1 d-flex align-items-center mt-4"
                       style={{
                           borderRadius: "15px",
                           boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(255, 255, 255, 0.6)",
@@ -580,9 +576,9 @@ function SynopsisForm() {
 
                               <label
                                   style={{
-                                      fontSize: "14px", // Smaller font size
-                                      display: "block", // Ensures it's on its own line
-                                      marginBottom: "10px", // Adds spacing below the label
+                                      fontSize: "14px",
+                                      display: "block",
+                                      marginBottom: "10px",
                                   }}
                               >Long Synopsis</label>
 
