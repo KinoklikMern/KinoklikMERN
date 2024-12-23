@@ -7,11 +7,11 @@ import {
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 export default function EpkHeader({ epkInfo }) {
   //console.log("epk info:", epkInfo);
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
     useState(0);

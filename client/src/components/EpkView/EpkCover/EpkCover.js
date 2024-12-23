@@ -1,10 +1,10 @@
 import React from "react";
 import EpkReport from "../EpkReport/EpkReport";
 import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 export default function EpkCover({ epkInfo }) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   // const URL = "";
   const banner_url = `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
   const image_detail =
