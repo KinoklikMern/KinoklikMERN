@@ -340,141 +340,137 @@ export default function Profile() {
         </div>
 
         <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
-          {user.role === 'Actor' ? (
-            <>
-              <select
-                type="text"
-                name="sex"
-                value={userProfileData.sex}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="" hidden>
-                  {t('Gender')}
-                </option>
-                <option value="Male">{t('Male')}</option>
-                <option value="Female">{t('Female')}</option>
-              </select>
-              <select
-                type="text"
-                name="ethnicity"
-                // placeholder="ethnicity"
-                value={userProfileData.ethnicity}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Ethnicity')}</option>
-                <option value="Caucasion">{t('Caucasion')}</option>
-                <option value="Hispanic">{t('Hispanic')}</option>
-                <option value="African American">
-                  {t('African American')}
-                </option>
-                <option value="Asian">{t('Asian')}</option>
-                <option value="Native">{t('Native')}</option>
-              </select>
-              <select
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-                type="text"
-                name="age"
-                // placeholder="age"
-                value={userProfileData.age}
-                onChange={handleProfileChange}
-              >
-                <option value="">{t('Age Range')}</option>
-                <option value={'4'}>3-5</option>
-                <option value={'7'}>6-9</option>
-                <option value={'11'}>10-12</option>
-                <option value={'14'}>13-15</option>
-                <option value={'18'}>16-20</option>
-                <option value={'22'}>21-25</option>
-                <option value={'28'}>26-29</option>
-                <option value={'32'}>30-34</option>
-                <option value={'37'}>35-44</option>
-                <option value={'50'}>45-55</option>
-                <option value={'60'}>56-66</option>
-                <option value={'70'}>67-77</option>
-                <option value={'80'}>78-89+</option>
-              </select>
-              <select
-                type="text"
-                name="height"
-                value={userProfileData.height}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Height')}</option>
-                <option value={"4'10"}>4'10" {t('or below')}</option>
-                <option value={"5'0"}>5'0"</option>
-                <option value={"5'2"}>5'2"</option>
-                <option value={"5'4"}>5'4"</option>
-                <option value={"5'6"}>5'6"</option>
-                <option value={"5'8"}>5'8"</option>
-                <option value={"5'10"}>5'10"</option>
-                <option value={"6'0"}>6'0"</option>
-                <option value={"6'2"}>6'2"</option>
-                <option value={"6'4"}>6'4"</option>
-                <option value={"6'6"}>6'6"</option>
-                <option value={"6'8"}>6'8"</option>
-                <option value={"6'10"}>6'10"</option>
-                <option value={"7'0"}>7'0" {t('or above')}</option>
-              </select>
-              <select
-                type="text"
-                name="eyesColor"
-                value={userProfileData.eyesColor}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Eyes Color')}</option>
-                <option value="Black">{t('Black')}</option>
-                <option value="Blue">{t('Blue')}</option>
-                <option value="Brown">{t('Brown')}</option>
-                <option value="Hazel">{t('Hazel')}</option>
-                <option value="Grey">{t('Grey')}</option>
-                <option value="Green">{t('Green')}</option>
-                <option value="Amber">{t('Amber')}</option>
-                <option value="Red">{t('Red')}</option>
-                <option value="Violet">{t('Violet')}</option>
-              </select>
-              <select
-                type="text"
-                name="hairColor"
-                value={userProfileData.hairColor}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Hair Color')}</option>
-                <option value="Black">{t('Black')}</option>
-                <option value="Blonde">{t('Blonde')}</option>
-                <option value="Brown">{t('Brown')}</option>
-                <option value="Red">{t('Red')}</option>
-                <option value="Grey">{t('Grey')}</option>
-                <option value="White">{t('White')}</option>
-                <option value="Auburn">{t('Auburn')}</option>
-                <option value="Salt & Pepper">{t('Salt & Pepper')}</option>
-                <option value="Chestnut">{t('Chestnut')}</option>
-                <option value="Bald">{t('Bald')}</option>
-              </select>
-              <select
-                type="text"
-                name="bodyBuild"
-                value={userProfileData.bodyBuild}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Body Build')}</option>
-                <option value="Slim">{t('Slim')}</option>
-                <option value="Medium">{t('Medium')}</option>
-                <option value="Muscular">{t('Muscular')}</option>
-                <option value="Large">{t('Large')}</option>
-                <option value="Very Large">{t('Very Large')}</option>
-                <option value="Athletic">
-                  {t('Athletic')}/{t('Toned')}
-                </option>
-                <option value="Curvy">{t('Curvy')}</option>
-              </select>
-            </>
-          ) : null}
+          <>
+            <select
+              type="text"
+              name="sex"
+              value={userProfileData.sex}
+              onChange={handleProfileChange}
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            >
+              <option value="" hidden>
+                {t('Gender')}
+              </option>
+              <option value="Male">{t('Male')}</option>
+              <option value="Female">{t('Female')}</option>
+            </select>
+            <select
+              type="text"
+              name="ethnicity"
+              // placeholder="ethnicity"
+              value={userProfileData.ethnicity}
+              onChange={handleProfileChange}
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            >
+              <option value="">{t('Ethnicity')}</option>
+              <option value="Caucasion">{t('Caucasion')}</option>
+              <option value="Hispanic">{t('Hispanic')}</option>
+              <option value="African American">{t('African American')}</option>
+              <option value="Asian">{t('Asian')}</option>
+              <option value="Native">{t('Native')}</option>
+            </select>
+            <select
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              type="text"
+              name="age"
+              // placeholder="age"
+              value={userProfileData.age}
+              onChange={handleProfileChange}
+            >
+              <option value="">{t('Age Range')}</option>
+              <option value={'4'}>3-5</option>
+              <option value={'7'}>6-9</option>
+              <option value={'11'}>10-12</option>
+              <option value={'14'}>13-15</option>
+              <option value={'18'}>16-20</option>
+              <option value={'22'}>21-25</option>
+              <option value={'28'}>26-29</option>
+              <option value={'32'}>30-34</option>
+              <option value={'37'}>35-44</option>
+              <option value={'50'}>45-55</option>
+              <option value={'60'}>56-66</option>
+              <option value={'70'}>67-77</option>
+              <option value={'80'}>78-89+</option>
+            </select>
+            <select
+              type="text"
+              name="height"
+              value={userProfileData.height}
+              onChange={handleProfileChange}
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            >
+              <option value="">{t('Height')}</option>
+              <option value={"4'10"}>4'10" {t('or below')}</option>
+              <option value={"5'0"}>5'0"</option>
+              <option value={"5'2"}>5'2"</option>
+              <option value={"5'4"}>5'4"</option>
+              <option value={"5'6"}>5'6"</option>
+              <option value={"5'8"}>5'8"</option>
+              <option value={"5'10"}>5'10"</option>
+              <option value={"6'0"}>6'0"</option>
+              <option value={"6'2"}>6'2"</option>
+              <option value={"6'4"}>6'4"</option>
+              <option value={"6'6"}>6'6"</option>
+              <option value={"6'8"}>6'8"</option>
+              <option value={"6'10"}>6'10"</option>
+              <option value={"7'0"}>7'0" {t('or above')}</option>
+            </select>
+            <select
+              type="text"
+              name="eyesColor"
+              value={userProfileData.eyesColor}
+              onChange={handleProfileChange}
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            >
+              <option value="">{t('Eyes Color')}</option>
+              <option value="Black">{t('Black')}</option>
+              <option value="Blue">{t('Blue')}</option>
+              <option value="Brown">{t('Brown')}</option>
+              <option value="Hazel">{t('Hazel')}</option>
+              <option value="Grey">{t('Grey')}</option>
+              <option value="Green">{t('Green')}</option>
+              <option value="Amber">{t('Amber')}</option>
+              <option value="Red">{t('Red')}</option>
+              <option value="Violet">{t('Violet')}</option>
+            </select>
+            <select
+              type="text"
+              name="hairColor"
+              value={userProfileData.hairColor}
+              onChange={handleProfileChange}
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            >
+              <option value="">{t('Hair Color')}</option>
+              <option value="Black">{t('Black')}</option>
+              <option value="Blonde">{t('Blonde')}</option>
+              <option value="Brown">{t('Brown')}</option>
+              <option value="Red">{t('Red')}</option>
+              <option value="Grey">{t('Grey')}</option>
+              <option value="White">{t('White')}</option>
+              <option value="Auburn">{t('Auburn')}</option>
+              <option value="Salt & Pepper">{t('Salt & Pepper')}</option>
+              <option value="Chestnut">{t('Chestnut')}</option>
+              <option value="Bald">{t('Bald')}</option>
+            </select>
+            <select
+              type="text"
+              name="bodyBuild"
+              value={userProfileData.bodyBuild}
+              onChange={handleProfileChange}
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            >
+              <option value="">{t('Body Build')}</option>
+              <option value="Slim">{t('Slim')}</option>
+              <option value="Medium">{t('Medium')}</option>
+              <option value="Muscular">{t('Muscular')}</option>
+              <option value="Large">{t('Large')}</option>
+              <option value="Very Large">{t('Very Large')}</option>
+              <option value="Athletic">
+                {t('Athletic')}/{t('Toned')}
+              </option>
+              <option value="Curvy">{t('Curvy')}</option>
+            </select>
+          </>
         </div>
 
         {/* Profile picture */}
