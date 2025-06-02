@@ -577,6 +577,26 @@ export default function Profile() {
           </div>
         </Modal>
       </div>
+
+      {/* Biography Section - Now Editable */}
+      <div className="tw-mx-4 tw-my-8">
+        <label
+          htmlFor="aboutMe"
+          className="tw-mb-2 tw-block tw-text-lg tw-font-semibold tw-text-[#1E0039]"
+        >
+          {t('Biography')}
+        </label>
+        <textarea
+          id="aboutMe"
+          name="aboutMe"
+          placeholder={t('Tell us about yourself...')}
+          value={userProfileData.aboutMe}
+          onChange={handleProfileChange}
+          className="tw-h-32 tw-min-h-[8rem] tw-w-full tw-resize-y tw-rounded-lg tw-border-2 tw-p-4 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400"
+          rows="4"
+        />
+      </div>
+
       {/* Divider */}
       <hr className="tw-my-4 tw-border-gray-400" />
       <div className="tw-mx-auto tw-my-8 tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
