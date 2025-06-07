@@ -1,7 +1,7 @@
-import express from "express";
-import { authUser } from "../middlwares/auth.js";
-import { isValidPassResetToken } from "../middlwares/user.js";
-import multer from "multer";
+import express from 'express';
+import { authUser } from '../middlwares/auth.js';
+import { isValidPassResetToken } from '../middlwares/user.js';
+import multer from 'multer';
 import {
   uploadActorProfiles,
   actorUploadFiles,
@@ -38,31 +38,34 @@ import {
   getActorRecommendations,
   updateLastActive,
   signupForNewsletter,
-} from "../controllers/users.js";
+  getGenericFollowers,
+  getGenericLikes,
+  getGenericRecommendations,
+} from '../controllers/users.js';
 import {
   validate,
   validatePassword,
   loginValidator,
-} from "../middlwares/validator.js";
+} from '../middlwares/validator.js';
 
-const upload = multer({ dest: "images/" });
+const upload = multer({ dest: 'images/' });
 const router = express.Router();
 
-router.post("/register", register);
-router.post("/verify-email", verifyEmail);
-router.post("/resend-email-verification-token", resendEmailVerificationToken);
+router.post('/register', register);
+router.post('/verify-email', verifyEmail);
+router.post('/resend-email-verification-token', resendEmailVerificationToken);
 // router.post("/login", login);
-router.post("/login", loginValidator, login);
-router.get("/login", logout);
-router.post("/getuser", getUser);
-router.get("/getProfile/:email", authUser, getProfile);
+router.post('/login', loginValidator, login);
+router.get('/login', logout);
+router.post('/getuser', getUser);
+router.get('/getProfile/:email', authUser, getProfile);
 
 // get actor by name
-router.post("/getactor", getActor);
+router.post('/getactor', getActor);
 
-router.post("/forget-password", forgetPassword);
+router.post('/forget-password', forgetPassword);
 router.post(
-  "/verify-pass-reset-token",
+  '/verify-pass-reset-token',
   isValidPassResetToken,
   sendResetPasswordTokenStatus
 );
@@ -70,54 +73,61 @@ router.post(
 //router.post('/send-invitation', sendInvitation)
 
 router.post(
-  "/reset-password",
+  '/reset-password',
   // validatePassword,
   // validate,
   // isValidPassResetToken,
   resetPassword
 );
 
-router.put("/updateProfile/:userId", updateProfile);
-router.post("/uploadUserAvatar", upload.single("file"), uploadUserAvatar);
-router.put("/changePassword", changePassword);
-router.delete("/deleteAccount/:userId", deleteAccount);
+router.put('/updateProfile/:userId', updateProfile);
+router.post('/uploadUserAvatar', upload.single('file'), uploadUserAvatar);
+router.put('/changePassword', changePassword);
+router.delete('/deleteAccount/:userId', deleteAccount);
 
 // actor routes
-router.get("/getactors", getProfileActor);
-router.get("/starred/:id", getActoStarred);
-router.get("/followed/:id", getActorFollowing);
-router.get("/getactor/:id", getActorById);
-router.get("/getfollower/:id", getFollowers);
-router.get("/getfollowing/:id", getFollowingActor);
-router.get("/likes/:id", getLikes);
-router.get("/mostlikes", getMostLikes);
-router.get("/mostfollowed", getMostFollowed);
+router.get('/getactors', getProfileActor);
+router.get('/starred/:id', getActoStarred);
+router.get('/followed/:id', getActorFollowing);
+router.get('/getactor/:id', getActorById);
+router.get('/getfollower/:id', getFollowers);
+router.get('/getfollowing/:id', getFollowingActor);
+router.get('/likes/:id', getLikes);
+router.get('/mostlikes', getMostLikes);
+router.get('/mostfollowed', getMostFollowed);
+
+router.post('/follow/:targetid/:userid', getGenericFollowers);
+router.post('/like/:targetid/:userid', getGenericLikes);
+router.post('/recommend/:targetid', getGenericRecommendations);
 
 // Calling these APIs will add user to the appropriate list of likes(star), favourites,
-router.post("/follow/:actorid/:userid", getActorFollowers);
-router.post("/like/:actorid/:userid", getActorLikes);
-router.post("/recommend/:actorid", getActorRecommendations);
+router.post('/follow/:actorid/:userid', getActorFollowers);
+router.post('/like/:actorid/:userid', getActorLikes);
+router.post('/recommend/:actorid', getActorRecommendations);
 // upload actor thumbnail
-router.post("/actorthumbnail", upload.single("file"), uploadActorThumbnail);
-router.get("/getallusers", getAllUsers);
+router.post('/actorthumbnail', upload.single('file'), uploadActorThumbnail);
+router.get('/getallusers', getAllUsers);
 
 // upload actor banner
-router.post("/actorbanner", upload.single("file"), uploadActorBanner);
+router.post('/actorbanner', upload.single('file'), uploadActorBanner);
 
 // upload profiles
 router.post(
-  "/actor/uploadFiles",
-  upload.fields([{ name: "file1" }, { name: "file2" }, { name: "file3" }]),
+  '/actor/uploadFiles',
+  upload.fields([{ name: 'file1' }, { name: 'file2' }, { name: 'file3' }]),
   uploadActorProfiles
 );
 
 // final save in actor profiles
-router.put("/actor/files/:id", actorUploadFiles);
+router.put('/actor/files/:id', actorUploadFiles);
 
 // get user by id
-router.get("/:id", getUserById);
+router.get('/:id', getUserById);
 
-router.put("/lastactive/:id", updateLastActive);
-router.put("/signupfornewsletter", signupForNewsletter);
+// get filmmaker
+router.get('/getfilmmaker/:id', getActorById);
+
+router.put('/lastactive/:id', updateLastActive);
+router.put('/signupfornewsletter', signupForNewsletter);
 
 export default router;
