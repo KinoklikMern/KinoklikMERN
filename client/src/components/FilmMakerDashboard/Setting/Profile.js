@@ -23,6 +23,14 @@ export default function Profile() {
 
   const [backgroundImageUrl, setBackgroundImageUrl] = useState('');
 
+  // Filmmaker media upload states
+  const [demoReelFile, setDemoReelFile] = useState('');
+  const [demoReelPreview, setDemoReelPreview] = useState('');
+  const [demoReelFileType, setDemoReelFileType] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const inputDemoReelRef = useRef(null);
+  const videoRef = useRef(null);
+
   const [userProfileData, setUserProfileData] = useState({
     firstName: '',
     lastName: '',
@@ -53,6 +61,7 @@ export default function Profile() {
     linkedin_url: '',
     aboutMe: '',
     picture: '',
+    bannerImg: '', // This will store the demo reel media for filmmakers
   });
   const [validationErrors, setValidationErrors] = useState({
     firstName: '',
@@ -132,6 +141,28 @@ export default function Profile() {
       setMessage(t('File must be an image(jpeg, jpg or png)'));
     }
   }
+
+  // Demo reel file selection for filmmakers
+  const demoReelSelected = (event) => {
+    const file = event.target.files[0];
+    setDemoReelFile(file);
+    if (file) {
+      const fileUrl = URL.createObjectURL(file);
+      setDemoReelPreview(fileUrl);
+      setDemoReelFileType(file.type);
+
+      // If it's a video, set up the video element
+      if (file.type.startsWith('video/') && videoRef.current) {
+        videoRef.current.srcObject = null;
+        videoRef.current.src = fileUrl;
+        videoRef.current.load();
+        videoRef.current.onloadedmetadata = () => {
+          console.log('Video duration:', videoRef.current.duration);
+        };
+      }
+      setDisabled(false);
+    }
+  };
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
@@ -221,24 +252,56 @@ export default function Profile() {
     setDisabled(false);
   };
 
-  function saveUserProfile() {
+  async function saveUserProfile() {
     // Check if there are any validation errors
     const hasErrors = Object.values(validationErrors).some((error) => error);
 
     if (!hasErrors) {
-      Axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
-        userProfileData
-      )
-        .then((res) => {
-          setModalIsOpen(true);
-          setDisabled(true);
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
+      setIsUploading(true);
+
+      try {
+        // Upload demo reel media if filmmaker
+        if (userProfileData.role === 'Filmmaker' && demoReelFile) {
+          let formDataBanner = new FormData();
+          formDataBanner.append('file', demoReelFile);
+
+          // Upload media (video or image)
+          if (demoReelFile.size <= 350000000) {
+            // 350MB limit
+            const mediaResponse = await Axios.post(
+              `${process.env.REACT_APP_BACKEND_URL}/users/actorbanner`,
+              formDataBanner,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+              }
+            );
+
+            if (mediaResponse.data.key) {
+              userProfileData.bannerImg = mediaResponse.data.key;
+            }
+          } else {
+            alert(t('File must be less than 350MB'));
+            setIsUploading(false);
+            return;
+          }
+        }
+
+        // Update profile
+        await Axios.put(
+          `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
+          userProfileData
+        );
+
+        setModalIsOpen(true);
+        setDisabled(true);
+        setIsUploading(false);
+      } catch (err) {
+        alert(err.response?.data?.message || 'An error occurred');
+        setIsUploading(false);
+      }
     } else {
-      // Display a message or handle the errors appropriately
       alert(t('Please fix the validation errors before saving.'));
     }
   }
@@ -248,7 +311,14 @@ export default function Profile() {
       if (
         file.type === 'image/png' ||
         file.type === 'image/jpg' ||
-        file.type === 'image/jpeg'
+        file.type === 'image/jpeg' ||
+        file.type === 'video/mp4' ||
+        file.type === 'video/mpeg' ||
+        file.type === 'video/quicktime' ||
+        file.type === 'video/x-ms-wmv' ||
+        file.type === 'video/ogg' ||
+        file.type === 'video/3gpp' ||
+        file.type === 'video/x-msvideo'
       )
         return true;
       else return false;
@@ -266,8 +336,21 @@ export default function Profile() {
 
   const closeModal = () => {
     setModalIsOpen(false);
-    //added to see updated picture, may be removed
-    //window.location.reload();
+  };
+
+  // Helper function to determine if existing bannerImg is a video
+  const isExistingVideo = (bannerImg) => {
+    if (!bannerImg) return false;
+    const videoExtensions = [
+      '.mp4',
+      '.mov',
+      '.avi',
+      '.wmv',
+      '.flv',
+      '.webm',
+      '.m4v',
+    ];
+    return videoExtensions.some((ext) => bannerImg.toLowerCase().includes(ext));
   };
 
   return (
@@ -339,141 +422,206 @@ export default function Profile() {
           />
         </div>
 
-        <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
-          <>
-            <select
-              type="text"
-              name="sex"
-              value={userProfileData.sex}
-              onChange={handleProfileChange}
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-            >
-              <option value="" hidden>
-                {t('Gender')}
-              </option>
-              <option value="Male">{t('Male')}</option>
-              <option value="Female">{t('Female')}</option>
-            </select>
-            <select
-              type="text"
-              name="ethnicity"
-              // placeholder="ethnicity"
-              value={userProfileData.ethnicity}
-              onChange={handleProfileChange}
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-            >
-              <option value="">{t('Ethnicity')}</option>
-              <option value="Caucasion">{t('Caucasion')}</option>
-              <option value="Hispanic">{t('Hispanic')}</option>
-              <option value="African American">{t('African American')}</option>
-              <option value="Asian">{t('Asian')}</option>
-              <option value="Native">{t('Native')}</option>
-            </select>
-            <select
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              type="text"
-              name="age"
-              // placeholder="age"
-              value={userProfileData.age}
-              onChange={handleProfileChange}
-            >
-              <option value="">{t('Age Range')}</option>
-              <option value={'4'}>3-5</option>
-              <option value={'7'}>6-9</option>
-              <option value={'11'}>10-12</option>
-              <option value={'14'}>13-15</option>
-              <option value={'18'}>16-20</option>
-              <option value={'22'}>21-25</option>
-              <option value={'28'}>26-29</option>
-              <option value={'32'}>30-34</option>
-              <option value={'37'}>35-44</option>
-              <option value={'50'}>45-55</option>
-              <option value={'60'}>56-66</option>
-              <option value={'70'}>67-77</option>
-              <option value={'80'}>78-89+</option>
-            </select>
-            <select
-              type="text"
-              name="height"
-              value={userProfileData.height}
-              onChange={handleProfileChange}
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-            >
-              <option value="">{t('Height')}</option>
-              <option value={"4'10"}>4'10" {t('or below')}</option>
-              <option value={"5'0"}>5'0"</option>
-              <option value={"5'2"}>5'2"</option>
-              <option value={"5'4"}>5'4"</option>
-              <option value={"5'6"}>5'6"</option>
-              <option value={"5'8"}>5'8"</option>
-              <option value={"5'10"}>5'10"</option>
-              <option value={"6'0"}>6'0"</option>
-              <option value={"6'2"}>6'2"</option>
-              <option value={"6'4"}>6'4"</option>
-              <option value={"6'6"}>6'6"</option>
-              <option value={"6'8"}>6'8"</option>
-              <option value={"6'10"}>6'10"</option>
-              <option value={"7'0"}>7'0" {t('or above')}</option>
-            </select>
-            <select
-              type="text"
-              name="eyesColor"
-              value={userProfileData.eyesColor}
-              onChange={handleProfileChange}
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-            >
-              <option value="">{t('Eyes Color')}</option>
-              <option value="Black">{t('Black')}</option>
-              <option value="Blue">{t('Blue')}</option>
-              <option value="Brown">{t('Brown')}</option>
-              <option value="Hazel">{t('Hazel')}</option>
-              <option value="Grey">{t('Grey')}</option>
-              <option value="Green">{t('Green')}</option>
-              <option value="Amber">{t('Amber')}</option>
-              <option value="Red">{t('Red')}</option>
-              <option value="Violet">{t('Violet')}</option>
-            </select>
-            <select
-              type="text"
-              name="hairColor"
-              value={userProfileData.hairColor}
-              onChange={handleProfileChange}
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-            >
-              <option value="">{t('Hair Color')}</option>
-              <option value="Black">{t('Black')}</option>
-              <option value="Blonde">{t('Blonde')}</option>
-              <option value="Brown">{t('Brown')}</option>
-              <option value="Red">{t('Red')}</option>
-              <option value="Grey">{t('Grey')}</option>
-              <option value="White">{t('White')}</option>
-              <option value="Auburn">{t('Auburn')}</option>
-              <option value="Salt & Pepper">{t('Salt & Pepper')}</option>
-              <option value="Chestnut">{t('Chestnut')}</option>
-              <option value="Bald">{t('Bald')}</option>
-            </select>
-            <select
-              type="text"
-              name="bodyBuild"
-              value={userProfileData.bodyBuild}
-              onChange={handleProfileChange}
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-            >
-              <option value="">{t('Body Build')}</option>
-              <option value="Slim">{t('Slim')}</option>
-              <option value="Medium">{t('Medium')}</option>
-              <option value="Muscular">{t('Muscular')}</option>
-              <option value="Large">{t('Large')}</option>
-              <option value="Very Large">{t('Very Large')}</option>
-              <option value="Athletic">
-                {t('Athletic')}/{t('Toned')}
-              </option>
-              <option value="Curvy">{t('Curvy')}</option>
-            </select>
-          </>
-        </div>
+        {/* Actor Information */}
+        {userProfileData.role === 'Actor' && (
+          <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
+            <>
+              <select
+                type="text"
+                name="sex"
+                value={userProfileData.sex}
+                onChange={handleProfileChange}
+                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              >
+                <option value="" hidden>
+                  {t('Gender')}
+                </option>
+                <option value="Male">{t('Male')}</option>
+                <option value="Female">{t('Female')}</option>
+              </select>
+              <select
+                type="text"
+                name="ethnicity"
+                value={userProfileData.ethnicity}
+                onChange={handleProfileChange}
+                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              >
+                <option value="">{t('Ethnicity')}</option>
+                <option value="Caucasion">{t('Caucasion')}</option>
+                <option value="Hispanic">{t('Hispanic')}</option>
+                <option value="African American">
+                  {t('African American')}
+                </option>
+                <option value="Asian">{t('Asian')}</option>
+                <option value="Native">{t('Native')}</option>
+              </select>
+              <select
+                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+                type="text"
+                name="age"
+                value={userProfileData.age}
+                onChange={handleProfileChange}
+              >
+                <option value="">{t('Age Range')}</option>
+                <option value={'4'}>3-5</option>
+                <option value={'7'}>6-9</option>
+                <option value={'11'}>10-12</option>
+                <option value={'14'}>13-15</option>
+                <option value={'18'}>16-20</option>
+                <option value={'22'}>21-25</option>
+                <option value={'28'}>26-29</option>
+                <option value={'32'}>30-34</option>
+                <option value={'37'}>35-44</option>
+                <option value={'50'}>45-55</option>
+                <option value={'60'}>56-66</option>
+                <option value={'70'}>67-77</option>
+                <option value={'80'}>78-89+</option>
+              </select>
+              <select
+                type="text"
+                name="height"
+                value={userProfileData.height}
+                onChange={handleProfileChange}
+                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              >
+                <option value="">{t('Height')}</option>
+                <option value={"4'10"}>4'10" {t('or below')}</option>
+                <option value={"5'0"}>5'0"</option>
+                <option value={"5'2"}>5'2"</option>
+                <option value={"5'4"}>5'4"</option>
+                <option value={"5'6"}>5'6"</option>
+                <option value={"5'8"}>5'8"</option>
+                <option value={"5'10"}>5'10"</option>
+                <option value={"6'0"}>6'0"</option>
+                <option value={"6'2"}>6'2"</option>
+                <option value={"6'4"}>6'4"</option>
+                <option value={"6'6"}>6'6"</option>
+                <option value={"6'8"}>6'8"</option>
+                <option value={"6'10"}>6'10"</option>
+                <option value={"7'0"}>7'0" {t('or above')}</option>
+              </select>
+              <select
+                type="text"
+                name="eyesColor"
+                value={userProfileData.eyesColor}
+                onChange={handleProfileChange}
+                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              >
+                <option value="">{t('Eyes Color')}</option>
+                <option value="Black">{t('Black')}</option>
+                <option value="Blue">{t('Blue')}</option>
+                <option value="Brown">{t('Brown')}</option>
+                <option value="Hazel">{t('Hazel')}</option>
+                <option value="Grey">{t('Grey')}</option>
+                <option value="Green">{t('Green')}</option>
+                <option value="Amber">{t('Amber')}</option>
+                <option value="Red">{t('Red')}</option>
+                <option value="Violet">{t('Violet')}</option>
+              </select>
+              <select
+                type="text"
+                name="hairColor"
+                value={userProfileData.hairColor}
+                onChange={handleProfileChange}
+                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              >
+                <option value="">{t('Hair Color')}</option>
+                <option value="Black">{t('Black')}</option>
+                <option value="Blonde">{t('Blonde')}</option>
+                <option value="Brown">{t('Brown')}</option>
+                <option value="Red">{t('Red')}</option>
+                <option value="Grey">{t('Grey')}</option>
+                <option value="White">{t('White')}</option>
+                <option value="Auburn">{t('Auburn')}</option>
+                <option value="Salt & Pepper">{t('Salt & Pepper')}</option>
+                <option value="Chestnut">{t('Chestnut')}</option>
+                <option value="Bald">{t('Bald')}</option>
+              </select>
+              <select
+                type="text"
+                name="bodyBuild"
+                value={userProfileData.bodyBuild}
+                onChange={handleProfileChange}
+                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              >
+                <option value="">{t('Body Build')}</option>
+                <option value="Slim">{t('Slim')}</option>
+                <option value="Medium">{t('Medium')}</option>
+                <option value="Muscular">{t('Muscular')}</option>
+                <option value="Large">{t('Large')}</option>
+                <option value="Very Large">{t('Very Large')}</option>
+                <option value="Athletic">
+                  {t('Athletic')}/{t('Toned')}
+                </option>
+                <option value="Curvy">{t('Curvy')}</option>
+              </select>
+            </>
+          </div>
+        )}
 
-        {/* Profile picture */}
+        {/* Filmmaker Information */}
+        {userProfileData.role === 'Filmmaker' && (
+          <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
+            <div className="tw-mb-4">
+              <label
+                htmlFor="demoReel"
+                className="tw-mb-2 tw-block tw-text-lg tw-font-semibold tw-text-[#1E0039]"
+              >
+                {t('Upload Demo Reel (Image or Video)')}
+              </label>
+              <input
+                id="demoReel"
+                type="file"
+                ref={inputDemoReelRef}
+                onChange={demoReelSelected}
+                accept="image/*,video/*"
+                className="tw-w-full tw-rounded-lg tw-border-2 tw-p-2 tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] lg:tw-w-3/4"
+              />
+            </div>
+
+            {/* Media Preview */}
+            {(demoReelPreview || userProfileData.bannerImg) && (
+              <div className="tw-mb-4">
+                {/* Check if it's a video file */}
+                {(demoReelFileType && demoReelFileType.startsWith('video/')) ||
+                (!demoReelFileType &&
+                  userProfileData.bannerImg &&
+                  isExistingVideo(userProfileData.bannerImg)) ? (
+                  <video
+                    ref={videoRef}
+                    width="320"
+                    height="240"
+                    controls
+                    className="tw-rounded-lg tw-shadow-md"
+                  >
+                    <source
+                      src={
+                        demoReelPreview ||
+                        (userProfileData.bannerImg &&
+                          `${process.env.REACT_APP_AWS_URL}/${userProfileData.bannerImg}`)
+                      }
+                      type="video/mp4"
+                    />
+                    {t('Your browser does not support the video tag.')}
+                  </video>
+                ) : (
+                  /* Image preview */
+                  <img
+                    src={
+                      demoReelPreview ||
+                      (userProfileData.bannerImg &&
+                        `${process.env.REACT_APP_AWS_URL}/${userProfileData.bannerImg}`)
+                    }
+                    alt="Demo Reel"
+                    className="tw-h-60 tw-w-80 tw-rounded-lg tw-object-cover tw-shadow-md"
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Profile picture section */}
         <div className="tw-mx-auto tw-my-8 tw-flex tw-w-full tw-items-center tw-justify-around lg:tw-w-1/3 lg:tw-flex-col lg:tw-justify-between">
           <label htmlFor="profileImageUpload">
             <div
@@ -520,7 +668,7 @@ export default function Profile() {
 
           {/* Save Button */}
           <div className="">
-            {disabled === true ? (
+            {disabled === true && !isUploading ? (
               <button
                 disabled
                 className="tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none"
@@ -532,10 +680,18 @@ export default function Profile() {
               </button>
             ) : (
               <button
-                className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50"
+                className="tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50 disabled:tw-opacity-50"
                 onClick={() => saveUserProfile()}
+                disabled={isUploading}
               >
-                {t('Save')}
+                {isUploading ? (
+                  <div className="tw-flex tw-items-center">
+                    <div className="tw-mr-2 tw-h-4 tw-w-4 tw-animate-spin tw-rounded-full tw-border-2 tw-border-t-transparent"></div>
+                    {t('Uploading...')}
+                  </div>
+                ) : (
+                  t('Save')
+                )}
               </button>
             )}
           </div>
