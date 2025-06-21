@@ -47,19 +47,19 @@ export default function Filmmaker(props) {
       name: 'facebook',
       fontawesome_icon: faFacebookSquare,
       followers: 0,
-      color: '#285FB2',
+      color: '#C4C4C4',
     },
     {
       name: 'instagram',
       fontawesome_icon: faInstagram,
       followers: 0,
-      color: '#E938C2',
+      color: '#C4C4C4',
     },
     {
       name: 'twitter',
       fontawesome_icon: faTwitter,
       followers: 0,
-      color: '#4FBAF7',
+      color: '#C4C4C4',
     },
   ]);
 
@@ -289,7 +289,7 @@ export default function Filmmaker(props) {
 
   const getButtonInnerClasses = (isActive) => {
     const baseClasses =
-      'tw-flex tw-items-center tw-justify-center tw-gap-1 sm:tw-gap-2 tw-rounded-full tw-px-3 sm:tw-px-6 tw-py-2 tw-text-xs sm:tw-text-sm tw-font-medium tw-transition-all tw-duration-200';
+      'tw-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-px-8 tw-py-3 tw-text-base tw-font-medium tw-transition-all tw-duration-200';
 
     if (isActive) {
       return `${baseClasses} tw-bg-gradient-to-r tw-from-[#E938C2] tw-to-[#1E0039] tw-text-white`;
@@ -329,37 +329,32 @@ export default function Filmmaker(props) {
 
       {/* Social Media Total Audience Reach Section */}
       <div className="tw-mx-auto tw-my-8 tw-max-w-[100rem] tw-rounded-2xl tw-bg-[#1E0039] tw-p-6">
-        <div className="tw-flex tw-flex-col tw-items-center tw-gap-6 md:tw-flex-row md:tw-justify-between">
-          {/* Total Reach */}
-          <div className="tw-flex tw-items-center tw-gap-4">
-            <div className="tw-text-center md:tw-text-left">
-              <h3 className="tw-text-lg tw-font-semibold tw-text-white/90">
-                {t('Total Audience Reach')}
-              </h3>
-              <p className="tw-text-3xl tw-font-bold tw-text-white">
-                {socialMediafollowerTotalNum}
-              </p>
-            </div>
+        <div className="tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-10 md:tw-flex-row">
+          <div className="tw-flex tw-flex-col tw-items-center tw-justify-between md:tw-w-1/2 md:tw-flex-row">
+            <h3 className="tw-text-2xl tw-font-semibold tw-text-white/90">
+              {t('Total Audience Reach')}
+            </h3>
             <img
               src={Audience}
               alt="audience icon"
               className="tw-h-12 tw-w-12 tw-opacity-90"
             />
+            <p className="tw-text-3xl tw-font-bold tw-text-white">
+              {socialMediafollowerTotalNum}
+            </p>
           </div>
-
-          {/* Social Media Breakdown */}
-          <div className="tw-flex tw-gap-12">
+          <div className="tw-flex tw-items-center tw-justify-around md:tw-w-1/2">
             {socialMediasList.map((media, index) => (
               <div
                 key={index}
-                className="tw-flex tw-items-center tw-gap-6 tw-rounded-lg tw-bg-white/10 tw-p-3 tw-backdrop-blur-sm"
+                className="tw-flex tw-items-center tw-gap-3 tw-rounded-lg tw-p-3"
               >
                 <FontAwesomeIcon
                   icon={media.fontawesome_icon}
-                  className="tw-mb-1 tw-text-2xl"
+                  className="tw-text-3xl"
                   style={{ color: media.color }}
                 />
-                <span className="tw-text-sm tw-font-semibold tw-text-white">
+                <span className="tw-text-lg tw-font-semibold tw-text-white">
                   {media.followers}
                 </span>
               </div>
@@ -368,10 +363,10 @@ export default function Filmmaker(props) {
         </div>
       </div>
 
-      {/* Main Container */}
-      <div className="tw-relative tw-mx-auto tw-max-w-[100rem] tw-px-4 tw-pb-8">
+      {/* Main Container - Adjusted height */}
+      <div className="tw-relative tw-mx-auto tw-max-w-[100rem] tw-px-4 tw-pb-12">
         {/* Header Section with Background */}
-        <div className="tw-relative tw-mt-4 tw-h-96 tw-overflow-hidden tw-rounded-t-3xl tw-bg-gradient-to-b tw-from-[#2a0e4a] tw-to-[#1E0039]">
+        <div className="tw-relative tw-mt-4 tw-h-[40rem] tw-overflow-hidden tw-rounded-t-3xl tw-bg-gradient-to-b tw-from-[#2a0e4a] tw-to-[#1E0039]">
           {/* Background Image/Video bannerImg */}
           {epkInfo.bannerImg && (
             <>
@@ -421,11 +416,11 @@ export default function Filmmaker(props) {
           )}
         </div>
 
-        {/* Profile Image - Now outside the banner container */}
+        {/* Profile Image - Adjusted position */}
         {pics.length > 0 && (
           <div
-            className="tw-absolute tw-left-12 tw-top-[calc(100%-76px)] tw-z-10"
-            style={{ top: 'calc(384px + 1rem - 76px)' }}
+            className="tw-absolute tw-left-12 tw-z-10"
+            style={{ top: 'calc(320px + 1rem + 220px)' }}
           >
             <img
               src={`${process.env.REACT_APP_AWS_URL}/${pics[0]}`}
@@ -437,53 +432,60 @@ export default function Filmmaker(props) {
 
         {/* White Content Card */}
         <div className="tw-rounded-b-3xl tw-bg-white tw-px-8 tw-pb-8 tw-pt-20">
-          {/* Name and Basic Info */}
-          <div className="tw-mb-6">
-            <h2 className="tw-mb-2 tw-text-2xl tw-font-bold tw-text-gray-900">
-              {epkInfo.firstName} {epkInfo.lastName}
-            </h2>
-            <div className="tw-flex tw-items-center tw-gap-6 tw-text-gray-600">
-              <div className="tw-flex tw-items-center tw-gap-2 tw-font-bold">
-                <span className="tw-text-lg">🎬</span>
-                <span>{t('Filmmaker')}</span>
-              </div>
-              <div className="tw-flex tw-items-center tw-gap-2 tw-font-bold">
-                <FontAwesomeIcon icon={faGlobe} className="tw-text-[#712cb0]" />
-                <span>{epkInfo.city || 'Montreal'}</span>
+          {/* Name and Basic Info with Action Buttons on the right */}
+          <div className="tw-mb-6 tw-flex tw-flex-wrap tw-items-start tw-justify-between tw-gap-4">
+            <div>
+              <h2 className="tw-mb-2 tw-text-4xl tw-font-bold tw-text-gray-900">
+                {epkInfo.firstName} {epkInfo.lastName}
+              </h2>
+              <div className="tw-flex tw-items-center tw-gap-6 tw-text-gray-600">
+                <div className="tw-flex tw-items-center tw-gap-2 tw-font-bold">
+                  <span className="tw-text-lg">🎬</span>
+                  <span>{t('Filmmaker')}</span>
+                </div>
+                <div className="tw-flex tw-items-center tw-gap-2 tw-font-bold">
+                  <FontAwesomeIcon
+                    icon={faGlobe}
+                    className="tw-text-[#712cb0]"
+                  />
+                  <span>{epkInfo.city || 'Montreal'}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Action Buttons */}
-          <div className="tw-mb-6 tw-flex tw-flex-wrap tw-gap-2 sm:tw-gap-4">
-            {/* Like Button */}
-            <button className={getButtonClasses()} onClick={addUserToLikes}>
-              <div className={getButtonInnerClasses(userHasLiked)}>
-                <span>❤️ {t('Like')}</span>
-                <span className="tw-font-bold">{likes}</span>
-              </div>
-            </button>
+            {/* Action Buttons - Moved to the right */}
+            <div className="tw-flex tw-flex-wrap tw-gap-3">
+              {/* Like Button */}
+              <button className={getButtonClasses()} onClick={addUserToLikes}>
+                <div className={getButtonInnerClasses(userHasLiked)}>
+                  <span>❤️ {t('Like')}</span>
+                  <span className="tw-font-bold">{likes}</span>
+                </div>
+              </button>
 
-            {/* Follow Button */}
-            <button className={getButtonClasses()} onClick={addUserToFollowers}>
-              <div className={getButtonInnerClasses(userIsFollowing)}>
-                <span>➕ {t('Follow')}</span>
-                <span className="tw-font-bold">{kkFollower}</span>
-              </div>
-            </button>
-
-            {!isOwnFilmmakerPage && (
+              {/* Follow Button */}
               <button
-                className="tw-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-[#712cb0] tw-px-3 tw-py-2 tw-text-xs tw-text-white tw-transition-colors hover:tw-bg-[#5a239a] sm:tw-gap-2 sm:tw-px-6 sm:tw-text-sm"
+                className={getButtonClasses()}
+                onClick={addUserToFollowers}
+              >
+                <div className={getButtonInnerClasses(userIsFollowing)}>
+                  <span>➕ {t('Follow')}</span>
+                  <span className="tw-font-bold">{kkFollower}</span>
+                </div>
+              </button>
+
+              {/* Message Button - Always visible */}
+              <button
+                className="tw-flex tw-items-center tw-gap-2 tw-rounded-full tw-bg-[#712cb0] tw-px-8 tw-py-3 tw-text-base tw-text-white tw-transition-colors hover:tw-bg-[#5a239a]"
                 onClick={handleMessage}
               >
                 <FontAwesomeIcon icon={faMessage} />
                 <span>{t('Message')}</span>
               </button>
-            )}
+            </div>
           </div>
 
-          {/* Contact Information */}
+          {/* Contact Information - Removed icons */}
           {(epkInfo.website || epkInfo.email || epkInfo.phone) && (
             <div className="tw-mb-6 tw-flex tw-flex-wrap tw-gap-4 tw-text-gray-600">
               {epkInfo.website && (
@@ -491,24 +493,21 @@ export default function Filmmaker(props) {
                   href={epkInfo.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tw-flex tw-items-center tw-gap-2 tw-text-[#712cb0] tw-transition-colors hover:tw-text-[#5a239a]"
+                  className="tw-text-[#712cb0] tw-transition-colors hover:tw-text-[#5a239a]"
                 >
-                  <span>🌐</span>
                   <span className="hover:tw-underline">{epkInfo.website}</span>
                 </a>
               )}
               {epkInfo.email && (
                 <a
                   href={`mailto:${epkInfo.email}`}
-                  className="tw-flex tw-items-center tw-gap-2 tw-text-[#712cb0] tw-transition-colors hover:tw-text-[#5a239a]"
+                  className="tw-text-[#712cb0] tw-transition-colors hover:tw-text-[#5a239a]"
                 >
-                  <span>✉️</span>
                   <span className="hover:tw-underline">{epkInfo.email}</span>
                 </a>
               )}
               {epkInfo.phone && (
-                <span className="tw-flex tw-items-center tw-gap-2 tw-text-gray-700">
-                  <span>📱</span>
+                <span className="tw-text-gray-700">
                   <span>{epkInfo.phone}</span>
                 </span>
               )}
