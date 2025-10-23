@@ -574,6 +574,7 @@
   "Select Province": "Sélectionnez une province",
   "Select Country": "Choisissez le pays",
   "Gender": "Genre",
+  "Playing Gender": "Genre joué",
   "Age Range": "Tranche d'âge",
   "or below": "ou ci-dessous",
   "or above": "ou au-dessus",
@@ -698,6 +699,8 @@
   "REGISTER": "S'INSCRIRE",
 
   "CREATE EPK": "CRÉER Un DPE",
+
+  "CREATE": "CRÉER",
 
   "My Settings": "Paramètres",
 
@@ -1115,7 +1118,15 @@
 
   "Male": "Mâle",
 
-  "Female": "Femelle",
+  "Female": "Femme",
+
+  "Non-Binary": "Non binaire",
+
+  "Trans-Female": "Femme trans",
+
+  "Trans-Male": "Homme trans",
+
+  "Other": "Autre",
 
   "Toned": "Tonique",
 
