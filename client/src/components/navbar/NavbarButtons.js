@@ -93,7 +93,7 @@ function NavbarButtons({ user, setToggle, toggle }) {
               to={user ? "/uploadFepk" : "/signup"}
               className='md:ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400'
             >
-              {t("CREATE EPK")}
+              {t("CREATE")}
             </Link>
           </div>
           <div
@@ -101,9 +101,8 @@ function NavbarButtons({ user, setToggle, toggle }) {
             onClick={() => setToggle((prev) => !prev)}
           >
             <button
-              className={`toggle tw-mr-4 tw-bg-transparent ${
-                toggle ? "activeNavItem" : ""
-              }`}
+              className={`toggle tw-mr-4 tw-bg-transparent ${toggle ? "activeNavItem" : ""
+                }`}
             >
               <div className='bars' id='bar1'></div>
               <div className='bars' id='bar2'></div>
