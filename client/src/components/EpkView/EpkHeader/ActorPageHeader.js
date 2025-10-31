@@ -19,19 +19,19 @@ export default function ActorPageHeader({ epkInfo, id }) {
       name: 'facebook',
       fontawesome_icon: faFacebookSquare,
       followers: 0,
-      color: '#285FB2',
+      color: '#C4C4C4',
     },
     {
       name: 'instagram',
       fontawesome_icon: faInstagram,
       followers: 0,
-      color: '#E938C2',
+      color: '#C4C4C4',
     },
     {
       name: 'twitter',
       fontawesome_icon: faTwitter,
       followers: 0,
-      color: '#4FBAF7',
+      color: '#C4C4C4',
     },
   ]);
 
@@ -90,16 +90,17 @@ export default function ActorPageHeader({ epkInfo, id }) {
   }
   return (
     <div className="tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row">
-      <div className="tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-6">
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
+      <div className="tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-5">
+        <span className="tw-text-3xl tw-font-bold tw-text-[#C4C4C4] md:tw-text-xl lg:tw-text-3xl">
           {t('Total Audience Reach')}
         </span>
         <img src={Audience} alt="audience icon" className="tw-h-10 tw-w-10" />
-        <span className="tw-text-3xl tw-font-semibold tw-text-white md:tw-text-xl lg:tw-text-3xl">
+        <span className="tw-text-3xl tw-font-bold tw-text-[#C4C4C4] md:tw-text-xl lg:tw-text-3xl">
           {socialMediafollowerTotalNum}
         </span>
       </div>
-      <div className="tw-mx-auto tw-mt-4 tw-flex tw-justify-between tw-gap-5 md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 md:tw-gap-10">
+      <div className="tw-mx-auto tw-mt-4 tw-flex tw-justify-between md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 tw-gap-8 md:tw-gap-0
+      tw-text-2xl tw-font-semibold md:tw-text-lg lg:tw-text-2xl">
         {socialMediasList?.map((media, index) => (
           <SocialMedia
             key={index}

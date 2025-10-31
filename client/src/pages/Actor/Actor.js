@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Actor.css';
-import worldIcon from '../../images/icons/noun-world-icon.svg';
+import { ReactComponent as WorldIcon } from '../../images/icons/world-icon.svg';
+import { ReactComponent as ActorIcon } from '../../images/icons/actor-icon.svg';
+import { ReactComponent as HeartIcon } from '../../images/icons/heart-icon.svg';
+import { ReactComponent as PlusIcon } from '../../images/icons/plus-icon.svg';
+import { ReactComponent as MessageIcon } from '../../images/icons/messages.svg';
+import { ReactComponent as RecommendIcon } from '../../images/icons/recommend-icon.svg';
+
 import ActorPageHeader from '../../components/EpkView/EpkHeader/ActorPageHeader';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/Footer';
@@ -13,9 +19,6 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from '@mui/icons-material';
-import StarIcon from '@mui/icons-material/Star';
-import AddIcon from '@mui/icons-material/Add';
-import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 // import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 // import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 // import { useLocation } from "react-router-dom";
@@ -26,6 +29,7 @@ import { useTranslation } from 'react-i18next';
 import { getMoviesByActors } from '../../api/epks';
 import emptyBanner from '../../images/empty_banner.jpeg';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
+import { width } from '@mui/system';
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -342,105 +346,91 @@ export default function Actor(props) {
   };
 
   return (
-    <div className="tw-bg-[#1E0039]">
+
+    <div className="tw-w-9/10 tw-mx-auto tw-max-w-full  tw-px-4  tw-bg-[#1E0039]  ">
       <div className="actor-top-container">
         <Navbar className={props.className} title={props.title} />
       </div>
+
       <div className="actor-navbar">
         <ActorPageHeader epkInfo={epkInfo} role="actor" id={id} />
       </div>
-      <div className="tw-w-9/10 tw-mx-[5%] tw-mb-[5%] tw-h-auto tw-max-w-full tw-rounded-[40px] tw-bg-white">
-        {/* Original Layout for Larger Screens */}
-        <div className="tw-relative tw-hidden md:tw-block">
-          {epkInfo.bannerImg ? (
-            <div className="video-container tw-relative">
-              <video
-                loop
-                ref={videoRef}
-                className="tw-z-[-1] tw-block tw-h-auto tw-w-full tw-bg-[#1e0039] tw-bg-cover"
-                src={
-                  epkInfo.bannerImg && !epkInfo.bannerImg.startsWith('https')
-                    ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`
-                    : null
-                }
-                poster={
-                  epkInfo.thumbnail && !epkInfo.thumbnail.startsWith('https')
-                    ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`
-                    : null
-                }
-                controls
-                playsInline
-              ></video>
-              {/* <div
-                className="tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw--translate-x-1/2 tw--translate-y-1/2 tw-transform tw-items-center tw-justify-center"
-                style={{ display: showVideoErrorMsg ? 'none' : 'flex' }}
-                onClick={playVideo}
-              >
-                {isPlaying ? (
-                  <PauseCircleOutlineIcon
-                    className="tw-cursor-pointer"
-                    style={{ color: '#1E0039', fontSize: '3rem' }}
-                  />
-                ) : (
-                  <PlayCircleIcon
-                    className="tw-cursor-pointer"
-                    style={{ color: '#1E0039', fontSize: '3rem' }}
-                  />
-                )}
-              </div> */}
-            </div>
-          ) : null}
+
+      {/* video and image section */}
+      <div className="tw-hidden md:tw-flex tw-gap-5">
+
+        <div
+          className={`tw-relative ${pics.length > 0 ? 'tw-w-1/3' : 'tw-hidden'}  tw-aspect-[16/9] tw-bg-cover tw-bg-center tw-rounded-xl`}
+          style={{
+            backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`
+          }}
+        >
+
+          <ArrowBackIosOutlined
+            className="tw-absolute tw-left-0 tw-top-1/2 tw--translate-y-1/2  tw-cursor-pointer tw-text-3xl xs:tw-text-xl  sm:tw-text-2xl  tw-text-white "
+            onClick={() => handleClick('left')}
+          />
+          <ArrowForwardIosOutlined
+            className="tw-absolute tw-right-0 tw-top-1/2 tw--translate-y-1/2  tw-cursor-pointer tw-text-3xl xs:tw-text-xl  sm:tw-text-2xl  tw-text-white "
+            onClick={() => handleClick('right')}
+          />
+        </div>
+
+
+        <div className={` tw-relative tw-aspect-[16/9] ${epkInfo.bannerImg ? 'tw-w-full' : 'tw-hidden'}  `} >
+          <video
+            loop
+            ref={videoRef}
+            className="tw-w-full tw-h-full tw-object-cover !tw-pt-0  !tw-rounded-xl "
+            src={
+              epkInfo.bannerImg && !epkInfo.bannerImg.startsWith('https')
+                ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`
+                : null
+            }
+            poster={
+              epkInfo.thumbnail && !epkInfo.thumbnail.startsWith('https')
+                ? `${process.env.REACT_APP_AWS_URL}/${epkInfo.thumbnail}`
+                : null
+            }
+            controls
+            playsInline
+          />
+
           {showVideoErrorMsg && (
-            <p className="md:tw-txsm:tw-text-[15px] xsm:tw-text-[5px] tw-absolute tw-left-1/2 tw-top-1/2 tw--translate-x-1/2 tw--translate-y-1/2 tw-transform tw-text-center tw-text-[10px] tw-text-white sm:tw-text-[10px] lg:tw-text-[20px]">
+            <p className=" tw-absolute md:tw-txsm:tw-text-[15px] xsm:tw-text-[5px] tw-left-1/2 tw-top-1/2 tw--translate-x-1/2 tw--translate-y-1/2 tw-text-[10px] tw-text-white sm:tw-text-[10px] lg:tw-text-[20px]">
               Video source not available
             </p>
           )}
-          {pics.length > 0 && !isVideoPlaying && (
-            <div
-              className="tw-absolute tw-left-0 tw-top-[10%] tw-z-10 tw-h-[80%] tw-w-full md:tw-left-[3%] md:tw-w-[35%]"
-              style={{
-                backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-              }}
-            >
-              <ArrowBackIosOutlined
-                className="xs:tw-text-xl tw-absolute tw-left-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
-                onClick={() => handleClick('left')}
-              />
-              <ArrowForwardIosOutlined
-                className="xs:tw-text-xl tw-absolute tw-right-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
-                onClick={() => handleClick('right')}
-              />
-            </div>
-          )}
         </div>
+      </div>
 
-        {/* Actor's Image for Small Screens */}
-        {pics.length > 0 && (
-          <div
-            className="tw-relative tw-block tw-h-[500px] tw-w-full tw-bg-[#1e0039] tw-bg-cover md:tw-hidden"
-            style={{
-              backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}
-          >
-            <ArrowBackIosOutlined
-              className="xs:tw-text-xl tw-absolute tw-left-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
-              onClick={() => handleClick('left')}
-            />
-            <ArrowForwardIosOutlined
-              className="xs:tw-text-xl tw-absolute tw-right-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
-              onClick={() => handleClick('right')}
-            />
-          </div>
-        )}
 
+
+      {/* Actor's Image for Small Screens */}
+      {pics.length > 0 && (
+        <div
+          className="tw-rounded-[40px] tw-relative tw-block tw-h-[500px] tw-w-full tw-bg-[#1e0039] tw-bg-cover md:tw-hidden"
+          style={{
+            backgroundImage: `url(${process.env.REACT_APP_AWS_URL}/${pics[indexPic]})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        >
+          <ArrowBackIosOutlined
+            className="xs:tw-text-xl tw-absolute tw-left-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
+            onClick={() => handleClick('left')}
+          />
+          <ArrowForwardIosOutlined
+            className="xs:tw-text-xl tw-absolute tw-right-0 tw-top-1/2 tw--translate-y-1/2 tw-cursor-pointer tw-text-3xl tw-text-white sm:tw-text-2xl"
+            onClick={() => handleClick('right')}
+          />
+        </div>
+      )}
+
+      <div className="tw-mb-[5%] tw-mt-[3%] tw-h-auto tw-rounded-[40px] tw-bg-white">
         {/* Reordered Content for Small Screens */}
-        <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-p-4 md:tw-hidden">
+        {/* <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-p-4 md:tw-hidden">
           <div className="tw-flex tw-items-center tw-justify-around">
             <div className="tw-flex tw-items-center tw-gap-4">
               <p className="tw-text-md tw-text-center tw-font-bold tw-text-black">
@@ -510,95 +500,118 @@ export default function Actor(props) {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        {/* Original Layout for Larger Screens */}
-        <div className="tw-m-4 tw-hidden tw-grid-cols-12 tw-items-center md:tw-grid md:tw-justify-center">
-          <p className="tw-col-span-4 tw-text-center tw-text-xl tw-font-bold tw-text-black md:tw-col-span-2">
-            {epkInfo.firstName} {epkInfo.lastName}
-          </p>
-          <p className="tw-text-md md: tw-col-span-2 tw-text-center tw-font-bold tw-text-black md:tw-col-span-1">
-            {displaySex(epkInfo.sex)}
-          </p>
-          <p className="tw-text-md tw-col-span-2 tw-text-center tw-font-bold tw-text-black md:tw-col-span-1">
-            {t('Actor')}
-          </p>
-          <div className="tw-col-span-2 tw-flex tw-flex-row tw-items-center md:tw-col-span-1">
-            <img src="../Vector.png" alt="" className="tw-h-6 tw-w-9" />
-            <p
-              className="follower-number actor-detail-item tw-my-0"
-              style={{ color: 'black' }}
-            >
-              {epksList.length}
+        {/* refactored by Armita*/}
+
+        <div className='tw-grid tw-grid-cols-[auto_1fr] grid-rows-[auto_1fr] tw-gap-y-16 tw-gap-x-8 lg:tw-gap-x-16 xl:tw-gap-x-64 tw-py-8 tw-px-4 sm:tw-px-6 lg:tw-px-12 xl:tw-px-24  tw-text-midnight tw-font-bold tw-font-roboto'>
+          <div id='profile-header' className='tw-col-span-2 tw-flex tw-flex-wrap tw-items-center tw-justify-evenly ' >
+            <p className='tw-text-3xl lg:tw-text-[2.5rem] tw-basis-full lg:tw-basis-auto  tw-flex tw-justify-center tw-mb-4'>
+              {epkInfo.firstName} {epkInfo.lastName}
             </p>
-          </div>
-          {!isOwnActorPage && (
-            <div className="tw-col-span-2 tw-bg-white tw-text-center tw-text-lg md:tw-col-span-1 md:tw-text-2xl">
-              <button
+
+            <button className=' tw-relative tw-p-[3px] tw-rounded-[90px] tw-bg-gradient-to-r tw-from-[#E938C2] tw-to-midnight'
+              onClick={addUserToLikes}>
+              <div className='tw-flex tw-gap-2 sm:tw-gap-3 tw-bg-white  tw-py-2 tw-px-2  md:tw-px-4  tw-rounded-[90px] tw-items-center'>
+                <HeartIcon />
+                <span className='tw-inline-block tw-text-[1rem]' >
+                  {t('Like')}
+                </span>
+              </div>
+              <p className="tw-absolute tw-top-[-12px] tw-right-[-12px]   tw-text-[1rem]">
+                {likes}
+              </p>
+            </button>
+
+            <button className=' tw-relative tw-p-[3px] tw-rounded-[90px] tw-bg-gradient-to-r tw-from-[#E938C2] tw-to-midnight'
+              onClick={addUserToFollowers}>
+              <div className='tw-flex tw-gap-2 sm:tw-gap-3 tw-bg-white  tw-py-2 tw-px-2 md:tw-px-4  tw-rounded-[90px] tw-items-center'>
+                <PlusIcon />
+                <span className='tw-inline-block tw-text-[1rem]'>
+                  {t('Follow')}
+                </span>
+              </div>
+              <p className="tw-absolute tw-top-[-12px] tw-right-[-12px]   tw-text-[1rem]">
+                {kkFollower}
+              </p>
+            </button>
+
+            <button className='tw- tw-relative tw-p-[3px] tw-rounded-[90px] tw-bg-gradient-to-r tw-from-[#E938C2] tw-to-midnight'
+              onClick={openModal}
+              disabled={epkInfo._id === (user ? user.id : null)}>
+              <div className='tw-flex tw-gap-2 sm:tw-gap-3 tw-bg-white  tw-py-2 tw-px-2 md:tw-px-4  tw-rounded-[90px] tw-items-center'>
+                <RecommendIcon />
+                <span className='tw-inline-block tw-text-[1rem]' >
+                  {t('Recommend')}
+                </span>
+              </div>
+              <p className="tw-absolute tw-top-[-12px] tw-right-[-12px]  tw-text-[1rem] tw-font-bold">
+                {recommendations}
+              </p>
+            </button>
+            {!isOwnActorPage && (
+              <button className='tw-p-[3px] tw-rounded-[90px] tw-bg-gradient-to-r tw-from-[#E938C2] tw-to-midnight'
                 onClick={() => {
                   const chatUrl = userIsFilmmaker
                     ? `/dashboard/chat/${id}`
                     : `/userdashboard/chat/${id}`;
                   navigate(chatUrl);
-                }}
-                className="tw-bg-white"
-              >
-                <FontAwesomeIcon
-                  icon={faMessage}
-                  style={{
-                    width: '37px',
-                    height: '25px',
-                  }}
-                />
+                }}>
+                <div className='tw-flex tw-gap-2 sm:tw-gap-3 tw-bg-white  tw-py-2 tw-px-2 md:tw-px-4  tw-rounded-[90px] tw-items-center'>
+                  <MessageIcon />
+                  <span>{t('Message')}</span>
+                </div>
               </button>
+            )}
+          </div>
+
+          <div id="biometric-section"
+            className="tw-row-start-2 tw-col-start-1 tw-grid tw-grid-cols-2 tw-gap-x-16 tw-gap-y-2 tw-items-start tw-text-[1.125rem]">
+
+            {/* first row*/}
+            <div className="tw-flex tw-gap-2 tw-items-center">
+              <ActorIcon />
+              <p className='tw-text-2xl'>{t('Actor')}</p>
             </div>
-          )}
-          <button
-            className="tw-col-span-6 tw-flex tw-h-9 tw-max-w-[150px] tw-items-center tw-justify-center tw-rounded-full tw-border-none tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white md:tw-col-span-1"
-            style={{ justifySelf: 'end' }}
-            onClick={addUserToFollowers}
-          >
-            <span className="tw-hidden md:tw-hidden lg:tw-inline">
-              {t('Follow')}
-            </span>
-            <AddIcon className="actor-page-star" style={{ color: 'white' }} />
-          </button>
-          <p
-            className="follower-number actor-detail-item tw-my-0"
-            style={{ fontSize: '24px' }}
-          >
-            {kkFollower}
-          </p>
-          <button
-            className="tw-col-span-6 tw-flex tw-h-9 tw-max-w-[150px] tw-items-center tw-justify-center tw-rounded-full tw-border-none tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white tw-transition-all tw-duration-200 md:tw-col-span-1"
-            style={{ justifySelf: 'end' }}
-            onClick={addUserToLikes}
-          >
-            <span className="tw-hidden md:tw-hidden lg:tw-inline">
-              {t('Star')}
-            </span>
-            <StarIcon className="actor-page-star" style={{ color: 'white' }} />
-          </button>
-          <p
-            className="follower-number actor-detail-item tw-my-0"
-            style={{ fontSize: '24px' }}
-          >
-            {likes}
-          </p>
-          <button
-            className="tw-col-span-6 tw-flex tw-h-9 tw-max-w-[150px] tw-items-center tw-justify-center tw-rounded-full tw-border-none tw-bg-[#712cb0] tw-px-4 tw-text-[0.75rem] tw-font-bold tw-text-white tw-transition-all tw-duration-200 md:tw-col-span-1"
-            style={{ justifySelf: 'end' }}
-            onClick={openModal}
-            disabled={epkInfo._id === (user ? user.id : null)}
-          >
-            <span className="tw-hidden md:tw-hidden lg:tw-inline">
-              {t('Recommend')}
-            </span>
-            <ConnectWithoutContactIcon
-              className="actor-page-star"
-              style={{ color: 'white' }}
-            />
-          </button>
+
+            <div className="tw-flex tw-gap-2 tw-items-center">
+              <WorldIcon />
+              <span>{epkInfo.city || 'Montreal'}</span>
+            </div>
+
+            <p>{t('Age-Range')}</p>
+            <p className='tw-font-normal'>{age_range[range][0]} - {age_range[range][1]}</p>
+
+            <p>{t('Ethnicity')}</p>
+            <p className='tw-font-normal'>{epkInfo.ethnicity}</p>
+
+            <p>{t('Hair Color')}</p>
+            <p className='tw-font-normal'> {epkInfo.hairColor}</p>
+
+            <p>{t('Eye Color')}</p>
+            <p className='tw-font-normal'>{epkInfo.eyesColor}</p>
+
+            <p>{t('Body Build')}</p>
+            <p className='tw-font-normal'>{epkInfo.bodyBuild}</p>
+
+            <p>{t('Height')}</p>
+            <p className='tw-font-normal'>{epkInfo.height}</p>
+          </div>
+
+          <div id='biography-section' className='xl:tw-w-[75%] xl:tw-justify-self-end tw-row-start-2 tw-col-start-2 tw-flex tw-flex-col tw-gap-8  '>
+            {studioData && (
+              <div id='respresented' className='tw-flex tw-justify-between tw-text-[1.125rem]'>
+                <p>{t('Represented by:')}</p>
+                <p>
+                  {studioData ? studioData.name || 'N/A' : ''}
+                </p>
+              </div>
+            )}
+            <div className='tw-text-sm tw-font-normal tw-italic tw-p-5 tw-rounded-[1.25rem] tw-shadow-[3px_3px_10px_0_#712CB0]'>
+              <p>{epkInfo.aboutMe}</p>
+            </div>
+          </div>
+          {/* actor modal */}
           <div className={`actor-modal ${modalIsOpen ? 'is-open' : ''}`}>
             <div
               className="shared-style"
@@ -717,50 +730,7 @@ export default function Actor(props) {
               )}
             </div>
           </div>
-          <p
-            className="follower-number actor-detail-item tw-my-0"
-            style={{ fontSize: '24px' }}
-          >
-            {recommendations}
-          </p>
         </div>
-
-        {/* Biography Section */}
-        <div className="tw-m-4 tw-rounded-lg tw-bg-white tw-p-4">
-          <p>{epkInfo.aboutMe}</p>
-        </div>
-
-        {/* Represented By Section */}
-        {studioData && (
-          <div className="tw-m-4 tw-flex tw-items-center tw-justify-center tw-rounded-lg tw-bg-white md:tw-justify-start md:tw-p-4">
-            <div className="tw-flex tw-gap-3 md:tw-w-1/2">
-              <p className="tw-text-black-800 tw-lg:ml-5 tw-md:text-center tw-sm:text-center tw-text-xl tw-text-[#1E0039]">
-                {t('Represented by:')}{' '}
-              </p>
-              <p className="tw-text-black-800 tw-lg:ml-5 tw-md:text-center tw-sm:text-center tw-text-xl tw-font-bold tw-text-[#1E0039]">
-                {studioData ? studioData.name || 'N/A' : ''}
-              </p>
-            </div>
-            <div className="tw-hidden md:tw-block">
-              <img
-                src={worldIcon}
-                style={{ width: '55px', height: '45px', display: 'inline' }}
-                alt="globe icon"
-              />
-              <p
-                style={{
-                  display: 'inline',
-                  marginLeft: '10px',
-                  color: '#1E0039',
-                  fontSize: '24px',
-                  fontWeight: '700',
-                }}
-              >
-                {epkInfo.city || 'Montreal'}{' '}
-              </p>
-            </div>
-          </div>
-        )}
 
         {/* Video Section for Small Screens */}
         <div className="tw-relative tw-block md:tw-hidden">
@@ -811,64 +781,45 @@ export default function Actor(props) {
           )}
         </div>
 
-        {/* Age-Range, Ethnicity, etc. Section */}
-        <div className="tw-m-9 tw-hidden tw-grid-cols-2 tw-gap-4 md:tw-grid">
-          <p className="tw-font-bold tw-text-black">
-            {t('Age-Range')}: {age_range[range][0]} - {age_range[range][1]}
-          </p>
-          <p className="tw-font-bold tw-text-black">
-            {t('Ethnicity')}: {epkInfo.ethnicity}
-          </p>
-          <p className="tw-font-bold tw-text-black">
-            {t('Hair Color')}: {epkInfo.hairColor}
-          </p>
-          <p className="tw-font-bold tw-text-black">
-            {t('Eye Color')}: {epkInfo.eyesColor}
-          </p>
-          <p className="tw-font-bold tw-text-black">
-            {t('Body Build')}: {epkInfo.bodyBuild}
-          </p>
-          <p className="tw-font-bold tw-text-black">
-            {t('Height')}: {epkInfo.height}
-          </p>
-        </div>
-
         {/* Current Films by Actor Section */}
-        {epksList && epksList.length > 0 && (
-          <div className="tw-h-[36rem] tw-overflow-x-auto tw-rounded-lg tw-bg-gray-100 tw-p-4 tw-text-center">
-            <p className="tw-py-4 tw-font-semibold">
-              {t('Current films by actor')}{' '}
-              <span style={{ fontWeight: 'bolder' }}>
-                {epkInfo.firstName} {epkInfo.lastName}
-              </span>
-            </p>
-            <div className="tw-flex tw-flex-col tw-gap-4 md:tw-flex-row">
-              {epksList.map((epk) => (
-                <a
-                  key={epk._id}
-                  href={`/epk/${epk._id}`}
-                  className="tw-block md:tw-inline-block"
-                >
-                  <div className="listItem tw-py-4 md:tw-py-0">
-                    <img
-                      src={
-                        epk.image_details
-                          ? epk.banner_url.startsWith('https')
-                            ? epk.image_details
-                            : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
-                          : emptyBanner
-                      }
-                      alt={epk.title}
-                      className="tw-h-[200px] tw-w-full tw-object-cover md:tw-h-full md:tw-min-w-[300px]"
-                    />
-                  </div>
-                </a>
-              ))}
+        {
+          epksList && epksList.length > 0 && (
+            <div className="tw-h-[36rem] tw-overflow-x-auto tw-rounded-lg tw-bg-white tw-p-4 tw-text-center">
+              {/* <p className="tw-py-4 tw-font-semibold">
+                {t('Current films by actor')}{' '}
+                <span style={{ fontWeight: 'bolder' }}>
+                  {epkInfo.firstName} {epkInfo.lastName}
+                </span>
+              </p> */}
+              <div className="tw-flex tw-flex-col tw-gap-4 md:tw-flex-row">
+                {epksList.map((epk) => (
+                  <a
+                    key={epk._id}
+                    href={`/epk/${epk._id}`}
+                    className="tw-block md:tw-inline-block"
+                  >
+                    <div className="listItem tw-py-4 md:tw-py-0">
+                      <img
+                        src={
+                          epk.image_details
+                            ? epk.banner_url.startsWith('https')
+                              ? epk.image_details
+                              : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
+                            : emptyBanner
+                        }
+                        alt={epk.title}
+                        className="tw-h-[200px] tw-w-full tw-object-cover md:tw-h-full md:tw-min-w-[300px]"
+                      />
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )
+        }
+      </div >
+      {/*end main container */}
       <Footer />
-    </div>
+    </div >
   );
 }
