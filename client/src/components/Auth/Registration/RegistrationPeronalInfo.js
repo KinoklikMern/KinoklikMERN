@@ -96,11 +96,10 @@ function RegistrationPersonalInfo({
                       {options.slice(3).map((option) => (
                         <div
                           key={option.value}
-                          className={`tw-cursor-pointer tw-rounded tw-px-2 tw-text-sm ${
-                            selectedAdditionalRole === option.value
+                          className={`tw-cursor-pointer tw-rounded tw-px-2 tw-text-sm ${selectedAdditionalRole === option.value
                               ? "tw-border tw-border-purple-700 tw-bg-white tw-font-normal tw-text-purple-700" // Thinner text when selected
                               : "tw-bg-transparent tw-font-light tw-text-white" // Thinner text when not selected
-                          }`}
+                            }`}
                           onClick={() =>
                             handleAdditionalRoleClick(
                               option.value,
@@ -141,18 +140,21 @@ function RegistrationPersonalInfo({
         {role.value === "Actor" ? (
           <div>
             <select
-              className={`${
-                fontColor === 0 ? "tw-text-gray-400" : "tw-text-purple-800"
-              } tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 md:tw-w-96`}
+              className={`${fontColor === 0 ? "tw-text-gray-400" : "tw-text-purple-800"
+                } tw-focus:border-purple-700 tw-mb-4 tw-w-96 tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300 md:tw-w-96`}
               id="gender"
               value={gender}
               onChange={handleInputChange}
             >
               <option value="" disabled hidden>
-                {t("Gender")}
+                {t("Playing Gender")}
               </option>
               <option value="Male">{t("Male")}</option>
               <option value="Female">{t("Female")}</option>
+              <option value="Non-Binary">{t("Non-Binary")}</option>
+              <option value="Trans-Female">{t("Trans-Female")}</option>
+              <option value="Trans-Male">{t("Trans-Male")}</option>
+              <option value="Other">{t("Other")}</option>
             </select>
           </div>
         ) : null}

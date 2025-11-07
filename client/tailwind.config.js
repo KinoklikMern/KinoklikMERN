@@ -15,6 +15,9 @@ module.exports = {
         backgroundGray: "#ECF0F1",
         customGray: "#868585",
       },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif']
+      },
       borderRadius: {
         side: "5.5rem",
       },
