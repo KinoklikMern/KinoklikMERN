@@ -4,10 +4,24 @@ module.exports = {
   prefix: "tw-",
   theme: {
     extend: {
+      boxShadow: {
+        multiSoft: `
+          4px 4px 8px 0px #BDC3C7BF,
+          -4px -4px 8px 0px #FFFFFFBF,
+          -4px -4px 8px 0px #FFFFFFBF,
+          -8px -8px 12px 0px #FFFFFF40
+  `,
+
+        softDual: `
+          4px 4px 8px 0px #BDC3C740,
+          inset 2px 2px 8px 1px #00000033
+  `,
+      },
+
       backgroundImage: {
         TvImage: "url('../../public/images/TV.png')",
         JokerImage2: "url('../../public/images/JokerImage.png')",
-        JokerImage: "url('process.env.REACT_APP_AWS_URL}/${fepk.banner_url}')",
+        //       JokerImage: "url('process.env.REACT_APP_AWS_URL}/${fepk.banner_url}')",
       },
       colors: {
         midnight: "#1E0039",

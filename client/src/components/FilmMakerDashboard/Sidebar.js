@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
 // import StarIcon1 from "../../images/icons/StarEmpty.svg";
@@ -153,9 +153,8 @@ export default function Sidebar(props) {
       {/* <nav className="tw-hidden tw-h-full tw-w-24 tw-flex-col tw-justify-around tw-gap-3 tw-rounded-lg tw-bg-[#fff] tw-py-16 md:tw-flex"> */}
       {/* <nav className="overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between tw-gap-3 tw-space-y-1 tw-rounded-lg tw-bg-[#fff] tw-py-4 md:tw-flex"> */}
       <nav
-        className={`overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between  tw-space-y-1 tw-rounded-lg tw-bg-[#fff] tw-py-4 md:tw-flex ${
-          isScrollable ? "tw-w-20" : ""
-        }`}
+        className={`overflow-y-auto tw-hidden tw-h-full tw-w-18 tw-flex-col tw-justify-between  tw-space-y-1 tw-rounded-lg tw-bg-[#fff] tw-py-4 md:tw-flex ${isScrollable ? "tw-w-20" : ""
+          }`}
         ref={sidebarRef}
       >
         {sideBarList.map((item, index) => (
@@ -166,9 +165,8 @@ export default function Sidebar(props) {
             //   "tw-group tw-relative " +
             //   (SELECTED_TAB === item.Title ? "tw-bg-[#1E0039]" : "")
             // }
-            className={`tw-group tw-relative ${
-              SELECTED_TAB === item.Title ? "tw-xl tw-bg-[#1E0039]" : ""
-            } tw-flex tw-justify-center`}
+            className={`tw-group tw-relative ${SELECTED_TAB === item.Title ? "tw-xl tw-bg-[#1E0039]" : ""
+              } tw-flex tw-justify-center`}
           >
             <a
               href={item.href}
@@ -194,9 +192,8 @@ export default function Sidebar(props) {
                 //   "tw-flex tw-justify-center tw-text-xs " +
                 //   (SELECTED_TAB === item.Title ? "tw-text-white" : "")
                 // }
-                className={`tw-flex tw-justify-center ${
-                  item.Title === "Notifications" ? "tw-text-xs1" : "tw-text-xs"
-                } ${SELECTED_TAB === item.Title ? "tw-text-white" : ""}`}
+                className={`tw-flex tw-justify-center ${item.Title === "Notifications" ? "tw-text-xs1" : "tw-text-xs"
+                  } ${SELECTED_TAB === item.Title ? "tw-text-white" : ""}`}
               >
                 {item.Title}
               </p>
@@ -209,17 +206,17 @@ export default function Sidebar(props) {
               {(item.Title === "Notifications" &&
                 notificationCount > 0 &&
                 userInfo === userId) ||
-              (item.Title === "Messages" &&
-                messageCount > 0 &&
-                userInfo === userId) ? (
+                (item.Title === "Messages" &&
+                  messageCount > 0 &&
+                  userInfo === userId) ? (
                 <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"
                     : item.Title === "Notifications"
-                    ? notificationCount
-                    : item.Title === "Messages" && messageCount > 9
-                    ? "9+"
-                    : messageCount}
+                      ? notificationCount
+                      : item.Title === "Messages" && messageCount > 9
+                        ? "9+"
+                        : messageCount}
                 </div>
               ) : null}
             </a>
@@ -268,17 +265,17 @@ export default function Sidebar(props) {
               {(item.Title === "Notifications" &&
                 notificationCount > 0 &&
                 userInfo === userId) ||
-              (item.Title === "Messages" &&
-                messageCount > 0 &&
-                userInfo === userId) ? (
+                (item.Title === "Messages" &&
+                  messageCount > 0 &&
+                  userInfo === userId) ? (
                 <div className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-6 tw-w-6 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-500 tw-text-white">
                   {item.Title === "Notifications" && notificationCount > 9
                     ? "9+"
                     : item.Title === "Notifications"
-                    ? notificationCount
-                    : item.Title === "Messages" && messageCount > 9
-                    ? "9+"
-                    : messageCount}
+                      ? notificationCount
+                      : item.Title === "Messages" && messageCount > 9
+                        ? "9+"
+                        : messageCount}
                 </div>
               ) : null}
             </a>

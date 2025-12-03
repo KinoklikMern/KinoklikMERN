@@ -10,7 +10,7 @@ import { getFepksById } from "../../api/epks";
 import { getUserById } from "../../api/user";
 import LanguageToggle from "../LanguageToggle";
 
-function NavbarButtons({ user, setToggle, toggle }) {
+function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   const { t } = useTranslation();
   const [fepkId] = React.useContext(FepkContext);
   const [picture, setPicture] = useState("");
@@ -131,7 +131,8 @@ function NavbarButtons({ user, setToggle, toggle }) {
                 </Link>
               ) : null}
             </div>
-            <div className='tw-group tw-mx-4 tw-inline-block'>
+            <div className={`tw-group tw-mx-4 tw-inline-block tw-rounded-full
+              ${ismobile ? 'tw-p-[1px] tw-bg-gradient-to-r tw-from-[#FF00A0] tw-to-[#1E0039]' : ''} `}>
               <img
                 src={picture}
                 alt='User Avatar'

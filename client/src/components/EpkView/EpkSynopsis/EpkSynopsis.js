@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 
 export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
@@ -28,9 +27,8 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
               </div>
             )}
             <div
-              className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${
-                epkInfo.image_synopsis ? "lg:tw-w-2/5" : "tw-w-full"
-              }`}
+              className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${epkInfo.image_synopsis ? "lg:tw-w-2/5" : "tw-w-full"
+                }`}
             >
               {epkInfo.text_short}
             </div>
@@ -45,9 +43,8 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
           </span>
           <div className="tw-flex tw-w-full tw-flex-col-reverse tw-items-center tw-bg-white tw-p-3 lg:tw-flex-row">
             <div
-              className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${
-                epkInfo.image_synopsis_medium ? "lg:tw-w-2/5" : "tw-w-full"
-              }`}
+              className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${epkInfo.image_synopsis_medium ? "lg:tw-w-2/5" : "tw-w-full"
+                }`}
               style={
                 requestStatus !== "approved" && epkInfo.text_medium_blur
                   ? blurStyle
@@ -55,6 +52,7 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
               }
             >
               {epkInfo.text_medium}
+              <button onClick={handler}>show</button>
             </div>
             {epkInfo.image_synopsis_medium && (
               <div
@@ -109,9 +107,8 @@ export default function EpkSynopsis({ epkInfo, requestStatus, handler }) {
               </div>
             )}
             <div
-              className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${
-                epkInfo.image_synopsis_long ? "lg:tw-w-2/5" : "tw-w-full"
-              }`}
+              className={`tw-w-full tw-px-12 tw-font-semibold tw-text-black ${epkInfo.image_synopsis_long ? "lg:tw-w-2/5" : "tw-w-full"
+                }`}
               style={
                 requestStatus !== "approved" && epkInfo.text_long_blur
                   ? blurStyle
