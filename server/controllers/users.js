@@ -1,16 +1,11 @@
 import User from '../models/User.js';
 import { validateEmail, validateLength } from '../helpers/validation.js';
 import { generateToken } from '../helpers/tokens.js';
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
+import crypto from "crypto";
 import { uploadFileToS3 } from '../s3.js';
-// Nada
 import PasswordResetToken from '../models/passwordResetToken.js';
-import { ObjectID, ObjectId } from 'mongodb';
-// const PasswordResetToken = require("../models/passwordResetToken");
 import { generateOTP, generateMailTransport } from '../utils/mail.js';
-import EmailVerificationToken from '../models/emailVerificationToken.js';
 import { isValidObjectId } from 'mongoose';
 import { sendError } from '../utils/helper.js';
 import { addSubscriber } from '../utils/mailChimp.js';
@@ -521,45 +516,40 @@ export const updateLastActive = async (req, res) => {
 
 //---------------------------------------------------
 
-//***************************Created by Zibin*******************************
+//***************************updated by Armita*******************************
 export const forgetPassword = async (req, res) => {
   const { email } = req.body;
 
-  if (!email) return res.status(404).json({ message: 'email is missing!' });
+  if (!email) return res.status(404).json({ message: "email is missing!" });
 
   const user = await User.findOne({ email });
-  if (!user) return res.status(404).json({ message: 'User not found!' });
+  if (!user) return res.status(404).json({ message: "User not found!" });
 
   const alreadyHasToken = await PasswordResetToken.findOne({ owner: user._id });
   if (alreadyHasToken)
     return res.status(404).json({
-      message: 'Only after one hour you can request for another token!',
+      message: "Only after one hour you can request for another token!",
     });
 
-  // const token = await generateRandomByte().toString("utf-8");
+  const token = crypto.randomBytes(32).toString("hex");
 
-  const token = await generateRandomByte().toString();
-
-  const newPasswordResetToken = await PasswordResetToken({
+  await PasswordResetToken.create({
     owner: user._id,
     token,
   });
-  await newPasswordResetToken.save();
 
-  const tokenHash = await bcrypt.hash(token, 12);
-  // the token will expire in 1 hour.
-  const resetPasswordUrl = `${process.env.BASE_URL}/resetpassword?token=${tokenHash}&id=${user._id}`;
+  const resetPasswordUrl = `${process.env.BASE_URL}/resetpassword?token=${token}&id=${user._id}`;
 
-  const templateId = 'd-cc856ab1114e4ad4b63a84bdce3dbc99';
-  const sender = 'info@kinoklik.ca';
+
+  //send email
+  const templateId = "d-cc856ab1114e4ad4b63a84bdce3dbc99";
+  const sender = "info@kinoklik.ca";
   const recipient = user.email;
-  const dynamicTemplateData = {
-    resetPasswordUrl: resetPasswordUrl,
-  };
+  const dynamicTemplateData = { resetPasswordUrl };
 
   await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
-  res.status(200).json({ message: 'Link sent to your email!' });
+  res.status(200).json({ message: "Link sent to your email!" });
 };
 
 export const sendResetPasswordTokenStatus = (req, res) => {
@@ -571,65 +561,52 @@ export const resetPassword = async (req, res) => {
 
   if (newPassword.trim() !== retypePassword.trim()) {
     return res.status(422).json({
-      message: 'The new password must match the re-entered password',
+      message: "The new password must match the re-entered password",
     });
   }
 
   const user = await User.findById(userId);
   if (!user)
     return res.status(404).json({
-      message: 'User not found',
+      message: "User not found",
     });
+
+  const resetTokenDoc = await PasswordResetToken.findOne({ owner: user._id });
+  if (!resetTokenDoc) {
+    return res.status(404).json({ message: "Token expired" });
+  }
+
+  const isValid = await resetTokenDoc.compareToken(token);
+
+  if (!isValid) {
+    return res.status(400).json({ message: "Invalid or expired token" });
+  }
 
   const matched = await user.comparePassword(newPassword);
   if (matched)
     return res.status(404).json({
-      message: 'The new password must be different from the old one!',
+      message: "The new password must be different from the old one!",
     });
+
 
   const cryptedPassword = await bcrypt.hash(newPassword, 12);
   user.password = cryptedPassword;
   await user.save();
 
-  // const expired = await PasswordResetToken.findByIdAndDelete(
-  //   req.resetToken._id
-  // );
-
-  const tokenValid = await PasswordResetToken.findOne({
-    owner: user._id,
-  });
-  //console.log("tokenValid:" + tokenValid);
-  //if tokenValid is null, it means that the token is expired because it was deleted automatically in 1 hour.
-  if (!tokenValid)
-    return res.status(404).json({
-      message: 'Token expired',
-    });
-
-  //
-  // const expired = await PasswordResetToken.findOneAndDelete({
-  //   owner: user._id,
-  // });
-  // console.log(expired);
-  // if (!expired)
-  //   return res.status(404).json({
-  //     message: 'Token expired',
-  //   });
-  // const transport = generateMailTransporter();
-  // console.log(transport.verify);
+  await PasswordResetToken.deleteOne({ _id: resetTokenDoc._id });
 
   transport.sendMail({
-    from: 'info@kinoklik.ca',
+    from: "info@kinoklik.ca",
     to: user.email,
-    subject: 'Password Reset Successfully',
+    subject: "Password Reset Successfully",
     html: `
       <h1>Password Reset Successfully</h1>
       <p>Now you can use the new password.</p>
-
     `,
   });
 
   res.json({
-    message: 'Password reset successfully, now you can use your new password.',
+    message: "Password reset successfully, now you can use your new password.",
   });
 };
 

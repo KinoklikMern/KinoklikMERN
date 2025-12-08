@@ -72,7 +72,7 @@ function ResetPassword(props) {
                 value={password}
                 className={Logincss.form_input}
                 onChange={(e) => handleInputChange(e)}
-                placeholder= {t("New password")}
+                placeholder={t("New password")}
               />
             </div>
             <br />
@@ -84,7 +84,7 @@ function ResetPassword(props) {
                 value={retypepassword}
                 className={Logincss.form_input}
                 onChange={(e) => handleInputChange(e)}
-                placeholder= {t("Re-enter new password")}
+                placeholder={t("Re-enter new password")}
               />
             </div>
             <br />
