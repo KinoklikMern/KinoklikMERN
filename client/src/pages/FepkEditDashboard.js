@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useRef} from "react";
-import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {useTranslation} from "react-i18next";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Modal from "react-modal";
 import FepkEditCoverForm from "../components/Epk/Input/fepkEditCoverForm";
 import LoglineForm from "../components/Epk/Input/loglineFepkForm";
@@ -16,11 +17,11 @@ import FepkDetailsForm from "../components/Epk/Input/fepkDetailsForm";
 import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess";
 import EPKSideMenu from "../components/Epk/EpkSideMenu";
 import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
-import {FepkContext} from "../context/FepkContext";
-import {getFepksById} from "../api/epks";
+import { FepkContext } from "../context/FepkContext";
+import { getFepksById } from "../api/epks";
 
 function FepkEditDashboard() {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [fepk, setFepk] = useState([]);
     const [access, setAccess] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ function FepkEditDashboard() {
     const sectionRefs = useRef({});
 
     const user = useSelector((state) => state.user);
-    const {id} = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         const showModal = localStorage.getItem("showModal");
@@ -79,28 +80,28 @@ function FepkEditDashboard() {
 
 
     const sections = [
-        {name: "cover", label: t("1. Cover")},
-        {name: "logLine", label: t("2. Log Line")},
-        {name: "synopsis", label: t("3. Synopsis")},
-        {name: "details", label: t("4. Cast & Crew")},
-        {name: "uniqueness", label: t("5. Uniqueness")},
-        {name: "stills", label: t("6. Film Stills")},
-        {name: "trailer", label: t("7. Film Trailer")},
-        {name: "reviews", label: t("8. Film Buzz")},
-        {name: "resources", label: t("9. Resources")},
-        {name: "treatment", label: t("10. Treatment")},
-        {name: "sales_calculator", label: t("11. Sales Calculator")},
-        {name: "backToStart", label: "<<"} // New arrow item to go back to "Cover"
+        { name: "cover", label: t("1. Cover") },
+        { name: "logLine", label: t("2. Log Line") },
+        { name: "synopsis", label: t("3. Synopsis") },
+        { name: "details", label: t("4. Cast & Crew") },
+        { name: "uniqueness", label: t("5. Uniqueness") },
+        { name: "stills", label: t("6. Photo Albums") },
+        { name: "trailer", label: t("7. Film Trailer") },
+        { name: "reviews", label: t("8. Film Buzz") },
+        { name: "resources", label: t("9. Resources") },
+        { name: "treatment", label: t("10. Treatment") },
+        { name: "sales_calculator", label: t("11. Sales Calculator") },
+        { name: "backToStart", label: "<<" } // New arrow item to go back to "Cover"
     ];
 
 
     return loading ? (
         <div className="tw-h-screen">
-            <LoadingSpin/>
+            <LoadingSpin />
         </div>
     ) : (
         <div className="tw-flex tw-min-h-screen">
-            <EPKSideMenu epk={fepk} filmmakerId={user.id}/>
+            <EPKSideMenu epk={fepk} filmmakerId={user.id} />
             <div className="tw-flex-grow tw-ml-2">
                 {access ? (
                     <div>
@@ -110,7 +111,7 @@ function FepkEditDashboard() {
                             contentLabel="Example Modal"
                             appElement={document.getElementById("root")}
                             style={{
-                                overlay: {backgroundColor: "rgba(0, 0, 0, 0.5)"},
+                                overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
                                 content: {
                                     border: "2px solid #000",
                                     backgroundColor: "white",
@@ -123,12 +124,12 @@ function FepkEditDashboard() {
                                 },
                             }}
                         >
-                            <div style={{textAlign: "center"}}>
+                            <div style={{ textAlign: "center" }}>
                                 <div>{t("EPK was created successfully!")}</div>
                                 <button
                                     className="btn btn-secondary btn-sm"
                                     onClick={closeModal}
-                                    style={{backgroundColor: "#712CB0", color: "white"}}
+                                    style={{ backgroundColor: "#712CB0", color: "white" }}
                                 >
                                     {t("Ok")}
                                 </button>
@@ -137,10 +138,10 @@ function FepkEditDashboard() {
 
 
                         <div className="tw-w-full"
-                             style={{
-                                 height: '1px',
-                                 background: 'linear-gradient(to right, #ff00a0, #1e0039)',
-                             }}
+                            style={{
+                                height: '1px',
+                                background: 'linear-gradient(to right, #ff00a0, #1e0039)',
+                            }}
                         />
 
 
@@ -156,14 +157,13 @@ function FepkEditDashboard() {
                                 justifyContent: window.innerWidth > 768 ? "space-between" : "flex-start",
                             }}
                         >
-                            {sections.map(({name, label}) => (
+                            {sections.map(({ name, label }) => (
                                 <div
                                     key={name}
                                     ref={(el) => (sectionRefs.current[name] = el)}
                                     onClick={() => handleSectionClick(name)}
-                                    className={`tw-inline-block tw-cursor-pointer tw-transition-transform text-transparent bg-clip-text bg-gradient-to-r from-[#ff00a0] to-[#1e0039] hover:from-[#ff0077] hover:to-[#3e0069] ${
-                                        sectionChosen === name ? "tw-text-lg tw-font-bold " : "tw-text-gray-500 tw-font-normal"
-                                    }`}
+                                    className={`tw-inline-block tw-cursor-pointer tw-transition-transform text-transparent bg-clip-text bg-gradient-to-r from-[#ff00a0] to-[#1e0039] hover:from-[#ff0077] hover:to-[#3e0069] ${sectionChosen === name ? "tw-text-lg tw-font-bold " : "tw-text-gray-500 tw-font-normal"
+                                        }`}
                                     style={{
                                         fontSize: sectionChosen === name ? "1.5rem" : "1rem",
                                         opacity: sectionChosen === name ? 1 : 0.5,
@@ -178,29 +178,29 @@ function FepkEditDashboard() {
                         </div>
 
 
-                        <div     className="tw-w-full"
-                                 style={{
-                                     height: '1px',
-                                     background: 'linear-gradient(to right, #ff00a0, #1e0039)',
-                                 }}
+                        <div className="tw-w-full"
+                            style={{
+                                height: '1px',
+                                background: 'linear-gradient(to right, #ff00a0, #1e0039)',
+                            }}
                         />
 
 
                         <div className="tw-mt-5 tw-px-5">
-                            {sectionChosen === "cover" && <FepkEditCoverForm/>}
-                            {sectionChosen === "details" && <FepkDetailsForm/>}
-                            {sectionChosen === "logLine" && <LoglineForm/>}
-                            {sectionChosen === "synopsis" && <SynopsisForm/>}
-                            {sectionChosen === "uniqueness" && <UniquenessForm/>}
-                            {sectionChosen === "stills" && <StillsForm/>}
-                            {sectionChosen === "resources" && <ResourcesForm/>}
-                            {sectionChosen === "trailer" && <TrailerForm/>}
-                            {sectionChosen === "reviews" && <ReviewsForm/>}
-                            {sectionChosen === "sales_calculator" && <SalesCalculatorForm/>}
+                            {sectionChosen === "cover" && <FepkEditCoverForm />}
+                            {sectionChosen === "details" && <FepkDetailsForm />}
+                            {sectionChosen === "logLine" && <LoglineForm />}
+                            {sectionChosen === "synopsis" && <SynopsisForm />}
+                            {sectionChosen === "uniqueness" && <UniquenessForm />}
+                            {sectionChosen === "stills" && <StillsForm />}
+                            {sectionChosen === "resources" && <ResourcesForm />}
+                            {sectionChosen === "trailer" && <TrailerForm />}
+                            {sectionChosen === "reviews" && <ReviewsForm />}
+                            {sectionChosen === "sales_calculator" && <SalesCalculatorForm />}
                         </div>
                     </div>
                 ) : (
-                    <FepkDashboardNoAccess/>
+                    <FepkDashboardNoAccess />
                 )}
             </div>
         </div>

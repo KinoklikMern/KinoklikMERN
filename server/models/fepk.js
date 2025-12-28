@@ -115,13 +115,42 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
-  // Film Stills
+  // Film Stills (legacy field – kept for backward compatibility)
   stills: [
     {
       image: { type: String },
       blur: { type: Boolean, default: false },
     },
   ],
+  // NEW Photo Albums (4 categories, blur kept for future use)
+
+  photo_albums: {
+    posters: [
+      {
+        image: { type: String },
+        blur: { type: Boolean, default: false }
+      },
+    ],
+    stills: [
+      {
+        image: { type: String },
+        blur: { type: Boolean, default: false }
+      },
+    ],
+    premieres: [
+      {
+        image: { type: String },
+        blur: { type: Boolean, default: false }
+      },
+    ],
+    behind: [
+      {
+        image: { type: String },
+        blur: { type: Boolean, default: false }
+      },
+    ],
+  },
+
 
   // Film Trailer
   trailer: { type: String },
