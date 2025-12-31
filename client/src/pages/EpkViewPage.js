@@ -24,6 +24,7 @@ import { FepkContext } from '../context/FepkContext';
 import Banner from '../components/EpkView/EpkBanner/EpkBanner';
 import emptyBanner from '../images/empty_banner.jpeg';
 import EpkSalesCalculator from '../components/EpkView/EpkSalesCalculator/EpkSalesCaculator';
+import EpkPhotoGallery from '../components/EpkView/EpkPhotoGallery/EpkPhotoGallery';
 
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -181,6 +182,7 @@ function EpkViewPage() {
             requestStatus={requestStatus}
             handler={handleShow}
           />
+          <EpkPhotoGallery epkInfo={epkInfo} />
           <EpkResources epkInfo={epkInfo} />
           <EpkTrailer epkInfo={epkInfo} />
           <EpkAward epkInfo={epkInfo} />

@@ -26,6 +26,7 @@ import './i18n';
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["user"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

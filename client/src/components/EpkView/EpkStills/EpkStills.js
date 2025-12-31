@@ -1,15 +1,15 @@
+/* eslint-disable no-unused-vars */
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 import RequestButton from "../miscellaneous/RequestButton";
 import "../../Epk/Present/StillsCarousel.css";
-// import { useEffect, useState } from "react";
-// import http from "../../../http-common";
+
 
 function EpkStills({ epkInfo, requestStatus, handler }) {
   const stillList = epkInfo?.stills;
   return (
     stillList.length !== 0 && (
-      <div className='tw-my-12 tw-h-[700px] tw-rounded-lg tw-bg-white tw-p-5'>
+      <div className='tw-hidden md:tw-block tw-my-12 tw-h-[700px] tw-rounded-lg tw-bg-white tw-p-5'>
         <div className='tw-h-full tw-rounded-lg tw-bg-[#1E0039] tw-p-5'>
           <Carousel className='h-100 tw-flex tw-items-center tw-justify-center'>
             {stillList.map((s, index) => (

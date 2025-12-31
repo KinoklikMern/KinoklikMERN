@@ -70,7 +70,7 @@ function SendResetPasswordLink() {
                 value={email}
                 className={Logincss.form_input}
                 onChange={(e) => handleInputChange(e)}
-                placeholder= {t("Email")}
+                placeholder={t("Email")}
               />
             </div>
             <br />

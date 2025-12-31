@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState, useEffect, useRef } from 'react';
 import './Actor.css';
 import { ReactComponent as WorldIcon } from '../../images/icons/world-icon.svg';

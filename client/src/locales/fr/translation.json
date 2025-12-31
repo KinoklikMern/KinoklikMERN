@@ -57,7 +57,9 @@
   "_comment From FimakerDashBoard EPKPage": "1 change",
   "_comment From FimakerDashBoard NotificationPage": "7 changes, Scroll down further line 180 to 188, 349,357,371,382",
   "Stars & Likes": "Étoiles et J'aime",
+  "Likes": "J'aime",
   "All Request": "Tout les Demandes",
+  "All Requests": "Tout les Demandes",
   "Pending": "En Attente",
   "Approved": "Approuvé",
   "Refused": "Refuser",
@@ -362,7 +364,9 @@
   "Medium Synopsis Requests:": "Demandes de résumé moyen :",
   "Hi! I need your approval to see the medium synopsis section!": "Salut! J'ai besoin de votre approbation pour voir la section résumé moyen !",
   "approve": "approuver",
+  "Approve": "Approuver",
   "refuse": "refuser",
+  "check the website": "vérifiez le site web",
   "Uniqueness Requests:": "Demandes d'unicité :",
   "Hi! I need your approval to see the uniqueness section!": "Salut! J'ai besoin de votre approbation pour voir la section unicité !",
   "Stills Requests": "Demandes d'images fixes",
@@ -1461,6 +1465,7 @@
   "Error sending invitation:": "Erreur lors de l'envoi de l'invitation :",
 
   "SIGN UP": "S'INSCRIRE",
+  "Film Notifications": "Notifications de Film",
 
   "Film Director": "Réalisateur",
 
