@@ -177,11 +177,11 @@ function EpkViewPage() {
           />
           <EpkCast epkInfo={epkInfo} />
           <EpkWorker epkInfo={epkInfo} />
-          <EpkStills
+          {/* <EpkStills
             epkInfo={epkInfo}
             requestStatus={requestStatus}
             handler={handleShow}
-          />
+          /> */}
           <EpkPhotoGallery epkInfo={epkInfo} />
           <EpkResources epkInfo={epkInfo} />
           <EpkTrailer epkInfo={epkInfo} />
