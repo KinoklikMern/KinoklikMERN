@@ -106,6 +106,8 @@ import EditFepkLayout from './layouts/EditFepkLayout';
 
 import Filmmaker from './pages/FlimMaker/Filmmaker.js';
 
+import KinoToastContainer from './components/common/KinoToastContainer';
+
 function App() {
   const NavbarHomeClass = 'tw-bg-opacity-25 tw-absolute';
   const NavbarDefaultClass =
@@ -127,6 +129,7 @@ function App() {
 
   return (
     <FepkContext.Provider value={fepkToProvider}>
+      <KinoToastContainer />
       <Routes>
         <Route path="/accessdenied" element={<AccessDeniedPage />} />
         <Route path="/" element={<MainLayout className={className} />}>
