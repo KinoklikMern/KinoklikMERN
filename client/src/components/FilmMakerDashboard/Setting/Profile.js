@@ -222,28 +222,6 @@ export default function Profile() {
         newState.city = '';
       } else if (name === 'province') {
         newState.city = '';
-      } else if (name === 'city') {
-        if (value === 'Other') {
-          newState.province = 'Other';
-          newState.country = 'Other';
-        } else if (value === '') {
-          newState.province = '';
-          newState.country = '';
-        } else {
-          // Find the corresponding province and country for the selected city
-          const country = locationData.countries.find(
-            (c) =>
-              c.provinces?.some((p) => p.cities.includes(value)) ||
-              c.states?.some((s) => s.cities.includes(value))
-          );
-          if (country) {
-            const province =
-              country.provinces?.find((p) => p.cities.includes(value)) ||
-              country.states?.find((s) => s.cities.includes(value));
-            newState.country = country.name;
-            newState.province = province.name;
-          }
-        }
       }
 
       return newState;
