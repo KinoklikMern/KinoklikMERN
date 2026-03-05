@@ -183,6 +183,8 @@ const UserSchema = mongoose.Schema({
   youtube_subs: { type: String, default: "" },
   linkedin_url: { type: String, default: "" },
   linkedin_followers: { type: String, default: "" },
+  tiktok_url: { type: String, default: "" },
+  tiktok_followers: { type: String, default: "" },
 
   receiveNewsletter: { type: Boolean, default: true },
   lastActive: { type: Date, default: null },

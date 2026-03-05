@@ -1,116 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { getActorFollowersNumber } from '../../../api/epks';
-import Audience from '../../../images/audienceIcon.svg';
-import SocialMedia from './SocialMedia';
-import {
-  faFacebookSquare,
-  faInstagram,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
-import { useTranslation } from 'react-i18next';
+import SocialMedia from './SocialMedia'; 
+import { formatCompactNumber } from '../../../utils/numberformatters'; 
+import { fetchAndSumFollowers } from '../../../utils/followersHelper';
 
 export default function ActorPageHeader({ epkInfo, id }) {
-  const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
-    useState(0);
-  const { t } = useTranslation();
-
-  const [socialMediasList, setSocialMediasList] = useState([
-    {
-      name: 'facebook',
-      fontawesome_icon: faFacebookSquare,
-      followers: 0,
-      color: '#C4C4C4',
-    },
-    {
-      name: 'instagram',
-      fontawesome_icon: faInstagram,
-      followers: 0,
-      color: '#C4C4C4',
-    },
-    {
-      name: 'twitter',
-      fontawesome_icon: faTwitter,
-      followers: 0,
-      color: '#C4C4C4',
-    },
-  ]);
+  const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
+  const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0 ,linkedin: 0, youtube: 0});
 
   useEffect(() => {
-    const fetchAndSumActorFollowers = async () => {
-      try {
-        const followers = await getActorFollowersNumber(id);
-
-        const facebookFollowers = parseInt(followers.facebook) || 0;
-        const instagramFollowers = parseInt(followers.instagram) || 0;
-        const twitterFollowers = parseInt(followers.twitter) || 0;
-
-        const totalFollowers =
-          facebookFollowers + instagramFollowers + twitterFollowers;
-
-        const updatedSocialMediasList = socialMediasList.map((media) => {
-          let followerCount = 0;
-          if (media.name === 'facebook') {
-            followerCount = facebookFollowers || 0;
-          } else if (media.name === 'instagram') {
-            followerCount = instagramFollowers || 0;
-          } else if (media.name === 'twitter') {
-            followerCount = twitterFollowers || 0;
-          }
-          return { ...media, followers: formatCompactNumber(followerCount) };
-        });
-
-        setSocialMediasList(updatedSocialMediasList);
-
-        setSocialMediaFollowerTotalNum(formatCompactNumber(totalFollowers));
-      } catch (error) {
-        console.error('Error fetching followers', error);
-      }
+    const getFollowers = async () => {
+      if (!id) return;
+      const data = await fetchAndSumFollowers(id);
+      setPlatformFollowers(data.platforms);
+      setSocialMediaFollowerTotalNum(formatCompactNumber(data.total));
     };
+    getFollowers();
+  }, [id]);
+  const socialMediaData = [
+    { platform: 'facebook', followers: formatCompactNumber(platformFollowers.facebook), url: epkInfo?.facebook_url || epkInfo?.facebook },
+    { platform: 'instagram', followers: formatCompactNumber(platformFollowers.instagram), url: epkInfo?.instagram_url || epkInfo?.instagram },
+    { platform: 'twitter', followers: formatCompactNumber(platformFollowers.twitter), url: epkInfo?.twitter_url || epkInfo?.twitter },
+    { platform: 'tiktok', followers: formatCompactNumber(platformFollowers.tiktok), url: epkInfo?.tiktok_url || epkInfo?.tiktok },
+    { platform: 'linkedin', followers: formatCompactNumber(platformFollowers.linkedIn || platformFollowers.linkedin), url: epkInfo?.linkedin_url || epkInfo?.linkedin },
+    { platform: 'youtube', followers: formatCompactNumber(platformFollowers.youtube), url: epkInfo?.youtube_url || epkInfo?.youtube }
+  ];
+  //console.log("Database JSON (epkInfo):", epkInfo);
 
-    if (id) {
-      fetchAndSumActorFollowers();
-    } else {
-      console.log('ID is not defined');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [epkInfo]);
-
-  function formatCompactNumber(number) {
-    if (number < 1000) {
-      return number;
-    } else if (number >= 1000 && number < 1_000_000) {
-      return (number / 1000).toFixed(2).replace(/\.0$/, '') + 'K';
-    } else if (number >= 1_000_000 && number < 1_000_000_000) {
-      return (number / 1_000_000).toFixed(2).replace(/\.0$/, '') + 'M';
-    } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
-      return (number / 1_000_000_000).toFixed(2).replace(/\.0$/, '') + 'B';
-    } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
-      return (number / 1_000_000_000_000).toFixed(2).replace(/\.0$/, '') + 'T';
-    }
-  }
   return (
-    <div className="tw-container tw-mx-auto tw-my-16 tw-flex tw-flex-col tw-justify-between md:tw-flex-row">
-      <div className="tw-flex tw-flex-col tw-items-center tw-text-center md:tw-w-1/3 md:tw-flex-row md:tw-gap-5">
-        <span className="tw-text-3xl tw-font-bold tw-text-[#C4C4C4] md:tw-text-xl lg:tw-text-3xl">
-          {t('Total Audience Reach')}
-        </span>
-        <img src={Audience} alt="audience icon" className="tw-h-10 tw-w-10" />
-        <span className="tw-text-3xl tw-font-bold tw-text-[#C4C4C4] md:tw-text-xl lg:tw-text-3xl">
-          {socialMediafollowerTotalNum}
-        </span>
-      </div>
-      <div className="tw-mx-auto tw-mt-4 tw-flex tw-justify-between md:tw-mx-0 md:tw-mt-0 md:tw-w-1/2 tw-gap-8 md:tw-gap-0
-      tw-text-2xl tw-font-semibold md:tw-text-lg lg:tw-text-2xl">
-        {socialMediasList?.map((media, index) => (
-          <SocialMedia
-            key={index}
-            icon={media.fontawesome_icon}
-            followerNum={media.followers}
-            name={media.name}
-            color={media.color}
-          />
-        ))}
-      </div>
+    <div className="tw-container tw-mx-auto tw-my-16 tw-w-full">
+      <SocialMedia 
+        socials={socialMediaData} 
+        totalReachNum={socialMediafollowerTotalNum}
+      />
     </div>
   );
 }

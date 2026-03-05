@@ -1109,10 +1109,21 @@ export const getFollowers = async (req, res) => {
     let twitters = fepkOne.twitter_followers
       ? parseInt(fepkOne.twitter_followers)
       : 0;
+    let tiktoks = fepkOne.tiktok_followers
+      ? parseInt(fepkOne.tiktok_followers)
+      : 0;
+    let youtubes = fepkOne.youtube_subs
+      ? parseInt(fepkOne.youtube_subs)
+      : 0;
+    let linkedins = fepkOne.linkedin_followers
+      ? parseInt(fepkOne.linkedin_followers)
+      : 0;
+    
+
 
     res
       .status(200)
-      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, youtube: youtubes, linkedin: linkedins });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
