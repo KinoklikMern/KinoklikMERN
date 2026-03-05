@@ -199,7 +199,7 @@ export const getFepksByTitle = async (req, res) => {
   }
 };
 
-// fetch followers of facebook, instagram, and twitter
+// fetch followers of facebook, instagram, twitter, tiktok, linkedins, youtube
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
@@ -210,6 +210,9 @@ export const getFollowers = async (req, res) => {
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;
+    let tiktoks = 0;
+    let linkedins = 0;
+    let youtubes = 0;
     fepkOne.crew.forEach((element) => {
       if (element.facebook_followers) {
         facebooks += parseInt(element.facebook_followers);
@@ -220,11 +223,20 @@ export const getFollowers = async (req, res) => {
       if (element.twitter_followers) {
         twitters += parseInt(element.twitter_followers);
       }
+      if (element.tiktok_followers) {
+        tiktoks += parseInt(element.tiktok_followers);
+      }
+      if (element.linkedin_followers) {
+        linkedins += parseInt(element.linkedin_followers);
+      }
+      if (element.youtube_subs) {
+        youtubes += parseInt(element.youtube_subs);
+      }
     });
     //res.status(200).json(fepkOne);
     res
       .status(200)
-      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, linkedin: linkedins, youtube: youtubes });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

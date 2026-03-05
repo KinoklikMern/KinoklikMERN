@@ -59,6 +59,8 @@ export default function Profile() {
     youtube_url: '',
     linkedin_followers: '',
     linkedin_url: '',
+    tiktok_url: '',
+    tiktok_followers: '',
     aboutMe: '',
     picture: '',
     bannerImg: '', // This will store the demo reel media for filmmakers
@@ -191,7 +193,8 @@ export default function Profile() {
       name === 'twitter_url' ||
       name === 'instagram_url' ||
       name === 'youtube_url' ||
-      name === 'linkedin_url'
+      name === 'linkedin_url' ||
+      name === 'tiktok_url'
     ) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
@@ -204,7 +207,8 @@ export default function Profile() {
       name === 'linkedin_followers' ||
       name === 'twitter_followers' ||
       name === 'instagram_followers' ||
-      name === 'youtube_subs'
+      name === 'youtube_subs' ||
+      name === 'tiktok_followers'
     ) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
@@ -901,6 +905,36 @@ export default function Profile() {
             </div>
           )}
         </div>
+        <div className="tw-mx-auto tw-flex tw-items-center">
+          <i className="fa-brands fa-tiktok tw-text-4xl"></i>
+          <input
+            type="text"
+            name="tiktok_url"
+            placeholder="URL"
+            value={userProfileData.tiktok_url}
+            onChange={handleProfileChange}
+            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+          {validationErrors.tiktok_url && (
+            <div className="tw-text-red-500">
+              {validationErrors.tiktok_url}
+            </div>
+          )}
+          <input
+            type="text"
+            name="tiktok_followers"
+            placeholder={t('Followers')}
+            value={userProfileData.tiktok_followers}
+            onChange={handleProfileChange}
+            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+          {validationErrors.tiktok_followers && (
+            <div className="tw-text-red-500">
+              {validationErrors.tiktok_followers}
+            </div>
+          )}
+        </div>
+
       </div>
     </div>
   );

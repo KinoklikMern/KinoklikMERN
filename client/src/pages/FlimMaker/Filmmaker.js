@@ -11,18 +11,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
 import { getFepksByFilmmakerId } from '../../api/epks';
 import emptyBanner from '../../images/empty_banner.jpeg';
+import SocialMedia from '../../components/EpkView/EpkHeader/SocialMedia';
 import {
   faMessage,
   faGlobe,
   faPlay,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faFacebookSquare,
-  faInstagram,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
-import Audience from '../../images/audienceIcon.svg';
+import { formatCompactNumber } from '../../utils/numberformatters';
+import { fetchAndSumFollowers } from '../../utils/followersHelper';
 
 export default function Filmmaker(props) {
   const { t } = useTranslation();
@@ -40,28 +37,8 @@ export default function Filmmaker(props) {
   const navigate = useNavigate();
 
   // Social Media States
-  const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
-    useState(0);
-  const [socialMediasList, setSocialMediasList] = useState([
-    {
-      name: 'facebook',
-      fontawesome_icon: faFacebookSquare,
-      followers: 0,
-      color: '#C4C4C4',
-    },
-    {
-      name: 'instagram',
-      fontawesome_icon: faInstagram,
-      followers: 0,
-      color: '#C4C4C4',
-    },
-    {
-      name: 'twitter',
-      fontawesome_icon: faTwitter,
-      followers: 0,
-      color: '#C4C4C4',
-    },
-  ]);
+  const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
+  const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0 });
 
   // fetching user
   const user = useSelector((state) => state.user);
@@ -105,21 +82,7 @@ export default function Filmmaker(props) {
       ? epkInfo.bannerImg
       : `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`;
   };
-
-  // Format number function
-  function formatCompactNumber(number) {
-    if (number < 1000) {
-      return number;
-    } else if (number >= 1000 && number < 1_000_000) {
-      return (number / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-    } else if (number >= 1_000_000 && number < 1_000_000_000) {
-      return (number / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
-    } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
-      return (number / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
-    } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
-      return (number / 1_000_000_000_000).toFixed(1).replace(/\.0$/, '') + 'T';
-    }
-  }
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -157,60 +120,9 @@ export default function Filmmaker(props) {
         }
 
         // Fetch social media followers
-        try {
-          const followersResponse = await http.get(`/users/getfollower/${id}`);
-          const followers = followersResponse.data;
-
-          const facebookFollowers = parseInt(followers.facebook) || 0;
-          const instagramFollowers = parseInt(followers.instagram) || 0;
-          const twitterFollowers = parseInt(followers.twitter) || 0;
-
-          const totalFollowers =
-            facebookFollowers + instagramFollowers + twitterFollowers;
-
-          const updatedSocialMediasList = socialMediasList.map((media) => {
-            let followerCount = 0;
-            if (media.name === 'facebook') {
-              followerCount = facebookFollowers || 0;
-            } else if (media.name === 'instagram') {
-              followerCount = instagramFollowers || 0;
-            } else if (media.name === 'twitter') {
-              followerCount = twitterFollowers || 0;
-            }
-            return { ...media, followers: formatCompactNumber(followerCount) };
-          });
-
-          setSocialMediasList(updatedSocialMediasList);
-          setSocialMediaFollowerTotalNum(formatCompactNumber(totalFollowers));
-        } catch (error) {
-          console.log('Error fetching social media followers:', error);
-          // Use dummy data if API doesn't exist yet
-          setSocialMediasList([
-            {
-              ...socialMediasList[0],
-              followers: formatCompactNumber(
-                filmmakerData.facebookFollowers || 0
-              ),
-            },
-            {
-              ...socialMediasList[1],
-              followers: formatCompactNumber(
-                filmmakerData.instagramFollowers || 0
-              ),
-            },
-            {
-              ...socialMediasList[2],
-              followers: formatCompactNumber(
-                filmmakerData.twitterFollowers || 0
-              ),
-            },
-          ]);
-          const total =
-            (filmmakerData.facebookFollowers || 0) +
-            (filmmakerData.instagramFollowers || 0) +
-            (filmmakerData.twitterFollowers || 0);
-          setSocialMediaFollowerTotalNum(formatCompactNumber(total));
-        }
+        const followerData = await fetchAndSumFollowers(id);
+        setPlatformFollowers(followerData.platforms);
+        setSocialMediaFollowerTotalNum(formatCompactNumber(followerData.total));
 
         // Fetch studio data
         try {
@@ -297,6 +209,14 @@ export default function Filmmaker(props) {
 
     return `${baseClasses} tw-bg-white tw-text-[#712cb0] hover:tw-text-[#5a239a]`;
   };
+  const socialMediaData = [
+    { platform: 'facebook', followers: formatCompactNumber(platformFollowers.facebook), url: epkInfo?.facebook_url || epkInfo?.facebook },
+    { platform: 'instagram', followers: formatCompactNumber(platformFollowers.instagram), url: epkInfo?.instagram_url || epkInfo?.instagram },
+    { platform: 'twitter', followers: formatCompactNumber(platformFollowers.twitter), url: epkInfo?.twitter_url || epkInfo?.twitter },
+    { platform: 'tiktok', followers: formatCompactNumber(platformFollowers.tiktok), url: epkInfo?.tiktok_url || epkInfo?.tiktok },
+    { platform: 'linkedin', followers: formatCompactNumber(platformFollowers.linkedin || platformFollowers.linkedIn), url: epkInfo?.linkedin_url || epkInfo?.linkedin },
+    { platform: 'youtube', followers: formatCompactNumber(platformFollowers.youtube), url: epkInfo?.youtube_url || epkInfo?.youtube }
+  ];
 
   return (
     <div className="tw-min-h-screen tw-bg-[#1E0039]">
@@ -329,38 +249,10 @@ export default function Filmmaker(props) {
 
       {/* Social Media Total Audience Reach Section */}
       <div className="tw-mx-auto tw-my-8 tw-max-w-[100rem] tw-rounded-2xl tw-bg-[#1E0039] tw-p-6">
-        <div className="tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-10 md:tw-flex-row">
-          <div className="tw-flex tw-flex-col tw-items-center tw-justify-between md:tw-w-1/2 md:tw-flex-row">
-            <h3 className="tw-text-2xl tw-font-semibold tw-text-white/90">
-              {t('Total Audience Reach')}
-            </h3>
-            <img
-              src={Audience}
-              alt="audience icon"
-              className="tw-h-12 tw-w-12 tw-opacity-90"
-            />
-            <p className="tw-text-3xl tw-font-bold tw-text-white">
-              {socialMediafollowerTotalNum}
-            </p>
-          </div>
-          <div className="tw-flex tw-items-center tw-justify-around md:tw-w-1/2">
-            {socialMediasList.map((media, index) => (
-              <div
-                key={index}
-                className="tw-flex tw-items-center tw-gap-3 tw-rounded-lg tw-p-3"
-              >
-                <FontAwesomeIcon
-                  icon={media.fontawesome_icon}
-                  className="tw-text-3xl"
-                  style={{ color: media.color }}
-                />
-                <span className="tw-text-lg tw-font-semibold tw-text-white">
-                  {media.followers}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <SocialMedia 
+          socials={socialMediaData} 
+          totalReachNum={socialMediafollowerTotalNum}
+        />
       </div>
 
       {/* Main Container - Adjusted height */}

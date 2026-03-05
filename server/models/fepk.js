@@ -112,6 +112,8 @@ const fepkSchema = mongoose.Schema({
       instagram_followers: { type: String },
       twitter_url: { type: String },
       twitter_followers: { type: String },
+      tiktok_url: { type: String },
+      tiktok_followers: { type: String },
     },
   ],
 
