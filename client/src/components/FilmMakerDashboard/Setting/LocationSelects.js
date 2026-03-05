@@ -2,6 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Country, State, City } from 'country-state-city';
 
+const popularCountries = ["US", "CA", "GB", "AU", "DE", "FR", "IE", "CN", "JP", 
+  "MX", "ES", "IT", "KR", "NZ", "NG", "HK"
+];
+  
+const londonBoroughs = [
+  "Barking and Dagenham", "Barnet", "Bexley", "Brent", "Bromley", "Camden", "Croydon", 
+  "Ealing", "Enfield", "Greenwich", "Hackney", "Hammersmith and Fulham", "Haringey", 
+  "Harrow", "Havering", "Hillingdon", "Hounslow", "Islington", "Kensington and Chelsea", 
+  "Kingston upon Thames", "Lambeth", "Lewisham", "Merton", "Newham", "Redbridge", 
+  "Richmond upon Thames", "Southwark", "Sutton", "Tower Hamlets", "Waltham Forest", 
+  "Wandsworth", "Westminster"
+];
+
+const ukNations = ["England", "Scotland", "Wales", "Northern Ireland"];
+
 const LocationSelects = ({
   userProfileData,
   handleProfileChange,
@@ -9,7 +24,7 @@ const LocationSelects = ({
 }) => {
   const { t } = useTranslation();
 
-  const ukNations = ["England", "Scotland", "Wales", "Northern Ireland"];
+
   const isUkNation = ukNations.includes(userProfileData.country);
   const countryCode = isUkNation ? "GB" : Country.getAllCountries().find(c => c.name === userProfileData.country)?.isoCode;
 
@@ -22,18 +37,6 @@ const LocationSelects = ({
 
   const stateCode = selectedStateObj?.isoCode;
 
-  const popularCountries = ["US", "CA", "GB", "AU", "DE", "FR", "IE", "CN", "JP", 
-    "MX", "ES", "IT", "KR", "NZ", "NG", "HK"
-  ];
-  
-  const londonBoroughs = [
-    "Barking and Dagenham", "Barnet", "Bexley", "Brent", "Bromley", "Camden", "Croydon", 
-    "Ealing", "Enfield", "Greenwich", "Hackney", "Hammersmith and Fulham", "Haringey", 
-    "Harrow", "Havering", "Hillingdon", "Hounslow", "Islington", "Kensington and Chelsea", 
-    "Kingston upon Thames", "Lambeth", "Lewisham", "Merton", "Newham", "Redbridge", 
-    "Richmond upon Thames", "Southwark", "Sutton", "Tower Hamlets", "Waltham Forest", 
-    "Wandsworth", "Westminster"
-  ];
   const isGreaterLondon = userProfileData.province === "Greater London";
   const canSelectCity = isGreaterLondon || (stateCode && countryCode);
 
