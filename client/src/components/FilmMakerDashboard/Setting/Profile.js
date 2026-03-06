@@ -9,7 +9,6 @@ import {
   validateFollowers,
 } from './validation.js';
 import LocationSelects from './LocationSelects.js';
-import locationData from './Profile.json';
 import { useTranslation } from 'react-i18next';
 
 export default function Profile() {
