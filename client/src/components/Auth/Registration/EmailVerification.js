@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 // import "../../../styles/tailwind.css";
 import { useTranslation } from 'react-i18next';
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 
 import {
   resendEmailVerificationToken,
@@ -37,6 +39,7 @@ export default function EmailVerification() {
   // const isVerified = user?.isVerified;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const focusNextInputField = (index) => {
     setActiveOtpIndex(index + 1);
@@ -108,22 +111,27 @@ export default function EmailVerification() {
     // submit otp
     try {
       console.log("User ID being sent:", user?.id);
-      const { error, message } = await verifyUserEmail({
+      const response = await verifyUserEmail({
         OTP: otp.join(""),
         userId: user?.id,
       });
-      if (error) {
-        enqueueSnackbar(error, { variant: "error" });
+      if (response.error) {
+        enqueueSnackbar(response.error, { variant: "error" });
       } else {
-        enqueueSnackbar(message, { variant: "success" });
-        console.log(message);
-        if (user?.role === 'Filmmaker') {
-          window.location.href = "/dashboard/settings";
-        } else if (user?.role === 'Admin') {
-          window.location.href = "/admindashboard/main";
+        enqueueSnackbar(response.message, { variant: "success" });
+        console.log(response.message);
+        const loggedInUser = response.user || user;
+        if (loggedInUser) {
+          Cookies.set("user", JSON.stringify(loggedInUser), { expires: 1 });
+          dispatch({ type: "LOGIN", payload: loggedInUser });
+        }
+       if (loggedInUser?.role === 'Filmmaker') {
+          navigate("/dashboard/settings", { replace: true });
+        } else if (loggedInUser?.role === 'Admin') {
+          navigate("/admindashboard/main", { replace: true });
         } else {
-          // Actors, Viewers, and all Industry Professionals
-          window.location.href = "/userdashboard/settings";
+          // Actors, Viewers, and Industry Professionals
+          navigate("/userdashboard/settings", { replace: true });
         }
         // navigate("/success");
 
@@ -140,7 +148,7 @@ export default function EmailVerification() {
       }
     } catch (error) {
       console.error("Error verifying email:", error);
-      enqueueSnackbar("An error occurred while verifying email", {
+      enqueueSnackbar(t("An error occurred while verifying email"), {
         variant: "error",
       });
     }

@@ -113,7 +113,8 @@ function RegistrationForm() {
       });
     } catch (error) {
       setSuccess('');
-      setError(error.response.data.message);
+      const errorMessage = error.response?.data?.message || error.response?.data?.error || t("An error occurred during registration.");
+      setError(errorMessage);
     }
   };
 
