@@ -1,7 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { React, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Country, State, City } from 'country-state-city';
 
-import locationData from './Profile.json';
+const popularCountries = ["US", "CA", "GB", "AU", "DE", "FR", "IE", "CN", "JP", 
+  "MX", "ES", "IT", "KR", "NZ", "NG", "HK"
+];
+  
+const londonBoroughs = [
+  "Barking and Dagenham", "Barnet", "Bexley", "Brent", "Bromley", "Camden", "Croydon", 
+  "Ealing", "Enfield", "Greenwich", "Hackney", "Hammersmith and Fulham", "Haringey", 
+  "Harrow", "Havering", "Hillingdon", "Hounslow", "Islington", "Kensington and Chelsea", 
+  "Kingston upon Thames", "Lambeth", "Lewisham", "Merton", "Newham", "Redbridge", 
+  "Richmond upon Thames", "Southwark", "Sutton", "Tower Hamlets", "Waltham Forest", 
+  "Wandsworth", "Westminster"
+];
+
+const ukNations = ["England", "Scotland", "Wales", "Northern Ireland"];
 
 const LocationSelects = ({
   userProfileData,
@@ -9,97 +23,137 @@ const LocationSelects = ({
   validationErrors,
 }) => {
   const { t } = useTranslation();
-  const [countries, setCountries] = useState([]);
-  const [provinces, setProvinces] = useState([]);
-  const [cities, setCities] = useState([]);
 
-  useEffect(() => {
-    setCountries(locationData.countries.map((country) => country.name));
-  }, []);
 
-  useEffect(() => {
-    if (userProfileData.country) {
-      const selectedCountry = locationData.countries.find(
-        (c) => c.name === userProfileData.country
-      );
-      if (selectedCountry) {
-        setProvinces(selectedCountry.provinces || selectedCountry.states || []);
-        setCities([]);
-      }
-    } else {
-      setProvinces([]);
-      setCities([]);
+  const isUkNation = ukNations.includes(userProfileData.country);
+  const countryCode = isUkNation ? "GB" : Country.getAllCountries().find(c => c.name === userProfileData.country)?.isoCode;
+
+  const selectedStateObj = countryCode 
+  ? State.getStatesOfCountry(countryCode).find(s => {
+      const searchName = userProfileData.province === "Rest of England" ? "England" : userProfileData.province;
+      return s.name === searchName;
+    }) 
+  : null;
+
+  const stateCode = selectedStateObj?.isoCode;
+
+  const isGreaterLondon = userProfileData.province === "Greater London";
+  const canSelectCity = isGreaterLondon || (stateCode && countryCode);
+
+  const allCountries = Country.getAllCountries().filter(c => c.isoCode !== "GB");
+  const priorityCountries = allCountries.filter(c => popularCountries.includes(c.isoCode));
+  const otherCountries = allCountries.filter(c => !popularCountries.includes(c.isoCode));
+
+  const getFilteredStates = (countryCode, selectedCountryName) => {
+    const states = State.getStatesOfCountry(countryCode);
+  
+    if (countryCode === "US") {
+      const excluded = [
+      "AS", "GU", "MP", "PR", "VI", "UM",
+      "UM-67", "UM-71", "UM-76", "UM-79", "UM-81", "UM-84", "UM-86", "UM-89", "UM-95"
+      ];
+
+      return states.filter(s => !excluded.includes(s.isoCode));
     }
-  }, [userProfileData.country]);
+
+    if (ukNations.includes(selectedCountryName)) {
+      if (selectedCountryName === "England") {
+        return [
+          { name: "Rest of England", isoCode: "GB-ENG" },
+          { name: "Greater London", isoCode: "LND" }
+        ];
+      }
+      return states.filter(s => s.name === selectedCountryName);
+    }
+      
+      return states;
+  };
+
+  const getProvinceLabel = (countryCode) => {
+    switch (countryCode) {
+      case "US": return t("State");
+      case "CA": return t("Province");
+      case "AU": return t("State");
+      default: return t("Region");
+    }
+  };
 
   useEffect(() => {
-    if (userProfileData.province) {
-      const selectedCountry = locationData.countries.find(
-        (c) => c.name === userProfileData.country
-      );
-      if (selectedCountry) {
-        const selectedProvince = (
-          selectedCountry.provinces ||
-          selectedCountry.states ||
-          []
-        ).find((p) => p.name === userProfileData.province);
-        if (selectedProvince) {
-          setCities(selectedProvince.cities || []);
-        }
+    if (isUkNation && userProfileData.country !== "England") {
+      const filtered = getFilteredStates(countryCode, userProfileData.country);
+      
+      if (filtered.length === 1 && userProfileData.province !== filtered[0].name) {
+        handleProfileChange({
+          target: { name: 'province', value: filtered[0].name }
+        });
       }
-    } else {
-      setCities([]);
     }
-  }, [userProfileData.country, userProfileData.province]);
+  }, [userProfileData.country, userProfileData.province, isUkNation, countryCode, handleProfileChange]);
 
   return (
     <>
       <select
         name="country"
-        value={userProfileData.country}
+        value={userProfileData.country || ""}
         onChange={handleProfileChange}
         className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
       >
-        <option value="">{t('Select Country')}</option>
-        {countries.map((country) => (
-          <option key={country} value={country}>
-            {t(country)}
-          </option>
+      <option value="">{t('Select Country')}</option>
+      
+      <optgroup label="Major Industry Hubs">
+        {priorityCountries.map(c => (
+          <option key={c.isoCode} value={c.name}>{t(c.name)}</option>
         ))}
-        <option value="Other">{t('Other')}</option>
+        {ukNations.map(name => (
+          <option key={name} value={name}>{t(name)}</option>
+        ))}
+      </optgroup>
+
+      <optgroup label="All Countries">
+        {otherCountries.map(c => (
+          <option key={c.isoCode} value={c.name}>{t(c.name)}</option>
+        ))}
+      </optgroup>
       </select>
 
       <select
         name="province"
-        value={userProfileData.province}
+        value={userProfileData.province || ""} 
         onChange={handleProfileChange}
+        disabled={!countryCode}
         className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
       >
-        <option value="">{t('Select Province')}</option>
-        {provinces.map((province) => (
-          <option key={province.name} value={province.name}>
-            {t(province.name)}
+        <option 
+          value="">{t('Select')} {getProvinceLabel(countryCode)}
+        </option>
+
+        {countryCode && getFilteredStates(countryCode, userProfileData.country).map(s => (
+          <option key={s.isoCode} value={s.name}>
+            {t(s.name)}
           </option>
         ))}
-        <option value="Other">{t('Other')}</option>
       </select>
-      {validationErrors.province && (
-        <div className="tw-text-red-500">{validationErrors.province}</div>
-      )}
 
       <select
         name="city"
-        value={userProfileData.city}
+        value={userProfileData.city || ""}
         onChange={handleProfileChange}
+        disabled={!canSelectCity} 
         className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
       >
-        <option value="">{t('Select City')}</option>
-        {cities.map((city) => (
-          <option key={city} value={city}>
-            {t(city)}
-          </option>
-        ))}
-        <option value="Other">{t('Other')}</option>
+        <option 
+          value="">{t('Select City')}
+        </option>
+
+        {isGreaterLondon ? (
+          londonBoroughs.map(borough => (
+            <option key={borough} value={borough}>{t(borough)}</option>
+          ))
+        ) : (
+          countryCode && stateCode && City.getCitiesOfState(countryCode, stateCode).map(city => (
+            <option key={city.name} value={city.name}>{t(city.name)}</option>
+          ))
+        )}
       </select>
     </>
   );
