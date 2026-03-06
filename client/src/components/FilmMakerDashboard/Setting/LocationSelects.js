@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { React, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Country, State, City } from 'country-state-city';
 
@@ -88,7 +88,7 @@ const LocationSelects = ({
         });
       }
     }
-  }, [userProfileData.country]);
+  }, [userProfileData.country, userProfileData.province, isUkNation, countryCode, handleProfileChange]);
 
   return (
     <>
