@@ -39,7 +39,7 @@ function RegistrationForm() {
 
   const handleSubmit = async () => {
     // Validate the form fields
-    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = /^([a-zA-Z\d.-_]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,12})(\.[a-zA-Z]{2,12})?$/; //match the back end
     if (
       !firstName ||
       !lastName ||
@@ -49,6 +49,14 @@ function RegistrationForm() {
       !role
     ) {
       setError(t('All fields are required.'));
+      return;
+    }
+    if (firstName.length < 2) {
+      setError(t('First name must be at least 2 characters long.'));
+      return;
+    }
+    if (lastName.length < 2) {
+      setError(t('Last name must be at least 2 characters long.'));
       return;
     }
 

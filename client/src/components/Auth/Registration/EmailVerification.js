@@ -117,18 +117,26 @@ export default function EmailVerification() {
       } else {
         enqueueSnackbar(message, { variant: "success" });
         console.log(message);
+        if (user?.role === 'Filmmaker') {
+          window.location.href = "/dashboard/settings";
+        } else if (user?.role === 'Admin') {
+          window.location.href = "/admindashboard/main";
+        } else {
+          // Actors, Viewers, and all Industry Professionals
+          window.location.href = "/userdashboard/settings";
+        }
         // navigate("/success");
 
         // Navigate based on user authentication and verification
-        if (user) {
-          if (user.isVerified) {
-            navigate("/");
-          } else {
-            navigate("/success");
-          }
-        } else {
-          navigate("/success");
-        }
+        // if (user) {
+        //   if (user.isVerified) {
+        //     navigate("/");
+        //   } else {
+        //     navigate("/success");
+        //   }
+        // } else {
+        //   navigate("/success");
+        // }
       }
     } catch (error) {
       console.error("Error verifying email:", error);

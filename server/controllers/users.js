@@ -43,16 +43,16 @@ export const register = async (req, res) => {
       });
     }
 
-    if (!validateLength(firstName, 3, 30)) {
+    if (!validateLength(firstName, 2, 30)) {
       return sendError(
         res,
-        'First name must be between 3 and 30 characters long.'
+        'First name must be between 2 and 30 characters long.'
       );
     }
-    if (!validateLength(lastName, 3, 30)) {
+    if (!validateLength(lastName, 2, 30)) {
       return sendError(
         res,
-        'Last name must be between 3 and 30 characters long.'
+        'Last name must be between 2 and 30 characters long.'
       );
     }
     if (!validateLength(password, 6, 40)) {
@@ -194,17 +194,25 @@ export const verifyEmail = async (req, res) => {
 
     await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
-    // const jwtToken = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET);
-
+    const token = generateToken({ id: user._id.toString() }, '1d');
+    res.cookie('token', token, {
+      path: '/',
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000 * 86400), // 1 day expiration
+      sameSite: 'none',
+      secure: true,
+    });
     res.json({
-      // user: {
-      //   id: user._id,
-      //   firstName: user.firstName,
-      //   lastName: user.lastName,
-      //   email: user.email,
-      //   token: jwtToken,
-      // },
-      message: 'Your email is verified.',
+      message: 'Your email is verified and you are logged in.',
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        picture: user.picture,
+      },
+      token: token,
     });
   } catch (error) {
     console.error('Error in verifyEmail:', error.message);
