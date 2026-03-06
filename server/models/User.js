@@ -22,13 +22,13 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     maxlength: 30,
-    minlength: 3,
+    minlength: 2,
   },
   lastName: {
     type: String,
     required: true,
     maxlength: 30,
-    minlength: 3,
+    minlength: 2,
   },
   role: {
     type: String,
