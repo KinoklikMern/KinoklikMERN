@@ -9,15 +9,17 @@ import {
   faTiktok
 } from "@fortawesome/free-brands-svg-icons";
 import Audience from '../../../images/audienceIcon.svg';
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const BRAND_COLORS = {
-  facebook: "#1877F2",  
-  instagram: "#E4405F", 
-  twitter: "#1DA1F2",   
-  youtube: "#FF0000",   
-  linkedin: "#0077B5",  
-  tiktok: "#000000",
-  audience: "#C4C4C4"   
+  facebook: "#C4C4C4",  
+  instagram: "#C4C4C4", 
+  twitter: "#C4C4C4",   
+  youtube: "#C4C4C4",   
+  linkedin: "#C4C4C4",  
+  tiktok: "#C4C4C4",
+  audience: "#C4C4C4",
+  newsletter: "#C4C4C4"
 };
 
 const ICONS = {
@@ -26,7 +28,8 @@ const ICONS = {
   twitter: faTwitter,
   youtube: faYoutube,
   linkedin: faLinkedin,
-  tiktok: faTiktok
+  tiktok: faTiktok,
+  newsletter: faEnvelope
 };
 
 export default function SocialMediaIcon({ 
@@ -39,6 +42,11 @@ export default function SocialMediaIcon({
   textClass = 'tw-text-sm md:tw-text-lg tw-font-semibold'
 }) {
   const isAudience = platform?.toLowerCase() === "audience";
+  const isNewsletter = platform?.toLowerCase() === "newsletter"; // <-- 1. Identify newsletter
+  
+  // 2. Group icons that don't need URLs
+  const isStatOnlyIcon = isAudience || isNewsletter; 
+
   const selectedIcon = ICONS[platform?.toLowerCase()];
   const iconStyle = { color: color || BRAND_COLORS[platform?.toLowerCase()] || "#868585" };
 
@@ -52,8 +60,8 @@ export default function SocialMediaIcon({
     return null;
   };
 
-  // It is active if it has a URL OR if it is the Audience icon (which never has a URL)
-  const isActive = !!url || isAudience;
+  // It is active if it has a URL OR if it is a Stat-Only icon
+  const isActive = !!url || isStatOnlyIcon;
 
   // Render the unclickable, greyed-out version for empty socials
   if (!isActive) {
@@ -65,8 +73,8 @@ export default function SocialMediaIcon({
     );
   }
 
-  // Render Audience Icon (Active, but not an <a> link)
-  if (isAudience) {
+  //Render Stat-Only Icons (Audience & Newsletter) -> White text, no link
+  if (isStatOnlyIcon) {
     return (
       <div className={containerClass}>
         {renderIcon()}
