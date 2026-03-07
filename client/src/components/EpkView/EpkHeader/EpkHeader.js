@@ -5,7 +5,7 @@ import { fetchAndSumFollowers } from "../../../utils/followersHelper";
 
 export default function EpkHeader({ epkInfo }) {
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
-  const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0 });
+  const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0, newsletter: 0 });
 
   useEffect(() => {
     const getFollowers = async () => {
@@ -34,6 +34,7 @@ export default function EpkHeader({ epkInfo }) {
   }, [epkInfo]);
 
   const socialMediaData = [
+    { platform: 'newsletter', followers: formatCompactNumber(platformFollowers.newsletter) },
     { platform: 'facebook', followers: formatCompactNumber(platformFollowers.facebook), url: epkInfo?.film_maker?.facebook_url || epkInfo?.film_maker?.facebook },
     { platform: 'instagram', followers: formatCompactNumber(platformFollowers.instagram), url: epkInfo?.film_maker?.instagram_url || epkInfo?.film_maker?.instagram },
     { platform: 'twitter', followers: formatCompactNumber(platformFollowers.twitter), url: epkInfo?.film_maker?.twitter_url || epkInfo?.film_maker?.twitter },

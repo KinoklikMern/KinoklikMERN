@@ -21,7 +21,7 @@ export default function SocialMedia({ socials, totalReachNum, className = "" }) 
           <SocialMediaIcon platform="audience" followerNum={totalReachNum} />
         </div>
 
-        <div className="tw-w-[70%] tw-grid tw-grid-cols-3 tw-gap-y-4 tw-gap-x-1 tw-justify-items-center tw-pl-2">
+        <div className="tw-w-[70%] tw-grid tw-grid-cols-4 tw-gap-y-4 tw-gap-x-1 tw-justify-items-center tw-pl-2">
           {iconsToRender.map((social, index) => (
             <SocialMediaIcon 
               key={`mob-${index}`} 
@@ -40,7 +40,7 @@ export default function SocialMedia({ socials, totalReachNum, className = "" }) 
         
         <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-2">
           <span className="tw-text-base lg:tw-text-xl tw-font-bold tw-text-[#C4C4C4] tw-whitespace-nowrap">
-            {t('Audience Reach')}
+            {t('Total Audience Reach')}
           </span>
           <SocialMediaIcon platform="audience" followerNum={totalReachNum} />
         </div>

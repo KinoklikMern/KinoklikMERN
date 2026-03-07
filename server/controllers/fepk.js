@@ -213,6 +213,7 @@ export const getFollowers = async (req, res) => {
     let tiktoks = 0;
     let linkedins = 0;
     let youtubes = 0;
+    let newsletters = 0;
     fepkOne.crew.forEach((element) => {
       if (element.facebook_followers) {
         facebooks += parseInt(element.facebook_followers);
@@ -232,11 +233,14 @@ export const getFollowers = async (req, res) => {
       if (element.youtube_subs) {
         youtubes += parseInt(element.youtube_subs);
       }
+      if (element.newsletter_followers) {
+        newsletters += parseInt(element.newsletter_followers);
+      }
     });
     //res.status(200).json(fepkOne);
     res
       .status(200)
-      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, linkedin: linkedins, youtube: youtubes });
+      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, linkedin: linkedins, youtube: youtubes, newsletter: newsletters });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
