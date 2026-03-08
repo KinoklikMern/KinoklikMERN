@@ -134,7 +134,7 @@ export default function Studio() {
     const hasErrors = Object.values(validationStudioErrors).some((error) => error);
 
     if (hasAgent) {
-      // 👇 Require all required fields to be filled before enabling Save
+      // Require all required fields to be filled before enabling Save
       setDisabled(hasErrors || !requiredFieldsFilled(updatedData));
     } else {
       setDisabled(false);
@@ -142,7 +142,7 @@ export default function Studio() {
   };
 
   function saveUserStudio() {
-    // 👇 When hasAgent is false, only send hasAgent flag — skip required fields
+    // When hasAgent is false, only send hasAgent flag, skip required fields
     const dataToUpdate = hasAgent
       ? { ...userStudioData, hasAgent: true }
       : { hasAgent: false };
