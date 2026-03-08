@@ -38,11 +38,6 @@ export default function Studio() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [hasAgent, setHasAgent] = useState(true);
 
-  const handlePermission = (decision) => {
-    setHasAgent(decision);
-    setDisabled(false);
-  };
-
   // fetching user
   const user = useSelector((state) => state.user);
   let userId;
@@ -55,19 +50,6 @@ export default function Studio() {
     userRole = user.role;
   }
 
-  // useEffect(() => {
-  //   try {
-  //     Axios.get(
-  //       `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`
-  //     ).then((rs) => {
-  //       if (rs.data) setUserStudioData(rs.data);
-  //       console.log(userStudioData);
-  //     });
-  //   } catch (error) {
-  //     console.log(error.response.data.message);
-  //   }
-  // }, [userId, userStudioData]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -76,15 +58,37 @@ export default function Studio() {
         );
         if (response.data) {
           setUserStudioData(response.data);
-          console.log(response.data); // Log the response data directly
+          console.log(response.data);
         }
       } catch (error) {
         console.log(error.response.data.message);
       }
     };
 
-    fetchData(); // Call the async function to fetch data
+    fetchData();
   }, [userId]);
+
+  // Helper to check if all required fields are filled
+  const requiredFieldsFilled = (data) => {
+    return (
+      data.name &&
+      data.email &&
+      data.city &&
+      data.province &&
+      data.country
+    );
+  };
+
+  const handlePermission = (decision) => {
+    setHasAgent(decision);
+    if (!decision) {
+      // No agent: always allow save
+      setDisabled(false);
+    } else {
+      // Yes agent: only allow save if required fields are filled
+      setDisabled(!requiredFieldsFilled(userStudioData));
+    }
+  };
 
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
@@ -124,32 +128,31 @@ export default function Studio() {
       }));
     }
 
-    setUserStudioData({ ...userStudioData, [name]: value });
+    const updatedData = { ...userStudioData, [name]: value };
+    setUserStudioData(updatedData);
 
-    // Check for validation errors
-    const hasErrors = Object.values(validationStudioErrors).some(
-      (error) => error
-    );
+    const hasErrors = Object.values(validationStudioErrors).some((error) => error);
 
-    // Set the "Save" button state based on validation errors and hasAgent value
-    setDisabled(!hasAgent || hasErrors);
+    if (hasAgent) {
+      // Require all required fields to be filled before enabling Save
+      setDisabled(hasErrors || !requiredFieldsFilled(updatedData));
+    } else {
+      setDisabled(false);
+    }
   };
 
   function saveUserStudio() {
-    //console.log(userStudioData);
-    const dataToUpdate = {
-      ...userStudioData,
-      hasAgent,
-    };
+    // When hasAgent is false, only send hasAgent flag, skip required fields
+    const dataToUpdate = hasAgent
+      ? { ...userStudioData, hasAgent: true }
+      : { hasAgent: false };
+
     Axios.put(
       `${process.env.REACT_APP_BACKEND_URL}/company/updateCompanyByUser/${userId}`,
-      // userStudioData
       dataToUpdate
     )
       .then((res) => {
         setModalIsOpen(true);
-        // alert("Updated profile successfully!");
-        //console.log(res.data);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -232,7 +235,6 @@ export default function Studio() {
                 {validationStudioErrors.website}
               </div>
             )}
-
             <input
               type='text'
               name='email'
