@@ -44,11 +44,25 @@ export default function EpkHeader({ epkInfo }) {
   ];
 
   return (
-    <div className="tw-w-full tw-flex tw-justify-evenly tw-items-center tw-gap-5 tw-py-4">
-      <SocialMedia 
-        socials={socialMediaData} 
-        totalReachNum={socialMediafollowerTotalNum}
-      />
+    <div className="tw-flex tw-w-full tw-flex-col tw-items-center">
+      
+      {/* 1. TITLE (Centered at the very top) */}
+      {epkInfo?.title && (
+        <div className="tw-flex tw-w-full tw-items-center tw-justify-center tw-py-6">
+          <h1 className="tw-px-4 tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-text-[#C4C4C4] tw-drop-shadow-md">
+            {epkInfo.title}
+          </h1>
+        </div>
+      )}
+
+      {/* 2. SOCIAL MEDIA BAR (Stacked directly underneath the title) */}
+      <div className="tw-flex tw-w-full tw-items-center tw-justify-evenly tw-gap-5 tw-py-4">
+        <SocialMedia 
+          socials={socialMediaData} 
+          totalReachNum={socialMediafollowerTotalNum}
+        />
+      </div>
+      
     </div>
   );
 }
