@@ -74,23 +74,35 @@ export default function Actor(props) {
   const isOwnActorPage = user && user.id === id;
 
   const age_range = [
-    [20, 24],
-    [25, 29],
+    [3, 5],
+    [6, 9],
+    [10, 12],
+    [13, 15],
+    [16, 20],
+    [21, 25],
+    [26, 29],
     [30, 34],
-    [35, 39],
-    [40, 44],
-    [45, 49],
+    [35, 44],
+    [45, 55],
+    [56, 66],
+    [67, 77],
+    [78, 89],
   ];
 
-  function setAge(age) {
-    if (age >= 20 && age <= 24) setRange(0);
-    else if (age >= 25 && age <= 29) setRange(1);
-    else if (age >= 30 && age <= 34) setRange(2);
-    else if (age >= 35 && age <= 39) setRange(3);
-    else if (age >= 40 && age <= 44) setRange(4);
-    else if (age >= 45 && age <= 49) setRange(5);
-  }
+  function setAge(ageId) {
+    const lookup = {
+      '4': 0, '7': 1, '11': 2, '14': 3, '18': 4, '22': 5, 
+      '28': 6, '32': 7, '37': 8, '50': 9, '60': 10, '70': 11, '80': 12
+    };
 
+    const index = lookup[String(ageId)];
+    
+    if (index !== undefined) {
+      setRange(index);
+    } else {
+      setRange(0);
+    }
+  }
   useEffect(() => {
     const biography = document.querySelector('.actor-biography');
     if (biography) {
@@ -405,8 +417,6 @@ export default function Actor(props) {
           )}
         </div>
       </div>
-
-
 
       {/* Actor's Image for Small Screens */}
       {pics.length > 0 && (
