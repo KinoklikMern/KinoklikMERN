@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import http from "../../http-common";
 import "./ListItemActor.css";
+import { AGE_OPTIONS } from '../../constants/AgeOptions.js';
 
 export default function ListItem({ title, type }) {
   //const { user } = useSelector(({ user }) => ({ user }));
@@ -36,17 +37,21 @@ export default function ListItem({ title, type }) {
         if (type.length > 0) {
           type.forEach((filter) => {
             if (filter.startsWith("Age Range:")) {
-              const [minAge, maxAge] = filter
-                .replace("Age Range:", "")
-                .split("-")
-                .map((age) => parseInt(age, 10));
-
+              const ageId = filter.replace("Age Range:", "").trim();
+              
+              const rangeOption = AGE_OPTIONS.find(opt => opt.value === ageId);
+              
+              if (rangeOption) {
+                const [minAge, maxAge] = rangeOption.label.split("-").map(a => parseInt(a, 10));
+                
+                filteredActors = filteredActors.filter(
+                  (actor) => actor.age >= minAge && actor.age <= maxAge
+                );
+              }
+            } else if (filter.startsWith("Gender:")) {
+              const gender = filter.replace("Gender:", "").trim();
               filteredActors = filteredActors.filter(
-                (actor) => actor.age >= minAge && actor.age <= maxAge
-              );
-            } else if (filter === "Male" || filter === "Female") {
-              filteredActors = filteredActors.filter(
-                (actor) => actor.sex === filter
+                (actor) => actor.sex === gender
               );
             } else if (filter.startsWith("Ethnicity:")) {
               const ethnicity = filter.replace("Ethnicity:", "").trim();

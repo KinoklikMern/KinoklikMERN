@@ -11,6 +11,7 @@ import {
   faSortUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FepkContext } from "../../context/FepkContext.js";
+import GenderDropdown from "./GenderDropdown.js";
 import AgeRangeDropdown from "./AgeRangeDropdown.js";
 import EthnicityDropdown from "./EthnicityDropdown.js";
 import RepresentationDropdown from "./RepresentationDropdown.js";
@@ -25,6 +26,7 @@ export default function FilterTagInCatelog({ isActive }) {
   // Yeming added
 
   // State to manage selected values for specific dropdowns
+  const [selectedGender, setSelectedGender] = useState(null);
   const [selectedAgeRange, setSelectedAgeRange] = useState(null);
   const [selectedEthnicity, setSelectedEthnicity] = useState(null);
   const [selectedRepresentation, setSelectedRepresentation] = useState(null);
@@ -46,13 +48,9 @@ export default function FilterTagInCatelog({ isActive }) {
         updatedQuery.push(`${name}: ${value}`);
       }
 
-      // Check if "Male" or "Female" buttons are active
-      const isGenderActive = updatedQuery.some(
-        (item) => item === "Male" || item === "Female"
-      );
-
       // Check if any of the dropdown values have been selected
       const anyDropdownValueSelected = [
+        "Gender",
         "Age Range",
         "Ethnicity",
         "Representation",
@@ -62,13 +60,16 @@ export default function FilterTagInCatelog({ isActive }) {
         updatedQuery.some((item) => item.startsWith(`${dropdownName}:`))
       );
 
-      // Update the "All Actors" button based on the selected dropdown values and gender
-      const allActorsIsActive = !(isGenderActive || anyDropdownValueSelected);
+      // Update the "All Actors" button based on the selected dropdown values
+      const allActorsIsActive = !anyDropdownValueSelected;
 
       // Update selected value based on the dropdown
       switch (name) {
+        case "Gender":
+          setSelectedGender(value);
+          break;
         case "Age Range":
-          setSelectedAgeRange(value);
+          setSelectedAgeRange(value ? parseInt(value, 10) : null);
           break;
         case "Ethnicity":
           setSelectedEthnicity(value);
@@ -106,14 +107,9 @@ export default function FilterTagInCatelog({ isActive }) {
   const actorFilterTag = useMemo(
     () => [
       {
-        name: "Male",
+        name: "Gender", //Gender dropdown
         isActive: false,
       },
-      {
-        name: "Female",
-        isActive: false,
-      },
-
       {
         name: "Age Range", // Age Range dropdown
         isActive: false,
@@ -149,6 +145,7 @@ export default function FilterTagInCatelog({ isActive }) {
 
     if (isActive === "actor") {
       // Reset the dropdown state values to their default (null) when All Actors is clicked
+      setSelectedGender(null);
       setSelectedAgeRange(null);
       setSelectedEthnicity(null);
       setSelectedRepresentation(null);
@@ -163,6 +160,7 @@ export default function FilterTagInCatelog({ isActive }) {
 
     if (name === "All Actors") {
       // Reset the dropdown state values to their default (null) when All Actors is clicked
+      setSelectedGender(null);
       setSelectedAgeRange(null);
       setSelectedEthnicity(null);
       setSelectedRepresentation(null);
@@ -173,21 +171,6 @@ export default function FilterTagInCatelog({ isActive }) {
         isActive: tag.name === name,
       }));
       newQuery = isActive ? [] : [];
-    } else if (name === "Male" || name === "Female") {
-      // Handle "Male" and "Female" options mutually exclusively
-      newTags = filterTags.map((tag) =>
-        tag.name === name
-          ? { ...tag, isActive: true }
-          : { ...tag, isActive: false }
-      );
-      newQuery = Array.isArray(filterQueryActors)
-        ? [
-            ...filterQueryActors.filter(
-              (item) => item !== "Male" && item !== "Female"
-            ),
-            name,
-          ]
-        : [name];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
@@ -205,8 +188,7 @@ export default function FilterTagInCatelog({ isActive }) {
 
       // Update "All Actors" tag
       const allActorsIsActive =
-        !newQuery.includes("Male") &&
-        !newQuery.includes("Female") &&
+        !selectedGender &&
         !selectedAgeRange &&
         !selectedEthnicity &&
         !selectedRepresentation &&
@@ -231,7 +213,8 @@ export default function FilterTagInCatelog({ isActive }) {
 
     return (
       <div className="filter-button-container">
-        {name === "Age Range" ||
+        {name == "Gender" ||
+        name === "Age Range" ||
         name === "Ethnicity" ||
         name === "Representation" ||
         name === "City" ||
@@ -257,6 +240,14 @@ export default function FilterTagInCatelog({ isActive }) {
 
             {isDropdownActive && (
               <div className="dropdown-options absolute top-8 left-0 mt-2 py-2 bg-white rounded-lg shadow-lg">
+                {name === "Gender" && (
+                  <GenderDropdown
+                    selectedValue={selectedGender}
+                    onOptionSelect={(value) =>
+                      handleDropdownSelection(name, value)
+                    }
+                  />
+                )}
                 {name === "Age Range" && (
                   <AgeRangeDropdown
                     selectedValue={selectedAgeRange}
@@ -338,7 +329,9 @@ export default function FilterTagInCatelog({ isActive }) {
             clickHandler={clickHandler}
             isActive={tag.isActive}
             selectedValue={
-              tag.name === "Age Range"
+              tag.name === "Gender"
+                ? selectedGender 
+                : tag.name === "Age Range"
                 ? selectedAgeRange
                 : tag.name === "Ethnicity"
                 ? selectedEthnicity

@@ -1,25 +1,22 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
+import { AGE_OPTIONS } from "../../constants/AgeOptions"; 
 import "./DropDown.css";
 
 const AgeRangeDropdown = ({ selectedValue, onOptionSelect }) => {
-  // const ageRanges = ["Select Age", "0-18", "19-30", "31-50", "51-100"];
-  const ageRanges = ["0-18", "19-30", "31-50", "51-100"];
+  const { t } = useTranslation();
 
   return (
     <div className="dropdown-content">
-      {ageRanges.map((option, index) => (
-        <div
-          key={index}
-          className={`dropdown-option ${
-            option === selectedValue ? "selected" : ""
-          }`}
-          onClick={() =>
-            // onOptionSelect(option === "Select Age" ? null : option)
-            onOptionSelect(option)
-          }
+      {AGE_OPTIONS.map((option) => (
+        <button
+          key={option.value}
+          type="button"
+          className={selectedValue === option.value ? "selected" : ""}
+          onClick={() => onOptionSelect(option.value)}
         >
-          {option}
-        </div>
+          {t(option.label)}
+        </button>
       ))}
     </div>
   );
