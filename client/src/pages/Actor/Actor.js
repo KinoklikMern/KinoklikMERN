@@ -92,7 +92,7 @@ export default function Actor(props) {
     } else {
       setRange(0);
     }
-  }
+
   useEffect(() => {
     const biography = document.querySelector('.actor-biography');
     if (biography) {
