@@ -10,6 +10,9 @@ import {
 } from './validation.js';
 import LocationSelects from './LocationSelects.js';
 import { useTranslation } from 'react-i18next';
+import { ETHNICITY_OPTIONS } from '../../../constants/EthnicityOptions.js';
+import { GENDER_OPTIONS } from '../../../constants/GenderOptions.js';
+import { AGE_OPTIONS } from '../../../constants/AgeOptions.js';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -410,55 +413,43 @@ export default function Profile() {
           <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
             <>
               <select
-                type="text"
                 name="sex"
-                value={userProfileData.sex}
+                value={userProfileData.sex || ""}
                 onChange={handleProfileChange}
                 className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
               >
-                <option value="" hidden>
-                  {t('Gender')}
-                </option>
-                <option value="Male">{t('Male')}</option>
-                <option value="Female">{t('Female')}</option>
+                <option value="">{t('Playing Gender')}</option>
+                {GENDER_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {t(opt.label)}
+                  </option>
+                ))}
               </select>
               <select
-                type="text"
                 name="ethnicity"
                 value={userProfileData.ethnicity}
                 onChange={handleProfileChange}
                 className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
               >
-                <option value="">{t('Ethnicity')}</option>
-                <option value="Caucasion">{t('Caucasion')}</option>
-                <option value="Hispanic">{t('Hispanic')}</option>
-                <option value="African American">
-                  {t('African American')}
+               <option value="">{t('Ethnicity')}</option>
+               {ETHNICITY_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {t(`ethnicities.${option.value}`)}
                 </option>
-                <option value="Asian">{t('Asian')}</option>
-                <option value="Native">{t('Native')}</option>
+                ))}
               </select>
               <select
                 className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-                type="text"
                 name="age"
                 value={userProfileData.age}
                 onChange={handleProfileChange}
               >
                 <option value="">{t('Age Range')}</option>
-                <option value={'4'}>3-5</option>
-                <option value={'7'}>6-9</option>
-                <option value={'11'}>10-12</option>
-                <option value={'14'}>13-15</option>
-                <option value={'18'}>16-20</option>
-                <option value={'22'}>21-25</option>
-                <option value={'28'}>26-29</option>
-                <option value={'32'}>30-34</option>
-                <option value={'37'}>35-44</option>
-                <option value={'50'}>45-55</option>
-                <option value={'60'}>56-66</option>
-                <option value={'70'}>67-77</option>
-                <option value={'80'}>78-89+</option>
+                {AGE_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {t(opt.label)}
+                  </option>
+                ))}
               </select>
               <select
                 type="text"

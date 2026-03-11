@@ -1,0 +1,15 @@
+export const AGE_OPTIONS = [
+  { value: '4', label: '3-5' },
+  { value: '7', label: '6-9' },
+  { value: '11', label: '10-12' },
+  { value: '14', label: '13-15' },
+  { value: '18', label: '16-20' },
+  { value: '22', label: '21-25' },
+  { value: '28', label: '26-29' },
+  { value: '32', label: '30-34' },
+  { value: '37', label: '35-44' },
+  { value: '50', label: '45-55' },
+  { value: '60', label: '56-66' },
+  { value: '70', label: '67-77' },
+  { value: '80', label: '78-89+' },
+];

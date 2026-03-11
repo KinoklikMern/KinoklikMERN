@@ -32,6 +32,7 @@ import { getMoviesByActors } from '../../api/epks';
 import emptyBanner from '../../images/empty_banner.jpeg';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { width } from '@mui/system';
+import { AGE_OPTIONS } from '../../constants/AgeOptions';
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -73,36 +74,17 @@ export default function Actor(props) {
   const userIsFilmmaker = user && user.role === 'Filmmaker';
   const isOwnActorPage = user && user.id === id;
 
-  const age_range = [
-    [3, 5],
-    [6, 9],
-    [10, 12],
-    [13, 15],
-    [16, 20],
-    [21, 25],
-    [26, 29],
-    [30, 34],
-    [35, 44],
-    [45, 55],
-    [56, 66],
-    [67, 77],
-    [78, 89],
-  ];
+  function setAge(age) {
+    const foundRange = AGE_OPTIONS.find(opt => {
+      const [min, max] = opt.label.replace('+', '').split('-').map(Number);
+      return age >= min && (max ? age <= max : true);
+    });
 
-  function setAge(ageId) {
-    const lookup = {
-      '4': 0, '7': 1, '11': 2, '14': 3, '18': 4, '22': 5, 
-      '28': 6, '32': 7, '37': 8, '50': 9, '60': 10, '70': 11, '80': 12
-    };
-
-    const index = lookup[String(ageId)];
-    
-    if (index !== undefined) {
-      setRange(index);
-    } else {
-      setRange(0);
+    if (foundRange) {
+      setRange(foundRange.value); 
     }
   }
+
   useEffect(() => {
     const biography = document.querySelector('.actor-biography');
     if (biography) {
@@ -330,17 +312,6 @@ export default function Actor(props) {
   //   }
   // };
 
-  const displaySex = (sex) => {
-    switch (sex) {
-      case 'Male':
-        return 'M';
-      case 'Female':
-        return 'F';
-      default:
-        return 'N/A';
-    }
-  };
-
   const openModal = () => {
     if (userId === '0') {
       alert(t('Please log in first!'));
@@ -390,7 +361,6 @@ export default function Actor(props) {
           />
         </div>
 
-
         <div className={` tw-relative tw-aspect-[16/9] ${epkInfo.bannerImg ? 'tw-w-full' : 'tw-hidden'}  `} >
           <video
             loop
@@ -412,7 +382,7 @@ export default function Actor(props) {
 
           {showVideoErrorMsg && (
             <p className=" tw-absolute md:tw-txsm:tw-text-[15px] xsm:tw-text-[5px] tw-left-1/2 tw-top-1/2 tw--translate-x-1/2 tw--translate-y-1/2 tw-text-[10px] tw-text-white sm:tw-text-[10px] lg:tw-text-[20px]">
-              Video source not available
+              This actor has not uploaded a video
             </p>
           )}
         </div>
@@ -591,8 +561,13 @@ export default function Actor(props) {
               <span>{epkInfo.city || 'Montreal'}</span>
             </div>
 
-            <p>{t('Age-Range')}</p>
-            <p className='tw-font-normal'>{age_range[range][0]} - {age_range[range][1]}</p>
+            <p>{t('Playing Gender')}</p>
+            <p className='tw-font-normal'>{epkInfo.sex}</p>
+
+            <p>{t('Age Range')}</p>
+            <p className='tw-font-normal'>
+              {AGE_OPTIONS.find(opt => opt.value === range)?.label || t('Not Specified')}
+            </p>
 
             <p>{t('Ethnicity')}</p>
             <p className='tw-font-normal'>{epkInfo.ethnicity}</p>
