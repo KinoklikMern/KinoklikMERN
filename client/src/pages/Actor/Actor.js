@@ -85,6 +85,14 @@ export default function Actor(props) {
     }
   }
 
+    const index = lookup[String(ageId)];
+    
+    if (index !== undefined) {
+      setRange(index);
+    } else {
+      setRange(0);
+    }
+  }
   useEffect(() => {
     const biography = document.querySelector('.actor-biography');
     if (biography) {

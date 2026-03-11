@@ -5,7 +5,7 @@ import http from '../http-common';
  *
  * @async
  * @param {*} userIds 
- * @returns {Promise<{ platforms: { facebook: number, instagram: number, twitter: number, linkedin: number, youtube: number, tiktok: number }, total: number }>}
+ * @returns {Promise<{ platforms: { facebook: number, instagram: number, twitter: number, linkedin: number, youtube: number, tiktok: number, newsletter: number }, total: number }>}
  */
 export const fetchAndSumFollowers = async (userIds) => {
   const ids = Array.isArray(userIds) ? userIds : [userIds];
@@ -15,7 +15,8 @@ export const fetchAndSumFollowers = async (userIds) => {
     twitter: 0,
     linkedin: 0,
     youtube: 0,
-    tiktok: 0, 
+    tiktok: 0,
+    newsletter: 0 
   };
 
   for (const id of ids) {
@@ -24,6 +25,7 @@ export const fetchAndSumFollowers = async (userIds) => {
     try {
       const res = await http.get(`/users/getfollower/${id}`);
       const followers = res.data;
+      platformTotals.newsletter += parseInt(followers.newsletter, 10) || 0; 
       platformTotals.facebook += parseInt(followers.facebook_followers || followers.facebook || 0, 10) || 0;
       platformTotals.instagram += parseInt(followers.instagram_followers || followers.instagram || 0, 10) || 0;
       platformTotals.twitter += parseInt(followers.twitter_followers || followers.twitter || 0, 10) || 0;
@@ -40,7 +42,8 @@ export const fetchAndSumFollowers = async (userIds) => {
     platformTotals.twitter + 
     platformTotals.tiktok +
     platformTotals.linkedin +
-    platformTotals.youtube;
+    platformTotals.youtube +
+    platformTotals.newsletter; 
 
   return {
     platforms: platformTotals,

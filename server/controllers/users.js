@@ -1126,12 +1126,15 @@ export const getFollowers = async (req, res) => {
     let linkedins = fepkOne.linkedin_followers
       ? parseInt(fepkOne.linkedin_followers)
       : 0;
+    let newsletters = fepkOne.newsletter_followers
+      ? parseInt(fepkOne.newsletter_followers)
+      : 0;
     
 
 
     res
       .status(200)
-      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, youtube: youtubes, linkedin: linkedins });
+      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, youtube: youtubes, linkedin: linkedins,newsletter: newsletters });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

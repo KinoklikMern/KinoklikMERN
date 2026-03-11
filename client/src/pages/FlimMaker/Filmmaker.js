@@ -38,7 +38,7 @@ export default function Filmmaker(props) {
 
   // Social Media States
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
-  const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0 });
+  const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0, newsletter: 0 });
 
   // fetching user
   const user = useSelector((state) => state.user);
@@ -210,6 +210,7 @@ export default function Filmmaker(props) {
     return `${baseClasses} tw-bg-white tw-text-[#712cb0] hover:tw-text-[#5a239a]`;
   };
   const socialMediaData = [
+    { platform: 'newsletter', followers: formatCompactNumber(platformFollowers.newsletter) },
     { platform: 'facebook', followers: formatCompactNumber(platformFollowers.facebook), url: epkInfo?.facebook_url || epkInfo?.facebook },
     { platform: 'instagram', followers: formatCompactNumber(platformFollowers.instagram), url: epkInfo?.instagram_url || epkInfo?.instagram },
     { platform: 'twitter', followers: formatCompactNumber(platformFollowers.twitter), url: epkInfo?.twitter_url || epkInfo?.twitter },
