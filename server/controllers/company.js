@@ -162,21 +162,8 @@ export const updateCompanyByUser = async (req, res) => {
   try {
     const userId = req.params.userId;
     const companyToSave = req.body;
-    const companyGet = await company
-      .findOne()
-      .where({ user: { $elemMatch: { userId: userId } } })
-      .populate("name") // includes all fields of this object
-      .populate("website") // includes all fields of this object
-      .populate("email") // includes all fields of this object
-      .populate("phone") // includes all fields of this object
-      .populate("city") // includes all fields of this object
-      .populate("province") // includes all fields of this object
-      .populate("country") // includes all fields of this object
-      .populate("user.userId") // includes all fields of this object
-      .where("deleted")
-      .equals(false);
-    // ----- CHIHYIN -----
-    // After dealing with company logic, find the user and update hasAgent
+
+    // Update the user's hasAgent flag regardless
     const user = await User.findOne({ _id: userId });
     if (user) {
       user.hasAgent = req.body.hasAgent;
@@ -185,20 +172,29 @@ export const updateCompanyByUser = async (req, res) => {
       res.status(404).json({ message: "User not found." });
       return;
     }
+
+    // If hasAgent is false, skip company create/update entirely
+    if (!req.body.hasAgent) {
+      res.status(200).json({ hasAgent: false });
+      return;
+    }
+
+    const companyGet = await company
+      .findOne()
+      .where({ user: { $elemMatch: { userId: userId } } })
+      .where("deleted")
+      .equals(false);
+
     if (!companyGet) {
       const newCompany = new company(companyToSave);
       await newCompany.save();
-      console.log(newCompany);
       await newCompany.user.push({ userId });
       await newCompany.save();
       await newCompany.updateOne({ deleted: "false" });
-      //console.log(newCompany);
       res.status(200).json(newCompany);
     } else {
       await companyGet.updateOne(companyToSave);
       await companyGet.updateOne({ updatedAt: new Date() });
-      //const companyUpdated = await company.findOne({ _id: id });
-      //console.log(companyGet);
       res.status(200).json(companyGet);
     }
   } catch (error) {
