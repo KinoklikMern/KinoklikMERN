@@ -23,50 +23,43 @@ export default function EpkCover({ epkInfo }) {
   // };
 
   return (
-      <div
-          style={{
-            backgroundImage: window.innerWidth >= 768 ? `url(${banner_url})` : "none", // Show banner only on desktop
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-          className="tw-flex tw-h-[700px] tw-flex-col tw-justify-between tw-rounded-lg tw-shadow-[inset_0_15px_10px_rgba(242,229,229,0.6)]"
-      >
-        <div className="tw-flex tw-h-5/6 tw-flex-col tw-justify-start  md:tw-flex-row md:tw-pb-0 ">
-          <img
-              src={image_detail}
-              alt="Poster"
-              className="tw-h-full tw-w-96 tw-object-cover"
-          />
-          <div className="tw-my-4 tw-flex tw-flex-col tw-items-center tw-justify-between tw-text-white md:tw-w-2/3">
-            <p className="tw-rounded-xl tw-bg-black tw-bg-opacity-40 tw-px-5 tw-text-center tw-text-[1.5rem] md:tw-text-[3rem] lg:tw-text-[4rem]">
-              {epkInfo.title}
-            </p>
-            <p className="tw-mt-4 tw-text-center md:tw-mt-0 md:tw-text-lg tw-bg-black tw-bg-opacity-40">
-              {epkInfo.logLine_short}
-            </p>
-          </div>
+    <div className="tw-flex tw-w-full tw-flex-col tw-gap-4 md:tw-flex-row md:tw-gap-6 tw-mb-10">
+      
+      {/* LEFT: POSTER (28% width on desktop) */}
+      <div className="tw-w-full md:tw-w-[28%] tw-shrink-0 tw-overflow-hidden tw-rounded-[10px] tw-shadow-lg">
+        <img
+          src={image_detail}
+          alt="Poster"
+          className="tw-h-[500px] md:tw-h-[600px] xl:tw-h-[600px] tw-w-full tw-object-cover tw-object-center"
+        />
+      </div>
+
+      {/* RIGHT: BANNER (Fills remaining 72% space) */}
+      <div className="tw-relative tw-flex-1 tw-overflow-hidden tw-rounded-[10px] tw-shadow-lg tw-w-full">
+        <img
+          src={banner_url}
+          alt="Banner"
+          className="tw-h-[300px] md:tw-h-[600px] xl:tw-h-[600px] tw-w-full tw-object-cover tw-object-center"
+        />
+
+        {/* DARK GRADIENT OVERLAY (Fades from dark purple/black at the bottom to transparent) */}
+        <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039]/90 tw-via-black/40 tw-to-transparent tw-pointer-events-none"></div>
+
+        {/* LOGLINE ONLY (Anchored to the bottom) */}
+        <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-flex tw-flex-col tw-p-6 md:tw-p-10">
+          <p className="tw-max-w-4xl tw-text-base md:tw-text-xl tw-font-medium tw-leading-relaxed tw-text-white tw-drop-shadow-md">
+            {epkInfo.logLine_short}
+          </p>
         </div>
 
-        <div className="tw-flex tw-justify-between tw-bg-black/50 tw-px-6 tw-py-1">
-          {/*<div className="tw-flex tw-w-11/12 tw-items-center tw-justify-between tw-flex-wrap tw-gap-x-4">*/}
-          {/*  <p className="tw-text-white md:tw-text-xl">*/}
-          {/*    {t("Posted")}: <span>{formatedDate(epkInfo.createdAt)}</span>*/}
-          {/*  </p>*/}
-          {/*  <p className="tw-text-white md:tw-text-xl">{epkInfo.status}</p>*/}
-          {/*  <p className="tw-text-white md:tw-text-xl">*/}
-          {/*    {epkInfo.production_type}*/}
-          {/*  </p>*/}
-          {/*  <p className="tw-text-white md:tw-text-xl tw-capitalize ">*/}
-          {/*    {epkInfo.genre}*/}
-          {/*  </p>*/}
-          {/*</div>*/}
-          <div className="tw-flex tw-w-1/12 tw-cursor-pointer tw-justify-end">
-            {user?.id !== epkInfo.film_maker._id ? (
-                <EpkReport epkInfo={epkInfo} />
-            ) : null}
+        {/* REPORT BUTTON (Anchored to the top right, hidden from the EPK creator) */}
+        {user?.id !== epkInfo.film_maker._id && (
+          <div className="tw-absolute tw-right-4 tw-top-4 tw-z-10">
+            <EpkReport epkInfo={epkInfo} />
           </div>
-        </div>
+        )}
       </div>
+    </div>
   );
 
 }

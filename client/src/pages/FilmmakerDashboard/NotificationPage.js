@@ -4,7 +4,7 @@ import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
 import UserCard from "../../components/FilmMakerDashboard/Notifications/UserCard";
 import { getFepksByFilmmakerId } from "../../api/epks";
 import NotificationEpkCard from "../../components/FilmMakerDashboard/Notifications/NotificationEpkCard";
-import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
+import NewEpkBtn from "../../components/FilmMakerDashboard/Epks/NewEpkBtn";
 import RequestCard from "../../components/FilmMakerDashboard/Notifications/RequestCard";
 import { approveRequest, refuseRequest } from "../../api/epks";
 import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
@@ -317,7 +317,16 @@ export default function NotificationPage() {
               <LoadingSpin />
             ) : epkList.length === 0 ? (
               <div className='tw-mt-12'>
-                <EmptyEpk />
+                <div>
+                  <div className="tw-my-16 tw-mb-36 tw-flex tw-justify-center">
+                    <NewEpkBtn />
+                  </div>
+                  <div className="tw-flex tw-justify-center">
+                    <div className="tw-text-2xl tw-font-light tw-text-[#1E0039]">
+                      <span className="tw-block">{t("You don't have any notifications yet.")}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (
               <div className='tw-grid tw-h-full tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3'>

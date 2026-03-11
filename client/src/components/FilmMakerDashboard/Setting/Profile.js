@@ -63,6 +63,7 @@ export default function Profile() {
     linkedin_url: '',
     tiktok_url: '',
     tiktok_followers: '',
+    newletter_subs: '',
     aboutMe: '',
     picture: '',
     bannerImg: '', // This will store the demo reel media for filmmakers
@@ -196,7 +197,7 @@ export default function Profile() {
       name === 'instagram_url' ||
       name === 'youtube_url' ||
       name === 'linkedin_url' ||
-      name === 'tiktok_url'
+      name === 'tiktok_url' 
     ) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
@@ -210,7 +211,8 @@ export default function Profile() {
       name === 'twitter_followers' ||
       name === 'instagram_followers' ||
       name === 'youtube_subs' ||
-      name === 'tiktok_followers'
+      name === 'tiktok_followers'||
+      name === 'newletter_subs'
     ) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
@@ -728,6 +730,30 @@ export default function Profile() {
       {/* Divider */}
       <hr className="tw-my-4 tw-border-gray-400" />
       <div className="tw-mx-auto tw-my-8 tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
+        <div className="tw-mx-auto tw-flex tw-items-center">
+          <i className="fa-solid fa-envelope tw-text-4xl"></i>
+          <input
+            type="text"
+            name="newsletter_subs"
+            placeholder={t('Newsletter Subscribers')}
+            value={userProfileData.newsletter_subs}
+            onChange={handleProfileChange}
+            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+          {validationErrors.newsletter_subs && (
+            <div className="tw-text-red-500">
+              {validationErrors.newsletter_subs}
+            </div>
+          )}
+          <input
+            disabled
+            type="text"
+            name="facebook_followers"
+            placeholder={t('Followers')}
+            value={userProfileData.facebook_followers}
+            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-invisible tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+        </div>
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-facebook tw-text-4xl"></i>
           <input

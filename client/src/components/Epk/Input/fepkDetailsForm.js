@@ -187,6 +187,10 @@ function FepkDetailsForm() {
         .then((res) => {
           setCurrentFepkUsers([...currentFepkUsers, selectedUser]);
           setEpkFilmDetailsData(updatedEpkFilmDetailsData);
+          setUserName("");
+          setRole("");
+          setSelectedUser(null);
+          setFilteredData([]);
           console.log(t("saved"));
         })
         .catch((err) => {
