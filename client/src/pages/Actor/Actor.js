@@ -74,7 +74,7 @@ export default function Actor(props) {
   const userIsFilmmaker = user && user.role === 'Filmmaker';
   const isOwnActorPage = user && user.id === id;
 
- function setAge(age) {
+  function setAge(age) {
     const foundRange = AGE_OPTIONS.find(opt => {
       const [min, max] = opt.label.replace('+', '').split('-').map(Number);
       return age >= min && (max ? age <= max : true);
