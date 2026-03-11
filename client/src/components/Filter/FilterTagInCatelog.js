@@ -213,7 +213,7 @@ export default function FilterTagInCatelog({ isActive }) {
 
     return (
       <div className="filter-button-container">
-        {name == "Gender" ||
+        {name === "Gender" ||
         name === "Age Range" ||
         name === "Ethnicity" ||
         name === "Representation" ||

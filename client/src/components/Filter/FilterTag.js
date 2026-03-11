@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo, useContext } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../HomeBody/HomeBody.css';
 import '../List/List.css';
