@@ -15,6 +15,8 @@ import DollarWhiteIcon from "../../images/icons/DollarFull.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import moviePic from "../../images/movie11.jpg";
+import { GENDER_OPTIONS } from "../../constants/GenderOptions";
+import GenderDropdown from "../../components/Filter/GenderDropdown";
 
 export default function SavedPage() {
   const { t } = useTranslation();
@@ -29,8 +31,7 @@ export default function SavedPage() {
   const [productionFilter, setProductionFilter] = useState(0);
   const [typeFilter, setTypeFilter] = useState(0);
   const [itemFilter, setItemFilter] = useState(0);
-  const [maleFilter, setMaleFilter] = useState(true); //Male
-  const [femaleFilter, setFemaleFilter] = useState(true); //All
+  const [selectedGender, setSelectedGender] = useState("All");
 
   // fetching user
   const user = useSelector((state) => state.user);
@@ -128,39 +129,21 @@ export default function SavedPage() {
           break;
       }
     } else {
-      //Actor
-      let filteSexArr = [];
-      if (maleFilter === true && femaleFilter === true) {
-        filteSexArr = ["Male", "Female"];
-      } else if (maleFilter === true) {
-        filteSexArr = ["Male"];
-      } else if (femaleFilter === true) {
-        filteSexArr = ["Female"];
-      }
-
-      if (typeFilter === 2) {
-        //Followed
-        if (maleFilter === true && femaleFilter === true) {
-          setFilteredActorList(actorFollowedList); //for all genders, dont need to filter
-        } else
-          setFilteredActorList(
-            actorFollowedList.filter((actor) => filteSexArr.includes(actor.sex))
-          );
-      } else if (typeFilter === 1) {
-        //Starred
-        if (maleFilter === true && femaleFilter === true) {
-          setFilteredActorList(actorStarredList); //for all genders, dont need to filter
-        } else
-          setFilteredActorList(
-            actorStarredList.filter((actor) => filteSexArr.includes(actor.sex))
-          );
+      // Actor Filter Logic
+      const sourceList = typeFilter === 2 ? actorFollowedList : actorStarredList;
+      
+      if (selectedGender === "All") {
+        setFilteredActorList(sourceList);
+      } else {
+        setFilteredActorList(
+          sourceList.filter((actor) => actor.sex === selectedGender)
+        );
       }
     }
   }, [
     itemFilter,
     typeFilter,
-    maleFilter,
-    femaleFilter,
+    selectedGender,
     productionFilter,
     starEpkList,
     followEpkList,
@@ -183,24 +166,8 @@ export default function SavedPage() {
   const handleBtnClick = (index) => {
     setProductionFilter(index);
   };
-  const handleGenderClick = (index) => {
-    switch (index) {
-      case 0:
-        setMaleFilter(!maleFilter);
-        break;
-      case 1:
-        setFemaleFilter(!femaleFilter);
-        break;
-      default: //all
-        if (maleFilter === true && femaleFilter === true) {
-          setMaleFilter(false);
-          setFemaleFilter(false);
-        } else {
-          setMaleFilter(true);
-          setFemaleFilter(true);
-        }
-        break;
-    }
+  const handleGenderSelect = (gender) => {
+    setSelectedGender(gender);
   };
 
   return (
@@ -415,65 +382,24 @@ export default function SavedPage() {
                     </button>
                   </div>
                 </div>
-                <div className="md:tw-w-5/12">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-gap-2 tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs md:tw-ml-6 ">
-                    <button
-                      className={`${
-                        maleFilter === true
-                          ? "tw-bg-[#6627a7] tw-text-white"
-                          : "tw-bg-white tw-text-midnight"
-                      } tw-rounded-lg  tw-px-2 `}
-                      onClick={() => handleGenderClick(0)}
-                    >
-                      {t("Male")}
-                      {!maleFilter ? (
-                        <FontAwesomeIcon
-                          className="tw-pl-3"
-                          icon={faPlus}
-                          style={{ color: "#aaaaaa" }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
-                      )}
-                    </button>
-                    <button
-                      className={`${
-                        femaleFilter === true
-                          ? "tw-bg-[#6627a7] tw-text-white"
-                          : "tw-bg-white tw-text-midnight"
-                      } tw-rounded-lg  tw-px-2 `}
-                      onClick={() => handleGenderClick(1)}
-                    >
-                      {t("Female")}
-                      {!femaleFilter ? (
-                        <FontAwesomeIcon
-                          className="tw-pl-3"
-                          icon={faPlus}
-                          style={{ color: "#aaaaaa" }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
-                      )}
-                    </button>
-                    <button
-                      className={`${
-                        femaleFilter === true && maleFilter === true
-                          ? "tw-bg-[#6627a7] tw-text-white"
-                          : "tw-bg-white tw-text-midnight"
-                      } tw-rounded-lg  tw-px-2`}
-                      onClick={() => handleGenderClick(2)}
-                    >
-                      {t("All Actors")}
-                      {!femaleFilter || !maleFilter ? (
-                        <FontAwesomeIcon
-                          className="tw-pl-3"
-                          icon={faPlus}
-                          style={{ color: "#aaaaaa" }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
-                      )}
-                    </button>
+                <div className="md:tw-w-5/12 tw-relative">
+                  <div className="tw-mb-2 tw-flex tw-h-9 tw-items-center tw-justify-between tw-rounded-xl tw-bg-[#1E0039] tw-px-4 tw-shadow-lg md:tw-ml-6">
+
+                    <div className="tw-flex tw-gap-2">
+                      <button
+                        onClick={() => setSelectedGender("All")}
+                        className={`${
+                          selectedGender === "All" ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white"
+                        } tw-rounded-lg tw-px-3 tw-text-[10px] tw-font-bold`}
+                      >
+                        {t("All")}
+                      </button>
+
+                      <GenderDropdown 
+                        selectedValue={selectedGender} 
+                        onOptionSelect={handleGenderSelect} 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

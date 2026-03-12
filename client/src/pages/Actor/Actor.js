@@ -419,7 +419,7 @@ export default function Actor(props) {
                 {t('Actor')}
               </p>
               <p className="tw-text-md tw-text-center tw-font-bold tw-text-black">
-                {displaySex(epkInfo.sex)}
+                {displayGender(epkInfo.gender)}
               </p>
             </div>
             <p className="tw-text-center tw-text-xl tw-font-bold tw-text-black">
@@ -562,7 +562,7 @@ export default function Actor(props) {
             </div>
 
             <p>{t('Playing Gender')}</p>
-            <p className='tw-font-normal'>{epkInfo.sex}</p>
+            <p className='tw-font-normal'>{epkInfo.gender}</p>
 
             <p>{t('Age Range')}</p>
             <p className='tw-font-normal'>
