@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import {
   EmailShareButton,
   EmailIcon,
@@ -17,165 +17,112 @@ import { useTranslation } from 'react-i18next';
 
 const SocialShareModal = ({ isOpen, urlShare, closeModal }) => {
   const [copySuccess, setCopySuccess] = useState("");
+  const [position, setPosition] = useState("top");
+  const modalRef = useRef(null);
+  
+  const { t } = useTranslation();
 
-  //Translate Text
-const { t } = useTranslation();
+  // Smart Positioning: Flip the modal if it hits the top of the screen
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      const rect = modalRef.current.getBoundingClientRect();
+      // If the top of the modal is less than 60px from the top of the screen...
+      if (rect.top < 60) {
+        setPosition("bottom"); // ...flip it to open downwards!
+      } else {
+        setPosition("top");
+      }
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   const copyToClipboard = () => {
     const currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl).then(() => {
-      setCopySuccess("Copied!");
-      console.log("URL to be copied:", currentUrl);
+      setCopySuccess(t("Copied!"));
       setTimeout(() => setCopySuccess(""), 2000);
     });
   };
-  
 
   return (
+    <>
+    <div 
+        className="tw-fixed tw-inset-0 tw-z-[9998]" 
+        onClick={closeModal}
+        aria-hidden="true"
+      />
     <div
-      className={`modal fade ${isOpen ? "show" : ""}`}
+      ref={modalRef}
+      className="tw-absolute tw-z-[1050] tw-w-[290px] md:tw-w-[350px] tw-rounded-[13px] tw-shadow-2xl tw-p-4 tw-border tw-border-white/20 tw-transition-opacity tw-duration-300 tw-opacity-100"
       style={{
-        display: isOpen ? "block" : "none",
-        zIndex: 1050,
+        right: 0, 
+        ...(position === "top"
+          ? { bottom: "calc(100% + 15px)" } 
+          : { top: "calc(100% + 15px)" }),
+        backgroundColor: "rgba(255, 255, 255, 0.85)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
       }}
-      id="exampleModal"
-      tabIndex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
     >
-      <div className="modal-dialog" role="document">
-        <div
-          className="modal-content col-12"
-          style={{
-            borderRadius: "13px",
-            backgroundColor: "rgba(255, 255, 255, 0.3)",
-          }}
+      {/* Header & Close Button */}
+      <div className="tw-flex tw-justify-between tw-items-start tw-mb-4">
+        <h5 className="tw-font-bold tw-text-lg tw-text-[#1e0039] tw-w-full tw-text-center tw-m-0">
+          {t('Share your EPK with the world!')}
+        </h5>
+        <button
+          type="button"
+          onClick={closeModal}
+          className="tw-text-2xl tw-leading-none tw-text-gray-500 hover:tw-text-[#e81a84] tw-bg-transparent tw-border-none tw-cursor-pointer tw-absolute tw-right-4 tw-top-3"
+          aria-label="Close"
         >
-          <div
-            className="modal-header"
-            style={{ borderBottom: "none", padding: "0.5rem 1rem" }}
-          >
-            <button
-              type="button"
-              className="close"
-              aria-label="Close"
-              onClick={closeModal}
-              style={{
-                marginLeft: "auto",
-                outline: 0,
-                boxShadow: "none",
-                backgroundColor: "transparent",
-                fontSize: "1.5rem",
-              }}
-            >
-              &times;
-            </button>
-          </div>
-          <div
-            className="modal-body"
-            style={{ color: "#3b3b3b", paddingTop: "0.5rem" }}
-          >
-            <h5
-              className="modal-title"
-              style={{
-                fontWeight: 700,
-                fontSize: "1.2rem",
-                textAlign: "center",
-                width: "100%",
-                marginBottom: "20px",
-                color: "#1e0039",
-              }}
-            >
-              {t('Share your EPK with the world!')}
-            </h5>
-            <div className="icon-container1 d-flex justify-content-between">
-              <div className="smd">
-                <FacebookShareButton url={urlShare}>
-                  <FacebookIcon size={40} round />
-                </FacebookShareButton>
-              </div>
-              <div className="smd">
-                <WhatsappShareButton url={urlShare}>
-                  <WhatsappIcon size={40} round />
-                </WhatsappShareButton>
-              </div>
-              <div className="smd">
-                <TwitterShareButton url={urlShare}>
-                  <TwitterIcon size={40} round />
-                </TwitterShareButton>
-              </div>
-              <div className="smd">
-                <LinkedinShareButton url={urlShare}>
-                  <LinkedinIcon size={40} round />
-                </LinkedinShareButton>
-              </div>
-              <div className="smd">
-                <EmailShareButton url={urlShare}>
-                  <EmailIcon size={40} round />
-                </EmailShareButton>
-              </div>
-            </div>
-          </div>
-          <div
-            className="modal-footer"
-            style={{ display: "block", marginTop: "10px" }}
-          >
-            <div className="row">
-              <input
-                className="col-10 ur"
-                type="url"
-                value={window.location.href}
-                id="myInput"
-                aria-describedby="inputGroup-sizing-default"
-                style={{
-                  flex: 1,
-                  height: "40px",
-                  border: "none",
-                  backgroundColor: "#e6e2e2",
-                  borderRadius: "4px 0 0 4px",
-                  outline: 0,
-                  boxShadow: "none",
-                  padding: "0 10px",
-                }}
-                readOnly
-              />
-              <button
-                className="cpy"
-                onClick={copyToClipboard}
-                style={{
-                  width: "40px",
-                  border: "none",
-                  backgroundColor: "#e6e2e2",
-                  borderRadius: "0 4px 4px 0",
-                  cursor: "pointer",
-                  outline: 0,
-                  boxShadow: "none",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faCopy}
-                  style={{ backgroundColor: "transparent" }}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-        <label style={{ fontWeight: 600 }}>
-          <span
-            className="message"
-            style={{ fontSize: "1rem", color: "#1e0039" }}
-          >
-            {copySuccess}
-          </span>
-        </label>
+          &times;
+        </button>
       </div>
+
+      {/* Social Icons */}
+      <div className="tw-flex tw-justify-between tw-mb-5">
+        <FacebookShareButton url={urlShare} className="hover:tw-scale-110 tw-transition-transform">
+          <FacebookIcon size={40} round />
+        </FacebookShareButton>
+        <WhatsappShareButton url={urlShare} className="hover:tw-scale-110 tw-transition-transform">
+          <WhatsappIcon size={40} round />
+        </WhatsappShareButton>
+        <TwitterShareButton url={urlShare} className="hover:tw-scale-110 tw-transition-transform">
+          <TwitterIcon size={40} round />
+        </TwitterShareButton>
+        <LinkedinShareButton url={urlShare} className="hover:tw-scale-110 tw-transition-transform">
+          <LinkedinIcon size={40} round />
+        </LinkedinShareButton>
+        <EmailShareButton url={urlShare} className="hover:tw-scale-110 tw-transition-transform">
+          <EmailIcon size={40} round />
+        </EmailShareButton>
+      </div>
+
+      {/* Copy Link Input */}
+      <div className="tw-flex tw-w-full tw-bg-[#e6e2e2] tw-rounded tw-overflow-hidden">
+        <input
+          type="url"
+          value={window.location.href}
+          className="tw-flex-1 tw-bg-transparent tw-border-none tw-px-3 tw-py-2 tw-text-sm tw-text-gray-700 tw-outline-none"
+          readOnly
+        />
+        <button
+          onClick={copyToClipboard}
+          className="tw-w-12 tw-flex tw-justify-center tw-items-center tw-bg-gray-300 hover:tw-bg-gray-400 tw-transition-colors tw-border-none tw-cursor-pointer"
+        >
+          <FontAwesomeIcon icon={faCopy} className="tw-text-gray-700" />
+        </button>
+      </div>
+
+      {/* Success Message */}
+      {copySuccess && (
+        <div className="tw-text-center tw-text-sm tw-font-bold tw-text-[#e81a84] tw-mt-3">
+          {copySuccess}
+        </div>
+      )}
     </div>
+    </>
   );
 };
 

@@ -25,6 +25,7 @@ import Banner from '../components/EpkView/EpkBanner/EpkBanner';
 import emptyBanner from '../images/empty_banner.jpeg';
 import EpkSalesCalculator from '../components/EpkView/EpkSalesCalculator/EpkSalesCaculator';
 import EpkPhotoGallery from '../components/EpkView/EpkPhotoGallery/EpkPhotoGallery';
+import AnalyticsDataService from "../api/analytics";
 
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -144,6 +145,19 @@ function EpkViewPage() {
       );
     }
   }, [epkInfo]);
+  useEffect(() => {
+    if (id && epkInfo) {
+      
+      const isOwner = user?.id === epkInfo.film_maker?._id;
+
+      if (!isOwner) {
+        AnalyticsDataService.trackView(id, 'EPK')
+          .catch(err => {
+            console.log("Analytics ping failed silently", err);
+          });
+      }
+    }
+  }, [id, epkInfo, user?.id]);
 
   return (
     epkInfo && (

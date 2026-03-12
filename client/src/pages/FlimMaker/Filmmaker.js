@@ -18,7 +18,7 @@ import {
   faPlay,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import { formatCompactNumber } from '../../utils/numberformatters';
+import { formatCompactNumber } from '../../utils/numberFormatters';
 import { fetchAndSumFollowers } from '../../utils/followersHelper';
 
 export default function Filmmaker(props) {

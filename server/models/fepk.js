@@ -382,6 +382,10 @@ const fepkSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  viewCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const fepk = mongoose.model("fepk", fepkSchema);

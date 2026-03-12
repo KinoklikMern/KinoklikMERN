@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SocialMedia from "./SocialMedia";
-import { formatCompactNumber } from "../../../utils/numberformatters";
+import { formatCompactNumber } from "../../../utils/numberFormatters";
 import { fetchAndSumFollowers } from "../../../utils/followersHelper";
 
 export default function EpkHeader({ epkInfo }) {
