@@ -12,7 +12,6 @@ import PlusIcon from "../../images/icons/PlusEmpty.svg";
 import PlusWhiteIcon from "../../images/icons/PlusFULL.svg";
 import DollarIcon from "../../images/icons/DollarEmpty.svg";
 import DollarWhiteIcon from "../../images/icons/DollarFull.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moviePic from "../../images/movie11.jpg";
 import GenderDropdown from "../../components/Filter/GenderDropdown";
 import AgeRangeDropdown from "../../components/Filter/AgeRangeDropdown";
