@@ -91,7 +91,7 @@ export const register = async (req, res) => {
       password: cryptedPassword,
       isVerified: false,
       receiveNewsletter,
-      sex: gender,
+      gender,
       otp: OTP,
     }).save();
 

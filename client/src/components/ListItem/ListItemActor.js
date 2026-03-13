@@ -51,7 +51,7 @@ export default function ListItem({ title, type }) {
             } else if (filter.startsWith("Gender:")) {
               const gender = filter.replace("Gender:", "").trim();
               filteredActors = filteredActors.filter(
-                (actor) => actor.sex === gender
+                (actor) => actor.gender === gender
               );
             } else if (filter.startsWith("Ethnicity:")) {
               const ethnicity = filter.replace("Ethnicity:", "").trim();

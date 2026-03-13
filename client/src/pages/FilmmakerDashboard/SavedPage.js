@@ -12,9 +12,11 @@ import PlusIcon from "../../images/icons/PlusEmpty.svg";
 import PlusWhiteIcon from "../../images/icons/PlusFULL.svg";
 import DollarIcon from "../../images/icons/DollarEmpty.svg";
 import DollarWhiteIcon from "../../images/icons/DollarFull.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import moviePic from "../../images/movie11.jpg";
+import GenderDropdown from "../../components/Filter/GenderDropdown";
+import AgeRangeDropdown from "../../components/Filter/AgeRangeDropdown";
+import EthnicityDropdown from "../../components/Filter/EthnicityDropdown";
+import FilterWrapper from "../../components/Filter/FilterWrapper";
 
 export default function SavedPage() {
   const { t } = useTranslation();
@@ -29,8 +31,11 @@ export default function SavedPage() {
   const [productionFilter, setProductionFilter] = useState(0);
   const [typeFilter, setTypeFilter] = useState(0);
   const [itemFilter, setItemFilter] = useState(0);
-  const [maleFilter, setMaleFilter] = useState(true); //Male
-  const [femaleFilter, setFemaleFilter] = useState(true); //All
+  const [selectedGender, setSelectedGender] = useState("All");
+  const [selectedAgeRange, setSelectedAgeRange] = useState("All");
+  const [selectedEthnicity, setSelectedEthnicity] = useState("All");
+  const [ageLabel, setAgeLabel] = useState("All");
+  const [ethnicityLabel, setEthnicityLabel] = useState("All");
 
   // fetching user
   const user = useSelector((state) => state.user);
@@ -128,39 +133,45 @@ export default function SavedPage() {
           break;
       }
     } else {
-      //Actor
-      let filteSexArr = [];
-      if (maleFilter === true && femaleFilter === true) {
-        filteSexArr = ["Male", "Female"];
-      } else if (maleFilter === true) {
-        filteSexArr = ["Male"];
-      } else if (femaleFilter === true) {
-        filteSexArr = ["Female"];
-      }
+      // Actor Filter Logic
+      let sourceList = [];
 
-      if (typeFilter === 2) {
-        //Followed
-        if (maleFilter === true && femaleFilter === true) {
-          setFilteredActorList(actorFollowedList); //for all genders, dont need to filter
-        } else
-          setFilteredActorList(
-            actorFollowedList.filter((actor) => filteSexArr.includes(actor.sex))
+      switch (typeFilter) {
+        case 1: // Starred
+          sourceList = actorStarredList;
+          break;
+        case 2: // Followed
+          sourceList = actorFollowedList;
+          break;
+        default: // All (case 0)
+          const starred = actorStarredList || [];
+          const followed = actorFollowedList || [];
+          
+          const combined = [...starred, ...followed];
+          
+          sourceList = Array.from(
+            new Map(combined.map((actor) => [actor._id, actor])).values()
           );
-      } else if (typeFilter === 1) {
-        //Starred
-        if (maleFilter === true && femaleFilter === true) {
-          setFilteredActorList(actorStarredList); //for all genders, dont need to filter
-        } else
-          setFilteredActorList(
-            actorStarredList.filter((actor) => filteSexArr.includes(actor.sex))
-          );
+          break;
       }
+      
+      setFilteredActorList(
+        sourceList.filter((actor) => {
+
+          const matchGender = selectedGender === "All" || actor.gender === selectedGender;
+          const matchAge = selectedAgeRange === "All" || Number(actor.age) === Number(selectedAgeRange);
+          const matchEthnicity = selectedEthnicity === "All" || actor.ethnicity === selectedEthnicity;
+          
+          return matchGender && matchAge && matchEthnicity;
+        })
+      );
     }
   }, [
     itemFilter,
     typeFilter,
-    maleFilter,
-    femaleFilter,
+    selectedGender,
+    selectedAgeRange,
+    selectedEthnicity,
     productionFilter,
     starEpkList,
     followEpkList,
@@ -172,7 +183,7 @@ export default function SavedPage() {
   const handleItemBtnClick = (index) => {
     setItemFilter(index);
     if (index === 1 && typeFilter !== 1 && typeFilter !== 2) {
-      setTypeFilter(2);
+      setTypeFilter(0);
     } else if (index === 0) {
       setTypeFilter(0);
     }
@@ -183,24 +194,16 @@ export default function SavedPage() {
   const handleBtnClick = (index) => {
     setProductionFilter(index);
   };
-  const handleGenderClick = (index) => {
-    switch (index) {
-      case 0:
-        setMaleFilter(!maleFilter);
-        break;
-      case 1:
-        setFemaleFilter(!femaleFilter);
-        break;
-      default: //all
-        if (maleFilter === true && femaleFilter === true) {
-          setMaleFilter(false);
-          setFemaleFilter(false);
-        } else {
-          setMaleFilter(true);
-          setFemaleFilter(true);
-        }
-        break;
-    }
+  const handleGenderSelect = (gender) => {
+    setSelectedGender(gender);
+  };
+  const handleAgeRangeSelect = (label, value) => {
+    setSelectedAgeRange(value);
+    setAgeLabel(label);
+  };
+  const handleEthnicitySelect = (label, value) => {
+    setSelectedEthnicity(value);
+    setEthnicityLabel(label);
   };
 
   return (
@@ -324,6 +327,7 @@ export default function SavedPage() {
                     </button>
                   </div>
                 </div>
+
                 <div className="md:tw-w-3/6">
                   <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between  tw-rounded-xl  tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6 ">
                     <button
@@ -372,10 +376,39 @@ export default function SavedPage() {
             ) : (
               // Actors Filter
               <div className="tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row">
-                <div className="md:tw-w-2/5"></div>
-                <div className="md:tw-w-1/5">
+                <div className="md:tw-w-3/6">
                   <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]">
                     <button
+                      className={`${
+                        typeFilter === 0
+                          ? "tw-bg-[#6627a7] tw-text-white"
+                          : "tw-bg-white tw-text-midnight"
+                      } tw-truncate tw-rounded-lg tw-px-2 `}
+                      onClick={() => handleNumBtnClick(0)}
+                    >
+                      {t("All")}
+                    </button>
+                    <button
+                      className={`${
+                        typeFilter === 1
+                          ? "tw-bg-[#6627a7] tw-text-white"
+                          : "tw-bg-white tw-text-midnight"
+                      } tw-flex tw-flex-col  tw-items-center tw-justify-center tw-rounded-lg tw-px-2 `}
+                      onClick={() => handleNumBtnClick(1)}
+                    >
+                    <img
+                      src={
+                        typeFilter === 1 ? StarWhiteIcon : StarMidnightIcon
+                      }
+                      alt="Star"
+                      style={{
+                        width: 22,
+                        height: 22,
+                      }}
+                      className={`tw-mt-1 `}
+                    />
+                  </button>
+                  <button
                       className={`${
                         typeFilter === 2
                           ? "tw-bg-[#6627a7] tw-text-white"
@@ -392,88 +425,64 @@ export default function SavedPage() {
                         }}
                         className="tw-mt-0.5"
                       />
-                    </button>
+                    </button> 
                     <button
-                      className={`${
-                        typeFilter === 1
-                          ? "tw-bg-[#6627a7] tw-text-white"
-                          : "tw-bg-white tw-text-midnight"
-                      } tw-flex tw-flex-col  tw-items-center tw-justify-center tw-rounded-lg tw-px-2 `}
-                      onClick={() => handleNumBtnClick(1)}
+                      className="tw-bg-white tw-text-white tw-rounded-lg tw-px-2 tw-cursor-default"
+                      type="button"
+                      disabled
                     >
                       <img
-                        src={
-                          typeFilter === 1 ? StarWhiteIcon : StarMidnightIcon
-                        }
-                        alt="Star"
+                        src={DollarIcon}
+                        alt="Dollar"
                         style={{
-                          width: 22,
-                          height: 22,
+                          width: 18,
+                          height: 18,
+                          opacity: 0
                         }}
-                        className={`tw-mt-1 `}
+                        className="tw-scale-75"
                       />
                     </button>
-                  </div>
                 </div>
-                <div className="md:tw-w-5/12">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-gap-2 tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs md:tw-ml-6 ">
-                    <button
+              </div>
+
+              <div className="md:tw-w-3/6">
+                <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between  tw-rounded-xl  tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6 ">
+                  <button
                       className={`${
-                        maleFilter === true
+                        selectedGender === "All" && selectedAgeRange === "All" && selectedEthnicity === "All"
                           ? "tw-bg-[#6627a7] tw-text-white"
                           : "tw-bg-white tw-text-midnight"
-                      } tw-rounded-lg  tw-px-2 `}
-                      onClick={() => handleGenderClick(0)}
+                      } tw-rounded-lg tw-px-2 tw-flex tw-items-center`}
+                      onClick={() => {
+                        setSelectedGender("All");
+                        setSelectedAgeRange("All");
+                        setSelectedEthnicity("All");
+
+                        setAgeLabel("All");
+                        setEthnicityLabel("All");
+                      }}
                     >
-                      {t("Male")}
-                      {!maleFilter ? (
-                        <FontAwesomeIcon
+                      {t("All")}
+                      {selectedGender === "All" && selectedAgeRange === "All" && selectedEthnicity === "All" ? (
+                        < span className="tw-pl-3"/>
+                      ) : (
+                        < span
                           className="tw-pl-3"
-                          icon={faPlus}
                           style={{ color: "#aaaaaa" }}
                         />
-                      ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
                       )}
                     </button>
-                    <button
-                      className={`${
-                        femaleFilter === true
-                          ? "tw-bg-[#6627a7] tw-text-white"
-                          : "tw-bg-white tw-text-midnight"
-                      } tw-rounded-lg  tw-px-2 `}
-                      onClick={() => handleGenderClick(1)}
-                    >
-                      {t("Female")}
-                      {!femaleFilter ? (
-                        <FontAwesomeIcon
-                          className="tw-pl-3"
-                          icon={faPlus}
-                          style={{ color: "#aaaaaa" }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
-                      )}
-                    </button>
-                    <button
-                      className={`${
-                        femaleFilter === true && maleFilter === true
-                          ? "tw-bg-[#6627a7] tw-text-white"
-                          : "tw-bg-white tw-text-midnight"
-                      } tw-rounded-lg  tw-px-2`}
-                      onClick={() => handleGenderClick(2)}
-                    >
-                      {t("All Actors")}
-                      {!femaleFilter || !maleFilter ? (
-                        <FontAwesomeIcon
-                          className="tw-pl-3"
-                          icon={faPlus}
-                          style={{ color: "#aaaaaa" }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon className="tw-pl-3" icon={faCheck} />
-                      )}
-                    </button>
+                    <FilterWrapper label={t("Gender")} selectedValue={selectedGender}>
+                      <GenderDropdown selectedValue={selectedGender} onOptionSelect={handleGenderSelect} />
+                    </FilterWrapper>
+
+                    <FilterWrapper label={t("Ethnicity")} selectedValue={ethnicityLabel !== "All" ? t(`ethnicities.${ethnicityLabel}`) : "All"}>
+                      <EthnicityDropdown selectedValue={selectedEthnicity} onOptionSelect={handleEthnicitySelect} />
+                    </FilterWrapper>
+
+                    <FilterWrapper label={t("Age")} selectedValue={ageLabel}>
+                      <AgeRangeDropdown selectedValue={selectedAgeRange} onOptionSelect={handleAgeRangeSelect} />
+                    </FilterWrapper>
                   </div>
                 </div>
               </div>

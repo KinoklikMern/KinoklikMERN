@@ -8,15 +8,14 @@ const GenderDropdown = ({ selectedValue, onOptionSelect }) => {
 
   return (
     <div className="dropdown-content">
-      {GENDER_OPTIONS.map((opt) => (
+      {GENDER_OPTIONS.map((option) => (
         <button
-          key={opt.value}
-          className={
-            selectedValue === opt.value ? 'selected' : ''
-          }
-          onClick={() => onOptionSelect(opt.value)}
+          key={option.value}
+          type="button"
+          className={option.value === selectedValue ? "selected" : ""}
+          onClick={() => onOptionSelect(option.value)} 
         >
-          {t(opt.label)}
+          {t(option.value)}
         </button>
       ))}
     </div>
