@@ -12,10 +12,10 @@ const AgeRangeDropdown = ({ selectedValue, onOptionSelect }) => {
         <button
           key={option.value}
           type="button"
-          className={selectedValue === option.value ? "selected" : ""}
-          onClick={() => onOptionSelect(option.value)}
+          className={option.value === selectedValue ? "selected" : ""}
+          onClick={() => onOptionSelect(option.label, option.value)}
         >
-          {t(option.label)}
+          {(option.label)}
         </button>
       ))}
     </div>

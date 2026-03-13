@@ -1245,16 +1245,18 @@
   "Current films by actor ": "Films actuels par acteur",
   "Current films by actor": "Films actuels par acteur/actrice",
 
-  "AfricanAmerican": "Africain / Noir",
-  "Asian": "Asiatique",
-  "South Asian": "Sud-asiatique",
-  "Caucasian": "Caucasien / Blanc",
-  "Hispanic": "Hispanique / Latino",
-  "Native": "Autochtone",
-  "MiddleEastern": "Moyen-Orient / Afrique du Nord / SWANA",
-  "PacificIslander": "Insulaire du Pacifique",
-  "Mixed": "Patrimoine mixte",
-  "Ambiguous": "Origine ethnique ambiguë",
+"ethnicities": {
+    "AfricanAmerican": "Africain / Noir",
+    "Asian": "Asiatique",
+    "SouthAsian": "Sud-asiatique",
+    "Caucasian": "Caucasien / Blanc",
+    "Hispanic": "Hispanique / Latino",
+    "Indigenous": "Autochtone",
+    "MiddleEastern": "Moyen-Orient / Afrique du Nord / SWANA",
+    "PacificIslander": "Insulaire du Pacifique",
+    "Mixed": "Patrimoine mixte",
+    "Ambiguous": "Origine ethnique ambiguë"
+  },
 
   "Nudity or Sexual Content": "Nudité ou Contenu Sexuel",
 
