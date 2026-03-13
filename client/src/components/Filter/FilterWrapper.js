@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 const FilterWrapper = ({ label, children, selectedValue, className }) => {
   const [isOpen, setIsOpen] = useState(false);

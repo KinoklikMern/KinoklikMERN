@@ -1,10 +1,8 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
 import { AGE_OPTIONS } from "../../constants/AgeOptions"; 
 import "./DropDown.css";
 
 const AgeRangeDropdown = ({ selectedValue, onOptionSelect }) => {
-  const { t } = useTranslation();
 
   return (
     <div className="dropdown-content">
