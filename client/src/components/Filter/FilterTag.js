@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../HomeBody/HomeBody.css';
 import '../List/List.css';
@@ -11,11 +11,15 @@ import {
   faSortUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { FepkContext } from '../../context/FepkContext.js';
+import GenderDropdown from './GenderDropdown.js';
 import AgeRangeDropdown from './AgeRangeDropdown';
 import EthnicityDropdown from './EthnicityDropdown';
 import RepresentationDropdown from './RepresentationDropdown';
 import CityDropdown from './CityDropdown';
 import CountryDropdown from './CountryDropdown';
+import { AGE_OPTIONS } from '../../constants/AgeOptions.js';
+import { ETHNICITY_OPTIONS } from '../../constants/EthnicityOptions.js';
+import { useTranslation } from 'react-i18next';
 
 // import StatusBtn from "../SwitchStatusBtn/Status";
 
@@ -25,12 +29,29 @@ export default function FilterTag({ role }) {
   // Yeming added
 
   // State to manage selected values for specific dropdowns
+  const [selectedGender, setSelectedGender] = useState(null);
   const [selectedAgeRange, setSelectedAgeRange] = useState(null);
   const [selectedEthnicity, setSelectedEthnicity] = useState(null);
   const [selectedRepresentation, setSelectedRepresentation] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
+
+  const { t } = useTranslation();
+
+  const containerRef = useRef(null);
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (selectedDropdown && containerRef.current && !containerRef.current.contains(event.target)) {
+      setSelectedDropdown(null);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [selectedDropdown]);
 
   const handleDropdownSelection = (name, value) => {
     setFilterQuery((prevFilterQuery) => {
@@ -46,13 +67,9 @@ export default function FilterTag({ role }) {
         updatedQuery.push(`${name}: ${value}`);
       }
 
-      // Check if "Male" or "Female" buttons are active
-      const isGenderActive = updatedQuery.some(
-        (item) => item === 'Male' || item === 'Female'
-      );
-
       // Check if any of the dropdown values have been selected
       const anyDropdownValueSelected = [
+        'Gender',
         'Age Range',
         'Ethnicity',
         'Representation',
@@ -63,10 +80,13 @@ export default function FilterTag({ role }) {
       );
 
       // Update the "All Actors" button based on the selected dropdown values and gender
-      const allActorsIsActive = !(isGenderActive || anyDropdownValueSelected);
+      const allActorsIsActive = !anyDropdownValueSelected;
 
       // Update selected value based on the dropdown
       switch (name) {
+        case 'Gender':
+          setSelectedGender(value);
+          break;
         case 'Age Range':
           setSelectedAgeRange(value);
           break;
@@ -105,39 +125,13 @@ export default function FilterTag({ role }) {
 
   const actorFilterTag = useMemo(
     () => [
-      {
-        name: 'Male',
-        isActive: false,
-      },
-      {
-        name: 'Female',
-        isActive: false,
-      },
-
-      {
-        name: 'Age Range', // Age Range dropdown
-        isActive: false,
-      },
-      {
-        name: 'Ethnicity', // Ethnicity dropdown
-        isActive: false,
-      },
-      {
-        name: 'Representation', // Representation dropdown
-        isActive: false,
-      },
-      {
-        name: 'City', // City dropdown
-        isActive: false,
-      },
-      {
-        name: 'Country', // Country dropdown
-        isActive: false,
-      },
-      {
-        name: 'All Actors',
-        isActive: true,
-      },
+      { name: 'Gender', isActive: false },
+      { name: 'Age Range', isActive: false },
+      { name: 'Ethnicity', isActive: false },
+      { name: 'Representation', isActive: false },
+      { name: 'City', isActive: false },
+      { name: 'Country', isActive: false },
+      { name: 'All Actors', isActive: true },
     ],
     []
   );
@@ -158,31 +152,18 @@ export default function FilterTag({ role }) {
 
     if (name === 'All Actors') {
       // Reset the dropdown state values to their default (null) when All Actors is clicked
+      setSelectedGender(null);
       setSelectedAgeRange(null);
       setSelectedEthnicity(null);
       setSelectedRepresentation(null);
       setSelectedCity(null);
       setSelectedCountry(null);
+      
       newTags = filterTags.map((tag) => ({
         ...tag,
         isActive: tag.name === name,
       }));
       newQuery = isActive ? [] : [];
-    } else if (name === 'Male' || name === 'Female') {
-      // Handle "Male" and "Female" options mutually exclusively
-      newTags = filterTags.map((tag) =>
-        tag.name === name
-          ? { ...tag, isActive: true }
-          : { ...tag, isActive: false }
-      );
-      newQuery = Array.isArray(filterQuery)
-        ? [
-            ...filterQuery.filter(
-              (item) => item !== 'Male' && item !== 'Female'
-            ),
-            name,
-          ]
-        : [name];
     } else {
       newTags = filterTags.map((tag) =>
         tag.name === name ? { ...tag, isActive: !isActive } : tag
@@ -198,8 +179,7 @@ export default function FilterTag({ role }) {
 
       // Update "All Actors" tag
       const allActorsIsActive =
-        !newQuery.includes('Male') &&
-        !newQuery.includes('Female') &&
+        !selectedGender &&
         !selectedAgeRange &&
         !selectedEthnicity &&
         !selectedRepresentation &&
@@ -221,10 +201,22 @@ export default function FilterTag({ role }) {
   const FilterButton = ({ name, isActive, clickHandler, selectedValue }) => {
     const isDropdownActive = selectedDropdown === name;
     // const isDropdownActive = selectedDropdown === selectedValue;
+    const buttonRef = useRef(null);
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (isDropdownActive && buttonRef.current && !buttonRef.current.contains(event.target)) {
+          setSelectedDropdown(null);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [isDropdownActive]);
 
     return (
       <div className="filter-button-container">
-        {name === 'Age Range' ||
+        {name === 'Gender' ||
+        name === 'Age Range' ||
         name === 'Ethnicity' ||
         name === 'Representation' ||
         name === 'City' ||
@@ -241,7 +233,13 @@ export default function FilterTag({ role }) {
               onClick={() => handleDropdownSelection(name, null)}
             >
               {/* {name} */}
-              {selectedValue || name}
+              {
+                name === 'Age Range' 
+                  ? (AGE_OPTIONS.find(opt => opt.value === selectedValue)?.label || name)
+                : name === 'Ethnicity' 
+                  ? (t(ETHNICITY_OPTIONS.find(opt => opt.value === selectedValue)?.label) || name)
+                : (selectedValue || name)
+              }
               <FontAwesomeIcon
                 icon={isDropdownActive ? faSortUp : faSortDown}
                 className="tw-ml-2"
@@ -249,7 +247,14 @@ export default function FilterTag({ role }) {
             </button>
 
             {isDropdownActive && (
-              <div className="dropdown-options absolute top-8 left-0 mt-2 py-2 bg-white rounded-lg shadow-lg">
+              <div className="dropdown-options">
+                {name === 'Gender' && (
+                  <GenderDropdown
+                    selectedValue={selectedGender}
+                    onOptionSelect={(value) => 
+                      handleDropdownSelection(name, value)}
+                  />
+                )}
                 {name === 'Age Range' && (
                   <AgeRangeDropdown
                     selectedValue={selectedAgeRange}
@@ -321,7 +326,7 @@ export default function FilterTag({ role }) {
   };
 
   return (
-    <div className="">
+    <div ref={containerRef} className="">
       {/* <div className='filter-tag-container'></div> */}
       <div className="tw-relative tw-flex tw-flex-col tw-items-center tw-justify-around tw-bg-[#1e0039] lg:tw-flex-row">
         {filterTags.map((tag, index) => (
@@ -331,17 +336,12 @@ export default function FilterTag({ role }) {
             clickHandler={clickHandler}
             isActive={tag.isActive}
             selectedValue={
-              tag.name === 'Age Range'
-                ? selectedAgeRange
-                : tag.name === 'Ethnicity'
-                ? selectedEthnicity
-                : tag.name === 'Representation'
-                ? selectedRepresentation
-                : tag.name === 'City'
-                ? selectedCity
-                : tag.name === 'Country'
-                ? selectedCountry
-                : null
+              tag.name === 'Gender' ? selectedGender :
+              tag.name === 'Age Range' ? selectedAgeRange :
+              tag.name === 'Ethnicity' ? selectedEthnicity :
+              tag.name === 'Representation' ? selectedRepresentation :
+              tag.name === 'City' ? selectedCity :
+              tag.name === 'Country' ? selectedCountry : null
             }
           />
         ))}
