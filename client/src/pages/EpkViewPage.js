@@ -39,6 +39,7 @@ function EpkViewPage() {
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
   const [imageDetails, setImageDetails] = useState('');
+  const [globalTotalReach, setGlobalTotalReach] = useState(0);
 
   //let { title } = useParams();
   let { id } = useParams();
@@ -171,7 +172,10 @@ function EpkViewPage() {
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039]">
         <div className="tw-w-11/12">
-          <EpkHeader epkInfo={epkInfo} />
+          <EpkHeader 
+          epkInfo={epkInfo}
+          setGlobalTotalReach={setGlobalTotalReach}
+           />
           <EpkCover 
           epkInfo={epkInfo} 
           scrollToPhotos={scrollToPhotos}
@@ -265,7 +269,9 @@ function EpkViewPage() {
               epkDonateStripe={epkInfo.DonateStripe_url}
             />
           )}
-          <EpkSalesCalculator />
+          <EpkSalesCalculator 
+          globalTotalReach={globalTotalReach}
+           />
           <Banner />
         </div>
       </div>
