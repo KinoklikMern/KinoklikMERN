@@ -9,12 +9,10 @@ import PlusIcon from '../../../images/icons/PlusWhite.svg';
 import PlusBlackIcon from '../../../images/icons/PlusBlack.svg';
 import StarIcon from '../../../images/icons/StarWhite.svg';
 import StarBlackIcon from '../../../images/icons/StarBlack.svg';
-import EyeIcon from '../../../images/icons/eye.svg';
 import ShareIcon from '../../../images/icons/share.svg';
 import http from '../../../http-common';
 import { useSelector } from 'react-redux';
 
-// We removed all the react-share imports from here because they are safely inside the Modal now!
 import SocialShareModal from './SocialShareModal';
 import { NotificationContext } from '../../../context/NotificationContext';
 
@@ -69,13 +67,6 @@ export default function EpkSocialAction({ epkInfo, handler }) {
 
   const actionList = [
     {
-      name: 'views',
-      icon: EyeIcon,
-      number: epkInfo.viewCount || 0,
-      hover: 'Views',
-      isActive: false, 
-    },
-    {
       name: 'wish_to_donate',
       icon: hasDonateLinks
         ? checkActive(fepkInfo?.wishes_to_donate)
@@ -128,8 +119,6 @@ export default function EpkSocialAction({ epkInfo, handler }) {
             })
             .catch((error) => console.error(error));
         }
-      } else if (name === 'views') {
-        return; 
       } else if (!user) {
         handler(); 
       } else {
@@ -192,8 +181,8 @@ export default function EpkSocialAction({ epkInfo, handler }) {
   const closeShareModal = () => setIsShareModalOpen(false);
 
   return (
-    <div className="tw-relative tw-flex tw-w-full tw-items-center tw-justify-center tw-bg-opacity-100 tw-py-8 md:tw-py-12">
-      <div className="tw-flex tw-w-full tw-max-w-5xl tw-items-center tw-justify-center md:tw-justify-evenly tw-flex-wrap tw-gap-3 sm:tw-gap-4 md:tw-gap-6 tw-px-2 md:tw-px-6">
+    <div className="tw-relative tw-flex tw-w-full tw-items-center tw-justify-between md:tw-justify-evenly tw-bg-opacity-100 tw-py-8 md:tw-py-12">
+      <div className="tw-flex tw-w-full tw-max-w-5xl tw-items-center tw-justify-between md:tw-justify-evenly tw-flex-wrap tw-gap-2 sm:tw-gap-4 md:tw-gap-12 lg:tw-gap-16 tw-px-5 md:tw-px-8">
         
         {actionList.map(
           (action, index) =>
@@ -202,7 +191,6 @@ export default function EpkSocialAction({ epkInfo, handler }) {
                 key={index}
                 className="tw-relative tw-shrink-0 tw-flex tw-justify-center"
               >
-                {/* Clean, simple click-to-open Modal */}
                 {action.name === 'share' && (
                   <SocialShareModal
                     isOpen={isShareModalOpen}

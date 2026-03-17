@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import EpkHeader from '../components/EpkView/EpkHeader/EpkHeader';
 import EpkCover from '../components/EpkView/EpkCover/EpkCover';
 import EpkSocialAction from '../components/EpkView/EpkSocialAction/EpkSocialAction';
@@ -42,6 +42,14 @@ function EpkViewPage() {
 
   //let { title } = useParams();
   let { id } = useParams();
+
+  // Refs for photo and video elements
+  const photoRef = useRef(null);
+  const videoRef = useRef(null);
+
+  // Scroll handlers for photo and video sections
+  const scrollToPhotos = () => photoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollToVideos = () => videoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const handleClose = (modalType) => {
     if (user) {
@@ -164,7 +172,11 @@ function EpkViewPage() {
       <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039]">
         <div className="tw-w-11/12">
           <EpkHeader epkInfo={epkInfo} />
-          <EpkCover epkInfo={epkInfo} />
+          <EpkCover 
+          epkInfo={epkInfo} 
+          scrollToPhotos={scrollToPhotos}
+          scrollToVideos={scrollToVideos}
+          />
           {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}
           <EpkSocialAction
             epkInfo={epkInfo}
@@ -196,9 +208,18 @@ function EpkViewPage() {
             requestStatus={requestStatus}
             handler={handleShow}
           /> */}
+          {/* New photo gallery component */}
+          <div ref={photoRef}>
           <EpkPhotoGallery epkInfo={epkInfo} />
+          </div>
           <EpkResources epkInfo={epkInfo} />
-          <EpkTrailer epkInfo={epkInfo} />
+          {/* New video component */
+            //TODO: change this to a video gallery if there are multiple videos in the future
+          }
+          <div ref={videoRef}>
+            <EpkTrailer epkInfo={epkInfo} />
+          </div>
+          
           <EpkAward epkInfo={epkInfo} />
           {showRequestModal && (
             <RequestModal

@@ -1,108 +1,100 @@
-import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import React, { useState } from "react";
 
 export default function CastCard({
-  index,
   image,
-  text,
+  bio,
   castName,
   epkRole,
   actorUrl,
+  isDarkTheme = false
 }) {
-  gsap.registerPlugin(ScrollTrigger);
-  const imageRef = useRef(null);
-  const castNameRef = useRef(null);
-  const textRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (imageRef.current && castNameRef.current) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: imageRef.current,
-          start: "top bottom",
-          toggleActions: "play none none none",
-        },
-      });
-
-      // Image animation
-      tl.fromTo(
-        imageRef.current,
-        { scale: 0.2 },
-        { scale: 1, duration: 1, ease: "power1.out" }
-      );
-
-      // castName animation
-      tl.fromTo(
-        castNameRef.current,
-        { autoAlpha: 0 },
-        { autoAlpha: 1, duration: 0.5 },
-        "-=0.5" // Start this animation 1 second before the previous animation ends
-      );
-
-      // text animation
-      tl.fromTo(
-        textRef.current,
-        { autoAlpha: 0 },
-        { autoAlpha: 1, duration: 0.5 }
-      );
-    }
-  }, []);
-
-  const isActor = epkRole.includes("actor") || epkRole.includes("Actor");
-  const cardShadowStyle = epkRole.includes("actor" && "Actor")
-    ? "tw-shadow-[6px_6px_3px_#1E0039]"
-    : "tw-shadow-[6px_6px_3px_#ffffff]";
-  const hasRoleTitle = epkRole.includes("actor" && "Actor") ? false : true;
-
+  // --- FORMATTER FOR ROLES ---
   const formatChars = (chars) => {
-    let noSpecialChars = chars.replace(/[^a-zA-Z0-9]/g, " "); // remove special characters
-    // capitalize the first character.
+    if (!chars) return "";
+    let noSpecialChars = chars.replace(/[^a-zA-Z0-9]/g, " "); 
     let formatedChars = noSpecialChars
       .split(" ")
       .map((char) => {
-        return char[0].toUpperCase() + char.substring(1);
+        return char.charAt(0).toUpperCase() + char.substring(1);
       })
       .join(" ");
 
     return formatedChars;
   };
+
+  // --- BRANDING PHRASE FALLBACK LOGIC ---
+  const safeBio = bio || "";
+  const brandingPhrase = safeBio.length > 100 ? safeBio.substring(0, 100) + "..." : safeBio;
+
+  // --- THEME COLORS ---
+  const innerBg = isDarkTheme ? "tw-bg-[#1E0039]" : "tw-bg-white";
+  const textColor = isDarkTheme ? "tw-text-white" : "tw-text-[#1E0039]";
+  const borderGradient = isDarkTheme 
+    ? "tw-from-[#FF00A0] tw-to-white" 
+    : "tw-from-[#FF00A0] tw-to-[#1E0039]";
+
   return (
-    <div
-      className={`tw-my-16 tw-flex tw-text-inherit sm:tw-justify-between ${
-        index % 2 === 0 ? "sm:tw-flex-row" : "sm:tw-flex-row-reverse"
-      } tw-flex-col`}
-    >
-      <div className='tw-flex tw-w-full tw-flex-col tw-items-center'>
-        <img
-          ref={imageRef}
-          src={image}
-          className={`${cardShadowStyle} tw-h-auto tw-w-3/4 tw-min-w-[150px] tw-max-w-xs md:tw-w-2/3 lg:tw-w-1/2`}
-          alt=''
-        />
-        <a
-          href={actorUrl}
-          className={`${isActor ? "tw-mt-4 hover:tw-text-[#712CB0]" : ""}`}
-          style={{ textDecoration: "none" }}
+    <>
+      {/* OUTER WRAPPER: Gradient Border */}
+      <div className={`tw-shrink-0 tw-w-[260px] md:tw-w-[280px] tw-p-[4px] tw-rounded-[43px] tw-bg-gradient-to-b ${borderGradient} tw-snap-center tw-shadow-lg`}>
+        
+        {/* INNER CARD */}
+        <div className={`tw-flex tw-flex-col tw-items-center tw-h-full tw-w-full ${innerBg} tw-rounded-[38px] tw-p-5 md:tw-p-6`}>
+          
+          {/* Headshot */}
+          <img
+            src={image}
+            alt={castName}
+            onClick={() => setIsModalOpen(true)}
+            className="tw-w-full tw-aspect-[3/4] tw-object-cover tw-rounded-[30px] tw-cursor-pointer tw-shadow-[0_4px_10px_rgba(0,0,0,0.3)] hover:tw-opacity-90 tw-transition-opacity"
+          />
+
+          {/* Name & Role */}
+          <div className={`tw-mt-4 tw-text-center tw-w-full ${textColor}`}>
+            <a href={actorUrl} className="hover:tw-text-[#FF00A0] tw-transition-colors">
+              <h3 className="tw-text-xl tw-font-bold">{castName}</h3>
+            </a>
+            {/* Formatter applied here: */}
+            <p className="tw-text-sm tw-font-medium tw-opacity-80 tw-mt-1">
+              {formatChars(epkRole)}
+            </p>
+          </div>
+
+          {/* Branding Phrase / Short Bio */}
+          <p className={`tw-mt-4 tw-text-center tw-text-sm tw-leading-relaxed ${textColor} tw-flex-grow`}>
+            {brandingPhrase}
+          </p>
+
+          {/* Read More */}
+          <a href={actorUrl} className={`tw-mt-4 tw-text-sm tw-font-bold tw-underline tw-underline-offset-4 hover:tw-text-[#FF00A0] tw-transition-colors ${textColor}`}>
+            Read More
+          </a>
+        </div>
+      </div>
+
+      {/* --- HEADSHOT MODAL --- */}
+      {isModalOpen && (
+        <div 
+          className="tw-fixed tw-inset-0 tw-z-[100] tw-flex tw-items-center tw-justify-center tw-bg-black/90 tw-p-4" 
+          onClick={() => setIsModalOpen(false)}
         >
-          <p
-            ref={castNameRef}
-            className='tw-mt-4 tw-text-[2rem] tw-font-semibold'
+          <button 
+            className="tw-absolute tw-top-4 tw-right-6 tw-text-white tw-text-5xl hover:tw-text-[#FF00A0] tw-transition-colors tw-z-[101]"
+            onClick={() => setIsModalOpen(false)}
+            aria-label="Close modal"
           >
-            {castName}
-          </p>
-        </a>
-      </div>
-      <div className='tw-mx-12 tw-flex tw-w-full tw-flex-col tw-justify-center tw-self-center  tw-px-4 sm:tw-px-0'>
-        {hasRoleTitle && (
-          <p className='tw-text-center tw-text-2xl tw-font-semibold sm:tw-text-xl md:tw-text-2xl lg:tw-text-3xl'>
-            {formatChars(epkRole)}
-          </p>
-        )}
-        <p ref={textRef} className='tw-text-center tw-text-xl'>
-          {text}
-        </p>
-      </div>
-    </div>
+            &times;
+          </button>
+          <img 
+            src={image} 
+            alt={castName} 
+            className="tw-w-[90vw] tw-h-auto tw-max-h-[85vh] md:tw-w-auto md:tw-h-[85vh] md:tw-max-w-[90vw] tw-object-contain tw-rounded-[16px] tw-shadow-2xl"
+            onClick={(e) => e.stopPropagation()} 
+          />
+        </div>
+      )}
+    </>
   );
 }

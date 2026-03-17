@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import Audience from '../../../images/audienceIcon.svg';
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import EyeIcon from '../../../images/icons/eye.svg';
 
 const BRAND_COLORS = {
   facebook: "#C4C4C4",  
@@ -19,7 +20,8 @@ const BRAND_COLORS = {
   linkedin: "#C4C4C4",  
   tiktok: "#C4C4C4",
   audience: "#C4C4C4",
-  newsletter: "#C4C4C4"
+  newsletter: "#C4C4C4",
+  views: "#C4C4C4"
 };
 
 const ICONS = {
@@ -42,15 +44,19 @@ export default function SocialMediaIcon({
   textClass = 'tw-text-sm md:tw-text-lg tw-font-semibold'
 }) {
   const isAudience = platform?.toLowerCase() === "audience";
-  const isNewsletter = platform?.toLowerCase() === "newsletter"; // <-- 1. Identify newsletter
+  const isNewsletter = platform?.toLowerCase() === "newsletter";
+  const isViews = platform?.toLowerCase() === "views";
   
-  // 2. Group icons that don't need URLs
-  const isStatOnlyIcon = isAudience || isNewsletter; 
+  // Group icons that don't need URLs
+  const isStatOnlyIcon = isAudience || isNewsletter || isViews; 
 
   const selectedIcon = ICONS[platform?.toLowerCase()];
   const iconStyle = { color: color || BRAND_COLORS[platform?.toLowerCase()] || "#868585" };
 
   const renderIcon = () => {
+    if (isViews) {
+      return <img src={EyeIcon} alt="views icon" className={iconClass} style={{...iconStyle, filter: color ? '' : 'brightness(0) invert(0.8)'}} />;
+    }
     if (isAudience) {
       return <img src={Audience} alt="audience icon" className={iconClass} style={iconStyle} />;
     }

@@ -60,6 +60,7 @@ export default function EpkHeader({ epkInfo }) {
         <SocialMedia 
           socials={socialMediaData} 
           totalReachNum={socialMediafollowerTotalNum}
+          viewCount={epkInfo?.viewCount || 0}
         />
       </div>
       

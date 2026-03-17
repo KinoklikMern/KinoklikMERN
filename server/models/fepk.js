@@ -26,7 +26,24 @@ const fepkSchema = mongoose.Schema({
   },
   logLine_short: { type: String },
   genre: { type: String },
+  //Old fields, kept for backward compatibility
   banner_url: { type: String },
+  //New banners(limit to 5)
+  banners: {
+    type: [
+      {
+        url: { type: String, required: true },
+        is_thumbnail: { type: Boolean, default: false }
+      }
+    ],
+    validate: [
+      function (val) {
+        return val.length <= 5;
+      },
+      "You can only upload a maximum of 5 banners."
+    ]
+  },
+  //Trailer, but we might need to add array of trailers in the future, so we keep this field for backward compatibility
   trailer_url: { type: String },
   //kickstarter_url: { type: String },
   DonatePayPal_url: { type: String },
@@ -387,7 +404,27 @@ const fepkSchema = mongoose.Schema({
     default: 0,
   },
 });
+// Backward compatibility for old EPKs without banners field, still using banner_url field for old EPKs
+fepkSchema.post(['find', 'findOne'], function(docs) {
+  if (!docs) return;
 
+  const ensureBannerExists = (doc) => {
+    // If it's an old movie with an empty banners array but it HAS an old banner_url
+    if (doc.banner_url && (!doc.banners || doc.banners.length === 0)) {
+      doc.banners = [{ 
+        url: doc.banner_url, 
+        is_thumbnail: true 
+      }];
+    }
+  };
+
+  // Handle 'find' (returns an array of movies) and 'findOne' (returns a single movie)
+  if (Array.isArray(docs)) {
+    docs.forEach(ensureBannerExists);
+  } else {
+    ensureBannerExists(docs);
+  }
+});
 const fepk = mongoose.model("fepk", fepkSchema);
 
 export default fepk;

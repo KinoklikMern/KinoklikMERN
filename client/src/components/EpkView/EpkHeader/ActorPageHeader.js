@@ -32,6 +32,7 @@ export default function ActorPageHeader({ epkInfo, id }) {
       <SocialMedia 
         socials={socialMediaData} 
         totalReachNum={socialMediafollowerTotalNum}
+        viewCount={epkInfo?.profileViews || 0}
       />
     </div>
   );

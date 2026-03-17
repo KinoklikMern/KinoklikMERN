@@ -29,7 +29,7 @@ export default function EpkDetail({ epkInfo }) {
     };
   };
   // Order: Owner -> Directors -> Producers -> Other Crew -> Actors (Each sorted internally by reach)
-  const owner = normalizeAvatarData(epkInfo.film_maker, 'Filmmaker Owner');
+  const owner = normalizeAvatarData(epkInfo.film_maker, 'Creator');
 
   // Filter out the owner if they are accidentally listed in the crew array
   const rawCrew = (epkInfo.crew || []).filter(p => (p._id || p.id) !== owner.id);
@@ -112,11 +112,11 @@ export default function EpkDetail({ epkInfo }) {
 
         {/* 3. Scrollable Rest of Cast/Crew with custom sleek scrollbar */}
         <div 
-          className="tw-flex tw-overflow-x-auto tw-gap-4 tw-items-start tw-w-full tw-pb-4 
-                     [&::-webkit-scrollbar]:tw-h-1.5 
+          className="tw-flex tw-overflow-x-auto tw-gap-4 tw-items-start tw-w-full tw-pb-4
+                     [&::-webkit-scrollbar]:tw-h-1 
                      [&::-webkit-scrollbar-track]:tw-bg-gray-100 
                      [&::-webkit-scrollbar-track]:tw-rounded-full 
-                     [&::-webkit-scrollbar-thumb]:tw-bg-[#D9D9D9] 
+                     [&::-webkit-scrollbar-thumb]:tw-bg-[#1E0039] 
                      hover:[&::-webkit-scrollbar-thumb]:tw-bg-[#E81A84] 
                      [&::-webkit-scrollbar-thumb]:tw-rounded-full 
                      tw-transition-colors"
