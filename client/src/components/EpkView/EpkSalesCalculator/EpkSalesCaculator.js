@@ -34,9 +34,14 @@ const EpkSalesCalculator = ({ epkInfo, globalTotalReach }) => {
 
     return (
         <div className="tw-w-full tw-bg-[#1E0039] tw-py-12">
-            
+            <h2 className="tw-text-2xl md:tw-text-3xl tw-font-bold tw-text-center tw-text-[#FFFFFF] tw-mb-10">
+                    {t("Investor's Lounge")}
+                </h2>
             {/* White Calculator Container */}
             <div className="tw-bg-white tw-w-full tw-max-w-[1400px] tw-mx-auto tw-py-8 tw-px-4 md:tw-px-10 tw-shadow-2xl">
+                
+                {/* Title */}
+                
                 
                 <div className="tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-justify-between tw-gap-6 lg:tw-gap-2">
                     
