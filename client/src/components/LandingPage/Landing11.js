@@ -2,7 +2,9 @@ import React, { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { toast } from "react-toastify";
 import http from "../../http-common";
+
 const Landing11 = () => {
   const { t } = useTranslation();
   const inputRef = useRef(null);
@@ -17,9 +19,9 @@ const Landing11 = () => {
         end: "bottom top",
         toggleActions: "restart pause resume pause",
       },
-      width: "0", // Start from zero width
-      opacity: 0, // Start from fully transparent
-      duration: 1, // Duration of the animation
+      width: "0",
+      opacity: 0,
+      duration: 1,
       ease: "power1.out",
     });
   }, []);
@@ -32,18 +34,19 @@ const Landing11 = () => {
       http
         .put("/users/signupfornewsletter", { email })
         .then((res) => {
-          alert(res.data.message);
+          toast.success(res.data.message);
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          toast.error(err.response?.data?.message || t("Something went wrong. Please try again."));
         });
     } else {
-      alert("Please enter a valid email address!");
+      toast.warning(t("Please enter a valid email address!"));
     }
   };
+
   return (
     <div className="tw-flex tw-flex-col tw-items-center tw-justify-evenly tw-py-16 md:tw-flex-row">
-      <div className=" tw-w-2/4 tw-overflow-hidden md:tw-w-1/4">
+      <div className="tw-w-2/4 tw-overflow-hidden md:tw-w-1/4">
         <input
           ref={inputRef}
           type="email"

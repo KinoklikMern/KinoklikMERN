@@ -1,48 +1,103 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Landing8.css";
 import { useNavigate } from "react-router-dom";
 import http from "../../http-common";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Landing8 = () => {
   const { t } = useTranslation();
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
-  // save newest file data that get from api
   const [fepksNew, setFepks] = useState([]);
   const [fepksPopular, setPopularFepks] = useState([]);
 
+  const newRowRef = useRef(null);
+  const popularRowRef = useRef(null);
+
   useEffect(() => {
-    http.get(`fepks/newest/1`).then((response) => {
-      setFepks(response.data);
+    http.get(`fepks/newest/1`).then((response) => setFepks(response.data));
+    http.get(`fepks/popular/1`).then((response) => setPopularFepks(response.data));
+  }, []);
+
+useEffect(() => {
+  if (!fepksNew.length || !fepksPopular.length) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const setupLoop = (ref, direction) => {
+    const el = ref.current;
+    const totalWidth = el.scrollWidth / 2; // half because items are duplicated
+    const xStart = direction === "left" ? 0 : -totalWidth;
+    const xEnd = direction === "left" ? -totalWidth : 0;
+
+    gsap.set(el, { x: xStart });
+
+    const tween = gsap.to(el, {
+      x: xEnd,
+      duration: 20,
+      ease: "none",
+      repeat: -1,
+      modifiers: {
+        x: (x) => {
+          const parsed = parseFloat(x);
+          // Seamlessly wrap when we reach the end
+          if (direction === "left" && parsed <= -totalWidth) {
+            return "0px";
+          }
+          if (direction === "right" && parsed >= 0) {
+            return `${-totalWidth}px`;
+          }
+          return `${parsed}px`;
+        },
+      },
+      paused: true,
     });
 
-    http.get(`fepks/popular/1`).then((response) => {
-      setPopularFepks(response.data);
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top bottom",
+      end: "bottom top",
+      onEnter: () => tween.play(),
+      onLeave: () => tween.pause(),
+      onEnterBack: () => tween.play(),
+      onLeaveBack: () => tween.pause(),
     });
-  }, []);
+
+    el.addEventListener("mouseenter", () => tween.pause());
+    el.addEventListener("mouseleave", () => tween.play());
+
+    return tween;
+  };
+
+  const tween1 = setupLoop(newRowRef, "left");
+  const tween2 = setupLoop(popularRowRef, "right");
+
+  return () => {
+    tween1.kill();
+    tween2.kill();
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+  };
+}, [fepksNew, fepksPopular]);
 
   // eslint-disable-next-line no-unused-vars
   const createEpk = async () => {
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/epk`,
-        {
-          user: user.id,
-        }
+        { user: user.id }
       );
-      //dispatch({ type: "LOGIN", payload: data });
-
       console.log(data);
       navigate("/uploadEpk");
     } catch (error) {
       // console.log(error.response.message);
     }
   };
+
   return (
     <>
       <div className="tw-overflow-hidden tw-bg-gradient-to-t tw-from-white tw-to-midnight">
@@ -53,31 +108,31 @@ const Landing8 = () => {
         <h2 className="tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl">
           {t("NEW FILMS")}
         </h2>
-        <div className="slide-right-left tw-my-6 tw-flex tw-gap-5">
-          {fepksNew.map((item) => (
-            <div
-              className="tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
-              key={item._id}
-            >
-              <a href={item.title ? `epk/${item._id}` : "/"}>
-                <img
-                  className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105 "
-                  src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
-                  alt={item.title}
-                />
-              </a>
-            </div>
-          ))}
-        </div>
+          <div ref={newRowRef} className="slide-right-left tw-my-6 tw-flex tw-gap-5">
+            {[...fepksNew, ...fepksNew].map((item, index) => (
+              <div
+                className="tw-w-48 tw-flex-shrink-0 tw-rounded-lg tw-shadow-md tw-shadow-gray-600 md:tw-w-96"
+                key={`${item._id}-${index}`}
+              >
+                <a href={item.title ? `epk/${item._id}` : "/"}>
+                  <img
+                    className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105"
+                    src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
+                    alt={item.title}
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
 
         <h2 className="tw-my-8 tw-ml-10 tw-text-xl tw-font-bold tw-text-white md:tw-text-3xl">
           {t("MOST POPULAR")}
         </h2>
-        <div className="slide-left-right tw-my-6 tw-flex tw-gap-5">
-          {fepksPopular.map((item) => (
+          <div ref={popularRowRef} className="slide-left-right tw-my-6 tw-flex tw-gap-5">
+          {[...fepksPopular, ...fepksPopular].map((item, index) => (
             <div
-              className="tw-w-96 tw-rounded-lg tw-shadow-md tw-shadow-gray-600"
-              key={item._id}
+              className="tw-w-48 tw-flex-shrink-0 tw-rounded-lg tw-shadow-md tw-shadow-gray-600 md:tw-w-96"
+              key={`${item._id}-${index}`}
             >
               <a href={`epk/${item._id}`}>
                 <img
@@ -89,9 +144,10 @@ const Landing8 = () => {
             </div>
           ))}
         </div>
+
         <div className="tw-flex tw-items-center tw-justify-center tw-p-6">
-          <a
-            className="tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-midnight tw-px-4 tw-py-2 tw-text-xl tw-font-bold  tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5  hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base"
+          
+            <a className="tw-mr-4 tw-inline-block tw-rounded-lg tw-bg-midnight tw-px-4 tw-py-2 tw-text-xl tw-font-bold tw-tracking-wider tw-text-white tw-shadow-lg hover:tw--translate-y-0.5 hover:tw-bg-violet-600 focus:tw-outline-none sm:tw-text-base"
             href="/catalog"
           >
             {t("Browse EPKs")}
@@ -101,14 +157,5 @@ const Landing8 = () => {
     </>
   );
 };
+
 export default Landing8;
-
-/*} <div className="landing4" >
-<h1 className="mt-6 text-2xl font-bold text-center text-white-900   lg:text-3xl xl:text-4xl">Promote your film to industry professionals and your audience!</h1>
-<div className="section-image"   >
-    <img src={vip} className="img-fluid" />
-    <br />
-</div>
-</div>
-
-*/
