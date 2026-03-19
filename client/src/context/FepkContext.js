@@ -3,8 +3,8 @@ import React from "react";
 export const FepkContext = React.createContext({
   fepkId: "",
   setFepkId: () => {},
-  fepkMaker: "",
+  fepkMaker: [], 
   setFepkMaker: () => {},
-  filterQuery: "",
+  filterQuery: [], 
   setFilterQuery: () => {},
 });

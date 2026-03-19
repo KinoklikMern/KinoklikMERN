@@ -6,7 +6,7 @@ import ListItem from "../ListItem/ListItemActor";
 
 const HomeBodyActor = ({ role }) => {
   // eslint-disable-next-line no-unused-vars
-  const [filterQuery, setFilterQuery] = React.useContext(FepkContext);
+  const {filterQuery, setFilterQuery} = React.useContext(FepkContext);
 
   return (
     <>

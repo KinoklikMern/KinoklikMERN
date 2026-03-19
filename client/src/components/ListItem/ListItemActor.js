@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import http from "../../http-common";
 import "./ListItemActor.css";
 import { AGE_OPTIONS } from '../../constants/AgeOptions.js';
+import { Link } from "react-router-dom";
 
 export default function ListItem({ title, type }) {
   //const { user } = useSelector(({ user }) => ({ user }));
@@ -94,7 +95,7 @@ export default function ListItem({ title, type }) {
     <>
       {actors?.map((actor) => (
         <div className="listItemactor" key={actor._id}>
-          <a href={`/actor/${actor._id}`}>
+          <Link to={`/actor/${actor._id}`}>
             <img
               className="actor-image"
               src={
@@ -110,7 +111,7 @@ export default function ListItem({ title, type }) {
             <div className="overlay">
               <p className="actor-name">{`${actor.firstName} ${actor.lastName}`}</p>
             </div>
-          </a>
+          </Link>
         </div>
       ))}
     </>

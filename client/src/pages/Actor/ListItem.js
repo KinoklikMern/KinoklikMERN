@@ -3,6 +3,7 @@ import "./ListItem.css";
 import { useState, useEffect } from "react";
 import http from "../../http-common";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function ListItem() {
   const [fepks, setFepks] = useState([]);
@@ -28,13 +29,13 @@ export default function ListItem() {
           {fepks &&
             fepks.map((fepk) => (
               <div className="" key={fepk._id}>
-                <a href={`/epk/${fepk.title.replace(/ /g, "-").trim()}`}>
+                <Link to={`/epk/${fepk.title.replace(/ /g, "-").trim()}`}>
                   <img
                     src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                     alt=""
                     className="tw-h-full tw-w-56"
                   />
-                </a>
+                </Link>
               </div>
             ))}
         </div>

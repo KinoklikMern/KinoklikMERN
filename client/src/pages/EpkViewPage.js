@@ -28,7 +28,7 @@ import EpkPhotoGallery from '../components/EpkView/EpkPhotoGallery/EpkPhotoGalle
 import AnalyticsDataService from "../api/analytics";
 
 function EpkViewPage() {
-  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
+  const {fepkId, setFepkId, fepkMaker, setFepkMaker} =
     React.useContext(FepkContext);
   const user = useSelector((state) => state.user);
   const [epkInfo, setEpkInfo] = useState();

@@ -9,6 +9,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import http from "../../../http-common";
 import io from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const socket = io(backendUrl);
 
@@ -32,7 +34,7 @@ function LoginForm() {
     emailInputRef.current.focus();
   }, []);
 
-  // For Translation
+
   const { t } = useTranslation();
 
   //individual login form
@@ -52,12 +54,12 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if no email or password is provided
+
     if (!email || !password) {
       setError(t("Please provide both email and password."));
       return;
     }
-    //console.log(email, password);
+
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/users/login`,
@@ -67,28 +69,10 @@ function LoginForm() {
         }
       );
 
-      //console.log("data", data);
-
       //Update last active time
       http.put(`/users/lastactive/${data.id}`).catch((error) => {
         console.log(error);
       });
-
-      // let userId;
-      // if (data.user && data.user.id) {
-      //   userId = data.user.id;
-      // } else if (data.id) {
-      //   userId = data.id;
-      // }
-
-      // console.log("User ID:", userId);
-
-      // if (!data.isVerified) {
-      //   navigate("/verification", {
-      //     state: { user: { ...data.user, id: userId } },
-      //   });
-      //   return;
-      // }
 
       if (data.user && !data.isVerified) {
         navigate("/verification", { state: { user: data.user } });
@@ -125,7 +109,6 @@ function LoginForm() {
     <>
       <div className={Logincss.bg}>
         <div className={Logincss.form_title}>{t("Sign in")}</div>
-        {/* <div className={Logincss.form}> */}
         <form onSubmit={handleSubmit} className={Logincss.form}>
           <div className={Logincss.formbody}>
             <div className="email tw-align-center tw-relative tw-flex tw-justify-start">
@@ -145,7 +128,6 @@ function LoginForm() {
               {/* <label className="form__label">Password </label> */}
               <input
                 className={`${Logincss.form_input} tw-flex-1 tw-rounded tw-border tw-pl-3 tw-pr-12`}
-                // type="password"
                 type={showPassword ? "text" : "password"}
                 id="password"
                 value={password}
@@ -170,7 +152,6 @@ function LoginForm() {
               {error && <div className={Logincss.error_text}>*{error}</div>}
               <br />
               <button
-                // onClick={() => handleSubmit()}
                 type="submit"
                 className={Logincss.btn}
               >
@@ -180,20 +161,19 @@ function LoginForm() {
               <br />
               <p>
                 {t("Don't have an account yet?")}{" "}
-                <a href="/signup" className={Logincss.link}>
+                <Link to="/signup" className={Logincss.link}>
                   {t("Create Account")}
-                </a>
+                </Link>
               </p>{" "}
               <p>
                 {t("Forgot password?")}{" "}
-                <a href="/sendresetpasswordlink" className={Logincss.link}>
+                <Link to="/sendresetpasswordlink" className={Logincss.link}>
                   {t("Reset my Password")}
-                </a>
+                </Link>
               </p>
             </div>
           </div>
         </form>
-        {/* </div> */}
       </div>
     </>
   );
