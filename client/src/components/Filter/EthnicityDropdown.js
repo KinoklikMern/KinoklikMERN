@@ -13,7 +13,7 @@ const EthnicityDropdown = ({ selectedValue, onOptionSelect }) => {
           key={option.value}
           type="button"
           className={option.value === selectedValue ? "selected" : ""}
-          onClick={() => onOptionSelect(option.value)} 
+          onClick={() => onOptionSelect(option.value, option.value)} 
         >
           {t(`ethnicities.${option.value}`)}
         </button>
