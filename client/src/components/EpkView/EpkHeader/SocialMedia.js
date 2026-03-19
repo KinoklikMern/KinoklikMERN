@@ -45,23 +45,25 @@ export default function SocialMedia({ socials, totalReachNum, viewCount, classNa
 
         {/* THE TOOLTIP POPOVER */}
         {isTooltipOpen && (
-          <div className="tw-absolute tw-top-[140%] tw-z-[9999] tw-flex tw-flex-wrap tw-justify-center tw-gap-x-4 tw-gap-y-6 tw-w-[300px] md:tw-w-[400px] tw-bg-[#30134A] tw-border tw-border-white/20 tw-shadow-2xl tw-rounded-xl tw-p-5 tw-animate-fade-in-up">
+          <div className="tw-absolute tw-top-[140%] tw-z-[9999] tw-w-[300px] sm:tw-w-[320px] md:tw-w-max tw-bg-[#30134A] tw-border tw-border-white/20 tw-shadow-2xl tw-rounded-xl tw-p-5 tw-animate-fade-in-up">
             
             <div className="tw-absolute tw--top-2 tw-left-1/2 tw--translate-x-1/2 tw-w-4 tw-h-4 tw-bg-[#30134A] tw-rotate-45 tw-border-t tw-border-l tw-border-white/20"></div>
 
+            <div className="tw-grid tw-grid-cols-4 md:tw-flex md:tw-flex-row md:tw-flex-nowrap tw-gap-x-2 md:tw-gap-x-6 tw-gap-y-6 tw-justify-items-center tw-justify-center">
             {socials.map((social, index) => (
-              <SocialMediaIcon 
-                key={index} 
-                platform={social.platform}
-                followerNum={social.followers} 
-                url={social.url}
-                color={social.url ? "#E81A84" : "#868585"} 
-                textColor="white" 
-                containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[60px]"
-                iconClass="tw-h-7 tw-w-7"
-                textClass="tw-text-xs tw-font-bold tw-mt-2"
-              />
+            <SocialMediaIcon 
+            key={index} 
+            platform={social.platform}
+            followerNum={social.followers} 
+            url={social.url}
+            color={social.url ? "#E81A84" : "#868585"} 
+            textColor="white" 
+            containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[50px] md:tw-w-[60px]"
+            iconClass="tw-h-6 tw-w-6 md:tw-h-7 md:tw-w-7"
+            textClass="tw-text-[10px] md:tw-text-xs tw-font-bold tw-mt-2"
+            />
             ))}
+            </div>
           </div>
         )}
       </div>

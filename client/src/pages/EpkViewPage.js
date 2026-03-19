@@ -11,7 +11,7 @@ import EpkCast from '../components/EpkView/EpkCast/EpkCast';
 import EpkWorker from '../components/EpkView/EpkWorker/EpkWorker';
 import EpkStills from '../components/EpkView/EpkStills/EpkStills';
 import EpkResources from '../components/EpkView/EpkResources/EpkResources';
-import EpkTrailer from '../components/EpkView/EpkTrailer/EpkTrailer';
+import EpkVideoGallery from '../components/EpkView/EpkVideoGallery/EpkVideoGallery';
 import EpkAward from '../components/EpkView/EpkAward/EpkAward';
 import DonationModal from '../components/donate/DonationModal';
 import RequestModal from '../components/EpkView/miscellaneous/RequestModal';
@@ -216,15 +216,13 @@ function EpkViewPage() {
           <div ref={photoRef}>
           <EpkPhotoGallery epkInfo={epkInfo} />
           </div>
-          <EpkResources epkInfo={epkInfo} />
-          {/* New video component */
-            //TODO: change this to a video gallery if there are multiple videos in the future
-          }
+          {/* New video component */ }
           <div ref={videoRef}>
-            <EpkTrailer epkInfo={epkInfo} />
+            <EpkVideoGallery epkInfo={epkInfo} />
           </div>
-          
+          <EpkResources epkInfo={epkInfo} />
           <EpkAward epkInfo={epkInfo} />
+          
           {showRequestModal && (
             <RequestModal
               close={handleClose}

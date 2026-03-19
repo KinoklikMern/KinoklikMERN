@@ -169,7 +169,41 @@ const fepkSchema = mongoose.Schema({
       },
     ],
   },
-
+  // Video Albums (4 categories, blur kept for future use)
+  video_gallery: {
+    trailers: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String }, 
+        title: { type: String },     
+        blur: { type: Boolean, default: false }
+      },
+    ],
+    behind: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String },
+        title: { type: String },
+        blur: { type: Boolean, default: false }
+      },
+    ],
+    interviews: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String },
+        title: { type: String },
+        blur: { type: Boolean, default: false }
+      },
+    ],
+    premieres: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String },
+        title: { type: String },
+        blur: { type: Boolean, default: false }
+      },
+    ],
+  },
 
   // Film Trailer
   trailer: { type: String },
@@ -180,6 +214,7 @@ const fepkSchema = mongoose.Schema({
       text: { type: String },
       magazine: { type: String },
       award_logo: { type: String },
+      reviews_url: { type: String }
     },
   ],
 
@@ -404,25 +439,43 @@ const fepkSchema = mongoose.Schema({
     default: 0,
   },
 });
-// Backward compatibility for old EPKs without banners field, still using banner_url field for old EPKs
+// Backward compatibility for old EPKs (Banners & Trailers)
 fepkSchema.post(['find', 'findOne'], function(docs) {
   if (!docs) return;
 
-  const ensureBannerExists = (doc) => {
-    // If it's an old movie with an empty banners array but it HAS an old banner_url
+  const ensureBackwardCompatibility = (doc) => {
     if (doc.banner_url && (!doc.banners || doc.banners.length === 0)) {
       doc.banners = [{ 
         url: doc.banner_url, 
         is_thumbnail: true 
       }];
     }
+
+    const oldTrailerUrl = doc.trailer_url || doc.trailer;
+    if (oldTrailerUrl) {
+      // Ensure the object exists
+      if (!doc.video_gallery) {
+        doc.video_gallery = { trailers: [], behind: [], interviews: [], premieres: [] };
+      }
+      
+      // If the trailers array is empty, push the old trailer into it
+      if (!doc.video_gallery.trailers || doc.video_gallery.trailers.length === 0) {
+        doc.video_gallery.trailers = [{
+          url: oldTrailerUrl,
+          title: "Official Trailer",
+          // Fallback: Use the first banner or banner_url as the video thumbnail
+          thumbnail: (doc.banners && doc.banners.length > 0) ? doc.banners[0].url : (doc.banner_url || ""),
+          blur: false
+        }];
+      }
+    }
   };
 
   // Handle 'find' (returns an array of movies) and 'findOne' (returns a single movie)
   if (Array.isArray(docs)) {
-    docs.forEach(ensureBannerExists);
+    docs.forEach(ensureBackwardCompatibility);
   } else {
-    ensureBannerExists(docs);
+    ensureBackwardCompatibility(docs);
   }
 });
 const fepk = mongoose.model("fepk", fepkSchema);
