@@ -1060,3 +1060,27 @@ export const transferEpkOwnership = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+//Set a specifiic banner image as the thumbnail for the EPK trailer
+export const setBannerThumbnail = async (req, res) => {
+  try {
+    const { epkId, bannerId } = req.params;
+    
+    // Find the EPK
+    const epk = await fepk.findById(epkId);
+    if (!epk) return res.status(404).json({ message: "EPK not found" });
+
+    // Loop through the banners: set the selected one to true, all others to false
+    epk.banners.forEach(banner => {
+      banner.is_thumbnail = (banner._id.toString() === bannerId);
+    });
+
+    // Save the updated EPK
+    await epk.save();
+    
+    // Return the updated EPK to the frontend
+    res.status(200).json(epk);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

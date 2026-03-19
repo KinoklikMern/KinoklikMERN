@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export const getAllFepks = () => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks`, {
@@ -205,5 +206,16 @@ export const getMoviesByActors = async (actorId) => {
   } catch (error) {
     console.error("Error fetching movies by actor:", error);
     throw error;
+  }
+};
+// Set thumbnail banner for trailer
+export const setBannerThumbnail = async (epkId, bannerId) => {
+  try {
+    const url = `${process.env.REACT_APP_BACKEND_URL}/fepks/${epkId}/banners/${bannerId}/set-thumbnail`;
+    const response = await axios.put(url);
+    return response.data;
+  } catch (error) {
+    console.error("Error setting thumbnail:", error);
+    return { error: error.message };
   }
 };

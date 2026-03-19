@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SocialMedia from "./SocialMedia";
-import { formatCompactNumber } from "../../../utils/numberformatters";
+import { formatCompactNumber } from "../../../utils/numberFormatters";
 import { fetchAndSumFollowers } from "../../../utils/followersHelper";
 
-export default function EpkHeader({ epkInfo }) {
+export default function EpkHeader({ epkInfo,setGlobalTotalReach }) {
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
   const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0, newsletter: 0 });
 
@@ -25,13 +25,16 @@ export default function EpkHeader({ epkInfo }) {
         const data = await fetchAndSumFollowers(idsToFetch);
         setPlatformFollowers(data.platforms);
         setSocialMediaFollowerTotalNum(formatCompactNumber(data.total));
+        if (setGlobalTotalReach) {
+          setGlobalTotalReach(data.total); // Update the global total reach in the parent component
+        }
       }
     };
 
     if (epkInfo) {
       getFollowers();
     }
-  }, [epkInfo]);
+  }, [epkInfo, setGlobalTotalReach]);
 
   const socialMediaData = [
     { platform: 'newsletter', followers: formatCompactNumber(platformFollowers.newsletter) },
@@ -60,6 +63,7 @@ export default function EpkHeader({ epkInfo }) {
         <SocialMedia 
           socials={socialMediaData} 
           totalReachNum={socialMediafollowerTotalNum}
+          viewCount={epkInfo?.viewCount || 0}
         />
       </div>
       

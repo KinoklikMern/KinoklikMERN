@@ -193,6 +193,11 @@ const UserSchema = mongoose.Schema({
     type: String,
     default: "",
   },
+  profileViews: {
+    type: Number,
+    default: 0,
+  },
+
 });
 
 // Method to compare password

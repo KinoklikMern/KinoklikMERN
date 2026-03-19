@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SocialMedia from './SocialMedia'; 
-import { formatCompactNumber } from '../../../utils/numberformatters'; 
+import { formatCompactNumber } from '../../../utils/numberFormatters'; 
 import { fetchAndSumFollowers } from '../../../utils/followersHelper';
 
 export default function ActorPageHeader({ epkInfo, id }) {
@@ -32,6 +32,7 @@ export default function ActorPageHeader({ epkInfo, id }) {
       <SocialMedia 
         socials={socialMediaData} 
         totalReachNum={socialMediafollowerTotalNum}
+        viewCount={epkInfo?.profileViews || 0}
       />
     </div>
   );
