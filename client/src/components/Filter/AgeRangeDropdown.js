@@ -1,10 +1,8 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
 import { AGE_OPTIONS } from "../../constants/AgeOptions"; 
 import "./DropDown.css";
 
 const AgeRangeDropdown = ({ selectedValue, onOptionSelect }) => {
-  const { t } = useTranslation();
 
   return (
     <div className="dropdown-content">
@@ -12,10 +10,10 @@ const AgeRangeDropdown = ({ selectedValue, onOptionSelect }) => {
         <button
           key={option.value}
           type="button"
-          className={selectedValue === option.value ? "selected" : ""}
-          onClick={() => onOptionSelect(option.value)}
+          className={option.value === selectedValue ? "selected" : ""}
+          onClick={() => onOptionSelect(option.label, option.value)}
         >
-          {t(option.label)}
+          {(option.label)}
         </button>
       ))}
     </div>

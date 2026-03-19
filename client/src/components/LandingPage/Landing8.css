@@ -1,37 +1,4 @@
-.slide-right-left {
-  animation: slide-right-left 20s linear infinite;
-}
-
-@keyframes slide-right-left {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-100%);
-  }
-  50.01% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
+.slide-right-left,
 .slide-left-right {
-  animation: slide-left-right 20s linear infinite;
-}
-
-@keyframes slide-left-right {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(100%);
-  }
-  50.01% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+  will-change: transform;
 }
