@@ -1044,3 +1044,33 @@ export const transferEpkOwnership = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Get all deleted EPKs by filmmaker ID
+export const getDeletedFepksByFilmmakerId = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const fepks = await fepk
+      .find()
+      .where({ film_maker: id })
+      .where("deleted")
+      .equals(true);
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// Restore a deleted EPK
+export const restoreFepk = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const fepkOne = await fepk.findOne({ _id: id }).where("deleted").equals(true);
+    if (!fepkOne) {
+      return res.json({ error: "No deleted EPK was found!" });
+    }
+    await fepkOne.updateOne({ deleted: false });
+    res.status(200).json("EPK was restored!");
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

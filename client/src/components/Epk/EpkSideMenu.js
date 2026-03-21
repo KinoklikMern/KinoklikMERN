@@ -222,18 +222,6 @@ export const EPKSideMenu = ({epk, filmmakerId}) => {
                         {t("Transfer Ownership")}
                     </button>
 
-                    {/* Delete EPK Button */}
-                    <button
-                        onClick={() => {
-                            setDeleteConfirmText("");
-                            setIsDeleteModalVisible(true);
-                        }}
-                        className="tw-mt-3 tw-w-full tw-rounded tw-bg-red-600 tw-px-2 tw-py-1 tw-text-white hover:tw-bg-red-700 tw-flex tw-items-center tw-justify-center tw-gap-2"
-                    >
-                        <FontAwesomeIcon icon={faTrash} className="tw-h-4 tw-w-4"/>
-                        {t("Delete EPK")}
-                    </button>
-
                     {showTransferFields && (
                         <form onSubmit={handleSearch} className="tw-mt-4">
                             <div className="tw-relative tw-mb-2">
@@ -256,6 +244,20 @@ export const EPKSideMenu = ({epk, filmmakerId}) => {
                             {!selectedFilmmaker && renderSearchResults()}
                         </form>
                     )}
+
+                    {/* Delete EPK Button — pinned to bottom */}
+                    <div className="tw-absolute tw-bottom-6 tw-left-4 tw-right-4">
+                        <button
+                            onClick={() => {
+                                setDeleteConfirmText("");
+                                setIsDeleteModalVisible(true);
+                            }}
+                            className="tw-w-full tw-rounded tw-bg-red-600 tw-px-2 tw-py-1 tw-text-white hover:tw-bg-red-700 tw-flex tw-items-center tw-justify-center tw-gap-2"
+                        >
+                            <FontAwesomeIcon icon={faTrash} className="tw-h-4 tw-w-4"/>
+                            {t("Delete EPK")}
+                        </button>
+                    </div>
                 </div>
             )}
 
