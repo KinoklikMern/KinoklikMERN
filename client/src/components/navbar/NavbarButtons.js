@@ -12,7 +12,7 @@ import LanguageToggle from "../LanguageToggle";
 
 function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   const { t } = useTranslation();
-  const [fepkId] = React.useContext(FepkContext);
+  const {fepkId} = React.useContext(FepkContext);
   const [picture, setPicture] = useState("");
   const [epk, setEpk] = useState();
   const [filmmakerId, setFilmmakerId] = useState();

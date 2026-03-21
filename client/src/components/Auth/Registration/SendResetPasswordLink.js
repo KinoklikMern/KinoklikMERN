@@ -3,6 +3,7 @@ import axios from "axios";
 import Logincss from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
 
 function SendResetPasswordLink() {
   const [email, setEmail] = useState("");
@@ -46,9 +47,7 @@ function SendResetPasswordLink() {
     }
   };
 
-  //For Translation
   const { t } = useTranslation();
-
 
   return (
     <>
@@ -90,15 +89,15 @@ function SendResetPasswordLink() {
             <br />
             <p>
               {t('Already hava an account?')}{" "}
-              <a href="/login" className={Logincss.link}>
+              <Link to="/login" className={Logincss.link}>
                 {t('Sign In')}
-              </a>
+              </Link>
             </p>
             <p>
               {t("Don't have an account yet?")}{" "}
-              <a href="/signup" className={Logincss.link}>
+              <Link to="/signup" className={Logincss.link}>
                 {t('Create Account')}
-              </a>
+              </Link>
             </p>
           </div>
         </div>

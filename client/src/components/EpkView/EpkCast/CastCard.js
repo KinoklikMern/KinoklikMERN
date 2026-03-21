@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function CastCard({
   image,
@@ -53,9 +54,9 @@ export default function CastCard({
 
           {/* Name & Role */}
           <div className={`tw-mt-4 tw-text-center tw-w-full ${textColor}`}>
-            <a href={actorUrl} className="hover:tw-text-[#FF00A0] tw-transition-colors">
+            <Link to={actorUrl} className="hover:tw-text-[#FF00A0] tw-transition-colors">
               <h3 className="tw-text-xl tw-font-bold">{castName}</h3>
-            </a>
+            </Link>
             {/* Formatter applied here: */}
             <p className="tw-text-sm tw-font-medium tw-opacity-80 tw-mt-1">
               {formatChars(epkRole)}
@@ -68,9 +69,9 @@ export default function CastCard({
           </p>
 
           {/* Read More */}
-          <a href={actorUrl} className={`tw-mt-4 tw-text-sm tw-font-bold tw-underline tw-underline-offset-4 hover:tw-text-[#FF00A0] tw-transition-colors ${textColor}`}>
+          <Link to={actorUrl} className={`tw-mt-4 tw-text-sm tw-font-bold tw-underline tw-underline-offset-4 hover:tw-text-[#FF00A0] tw-transition-colors ${textColor}`}>
             Read More
-          </a>
+          </Link>
         </div>
       </div>
 

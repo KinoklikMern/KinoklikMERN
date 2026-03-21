@@ -9,6 +9,7 @@ import PlusIcon from "../images/icons/Plus.svg";
 //import KIcon from "../images/icons/KickstarterIcon.svg";
 import http from "../http-common";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { faShareNodes, faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,7 +23,6 @@ const HomeHead = () => {
   const [clickedVolumeUp, setClickedVolumeUp] = useState(false);
   const [fepk, setFepk] = useState({});
 
-  // fetching user
   const user = useSelector((state) => state.user);
   let userId;
   let userRole;
@@ -76,10 +76,8 @@ const HomeHead = () => {
     http.get(`fepks/`).then((response) => {
       let last = response.data.length - 1;
       setFepk(response.data[last]);
-      // console.log(fepk);
     });
   }, []);
-  //console.log(fepk);
 
   return (
     <div
@@ -131,7 +129,7 @@ const HomeHead = () => {
         <div className="menu-icon1">
           {userRole === "Filmmaker" ? (
             <>
-              <a href={`/uploadFepk`}>
+              <Link to={`/uploadFepk`}>
                 <img
                   className="tw-h-10 tw-w-10 tw-rounded-none tw-opacity-50 hover:tw-h-12 hover:tw-w-12 hover:tw-opacity-100 "
                   src={UploadFilmIcon}
@@ -139,7 +137,7 @@ const HomeHead = () => {
                   onClick={handleClickMovie}
                   style={{ opacity: clickedMovie ? 1 : 0.5 }}
                 />
-              </a>
+              </Link>
               <img
                 className="tw-h-9 tw-w-9 tw-rounded-none tw-opacity-50 hover:tw-h-11 hover:tw-w-11 hover:tw-opacity-100 "
                 src={VolumeIcon2}
@@ -170,13 +168,13 @@ const HomeHead = () => {
         <div className="tw-pt-24">
           <div className="tw-flex tw-h-[70vh] tw-pl-40">
             <div>
-              <a href={`epk/${fepk.title.replace(/ /g, "-").trim()}`}>
+              <Link to={`epk/${fepk.title.replace(/ /g, "-").trim()}`}>
                 <img
                   className="tw-h-[70vh] "
                   src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                   alt="/"
                 />
-              </a>
+              </Link>
             </div>
 
             <div>

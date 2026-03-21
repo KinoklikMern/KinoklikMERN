@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Actor from './pages/Actor/Actor';
 
-import './styles/tailwind.css'; //Tailwind
+import './styles/tailwind.css';
 
 import MainLayout from './layouts/MainLayout';
 import UploadMovie from './pages/UploadMovie';
 import Home from './pages/Home';
-import MyList from './pages/MyList';
 import RegistrationForm from './components/Auth/Registration/registration';
 import EmailVerification from './components/Auth/Registration/EmailVerification';
 import RegistrationSuccess from './components/Auth/Registration/RegistrationSuccess';
@@ -17,9 +16,7 @@ import CheckEmailPage from './pages/login/CheckEmailPage';
 import ResetPasswordPage from './pages/login/ResetPasswordPage';
 import ResetPasswordSuccessPage from './pages/login/ResetPasswordSuccessPage';
 
-// add by Tony
 import FilmMakerSelectedEpk from './pages/FlimMaker/filmMakerSelectedEpk';
-// end
 
 import FilmMakerDashboardSecurity from './components/FilmMaker/filmMakerDashboardSecurity';
 import FilmMakerDashboardSecurityCompany from './components/FilmMaker/filmMakerDashboardSecurityCompany';
@@ -99,7 +96,7 @@ import AdminDashboardEPKs from './pages/AdminDashboard/EPKsPage';
 import AuthRoutes from './utils/AuthRoutes';
 import AccessDeniedPage from './pages/AccessDeniedPage';
 import { FepkContext } from './context/FepkContext';
-import CatelogPage from './pages/CatelogPage';
+import CatalogPage from './pages/CatalogPage.js';
 import EpkViewPage from './pages/EpkViewPage';
 import UploadActorPicCon from './components/UserDashboard/Upload/UploadActorPicCon';
 import EditFepkLayout from './layouts/EditFepkLayout';
@@ -115,17 +112,17 @@ function App() {
   // const KinoKlikTitle = "KinoKlik";
   const user = useSelector((state) => state.user);
   const className = user ? NavbarHomeClass : NavbarDefaultClass;
-  const [fepkId, setFepkId] = useState('');
-  const [fepkMaker, setFepkMaker] = useState('');
-  const [filterQuery, setFilterQuery] = useState('');
-  const fepkToProvider = [
+  const [fepkId, setFepkId] = useState([]);
+  const [fepkMaker, setFepkMaker] = useState([]);
+  const [filterQuery, setFilterQuery] = useState([]);
+  const fepkToProvider = {
     fepkId,
     setFepkId,
     fepkMaker,
     setFepkMaker,
     filterQuery,
     setFilterQuery,
-  ];
+  };
 
   return (
     <FepkContext.Provider value={fepkToProvider}>
@@ -187,7 +184,6 @@ function App() {
               path="userdashboard/chat/:userId"
               element={<UserDashboardChat />}
             />
-            {/* AdminDashboard */}
             <Route
               path="admindashboard/main"
               element={<AdminDashboardMain />}
@@ -209,12 +205,10 @@ function App() {
 
         <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
           {/* <Route index element={<Home />} /> */}
-          <Route path="catalog" element={<CatelogPage />} />
+          <Route path="catalog" element={<CatalogPage />} />
           {/* <Route path="epk/:title" element={<EpkViewPage />} /> */}
           <Route path="epk/:id" element={<EpkViewPage />} />
           <Route path="upload" element={<UploadMovie />} />
-          <Route path="my_list" element={<MyList />} />
-          <Route path="edit_profile" element={<Home />} />
           <Route path="signup" element={<RegistrationForm />} />
 
           <Route path="verification" element={<EmailVerification />} />
