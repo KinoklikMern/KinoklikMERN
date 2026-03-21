@@ -1,25 +1,20 @@
 import React from "react";
+import { AGE_OPTIONS } from "../../constants/AgeOptions"; 
 import "./DropDown.css";
 
 const AgeRangeDropdown = ({ selectedValue, onOptionSelect }) => {
-  // const ageRanges = ["Select Age", "0-18", "19-30", "31-50", "51-100"];
-  const ageRanges = ["0-18", "19-30", "31-50", "51-100"];
 
   return (
     <div className="dropdown-content">
-      {ageRanges.map((option, index) => (
-        <div
-          key={index}
-          className={`dropdown-option ${
-            option === selectedValue ? "selected" : ""
-          }`}
-          onClick={() =>
-            // onOptionSelect(option === "Select Age" ? null : option)
-            onOptionSelect(option)
-          }
+      {AGE_OPTIONS.map((option) => (
+        <button
+          key={option.value}
+          type="button"
+          className={option.value === selectedValue ? "selected" : ""}
+          onClick={() => onOptionSelect(option.label, option.value)}
         >
-          {option}
-        </div>
+          {(option.label)}
+        </button>
       ))}
     </div>
   );

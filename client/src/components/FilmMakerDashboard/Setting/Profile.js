@@ -9,8 +9,10 @@ import {
   validateFollowers,
 } from './validation.js';
 import LocationSelects from './LocationSelects.js';
-import locationData from './Profile.json';
 import { useTranslation } from 'react-i18next';
+import { ETHNICITY_OPTIONS } from '../../../constants/EthnicityOptions.js';
+import { GENDER_OPTIONS } from '../../../constants/GenderOptions.js';
+import { AGE_OPTIONS } from '../../../constants/AgeOptions.js';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -40,7 +42,7 @@ export default function Profile() {
     city: '',
     province: '',
     country: '',
-    sex: '',
+    gender: '',
     ethnicity: '',
     age: '',
     height: '',
@@ -59,6 +61,9 @@ export default function Profile() {
     youtube_url: '',
     linkedin_followers: '',
     linkedin_url: '',
+    tiktok_url: '',
+    tiktok_followers: '',
+    newletter_subs: '',
     aboutMe: '',
     picture: '',
     bannerImg: '', // This will store the demo reel media for filmmakers
@@ -191,7 +196,8 @@ export default function Profile() {
       name === 'twitter_url' ||
       name === 'instagram_url' ||
       name === 'youtube_url' ||
-      name === 'linkedin_url'
+      name === 'linkedin_url' ||
+      name === 'tiktok_url' 
     ) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
@@ -204,7 +210,9 @@ export default function Profile() {
       name === 'linkedin_followers' ||
       name === 'twitter_followers' ||
       name === 'instagram_followers' ||
-      name === 'youtube_subs'
+      name === 'youtube_subs' ||
+      name === 'tiktok_followers'||
+      name === 'newletter_subs'
     ) {
       setValidationErrors((prevErrors) => ({
         ...prevErrors,
@@ -222,28 +230,6 @@ export default function Profile() {
         newState.city = '';
       } else if (name === 'province') {
         newState.city = '';
-      } else if (name === 'city') {
-        if (value === 'Other') {
-          newState.province = 'Other';
-          newState.country = 'Other';
-        } else if (value === '') {
-          newState.province = '';
-          newState.country = '';
-        } else {
-          // Find the corresponding province and country for the selected city
-          const country = locationData.countries.find(
-            (c) =>
-              c.provinces?.some((p) => p.cities.includes(value)) ||
-              c.states?.some((s) => s.cities.includes(value))
-          );
-          if (country) {
-            const province =
-              country.provinces?.find((p) => p.cities.includes(value)) ||
-              country.states?.find((s) => s.cities.includes(value));
-            newState.country = country.name;
-            newState.province = province.name;
-          }
-        }
       }
 
       return newState;
@@ -427,55 +413,43 @@ export default function Profile() {
           <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
             <>
               <select
-                type="text"
-                name="sex"
-                value={userProfileData.sex}
+                name="gender"
+                value={userProfileData.gender || ""}
                 onChange={handleProfileChange}
                 className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
               >
-                <option value="" hidden>
-                  {t('Gender')}
-                </option>
-                <option value="Male">{t('Male')}</option>
-                <option value="Female">{t('Female')}</option>
+                <option value="">{t('Playing Gender')}</option>
+                {GENDER_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {t(opt.label)}
+                  </option>
+                ))}
               </select>
               <select
-                type="text"
                 name="ethnicity"
                 value={userProfileData.ethnicity}
                 onChange={handleProfileChange}
                 className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
               >
-                <option value="">{t('Ethnicity')}</option>
-                <option value="Caucasion">{t('Caucasion')}</option>
-                <option value="Hispanic">{t('Hispanic')}</option>
-                <option value="African American">
-                  {t('African American')}
+               <option value="">{t('Ethnicity')}</option>
+               {ETHNICITY_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {t(`ethnicities.${option.value}`)}
                 </option>
-                <option value="Asian">{t('Asian')}</option>
-                <option value="Native">{t('Native')}</option>
+                ))}
               </select>
               <select
                 className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-                type="text"
                 name="age"
                 value={userProfileData.age}
                 onChange={handleProfileChange}
               >
                 <option value="">{t('Age Range')}</option>
-                <option value={'4'}>3-5</option>
-                <option value={'7'}>6-9</option>
-                <option value={'11'}>10-12</option>
-                <option value={'14'}>13-15</option>
-                <option value={'18'}>16-20</option>
-                <option value={'22'}>21-25</option>
-                <option value={'28'}>26-29</option>
-                <option value={'32'}>30-34</option>
-                <option value={'37'}>35-44</option>
-                <option value={'50'}>45-55</option>
-                <option value={'60'}>56-66</option>
-                <option value={'70'}>67-77</option>
-                <option value={'80'}>78-89+</option>
+                {AGE_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {t(opt.label)}
+                  </option>
+                ))}
               </select>
               <select
                 type="text"
@@ -757,6 +731,30 @@ export default function Profile() {
       <hr className="tw-my-4 tw-border-gray-400" />
       <div className="tw-mx-auto tw-my-8 tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
         <div className="tw-mx-auto tw-flex tw-items-center">
+          <i className="fa-solid fa-envelope tw-text-4xl"></i>
+          <input
+            type="text"
+            name="newsletter_subs"
+            placeholder={t('Newsletter Subscribers')}
+            value={userProfileData.newsletter_subs}
+            onChange={handleProfileChange}
+            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+          {validationErrors.newsletter_subs && (
+            <div className="tw-text-red-500">
+              {validationErrors.newsletter_subs}
+            </div>
+          )}
+          <input
+            disabled
+            type="text"
+            name="facebook_followers"
+            placeholder={t('Followers')}
+            value={userProfileData.facebook_followers}
+            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-invisible tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+        </div>
+        <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-facebook tw-text-4xl"></i>
           <input
             type="text"
@@ -901,6 +899,36 @@ export default function Profile() {
             </div>
           )}
         </div>
+        <div className="tw-mx-auto tw-flex tw-items-center">
+          <i className="fa-brands fa-tiktok tw-text-4xl"></i>
+          <input
+            type="text"
+            name="tiktok_url"
+            placeholder="URL"
+            value={userProfileData.tiktok_url}
+            onChange={handleProfileChange}
+            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+          {validationErrors.tiktok_url && (
+            <div className="tw-text-red-500">
+              {validationErrors.tiktok_url}
+            </div>
+          )}
+          <input
+            type="text"
+            name="tiktok_followers"
+            placeholder={t('Followers')}
+            value={userProfileData.tiktok_followers}
+            onChange={handleProfileChange}
+            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+          {validationErrors.tiktok_followers && (
+            <div className="tw-text-red-500">
+              {validationErrors.tiktok_followers}
+            </div>
+          )}
+        </div>
+
       </div>
     </div>
   );

@@ -199,7 +199,7 @@ export const getFepksByTitle = async (req, res) => {
   }
 };
 
-// fetch followers of facebook, instagram, and twitter
+// fetch followers of facebook, instagram, twitter, tiktok, linkedins, youtube
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
@@ -210,6 +210,10 @@ export const getFollowers = async (req, res) => {
     let facebooks = 0;
     let instagrams = 0;
     let twitters = 0;
+    let tiktoks = 0;
+    let linkedins = 0;
+    let youtubes = 0;
+    let newsletters = 0;
     fepkOne.crew.forEach((element) => {
       if (element.facebook_followers) {
         facebooks += parseInt(element.facebook_followers);
@@ -220,11 +224,23 @@ export const getFollowers = async (req, res) => {
       if (element.twitter_followers) {
         twitters += parseInt(element.twitter_followers);
       }
+      if (element.tiktok_followers) {
+        tiktoks += parseInt(element.tiktok_followers);
+      }
+      if (element.linkedin_followers) {
+        linkedins += parseInt(element.linkedin_followers);
+      }
+      if (element.youtube_subs) {
+        youtubes += parseInt(element.youtube_subs);
+      }
+      if (element.newsletter_followers) {
+        newsletters += parseInt(element.newsletter_followers);
+      }
     });
     //res.status(200).json(fepkOne);
     res
       .status(200)
-      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
+      .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, linkedin: linkedins, youtube: youtubes, newsletter: newsletters });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -1072,5 +1088,28 @@ export const restoreFepk = async (req, res) => {
     res.status(200).json("EPK was restored!");
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+};
+//Set a specifiic banner image as the thumbnail for the EPK trailer
+export const setBannerThumbnail = async (req, res) => {
+  try {
+    const { epkId, bannerId } = req.params;
+    
+    // Find the EPK
+    const epk = await fepk.findById(epkId);
+    if (!epk) return res.status(404).json({ message: "EPK not found" });
+
+    // Loop through the banners: set the selected one to true, all others to false
+    epk.banners.forEach(banner => {
+      banner.is_thumbnail = (banner._id.toString() === bannerId);
+    });
+
+    // Save the updated EPK
+    await epk.save();
+    
+    // Return the updated EPK to the frontend
+    res.status(200).json(epk);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

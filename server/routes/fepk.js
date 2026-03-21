@@ -42,6 +42,7 @@ import {
 const upload = multer({ dest: "images/" });
 const router = express.Router();
 
+
 // Gets all FEPKs
 router.get("/", getFepks);
 
@@ -61,6 +62,7 @@ router.get("/byTitle/:title", getFepkByTitle);
 router.get("/byTitles/:title", getFepksByTitle);
 
 // Calling this route you will get the total count of followers in facebook, instagram and twitter
+// Update 5/3/2026: added tiktok, linkedin, and youtube followers count to the response of this API
 router.get("/followers/:id", getFollowers);
 
 // Create FEPK

@@ -4,6 +4,7 @@ import SignupCss from "./signup.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { options } from "./RoleChoise";
+import { GENDER_OPTIONS } from "../../../constants/GenderOptions"
 
 function RegistrationPersonalInfo({
   firstName,
@@ -137,7 +138,7 @@ function RegistrationPersonalInfo({
           />
         </div>
 
-        {role.value === "Actor" ? (
+        {role.value === "Actor" && (
           <div>
             <select
               className={`${fontColor === 0 ? "tw-text-gray-400" : "tw-text-purple-800"
@@ -149,15 +150,14 @@ function RegistrationPersonalInfo({
               <option value="" disabled hidden>
                 {t("Playing Gender")}
               </option>
-              <option value="Male">{t("Male")}</option>
-              <option value="Female">{t("Female")}</option>
-              <option value="Non-Binary">{t("Non-Binary")}</option>
-              <option value="Trans-Female">{t("Trans-Female")}</option>
-              <option value="Trans-Male">{t("Trans-Male")}</option>
-              <option value="Other">{t("Other")}</option>
+              {GENDER_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {t(opt.label)}
+                </option>
+              ))}
             </select>
           </div>
-        ) : null}
+        )}
 
         <div>
           <input

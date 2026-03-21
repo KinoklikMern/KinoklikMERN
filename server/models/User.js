@@ -22,13 +22,13 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     maxlength: 30,
-    minlength: 3,
+    minlength: 2,
   },
   lastName: {
     type: String,
     required: true,
     maxlength: 30,
-    minlength: 3,
+    minlength: 2,
   },
   role: {
     type: String,
@@ -143,7 +143,7 @@ const UserSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  sex: {
+  gender: {
     type: String,
   },
   age: {
@@ -183,6 +183,9 @@ const UserSchema = mongoose.Schema({
   youtube_subs: { type: String, default: "" },
   linkedin_url: { type: String, default: "" },
   linkedin_followers: { type: String, default: "" },
+  tiktok_url: { type: String, default: "" },
+  tiktok_followers: { type: String, default: "" },
+  newsletter_subs: { type: String, default: "" },
 
   receiveNewsletter: { type: Boolean, default: true },
   lastActive: { type: Date, default: null },
@@ -190,6 +193,11 @@ const UserSchema = mongoose.Schema({
     type: String,
     default: "",
   },
+  profileViews: {
+    type: Number,
+    default: 0,
+  },
+
 });
 
 // Method to compare password

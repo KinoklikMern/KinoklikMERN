@@ -2,18 +2,18 @@ import React from "react";
 import "./DropDown.css";
 
 const CityDropdown = ({ selectedValue, onOptionSelect }) => {
-  const cities = ["Montreal", "Toronto", "New York", "Other"];
+  const cities = ["Montreal", "Toronto", "Vancouver", "Calgary", "Ottawa", "New York", "Los Angeles", "Chicago", "Atlanta", "Austin", "Miami", "San Francisco", "Other"];
 
   return (
     <div className="dropdown-content">
       {cities.map((option, index) => (
-        <div
+        <button
           key={index}
           className={option === selectedValue ? "selected" : ""}
           onClick={() => onOptionSelect(option)}
         >
           {option}
-        </div>
+        </button>
       ))}
     </div>
   );

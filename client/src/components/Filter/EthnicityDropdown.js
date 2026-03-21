@@ -1,27 +1,22 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./DropDown.css";
-import {useTranslation} from 'react-i18next';
+import { ETHNICITY_OPTIONS } from '../../constants/EthnicityOptions';
 
 const EthnicityDropdown = ({ selectedValue, onOptionSelect }) => {
   const { t } = useTranslation();
-  const ethnicities = [
-    t("Asian"),
-    t("African American"),
-    t("Caucasian"),
-    t("Hispanic"),
-    t("Native"),
-  ];
-
+  
   return (
     <div className="dropdown-content">
-      {ethnicities.map((option, index) => (
-        <div
-          key={index}
-          className={option === selectedValue ? "selected" : ""}
-          onClick={() => onOptionSelect(option)}
+      {ETHNICITY_OPTIONS.map((option) => (
+        <button
+          key={option.value}
+          type="button"
+          className={option.value === selectedValue ? "selected" : ""}
+          onClick={() => onOptionSelect(option.value, option.value)} 
         >
-          {option}
-        </div>
+          {t(`ethnicities.${option.value}`)}
+        </button>
       ))}
     </div>
   );

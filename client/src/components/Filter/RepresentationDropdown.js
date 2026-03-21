@@ -1,19 +1,22 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./DropDown.css";
 
 const RepresentationDropdown = ({ selectedValue, onOptionSelect }) => {
+  const { t } = useTranslation();
+
   const representations = ["Yes", "No"];
 
   return (
     <div className="dropdown-content">
       {representations.map((option, index) => (
-        <div
+        <button
           key={index}
           className={option === selectedValue ? "selected" : ""}
           onClick={() => onOptionSelect(option)}
         >
-          {option}
-        </div>
+          {t(option)}
+        </button>
       ))}
     </div>
   );

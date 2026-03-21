@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import EpkHeader from '../components/EpkView/EpkHeader/EpkHeader';
 import EpkCover from '../components/EpkView/EpkCover/EpkCover';
 import EpkSocialAction from '../components/EpkView/EpkSocialAction/EpkSocialAction';
@@ -11,7 +11,7 @@ import EpkCast from '../components/EpkView/EpkCast/EpkCast';
 import EpkWorker from '../components/EpkView/EpkWorker/EpkWorker';
 import EpkStills from '../components/EpkView/EpkStills/EpkStills';
 import EpkResources from '../components/EpkView/EpkResources/EpkResources';
-import EpkTrailer from '../components/EpkView/EpkTrailer/EpkTrailer';
+import EpkVideoGallery from '../components/EpkView/EpkVideoGallery/EpkVideoGallery';
 import EpkAward from '../components/EpkView/EpkAward/EpkAward';
 import DonationModal from '../components/donate/DonationModal';
 import RequestModal from '../components/EpkView/miscellaneous/RequestModal';
@@ -25,6 +25,7 @@ import Banner from '../components/EpkView/EpkBanner/EpkBanner';
 import emptyBanner from '../images/empty_banner.jpeg';
 import EpkSalesCalculator from '../components/EpkView/EpkSalesCalculator/EpkSalesCaculator';
 import EpkPhotoGallery from '../components/EpkView/EpkPhotoGallery/EpkPhotoGallery';
+import AnalyticsDataService from "../api/analytics";
 
 function EpkViewPage() {
   const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
@@ -38,9 +39,18 @@ function EpkViewPage() {
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
   const [imageDetails, setImageDetails] = useState('');
+  const [globalTotalReach, setGlobalTotalReach] = useState(0);
 
   //let { title } = useParams();
   let { id } = useParams();
+
+  // Refs for photo and video elements
+  const photoRef = useRef(null);
+  const videoRef = useRef(null);
+
+  // Scroll handlers for photo and video sections
+  const scrollToPhotos = () => photoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollToVideos = () => videoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const handleClose = (modalType) => {
     if (user) {
@@ -144,13 +154,33 @@ function EpkViewPage() {
       );
     }
   }, [epkInfo]);
+  useEffect(() => {
+    if (id && epkInfo) {
+      
+      const isOwner = user?.id === epkInfo.film_maker?._id;
+
+      if (!isOwner) {
+        AnalyticsDataService.trackView(id, 'EPK')
+          .catch(err => {
+            console.log("Analytics ping failed silently", err);
+          });
+      }
+    }
+  }, [id, epkInfo, user?.id]);
 
   return (
     epkInfo && (
       <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039]">
         <div className="tw-w-11/12">
-          <EpkHeader epkInfo={epkInfo} />
-          <EpkCover epkInfo={epkInfo} />
+          <EpkHeader 
+          epkInfo={epkInfo}
+          setGlobalTotalReach={setGlobalTotalReach}
+           />
+          <EpkCover 
+          epkInfo={epkInfo} 
+          scrollToPhotos={scrollToPhotos}
+          scrollToVideos={scrollToVideos}
+          />
           {/* <EpkSocialAction epkInfo={epkInfo} handler={handleShow} /> */}
           <EpkSocialAction
             epkInfo={epkInfo}
@@ -182,10 +212,17 @@ function EpkViewPage() {
             requestStatus={requestStatus}
             handler={handleShow}
           /> */}
+          {/* New photo gallery component */}
+          <div ref={photoRef}>
           <EpkPhotoGallery epkInfo={epkInfo} />
+          </div>
+          {/* New video component */ }
+          <div ref={videoRef}>
+            <EpkVideoGallery epkInfo={epkInfo} />
+          </div>
           <EpkResources epkInfo={epkInfo} />
-          <EpkTrailer epkInfo={epkInfo} />
           <EpkAward epkInfo={epkInfo} />
+          
           {showRequestModal && (
             <RequestModal
               close={handleClose}
@@ -230,7 +267,9 @@ function EpkViewPage() {
               epkDonateStripe={epkInfo.DonateStripe_url}
             />
           )}
-          <EpkSalesCalculator />
+          <EpkSalesCalculator 
+          globalTotalReach={globalTotalReach}
+           />
           <Banner />
         </div>
       </div>

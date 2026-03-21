@@ -578,7 +578,7 @@
   "Select Province": "Sélectionnez une province",
   "Select Country": "Choisissez le pays",
   "Gender": "Genre",
-  "Playing Gender": "Genre joué",
+  "Playing Gender": "Genre de jou",
   "Age Range": "Tranche d'âge",
   "or below": "ou ci-dessous",
   "or above": "ou au-dessus",
@@ -618,8 +618,6 @@
   "_comment From Components navbar NavbarButton": "1 CHanges.",
 
   "I am": "Je suis",
-
-  "LOGOUT": " Déconnecter",
 
   "LOGIN": "Se Connecter",
 
@@ -710,8 +708,6 @@
 
   "My Dashboard": "Mon Tableau",
 
-  "Logout": "Déconnecter",
-
   "Notifications": "Notifications",
 
   "Following": "Suivant",
@@ -756,15 +752,16 @@
 
   "For Industry Professionals": "Pour les professionnels de l'industrie",
 
-  "Home": "Maison",
+  "Home": "Accueil",
 
   "My list": "Ma liste",
 
   "logout": "Se déconnecter",
+  "LOGOUT": "Se Déconnecter",
 
   "Dashboard": "Tableau de bord",
 
-  "Edit Profile": "Edit le profil",
+  "Edit Profile": "Modifier le profil",
 
   "Upload a movie": "Télécharger un film",
 
@@ -787,8 +784,6 @@
   "Delete Account": "Supprimer le compte",
 
   "Cancel": "Annuler",
-
-  "Ok": "D'ACCORD",
 
   "Confirm": "Confirmer",
 
@@ -1120,17 +1115,12 @@
 
   "Montreal": "Montréal",
 
-  "Male": "Mâle",
-
+  "Male": "Homme",
   "Female": "Femme",
-
-  "Non-Binary": "Non binaire",
-
-  "Trans-Female": "Femme trans",
-
-  "Trans-Male": "Homme trans",
-
-  "Other": "Autre",
+  "Non-binary": "Non binaire",
+  "Transfeminine": "Transféminine",
+  "Transmasculine": "Transmasculine",
+  "Two-spirit": "Bisspirituel·le",
 
   "Toned": "Tonique",
 
@@ -1254,13 +1244,19 @@
 
   "Current films by actor ": "Films actuels par acteur",
   "Current films by actor": "Films actuels par acteur/actrice",
-  "Asian": "Asiatique",
 
-  "Caucasian": "Caucasien",
-
-  "Hispanic": "Hispanique",
-
-  "Native": "Indigène",
+"ethnicities": {
+    "AfricanAmerican": "Africain / Noir",
+    "Asian": "Asiatique",
+    "SouthAsian": "Sud-asiatique",
+    "Caucasian": "Caucasien / Blanc",
+    "Hispanic": "Hispanique / Latino",
+    "Indigenous": "Autochtone",
+    "MiddleEastern": "Moyen-Orient / Afrique du Nord / SWANA",
+    "PacificIslander": "Insulaire du Pacifique",
+    "Mixed": "Patrimoine mixte",
+    "Ambiguous": "Origine ethnique ambiguë"
+  },
 
   "Nudity or Sexual Content": "Nudité ou Contenu Sexuel",
 

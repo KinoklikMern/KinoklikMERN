@@ -1,3 +1,14 @@
 {
-    
+  "ethnicities": {
+    "AfricanAmerican": "African American, Black",
+    "Asian": "Asian (East, Southeast)",
+    "SouthAsian": "South Asian",
+    "Caucasian": "Caucasian / White",
+    "Hispanic": "Hispanic / Latino / Latinx",
+    "Indigenous": "Indigenous / First Nations / Native American",
+    "MiddleEastern": "Middle Eastern / North African / SWANA ",
+    "PacificIslander": "Pacific Islander",
+    "Mixed": "Mixed Heritage",
+    "Ambiguous": "Ethnically Ambiguous"
+    }
 }

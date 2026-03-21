@@ -32,6 +32,7 @@ import { getMoviesByActors } from '../../api/epks';
 import emptyBanner from '../../images/empty_banner.jpeg';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { width } from '@mui/system';
+import { AGE_OPTIONS } from '../../constants/AgeOptions';
 
 export default function Actor(props) {
   const { t } = useTranslation();
@@ -73,22 +74,15 @@ export default function Actor(props) {
   const userIsFilmmaker = user && user.role === 'Filmmaker';
   const isOwnActorPage = user && user.id === id;
 
-  const age_range = [
-    [20, 24],
-    [25, 29],
-    [30, 34],
-    [35, 39],
-    [40, 44],
-    [45, 49],
-  ];
-
   function setAge(age) {
-    if (age >= 20 && age <= 24) setRange(0);
-    else if (age >= 25 && age <= 29) setRange(1);
-    else if (age >= 30 && age <= 34) setRange(2);
-    else if (age >= 35 && age <= 39) setRange(3);
-    else if (age >= 40 && age <= 44) setRange(4);
-    else if (age >= 45 && age <= 49) setRange(5);
+    const foundRange = AGE_OPTIONS.find(opt => {
+      const [min, max] = opt.label.replace('+', '').split('-').map(Number);
+      return age >= min && (max ? age <= max : true);
+    });
+
+    if (foundRange) {
+      setRange(foundRange.value); 
+    }
   }
 
   useEffect(() => {
@@ -318,17 +312,6 @@ export default function Actor(props) {
   //   }
   // };
 
-  const displaySex = (sex) => {
-    switch (sex) {
-      case 'Male':
-        return 'M';
-      case 'Female':
-        return 'F';
-      default:
-        return 'N/A';
-    }
-  };
-
   const openModal = () => {
     if (userId === '0') {
       alert(t('Please log in first!'));
@@ -378,7 +361,6 @@ export default function Actor(props) {
           />
         </div>
 
-
         <div className={` tw-relative tw-aspect-[16/9] ${epkInfo.bannerImg ? 'tw-w-full' : 'tw-hidden'}  `} >
           <video
             loop
@@ -400,13 +382,11 @@ export default function Actor(props) {
 
           {showVideoErrorMsg && (
             <p className=" tw-absolute md:tw-txsm:tw-text-[15px] xsm:tw-text-[5px] tw-left-1/2 tw-top-1/2 tw--translate-x-1/2 tw--translate-y-1/2 tw-text-[10px] tw-text-white sm:tw-text-[10px] lg:tw-text-[20px]">
-              Video source not available
+              This actor has not uploaded a video
             </p>
           )}
         </div>
       </div>
-
-
 
       {/* Actor's Image for Small Screens */}
       {pics.length > 0 && (
@@ -439,7 +419,7 @@ export default function Actor(props) {
                 {t('Actor')}
               </p>
               <p className="tw-text-md tw-text-center tw-font-bold tw-text-black">
-                {displaySex(epkInfo.sex)}
+                {displayGender(epkInfo.gender)}
               </p>
             </div>
             <p className="tw-text-center tw-text-xl tw-font-bold tw-text-black">
@@ -581,8 +561,13 @@ export default function Actor(props) {
               <span>{epkInfo.city || 'Montreal'}</span>
             </div>
 
-            <p>{t('Age-Range')}</p>
-            <p className='tw-font-normal'>{age_range[range][0]} - {age_range[range][1]}</p>
+            <p>{t('Playing Gender')}</p>
+            <p className='tw-font-normal'>{epkInfo.gender}</p>
+
+            <p>{t('Age Range')}</p>
+            <p className='tw-font-normal'>
+              {AGE_OPTIONS.find(opt => opt.value === range)?.label || t('Not Specified')}
+            </p>
 
             <p>{t('Ethnicity')}</p>
             <p className='tw-font-normal'>{epkInfo.ethnicity}</p>

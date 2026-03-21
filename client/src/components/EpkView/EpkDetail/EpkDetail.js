@@ -1,6 +1,4 @@
 import React from 'react';
-import MessageIcon from '../../../images/icons/message.svg';
-// import emptyPoster from "../../../images/empty_banner.jpeg";
 import { useTranslation } from 'react-i18next';
 
 const formatedDate = (timestamp) => {
@@ -11,203 +9,165 @@ const formatedDate = (timestamp) => {
   });
 };
 
-export default function EpkDetail({ epkInfo, handler }) {
+export default function EpkDetail({ epkInfo }) {
   const { t } = useTranslation();
 
-  // const image_detail =
-  //   epkInfo.image_details === "" || epkInfo.image_details.startsWith("https")
-  //     ? emptyPoster
-  //     : `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`;
-
-  const filmmaker_image = epkInfo.film_maker.picture.startsWith('https')
-    ? epkInfo.film_maker.picture
-    : `${process.env.REACT_APP_AWS_URL}/${epkInfo.film_maker.picture}`;
-  const filmmaker_name = `${epkInfo.film_maker.firstName} ${epkInfo.film_maker.lastName}`;
-
-  //That piece of code is added just to be able to use both "crew" and "actor" (basically new version of crew but held in 1 collection of users)
-  const normalizeAvatarCrewData = (person) => {
-    // console.log("Person:", person);
-    let imageUrl;
-    if (person.picture) {
-      imageUrl = person.picture.startsWith('https')
-        ? person.picture
-        : `${process.env.REACT_APP_AWS_URL}/${person.picture}`;
-    } else if (person.image) {
-      imageUrl = person.image.startsWith('https')
-        ? person.image
-        : `${process.env.REACT_APP_AWS_URL}/${person.image}`;
+  // normalize the data for consistent display and easier handling
+  const normalizeAvatarData = (person, forceRole = null) => {
+    let imageUrl = person.picture || person.image || "";
+    if (imageUrl && !imageUrl.startsWith('https')) {
+      imageUrl = `${process.env.REACT_APP_AWS_URL}/${imageUrl}`;
     }
-    let id = person._id || person.id;
 
-    // Assuming 'person' can be either a 'crew' object or an 'actor' object
     return {
+      id: person._id || person.id,
       image: imageUrl,
-      name: `${person.firstName} ${person.lastName}` || person.crewId.name,
-      role: person.epkRole || person.role,
-      id: id,
+      name: `${person.firstName || ''} ${person.lastName || ''}`.trim() || person.crewId?.name || "Unknown",
+      role: forceRole || person.epkRole || person.role || "Crew",
+      reach: person.audienceReach || person.reach || 0, // Used strictly for backend sorting
+      isOwner: forceRole === 'Filmmaker Owner',
     };
   };
+  // Order: Owner -> Directors -> Producers -> Other Crew -> Actors (Each sorted internally by reach)
+  const owner = normalizeAvatarData(epkInfo.film_maker, 'Creator');
 
-  const CrewAvatar = ({ crewInfo }) => {
-    // console.log("Crew Info:", crewInfo);
-    const actorUrl =
-      crewInfo.role === 'Actor' && crewInfo.id
-        ? `/actor/${crewInfo.id}`
-        : 'Filmmaker' && crewInfo.id
-        ? `/filmmaker/${crewInfo.id}`
-        : '#';
-    const formatChars = (chars) => {
-      let noSpecialChars = chars.replace(/[^a-zA-Z0-9]/g, ' '); // remove special characters
-      // capitalize the first character.
-      let formatedChars = noSpecialChars
-        .split(' ')
-        .map((char) => {
-          return char[0].toUpperCase() + char.substring(1);
-        })
-        .join(' ');
+  // Filter out the owner if they are accidentally listed in the crew array
+  const rawCrew = (epkInfo.crew || []).filter(p => (p._id || p.id) !== owner.id);
+  const rawActors = epkInfo.actors || [];
 
-      return formatedChars;
-    };
+  const directors = rawCrew
+    .filter(p => (p.epkRole || p.role)?.toLowerCase().includes('director'))
+    .map(p => normalizeAvatarData(p))
+    .sort((a, b) => b.reach - a.reach);
 
+  const producers = rawCrew
+    .filter(p => (p.epkRole || p.role)?.toLowerCase().includes('producer'))
+    .map(p => normalizeAvatarData(p))
+    .sort((a, b) => b.reach - a.reach);
+
+  const otherCrew = rawCrew
+    .filter(p => {
+      const role = (p.epkRole || p.role)?.toLowerCase() || "";
+      return !role.includes('director') && !role.includes('producer');
+    })
+    .map(p => normalizeAvatarData(p))
+    .sort((a, b) => b.reach - a.reach);
+
+  const actors = rawActors
+    .map(p => normalizeAvatarData(p, 'Actor'))
+    .sort((a, b) => b.reach - a.reach);
+
+  // Combine everyone except the owner into the scrollable array
+  const scrollableCast = [...directors, ...producers, ...otherCrew, ...actors];
+
+  // Helper to format roles neatly
+  const formatChars = (chars) => {
+    if (!chars) return "";
+    let noSpecialChars = chars.replace(/[^a-zA-Z0-9]/g, ' '); 
+    return noSpecialChars
+      .split(' ')
+      .map((char) => char.charAt(0).toUpperCase() + char.substring(1))
+      .join(' ');
+  };
+
+  // Avatar Card Component
+  const AvatarCard = ({ person }) => {
+    const profileUrl = `/${person.role.toLowerCase() === 'actor' ? 'actor' : 'filmmaker'}/${person.id}`;
+    
     return (
-      <a href={actorUrl} className="tw-no-underline">
-        <div className="tw-text-[#1E0039]">
-          <img
-            className="tw-h-20 tw-w-20 tw-rounded-full"
-            src={crewInfo.image}
-            alt="avatar img"
-          />
-          <div className="tw-text-center">
-            <h3 className="tw-text-lg tw-leading-7 tw-tracking-tight md:tw-text-sm">
-              {crewInfo.name}
-            </h3>
-            <p className="tw-text-sm tw-leading-6">
-              {formatChars(crewInfo.role)}
-            </p>
-          </div>
-          {/* added for actors */}
-          {/* <img
-          className="tw-h-20 tw-w-20 tw-rounded-full"
-          src={
-            crewInfo.picture.startsWith("https")
-              ? crewInfo.picture
-              : `${process.env.REACT_APP_AWS_URL}/${crewInfo.picture}`
-          }
-          alt="avatar img"
+      <a 
+        href={profileUrl}
+        className="tw-flex tw-flex-col tw-items-center tw-shrink-0 tw-no-underline hover:tw-opacity-80 tw-transition-opacity"
+      >
+        <img
+          className="tw-h-16 tw-w-16 md:tw-h-20 md:tw-w-20 tw-rounded-full tw-object-cover tw-shadow-md tw-border-2 tw-border-transparent hover:tw-border-[#E81A84] tw-transition-colors"
+          src={person.image}
+          alt={person.name}
         />
-        <div className="tw-text-center">
-          <h3 className="tw-text-lg tw-leading-7 tw-tracking-tight">
-            {crewInfo.firstName + " " + crewInfo.lastName}
+        <div className="tw-text-center tw-mt-2 tw-max-w-[90px] md:tw-max-w-[100px]">
+          <h3 className="tw-text-xs md:tw-text-sm tw-font-bold tw-leading-tight tw-tracking-tight tw-truncate tw-text-[#1E0039]" title={person.name}>
+            {person.name}
           </h3>
-          <p className="tw-text-sm tw-leading-6">
-            {formatChars(crewInfo.role)}
+          <p className={`tw-text-[10px] md:tw-text-xs tw-mt-1 ${person.isOwner ? 'tw-text-[#E81A84] tw-font-bold' : 'tw-text-gray-500'}`}>
+            {formatChars(person.role)}
           </p>
-        </div> */}
-          {/* added for actors */}
         </div>
       </a>
     );
   };
+
   return (
-    <div className="tw-grid tw-grid-cols-1 tw-gap-6 tw-rounded-lg tw-bg-white tw-px-2 tw-text-[#1E0039] md:tw-grid-cols-3 md:tw-pl-8">
-      {/*<div className="tw-mb-6 md:tw-m-6 md:tw-mb-0">*/}
-      {/*  <img*/}
-      {/*    src={image_detail}*/}
-      {/*    alt=""*/}
-      {/*    style={{ width: "310px", height: "420px" }}*/}
-      {/*    className="tw-my-4 tw-block tw-object-cover tw-shadow-[6px_6px_3px_#1E0039] md:tw-h-full"*/}
-      {/*  />*/}
-      {/*</div>*/}
-      <div className="tw-gap- tw-my-8 tw-grid tw-grid-cols-2 md:tw-grid-cols-2 lg:tw-grid-cols-3">
-        {epkInfo.crew.length > 0
-          ? epkInfo.crew.map((person, index) => (
-              <CrewAvatar
-                crewInfo={normalizeAvatarCrewData(person)}
-                key={`crew-${index}`}
-              />
-            ))
-          : null}
-        {epkInfo.actors.length > 0
-          ? epkInfo.actors.map((person, index) => (
-              <CrewAvatar
-                crewInfo={normalizeAvatarCrewData(person)}
-                key={`actor-${index}`}
-              />
-            ))
-          : null}
-      </div>
-      {/* Center Column: Details */}
-      <div className="tw-mx-4 tw-grid tw-grid-cols-2 tw-gap-x-4">
-        {/* Left-aligned Details */}
-        <div className="tw-flex tw-flex-col tw-gap-4 tw-text-left">
-          <div>
-            <p className="tw-font-light">{t('Budget')}</p>
-            <p>{epkInfo.budget}</p>
-          </div>
-          <div>
-            <p className="tw-font-light">{t('Studio')}</p>
-            <p>{epkInfo.productionCo}</p>
-          </div>
-          <div>
-            <p className="tw-font-light">{t('Posted')}</p>
-            <p>{formatedDate(epkInfo.createdAt)}</p>
-          </div>
+    <div className="tw-flex tw-flex-col tw-gap-8 tw-rounded-lg tw-bg-white tw-px-4 tw-py-8 tw-text-[#1E0039] md:tw-px-8">
+      
+      {/* --- TOP SECTION: SPLIT CAROUSEL --- */}
+      <div className="tw-flex tw-w-full tw-items-start tw-gap-4 tw-pb-2">
+        
+        {/* 1. Static Owner */}
+        <AvatarCard person={owner} />
+
+        {/* 2. Vertical Divider */}
+        {scrollableCast.length > 0 && (
+          <div className="tw-h-16 md:tw-h-20 tw-w-px tw-bg-gray-300 tw-shrink-0 tw-mt-1"></div>
+        )}
+
+        {/* 3. Scrollable Rest of Cast/Crew with custom sleek scrollbar */}
+        <div 
+          className="tw-flex tw-overflow-x-auto tw-gap-4 tw-items-start tw-w-full tw-pb-4
+                     [&::-webkit-scrollbar]:tw-h-1 
+                     [&::-webkit-scrollbar-track]:tw-bg-gray-100 
+                     [&::-webkit-scrollbar-track]:tw-rounded-full 
+                     [&::-webkit-scrollbar-thumb]:tw-bg-[#1E0039] 
+                     hover:[&::-webkit-scrollbar-thumb]:tw-bg-[#E81A84] 
+                     [&::-webkit-scrollbar-thumb]:tw-rounded-full 
+                     tw-transition-colors"
+        >
+          {scrollableCast.map((person, index) => (
+            <AvatarCard person={person} key={`${person.id}-${index}`} />
+          ))}
         </div>
 
-        {/* Right-aligned Details */}
-        <div className="tw-flex tw-flex-col tw-gap-4 tw-text-right">
-          <div>
-            <p className="tw-font-light">{t('Produced Year')}</p>
-            <p>{epkInfo.productionYear}</p>
-          </div>
-          <div>
-            <p className="tw-font-light">{t('Duration')}</p>
-            <p>
-              {epkInfo.durationMin} {t('Minutes')}
-            </p>
-          </div>
-          <div>
-            <p className="tw-font-light">{t('Type / Genre')}</p>
-            <p className="tw-capitalize">{epkInfo.genre}</p>
-          </div>
-          <div>
-            <p className="tw-font-light">{t('Status')}</p>
-            <p>{epkInfo.status}</p>
-          </div>
-        </div>
       </div>
-      <div>
-        <div className="tw-mt-8 tw-flex tw-flex-col tw-gap-3">
-          <div className="tw-relative tw-mx-auto">
-            <span className="tw-justify-right tw-flex tw-text-[#1E0039]">
-              {t('Filmmaker Owner')}
-            </span>
-            <a
-              href={`/filmmaker/${epkInfo.film_maker._id}`}
-              className="tw-no-underline"
-            >
-              <img
-                className="tw-h-4/4 tw-w-4/4 tw-rounded-lg"
-                src={filmmaker_image}
-                alt="profile img"
-              />
-            </a>
 
-            <div className="tw-absolute tw-inset-x-0 tw-bottom-0 tw-mx-auto tw-flex tw-h-4 tw-justify-center tw-rounded-full tw-bg-gray-500 tw-bg-opacity-75">
-              <span className="tw-self-center tw-overflow-hidden tw-text-xs tw-text-white">
-                {filmmaker_name}
-              </span>
-            </div>
-          </div>
-          <div className="tw-flex">
-            <img
-              src={MessageIcon}
-              alt=""
-              onClick={() => handler('message')}
-              className="tw-max-w-20 tw-max-h-20 tw-cursor-pointer tw-p-3 hover:tw-scale-110"
-            />
-          </div>
+      <hr className="tw-border-gray-200 tw-my-0" />
+
+      {/* --- BOTTOM SECTION: EPK DETAILS GRID --- */}
+      <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-y-6 tw-gap-x-4">
+        
+        <div className="tw-flex tw-flex-col tw-gap-1">
+          <p className="tw-text-xs tw-text-gray-500 tw-uppercase tw-tracking-wider">{t('Budget')}</p>
+          <p className="tw-font-medium tw-text-sm">{epkInfo.budget || '-'}</p>
         </div>
+
+        <div className="tw-flex tw-flex-col tw-gap-1">
+          <p className="tw-text-xs tw-text-gray-500 tw-uppercase tw-tracking-wider">{t('Produced Year')}</p>
+          <p className="tw-font-medium tw-text-sm">{epkInfo.productionYear || '-'}</p>
+        </div>
+
+        <div className="tw-flex tw-flex-col tw-gap-1">
+          <p className="tw-text-xs tw-text-gray-500 tw-uppercase tw-tracking-wider">{t('Studio')}</p>
+          <p className="tw-font-medium tw-text-sm">{epkInfo.productionCo || '-'}</p>
+        </div>
+
+        <div className="tw-flex tw-flex-col tw-gap-1">
+          <p className="tw-text-xs tw-text-gray-500 tw-uppercase tw-tracking-wider">{t('Duration')}</p>
+          <p className="tw-font-medium tw-text-sm">{epkInfo.durationMin ? `${epkInfo.durationMin} ${t('Minutes')}` : '-'}</p>
+        </div>
+
+        <div className="tw-flex tw-flex-col tw-gap-1">
+          <p className="tw-text-xs tw-text-gray-500 tw-uppercase tw-tracking-wider">{t('Posted')}</p>
+          <p className="tw-font-medium tw-text-sm">{formatedDate(epkInfo.createdAt)}</p>
+        </div>
+
+        <div className="tw-flex tw-flex-col tw-gap-1">
+          <p className="tw-text-xs tw-text-gray-500 tw-uppercase tw-tracking-wider">{t('Type / Genre')}</p>
+          <p className="tw-font-medium tw-text-sm tw-capitalize">{epkInfo.genre || '-'}</p>
+        </div>
+
+        <div className="tw-flex tw-flex-col tw-gap-1">
+          <p className="tw-text-xs tw-text-gray-500 tw-uppercase tw-tracking-wider">{t('Status')}</p>
+          <p className="tw-font-medium tw-text-sm">{epkInfo.status || '-'}</p>
+        </div>
+
       </div>
     </div>
   );

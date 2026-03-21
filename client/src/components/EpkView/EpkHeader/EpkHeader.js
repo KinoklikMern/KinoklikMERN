@@ -1,138 +1,72 @@
 import React, { useState, useEffect } from "react";
-import { getActorFollowersNumber } from "../../../api/epks";
-import Audience from "../../../images/audienceIcon.svg";
 import SocialMedia from "./SocialMedia";
-import {
-  faFacebookSquare,
-  faInstagram,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
-// import { useTranslation } from "react-i18next";
+import { formatCompactNumber } from "../../../utils/numberFormatters";
+import { fetchAndSumFollowers } from "../../../utils/followersHelper";
 
-export default function EpkHeader({ epkInfo }) {
-  //console.log("epk info:", epkInfo);
-  // const { t } = useTranslation();
-
-  const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] =
-    useState(0);
-
-  const [socialMediasList, setSocialMediasList] = useState([
-    {
-      name: "facebook",
-      fontawesome_icon: faFacebookSquare,
-      followers: 0,
-      color: "#285FB2",
-    },
-    {
-      name: "instagram",
-      fontawesome_icon: faInstagram,
-      followers: 0,
-      color: "#E938C2",
-    },
-    {
-      name: "twitter",
-      fontawesome_icon: faTwitter,
-      followers: 0,
-      color: "#4FBAF7",
-    },
-  ]);
+export default function EpkHeader({ epkInfo,setGlobalTotalReach }) {
+  const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
+  const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0, newsletter: 0 });
 
   useEffect(() => {
-    const fetchAndSumActorFollowers = async () => {
-      let totalFacebookFollowers =
-        parseInt(epkInfo.film_maker.facebook_followers, 10) || 0;
-      let totalInstagramFollowers =
-        parseInt(epkInfo.film_maker.instagram_followers, 10) || 0;
-      let totalTwitterFollowers =
-        parseInt(epkInfo.film_maker.twitter_followers, 10) || 0;
-
-      // Iterate through each actor in the actors array
-      for (const actor of epkInfo.actors) {
-        try {
-          const res = await getActorFollowersNumber(actor._id);
-          // Update total followers for each platform
-          totalFacebookFollowers += parseInt(res.facebook, 10) || 0;
-          totalInstagramFollowers += parseInt(res.instagram, 10) || 0;
-          totalTwitterFollowers += parseInt(res.twitter, 10) || 0;
-        } catch (error) {
-          console.error(
-            "Failed to fetch followers for actor",
-            actor._id,
-            error
-          );
-        }
+    const getFollowers = async () => {
+      // 1. Gather Filmmaker ID + All Actor IDs
+      const idsToFetch = [];
+      if (epkInfo?.film_maker?._id) {
+        idsToFetch.push(epkInfo.film_maker._id);
+      }
+      if (epkInfo?.actors && epkInfo.actors.length > 0) {
+        epkInfo.actors.forEach(actor => {
+          if (actor._id) idsToFetch.push(actor._id);
+        });
       }
 
-      // Update state once all actor followers are fetched
-      setSocialMediaFollowerTotalNum(
-        formatCompactNumber(
-          totalFacebookFollowers +
-            totalInstagramFollowers +
-            totalTwitterFollowers
-        )
-      );
-
-      setSocialMediasList(
-        socialMediasList.map((media) => {
-          let followersCount;
-          if (media.name === "facebook") {
-            followersCount = totalFacebookFollowers;
-          } else if (media.name === "instagram") {
-            followersCount = totalInstagramFollowers;
-          } else if (media.name === "twitter") {
-            followersCount = totalTwitterFollowers;
-          }
-          return {
-            ...media,
-            followers: formatCompactNumber(followersCount),
-          };
-        })
-      );
+      // 2. Fetch them all at once using the Helper!
+      if (idsToFetch.length > 0) {
+        const data = await fetchAndSumFollowers(idsToFetch);
+        setPlatformFollowers(data.platforms);
+        setSocialMediaFollowerTotalNum(formatCompactNumber(data.total));
+        if (setGlobalTotalReach) {
+          setGlobalTotalReach(data.total); // Update the global total reach in the parent component
+        }
+      }
     };
 
-    if (epkInfo?.actors && epkInfo.actors.length > 0) {
-      fetchAndSumActorFollowers();
+    if (epkInfo) {
+      getFollowers();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [epkInfo]);
+  }, [epkInfo, setGlobalTotalReach]);
 
-  function formatCompactNumber(number) {
-    if (number < 1000) {
-      return number;
-    } else if (number >= 1000 && number < 1_000_000) {
-      return (number / 1000).toFixed(2).replace(/\.0$/, "") + "K";
-    } else if (number >= 1_000_000 && number < 1_000_000_000) {
-      return (number / 1_000_000).toFixed(2).replace(/\.0$/, "") + "M";
-    } else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
-      return (number / 1_000_000_000).toFixed(2).replace(/\.0$/, "") + "B";
-    } else if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
-      return (number / 1_000_000_000_000).toFixed(2).replace(/\.0$/, "") + "T";
-    }
-  }
+  const socialMediaData = [
+    { platform: 'newsletter', followers: formatCompactNumber(platformFollowers.newsletter) },
+    { platform: 'facebook', followers: formatCompactNumber(platformFollowers.facebook), url: epkInfo?.film_maker?.facebook_url || epkInfo?.film_maker?.facebook },
+    { platform: 'instagram', followers: formatCompactNumber(platformFollowers.instagram), url: epkInfo?.film_maker?.instagram_url || epkInfo?.film_maker?.instagram },
+    { platform: 'twitter', followers: formatCompactNumber(platformFollowers.twitter), url: epkInfo?.film_maker?.twitter_url || epkInfo?.film_maker?.twitter },
+    { platform: 'tiktok', followers: formatCompactNumber(platformFollowers.tiktok), url: epkInfo?.film_maker?.tiktok_url || epkInfo?.film_maker?.tiktok },
+    { platform: 'linkedin', followers: formatCompactNumber(platformFollowers.linkedin || platformFollowers.linkedIn), url: epkInfo?.film_maker?.linkedin_url || epkInfo?.film_maker?.linkedin },
+    { platform: 'youtube', followers: formatCompactNumber(platformFollowers.youtube), url: epkInfo?.film_maker?.youtube_url || epkInfo?.film_maker?.youtube }
+  ];
+
   return (
-      <div className="tw-w-full tw-flex tw-justify-evenly tw-items-center tw-gap-5 tw-py-4">
+    <div className="tw-flex tw-w-full tw-flex-col tw-items-center">
+      
+      {/* 1. TITLE (Centered at the very top) */}
+      {epkInfo?.title && (
+        <div className="tw-flex tw-w-full tw-items-center tw-justify-center tw-py-6">
+          <h1 className="tw-px-4 tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-text-[#C4C4C4] tw-drop-shadow-md">
+            {epkInfo.title}
+          </h1>
+        </div>
+      )}
 
-          {/* Audience Reach */}
-          <div className="tw-flex tw-items-center ">
-            <img src={Audience} alt="audience icon"
-                 className="tw-h-6 tw-w-6 tw-filter tw-brightness-50 tw-contrast-200"/>
-            <span className="tw-text-m tw-font-semibold tw-text-customGray">
-          {socialMediafollowerTotalNum}
-        </span>
-          </div>
-
-          {socialMediasList?.map((media, index) => (
-              <SocialMedia
-                  key={index}
-                  icon={media.fontawesome_icon}
-                  followerNum={media.followers}
-                  name={media.name}
-                  color={"#868585"}
-              />
-          ))}
-
-
-
+      {/* 2. SOCIAL MEDIA BAR (Stacked directly underneath the title) */}
+      <div className="tw-flex tw-w-full tw-items-center tw-justify-evenly tw-gap-5 tw-py-4">
+        <SocialMedia 
+          socials={socialMediaData} 
+          totalReachNum={socialMediafollowerTotalNum}
+          viewCount={epkInfo?.viewCount || 0}
+        />
       </div>
+      
+    </div>
   );
 }

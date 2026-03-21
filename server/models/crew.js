@@ -10,6 +10,8 @@ const crewSchema = mongoose.Schema({
     instagram_followers: {type: String, default: "0"},
     twitter_url: {type: String},
     twitter_followers: {type: String, default: "0"},
+    tiktok_url: {type: String},
+    tiktok_followers: {type: String, default: "0"},
     role: {
         type: String,
         enum: ['actor', 'director', 'producer', 'cinematographer', 'editor', 'writer'],

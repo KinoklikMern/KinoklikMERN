@@ -21,6 +21,10 @@ import { fileURLToPath } from "url";
 // Edit by Tony On Jan 20, 2023
 import filmMakerDashboard from "./routes/filmMakerDashboard.js";
 
+// Adding view tracking for EPK, Actor, and Filmmaker profiles
+import analyticsRoutes from "./routes/analytics.js";
+import cookieParser from "cookie-parser";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const buildPath = path.join(__dirname, "../client/build");
@@ -28,7 +32,11 @@ const buildPath = path.join(__dirname, "../client/build");
 // end ////
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: `${process.env.BASE_URL}`,
+  credentials: true,
+}));
+app.use(cookieParser()); // Add cookie-parser middleware to parse cookies
 
 //proxy to be able to get a thumbnail directly from video from database
 app.get("/video-proxy", async (req, res) => {
@@ -66,6 +74,7 @@ app.use("/company", companyRoutes);
 // Edit by Tony On Jan 20, 2023
 app.use("/filmmaker", filmMakerDashboard);
 // end ////
+app.use("/analytics", analyticsRoutes); // Add this line to include the analytics routes
 
 // rucheng edit
 app.use("/chat", chatRoutes);
@@ -81,6 +90,8 @@ app.get("/*", function (req, res) {
 
 app.use("/*", handleNotFound);
 app.use(errorHandler);
+
+
 
 const CONNECTION_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 8000;
