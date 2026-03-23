@@ -208,6 +208,11 @@ export const getMoviesByActors = async (actorId) => {
     throw error;
   }
 };
+
+export const getDeletedFepksByFilmmakerId = (id) =>
+  axios
+    .get(`${process.env.REACT_APP_BACKEND_URL}/fepks/deleted/${id}`)
+    .then((r) => r.data);
 // Set thumbnail banner for trailer
 export const setBannerThumbnail = async (epkId, bannerId) => {
   try {

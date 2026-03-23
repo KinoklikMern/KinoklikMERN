@@ -35,6 +35,8 @@ import {
   getWishToBuyFepksByUser,
   getFepksByActorId,
   transferEpkOwnership,
+  getDeletedFepksByFilmmakerId,
+  restoreFepk,
 } from "../controllers/fepk.js";
 
 const upload = multer({ dest: "images/" });
@@ -134,6 +136,8 @@ router.get("/getmoviesbyactor/:actorId", getFepksByActorId);
 // transfer epk ownership
 router.put("/:epkId/transfer", transferEpkOwnership);
 
-
+// get and restore deleted epks
+router.get("/deleted/:id", getDeletedFepksByFilmmakerId);
+router.put("/restore/:id", restoreFepk);
 
 export default router;

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 
 const Landing8 = () => {
   const { t } = useTranslation();
@@ -94,6 +95,7 @@ useEffect(() => {
       console.log(data);
       navigate("/uploadEpk");
     } catch (error) {
+      // TODO add a real error message
       // console.log(error.response.message);
     }
   };
@@ -114,13 +116,13 @@ useEffect(() => {
                 className="tw-w-48 tw-flex-shrink-0 tw-rounded-lg tw-shadow-md tw-shadow-gray-600 md:tw-w-96"
                 key={`${item._id}-${index}`}
               >
-                <a href={item.title ? `epk/${item._id}` : "/"}>
+                <Link to={item.title ? `epk/${item._id}` : "/"}>
                   <img
                     className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105"
                     src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
                     alt={item.title}
                   />
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -134,13 +136,13 @@ useEffect(() => {
               className="tw-w-48 tw-flex-shrink-0 tw-rounded-lg tw-shadow-md tw-shadow-gray-600 md:tw-w-96"
               key={`${item._id}-${index}`}
             >
-              <a href={`epk/${item._id}`}>
+              <Link to={`epk/${item._id}`}>
                 <img
                   className="tw-h-full tw-w-full tw-rounded-lg tw-object-cover tw-duration-200 hover:tw-scale-105"
                   src={`${process.env.REACT_APP_AWS_URL}/${item.image_details}`}
                   alt={item.title}
                 />
-              </a>
+              </Link>
             </div>
           ))}
         </div>

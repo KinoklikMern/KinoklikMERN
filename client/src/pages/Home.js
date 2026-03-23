@@ -10,19 +10,19 @@ import Landing2 from "../components/LandingPage/Landing2";
 import Landing3 from "../components/LandingPage/Landing3";
 // import Landing4 from "../components/LandingPage/Landing4";
 import Landing5 from "../components/LandingPage/Landing5";
-
 import Landing8 from "../components/LandingPage/Landing8";
 import Landing9 from "../components/LandingPage/Landing9";
 import Landing10 from "../components/LandingPage/Landing10";
 import { FepkContext } from "../context/FepkContext";
 import FilterTag from "../components/Filter/FilterTag";
 import Landing11 from "../components/LandingPage/Landing11";
+
 function Home({ role }) {
   const user = useSelector((state) => state.user);
   // eslint-disable-next-line no-unused-vars
-  const [fepkMaker, setFepkMaker] = React.useContext(FepkContext);
+  const {fepkMaker, setFepkMaker} = React.useContext(FepkContext);
   useEffect(() => {
-    setFepkMaker("");
+    setFepkMaker([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -43,7 +43,6 @@ function Home({ role }) {
             <Landing1 />
             <Landing2 />
             <Landing3 />
-            {/* <Landing4 /> */}
             <Landing5 />
             <Landing8 />
             <Landing9 />

@@ -6,6 +6,7 @@ import { login } from "../../../api/user";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
 
 export default function LoginModal(props) {
   const dispatch = useDispatch();
@@ -90,9 +91,9 @@ export default function LoginModal(props) {
           </Button>
           <p className="mt-3">
             {t("Don't have an account yet?")}{" "}
-            <a href="/signup" className="text-[#581396]">
+            <Link to="/signup" className="text-[#581396]">
               {t('Create Account')}
-            </a>
+            </Link>
           </p>
         </div>
       </Modal.Footer>

@@ -49,7 +49,7 @@ let socket;
 
 function EpkView() {
   const { t } = useTranslation();
-  const [fepkId, setFepkId, fepkMaker, setFepkMaker] =
+  const {fepkId, setFepkId, fepkMaker, setFepkMaker} =
     React.useContext(FepkContext);
   // fetching user
   let { id } = useParams();

@@ -2,28 +2,28 @@ import React, { useState, useEffect } from "react";
 import "../components/HomeBody/HomeBody.css";
 import "../components/List/List.css";
 import "../components/ListItem/ListItem.css";
-import EPKFilter from "../components/Filter/EPKFilter";
-import FilterButton from "../components/Filter/FilterButton";
-import StatusBtn from "../components/SwitchStatusBtn/Status";
-import http from "../http-common";
-import SearchBar from "../components/HomeHead/SearchBar";
+import EPKFilter from "../components/Filter/EPKFilter.js";
+import FilterButton from "../components/Filter/FilterButton.js";
+import StatusBtn from "../components/SwitchStatusBtn/Status.js";
+import http from "../http-common.js";
+import SearchBar from "../components/HomeHead/SearchBar.js";
 import { useTranslation } from "react-i18next";
 import "../components/SwitchBtn/SwitchBtn.css";
-import FilterTagInCatelog from "../components/Filter/FilterTagInCatelog";
+import FilterTag from "../components/Filter/FilterTag.js";
 import { FepkContext } from "../context/FepkContext.js";
 import ListItem from "../components/ListItem/ListItemActor.js";
+import { Link } from "react-router-dom";
 
-function CatelogPage() {
+function CatalogPage() {
   const { t } = useTranslation();
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
-  //For Translation
-
-  //Add actors
   const [activeBtn, setActiveBtn] = useState("epk");
-  const [filterQueryActors, setFilterQueryActors] =
-    React.useContext(FepkContext);
+  const { 
+    filterQuery: filterQueryActors, 
+    setFilterQuery: setFilterQueryActors 
+  } = React.useContext(FepkContext);
 
   const [filterTags, setFilterTags] = useState([
     {
@@ -132,7 +132,7 @@ function CatelogPage() {
         <div className="switch-btn">
           <button
             id="epk-btn"
-            className={activeBtn === "epk" ? "active" : ""}
+            className={activeBtn === "epk" ? "active" : []}
             onClick={() => handleClick("epk")}
           >
             EPKs
@@ -140,7 +140,7 @@ function CatelogPage() {
 
           <button
             id="actor-btn"
-            className={activeBtn === "actor" ? "active" : ""}
+            className={activeBtn === "actor" ? "active" : []}
             onClick={() => handleClick("actor")}
           >
             {t("Actors")}
@@ -173,13 +173,13 @@ function CatelogPage() {
                 return (
                   <React.Fragment key={fepk._id}>
                     <div className="listItem tw-my-8 tw-p-3 md:tw-my-24">
-                      <a href={fepk.title ? `/epk/${fepk._id}` : `/`}>
+                      <Link to={fepk.title ? `/epk/${fepk._id}` : `/`}>
                         <img
                           src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                           alt=""
                           className="tw-w-full"
                         />
-                      </a>
+                      </Link>
                     </div>
                   </React.Fragment>
                 );
@@ -189,7 +189,7 @@ function CatelogPage() {
         </>
       ) : (
         <>
-          <FilterTagInCatelog isActive={activeBtn} />
+          <FilterTag isActive={activeBtn} />
           <div className="home tw-flex tw-justify-center tw-overflow-y-auto">
             <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-px-3 tw-py-2 sm:tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-4 xl:tw-grid-cols-5 2xl:tw-grid-cols-7">
               <ListItem title="all_actors" type={filterQueryActors} />
@@ -201,4 +201,4 @@ function CatelogPage() {
   );
 }
 
-export default CatelogPage;
+export default CatalogPage;
