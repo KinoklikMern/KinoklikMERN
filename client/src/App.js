@@ -7,10 +7,10 @@ import './styles/tailwind.css';
 import MainLayout from './layouts/MainLayout';
 import UploadMovie from './pages/UploadMovie';
 import Home from './pages/Home';
-import RegistrationForm from './components/Auth/Registration/registration';
+import RegistrationForm from './components/Auth/Registration/Registration';
 import EmailVerification from './components/Auth/Registration/EmailVerification';
 import RegistrationSuccess from './components/Auth/Registration/RegistrationSuccess';
-import LoginForm from './components/Auth/Registration/loginform';
+import LoginForm from './components/Auth/Registration/LoginForm.js'
 import SendResetPasswordLinkPage from './pages/login/SendResetPasswordLinkPage';
 import CheckEmailPage from './pages/login/CheckEmailPage';
 import ResetPasswordPage from './pages/login/ResetPasswordPage';

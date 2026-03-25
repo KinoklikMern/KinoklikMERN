@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import FepkCoverForm from "../components/Epk/Input/fepkCoverForm";
-import LoginForm from "../components/Auth/Registration/loginform";
+import LoginForm from "../components/Auth/Registration/LoginForm";
 
 function FepkUploadDashboard() {
   // fetching user

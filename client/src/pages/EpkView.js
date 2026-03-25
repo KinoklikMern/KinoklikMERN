@@ -38,7 +38,7 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "react-share";
-import Login from "../components/Auth/Registration/loginFromViewPage";
+import LoginModal from "../components/common/Modals/LoginModal";
 import { FepkContext } from "../context/FepkContext";
 import StillsCarousel from "../components/Epk/Present/StillsCarousel";
 import { useTranslation } from "react-i18next";
@@ -81,6 +81,8 @@ function EpkView() {
   const [followers, setFollowers] = useState({});
   const [reviews, setReviews] = useState([]);
   const [requests, setRequests] = useState([]);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   // const { incrementNotification } = useContext(NotificationContext);
 
@@ -266,8 +268,7 @@ function EpkView() {
   }
 
   function login() {
-    document.getElementById("login").click();
-    // setClickStar(!clickStar);
+    setShowLoginModal(true);
   }
 
   const createdTime = fepkData.createdAt;
@@ -932,7 +933,6 @@ function EpkView() {
             </a>
           </div>
         </div>
-        <Login />
         {/* details section */}
         <div className={style.detailContainer}>
           <div>
@@ -1982,7 +1982,9 @@ function EpkView() {
         </div>
         {/* stills section */}
         <StillsCarousel id={{ id }} />
-        {/* the case when user not logged in and if logged in not requested yet*/}
+        {/* TODO - find out if these notes can be deleted 
+        
+        the case when user not logged in and if logged in not requested yet*/}
         {/* {userId === "0" ? (
           <div className={style.stills}>
             <div className={style.position1}>
@@ -2326,6 +2328,12 @@ function EpkView() {
           })}
         </div>
       </div>
+
+      <LoginModal 
+        open={showLoginModal} 
+        close={() => setShowLoginModal(false)} 
+        setRefresh={setRefresh} 
+      />
     </div>
   );
 }

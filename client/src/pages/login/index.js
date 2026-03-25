@@ -1,6 +1,6 @@
 import "./style.css";
-import LoginForm from "../../components/login/LoginForm";
-import RegisterForm from "../../components/login/RegisterForm";
+import LoginForm from "../../Auth/Registration/LoginForm"; 
+import RegisterForm from "../../Auth/Registration/Registration";
 
 export default function Login() {
   return (

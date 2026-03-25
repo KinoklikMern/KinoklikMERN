@@ -18,19 +18,14 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  // const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  // const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
-
-  // const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const emailInputRef = useRef(null);
 
   useEffect(() => {
-    // Automatically focus the email input field when the component loads
     emailInputRef.current.focus();
   }, []);
 
