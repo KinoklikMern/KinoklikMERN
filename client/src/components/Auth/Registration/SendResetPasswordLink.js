@@ -88,7 +88,7 @@ function SendResetPasswordLink() {
           <div className={Logincss.form_Message}>
             <br />
             <p>
-              {t('Already hava an account?')}{" "}
+              {t('Already have an account?')}{" "}
               <Link to="/login" className={Logincss.link}>
                 {t('Sign In')}
               </Link>

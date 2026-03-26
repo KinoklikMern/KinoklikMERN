@@ -14,7 +14,6 @@ import ReviewsForm from "../components/Epk/Input/fepkReviewsForm";
 import ResourcesForm from "../components/Epk/Input/fepkResourcesForm";
 import SalesCalculatorForm from "../components/Epk/Input/fepkSalesCalculatorForm";
 import FepkDetailsForm from "../components/Epk/Input/fepkDetailsForm";
-import FepkDashboardNoAccess from "../components/Epk/Input/fepkDashboardNoAccess";
 import EPKSideMenu from "../components/Epk/EpkSideMenu";
 import LoadingSpin from "../components/FilmMakerDashboard/LoadingSpin";
 import { FepkContext } from "../context/FepkContext";
@@ -200,7 +199,7 @@ function FepkEditDashboard() {
                         </div>
                     </div>
                 ) : (
-                    <FepkDashboardNoAccess />
+                    <div className="tw-text-white tw-p-10">{t("Access Denied: You do not own this EPK.")}</div>
                 )}
             </div>
         </div>
