@@ -716,7 +716,6 @@
 
   "Upload Poster": "Télécharger l'affiche",
 
-  "Comment Component dragUpload": "4 CHanges",
   "Click or drag file to this area to upload": "Cliquez ou faites glisser le fichier vers cette zone pour le télécharger",
   "Dropped files": "Fichiers supprimés",
 
@@ -770,8 +769,6 @@
   "OK": "D'ACCORD",
 
   "Promote your film for free, with KinoKlik EPK !": "Faites la promotion de votre film gratuitement, avec KinoKlik DPE !",
-
-  "components, upload1, Image mime type is not valid": "Le type d'image MIME n'est pas valide",
 
   "Browse images": "Parcourir les images",
 
