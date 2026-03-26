@@ -290,8 +290,6 @@
   "This title exists! Choose another one!": "Ce titre existe ! Choisissez-en un autre!",
   "This title is ok!": "Ce titre est bien!",
 
-  "_comment From Components Epk Input fepkDashboardNoAccess": "0 CHanges.",
-  "_comment From Components Epk Input fepkdetailsForm": "22 CHanges.",
   "Saved": "Enregistré",
   "User already added.": "Utilisateur déjà ajouté.",
   "Invitation deleted": "Invitation supprimée",
@@ -718,7 +716,6 @@
 
   "Upload Poster": "Télécharger l'affiche",
 
-  "Comment Component dragUpload": "4 CHanges",
   "Click or drag file to this area to upload": "Cliquez ou faites glisser le fichier vers cette zone pour le télécharger",
   "Dropped files": "Fichiers supprimés",
 
@@ -772,8 +769,6 @@
   "OK": "D'ACCORD",
 
   "Promote your film for free, with KinoKlik EPK !": "Faites la promotion de votre film gratuitement, avec KinoKlik DPE !",
-
-  "components, upload1, Image mime type is not valid": "Le type d'image MIME n'est pas valide",
 
   "Browse images": "Parcourir les images",
 

@@ -1,89 +1,22 @@
 import React, { useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
-// import http from "../../http-common.js";
 import heroImage from '../../images/LandingPage_Hero.png';
 import { useTranslation } from 'react-i18next';
 import { gsap } from 'gsap';
 
 const Landing1 = () => {
   const { t } = useTranslation();
-  // const dispatch = useDispatch();
-  // const [fepks, setFepks] = useState([]);
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-
-  // eslint-disable-next-line no-unused-vars
-  const createEpk = async () => {
-    try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/epk`,
-        {
-          user: user.id,
-        }
-      );
-      //dispatch({ type: "LOGIN", payload: data });
-
-      console.log(data);
-      navigate('/uploadEpk');
-    } catch (error) {
-      // console.log(error.response.message);
-    }
-  };
-
-  // useEffect(() => {
-  //   http.get(`fepks/`).then((res) => {
-  //     setFepks(res.data);
-  //   });
-  // }, []);
-
-  // const lastElement = fepks.length - 1;
-  // const firstElement = Math.max(0, lastElement - 4);
-  // const filteredFepks = fepks.slice(firstElement, lastElement);
-
-  //GSAP animation
   const headingRef = useRef(null);
   const subHeadingRef = useRef(null);
   const imageRef = useRef(null);
 
   useEffect(() => {
-    const heading = headingRef.current;
-    const subHeading = subHeadingRef.current;
-    const image = imageRef.current;
-
-    let tl;
-    if (heading && subHeading && image) {
-      tl = gsap.timeline({ defaults: { ease: 'power1.out' } });
-
-      tl.from(heading, {
-        opacity: 0,
-        y: -50,
-        duration: 1,
-      })
-        .from(
-          subHeading,
-          {
-            opacity: 0,
-            y: -30,
-            duration: 1,
-          },
-          '-=0.5'
-        )
-        .from(
-          image,
-          {
-            opacity: 0,
-            duration: 1.5,
-          },
-          '-=0.5'
-        );
-    }
-
-    return () => {
-      // Cleanup GSAP instances
-      if (tl) tl.kill();
-    };
+    const tl = gsap.timeline({ defaults: { ease: 'power1.out' } });
+        
+    tl.from(headingRef.current, { opacity: 0, y: -50, duration: 1 })
+      .from(subHeadingRef.current, { opacity: 0, y: -30, duration: 1 }, '-=0.5')
+      .from(imageRef.current, { opacity: 0, duration: 1.5 }, '-=0.5');
+    
+    return () => tl.kill();
   }, []);
 
   return (
@@ -127,16 +60,6 @@ const Landing1 = () => {
             </div>
 
             <div className="tw-invisible tw-mx-auto tw-w-0 lg:tw-visible lg:tw-w-2/4">
-              {/* {filteredFepks.map((fepk, index) => (
-                <img
-                  key={index}
-                  className={`${
-                    index === 0 ? "tw-row-span-2" : "tw-row-span-1"
-                  } tw-rounded-lg tw-object-cover`}
-                  src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
-                  alt=''
-                />
-              ))} */}
               <img
                   ref={imageRef}
                   src={heroImage}
