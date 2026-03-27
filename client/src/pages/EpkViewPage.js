@@ -9,16 +9,15 @@ import EpkSynopsis from '../components/EpkView/EpkSynopsis/EpkSynopsis';
 import EpkUniqueness from '../components/EpkView/EpkUniqueness/EpkUniqueness';
 import EpkCast from '../components/EpkView/EpkCast/EpkCast';
 import EpkWorker from '../components/EpkView/EpkWorker/EpkWorker';
-import EpkStills from '../components/EpkView/EpkStills/EpkStills';
 import EpkResources from '../components/EpkView/EpkResources/EpkResources';
 import EpkVideoGallery from '../components/EpkView/EpkVideoGallery/EpkVideoGallery';
 import EpkAward from '../components/EpkView/EpkAward/EpkAward';
 import DonationModal from '../components/donate/DonationModal';
-import RequestModal from '../components/EpkView/miscellaneous/RequestModal';
-import LoginModal from '../components/EpkView/miscellaneous/LoginModal';
-import NewMessageModal from '../components/EpkView/miscellaneous/NewMessageModal';
+import RequestModal from '../components/common/Modals/RequestModal';
+import LoginModal from '../components/common/Modals/LoginModal';
+import NewMessageModal from '../components/common/Modals/NewMessageModal';
 import { useParams } from 'react-router-dom';
-import { getFepksByTitle, getFepksById } from '../api/epks';
+import { getFepksById } from '../api/epks';
 import { useSelector } from 'react-redux';
 import { FepkContext } from '../context/FepkContext';
 import Banner from '../components/EpkView/EpkBanner/EpkBanner';
@@ -94,28 +93,6 @@ function EpkViewPage() {
       setShowLoginModal(true);
     }
   };
-
-  // useEffect(() => {
-  //   getFepksByTitle(title).then((res) => {
-  //     if (res.message) {
-  //       alert(res.message);
-  //     } else {
-  //       //Find epk
-  //       setEpkInfo(res);
-  //       setFepkId(res._id);
-  //       setFepkMaker(res.film_maker);
-  //       if (user?.id === res.film_maker._id) {
-  //         setRequestStatus("approved");
-  //       } else {
-  //         res.requests.forEach((request) => {
-  //           if (request.user === user?.id) {
-  //             setRequestStatus(request.status);
-  //           }
-  //         });
-  //       }
-  //     }
-  //   });
-  // }, [title, refresh, setFepkId, setFepkMaker, user?.id]);
 
   useEffect(() => {
     getFepksById(id).then((res) => {

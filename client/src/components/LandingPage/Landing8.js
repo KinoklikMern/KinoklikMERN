@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Landing8.css";
-import { useNavigate } from "react-router-dom";
 import http from "../../http-common";
-import axios from "axios";
-import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,8 +8,6 @@ import { Link } from "react-router-dom";
 
 const Landing8 = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
 
   const [fepksNew, setFepks] = useState([]);
   const [fepksPopular, setPopularFepks] = useState([]);
@@ -25,80 +20,65 @@ const Landing8 = () => {
     http.get(`fepks/popular/1`).then((response) => setPopularFepks(response.data));
   }, []);
 
-useEffect(() => {
-  if (!fepksNew.length || !fepksPopular.length) return;
+  useEffect(() => {
+    if (!fepksNew.length || !fepksPopular.length) return;
 
-  gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-  const setupLoop = (ref, direction) => {
-    const el = ref.current;
-    const totalWidth = el.scrollWidth / 2; // half because items are duplicated
-    const xStart = direction === "left" ? 0 : -totalWidth;
-    const xEnd = direction === "left" ? -totalWidth : 0;
+    const setupLoop = (ref, direction) => {
+      const el = ref.current;
+      const totalWidth = el.scrollWidth / 2; // half because items are duplicated
+      const xStart = direction === "left" ? 0 : -totalWidth;
+      const xEnd = direction === "left" ? -totalWidth : 0;
 
-    gsap.set(el, { x: xStart });
+      gsap.set(el, { x: xStart });
 
-    const tween = gsap.to(el, {
-      x: xEnd,
-      duration: 20,
-      ease: "none",
-      repeat: -1,
-      modifiers: {
-        x: (x) => {
-          const parsed = parseFloat(x);
-          // Seamlessly wrap when we reach the end
-          if (direction === "left" && parsed <= -totalWidth) {
-            return "0px";
-          }
-          if (direction === "right" && parsed >= 0) {
-            return `${-totalWidth}px`;
-          }
-          return `${parsed}px`;
+      const tween = gsap.to(el, {
+        x: xEnd,
+        duration: 20,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          x: (x) => {
+            const parsed = parseFloat(x);
+            // Seamlessly wrap when we reach the end
+            if (direction === "left" && parsed <= -totalWidth) {
+              return "0px";
+            }
+            if (direction === "right" && parsed >= 0) {
+              return `${-totalWidth}px`;
+            }
+            return `${parsed}px`;
+          },
         },
-      },
-      paused: true,
-    });
+        paused: true,
+      });
 
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top bottom",
-      end: "bottom top",
-      onEnter: () => tween.play(),
-      onLeave: () => tween.pause(),
-      onEnterBack: () => tween.play(),
-      onLeaveBack: () => tween.pause(),
-    });
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top bottom",
+        end: "bottom top",
+        onEnter: () => tween.play(),
+        onLeave: () => tween.pause(),
+        onEnterBack: () => tween.play(),
+        onLeaveBack: () => tween.pause(),
+      });
 
-    el.addEventListener("mouseenter", () => tween.pause());
-    el.addEventListener("mouseleave", () => tween.play());
+      el.addEventListener("mouseenter", () => tween.pause());
+      el.addEventListener("mouseleave", () => tween.play());
 
-    return tween;
-  };
+      return tween;
+    };
 
-  const tween1 = setupLoop(newRowRef, "left");
-  const tween2 = setupLoop(popularRowRef, "right");
+    const tween1 = setupLoop(newRowRef, "left");
+    const tween2 = setupLoop(popularRowRef, "right");
 
-  return () => {
-    tween1.kill();
-    tween2.kill();
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-  };
-}, [fepksNew, fepksPopular]);
-
-  // eslint-disable-next-line no-unused-vars
-  const createEpk = async () => {
-    try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/epk`,
-        { user: user.id }
-      );
-      console.log(data);
-      navigate("/uploadEpk");
-    } catch (error) {
-      // TODO add a real error message
-      // console.log(error.response.message);
-    }
-  };
+    return () => {
+      tween1.kill();
+      tween2.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, [fepksNew, fepksPopular]);
 
   return (
     <>
