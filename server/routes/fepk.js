@@ -37,11 +37,15 @@ import {
   transferEpkOwnership,
   getDeletedFepksByFilmmakerId,
   restoreFepk,
+  addCollaborator,
+  removeCollaborator,
+  listCollaborators,
 } from "../controllers/fepk.js";
+import { canEditEpk } from "../middlwares/canEditEpk.js";
+import { authUser } from "../middlwares/auth.js";
 
 const upload = multer({ dest: "images/" });
 const router = express.Router();
-
 
 // Gets all FEPKs
 router.get("/", getFepks);
@@ -52,57 +56,6 @@ router.get("/byfilmmaker/:id", getFepksByFilmmakerId);
 // Gets all Fepks added to "My List" by certain user
 router.get("/favourite/byuser/:id", getFepksByUser);
 
-// Gets FEPK by FEPK's id
-router.get("/:id", getFepkbyId);
-
-// This api is for FEPK view Page
-router.get("/byTitle/:title", getFepkByTitle);
-
-// this is for Upload FPK page checks if title already exists
-router.get("/byTitles/:title", getFepksByTitle);
-
-// Calling this route you will get the total count of followers in facebook, instagram and twitter
-// Update 5/3/2026: added tiktok, linkedin, and youtube followers count to the response of this API
-router.get("/followers/:id", getFollowers);
-
-// Create FEPK
-router.post("/", createFepk);
-
-// Modify FEPK
-router.put("/update/:id", updateFepk);
-
-// user sends report on the EPK to Film Maker
-router.put("/report/:fepkId", createReport);
-
-// Calling these APIs will add user to the appropriate list (likes(star), favourites, sharings, wishes_to_buy($), wishes_to_donate)
-router.get("/like/:fepkid/:userid", getFepkLiked);
-router.get("/favourite/:fepkid/:userid", getFepkFavourite);
-router.get("/sharing/:fepkid/:userid", getFepkSharings);
-router.get("/wishestodonate/:fepkid/:userid", getFepkWishedToDonate);
-router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
-
-// Calling these APIs will create the requests for medium and long synopsises, uniqueness, and stills
-router.get("/mediumSynopsis/:fepkid/:userid", getMediumSynopsis);
-router.get("/longSynopsis/:fepkid/:userid", getLongSynopsis);
-router.get("/uniqueness/:fepkid/:userid", getUniqueness);
-router.get("/stills/:fepkid/:userid", getStills);
-
-// Uploads 1 file to AWS S3
-router.post("/uploadFile", upload.single("file"), uploadFepkFile);
-
-// Uploads up to 2 files to AWS S3
-router.post(
-  "/uploadFiles",
-  upload.fields([{ name: "file1" }, { name: "file2" }, { name: "file3" }]),
-  uploadFepkFiles
-);
-
-// Deletes (makes FEPK invisible for users)
-router.delete("/delete/:id", deleteFepk);
-
-// Add request to fepk
-router.post("/postRequests", postRequests);
-
 // get fepks which are starred by user
 router.get("/getStarredFepksByUser/:userId", getStarredFepksByUser);
 
@@ -112,17 +65,11 @@ router.get("/getFollowingFepksByUser/:userId", getFollowingFepksByUser);
 // get fepks which are wish_to_donate by user
 router.get("/getWishTodonateByUser/:userId", getWishToDonateFepksByUser);
 
-// get fepks which are wish_to_by by user
+// get fepks which are wish_to_buy by user
 router.get("/getWishTobuyByUser/:userId", getWishToBuyFepksByUser);
 
 // get fepks which are requests by user
 router.get("/getRequestsFepksByUser/:userId", getRequestsFepksByUser);
-
-//Approve request to fepk
-router.post("/approveRequest", approveRequests);
-
-//Refuse request to fepk
-router.post("/refuseRequest", refuseRequests);
 
 // sent request to get 10 newest movie
 router.get("/newest/:newId", getNewest);
@@ -133,11 +80,70 @@ router.get("/popular/:popular", getMostPopular);
 // get actor by movie
 router.get("/getmoviesbyactor/:actorId", getFepksByActorId);
 
-// transfer epk ownership
-router.put("/:epkId/transfer", transferEpkOwnership);
-
 // get and restore deleted epks
 router.get("/deleted/:id", getDeletedFepksByFilmmakerId);
 router.put("/restore/:id", restoreFepk);
+
+// this is for Upload FPK page checks if title already exists
+router.get("/byTitles/:title", getFepksByTitle);
+
+// Calling these APIs will create the requests for medium and long synopsises, uniqueness, and stills
+router.get("/mediumSynopsis/:fepkid/:userid", getMediumSynopsis);
+router.get("/longSynopsis/:fepkid/:userid", getLongSynopsis);
+router.get("/uniqueness/:fepkid/:userid", getUniqueness);
+router.get("/stills/:fepkid/:userid", getStills);
+
+// Calling this route you will get the total count of followers
+router.get("/followers/:id", getFollowers);
+
+// Calling these APIs will add user to the appropriate list
+router.get("/like/:fepkid/:userid", getFepkLiked);
+router.get("/favourite/:fepkid/:userid", getFepkFavourite);
+router.get("/sharing/:fepkid/:userid", getFepkSharings);
+router.get("/wishestodonate/:fepkid/:userid", getFepkWishedToDonate);
+router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
+
+// Collaborator management (owner only)
+router.get("/:epkId/collaborators", authUser, canEditEpk, listCollaborators);
+router.post("/:epkId/collaborators", authUser, canEditEpk, addCollaborator);
+router.delete("/:epkId/collaborators/:userId", authUser, canEditEpk, removeCollaborator)
+
+// This api is for FEPK view Page
+router.get("/byTitle/:title", getFepkByTitle);
+
+// Gets FEPK by FEPK's id — keep this late to avoid swallowing other routes
+router.get("/:id", getFepkbyId);
+
+// Create FEPK
+router.post("/", createFepk);
+
+// Modify FEPK
+router.put("/update/:id", updateFepk);
+
+// user sends report on the EPK to Film Maker
+router.put("/report/:fepkId", createReport);
+
+// Uploads 1 file to AWS S3
+router.post("/uploadFile", upload.single("file"), uploadFepkFile);
+
+// Uploads up to 3 files to AWS S3
+router.post(
+  "/uploadFiles",
+  upload.fields([{ name: "file1" }, { name: "file2" }, { name: "file3" }]),
+  uploadFepkFiles
+);
+
+// Deletes (soft delete)
+router.delete("/delete/:id", deleteFepk);
+
+// Add request to fepk
+router.post("/postRequests", postRequests);
+
+// Approve/refuse request
+router.post("/approveRequest", approveRequests);
+router.post("/refuseRequest", refuseRequests);
+
+// Transfer epk ownership
+router.put("/:epkId/transfer", transferEpkOwnership);
 
 export default router;
