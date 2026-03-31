@@ -72,17 +72,16 @@ const HomeBottom = () => {
       </p>
       <div onClick={clickHandler} className="uploadFilm">
         {/* <img src={UploadIcon} className="uploadIcon" alt="" /> */}
-        <Link to="/uploadFepk" onClick={clickHandler} className="uploadFilm">
-          <button
-            className="tw-rounded tw-px-8 tw-py-2 tw-font-bold tw-uppercase tw-text-white"
-            style={{
-              background: "linear-gradient(to right, #1E0039, #4b015e)",
-              borderRadius: "12px",
-            }}
-          >
-            {t("Upload EPK")}
-          </button>
-        </Link>
+        <button
+          onClick={clickHandler}
+          className="tw-rounded tw-px-8 tw-py-2 tw-font-bold tw-uppercase tw-text-white"
+          style={{
+            background: "linear-gradient(to right, #1E0039, #4b015e)",
+            borderRadius: "12px",
+          }}
+        >
+          {t("Upload EPK")}
+        </button>
       </div>
       <PopupModal />
     </div>

@@ -15,12 +15,12 @@ import CheckEmailPage from './components/Auth/Registration/CheckEmail';
 import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
 import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
-import FilmMakerSelectedEpk from './pages/FlimMaker/filmMakerSelectedEpk';
+ //import FilmMakerSelectedEpk from './pages/FlimMaker/filmMakerSelectedEpk';
 
-import FilmMakerDashboardSecurity from './components/FilmMaker/filmMakerDashboardSecurity';
-import FilmMakerDashboardSecurityCompany from './components/FilmMaker/filmMakerDashboardSecurityCompany';
-import FilmMakerDashboardSecurityPassword from './components/FilmMaker/filmMakerDashboardSecurityPassword';
-import FilmMakerDashboardSecurityAccount from './components/FilmMaker/filmMakerDashboardSecurityAccount';
+//import FilmMakerDashboardSecurity from './components/FilmMaker/filmMakerDashboardSecurity';
+//import FilmMakerDashboardSecurityCompany from './components/FilmMaker/filmMakerDashboardSecurityCompany';
+//import FilmMakerDashboardSecurityPassword from './components/FilmMaker/filmMakerDashboardSecurityPassword';
+//import FilmMakerDashboardSecurityAccount from './components/FilmMaker/filmMakerDashboardSecurityAccount';
 
 import ForFilmMakers from './components/ForFilmMakers';
 import ForIndustryProf from './components/ForIndustryProf';
@@ -69,14 +69,10 @@ import DashboardEpks from './pages/FilmmakerDashboard/EpkPage';
 import DashboardNotification from './pages/FilmmakerDashboard/NotificationPage';
 import DashboardSettings from './pages/FilmmakerDashboard/SettingPage';
 import DashboardChat from './pages/FilmmakerDashboard/ChatPage';
-// import DashboardFollowing from "./pages/FilmmakerDashboard/FollowingPage";
-// import DashboardStarred from "./pages/FilmmakerDashboard/StarredPage";
-// import DashboardWishToBuy from "./pages/FilmmakerDashboard/WishToBuyPage";
+
 import DashboardSaved from './pages/FilmmakerDashboard/SavedPage';
 import DashboardLayout from './layouts/DashboardLayout';
 
-// import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
-// import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
 import UserDashboardSettings from './pages/UserDashboard/SettingPage';
 import UserDashboardRequests from './pages/UserDashboard/RequestsPage';
 import UserDashboardChat from './pages/UserDashboard/ChatPage';
@@ -217,10 +213,10 @@ function App() {
             element={<ResetPasswordSuccessPage />}
           />
 
-          <Route
+          {/*<Route
             path="FilmMakerSelectedEpk"
             element={<FilmMakerSelectedEpk />}
-          />
+          />  
 
           <Route
             path="filmMakerDashboardSecurity"
@@ -238,6 +234,7 @@ function App() {
             path="filmMakerDashboardSecurityAccount"
             element={<FilmMakerDashboardSecurityAccount />}
           />
+          TODO do we even use these files?*/ }
 
           <Route path="forFilmMakers" element={<ForFilmMakers />} />
           <Route path="forIndustryProf" element={<ForIndustryProf />} />
