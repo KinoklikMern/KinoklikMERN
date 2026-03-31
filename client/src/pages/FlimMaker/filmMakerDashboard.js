@@ -12,7 +12,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-//import 'bootstrap/dist/css/bootstrap.min.css';
 // import "./filmMakerDashboardPage.scss";
 import FilmMakerSideBar from "../../components/FilmMaker/filmMakerSideBar";
 import { useTranslation } from "react-i18next";

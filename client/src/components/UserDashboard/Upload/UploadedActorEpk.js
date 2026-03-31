@@ -1,9 +1,7 @@
 import React, {useState, useRef} from "react";
 import "./UploadedActorEpk.css";
-import {
-    ArrowBackIosOutlined,
-    ArrowForwardIosOutlined,
-  } from "@mui/icons-material";
+import ArrowBackIosOutlined from "@mui/icons-material/ArrowBackIosOutlined";
+import ArrowForwardIosOutlined from "@mui/icons-material/ArrowForwardIosOutlined";
 
 
 
