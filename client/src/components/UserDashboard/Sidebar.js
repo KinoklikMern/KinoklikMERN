@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-// import StarIcon from "../../images/icons/StarEmpty.svg";
-// import StarWhiteIcon from "../../images/icons/StarFULL.svg";
 import BellIcon from "../../images/icons/bellEmpty.svg";
 import BellWhiteIcon from "../../images/icons/bellFull.svg";
-// import PlusIcon from "../../images/icons/PlusEmpty.svg";
-// import PlusWhiteIcon from "../../images/icons/PlusFULL.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
 import SettingsWhiteIcon from "../../images/icons/Settings-full-white.svg";
 import MessageIcon from "../../images/icons/message.svg";
@@ -20,9 +16,7 @@ import { useTranslation } from "react-i18next";
 export default function Sidebar(props) {
   const SELECTED_TAB = props.selectedTab;
   const Role = props.role;
-  //console.info("select", SELECTED_TAB);
 
-  // Yeming added
   const { messageCount, userInfo, clearMessageCount } =
     useContext(NotificationContext);
 

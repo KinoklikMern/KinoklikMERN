@@ -1,4 +1,4 @@
-import Carousel from "react-bootstrap/Carousel";
+// import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 import "./StillsCarousel.css";
 import { useEffect, useState } from "react";
@@ -13,11 +13,11 @@ function StillsCarousel(props) {
       setStills(response.data.stills);
       console.log(stills);
     });
-  }, [stills, id]);
+  }, [ id]);
 
   return (
     <div>
-      <Carousel>
+     {/* } <Carousel>
         {stills.map((s) => (
           <Carousel.Item interval={2000}>
             <Link to="/movie/830784">
@@ -31,14 +31,10 @@ function StillsCarousel(props) {
                 src={`https://kinomovie.s3.amazonaws.com/${s.image}`}
                 alt="resource pics"
               />
-
-              {/* <Carousel.Caption>
-                <h3 style={{ fontSize: "1.5rem" }}></h3>
-              </Carousel.Caption> */}
             </Link>
           </Carousel.Item>
         ))}
-      </Carousel>
+      </Carousel> */ }
     </div>
   );
 }

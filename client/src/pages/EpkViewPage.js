@@ -37,7 +37,6 @@ function EpkViewPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false); // State to control donation form visibility
-  const [imageDetails, setImageDetails] = useState('');
   const [globalTotalReach, setGlobalTotalReach] = useState(0);
 
   //let { title } = useParams();
@@ -97,53 +96,40 @@ function EpkViewPage() {
   useEffect(() => {
     getFepksById(id).then((res) => {
       if (res.message) {
-        alert(res.message);
-        console.log(id);
+        return console.error(res.message); 
+      }
+
+      setEpkInfo(res);
+      setFepkId(res._id);
+      setFepkMaker(res.film_maker);
+
+      // Determine status immediately instead of a separate effect
+      if (user?.id === res.film_maker?._id) {
+        setRequestStatus('approved');
       } else {
-        //Find epk
-        console.log('res:', res);
-        setEpkInfo(res);
-        setFepkId(res._id);
-        setFepkMaker(res.film_maker);
-        if (user?.id === res.film_maker._id) {
-          setRequestStatus('approved');
-        } else {
-          res.requests.forEach((request) => {
-            if (request.user === user?.id) {
-              setRequestStatus(request.status);
-            }
-          });
-        }
+        const myRequest = res.requests?.find(r => r.user === user?.id);
+        if (myRequest) setRequestStatus(myRequest.status);
       }
     });
-  }, [id, refresh, setFepkId, setFepkMaker, user?.id]);
+  }, [id, refresh, user?.id]);
+
+  const posterImage = React.useMemo(() => {
+    const img = epkInfo?.image_details;
+
+    if (!img || img === '') return emptyBanner;
+
+    if (img.startsWith('http')) return img;
+
+    return `${process.env.REACT_APP_AWS_URL}/${img}`;
+  }, [epkInfo?.image_details]);
 
   useEffect(() => {
-    if (
-      !epkInfo?.image_details ||
-      epkInfo?.image_details === '' ||
-      epkInfo.image_details.startsWith('https')
-    ) {
-      setImageDetails(emptyBanner);
-    } else {
-      setImageDetails(
-        `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_details}`
-      );
+    // Only track the view if we have the data and the user is NOT the owner
+    if (id && epkInfo && user?.id !== epkInfo.film_maker?._id) {
+      AnalyticsDataService.trackView(id, 'EPK')
+        .catch(err => console.log("Analytics failed", err));
     }
-  }, [epkInfo]);
-  useEffect(() => {
-    if (id && epkInfo) {
-      
-      const isOwner = user?.id === epkInfo.film_maker?._id;
-
-      if (!isOwner) {
-        AnalyticsDataService.trackView(id, 'EPK')
-          .catch(err => {
-            console.log("Analytics ping failed silently", err);
-          });
-      }
-    }
-  }, [id, epkInfo, user?.id]);
+  }, [id, epkInfo?._id, user?.id]);
 
   return (
     epkInfo && (
@@ -236,10 +222,7 @@ function EpkViewPage() {
               onRequestClose={() => setShowDonationModal(false)}
               epkId={epkInfo._id}
               userId={user.id}
-              epkImage={
-                // "https://kinomovie.s3.amazonaws.com/" + epkInfo.image_details
-                imageDetails
-              }
+              epkImage={posterImage} // Use the useMemo variable here!
               epkDonatePayPal={epkInfo.DonatePayPal_url}
               epkDonateStripe={epkInfo.DonateStripe_url}
             />

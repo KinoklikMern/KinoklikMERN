@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+//TODO is this redundant and obsolete?
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import http from "../http-common";
@@ -40,7 +41,7 @@ import {
 } from "react-share";
 import LoginModal from "../components/common/Modals/LoginModal";
 import { FepkContext } from "../context/FepkContext";
-import StillsCarousel from "../components/Epk/Present/StillsCarousel";
+// import StillsCarousel from "../components/Epk/Present/StillsCarousel";
 import { useTranslation } from "react-i18next";
 
 // import { NotificationContext } from "../context/NotificationContext";
@@ -1981,7 +1982,7 @@ function EpkView() {
           })}
         </div>
         {/* stills section */}
-        <StillsCarousel id={{ id }} />
+       { /* <StillsCarousel id={{ id }} /> TODO delete? */ }
         {/* TODO - find out if these notes can be deleted 
         
         the case when user not logged in and if logged in not requested yet*/}

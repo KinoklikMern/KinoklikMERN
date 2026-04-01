@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import Carousel from "react-bootstrap/Carousel";
+//import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
-import RequestButton from "../../common/Modals/RequestButton";
+import RequestButton from "../miscellaneous/RequestButton";
 import "../../Epk/Present/StillsCarousel.css";
 
 
@@ -11,7 +11,7 @@ function EpkStills({ epkInfo, requestStatus, handler }) {
     stillList.length !== 0 && (
       <div className='tw-hidden md:tw-block tw-my-12 tw-h-[700px] tw-rounded-lg tw-bg-white tw-p-5'>
         <div className='tw-h-full tw-rounded-lg tw-bg-[#1E0039] tw-p-5'>
-          <Carousel className='h-100 tw-flex tw-items-center tw-justify-center'>
+          {/* <Carousel className='h-100 tw-flex tw-items-center tw-justify-center'>
             {stillList.map((s, index) => (
               <Carousel.Item interval={2000} className='' key={index}>
                 <Link to='/movie/830784'>
@@ -31,14 +31,11 @@ function EpkStills({ epkInfo, requestStatus, handler }) {
                     src={`https://kinomovie.s3.amazonaws.com/${s.image}`}
                     alt='resource pics'
                   />
-                  {/* <Carousel.Caption>
-                    <h3 style={{ fontSize: "1.5rem" }}></h3>
-                  </Carousel.Caption> */}
                 </Link>
               </Carousel.Item>
             ))}
-          </Carousel>
-        </div>
+          </Carousel> TODO do we need this file at all?*/}
+        </div> 
       </div>
     )
   );
