@@ -15,44 +15,9 @@ import CheckEmailPage from './components/Auth/Registration/CheckEmail';
 import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
 import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
-import DetailsForm from './components/Epk/Input/detailsForm';
-import Details from './components/Epk/Present/details';
-
-import CoverForm from './components/Epk/Input/coverForm';
-import Cover from './components/Epk/Present/Cover';
-
-import LoglineForm from './components/Epk/Input/loglineForm';
-import Logline from './components/Epk/Present/logline';
-
-//import EpkCoverForm from './components/Epk/Input/EpkCoverForm.js'; TODO delete?
-import SynopsisForm from './components/Epk/Input/synopsisForm';
-import Synopsis from './components/Epk/Present/synopsis';
-
-import UniquenessForm from './components/Epk/Input/uniquenessForm';
-import Uniqueness from './components/Epk/Present/uniqueness';
-
-import StillsForm from './components/Epk/Input/stillsForm';
-import Stills from './components/Epk/Present/stills';
-
-import ReviewForm from './components/Epk/Input/reviewForm';
-import Review from './components/Epk/Present/review';
-
-import Trailer from './components/Epk/Present/Trailer';
-import ResourcesForm from './components/Epk/Input/ResourcesForm';
-import CastForm from './components/Epk/Input/castForm';
-import Cast from './components/Epk/Present/cast';
-
-import DirectorForm from './components/Epk/Input/directorForm';
-import Director from './components/Epk/Present/director';
-
-import ProducerForm from './components/Epk/Input/producerForm';
-import Producer from './components/Epk/Present/producer';
-
-import CinematographerForm from './components/Epk/Input/cinematographerForm';
-import Cinematographer from './components/Epk/Present/cinematographer';
 import FepkUploadDashboard from './pages/FepkUploadDashboard';
 import FepkEditDashboard from './pages/FepkEditDashboard';
-// import EpkView from './pages/EpkView';
+
 import { useSelector } from 'react-redux';
 import DashboardEpks from './pages/FilmmakerDashboard/EpkPage';
 import DashboardNotification from './pages/FilmmakerDashboard/NotificationPage';
@@ -184,45 +149,9 @@ function App() {
             element={<ResetPasswordSuccessPage />}
           />
 
-          <Route path="coverForm" element={<CoverForm />} />
-          <Route path="cover" element={<Cover />} />
-
-          <Route path="detailsForm" element={<DetailsForm />} />
-          <Route path="details" element={<Details />} />
-
-          <Route path="logline" element={<Logline />} />
-          <Route path="loglineForm" element={<LoglineForm />} />
-          {/* <Route path="epkCover" element={<EpkCoverForm />} /> TODO delete? */ }
-          <Route path="synopsis" element={<Synopsis />} />
-          <Route path="synopsisForm" element={<SynopsisForm />} />
-
-          <Route path="uniqueness" element={<Uniqueness />} />
-          <Route path="uniquenessForm" element={<UniquenessForm />} />
-
-          <Route path="cast" element={<Cast />} />
-          <Route path="castForm" element={<CastForm />} />
-
-          <Route path="director" element={<Director />} />
-          <Route path="directorForm" element={<DirectorForm />} />
-
-          <Route path="producer" element={<Producer />} />
-          <Route path="producerForm" element={<ProducerForm />} />
-          <Route path="cinematographer" element={<Cinematographer />} />
-          <Route path="cinematographerForm" element={<CinematographerForm />} />
-
-          <Route path="stills" element={<Stills />} />
-          <Route path="stillsForm" element={<StillsForm />} />
-
-          <Route path="review" element={<Review />} />
-          <Route path="reviewForm" element={<ReviewForm />} />
-
-          <Route path="resourcesForm" element={<ResourcesForm />} />
-
           <Route element={<AuthRoutes />}>
             <Route path="uploadFepk" element={<FepkUploadDashboard />} />
           </Route>
-          <Route path="trailer" element={<Trailer />} />
-         {/*} <Route path="epkview/:id" element={<EpkView />} /> TODO should this route and all it's dependants be cleaned out? dangerous infinite server calls*/ }
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
         <Route element={<EditFepkLayout title="Edit EPK" />}>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import UploadIcon from "../images/icons/UploadIcon.svg";
+//import "bootstrap/dist/css/bootstrap.min.css"
 import "../styles/HomeBottom.css";
 import { useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
