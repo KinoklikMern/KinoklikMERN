@@ -17,7 +17,7 @@ function StillsCarousel(props) {
 
   return (
     <div>
-     {/* } <Carousel>
+      <Carousel>
         {stills.map((s) => (
           <Carousel.Item interval={2000}>
             <Link to="/movie/830784">
@@ -34,7 +34,7 @@ function StillsCarousel(props) {
             </Link>
           </Carousel.Item>
         ))}
-      </Carousel> */ }
+      </Carousel>
     </div>
   );
 }

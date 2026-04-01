@@ -103,7 +103,6 @@ function EpkViewPage() {
       setFepkId(res._id);
       setFepkMaker(res.film_maker);
 
-      // Determine status immediately instead of a separate effect
       if (user?.id === res.film_maker?._id) {
         setRequestStatus('approved');
       } else {
@@ -111,7 +110,7 @@ function EpkViewPage() {
         if (myRequest) setRequestStatus(myRequest.status);
       }
     });
-  }, [id, refresh, user?.id]);
+  }, [id, refresh, user?.id, setFepkId, setFepkMaker]);
 
   const posterImage = React.useMemo(() => {
     const img = epkInfo?.image_details;
@@ -129,7 +128,7 @@ function EpkViewPage() {
       AnalyticsDataService.trackView(id, 'EPK')
         .catch(err => console.log("Analytics failed", err));
     }
-  }, [id, epkInfo?._id, user?.id]);
+  }, [id, epkInfo, user?.id]);
 
   return (
     epkInfo && (
