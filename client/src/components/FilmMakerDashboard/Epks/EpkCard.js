@@ -67,7 +67,7 @@ export default function EpkCard(props) {
               </span>
             </div>
           </div>
-        </a>
+        </Link>
 
         {isOwner && (
           <div className="tw-border-t tw-border-gray-100 tw-px-5 tw-py-3">
@@ -80,7 +80,6 @@ export default function EpkCard(props) {
             </button>
           </div>
         )}
-        </Link>
       </div>
 
       {showModal && (
