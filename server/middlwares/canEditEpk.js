@@ -1,5 +1,4 @@
 import fepk from "../models/fepk.js";
-import { authUser } from "./auth.js";
 
 export const canEditEpk = async (req, res, next) => {
   const id = req.params.epkId || req.params.id;

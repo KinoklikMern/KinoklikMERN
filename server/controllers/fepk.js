@@ -1,6 +1,6 @@
 import fepk from "../models/fepk.js";
 import { uploadFileToS3 } from "../s3.js";
-import User from "../models/user.js";
+import User from "../models/User.js";
 
 // fetch all Fepks
 export const getFepks = async (req, res) => {
@@ -714,8 +714,6 @@ export const uploadFepkFiles = async (req, res) => {
 };
 
 // delete Fepk
-// Soft-deletion of documents in databases is an operation in which a flag is used
-// to mark documents as deleted without erasing the data from the database.
 export const deleteFepk = async (req, res) => {
   const id = req.params.id;
   try {
@@ -726,6 +724,10 @@ export const deleteFepk = async (req, res) => {
     if (!fepkOne) {
       res.json({ error: "No EPK was found!" });
     } else {
+      const userId = (req.user._id || req.user.id).toString();
+      if (fepkOne.film_maker.toString() !== userId) {
+        return res.status(403).json({ message: "Only the owner can delete this EPK" });
+      }
       await fepkOne.updateOne({ deleted: true }, { where: { _id: id } });
       res.status(200).json("EPK was deleted!");
     }
@@ -1085,9 +1087,13 @@ export const restoreFepk = async (req, res) => {
     if (!fepkOne) {
       return res.json({ error: "No deleted EPK was found!" });
     }
+    const userId = (req.user._id || req.user.id).toString();
+    if (fepkOne.film_maker.toString() !== userId) {
+      return res.status(403).json({ message: "Only the owner can restore this EPK" });
+    }
     await fepkOne.updateOne({ deleted: false });
     res.status(200).json("EPK was restored!");
-  } catch (error) {
+  } catch (error) {w
     res.status(404).json({ message: error.message });
   }
 };
@@ -1168,7 +1174,7 @@ export const listCollaborators = async (req, res) => {
   try {
     const epk = await fepk
       .findById(req.params.epkId)
-      .populate("collaborators.user", "name email")
+      .populate("collaborators.user", "firstName lastName email picture role")
       .where("deleted")
       .equals(false);
 

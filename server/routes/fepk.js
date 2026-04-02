@@ -82,7 +82,7 @@ router.get("/getmoviesbyactor/:actorId", getFepksByActorId);
 
 // get and restore deleted epks
 router.get("/deleted/:id", getDeletedFepksByFilmmakerId);
-router.put("/restore/:id", restoreFepk);
+router.put("/restore/:id", authUser, restoreFepk);
 
 // this is for Upload FPK page checks if title already exists
 router.get("/byTitles/:title", getFepksByTitle);
@@ -134,7 +134,7 @@ router.post(
 );
 
 // Deletes (soft delete)
-router.delete("/delete/:id", deleteFepk);
+router.delete("/delete/:id", authUser, deleteFepk);
 
 // Add request to fepk
 router.post("/postRequests", postRequests);
