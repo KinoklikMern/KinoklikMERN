@@ -34,10 +34,9 @@ const UploadFile = (props) => {
           "https://kinomovie.s3.amazonaws.com/" + response.data.key
         );
 
-        console.log("*************");
       })
       .catch((err) => {
-        console.log();
+        // TODO add real error?
         console.log(err);
       });
   }
@@ -65,15 +64,8 @@ const UploadFile = (props) => {
           {t('Upload')}
         </button>
         <div className="alert alert-light" role="alert">
-          {/*   {message} */}
+          {/*  TODO add message? {message} */}
         </div>
-        {/*       {image && (
-          <img
-            src={"https://kinomovie.s3.amazonaws.com/" + image}
-            alt="hey"
-            style={{ height: "350px", width: "300px" }}
-          />
-        )} */}
       </form>
     </div>
   );

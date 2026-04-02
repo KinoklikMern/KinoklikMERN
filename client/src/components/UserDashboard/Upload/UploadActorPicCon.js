@@ -8,6 +8,7 @@ import LoadingSpin from "../../FilmMakerDashboard/LoadingSpin";
 import List from "../../../pages/Actor/ListItem";
 import { useTranslation } from "react-i18next";
 import { getMoviesByActors } from "../../../api/epks";
+import { Link } from "react-router-dom";
 
 export default function UploadActorPicCon() {
   const { t } = useTranslation();
@@ -34,11 +35,11 @@ export default function UploadActorPicCon() {
     <div className='tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]'>
       <div className='tw-mt-24 tw-flex tw-flex-col tw-items-center tw-justify-center tw-text-white md:tw-mb-8 md:tw-flex-row md:tw-justify-between md:tw-pl-24'>
         <p className='tw-text-4xl'>{t("Actor Dashboard")}</p>
-        <a href={`/actor/${userId}`}>
+        <Link to={`/actor/${userId}`}>
           <p className='tw-mt-5 tw-rounded-2xl tw-bg-white tw-p-2 tw-font-semibold tw-text-midnight md:tw-mr-24 md:tw-mt-0 md:tw-text-3xl'>
             {t("View Actor Page")}
           </p>
-        </a>
+        </Link>
       </div>
       <div className='tw-mx-8 tw-flex tw-h-5/6 tw-flex-row'>
         <div className='tw-mt-12 tw-h-5/6 md:tw-ml-16'>

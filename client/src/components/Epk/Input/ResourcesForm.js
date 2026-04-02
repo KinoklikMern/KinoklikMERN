@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import UploadImage from "../../upload";
 import { Link } from "react-router-dom";
 
 import UploadFile from "../../FileUpload";
