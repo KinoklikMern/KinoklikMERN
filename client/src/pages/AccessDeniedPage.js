@@ -1,5 +1,6 @@
 import React from "react";
 import {useTranslation} from 'react-i18next';
+import { Link } from "react-router-dom";
 
 export default function AccessDeniedPage() {
   const { t } = useTranslation();
@@ -20,9 +21,9 @@ export default function AccessDeniedPage() {
           >
             {t("Sign in")}
           </a>
-          <a href="/" className="tw-text-sm tw-font-semibold tw-text-gray-900">
+          <Link to="/" className="tw-text-sm tw-font-semibold tw-text-gray-900">
           {t("Go back home")} <span aria-hidden="true">&rarr;</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import UploadImage from "../../upload";
 import UploadFile from "../../FileUpload";
 import { Col, Row } from "antd";
 import { useTranslation } from "react-i18next";

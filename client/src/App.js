@@ -2,30 +2,25 @@ import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Actor from './pages/Actor/Actor';
 
-import './styles/tailwind.css'; //Tailwind
+import './styles/tailwind.css';
 
 import MainLayout from './layouts/MainLayout';
-import UploadMovie from './pages/UploadMovie';
 import Home from './pages/Home';
-import MyList from './pages/MyList';
-import RegistrationForm from './components/Auth/Registration/registration';
+import RegistrationForm from './components/Auth/Registration/Registration';
 import EmailVerification from './components/Auth/Registration/EmailVerification';
 import RegistrationSuccess from './components/Auth/Registration/RegistrationSuccess';
-import LoginForm from './components/Auth/Registration/loginform';
-import SendResetPasswordLinkPage from './pages/login/SendResetPasswordLinkPage';
-import CheckEmailPage from './pages/login/CheckEmailPage';
-import ResetPasswordPage from './pages/login/ResetPasswordPage';
-import ResetPasswordSuccessPage from './pages/login/ResetPasswordSuccessPage';
+import LoginForm from './components/Auth/Registration/LoginForm'
+import SendResetPasswordLinkPage from './components/Auth/Registration/SendResetPasswordLink';
+import CheckEmailPage from './components/Auth/Registration/CheckEmail';
+import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
+import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
-// add by Tony
 import FilmMakerSelectedEpk from './pages/FlimMaker/filmMakerSelectedEpk';
-// end
 
 import FilmMakerDashboardSecurity from './components/FilmMaker/filmMakerDashboardSecurity';
 import FilmMakerDashboardSecurityCompany from './components/FilmMaker/filmMakerDashboardSecurityCompany';
 import FilmMakerDashboardSecurityPassword from './components/FilmMaker/filmMakerDashboardSecurityPassword';
 import FilmMakerDashboardSecurityAccount from './components/FilmMaker/filmMakerDashboardSecurityAccount';
-import Bookmark from './pages/Bookmark';
 
 import ForFilmMakers from './components/ForFilmMakers';
 import ForIndustryProf from './components/ForIndustryProf';
@@ -38,8 +33,6 @@ import Cover from './components/Epk/Present/Cover';
 
 import LoglineForm from './components/Epk/Input/loglineForm';
 import Logline from './components/Epk/Present/logline';
-
-import UserDashboard from './pages/UserDashboard';
 
 import EpkCoverForm from './components/Epk/Input/EpkCoverForm.js';
 import SynopsisForm from './components/Epk/Input/synopsisForm';
@@ -57,7 +50,6 @@ import Review from './components/Epk/Present/review';
 import Resources from './components/Epk/Present/Resources';
 import Trailer from './components/Epk/Present/Trailer';
 import ResourcesForm from './components/Epk/Input/ResourcesForm';
-import EPK from './pages/Epk';
 import CastForm from './components/Epk/Input/castForm';
 import Cast from './components/Epk/Present/cast';
 
@@ -69,10 +61,8 @@ import Producer from './components/Epk/Present/producer';
 
 import CinematographerForm from './components/Epk/Input/cinematographerForm';
 import Cinematographer from './components/Epk/Present/cinematographer';
-import EpkDashboard from './pages/EpkDashboard';
 import FepkUploadDashboard from './pages/FepkUploadDashboard';
 import FepkEditDashboard from './pages/FepkEditDashboard';
-import TestApproval from './pages/TestApproval';
 import EpkView from './pages/EpkView';
 import { useSelector } from 'react-redux';
 import DashboardEpks from './pages/FilmmakerDashboard/EpkPage';
@@ -99,7 +89,7 @@ import AdminDashboardEPKs from './pages/AdminDashboard/EPKsPage';
 import AuthRoutes from './utils/AuthRoutes';
 import AccessDeniedPage from './pages/AccessDeniedPage';
 import { FepkContext } from './context/FepkContext';
-import CatelogPage from './pages/CatelogPage';
+import CatalogPage from './pages/CatalogPage.js';
 import EpkViewPage from './pages/EpkViewPage';
 import UploadActorPicCon from './components/UserDashboard/Upload/UploadActorPicCon';
 import EditFepkLayout from './layouts/EditFepkLayout';
@@ -115,17 +105,17 @@ function App() {
   // const KinoKlikTitle = "KinoKlik";
   const user = useSelector((state) => state.user);
   const className = user ? NavbarHomeClass : NavbarDefaultClass;
-  const [fepkId, setFepkId] = useState('');
-  const [fepkMaker, setFepkMaker] = useState('');
-  const [filterQuery, setFilterQuery] = useState('');
-  const fepkToProvider = [
+  const [fepkId, setFepkId] = useState([]);
+  const [fepkMaker, setFepkMaker] = useState([]);
+  const [filterQuery, setFilterQuery] = useState([]);
+  const fepkToProvider = {
     fepkId,
     setFepkId,
     fepkMaker,
     setFepkMaker,
     filterQuery,
     setFilterQuery,
-  ];
+  };
 
   return (
     <FepkContext.Provider value={fepkToProvider}>
@@ -187,7 +177,6 @@ function App() {
               path="userdashboard/chat/:userId"
               element={<UserDashboardChat />}
             />
-            {/* AdminDashboard */}
             <Route
               path="admindashboard/main"
               element={<AdminDashboardMain />}
@@ -209,12 +198,9 @@ function App() {
 
         <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
           {/* <Route index element={<Home />} /> */}
-          <Route path="catalog" element={<CatelogPage />} />
+          <Route path="catalog" element={<CatalogPage />} />
           {/* <Route path="epk/:title" element={<EpkViewPage />} /> */}
           <Route path="epk/:id" element={<EpkViewPage />} />
-          <Route path="upload" element={<UploadMovie />} />
-          <Route path="my_list" element={<MyList />} />
-          <Route path="edit_profile" element={<Home />} />
           <Route path="signup" element={<RegistrationForm />} />
 
           <Route path="verification" element={<EmailVerification />} />
@@ -253,8 +239,6 @@ function App() {
             element={<FilmMakerDashboardSecurityAccount />}
           />
 
-          <Route path="bookmark" element={<Bookmark />} />
-
           <Route path="forFilmMakers" element={<ForFilmMakers />} />
           <Route path="forIndustryProf" element={<ForIndustryProf />} />
           <Route path="coverForm" element={<CoverForm />} />
@@ -266,7 +250,6 @@ function App() {
           <Route path="logline" element={<Logline />} />
           <Route path="loglineForm" element={<LoglineForm />} />
           <Route path="epkCover" element={<EpkCoverForm />} />
-          <Route path="userDashboard" element={<UserDashboard />} />
           <Route path="synopsis" element={<Synopsis />} />
           <Route path="synopsisForm" element={<SynopsisForm />} />
 
@@ -293,19 +276,15 @@ function App() {
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="resources" element={<Resources />} />
 
-          <Route path="epk/:title" element={<EPK />} />
           <Route element={<AuthRoutes />}>
             <Route path="uploadFepk" element={<FepkUploadDashboard />} />
             {/* <Route path="editFepk/:title" element={<FepkEditDashboard />} /> */}
           </Route>
-          <Route path="uploadEpk" element={<EpkDashboard />} />
           <Route path="resourcesForm" element={<ResourcesForm />} />
           <Route path="trailer" element={<Trailer />} />
           <Route path="resources" element={<Resources />} />
           <Route path="epkview/:id" element={<EpkView />} />
         </Route>
-        <Route path="epk" element={<EPK />} />
-        <Route path="approvals/:fepkId" element={<TestApproval />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route element={<EditFepkLayout title="Edit EPK" />}>
           <Route path="editFepk/:id" element={<FepkEditDashboard />} />

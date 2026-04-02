@@ -1,5 +1,5 @@
 import React from "react";
-import RequestButton from "../miscellaneous/RequestButton";
+import RequestButton from "../../common/Modals/RequestButton";
 export default function EpkLogline({ epkInfo, requestStatus, handler }) {
   const image_logline = `${process.env.REACT_APP_AWS_URL}/${epkInfo.image_logline}`;
   const isBlur =

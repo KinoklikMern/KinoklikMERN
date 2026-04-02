@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from "../../../images/empty_banner.jpeg";
 import CollaboratorModal from "./CollaboratorModal";
+import { Link } from "react-router-dom";
 
 export default function EpkCard(props) {
   const epkInfo = props.EpkInfo;
@@ -27,7 +28,7 @@ export default function EpkCard(props) {
   return (
     <div className="tw-flex tw-flex-row">
       <div className="tw-m-4 tw-max-w-xs tw-flex-1 tw-rounded-lg tw-border tw-border-gray-200 tw-bg-white tw-shadow hover:tw-scale-105">
-        <a href={epkInfo.title ? `/editFepk/${epkInfo._id}` : "/"}>
+        <Link to={epkInfo.title ? `/editFepk/${epkInfo._id}` : "/"}>
           <img
             className="tw-w-full tw-rounded-b-none tw-rounded-t-lg tw-object-cover"
             src={BANNER_IMG}
@@ -78,6 +79,7 @@ export default function EpkCard(props) {
             </button>
           </div>
         )}
+        </Link>
       </div>
 
       {showModal && (

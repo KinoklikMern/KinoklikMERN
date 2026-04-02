@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
-import RequestButton from "../miscellaneous/RequestButton";
+import RequestButton from "../../common/Modals/RequestButton";
 import "../../Epk/Present/StillsCarousel.css";
 
 
