@@ -21,8 +21,9 @@ export default function EpkCard(props) {
       ? emptyBanner
       : `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
 
-  const isOwner = user?.id === epkInfo.film_maker?._id ||
-                  user?.id === epkInfo.film_maker;
+  const isOwner =
+    user?.id === epkInfo.film_maker?._id ||
+    user?.id === epkInfo.film_maker;
 
   return (
     <div className="tw-flex tw-flex-row">
