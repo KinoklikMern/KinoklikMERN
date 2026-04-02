@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { setBannerThumbnail } from "../../../api/epks"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faStar, faPlay, faImages } from "@fortawesome/free-solid-svg-icons";
+import emptyBanner from '../../../images/empty_banner.jpeg';
 // import { useTranslation } from "react-i18next";
 
 export default function EpkCover({ epkInfo,scrollToPhotos, scrollToVideos }) {
@@ -95,10 +96,15 @@ export default function EpkCover({ epkInfo,scrollToPhotos, scrollToVideos }) {
             /* --- IMAGE GALLERY VIEW --- */
             <>
               <img
-                src={currentBannerUrl}
+                src={currentBannerUrl || emptyBanner} 
                 alt="Banner"
                 className="tw-h-[500px] xl:tw-h-[600px] tw-w-full tw-object-cover tw-object-center tw-transition-all tw-duration-500"
-                onError={(e) => { e.target.src = "https://kinomovie.s3.amazonaws.com/empty_banner.jpeg"; }}
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  if (e.target.src !== emptyBanner) {
+                    e.target.src = emptyBanner;
+                  }
+                }}
               />
               <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039]/90 tw-via-black/40 tw-to-transparent tw-pointer-events-none"></div>
 
@@ -175,10 +181,15 @@ export default function EpkCover({ epkInfo,scrollToPhotos, scrollToVideos }) {
             /* --- IMAGE GALLERY VIEW --- */
             <>
               <img
-                src={currentBannerUrl}
+                src={currentBannerUrl || emptyBanner}
                 alt="Mobile Banner"
-                className="tw-h-full tw-w-full tw-object-cover tw-object-center tw-transition-all tw-duration-500"
-                onError={(e) => { e.target.src = "https://kinomovie.s3.amazonaws.com/empty_banner.jpeg"; }}
+                className="tw-h-full tw-w-full tw-object-cover tw-object-center tw-transition-all tw-duration-500"      
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  if (e.target.src !== emptyBanner) {
+                    e.target.src = emptyBanner;
+                  }
+                }}
               />
               <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-black/60 tw-via-transparent tw-to-transparent tw-pointer-events-none"></div>
               

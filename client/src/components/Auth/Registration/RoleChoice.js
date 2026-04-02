@@ -73,7 +73,7 @@ export const options = [
   },
 ];
 
-function RoleChoise({ role, setRole, onNext }) {
+function RoleChoice({ role, setRole, onNext }) {
   const { t } = useTranslation();
 
   const handleRoleSelect = (option) => {
@@ -162,4 +162,4 @@ function RoleChoise({ role, setRole, onNext }) {
   );
 }
 
-export default RoleChoise;
+export default RoleChoice;

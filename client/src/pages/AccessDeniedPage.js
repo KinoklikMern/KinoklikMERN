@@ -15,12 +15,11 @@ export default function AccessDeniedPage() {
         {t("Sorry, you need to sign in to get access to this page.")}
         </p>
         <div className="tw-mt-10 tw-flex tw-items-center tw-justify-center tw-gap-x-6">
-          <a
-            href="/login"
+          <Link to="/login"
             className="tw-rounded-md tw-bg-indigo-600 tw-px-3.5 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-shadow-sm hover:tw-bg-indigo-500 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-indigo-600"
           >
             {t("Sign in")}
-          </a>
+          </Link>
           <Link to="/" className="tw-text-sm tw-font-semibold tw-text-gray-900">
           {t("Go back home")} <span aria-hidden="true">&rarr;</span>
           </Link>

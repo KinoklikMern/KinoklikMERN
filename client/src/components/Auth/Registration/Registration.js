@@ -4,7 +4,7 @@ import SignupCss from './signup.module.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import RegistrationSuccess from './RegistrationSuccess';
-import RoleChoice from './RoleChoise';
+import RoleChoice from './RoleChoice';
 import RegistrationPersonalInfo from './RegistrationPersonalInfo';
 import filmmakerIcon from '../../../images/icons/filmmakerIcon.svg';
 import { useTranslation } from 'react-i18next';

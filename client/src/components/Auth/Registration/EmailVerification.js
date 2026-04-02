@@ -1,169 +1,107 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
-// import "../../../styles/tailwind.css";
+import { toast } from "react-toastify";
 import { useTranslation } from 'react-i18next';
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 
-import {
-  resendEmailVerificationToken,
-  verifyUserEmail,
-} from "../../../api/user";
+import { resendEmailVerificationToken, verifyUserEmail } from "../../../api/user";
 import EmailCss from "./emailVerification.module.css";
 
 const OTP_LENGTH = 6;
-let currentOTPIndex;
-
-const isValidOTP = (otp) => {
-  let valid = false;
-  // validate the otp
-  for (let val of otp) {
-    valid = !isNaN(parseInt(val));
-    if (!valid) break;
-  }
-  return valid;
-};
 
 export default function EmailVerification() {
-  const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(""));
-  const [activeOtpIndex, setActiveOtpIndex] = useState(0);
-  // const [error, setError] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
-
-  const inputRef = useRef();
-
-  const { state } = useLocation();
-  const user = state?.user;
-
-  // const isVerified = user?.isVerified;
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { state } = useLocation();
+  
+  const user = state?.user;
+  const inputRefs = useRef([]); 
 
-  const focusNextInputField = (index) => {
-    setActiveOtpIndex(index + 1);
-  };
+  const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(""));
+  const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
-  const focusPrevInputField = (index) => {
-    let nextIndex;
-    const diff = index - 1;
-    nextIndex = diff !== 0 ? diff : 0;
-    setActiveOtpIndex(nextIndex);
-  };
 
-  const handleOtpChange = ({ target }) => {
-    const { value } = target;
+  useEffect(() => {
+    inputRefs.current[activeOtpIndex]?.focus();
+  }, [activeOtpIndex]);
+
+  const handleOtpChange = (value, index) => {
     const newOtp = [...otp];
+    const char = value.substring(value.length - 1);
+    newOtp[index] = char;
+    setOtp(newOtp);
 
-    // Allow re-typing and delete on backspace
-    if (value.length === 1 && currentOTPIndex < OTP_LENGTH) {
-      newOtp[currentOTPIndex] = value;
-      focusNextInputField(currentOTPIndex);
-    } else if (value.length === 0) {
-      newOtp[currentOTPIndex] = ""; // Clear the current input
-      focusPrevInputField(currentOTPIndex);
+    if (char && index < OTP_LENGTH - 1) {
+      setActiveOtpIndex(index + 1);
     }
+  };
 
-    // new added
-    // currentOTPIndex =
-    //   value.length === 0 ? currentOTPIndex - 1 : currentOTPIndex;
-
-    // newOtp[currentOTPIndex] = value.substring(value.length - 1, value.length);
-
-    // if (!value) focusPrevInputField(currentOTPIndex);
-    // else focusNextInputField(currentOTPIndex);
-    setOtp([...newOtp]);
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      if (!otp[index] && index > 0) {
+        setActiveOtpIndex(index - 1);
+      } else {
+        const newOtp = [...otp];
+        newOtp[index] = "";
+        setOtp(newOtp);
+      }
+    }
   };
 
   const handleOTPResend = async () => {
-    // console.log("User Object:", user); // Log the user object
     try {
-      const { error, message } = await resendEmailVerificationToken(user.id);
-
-      if (error) {
-        enqueueSnackbar(error, { variant: "error" });
+      const response = await resendEmailVerificationToken(user?.id);
+      if (response.error) {
+        toast.error(response.error);
       } else {
-        enqueueSnackbar(message, { variant: "success" });
+        toast.success(response.message || t("OTP Resent Successfully"));
       }
     } catch (error) {
-      console.error("Error resending OTP:", error);
-      enqueueSnackbar("An error occurred while resending OTP", {
-        variant: "error",
-      });
-    }
-  };
-
-  const handleKeyDown = ({ key }, index) => {
-    currentOTPIndex = index;
-    if (key === "Backspace") {
-      focusPrevInputField(currentOTPIndex);
+      toast.error(t("An error occurred while resending OTP"));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("User:", user);
-    if (!isValidOTP(otp)) {
-      enqueueSnackbar("Invalid OTP!", { variant: "error" });
+    const otpString = otp.join("");
+
+    if (otpString.length < OTP_LENGTH || isNaN(otpString)) {
+      toast.error(t("Invalid OTP!"));
       return;
     }
-    // submit otp
+
     try {
-      console.log("User ID being sent:", user?.id);
       const response = await verifyUserEmail({
-        OTP: otp.join(""),
+        OTP: otpString,
         userId: user?.id,
       });
+
       if (response.error) {
-        enqueueSnackbar(response.error, { variant: "error" });
+        toast.error(response.error);
       } else {
-        enqueueSnackbar(response.message, { variant: "success" });
-        console.log(response.message);
+        toast.success(response.message);
+        
         const loggedInUser = response.user || user;
         if (loggedInUser) {
           Cookies.set("user", JSON.stringify(loggedInUser), { expires: 1 });
           dispatch({ type: "LOGIN", payload: loggedInUser });
+          
+          const routes = {
+            'Filmmaker': "/dashboard/settings",
+            'Admin': "/admindashboard/main"
+          };
+          navigate(routes[loggedInUser.role] || "/userdashboard/settings", { replace: true });
         }
-       if (loggedInUser?.role === 'Filmmaker') {
-          navigate("/dashboard/settings", { replace: true });
-        } else if (loggedInUser?.role === 'Admin') {
-          navigate("/admindashboard/main", { replace: true });
-        } else {
-          // Actors, Viewers, and Industry Professionals
-          navigate("/userdashboard/settings", { replace: true });
-        }
-        // navigate("/success");
-
-        // Navigate based on user authentication and verification
-        // if (user) {
-        //   if (user.isVerified) {
-        //     navigate("/");
-        //   } else {
-        //     navigate("/success");
-        //   }
-        // } else {
-        //   navigate("/success");
-        // }
       }
     } catch (error) {
-      console.error("Error verifying email:", error);
-      enqueueSnackbar(t("An error occurred while verifying email"), {
-        variant: "error",
-      });
+      toast.error(t("An error occurred while verifying email"));
     }
   };
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [activeOtpIndex]);
- 
-  const { t } = useTranslation();
-
   return (
-    <div
-      className={`${EmailCss.bg} tw-flex tw-h-screen tw-items-center tw-justify-center`}
-    >
+    <div className={`${EmailCss.bg} tw-flex tw-h-screen tw-items-center tw-justify-center`}>
       <form
         onSubmit={handleSubmit}
         className={`tw-mb-8 tw-flex-col tw-content-center tw-space-y-6 tw-rounded tw-p-6 ${EmailCss.spinButtonNone}`}
@@ -172,26 +110,24 @@ export default function EmailVerification() {
           <h1 className="font-semiblod text-center tw-mb-8 tw-text-3xl tw-text-customColor">
             {t('Please enter the OTP to verify your account')}
           </h1>
-
           <p className="text-center tw-text-xl tw-text-customColor">
             {t('OTP has been sent to your email')}
           </p>
         </div>
 
-        <div className="tw-flex  tw-items-center tw-justify-center tw-space-x-2">
-          {otp.map((_, index) => {
-            return (
-              <input
-                ref={activeOtpIndex === index ? inputRef : null}
-                key={index}
-                type="number"
-                value={otp[index] || ""}
-                onChange={handleOtpChange}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                className={`tw-border-dark-subtle tw-focus:border-white tw-h-12 tw-w-12 tw-rounded tw-border-2 tw-bg-transparent tw-text-center tw-text-xl tw-font-semibold tw-text-midnight tw-outline-none ${EmailCss.spinButtonNone}`}
-              />
-            );
-          })}
+        <div className="tw-flex tw-items-center tw-justify-center tw-space-x-2">
+          {otp.map((digit, index) => (
+            <input
+              key={index}
+              ref={(el) => (inputRefs.current[index] = el)}
+              type="number"
+              value={digit}
+              onFocus={() => setActiveOtpIndex(index)}
+              onChange={(e) => handleOtpChange(e.target.value, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className={`tw-border-dark-subtle tw-focus:border-white tw-h-12 tw-w-12 tw-rounded tw-border-2 tw-bg-transparent tw-text-center tw-text-xl tw-font-semibold tw-text-midnight tw-outline-none ${EmailCss.spinButtonNone}`}
+            />
+          ))}
         </div>
 
         <div className="tw-mt-3 tw-flex tw-items-center tw-justify-center">
