@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -22,19 +22,19 @@ export default function CollaboratorModal({ epkId, onClose }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchCollaborators = async () => {
+  const fetchCollaborators = useCallback(async () => {
     try {
       const data = await listCollaborators(epkId, token);
       setCollaborators(data);
     } catch (err) {
       setError("Failed to load collaborators");
     }
-  };
+  }, [epkId, token]);
 
   useEffect(() => {
     fetchCollaborators();
     http.get("/users/getallusers").then((res) => setAllUsers(res.data));
-  }, [epkId]);
+  }, [fetchCollaborators]);
 
   const handleSearch = (e) => {
     const val = e.target.value;
@@ -211,12 +211,12 @@ export default function CollaboratorModal({ epkId, onClose }) {
                       </div>
                     )}
                   </div>
-                    <button
-                      onClick={() => handleRemove(c.user._id)}
-                      className="tw-bg-transparent tw-text-3xl tw-text-red-500 hover:tw-text-red-700"
-                    >
-                      <FontAwesomeIcon icon={faXmark} />
-                    </button>
+                  <button
+                    onClick={() => handleRemove(c.user._id)}
+                    className="tw-bg-transparent tw-text-3xl tw-text-red-500 hover:tw-text-red-700"
+                  >
+                    <FontAwesomeIcon icon={faXmark} />
+                  </button>
                 </div>
               </li>
             );
