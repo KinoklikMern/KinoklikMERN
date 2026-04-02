@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import SignupCss from "./signup.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { options } from "./RoleChoise";
+import { options } from "./RoleChoice";
 import { GENDER_OPTIONS } from "../../../constants/GenderOptions"
 
 function RegistrationPersonalInfo({

@@ -17,12 +17,9 @@ import { useSelector } from 'react-redux';
 // import starIcon from "../../images/icons/Star FULL.svg";
 // import refralIcon from "../../images/icons/referral sign.svg";
 import http from '../../http-common';
-import {
-  ArrowBackIosOutlined,
-  ArrowForwardIosOutlined,
-} from '@mui/icons-material';
-// import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-// import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
+import ArrowBackIosOutlined from "@mui/icons-material/ArrowBackIosOutlined";
+import ArrowForwardIosOutlined from "@mui/icons-material/ArrowForwardIosOutlined";
+
 // import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
@@ -31,7 +28,6 @@ import { useTranslation } from 'react-i18next';
 import { getMoviesByActors } from '../../api/epks';
 import emptyBanner from '../../images/empty_banner.jpeg';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
-import { width } from '@mui/system';
 import { AGE_OPTIONS } from '../../constants/AgeOptions';
 
 export default function Actor(props) {
