@@ -1,5 +1,6 @@
 import fepk from "../models/fepk.js";
 import { uploadFileToS3 } from "../s3.js";
+import User from "../models/User.js";
 
 // fetch all Fepks
 export const getFepks = async (req, res) => {
@@ -713,8 +714,6 @@ export const uploadFepkFiles = async (req, res) => {
 };
 
 // delete Fepk
-// Soft-deletion of documents in databases is an operation in which a flag is used
-// to mark documents as deleted without erasing the data from the database.
 export const deleteFepk = async (req, res) => {
   const id = req.params.id;
   try {
@@ -725,6 +724,10 @@ export const deleteFepk = async (req, res) => {
     if (!fepkOne) {
       res.json({ error: "No EPK was found!" });
     } else {
+      const userId = (req.user._id || req.user.id).toString();
+      if (fepkOne.film_maker.toString() !== userId) {
+        return res.status(403).json({ message: "Only the owner can delete this EPK" });
+      }
       await fepkOne.updateOne({ deleted: true }, { where: { _id: id } });
       res.status(200).json("EPK was deleted!");
     }
@@ -1084,9 +1087,13 @@ export const restoreFepk = async (req, res) => {
     if (!fepkOne) {
       return res.json({ error: "No deleted EPK was found!" });
     }
+    const userId = (req.user._id || req.user.id).toString();
+    if (fepkOne.film_maker.toString() !== userId) {
+      return res.status(403).json({ message: "Only the owner can restore this EPK" });
+    }
     await fepkOne.updateOne({ deleted: false });
     res.status(200).json("EPK was restored!");
-  } catch (error) {
+  } catch (error) {w
     res.status(404).json({ message: error.message });
   }
 };
@@ -1109,6 +1116,71 @@ export const setBannerThumbnail = async (req, res) => {
     
     // Return the updated EPK to the frontend
     res.status(200).json(epk);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+//EPK collaborators
+
+export const addCollaborator = async (req, res) => {
+  if (!req.isOwner)
+    return res.status(403).json({ message: "Only the owner can manage collaborators" });
+
+  const { email } = req.body;
+
+  try {
+    const targetUser = await User.findOne({ email });
+    if (!targetUser) return res.status(404).json({ message: "User not found" });
+
+    if (targetUser._id.toString() === req.epk.film_maker.toString()) {
+      return res.status(400).json({ message: "You already own this EPK" });
+    }
+
+    const alreadyAdded = req.epk.collaborators?.some(
+      (c) => c.user.toString() === targetUser._id.toString()
+    );
+    if (alreadyAdded)
+      return res.status(409).json({ message: "User is already a collaborator" });
+
+    req.epk.collaborators.push({ user: targetUser._id, invitedBy: req.epk.film_maker });
+    await req.epk.save();
+
+    res.status(201).json({ message: "Collaborator added" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const removeCollaborator = async (req, res) => {
+  if (!req.isOwner)
+    return res.status(403).json({ message: "Only the owner can manage collaborators" });
+
+  const { userId } = req.params;
+
+  try {
+    req.epk.collaborators = req.epk.collaborators.filter(
+      (c) => c.user.toString() !== userId
+    );
+    await req.epk.save();
+
+    res.status(200).json({ message: "Collaborator removed" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const listCollaborators = async (req, res) => {
+  try {
+    const epk = await fepk
+      .findById(req.params.epkId)
+      .populate("collaborators.user", "firstName lastName email picture role")
+      .where("deleted")
+      .equals(false);
+
+    if (!epk) return res.status(404).json({ message: "EPK not found" });
+
+    res.status(200).json(epk.collaborators);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
