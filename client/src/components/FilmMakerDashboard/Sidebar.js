@@ -1,6 +1,5 @@
 import { getSidebarList } from "../../constants/sidebarOptions";
 import { NavLink } from "react-router-dom";
-import adminImg from "../../images/admin-profile.png";
 import { useTranslation } from "react-i18next";
 import { NotificationContext } from "../../context/NotificationContext";
 import { useSelector } from "react-redux";
