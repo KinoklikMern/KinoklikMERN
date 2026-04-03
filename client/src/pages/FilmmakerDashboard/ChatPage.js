@@ -14,10 +14,8 @@ export default function ChatPage() {
   // eslint-disable-next-line no-unused-vars
   const [fetchAgain, setFetchAgain] = useState(false);
   const user = useSelector((state) => state.user);
-
-  // Yeming added
   const { userId } = useParams();
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [selectedChat, setSelectedChat] = useState(false);
 
@@ -27,7 +25,6 @@ export default function ChatPage() {
       navigate(`/dashboard/chat/${userId}`);
     }
   }, [userId, navigate]);
-  //
 
   const handleChatSelected = () => {
     setSelectedChat(true);
@@ -55,10 +52,8 @@ export default function ChatPage() {
               <div
                 className={`-tw-m-4 ${
                   selectedChat ? "tw-h-0" : "tw-h-full"
-                } tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d] md:tw-h-auto md:tw-rounded-r-none`}
-              >
+                } tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d] md:tw-h-auto md:tw-rounded-r-none`} >
                 {/* search bar */}
-
                 <div className='shadow-sm tw-relative tw-mx-4 tw-my-8 tw-rounded-md'>
                   <input
                     type='text'
@@ -75,20 +70,12 @@ export default function ChatPage() {
                   </div>
                 </div>
                 {/* chatlist */}
-                {userId ? (
-                  <ChatList
-                    fetchAgain={fetchAgain}
-                    userId={userId}
-                    searchValue={searchValue}
-                    onChatItemClick={handleChatSelected}
-                  />
-                ) : (
-                  <ChatList
-                    fetchAgain={fetchAgain}
-                    searchValue={searchValue}
-                    onChatItemClick={handleChatSelected}
-                  />
-                )}
+                <ChatList
+                  fetchAgain={fetchAgain}
+                  userId={userId || null}
+                  searchValue={searchValue}
+                  onChatItemClick={handleChatSelected}
+                />
               </div>
               <div
                 className={`tw-col-span-2 tw-mx-4 tw-h-full tw-overflow-hidden ${
@@ -98,7 +85,7 @@ export default function ChatPage() {
                 <MessageBox
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
-                  onBackToChatList={handleGoBack} // Handle going back to chat list
+                  onBackToChatList={handleGoBack}
                 />
               </div>
             </div>

@@ -413,8 +413,8 @@ export default function Profile() {
           <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
             <>
               <select
-                name="gender"
-                value={userProfileData.gender || ""}
+                name="sex"
+                value={userProfileData.sex || ""}
                 onChange={handleProfileChange}
                 className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
               >

@@ -184,9 +184,7 @@ export default function Filmmaker(props) {
       alert(t('Please log in first!'));
       return;
     }
-    const chatUrl = userIsActor
-      ? `/userdashboard/chat/${id}`
-      : `/dashboard/chat/${id}`;
+    const chatUrl = `/dashboard/chat/${id}`;
     navigate(chatUrl);
   };
 

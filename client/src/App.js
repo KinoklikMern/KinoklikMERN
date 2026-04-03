@@ -27,9 +27,7 @@ import DashboardChat from './pages/FilmmakerDashboard/ChatPage';
 import DashboardSaved from './pages/FilmmakerDashboard/SavedPage';
 import DashboardLayout from './layouts/DashboardLayout';
 
-import UserDashboardSettings from './pages/UserDashboard/SettingPage';
-import UserDashboardRequests from './pages/UserDashboard/RequestsPage';
-import UserDashboardChat from './pages/UserDashboard/ChatPage';
+import UserDashboardRequests from './pages/FilmmakerDashboard/RequestsPage';
 
 import AdminDashboardMain from './pages/AdminDashboard/MainPage';
 import AdminDashboardUsers from './pages/AdminDashboard/UsersPage';
@@ -84,48 +82,20 @@ function App() {
 
         <Route element={<AuthRoutes />}>
           <Route path="/" element={<DashboardLayout className={className} />}>
+
             <Route path="dashboard/epks" element={<DashboardEpks />} />
-            <Route
-              path="dashboard/notifications"
-              element={<DashboardNotification />}
-            />
+            <Route path="dashboard/saved" element={<DashboardSaved />} />
+            <Route path="dashboard/notifications" element={<DashboardNotification />} />
             <Route path="dashboard/chat" element={<DashboardChat />} />
             <Route path="dashboard/settings" element={<DashboardSettings />} />
-            <Route path="dashboard/chat/:userId" element={<DashboardChat />} />
 
-            <Route path="dashboard/saved" element={<DashboardSaved />} />
-            <Route path="userdashboard/saved" element={<DashboardSaved />} />
+            <Route path="dashboard/requests" element={<UserDashboardRequests />} />
+            <Route path="dashboard/actor" element={<UploadActorPicCon />} />
 
-            <Route
-              path="userdashboard/requests"
-              element={<UserDashboardRequests />}
-            />
-            <Route
-              path="userdashboard/settings"
-              element={<UserDashboardSettings />}
-            />
-            <Route path="userdashboard/actor" element={<UploadActorPicCon />} />
-            <Route path="userdashboard/chat" element={<UserDashboardChat />} />
-            <Route
-              path="userdashboard/chat/:userId"
-              element={<UserDashboardChat />}
-            />
-            <Route
-              path="admindashboard/main"
-              element={<AdminDashboardMain />}
-            />
-            <Route
-              path="admindashboard/users"
-              element={<AdminDashboardUsers />}
-            />
-            <Route
-              path="admindashboard/analytics"
-              element={<AdminDashboardAnalytics />}
-            />
-            <Route
-              path="admindashboard/epks"
-              element={<AdminDashboardEPKs />}
-            />
+            <Route path="admindashboard/main" element={<AdminDashboardMain />} />
+            <Route path="admindashboard/users" element={<AdminDashboardUsers />} />
+            <Route path="admindashboard/analytics" element={<AdminDashboardAnalytics />} />
+            <Route path="admindashboard/epks" element={<AdminDashboardEPKs />} />
           </Route>
         </Route>
 
