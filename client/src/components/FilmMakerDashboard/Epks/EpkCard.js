@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
   faStar,
   faShareNodes,
   faPlus,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from "../../../images/empty_banner.jpeg";
+import CollaboratorModal from "./CollaboratorModal";
 import { Link } from "react-router-dom";
 
 export default function EpkCard(props) {
   const epkInfo = props.EpkInfo;
+  const user = useSelector((state) => state.user);
+  const [showModal, setShowModal] = useState(false);
+
   const BANNER_IMG =
     epkInfo.banner_url === ""
       ? emptyBanner
       : `${process.env.REACT_APP_AWS_URL}/${epkInfo.banner_url}`;
+
+  const isOwner =
+    user?.id === epkInfo.film_maker?._id ||
+    user?.id === epkInfo.film_maker;
 
   return (
     <div className="tw-flex tw-flex-row">
@@ -27,62 +37,57 @@ export default function EpkCard(props) {
           />
           <div className="tw-flex tw-flex-row tw-justify-between tw-p-5">
             <div className="tw-relative tw-inline-flex">
-              <FontAwesomeIcon
-                icon={faDollarSign}
-                style={{ color: "#1E0039" }}
-                size="2xl"
-              />
+              <FontAwesomeIcon icon={faDollarSign} style={{ color: "#1E0039" }} size="2xl" />
               <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
-                {epkInfo.wishes_to_donate == null
-                  ? "0"
-                  : epkInfo.wishes_to_donate.length}
+                {epkInfo.wishes_to_donate == null ? "0" : epkInfo.wishes_to_donate.length}
               </span>
             </div>
             <div className="tw-relative tw-inline-flex">
-              <FontAwesomeIcon
-                icon={faDollarSign}
-                style={{ color: "#1E0039" }}
-                size="2xl"
-              />
+              <FontAwesomeIcon icon={faDollarSign} style={{ color: "#1E0039" }} size="2xl" />
               <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
-                {epkInfo.wishes_to_buy == null
-                  ? "0"
-                  : epkInfo.wishes_to_buy.length}
+                {epkInfo.wishes_to_buy == null ? "0" : epkInfo.wishes_to_buy.length}
               </span>
             </div>
             <div className="tw-relative tw-inline-flex">
-              <FontAwesomeIcon
-                icon={faStar}
-                style={{ color: "#1E0039" }}
-                size="2xl"
-              />
+              <FontAwesomeIcon icon={faStar} style={{ color: "#1E0039" }} size="2xl" />
               <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.likes == null ? "0" : epkInfo.likes.length}
               </span>
             </div>
             <div className="tw-relative tw-inline-flex">
-              <FontAwesomeIcon
-                icon={faPlus}
-                style={{ color: "#1E0039" }}
-                size="2xl"
-              />
+              <FontAwesomeIcon icon={faPlus} style={{ color: "#1E0039" }} size="2xl" />
               <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.favourites == null ? "0" : epkInfo.favourites.length}
               </span>
             </div>
             <div className="tw-relative tw-inline-flex">
-              <FontAwesomeIcon
-                icon={faShareNodes}
-                style={{ color: "#1E0039" }}
-                size="2xl"
-              />
+              <FontAwesomeIcon icon={faShareNodes} style={{ color: "#1E0039" }} size="2xl" />
               <span className="tw-absolute tw--right-3 tw--top-3 tw-inline-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-border-white tw-bg-red-500 tw-text-xs tw-font-bold tw-text-white">
                 {epkInfo.sharings == null ? "0" : epkInfo.sharings.length}
               </span>
             </div>
           </div>
         </Link>
+
+        {isOwner && (
+          <div className="tw-border-t tw-border-gray-100 tw-px-5 tw-py-3">
+            <button
+              onClick={() => setShowModal(true)}
+              className="tw-flex tw-bg-transparent tw-items-center tw-gap-2 tw-text-sm tw-text-[#1E0039] hover:tw-underline"
+            >
+              <FontAwesomeIcon icon={faUserPlus} />
+              Manage Collaborators
+            </button>
+          </div>
+        )}
       </div>
+
+      {showModal && (
+        <CollaboratorModal
+          epkId={epkInfo._id}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 }

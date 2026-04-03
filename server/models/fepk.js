@@ -422,6 +422,29 @@ const fepkSchema = mongoose.Schema({
     },
   ],
 
+    // Collaborators - users authorized to edit this EPK
+  collaborators: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      role: {
+        type: String,
+        enum: ["editor"],
+        default: "editor",
+      },
+      invitedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      addedAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+
   // if this status is "true" the EPK will be blured
   status_pause: {
     type: Boolean,

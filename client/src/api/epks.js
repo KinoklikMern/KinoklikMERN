@@ -224,3 +224,18 @@ export const setBannerThumbnail = async (epkId, bannerId) => {
     return { error: error.message };
   }
 };
+
+export const listCollaborators = (epkId, token) =>
+  axios.get(`${process.env.REACT_APP_BACKEND_URL}/fepks/${epkId}/collaborators`, {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((r) => r.data);
+
+export const addCollaborator = (epkId, email, token) =>
+  axios.post(`${process.env.REACT_APP_BACKEND_URL}/fepks/${epkId}/collaborators`, { email }, {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((r) => r.data);
+
+export const removeCollaborator = (epkId, userId, token) =>
+  axios.delete(`${process.env.REACT_APP_BACKEND_URL}/fepks/${epkId}/collaborators/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((r) => r.data);
