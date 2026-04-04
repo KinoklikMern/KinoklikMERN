@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCog, faSearch, faTrash} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { toast } from "react-toastify";
-import LoadingSpin from "../FilmMakerDashboard/LoadingSpin";
+import LoadingSpin from "../Dashboard/LoadingSpin";
 import {useTranslation} from "react-i18next";
 
 export const EPKSideMenu = ({epk, filmmakerId}) => {

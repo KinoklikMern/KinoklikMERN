@@ -19,15 +19,15 @@ import FepkUploadDashboard from './pages/FepkUploadDashboard';
 import FepkEditDashboard from './pages/FepkEditDashboard';
 
 import { useSelector } from 'react-redux';
-import DashboardEpks from './pages/FilmmakerDashboard/EpkPage';
-import DashboardNotification from './pages/FilmmakerDashboard/NotificationPage';
-import DashboardSettings from './pages/FilmmakerDashboard/SettingPage';
-import DashboardChat from './pages/FilmmakerDashboard/ChatPage';
+import DashboardEpks from './pages/Dashboard/EpkPage';
+import DashboardNotification from './pages/Dashboard/NotificationPage';
+import DashboardSettings from './pages/Dashboard/SettingPage';
+import DashboardChat from './pages/Dashboard/ChatPage';
 
-import DashboardSaved from './pages/FilmmakerDashboard/SavedPage';
+import DashboardSaved from './pages/Dashboard/SavedPage';
 import DashboardLayout from './layouts/DashboardLayout';
 
-import UserDashboardRequests from './pages/FilmmakerDashboard/RequestsPage';
+import UserDashboardRequests from './pages/Dashboard/RequestsPage';
 
 import AdminDashboardMain from './pages/AdminDashboard/MainPage';
 import AdminDashboardUsers from './pages/AdminDashboard/UsersPage';

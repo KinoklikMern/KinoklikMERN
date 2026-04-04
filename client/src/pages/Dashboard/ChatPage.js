@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
-import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
+import Sidebar from "../../components/Dashboard/Sidebar";
+import ChatList from "../../components/Dashboard/Chats/ChatList";
+import MessageBox from "../../components/Dashboard/Chats/MessageBox";
 import ChatProvider from "../../context/ChatProvider";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
