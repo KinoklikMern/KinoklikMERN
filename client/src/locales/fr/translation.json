@@ -4,7 +4,6 @@
 
   "WishToBuy": "Envie D'acheter",
 
-  "_comment From components Auth|Registration Registration": "ReCheck For changes",
   "All fields are required.": "Tous les champs sont requis.",
   "Invalid Email": "Email invalide",
   "Passwords do not match.": "Les mots de passe ne correspondent pas.",
@@ -16,7 +15,7 @@
   "Sign up for KinoKlik": "Inscrivez-vous pour KinoKlik",
   "Next": "S'inscrire",
   "Back": "Retour",
-  "_comment From components Auth|Registration RegistrationPersonalInfo": "ReCheck For changes",
+  
   "I agree to the terms and conditions as set out by the user agreement": "J'accepte les termes et conditions énoncés dans le contrat d'utilisation",
   "I want to stay up to date and receive newsletters from KinoKlik!": "Je veux rester informé et recevoir des infolettres de KinoKlik!",
   "Viewers": "Spectateurs",
@@ -27,9 +26,6 @@
 
   "Filmmakers (Directors & Producers)": "Réalisateur",
 
-  "_comment From Input coverForm and detailsFepkForm also miscellaneis Request Button": "ReCheck For changes",
-
-  "_comment From Actors Page": "This is a comment. 8 changes",
   "Actors": "Acteurs",
   "Actress": "Actrice",
   "Star": "Étoile",
@@ -39,23 +35,16 @@
   "Recommendation sent successfully!": "Recommandation envoyée avec succès!",
   "current films by actor": "films actuels par acteur",
 
-  "_comment From ListActors Page and ListItem": "No changes",
-  "_comment From AdminDashBoard AnalyticsPAge": "5 changes",
   "Analytics": "Analytique",
   "Actor": "Acteur",
   "Agent": "Agent",
   "Studio": "Studio",
   "Account": "Compte",
-  "_comment From AdminDashBoard EPKsPage": "no changes",
-  "_comment From AdminDashBoard MainPage": "1 change",
-  "Users & Filmmakers": "Utilisateurs et Cinéastes",
-  "_comment From AdminDashBoard UsersPage": "no changes",
 
-  "_comment From FimakerDashBoard ChatPage": "1 change",
+  "Users & Filmmakers": "Utilisateurs et Cinéastes",
+
   "Filmmaker Dashboard": "Tableau de Bord du Cinéaste",
 
-  "_comment From FimakerDashBoard EPKPage": "1 change",
-  "_comment From FimakerDashBoard NotificationPage": "7 changes, Scroll down further line 180 to 188, 349,357,371,382",
   "Stars & Likes": "Étoiles et J'aime",
   "Likes": "J'aime",
   "All Request": "Tout les Demandes",
@@ -63,12 +52,8 @@
   "Pending": "En Attente",
   "Approved": "Approuvé",
   "Refused": "Refuser",
-  "Approve": "Approuvé",
   "Deny": "Refuser",
 
-  "_comment From FimakerDashBoard SettingsPage": "9 changes, Line 15,19,23,27,34,65-68",
-
-  "_comment From FilmMaker filmMakerDashboared ": "5 changes, Line 47",
   "Create New Film EPK": "Créer un nouveau film DPE",
   "You don`t have any EPK created.To start promoting your ": "Vous n'avez pas créé de DPE. Pour commencer à promouvoir votre ",
 
@@ -78,36 +63,21 @@
   "Update": "Mise à jour",
   "update": "Mise à jour",
 
-  "_comment From FilmMaker filmMakerSelected": "2 changes, Line 115, Line 122",
   "EPK Requests": "Demande DPE",
 
-  "_comment From login CHeckEmailPage": "0 CHanges ",
-  "_comment From login index": "0 CHanges ",
-  "_comment From login ResetPassWordPage": "0 CHanges ",
-  "_comment From login ResetPassWordSuccess": "0 CHanges ",
-  "_comment From login SendResetPassWordLinkPage": "0 CHanges ",
-
-  "_comment From UserDashboard ChatPage": "1 CHanges ",
   "User Dashboard": "Tableau de bord utilisateur",
-  "_comment From UserDashboard FollowingPage": "1 CHanges. Line 39 ",
-  "_comment From UserDashboard RequestPage": "2 CHanges. Line 74, 84, 112,140, ",
   "Approved EPKs": "DPE approuvés",
   "Pending EPKs": "DPE en Attente",
   "Refused EPKs": "DPE refusés",
-  "_comment From UserDashboard SettingsPage": "9 CHanges. Line  15, 19, 23, 27, 34,66-69, ",
-  "_comment From UserDashboard StarredPage": "1 CHange.",
   "Starred": "Favoris",
 
-  "_comment From AccessDeniedPage": "4 CHanges.",
   "Access denied": "Accès refusé",
   "Sorry, you need to sign in to get access to this page.": "Désolé, vous devez vous connecter pour accéder à cette page.",
   "Sign in": "Se connecter",
   "Go back home": "Revenir à la page principale",
 
-  "_comment From BookMark": "1 CHanges.",
   "This is the bookmark": "C'est le signet",
 
-  "_comment From Catalogue": "8 CHanges.",
   "TV Show": "Épisodes TV",
   "Web Series": "Épisodes-Web",
   "Documentary": "Documentaires",
@@ -115,9 +85,6 @@
   "All EPKs": "Tous",
   "POST PRODUCTION": "POST-PRODUCTION",
 
-  "_comment From EPKs": "0 CHanges.",
-  "_comment From EpkDashboard": "0 CHanges.",
-  "_comment From EpkView": "8 CHanges. Line 400, 405, 410, 415, 500, 513,520,523,543,657,682-685 ",
   "Close": "Fermer",
   "Send": "Envoyer",
   "Total Audience Reach": "Audience Totale",
@@ -148,50 +115,36 @@
   "biography": "Biographie",
   "Producer": "Producteur",
 
-  "_comment From EpkViewPage": "0 CHanges.",
-  "_comment From MyList": "1 CHanges.",
   "This is the My List ": "C'est ma liste",
 
-  "_comment From TestApproval": "0 CHanges.",
-  "_comment From UploadEPK": "0 CHanges.",
-  "_comment From UploadMovie": "0 CHanges.",
-
-  "_comment From UserDashboard": "4 CHanges. Line 24, 37,50,63",
   "My Account": "Mon Compte",
   "Payment": "Payment",
 
-  "_comment From Components AdminDashBoard LeftSideBar": "5 CHanges.",
   "Main Metrics": "Principales mesures",
   "Users": "Utilisateurs",
   "Line Analytics": "",
   "EPKs": "DPEs",
   "KinoKlik Admin": "Administrateur KinoKlik",
 
-  "_comment From Components AuthRegistration CheckEmail": "4 CHanges.",
   "Check Your Email": "Vérifiez votre courrier électronique",
   "Please check the email address": "Veuillez vérifier l'adresse email",
   "for instructions to reset your password.": "pour savoir comment réinitialiser votre mot de passe.",
 
-  "_comment From Components AuthRegistration EmailVerification": "0 CHanges.",
   "Please enter the OTP to verify your account": "Veuillez entrer l'OTP pour vérifier votre compte",
   "OTP has been sent to your email": "l'OTP a été envoyé à votre adresse e-mail",
   "Verify Account": "Vérifier le compte",
   "Resend OTP": "Renvoyer l'OTP",
 
-  "_comment From Components AuthRegistration Login": "2 CHanges.",
   "Please enter email": "Veuillez entrer votre Email",
   "Please enter password": "Veuillez entrer le mot de passe",
 
-  "_comment From Components AuthRegistration LoginForm": "6 CHanges.",
   "Please provide both email and password": "Veuillez fournir à la fois votre e-mail et votre mot de passe",
 
   "Forgot password?": "Mot de passe oublié?",
   "Reset my Password": "Réinitialiser mon mot de passe",
 
-  "_comment From Components AuthRegistration LoginFormViewPage": "2 CHanges.",
   "password": "Mot de passe",
 
-  "_comment From Components AuthRegistration register": "7 CHanges.",
   "Please enter your first name!": "Entrez votre prénom s'il vous plait!",
   "First Name must be at least 3 characters long!": "Le prénom doit contenir au moins 3 caractères !",
   "First Name must be at most 30 characters long!": "Le prénom doit contenir au maximum 30 caractères !",
@@ -200,26 +153,20 @@
   "Password must be at least 6 characters long!": "Le mot de passe doit contenir au moins 6 caractères!",
   "First Name must be at most 40 characters long!": "Le prénom doit contenir au maximum 40 caractères !",
 
-  "_comment From Components AuthRegistration registrationcopy": "1 CHanges. NOt done yet",
   "Confirm Password": "Confirmer mot de passe",
 
-  "_comment From Components AuthRegistration registration": "1 CHanges.",
-
-  "_comment From Components AuthRegistration RegistrationSuccess": "3 CHanges.",
   "Congratulations!": "Félicitations!",
   "Your account has been verified!": "Votre compte a été créé.",
 
-  "_comment From Components AuthRegistration ResetPassword": "0 CHanges.",
   "Reset your password": "réinitialisez votre mot de passe",
   "Enter a new password below to change your password": "Entrez un nouveau mot de passe ci-dessous pour changer votre mot de passe",
   "Reset Password": "Réinitialiser le Mot de Passe",
 
-  "_comment From Components AuthRegistration ResetPasswordSuccess": "0 CHanges.",
   "Password Changed!": "Mot de passe changé!",
   "Your password has been changed successfully": "Votre mot de passe a été changé avec succès",
   "Redirecting in ": "Redirection en ",
   " seconds...": " secondes...",
-  "_comment From Components AuthRegistration RoleChoise": "12 CHanges.",
+
   "An amazing and talented visionary filmmaker": "Cinéaste",
   "A talented and passionate actor (and future star)": "Acteur",
   "Investor": "Investisseur",
@@ -229,31 +176,25 @@
   "Cinematographer": "Directeur de la photographie",
   "Distributor": "Distributeur",
 
-  "_comment From Components AuthRegistration SendResetPassword": "6 CHanges.",
   "Forgot your password?": "Vous avez oublié votre mot de passe?",
   "You will receive an email with instructions to reset": "Vous recevrez un e-mail avec des instructions pour réinitialiser",
   "your password if an account exists for this email address.": "votre mot de passe si un compte existe pour cette adresse email",
   "Already have an account?": "Vous avez déjà un compte?",
 
-  "_comment From Components donate DonationModal": "4 CHanges.",
   "Support the filmmaker by": "Soutenez le cinéaste en",
   "making a one-time donation.": "faire un don unique.",
   "Donate with PayPal": "Faites un don avec PayPal",
   "Donate with Stripe": "Faites un don avec Stripe",
 
-  "_comment From Components Epk Input castForm": "3 CHanges.",
   "EPK Dashboard": "Tableau de bord DPE",
   "View EPK Page": "Voir la page DPE",
   "Starring/Cast": "Vedette/Casting",
 
-  "_comment From Components Epk Input cinematographerForm": "2 CHanges.Line 88, 102",
-  "_comment From Components Epk Input coverForm": "0 CHanges. Line 146, 191",
   "EPK Page Upload": "Téléchargement de Pages DPE",
   "Cover": "Couverture",
   "Upload Banner": "Télécharger la bannière",
   "Upload Trailer": "Télécharger la bande-annonce",
 
-  "_comment From Components Epk Input detailsFepkForm": "20 CHanges.",
   "Upload Poster / Thumbail": "Télécharger une affiche/une vignette",
   "CREW NAME": "NOM DE L'ÉQUIPAGE",
   "EPK ROLE": "RÔLE DPE",
@@ -262,7 +203,6 @@
   "lead actor": "Acteur Principal",
   "supporting actor": "Second Role",
 
-  "_comment From Components Epk Input detailsForm": "18 CHanges.",
   "Produced By:": "Produit par:",
   "Writen By:": "Écrit par:",
   "Cinematography By": "Cinématographie Par:",
@@ -273,20 +213,17 @@
   "Starring": "En Vedette",
   "Lead Actor Name:": "Nom de l'acteur principal:",
 
-  "_comment From Components Epk Input directorForm": "4 CHanges.",
   "Header": "Entête",
   "Enter Director's Biography here.": "",
   "Director": "Directeur",
   "Director's Name": "Nom du réalisateur",
 
-  "_comment From Components Epk Input EpkCoverForm": "7 CHanges.",
   "EPK Upload Page": "Page de téléchargement DPE",
   "Show EPK": "Afficher le DPE",
   "EPK Cover Section": "Section de couverture de le DPE",
   "Upload Banner Line 224": "Télécharger la bannière",
   "Upload Trailer Line 240": "Télécharger la bande-annonce",
 
-  "_comment From Components Epk Input fepkCoverForm": "8 CHanges.",
   "This title exists! Choose another one!": "Ce titre existe ! Choisissez-en un autre!",
   "This title is ok!": "Ce titre est bien!",
 
@@ -308,20 +245,15 @@
   "TWIT": "TWIT",
   "STATUS": "STATUT",
 
-  "_comment From Components Epk Input fepkEditCoverForm": "25 CHanges.",
   "This title exists! You are not allowed to use it again!": "Ce titre existe ! Vous n'êtes plus autorisé à l'utiliser !",
   "Title is available": "Le titre est disponible",
 
-  "_comment From Components Epk Input fepkMenu": "0 CHanges.",
-
-  "_comment From Components Epk Input fepkResourcesForm": "20 CHanges.",
   "Resources": "Ressources",
   "Duration Required": "Durée requise",
   "Description": "Description",
   "Image": "Image",
   "Your content has been successfully saved!": "Votre contenu a été enregistré avec succès !",
 
-  "_comment From Components Epk Input fepkReviewsForm": "15 CHanges.",
   "BUZZ": "BUZZ",
   "Upload Logo": "Télécharger le logo",
   "Film Buzz (Reviews & Awards)": "Film Buzz (Critiques et Récompenses)",
@@ -332,33 +264,24 @@
   "ACTIONS": "ACTIONS",
   "Reviews Saved Successfully!": "Commentaires enregistrés avec succès !",
 
-  "_comment From Components Epk Input fepkStills": "12 CHanges.",
   "EDIT": "MODIFIER",
   "Film Stills": "Images fixes du film",
   "Upload Picture": "Charger une photo",
 
-  "_comment From Components Epk Input fepkSynopsisForm": "14 CHanges.",
   "Synopsis is Saved Successfully!": "Le synopsis a été enregistré avec succès !",
   "Synopsis": "Synopsis",
   "Short Synopsis(maximum 160 characters)": "Court résumé (maximum 160 caractères)",
   "Medium Synopsis(maximum 350 characters)": "Synopsis moyen (maximum 350 caractères)",
   "/160 characters": "/160 caractères",
 
-  "_comment From Components Epk Input fepkTrailerForm": "2 CHanges.",
   "Film Trailer": "Bande annonce de film",
 
-  "_comment From Components Epk Input fepkUniquenessForm": "9 CHanges.",
-
-  "_comment From Components Epk Input loglineFepkForm": "9 CHanges.",
   "Log Line": "Ligne de connexion",
 
-  "_comment From Components Epk Input loglineForm": "3 CHanges.",
   "Logline": "Connexion",
 
-  "_comment From Components Epk Input producerForm": "4 CHanges.",
   "EPK DashBoard": "Tableau de bord DPE",
 
-  "_comment From Components Epk Input requestApproval": "13 CHanges.",
   "Medium Synopsis Requests:": "Demandes de résumé moyen :",
   "Hi! I need your approval to see the medium synopsis section!": "Salut! J'ai besoin de votre approbation pour voir la section résumé moyen !",
   "approve": "approuver",
@@ -370,36 +293,19 @@
   "Stills Requests": "Demandes d'images fixes",
   "Hi! I need your approval to see the stills section!": "Salut! J'ai besoin de votre approbation pour voir la section photos !",
 
-  "_comment From Components Epk Input ResourcesForm": "2 CHanges.",
-
-  "_comment From Components Epk Input reviewForm": "3 CHanges.",
   "Reviews": "Commentaires",
 
-  "_comment From Components Epk Input stillsForm": "3 CHanges.",
   "EPK Dashborad": "Tableau de bord DPE",
   "Stills": "Images fixes",
 
-  "_comment From Components Epk Input synopsisForm": "2 CHanges.",
-
-  "_comment From Components Epk Input synopsisFormback": "0 CHanges.",
   "Short Synopsis": "Court Synopsis",
   "Medium Synopsis": "Moyen Synopsis",
 
-  "_comment From Components Epk Input TrailerForm": "0 CHanges.",
-
-  "_comment From Components Epk Input uniquenessForm": "5 CHanges.",
   "Tell the world what makes your film and production special. This is where you sell the world (and the media) your film. Is your film inspired by a true story? Is it based on a criminal court case? Does it feature a real haunted house or a celebrity cameo?": "Dites au monde ce qui rend votre film et votre production spéciaux. C'est ici que vous vendez au monde (et aux médias) votre film. Votre film est-il inspiré d'une histoire vraie ? Est-ce basé sur une affaire pénale ? Présente-t-il une véritable maison hantée ou une apparition de célébrité ?",
   "Uniqueness": "Unicité",
 
-  "_comment From Components Epk Present allSynpsis": "0 CHanges.",
-  "_comment From Components Epk Present cast": "1CHanges.",
-
-  "_comment From Components Epk Present cinematographer": "1 CHanges.",
-
-  "_comment From Components Epk Present Cover": "2 CHanges.",
   "Report": "Raport",
 
-  "_comment From Components Epk Present details": "11 CHanges.",
   "Directed by:": "Dirigé par:",
   "Produced by:": "Produit par:",
   "Writer:": "écrivain",
@@ -411,43 +317,14 @@
   "Production Year:": "Année de Production:",
   "Duration:": "Durée:",
 
-  "_comment From Components Epk Present director": "1 CHanges.",
-
-  "_comment From Components Epk Present logline": "0 CHanges.",
-
-  "_comment From Components Epk Present producer": "1 CHanges.",
-
-  "_comment From Components Epk Present Resources": "0 CHanges.",
-
-  "_comment From Components Epk Present review": "0 CHanges.",
-
-  "_comment From Components Epk Present stills": "0 CHanges.",
-
-  "_comment From Components Epk Present synopsis": "1 CHanges.",
-
-  "_comment From Components Epk Present Trailer": "1 CHanges.",
   "Text text text...": "Texte texte texte...",
 
-  "_comment From Components Epk Present uniqueness": "0 CHanges.",
-
-  "_comment From Components EpkView EpkAward AwardCard": "0 CHanges.",
-  "_comment From Components EpkView EpkAward EpkAward": "1 CHanges.",
-
-  "_comment From Components EpkView EpkCast CastCard": "0 CHanges.",
-  "_comment From Components EpkView EpkCast EpkCast": "1 CHanges.",
-
-  "_comment From Components EpkView EpkCover EpkCover": "0 CHanges.",
-  "_comment From Components EpkView EpkDetail EpkDetail": "6 CHanges.",
   "Producer Year": "Année du producteur",
   "Duration": "Durée",
   "Minutes": "Minutes",
   "Distributed by": "Distribué par",
   "Created By": "Créé par",
 
-  "_comment From Components EpkView EpkHeader EpkHeader": "0 CHanges.",
-  "_comment From Components EpkView SocialMedia SocialMedia": "0 CHanges.",
-  "_comment From Components EpkView EpkLogline EpkLogline": "0 CHanges.",
-  "_comment From Components EpkView EpkReport EpkReport": "6 CHanges.",
   "This can be unwanted and unauthorized use of content": "Il peut s'agir d'une utilisation indésirable et non autorisée du contenu",
 
   " from another website on third-party websites in": " d'un autre site Web sur des sites Web tiers en",
@@ -466,56 +343,28 @@
   "Other: any other reason you may want to report this EPK.": "Autre: autre raison pour laquelle vous souhaiterez peut-être signaler cet DPE.",
   "Thank you for reporting this film EPK. We are currently inverstigation and have notified the filmmaker accordingly.": "Merci d'avoir rapporté ce film DPE. Nous sommes actuellement en train d'enquêter et avons informé le cinéaste en conséquence.",
 
-  "_comment From Components EpkView EpkResources EpkResources": "0 CHanges.",
-  "_comment From Components EpkView EpkResources ResourceCard": "0 CHanges.",
-  "_comment From Components EpkView EpkSocialAction ActionIcon": "0 CHanges.",
-  "_comment From Components EpkView EpkSocialAction EpkSocialAction": "0 CHanges.",
-  "_comment From Components EpkView EpkStills EpkStills": "0 CHanges.",
-  "_comment From Components EpkView EpkSynopsis EpkSynopsis": "0 CHanges.",
-  "_comment From Components EpkView EpkSynopsis SynopsisContent": "0 CHanges.",
-  "_comment From Components EpkView EpkTrailer EpkTrailer": "0 CHanges.",
-  "_comment From Components EpkView EpkUniqueness EpkUniqueness": "0 CHanges.",
-  "_comment From Components EpkView EpkWorker EpkWorker": "0 CHanges.",
-  "_comment From Components EpkView miscellaneous LoginModal": "4 CHanges.",
   "Sign In": "Se connecter",
   "Email address": "Adresse e-mail",
   "Already hava an account?": "Vous avez déjà un compte?",
   "Don't have an account yet?": "Vous n'avez pas encore de compte?",
 
-  "_comment From Components EpkView miscellaneous NewMessageModal": "2 CHanges.",
   "Please type your message to the Filmmaker EPK Owner": "Veuillez taper votre message au propriétaire du cinéaste DPE",
 
-  "_comment From Components EpkView miscellaneous RequestButton": "0 CHanges.",
-  "_comment From Components EpkView miscellaneous RequestModal": "2 CHanges.",
   "Submit": "Soumettre",
 
-  "_comment From Components Festival Festival": "0 CHanges.",
-
-  "_comment From Components Filmaker filmMakerConnect": "2 CHanges.",
   "Filmaker Dashboard": "Tableau de bord du cinéaste",
   "Connect Page": "Page de connexion",
-  "_comment From Components Filmaker filmMakerDashboard": "3 CHanges.",
+
   "You don't have any EPK created. Start promoting away!": "",
   "Create your own EPK now!": "Créez votre propre DPE maintenant !",
 
-  "_comment From Components Filmaker filmMakerDashboardSecurity": "5 CHanges.",
   "Profile": "Profil",
 
-  "_comment From Components Filmaker filmMakerDashboardSecurityAccount": "6 CHanges.",
-
-  "_comment From Components Filmaker filmMakerDashboardSecurityCompany": "5 CHanges.",
-
-  "_comment From Components Filmaker filmMakerDashboardSecurityPassword": "11 CHanges.",
-
-  "_comment From Components Filmaker filmMakerDashboardSecurityProfile": "0 CHanges.",
   "Upload Avatar": "Télécharger l'avatar",
   "Updated profile successfully!": "Profil mis à jour avec succès!",
 
-  "_comment From Components Filmaker filmMakerNotifications": "2 CHanges.",
   "Notifications Page": "Page de notifications",
 
-  "_comment From Components Filmaker filmMakerSideBar": "0 CHanges.",
-  "_comment From Components Filmaker Requests": "11 CHanges.",
   "All Users": "Tous les utilisateurs",
   "Viewer": "Téléspectateur",
   "Film Festival": "Festival du film",
@@ -525,28 +374,13 @@
   "User Name:": "Nom d'utilisateur:",
   "Comment": "Commentaire",
 
-  "_comment From Components Filmaker Stars": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard Chats ChatList": "0 CHanges.",
   "no conversations to display": "aucune conversation à afficher",
 
-  "_comment From Components FilmMakeDashboard Chats ChatListItem": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard Chats MessageBox": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard Chats NotificationItem": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard EPKs EmptyEpk": "0 CHanges.",
   "You don't have any EPK created": "Vous n'avez créé aucun DPE",
   "Start promoting you film right away!": "commencez immédiatement à promouvoir votre film !",
 
-  "_comment From Components FilmMakeDashboard EPKs EpkCard": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard EPKs NewEpkBtn": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard Notifications NotificationEpkCard": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard Notifications RequestCard": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard Notifications UserCard": "0 CHanges.",
-  "_comment From Components FilmMakeDashboard Settings Account": "3 CHanges.",
   "Account Type": "Type de compte",
 
-  "_comment From Components FilmMakeDashboard Settings Password": "3 CHanges.",
-
-  "_comment From Components FilmMakeDashboard Settings Profile": "15 CHanges.",
   "Height": "Hauteur",
   "Eye Color": "Couleur des yeux",
   "Black": "Noir",
@@ -581,24 +415,13 @@
   "or below": "ou ci-dessous",
   "or above": "ou au-dessus",
 
-  "_comment From Components FilmMakeDashboard Settings Studio": "5 CHanges.",
   "Yes": "Oui",
   "No": "Non",
 
-  "_comment From Components FilmMakeDashboard LoadingSpin": "1 CHanges.",
   "Loading": "Chargement",
 
-  "_comment From Components FilmMakeDashboard Sidebar": "3 CHanges.",
   "Messages": "Messages",
 
-  "_comment From Components Filter AgeRangeDropdown": "0 CHanges.",
-  "_comment From Components Filter CityDropdown": "0 CHanges.",
-  "_comment From Components Filter CountryDropdown": "0 CHanges.",
-  "_comment From Components Filter EthinicityDropdown": "0 CHanges.",
-  "_comment From Components Filter FilterTag": "0 CHanges.",
-  "_comment From Components Filter RepresentationDropdown": "0 CHanges.",
-  "_comment From Components HomeBody HomeBody": "0 CHanges.",
-  "_comment From Components HomeBody HomeBodyActor": "7 CHanges.",
   "STARRED": "ÉTOILE",
   "FOLLOWING": "SUIVANT",
   "MOST STARRED": "LE PLUS ÉTOILÉ",
@@ -607,13 +430,9 @@
   "PRE PRODUCTION": "PRÉ-PRODUCTION",
   "All ACTORS": "Tous les acteurs",
 
-  "_comment From Components HomeHead SearchBar": "0 CHanges.",
-
   "For Industry": "Professionels d'industrie",
 
   "Welcome": "Bienvenue",
-
-  "_comment From Components navbar NavbarButton": "1 CHanges.",
 
   "I am": "Je suis",
 
@@ -1447,7 +1266,7 @@
 
   "You don't have any EPK refused.": "Vous n’avez aucun DPE refusé.",
 
-  "Phone no.": "Pas de téléphone",
+  "Phone no.": "Numéro de téléphone",
 
   "Search name ...": "Rechercher le nom...",
 

@@ -8,21 +8,17 @@ import { ReactComponent as HeartIcon } from '../../images/icons/heart-icon.svg';
 import { ReactComponent as PlusIcon } from '../../images/icons/plus-icon.svg';
 import { ReactComponent as MessageIcon } from '../../images/icons/messages.svg';
 import { ReactComponent as RecommendIcon } from '../../images/icons/recommend-icon.svg';
+import { Link } from 'react-router-dom';
 
 import ActorPageHeader from '../../components/EpkView/EpkHeader/ActorPageHeader';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/Footer';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import starIcon from "../../images/icons/Star FULL.svg";
-// import refralIcon from "../../images/icons/referral sign.svg";
 import http from '../../http-common';
-import {
-  ArrowBackIosOutlined,
-  ArrowForwardIosOutlined,
-} from '@mui/icons-material';
-// import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-// import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
+import ArrowBackIosOutlined from "@mui/icons-material/ArrowBackIosOutlined";
+import ArrowForwardIosOutlined from "@mui/icons-material/ArrowForwardIosOutlined";
+
 // import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
@@ -30,8 +26,6 @@ import { addToChat } from '../../api/epks';
 import { useTranslation } from 'react-i18next';
 import { getMoviesByActors } from '../../api/epks';
 import emptyBanner from '../../images/empty_banner.jpeg';
-import { faMessage } from '@fortawesome/free-solid-svg-icons';
-import { width } from '@mui/system';
 import { AGE_OPTIONS } from '../../constants/AgeOptions';
 
 export default function Actor(props) {
@@ -40,13 +34,10 @@ export default function Actor(props) {
   const { id } = useParams();
   const [kkFollower, setKKFollower] = useState([]);
   const [range, setRange] = useState(2);
-  // const [isMoved, setIsMoved] = useState(false);
-  // const [slideNumber, setSlideNumber] = useState(0);
   const [pics, setPics] = useState([]);
   const [indexPic, setPicIndex] = useState(0);
   const [likes, setLikes] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
-  // const [isPlaying, setIsPlaying] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [allUserList, setAllUserList] = useState([]);
@@ -225,8 +216,9 @@ export default function Actor(props) {
     console.log('User Role:', user.role); // Add this
     console.log('Selected Filmmakers:', selectedFilmmakers); // Add this
 
-    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
-    const message2 = `<a href="/actor/${epkInfo._id}"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
+    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}" target="_blank" rel="noopener noreferrer">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
+
+    const message2 = `<a href="/actor/${epkInfo._id}" target="_blank" rel="noopener noreferrer"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
 
     Promise.all(
       selectedFilmmakers.map((filmmaker) => {
@@ -288,29 +280,6 @@ export default function Actor(props) {
       );
     }
   };
-
-  // const playVideo = () => {
-  //   const video = videoRef.current;
-  //   if (video && video.src) {
-  //     if (video.paused) {
-  //       video
-  //         .play()
-  //         .then(() => {
-  //           setIsPlaying(true);
-  //           setShowVideoErrorMsg(false);
-  //         })
-  //         .catch((error) => {
-  //           console.error('Error playing video:', error);
-  //           setShowVideoErrorMsg(true);
-  //         });
-  //     } else {
-  //       video.pause();
-  //       setIsPlaying(false);
-  //     }
-  //   } else {
-  //     setShowVideoErrorMsg(true);
-  //   }
-  // };
 
   const openModal = () => {
     if (userId === '0') {
@@ -411,80 +380,6 @@ export default function Actor(props) {
       )}
 
       <div className="tw-mb-[5%] tw-mt-[3%] tw-h-auto tw-rounded-[40px] tw-bg-white">
-        {/* Reordered Content for Small Screens */}
-        {/* <div className="tw-grid tw-grid-cols-1 tw-gap-4 tw-p-4 md:tw-hidden">
-          <div className="tw-flex tw-items-center tw-justify-around">
-            <div className="tw-flex tw-items-center tw-gap-4">
-              <p className="tw-text-md tw-text-center tw-font-bold tw-text-black">
-                {t('Actor')}
-              </p>
-              <p className="tw-text-md tw-text-center tw-font-bold tw-text-black">
-                {displayGender(epkInfo.gender)}
-              </p>
-            </div>
-            <p className="tw-text-center tw-text-xl tw-font-bold tw-text-black">
-              {epkInfo.firstName} {epkInfo.lastName}
-            </p>
-            <p className="tw-text-md tw-text-center tw-font-bold tw-text-black">
-              {epkInfo.city}
-            </p>
-          </div>
-
-          <div className="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center">
-            <div className="tw-flex tw-w-full tw-flex-row tw-flex-wrap tw-items-center tw-justify-center">
-              <div className="tw-m-1 tw-flex tw-w-auto tw-flex-col md:tw-m-2">
-                <button
-                  className="tw-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full tw-bg-[#712cb0] tw-px-3 tw-py-2 tw-text-[0.7rem] tw-font-bold tw-text-white md:tw-px-4 md:tw-text-[0.85rem]"
-                  onClick={addUserToFollowers}
-                >
-                  {t('Follow')}
-                  <AddIcon
-                    className="tw-ml-1 tw-h-4 tw-w-4 md:tw-ml-2 md:tw-h-5 md:tw-w-5"
-                    style={{ color: 'white' }}
-                  />
-                </button>
-                <p className="follower-number actor-detail-item tw-my-1 tw-text-center tw-text-base tw-font-bold tw-text-black md:tw-text-xl">
-                  {kkFollower}
-                </p>
-              </div>
-
-              <div className="tw-m-1 tw-flex tw-w-auto tw-flex-col md:tw-m-2">
-                <button
-                  className="tw-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full tw-bg-[#712cb0] tw-px-3 tw-py-2 tw-text-[0.7rem] tw-font-bold tw-text-white md:tw-px-4 md:tw-text-[0.85rem]"
-                  onClick={addUserToLikes}
-                >
-                  {t('Star')}
-                  <StarIcon
-                    className="tw-ml-1 tw-h-4 tw-w-4 md:tw-ml-2 md:tw-h-5 md:tw-w-5"
-                    style={{ color: 'white' }}
-                  />
-                </button>
-                <p className="follower-number actor-detail-item tw-my-1 tw-text-center tw-text-base tw-font-bold tw-text-black md:tw-text-xl">
-                  {likes}
-                </p>
-              </div>
-
-              <div className="tw-m-1 tw-flex tw-w-auto tw-flex-col md:tw-m-2">
-                <button
-                  className="tw-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-full tw-bg-[#712cb0] tw-px-3 tw-py-2 tw-text-[0.7rem] tw-font-bold tw-text-white md:tw-px-4 md:tw-text-[0.85rem]"
-                  onClick={openModal}
-                  disabled={epkInfo._id === (user ? user.id : null)}
-                >
-                  {t('Recommend')}
-                  <ConnectWithoutContactIcon
-                    className="tw-ml-1 tw-h-4 tw-w-4 md:tw-ml-2 md:tw-h-5 md:tw-w-5"
-                    style={{ color: 'white' }}
-                  />
-                </button>
-                <p className="follower-number actor-detail-item tw-my-1 tw-text-center tw-text-base tw-font-bold tw-text-black md:tw-text-xl">
-                  {recommendations}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-        {/* refactored by Armita*/}
 
         <div className='tw-grid tw-grid-cols-[auto_1fr] grid-rows-[auto_1fr] tw-gap-y-16 tw-gap-x-8 lg:tw-gap-x-16 xl:tw-gap-x-64 tw-py-8 tw-px-4 sm:tw-px-6 lg:tw-px-12 xl:tw-px-24  tw-text-midnight tw-font-bold tw-font-roboto'>
           <div id='profile-header' className='tw-col-span-2 tw-flex tw-flex-wrap tw-items-center tw-justify-evenly ' >
@@ -740,25 +635,7 @@ export default function Actor(props) {
                 controls
                 playsInline
               ></video>
-              {/*
-            <div
-              className="tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-transform tw-items-center tw-justify-center tw--translate-x-1/2 tw--translate-y-1/2"
-              onClick={playVideo}
-              style={{ display: showVideoErrorMsg ? "none" : "flex" }}
-            >
-              {isPlaying ? (
-                <PauseCircleOutlineIcon
-                  className=""
-                  style={{ color: "#1E0039", fontSize: "3rem" }}
-                />
-              ) : (
-                <PlayCircleIcon
-                  className=""
-                  style={{ color: "#1E0039", fontSize: "3rem" }}
-                />
-              )}
-            </div>
-            */}
+
             </div>
           ) : null}
           {showVideoErrorMsg && (
@@ -772,17 +649,12 @@ export default function Actor(props) {
         {
           epksList && epksList.length > 0 && (
             <div className="tw-h-[36rem] tw-overflow-x-auto tw-rounded-lg tw-bg-white tw-p-4 tw-text-center">
-              {/* <p className="tw-py-4 tw-font-semibold">
-                {t('Current films by actor')}{' '}
-                <span style={{ fontWeight: 'bolder' }}>
-                  {epkInfo.firstName} {epkInfo.lastName}
-                </span>
-              </p> */}
+
               <div className="tw-flex tw-flex-col tw-gap-4 md:tw-flex-row">
                 {epksList.map((epk) => (
-                  <a
+                  <Link
                     key={epk._id}
-                    href={`/epk/${epk._id}`}
+                    to={`/epk/${epk._id}`}
                     className="tw-block md:tw-inline-block"
                   >
                     <div className="listItem tw-py-4 md:tw-py-0">
@@ -798,7 +670,7 @@ export default function Actor(props) {
                         className="tw-h-[200px] tw-w-full tw-object-cover md:tw-h-full md:tw-min-w-[300px]"
                       />
                     </div>
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>

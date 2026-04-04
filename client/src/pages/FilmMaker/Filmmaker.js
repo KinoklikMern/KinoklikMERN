@@ -76,12 +76,15 @@ export default function Filmmaker(props) {
   };
 
   // Get banner image URL
-  const getBannerUrl = () => {
-    if (!epkInfo.bannerImg) return '';
-    return epkInfo.bannerImg.startsWith('https')
-      ? epkInfo.bannerImg
-      : `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`;
-  };
+ const getBannerUrl = () => {
+    if (!epkInfo?.bannerImg) return emptyBanner; 
+
+    if (epkInfo.bannerImg.startsWith('https')) {
+        return epkInfo.bannerImg;
+    }
+
+    return `${process.env.REACT_APP_AWS_URL}/${epkInfo.bannerImg}`;
+    };
   
 
   useEffect(() => {
@@ -181,9 +184,7 @@ export default function Filmmaker(props) {
       alert(t('Please log in first!'));
       return;
     }
-    const chatUrl = userIsActor
-      ? `/userdashboard/chat/${id}`
-      : `/dashboard/chat/${id}`;
+    const chatUrl = `/dashboard/chat/${id}`;
     navigate(chatUrl);
   };
 
@@ -435,17 +436,16 @@ export default function Filmmaker(props) {
                     className="tw-group tw-flex-shrink-0"
                   >
                     <div className="tw-relative tw-overflow-hidden tw-rounded-lg">
-                      <img
-                        src={
-                          epk.image_details
-                            ? epk.banner_url?.startsWith('https')
-                              ? epk.image_details
-                              : `${process.env.REACT_APP_AWS_URL}/${epk.image_details}`
-                            : emptyBanner
-                        }
+                     <img
+                        src={getBannerUrl()}
                         alt={epk.title}
                         className="tw-h-72 tw-w-48 tw-object-cover tw-transition-transform tw-duration-300 group-hover:tw-scale-105"
-                      />
+                        onError={(e) => {
+                            if (e.target.src !== emptyBanner) {
+                            e.target.src = emptyBanner;
+                            }
+                        }}
+                        />
                       <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-gradient-to-t tw-from-black/80 tw-to-transparent tw-p-3">
                         <p className="tw-truncate tw-text-sm tw-font-semibold tw-text-white">
                           {epk.title}

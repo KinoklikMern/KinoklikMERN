@@ -1,30 +1,7 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
 import Modal from "react-modal";
 import { useTranslation } from 'react-i18next';
-
-const customStyles = {
-  content: {
-    maxWidth: "40%",
-    height: "55%",
-    margin: "auto",
-    top: "50%",
-    bottom: "25%",
-    transform: "translateY(-50%)",
-    backgroundColor: "#503764E0",
-    border: "none",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-};
+import emptyBanner from '../../images/empty_banner.jpeg'
 
 const DonationModal = ({
   isOpen,
@@ -32,109 +9,77 @@ const DonationModal = ({
   epkImage,
   epkDonatePayPal,
   epkDonateStripe,
-
-  
 }) => {
+  const { t } = useTranslation();
+
+  // TODO add actual links!
   const handleDonationPaypalSubmit = () => {
     // Redirect to the PayPal donation page or URL
-    if (epkDonatePayPal) {
-      window.location.href = epkDonatePayPal;
-    }
+    if (epkDonatePayPal) window.location.href = epkDonatePayPal;
   };
 
   const handleDonationStripeSubmit = () => {
-    // Redirect to the Stripe donation page or URL
-    if (epkDonateStripe) {
-      window.location.href = epkDonateStripe;
-    }
+     // Redirect to the Stripe donation page or URL
+    if (epkDonateStripe) window.location.href = epkDonateStripe;
   };
-
-  const { t } = useTranslation();
 
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       shouldCloseOnOverlayClick={true}
-      style={customStyles}
+      ariaHideApp={false} 
+      overlayClassName="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-50 tw-flex tw-items-center tw-justify-center tw-z-[9999]"
+      className="tw-relative tw-w-11/12 tw-max-w-4xl tw-bg-[#503764] tw-rounded-none tw-p-8 tw-outline-none tw-border-none"
     >
-      <Container>
-        <Row>
-          {/* First Column */}
-          <Col md={8}>
-            <h1
-              style={{
-                color: "white",
-                marginTop: "1px",
-                marginBottom: "1px",
-                fontSize: "2.7vw",
-                textAlign: "center",
-              }}
-            >
-              <p>{t('Support the filmmaker by')}</p>
-              <p>{t('making a one-time donation.')}</p>
-            </h1>
+      <div className="tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-gap-6">
+        
+        <div className="tw-w-full md:tw-w-2/3 tw-text-center">
+          <h1 className="tw-text-white tw-font-bold tw-mb-8 tw-leading-tight tw-text-[2.5vw] md:tw-text-3xl">
+            {t('Support the filmmaker by')} <br />
+            {t('making a one-time donation.')}
+          </h1>
 
+          <div className="tw-flex tw-flex-col tw-gap-5 tw-px-4">
             {epkDonatePayPal && (
-              <Button
+              <button
                 onClick={handleDonationPaypalSubmit}
-                style={{
-                  color: "#0081C9",
-                  marginTop: "10%",
-                  marginLeft: "5%",
-                  backgroundColor: "#FFD600",
-                  width: "100%",
-                  height: "6.7vh",
-                  borderRadius: "5px",
-                  border: "1px solid #1E0039",
-                  fontSize: "2.2vw",
-                  padding: "0.1%",
-                  boxShadow: "4px 4px 10px 0px #1E0039",
-                  fontWeight: "bold",
-                }}
+                className="tw-w-full tw-h-[6.7vh] tw-bg-[#FFD600] tw-font-bold tw-text-xl tw-rounded-[5px] tw-border tw-border-[#1E0039] tw-shadow-[4px_4px_10px_0px_#1E0039] hover:tw-opacity-90"
               >
                 {t('Donate with PayPal')}
-              </Button>
+              </button>
             )}
 
             {epkDonateStripe && (
-              <Button
+              <button
                 onClick={handleDonationStripeSubmit}
-                style={{
-                  marginTop: "2%",
-                  marginLeft: "5%",
-                  backgroundColor: "#5B1DDF",
-                  width: "100%",
-                  height: "6.7vh",
-                  borderRadius: "5px",
-                  border: "1px solid #1E0039",
-                  boxShadow: "4px 4px 10px 0px #1E0039",
-                  fontSize: "2.2vw",
-                  padding: "0.1%",
-                  fontWeight: "bold",
-                  alignSelf: "center",
-                }}
+                className="tw-w-full tw-h-[6.7vh] tw-bg-[#5B1DDF] tw-text-white tw-font-bold tw-text-xl tw-rounded-[5px] tw-border tw-border-[#1E0039] tw-shadow-[4px_4px_10px_0px_#1E0039] hover:tw-opacity-90"
               >
                 {t('Donate with Stripe')}
-              </Button>
+              </button>
             )}
-          </Col>
+          </div>
+        </div>
 
-          {/* Second Column */}
-          <Col
-            md={4}
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            {/* EPK image */}
+        <div className="tw-w-full md:tw-w-1/3 tw-flex tw-justify-center">
+          {epkImage && (
             <img
               src={epkImage}
-              alt="EPK Img"
-              className="tw-my-4 tw-h-full tw-shadow-[6px_6px_3px_#1E0039]"
-              style={{ width: "100%", height: "auto", marginTop: "10%" }}
+              alt="EPK Poster"
+              className="tw-w-full tw-h-auto tw-max-h-[40vh] tw-object-contain tw-shadow-[6px_6px_3px_#1E0039]"
+              onError={(e) => {
+                e.target.onerror = null; 
+                
+                if (typeof emptyBanner !== 'undefined') {
+                  e.target.src = emptyBanner;
+                } else {
+                  e.target.style.display = 'none';
+                }
+              }}
             />
-          </Col>
-        </Row>
-      </Container>
+          )}
+        </div>
+      </div>
     </Modal>
   );
 };

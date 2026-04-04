@@ -4,11 +4,10 @@ import SwitchBtn from "../components/SwitchBtn/Switch";
 import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBodyActor from "../components/HomeBody/HomeBodyActor";
-import HomeBottom from "../components/HomeBottom";
+// import HomeBottom from "../components/HomeBottom"; TODO maybe we don't need this anymore?
 import Landing1 from "../components/LandingPage/Landing1";
 import Landing2 from "../components/LandingPage/Landing2";
 import Landing3 from "../components/LandingPage/Landing3";
-// import Landing4 from "../components/LandingPage/Landing4";
 import Landing5 from "../components/LandingPage/Landing5";
 import Landing8 from "../components/LandingPage/Landing8";
 import Landing9 from "../components/LandingPage/Landing9";
@@ -35,7 +34,7 @@ function Home({ role }) {
             <SwitchBtn role={role} />
             <FilterTag role={role} />
             {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
-            <HomeBottom />
+            {/*<HomeBottom />TODO remove?*/}
           </>
         )}
         {!user && (

@@ -15,71 +15,19 @@ import CheckEmailPage from './components/Auth/Registration/CheckEmail';
 import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
 import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
-import FilmMakerSelectedEpk from './pages/FilmMaker/filmMakerSelectedEpk';
-
-import FilmMakerDashboardSecurity from './components/FilmMaker/filmMakerDashboardSecurity';
-import FilmMakerDashboardSecurityCompany from './components/FilmMaker/filmMakerDashboardSecurityCompany';
-import FilmMakerDashboardSecurityPassword from './components/FilmMaker/filmMakerDashboardSecurityPassword';
-import FilmMakerDashboardSecurityAccount from './components/FilmMaker/filmMakerDashboardSecurityAccount';
-
-import ForFilmMakers from './components/ForFilmMakers';
-import ForIndustryProf from './components/ForIndustryProf';
-
-import DetailsForm from './components/Epk/Input/detailsForm';
-import Details from './components/Epk/Present/details';
-
-import CoverForm from './components/Epk/Input/coverForm';
-import Cover from './components/Epk/Present/Cover';
-
-import LoglineForm from './components/Epk/Input/loglineForm';
-import Logline from './components/Epk/Present/logline';
-
-import EpkCoverForm from './components/Epk/Input/EpkCoverForm.js';
-import SynopsisForm from './components/Epk/Input/synopsisForm';
-import Synopsis from './components/Epk/Present/synopsis';
-
-import UniquenessForm from './components/Epk/Input/uniquenessForm';
-import Uniqueness from './components/Epk/Present/uniqueness';
-
-import StillsForm from './components/Epk/Input/stillsForm';
-import Stills from './components/Epk/Present/stills';
-
-import ReviewForm from './components/Epk/Input/reviewForm';
-import Review from './components/Epk/Present/review';
-
-import Resources from './components/Epk/Present/Resources';
-import Trailer from './components/Epk/Present/Trailer';
-import ResourcesForm from './components/Epk/Input/ResourcesForm';
-import CastForm from './components/Epk/Input/castForm';
-import Cast from './components/Epk/Present/cast';
-
-import DirectorForm from './components/Epk/Input/directorForm';
-import Director from './components/Epk/Present/director';
-
-import ProducerForm from './components/Epk/Input/producerForm';
-import Producer from './components/Epk/Present/producer';
-
-import CinematographerForm from './components/Epk/Input/cinematographerForm';
-import Cinematographer from './components/Epk/Present/cinematographer';
 import FepkUploadDashboard from './pages/FepkUploadDashboard';
 import FepkEditDashboard from './pages/FepkEditDashboard';
-import EpkView from './pages/EpkView';
+
 import { useSelector } from 'react-redux';
 import DashboardEpks from './pages/FilmmakerDashboard/EpkPage';
 import DashboardNotification from './pages/FilmmakerDashboard/NotificationPage';
 import DashboardSettings from './pages/FilmmakerDashboard/SettingPage';
 import DashboardChat from './pages/FilmmakerDashboard/ChatPage';
-// import DashboardFollowing from "./pages/FilmmakerDashboard/FollowingPage";
-// import DashboardStarred from "./pages/FilmmakerDashboard/StarredPage";
-// import DashboardWishToBuy from "./pages/FilmmakerDashboard/WishToBuyPage";
+
 import DashboardSaved from './pages/FilmmakerDashboard/SavedPage';
 import DashboardLayout from './layouts/DashboardLayout';
 
-// import UserDashboardStarred from "./pages/UserDashboard/StarredPage";
-// import UserDashboardFollowing from "./pages/UserDashboard/FollowingPage";
-import UserDashboardSettings from './pages/UserDashboard/SettingPage';
-import UserDashboardRequests from './pages/UserDashboard/RequestsPage';
-import UserDashboardChat from './pages/UserDashboard/ChatPage';
+import UserDashboardRequests from './pages/FilmmakerDashboard/RequestsPage';
 
 import AdminDashboardMain from './pages/AdminDashboard/MainPage';
 import AdminDashboardUsers from './pages/AdminDashboard/UsersPage';
@@ -134,72 +82,26 @@ function App() {
 
         <Route element={<AuthRoutes />}>
           <Route path="/" element={<DashboardLayout className={className} />}>
+
             <Route path="dashboard/epks" element={<DashboardEpks />} />
-            <Route
-              path="dashboard/notifications"
-              element={<DashboardNotification />}
-            />
+            <Route path="dashboard/saved" element={<DashboardSaved />} />
+            <Route path="dashboard/notifications" element={<DashboardNotification />} />
             <Route path="dashboard/chat" element={<DashboardChat />} />
             <Route path="dashboard/settings" element={<DashboardSettings />} />
-            <Route path="dashboard/chat/:userId" element={<DashboardChat />} />
-            {/* <Route path="dashboard/starred" element={<DashboardStarred />} /> */}
-            {/* <Route
-              path="dashboard/following"
-              element={<DashboardFollowing />}
-            /> */}
-            {/* <Route
-              path="dashboard/wishtobuy"
-              element={<DashboardWishToBuy />}
-            />
-            <Route
-              path="userdashboard/starred"
-              element={<UserDashboardStarred />}
-            />
-            <Route
-              path="userdashboard/following"
-              element={<UserDashboardFollowing />}
-            />{" "}
-            */}
-            <Route path="dashboard/saved" element={<DashboardSaved />} />
-            <Route path="userdashboard/saved" element={<DashboardSaved />} />
 
-            <Route
-              path="userdashboard/requests"
-              element={<UserDashboardRequests />}
-            />
-            <Route
-              path="userdashboard/settings"
-              element={<UserDashboardSettings />}
-            />
-            <Route path="userdashboard/actor" element={<UploadActorPicCon />} />
-            <Route path="userdashboard/chat" element={<UserDashboardChat />} />
-            <Route
-              path="userdashboard/chat/:userId"
-              element={<UserDashboardChat />}
-            />
-            <Route
-              path="admindashboard/main"
-              element={<AdminDashboardMain />}
-            />
-            <Route
-              path="admindashboard/users"
-              element={<AdminDashboardUsers />}
-            />
-            <Route
-              path="admindashboard/analytics"
-              element={<AdminDashboardAnalytics />}
-            />
-            <Route
-              path="admindashboard/epks"
-              element={<AdminDashboardEPKs />}
-            />
+            <Route path="dashboard/requests" element={<UserDashboardRequests />} />
+            <Route path="dashboard/actor" element={<UploadActorPicCon />} />
+
+            <Route path="admindashboard/main" element={<AdminDashboardMain />} />
+            <Route path="admindashboard/users" element={<AdminDashboardUsers />} />
+            <Route path="admindashboard/analytics" element={<AdminDashboardAnalytics />} />
+            <Route path="admindashboard/epks" element={<AdminDashboardEPKs />} />
           </Route>
         </Route>
 
         <Route path="/" element={<MainLayout className={NavbarDefaultClass} />}>
           {/* <Route index element={<Home />} /> */}
           <Route path="catalog" element={<CatalogPage />} />
-          {/* <Route path="epk/:title" element={<EpkViewPage />} /> */}
           <Route path="epk/:id" element={<EpkViewPage />} />
           <Route path="signup" element={<RegistrationForm />} />
 
@@ -217,73 +119,9 @@ function App() {
             element={<ResetPasswordSuccessPage />}
           />
 
-          <Route
-            path="FilmMakerSelectedEpk"
-            element={<FilmMakerSelectedEpk />}
-          />
-
-          <Route
-            path="filmMakerDashboardSecurity"
-            element={<FilmMakerDashboardSecurity />}
-          />
-          <Route
-            path="filmMakerDashboardSecurityCompany"
-            element={<FilmMakerDashboardSecurityCompany />}
-          />
-          <Route
-            path="filmMakerDashboardSecurityPassword"
-            element={<FilmMakerDashboardSecurityPassword />}
-          />
-          <Route
-            path="filmMakerDashboardSecurityAccount"
-            element={<FilmMakerDashboardSecurityAccount />}
-          />
-
-          <Route path="forFilmMakers" element={<ForFilmMakers />} />
-          <Route path="forIndustryProf" element={<ForIndustryProf />} />
-          <Route path="coverForm" element={<CoverForm />} />
-          <Route path="cover" element={<Cover />} />
-
-          <Route path="detailsForm" element={<DetailsForm />} />
-          <Route path="details" element={<Details />} />
-
-          <Route path="logline" element={<Logline />} />
-          <Route path="loglineForm" element={<LoglineForm />} />
-          <Route path="epkCover" element={<EpkCoverForm />} />
-          <Route path="synopsis" element={<Synopsis />} />
-          <Route path="synopsisForm" element={<SynopsisForm />} />
-
-          <Route path="uniqueness" element={<Uniqueness />} />
-          <Route path="uniquenessForm" element={<UniquenessForm />} />
-
-          <Route path="cast" element={<Cast />} />
-          <Route path="castForm" element={<CastForm />} />
-
-          <Route path="director" element={<Director />} />
-          <Route path="directorForm" element={<DirectorForm />} />
-
-          <Route path="producer" element={<Producer />} />
-          <Route path="producerForm" element={<ProducerForm />} />
-          <Route path="cinematographer" element={<Cinematographer />} />
-          <Route path="cinematographerForm" element={<CinematographerForm />} />
-
-          <Route path="stills" element={<Stills />} />
-          <Route path="stillsForm" element={<StillsForm />} />
-
-          <Route path="review" element={<Review />} />
-          <Route path="reviewForm" element={<ReviewForm />} />
-
-          <Route path="resourcesForm" element={<ResourcesForm />} />
-          <Route path="resources" element={<Resources />} />
-
           <Route element={<AuthRoutes />}>
             <Route path="uploadFepk" element={<FepkUploadDashboard />} />
-            {/* <Route path="editFepk/:title" element={<FepkEditDashboard />} /> */}
           </Route>
-          <Route path="resourcesForm" element={<ResourcesForm />} />
-          <Route path="trailer" element={<Trailer />} />
-          <Route path="resources" element={<Resources />} />
-          <Route path="epkview/:id" element={<EpkView />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
         <Route element={<EditFepkLayout title="Edit EPK" />}>

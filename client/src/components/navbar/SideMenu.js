@@ -52,9 +52,7 @@ export const SideProfileMenu = () => {
     {
       name: t("My Settings"),
       url: `${
-        user.role === "Filmmaker"
-          ? "/dashboard/settings"
-          : "/userdashboard/settings"
+          "/dashboard/settings"
       }`,
       defaultIcon: <SettingDefaultIcon />,
       hoverIcon: <SettingPurpleIcon />,
@@ -69,8 +67,7 @@ export const SideProfileMenu = () => {
     },
     {
       name: t("Messages"),
-      url:
-        user.role === "Filmmaker" ? "/dashboard/chat" : "/userdashboard/chat",
+      url: "/dashboard/chat",
       defaultIcon: <MessagesDefaultIcon />,
       hoverIcon: <MessagesPurpleIcon />,
       display: true,

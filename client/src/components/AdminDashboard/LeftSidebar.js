@@ -1,3 +1,5 @@
+//TODO merge replace with filmmakerdashboard/sidebar and then remove
+
 import React from "react";
 import MainMetricsIcon from "../../images/icons/dashFull.svg";
 import MainMetricsWhiteIcon from "../../images/icons/dashFull-white.svg";
@@ -63,7 +65,6 @@ export default function LeftSidebar(props) {
 
   const sideBarList = sideBarList1;
 
-  // console.log(sideBarList);
   return (
     <>
       <nav
