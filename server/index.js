@@ -12,7 +12,7 @@ import crewRoutes from "./routes/crew.js";
 import companyRoutes from "./routes/company.js";
 import chatRoutes from "./routes/chat.routes.js";
 import messageRoutes from "./routes/message.routes.js";
-import { errorHandler } from "./middlwares/error.js";
+import { errorHandler } from "./middleware/error.js";
 import { handleNotFound } from "./utils/helper.js";
 import invitationRoutes from "./routes/invitations.js";
 import axios from "axios";

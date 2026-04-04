@@ -15,7 +15,7 @@ import CheckEmailPage from './components/Auth/Registration/CheckEmail';
 import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
 import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
-import FilmMakerSelectedEpk from './pages/FlimMaker/filmMakerSelectedEpk';
+import FilmMakerSelectedEpk from './pages/FilmMaker/filmMakerSelectedEpk';
 
 import FilmMakerDashboardSecurity from './components/FilmMaker/filmMakerDashboardSecurity';
 import FilmMakerDashboardSecurityCompany from './components/FilmMaker/filmMakerDashboardSecurityCompany';
@@ -94,7 +94,7 @@ import EpkViewPage from './pages/EpkViewPage';
 import UploadActorPicCon from './components/UserDashboard/Upload/UploadActorPicCon';
 import EditFepkLayout from './layouts/EditFepkLayout';
 
-import Filmmaker from './pages/FlimMaker/Filmmaker.js';
+import Filmmaker from './pages/FilmMaker/Filmmaker.js';
 
 import KinoToastContainer from './components/common/KinoToastContainer';
 
