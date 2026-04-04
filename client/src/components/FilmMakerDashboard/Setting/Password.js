@@ -1,175 +1,107 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Axios from "axios";
-import Modal from "react-modal";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function Password() {
+  const { t } = useTranslation();
+  const user = useSelector((state) => state.user);
+  const userId = user?.id || "0";
+
   const [disabled, setDisabled] = useState(true);
   const [pwdShow, setPwdShow] = useState(false);
   const [rePwdShow, setRePwdShow] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [message, setMessage] = useState([]);
-  const { t } = useTranslation();
 
-  // fetching user
-  const user = useSelector((state) => state.user);
-  let userId;
-  let userRole;
-  if (!user) {
-    userId = "0";
-    userRole = "noUser";
-  } else {
-    userId = user.id;
-    userRole = user.role;
-  }
-
-  const [userPasswordData, setUserPasswordData] = useState({
+  const [passwordData, setPasswordData] = useState({
     newPassword: "",
     confirmPassword: "",
     userId: userId,
   });
 
-  const handleProfileChange = (event) => {
-    const { name, value } = event.target;
-    setUserPasswordData({ ...userPasswordData, [name]: value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData((prev) => ({ ...prev, [name]: value }));
     setDisabled(false);
-    //console.log(userStudioData);
   };
 
-  function saveUserPassword() {
-    //console.log(userStudioData);
-    if (userPasswordData.newPassword !== userPasswordData.confirmPassword) {
-      setMessage(t("Passwords don't match!"));
-      setModalIsOpen(true);
-    } else {
-      Axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/users/changePassword`,
-        userPasswordData
-      )
-        .then((res) => {
-          console.log(res);
-          setMessage(res.data.message);
-          setModalIsOpen(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setMessage(err.response.data.message);
-          //alert(err.response.data.message);
-          setModalIsOpen(true);
-        });
+  const savePassword = () => {
+    if (!passwordData.newPassword) {
+      toast.error(t("Password cannot be empty"));
+      return;
     }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      toast.error(t("Passwords don't match!"));
+      return;
+    }
+
     setDisabled(true);
-  }
-
-  function openModal() {
-    setModalIsOpen(true);
-  }
-
-  function closeModal() {
-    setModalIsOpen(false);
-  }
+    Axios.put(`${process.env.REACT_APP_BACKEND_URL}/users/changePassword`, passwordData)
+      .then((res) => {
+        toast.success(res.data.message || t("Password updated!"));
+        setPasswordData({ ...passwordData, newPassword: "", confirmPassword: "" });
+      })
+      .catch((err) => {
+        toast.error(err.response?.data?.message || t("Error updating password"));
+        setDisabled(false);
+      });
+  };
 
   return (
-    //<form className="tw-h-full">
-    <div className='tw-mx-auto tw-h-full tw-py-4 lg:tw-w-3/4'>
-      <div className='tw-mt-8 tw-flex tw-flex-col'>
-        <div className='tw-flex tw-gap-2'>
+    <div className='tw-h-full tw-py-4 lg:tw-px-24'>
+      <div className='tw-mt-8 tw-flex tw-flex-col tw-gap-4 tw-max-w-md'>
+        
+        {/* New Password Field */}
+        <div className='tw-relative'>
           <input
             name='newPassword'
+            value={passwordData.newPassword}
             placeholder={t("New Password")}
             type={pwdShow ? "text" : "password"}
-            onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400'
+            onChange={handleChange}
+            className='tw-h-12 tw-w-full tw-rounded-lg tw-border-2 tw-px-6 tw-pr-12 tw-text-[#1E0039] tw-transition-colors focus:tw-border-[#1E0039] tw-outline-none'
           />
-
-          <span
-            className='tw-w-1/6 tw-self-center'
-            onClick={() => {
-              setPwdShow(!pwdShow);
-            }}
+          <button
+            type="button"
+            className='tw-absolute tw-right-4 tw-top-1/2 -tw-translate-y-1/2 tw-text-gray-400'
+            onClick={() => setPwdShow(!pwdShow)}
           >
             <FontAwesomeIcon icon={pwdShow ? faEye : faEyeSlash} />
-          </span>
+          </button>
         </div>
-        <div className='tw-flex tw-gap-2'>
+
+        {/* Confirm Password Field */}
+        <div className='tw-relative'>
           <input
             name='confirmPassword'
+            value={passwordData.confirmPassword}
             placeholder={t("Confirm New Password")}
             type={rePwdShow ? "text" : "password"}
-            onChange={handleProfileChange}
-            className='tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-gray-300 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-sm placeholder:tw-text-slate-400 '
+            onChange={handleChange}
+            className='tw-h-12 tw-w-full tw-rounded-lg tw-border-2 tw-px-6 tw-pr-12 tw-text-[#1E0039] tw-transition-colors focus:tw-border-[#1E0039] tw-outline-none'
           />
-
-          <span
-            className='tw-w-1/6 tw-self-center'
-            onClick={() => {
-              setRePwdShow(!rePwdShow);
-            }}
+          <button
+            type="button"
+            className='tw-absolute tw-right-4 tw-top-1/2 -tw-translate-y-1/2 tw-text-gray-400'
+            onClick={() => setRePwdShow(!rePwdShow)}
           >
             <FontAwesomeIcon icon={rePwdShow ? faEye : faEyeSlash} />
-          </span>
+          </button>
+        </div>
+
+        <div className='tw-mt-4 tw-text-end'>
+          <button
+            disabled={disabled}
+            onClick={savePassword}
+            className='tw-rounded-full tw-bg-[#1E0039] tw-px-10 tw-py-2 tw-font-bold tw-text-white tw-transition-all hover:tw-opacity-90 disabled:tw-bg-gray-200 disabled:tw-text-gray-400'
+          >
+            {t("Save Password")}
+          </button>
         </div>
       </div>
-      <div>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel='Example Modal'
-          appElement={document.getElementById("root")}
-          style={{
-            overlay: {
-              // position: "fixed",
-              // top: 0,
-              // left: 0,
-              // right: 0,
-              // bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            },
-            content: {
-              position: "absolute",
-              border: "2px solid #000",
-              backgroundColor: "white",
-              boxShadow: "2px solid black",
-              height: 120,
-              width: 300,
-              margin: "auto",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            },
-          }}
-        >
-          <div style={{ textAlign: "center" }}>
-            <h2>{message}</h2>
-            <br />
-            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
-              {t("ok")}
-            </button>
-          </div>
-        </Modal>
-      </div>
-      <div className='tw-mt-8 tw-text-center lg:tw-text-start'>
-        {disabled === true ? (
-          <button
-            disabled
-            className='tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none'
-          >
-            {t("Save")}
-          </button>
-        ) : (
-          <button
-            className='tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50'
-            onClick={() => saveUserPassword()}
-          >
-            {t("Save")}
-          </button>
-        )}
-      </div>
     </div>
-    //  </form>
   );
 }

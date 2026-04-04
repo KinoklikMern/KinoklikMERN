@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Modal from "react-modal";
 import Axios from "axios";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import {
   validatename,
   validateWebsite,
@@ -10,355 +10,142 @@ import {
   validatePhone,
   validatelocation,
 } from "./validation";
-import { useTranslation } from "react-i18next";
 
-export default function Studio() {
+export default function Studio({ isActor = false }) {
   const { t } = useTranslation();
-  const [userStudioData, setUserStudioData] = useState({
-    name: "",
-    website: "",
-    email: "",
-    phone: "",
-    city: "",
-    province: "",
-    country: "",
-  });
+  const user = useSelector((state) => state.user);
+  const userId = user?.id || "0";
 
-  const [validationStudioErrors, setValidationStudioErrors] = useState({
-    name: "",
-    email: "",
-    website: "",
-    city: "",
-    province: "",
-    country: "",
-    phone: "",
+  const [formData, setFormData] = useState({
+    name: "", website: "", email: "", phone: "", city: "", province: "", country: ""
   });
-
+  const [errors, setErrors] = useState({});
   const [disabled, setDisabled] = useState(true);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [hasAgent, setHasAgent] = useState(true);
 
-  // fetching user
-  const user = useSelector((state) => state.user);
-  let userId;
-  let userRole;
-  if (!user) {
-    userId = "0";
-    userRole = "noUser";
-  } else {
-    userId = user.id;
-    userRole = user.role;
-  }
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`
-        );
-        if (response.data) {
-          setUserStudioData(response.data);
-          console.log(response.data);
+    if (userId === "0") return;
+    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/company/getCompanyByUser/${userId}`)
+      .then((res) => {
+        if (res.data) {
+          setFormData(res.data);
+          if (res.data.hasAgent !== undefined) setHasAgent(res.data.hasAgent);
         }
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
-    };
-
-    fetchData();
+      })
+      .catch((err) => console.error("Fetch Error:", err));
   }, [userId]);
 
-  // Helper to check if all required fields are filled
-  const requiredFieldsFilled = (data) => {
-    return (
-      data.name &&
-      data.email &&
-      data.city &&
-      data.province &&
-      data.country
-    );
-  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    let error = "";
 
-  const handlePermission = (decision) => {
-    setHasAgent(decision);
-    if (!decision) {
-      // No agent: always allow save
-      setDisabled(false);
-    } else {
-      // Yes agent: only allow save if required fields are filled
-      setDisabled(!requiredFieldsFilled(userStudioData));
-    }
-  };
-
-  const handleProfileChange = (event) => {
-    const { name, value } = event.target;
-
-    if (name === "name") {
-      setValidationStudioErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: validatename(value)
-          ? ""
-          : t("Please fill out the required field"),
-      }));
-    } else if (name === "city" || name === "province" || name === "country") {
-      setValidationStudioErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: validatelocation(value)
-          ? ""
-          : t("Please enter a valid location"),
-      }));
-    } else if (name === "website") {
-      setValidationStudioErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: validateWebsite(value) ? "" : t("Please enter a valid URL"),
-      }));
-    } else if (name === "email") {
-      setValidationStudioErrors((prevErrors) => ({
-        ...prevErrors,
-        email: validateEmail(value)
-          ? ""
-          : t("Please enter a valid email address"),
-      }));
-    } else if (name === "phone") {
-      setValidationStudioErrors((prevErrors) => ({
-        ...prevErrors,
-        phone: validatePhone(value)
-          ? ""
-          : t("Please enter a valid phone number (10 to 15 digits)"),
-      }));
+    // Comprehensive Validation Switch
+    switch (name) {
+      case "name":
+        error = validatename(value) ? "" : t("Name is required");
+        break;
+      case "website":
+        // Only validate if there is actually text in the box
+        error = value && !validateWebsite(value) ? t("Invalid URL (include http/https)") : "";
+        break;
+      case "email":
+        error = validateEmail(value) ? "" : t("Invalid Email Address");
+        break;
+      case "phone":
+        error = value && !validatePhone(value) ? t("Invalid Phone (10-15 digits)") : "";
+        break;
+      case "city":
+      case "province":
+      case "country":
+        error = validatelocation(value) ? "" : t("Required field");
+        break;
+      default:
+        break;
     }
 
-    const updatedData = { ...userStudioData, [name]: value };
-    setUserStudioData(updatedData);
+    const newErrors = { ...errors, [name]: error };
+    setErrors(newErrors);
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    const hasErrors = Object.values(validationStudioErrors).some((error) => error);
-
-    if (hasAgent) {
-      // Require all required fields to be filled before enabling Save
-      setDisabled(hasErrors || !requiredFieldsFilled(updatedData));
-    } else {
-      setDisabled(false);
-    }
+    // Check if any errors exist across the whole form
+    const hasAnyErrors = Object.values(newErrors).some((errText) => errText !== "");
+    setDisabled(hasAnyErrors);
   };
 
-  function saveUserStudio() {
-    // When hasAgent is false, only send hasAgent flag, skip required fields
-    const dataToUpdate = hasAgent
-      ? { ...userStudioData, hasAgent: true }
-      : { hasAgent: false };
+  const saveDetails = () => {
+    // Final check for required fields if an agent/studio is active
+    if (hasAgent || !isActor) {
+      if (!formData.name || !formData.email) {
+        toast.error(t("Please fill in required fields"));
+        return;
+      }
+    }
 
-    Axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/company/updateCompanyByUser/${userId}`,
-      dataToUpdate
-    )
-      .then((res) => {
-        setModalIsOpen(true);
+    const payload = isActor ? { ...formData, hasAgent } : formData;
+
+    Axios.put(`${process.env.REACT_APP_BACKEND_URL}/company/updateCompanyByUser/${userId}`, payload)
+      .then(() => {
+        toast.success(isActor ? t("Representation updated!") : t("Studio updated!"));
+        setDisabled(true);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        toast.error(err.response?.data?.message || t("Update failed"));
       });
-
-    setDisabled(true);
-  }
-
-  function openModal() {
-    setModalIsOpen(true);
-  }
-
-  function closeModal() {
-    setModalIsOpen(false);
-  }
+  };
 
   return (
     <div className='tw-h-full tw-py-4 lg:tw-px-24'>
-      <div className='tw-mt-8 tw-flex tw-flex-col'>
-        {userRole === "Actor" && (
-          <div className='tw-mb-3 tw-flex tw-items-center'>
-            <p className='tw-mb-0 tw-ml-9 tw-text-[#1E0039]'>
-              {t("Representation")}
-            </p>
-            <button
-              onClick={() => handlePermission(true)}
-              className={`tw-ml-5 tw-rounded-lg tw-px-2 tw-py-1 ${
-                hasAgent
-                  ? "tw-bg-[#1E0039] tw-text-white tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
-                  : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3pprofilhandleProfileChangex_10px_rgba(113,44,176,0.25)]"
-              }`}
-            >
-              {t("Yes")}
-            </button>
-            <button
-              onClick={() => handlePermission(false)}
-              className={`tw-ml-4 tw-rounded-lg tw-px-2 tw-py-1 ${
-                !hasAgent
-                  ? "tw-bg-[#1E0039] tw-text-white tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
-                  : "tw-bg-[#fff] tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)]"
-              }`}
-            >
-              {t("No")}
-            </button>
-          </div>
-        )}
-        {hasAgent && (
-          <>
-            <input
-              type='text'
-              name='name'
-              placeholder={
-                userRole === t("Actor") ? t("Agent Name") : t("Studio Name")
-              }
-              defaultValue={userStudioData.name}
-              onChange={handleProfileChange}
-              disabled={!hasAgent}
-              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
-            />
-            {validationStudioErrors.name && (
-              <div className='tw-text-red-500'>
-                {validationStudioErrors.name}
-              </div>
-            )}
-            <input
-              type='text'
-              name='website'
-              placeholder={
-                userRole === t("Actor")
-                  ? t("Agent Website")
-                  : t("Studio Website")
-              }
-              defaultValue={userStudioData.website}
-              onChange={handleProfileChange}
-              disabled={!hasAgent}
-              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
-            />
-            {validationStudioErrors.website && (
-              <div className='tw-text-red-500'>
-                {validationStudioErrors.website}
-              </div>
-            )}
-            <input
-              type='text'
-              name='email'
-              placeholder={
-                userRole === t("Actor") ? t("Agent Email") : t("Studio Email")
-              }
-              defaultValue={userStudioData.email}
-              onChange={handleProfileChange}
-              disabled={!hasAgent}
-              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
-            />
-            {validationStudioErrors.email && (
-              <div className='tw-text-red-500'>
-                {validationStudioErrors.email}
-              </div>
-            )}
-            <input
-              type='text'
-              name='phone'
-              placeholder={t("Phone")}
-              defaultValue={userStudioData.phone}
-              onChange={handleProfileChange}
-              disabled={!hasAgent}
-              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
-            />
-            {validationStudioErrors.phone && (
-              <div className='tw-text-red-500'>
-                {validationStudioErrors.phone}
-              </div>
-            )}
-            <input
-              type='text'
-              name='city'
-              placeholder={t("City")}
-              defaultValue={userStudioData.city}
-              onChange={handleProfileChange}
-              disabled={!hasAgent}
-              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
-            />
-            {validationStudioErrors.city && (
-              <div className='tw-text-red-500'>
-                {validationStudioErrors.city}
-              </div>
-            )}
-            <input
-              type='text'
-              name='province'
-              placeholder={t("Province")}
-              defaultValue={userStudioData.province}
-              onChange={handleProfileChange}
-              disabled={!hasAgent}
-              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
-            />
-            {validationStudioErrors.province && (
-              <div className='tw-text-red-500'>
-                {validationStudioErrors.province}
-              </div>
-            )}
-            <input
-              type='text'
-              name='country'
-              placeholder={t("Country")}
-              defaultValue={userStudioData.country}
-              onChange={handleProfileChange}
-              disabled={!hasAgent}
-              className='tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 '
-            />
-            {validationStudioErrors.country && (
-              <div className='tw-text-red-500'>
-                {validationStudioErrors.country}
-              </div>
-            )}
-          </>
-        )}
-      </div>
-      <div>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel='Example Modal'
-          appElement={document.getElementById("root")}
-          style={{
-            overlay: {
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            },
-            content: {
-              position: "absolute",
-              border: "2px solid #000",
-              backgroundColor: "white",
-              boxShadow: "2px solid black",
-              height: 120,
-              width: 300,
-              margin: "auto",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            },
-          }}
+      {isActor && (
+        <div className='tw-mb-6 tw-flex tw-items-center tw-justify-center'>
+          <p className='tw-mb-0 tw-mr-4 tw-font-bold tw-text-[#1E0039]'>{t("Do you have an Agent?")}</p>
+          <button 
+            onClick={() => { setHasAgent(true); setDisabled(false); }} 
+            className={`tw-mx-2 tw-px-4 tw-py-1 tw-rounded-lg tw-transition ${hasAgent ? "tw-bg-[#1E0039] tw-text-white shadow-md" : "tw-bg-gray-200 tw-text-gray-600"}`}
+          >
+            {t("Yes")}
+          </button>
+          <button 
+            onClick={() => { setHasAgent(false); setDisabled(false); }} 
+            className={`tw-mx-2 tw-px-4 tw-py-1 tw-rounded-lg tw-transition ${!hasAgent ? "tw-bg-[#1E0039] tw-text-white shadow-md" : "tw-bg-gray-200 tw-text-gray-600"}`}
+          >
+            {t("No")}
+          </button>
+        </div>
+      )}
+
+      {(hasAgent || !isActor) && (
+        <div className="tw-grid tw-grid-cols-1 tw-gap-4">
+          {[
+            { id: "name", label: isActor ? "Agent Name" : "Studio Name", required: true },
+            { id: "website", label: isActor ? "Agent Website" : "Studio Website" },
+            { id: "email", label: isActor ? "Agent Email" : "Studio Email", required: true },
+            { id: "phone", label: "Phone" },
+            { id: "city", label: "City", required: true },
+            { id: "province", label: "Province", required: true },
+            { id: "country", label: "Country", required: true }
+          ].map((f) => (
+            <div key={f.id} className="tw-flex tw-flex-col">
+              <input
+                name={f.id}
+                placeholder={t(f.label) + (f.required ? " *" : "")}
+                value={formData[f.id] || ""}
+                onChange={handleInputChange}
+                className={`tw-h-11 tw-w-full tw-rounded-lg tw-border-2 tw-px-4 tw-text-[#1E0039] tw-transition-colors ${errors[f.id] ? "tw-border-red-500" : "tw-border-gray-200 focus:tw-border-[#1E0039]"}`}
+              />
+              {errors[f.id] && <span className="tw-text-xs tw-text-red-500 tw-mt-1 tw-ml-2">{errors[f.id]}</span>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className='tw-text-end tw-mt-8'>
+        <button 
+          disabled={disabled} 
+          onClick={saveDetails} 
+          className='tw-rounded-full tw-px-12 tw-py-2 tw-bg-[#1E0039] tw-text-white tw-font-bold tw-transition-all active:tw-scale-95 disabled:tw-bg-gray-200 disabled:tw-text-gray-400 disabled:tw-cursor-not-allowed'
         >
-          <div style={{ textAlign: "center" }}>
-            <h2>{t("Updated successfully!")}</h2>
-            <br />
-            <button className='btn btn-secondary btn-sm' onClick={closeModal}>
-              {t("Ok")}
-            </button>
-          </div>
-        </Modal>
-      </div>
-      <div className='tw-text-end'>
-        {disabled === true ? (
-          <button
-            disabled
-            className='tw-rounded-full tw-px-8 tw-py-2 disabled:tw-border-slate-200 disabled:tw-bg-slate-100 disabled:tw-text-slate-300 disabled:tw-shadow-none'
-          >
-            {t("Save")}
-          </button>
-        ) : (
-          <button
-            className='tw-rounded-full tw-px-8 tw-py-2 tw-text-[#1E0039] tw-shadow-md tw-shadow-[#1E0039]/50'
-            onClick={() => saveUserStudio()}
-          >
-            {t("Save")}
-          </button>
-        )}
+          {t("Save Changes")}
+        </button>
       </div>
     </div>
   );
