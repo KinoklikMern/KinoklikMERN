@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import UserCard from "../../components/FilmMakerDashboard/Notifications/UserCard";
+import Sidebar from "../../components/Dashboard/Sidebar";
+import UserCard from "../../components/Dashboard/Notifications/UserCard";
 import { getFepksByFilmmakerId } from "../../api/epks";
-import NotificationEpkCard from "../../components/FilmMakerDashboard/Notifications/NotificationEpkCard";
-import NewEpkBtn from "../../components/FilmMakerDashboard/Epks/NewEpkBtn";
-import RequestCard from "../../components/FilmMakerDashboard/Notifications/RequestCard";
+import NotificationEpkCard from "../../components/Dashboard/Notifications/NotificationEpkCard";
+import NewEpkBtn from "../../components/Dashboard/Epks/NewEpkBtn";
+import RequestCard from "../../components/Dashboard/Notifications/RequestCard";
 import { approveRequest, refuseRequest } from "../../api/epks";
-import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
+import LoadingSpin from "../../components/Dashboard/LoadingSpin";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import NotificationTextInfo from "../../components/FilmMakerDashboard/Notifications/NotificationTextInfo";
-import NotificationGallery from "../../components/FilmMakerDashboard/Notifications/NotificationGallery";
-import BottomNavigationBar from "../../components/FilmMakerDashboard/BottomNavigationBar";
-import RequestCardMobile from "../../components/FilmMakerDashboard/Notifications/RequestCardMobile";
-import EpkInfo from "../../components/FilmMakerDashboard/Notifications/EpkInfo";
+import NotificationTextInfo from "../../components/Dashboard/Notifications/NotificationTextInfo";
+import NotificationGallery from "../../components/Dashboard/Notifications/NotificationGallery";
+import BottomNavigationBar from "../../components/Dashboard/BottomNavigationBar";
+import RequestCardMobile from "../../components/Dashboard/Notifications/RequestCardMobile";
+import EpkInfo from "../../components/Dashboard/Notifications/EpkInfo";
 
 // import { FepkContext } from "../../context/FepkContext";
 

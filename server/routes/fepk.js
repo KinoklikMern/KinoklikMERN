@@ -41,8 +41,8 @@ import {
   removeCollaborator,
   listCollaborators,
 } from "../controllers/fepk.js";
-import { canEditEpk } from "../middlwares/canEditEpk.js";
-import { authUser } from "../middlwares/auth.js";
+import { canEditEpk } from "../middleware/canEditEpk.js";
+import { authUser } from "../middleware/auth.js";
 
 const upload = multer({ dest: "images/" });
 const router = express.Router();

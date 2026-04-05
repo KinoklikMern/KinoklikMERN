@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
+import Sidebar from "../../components/Dashboard/Sidebar";
+import LoadingSpin from "../../components/Dashboard/LoadingSpin";
 import http from "../../http-common";
 import { useTranslation } from "react-i18next";
 

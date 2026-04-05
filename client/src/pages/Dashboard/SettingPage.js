@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import Account from "../../components/FilmMakerDashboard/Setting/Account";
-import Password from "../../components/FilmMakerDashboard/Setting/Password";
-import Profile from "../../components/FilmMakerDashboard/Setting/Profile";
-import Studio from "../../components/FilmMakerDashboard/Setting/Studio";
-import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
+import Account from "../../components/Dashboard/Setting/Account";
+import Password from "../../components/Dashboard/Setting/Password";
+import Profile from "../../components/Dashboard/Setting/Profile";
+import Studio from "../../components/Dashboard/Setting/Studio";
+import Sidebar from "../../components/Dashboard/Sidebar";
 import { useTranslation } from "react-i18next";
 
 export default function SettingPage() {
