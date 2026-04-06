@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import NewEpkBtn from "../../components/FilmMakerDashboard/Epks/NewEpkBtn";
-import Sidebar from "../../components/FilmMakerDashboard/Sidebar";
-import EpkCard from "../../components/FilmMakerDashboard/Epks/EpkCard";
-import ArchivedEpkCard from "../../components/FilmMakerDashboard/Epks/ArchivedEpkCard";
+import NewEpkBtn from "../../components/Dashboard/Epks/NewEpkBtn";
+import Sidebar from "../../components/Dashboard/Sidebar";
+import EpkCard from "../../components/Dashboard/Epks/EpkCard";
+import ArchivedEpkCard from "../../components/Dashboard/Epks/ArchivedEpkCard";
 import { getFepksByFilmmakerId, getDeletedFepksByFilmmakerId } from "../../api/epks";
-import EmptyEpk from "../../components/FilmMakerDashboard/Epks/EmptyEpk";
-import LoadingSpin from "../../components/FilmMakerDashboard/LoadingSpin";
+import EmptyEpk from "../../components/Dashboard/Epks/EmptyEpk";
+import LoadingSpin from "../../components/Dashboard/LoadingSpin";
 import { useTranslation } from "react-i18next";
-import EpkTextInfo from "../../components/FilmMakerDashboard/Epks/EpkTextInfo";
+import EpkTextInfo from "../../components/Dashboard/Epks/EpkTextInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 

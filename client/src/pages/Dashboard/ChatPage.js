@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../../components/UserDashboard/Sidebar";
-import ChatList from "../../components/FilmMakerDashboard/Chats/ChatList";
-import MessageBox from "../../components/FilmMakerDashboard/Chats/MessageBox";
+import React, { useEffect, useState } from "react";
+import Sidebar from "../../components/Dashboard/Sidebar";
+import ChatList from "../../components/Dashboard/Chats/ChatList";
+import MessageBox from "../../components/Dashboard/Chats/MessageBox";
 import ChatProvider from "../../context/ChatProvider";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function ChatPage() {
+  const { t } = useTranslation();
   // eslint-disable-next-line no-unused-vars
   const [fetchAgain, setFetchAgain] = useState(false);
-  // fetching user
   const user = useSelector((state) => state.user);
-  const [searchValue, setSearchValue] = useState("");
-  const { t } = useTranslation();
   const { userId } = useParams();
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
   const [selectedChat, setSelectedChat] = useState(false);
 
   useEffect(() => {
     if (userId) {
       // If there's a selected user ID, navigate to the chat page for that user
-      navigate(`/userdashboard/chat/${userId}`);
+      navigate(`/dashboard/chat/${userId}`);
     }
   }, [userId, navigate]);
 
@@ -53,10 +52,8 @@ export default function ChatPage() {
               <div
                 className={`-tw-m-4 ${
                   selectedChat ? "tw-h-0" : "tw-h-full"
-                } tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d] md:tw-h-auto md:tw-rounded-r-none`}
-              >
+                } tw-overflow-auto tw-rounded-lg tw-bg-[#341a4d] md:tw-h-auto md:tw-rounded-r-none`} >
                 {/* search bar */}
-
                 <div className='shadow-sm tw-relative tw-mx-4 tw-my-8 tw-rounded-md'>
                   <input
                     type='text'
@@ -73,20 +70,12 @@ export default function ChatPage() {
                   </div>
                 </div>
                 {/* chatlist */}
-                {userId ? (
-                  <ChatList
-                    fetchAgain={fetchAgain}
-                    userId={userId}
-                    searchValue={searchValue}
-                    onChatItemClick={handleChatSelected}
-                  />
-                ) : (
-                  <ChatList
-                    fetchAgain={fetchAgain}
-                    searchValue={searchValue}
-                    onChatItemClick={handleChatSelected}
-                  />
-                )}
+                <ChatList
+                  fetchAgain={fetchAgain}
+                  userId={userId || null}
+                  searchValue={searchValue}
+                  onChatItemClick={handleChatSelected}
+                />
               </div>
               <div
                 className={`tw-col-span-2 tw-mx-4 tw-h-full tw-overflow-hidden ${
@@ -96,7 +85,7 @@ export default function ChatPage() {
                 <MessageBox
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
-                  onBackToChatList={handleGoBack} // Handle going back to chat list
+                  onBackToChatList={handleGoBack}
                 />
               </div>
             </div>

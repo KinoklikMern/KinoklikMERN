@@ -1,6 +1,6 @@
 import express from 'express';
-import { authUser } from '../middlwares/auth.js';
-import { isValidPassResetToken } from '../middlwares/user.js';
+import { authUser } from '../middleware/auth.js';
+import { isValidPassResetToken } from '../middleware/user.js';
 import multer from 'multer';
 import {
   uploadActorProfiles,
@@ -46,7 +46,7 @@ import {
   validate,
   validatePassword,
   loginValidator,
-} from '../middlwares/validator.js';
+} from '../middleware/validator.js';
 
 const upload = multer({ dest: 'images/' });
 const router = express.Router();

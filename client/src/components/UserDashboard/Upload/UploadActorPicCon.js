@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import UploadActorPic from "./UploadActorPic";
-import Sidebar from "../Sidebar";
+import Sidebar from "../../Dashboard/Sidebar";
 import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-import EmptyEpk from "../Requests/EmptyEpk";
-import LoadingSpin from "../../FilmMakerDashboard/LoadingSpin";
+import LoadingSpin from "../../Dashboard/LoadingSpin";
 import List from "../../../pages/Actor/ListItem";
 import { useTranslation } from "react-i18next";
 import { getMoviesByActors } from "../../../api/epks";
@@ -52,7 +51,6 @@ export default function UploadActorPicCon() {
             ) : epkList.length === 0 ? (
               <>
                 <UploadActorPic user={user} />
-                <EmptyEpk />
               </>
             ) : (
               <>

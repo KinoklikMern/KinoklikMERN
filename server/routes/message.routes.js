@@ -1,5 +1,5 @@
 import express from "express";
-import { authUser } from "../middlwares/auth.js";
+import { authUser } from "../middleware/auth.js";
 import {
   allMessages,
   sendMessage,
