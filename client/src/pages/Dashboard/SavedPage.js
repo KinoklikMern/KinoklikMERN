@@ -3,14 +3,9 @@ import { useSelector } from "react-redux";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import LoadingSpin from "../../components/Dashboard/LoadingSpin";
 import http from "../../http-common";
+import { getMyCollaborations } from "../../api/epks";
 import { useTranslation } from "react-i18next";
 
-import StarMidnightIcon from "../../images/icons/StarMidnight.svg";
-import StarWhiteIcon from "../../images/icons/StarFULL.svg";
-import PlusIcon from "../../images/icons/PlusEmpty.svg";
-import PlusWhiteIcon from "../../images/icons/PlusFULL.svg";
-import DollarIcon from "../../images/icons/DollarEmpty.svg";
-import DollarWhiteIcon from "../../images/icons/DollarFull.svg";
 import moviePic from "../../images/movie11.jpg";
 
 import GenderDropdown from "../../components/Filter/GenderDropdown";
@@ -31,6 +26,7 @@ export default function SavedPage() {
   const [actorStarredList, setActorStarredList] = useState([]);
   const [filteredEpkList, setFilteredEpkList] = useState([]);
   const [filteredActorList, setFilteredActorList] = useState([]);
+  const [collaborationList, setCollaborationList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productionFilter, setProductionFilter] = useState(0);
   const [itemFilter, setItemFilter] = useState(0); // 0: EPK, 1: Actor
@@ -44,7 +40,7 @@ export default function SavedPage() {
   
   useEffect(() => {
     if (userId === "0") return;
-    
+
     setLoading(true);
     Promise.all([
       http.get(`/fepks/getStarredFepksByUser/${userId}`),
@@ -65,6 +61,12 @@ export default function SavedPage() {
         console.error("Fetch Error:", err);
         setLoading(false);
       });
+
+    if (user?.token) {
+      getMyCollaborations(user.token)
+        .then((res) => setCollaborationList(res))
+        .catch((err) => console.error("Collaborations fetch error:", err));
+    }
   }, [userId]);
 
   useEffect(() => {
@@ -126,6 +128,9 @@ export default function SavedPage() {
     setEthnicityLabel(label);
   };
 
+  const selectClass =
+    "tw-w-full tw-rounded-lg tw-border tw-border-[#1E0039] tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-text-[#1E0039] tw-cursor-pointer focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-[#6627a7]";
+
   return (
     <div className="tw-flex tw-h-screen tw-flex-col tw-overflow-hidden tw-bg-[#1E0039]">
       <div className="tw-mb-8 tw-mt-24 tw-flex tw-justify-start tw-pl-24 tw-text-white">
@@ -140,129 +145,150 @@ export default function SavedPage() {
         </div>
 
         <div className="tw-scrollbar-w-36 tw-mx-auto tw-mt-12 tw-h-5/6 tw-w-5/6 tw-overflow-auto tw-rounded-lg tw-bg-white tw-p-6 md:tw-ml-16">
-          <div className="tw-flex tw-h-1/6 tw-w-full tw-flex-col tw-items-center tw-justify-center">
-            <div className="tw-flex tw-w-full tw-justify-between">
-              <div className="tw-flex tw-h-9 tw-w-2/5 tw-items-center tw-justify-start tw-pl-2 tw-text-sm tw-text-[#1E0039] md:tw-text-base">
-                {itemFilter === 0 ? "Find all the film EPKs you've saved here." : "Find all the actors you've saved here."}
-              </div>
-              <div className="tw-flex tw-h-9 tw-w-3/5 tw-items-center tw-justify-center tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]">
-                <div
-                  className={(itemFilter === 0 ? "tw-w-2/3 tw-bg-[#1E0039] tw-text-white" : "tw-w-1/3 tw-bg-white tw-text-[#1E0039]") + " tw-flex tw-h-full tw-items-center tw-justify-center hover:tw-cursor-pointer"}
-                  onClick={() => handleItemBtnClick(0)}
-                >
-                  Film EPKs
-                </div>
-                <div
-                  className={(itemFilter === 1 ? "tw-w-2/3 tw-bg-[#1E0039] tw-text-white" : "tw-w-1/3 tw-bg-white tw-text-[#1E0039]") + " tw-flex tw-h-full tw-items-center tw-justify-center hover:tw-cursor-pointer"}
-                  onClick={() => handleItemBtnClick(1)}
-                >
-                  Actors
-                </div>
-              </div>
+          {/* Header row: description + item toggle */}
+          <div className="tw-mb-4 tw-flex tw-flex-col tw-gap-4 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
+            <p className="tw-text-sm tw-text-gray-500">
+              {itemFilter === 0 ? t("Find all the film EPKs you've saved here.") : itemFilter === 1 ? t("Find all the actors you've saved here.") : t("EPKs you've been invited to collaborate on.")}
+            </p>
+            <div className="tw-flex tw-gap-1 tw-rounded-xl tw-bg-gray-100 tw-p-1">
+              <button
+                onClick={() => handleItemBtnClick(0)}
+                className={`tw-rounded-lg tw-px-4 tw-py-1.5 tw-text-sm tw-font-medium tw-transition-colors ${itemFilter === 0 ? "tw-bg-[#1E0039] tw-text-white tw-shadow" : "tw-text-gray-500 hover:tw-text-[#1E0039]"}`}
+              >
+                {t("Film EPKs")}
+              </button>
+              <button
+                onClick={() => handleItemBtnClick(1)}
+                className={`tw-rounded-lg tw-px-4 tw-py-1.5 tw-text-sm tw-font-medium tw-transition-colors ${itemFilter === 1 ? "tw-bg-[#1E0039] tw-text-white tw-shadow" : "tw-text-gray-500 hover:tw-text-[#1E0039]"}`}
+              >
+                {t("Actors")}
+              </button>
+              <button
+                onClick={() => handleItemBtnClick(2)}
+                className={`tw-rounded-lg tw-px-4 tw-py-1.5 tw-text-sm tw-font-medium tw-transition-colors ${itemFilter === 2 ? "tw-bg-[#1E0039] tw-text-white tw-shadow" : "tw-text-gray-500 hover:tw-text-[#1E0039]"}`}
+              >
+                {t("Shared with me")}
+              </button>
             </div>
-
-            {itemFilter === 0 ? (
-              <div className="tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row">
-                <div className="md:tw-w-3/6">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]">
-                    <button className={(typeFilter === 0 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleNumBtnClick(0)}>{t("All")}</button>
-                    <button className={(typeFilter === 1 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleNumBtnClick(1)}>
-                      <img src={typeFilter === 1 ? StarWhiteIcon : StarMidnightIcon} alt="Star" style={{ width: 22, height: 22 }} />
-                    </button>
-                    <button className={(typeFilter === 2 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleNumBtnClick(2)}>
-                      <img src={typeFilter === 2 ? PlusWhiteIcon : PlusIcon} alt="Plus" style={{ width: 20, height: 20 }} />
-                    </button>
-                    <button className={(typeFilter === 3 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleNumBtnClick(3)}>
-                      <img src={typeFilter === 3 ? DollarWhiteIcon : DollarIcon} alt="Dollar" style={{ width: 18, height: 18 }} />
-                    </button>
-                  </div>
-                </div>
-                <div className="md:tw-w-3/6">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6">
-                    <button className={(productionFilter === 0 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleBtnClick(0)}>{t("All")}</button>
-                    <button className={(productionFilter === 1 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleBtnClick(1)}>{t("Pre-Production")}</button>
-                    <button className={(productionFilter === 2 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleBtnClick(2)}>{t("Production")}</button>
-                    <button className={(productionFilter === 3 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleBtnClick(3)}>{t("Post-Production")}</button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="tw-mt-4 tw-flex tw-w-full tw-flex-col tw-justify-between md:tw-flex-row">
-                <div className="md:tw-w-3/6">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)]">
-                    <button className={(typeFilter === 0 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleNumBtnClick(0)}>{t("All")}</button>
-                    <button className={(typeFilter === 1 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleNumBtnClick(1)}>
-                      <img src={typeFilter === 1 ? StarWhiteIcon : StarMidnightIcon} alt="Star" style={{ width: 22, height: 22 }} />
-                    </button>
-                    <button className={(typeFilter === 2 ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} onClick={() => handleNumBtnClick(2)}>
-                      <img src={typeFilter === 2 ? PlusWhiteIcon : PlusIcon} alt="Plus" style={{ width: 20, height: 20 }} />
-                    </button>
-                    <button className="tw-opacity-0 tw-cursor-default" disabled><img src={DollarIcon} alt="Dollar" style={{ width: 18 }} /></button>
-                  </div>
-                </div>
-                <div className="md:tw-w-3/6">
-                  <div className="tw-mb-2 tw-flex tw-h-7 tw-justify-between tw-rounded-xl tw-bg-white tw-px-4 tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] md:tw-ml-6">
-                    <button className={(selectedGender === "All" && selectedAgeRange === "All" && selectedEthnicity === "All" ? "tw-bg-[#6627a7] tw-text-white" : "tw-bg-white") + " tw-rounded-lg tw-px-2"} 
-                      onClick={() => { setSelectedGender("All"); setSelectedAgeRange("All"); setSelectedEthnicity("All"); setAgeLabel("All"); setEthnicityLabel("All"); }}>{t("All")}</button>
-                    <FilterWrapper label={t("Gender")} selectedValue={selectedGender}><GenderDropdown selectedValue={selectedGender} onOptionSelect={handleGenderSelect} /></FilterWrapper>
-                    <FilterWrapper label={t("Ethnicity")} selectedValue={ethnicityLabel !== "All" ? t("ethnicities." + ethnicityLabel) : "All"}><EthnicityDropdown selectedValue={selectedEthnicity} onOptionSelect={handleEthnicitySelect} /></FilterWrapper>
-                    <FilterWrapper label={t("Age")} selectedValue={ageLabel}><AgeRangeDropdown selectedValue={selectedAgeRange} onOptionSelect={handleAgeRangeSelect} /></FilterWrapper>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
+          {/* Filter row — hidden on Shared with me tab */}
+          {itemFilter === 2 ? null : itemFilter === 0 ? (
+            <div className="tw-mb-4 tw-flex tw-flex-col tw-gap-3 sm:tw-flex-row">
+              <select
+                value={typeFilter}
+                onChange={(e) => handleNumBtnClick(Number(e.target.value))}
+                className={selectClass}
+              >
+                <option value={0}>{t("All types")}</option>
+                <option value={1}>{t("Starred")}</option>
+                <option value={2}>{t("Following")}</option>
+                <option value={3}>{t("Wish to Buy")}</option>
+              </select>
+              <select
+                value={productionFilter}
+                onChange={(e) => handleBtnClick(Number(e.target.value))}
+                className={selectClass}
+              >
+                <option value={0}>{t("All stages")}</option>
+                <option value={1}>{t("Pre-Production")}</option>
+                <option value={2}>{t("Production")}</option>
+                <option value={3}>{t("Post-Production")}</option>
+              </select>
+            </div>
+          ) : (
+            <div className="tw-mb-4 tw-flex tw-flex-col tw-gap-3 sm:tw-flex-row sm:tw-items-center">
+              <select
+                value={typeFilter}
+                onChange={(e) => handleNumBtnClick(Number(e.target.value))}
+                className={selectClass}
+              >
+                <option value={0}>{t("All types")}</option>
+                <option value={1}>{t("Starred")}</option>
+                <option value={2}>{t("Following")}</option>
+              </select>
+              <FilterWrapper label={t("Gender")} selectedValue={selectedGender}>
+                <GenderDropdown selectedValue={selectedGender} onOptionSelect={handleGenderSelect} />
+              </FilterWrapper>
+              <FilterWrapper label={t("Ethnicity")} selectedValue={ethnicityLabel !== "All" ? t("ethnicities." + ethnicityLabel) : "All"} align="right">
+                <EthnicityDropdown selectedValue={selectedEthnicity} onOptionSelect={handleEthnicitySelect} />
+              </FilterWrapper>
+              <FilterWrapper label={t("Age")} selectedValue={ageLabel} align="right">
+                <AgeRangeDropdown selectedValue={selectedAgeRange} onOptionSelect={handleAgeRangeSelect} />
+              </FilterWrapper>
+              {(selectedGender !== "All" || selectedAgeRange !== "All" || selectedEthnicity !== "All") && (
+                <button
+                  onClick={() => { setSelectedGender("All"); setSelectedAgeRange("All"); setSelectedEthnicity("All"); setAgeLabel("All"); setEthnicityLabel("All"); }}
+                  className="tw-whitespace-nowrap tw-rounded-lg tw-border tw-border-gray-300 tw-px-3 tw-py-2 tw-text-sm tw-text-gray-500 hover:tw-border-[#1E0039] hover:tw-text-[#1E0039]"
+                >
+                  {t("Clear")}
+                </button>
+              )}
+            </div>
+          )}
          <div className="tw-mt-10 tw-h-5/6 tw-overflow-auto tw-rounded-lg tw-bg-gray-300 tw-p-4">
           {loading ? (
             <LoadingSpin />
           ) : (
             <>
-              {/* 1. HANDLE EMPTY STATES INLINE */}
-              {((itemFilter === 0 && filteredEpkList.length === 0) || 
-                (itemFilter === 1 && filteredActorList.length === 0)) ? (
-                <div className="tw-flex tw-h-full tw-items-center tw-justify-center tw-py-20">
-                  <p className="tw-text-2xl tw-font-light tw-text-gray-600">
-                    {itemFilter === 0 
-                      ? t("No EPKs found matching your search.") 
-                      : t("No Actors found matching your search.")}
-                  </p>
-                </div>
+              {itemFilter === 2 ? (
+                /* SHARED WITH ME */
+                collaborationList.length === 0 ? (
+                  <div className="tw-flex tw-h-full tw-items-center tw-justify-center tw-py-20">
+                    <p className="tw-text-2xl tw-font-light tw-text-gray-600">{t("No EPKs shared with you yet.")}</p>
+                  </div>
+                ) : (
+                  <div className="tw-grid tw-grid-cols-2 tw-gap-4 tw-p-2 md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-8">
+                    {collaborationList.map((epk) => {
+                      const imgSrc = epk.banner_url
+                        ? `${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`
+                        : moviePic;
+                      return (
+                        <a key={epk._id} href={`/editFepk/${epk._id}`} className="tw-transition-transform hover:tw-scale-105">
+                          <img src={imgSrc} alt={epk.title} className="tw-aspect-square tw-w-full tw-rounded-lg tw-object-cover" />
+                          <p className="tw-mt-1 tw-truncate tw-text-center tw-text-xs tw-text-[#1E0039]">{epk.title}</p>
+                        </a>
+                      );
+                    })}
+                  </div>
+                )
               ) : (
-                /* 2. RENDER THE GRID */
-                <div className="tw-grid tw-grid-cols-2 tw-gap-4 tw-p-2 md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-8">
-                  {(itemFilter === 0 ? filteredEpkList : filteredActorList).map((item) => {
-                    const isEpk = itemFilter === 0;
-                    const linkPath = isEpk ? `/epk/${item._id}` : `/actor/${item._id}`;
-                    
-                    // Resolve Image URL
-                    const imgSrc = isEpk
-                      ? (item.banner_url ? `${process.env.REACT_APP_AWS_URL}/${item.banner_url}` : moviePic)
-                      : (item.picture?.startsWith("https") ? item.picture : `${process.env.REACT_APP_AWS_URL}/${item.picture}`);
-
-                    return (
-                      <a 
-                        key={item._id} 
-                        href={linkPath} 
-                        className="tw-transition-transform hover:tw-scale-105"
-                      >
-                        <img
-                          src={imgSrc}
-                          alt={isEpk ? item.title : `${item.firstName} ${item.lastName}`}
-                          className={`tw-aspect-square tw-w-full tw-object-cover ${isEpk ? "tw-rounded-lg" : "tw-rounded-3xl"}`}
-                        />
-                        
-                        {!isEpk && (
-                          <div className="tw-mt-1 tw-w-full tw-truncate tw-text-center">
-                            <p className="tw-text-sm tw-font-medium">
-                              {`${item.firstName} ${item.lastName}`}
-                            </p>
-                          </div>
-                        )}
-                      </a>
-                    );
-                  })}
-                </div>
+                <>
+                  {/* EMPTY STATE */}
+                  {((itemFilter === 0 && filteredEpkList.length === 0) ||
+                    (itemFilter === 1 && filteredActorList.length === 0)) ? (
+                    <div className="tw-flex tw-h-full tw-items-center tw-justify-center tw-py-20">
+                      <p className="tw-text-2xl tw-font-light tw-text-gray-600">
+                        {itemFilter === 0 ? t("No EPKs found matching your search.") : t("No Actors found matching your search.")}
+                      </p>
+                    </div>
+                  ) : (
+                    /* GRID */
+                    <div className="tw-grid tw-grid-cols-2 tw-gap-4 tw-p-2 md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-8">
+                      {(itemFilter === 0 ? filteredEpkList : filteredActorList).map((item) => {
+                        const isEpk = itemFilter === 0;
+                        const linkPath = isEpk ? `/epk/${item._id}` : `/actor/${item._id}`;
+                        const imgSrc = isEpk
+                          ? (item.banner_url ? `${process.env.REACT_APP_AWS_URL}/${item.banner_url}` : moviePic)
+                          : (item.picture?.startsWith("https") ? item.picture : `${process.env.REACT_APP_AWS_URL}/${item.picture}`);
+                        return (
+                          <a key={item._id} href={linkPath} className="tw-transition-transform hover:tw-scale-105">
+                            <img
+                              src={imgSrc}
+                              alt={isEpk ? item.title : `${item.firstName} ${item.lastName}`}
+                              className={`tw-aspect-square tw-w-full tw-object-cover ${isEpk ? "tw-rounded-lg" : "tw-rounded-3xl"}`}
+                            />
+                            {!isEpk && (
+                              <div className="tw-mt-1 tw-w-full tw-truncate tw-text-center">
+                                <p className="tw-text-sm tw-font-medium">{`${item.firstName} ${item.lastName}`}</p>
+                              </div>
+                            )}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  )}
+                </>
               )}
             </>
           )}
