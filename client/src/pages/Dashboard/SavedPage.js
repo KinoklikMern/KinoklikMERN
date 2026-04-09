@@ -67,7 +67,7 @@ export default function SavedPage() {
         .then((res) => setCollaborationList(res))
         .catch((err) => console.error("Collaborations fetch error:", err));
     }
-  }, [userId]);
+  }, [userId, user?.token]);
 
   useEffect(() => {
     if (itemFilter === 0) {
