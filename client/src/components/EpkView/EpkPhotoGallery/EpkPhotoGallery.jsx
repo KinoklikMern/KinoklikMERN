@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
-import { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, faXmark } from "@fortawesome/free-solid-svg-icons";
+import ActionPlaceholder from "../../common/ActionPlaceholder";
 
 const CATEGORIES = [
   { key: "posters", label: "Posters" },
@@ -11,198 +11,136 @@ const CATEGORIES = [
   { key: "premieres", label: "Premieres" },
 ];
 
-function EpkPhotoGallery({ epkInfo }) {
+export default function EpkPhotoGallery({ epkInfo, isEditMode, onChange }) {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("posters");
+  const sliderRef = useRef(null);
 
   // Modal state
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [expandedImage, setExpandedImage] = useState(null);
 
-  // Normalize backend data
   const albums = useMemo(() => {
     const pa = epkInfo?.photo_albums || {};
+    const posters = [...(pa.posters || [])];
+    
+    // Auto-inject the current Cover Poster if it's not explicitly in the library!
+    if (epkInfo?.image_details && !posters.some(p => p.image === epkInfo.image_details)) {
+        posters.unshift({ image: epkInfo.image_details, blur: false });
+    }
+
     return {
-      posters: pa.posters || [],
+      posters,
       stills: pa.stills || [],
       behind: pa.behind || [],
       premieres: pa.premieres || [],
     };
   }, [epkInfo]);
 
-  const images = albums[activeCategory];
-  const enableScroll = images.length > 4;
+  const images = albums[activeCategory] || [];
 
-  const openModal = (index) => {
-    setSelectedIndex(index);
-    setIsOpen(true);
+  const handleScroll = (dir) => {
+    if (sliderRef.current) {
+      const scrollAmount = 256 + 32; // card width + gap
+      sliderRef.current.scrollBy({ left: dir === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
   };
-
-  const closeModal = () => setIsOpen(false);
-
-  const prev = (e) => {
-    if(e) e.stopPropagation();
-    setSelectedIndex((i) => (i - 1 + images.length) % images.length);
-  };
-
-  const next = (e) => {
-    if(e) e.stopPropagation();
-    setSelectedIndex((i) => (i + 1) % images.length);
-  };
-
-  // Keyboard support (ESC, arrows) + lock body scroll when modal open
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") closeModal();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = prevOverflow;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, images.length]);
-
-  // If category changes while modal is open, close it safely
-  useEffect(() => {
-    setIsOpen(false);
-  }, [activeCategory]);
-
-  const selected = images && images.length > 0 ? images[selectedIndex] : null;
 
   return (
-    <section className="tw-my-16 tw-block tw-w-full">
-      {/* Title */}
-      <h2 className="tw-mb-6 tw-text-center tw-text-xl tw-font-bold tw-text-white sm:tw-text-2xl">
-        PHOTO ALBUMS
-      </h2>
+    <div className="tw-bg-[#1E0039] tw-w-full tw-py-12 md:tw-pt-20 md:tw-pb-8">
+      <div className="tw-w-full tw-max-w-[1440px] tw-mx-auto tw-flex tw-flex-col tw-px-4 lg:tw-px-16 tw-gap-12">
+        
+        {/* Header (Shared for Media Library) */}
+        <div className="tw-flex tw-flex-col tw-gap-4">
+          <span className="tw-text-[#FF43A7] tw-text-xs tw-uppercase tw-tracking-[2.4px] tw-font-bold tw-font-['Space_Grotesk']">
+            {t("Cinematic Assets")}
+          </span>
+          <h1 className="tw-text-white tw-text-5xl md:tw-text-[72px] tw-font-extrabold tw-tracking-[-3.6px] tw-font-['Plus_Jakarta_Sans'] tw-leading-none tw-m-0">
+            {t("Media Library")}
+          </h1>
+        </div>
 
-      <div className="tw-rounded-[15px] tw-bg-white tw-p-2 sm:tw-p-5 tw-max-w-[1400px] tw-mx-auto">
-        <div className="tw-rounded-[15px] tw-bg-gradient-to-b tw-from-[#1E0039] tw-to-[#712CB0] tw-py-4 tw-px-4 md:tw-py-8 md:tw-px-8 ">
+        {/* Photo Albums Container */}
+        <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-[24px] tw-p-8 lg:tw-p-12 tw-flex tw-flex-col tw-gap-12">
           
-          {/* Category Tabs */}
-          <ul
-            className="tw-mx-auto tw-flex tw-justify-between tw-rounded-[10px] md:tw-rounded-[25px] tw-border-[2px]
-              tw-border-[#1E0039] tw-bg-[#ECF0F1] tw-p-[1px] md:tw-p-[2px] sm:tw-w-3/4 sm:tw-mt-8"
-          >
-            {CATEGORIES.map((cat) => (
-              <li
-                key={cat.key}
-                className="tw-w-1/4 tw-h-full"
-              >
+          <div className="tw-flex tw-flex-col lg:tw-flex-row lg:tw-items-end tw-gap-6 lg:tw-justify-between">
+            <h2 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">{t("Photo Albums")}</h2>
+            
+            <div className="tw-flex tw-flex-wrap tw-gap-3">
+              {CATEGORIES.map((cat) => (
                 <button
-                  type="button"
+                  key={cat.key}
                   onClick={() => setActiveCategory(cat.key)}
-                  className={`tw-w-full tw-h-full tw-rounded-[8px] md:tw-rounded-[23px] sm:tw-text-xl tw-text-[8.9px] md:tw-font-bold tw-p-[6px] md:tw-py-2 tw-transition-colors ${
+                  className={`tw-px-6 tw-py-2 tw-rounded-full tw-font-['Space_Grotesk'] tw-text-sm tw-font-bold tw-transition-all tw-border-none tw-cursor-pointer ${
                     activeCategory === cat.key
-                      ? "tw-bg-gradient-to-r tw-from-[#FF00A0] tw-to-[#1E0039] tw-text-white"
-                      : "tw-text-[#1E0039] hover:tw-bg-gray-200"
+                      ? "tw-bg-[#FF43A7] tw-text-[#570033] tw-shadow-[0_0_15px_rgba(255,67,167,0.4)]"
+                      : "tw-bg-[#371E51] tw-text-[#F0DBFF] hover:tw-bg-[#5A3F49]"
                   }`}
                 >
-                  {t(`${cat.label}`)}
+                  {t(cat.label)}
                 </button>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+          </div>
 
-          {/* Gallery Wrapper */}
-          <div className="tw-overflow-visible tw-mt-10 md:tw-mt-16">
-            {images.length === 0 ? (
-              <div className="tw-flex tw-h-[300px] tw-items-center tw-justify-center">
-                <p className="tw-text-sm tw-text-white/70">
-                  No photos available in this category yet.
-                </p>
-              </div>
-            ) : (
-              <div
-                className={`
-                  ${enableScroll ? "custom-scrollbar tw-overflow-y-auto tw-pr-2" : ""}
-                  ${enableScroll ? "tw-h-[clamp(260px,60vh,600px)] tw-min-h-[260px]" : ""}
-                `}
-              >
-                <div className="tw-grid tw-grid-cols-3 tw-gap-2 md:tw-gap-6 md:tw-grid-cols-6 md:tw-pt-4 tw-pt-2">
-                  {images.map((img, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => openModal(index)}
-                      className="tw-relative tw-overflow-hidden tw-rounded-[12px] md:tw-rounded-[24px] tw-shadow-lg tw-transition-transform hover:tw-scale-[1.05]"
-                    >
-                      <div className="tw-aspect-[3/4] md:tw-aspect-[2/3]">
-                        <img
-                          src={`${process.env.REACT_APP_AWS_URL}/${img.image}`}
-                          alt="Gallery thumbnail"
-                          className="tw-h-full tw-w-full tw-object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
+          <div className="tw-relative tw-w-full">
+            {(images.length > 0 || isEditMode) && (
+              <>
+                <button onClick={() => handleScroll('left')} className="tw-hidden md:tw-flex tw-absolute tw--left-6 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-rounded-full tw-bg-[#1E0039]/80 tw-border tw-border-[#FF00A0]/30 tw-text-[#FF00A0] hover:tw-shadow-[0_0_15px_rgba(255,0,160,0.3)] tw-transition-all tw-cursor-pointer">
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                <button onClick={() => handleScroll('right')} className="tw-hidden md:tw-flex tw-absolute tw--right-6 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-rounded-full tw-bg-[#1E0039]/80 tw-border tw-border-[#FF00A0]/30 tw-text-[#FF00A0] hover:tw-shadow-[0_0_15px_rgba(255,0,160,0.3)] tw-transition-all tw-cursor-pointer">
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </>
             )}
+
+            <div 
+              ref={sliderRef}
+              className="tw-flex tw-items-stretch tw-gap-6 tw-overflow-x-auto tw-snap-x tw-snap-mandatory tw-pb-4 [&::-webkit-scrollbar]:tw-hidden"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {isEditMode && (
+                <div className="tw-shrink-0 tw-snap-center">
+                  <ActionPlaceholder 
+                    variant="photo" 
+                    title={`Add ${CATEGORIES.find(c=>c.key===activeCategory).label}`}
+                    onClick={() => alert(`Please use the Media Manager to upload files directly into the ${activeCategory} album.`)}
+                  />
+                </div>
+              )}
+
+              {images.map((item, idx) => (
+                <div 
+                  key={idx} 
+                  onClick={() => setExpandedImage(`${process.env.REACT_APP_AWS_URL}/${item.image}`)}
+                  className="tw-shrink-0 tw-snap-center tw-relative tw-w-[256px] tw-h-[384px] tw-bg-[#280D41] tw-rounded-xl tw-overflow-hidden tw-group tw-cursor-pointer"
+                >
+                  <img 
+                    src={item.image?.startsWith('http') ? item.image : `${process.env.REACT_APP_AWS_URL}/${item.image}`} 
+                    alt={`Album ${activeCategory}`} 
+                    className="tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-105"
+                  />
+                  <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039]/90 tw-via-transparent tw-to-transparent tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity tw-duration-300 tw-flex tw-flex-col tw-justify-end tw-p-6">
+                    <span className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-mb-1">{activeCategory}</span>
+                    <h4 className="tw-text-white tw-font-bold tw-text-lg tw-m-0">View Image</h4>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
       </div>
 
-      {/* --- CONSISTENT FULL-SCREEN MODAL --- */}
-      {isOpen && selected && (
-        <div 
-          className="tw-fixed tw-inset-0 tw-z-[100] tw-flex tw-items-center tw-justify-center tw-bg-black/90 tw-p-4" 
-          onClick={closeModal}
-        >
-          {/* Close Button */}
-          <button 
-            className="tw-absolute tw-top-4 tw-right-6 tw-text-white tw-text-5xl hover:tw-text-[#FF00A0] tw-transition-colors tw-z-[101]"
-            onClick={closeModal}
-            aria-label="Close modal"
-          >
-            &times;
+      {/* FULLSCREEN OVERLAY */}
+      {expandedImage && (
+        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/90 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4 tw-cursor-pointer" onClick={() => setExpandedImage(null)}>
+          <button className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 hover:tw-bg-[#FF43A7] tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-transition-colors tw-flex tw-items-center tw-justify-center tw-shadow-lg" onClick={(e) => { e.stopPropagation(); setExpandedImage(null); }}>
+            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
           </button>
-
-          {/* Prev Arrow */}
-          {images.length > 1 && (
-            <button
-              type="button"
-              onClick={prev}
-              aria-label="Previous"
-              className="tw-absolute tw-left-2 md:tw-left-8 tw-top-1/2 -tw-translate-y-1/2 tw-z-[101] tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 md:tw-w-14 md:tw-h-14 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 tw-text-white hover:tw-bg-white/30 hover:tw-text-[#FF00A0] tw-transition-all"
-            >
-              <FontAwesomeIcon icon={faChevronLeft} className="tw-text-lg md:tw-text-2xl" />
-            </button>
-          )}
-
-          {/* Image */}
-          <img 
-            src={`${process.env.REACT_APP_AWS_URL}/${selected.image}`}
-            alt="Gallery Fullscreen" 
-            className="tw-w-[90vw] tw-h-auto tw-max-h-[85vh] md:tw-w-auto md:tw-h-[85vh] md:tw-max-w-[85vw] tw-object-contain tw-rounded-[16px] tw-shadow-2xl" 
-            onClick={(e) => e.stopPropagation()} 
-          />
-
-          {/* Next Arrow */}
-          {images.length > 1 && (
-            <button
-              type="button"
-              onClick={next}
-              aria-label="Next"
-              className="tw-absolute tw-right-2 md:tw-right-8 tw-top-1/2 -tw-translate-y-1/2 tw-z-[101] tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 md:tw-w-14 md:tw-h-14 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 tw-text-white hover:tw-bg-white/30 hover:tw-text-[#FF00A0] tw-transition-all"
-            >
-              <FontAwesomeIcon icon={faChevronRight} className="tw-text-lg md:tw-text-2xl" />
-            </button>
-          )}
+          <img src={expandedImage} alt="Fullscreen" className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg tw-shadow-2xl" onClick={(e) => e.stopPropagation()} />
         </div>
       )}
-    </section>
+    </div>
   );
 }
-
-export default EpkPhotoGallery;

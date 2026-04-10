@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useMatch, useParams } from "react-router-dom";
+import { Link, useMatch, useParams, useLocation} from "react-router-dom";
 import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +11,10 @@ import "./NavbarToggle.css";
 
 function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   const { t } = useTranslation();
-  const { fepkId, fepkMaker } = React.useContext(FepkContext); 
+  const { fepkId, fepkMaker, epkCollaborators } = React.useContext(FepkContext);
   const [picture, setPicture] = useState("");
   const { id: actorId } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (user?.id) {
@@ -34,10 +35,15 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   const isFilmmaker = !!matchFilmmaker;
   const isActor = !!matchActor;
   const isActorRole = user?.role === "Actor";
+  const isOwner = user?.id === fepkMaker?._id;
+  const isCollaborator = epkCollaborators?.some(
+    (c) => c.user === user?.id || c.user?._id === user?.id
+  );
 
   // Check if current user is the owner of the EPK or Actor profile
-  const canEditFilmmaker = isFilmmaker && user?.id === fepkMaker?._id && fepkId;
+  const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
   const canEditActor = isActor && isActorRole && user?.id === actorId;
+  const isCurrentlyEditing = new URLSearchParams(location.search).get("edit") === "true";
 
   return (
     <>
@@ -76,11 +82,15 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
         <div className='tw-flex tw-items-center tw-justify-center tw-p-4'>
           <div className='tw-mx-10 tw-inline-block tw-justify-center'>
             {/* Edit Icon Logic */}
-            {canEditFilmmaker && (
-              <Link to={`/editFepk/${fepkId}`}>
-                <FontAwesomeIcon icon={faPen} color='white' />
+            {canEditFilmmaker && !isCurrentlyEditing && (
+             <Link 
+               to={`/epk/${fepkId}?edit=true`}
+              className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4"
+             >
+             <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
+             <span className="tw-hidden md:tw-inline">Edit EPK</span>
               </Link>
-            )}
+)}
             {canEditActor && (
               <Link to="/userdashboard/actor">
                 <FontAwesomeIcon icon={faPen} color='white' />

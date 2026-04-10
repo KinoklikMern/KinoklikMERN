@@ -239,3 +239,39 @@ export const removeCollaborator = (epkId, userId, token) =>
   axios.delete(`${process.env.REACT_APP_BACKEND_URL}/fepks/${epkId}/collaborators/${userId}`, {
     headers: { Authorization: `Bearer ${token}` },
   }).then((r) => r.data);
+
+export const uploadSingleFile = async (file, token) => {
+  const formData = new FormData();
+  formData.append("file", file); 
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/fepks/uploadFile`, 
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data.key; 
+  } catch (error) {
+    console.error("Error uploading file to S3:", error);
+    throw error;
+  }
+};
+
+// Push the final updated draft to the server
+export const updateFepk = async (epkId, updatePayload, token) => {
+  try {
+    const response = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/fepks/update/${epkId}`, 
+      updatePayload,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating EPK:", error);
+    throw error;
+  }
+};
