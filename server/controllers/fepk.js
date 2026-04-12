@@ -1170,6 +1170,20 @@ export const removeCollaborator = async (req, res) => {
   }
 };
 
+export const getMyCollaborations = async (req, res) => {
+  const userId = (req.user._id || req.user.id).toString();
+  try {
+    const fepks = await fepk
+      .find({ "collaborators.user": userId, deleted: false })
+      .select("title film_maker status production_type banners banner_url collaborators")
+      .populate("film_maker", "firstName lastName picture");
+
+    res.status(200).json(fepks);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const listCollaborators = async (req, res) => {
   try {
     const epk = await fepk
