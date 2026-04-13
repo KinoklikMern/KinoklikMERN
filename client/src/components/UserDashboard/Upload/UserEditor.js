@@ -9,7 +9,7 @@ import { ETHNICITY_OPTIONS } from "../../../constants/EthnicityOptions";
 import { GENDER_OPTIONS } from "../../../constants/GenderOptions";
 import { AGE_OPTIONS } from "../../../constants/AgeOptions";
 
-export default function ActorEditor({ user }) {
+export default function UserEditor({ user }) {
     const { t } = useTranslation();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -221,66 +221,63 @@ export default function ActorEditor({ user }) {
     };
 
     const handleSave = async () => {
-        // Validation check (if you have validationErrors defined like in Profile)
-        // if (Object.values(validationErrors).some((error) => error)) {
-        //     toast.warning(t('Please fix the validation errors before saving.'));
-        //     return;
-        // }
-
         setSaving(true);
         try {
             const uploadTasks = [];
             
-            // Create a clean payload for the database
-            // We strip out the internal UI state like 'filesToUpload' and 'previews'
-            let updatePayload = {
-                ...form,
-                gender: form.gender,
-                aboutMe: form.aboutMe,
-                filesToUpload: undefined,
-                previews: undefined
-            };
-
+            let finalProfiles = [...form.profiles];
+            let finalPicture = form.picture;
+            let finalBanner = form.bannerImg;
+    
             const uploadToS3 = async (file) => {
                 const fd = new FormData();
                 fd.append("file", file);
                 const { data } = await http.post("users/actorbanner", fd);
                 return data.key;
             };
-
-            // 1. Handle Main Picture
+    
             if (form.filesToUpload.picture) {
-                uploadTasks.push(uploadToS3(form.filesToUpload.picture).then(k => updatePayload.picture = k));
+                uploadTasks.push(uploadToS3(form.filesToUpload.picture).then(k => finalPicture = k));
             }
             
-            // 2. Handle Banner (Video or Image)
             if (form.filesToUpload.bannerImg) {
-                uploadTasks.push(uploadToS3(form.filesToUpload.bannerImg).then(k => updatePayload.bannerImg = k));
+                uploadTasks.push(uploadToS3(form.filesToUpload.bannerImg).then(k => finalBanner = k));
             }
-
-            // 3. Handle Portfolio/Profile Images
+    
             [0, 1, 2].forEach(i => {
                 if (form.filesToUpload[`prof${i}`]) {
                     uploadTasks.push(uploadToS3(form.filesToUpload[`prof${i}`]).then(k => {
-                        const newProfiles = [...updatePayload.profiles];
-                        newProfiles[i] = k;
-                        updatePayload.profiles = newProfiles;
+                        finalProfiles[i] = k;
                     }));
                 }
             });
-
-            // Wait for all S3 uploads to complete
+    
             await Promise.all(uploadTasks);
             
-            // 4. Update the Database
-            // Using the same base logic as Profile, but keeping your specific Actor route
-            await http.put(`users/actor/files/${user.id}`, updatePayload);
+            const updatePayload = {
+                gender: form.gender,
+                ethnicity: form.ethnicity,
+                age: form.age,
+                height: form.height,
+                eyesColor: form.eyesColor,
+                hairColor: form.hairColor,
+                bodyBuild: form.bodyBuild,
+                aboutMe: form.aboutMe,
+                picture: finalPicture,
+                bannerImg: finalBanner,
+                profiles: finalProfiles
+            };
+    
+            console.log("Sending Payload:", updatePayload);
             
-            toast.success(t("Profile updated successfully!"));
+            const response = await http.put(`users/updateProfile/${user.id}`, updatePayload);
             
+            if (response.status === 200) {
+                toast.success(t("Profile updated successfully!"));
+            }
         } catch (err) { 
-            console.error(err);
-            toast.error(err.response?.data?.message || t("Error saving profile changes")); 
+            console.error("Save error:", err);
+            toast.error(t("Error saving profile changes")); 
         } finally { 
             setSaving(false); 
         }

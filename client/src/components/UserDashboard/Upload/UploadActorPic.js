@@ -1,4 +1,4 @@
-// TODO Delete?
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
 import "./UploadActorPic.css";
 import http from "../../../http-common";
@@ -7,23 +7,17 @@ import { useTranslation } from "react-i18next";
 
 export default function UploadActorPic({ user }) {
   const { t } = useTranslation();
-
   const [file1, setFile1] = useState("");
   const [file2, setFile2] = useState("");
   const [file3, setFile3] = useState("");
   const [file4, setFile4] = useState("");
-
   const [fileBanner, setFileBanner] = useState("");
-
   const inputFile1Ref = useRef(null);
   const inputFile2Ref = useRef(null);
   const inputFile3Ref = useRef(null);
   const inputFile4Ref = useRef(null);
-
   const inputFileBannerRef = useRef(null);
-
   const videoRef = useRef(null);
-
   const [actor, setActor] = useState([]);
   const [profs, setProfs] = useState([]);
   const [message, setMessage] = useState("");
@@ -481,7 +475,6 @@ export default function UploadActorPic({ user }) {
               +
             </label>
           </div>
-
           <div className='actor-prof-file3'>
             <input
               className='actor-upload-profile-pic-btn'
@@ -584,7 +577,6 @@ export default function UploadActorPic({ user }) {
                 }}
                 crossOrigin='anonymous'
               >
-                {/*TODO remove localhost reference */}
                 <source
                   src={
                     actorData.bannerImg.startsWith("https")
