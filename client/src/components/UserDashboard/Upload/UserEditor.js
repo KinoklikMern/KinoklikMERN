@@ -364,22 +364,61 @@ export default function UserEditor({ user }) {
 
                         <select name="height" value={form.height} onChange={handleChange} className="tw-h-10 tw-rounded-lg tw-border-2 tw-px-4 tw-text-[#1E0039]">
                             <option value="">{t('Height')}</option>
-                            <option value={"5'0"}>5'0"</option><option value={"5'6"}>5'6"</option><option value={"6'0"}>6'0"</option>
+                            <option value={"4'10"}>4'10" {t('or below')}</option>
+                            <option value={"5'0"}>5'0"</option>
+                            <option value={"5'2"}>5'2"</option>
+                            <option value={"5'4"}>5'4"</option>
+                            <option value={"5'6"}>5'6"</option>
+                            <option value={"5'8"}>5'8"</option>
+                            <option value={"5'10"}>5'10"</option>
+                            <option value={"6'0"}>6'0"</option>
+                            <option value={"6'2"}>6'2"</option>
+                            <option value={"6'4"}>6'4"</option>
+                            <option value={"6'6"}>6'6"</option>
+                            <option value={"6'8"}>6'8"</option>
+                            <option value={"6'10"}>6'10"</option>
+                            <option value={"7'0"}>7'0" {t('or above')}</option>
                         </select>
 
                         <select name="eyesColor" value={form.eyesColor} onChange={handleChange} className="tw-h-10 tw-rounded-lg tw-border-2 tw-px-4 tw-text-[#1E0039]">
+                            <option value="">{t('Eye Color')}</option>
                             <option value="">{t('Eyes Color')}</option>
-                            <option value="Black">{t('Black')}</option><option value="Blue">{t('Blue')}</option><option value="Brown">{t('Brown')}</option>
+                            <option value="Black">{t('Black')}</option>
+                            <option value="Blue">{t('Blue')}</option>
+                            <option value="Brown">{t('Brown')}</option>
+                            <option value="Hazel">{t('Hazel')}</option>
+                            <option value="Grey">{t('Grey')}</option>
+                            <option value="Green">{t('Green')}</option>
+                            <option value="Amber">{t('Amber')}</option>
+                            <option value="Red">{t('Red')}</option>
+                            <option value="Violet">{t('Violet')}</option>
                         </select>
 
                         <select name="hairColor" value={form.hairColor} onChange={handleChange} className="tw-h-10 tw-rounded-lg tw-border-2 tw-px-4 tw-text-[#1E0039]">
                             <option value="">{t('Hair Color')}</option>
-                            <option value="Black">{t('Black')}</option><option value="Blonde">{t('Blonde')}</option>
+                            <option value="Black">{t('Black')}</option>
+                            <option value="Blonde">{t('Blonde')}</option>
+                            <option value="Brown">{t('Brown')}</option>
+                            <option value="Red">{t('Red')}</option>
+                            <option value="Grey">{t('Grey')}</option>
+                            <option value="White">{t('White')}</option>
+                            <option value="Auburn">{t('Auburn')}</option>
+                            <option value="Salt & Pepper">{t('Salt & Pepper')}</option>
+                            <option value="Chestnut">{t('Chestnut')}</option>
+                            <option value="Bald">{t('Bald')}</option>
                         </select>
 
                         <select name="bodyBuild" value={form.bodyBuild} onChange={handleChange} className="tw-h-10 tw-rounded-lg tw-border-2 tw-px-4 tw-text-[#1E0039]">
                             <option value="">{t('Body Build')}</option>
-                            <option value="Slim">{t('Slim')}</option><option value="Athletic">{t('Athletic')}</option>
+                            <option value="Slim">{t('Slim')}</option>
+                            <option value="Medium">{t('Medium')}</option>
+                            <option value="Muscular">{t('Muscular')}</option>
+                            <option value="Large">{t('Large')}</option>
+                            <option value="Very Large">{t('Very Large')}</option>
+                            <option value="Athletic">
+                            {t('Athletic')}/{t('Toned')}
+                            </option>
+                            <option value="Curvy">{t('Curvy')}</option>
                         </select>
                     </div>
                 </div>
