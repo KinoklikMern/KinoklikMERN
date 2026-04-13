@@ -23,11 +23,9 @@ import DashboardEpks from './pages/Dashboard/EpkPage';
 import DashboardNotification from './pages/Dashboard/NotificationPage';
 import DashboardSettings from './pages/Dashboard/SettingPage';
 import DashboardChat from './pages/Dashboard/ChatPage';
-
 import DashboardSaved from './pages/Dashboard/SavedPage';
 import DashboardLayout from './layouts/DashboardLayout';
-
-import UserDashboardRequests from './pages/Dashboard/RequestsPage';
+import DashboardRequests from './pages/Dashboard/RequestsPage';
 
 import AdminDashboardMain from './pages/AdminDashboard/MainPage';
 import AdminDashboardUsers from './pages/AdminDashboard/UsersPage';
@@ -39,7 +37,7 @@ import AccessDeniedPage from './pages/AccessDeniedPage';
 import { FepkContext } from './context/FepkContext';
 import CatalogPage from './pages/CatalogPage.js';
 import EpkViewPage from './pages/EpkViewPage';
-import UploadActorPicCon from './components/UserDashboard/Upload/UploadActorPicCon';
+import UploadUserPicCon from './components/UserDashboard/Upload/UploadUserPicCon';
 import EditFepkLayout from './layouts/EditFepkLayout';
 
 import Filmmaker from './pages/FilmMaker/Filmmaker.js';
@@ -89,8 +87,8 @@ function App() {
             <Route path="dashboard/chat" element={<DashboardChat />} />
             <Route path="dashboard/settings" element={<DashboardSettings />} />
 
-            <Route path="dashboard/requests" element={<UserDashboardRequests />} />
-            <Route path="dashboard/actor" element={<UploadActorPicCon />} />
+            <Route path="dashboard/requests" element={<DashboardRequests />} />
+            <Route path="dashboard/user" element={<UploadUserPicCon />} />
 
             <Route path="admindashboard/main" element={<AdminDashboardMain />} />
             <Route path="admindashboard/users" element={<AdminDashboardUsers />} />
