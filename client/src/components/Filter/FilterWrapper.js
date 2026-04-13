@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const FilterWrapper = ({ label, children, selectedValue, className }) => {
+const FilterWrapper = ({ label, children, selectedValue, className, align }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 
@@ -24,7 +24,7 @@ const FilterWrapper = ({ label, children, selectedValue, className }) => {
   }, []);
 
   return (
-    <div className={`filter-button-container ${className || ""}`} ref={containerRef}>
+    <div className={`filter-button-container ${align === "right" ? "align-right" : ""} ${className || ""}`} ref={containerRef}>
         <button
             className={`tw-px-4 tw-h-7 tw-rounded-lg tw-text-xs tw-transition-colors ${
                 selectedValue && selectedValue !== "All"

@@ -40,6 +40,7 @@ import {
   addCollaborator,
   removeCollaborator,
   listCollaborators,
+  getMyCollaborations,
 } from "../controllers/fepk.js";
 import { canEditEpk } from "../middleware/canEditEpk.js";
 import { authUser } from "../middleware/auth.js";
@@ -102,6 +103,9 @@ router.get("/favourite/:fepkid/:userid", getFepkFavourite);
 router.get("/sharing/:fepkid/:userid", getFepkSharings);
 router.get("/wishestodonate/:fepkid/:userid", getFepkWishedToDonate);
 router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
+
+// Get all FEPKs the authenticated user collaborates on
+router.get("/collaborations/mine", authUser, getMyCollaborations);
 
 // Collaborator management (owner only)
 router.get("/:epkId/collaborators", authUser, canEditEpk, listCollaborators);

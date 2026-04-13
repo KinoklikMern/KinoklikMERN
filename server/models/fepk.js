@@ -504,6 +504,8 @@ fepkSchema.post(['find', 'findOne'], function(docs) {
     ensureBackwardCompatibility(docs);
   }
 });
+fepkSchema.index({ "collaborators.user": 1 });
+
 const fepk = mongoose.model("fepk", fepkSchema);
 
 export default fepk;

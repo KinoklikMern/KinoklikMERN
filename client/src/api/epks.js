@@ -225,6 +225,11 @@ export const setBannerThumbnail = async (epkId, bannerId) => {
   }
 };
 
+export const getMyCollaborations = (token) =>
+  axios.get(`${process.env.REACT_APP_BACKEND_URL}/fepks/collaborations/mine`, {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((r) => r.data);
+
 export const listCollaborators = (epkId, token) =>
   axios.get(`${process.env.REACT_APP_BACKEND_URL}/fepks/${epkId}/collaborators`, {
     headers: { Authorization: `Bearer ${token}` },
