@@ -666,7 +666,7 @@
 
   "Passwords don't match!": "Les mots de passe ne correspondent pas!",
 
-  "mage mime type is not valid": "Le type MIME de l'image n'est pas valide",
+  "Image mime type is not valid": "Le type MIME de l'image n'est pas valide",
 
   "File must be a image(jpeg or png)": "Le fichier doit être une image (jpeg ou png)",
 

@@ -23,7 +23,7 @@ const TABS = (t) => ({
   ANALYTICS: { Title: t("Analytics"), to: "/admindashboard/analytics", DefaultIcon: AnalyticsIcon, ActiveIcon: AnalyticsActiveIcon },
   ADMIN_EPKS: { Title: t("EPKs"), to: "/admindashboard/epks", DefaultIcon: StartWhiteIcon, ActiveIcon: StarIcon },
 
-  EDIT_ACTOR_PAGE: { Title: t("Actor Page"), to: "/dashboard/actor", DefaultIcon: ActorPage, ActiveIcon: ActorPageWhite },
+  EDIT_USER_PAGE: { Title: t("Your Bio"), to: "/dashboard/user", DefaultIcon: ActorPage, ActiveIcon: ActorPageWhite },
   SAVED: { Title: t("Saved"), to: "/dashboard/saved", DefaultIcon: SavedIcon, ActiveIcon: SavedWhiteIcon },
   REQUESTS: { Title: t("Requests"), to: "/dashboard/requests", DefaultIcon: BellIcon, ActiveIcon: BellWhiteIcon },
   MESSAGES: { Title: t("Messages"), to: "/dashboard/chat", DefaultIcon: MessageIcon, ActiveIcon: MessageWhiteIcon },
@@ -39,8 +39,8 @@ export const getSidebarList = (role, t) => {
     case "Admin":
       return [tabs.METRICS, tabs.USERS, tabs.ANALYTICS, tabs.ADMIN_EPKS];
     case "Actor":
-      return [tabs.EDIT_ACTOR_PAGE, tabs.REQUESTS, tabs.MESSAGES, tabs.SAVED, tabs.SETTINGS];
+      return [tabs.EDIT_USER_PAGE, tabs.REQUESTS, tabs.MESSAGES, tabs.SAVED, tabs.SETTINGS];
     default: // Filmmaker
-      return [tabs.EPKS, tabs.NOTIFICATIONS, tabs.REQUESTS, tabs.MESSAGES, tabs.SAVED, tabs.SETTINGS];
+      return [tabs.EPKS, tabs.EDIT_USER_PAGE, tabs.NOTIFICATIONS, tabs.REQUESTS, tabs.MESSAGES, tabs.SAVED, tabs.SETTINGS];
   }
 };

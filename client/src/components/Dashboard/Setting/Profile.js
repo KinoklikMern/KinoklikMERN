@@ -1,7 +1,6 @@
 import Axios from 'axios';
 import { useSelector, shallowEqual } from 'react-redux';
-import { React, useEffect, useState, useRef } from 'react';
-import Modal from 'react-modal';
+import { React, useEffect, useState } from 'react';
 import {
   validatename,
   validatePhone,
@@ -10,28 +9,15 @@ import {
 } from './validation.js';
 import LocationSelects from './LocationSelects.js';
 import { useTranslation } from 'react-i18next';
-import { ETHNICITY_OPTIONS } from '../../../constants/EthnicityOptions.js';
-import { GENDER_OPTIONS } from '../../../constants/GenderOptions.js';
-import { AGE_OPTIONS } from '../../../constants/AgeOptions.js';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Profile() {
   const { t } = useTranslation();
 
-  const [message, setMessage] = useState([]);
-  const inputFileRef = useRef(null);
   const [filename, setFilename] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const [backgroundImageUrl, setBackgroundImageUrl] = useState('');
-
-  // Filmmaker media upload states
-  const [demoReelFile, setDemoReelFile] = useState('');
-  const [demoReelPreview, setDemoReelPreview] = useState('');
-  const [demoReelFileType, setDemoReelFileType] = useState('');
   const [isUploading, setIsUploading] = useState(false);
-  const inputDemoReelRef = useRef(null);
-  const videoRef = useRef(null);
 
   const [userProfileData, setUserProfileData] = useState({
     firstName: '',
@@ -42,13 +28,6 @@ export default function Profile() {
     city: '',
     province: '',
     country: '',
-    gender: '',
-    ethnicity: '',
-    age: '',
-    height: '',
-    eyesColor: '',
-    hairColor: '',
-    bodyBuild: '',
     facebook_url: '',
     facebook_followers: '',
     instagram_url: '',
@@ -63,170 +42,85 @@ export default function Profile() {
     linkedin_url: '',
     tiktok_url: '',
     tiktok_followers: '',
-    newletter_subs: '',
-    aboutMe: '',
+    newsletter_subs: '',
     picture: '',
-    bannerImg: '', // This will store the demo reel media for filmmakers
   });
-  const [validationErrors, setValidationErrors] = useState({
-    firstName: '',
-    lastName: '',
-    city: '',
-    province: '',
-    country: '',
-    phone: '',
-    website: '',
-  });
+  
+  const [validationErrors, setValidationErrors] = useState({});
 
-  // fetching user
-  const selectUser = (state) => state.user;
-  const user = useSelector(selectUser, shallowEqual);
-  let userId;
-  let userRole;
-  if (!user) {
-    userId = '0';
-    userRole = 'noUser';
-  } else {
-    userId = user.id;
-    userRole = user.role;
-  }
+  const user = useSelector((state) => state.user, shallowEqual);
+  const userId = user?.id || '0';
 
   useEffect(() => {
-    try {
-      Axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/getUser`, {
-        id: userId,
-      }).then((rs) => {
-        //useng reduce to not set the parameters that are undefined from rs.data
-        setUserProfileData((prevUserProfileData) => {
-          return Object.keys(prevUserProfileData).reduce((acc, key) => {
-            acc[key] =
-              rs.data[key] !== undefined
-                ? rs.data[key]
-                : prevUserProfileData[key];
-            return acc;
-          }, {});
-        });
+    if (userId === '0') return;
+    Axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/getUser`, { id: userId })
+      .then((rs) => {
+        setUserProfileData((prev) => ({ ...prev, ...rs.data }));
+      })
+      .catch((error) => {
+        toast.error(error.response?.data?.message || t('Error loading profile data'));
       });
-    } catch (error) {
-      alert(error.response.data.message);
-    }
-  }, [userId]);
+  }, [userId, t]);
 
-  if (filename !== '') {
-    userProfileData.picture = filename;
-  }
+  useEffect(() => {
+    const activePic = filename || userProfileData.picture;
+    if (activePic) {
+      const imageUrl = activePic.startsWith('https')
+        ? activePic
+        : `${process.env.REACT_APP_AWS_URL}/${activePic}`;
+      setBackgroundImageUrl(imageUrl);
+    }
+  }, [userProfileData.picture, filename]);
 
   async function fileSelected(event) {
-    setMessage('');
     const file = event.target.files[0];
-    let formData = new FormData();
-    formData.append('file', event.target.files[0]);
+    if (!file) return;
 
-    if (checkFileMimeType(file)) {
+    if (['image/png', 'image/jpg', 'image/jpeg'].includes(file.type)) {
+      let formData = new FormData();
+      formData.append('file', file);
       try {
         const response = await Axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/users/uploadUserAvatar`,
           formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
+          { headers: { 'Content-Type': 'multipart/form-data' } }
         );
-
-        if (response.data !== undefined) {
+        if (response.data?.key) {
           setFilename(response.data.key);
           setDisabled(false);
         }
       } catch (e) {
-        console.log(e);
+        toast.error(t('Failed to upload image'));
       }
     } else {
-      console.log('error');
-      setMessage(t('File must be an image(jpeg, jpg or png)'));
+      toast.error(t('File must be an image (jpeg, jpg or png)'));
     }
   }
 
-  // Demo reel file selection for filmmakers
-  const demoReelSelected = (event) => {
-    const file = event.target.files[0];
-    setDemoReelFile(file);
-    if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setDemoReelPreview(fileUrl);
-      setDemoReelFileType(file.type);
-
-      // If it's a video, set up the video element
-      if (file.type.startsWith('video/') && videoRef.current) {
-        videoRef.current.srcObject = null;
-        videoRef.current.src = fileUrl;
-        videoRef.current.load();
-        videoRef.current.onloadedmetadata = () => {
-          console.log('Video duration:', videoRef.current.duration);
-        };
-      }
-      setDisabled(false);
-    }
-  };
-
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
+    let error = '';
+  
+      if (name === 'firstName' || name === 'lastName') {
+        error = validatename(value) ? '' : t('Required field (min 3 chars)');
+      } else if (name === 'phone') {
+        error = validatePhone(value) ? '' : t('Invalid phone number');
+      } else if (name.includes('url') || name === 'website') {
+        error = validateWebsite(value) ? '' : t('Invalid URL');
+      } else if (name.includes('followers') || name.includes('subs')) {
+        error = validateFollowers(value) ? '' : t('Invalid number');
+      }
 
-    if (name === 'firstName' || name === 'lastName') {
-      setValidationErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: validatename(value)
-          ? ''
-          : t('Please fill out the required field(more than 3 char)'),
-      }));
-    }
-
-    if (name === 'phone') {
-      setValidationErrors((prevErrors) => ({
-        ...prevErrors,
-        phone: validatePhone(value)
-          ? ''
-          : t('Please enter a valid phone number (10 to 15 digits)'),
-      }));
-    }
-
-    if (
-      name === 'website' ||
-      name === 'facebook_url' ||
-      name === 'twitter_url' ||
-      name === 'instagram_url' ||
-      name === 'youtube_url' ||
-      name === 'linkedin_url' ||
-      name === 'tiktok_url' 
-    ) {
-      setValidationErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: validateWebsite(value) ? '' : t('Please enter a valid URL'),
-      }));
-    }
-
-    if (
-      name === 'facebook_followers' ||
-      name === 'linkedin_followers' ||
-      name === 'twitter_followers' ||
-      name === 'instagram_followers' ||
-      name === 'youtube_subs' ||
-      name === 'tiktok_followers'||
-      name === 'newletter_subs'
-    ) {
-      setValidationErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: validateFollowers(value)
-          ? ''
-          : t('Please enter a valid number of followers'),
-      }));
-    }
+    setValidationErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
 
     setUserProfileData((prevState) => {
       const newState = { ...prevState, [name]: value };
 
       if (name === 'country') {
-        newState.province = '';
+        newState.province = ''; 
         newState.city = '';
       } else if (name === 'province') {
         newState.city = '';
@@ -239,108 +133,30 @@ export default function Profile() {
   };
 
   async function saveUserProfile() {
-    // Check if there are any validation errors
-    const hasErrors = Object.values(validationErrors).some((error) => error);
+    if (Object.values(validationErrors).some((error) => error)) {
+      toast.warning(t('Please fix the validation errors before saving.'));
+      return;
+    }
 
-    if (!hasErrors) {
-      setIsUploading(true);
-
-      try {
-        // Upload demo reel media if filmmaker
-        if (userProfileData.role === 'Filmmaker' && demoReelFile) {
-          let formDataBanner = new FormData();
-          formDataBanner.append('file', demoReelFile);
-
-          // Upload media (video or image)
-          if (demoReelFile.size <= 350000000) {
-            // 350MB limit
-            const mediaResponse = await Axios.post(
-              `${process.env.REACT_APP_BACKEND_URL}/users/actorbanner`,
-              formDataBanner,
-              {
-                headers: {
-                  'Content-Type': 'multipart/form-data',
-                },
-              }
-            );
-
-            if (mediaResponse.data.key) {
-              userProfileData.bannerImg = mediaResponse.data.key;
-            }
-          } else {
-            alert(t('File must be less than 350MB'));
-            setIsUploading(false);
-            return;
-          }
-        }
-
-        // Update profile
-        await Axios.put(
-          `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
-          userProfileData
-        );
-
-        setModalIsOpen(true);
-        setDisabled(true);
-        setIsUploading(false);
-      } catch (err) {
-        alert(err.response?.data?.message || 'An error occurred');
-        setIsUploading(false);
-      }
-    } else {
-      alert(t('Please fix the validation errors before saving.'));
+    setIsUploading(true);
+    try {
+      await Axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`,
+        { ...userProfileData, picture: filename || userProfileData.picture }
+      );
+      toast.success(t('Updated profile successfully!'));
+      setDisabled(true);
+    } catch (err) {
+      toast.error(err.response?.data?.message || t('An error occurred'));
+    } finally {
+      setIsUploading(false);
     }
   }
 
-  const checkFileMimeType = (file) => {
-    if (file !== '') {
-      if (
-        file.type === 'image/png' ||
-        file.type === 'image/jpg' ||
-        file.type === 'image/jpeg' ||
-        file.type === 'video/mp4' ||
-        file.type === 'video/mpeg' ||
-        file.type === 'video/quicktime' ||
-        file.type === 'video/x-ms-wmv' ||
-        file.type === 'video/ogg' ||
-        file.type === 'video/3gpp' ||
-        file.type === 'video/x-msvideo'
-      )
-        return true;
-      else return false;
-    } else return true;
-  };
-
-  useEffect(() => {
-    if (userProfileData.picture) {
-      const imageUrl = userProfileData.picture.startsWith('https')
-        ? userProfileData.picture
-        : `${process.env.REACT_APP_AWS_URL}/${userProfileData.picture}`;
-      setBackgroundImageUrl(imageUrl);
-    }
-  }, [userProfileData.picture]);
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
-
-  // Helper function to determine if existing bannerImg is a video
-  const isExistingVideo = (bannerImg) => {
-    if (!bannerImg) return false;
-    const videoExtensions = [
-      '.mp4',
-      '.mov',
-      '.avi',
-      '.wmv',
-      '.flv',
-      '.webm',
-      '.m4v',
-    ];
-    return videoExtensions.some((ext) => bannerImg.toLowerCase().includes(ext));
-  };
-
   return (
     <div className="tw-container">
+      <ToastContainer theme="colored" position="top-right" />
+
       <div className="tw-flex tw-h-full tw-flex-col lg:tw-flex-row">
         <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
           <input
@@ -361,7 +177,7 @@ export default function Profile() {
             placeholder="Last Name"
             value={userProfileData.lastName}
             onChange={handleProfileChange}
-            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
           />
           {validationErrors.lastName && (
             <div className="tw-text-red-500">{validationErrors.lastName}</div>
@@ -373,18 +189,17 @@ export default function Profile() {
             placeholder="Email"
             value={userProfileData.email}
             onChange={handleProfileChange}
-            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-            disabled={disabled || userRole !== 'noUser'}
+            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            disabled={userId !== '0'}
           />
 
-          {/* Phone input with validation error */}
           <input
             type="text"
             name="phone"
             placeholder={t('Phone')}
             value={userProfileData.phone}
             onChange={handleProfileChange}
-            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
           />
           {validationErrors.phone && (
             <div className="tw-text-red-500">{validationErrors.phone}</div>
@@ -396,7 +211,7 @@ export default function Profile() {
             placeholder={t('Website')}
             value={userProfileData.website}
             onChange={handleProfileChange}
-            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
           />
           {validationErrors.website && (
             <div className="tw-text-red-500">{validationErrors.website}</div>
@@ -408,193 +223,6 @@ export default function Profile() {
           />
         </div>
 
-        {/* Actor Information */}
-        {userProfileData.role === 'Actor' && (
-          <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
-            <>
-              <select
-                name="sex"
-                value={userProfileData.sex || ""}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Playing Gender')}</option>
-                {GENDER_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {t(opt.label)}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="ethnicity"
-                value={userProfileData.ethnicity}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-               <option value="">{t('Ethnicity')}</option>
-               {ETHNICITY_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {t(`ethnicities.${option.value}`)}
-                </option>
-                ))}
-              </select>
-              <select
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-                name="age"
-                value={userProfileData.age}
-                onChange={handleProfileChange}
-              >
-                <option value="">{t('Age Range')}</option>
-                {AGE_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {t(opt.label)}
-                  </option>
-                ))}
-              </select>
-              <select
-                type="text"
-                name="height"
-                value={userProfileData.height}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Height')}</option>
-                <option value={"4'10"}>4'10" {t('or below')}</option>
-                <option value={"5'0"}>5'0"</option>
-                <option value={"5'2"}>5'2"</option>
-                <option value={"5'4"}>5'4"</option>
-                <option value={"5'6"}>5'6"</option>
-                <option value={"5'8"}>5'8"</option>
-                <option value={"5'10"}>5'10"</option>
-                <option value={"6'0"}>6'0"</option>
-                <option value={"6'2"}>6'2"</option>
-                <option value={"6'4"}>6'4"</option>
-                <option value={"6'6"}>6'6"</option>
-                <option value={"6'8"}>6'8"</option>
-                <option value={"6'10"}>6'10"</option>
-                <option value={"7'0"}>7'0" {t('or above')}</option>
-              </select>
-              <select
-                type="text"
-                name="eyesColor"
-                value={userProfileData.eyesColor}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Eyes Color')}</option>
-                <option value="Black">{t('Black')}</option>
-                <option value="Blue">{t('Blue')}</option>
-                <option value="Brown">{t('Brown')}</option>
-                <option value="Hazel">{t('Hazel')}</option>
-                <option value="Grey">{t('Grey')}</option>
-                <option value="Green">{t('Green')}</option>
-                <option value="Amber">{t('Amber')}</option>
-                <option value="Red">{t('Red')}</option>
-                <option value="Violet">{t('Violet')}</option>
-              </select>
-              <select
-                type="text"
-                name="hairColor"
-                value={userProfileData.hairColor}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Hair Color')}</option>
-                <option value="Black">{t('Black')}</option>
-                <option value="Blonde">{t('Blonde')}</option>
-                <option value="Brown">{t('Brown')}</option>
-                <option value="Red">{t('Red')}</option>
-                <option value="Grey">{t('Grey')}</option>
-                <option value="White">{t('White')}</option>
-                <option value="Auburn">{t('Auburn')}</option>
-                <option value="Salt & Pepper">{t('Salt & Pepper')}</option>
-                <option value="Chestnut">{t('Chestnut')}</option>
-                <option value="Bald">{t('Bald')}</option>
-              </select>
-              <select
-                type="text"
-                name="bodyBuild"
-                value={userProfileData.bodyBuild}
-                onChange={handleProfileChange}
-                className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-              >
-                <option value="">{t('Body Build')}</option>
-                <option value="Slim">{t('Slim')}</option>
-                <option value="Medium">{t('Medium')}</option>
-                <option value="Muscular">{t('Muscular')}</option>
-                <option value="Large">{t('Large')}</option>
-                <option value="Very Large">{t('Very Large')}</option>
-                <option value="Athletic">
-                  {t('Athletic')}/{t('Toned')}
-                </option>
-                <option value="Curvy">{t('Curvy')}</option>
-              </select>
-            </>
-          </div>
-        )}
-
-        {/* Filmmaker Information */}
-        {userProfileData.role === 'Filmmaker' && (
-          <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
-            <div className="tw-mb-4">
-              <label
-                htmlFor="demoReel"
-                className="tw-mb-2 tw-block tw-text-lg tw-font-semibold tw-text-[#1E0039]"
-              >
-                {t('Upload Demo Reel (Image or Video)')}
-              </label>
-              <input
-                id="demoReel"
-                type="file"
-                ref={inputDemoReelRef}
-                onChange={demoReelSelected}
-                accept="image/*,video/*"
-                className="tw-w-full tw-rounded-lg tw-border-2 tw-p-2 tw-text-[#1E0039] tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] lg:tw-w-3/4"
-              />
-            </div>
-
-            {/* Media Preview */}
-            {(demoReelPreview || userProfileData.bannerImg) && (
-              <div className="tw-mb-4">
-                {/* Check if it's a video file */}
-                {(demoReelFileType && demoReelFileType.startsWith('video/')) ||
-                (!demoReelFileType &&
-                  userProfileData.bannerImg &&
-                  isExistingVideo(userProfileData.bannerImg)) ? (
-                  <video
-                    ref={videoRef}
-                    width="320"
-                    height="240"
-                    controls
-                    className="tw-rounded-lg tw-shadow-md"
-                  >
-                    <source
-                      src={
-                        demoReelPreview ||
-                        (userProfileData.bannerImg &&
-                          `${process.env.REACT_APP_AWS_URL}/${userProfileData.bannerImg}`)
-                      }
-                      type="video/mp4"
-                    />
-                    {t('Your browser does not support the video tag.')}
-                  </video>
-                ) : (
-                  /* Image preview */
-                  <img
-                    src={
-                      demoReelPreview ||
-                      (userProfileData.bannerImg &&
-                        `${process.env.REACT_APP_AWS_URL}/${userProfileData.bannerImg}`)
-                    }
-                    alt="Demo Reel"
-                    className="tw-h-60 tw-w-80 tw-rounded-lg tw-object-cover tw-shadow-md"
-                  />
-                )}
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Profile picture section */}
         <div className="tw-mx-auto tw-my-8 tw-flex tw-w-full tw-items-center tw-justify-around lg:tw-w-1/3 lg:tw-flex-col lg:tw-justify-between">
           <label htmlFor="profileImageUpload">
@@ -605,29 +233,23 @@ export default function Profile() {
               }}
               title={t('Click to change image')}
             >
-              {backgroundImageUrl.startsWith('https:') ? 'Upload' : null}
+              {(!backgroundImageUrl || backgroundImageUrl.startsWith('https:')) && 'Upload'}
             </div>
           </label>
           <input
             id="profileImageUpload"
             type="file"
             onChange={fileSelected}
-            ref={inputFileRef}
             accept="image/*"
             className="tw-hidden"
           />
-          {message && (
-            <div className="message" style={{ color: 'red' }}>
-              {message}
-            </div>
-          )}
+
           {userProfileData.role === 'Industry Professional' && (
             <select
-              type="text"
               name="specialization"
               value={userProfileData.specialization}
               onChange={handleProfileChange}
-              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
+              className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] lg:tw-w-3/4"
             >
               <option value="">{t('Select Specialization')}</option>
               <option value="Distributor">{t('Distributor')}</option>
@@ -640,7 +262,6 @@ export default function Profile() {
             </select>
           )}
 
-          {/* Save Button */}
           <div className="">
             {disabled === true && !isUploading ? (
               <button
@@ -670,90 +291,10 @@ export default function Profile() {
             )}
           </div>
         </div>
-
-        {/* Modal */}
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Example Modal"
-          appElement={document.getElementById('root')}
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            },
-            content: {
-              position: 'absolute',
-              border: '2px solid #000',
-              backgroundColor: 'white',
-              boxShadow: '2px solid black',
-              height: 120,
-              width: 300,
-              margin: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          }}
-        >
-          <div style={{ textAlign: 'center' }}>
-            <h2>{t('Updated profile successfully!')}</h2>
-            <br />
-            <button
-              className="btn btn-secondary btn-sm tw-border-none tw-bg-midnight tw-px-3"
-              onClick={closeModal}
-            >
-              {t('Ok')}
-            </button>
-          </div>
-        </Modal>
       </div>
 
-      {/* Biography Section - Now Editable */}
-      <div className="tw-mx-4 tw-my-8">
-        <label
-          htmlFor="aboutMe"
-          className="tw-mb-2 tw-block tw-text-lg tw-font-semibold tw-text-[#1E0039]"
-        >
-          {t('Biography')}
-        </label>
-        <textarea
-          id="aboutMe"
-          name="aboutMe"
-          placeholder={t('Tell us about yourself...')}
-          value={userProfileData.aboutMe}
-          onChange={handleProfileChange}
-          className="tw-h-32 tw-min-h-[8rem] tw-w-full tw-resize-y tw-rounded-lg tw-border-2 tw-p-4 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400"
-          rows="4"
-        />
-      </div>
-
-      {/* Divider */}
       <hr className="tw-my-4 tw-border-gray-400" />
       <div className="tw-mx-auto tw-my-8 tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
-        <div className="tw-mx-auto tw-flex tw-items-center">
-          <i className="fa-solid fa-envelope tw-text-4xl"></i>
-          <input
-            type="text"
-            name="newsletter_subs"
-            placeholder={t('Newsletter Subscribers')}
-            value={userProfileData.newsletter_subs}
-            onChange={handleProfileChange}
-            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.newsletter_subs && (
-            <div className="tw-text-red-500">
-              {validationErrors.newsletter_subs}
-            </div>
-          )}
-          <input
-            disabled
-            type="text"
-            name="facebook_followers"
-            placeholder={t('Followers')}
-            value={userProfileData.facebook_followers}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-invisible tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-        </div>
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-facebook tw-text-4xl"></i>
           <input
@@ -762,7 +303,7 @@ export default function Profile() {
             placeholder="URL"
             value={userProfileData.facebook_url}
             onChange={handleProfileChange}
-            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] placeholder:tw-text-slate-400 "
           />
           {validationErrors.facebook_url && (
             <div className="tw-text-red-500">
@@ -783,6 +324,7 @@ export default function Profile() {
             {validationErrors.facebook_followers}
           </div>
         )}
+
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-instagram tw-text-4xl"></i>
           <input
@@ -812,6 +354,7 @@ export default function Profile() {
             </div>
           )}
         </div>
+
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-twitter tw-text-4xl"></i>
           <input
@@ -841,6 +384,7 @@ export default function Profile() {
             </div>
           )}
         </div>
+
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-youtube tw-text-4xl"></i>
           <input
@@ -870,6 +414,7 @@ export default function Profile() {
             </div>
           )}
         </div>
+
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-linkedin tw-text-4xl"></i>
           <input
@@ -899,6 +444,7 @@ export default function Profile() {
             </div>
           )}
         </div>
+
         <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-brands fa-tiktok tw-text-4xl"></i>
           <input
@@ -928,7 +474,22 @@ export default function Profile() {
             </div>
           )}
         </div>
-
+          <div className="tw-mx-auto tw-flex tw-items-center">
+          <i className="fa-solid fa-envelope tw-text-4xl"></i>
+          <input
+            type="text"
+            name="newsletter_subs"
+            placeholder={t('Newsletter Subscribers')}
+            value={userProfileData.newsletter_subs}
+            onChange={handleProfileChange}
+            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
+          />
+          {validationErrors.newsletter_subs && (
+            <div className="tw-text-red-500">
+              {validationErrors.newsletter_subs}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

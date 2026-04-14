@@ -577,7 +577,6 @@ export default function UploadActorPic({ user }) {
                 }}
                 crossOrigin='anonymous'
               >
-                {/*TODO remove localhost reference */}
                 <source
                   src={
                     actorData.bannerImg.startsWith("https")
