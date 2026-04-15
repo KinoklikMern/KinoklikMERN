@@ -198,7 +198,53 @@ const UserSchema = mongoose.Schema({
     default: 0,
   },
 
+  // TODO test and implement for actor portfolio
+  /* summary: { type: String, maxlength: 100, trim: true, default: "" },
+  // Mirroring your teammate's nested structure for consistency
+  photo_albums: {
+    headshots: [{ image: String }],
+    behind: [{ image: String }],
+  },
+  video_gallery: {
+    reels: [{ url: String, thumbnail: String, title: String }],
+    onSet: [{ url: String, thumbnail: String, title: String }],
+    interviews: [{ url: String, thumbnail: String, title: String }],
+    premieres: [{ url: String, thumbnail: String, title: String }],
+  } */
+
 });
+
+/*
+//Backward compatibility for users w/o gallery or summary
+UserSchema.post(['find', 'findOne'], function(docs) {
+  if (!docs) return;
+
+  const migrateActorData = (doc) => {
+    // Access the raw data object so we can add fields not yet in the schema
+    const rawDoc = doc._doc || doc; 
+
+    // 1. Safety check for photo_albums
+    if (!rawDoc.photo_albums) {
+      rawDoc.photo_albums = { headshots: [], behind: [] };
+    }
+
+    // 2. Migrate picture to headshots if headshots is empty
+    if (rawDoc.picture && rawDoc.photo_albums.headshots.length === 0) {
+      rawDoc.photo_albums.headshots = [{ image: rawDoc.picture }];
+    }
+
+    // 4. Safety check for video_gallery
+    if (!rawDoc.video_gallery) {
+      rawDoc.video_gallery = { reels: [], onSet: [], interviews: [], premieres: [] };
+    }
+  };
+
+  if (Array.isArray(docs)) {
+    docs.forEach(migrateActorData);
+  } else {
+    migrateActorData(docs);
+  } 
+}); */
 
 // Method to compare password
 UserSchema.methods.comparePassword = async function (password) {
