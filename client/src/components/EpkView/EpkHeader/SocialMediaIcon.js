@@ -47,7 +47,6 @@ export default function SocialMediaIcon({
   const isNewsletter = platform?.toLowerCase() === "newsletter";
   const isViews = platform?.toLowerCase() === "views";
   
-  // Group icons that don't need URLs
   const isStatOnlyIcon = isAudience || isNewsletter || isViews; 
 
   const selectedIcon = ICONS[platform?.toLowerCase()];

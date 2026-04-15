@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import SocialMedia from "./SocialMedia";
 import { formatCompactNumber } from "../../../utils/numberFormatters";
 import { fetchAndSumFollowers } from "../../../utils/followersHelper";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
-export default function EpkHeader({ epkInfo,setGlobalTotalReach }) {
+export default function EpkHeader({ epkInfo,setGlobalTotalReach,isEditMode,onChange }) {
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
   const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0, newsletter: 0 });
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [tempTitle, setTempTitle] = useState(epkInfo?.title || "");
+
+  useEffect(() => {
+    setTempTitle(epkInfo?.title || "");
+  }, [epkInfo?.title]);
 
   useEffect(() => {
     const getFollowers = async () => {
-      // 1. Gather Filmmaker ID + All Actor IDs
       const idsToFetch = [];
       if (epkInfo?.film_maker?._id) {
         idsToFetch.push(epkInfo.film_maker._id);
@@ -20,13 +27,12 @@ export default function EpkHeader({ epkInfo,setGlobalTotalReach }) {
         });
       }
 
-      // 2. Fetch them all at once using the Helper!
       if (idsToFetch.length > 0) {
         const data = await fetchAndSumFollowers(idsToFetch);
         setPlatformFollowers(data.platforms);
         setSocialMediaFollowerTotalNum(formatCompactNumber(data.total));
         if (setGlobalTotalReach) {
-          setGlobalTotalReach(data.total); // Update the global total reach in the parent component
+          setGlobalTotalReach(data.total); 
         }
       }
     };
@@ -35,6 +41,15 @@ export default function EpkHeader({ epkInfo,setGlobalTotalReach }) {
       getFollowers();
     }
   }, [epkInfo, setGlobalTotalReach]);
+
+  const handleTitleSubmit = () => {
+    setIsEditingTitle(false);
+    if (tempTitle.trim() !== "" && tempTitle !== epkInfo?.title) {
+      onChange("title", tempTitle);
+    } else {
+      setTempTitle(epkInfo?.title || "");
+    }
+  };
 
   const socialMediaData = [
     { platform: 'newsletter', followers: formatCompactNumber(platformFollowers.newsletter) },
@@ -50,13 +65,41 @@ export default function EpkHeader({ epkInfo,setGlobalTotalReach }) {
     <div className="tw-flex tw-w-full tw-flex-col tw-items-center">
       
       {/* 1. TITLE (Centered at the very top) */}
-      {epkInfo?.title && (
-        <div className="tw-flex tw-w-full tw-items-center tw-justify-center tw-py-6">
-          <h1 className="tw-px-4 tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-text-[#C4C4C4] tw-drop-shadow-md">
-            {epkInfo.title}
-          </h1>
-        </div>
-      )}
+      <div className="tw-flex tw-w-full tw-items-center tw-justify-center tw-py-6 tw-min-h-[100px]">
+        {isEditingTitle ? (
+          <div className="tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-gap-3 tw-w-full tw-max-w-3xl tw-px-4">
+            <input
+              type="text"
+              value={tempTitle}
+              onChange={(e) => setTempTitle(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleTitleSubmit(); }}
+              autoFocus
+              className="tw-flex-1 tw-w-full tw-bg-[#1F0439] tw-text-white tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-py-3 tw-px-4 tw-rounded-xl tw-border-2 tw-border-[#FF43A7] tw-outline-none tw-shadow-lg"
+              placeholder="Enter EPK Title"
+            />
+            <button 
+              onClick={handleTitleSubmit} 
+              className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-8 tw-py-3 tw-rounded-lg tw-font-bold tw-text-sm hover:tw-bg-[#ff5cac] tw-transition-colors tw-shadow-lg tw-cursor-pointer tw-shrink-0"
+            >
+              Save Title
+            </button>
+          </div>
+        ) : (
+          <div className="tw-flex tw-items-center tw-gap-4">
+            <h1 className="tw-px-4 tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-text-[#C4C4C4] tw-drop-shadow-md">
+              {epkInfo?.title || "Untitled EPK"}
+            </h1>
+            {isEditMode && (
+              <button 
+                onClick={() => setIsEditingTitle(true)} 
+                className="tw-bg-[#FF43A7] tw-border-none tw-w-10 tw-h-10 tw-rounded-lg tw-flex tw-items-center tw-justify-center tw-shrink-0 hover:tw-scale-105 tw-transition-transform tw-shadow-md tw-cursor-pointer"
+              >
+                <FontAwesomeIcon icon={faPen} className="tw-text-[#570033] tw-text-base" />
+              </button>
+            )}
+          </div>
+        )}
+      </div>
 
       {/* 2. SOCIAL MEDIA BAR (Stacked directly underneath the title) */}
       <div className="tw-flex tw-w-full tw-items-center tw-justify-evenly tw-gap-5 tw-py-4">

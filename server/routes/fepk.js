@@ -40,6 +40,8 @@ import {
   addCollaborator,
   removeCollaborator,
   listCollaborators,
+  getMyCollaborations,
+  deleteFepkMediaBatch
 } from "../controllers/fepk.js";
 import { canEditEpk } from "../middleware/canEditEpk.js";
 import { authUser } from "../middleware/auth.js";
@@ -103,6 +105,9 @@ router.get("/sharing/:fepkid/:userid", getFepkSharings);
 router.get("/wishestodonate/:fepkid/:userid", getFepkWishedToDonate);
 router.get("/wishestobuy/:fepkid/:userid", getFepkWishedToBuy);
 
+// Get all FEPKs the authenticated user collaborates on
+router.get("/collaborations/mine", authUser, getMyCollaborations);
+
 // Collaborator management (owner only)
 router.get("/:epkId/collaborators", authUser, canEditEpk, listCollaborators);
 router.post("/:epkId/collaborators", authUser, canEditEpk, addCollaborator);
@@ -115,10 +120,10 @@ router.get("/byTitle/:title", getFepkByTitle);
 router.get("/:id", getFepkbyId);
 
 // Create FEPK
-router.post("/", createFepk);
+router.post("/", authUser, createFepk);
 
 // Modify FEPK
-router.put("/update/:id", updateFepk);
+router.put("/update/:id", authUser, canEditEpk, updateFepk);
 
 // user sends report on the EPK to Film Maker
 router.put("/report/:fepkId", createReport);
@@ -145,5 +150,8 @@ router.post("/refuseRequest", refuseRequests);
 
 // Transfer epk ownership
 router.put("/:epkId/transfer", transferEpkOwnership);
+
+//delete media files from s3 
+router.post("/deleteMediaBatch", authUser, deleteFepkMediaBatch);
 
 export default router;

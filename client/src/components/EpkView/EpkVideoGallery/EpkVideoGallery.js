@@ -1,232 +1,383 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, faPlay, faXmark, faTrashCan, faPenToSquare, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import ActionPlaceholder from "../../common/ActionPlaceholder";
+import VideoModal from "./VideoModal";
+import { useSelector } from "react-redux";
+import { uploadSingleFile } from "../../../api/epks";
 
 const CATEGORIES = [
-  { key: "trailers", label: "Trailers" },
-  { key: "behind", label: "Behind The Scene" },
-  { key: "interviews", label: "Interviews" },
-  { key: "premieres", label: "Premieres" },
+  { key: "trailers", label: "Trailers", mobileLabel: "Trailers" },
+  { key: "behind", label: "Behind The Scene", mobileLabel: "BTS" },
+  { key: "interviews", label: "Interviews", mobileLabel: "Interviews" },
+  { key: "premieres", label: "Premieres", mobileLabel: "Premieres" },
 ];
 
-export default function EpkTrailer({ epkInfo }) {
+const dataURLtoFile = (dataurl, filename) => {
+  let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+  bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  while(n--){ u8arr[n] = bstr.charCodeAt(n); }
+  return new File([u8arr], filename, {type:mime});
+}
+
+export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkMediaForDeletion }) {
   const { t } = useTranslation();
+  const user = useSelector((state) => state.user);
+  
   const [activeCategory, setActiveCategory] = useState("trailers");
+  const sliderRef = useRef(null);
 
-  // Modal state
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [playingVideo, setPlayingVideo] = useState(null);
+  const [activeOverlay, setActiveOverlay] = useState(null);
 
-  // Normalize backend data & handle old database backward compatibility
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [videoToDelete, setVideoToDelete] = useState(null);
+
+  const [modalVideo, setModalVideo] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const albums = useMemo(() => {
     const vg = epkInfo?.video_gallery || {};
-    let fallbackTrailers = vg.trailers || [];
-
-    // FAILSAFE: If no new video gallery exists, but old trailer_url exists, fake an array
-    if (fallbackTrailers.length === 0 && epkInfo?.trailer_url) {
-        fallbackTrailers = [{
-            url: epkInfo.trailer_url,
-            title: "Official Trailer",
-            thumbnail: epkInfo.banner_url || (epkInfo.banners?.length > 0 ? epkInfo.banners[0].url : "")
-        }];
+    const trailers = [...(vg.trailers || [])];
+    
+    if (epkInfo?.trailer_url && !trailers.some(t => t.url === epkInfo.trailer_url)) {
+        trailers.unshift({ url: epkInfo.trailer_url, title: "Official Trailer", thumbnail: epkInfo?.banner_url || '', blur: false });
+    }
+    if (epkInfo?.trailer && !trailers.some(t => t.url === epkInfo.trailer)) {
+        trailers.unshift({ url: epkInfo.trailer, title: "Legacy Trailer", thumbnail: '', blur: false });
     }
 
     return {
-      trailers: fallbackTrailers,
+      trailers,
       behind: vg.behind || [],
       interviews: vg.interviews || [],
       premieres: vg.premieres || [],
     };
   }, [epkInfo]);
 
-  const videos = albums[activeCategory];
-  const enableScroll = videos.length > 2;
+  const videos = albums[activeCategory] || [];
 
-  const openModal = (index) => {
-    setSelectedIndex(index);
-    setIsOpen(true);
+  const handleScroll = (dir) => {
+    if (sliderRef.current) {
+      const scrollAmount = 420 + 32;
+      sliderRef.current.scrollBy({ left: dir === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
   };
 
-  const closeModal = () => setIsOpen(false);
-
-  const prev = (e) => {
-    if(e) e.stopPropagation();
-    setSelectedIndex((i) => (i - 1 + videos.length) % videos.length);
-  };
-
-  const next = (e) => {
-    if(e) e.stopPropagation();
-    setSelectedIndex((i) => (i + 1) % videos.length);
-  };
-
-  // Keyboard support (ESC, arrows) + lock body scroll
   useEffect(() => {
-    if (!isOpen) return;
+    setActiveOverlay(null);
+  }, [activeCategory, isEditMode]);
 
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") closeModal();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    };
+  const handleModalSave = async (editData) => {
+    setModalVideo(null); 
 
-    document.addEventListener("keydown", onKeyDown);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    if (editData.videoFile) setIsUploading(true);
 
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = prevOverflow;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, videos.length]);
+    try {
+      let finalVideoUrl = editData.originalUrl;
+      let finalThumbUrl = editData.newThumbnailUrl || null;
 
-  // Close modal if category changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [activeCategory]);
+      if (editData.videoFile) {
+        finalVideoUrl = await uploadSingleFile(editData.videoFile, user?.token);
+      }
 
-  const selected = videos && videos.length > 0 ? videos[selectedIndex] : null;
+      if (editData.customThumbnailFile) {
+        finalThumbUrl = await uploadSingleFile(editData.customThumbnailFile, user?.token);
+      } else if (editData.extractedBase64) {
+        const file = dataURLtoFile(editData.extractedBase64, 'thumbnail.jpg');
+        finalThumbUrl = await uploadSingleFile(file, user?.token);
+      }
+
+      const newGallery = { ...epkInfo.video_gallery };
+      const currentArray = [...(newGallery[editData.category] || [])];
+
+      if (editData.videoFile) {
+        currentArray.push({
+          url: finalVideoUrl,
+          title: editData.newTitle,
+          thumbnail: finalThumbUrl,
+          blur: false
+        });
+      } else {
+        const index = currentArray.findIndex(v => v.url === editData.originalUrl);
+        if (index > -1) {
+          currentArray[index] = {
+            ...currentArray[index],
+            title: editData.newTitle,
+            thumbnail: finalThumbUrl || currentArray[index].thumbnail
+          };
+        }
+      }
+      
+      newGallery[editData.category] = currentArray;
+      onChange("video_gallery", newGallery);
+      if (editData.category !== activeCategory) setActiveCategory(editData.category);
+
+      if (editData.isTrailer) {
+        onChange("trailer_url", finalVideoUrl);
+        if (finalThumbUrl) onChange("banner_url", finalThumbUrl);
+      }
+
+      if (editData.videoFile) setTimeout(() => handleScroll('right'), 300);
+
+    } catch (err) {
+      console.error("Failed to save video assets:", err);
+      setErrorMessage("There was an error saving your video. Please check your connection and try again.");
+      setErrorModalOpen(true);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleDeleteClick = (e, item) => {
+    e.stopPropagation();
+
+    if (item.url === epkInfo.trailer_url || item.url === epkInfo.trailer) {
+      setErrorMessage("This video is currently set as your Main Trailer! You must set a different video as your main trailer before you can delete this file.");
+      setErrorModalOpen(true);
+      return; 
+    }
+
+    setVideoToDelete(item);
+    setDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!videoToDelete) return;
+    
+    const newGallery = { ...epkInfo.video_gallery };
+    newGallery[activeCategory] = (newGallery[activeCategory] || []).filter(v => v.url !== videoToDelete.url);
+    onChange("video_gallery", newGallery);
+    
+    if (onMarkMediaForDeletion) onMarkMediaForDeletion(videoToDelete.url);
+    
+    setActiveOverlay(null);
+    setDeleteModalOpen(false);
+    setVideoToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setDeleteModalOpen(false);
+    setVideoToDelete(null);
+  };
 
   return (
-    <section className="tw-my-16 tw-block tw-w-full">
-      {/* Title */}
-      <h2 className="tw-mb-6 tw-text-center tw-text-xl tw-font-bold tw-text-white sm:tw-text-2xl tw-uppercase tracking-wide">
-        VIDEO GALLERY
-      </h2>
-
-      <div className="tw-rounded-[15px] tw-bg-white tw-p-2 sm:tw-p-5 tw-max-w-[1400px] tw-mx-auto">
-        <div className="tw-rounded-[15px] tw-bg-gradient-to-b tw-from-[#1E0039] tw-to-[#712CB0] tw-py-4 tw-px-4 md:tw-py-8 md:tw-px-8 ">
+    <div className="tw-bg-[#1E0039] tw-w-full tw-pb-12 md:tw-pb-20">
+      <div className="tw-w-full tw-max-w-[1440px] tw-mx-auto tw-flex tw-flex-col tw-px-4 lg:tw-px-16 tw-gap-12">
+        
+        <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-[24px] tw-p-6 md:tw-p-8 lg:tw-p-12 tw-flex tw-flex-col tw-gap-8 md:tw-gap-12">
           
-          {/* Category Tabs */}
-          <ul
-            className="tw-mx-auto tw-flex tw-justify-between tw-rounded-[10px] md:tw-rounded-[25px] tw-border-[2px]
-              tw-border-[#1E0039] tw-bg-[#ECF0F1] tw-p-[1px] md:tw-p-[2px] sm:tw-w-3/4 sm:tw-mt-8"
-          >
-            {CATEGORIES.map((cat) => (
-              <li
-                key={cat.key}
-                className="tw-w-1/4 tw-h-full"
-              >
-                <button
-                  type="button"
-                  onClick={() => setActiveCategory(cat.key)}
-                  className={`tw-w-full tw-h-full tw-rounded-[8px] md:tw-rounded-[23px] sm:tw-text-xl tw-text-[8.5px] md:tw-font-bold tw-p-[6px] md:tw-py-2 tw-transition-colors ${
-                    activeCategory === cat.key
-                      ? "tw-bg-gradient-to-r tw-from-[#FF00A0] tw-to-[#1E0039] tw-text-white"
-                      : "tw-text-[#1E0039] hover:tw-bg-gray-200"
-                  }`}
-                >
-                  {t(`${cat.label}`)}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="tw-flex tw-flex-col lg:tw-flex-row lg:tw-items-end tw-gap-6 lg:tw-justify-between">
+            <h2 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">{t("Video Gallery")}</h2>
+            
+            <div className="tw-w-full lg:tw-w-auto tw-overflow-x-auto custom-scrollbar tw-pb-2 md:tw-pb-0">
+              <div className="tw-flex tw-flex-nowrap md:tw-flex-wrap tw-gap-2 md:tw-gap-3">
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.key}
+                    onClick={() => setActiveCategory(cat.key)}
+                    className={`tw-px-4 md:tw-px-6 tw-py-2 tw-rounded-full tw-font-['Space_Grotesk'] tw-text-[11px] md:tw-text-sm tw-font-bold tw-transition-all tw-border-none tw-cursor-pointer tw-whitespace-nowrap ${
+                      activeCategory === cat.key
+                        ? "tw-bg-[#FF43A7] tw-text-[#570033] tw-shadow-[0_0_15px_rgba(255,67,167,0.4)]"
+                        : "tw-bg-[#371E51] tw-text-[#F0DBFF] hover:tw-bg-[#5A3F49]"
+                    }`}
+                  >
+                    <span className="md:tw-hidden">{t(cat.mobileLabel)}</span>
+                    <span className="tw-hidden md:tw-inline">{t(cat.label)}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
 
-          {/* Video Gallery Wrapper */}
-          <div className="tw-overflow-visible tw-mt-10 md:tw-mt-16">
-            {videos.length === 0 ? (
-              <div className="tw-flex tw-h-[300px] tw-items-center tw-justify-center">
-                <p className="tw-text-sm tw-text-white/70">
-                  No videos available in this category yet.
-                </p>
-              </div>
-            ) : (
-              <div
-                className={`
-                  ${enableScroll ? "custom-scrollbar tw-overflow-y-auto tw-pr-2" : ""}
-                  ${enableScroll ? "tw-h-[clamp(300px,60vh,800px)] tw-min-h-[300px]" : ""}
-                `}
-              >
-                {/* GRID: 1 column on mobile, 2 columns on desktop to fit 16:9 ratios */}
-                <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-8 md:tw-gap-12 md:tw-pt-4 tw-pt-2 tw-max-w-[1000px] tw-mx-auto">
-                  {videos.map((vid, index) => (
-                    <div key={index} className="tw-flex tw-flex-col tw-items-center">
-                        <button
-                        type="button"
-                        onClick={() => openModal(index)}
-                        className="tw-relative tw-w-full tw-aspect-video tw-overflow-hidden tw-rounded-[16px] md:tw-rounded-[24px] tw-shadow-[0_8px_30px_rgba(0,0,0,0.5)] tw-group tw-transition-transform hover:tw-scale-[1.03]"
-                        >
-                            {/* Video Thumbnail */}
-                            <img
-                                src={vid.thumbnail ? `${process.env.REACT_APP_AWS_URL}/${vid.thumbnail}` : 'https://via.placeholder.com/800x450/1E0039/FFFFFF?text=Video'}
-                                alt={vid.title || "Video thumbnail"}
-                                className="tw-h-full tw-w-full tw-object-cover"
-                                loading="lazy"
-                            />
-                            
-                            {/* Play Button Overlay */}
-                            <div className="tw-absolute tw-inset-0 tw-bg-black/30 group-hover:tw-bg-black/10 tw-transition-colors tw-flex tw-items-center tw-justify-center">
-                                <div className="tw-w-16 tw-h-16 md:tw-w-20 md:tw-h-20 tw-rounded-full tw-border-[3px] tw-border-white tw-flex tw-items-center tw-justify-center tw-bg-white/20 tw-backdrop-blur-sm group-hover:tw-scale-110 tw-transition-transform">
-                                    <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-2xl md:tw-text-3xl tw-ml-1.5" />
-                                </div>
-                            </div>
-                        </button>
-                        
-                        {/* Video Title */}
-                        <p className="tw-mt-4 tw-text-white tw-font-medium tw-text-sm md:tw-text-base tw-text-center">
-                            {vid.title || "Untitled Video"}
-                        </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          <div className="tw-relative tw-w-full">
+            {(videos.length > 0 || isEditMode) && (
+              <>
+                <button onClick={() => handleScroll('left')} className="tw-hidden md:tw-flex tw-absolute tw--left-6 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-rounded-full tw-bg-[#1E0039]/80 tw-border tw-border-[#FF00A0]/30 tw-text-[#FF00A0] hover:tw-shadow-[0_0_15px_rgba(255,0,160,0.3)] tw-transition-all tw-cursor-pointer">
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                <button onClick={() => handleScroll('right')} className="tw-hidden md:tw-flex tw-absolute tw--right-6 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-rounded-full tw-bg-[#1E0039]/80 tw-border tw-border-[#FF00A0]/30 tw-text-[#FF00A0] hover:tw-shadow-[0_0_15px_rgba(255,0,160,0.3)] tw-transition-all tw-cursor-pointer">
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </>
             )}
+
+            <div 
+              ref={sliderRef}
+              className="tw-flex tw-items-stretch tw-gap-4 md:tw-gap-6 tw-overflow-x-auto tw-snap-x tw-snap-mandatory tw-pb-4 [&::-webkit-scrollbar]:tw-hidden"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {isEditMode && (
+                <div className="tw-shrink-0 tw-snap-center">
+                  {isUploading ? (
+                    <div className="tw-w-[260px] md:tw-w-[420px] tw-h-full tw-min-h-[146px] md:tw-min-h-[240px] tw-bg-[#FF43A7]/5 tw-border-2 tw-border-dashed tw-border-[#FF43A7]/40 tw-rounded-[16px] md:tw-rounded-[12px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4">
+                      <FontAwesomeIcon icon={faSpinner} className="tw-text-[#FF43A7] tw-text-2xl tw-animate-spin" />
+                      <span className="tw-text-[#FF43A7] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">Uploading Video...</span>
+                    </div>
+                  ) : (
+                    <ActionPlaceholder 
+                      variant="video" 
+                      title={`Add ${CATEGORIES.find(c=>c.key===activeCategory).mobileLabel}`}
+                      onClick={() => setModalVideo({ isNewUpload: true, category: activeCategory })}
+                    />
+                  )}
+                </div>
+              )}
+
+              {videos.map((item, idx) => (
+                <div 
+                  key={idx} 
+                  onClick={() => {
+                    if (isEditMode) {
+                      setActiveOverlay(activeOverlay === idx ? null : idx);
+                    } else {
+                      setPlayingVideo(item);
+                    }
+                  }}
+                  onMouseLeave={() => isEditMode && setActiveOverlay(null)}
+                  className="tw-shrink-0 tw-snap-center tw-relative tw-w-[260px] md:tw-w-[420px] tw-h-[146px] md:tw-h-[240px] tw-bg-[#190033] tw-rounded-xl tw-overflow-hidden tw-group tw-cursor-pointer"
+                >
+                  <div className="tw-absolute tw-inset-0">
+                    {item.thumbnail ? (
+                      <img src={item.thumbnail?.startsWith('http') ? item.thumbnail : `${process.env.REACT_APP_AWS_URL}/${item.thumbnail}`} alt="Thumb" className="tw-w-full tw-h-full tw-object-cover tw-opacity-60 group-hover:tw-scale-105 tw-transition-transform tw-duration-500" />
+                    ) : (
+                      <video src={item.url?.startsWith('http') ? item.url : `${process.env.REACT_APP_AWS_URL}/${item.url}`} className="tw-w-full tw-h-full tw-object-cover tw-opacity-50" />
+                    )}
+                  </div>
+                  
+                  {isEditMode && (
+                    <>
+                      {/* DESKTOP UI: Top Right Buttons (Always active on hover) */}
+                      <div className="tw-hidden md:tw-flex tw-absolute tw-top-3 tw-right-3 tw-gap-2 tw-z-20 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity tw-duration-300">
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); setModalVideo(item); setActiveOverlay(null); }}
+                          title="Edit Video Details"
+                          className="tw-w-10 tw-h-10 tw-bg-black/80 hover:tw-bg-[#FF43A7] tw-rounded-full tw-flex tw-items-center tw-justify-center tw-text-white tw-border-none tw-cursor-pointer tw-transition-colors tw-shadow-lg"
+                        >
+                          <FontAwesomeIcon icon={faPenToSquare} className="tw-text-sm" />
+                        </button>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); handleDeleteClick(e, item); setActiveOverlay(null); }}
+                          title="Delete Video"
+                          className="tw-w-10 tw-h-10 tw-bg-black/80 hover:tw-bg-red-600 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-text-red-500 hover:tw-text-white tw-border-none tw-cursor-pointer tw-transition-colors tw-shadow-lg"
+                        >
+                          <FontAwesomeIcon icon={faTrashCan} className="tw-text-sm" />
+                        </button>
+                      </div>
+
+                      {/* MOBILE UI: Split Screen Buttons (Locked by pointer-events until tapped) */}
+                      <div className={`tw-flex md:tw-hidden tw-absolute tw-inset-0 tw-z-20 tw-transition-opacity tw-duration-300 tw-rounded-xl tw-overflow-hidden ${activeOverlay === idx ? 'tw-opacity-100 tw-pointer-events-auto' : 'tw-opacity-0 tw-pointer-events-none'}`}>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); setModalVideo(item); setActiveOverlay(null); }}
+                          className="tw-flex-1 tw-h-full tw-bg-black/70 tw-backdrop-blur-sm tw-border-none tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-text-white tw-border-r tw-border-white/10 active:tw-bg-[#FF43A7]/80 tw-transition-colors tw-cursor-pointer"
+                        >
+                          <FontAwesomeIcon icon={faPenToSquare} className="tw-text-2xl tw-mb-1" />
+                          <span className="tw-font-['Space_Grotesk'] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Edit</span>
+                        </button>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); handleDeleteClick(e, item); setActiveOverlay(null); }}
+                          className="tw-flex-1 tw-h-full tw-bg-red-500/80 tw-backdrop-blur-sm tw-border-none tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-text-white active:tw-bg-red-600 tw-transition-colors tw-cursor-pointer"
+                        >
+                          <FontAwesomeIcon icon={faTrashCan} className="tw-text-2xl tw-mb-1" />
+                          <span className="tw-font-['Space_Grotesk'] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Delete</span>
+                        </button>
+                      </div>
+                    </>
+                  )}
+
+                  {!isEditMode && (
+                    <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-pointer-events-none tw-transition-opacity tw-duration-300 tw-opacity-100">
+                       <div className="tw-w-12 tw-h-12 md:tw-w-16 md:tw-h-16 tw-rounded-full tw-border-2 tw-border-white/50 tw-flex tw-items-center tw-justify-center tw-backdrop-blur-sm group-hover:tw-border-white tw-transition-colors">
+                          <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-lg md:tw-text-xl tw-ml-1" />
+                       </div>
+                    </div>
+                  )}
+
+                  <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-h-[60px] md:tw-h-[76px] tw-bg-gradient-to-t tw-from-[#1E0039] tw-to-transparent tw-p-4 md:tw-p-6 tw-flex tw-items-center tw-gap-2 md:tw-gap-3 tw-pointer-events-none">
+                    <span className="tw-bg-[#FF43A7] tw-text-[#570033] tw-text-[8px] md:tw-text-[10px] tw-font-bold tw-uppercase tw-px-2 tw-py-0.5 tw-rounded">{activeCategory}</span>
+                    <span className="tw-text-white tw-font-bold tw-sm md:tw-text-lg tw-truncate">{item.title || "Video Clip"}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
       </div>
 
-      {/* --- VIDEO PLAYER MODAL --- */}
-      {isOpen && selected && (
-        <div 
-          className="tw-fixed tw-inset-0 tw-z-[100] tw-flex tw-items-center tw-justify-center tw-bg-black/95 tw-p-4" 
-          onClick={closeModal}
-        >
-          <button 
-            className="tw-absolute tw-top-4 tw-right-6 tw-text-white tw-text-5xl hover:tw-text-[#FF00A0] tw-transition-colors tw-z-[101]"
-            onClick={closeModal}
-            aria-label="Close modal"
-          >
-            &times;
-          </button>
+      <VideoModal 
+        isOpen={!!modalVideo} 
+        onClose={() => setModalVideo(null)} 
+        video={modalVideo} 
+        epkInfo={epkInfo} 
+        onSave={handleModalSave} 
+      />
 
-          {videos.length > 1 && (
-            <button
-              type="button"
-              onClick={prev}
-              className="tw-absolute tw-left-2 md:tw-left-8 tw-top-1/2 -tw-translate-y-1/2 tw-z-[101] tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 md:tw-w-14 md:tw-h-14 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 tw-text-white hover:tw-bg-white/30 hover:tw-text-[#FF00A0] tw-transition-all"
-            >
-              <FontAwesomeIcon icon={faChevronLeft} className="tw-text-lg md:tw-text-2xl" />
-            </button>
-          )}
-
-          {/* HTML5 VIDEO PLAYER */}
-          <div className="tw-w-[95vw] md:tw-w-[80vw] tw-max-w-[1200px] tw-aspect-video tw-bg-black tw-rounded-xl tw-overflow-hidden tw-shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <video 
-                key={selected.url} 
-                className="tw-w-full tw-h-full tw-outline-none" 
-                controls 
-                autoPlay 
-                playsInline
-                poster={selected.thumbnail ? `${process.env.REACT_APP_AWS_URL}/${selected.thumbnail}` : ''}
-            >
-                <source src={`${process.env.REACT_APP_AWS_URL}/${selected.url}`} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
+      {/* CUSTOM DELETE CONFIRMATION MODAL */}
+      {deleteModalOpen && (
+        <div className="tw-fixed tw-inset-0 tw-z-[10000] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
+          <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">Delete Video?</h3>
+            <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8 tw-leading-relaxed">
+              Are you sure you want to remove <strong className="tw-text-white">{videoToDelete?.title || "this video"}</strong> from your EPK? It will be permanently deleted when you save your changes.
+            </p>
+            <div className="tw-flex tw-justify-end tw-gap-4">
+              <button 
+                onClick={cancelDelete}
+                className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-[#5A3F49] tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-bg-white/5 tw-transition-colors tw-cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmDelete}
+                className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer"
+              >
+                Delete
+              </button>
+            </div>
           </div>
-
-          {videos.length > 1 && (
-            <button
-              type="button"
-              onClick={next}
-              className="tw-absolute tw-right-2 md:tw-right-8 tw-top-1/2 -tw-translate-y-1/2 tw-z-[101] tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 md:tw-w-14 md:tw-h-14 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 tw-text-white hover:tw-bg-white/30 hover:tw-text-[#FF00A0] tw-transition-all"
-            >
-              <FontAwesomeIcon icon={faChevronRight} className="tw-text-lg md:tw-text-2xl" />
-            </button>
-          )}
         </div>
       )}
-    </section>
+
+      {/* 🛑 CUSTOM ERROR MODAL */}
+      {errorModalOpen && (
+        <div className="tw-fixed tw-inset-0 tw-z-[10000] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
+          <div className="tw-bg-[#280D41] tw-border tw-border-[#FF43A7]/40 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(255,67,167,0.2)]">
+            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">Action Blocked</h3>
+            <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8 tw-leading-relaxed">
+              {errorMessage}
+            </p>
+            <div className="tw-flex tw-justify-end">
+              <button 
+                onClick={() => setErrorModalOpen(false)}
+                className="tw-px-6 tw-py-2.5 tw-bg-[#FF43A7] hover:tw-bg-[#FF00A0] tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-colors tw-cursor-pointer"
+              >
+                Understood
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* FULLSCREEN VIDEO PLAYER */}
+      {playingVideo && (
+        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/90 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4 tw-cursor-pointer" onClick={() => setPlayingVideo(null)}>
+          <button className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 hover:tw-bg-[#FF43A7] tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-transition-colors tw-flex tw-items-center tw-justify-center tw-shadow-lg" onClick={(e) => { e.stopPropagation(); setPlayingVideo(null); }}>
+            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
+          </button>
+          <div className="tw-w-[95vw] md:tw-w-[80vw] tw-max-w-[1200px] tw-aspect-video tw-bg-black tw-rounded-xl tw-overflow-hidden tw-shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <video 
+                src={playingVideo.url?.startsWith('http') ? playingVideo.url : `${process.env.REACT_APP_AWS_URL}/${playingVideo.url}`} 
+                className="tw-w-full tw-h-full tw-outline-none" 
+                controls autoPlay playsInline
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

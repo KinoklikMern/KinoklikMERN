@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+//TODO: add validation for the required fields for epk save and update, for example, title, genre, production type, status, etc. We can use mongoose pre-save hooks to validate the data before saving it to the database. We can also add validation for the banners and trailers to ensure that they are in the correct format and that the URLs are valid. Additionally, we can add validation for the crew members to ensure that they have the required fields such as name, role, and biography. This will help maintain data integrity and ensure that the EPKs are complete and accurate.
 
 const fepkSchema = mongoose.Schema({
   film_maker: {
@@ -79,6 +80,8 @@ const fepkSchema = mongoose.Schema({
   distributionCo: { type: String },
   productionYear: { type: String },
   durationMin: { type: String },
+ 
+
 
   // Logline
   image_logline: { type: String, default: "" },
@@ -106,7 +109,7 @@ const fepkSchema = mongoose.Schema({
     {
       crewId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "crew",
+        ref: "User",
       },
       epkRole: {
         type: String,
@@ -501,6 +504,8 @@ fepkSchema.post(['find', 'findOne'], function(docs) {
     ensureBackwardCompatibility(docs);
   }
 });
+fepkSchema.index({ "collaborators.user": 1 });
+
 const fepk = mongoose.model("fepk", fepkSchema);
 
 export default fepk;
