@@ -175,7 +175,7 @@ function EpkViewPage() {
       setErrors({}); 
       setPendingDeletes([]); 
     }
-  }, [isEditMode, epkInfo]); 
+  }, [isEditMode, epkInfo, draftEpk]); 
 
   useEffect(() => {
     getFepksById(id).then((res) => {

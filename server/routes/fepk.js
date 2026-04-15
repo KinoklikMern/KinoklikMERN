@@ -120,10 +120,10 @@ router.get("/byTitle/:title", getFepkByTitle);
 router.get("/:id", getFepkbyId);
 
 // Create FEPK
-router.post("/", createFepk);
+router.post("/", authUser, createFepk);
 
 // Modify FEPK
-router.put("/update/:id", updateFepk);
+router.put("/update/:id", authUser, canEditEpk, updateFepk);
 
 // user sends report on the EPK to Film Maker
 router.put("/report/:fepkId", createReport);
@@ -152,6 +152,6 @@ router.post("/refuseRequest", refuseRequests);
 router.put("/:epkId/transfer", transferEpkOwnership);
 
 //delete media files from s3 
-router.post("/deleteMediaBatch", deleteFepkMediaBatch);
+router.post("/deleteMediaBatch", authUser, deleteFepkMediaBatch);
 
 export default router;

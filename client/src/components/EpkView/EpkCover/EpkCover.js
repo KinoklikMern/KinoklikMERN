@@ -6,7 +6,7 @@ import emptyBanner from '../../../images/empty_banner.jpeg';
 import UpdatePosterModal from "./UpdatePosterModal";
 import UpdateBannerModal from "./UpdateBannerModal";
 
-export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {} }) {
+export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [playingView, setPlayingView] = useState(null);
@@ -169,6 +169,13 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
           >
             <img src={displayPoster} alt="Poster" className="tw-w-full tw-h-full tw-object-cover tw-object-center" />
             
+            {/* Validation Badge */}
+            {errors.image_details && isEditMode && (
+              <div className="tw-absolute tw-top-4 tw-left-4 tw-bg-red-500 tw-text-white tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-3 tw-py-1.5 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
+                Cover Required
+              </div>
+            )}
+
             {!isEditMode && (
               <div className="tw-absolute tw-inset-0 tw-bg-black/0 hover:tw-bg-black/20 tw-transition-colors tw-flex tw-items-center tw-justify-center tw-opacity-0 hover:tw-opacity-100">
                 <span className="tw-bg-[#1F0439]/80 tw-backdrop-blur-sm tw-text-white tw-px-4 tw-py-2 tw-rounded-full tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">View Full Poster</span>
@@ -178,7 +185,11 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
             {isEditMode && (
               <div className="tw-absolute tw-inset-0 tw-bg-[#1F0439]/40 tw-backdrop-blur-[1px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-10">
                 <button 
-                  onClick={(e) => { e.stopPropagation(); setIsPosterModalOpen(true); }} 
+                  onClick={(e) => { 
+                    e.stopPropagation(); 
+                    if (clearError) clearError('image_details');
+                    setIsPosterModalOpen(true); 
+                  }} 
                   className="tw-bg-transparent tw-border-none tw-outline-none tw-p-0 tw-m-0 tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[100px] tw-gap-3 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer"
                 >
                   <div className="tw-w-[59px] tw-h-[56px] tw-bg-[#371E51]/80 tw-backdrop-blur-md tw-border tw-border-[#FFB0CF]/20 tw-rounded-full tw-flex tw-items-center tw-justify-center">
@@ -194,6 +205,14 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
           <div className={`tw-relative tw-flex-1 tw-h-full tw-rounded-[10px] tw-overflow-hidden tw-bg-black group tw-transition-all ${
              errors.trailerOrBanner ? 'tw-border-[3px] tw-border-red-500 tw-shadow-[0_0_20px_rgba(239,68,68,0.5)]' : 'tw-shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
           }`}>
+            
+            {/* Validation Badge */}
+            {errors.trailerOrBanner && isEditMode && (
+              <div className="tw-absolute tw-top-4 tw-right-4 tw-bg-red-500 tw-text-white tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-3 tw-py-1.5 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
+                Banner/Trailer Required
+              </div>
+            )}
+
             {playingView === 'desktop' ? (
               <video src={displayTrailer} controls autoPlay onEnded={() => setPlayingView(null)} className="tw-w-full tw-h-full tw-object-contain tw-bg-black" />
             ) : (
@@ -239,7 +258,10 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                       </p>
                       {isEditMode && (
                         <button 
-                          onClick={() => setIsEditingLogline(true)} 
+                          onClick={() => { 
+                            setIsEditingLogline(true); 
+                            if(clearError) clearError('logLine_short'); 
+                          }} 
                           className="tw-bg-[#FF43A7] tw-border-none tw-w-8 tw-h-8 tw-rounded-lg tw-flex tw-items-center tw-justify-center tw-shrink-0 hover:tw-scale-105 tw-transition-transform tw-shadow-md tw-cursor-pointer"
                         >
                           <FontAwesomeIcon icon={faPen} className="tw-text-[#570033] tw-text-sm" />
@@ -251,7 +273,14 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
 
                 {isEditMode && (
                   <div className="tw-absolute tw-inset-0 tw-bg-[#1F0439]/40 tw-backdrop-blur-[1px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-10">
-                    <button onClick={(e) => { e.stopPropagation(); setIsBannerModalOpen(true); }} className="tw-bg-transparent tw-border-none tw-outline-none tw-p-0 tw-m-0 tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[200px] tw-gap-4 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer">
+                    <button 
+                      onClick={(e) => { 
+                        e.stopPropagation(); 
+                        if(clearError) clearError('trailerOrBanner');
+                        setIsBannerModalOpen(true); 
+                      }} 
+                      className="tw-bg-transparent tw-border-none tw-outline-none tw-p-0 tw-m-0 tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[200px] tw-gap-4 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer"
+                    >
                       <div className="tw-w-[72px] tw-h-[66px] tw-bg-[#371E51]/80 tw-backdrop-blur-md tw-border tw-border-[#FFB0CF]/20 tw-rounded-full tw-flex tw-items-center tw-justify-center">
                         <FontAwesomeIcon icon={faVideo} className="tw-text-[#FFB0CF] tw-text-2xl" />
                       </div>
@@ -271,6 +300,13 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
           <div className={`tw-relative tw-w-full tw-h-[250px] tw-rounded-[10px] tw-overflow-hidden tw-bg-black tw-transition-all ${
              errors.trailerOrBanner ? 'tw-border-[3px] tw-border-red-500 tw-shadow-[0_0_15px_rgba(239,68,68,0.5)]' : 'tw-shadow-lg'
           }`}>
+              {/* Validation Badge */}
+              {errors.trailerOrBanner && isEditMode && (
+                <div className="tw-absolute tw-top-4 tw-right-4 tw-bg-red-500 tw-text-white tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-3 tw-py-1.5 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
+                  Required
+                </div>
+              )}
+
               {playingView === 'mobile' ? (
                 <video src={displayTrailer} controls autoPlay onEnded={() => setPlayingView(null)} className="tw-w-full tw-h-full tw-object-contain" />
               ) : (
@@ -291,7 +327,14 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
 
                   {isEditMode && (
                     <div className="tw-absolute tw-inset-0 tw-bg-black/50 tw-flex tw-items-center tw-justify-center tw-z-20">
-                      <button onClick={(e) => { e.stopPropagation(); setIsBannerModalOpen(true); }} className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-6 tw-py-2 tw-rounded-full tw-font-bold tw-text-sm shadow-lg tw-cursor-pointer">
+                      <button 
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          if(clearError) clearError('trailerOrBanner');
+                          setIsBannerModalOpen(true); 
+                        }} 
+                        className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-6 tw-py-2 tw-rounded-full tw-font-bold tw-text-sm shadow-lg tw-cursor-pointer"
+                      >
                         <FontAwesomeIcon icon={faVideo} className="tw-mr-2" />
                         Update Banner
                       </button>
@@ -310,10 +353,27 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
               }`}
               onClick={() => !isEditMode && setExpandedImage(displayPoster)}
             >
+              {/* Validation Badge */}
+              {errors.image_details && isEditMode && (
+                <div className="tw-absolute tw-top-2 tw-left-2 tw-bg-red-500 tw-text-white tw-text-[9px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-2 tw-py-1 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
+                  Required
+                </div>
+              )}
+
               <img src={displayPoster} alt="Mobile Poster" className="tw-h-full tw-min-h-[220px] tw-w-full tw-object-cover tw-object-center" />
+              
               {isEditMode && (
                 <div className="tw-absolute tw-inset-0 tw-bg-black/50 tw-flex tw-items-center tw-justify-center tw-z-20">
-                  <button onClick={(e) => { e.stopPropagation(); setIsPosterModalOpen(true); }} className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-4 tw-py-2 tw-rounded-lg tw-font-bold tw-text-xs shadow-lg tw-cursor-pointer">Edit Poster</button>
+                  <button 
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      if(clearError) clearError('image_details');
+                      setIsPosterModalOpen(true); 
+                    }} 
+                    className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-4 tw-py-2 tw-rounded-lg tw-font-bold tw-text-xs shadow-lg tw-cursor-pointer"
+                  >
+                    Edit Poster
+                  </button>
                 </div>
              )}
             </div>
@@ -355,7 +415,10 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                   </p>
                   {isEditMode && (
                     <button 
-                      onClick={() => setIsEditingLogline(true)} 
+                      onClick={() => { 
+                        setIsEditingLogline(true); 
+                        if(clearError) clearError('logLine_short'); 
+                      }} 
                       className="tw-bg-[#FF43A7] tw-border-none tw-w-8 tw-h-8 tw-rounded-lg tw-flex tw-items-center tw-justify-center tw-shrink-0 hover:tw-scale-105 tw-transition-transform tw-shadow-md tw-cursor-pointer"
                     >
                       <FontAwesomeIcon icon={faPen} className="tw-text-[#570033] tw-text-sm" />

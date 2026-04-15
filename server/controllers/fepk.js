@@ -251,11 +251,15 @@ export const getFollowers = async (req, res) => {
 export const createFepk = async (req, res) => {
   try {
     const fepkToSave = req.body;
+    const userId = (req.user._id || req.user.id).toString();
+    fepkToSave.film_maker = userId;
+
     const title = req.body.title;
     const fepks = await fepk
       .find({ title: { $regex: new RegExp(`^${title}$`, "i") } })
       .where("deleted")
       .equals(false);
+      
     if (fepks.length > 0) {
       res.status(409).json({ error: "Duplicate title!" });
     } else {
@@ -264,7 +268,7 @@ export const createFepk = async (req, res) => {
       res.status(201).json(newFepk);
     }
   } catch (error) {
-    res.json({ error: "Error, no Epk was created!" });
+    res.status(500).json({ error: error.message || "Error, no Epk was created!" });
   }
 };
 
