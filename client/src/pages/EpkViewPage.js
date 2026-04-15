@@ -59,7 +59,8 @@ function EpkViewPage() {
   const detailsRef = useRef(null);
   const synopsisRef = useRef(null);
   const castsRef = useRef(null);     
-  const crewsRef = useRef(null);     
+  const crewsRef = useRef(null);
+  const uniquenesssRef = useRef(null);    
   const mediaRef = useRef(null);     
   const resourcesRef = useRef(null);
   const buzzRef = useRef(null);
@@ -88,6 +89,7 @@ function EpkViewPage() {
         { id: 'cover', ref: coverRef },
         { id: 'details', ref: detailsRef },
         { id: 'synopsis', ref: synopsisRef },
+        { id: 'uniqueness', ref: uniquenesssRef },
         { id: 'casts', ref: castsRef },
         { id: 'crews', ref: crewsRef },
         { id: 'media', ref: mediaRef },
@@ -373,6 +375,8 @@ function EpkViewPage() {
 
           <div ref={synopsisRef}>
             <EpkSynopsis epkInfo={activeData} requestStatus={requestStatus} handler={handleShow} isEditMode={isEditMode} onChange={handleFieldChange} />
+          </div>
+          <div ref={uniquenesssRef}>
             <EpkUniqueness epkInfo={activeData} requestStatus={requestStatus} handler={handleShow} isEditMode={isEditMode} onChange={handleFieldChange} />
           </div>
 
