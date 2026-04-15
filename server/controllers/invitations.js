@@ -2,25 +2,26 @@ import nodemailer from "nodemailer";
 import Invitation from "../models/Invitation.js";
 import invitation from "../models/Invitation.js";
 
+//TODO: fix this file, 534-5.7.9 error from google, responseCode 534
 // create a transporter object using SMTP
-const transport = nodemailer.createTransport({
-  host: "smtp.gmail.com", // replace with your SMTP server address
-  port: 465, // replace with your SMTP server port
-  secure: true, // use SSL
-  auth: {
-    user: "info@kinoklik.ca", // replace with your email address
-    pass: "kzhotugyiukkxjex", // replace with your email password
-  },
-});
+// const transport = nodemailer.createTransport({
+//   host: "smtp.gmail.com", // replace with your SMTP server address
+//   port: 465, // replace with your SMTP server port
+//   secure: true, // use SSL
+//   auth: {
+//     user: "info@kinoklik.ca", // replace with your email address
+//     pass: "kzhotugyiukkxjex", // replace with your email password
+//   },
+// });
 
 // verify connection configuration
-transport.verify(function (error, success) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages");
-  }
-});
+// transport.verify(function (error, success) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("Server is ready to take our messages");
+//   }
+// });
 
 export const saveInvitation = async (req, res) => {
   try {

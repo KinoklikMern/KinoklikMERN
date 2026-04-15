@@ -54,11 +54,14 @@ function App() {
   const [fepkId, setFepkId] = useState([]);
   const [fepkMaker, setFepkMaker] = useState([]);
   const [filterQuery, setFilterQuery] = useState([]);
+  const [epkCollaborators, setEpkCollaborators] = useState([]);
   const fepkToProvider = {
     fepkId,
     setFepkId,
     fepkMaker,
     setFepkMaker,
+    epkCollaborators,
+    setEpkCollaborators,
     filterQuery,
     setFilterQuery,
   };

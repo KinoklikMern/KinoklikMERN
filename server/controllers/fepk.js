@@ -1,5 +1,5 @@
 import fepk from "../models/fepk.js";
-import { uploadFileToS3 } from "../s3.js";
+import { uploadFileToS3, deleteFilesFromS3} from "../s3.js";
 import User from "../models/User.js";
 
 // fetch all Fepks
@@ -251,11 +251,15 @@ export const getFollowers = async (req, res) => {
 export const createFepk = async (req, res) => {
   try {
     const fepkToSave = req.body;
+    const userId = (req.user._id || req.user.id).toString();
+    fepkToSave.film_maker = userId;
+
     const title = req.body.title;
     const fepks = await fepk
       .find({ title: { $regex: new RegExp(`^${title}$`, "i") } })
       .where("deleted")
       .equals(false);
+      
     if (fepks.length > 0) {
       res.status(409).json({ error: "Duplicate title!" });
     } else {
@@ -264,7 +268,7 @@ export const createFepk = async (req, res) => {
       res.status(201).json(newFepk);
     }
   } catch (error) {
-    res.json({ error: "Error, no Epk was created!" });
+    res.status(500).json({ error: error.message || "Error, no Epk was created!" });
   }
 };
 
@@ -1196,6 +1200,49 @@ export const listCollaborators = async (req, res) => {
 
     res.status(200).json(epk.collaborators);
   } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+// Batch delete media files from S3
+export const deleteFepkMediaBatch = async (req, res) => {
+  try {
+    const { epkId, keys } = req.body;
+    
+    if (!keys || keys.length === 0) {
+      return res.status(200).json({ message: "No keys provided for deletion" });
+    }
+
+    const epk = await Fepk.findById(epkId);
+    if (!epk) {
+      return res.status(404).json({ message: "EPK not found" });
+    }
+
+    
+    const protectedKeys = [];
+    if (epk.trailer_url) protectedKeys.push(epk.trailer_url);
+    if (epk.image_details) protectedKeys.push(epk.image_details);
+    if (epk.banners && epk.banners.length > 0) {
+      epk.banners.forEach(b => protectedKeys.push(b.url));
+    }
+
+    const safeKeysToDelete = keys.filter(key => !protectedKeys.includes(key));
+
+    if (safeKeysToDelete.length === 0) {
+      return res.status(200).json({ 
+        message: "Ignored: All requested files are currently protected assets (Trailer/Poster/Banner)." 
+      });
+    }
+
+    const deleteData = await deleteFilesFromS3(safeKeysToDelete);
+    
+    res.status(200).json({
+      message: "Batch delete successful",
+      deleted: deleteData.Deleted,
+      protected: keys.length - safeKeysToDelete.length 
+    });
+
+  } catch (error) {
+    console.error("Batch Delete Error:", error);
     res.status(500).json({ message: error.message });
   }
 };

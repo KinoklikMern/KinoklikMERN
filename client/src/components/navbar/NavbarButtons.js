@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Link, useMatch, useParams } from "react-router-dom";
+import { Link, useMatch, useParams, useLocation} from "react-router-dom";
 import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FepkContext } from "../../context/FepkContext";
 import { useTranslation } from "react-i18next";
 import { getUserById } from "../../api/user";
 import LanguageToggle from "../LanguageToggle";
 import "./NavbarToggle.css";
 
+// Import the new Wizard!
+import CreateEpkWizard from "../Dashboard/Epks/CreateEpkWizard/CreateEpkWizard"; 
+
 function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   const { t } = useTranslation();
-  const { fepkId, fepkMaker } = React.useContext(FepkContext); 
+  const { fepkId, fepkMaker, epkCollaborators } = React.useContext(FepkContext);
   const [picture, setPicture] = useState("");
   const { id: actorId } = useParams();
+  const location = useLocation();
+
+  // Wizard State
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
 
   useEffect(() => {
     if (user?.id) {
@@ -34,10 +41,17 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   const isFilmmaker = !!matchFilmmaker;
   const isActor = !!matchActor;
   const isActorRole = user?.role === "Actor";
+  const isOwner = user?.id === fepkMaker?._id;
+  const isCollaborator = epkCollaborators?.some(
+    (c) => c.user === user?.id || c.user?._id === user?.id
+  );
 
   // Check if current user is the owner of the EPK or Actor profile
-  const canEditFilmmaker = isFilmmaker && user?.id === fepkMaker?._id && fepkId;
+  const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
   const canEditActor = isActor && isActorRole && user?.id === actorId;
+  
+  const isCurrentlyEditing = new URLSearchParams(location.search).get("edit") === "true";
+  const isEpkViewPage = location.pathname.startsWith('/epk/');
 
   return (
     <>
@@ -74,13 +88,31 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
         </div>
       ) : (
         <div className='tw-flex tw-items-center tw-justify-center tw-p-4'>
-          <div className='tw-mx-10 tw-inline-block tw-justify-center'>
-            {/* Edit Icon Logic */}
-            {canEditFilmmaker && (
-              <Link to={`/editFepk/${fepkId}`}>
-                <FontAwesomeIcon icon={faPen} color='white' />
-              </Link>
+          <div className='tw-mx-4 md:tw-mx-8 tw-flex tw-items-center tw-justify-center'>
+            
+            {/* CREATE EPK BUTTON (White & Pink) */}
+            {isEpkViewPage && (
+              <button
+                onClick={() => setIsWizardOpen(true)}
+                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-white hover:tw-bg-gray-100 tw-text-[#FF00A0] tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-border-none tw-cursor-pointer"
+              >
+                <FontAwesomeIcon icon={faPlus} className="tw-text-sm" />
+                <span className="tw-hidden md:tw-inline">Create EPK</span>
+              </button>
             )}
+
+            {/* EDIT EPK BUTTON (Hot Pink) */}
+            {canEditFilmmaker && !isCurrentlyEditing && (
+             <Link 
+               to={`/epk/${fepkId}?edit=true`}
+               className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-no-underline"
+             >
+               <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
+               <span className="tw-hidden md:tw-inline">Edit EPK</span>
+             </Link>
+            )}
+            
+            {/* ACTOR EDIT ICON */}
             {canEditActor && (
               <Link to="/userdashboard/actor">
                 <FontAwesomeIcon icon={faPen} color='white' />
@@ -98,6 +130,9 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
           </div>
         </div>
       )}
+
+      {/* Modal stays hidden in the background until triggered */}
+      <CreateEpkWizard isOpen={isWizardOpen} onClose={() => setIsWizardOpen(false)} />
     </>
   );
 }

@@ -11,6 +11,7 @@ export const authUser = async (req, res, next) => {
     }
     jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
       if (err) {
+        console.log("JWT VERIFY ERROR:", err.message);
         return res.status(400).json({ message: "Invalid Authentification" });
       }
       req.user = user;
