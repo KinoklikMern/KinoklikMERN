@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CustomSelect from './CustomSelect';
 
-export default function EpkProductionDetailsEdit({ epkInfo, onChange }) {
+export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, clearError }) {
   const { t } = useTranslation();
 
   // --- DYNAMIC ARRAYS FOR DROPDOWNS ---
@@ -49,17 +49,22 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange }) {
   return (
     <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-y-8 tw-gap-x-6">
       
-      {/* PRODUCTION YEAR */}
+      {/* PRODUCTION YEAR (Required) */}
       <div className="tw-flex tw-flex-col tw-gap-2">
         <p className="tw-text-[10px] tw-text-[#AA8894] tw-uppercase tw-tracking-widest tw-font-bold">
           {t('Production Year')} <span className="tw-text-[#FF43A7]">*</span>
         </p>
-        <CustomSelect 
-          value={epkInfo?.productionYear || ''} 
-          onChange={(val) => onChange('productionYear', val)} 
-          options={years.map(y => ({ value: y, label: y.toString() }))}
-          placeholder={t('Select Year')}
-        />
+        <div 
+          className={`tw-rounded-lg tw-transition-all ${errors?.productionYear ? 'tw-ring-2 tw-ring-red-500 tw-shadow-[0_0_15px_rgba(239,68,68,0.5)]' : ''}`}
+          onClick={() => clearError && clearError('productionYear')}
+        >
+          <CustomSelect 
+            value={epkInfo?.productionYear || ''} 
+            onChange={(val) => onChange('productionYear', val)} 
+            options={years.map(y => ({ value: y, label: y.toString() }))}
+            placeholder={t('Select Year')}
+          />
+        </div>
       </div>
 
       {/* STUDIO */}
@@ -79,12 +84,17 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange }) {
         <p className="tw-text-[10px] tw-text-[#AA8894] tw-uppercase tw-tracking-widest tw-font-bold">
           {t('Language')} <span className="tw-text-[#FF43A7]">*</span>
         </p>
-        <CustomSelect 
-          value={epkInfo?.language || ''} 
-          onChange={(val) => onChange('language', val)} 
-          options={languageType.map(l => ({ value: l, label: l }))}
-          placeholder="Select Language"
-        />
+        <div 
+          className={`tw-rounded-lg tw-transition-all ${errors?.language ? 'tw-ring-2 tw-ring-red-500 tw-shadow-[0_0_15px_rgba(239,68,68,0.5)]' : ''}`}
+          onClick={() => clearError && clearError('language')}
+        >
+          <CustomSelect 
+            value={epkInfo?.language || ''} 
+            onChange={(val) => onChange('language', val)} 
+            options={languageType.map(l => ({ value: l, label: l }))}
+            placeholder="Select Language"
+          />
+        </div>
       </div>
 
       {/* BUDGET (Required) */}
@@ -92,12 +102,17 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange }) {
         <p className="tw-text-[10px] tw-text-[#AA8894] tw-uppercase tw-tracking-widest tw-font-bold">
           {t('Budget (USD)')} <span className="tw-text-[#FF43A7]">*</span>
         </p>
-        <CustomSelect 
-          value={epkInfo?.budget || ''} 
-          onChange={(val) => onChange('budget', val)} 
-          options={budgetRanges.map(b => ({ value: b, label: b }))}
-          placeholder="Select Budget"
-        />
+        <div 
+          className={`tw-rounded-lg tw-transition-all ${errors?.budget ? 'tw-ring-2 tw-ring-red-500 tw-shadow-[0_0_15px_rgba(239,68,68,0.5)]' : ''}`}
+          onClick={() => clearError && clearError('budget')}
+        >
+          <CustomSelect 
+            value={epkInfo?.budget || ''} 
+            onChange={(val) => onChange('budget', val)} 
+            options={budgetRanges.map(b => ({ value: b, label: b }))}
+            placeholder="Select Budget"
+          />
+        </div>
       </div>
 
       {/* DURATION */}
@@ -139,14 +154,18 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange }) {
         <p className="tw-text-[10px] tw-text-[#AA8894] tw-uppercase tw-tracking-widest tw-font-bold">
           {t('Status')} <span className="tw-text-[#FF43A7]">*</span>
         </p>
-        <CustomSelect 
-          value={epkInfo?.status || ''} 
-          onChange={(val) => onChange('status', val)} 
-          options={movieStatus.map(s => ({ value: s, label: s }))}
-          placeholder="Select Status"
-        />
+        <div 
+          className={`tw-rounded-lg tw-transition-all ${errors?.status ? 'tw-ring-2 tw-ring-red-500 tw-shadow-[0_0_15px_rgba(239,68,68,0.5)]' : ''}`}
+          onClick={() => clearError && clearError('status')}
+        >
+          <CustomSelect 
+            value={epkInfo?.status || ''} 
+            onChange={(val) => onChange('status', val)} 
+            options={movieStatus.map(s => ({ value: s, label: s }))}
+            placeholder="Select Status"
+          />
+        </div>
       </div>
-
 
     </div>
   );

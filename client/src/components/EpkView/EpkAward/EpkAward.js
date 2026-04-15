@@ -1,97 +1,158 @@
 import React, { useState, useRef } from "react";
 import AwardCard from "./AwardCard";
+import ReviewModal from "./ReviewModal";
+import ActionPlaceholder from "../../common/ActionPlaceholder";
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { uploadSingleFile } from "../../../api/epks";
+import { useSelector } from "react-redux";
 
-export default function EpkAward({ epkInfo }) {
+export default function EpkAward({ epkInfo, isEditMode, onChange }) {
   const { t } = useTranslation();
+  const user = useSelector((state) => state.user);
   const scrollRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  // If there are no reviews, don't render the section
-  if (!epkInfo?.reviews || epkInfo.reviews.length === 0) return null;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [editIndex, setEditIndex] = useState(null);
 
-  // Track scroll position to update the mobile dot indicators
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const scrollPosition = scrollRef.current.scrollLeft;
-    // Calculate index based on the first card's width
-    const cardWidth = scrollRef.current.children[0]?.offsetWidth || 300; 
-    const index = Math.round(scrollPosition / cardWidth);
-    setActiveIndex(index);
-  };
+  const reviews = epkInfo?.reviews || [];
 
-  // Desktop navigation arrows
+  if (!isEditMode && reviews.length === 0) return null;
+
   const scrollByAmount = (direction) => {
     if (scrollRef.current) {
-      const cardWidth = scrollRef.current.children[0]?.offsetWidth + 32; // Width + Gap
+      const cardWidth = 340 + 24; 
       scrollRef.current.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
     }
   };
 
+  const handleOpenCreate = () => {
+    setSelectedReview(null);
+    setEditIndex(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEdit = (review, index) => {
+    setSelectedReview(review);
+    setEditIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveReview = async (reviewData) => {
+    try {
+      let finalImageUrl = reviewData.originalUrl;
+
+      if (reviewData.file) {
+        finalImageUrl = await uploadSingleFile(reviewData.file, user?.token);
+      }
+
+      const newReview = {
+        magazine: reviewData.magazine,
+        text: reviewData.text,
+        reviews_url: reviewData.reviews_url,
+        award_logo: finalImageUrl
+      };
+
+      const newReviewsArray = [...reviews];
+
+      if (editIndex !== null) {
+        newReviewsArray[editIndex] = newReview;
+      } else {
+        newReviewsArray.unshift(newReview); 
+      }
+
+      onChange("reviews", newReviewsArray);
+
+    } catch (error) {
+      console.error("Failed to save review:", error);
+      throw error; 
+    }
+  };
+
+  const handleDeleteReview = () => {
+    const newReviewsArray = reviews.filter((r, idx) => idx !== editIndex);
+    onChange("reviews", newReviewsArray); 
+    setIsModalOpen(false);
+  };
+
   return (
-    <section className="tw-w-full tw-my-16 tw-relative">
-      {/* Title */}
-      <div className="tw-text-white tw-flex tw-justify-center tw-mb-8">
-        <h2 className="tw-text-xl sm:tw-text-2xl tw-font-bold tw-text-white tw-uppercase tw-tracking-wide">
+    <section className="tw-relative tw-w-full tw-bg-[#1E0039] tw-py-16 tw-px-4 md:tw-px-16 tw-overflow-hidden">
+      
+      {/* HEADER */}
+      <div className="tw-max-w-[1200px] tw-mx-auto tw-flex tw-flex-col tw-mb-10 md:tw-mb-16 tw-px-4 md:tw-px-0 tw-relative tw-z-10">
+        <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-1">
+          {t("Press & Recognition")}
+        </span>
+        <h2 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-tracking-tight tw-mb-2">
           {t("The Buzz")}
         </h2>
+        {isEditMode && (
+          <p className="tw-text-[#DDB7FF] tw-text-sm md:tw-text-base tw-leading-relaxed tw-max-w-[672px] tw-mt-2 tw-mb-0">
+            Highlight your best press coverage, awards, and reviews. Adding prestigious logos builds instant credibility.
+          </p>
+        )}
       </div>
 
-      {/* Main White Container */}
-      <div className="tw-bg-white tw-rounded-[15px] tw-p-4 sm:tw-p-8 tw-max-w-[1400px] tw-mx-auto tw-relative tw-shadow-xl">
+      {/* CONTAINER */}
+      <div className="tw-bg-white tw-rounded-[15px] tw-p-4 sm:tw-p-8 tw-max-w-[1400px] tw-mx-auto tw-relative tw-shadow-xl tw-z-10">
         
-        {/* Desktop Left Arrow (Only shows if there are enough reviews to scroll) */}
-        {epkInfo.reviews.length > 3 && (
+        {(reviews.length > 3 || (isEditMode && reviews.length > 2)) && (
           <button 
             onClick={() => scrollByAmount(-1)}
-            className="tw-hidden md:tw-flex tw-absolute tw-left-2 tw-top-1/2 -tw-translate-y-1/2 tw-z-10 tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-text-[#1E0039] hover:tw-text-[#FF00A0] tw-transition-colors"
+            className="tw-hidden md:tw-flex tw-absolute tw-left-2 tw-top-1/2 -tw-translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-text-[#1E0039] hover:tw-text-[#FF00A0] tw-transition-colors tw-bg-transparent tw-border-none tw-cursor-pointer"
           >
             <FontAwesomeIcon icon={faChevronLeft} size="2x" />
           </button>
         )}
 
-        {/* Scrollable Container */}
+        {/* Scrollable Area */}
         <div
           ref={scrollRef}
-          onScroll={handleScroll}
-          className="tw-flex tw-flex-nowrap tw-overflow-x-auto tw-snap-x tw-snap-mandatory tw-scroll-smooth tw-gap-6 md:tw-gap-8 tw-px-2 tw-py-4 [&::-webkit-scrollbar]:tw-hidden tw-scrollbar-width-none"
+          /* FIX: Added tw-py-8 and tw-items-center so the cards have plenty of space top and bottom to scale without hitting the clipping boundaries */
+          className="tw-flex tw-items-center tw-flex-nowrap tw-overflow-x-auto tw-snap-x tw-snap-mandatory tw-scroll-smooth tw-gap-6 tw-py-8 tw-px-4 [&::-webkit-scrollbar]:tw-hidden tw-scrollbar-width-none"
         >
-          {epkInfo.reviews.map((award, index) => (
-            <div key={award._id || index} className="tw-shrink-0 tw-snap-center tw-h-full">
-              <AwardCard awardInfo={award} />
+          {isEditMode && (
+            <div className="tw-shrink-0 tw-snap-center">
+              <ActionPlaceholder 
+                variant="press" 
+                title="Add New Press" 
+                onClick={handleOpenCreate} 
+              />
+            </div>
+          )}
+
+          {reviews.map((award, index) => (
+            <div key={award._id || index} className="tw-shrink-0 tw-snap-center">
+              <AwardCard 
+                awardInfo={award} 
+                isEditMode={isEditMode}
+                onEditClick={() => handleOpenEdit(award, index)}
+              />
             </div>
           ))}
         </div>
 
-        {/* Desktop Right Arrow */}
-        {epkInfo.reviews.length > 3 && (
+        {(reviews.length > 3 || (isEditMode && reviews.length > 2)) && (
           <button 
             onClick={() => scrollByAmount(1)}
-            className="tw-hidden md:tw-flex tw-absolute tw-right-2 tw-top-1/2 -tw-translate-y-1/2 tw-z-10 tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-text-[#1E0039] hover:tw-text-[#FF00A0] tw-transition-colors"
+            className="tw-hidden md:tw-flex tw-absolute tw-right-2 tw-top-1/2 -tw-translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-text-[#1E0039] hover:tw-text-[#FF00A0] tw-transition-colors tw-bg-transparent tw-border-none tw-cursor-pointer"
           >
             <FontAwesomeIcon icon={faChevronRight} size="2x" />
           </button>
         )}
 
-        {/* Mobile Dot Indicators */}
-        {epkInfo.reviews.length > 1 && (
-          <div className="tw-flex md:tw-hidden tw-justify-center tw-items-center tw-gap-3 tw-mt-6">
-            {epkInfo.reviews.map((_, i) => (
-              <div
-                key={i}
-                className={`tw-rounded-full tw-transition-all tw-duration-300 ${
-                  activeIndex === i
-                    ? "tw-w-4 tw-h-4 tw-bg-gradient-to-tr tw-from-[#FF00A0] tw-to-[#1E0039]" // Active Dot
-                    : "tw-w-2.5 tw-h-2.5 tw-bg-gray-400" // Inactive Dot
-                }`}
-              />
-            ))}
-          </div>
-        )}
-
       </div>
+
+      <ReviewModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        review={selectedReview}
+        onSave={handleSaveReview}
+        onDelete={handleDeleteReview}
+      />
+
     </section>
   );
 }

@@ -12,6 +12,7 @@ export default function EditNavBar({ activeSection, onSectionClick, onDiscard, o
     { id: 'cover', label: 'Cover & Banners' },
     { id: 'details', label: 'Production Details' },
     { id: 'synopsis', label: 'Synopsis' },
+    { id: 'uniqueness', label: 'Uniqueness' }, // 🛑 ADDED UNIQUENESS HERE
     { id: 'casts', label: 'Casts' },
     { id: 'crews', label: 'Crews' },
     { id: 'media', label: 'Media' },

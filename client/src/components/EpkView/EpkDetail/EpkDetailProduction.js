@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import EpkProductionDetailsEdit from "./EpkProductionDetailsEdit"; 
 
 
-export default function EpkDetailProduction({ epkInfo, isEditMode, onChange }) {
+export default function EpkDetailProduction({ epkInfo, isEditMode, onChange, errors, clearError }) {
   const { t } = useTranslation();
 
   return (
@@ -13,7 +13,12 @@ export default function EpkDetailProduction({ epkInfo, isEditMode, onChange }) {
       
       {isEditMode ? (
         // --- EDIT MODE: Render the Form Component ---
-        <EpkProductionDetailsEdit epkInfo={epkInfo} onChange={onChange} />
+        <EpkProductionDetailsEdit 
+           epkInfo={epkInfo} 
+           onChange={onChange} 
+           errors={errors} 
+           clearError={clearError} 
+        />
       ) : (
         // --- READ-ONLY MODE: Render the Text Grid ---
         <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-y-8 tw-gap-x-6">

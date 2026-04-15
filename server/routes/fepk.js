@@ -41,6 +41,7 @@ import {
   removeCollaborator,
   listCollaborators,
   getMyCollaborations,
+  deleteFepkMediaBatch
 } from "../controllers/fepk.js";
 import { canEditEpk } from "../middleware/canEditEpk.js";
 import { authUser } from "../middleware/auth.js";
@@ -149,5 +150,8 @@ router.post("/refuseRequest", refuseRequests);
 
 // Transfer epk ownership
 router.put("/:epkId/transfer", transferEpkOwnership);
+
+//delete media files from s3 
+router.post("/deleteMediaBatch", deleteFepkMediaBatch);
 
 export default router;

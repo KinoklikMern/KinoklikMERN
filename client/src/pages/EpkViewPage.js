@@ -16,7 +16,7 @@ import DonationModal from '../components/donate/DonationModal';
 import RequestModal from '../components/common/Modals/RequestModal';
 import LoginModal from '../components/common/Modals/LoginModal';
 import NewMessageModal from '../components/common/Modals/NewMessageModal';
-import { getFepksById, updateFepk, uploadSingleFile } from '../api/epks'; 
+import { getFepksById, updateFepk, uploadSingleFile, deleteS3MediaBatch } from '../api/epks'; 
 import { useSelector } from 'react-redux';
 import { FepkContext } from '../context/FepkContext';
 import Banner from '../components/EpkView/EpkBanner/EpkBanner';
@@ -48,8 +48,12 @@ function EpkViewPage() {
   const [activeSection, setActiveSection] = useState('cover');
   const [isSaving, setIsSaving] = useState(false);
 
-  // Error State for Validation
+  const [pendingDeletes, setPendingDeletes] = useState([]);
+  
+  // Validation States
   const [errors, setErrors] = useState({});
+  const [showValidationModal, setShowValidationModal] = useState(false);
+  const [validationTarget, setValidationTarget] = useState(null);
 
   const coverRef = useRef(null);
   const detailsRef = useRef(null);
@@ -132,17 +136,10 @@ function EpkViewPage() {
    const handleClose = (modalType) => {
     if (user) {
       switch (modalType) {
-        case 'message':
-          setShowMessageModal(false);
-          break;
-        case 'request':
-          setShowRequestModal(false);
-          break;
-        case 'wish_to_donate':
-          setShowDonationModal(false); 
-          break;
-        default:
-          break;
+        case 'message': setShowMessageModal(false); break;
+        case 'request': setShowRequestModal(false); break;
+        case 'wish_to_donate': setShowDonationModal(false); break;
+        default: break;
       }
     } else {
       setShowLoginModal(false);
@@ -154,17 +151,10 @@ function EpkViewPage() {
       setShowLoginModal(true);
     } else if (user) {
       switch (modalType) {
-        case 'message':
-          setShowMessageModal(true);
-          break;
-        case 'request':
-          setShowRequestModal(true);
-          break;
-        case 'wish_to_donate':
-          setShowDonationModal(true);
-          break;
-        default:
-          break;
+        case 'message': setShowMessageModal(true); break;
+        case 'request': setShowRequestModal(true); break;
+        case 'wish_to_donate': setShowDonationModal(true); break;
+        default: break;
       }
     } else {
       setShowLoginModal(true);
@@ -183,6 +173,7 @@ function EpkViewPage() {
     if (!isEditMode && draftEpk) {
       setDraftEpk(null);
       setErrors({}); 
+      setPendingDeletes([]); 
     }
   }, [isEditMode, epkInfo]); 
 
@@ -222,20 +213,23 @@ function EpkViewPage() {
   const handleDiscard = () => {
     setDraftEpk(null);
     setErrors({});
+    setPendingDeletes([]); 
     navigate(`/epk/${epkInfo._id}`, { replace: true });
   };
 
+  const handleMarkMediaForDeletion = (mediaKey) => {
+    if (!mediaKey) return;
+    if (mediaKey.startsWith('blob:')) return; 
+    setPendingDeletes(prev => [...prev, mediaKey]);
+  };
+
   const handleSaveAndExit = async () => {
-    //  VALIDATE REQUIRED FIELDS BEFORE SAVING!
     const newErrors = {};
     
-    // Details Section
     if (!draftEpk.productionYear) newErrors.productionYear = true;
     if (!draftEpk.language) newErrors.language = true;
     if (!draftEpk.budget) newErrors.budget = true;
     if (!draftEpk.status) newErrors.status = true;
-
-    // Cover Section (Poster, Logline, Trailer/Banner)
     if (!draftEpk.logLine_short || draftEpk.logLine_short.trim() === "") newErrors.logLine_short = true;
     if (!draftEpk.image_details && !draftEpk.new_poster_file) newErrors.image_details = true;
     
@@ -243,17 +237,18 @@ function EpkViewPage() {
     const hasBanner = (draftEpk.banners && draftEpk.banners.length > 0) || !!draftEpk.banner_url || !!draftEpk.new_banner_file;
     if (!hasTrailer && !hasBanner) newErrors.trailerOrBanner = true;
 
-    // If there are errors, stop the save and auto-scroll
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      alert("Please fill out all required fields.");
       
-      // Scroll to Cover if a cover element is missing, otherwise scroll to details
+      // Determine where to auto-scroll once they close the modal
       if (newErrors.image_details || newErrors.trailerOrBanner || newErrors.logLine_short) {
-        scrollToSection('cover');
+        setValidationTarget('cover');
       } else {
-        scrollToSection('details'); 
+        setValidationTarget('details'); 
       }
+      
+      // Trigger new Modal instead of browser alert
+      setShowValidationModal(true);
       return; 
     }
 
@@ -267,24 +262,13 @@ function EpkViewPage() {
       delete finalDraft.createdAt;
       delete finalDraft.updatedAt;
 
-      if (finalDraft.film_maker && finalDraft.film_maker._id) {
-        finalDraft.film_maker = finalDraft.film_maker._id;
-      }
+      if (finalDraft.film_maker && finalDraft.film_maker._id) finalDraft.film_maker = finalDraft.film_maker._id;
       if (finalDraft.crew && finalDraft.crew.length > 0) {
-        finalDraft.crew = finalDraft.crew.map(member => ({
-          ...member,
-          crewId: member.crewId?._id || member.crewId
-        }));
+        finalDraft.crew = finalDraft.crew.map(member => ({ ...member, crewId: member.crewId?._id || member.crewId }));
       }
-      if (finalDraft.actors && finalDraft.actors.length > 0) {
-        finalDraft.actors = finalDraft.actors.map(actor => actor._id || actor);
-      }
-      if (finalDraft.likes) {
-        finalDraft.likes = finalDraft.likes.map(u => u._id || u);
-      }
-      if (finalDraft.favourites) {
-        finalDraft.favourites = finalDraft.favourites.map(u => u._id || u);
-      }
+      if (finalDraft.actors && finalDraft.actors.length > 0) finalDraft.actors = finalDraft.actors.map(actor => actor._id || actor);
+      if (finalDraft.likes) finalDraft.likes = finalDraft.likes.map(u => u._id || u);
+      if (finalDraft.favourites) finalDraft.favourites = finalDraft.favourites.map(u => u._id || u);
 
       if (finalDraft.new_poster_file) {
         const posterKey = await uploadSingleFile(finalDraft.new_poster_file, user?.token);
@@ -311,9 +295,17 @@ function EpkViewPage() {
       }
 
       await updateFepk(epkInfo._id, finalDraft, user?.token);
+
+      if (pendingDeletes.length > 0) {
+        try {
+          await deleteS3MediaBatch(epkInfo._id, pendingDeletes, user?.token);
+          setPendingDeletes([]); 
+        } catch (s3Error) {
+          console.error("Non-fatal: EPK saved, but failed to delete orphaned S3 files.", s3Error);
+        }
+      }
       
       const freshEpkData = await getFepksById(epkInfo._id);
-      
       setEpkInfo(freshEpkData); 
       setDraftEpk(null);
       setIsEditMode(false); 
@@ -327,19 +319,19 @@ function EpkViewPage() {
     }
   };
 
-  const handleFieldChange = (field, value) => {
-    // clear the specific errors as soon as the user adds the missing data!
+  // The new ClearError function to be passed down
+  const clearError = (field) => {
     setErrors(prev => {
       const newErrs = { ...prev };
-      if (newErrs[field]) delete newErrs[field];
-      
-      // Clear compound errors (e.g. adding a new poster file clears the generic "image_details" error)
+      delete newErrs[field];
       if (['new_poster_file', 'image_details'].includes(field)) delete newErrs.image_details;
       if (['new_trailer_file', 'new_banner_file', 'trailer_url', 'banner_url'].includes(field)) delete newErrs.trailerOrBanner;
-      
       return newErrs;
     });
+  };
 
+  const handleFieldChange = (field, value) => {
+    clearError(field);
     setDraftEpk((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -362,36 +354,20 @@ function EpkViewPage() {
         <div className={`tw-w-11/12 ${isEditMode ? 'tw-mt-[110px]' : ''}`}>
           
           <div ref={coverRef}>
-            <EpkHeader 
-              epkInfo={activeData}
-              setGlobalTotalReach={setGlobalTotalReach}
-              isEditMode={isEditMode}
-              onChange={handleFieldChange}
-            />
-            <EpkCover 
-              epkInfo={activeData} 
-              scrollToPhotos={scrollToPhotos}
-              scrollToVideos={scrollToVideos}
-              isEditMode={isEditMode}
-              onChange={handleFieldChange}
-              errors={errors} // <--- Passed errors to cover!
-            />
+            <EpkHeader epkInfo={activeData} setGlobalTotalReach={setGlobalTotalReach} isEditMode={isEditMode} onChange={handleFieldChange} clearError={clearError} errors={errors} />
+            <EpkCover epkInfo={activeData} scrollToPhotos={scrollToPhotos} scrollToVideos={scrollToVideos} isEditMode={isEditMode} onChange={handleFieldChange} clearError={clearError} errors={errors} />
           </div>
 
-          <EpkSocialAction
-            epkInfo={activeData}
-            handler={handleShow}
-            showDonationModal={showDonationModal}
-            setShowDonationModal={setShowDonationModal}
-            isEditMode={isEditMode}
-          />
+          <EpkSocialAction epkInfo={activeData} handler={handleShow} showDonationModal={showDonationModal} setShowDonationModal={setShowDonationModal} isEditMode={isEditMode} />
           
           <div ref={detailsRef}>
+            {/* PASS ERRORS AND CLEARERROR DOWN TO DETAILS SECTION */}
             <EpkDetail 
               epkInfo={activeData} 
               isEditMode={isEditMode} 
               onChange={handleFieldChange} 
               errors={errors} 
+              clearError={clearError}
             />
           </div>
 
@@ -401,54 +377,75 @@ function EpkViewPage() {
           </div>
 
           <div ref={castsRef}>
-            <EpkCast 
-              epkInfo={activeData} 
-              isEditMode={isEditMode} 
-              onChange={handleFieldChange} 
-            />
+            <EpkCast epkInfo={activeData} isEditMode={isEditMode} onChange={handleFieldChange} />
           </div>
 
           <div ref={crewsRef}>
-            <EpkWorker 
-              epkInfo={activeData} 
-              isEditMode={isEditMode} 
-              onChange={handleFieldChange} 
-            />
+            <EpkWorker epkInfo={activeData} isEditMode={isEditMode} onChange={handleFieldChange} />
           </div>
           
           <div ref={mediaRef}>
             <div ref={photoOnlyRef}>
-              <EpkPhotoGallery epkInfo={activeData} isEditMode={isEditMode} />
+              <EpkPhotoGallery epkInfo={activeData} isEditMode={isEditMode} onChange={handleFieldChange} onMarkMediaForDeletion={handleMarkMediaForDeletion} />
             </div>
             <div ref={videoOnlyRef}>
-              <EpkVideoGallery epkInfo={activeData} isEditMode={isEditMode} />
+              <EpkVideoGallery epkInfo={activeData} isEditMode={isEditMode} onChange={handleFieldChange} onMarkMediaForDeletion={handleMarkMediaForDeletion} />
             </div>
           </div>
           
           <div ref={resourcesRef}>
-            <EpkResources epkInfo={activeData} isEditMode={isEditMode} />
+            <EpkResources epkInfo={activeData} isEditMode={isEditMode} onChange={handleFieldChange} />
           </div>
           
           <div ref={buzzRef}>
-            <EpkAward epkInfo={activeData} isEditMode={isEditMode} />
+            <EpkAward epkInfo={activeData} isEditMode={isEditMode} onChange={handleFieldChange} />
           </div>
           
-          {showRequestModal && (
-            <RequestModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>
-          )}
-          {showLoginModal && (
-            <LoginModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>
-          )}
-          {showMessageModal && (
-            <NewMessageModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>
-          )}
-          {showDonationModal && (
-            <DonationModal isOpen={showDonationModal} onRequestClose={() => setShowDonationModal(false)} epkId={epkInfo._id} userId={user.id} epkImage={posterImage} epkDonatePayPal={epkInfo.DonatePayPal_url} epkDonateStripe={epkInfo.DonateStripe_url} />
-          )}
+          {showRequestModal && <RequestModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>}
+          {showLoginModal && <LoginModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>}
+          {showMessageModal && <NewMessageModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>}
+          {showDonationModal && <DonationModal isOpen={showDonationModal} onRequestClose={() => setShowDonationModal(false)} epkId={epkInfo._id} userId={user.id} epkImage={posterImage} epkDonatePayPal={epkInfo.DonatePayPal_url} epkDonateStripe={epkInfo.DonateStripe_url} />}
 
           <EpkSalesCalculator globalTotalReach={globalTotalReach} />
           <Banner />
         </div>
+
+        {/* --- CUSTOM VALIDATION ERROR MODAL --- */}
+        {showValidationModal && (
+          <div className="tw-fixed tw-inset-0 tw-z-[1060] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
+            <div className="tw-bg-[#280D41] tw-border tw-border-red-500/50 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(239,68,68,0.2)]">
+              <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">
+                Missing Information
+              </h3>
+              <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-6 tw-leading-relaxed">
+                Please complete the following required fields before publishing your EPK:
+              </p>
+              
+              <ul className="tw-list-disc tw-list-inside tw-text-white tw-font-bold tw-text-sm tw-mb-8 tw-space-y-2 tw-bg-[#1E0039] tw-p-4 tw-rounded-xl">
+                {errors.logLine_short && <li className="tw-text-red-400">Logline <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Cover Section)</span></li>}
+                {errors.image_details && <li className="tw-text-red-400">Cover Poster <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Cover Section)</span></li>}
+                {errors.trailerOrBanner && <li className="tw-text-red-400">Trailer or Banner <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Cover Section)</span></li>}
+                {errors.productionYear && <li className="tw-text-red-400">Production Year <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
+                {errors.language && <li className="tw-text-red-400">Language <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
+                {errors.budget && <li className="tw-text-red-400">Budget <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
+                {errors.status && <li className="tw-text-red-400">Status <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
+              </ul>
+
+              <div className="tw-flex tw-justify-end">
+                <button 
+                  onClick={() => {
+                    setShowValidationModal(false);
+                    if (validationTarget) scrollToSection(validationTarget);
+                  }}
+                  className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer"
+                >
+                  Review Fields
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     )
   );

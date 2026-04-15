@@ -280,3 +280,24 @@ export const updateFepk = async (epkId, updatePayload, token) => {
     throw error;
   }
 };
+// Batch delete files from S3 when saving edits
+export const deleteS3MediaBatch = async (epkId, keys, token) => { 
+  if (!keys || keys.length === 0) return { message: "No keys to delete" };
+
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/fepks/delete-media-batch`, 
+      { epkId, keys }, 
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error batch deleting media from S3:", error);
+    throw error;
+  }
+};

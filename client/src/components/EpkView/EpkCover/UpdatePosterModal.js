@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCloudArrowUp, faXmark, faImages } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCloudArrowUp, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) {
   const [selectedOption, setSelectedOption] = useState("library"); // 'library' or 'local'
@@ -11,16 +11,15 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
   const [localPreviewUrl, setLocalPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
 
-  // Pull the current library from the EPK Info
   const libraryImages = epkInfo?.photo_albums?.posters || [];
 
-  // Reset states when modal opens
+  // Automatically select 'local' if library is empty when modal opens
   useEffect(() => {
     if (isOpen) {
-      if (libraryImages.length > 0) {
-        setSelectedOption("library");
-      } else {
+      if (libraryImages.length === 0) {
         setSelectedOption("local");
+      } else {
+        setSelectedOption("library");
       }
     }
   }, [isOpen, libraryImages.length]);
@@ -45,153 +44,136 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
   };
 
   const handleSave = () => {
-    if (selectedOption === 'library' && selectedLibraryImage) {
-      onSave({ type: 'library', data: { image: selectedLibraryImage } });
-    } else if (selectedOption === 'local' && localFile) {
-      onSave({ type: 'local', file: localFile });
+    if (selectedOption === "library" && selectedLibraryImage) {
+      onSave({ type: "library", data: selectedLibraryImage });
+    } else if (selectedOption === "local" && localFile) {
+      onSave({ type: "local", file: localFile });
     }
   };
 
   return (
-    <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
-      <div className="tw-w-full tw-max-w-3xl tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-2xl tw-shadow-[0_20px_50px_rgba(0,0,0,0.5)] tw-overflow-hidden tw-flex tw-flex-col">
+    <div className="tw-fixed tw-inset-0 tw-z-[1050] tw-flex tw-items-center tw-justify-center tw-p-4">
+      {/* Blurred Backdrop */}
+      <div className="tw-absolute tw-inset-0 tw-bg-[#190033]/80 tw-backdrop-blur-sm" onClick={handleClose} />
 
+      {/* Hidden File Input */}
+      <input type="file" ref={fileInputRef} onChange={handleLocalFileSelect} accept="image/png,image/jpeg,image/webp" className="tw-hidden" />
+
+      {/* Modal Container */}
+      <div className="tw-relative tw-w-full tw-max-w-[448px] tw-bg-[#280D41] tw-border tw-border-[#FFB0CF]/10 tw-shadow-[0_20px_40px_rgba(0,0,0,0.4)] tw-rounded-xl tw-overflow-hidden">
+        
         {/* Header */}
-        <div className="tw-flex tw-justify-between tw-items-center tw-px-8 tw-py-6 tw-border-b tw-border-[#371E51]">
-          <h2 className="tw-text-white tw-text-2xl tw-font-bold tw-m-0">Update Poster</h2>
-          <button onClick={handleClose} className="tw-text-[#AA8894] hover:tw-text-[#FF43A7] tw-bg-transparent tw-border-none tw-cursor-pointer tw-transition-colors">
-            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
-          </button>
+        <div className="tw-p-8 tw-pb-4">
+          <p className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-2">Visual Assets</p>
+          <h2 className="tw-text-[#F0DBFF] tw-text-2xl tw-font-bold tw-mb-2">Update Film Cover</h2>
+          <p className="tw-text-[#E2BDC9] tw-text-sm tw-m-0">Select how you want to refresh your project's visual identity.</p>
         </div>
 
-        {/* Tabs */}
-        <div className="tw-flex tw-border-b tw-border-[#371E51] tw-bg-[#190033]/50">
-          <button
+        {/* Body */}
+        <div className="tw-px-8 tw-py-4 tw-flex tw-flex-col tw-gap-4">
+          
+          {/* OPTION 1: Library */}
+          <div 
             onClick={() => setSelectedOption("library")}
-            className={`tw-flex-1 tw-py-4 tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-transition-colors tw-border-none tw-cursor-pointer ${
-              selectedOption === "library"
-                ? "tw-bg-[#371E51]/50 tw-text-[#FF43A7] tw-border-b-2 tw-border-b-[#FF43A7]"
-                : "tw-bg-transparent tw-text-[#AA8894] hover:tw-bg-[#371E51]/30 hover:tw-text-white"
-            }`}
+            className={`tw-cursor-pointer tw-border-2 tw-rounded-xl tw-p-4 tw-transition-all ${selectedOption === "library" ? "tw-bg-[#FF43A7]/10 tw-border-[#FF43A7]" : "tw-bg-[#2C1246] tw-border-[#5A3F49]/50 hover:tw-border-[#FF43A7]/50"}`}
           >
-            <FontAwesomeIcon icon={faImages} className="tw-mr-2" />
-            Media Library
-          </button>
-          <button
-            onClick={() => setSelectedOption("local")}
-            className={`tw-flex-1 tw-py-4 tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-transition-colors tw-border-none tw-cursor-pointer ${
-              selectedOption === "local"
-                ? "tw-bg-[#371E51]/50 tw-text-[#FF43A7] tw-border-b-2 tw-border-b-[#FF43A7]"
-                : "tw-bg-transparent tw-text-[#AA8894] hover:tw-bg-[#371E51]/30 hover:tw-text-white"
-            }`}
-          >
-            <FontAwesomeIcon icon={faCloudArrowUp} className="tw-mr-2" />
-            Upload Custom
-          </button>
-        </div>
+            <div className="tw-flex tw-items-start tw-gap-4">
+              <div className={`tw-w-5 tw-h-5 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-border-2 tw-mt-0.5 tw-shrink-0 ${selectedOption === "library" ? "tw-bg-[#FF43A7] tw-border-[#FF43A7]" : "tw-bg-[#1F0439] tw-border-[#5A3F49]"}`}>
+                {selectedOption === "library" && <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />}
+              </div>
+              <div>
+                <h3 className={`tw-font-bold tw-text-sm tw-m-0 ${selectedOption === "library" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>Choose from existing cover image</h3>
+                <p className="tw-text-[11px] tw-text-[#E2BDC9] tw-uppercase tw-mt-1 tw-mb-0">Browse Studio Library</p>
+              </div>
+            </div>
 
-        {/* Content Area */}
-        <div className="tw-p-8 tw-flex-1 tw-overflow-y-auto tw-min-h-[400px] tw-max-h-[60vh] custom-scrollbar">
-
-          {selectedOption === "library" && (
-            <div className="tw-flex tw-flex-col tw-h-full">
-              {libraryImages.length === 0 ? (
-                <div className="tw-flex-1 tw-flex tw-flex-col tw-items-center tw-justify-center tw-text-[#AA8894] tw-gap-4 tw-py-12">
-                  <div className="tw-w-20 tw-h-20 tw-bg-[#190033] tw-rounded-full tw-flex tw-items-center tw-justify-center">
-                    <FontAwesomeIcon icon={faImages} className="tw-text-3xl tw-opacity-50" />
-                  </div>
-                  <p className="tw-text-center tw-m-0 tw-leading-relaxed">No posters found in your media library.<br/>Any custom posters you upload will be saved here automatically.</p>
-                  <button
-                    onClick={() => setSelectedOption("local")}
-                    className="tw-mt-4 tw-text-[#FF43A7] tw-font-bold tw-uppercase tw-tracking-widest tw-text-xs tw-underline tw-bg-transparent tw-border-none tw-cursor-pointer"
-                  >
-                    Upload a new poster
-                  </button>
-                </div>
-              ) : (
-                <div className="tw-grid tw-grid-cols-2 sm:tw-grid-cols-3 md:tw-grid-cols-4 tw-gap-6">
-                  {libraryImages.map((img, idx) => {
+            {selectedOption === "library" && (
+              <div className="tw-mt-6 tw-w-full">
+                <div className="tw-flex tw-gap-3 tw-overflow-x-auto custom-scrollbar tw-pb-2">
+                  {libraryImages.length > 0 ? libraryImages.map((img, idx) => {
                     const imgUrl = img.image?.startsWith('http') ? img.image : `${process.env.REACT_APP_AWS_URL}/${img.image}`;
-                    const isSelected = selectedLibraryImage === img.image;
-
+                    
                     return (
-                      <div
-                        key={idx}
-                        onClick={() => setSelectedLibraryImage(img.image)}
-                        className={`tw-relative tw-aspect-[2/3] tw-rounded-xl tw-overflow-hidden tw-cursor-pointer tw-border-2 tw-transition-all ${
-                          isSelected ? 'tw-border-[#FF43A7] tw-shadow-[0_0_20px_rgba(255,67,167,0.4)] tw-scale-105' : 'tw-border-transparent hover:tw-border-[#FF43A7]/50'
-                        }`}
+                      <div 
+                        key={idx} 
+                        onClick={(e) => { e.stopPropagation(); setSelectedLibraryImage(img); }}
+                        className={`tw-relative tw-shrink-0 tw-w-[106px] tw-h-[106px] tw-rounded-lg tw-overflow-hidden tw-cursor-pointer ${selectedLibraryImage === img ? "tw-border-2 tw-border-[#FF43A7]" : "tw-border tw-border-[#5A3F49]/30 tw-opacity-60 hover:tw-opacity-100"}`}
                       >
-                        <img src={imgUrl} alt={`Poster ${idx}`} className="tw-w-full tw-h-full tw-object-cover" />
-                        {isSelected && (
-                          <div className="tw-absolute tw-inset-0 tw-bg-[#FF43A7]/20 tw-flex tw-items-center tw-justify-center">
-                            <div className="tw-bg-[#FF43A7] tw-text-white tw-w-10 tw-h-10 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-shadow-lg">
-                              <FontAwesomeIcon icon={faCheck} className="tw-text-lg" />
-                            </div>
+                        <img src={imgUrl} alt="poster option" className="tw-w-full tw-h-full tw-object-cover" />
+                        {selectedLibraryImage === img && (
+                          <div className="tw-absolute tw-top-2 tw-right-2 tw-w-5 tw-h-5 tw-bg-[#FF43A7] tw-rounded-full tw-flex tw-items-center tw-justify-center shadow-lg">
+                            <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />
                           </div>
                         )}
                       </div>
                     );
-                  })}
+                  }) : (
+                    <div className="tw-w-full tw-h-[106px] tw-flex tw-items-center tw-justify-center tw-bg-[#1F0439]/50 tw-rounded-lg tw-border tw-border-dashed tw-border-[#5A3F49]">
+                      <span className="tw-text-xs tw-text-[#E2BDC9]">No existing posters</span>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
+            )}
+          </div>
+
+          {/* OPTION 2: Upload Local */}
+          <div 
+            onClick={() => setSelectedOption("local")}
+            className={`tw-cursor-pointer tw-border-2 tw-rounded-xl tw-p-4 tw-transition-all ${selectedOption === "local" ? "tw-bg-[#FF43A7]/10 tw-border-[#FF43A7]" : "tw-bg-[#2C1246] tw-border-[#5A3F49]/50 hover:tw-border-[#FF43A7]/50"}`}
+          >
+            <div className="tw-flex tw-items-start tw-gap-4">
+              <div className={`tw-w-5 tw-h-5 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-border-2 tw-mt-0.5 tw-shrink-0 ${selectedOption === "local" ? "tw-bg-[#FF43A7] tw-border-[#FF43A7]" : "tw-bg-[#1F0439] tw-border-[#5A3F49]"}`}>
+                {selectedOption === "local" && <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />}
+              </div>
+              <div>
+                <h3 className={`tw-font-bold tw-text-sm tw-m-0 ${selectedOption === "local" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>Update new cover image</h3>
+                <p className="tw-text-[11px] tw-text-[#E2BDC9] tw-uppercase tw-mt-1 tw-mb-0">Upload Local File</p>
+              </div>
             </div>
-          )}
 
-          {selectedOption === "local" && (
-            <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-py-4">
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={handleLocalFileSelect}
-                className="tw-hidden"
-              />
-
-              {!localPreviewUrl ? (
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  className="tw-w-full tw-max-w-xs md:tw-max-w-sm tw-aspect-[2/3] tw-bg-[#190033] tw-border-2 tw-border-dashed tw-border-[#5A3F49] hover:tw-border-[#FF43A7] tw-rounded-2xl tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4 tw-cursor-pointer tw-transition-colors group"
-                >
-                  <div className="tw-w-16 tw-h-16 tw-bg-[#371E51] group-hover:tw-bg-[#FF43A7]/20 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-colors">
-                    <FontAwesomeIcon icon={faCloudArrowUp} className="tw-text-2xl tw-text-[#AA8894] group-hover:tw-text-[#FF43A7]" />
-                  </div>
-                  <div className="tw-text-center tw-px-4">
-                    <p className="tw-text-white tw-font-bold tw-text-lg tw-m-0">Click to upload custom poster</p>
-                    <p className="tw-text-[#AA8894] tw-text-xs tw-mt-2">JPEG or PNG up to 10MB<br/>(Recommended Ratio 2:3)</p>
-                  </div>
-                </div>
-              ) : (
-                <div className="tw-relative tw-w-full tw-max-w-xs md:tw-max-w-sm tw-aspect-[2/3] tw-rounded-2xl tw-overflow-hidden tw-border-2 tw-border-[#FF43A7] tw-shadow-[0_0_25px_rgba(255,67,167,0.3)]">
-                  <img src={localPreviewUrl} alt="Preview" className="tw-w-full tw-h-full tw-object-cover" />
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setLocalPreviewUrl(null); setLocalFile(null); }}
-                    className="tw-absolute tw-top-4 tw-right-4 tw-w-10 tw-h-10 tw-bg-black/60 hover:tw-bg-red-500 tw-rounded-full tw-border-none tw-cursor-pointer tw-flex tw-items-center tw-justify-center tw-transition-colors"
-                  >
-                    <FontAwesomeIcon icon={faXmark} className="tw-text-white tw-text-lg" />
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-
+            {selectedOption === "local" && (
+              <div className="tw-mt-6 tw-w-full">
+                {!localFile ? (
+                   <div onClick={(e) => { e.stopPropagation(); fileInputRef.current.click(); }} className="tw-w-full tw-h-[173px] tw-bg-[#42295C]/40 tw-border-2 tw-border-dashed tw-border-[#FF00A0] tw-rounded-xl tw-flex tw-flex-col tw-items-center tw-justify-center hover:tw-bg-[#42295C]/60 tw-transition-colors">
+                     <div className="tw-w-12 tw-h-12 tw-bg-[#FF43A7]/20 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-mb-4">
+                       <FontAwesomeIcon icon={faCloudArrowUp} className="tw-text-[#FF43A7] tw-text-xl" />
+                     </div>
+                     <p className="tw-text-sm tw-text-[#E2BDC9] tw-text-center tw-px-8 tw-m-0">Drag and drop your cover image here, or <span className="tw-text-[#FF43A7] tw-font-bold">click to browse files</span></p>
+                   </div>
+                ) : (
+                   <div className="tw-relative tw-w-full tw-h-[250px] tw-rounded-xl tw-overflow-hidden tw-border tw-border-[#FF43A7]">
+                      <img src={localPreviewUrl} alt="Preview" className="tw-w-full tw-h-full tw-object-contain tw-bg-black" />
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); setLocalFile(null); setLocalPreviewUrl(null); }} 
+                        className="tw-absolute tw-top-2 tw-right-2 tw-w-8 tw-h-8 tw-bg-black/60 hover:tw-bg-[#FF43A7] tw-rounded-full tw-flex tw-items-center tw-justify-center tw-transition-colors tw-border-none tw-cursor-pointer"
+                      >
+                        <FontAwesomeIcon icon={faXmark} className="tw-text-white" />
+                      </button>
+                   </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Footer */}
-        <div className="tw-px-8 tw-py-6 tw-flex tw-justify-between tw-items-center tw-border-t tw-border-[#371E51] tw-bg-[#190033]/50">
-          <button
-            onClick={handleClose}
-            className="tw-bg-transparent tw-border-none tw-text-[#E2BDC9] tw-text-sm tw-font-bold tw-uppercase tw-tracking-widest hover:tw-text-white tw-transition-colors tw-cursor-pointer"
-          >
-            Cancel
-          </button>
-
-          <button
+        {/* Footer Actions */}
+        <div className="tw-px-8 tw-py-6 tw-flex tw-justify-center tw-gap-4 tw-relative tw-overflow-hidden">
+          <div className="tw-absolute tw--bottom-10 tw--right-10 tw-w-40 tw-h-40 tw-bg-[#FF43A7]/10 tw-blur-[30px] tw-rounded-full tw-pointer-events-none"></div>
+          
+          <button 
             onClick={handleSave}
             disabled={(selectedOption === 'library' && !selectedLibraryImage) || (selectedOption === 'local' && !localFile)}
-            className="tw-px-8 tw-py-3 tw-bg-[#FF43A7] hover:tw-bg-[#ff5cac] tw-text-[#570033] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest tw-rounded-lg tw-border-none tw-cursor-pointer tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-all disabled:tw-opacity-50 disabled:tw-cursor-not-allowed"
+            className="tw-relative tw-z-10 tw-w-[184px] tw-py-3 tw-bg-[#FF43A7] tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] hover:tw-shadow-[0_0_20px_rgba(255,67,167,0.7)] tw-rounded-lg tw-text-[#570033] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest disabled:tw-opacity-50 disabled:tw-cursor-not-allowed tw-border-none tw-cursor-pointer tw-transition-all"
           >
-            Save Selection
+            Save
+          </button>
+          
+          <button 
+            onClick={handleClose} 
+            className="tw-relative tw-z-10 tw-w-[186px] tw-py-3 tw-bg-transparent tw-border tw-border-[#5A3F49] hover:tw-bg-white/5 tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest tw-cursor-pointer tw-transition-colors"
+          >
+            Cancel
           </button>
         </div>
 

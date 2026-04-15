@@ -2,7 +2,7 @@ import React from 'react';
 import EpkDetailCastAndCrew from './EpkDetailCastAndCrew';
 import EpkDetailProduction from './EpkDetailProduction';
 
-export default function EpkDetail({ epkInfo, isEditMode, onChange }) {
+export default function EpkDetail({ epkInfo, isEditMode, onChange, errors, clearError }) {
   return (
     <div className="tw-flex tw-flex-col tw-gap-16 tw-w-full tw-max-w-[1232px] tw-mx-auto tw-py-8">
       
@@ -18,6 +18,8 @@ export default function EpkDetail({ epkInfo, isEditMode, onChange }) {
         epkInfo={epkInfo} 
         isEditMode={isEditMode} 
         onChange={onChange} 
+        errors={errors}
+        clearError={clearError}
       />
 
     </div>

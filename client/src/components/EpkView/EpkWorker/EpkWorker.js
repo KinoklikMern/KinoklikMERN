@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import CastCard from '../EpkCast/CastCard';
 import ActionPlaceholder from '../../common/ActionPlaceholder';
-import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import AddCastCrewModal from '../EpkDetail/AddCastCrewModal';
@@ -16,7 +15,6 @@ const getSafeId = (obj) => {
 };
 
 export default function EpkWorker({ epkInfo, isEditMode, onChange }) {
-  const { t } = useTranslation();
   const sliderRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
