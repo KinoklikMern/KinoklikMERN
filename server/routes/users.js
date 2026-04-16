@@ -4,6 +4,7 @@ import { isValidPassResetToken } from '../middleware/user.js';
 import multer from 'multer';
 import {
   uploadActorProfiles,
+  deleteUserMediaBatch,
   uploadUserMedia,
   actorUploadFiles,
   register,
@@ -116,6 +117,9 @@ router.post(
   upload.array('portfolio', 10), // Allow up to 10 files under the name 'portfolio'
   uploadUserMedia
 );
+
+//delete media from S3
+router.post("user/deleteMediaBatch", authUser, deleteUserMediaBatch);
 
 // final save in actor profiles
 router.put('/actor/files/:id', actorUploadFiles);
