@@ -111,7 +111,7 @@ export default function Actor(props) {
       try {
         // Fetching actor and users data
         const [actorResponse, usersResponse] = await Promise.all([
-          http.get(`/users/getactor/${id}`),
+          http.get(`/users/getuser/${id}`),
           http.get('/users/getallusers'),
         ]);
 

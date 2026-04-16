@@ -219,6 +219,7 @@ const UserSchema = mongoose.Schema({
         url: { type: String, required: true },
         thumbnail: { type: String },
         title: { type: String },
+        isMain: { type: Boolean, default: false }
       }
     ],
     media: [

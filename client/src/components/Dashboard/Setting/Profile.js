@@ -53,7 +53,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (userId === '0') return;
-    Axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/getUser`, { id: userId })
+    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/getuser/${userId}`)
       .then((rs) => {
         setUserProfileData((prev) => ({ ...prev, ...rs.data }));
       })

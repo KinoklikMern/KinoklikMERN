@@ -4,13 +4,12 @@ import { isValidPassResetToken } from '../middleware/user.js';
 import multer from 'multer';
 import {
   uploadActorProfiles,
+  uploadUserMedia,
   actorUploadFiles,
-  getActor,
   register,
   verifyEmail,
   resendEmailVerificationToken,
   login,
-  getUser,
   getProfile,
   logout,
   forgetPassword,
@@ -23,7 +22,6 @@ import {
   getProfileActor,
   getActoStarred,
   getActorFollowing,
-  getActorById,
   getFollowers,
   uploadActorBanner,
   getLikes,
@@ -57,11 +55,13 @@ router.post('/resend-email-verification-token', resendEmailVerificationToken);
 // router.post("/login", login);
 router.post('/login', loginValidator, login);
 router.get('/login', logout);
-router.post('/getuser', getUser);
 router.get('/getProfile/:email', authUser, getProfile);
 
+// get user by id
+router.get('/getuser/:id', getUserById);
+
 // get actor by name
-router.post('/getactor', getActor);
+//router.post('/getactor', getActor);
 
 router.post('/forget-password', forgetPassword);
 router.post(
@@ -89,7 +89,7 @@ router.delete('/deleteAccount/:userId', deleteAccount);
 router.get('/getactors', getProfileActor);
 router.get('/starred/:id', getActoStarred);
 router.get('/followed/:id', getActorFollowing);
-router.get('/getactor/:id', getActorById);
+router.get('/getactor/:id', getUserById);
 router.get('/getfollower/:id', getFollowers);
 router.get('/getfollowing/:id', getFollowingActor);
 router.get('/likes/:id', getLikes);
@@ -111,21 +111,17 @@ router.get('/getallusers', getAllUsers);
 // upload actor banner
 router.post('/actorbanner', upload.single('file'), uploadActorBanner);
 
-// upload profiles
 router.post(
-  '/actor/uploadFiles',
-  upload.fields([{ name: 'file1' }, { name: 'file2' }, { name: 'file3' }]),
-  uploadActorProfiles
+  '/user/uploadFiles',
+  upload.array('portfolio', 10), // Allow up to 10 files under the name 'portfolio'
+  uploadUserMedia
 );
 
 // final save in actor profiles
 router.put('/actor/files/:id', actorUploadFiles);
 
-// get user by id
-router.get('/:id', getUserById);
-
 // get filmmaker
-router.get('/getfilmmaker/:id', getActorById);
+router.get('/getfilmmaker/:id', getUserById);
 
 router.put('/lastactive/:id', updateLastActive);
 router.put('/signupfornewsletter', signupForNewsletter);

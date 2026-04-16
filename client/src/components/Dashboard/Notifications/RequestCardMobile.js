@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import { getUserbyId } from "../../../api/epks";
+import { getUserById } from "../../../api/epks";
 import { Link } from "react-router-dom";
 import { ReactComponent as MessageIcon } from '../../../images/icons/message-icon-2.svg';
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,7 @@ export default function RequestCardMobile({ request, filter, onMessageIconClick,
   const [user, setUser] = useState();
   const [picture, setPicture] = useState();
   useEffect(() => {
-    getUserbyId(request.user).then((res) => {
+    getUserById(request.user).then((res) => {
       setUser(res);
       setPicture(
         user?.picture ===

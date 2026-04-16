@@ -3,7 +3,7 @@ import { validateEmail, validateLength } from '../helpers/validation.js';
 import { generateToken } from '../helpers/tokens.js';
 import bcrypt from 'bcrypt';
 import crypto from "crypto";
-import { uploadFileToS3 } from '../s3.js';
+import { uploadFileToS3, deleteFilesFromS3 } from '../s3.js';
 import PasswordResetToken from '../models/passwordResetToken.js';
 import { generateOTP, generateMailTransport } from '../utils/mail.js';
 import { isValidObjectId } from 'mongoose';
@@ -63,16 +63,16 @@ export const register = async (req, res) => {
     }
 
     // Add the user to mailchimp as a subscriber according to the newsletter options
-    let result = await addSubscriber(
-      email,
-      firstName,
-      lastName,
-      receiveNewsletter
-    );
-    if (result.message) {
-      return res
-        .status(500)
-        .json({ message: result.message, emailExists: false });
+    try {
+      await addSubscriber(
+        normalizedEmail,
+        firstName,
+        lastName,
+        receiveNewsletter
+      );
+    } catch (mailchimpError) {
+      // Log the error so you know it failed, but don't stop the user signup
+      console.error("Mailchimp Sync Failed:", mailchimpError.message);
     }
 
     // Hash the password
@@ -180,6 +180,7 @@ export const verifyEmail = async (req, res) => {
     // const isMatched = await token.compareToken(OTP);
     // if (!isMatched) return sendError(res, "Please submit a valid OTP!");
     user.isVerified = true;
+    user.otp = "";
     await user.save();
 
     //await EmailVerificationToken.findByIdAndDelete(token._id);
@@ -243,7 +244,7 @@ export const resendEmailVerificationToken = async (req, res) => {
       // 1 hour
       return sendError(
         res,
-        'Only after one hour you can request another token!'
+        'Sorry, you must wait one hour to request another token!'
       );
 
     // Generate 6 digit otp
@@ -283,9 +284,6 @@ export const resendEmailVerificationToken = async (req, res) => {
 };
 
 export const login = async (request, response) => {
-  // const email = request.body.email;
-  // const password = request.body.password;
-
   let { email, password } = request.body;
   // Normalize the email to lowercase
   email = email.toLowerCase();
@@ -303,139 +301,66 @@ export const login = async (request, response) => {
           message:
             'The email address you entered is not connected to an account',
         });
-      } else {
-        // const existingToken = await EmailVerificationToken.findOne({
-        //   owner: user._id,
-        // });
-        if (!user.isVerified) {
-          // If the user is not verified, send OTP for verification
+      }
 
-          // Send email using SendGrid's Web API
-          const templateId = 'd-c8d9248b91314639880759cdd5e78448';
-          const sender = 'info@kinoklik.ca';
-          const recipient = user.email;
-          const dynamicTemplateData = {
-            name: user.firstName,
-            otp: user.otp,
-          };
+      const isSame = await bcrypt.compare(password, user.password);
 
-          await sendEmail(templateId, sender, recipient, dynamicTemplateData);
+      if (!isSame) {
+        return response.status(400).json({ message: 'Invalid credentials, please try again' });
+      }
 
-          return response.json({
-            message: 'New OTP has been sent to your registered email account.',
-            user: {
-              id: user._id,
-              email: user.email,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              role: user.role,
-            },
-          });
-        }
-        // if (!user.isVerified && !existingToken) {
-        //   // If the user is not verified and there's no existing token, send OTP for verification
-        //   const OTP = generateOTP(); // Generate OTP
+      if (isSame && !user.isVerified) {
+        // If the user is not verified, send OTP for verification
+        const templateId = 'd-c8d9248b91314639880759cdd5e78448';
+        const sender = 'info@kinoklik.ca';
+        const recipient = user.email;
+        const dynamicTemplateData = {
+          name: user.firstName,
+          otp: user.otp,
+        };
 
-        //   // Store the OTP in the database for verification
-        //   const emailVerificationToken = new EmailVerificationToken({
-        //     owner: user._id,
-        //     token: OTP,
-        //   });
-        //   await emailVerificationToken.save();
+        await sendEmail(templateId, sender, recipient, dynamicTemplateData);
 
-        //   // Send OTP to the user's email
-        //   var transport = generateMailTransport();
-
-        //   transport.sendMail({
-        //     from: "info@kinoklik.ca",
-        //     to: user.email,
-        //     subject: "Email Verification",
-        //     html: `
-        //       <p>Your verification OTP</p>
-        //       <h1>${OTP}</h1>
-        //     `,
-        //   });
-
-        //   return response.json({
-        //     message: "New OTP has been sent to your registered email account.",
-        //     user: {
-        //       id: user._id,
-        //       email: user.email,
-        //       firstName: user.firstName,
-        //       lastName: user.lastName,
-        //       role: user.role,
-        //     },
-        //   });
-        // }
-
-        const isSame = await bcrypt.compare(password, user.password);
-
-        // Yeming added
-        if (isSame && !user.isVerified) {
-          // If password is correct but user isn't verified
-          return response.json({
-            isVerified: false,
-            message: 'Your account is not verified. Please verify your email.',
-            user: {
-              id: user._id,
-              email: user.email,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              role: user.role,
-            },
-          });
-        }
-
-        if (!isSame) {
-          return response
-            .status(400)
-            .json({ message: 'Invalid credentials. Please try again' });
-        }
-        const token = generateToken({ id: user._id.toString() }, '1d');
-
-        response.cookie('token', token, {
-          path: '/',
-          httpOnly: true,
-          expires: new Date(Date.now() + 1000 * 86400), // 1 day
-          sameSite: 'none',
-          secure: true,
-        });
-        if (isSame) {
-          return response.send({
+        return response.json({
+          isVerified: false,
+          message: 'New OTP has been sent to your registered email account.',
+          user: {
             id: user._id,
-            picture: user.picture,
+            email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
             role: user.role,
-            token: token,
-            // Yeming added
-            isVerified: user.isVerified,
-            message: 'Login success!',
-          });
-        }
+          },
+        });
       }
+      
+      const token = generateToken({ id: user._id.toString() }, '1d');
+
+      response.cookie('token', token, {
+        path: '/',
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 86400), // 1 day
+        sameSite: 'none',
+        secure: true,
+      });
+
+      return response.send({
+        id: user._id,
+        picture: user.picture,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        token: token,
+        isVerified: user.isVerified,
+        message: 'Login success!',
+      });
     } else {
-      return response.json({ success: false });
+      return response.status(400).json({ message: "Email and password are required." });
     }
   } catch (error) {
     return response.status(500).json({ message: error.message });
   }
 };
-
-// export const login = async (req, res) => {
-//   const { email, password } = req.body;
-//   const user = await User.findOne({ email });
-//   if (!user) return sendError(res, "Email/Password mismatch!");
-
-//   const matched = await user.comparePassword(password);
-//   if (!matched) return sendError(res, "Email/Password mismatch!");
-
-//   const { _id, firstName, lastName } = user;
-
-//   const jwtToken = jwt.sign({ userId: _id }, process.env.TOKEN_SECRET);
-
-//   res.json({ user: { id: _id, firstName, lastName, email, token: jwtToken } });
-// };
 
 export const logout = async (req, res) => {
   res.cookie('token', '', {
@@ -520,7 +445,6 @@ export const forgetPassword = async (req, res) => {
 
   const resetPasswordUrl = `${process.env.BASE_URL}/resetpassword?token=${token}&id=${user._id}`;
 
-
   //send email
   const templateId = "d-cc856ab1114e4ad4b63a84bdce3dbc99";
   const sender = "info@kinoklik.ca";
@@ -598,12 +522,11 @@ export const updateProfile = async (req, res) => {
       res.json({ error: 'No User was found!' });
     } else {
       const updatedProfile = req.body;
-      //console.log(updatedProfile);
-      await userOne.updateOne(updatedProfile);
-      await userOne.updateOne(
-        { updatedAt: new Date() },
-        { where: { _id: id } }
-      );
+
+      await userOne.updateOne({
+      ...updatedProfile,
+      updatedAt: new Date()
+    });
       const userUpdated = await User.findOne({ _id: id });
       res.status(200).json(userUpdated);
     }
@@ -611,6 +534,7 @@ export const updateProfile = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
 export const actorUploadFiles = async (req, res) => {
   const id = req.params.id;
   try {
@@ -668,8 +592,41 @@ export const uploadActorBanner = async (req, res) => {
   }
 };
 
-// upload profiles
-export const uploadActorProfiles = async (req, res) => {
+// New uploadactorprofiles that handles any number of files
+export const uploadUserMedia = async (req, res) => {
+  try {
+    let totalResult = {};
+    
+    const fileKeys = Object.keys(req.files);
+
+    if (fileKeys.length === 0) {
+      return res.status(400).send({ message: 'No files uploaded' });
+    }
+
+    // Use Promise.all to upload everything in parallel (much faster!)
+    await Promise.all(
+      fileKeys.map(async (key) => {
+        const file = req.files[key][0];
+        const result = await uploadFileToS3(file);
+        
+        if (result) {
+          totalResult[key] = result.Key;
+        }
+      })
+    );
+
+    console.log('Upload complete:', totalResult);
+    res.send(totalResult);
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).send({ message: 'Internal server error during upload' });
+  }
+}; 
+
+//TODO Delete when profile editor is up
+// upload profiles 
+/*export const uploadActorProfiles = async (req, res) => {
   let totalResult = {};
   console.log('here');
   console.log(req.files);
@@ -710,7 +667,7 @@ export const uploadActorProfiles = async (req, res) => {
 
   console.log(totalResult);
   res.send(totalResult);
-};
+};*/
 
 //update user studio
 export const updateStudio = async (req, res) => {
@@ -774,22 +731,6 @@ export const deleteAccount = async (req, res) => {
   }
 };
 
-function generateRandomByte() {
-  return Math.floor(Math.random() * 256); // generates a random integer between 0 and 255 (inclusive)
-}
-
-// create a transporter object using SMTP
-// const transport = nodemailer.createTransport({
-//   host: "smtp.gmail.com", // replace with your SMTP server address
-//   port: 465, // replace with your SMTP server port
-//   secure: true, // use SSL
-//   auth: {
-//     user: "info@kinoklik.ca", // replace with your email address
-//     pass: "kzhotugyiukkxjex", // replace with your email password
-//   },
-// });
-
-// Yeming edit
 const transport = generateMailTransport();
 
 // verify connection configuration
@@ -883,20 +824,20 @@ export const getGenericRecommendations = async (req, res) => {
 };
 
 //**************************************************************************/
+//TODO Do we need get actor by name?
+//export const getActor = async (req, res) => {
+//  try {
+//    const actorFind = await User.findOne({
+//      role: 'Actor',
+//      firstName: req.body.firstName,
+//      lastName: req.body.lastName,
+//    });
 
-export const getActor = async (req, res) => {
-  try {
-    const actorFind = await User.findOne({
-      role: 'Actor',
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-    });
-
-    res.json(actorFind);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+//    res.json(actorFind);
+//  } catch (error) {
+//    res.status(404).json({ message: error.message });
+//  }
+//};
 
 export const getProfileActor = async (req, res) => {
   try {
@@ -983,35 +924,11 @@ export const getLikes = async (req, res) => {
 
 // get followed actor
 export const getActorFollowing = async (req, res) => {
-  // const id = req.params.id;
-  // try {
-  //   const fepkOne = await User.find({ _id: id }).where("deleted").equals(false);
-  //   let facebooks = 0;
-  //   let instagrams = 0;
-  //   let twitters = 0;
-  //   fepkOne.crew.forEach((element) => {
-  //     if (element.facebook_followers) {
-  //       facebooks += parseInt(element.facebook_followers);
-  //     }
-  //     if (element.instagram_followers) {
-  //       instagrams += parseInt(element.instagram_followers);
-  //     }
-  //     if (element.twitter_followers) {
-  //       twitters += parseInt(element.twitter_followers);
-  //     }
-  //   });
-  //   //res.status(200).json(fepkOne);
-  //   res
-  //     .status(200)
-  //     .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
-  // } catch (error) {
-  //   res.status(404).json({ message: error.message });
-  // }
   try {
     const profile = await User.find({ role: 'Actor' })
       .where({ kkFollowers: { $in: [req.params.id] } })
       .select('-password');
-    if (!profile) {
+    if (profile.length === 0) {
       return res.json({ ok: false });
     }
     res.send(profile);
@@ -1020,17 +937,6 @@ export const getActorFollowing = async (req, res) => {
   }
 };
 
-export const getActorById = async (req, res) => {
-  try {
-    const profile = await User.findOne({ _id: req.params.id });
-    if (!profile) {
-      return res.json({ ok: false });
-    }
-    res.json({ ...profile.toObject() });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 export const getFollowingActor = async (req, res) => {
   try {
     const profile = await User.findOne({ _id: req.params.id })
@@ -1048,32 +954,6 @@ export const getFollowingActor = async (req, res) => {
   }
 };
 
-// export const getFollowers = async (req, res) => {
-//   const id = req.params.id;
-//   try {
-//     const fepkOne = await User.findOne({ _id: id });
-//     let facebooks = 0;
-//     let instagrams = 0;
-//     let twitters = 0;
-//     fepkOne.crew.forEach((element) => {
-//       if (element.facebook_followers) {
-//         facebooks += parseInt(element.facebook_followers);
-//       }
-//       if (element.instagram_followers) {
-//         instagrams += parseInt(element.instagram_followers);
-//       }
-//       if (element.twitter_followers) {
-//         twitters += parseInt(element.twitter_followers);
-//       }
-//     });
-//     //res.status(200).json(fepkOne);
-//     res
-//       .status(200)
-//       .json({ facebook: facebooks, instagram: instagrams, twitter: twitters });
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// };
 export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
@@ -1102,8 +982,6 @@ export const getFollowers = async (req, res) => {
       ? parseInt(fepkOne.newsletter_followers)
       : 0;
     
-
-
     res
       .status(200)
       .json({ facebook: facebooks, instagram: instagrams, twitter: twitters, tiktok: tiktoks, youtube: youtubes, linkedin: linkedins,newsletter: newsletters });
@@ -1228,6 +1106,81 @@ export const signupForNewsletter = async (req, res) => {
     res.json({
       message: 'You have successfully subscribed to our newsletter!',
     });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Batch delete media files from S3
+export const deleteUserMediaBatch = async (req, res) => {
+  try {
+    const { userId, keys } = req.body;
+    const DEFAULT_AVATAR = "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png";
+
+    if (!keys || keys.length === 0) {
+      return res.status(200).json({ message: "No keys provided for deletion" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const protectedKeys = [];
+  
+    // Protect Headshots marked as Main
+    user.photo_albums?.headshots?.forEach(h => {
+      if (h.isMain) protectedKeys.push(h.image);
+    });
+
+    // Protect Reels marked as Main (Video URL + Thumbnail)
+    user.video_gallery?.reels?.forEach(r => {
+      if (r.isMain) {
+        if (r.url) protectedKeys.push(r.url);
+        if (r.thumbnail) protectedKeys.push(r.thumbnail);
+      }
+    });
+
+    // --- 2. Filter list: 
+    const safeKeysToDelete = keys.filter(key => !protectedKeys.includes(key));
+
+    if (safeKeysToDelete.length === 0) {
+      return res.status(200).json({ 
+        message: "No files deleted. Requested files are either protected (Main) or external links." 
+      });
+    }
+
+    const s3Response = await deleteFilesFromS3(safeKeysToDelete);
+
+    // Special Case: Revert site-use profile pic to default if deleted
+    if (safeKeysToDelete.includes(user.picture)) {
+      await User.findByIdAndUpdate(userId, { $set: { picture: DEFAULT_AVATAR } });
+    }
+
+    res.status(200).json({
+      message: "User media delete successful",
+      deletedCount: s3Response.Deleted.length,
+      protected: keys.length - safeKeysToDelete.length 
+    });
+
+  } catch (error) {
+    console.error("Media Delete Error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const setReelThumbnail = async (req, res) => {
+  try {
+    const { userId, reelId } = req.params;
+    
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.video_gallery.reels.forEach(reel => {
+      reel.isMain = (reel._id.toString() === reelId);
+    });
+
+    await user.save();
+    
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
