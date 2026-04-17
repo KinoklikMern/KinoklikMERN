@@ -10,6 +10,7 @@ import {
 import LocationSelects from './LocationSelects.js';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
+import { getUserById } from '../../../api/user.js';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -51,11 +52,12 @@ export default function Profile() {
   const user = useSelector((state) => state.user, shallowEqual);
   const userId = user?.id || '0';
 
-  useEffect(() => {
+ useEffect(() => {
     if (userId === '0') return;
-    Axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/getuser/${userId}`)
-      .then((rs) => {
-        setUserProfileData((prev) => ({ ...prev, ...rs.data }));
+
+    getUserById(userId)
+      .then((data) => {
+        setUserProfileData((prev) => ({ ...prev, ...data }));
       })
       .catch((error) => {
         toast.error(error.response?.data?.message || t('Error loading profile data'));

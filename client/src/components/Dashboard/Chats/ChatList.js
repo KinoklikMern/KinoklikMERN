@@ -8,6 +8,7 @@ import NotificationItem from "./NotificationItem.js";
 import ChatListItem from "./ChatListItem.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
 import { useTranslation } from "react-i18next";
+import { getUserById } from "../../../api/user.js";
 
 export default function ChatList({
   fetchAgain,
@@ -26,7 +27,6 @@ export default function ChatList({
 
   const onlineUsers = useSelector((state) => state.onlineUsers);
 
-  // Fetch a user by their ID
   const fetchUserById = async (id) => {
     if (!id) return;
     try {
@@ -35,14 +35,13 @@ export default function ChatList({
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/users/getuser/${id}`,
-        config
-      );
+      
+      const data = await getUserById(id, config);
+      
       setFetchedUser(data);
-      console.log("userdata", data);
+      return data;
     } catch (error) {
-      console.error("Error fetching user:", error);
+      console.error("FetchUserById Component Error:", error);
     }
   };
 

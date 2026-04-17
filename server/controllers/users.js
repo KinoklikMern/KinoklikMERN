@@ -373,16 +373,6 @@ export const logout = async (req, res) => {
   return res.status(200).json({ message: 'Successfully Logged Out' });
 };
 
-export const getUser = async (req, res) => {
-  const id = req.body.id;
-  try {
-    const user = await User.findOne({ _id: id }).where('deleted').equals(false);
-    res.send(user);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 export const getProfile = async (req, res) => {
   try {
     const { email } = req.params;
@@ -1079,15 +1069,31 @@ export const uploadActorThumbnail = async (req, res) => {
   }
 };
 
-// Yeming added
 export const getUserById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const user = await User.findById(req.params.id).select('-password');
+    const user = await User.findOne({ _id: id, deleted: false })
+      .select("-password -__v")
+      .lean();
+
     if (user) {
-      res.json(user);
+      res.status(200).json(user);
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'User not found or has been deleted' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Dedicated route for Admin/System use
+export const getDeletedUserById = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id, deleted: true })
+      .select("-password");
+    
+    if (!user) return res.status(404).json({ message: "No deleted user found with this ID" });
+    res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

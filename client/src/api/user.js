@@ -1,4 +1,5 @@
 import axios from "axios";
+import http from "./../http-common";
 
 export const login = async (email, password) => {
   try {
@@ -54,19 +55,12 @@ export const resendEmailVerificationToken = async (userId) => {
   }
 };
 
-export const getUserById = (userId) => {
-  return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getuser/${userId}`, {
-    method: "GET",
-  })
-    .then((res) => {
-      if (!res.ok) {
-        // If the response is not ok, throw an error
-        throw new Error(`HTTP error status: ${res.status}`);
-      }
-      return res.json();
-    })
-    .catch((error) => {
-      console.error("Error fetching user:", error.message);
-      throw error; // Re-throw the error if you need to handle it later
-    });
+export const getUserById = async (userId, config = {}) => {
+  try {
+    const { data } = await http.get(`/users/getuser/${userId}`, config);
+    return data;
+  } catch (error) {
+    console.error("Error in getUserById:", error.response?.data || error.message);
+    throw error;
+  }
 };
