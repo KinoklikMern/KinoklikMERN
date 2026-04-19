@@ -209,6 +209,7 @@ function EpkViewPage() {
         if (myRequest) setRequestStatus(myRequest.status);
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, refresh, user?.id, setFepkId, setFepkMaker, setEpkCollaborators]);
 
   const posterImage = React.useMemo(() => {

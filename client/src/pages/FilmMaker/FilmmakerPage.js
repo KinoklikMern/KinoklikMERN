@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import http from '../../http-common';
@@ -180,7 +180,6 @@ export default function FilmmakerPage() {
   }
 
   const activeData = isEditMode && draftFilmmaker ? draftFilmmaker : filmmakerInfo;
-  const isOwner = user?.id === id;
 
   return (
     <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039] tw-relative tw-min-h-screen">
