@@ -41,7 +41,7 @@ import UploadUserPicCon from './components/UserDashboard/Upload/UploadUserPicCon
 import EditFepkLayout from './layouts/EditFepkLayout';
 import EditUserLayout from './layouts/EditUserLayout.js';
 
-import Filmmaker from './pages/FilmMaker/Filmmaker.js';
+import FilmmakerPage from './pages/FilmMaker/FilmmakerPage.js';
 import ProfileViewPage from './pages/User/ProfileViewPage.js';
 
 import KinoToastContainer from './components/common/KinoToastContainer';
@@ -81,7 +81,6 @@ function App() {
         </Route>
 
         <Route path="/actor/:id" element={<Actor />} />
-        <Route path="/filmmaker/:id" element={<Filmmaker />} />
 
         <Route element={<AuthRoutes />}>
           <Route path="/" element={<DashboardLayout className={className} />}>
@@ -109,6 +108,7 @@ function App() {
           {/* <Route index element={<Home />} /> */}
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="epk/:id" element={<EpkViewPage />} />
+          <Route path="filmmaker/:id" element={<FilmmakerPage />} />
           <Route path="signup" element={<RegistrationForm />} />
 
           <Route path="verification" element={<EmailVerification />} />

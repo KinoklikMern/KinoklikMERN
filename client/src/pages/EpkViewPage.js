@@ -16,7 +16,7 @@ import DonationModal from '../components/donate/DonationModal';
 import RequestModal from '../components/common/Modals/RequestModal';
 import LoginModal from '../components/common/Modals/LoginModal';
 import NewMessageModal from '../components/common/Modals/NewMessageModal';
-import { getFepksById, updateFepk, uploadSingleFile, deleteS3MediaBatch } from '../api/epks'; 
+import { getFepksById, updateFepk, uploadSingleFile, deleteS3MediaBatch } from '../api/epks';
 import { useSelector } from 'react-redux';
 import { FepkContext } from '../context/FepkContext';
 import Banner from '../components/EpkView/EpkBanner/EpkBanner';
@@ -24,7 +24,7 @@ import emptyBanner from '../images/empty_banner.jpeg';
 import EpkSalesCalculator from '../components/EpkView/EpkSalesCalculator/EpkSalesCaculator';
 import EpkPhotoGallery from '../components/EpkView/EpkPhotoGallery/EpkPhotoGallery';
 import AnalyticsDataService from "../api/analytics";
-import EditNavBar from '../components/navbar/EditNavBar'; 
+import EditNavBar from '../components/navbar/EditNavBar';
 
 function EpkViewPage() {
   const { fepkId, setFepkId, fepkMaker, setFepkMaker, setEpkCollaborators } = React.useContext(FepkContext);
@@ -44,7 +44,7 @@ function EpkViewPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false);
-  const [draftEpk, setDraftEpk] = useState(null); 
+  const [draftEpk, setDraftEpk] = useState(null);
   const [activeSection, setActiveSection] = useState('cover');
   const [isSaving, setIsSaving] = useState(false);
 
@@ -181,22 +181,35 @@ function EpkViewPage() {
 
   useEffect(() => {
     getFepksById(id).then((res) => {
-      if (res.message) return console.error(res.message); 
+      if (res.message) return console.error(res.message);
       setEpkInfo(res);
       setFepkId(res._id);
       setFepkMaker(res.film_maker);
       if (setEpkCollaborators) setEpkCollaborators(res.collaborators || []);
 
-      const queryParams = new URLSearchParams(window.location.search);
-      if (queryParams.get("edit") === "true") setDraftEpk(JSON.parse(JSON.stringify(res)));
+      const filmMakerId = res.film_maker?._id ?? res.film_maker;
+      const owner = String(filmMakerId) === String(user?.id);
+      const collaborator = res.collaborators?.some(
+        (c) => (c.user?._id ?? c.user) === user?.id
+      );
 
-      if (user?.id === res.film_maker?._id) {
+      const queryParams = new URLSearchParams(window.location.search);
+      if (queryParams.get("edit") === "true") {
+        if (owner || collaborator) {
+          setDraftEpk(JSON.parse(JSON.stringify(res)));
+        } else {
+          navigate(`/epk/${res._id}`, { replace: true });
+        }
+      }
+
+      if (owner) {
         setRequestStatus('approved');
       } else {
         const myRequest = res.requests?.find(r => r.user === user?.id);
         if (myRequest) setRequestStatus(myRequest.status);
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, refresh, user?.id, setFepkId, setFepkMaker, setEpkCollaborators]);
 
   const posterImage = React.useMemo(() => {
@@ -344,14 +357,16 @@ function EpkViewPage() {
       <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039] tw-relative">
         
         {isEditMode && (
-          <EditNavBar 
+          <EditNavBar
             activeSection={activeSection}
             onSectionClick={scrollToSection}
-            onDiscard={handleDiscard} 
+            onDiscard={handleDiscard}
             onSave={handleSaveAndExit}
-            isSaving={isSaving} 
+            isSaving={isSaving}
           />
          )}
+
+
 
         <div className={`tw-w-11/12 ${isEditMode ? 'tw-mt-[110px]' : ''}`}>
           
