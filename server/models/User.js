@@ -202,16 +202,39 @@ const UserSchema = mongoose.Schema({
   },
 
   // TODO test and implement for actor portfolio
-  /* summary: { type: String, maxlength: 100, trim: true, default: "" },
+  /*
+  productionCredits: [
+    { 
+      type: String, 
+      maxlength: 50, 
+      trim: true,
+    },
+  ], 
+  summary: { 
+    type: String, maxlength: 100, trim: true, default: "" 
+  },
   photo_albums: {
     headshots: [
       {
-        image: { type: String, required: true, isMain: false 
-      }
+        image: { type: String },
+        isMain: { type: Boolean, default: false }
+      },
     ],
-    media: [{ image: String }],
-    behind: [{ image: String }],
-    premieres: [{ image: String }]
+    media: [
+      { 
+        image: String 
+      },
+    ],
+    behind: [
+      { 
+        image: String 
+      },
+    ],
+    premieres: [
+      { 
+        image: String 
+      },
+    ]
   },
   video_gallery: {
     reels: [
@@ -220,41 +243,39 @@ const UserSchema = mongoose.Schema({
         thumbnail: { type: String },
         title: { type: String },
         isMain: { type: Boolean, default: false }
-      }
+      },
     ],
     media: [
       {
         url: { type: String, required: true },
         thumbnail: { type: String },
         title: { type: String }
-      }
+      },
     ],
     behind: [
       {
         url: { type: String, required: true },
         thumbnail: { type: String },
         title: { type: String }
-      }
+      },
     ],
     premieres: [
       {
         url: { type: String, required: true },
         thumbnail: { type: String },
         title: { type: String }
-      }
+      },
     ],
-  } */
-
+  }
+*/
 });
 
-/*
 // Backward compatibility for users w/o gallery or summary
 // also corrects for age vs birthday split
 UserSchema.post(['find', 'findOne'], function(docs) {
   if (!docs) return;
 
   const migrateActorData = (doc) => {
-    // Access the raw data object so we can add fields not yet in the schema
     const rawDoc = doc._doc || doc; 
 
     // 0. Logic: If they have a birthday, calculate the current age
@@ -293,7 +314,7 @@ UserSchema.post(['find', 'findOne'], function(docs) {
   } else {
     migrateActorData(docs);
   } 
-}); */
+});
 
 // Method to compare password
 UserSchema.methods.comparePassword = async function (password) {

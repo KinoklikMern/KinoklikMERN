@@ -3,7 +3,7 @@ import { authUser } from '../middleware/auth.js';
 import { isValidPassResetToken } from '../middleware/user.js';
 import multer from 'multer';
 import {
-  uploadActorProfiles,
+  //uploadActorProfiles,
   deleteUserMediaBatch,
   uploadUserMedia,
   actorUploadFiles,

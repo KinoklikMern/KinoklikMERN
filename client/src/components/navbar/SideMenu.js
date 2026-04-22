@@ -12,7 +12,7 @@ import { ReactComponent as NotificationsDefaultIcon } from "../../images/icons/b
 import { ReactComponent as NotificationsPurpleIcon } from "../../images/icons/bell-purple.svg";
 import { ReactComponent as MessagesDefaultIcon } from "../../images/icons/message-icon.svg";
 import { ReactComponent as MessagesPurpleIcon } from "../../images/icons/message-purple.svg";
-import { getUserById } from "../../api/user";
+import { getUserById } from "../../api/users";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";

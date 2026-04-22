@@ -10,7 +10,7 @@ import {
 import LocationSelects from './LocationSelects.js';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
-import { getUserById } from '../../../api/user.js';
+import { getUserById } from '../../../api/users.js';
 
 export default function Profile() {
   const { t } = useTranslation();

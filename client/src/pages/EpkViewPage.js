@@ -351,7 +351,7 @@ function EpkViewPage() {
             onSave={handleSaveAndExit}
             isSaving={isSaving} 
           />
-        )}
+         )}
 
         <div className={`tw-w-11/12 ${isEditMode ? 'tw-mt-[110px]' : ''}`}>
           

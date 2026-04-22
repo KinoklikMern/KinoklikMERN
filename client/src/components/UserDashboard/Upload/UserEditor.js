@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { ETHNICITY_OPTIONS } from "../../../constants/EthnicityOptions";
 import { GENDER_OPTIONS } from "../../../constants/GenderOptions";
 import { AGE_OPTIONS } from "../../../constants/AgeOptions";
-import { getUserById } from "../../../api/user";
+import { getUserById } from "../../../api/users";
 
 export default function UserEditor({ user }) {
     const { t } = useTranslation();

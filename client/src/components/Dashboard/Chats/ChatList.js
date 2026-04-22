@@ -8,7 +8,7 @@ import NotificationItem from "./NotificationItem.js";
 import ChatListItem from "./ChatListItem.js";
 // import avatarDefault from "../../../images/avatarDefault.jpeg";
 import { useTranslation } from "react-i18next";
-import { getUserById } from "../../../api/user.js";
+import { getUserById } from "../../../api/users.js";
 
 export default function ChatList({
   fetchAgain,
