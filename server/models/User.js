@@ -201,15 +201,6 @@ const UserSchema = mongoose.Schema({
     default: 0,
   },
 
-  // TODO test and implement for actor portfolio
-  /*
-  productionCredits: [
-    { 
-      type: String, 
-      maxlength: 50, 
-      trim: true,
-    },
-  ], 
   summary: { 
     type: String, maxlength: 100, trim: true, default: "" 
   },
@@ -267,7 +258,6 @@ const UserSchema = mongoose.Schema({
       },
     ],
   }
-*/
 });
 
 // Backward compatibility for users w/o gallery or summary

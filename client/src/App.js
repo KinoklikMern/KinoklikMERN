@@ -15,6 +15,7 @@ import CheckEmailPage from './components/Auth/Registration/CheckEmail';
 import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
 import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
+import Filmmaker from './pages/FilmMaker/Filmmaker.js';
 import FepkUploadDashboard from './pages/FepkUploadDashboard';
 import FepkEditDashboard from './pages/FepkEditDashboard';
 
@@ -108,6 +109,7 @@ function App() {
           {/* <Route index element={<Home />} /> */}
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="epk/:id" element={<EpkViewPage />} />
+          <Route path="/user/:id" element={<ProfileViewPage />} />
           <Route path="filmmaker/:id" element={<FilmmakerPage />} />
           <Route path="signup" element={<RegistrationForm />} />
 
@@ -127,9 +129,7 @@ function App() {
 
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
-        <Route element={<EditUserLayout title="Edit Profile" />} >
-          <Route path="/user/:id" element={<ProfileViewPage />} />
-        </Route>
+
         <Route element={<EditFepkLayout title="Edit EPK" />} >
           <Route path="editFepk/:id" element={<FepkEditDashboard />} />
         </Route>

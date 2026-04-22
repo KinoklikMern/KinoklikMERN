@@ -12,14 +12,15 @@ import UserSocialAction from "../../components/UserView/UserSocialAction/UserSoc
 import UserDetails from "../../components/UserView/UserDetails/UserDetails";
 import UserBio from '../../components/UserView/UserBio/UserBio';
 import UserPhotoGallery from '../../components/UserView/UserPhotoGallery/UserPhotoGallery';
-import UserProductionCredits from '../../components/UserView/UserProductionCredits/UserProductionCredits';
+//import UserProductionCredits from '../../components/UserView/UserProductionCredits/UserProductionCredits';
 import UserVideoGallery from '../../components/UserView/UserVideoGallery/UserVideoGallery';
 import UserSocials from '../../components/UserView/UserSocials/UserSocials';
 
+import Banner from '../../components/EpkView/EpkBanner/EpkBanner';
 import LoginModal from '../../components/common/Modals/LoginModal';
 import AnalyticsDataService from "../../api/analytics";
 import NewMessageModal from '../../components/common/Modals/NewMessageModal';
-import EditNavBar from '../../components/navbar/EditNavBar'; 
+import UserEditNavBar from '../../components/UserView/UserEditNavBar';
 import emptyBanner from '../../images/empty_banner.jpeg';
 import ActionIcon from '../../components/EpkView/EpkSocialAction/ActionIcon';
 
@@ -303,26 +304,24 @@ function ProfileViewPage() {
   return (
     id && (
       <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039] tw-relative">
-      <div className="tw-bg-[#1E0039] tw-min-h-screen tw-text-white">
-      {isEditMode && (
-        <EditNavBar 
-          activeSection={activeSection}
-          onSectionClick={scrollToSection}
-          onDiscard={handleDiscard}
-          onSave={handleSaveAndExit}
-          isSaving={isSaving}
-        />
-      )}
+        
+        {isEditMode && (
+          <UserEditNavBar
+            userRole={userData?.role} 
+            activeSection={activeSection}
+            onSectionClick={scrollToSection}
+            onDiscard={handleDiscard}
+            onSave={handleSaveAndExit}
+            isSaving={isSaving}
+          />
+        )}
 
-      <div className={`tw-w-11/12 ${isEditMode ? 'tw-pt-[110px]' : ''}`}>
+        <div className={`tw-w-11/12 ${isEditMode ? 'tw-pt-[110px]' : ''}`}>
+
         <div ref={coverRef}>
           <UserHeader 
             data={activeData} 
             setTotalReach = {setTotalReach}
-            isEditMode={isEditMode} 
-            onChange={handleFieldChange} 
-            clearError = {clearError}
-            errors={errors}
           />
        
           <UserCover 
@@ -338,6 +337,7 @@ function ProfileViewPage() {
 
         <UserSocialAction 
           data={activeData} 
+          handler={handleShow}
           isEditMode={isEditMode} 
         />
 
@@ -359,50 +359,47 @@ function ProfileViewPage() {
             onChange={handleFieldChange} 
           />
         </div>
-      </div>
 
-    {activeData?.productionCredits?.length > 0 && (
-      <div ref={prodCreditsRef}>
-        <UserProductionCredits 
+        {/*<div ref={prodCreditsRef}>
+          <UserProductionCredits
           data={activeData} 
           isEditMode={isEditMode} 
           onChange={handleFieldChange} 
-        />
-      </div>
-    )}
+          />
+        </div>*/}
 
-      <div ref={mediaRef}>
-        <div ref={photoOnlyRef}>
-          <UserPhotoGallery 
-            data={activeData} 
-            isEditMode={isEditMode} 
-            onChange={handleFieldChange} 
-            onMarkMediaForDeletion={handleMarkMediaForDeletion}
-          />
-        </div>
-        <div ref={videoOnlyRef}>
-          <UserVideoGallery 
-            data={activeData} 
-            isEditMode={isEditMode} 
-            onChange={handleFieldChange} 
-            onMarkMediaForDeletion={handleMarkMediaForDeletion}
-          />
-        </div>
-      <div>
-        {isEditMode && (
-          <div ref={socialsRef}> 
-            <UserSocials data={activeData}
-            isEditMode={isEditMode}            
-            onChange={handleFieldChange} />
+        <div ref={mediaRef}>
+          <div ref={photoOnlyRef}>
+            <UserPhotoGallery 
+              data={activeData} 
+              isEditMode={isEditMode} 
+              onChange={handleFieldChange} 
+              onMarkMediaForDeletion={handleMarkMediaForDeletion}
+            />
           </div>
-        )}
+          <div ref={videoOnlyRef}>
+            <UserVideoGallery 
+              data={activeData} 
+              isEditMode={isEditMode} 
+              onChange={handleFieldChange} 
+              onMarkMediaForDeletion={handleMarkMediaForDeletion}
+            />
+          </div>
+        <div>
+          {isEditMode && (
+            <div ref={socialsRef}> 
+              <UserSocials data={activeData}
+              isEditMode={isEditMode}            
+              onChange={handleFieldChange} />
+            </div>
+          )}
+        </div>
+          {showLoginModal && <LoginModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
+          {showMessageModal && <NewMessageModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
+        </div>
       </div>
-        {showLoginModal && <LoginModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
-        {showMessageModal && <NewMessageModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
-      </div>
-    </div>
     
-    {showValidationModal && (
+      {showValidationModal && (
         <div className="tw-fixed tw-inset-0 tw-z-[1060] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
           <div className="tw-bg-[#280D41] tw-border tw-border-red-500/50 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(239,68,68,0.2)]">
             <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">
@@ -425,14 +422,14 @@ function ProfileViewPage() {
                   if (validationTarget) scrollToSection(validationTarget);
                 }}
                 className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer"
-                >
+              >
                 Review Fields
               </button>
             </div>
           </div>
         </div>
-        )}
-      </div>
+      )}
+    </div>
     )
   );
 }

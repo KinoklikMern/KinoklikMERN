@@ -37,24 +37,30 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
     }
   }, [user]);
 
-  const matchFilmmaker = useMatch("/epk/*");
-  const matchActor = useMatch("/actor/*");
-  const matchFilmmakerProfile = useMatch("/filmmaker/*");
-  const isFilmmaker = !!matchFilmmaker;
-  const isActor = !!matchActor;
-  const isFilmmakerProfile = !!matchFilmmakerProfile;
-  const isActorRole = user?.role === "Actor";
+    // --- 1. PAGE TYPE DETECTION ---
   const isEpkViewPage = location.pathname.startsWith('/epk/');
   const isUserViewPage = location.pathname.startsWith('/user/');
   const isCurrentlyEditing = new URLSearchParams(location.search).get("edit") === "true";
 
-  const isOwner = user?.id === fepkMaker?._id;
+  // EPK Permissions: User is the Maker OR is in the Collaborators array
+  const isOwner = user?.id === fepkMaker?._id || user?.id === fepkMaker;
   const isCollaborator = epkCollaborators?.some(
-    (c) => c.user === user?.id || c.user?._id === user?.id
+    (c) => (c.user?._id || c.user || c) === user?.id
   );
-  // Check if current user is the owner of the EPK or Actor profile
-  const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
-  const canEditActor = isActor && isActorRole && user?.id === actorId;
+  const canEditEPK = isEpkViewPage && (isOwner || isCollaborator) && fepkId;
+
+  // User Profile Permissions: Logged in user ID matches the URL ID
+  const canEditProfile = isUserViewPage && user?.id === profileId;
+
+  //const matchFilmmaker = useMatch("/epk/*");
+  //const matchActor = useMatch("/actor/*");
+  //const matchFilmmakerProfile = useMatch("/filmmaker/*");
+  //const isFilmmaker = !!matchFilmmaker;
+  //const isActor = !!matchActor;
+  //const isFilmmakerProfile = !!matchFilmmakerProfile;
+  //const isActorRole = user?.role === "Actor";
+  //const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
+  //const canEditActor = isActor && isActorRole && user?.id === actorId;
 
   return (
     <>
@@ -104,37 +110,17 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
               </button>
             )}
 
-            {/* EDIT EPK BUTTON (Hot Pink) */}
-            {canEditFilmmaker && !isCurrentlyEditing && (
+            {/* EDIT BUTTON (Dynamic for both EPK and User Profile) */}
+            {(canEditEPK || canEditProfile) && !isCurrentlyEditing && (
              <Link 
-               to={`/epk/${fepkId}?edit=true`}
+               to={`${location.pathname}?edit=true`}
                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-no-underline"
              >
                <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
-               <span className="tw-hidden md:tw-inline">Edit EPK</span>
+               <span className="tw-hidden md:tw-inline">
+                 {isEpkViewPage ? "Edit EPK" : "Edit Profile"}
+               </span>
              </Link>
-            )}
-            
-            {/* EDIT FILMMAKER PROFILE BUTTON */}
-            {canEditFilmmakerProfile && !isCurrentlyEditing && (
-              <Link
-                to={`/filmmaker/${actorId}?edit=true`}
-                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-no-underline"
-              >
-                <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
-                <span className="tw-hidden md:tw-inline">Edit Profile</span>
-              </Link>
-            )}
-
-            {/* EDIT USER PROFILE BUTTON */}
-            {canEditUserProfile && !isCurrentlyEditing && (
-              <Link 
-                to={`/user/${profileId}?edit=true`}
-                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-no-underline"
-              >
-                <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
-                <span className="tw-hidden md:tw-inline">Edit Profile</span>
-              </Link>
             )}
              <LanguageToggle />
           </div>
