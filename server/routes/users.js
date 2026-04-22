@@ -3,7 +3,6 @@ import { authUser } from '../middleware/auth.js';
 import { isValidPassResetToken } from '../middleware/user.js';
 import multer from 'multer';
 import {
-  uploadActorProfiles,
   deleteUserMediaBatch,
   uploadUserMedia,
   actorUploadFiles,
@@ -68,7 +67,7 @@ router.post('/forget-password', forgetPassword);
 router.post(
   '/verify-pass-reset-token',
   isValidPassResetToken,
-  sendResetPasswordTokenStatus
+  sendResetPasswordTokenStatus,
 );
 
 //router.post('/send-invitation', sendInvitation)
@@ -78,7 +77,7 @@ router.post(
   // validatePassword,
   // validate,
   // isValidPassResetToken,
-  resetPassword
+  resetPassword,
 );
 
 router.put('/updateProfile/:userId', updateProfile);
@@ -115,11 +114,11 @@ router.post('/actorbanner', upload.single('file'), uploadActorBanner);
 router.post(
   '/user/uploadFiles',
   upload.array('portfolio', 10), // Allow up to 10 files under the name 'portfolio'
-  uploadUserMedia
+  uploadUserMedia,
 );
 
 //delete media from S3
-router.post("user/deleteMediaBatch", authUser, deleteUserMediaBatch);
+router.post('/user/deleteMediaBatch', authUser, deleteUserMediaBatch);
 
 // final save in actor profiles
 router.put('/actor/files/:id', actorUploadFiles);
