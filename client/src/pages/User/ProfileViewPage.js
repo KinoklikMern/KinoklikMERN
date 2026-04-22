@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 
 import { getUserById, updateUserProfile, uploadSingleFile, deleteS3MediaBatch } from '../../api/users';
+import FilmmakerHero from '../../components/FilmmakerView/FilmmakerHero/FilmmakerHero';
 import UserHeader from "../../components/UserView/UserHeader/UserHeader";
-import UserCover from "../../components/UserView/UserCover/UserCover";
+import UserHero from "../../components/UserView/UserHero/UserHero";
 import UserSummary from "../../components/UserView/UserSummary/UserSummary";
 import UserSocialAction from "../../components/UserView/UserSocialAction/UserSocialAction";
 import UserDetails from "../../components/UserView/UserDetails/UserDetails";
 import UserBio from '../../components/UserView/UserBio/UserBio';
 import UserPhotoGallery from '../../components/UserView/UserPhotoGallery/UserPhotoGallery';
+import UserFilmography from '../../components/UserView/UserFilmography/UserFilmography';
 //import UserProductionCredits from '../../components/UserView/UserProductionCredits/UserProductionCredits';
 import UserVideoGallery from '../../components/UserView/UserVideoGallery/UserVideoGallery';
 import UserSocials from '../../components/UserView/UserSocials/UserSocials';
@@ -35,7 +37,7 @@ function ProfileViewPage() {
   const [draftUser, setDraftUser] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [activeSection, setActiveSection] = useState('cover');
+  const [activeSection, setActiveSection] = useState('hero');
   const [refresh, setRefresh] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
@@ -47,24 +49,28 @@ function ProfileViewPage() {
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [validationTarget, setValidationTarget] = useState(null);
   
-  const coverRef = useRef(null);
+  const heroRef = useRef(null);
+  const summaryRef = useRef(null);
   const detailsRef = useRef(null);
   const bioRef = useRef(null);
   const mediaRef = useRef(null);     
   //const buzzRef = useRef(null);
-  const prodCreditsRef = useRef(null);
+  //const prodCreditsRef = useRef(null);
   const photoOnlyRef = useRef(null); 
   const videoOnlyRef = useRef(null); 
+  const filmographyRef = useRef(null);
   const socialsRef = useRef(null);
 
   const sectionRefs = {
-    cover: coverRef,
+    hero: heroRef,
+    summary: summaryRef,
     details: detailsRef,
     bio: bioRef,
-    prodCredits: prodCreditsRef,
+    //prodCredits: prodCreditsRef,
     media: mediaRef,
-    //buzzRef = buzzRef;
+    filmography: filmographyRef,
     socials: socialsRef,
+    //buzz: buzzRef,
   };
 
   useEffect(() => {
@@ -85,16 +91,18 @@ function ProfileViewPage() {
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 150; 
-      let currentSection = 'cover';
+      let currentSection = 'hero';
 
       const sections = [
-        { id: 'cover', ref: coverRef },
+        { id: 'hero', ref: heroRef },
+        { id: 'summary', ref: summaryRef },
         { id: 'details', ref: detailsRef },
         { id: 'biography', ref: bioRef },
-        { id: 'prodCredits', ref: prodCreditsRef },
+        //{ id: 'prodCredits', ref: prodCreditsRef },
         { id: 'media', ref: mediaRef },
-        //{ id: 'buzz', ref: buzzRef },
+        { id: 'filmography', ref: filmographyRef },
         { id: 'socials', ref: socialsRef },
+        //{ id: 'buzz', ref: buzzRef },
       ];
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -318,28 +326,40 @@ function ProfileViewPage() {
 
         <div className={`tw-w-11/12 ${isEditMode ? 'tw-pt-[110px]' : ''}`}>
 
-        <div ref={coverRef}>
+        <div ref={heroRef}>
           <UserHeader 
             data={activeData} 
             setTotalReach = {setTotalReach}
           />
        
-          <UserCover 
-            data={activeData} 
-            scrollToPhotos={scrollToPhotos} 
-            scrollToVideos={scrollToVideos}
+        {/* TERNARY SWAP LOGIC */}
+          {activeData?.role === "Filmmaker" ? (
+            <FilmmakerHero 
+              filmmakerInfo={activeData} 
+              isEditMode={isEditMode} 
+              onChange={handleFieldChange} 
+              clearError={clearError} 
+              errors={errors}
+            />
+          ) : (
+            <UserHero 
+              data={activeData} 
+              scrollToPhotos={scrollToPhotos} 
+              scrollToVideos={scrollToVideos}
+              isEditMode={isEditMode} 
+              onChange={handleFieldChange} 
+              clearError={clearError} 
+              errors={errors}
+            />
+          )}
+          <UserSummary 
+            data={activeData}
             isEditMode={isEditMode} 
             onChange={handleFieldChange} 
-            clearError={clearError} 
-            errors={errors}
+            errors={errors} 
+            clearError={clearError}
           />
         </div>
-
-        <UserSocialAction 
-          data={activeData} 
-          handler={handleShow}
-          isEditMode={isEditMode} 
-        />
 
         <div ref={detailsRef}>
             {/* PASS ERRORS AND CLEARERROR DOWN TO DETAILS SECTION */}
@@ -360,14 +380,6 @@ function ProfileViewPage() {
           />
         </div>
 
-        {/*<div ref={prodCreditsRef}>
-          <UserProductionCredits
-          data={activeData} 
-          isEditMode={isEditMode} 
-          onChange={handleFieldChange} 
-          />
-        </div>*/}
-
         <div ref={mediaRef}>
           <div ref={photoOnlyRef}>
             <UserPhotoGallery 
@@ -385,15 +397,22 @@ function ProfileViewPage() {
               onMarkMediaForDeletion={handleMarkMediaForDeletion}
             />
           </div>
-        <div>
-          {isEditMode && (
-            <div ref={socialsRef}> 
-              <UserSocials data={activeData}
-              isEditMode={isEditMode}            
-              onChange={handleFieldChange} />
-            </div>
-          )}
-        </div>
+          <div ref={filmographyRef}>
+            <UserFilmography
+            data={activeData} 
+            isEditMode={isEditMode} 
+            onChange={handleFieldChange} 
+            />
+          </div>
+          <div>
+            {isEditMode && (
+              <div ref={socialsRef}> 
+                <UserSocials data={activeData}
+                isEditMode={isEditMode}            
+                onChange={handleFieldChange} />
+              </div>
+            )}
+          </div>
           {showLoginModal && <LoginModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
           {showMessageModal && <NewMessageModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
         </div>

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faVideo, faPlay, faImages, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faVideo, faPlay, faImages, faPen, faXmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from '../../../images/empty_banner.jpeg';
 
 import UpdatePosterModal from "../../EpkView/EpkCover/UpdatePosterModal"; 
@@ -61,7 +61,10 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
   const displayHeadshot = localHeadshot || dbHeadshotUrl || emptyBanner;
   const displayBanner = localBanner || dbBannerUrl;
   const displayReel = localReel || dbReelSrc;
-  
+  const location = [data?.city, data?.province, data?.country]
+    .filter(Boolean)
+    .join(', ');
+
   const hasReel = Boolean(displayReel);
 
   const handlePlayReel = (view) => (e) => {
@@ -198,38 +201,65 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
                   </div>
                 )}
 
-                {/* DESKTOP Summary */}
-                <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-flex tw-flex-col tw-p-10 tw-pb-12 tw-z-20">
-                  {isEditingSummary? (
-                    <div className="tw-flex tw-flex-col tw-gap-3 tw-w-full tw-max-w-4xl">
-                      <textarea
-                        value={tempSummary}
-                        onChange={(e) => setTempSummary(e.target.value)}
-                        autoFocus
-                        className="tw-w-full tw-bg-[#1F0439]/90 tw-backdrop-blur-md tw-text-white tw-text-xl tw-p-4 tw-rounded-xl tw-border-2 tw-border-[#FF43A7] tw-outline-none tw-resize-none tw-shadow-xl"
-                        rows="2"
-                        placeholder="Your professional tagline or mission..."
-                      />
-                      <button onClick={handleSummarySubmit} className="tw-self-start tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-8 tw-py-2 tw-rounded-lg tw-font-bold tw-text-sm hover:tw-bg-[#ff5cac] tw-transition-colors tw-shadow-lg tw-cursor-pointer">
-                        Save Summary
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="tw-flex tw-items-start tw-gap-4 tw-max-w-4xl">
-                      <p className="tw-text-xl tw-font-medium tw-leading-relaxed tw-text-white tw-drop-shadow-md">
-                        {data?.summary || (isEditMode ? "Click to add your professional summary..." : "")}
-                      </p>
-                      {isEditMode && (
-                        <button 
-                          onClick={() => { setIsEditingSummary(true); }} 
-                          className="tw-bg-[#FF43A7] tw-border-none tw-w-8 tw-h-8 tw-rounded-lg tw-flex tw-items-center tw-justify-center tw-shrink-0 hover:tw-scale-105 tw-transition-transform tw-shadow-md tw-cursor-pointer"
-                        >
-                          <FontAwesomeIcon icon={faPen} className="tw-text-[#570033] tw-text-sm" />
-                        </button>
-                      )}
-                    </div>
-                  )}
-                </div>
+                {/* ── Name / role / location — always fully below the banner ── */}
+                <div className="tw-px-6 md:tw-px-12 tw-pt-4 tw-pb-8"
+                             style={{ paddingLeft: `calc(1.5rem + 112px + 1.5rem)` }}>
+                  <div className="tw-flex tw-flex-col tw-gap-2">
+                
+                    {isEditMode ? (
+                      <div className="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3">
+                        <input
+                          type="text"
+                          value={data?.firstName || ''}
+                          onChange={(e) => onChange('firstName', e.target.value)}
+                          placeholder="First name"
+                          className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors"
+                        />
+                        <input
+                          type="text"
+                          value={data?.lastName || ''}
+                          onChange={(e) => onChange('lastName', e.target.value)}
+                          placeholder="Last name"
+                          className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors"
+                        />
+                        </div>
+                          ) : (
+                            <h1 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">
+                              {data?.firstName} {data?.lastName}
+                            </h1>
+                          )}
+                
+                          <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-3">
+                            <span className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-bg-[#FF43A7]/10 tw-px-3 tw-py-1 tw-rounded-full">
+                              {data?.role || 'Cinephile'}
+                            </span>
+                
+                            {isEditMode ? (
+                              <div className="tw-flex tw-gap-2">
+                                <input
+                                  type="text"
+                                  value={data?.city || ''}
+                                  onChange={(e) => onChange('city', e.target.value)}
+                                  placeholder="City"
+                                  className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28"
+                                />
+                                <input
+                                  type="text"
+                                  value={data?.country || ''}
+                                  onChange={(e) => onChange('country', e.target.value)}
+                                  placeholder="Country"
+                                  className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28"
+                                />
+                              </div>
+                            ) : location ? (
+                              <span className="tw-flex tw-items-center tw-gap-1.5 tw-text-[#E2BDC9] tw-text-sm">
+                                <FontAwesomeIcon icon={faMapMarkerAlt} className="tw-text-[#FF43A7] tw-text-xs" />
+                                {location}
+                              </span>
+                            ) : null}
+                          </div>
+                        </div>
+                      </div>
 
                 {isEditMode && (
                   <div className="tw-absolute tw-inset-0 tw-bg-[#1F0439]/40 tw-backdrop-blur-[1px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-z-10">

@@ -40,16 +40,6 @@ export default function UserHeader({ data, setGlobalTotalReach }) {
 
   return (
     <div className="tw-flex tw-w-full tw-flex-col tw-items-center">
-      
-      <div className="tw-flex tw-w-full tw-items-center tw-justify-center tw-py-6 tw-min-h-[100px]">
-          <div className="tw-flex tw-items-center tw-gap-4">
-            <h1 className="tw-px-4 tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-text-[#C4C4C4] tw-drop-shadow-md">
-              {data?.firstName || data?.lastName ? `${data.firstName} ${data.lastName}` : "Unnamed Professional"}
-            </h1>
-          </div>
-      </div>
-
-      {/* SOCIAL BAR */}
       <div className="tw-flex tw-w-full tw-items-center tw-justify-evenly tw-gap-5 tw-py-4">
         <SocialMedia 
           socials={socialMediaData} 

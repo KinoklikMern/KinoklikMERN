@@ -6,7 +6,8 @@ import KinoKlikIcon from "../../images/logo.png";
 
 const getSections = (role) => {
   const baseSections = [
-    { id: 'cover',       label: 'Headshot & Demo Reel' },
+    { id: 'hero',       label: 'Headshot & Demo Reel' },
+    { id: 'summary',     label: 'Summary' },
     { id: 'details',     label: 'Actor Details' },
     { id: 'bio',         label: 'Biography' },
     { id: 'filmography', label: 'Filmography' },
@@ -15,7 +16,7 @@ const getSections = (role) => {
   ];
 
   if (role !== 'Actor') {
-    return baseSections.filter(section => section.id !== 'details');
+    return baseSections.filter(section => section.id !== 'summary');
   }
   
   return baseSections;
