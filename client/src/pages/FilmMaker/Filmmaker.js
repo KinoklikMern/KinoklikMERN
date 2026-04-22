@@ -91,7 +91,7 @@ export default function Filmmaker(props) {
     const fetchData = async () => {
       try {
         // Fetching filmmaker data
-        const filmmakerResponse = await http.get(`/users/getfilmmaker/${id}`);
+        const filmmakerResponse = await http.get(`/users/getuser/${id}`);
         const filmmakerData = filmmakerResponse.data;
         setEpkInfo(filmmakerData);
         console.log('Filmmaker Data:', filmmakerData);

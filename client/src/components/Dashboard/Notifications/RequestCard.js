@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUserbyId } from "../../../api/epks";
+import { getUserById } from "../../../api/epks";
 
 export default function RequestCard(props) {
   const { user } = props.Request;
@@ -7,7 +7,7 @@ export default function RequestCard(props) {
   // eslint-disable-next-line no-unused-vars
   const [picture, setPicture] = useState();
   useEffect(() => {
-    getUserbyId(user).then((res) => {
+    getUserById(user).then((res) => {
       // console.info("res", res)
       setUserInfo(res);
       setPicture(

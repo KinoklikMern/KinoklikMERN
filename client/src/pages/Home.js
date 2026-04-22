@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import SwitchBtn from "../components/SwitchBtn/Switch";
 import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
+import HomeBodyActor from "../components/HomeBody/HomeBodyActor";
 import Landing1 from "../components/LandingPage/Landing1";
 import Landing2 from "../components/LandingPage/Landing2";
 import Landing3 from "../components/LandingPage/Landing3";
@@ -31,7 +32,7 @@ function Home({ role }) {
             <HomeHead role={role} />
             <SwitchBtn role={role} />
             <FilterTag role={role} />
-            <HomeBody role={role} />
+            {role === "actor" ? <HomeBodyActor /> : <HomeBody role={role} />}
           </>
         )}
         {!user && (

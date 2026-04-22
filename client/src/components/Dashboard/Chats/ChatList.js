@@ -28,6 +28,7 @@ export default function ChatList({
 
   // Fetch a user by their ID
   const fetchUserById = async (id) => {
+    if (!id) return;
     try {
       const config = {
         headers: {
@@ -35,7 +36,7 @@ export default function ChatList({
         },
       };
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/users/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/getuser/${id}`,
         config
       );
       setFetchedUser(data);

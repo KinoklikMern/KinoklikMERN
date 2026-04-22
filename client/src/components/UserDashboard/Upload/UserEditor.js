@@ -39,7 +39,7 @@ export default function UserEditor({ user }) {
     });
 
     useEffect(() => {
-        http.get(`users/getactor/${user.id}`).then((res) => {
+        http.get(`users/getuser/${user.id}`).then((res) => {
             setForm(prev => ({
                 ...prev,
                 ...res.data,
