@@ -212,8 +212,9 @@ function ProfileViewPage() {
   const handleSaveAndExit = async () => {
     const newErrors = {};
 
-    if (!draftUser.summary) newErrors.summary = true;
-    if (!draftUser.aboutMe) newErrors.aboutMe = true;
+    if (!draftUser.summary || draftUser.summary.trim() === "") newErrors.summary = true;
+    if (!draftUser.aboutMe || draftUser.aboutMe.trim() === "") newErrors.aboutMe = true;
+    if (!draftUser.image_details && !draftUser.new_headshot_file) newErrors.image_details = true;
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -351,6 +352,8 @@ function ProfileViewPage() {
               errors={errors}
             />
           )}
+          </div>
+          <div ref={summaryRef}>
           <UserSummary 
             data={activeData}
             isEditMode={isEditMode} 
@@ -428,9 +431,30 @@ function ProfileViewPage() {
             </p>
               
             <ul className="tw-list-disc tw-list-inside tw-text-white tw-font-bold tw-text-sm tw-mb-8 tw-space-y-2 tw-bg-[#1E0039] tw-p-4 tw-rounded-xl">
-              {errors.UserBio && <li className="tw-text-red-400">Biography <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Headshot Section)</span></li>}
-              {errors.image_details && <li className="tw-text-red-400">Headshot <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Headshot Section)</span></li>}
-              {errors.trailerOrBanner && <li className="tw-text-red-400">Reel or Banner <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Reel Section)</span></li>}
+              {/* Explicitly check for truthiness to avoid 0 or undefined rendering issues */}
+              {!!errors.summary && (
+                <li className="tw-text-red-400">
+                  Summary <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal tw-ml-1">(Summary Section)</span>
+                </li>
+              )}
+              
+              {!!errors.aboutMe && (
+                <li className="tw-text-red-400">
+                  Biography <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal tw-ml-1">(Bio Section)</span>
+                </li>
+              )}
+              
+              {!!errors.image_details && (
+                <li className="tw-text-red-400">
+                  Headshot <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal tw-ml-1">(Hero Section)</span>
+                </li>
+              )}
+              
+              {!!errors.trailerOrBanner && (
+                <li className="tw-text-red-400">
+                  Reel or Banner <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal tw-ml-1">(Hero Section)</span>
+                </li>
+              )}
             </ul>
 
             <div className="tw-flex tw-justify-end">

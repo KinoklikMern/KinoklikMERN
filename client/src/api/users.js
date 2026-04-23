@@ -122,16 +122,16 @@ export const uploadSingleFile = async (file, token) => {
   }
 };
 
-export const updateUserProfile = async (epkId, updatePayload, token) => {
+export const updateUserProfile = async (userId, updatePayload, token) => {
   try {
     const response = await axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/fepks/update/${epkId}`, 
+      `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${userId}`, 
       updatePayload,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return response.data;
   } catch (error) {
-    console.error("Error updating EPK:", error);
+    console.error("Error updating User:", error);
     throw error;
   }
 };

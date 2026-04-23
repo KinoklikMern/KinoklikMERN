@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faVideo, faPlay, faImages, faXmark } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from '../../../images/empty_banner.jpeg';
 
-import UpdatePosterModal from "../../EpkView/EpkCover/UpdatePosterModal"; 
-import UpdateBannerModal from "../../EpkView/EpkCover/UpdateBannerModal"; 
+import UpdateImageModal from "../../UpdateImageModal";
+import UpdateBannerModal from "../../UpdateBannerModal"; 
 
 export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
@@ -189,8 +189,20 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
         </div>
       )}
 
-      <UpdatePosterModal isOpen={isPosterModalOpen} onClose={() => setIsPosterModalOpen(false)} epkInfo={data} onSave={handleSaveHeadshot} />
-      <UpdateBannerModal isOpen={isBannerModalOpen} onClose={() => setIsBannerModalOpen(false)} onSave={handleSaveBanner} />
+
+      <UpdateImageModal 
+        isOpen={isPosterModalOpen} 
+        onClose={() => setIsPosterModalOpen(false)} 
+        libraryImages={data?.photo_albums?.headshots || []}
+        mode="user" // Explicitly set to user for "Update Headshot" labels
+        onSave={handleSaveHeadshot} 
+      />
+      <UpdateBannerModal 
+        isOpen={isBannerModalOpen} 
+        onClose={() => setIsBannerModalOpen(false)} 
+        libraryItems={data?.video_albums?.media || []} // Pass existing videos
+        onSave={handleSaveBanner} 
+      />
     </>
   );
 }
