@@ -1,121 +1,62 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import CustomSelect from '../../EpkView/EpkDetail/CustomSelect';
-
+import UserDetailsEdit from "./UserDetailsEdit"; 
 import { AGE_OPTIONS } from '../../../constants/AgeOptions';
 import { ETHNICITY_OPTIONS } from '../../../constants/EthnicityOptions';
-import { GENDER_OPTIONS } from '../../../constants/GenderOptions';
 
-
-const HAIR_COLORS = ["Black", "Brown", "Chestnut", "Blonde", "Auburn", "Red", "Grey", "Salt & Pepper", "White", "Bald"];
-const EYE_COLORS = ["Black", "Brown", "Blue", "Hazel", "Green", "Grey", "Amber", "Violet"];
-const BODY_BUILDS = ["Slim", "Medium", "Athletic", "Average", "Curvy", "Muscular", "Large"];
-// --- GENERATE HEIGHTS (3'0" to 7'6") ---
-const generateHeights = () => {
-  const heights = [];
-  for (let feet = 3; feet <= 7; feet++) {
-    for (let inches = 0; inches <= 11; inches++) {
-      if (feet === 7 && inches > 6) break;
-      const label = `${feet}'${inches}"`;
-      heights.push({ value: label, label: label });
-    }
-  }
-  return heights;
-};
-
-const HEIGHT_OPTIONS = generateHeights();
-
-export default function UserDetailsEdit({ data, onChange, errors, clearError }) {
+export default function UserDetails({ data, isEditMode, onChange, errors, clearError }) {
   const { t } = useTranslation();
 
-  // Field helper to reduce repetitive JSX
-  const Label = ({ title, required }) => (
-    <p className="tw-text-[10px] tw-text-[#AA8894] tw-uppercase tw-tracking-widest tw-font-bold">
-      {t(title)} {required && <span className="tw-text-[#FF43A7]">*</span>}
-    </p>
+  // Helper to keep the grid items consistent
+  const DetailItem = ({ label, value }) => (
+    <div className="tw-flex tw-flex-col tw-gap-2">
+      <p className="tw-text-[10px] tw-text-[#AA8894] tw-uppercase tw-tracking-widest tw-font-bold">
+        {t(label)}
+      </p>
+      <p className="tw-font-medium tw-text-base tw-text-white">
+        {value || '-'}
+      </p>
+    </div>
   );
 
+  // Helper to find the display label for read-only mode
+  const getLabelFromOptions = (options, value) => {
+    const match = options.find(opt => opt.value === value);
+    return match ? match.label : value;
+  };
+
   return (
-    <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-y-8 tw-gap-x-6">
-      
-      {/* PLAYING GENDER */}
-      <div className="tw-flex tw-flex-col tw-gap-2">
-        <Label title="Playing Gender" />
-        <CustomSelect 
-          value={data?.gender || ''} 
-          onChange={(val) => onChange('gender', val)} 
-          options={GENDER_OPTIONS.map(g => ({ value: g, label: t(g) }))}
-          placeholder={t('Select Gender')}
-        />
-      </div>
+    <section className="tw-w-full tw-bg-transparent tw-py-12">
+      {/* 1280px and px-0 to match Hero edge */}
+      <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-px-4 md:tw-px-0">
+        
+        {/* SECTION LABEL: Purple, aligned to far left edge */}
+        <h2 className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-8">
+          {t('Actor Details')}
+        </h2>
 
-      {/* AGE RANGE */}
-      <div className="tw-flex tw-flex-col tw-gap-2">
-        <Label title="Age Range" />
-        <CustomSelect 
-          value={data?.ageRange || ''} 
-          onChange={(val) => onChange('ageRange', val)} 
-          options={AGE_OPTIONS}
-          placeholder={t('Select Age')}
-        />
+        {/* GRID CONTENT: Indented by 10 units to match Name/Role indentation */}
+        <div className="tw-pl-0 md:tw-pl-10">
+          {isEditMode ? (
+            <UserDetailsEdit data={data} onChange={onChange} errors={errors} clearError={clearError} />
+          ) : (
+            <div className="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-y-10 tw-gap-x-8">
+              <DetailItem label="Playing Gender" value={data?.gender} />
+              <DetailItem label="Playing Age Range" value={getLabelFromOptions(AGE_OPTIONS, data?.ageRange)} />
+              <DetailItem label="Ethnicity" value={getLabelFromOptions(ETHNICITY_OPTIONS, data?.ethnicity)} />
+              <DetailItem label="Height" value={data?.height} />
+              <DetailItem label="Hair Color" value={data?.hairColor} />
+              <DetailItem label="Eye Color" value={data?.eyesColor} />
+              <DetailItem label="Body Build" value={data?.bodyBuild} />
+              <DetailItem 
+                label="Has Representation" 
+                value={data?.hasAgent === true ? t('Yes') : data?.hasAgent === false ? t('No') : '-'} 
+              />
+            </div>
+          )}
+        </div>
       </div>
-
-      {/* ETHNICITY */}
-      <div className="tw-flex tw-flex-col tw-gap-2">
-        <Label title="Ethnicity" />
-        <CustomSelect 
-          value={data?.ethnicity || ''} 
-          onChange={(val) => onChange('ethnicity', val)} 
-          options={ETHNICITY_OPTIONS.map(e => ({ value: e, label: t(e) }))}
-          placeholder={t('Select Ethnicity')}
-        />
-      </div>
-
-      {/* HEIGHT (Dropdown Version) */}
-      <div className="tw-flex tw-flex-col tw-gap-2">
-        <Label title="Height" />
-        <CustomSelect 
-          value={data?.height || ''} 
-          onChange={(val) => onChange('height', val)} 
-          options={HEIGHT_OPTIONS}
-          placeholder={t('Select Height')}
-        />
-      </div>
-
-      {/* HAIR COLOR */}
-      <div className="tw-flex tw-flex-col tw-gap-2">
-        <Label title="Hair Color" />
-        <CustomSelect 
-          value={data?.hairColor || ''} 
-          onChange={(val) => onChange('hairColor', val)} 
-          options={HAIR_COLORS.map(h => ({ value: h, label: t(h) }))}
-          placeholder={t('Select Hair')}
-        />
-      </div>
-
-      {/* EYE COLOR */}
-      <div className="tw-flex tw-flex-col tw-gap-2">
-        <Label title="Eye Color" />
-        <CustomSelect 
-          value={data?.eyesColor || ''} 
-          onChange={(val) => onChange('eyesColor', val)} 
-          options={EYE_COLORS.map(e => ({ value: e, label: t(e) }))}
-          placeholder={t('Select Eyes')}
-        />
-      </div>
-
-      {/* BODY BUILD */}
-      <div className="tw-flex tw-flex-col tw-gap-2">
-        <Label title="Body Build" />
-        <CustomSelect 
-          value={data?.bodyBuild || ''} 
-          onChange={(val) => onChange('bodyBuild', val)} 
-          options={BODY_BUILDS.map(b => ({ value: b, label: t(b) }))}
-          placeholder={t('Select Build')}
-        />
-      </div>
-
-    </div>
+    </section>
   );
 }

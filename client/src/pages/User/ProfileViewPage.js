@@ -14,7 +14,6 @@ import UserDetails from "../../components/UserView/UserDetails/UserDetails";
 import UserBio from '../../components/UserView/UserBio/UserBio';
 import UserPhotoGallery from '../../components/UserView/UserPhotoGallery/UserPhotoGallery';
 import UserFilmography from '../../components/UserView/UserFilmography/UserFilmography';
-//import UserProductionCredits from '../../components/UserView/UserProductionCredits/UserProductionCredits';
 import UserVideoGallery from '../../components/UserView/UserVideoGallery/UserVideoGallery';
 import UserSocials from '../../components/UserView/UserSocials/UserSocials';
 
@@ -399,7 +398,7 @@ function ProfileViewPage() {
           </div>
           <div ref={filmographyRef}>
             <UserFilmography
-            data={activeData} 
+            profileOwnerId={activeData?._id} 
             isEditMode={isEditMode} 
             onChange={handleFieldChange} 
             />

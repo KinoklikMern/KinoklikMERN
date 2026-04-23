@@ -25,16 +25,12 @@ const dataURLtoFile = (dataurl, filename) => {
 export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMediaForDeletion }) {
   const { t } = useTranslation();
   const user = useSelector((state) => state.user);
-  
   const [activeCategory, setActiveCategory] = useState("reels");
   const sliderRef = useRef(null);
-
   const [playingVideo, setPlayingVideo] = useState(null);
   const [activeOverlay, setActiveOverlay] = useState(null);
-
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [videoToDelete, setVideoToDelete] = useState(null);
-
   const [modalVideo, setModalVideo] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -52,7 +48,7 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
 
   const handleScroll = (dir) => {
     if (sliderRef.current) {
-      const scrollAmount = 420 + 32;
+      const scrollAmount = 380 + 24;
       sliderRef.current.scrollBy({ left: dir === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
   };
@@ -76,16 +72,23 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
         finalThumbUrl = await uploadSingleFile(file, user?.token);
       }
 
-      const newGallery = { ...data.video_gallery };
-      const currentArray = [...(newGallery[editData.category] || [])];
+      const newGallery = { 
+        reels: [...(data.video_gallery?.reels || [])],
+        media: [...(data.video_gallery?.media || [])],
+        behind: [...(data.video_gallery?.behind || [])],
+        premieres: [...(data.video_gallery?.premieres || [])]
+      };
+      const currentArray = newGallery[editData.category];
 
       if (editData.isNewUpload) {
-        currentArray.push({
+        const newEntry = {
           url: finalVideoUrl,
           title: editData.newTitle,
           thumbnail: finalThumbUrl,
-          blur: false
-        });
+        };
+        if (editData.category === 'reels') newEntry.isMain = false;
+        
+        currentArray.push(newEntry);
       } else {
         const index = currentArray.findIndex(v => v.url === editData.originalUrl);
         if (index > -1) {
@@ -97,7 +100,6 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
         }
       }
       
-      newGallery[editData.category] = currentArray;
       onChange("video_gallery", newGallery);
     } catch (err) {
       console.error("Failed to save video:", err);
@@ -116,90 +118,88 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
   };
 
   return (
-    <div className="tw-bg-[#1E0039] tw-w-full tw-pb-12 md:tw-pb-20">
-      <div className="tw-w-full tw-max-w-[1440px] tw-mx-auto tw-flex tw-flex-col tw-px-4 lg:tw-px-16 tw-gap-12">
-        <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-[24px] tw-p-6 md:tw-p-8 lg:tw-p-12 tw-flex tw-flex-col tw-gap-8">
-          
-          <div className="tw-flex tw-flex-col lg:tw-flex-row lg:tw-items-end tw-gap-6 lg:tw-justify-between">
-            <h2 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">Video Gallery</h2>
-            <div className="tw-flex tw-gap-2 tw-overflow-x-auto tw-pb-2 custom-scrollbar">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.key}
-                  onClick={() => setActiveCategory(cat.key)}
-                  className={`tw-px-6 tw-py-2 tw-rounded-full tw-text-sm tw-font-bold tw-border-none tw-cursor-pointer tw-transition-all ${
-                    activeCategory === cat.key ? "tw-bg-[#FF43A7] tw-text-[#570033]" : "tw-bg-[#371E51] tw-text-[#F0DBFF]"
-                  }`}
-                >
-                  <span className="md:tw-hidden">{t(cat.mobileLabel)}</span>
-                  <span className="tw-hidden md:tw-inline">{t(cat.label)}</span>
-                </button>
-              ))}
+    <section className="tw-bg-transparent tw-w-full tw-pb-12">
+      <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-px-4 md:tw-px-0">
+        
+        {/* Alignment Rail - Content Indented 10 units */}
+        <div className="tw-pl-0 md:tw-pl-10">
+          <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-[24px] tw-p-6 md:tw-p-10 tw-flex tw-flex-col tw-gap-8">
+            
+            {/* Header */}
+            <div className="tw-flex tw-flex-col lg:tw-flex-row lg:tw-items-center tw-justify-between tw-gap-6">
+              <h3 className="tw-text-white tw-text-2xl md:tw-text-3xl tw-font-bold tw-m-0">
+                {t("Video Library")}
+              </h3>
+              
+              <div className="tw-flex tw-gap-2 tw-overflow-x-auto custom-scrollbar tw-pb-2 lg:tw-pb-0">
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.key}
+                    onClick={() => setActiveCategory(cat.key)}
+                    className={`tw-whitespace-nowrap tw-px-5 tw-py-2 tw-rounded-full tw-font-bold tw-text-xs tw-transition-all tw-border-none tw-cursor-pointer ${
+                      activeCategory === cat.key
+                        ? "tw-bg-[#FF43A7] tw-text-[#570033] shadow-lg"
+                        : "tw-bg-[#371E51] tw-text-[#F0DBFF] hover:tw-bg-[#4B2B6D]"
+                    }`}
+                  >
+                    {t(cat.label)}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="tw-relative tw-w-full">
-            {/* Scroll Buttons */}
-            {(videos.length > 0 || isEditMode) && (
-              <>
-                <button onClick={() => handleScroll('left')} className="tw-hidden md:tw-flex tw-absolute tw--left-6 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-bg-[#1E0039] tw-border tw-border-[#FF43A7] tw-text-[#FF43A7] tw-cursor-pointer">
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                <button onClick={() => handleScroll('right')} className="tw-hidden md:tw-flex tw-absolute tw--right-6 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-bg-[#1E0039] tw-border tw-border-[#FF43A7] tw-text-[#FF43A7] tw-cursor-pointer">
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
-              </>
-            )}
-
-            <div ref={sliderRef} className="tw-flex tw-gap-6 tw-overflow-x-auto [&::-webkit-scrollbar]:tw-hidden tw-snap-x">
-              {isEditMode && (
-                <div className="tw-shrink-0 tw-snap-center">
-                  {isUploading ? (
-                    <div className="tw-w-[420px] tw-h-[240px] tw-bg-[#FF43A7]/5 tw-border-2 tw-border-dashed tw-border-[#FF43A7]/40 tw-rounded-xl tw-flex tw-flex-col tw-items-center tw-justify-center">
-                      <FontAwesomeIcon icon={faSpinner} className="tw-text-[#FF43A7] tw-text-2xl tw-animate-spin" />
-                    </div>
-                  ) : (
-                    <ActionPlaceholder 
-                      variant="video" 
-                      title={`Add to ${activeCategory}`}
-                      onClick={() => setModalVideo({ isNewUpload: true, category: activeCategory })}
-                    />
-                  )}
-                </div>
-              )}
-
-              {videos.map((item, idx) => (
-                <div 
-                  key={idx} 
-                  onClick={() => !isEditMode && setPlayingVideo(item)}
-                  className="tw-shrink-0 tw-snap-center tw-relative tw-w-[420px] tw-h-[240px] tw-bg-[#190033] tw-rounded-xl tw-overflow-hidden tw-group tw-cursor-pointer"
-                >
-                  <img 
-                    src={item.thumbnail?.startsWith('http') ? item.thumbnail : `${process.env.REACT_APP_AWS_URL}/${item.thumbnail}`} 
-                    className="tw-w-full tw-h-full tw-object-cover tw-opacity-60" 
-                    alt={item.title}
-                  />
-                  
-                  {isEditMode && (
-                    <div className="tw-absolute tw-top-3 tw-right-3 tw-flex tw-gap-2">
-                      <button onClick={(e) => { e.stopPropagation(); setModalVideo(item); }} className="tw-w-10 tw-h-10 tw-bg-black/80 tw-text-white tw-rounded-full tw-border-none tw-cursor-pointer"><FontAwesomeIcon icon={faPenToSquare} /></button>
-                      <button onClick={(e) => { e.stopPropagation(); setVideoToDelete(item); setDeleteModalOpen(true); }} className="tw-w-10 tw-h-10 tw-bg-black/80 tw-text-red-500 tw-rounded-full tw-border-none tw-cursor-pointer"><FontAwesomeIcon icon={faTrashCan} /></button>
-                    </div>
-                  )}
-
-                  {!isEditMode && (
-                    <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center">
-                       <div className="tw-w-16 tw-h-16 tw-rounded-full tw-border-2 tw-border-white/50 tw-flex tw-items-center tw-justify-center tw-backdrop-blur-sm group-hover:tw-border-white tw-transition-colors">
-                          <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-xl tw-ml-1" />
-                       </div>
-                    </div>
-                  )}
-
-                  <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-p-6 tw-bg-gradient-to-t tw-from-[#1E0039] tw-text-white">
-                    <span className="tw-font-bold tw-text-lg tw-truncate tw-block">{item.title || "Untitled Clip"}</span>
+            {/* Slider Container */}
+            <div className="tw-relative">
+              <div ref={sliderRef} className="tw-flex tw-gap-6 tw-overflow-x-auto [&::-webkit-scrollbar]:tw-hidden tw-snap-x tw-pb-4">
+                {isEditMode && (
+                  <div className="tw-shrink-0 tw-snap-center">
+                    {isUploading ? (
+                      <div className="tw-w-[320px] md:tw-w-[380px] tw-h-[210px] tw-bg-[#FF43A7]/5 tw-border-2 tw-border-dashed tw-border-[#FF43A7]/40 tw-rounded-xl tw-flex tw-items-center tw-justify-center">
+                        <FontAwesomeIcon icon={faSpinner} className="tw-text-[#FF43A7] tw-text-2xl tw-animate-spin" />
+                      </div>
+                    ) : (
+                      <ActionPlaceholder 
+                        variant="video" 
+                        title={`Add ${activeCategory}`}
+                        onClick={() => setModalVideo({ isNewUpload: true, category: activeCategory })}
+                      />
+                    )}
                   </div>
-                </div>
-              ))}
+                )}
+
+                {videos.map((item, idx) => (
+                  <div 
+                    key={idx} 
+                    onClick={() => !isEditMode && setPlayingVideo(item)}
+                    className="tw-shrink-0 tw-snap-center tw-relative tw-w-[320px] md:tw-w-[380px] tw-h-[210px] tw-bg-[#190033] tw-rounded-xl tw-overflow-hidden tw-group tw-cursor-pointer tw-shadow-lg"
+                  >
+                    <img 
+                      src={item.thumbnail?.startsWith('http') ? item.thumbnail : `${process.env.REACT_APP_AWS_URL}/${item.thumbnail}`} 
+                      className="tw-w-full tw-h-full tw-object-cover tw-opacity-70 group-hover:tw-scale-105 tw-transition-transform tw-duration-500" 
+                      alt={item.title}
+                    />
+                    
+                    {isEditMode && (
+                      <div className="tw-absolute tw-top-3 tw-right-3 tw-flex tw-gap-2 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
+                        <button onClick={(e) => { e.stopPropagation(); setModalVideo(item); }} className="tw-w-8 tw-h-8 tw-bg-black/70 hover:tw-bg-[#FF43A7] tw-text-white tw-rounded-full tw-border-none tw-cursor-pointer"><FontAwesomeIcon icon={faPenToSquare} className="tw-text-xs"/></button>
+                        <button onClick={(e) => { e.stopPropagation(); setVideoToDelete(item); setDeleteModalOpen(true); }} className="tw-w-8 tw-h-8 tw-bg-black/70 hover:tw-bg-red-500 tw-text-white tw-rounded-full tw-border-none tw-cursor-pointer"><FontAwesomeIcon icon={faTrashCan} className="tw-text-xs"/></button>
+                      </div>
+                    )}
+
+                    {!isEditMode && (
+                      <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center">
+                        <div className="tw-w-14 tw-h-14 tw-rounded-full tw-border-2 tw-border-white/50 tw-flex tw-items-center tw-justify-center tw-backdrop-blur-sm group-hover:tw-scale-110 tw-transition-transform">
+                          <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-ml-1" />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-p-4 tw-bg-gradient-to-t tw-from-black/80 tw-to-transparent">
+                      <span className="tw-text-white tw-font-bold tw-text-sm tw-truncate tw-block">{item.title || "Untitled Clip"}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -236,6 +236,6 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
           />
         </div>
       )}
-    </div>
+    </section>
   );
 }

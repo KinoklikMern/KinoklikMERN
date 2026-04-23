@@ -1,87 +1,91 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+// Import your existing, working API calls
+import { getMoviesByActors, getFepksByFilmmakerId } from '../../../api/epks'; 
+import emptyBanner from '../../../images/empty_banner.jpeg';
 
-export default function UserBio({ data, isEditMode, onChange }) {
+const S3 = process.env.REACT_APP_AWS_URL;
+
+export default function UserFilmography({ profileOwnerId, role }) {
   const { t } = useTranslation();
-  const [isEditing, setIsEditing] = useState(false);
-  const [tempBio, setTempBio] = useState(data?.summary || "");
+  const navigate = useNavigate();
+  
+  const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTempBio(data?.summary || "");
-  }, [data?.summary]);
+    const fetchAppropriateFilmography = async () => {
+      if (!profileOwnerId || profileOwnerId === "undefined") return;
+      
+      try {
+        setIsLoading(true);
+        let data = [];
 
-  const handleSave = () => {
-    if (tempBio.trim().length === 0) {
-      alert("Bio cannot be empty.");
-      return;
-    }
-    onChange("summary", tempBio);
-    setIsEditing(false);
-  };
+        // Simple switch based on the role passed from the parent
+        if (role === 'filmmaker') {
+          data = await getFepksByFilmmakerId(profileOwnerId);
+        } else {
+          // Defaults to actor search
+          data = await getMoviesByActors(profileOwnerId);
+        }
 
-  const handleCancel = () => {
-    setTempBio(data?.summary || "");
-    setIsEditing(false);
-  };
+        setProjects(data || []);
+      } catch (err) {
+        console.error("Error fetching filmography:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAppropriateFilmography();
+  }, [profileOwnerId, role]);
+
+  if (isLoading || projects.length === 0) return null;
 
   return (
-    <div className="tw-w-full tw-flex tw-flex-col tw-items-center tw-mt-12">
-      <div className="tw-flex tw-items-center tw-gap-4 tw-mb-6">
-        <h2 className="tw-text-white tw-text-[2rem] tw-font-bold tw-tracking-tight tw-m-0">
-          {t("Summary")}
+    <section className="tw-w-full tw-bg-transparent tw-py-12 tw-border-[#5A3F49]/30">
+      <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-px-4 md:tw-px-0">
+        
+        {/* Dynamic Header based on Role */}
+        <h2 className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-8">
+          {role === 'filmmaker' ? t('Worked On') : t('Appears In')}
         </h2>
-        {isEditMode && !isEditing && (
-          <button
-            onClick={() => setIsEditing(true)}
-            className="tw-bg-[#FF43A7] tw-w-8 tw-h-8 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-border-none tw-cursor-pointer hover:tw-scale-110 tw-transition-transform"
-          >
-            <FontAwesomeIcon icon={faPenToSquare} className="tw-text-[#570033] tw-text-sm" />
-          </button>
-        )}
-      </div>
 
-      <div className="tw-w-full tw-max-w-4xl tw-bg-white tw-rounded-2xl tw-shadow-xl tw-p-8 md:tw-p-12 tw-relative">
-        {isEditing ? (
-          <div className="tw-flex tw-flex-col tw-gap-4">
-            <textarea
-              value={tempBio}
-              onChange={(e) => setTempBio(e.target.value)}
-              className="tw-w-full tw-min-h-[150px] tw-p-4 tw-rounded-xl tw-border-2 tw-border-[#FF43A7] tw-text-[#1E0039] tw-text-lg tw-font-medium tw-outline-none tw-resize-none"
-              placeholder={t("Write your professional summary here...")}
-              maxLength={500} 
-            />
-            
-            <div className="tw-flex tw-justify-between tw-items-center">
-              <span className="tw-text-xs tw-font-bold tw-text-[#AA8894] tw-uppercase">
-                {tempBio.length} / 500 {t("characters")}
-              </span>
-              <div className="tw-flex tw-gap-3">
-                <button
-                  onClick={handleCancel}
-                  className="tw-px-4 tw-py-2 tw-rounded-lg tw-bg-gray-200 tw-text-gray-700 tw-font-bold tw-border-none tw-cursor-pointer hover:tw-bg-gray-300"
-                >
-                  <FontAwesomeIcon icon={faXmark} className="tw-mr-2" />
-                  {t("Cancel")}
-                </button>
-                <button
-                  onClick={handleSave}
-                  className="tw-px-6 tw-py-2 tw-rounded-lg tw-bg-[#FF43A7] tw-text-[#570033] tw-font-bold tw-border-none tw-cursor-pointer hover:tw-bg-[#ff5cac]"
-                >
-                  <FontAwesomeIcon icon={faCheck} className="tw-mr-2" />
-                  {t("Save")}
-                </button>
-              </div>
-            </div>
+        <div className="tw-pl-0 md:tw-pl-10">
+          <div className="tw-flex tw-gap-6 tw-overflow-x-auto tw-pb-6 custom-scrollbar tw-snap-x">
+            {projects.map((project) => (
+              <button
+                key={project._id}
+                onClick={() => navigate(`/epk/${project._id}`)}
+                className="tw-shrink-0 tw-group tw-bg-transparent tw-border-none tw-cursor-pointer tw-p-0 tw-text-left tw-snap-center"
+              >
+                <div className="tw-relative tw-w-44 tw-aspect-[2/3] tw-rounded-xl tw-overflow-hidden tw-border tw-border-[#5A3F49]/40">
+                  <img
+                    src={
+                        project.image_details 
+                        ? (project.image_details.startsWith('http') 
+                            ? project.image_details 
+                            : `${S3}/${project.image_details}`)
+                        : emptyBanner // Fallback if image_details is missing
+                    }
+                    alt={project.title}
+                    className="tw-w-full tw-h-full tw-object-cover"
+                    onError={(e) => { e.target.src = emptyBanner; }}
+                    />
+                  
+                  <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-gradient-to-t tw-from-[#1E0039] tw-p-4">
+                    <p className="tw-truncate tw-text-sm tw-font-bold tw-text-white tw-m-0">{project.title}</p>
+                    <p className="tw-text-[10px] tw-font-bold tw-text-[#FF43A7] tw-mt-1">
+                      {project.productionYear || '---'}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            ))}
           </div>
-        ) : (
-          <p className="tw-text-center tw-text-xl tw-leading-relaxed tw-font-medium tw-text-[#1E0039] tw-m-0">
-            {data?.summary || t("No summary provided yet.")}
-          </p>
-        )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
