@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Actor from './pages/Actor/Actor';
@@ -81,7 +82,7 @@ function App() {
           <Route index element={<Home role="actor" />} />
         </Route>
 
-        <Route path="/actor/:id" element={<Actor />} />
+        <Route path="/actor/:id" element={<ProfileViewPage />} />
 
         <Route element={<AuthRoutes />}>
           <Route path="/" element={<DashboardLayout className={className} />}>
@@ -110,7 +111,7 @@ function App() {
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="epk/:id" element={<EpkViewPage />} />
           <Route path="/user/:id" element={<ProfileViewPage />} />
-          <Route path="filmmaker/:id" element={<FilmmakerPage />} />
+          <Route path="filmmaker/:id" element={<ProfileViewPage />} />
           <Route path="signup" element={<RegistrationForm />} />
 
           <Route path="verification" element={<EmailVerification />} />

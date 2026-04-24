@@ -268,21 +268,6 @@ UserSchema.post(['find', 'findOne'], function(docs) {
   const migrateActorData = (doc) => {
     const rawDoc = doc._doc || doc; 
 
-    // 0. Logic: If they have a birthday, calculate the current age
-    if (rawDoc.birthday) {
-      const today = new Date();
-      const birthDate = new Date(rawDoc.birthday);
-      let calculatedAge = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-      
-      // Adjust if birthday hasn't happened yet this year
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        calculatedAge--;
-      }
-      
-      rawDoc.age = calculatedAge;
-    }
-
     // 1. Safety check for photo_albums
     if (!rawDoc.photo_albums) {
       rawDoc.photo_albums = { headshots: [], behind: [], media: [] };
