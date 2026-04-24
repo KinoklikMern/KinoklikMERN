@@ -49,9 +49,10 @@ export default function UserDetailsEdit({ data, onChange, errors, clearError }) 
     <div className="tw-flex tw-flex-col tw-gap-2">
       <EditLabel title={label} />
       <CustomSelect 
-        value={data?.[field] || ''} 
+        value={data?.[field] !== undefined && data?.[field] !== null ? String(data[field]) : ''} 
         onChange={(val) => {
-          onChange(field, val);
+          const finalVal = field === 'hasAgent' ? (val === 'true' || val === true) : val;
+          onChange(field, finalVal);
           if (errors?.[field]) clearError(field);
         }} 
         options={options}
@@ -73,7 +74,7 @@ export default function UserDetailsEdit({ data, onChange, errors, clearError }) 
 
       <SelectField 
         label="Age Range" 
-        field="ageRange" 
+        field="age" 
         options={AGE_OPTIONS}
         placeholder="Select playing age"
       />
@@ -81,9 +82,9 @@ export default function UserDetailsEdit({ data, onChange, errors, clearError }) 
       <SelectField 
         label="Ethnicity" 
         field="ethnicity" 
-        options={ETHNICITY_OPTIONS.map(e => ({ value: e, label: t(e) }))}
+        options={ETHNICITY_OPTIONS.map(e => ({ value: e.value, label: t(e.label) }))}
         placeholder="Select playing ethnicity"
-      />
+        />
 
       <SelectField 
         label="Height" 

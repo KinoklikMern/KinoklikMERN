@@ -11,11 +11,8 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [playingView, setPlayingView] = useState(null);
-  
-  // --- FULLSCREEN IMAGE STATE ---
   const [expandedImage, setExpandedImage] = useState(null);
 
-  // --- INSTANT LOCAL PREVIEW STATES ---
   const [localHeadshot, setLocalHeadshot] = useState(null);
   const [localBanner, setLocalBanner] = useState(null);
   const [localReel, setLocalReel] = useState(null);
@@ -36,12 +33,17 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
   const rawHeadshot = data?.picture || mainHeadshot;
   const dbHeadshotUrl = !rawHeadshot ? "" : rawHeadshot.startsWith("http") ? rawHeadshot : `${AWS_URL}/${rawHeadshot}`;
 
-  const mainReelObj = data?.video_albums?.media?.find(vid => vid.isMain);
-  const dbReelSrc = !mainReelObj?.video ? "" : mainReelObj.video.startsWith("http") ? mainReelObj.video : `${AWS_URL}/${mainReelObj.video}`;
-  
-  // Banner uses the thumbnail of the Main Reel
-  const dbBannerUrl = !mainReelObj?.image ? emptyBanner : mainReelObj.image.startsWith("http") ? mainReelObj.image : `${AWS_URL}/${mainReelObj.image}`;
-
+  const mainReelObj = data?.video_gallery?.reels?.find(vid => vid.isMain);
+  const dbReelSrc = !mainReelObj?.url 
+    ? "" 
+    : mainReelObj.url.startsWith("http") 
+      ? mainReelObj.url 
+      : `${AWS_URL}/${mainReelObj.url}`;
+  const dbBannerUrl = !mainReelObj?.thumbnail 
+    ? emptyBanner 
+    : mainReelObj.thumbnail.startsWith("http") 
+      ? mainReelObj.thumbnail 
+      : `${AWS_URL}/${mainReelObj.thumbnail}`;
   const displayHeadshot = localHeadshot || dbHeadshotUrl || emptyBanner;
   const displayBanner = localBanner || dbBannerUrl;
   const displayReel = localReel || dbReelSrc;
@@ -50,20 +52,6 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
   // --- SMART MEDIA BACKUP LOGIC ---
   const handleSaveHeadshot = (res) => {
     setIsPosterModalOpen(false);
-
-    // Backup current headshot to album if it's not already there
-    const currentPath = data?.picture || mainHeadshot;
-    if (currentPath && currentPath !== res.data?.image) {
-      const currentAlbums = data?.photo_albums || { headshots: [] };
-      const headshots = currentAlbums.headshots || [];
-      if (!headshots.some(h => h.image === currentPath)) {
-        onChange("photo_albums", {
-          ...currentAlbums,
-          headshots: [{ image: currentPath, isMain: false }, ...headshots]
-        });
-      }
-    }
-
     if (res.type === "local") {
       setLocalHeadshot(URL.createObjectURL(res.file));
       onChange("new_headshot_file", res.file); 
@@ -81,18 +69,6 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
 
   const handleSaveBanner = async (res) => {
     setIsBannerModalOpen(false);
-
-    // Backup old reel if it exists
-    if (mainReelObj?.video) {
-      const currentVideos = data?.video_albums || { media: [] };
-      const media = currentVideos.media || [];
-      if (!media.some(v => v.video === mainReelObj.video)) {
-        onChange("video_albums", {
-          ...currentVideos,
-          media: [{ ...mainReelObj, isMain: false }, ...media]
-        });
-      }
-    }
 
     if (res.type === "image") {
       setLocalBanner(URL.createObjectURL(res.file));
@@ -200,7 +176,7 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
       <UpdateBannerModal 
         isOpen={isBannerModalOpen} 
         onClose={() => setIsBannerModalOpen(false)} 
-        libraryItems={data?.video_albums?.media || []} // Pass existing videos
+        libraryItems={data?.video_gallery?.reels || []} 
         onSave={handleSaveBanner} 
       />
     </>

@@ -43,7 +43,6 @@ function ProfileViewPage() {
   const [TotalReach, setTotalReach] = useState(0);
   const [pendingDeletes, setPendingDeletes] = useState([]);
     
-  // Validation States
   const [errors, setErrors] = useState({});
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [validationTarget, setValidationTarget] = useState(null);
@@ -53,8 +52,6 @@ function ProfileViewPage() {
   const detailsRef = useRef(null);
   const bioRef = useRef(null);
   const mediaRef = useRef(null);     
-  //const buzzRef = useRef(null);
-  //const prodCreditsRef = useRef(null);
   const photoOnlyRef = useRef(null); 
   const videoOnlyRef = useRef(null); 
   const filmographyRef = useRef(null);
@@ -65,11 +62,9 @@ function ProfileViewPage() {
     summary: summaryRef,
     details: detailsRef,
     bio: bioRef,
-    //prodCredits: prodCreditsRef,
     media: mediaRef,
     filmography: filmographyRef,
     socials: socialsRef,
-    //buzz: buzzRef,
   };
 
   useEffect(() => {
@@ -183,12 +178,18 @@ function ProfileViewPage() {
     }
   }, [isEditMode, userData, draftUser]);
 
+  const activeData = isEditMode && draftUser ? draftUser : userData;
+
   const HeadshotImage = React.useMemo(() => {
-    const img = userData?.image_details;
+    const headshots = activeData?.photo_albums?.headshots || [];
+    const mainObject = headshots.find(h => h.isMain) || headshots[0];
+    
+    const img = mainObject?.image;
+
     if (!img || img === '') return emptyBanner;
-    if (img.startsWith('http')) return img;
-      return `${process.env.REACT_APP_AWS_URL}/${img}`;
-  }, [userData?.image_details]);
+    if (img.startsWith('http') || img.startsWith('blob:')) return img;
+    return `${process.env.REACT_APP_AWS_URL}/${img}`;
+  }, [activeData?.photo_albums?.headshots]);
 
   useEffect(() => {
     if (id && user?.id !== id) {
@@ -209,87 +210,6 @@ function ProfileViewPage() {
     setPendingDeletes(prev => [...prev, mediaKey]);
   };
 
-  const handleSaveAndExit = async () => {
-    const newErrors = {};
-
-    if (!draftUser.summary || draftUser.summary.trim() === "") newErrors.summary = true;
-    if (!draftUser.aboutMe || draftUser.aboutMe.trim() === "") newErrors.aboutMe = true;
-    if (!draftUser.image_details && !draftUser.new_headshot_file) newErrors.image_details = true;
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-
-    if (newErrors.summary || newErrors.aboutMe) {
-        setValidationTarget('biography');
-      } else {
-        setValidationTarget('details'); 
-      }
-      
-      setShowValidationModal(true);
-      return; 
-    }
-
-    setErrors({});
-    setIsSaving(true);
-    try {
-      let finalDraft = { ...draftUser };
-
-      delete finalDraft._id;
-      delete finalDraft.__v;
-      delete finalDraft.createdAt;
-      delete finalDraft.updatedAt;
-
-      if (finalDraft.likes) finalDraft.likes = finalDraft.likes.map(u => u._id || u);
-      if (finalDraft.favourites) finalDraft.favourites = finalDraft.favourites.map(u => u._id || u);
- 
-      if (finalDraft.new_headshot_file) {
-        const posterKey = await uploadSingleFile(finalDraft.new_headshot_file, user?.token);
-        finalDraft.image_details = posterKey; 
-        delete finalDraft.new_headshot_file;   
-      }
- 
-      if (finalDraft.new_banner_file) {
-        const bannerKey = await uploadSingleFile(finalDraft.new_banner_file, user?.token);
-        finalDraft.banners = [{ url: bannerKey, is_thumbnail: true }];
-        delete finalDraft.new_banner_file;
-      }
- 
-      if (finalDraft.new_reel_file) {
-        const trailerKey = await uploadSingleFile(finalDraft.new_reel_file, user?.token);
-        finalDraft.reel_url = trailerKey; 
-        delete finalDraft.new_reel_file;
-      }
- 
-      if (finalDraft.new_reel_thumbnail) {
-        const thumbKey = await uploadSingleFile(finalDraft.new_reel_thumbnail, user?.token);
-        finalDraft.banners = [{ url: thumbKey, is_thumbnail: true }];
-        delete finalDraft.new_reel_thumbnail;
-      }
-
-      const updatedUser = await updateUserProfile(id, finalDraft, user?.token);
-
-      if (pendingDeletes.length > 0) {
-        try {
-          await deleteS3MediaBatch(userData._id, pendingDeletes, user?.token);
-          setPendingDeletes([]); 
-        } catch (s3Error) {
-          console.error("Non-fatal: User saved, but failed to delete orphaned S3 files.", s3Error);
-        }
-      }
-      
-      setUserData(updatedUser);
-      setDraftUser(null);
-      setIsEditMode(false);
-      navigate(`/user/${id}`, { replace: true });
-
-    } catch (error) {
-      console.error("Save process failed:", error);
-      alert("Error saving profile changes. Please try again.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   const clearError = (field) => {
     setErrors(prev => {
       const newErrs = { ...prev };
@@ -305,7 +225,148 @@ function ProfileViewPage() {
     setDraftUser((prev) => ({ ...prev, [field]: value }));
   };
 
-  const activeData = isEditMode && draftUser ? draftUser : userData;
+  const handleSaveAndExit = async () => {
+    const newErrors = {};
+    const hasExistingImage = draftUser.photo_albums?.headshots?.some(h => h.isMain);
+    const hasNewImage = !!draftUser.new_headshot_file;
+
+    // 1. Validation
+    if (!hasExistingImage && !hasNewImage) {
+      newErrors.image_details = true;
+    }
+    if (!draftUser.summary || draftUser.summary.trim() === "") newErrors.summary = true;
+    if (!draftUser.aboutMe || draftUser.aboutMe.trim() === "") newErrors.aboutMe = true;
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      // If summary/bio is missing, scroll to summary. Otherwise, scroll to Hero.
+      if (newErrors.summary || newErrors.aboutMe) {
+        setValidationTarget('summary'); 
+      } else {
+        setValidationTarget('hero');
+      }
+      setShowValidationModal(true);
+      return;
+    }
+
+    setErrors({});
+    setIsSaving(true);
+
+    try {
+      let finalDraft = { ...draftUser };
+
+      // 2. Metadata & Relationship Cleanup
+      delete finalDraft._id;
+      delete finalDraft.__v;
+      delete finalDraft.createdAt;
+      delete finalDraft.updatedAt;
+
+      if (finalDraft.likes) finalDraft.likes = finalDraft.likes.map(u => u._id || u);
+      if (finalDraft.favourites) finalDraft.favourites = finalDraft.favourites.map(u => u._id || u);
+
+      // 3. Object Initialization (Crucial for new users)
+      if (!finalDraft.photo_albums) finalDraft.photo_albums = { headshots: [] };
+      if (!finalDraft.video_gallery) {
+        finalDraft.video_gallery = { reels: [], media: [], behind: [], premieres: [] };
+      }
+
+      /**
+       * 4. PHOTO LOGIC
+       * Handles new uploads or selecting from existing library
+       */
+      if (finalDraft.new_headshot_file) {
+        const headshotKey = await uploadSingleFile(finalDraft.new_headshot_file, user?.token);
+        
+        const updatedHeadshots = (finalDraft.photo_albums.headshots || []).map(h => ({
+          ...h,
+          isMain: false
+        }));
+
+        updatedHeadshots.push({ image: headshotKey, isMain: true });
+
+        finalDraft.photo_albums = { 
+          ...finalDraft.photo_albums, 
+          headshots: updatedHeadshots 
+        };
+        finalDraft.picture = headshotKey;
+        delete finalDraft.new_headshot_file;
+      } else if (finalDraft.picture && finalDraft.photo_albums.headshots) {
+        finalDraft.photo_albums.headshots = finalDraft.photo_albums.headshots.map(h => ({
+          ...h,
+          isMain: h.image === finalDraft.picture
+        }));
+      }
+
+      /**
+       * 5. REEL / VIDEO GALLERY LOGIC
+       * Maps temporary file uploads into the video_gallery.reels array
+       */
+      if (finalDraft.new_reel_file) {
+        const videoKey = await uploadSingleFile(finalDraft.new_reel_file, user?.token);
+        
+        let thumbKey = null;
+        if (finalDraft.new_reel_thumbnail) {
+          thumbKey = await uploadSingleFile(finalDraft.new_reel_thumbnail, user?.token);
+        }
+
+        const newReelEntry = {
+          url: videoKey,
+          thumbnail: thumbKey || "",
+          title: finalDraft.reel_title || "My Reel",
+          isMain: true
+        };
+
+        // Set existing reels to not main
+        const updatedReels = (finalDraft.video_gallery.reels || []).map(r => ({
+          ...r,
+          isMain: false
+        }));
+
+        updatedReels.push(newReelEntry);
+        finalDraft.video_gallery.reels = updatedReels;
+
+        // Clean up temp state fields
+        delete finalDraft.new_reel_file;
+        delete finalDraft.new_reel_thumbnail;
+        delete finalDraft.reel_url;
+        delete finalDraft.reel_thumbnail;
+      }
+
+      /**
+       * 6. BANNER LOGIC
+       */
+      if (finalDraft.new_banner_file) {
+        const bannerKey = await uploadSingleFile(finalDraft.new_banner_file, user?.token);
+        finalDraft.banners = [{ url: bannerKey, is_thumbnail: true }];
+        delete finalDraft.new_banner_file;
+      }
+
+      // 7. API Call
+      const updatedUser = await updateUserProfile(id, finalDraft, user?.token);
+
+      // 8. S3 Cleanup (Batch delete images user removed while editing)
+      if (pendingDeletes.length > 0) {
+        try {
+          await deleteS3MediaBatch(userData._id, pendingDeletes, user?.token);
+          setPendingDeletes([]);
+        } catch (s3Error) {
+          console.warn("Cleanup failed, but profile saved successfully:", s3Error);
+        }
+      }
+
+      // 9. State Updates & Navigation
+      setUserData(updatedUser);
+      setDraftUser(null);
+      setIsEditMode(false);
+      navigate(`/user/${id}`, { replace: true });
+
+    } catch (error) {
+      console.error("Save process failed:", error);
+      alert("Error saving profile changes. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   if (!userData) return <div className="tw-bg-[#1E0039] tw-h-screen">Loading...</div>;
 
@@ -332,17 +393,8 @@ function ProfileViewPage() {
             setTotalReach = {setTotalReach}
           />
        
-        {/* TERNARY SWAP LOGIC */}
-          {activeData?.role === "Filmmaker" ? (
-            <FilmmakerHero 
-              filmmakerInfo={activeData} 
-              isEditMode={isEditMode} 
-              onChange={handleFieldChange} 
-              clearError={clearError} 
-              errors={errors}
-            />
-          ) : (
-            <UserHero 
+          {activeData?.role === "Actor" ? (
+                   <UserHero 
               data={activeData} 
               scrollToPhotos={scrollToPhotos} 
               scrollToVideos={scrollToVideos}
@@ -351,8 +403,17 @@ function ProfileViewPage() {
               clearError={clearError} 
               errors={errors}
             />
+          ) : (
+               <FilmmakerHero 
+              filmmakerInfo={activeData} 
+              isEditMode={isEditMode} 
+              onChange={handleFieldChange} 
+              clearError={clearError} 
+              errors={errors}
+            />
           )}
           </div>
+
           <div ref={summaryRef}>
           <UserSummary 
             data={activeData}
@@ -364,7 +425,7 @@ function ProfileViewPage() {
         </div>
 
         <div ref={detailsRef}>
-            {/* PASS ERRORS AND CLEARERROR DOWN TO DETAILS SECTION */}
+          {activeData?.role === "Actor" ? (
             <UserDetails 
               data={activeData} 
               isEditMode={isEditMode} 
@@ -372,6 +433,9 @@ function ProfileViewPage() {
               errors={errors} 
               clearError={clearError}
             />
+          ) : (
+            null   
+          )}
         </div>
 
         <div ref={bioRef}>
