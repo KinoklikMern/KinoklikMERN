@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import http from "../../../http-common";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,14 +8,16 @@ import { faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function ArchivedEpkCard({ EpkInfo, onRestore }) {
   const { t } = useTranslation();
+  const user = useSelector((state) => state.user);
   const [restoring, setRestoring] = useState(false);
 
   const handleRestore = () => {
     setRestoring(true);
-    const url = `${process.env.REACT_APP_BACKEND_URL}/fepks/restore/${EpkInfo._id}`;
 
-    axios
-      .put(url)
+    http
+      .put(`/fepks/restore/${EpkInfo._id}`, {}, {
+        headers: { Authorization: `Bearer ${user?.token}` },
+      })
       .then(() => {
         toast.success(t("EPK successfully restored."));
         onRestore(EpkInfo._id);
@@ -29,17 +32,17 @@ export default function ArchivedEpkCard({ EpkInfo, onRestore }) {
   };
 
   return (
-    <div className="tw-relative tw-flex tw-flex-col tw-rounded-lg tw-border tw-border-dashed tw-border-gray-300 tw-bg-gray-50 tw-p-4 tw-opacity-70 tw-transition-opacity hover:tw-opacity-100">
+    <div className="tw-relative tw-flex tw-flex-col tw-rounded-lg tw-border tw-border-dashed tw-border-gray-300 tw-bg-gray-50 tw-p-4 tw-opacity-70 tw-transition-opacity hover:tw-opacity-100 tw-w-full tw-max-w-xs">
       {/* Deleted badge */}
-      <span className="tw-absolute tw-right-2 tw-top-2 tw-rounded tw-bg-red-100 tw-px-2 tw-py-0.5 tw-text-xs tw-font-semibold tw-text-red-500">
+      <span className="tw-absolute tw-right-2 tw-top-2 tw-z-10 tw-rounded tw-bg-red-100 tw-px-2 tw-py-0.5 tw-text-xs tw-font-semibold tw-text-red-500">
         {t("Deleted")}
       </span>
 
-      {/* EPK thumbnail / placeholder */}
-      <div className="tw-mb-3 tw-h-24 tw-w-full tw-overflow-hidden tw-rounded tw-bg-gray-200">
-        {EpkInfo.coverImage ? (
+      {/* EPK thumbnail */}
+      <div className="tw-mb-3 tw-mt-5 tw-h-24 tw-w-full tw-overflow-hidden tw-rounded tw-bg-gray-200">
+        {EpkInfo.banner_url ? (
           <img
-            src={EpkInfo.coverImage}
+            src={`${process.env.REACT_APP_AWS_URL}/${EpkInfo.banner_url}`}
             alt={EpkInfo.title}
             className="tw-h-full tw-w-full tw-object-cover tw-grayscale"
           />
