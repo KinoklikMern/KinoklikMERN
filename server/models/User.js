@@ -146,6 +146,9 @@ const UserSchema = mongoose.Schema({
   gender: {
     type: String,
   },
+  birthday: {
+    type: Date,
+  },
   age: {
     type: Number,
   },
@@ -198,7 +201,99 @@ const UserSchema = mongoose.Schema({
     default: 0,
   },
 
+  // TODO test and implement for actor portfolio
+  /* summary: { type: String, maxlength: 100, trim: true, default: "" },
+  photo_albums: {
+    headshots: [
+      {
+        image: { type: String, required: true, isMain: false 
+      }
+    ],
+    media: [{ image: String }],
+    behind: [{ image: String }],
+    premieres: [{ image: String }]
+  },
+  video_gallery: {
+    reels: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String },
+        title: { type: String },
+        isMain: { type: Boolean, default: false }
+      }
+    ],
+    media: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String },
+        title: { type: String }
+      }
+    ],
+    behind: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String },
+        title: { type: String }
+      }
+    ],
+    premieres: [
+      {
+        url: { type: String, required: true },
+        thumbnail: { type: String },
+        title: { type: String }
+      }
+    ],
+  } */
+
 });
+
+/*
+// Backward compatibility for users w/o gallery or summary
+// also corrects for age vs birthday split
+UserSchema.post(['find', 'findOne'], function(docs) {
+  if (!docs) return;
+
+  const migrateActorData = (doc) => {
+    // Access the raw data object so we can add fields not yet in the schema
+    const rawDoc = doc._doc || doc; 
+
+    // 0. Logic: If they have a birthday, calculate the current age
+    if (rawDoc.birthday) {
+      const today = new Date();
+      const birthDate = new Date(rawDoc.birthday);
+      let calculatedAge = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      
+      // Adjust if birthday hasn't happened yet this year
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        calculatedAge--;
+      }
+      
+      rawDoc.age = calculatedAge;
+    }
+
+    // 1. Safety check for photo_albums
+    if (!rawDoc.photo_albums) {
+      rawDoc.photo_albums = { headshots: [], behind: [], media: [] };
+    }
+
+    // 2. Migrate picture to headshots if headshots is empty
+    if (rawDoc.picture && rawDoc.photo_albums.headshots.length === 0) {
+      rawDoc.photo_albums.headshots = [{ image: rawDoc.picture }];
+    }
+
+    // 4. Safety check for video_gallery
+    if (!rawDoc.video_gallery) {
+      rawDoc.video_gallery = { reels: [], onSet: [], media: [], premieres: [] };
+    }
+  };
+
+  if (Array.isArray(docs)) {
+    docs.forEach(migrateActorData);
+  } else {
+    migrateActorData(docs);
+  } 
+}); */
 
 // Method to compare password
 UserSchema.methods.comparePassword = async function (password) {

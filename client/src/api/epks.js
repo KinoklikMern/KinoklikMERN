@@ -45,15 +45,6 @@ export const getFepksByTitle = (title) => {
   }
 };
 
-export const getActorById = (id) => {
-  try {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getactor/${id}`, {
-      method: "GET",
-    }).then((res) => res.json());
-  } catch (error) {
-    console.log(error.message);
-  }
-};
 export const getFepkFollowersNumber = (id) => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks/followers/${id}`, {
@@ -63,15 +54,6 @@ export const getFepkFollowersNumber = (id) => {
     console.log(error.message);
   }
 };
-// export const getActorFollowersNumber = (id) => {
-//   try {
-//     return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getfollower/${id}`, {
-//       method: "GET",
-//     }).then((res) => res.json());
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
 
 export const getActorFollowersNumber = async (id) => {
   try {
@@ -88,15 +70,13 @@ export const getActorFollowersNumber = async (id) => {
   }
 };
 
-export const getUserbyId = (userId) => {
+export const getUserById = (userId) => {
   try {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getuser`, {
-      method: "POST",
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getuser/${userId}`, {
+      method: "GET",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: userId }),
     }).then((res) => res.json());
   } catch (error) {
     console.log(error.message);

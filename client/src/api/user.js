@@ -55,7 +55,7 @@ export const resendEmailVerificationToken = async (userId) => {
 };
 
 export const getUserById = (userId) => {
-  return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`, {
+  return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getuser/${userId}`, {
     method: "GET",
   })
     .then((res) => {
