@@ -505,23 +505,54 @@ export const resetPassword = async (req, res) => {
 };
 
 export const updateProfile = async (req, res) => {
-  const id = req.params.userId;
+  const userId = req.params.userId;
   try {
-    const userOne = await User.findOne({ _id: id });
-    if (!userOne) {
-      res.json({ error: 'No User was found!' });
-    } else {
-      const updatedProfile = req.body;
+    if (req.user.id !== userId) {
+      return res.status(403).json({ 
+        message: 'Unauthorized: You can only update your own profile' 
+      });
+    }
 
-      await userOne.updateOne({
-      ...updatedProfile,
+    const userOne = await User.findOne({ _id: userId, deleted: false });
+    if (!userOne) {
+      return res.status(404).json({ error: 'User not found or has been deleted' });
+    } 
+
+    const restrictedFields = ['_id', 'email', 'password', 'deleted', 'otp', 'isVerified', 'createdAt'];
+    const updateData = { ...req.body };  // ← Now defined
+    
+    restrictedFields.forEach(field => {
+      delete updateData[field];
+    });
+
+    if (updateData.photo_albums) {
+      updateData.photo_albums = {
+        headshots: updateData.photo_albums.headshots || [],
+        media: updateData.photo_albums.media || [],
+        behind: updateData.photo_albums.behind || [],
+        premieres: updateData.photo_albums.premieres || []
+      };
+    }
+
+    if (updateData.video_gallery) {
+      updateData.video_gallery = {
+        reels: updateData.video_gallery.reels || [],
+        media: updateData.video_gallery.media || [],
+        behind: updateData.video_gallery.behind || [],
+        premieres: updateData.video_gallery.premieres || []
+      };
+    }
+
+    await userOne.updateOne({
+      ...updateData,
       updatedAt: new Date()
     });
-      const userUpdated = await User.findOne({ _id: id });
+
+    const userUpdated = await User.findOne({ _id: userId }).select('-password -otp');
       res.status(200).json(userUpdated);
-    }
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    console.error('updateProfile error:', error);
+    res.status(500).json({ message: error.message });
   }
 };
 

@@ -279,7 +279,7 @@ UserSchema.post(['find', 'findOne'], function(docs) {
 
     // 4. Safety check for video_gallery
     if (!rawDoc.video_gallery) {
-      rawDoc.video_gallery = { reels: [], onSet: [], media: [], premieres: [] };
+      rawDoc.video_gallery = { reels: [], behind: [], media: [], premieres: [] };
     }
   };
 
