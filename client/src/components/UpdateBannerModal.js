@@ -189,7 +189,7 @@ export default function UniversalMediaModal({
                     {mediaType === 'video' ? (
                       <video src={previewUrl} poster={activeThumbnail === 'custom' ? customThumbUrl : generatedFrames[activeThumbnail]} controls className="tw-w-full tw-h-full" />
                     ) : (
-                      <img src={previewUrl} className="tw-w-full tw-h-full tw-object-cover" />
+                      <img src={previewUrl} alt="Main preview" className="tw-w-full tw-h-full tw-object-cover" />
                     )}
                  </div>
 

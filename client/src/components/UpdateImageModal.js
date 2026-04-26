@@ -94,7 +94,11 @@ export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], 
                       <span className="tw-text-xs tw-text-[#E2BDC9]">Click to browse</span>
                     </div>
                   ) : (
-                    <img src={localPreviewUrl} className="tw-w-full tw-h-[120px] tw-object-contain tw-bg-black tw-rounded-lg" />
+                    <img 
+                      src={localPreviewUrl} 
+                      alt="Selection preview" 
+                      className="tw-w-full tw-h-[120px] tw-object-contain tw-bg-black tw-rounded-lg" 
+                    />
                   )}
                 </div>
              )}
