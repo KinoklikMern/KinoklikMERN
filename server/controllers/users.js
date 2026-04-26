@@ -703,21 +703,24 @@ export const changePassword = async (req, res) => {
 
 export const deleteAccount = async (req, res) => {
   const id = req.params.userId;
-  // console.log(id);
   try {
-    const userToDelete = await User.findOne({ _id: id })
-      .where('deleted')
-      .equals(false);
-    //console.log(userToDelete);
+    const userToDelete = await User.findOne({ _id: id, deleted: false });
+
     if (!userToDelete) {
-      res.json({ error: 'No User was found!' });
-    } else {
-      await userToDelete.updateOne({ deleted: true }, { where: { _id: id } });
-      //console.log(userToDelete);
-      res.status(200).json({ message: 'Account was deleted!' });
+      return res.status(404).json({ error: 'User not found or already deleted' });
     }
+
+    const deletionTime = Date.now();
+    await userToDelete.updateOne({ 
+      deleted: true,
+      email: `${userToDelete.email}-deleted-${deletionTime}`,
+      updatedAt: new Date()
+    });
+    
+    res.cookie('token', '', { expires: new Date(0) });
+    res.status(200).json({ message: 'Account was successfully deactivated.' });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

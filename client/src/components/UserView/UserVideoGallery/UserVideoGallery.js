@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faPlay, faXmark, faTrashCan, faPenToSquare, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ActionPlaceholder from "../../common/ActionPlaceholder";
-import VideoModal from "../../EpkView/EpkVideoGallery/VideoModal"; 
+import VideoModal from "./UserVideoModal"; 
 import { useSelector } from "react-redux";
-import { uploadSingleFile } from "../../../api/epks"; 
+import { uploadSingleFile } from "../../../api/users"; 
 
 const CATEGORIES = [
   { key: "reels", label: "Reels", mobileLabel: "Reels" },
@@ -55,11 +55,11 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
 
   const handleModalSave = async (editData) => {
     setModalVideo(null); 
-    if (editData.videoFile) setIsUploading(true);
+      if (editData.videoFile || editData.customThumbnailFile || editData.extractedBase64) setIsUploading(true);
 
     try {
       let finalVideoUrl = editData.originalUrl;
-      let finalThumbUrl = editData.newThumbnailUrl || null;
+      let finalThumbUrl = editData.newThumbnailUrl || editData.originalThumbnail || null;
 
       if (editData.videoFile) {
         finalVideoUrl = await uploadSingleFile(editData.videoFile, user?.token);
@@ -78,24 +78,25 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
         behind: [...(data.video_gallery?.behind || [])],
         premieres: [...(data.video_gallery?.premieres || [])]
       };
-      const currentArray = newGallery[editData.category];
 
       if (editData.isNewUpload) {
         const newEntry = {
           url: finalVideoUrl,
-          title: editData.newTitle,
-          thumbnail: finalThumbUrl,
+          title: editData.newTitle || "Untitled Clip",
+          thumbnail: finalThumbUrl || "",
         };
-        if (editData.category === 'reels') newEntry.isMain = false;
+        if (editData.category === 'reels') {
+          newEntry.isMain = newGallery.reels.length === 0;
+        }
         
-        currentArray.push(newEntry);
+        newGallery[editData.category].push(newEntry);
       } else {
-        const index = currentArray.findIndex(v => v.url === editData.originalUrl);
+        const index = newGallery[editData.category].findIndex(v => v.url === editData.originalUrl);
         if (index > -1) {
-          currentArray[index] = {
-            ...currentArray[index],
+          newGallery[editData.category][index] = {
+            ...newGallery[editData.category][index],
             title: editData.newTitle,
-            thumbnail: finalThumbUrl || currentArray[index].thumbnail
+            thumbnail: finalThumbUrl || newGallery[editData.category][index].thumbnail
           };
         }
       }

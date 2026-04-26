@@ -84,7 +84,7 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
 
   const handleDeleteClick = (e, item) => {
     e.stopPropagation();
-    if (item.image === data.image_details) {
+    if (item.image === data?.image_details) {
       setErrorMessage("This photo is currently set as your Profile Headshot! Please change your headshot before deleting this file.");
       setErrorModalOpen(true);
       return; 
@@ -94,11 +94,18 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
   };
 
   const confirmDelete = () => {
-    const newAlbums = { ...data.photo_albums };
+    const newAlbums = {
+      headshots: [...(data?.photo_albums?.headshots || [])],
+      media: [...(data?.photo_albums?.media || [])],
+      behind: [...(data?.photo_albums?.behind || [])],
+      premieres: [...(data?.photo_albums?.premieres || [])]
+    };
+
     newAlbums[activeCategory] = (newAlbums[activeCategory] || []).filter(img => img.image !== photoToDelete.image);
     onChange("photo_albums", newAlbums);
     if (onMarkMediaForDeletion) onMarkMediaForDeletion(photoToDelete.image);
     setDeleteModalOpen(false);
+    setPhotoToDelete(null);
   };
 
   return (
@@ -150,7 +157,7 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
                     ) : (
                       <ActionPlaceholder 
                         variant="photo" 
-                        title={`Add ${CATEGORIES.find(c=>c.key===activeCategory).mobileLabel}`}
+                        title={`${t('Add')} ${t(CATEGORIES.find(c=>c.key===activeCategory).mobileLabel)}`}
                         onClick={() => fileInputRef.current.click()}
                       />
                     )}
@@ -186,6 +193,30 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
           </div>
         </div>
       </div>
+      {deleteModalOpen && (
+        <div className="tw-fixed tw-inset-0 tw-z-[1100] tw-flex tw-items-center tw-justify-center tw-bg-black/80 tw-backdrop-blur-sm">
+          <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] tw-p-8 tw-rounded-2xl tw-max-w-sm tw-w-full tw-text-center">
+            <h3 className="tw-text-white tw-text-xl tw-font-bold tw-mb-4">{t("Delete Photo?")}</h3>
+            <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8">
+              {t("Are you sure you want to remove this photo? This will be finalized when you save your profile.")}
+            </p>
+            <div className="tw-flex tw-gap-4">
+              <button 
+                onClick={() => setDeleteModalOpen(false)}
+                className="tw-flex-1 tw-py-2 tw-rounded-lg tw-bg-gray-600 tw-text-white tw-font-bold tw-border-none tw-cursor-pointer"
+              >
+                {t("Cancel")}
+              </button>
+              <button 
+                onClick={confirmDelete}
+                className="tw-flex-1 tw-py-2 tw-rounded-lg tw-bg-red-500 tw-text-white tw-font-bold tw-border-none tw-cursor-pointer"
+              >
+                {t("Delete")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -146,7 +146,7 @@ const UserSchema = mongoose.Schema({
   gender: {
     type: String,
   },
-  birthday: {
+  birthDate: {
     type: Date,
   },
   age: {
@@ -261,7 +261,6 @@ const UserSchema = mongoose.Schema({
 });
 
 // Backward compatibility for users w/o gallery or summary
-// also corrects for age vs birthday split
 UserSchema.post(['find', 'findOne'], function(docs) {
   if (!docs) return;
 
