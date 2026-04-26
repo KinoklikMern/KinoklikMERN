@@ -91,26 +91,19 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
   return (
     <>
       <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-pb-10">
+        
+        {/* ================= DESKTOP VIEW ================= */}
         <div className="tw-hidden md:tw-flex tw-w-full tw-h-[515px] xl:tw-h-[600px] tw-gap-8 tw-relative">
-          
-          {/* LEFT: HEADSHOT */}
           <div 
             className={`tw-relative tw-w-[343px] tw-h-full tw-shrink-0 tw-rounded-[10px] tw-overflow-hidden tw-bg-black group tw-cursor-pointer tw-transition-all ${
-              errors.image_details ? 'tw-border-[3px] tw-border-red-500 tw-shadow-[0_0_20px_rgba(239,68,68,0.5)]' : 'tw-shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
+              errors.image_details ? 'tw-border-[3px] tw-border-red-500' : 'tw-shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
             }`}
             onClick={() => !isEditMode && setExpandedImage(displayHeadshot)}
           >
             <img src={displayHeadshot} alt="Headshot" className="tw-w-full tw-h-full tw-object-cover" />
-            
-            {errors.image_details && isEditMode && (
-              <div className="tw-absolute tw-top-4 tw-left-4 tw-bg-red-500 tw-text-white tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-3 tw-py-1.5 tw-rounded-full tw-z-30 tw-animate-pulse">
-                Headshot Required
-              </div>
-            )}
-
             {isEditMode && (
               <div className="tw-absolute tw-inset-0 tw-bg-[#1F0439]/40 tw-backdrop-blur-[1px] tw-flex tw-flex-col tw-items-center tw-justify-center">
-                <button onClick={(e) => { e.stopPropagation(); if (clearError) clearError('image_details'); setIsPosterModalOpen(true); }} className="tw-bg-transparent tw-border-none tw-flex tw-flex-col tw-items-center tw-gap-3 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer">
+                <button onClick={(e) => { e.stopPropagation(); setIsPosterModalOpen(true); }} className="tw-bg-transparent tw-border-none tw-flex tw-flex-col tw-items-center tw-gap-3 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer">
                   <div className="tw-w-[59px] tw-h-[56px] tw-bg-[#371E51]/80 tw-rounded-full tw-flex tw-items-center tw-justify-center">
                     <FontAwesomeIcon icon={faCamera} className="tw-text-[#FFB0CF] tw-text-xl" />
                   </div>
@@ -120,7 +113,6 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
             )}
           </div>
 
-          {/* RIGHT: REEL / BANNER */}
           <div className={`tw-relative tw-flex-1 tw-h-full tw-rounded-[10px] tw-overflow-hidden tw-bg-black ${
              errors.trailerOrBanner ? 'tw-border-[3px] tw-border-red-500' : 'tw-shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
           }`}>
@@ -130,7 +122,6 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
               <>
                 <img src={displayBanner} alt="Banner" className="tw-w-full tw-h-full tw-object-cover" />
                 <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039]/60 tw-to-transparent" />
-                
                 {hasReel && !isEditMode && (
                   <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-cursor-pointer" onClick={() => setPlayingView('desktop')}>
                     <div className="tw-w-20 tw-h-20 tw-rounded-full tw-border-[3px] tw-border-white tw-bg-black/40 hover:tw-bg-[#FF43A7]/80 tw-transition-colors tw-flex tw-items-center tw-justify-center">
@@ -138,10 +129,9 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
                     </div>
                   </div>
                 )}
-
                 {isEditMode && (
                   <div className="tw-absolute tw-inset-0 tw-bg-[#1F0439]/40 tw-backdrop-blur-[1px] tw-flex tw-items-center tw-justify-center">
-                    <button onClick={(e) => { e.stopPropagation(); if (clearError) clearError('trailerOrBanner'); setIsBannerModalOpen(true); }} className="tw-bg-transparent tw-border-none tw-flex tw-flex-col tw-items-center tw-gap-4 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer">
+                    <button onClick={(e) => { e.stopPropagation(); setIsBannerModalOpen(true); }} className="tw-bg-transparent tw-border-none tw-flex tw-flex-col tw-items-center tw-gap-4 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer">
                       <div className="tw-w-[72px] tw-h-[66px] tw-bg-[#371E51]/80 tw-rounded-full tw-flex tw-items-center tw-justify-center">
                         <FontAwesomeIcon icon={faVideo} className="tw-text-[#FFB0CF] tw-text-2xl" />
                       </div>
@@ -153,9 +143,64 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
             )}
           </div>
         </div>
+
+        {/* ================= MOBILE VIEW (MATCHING EPK) ================= */}
+        <div className="tw-flex md:tw-hidden tw-flex-col tw-gap-4">
+          
+          {/* MOBILE BANNER / REEL */}
+          <div className="tw-relative tw-w-full tw-h-[250px] tw-rounded-[10px] tw-overflow-hidden tw-bg-black tw-shadow-lg">
+            {playingView === 'mobile' ? (
+              <video src={displayReel} controls autoPlay onEnded={() => setPlayingView(null)} className="tw-w-full tw-h-full tw-object-contain" />
+            ) : (
+              <>
+                <img src={displayBanner} alt="Mobile Banner" className="tw-w-full tw-h-full tw-object-cover" />
+                {hasReel && !isEditMode && (
+                  <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center" onClick={() => setPlayingView('mobile')}>
+                    <div className="tw-w-16 tw-h-16 tw-rounded-full tw-border-[3px] tw-border-white tw-bg-black/40 tw-flex tw-items-center tw-justify-center">
+                      <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-2xl tw-ml-1" />
+                    </div>
+                  </div>
+                )}
+                {isEditMode && (
+                  <div className="tw-absolute tw-inset-0 tw-bg-black/50 tw-flex tw-items-center tw-justify-center">
+                    <button onClick={() => setIsBannerModalOpen(true)} className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-6 tw-py-2 tw-rounded-full tw-font-bold tw-text-sm">
+                      <FontAwesomeIcon icon={faVideo} className="tw-mr-2" /> Update Reel
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+
+          {/* MOBILE HEADSHOT & LINKS */}
+          <div className="tw-flex tw-flex-row tw-w-full tw-gap-4 tw-items-stretch">
+            <div 
+              className="tw-relative tw-w-1/2 tw-min-h-[220px] tw-rounded-[10px] tw-overflow-hidden tw-bg-black tw-shadow-lg"
+              onClick={() => !isEditMode && setExpandedImage(displayHeadshot)}
+            >
+              <img src={displayHeadshot} alt="Mobile Headshot" className="tw-w-full tw-h-full tw-object-cover" />
+              {isEditMode && (
+                <div className="tw-absolute tw-inset-0 tw-bg-black/50 tw-flex tw-items-center tw-justify-center">
+                  <button onClick={(e) => { e.stopPropagation(); setIsPosterModalOpen(true); }} className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-4 tw-py-2 tw-rounded-lg tw-font-bold tw-text-xs">
+                    Edit Photo
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="tw-w-1/2 tw-flex tw-flex-col tw-justify-center tw-gap-4">
+              <button onClick={scrollToVideos} className="tw-flex tw-items-center tw-justify-center tw-gap-3 tw-w-full tw-py-4 tw-rounded-[8px] tw-bg-transparent tw-border-[1.5px] tw-border-[#FF43A7] tw-text-white tw-font-bold">
+                <FontAwesomeIcon icon={faPlay} /> Videos
+              </button>
+              <button onClick={scrollToPhotos} className="tw-flex tw-items-center tw-justify-center tw-gap-3 tw-w-full tw-py-4 tw-rounded-[8px] tw-bg-transparent tw-border-[1.5px] tw-border-[#FF43A7] tw-text-white tw-font-bold">
+                <FontAwesomeIcon icon={faImages} /> Pictures
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* LIGHTBOX */}
+      {/* LIGHTBOX & MODALS (Remaining code unchanged) */}
       {expandedImage && (
         <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4" onClick={() => setExpandedImage(null)}>
           <button className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-flex tw-items-center tw-justify-center">
@@ -165,20 +210,8 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
         </div>
       )}
 
-
-      <UpdateImageModal 
-        isOpen={isPosterModalOpen} 
-        onClose={() => setIsPosterModalOpen(false)} 
-        libraryImages={data?.photo_albums?.headshots || []}
-        mode="user" // Explicitly set to user for "Update Headshot" labels
-        onSave={handleSaveHeadshot} 
-      />
-      <UpdateBannerModal 
-        isOpen={isBannerModalOpen} 
-        onClose={() => setIsBannerModalOpen(false)} 
-        libraryItems={data?.video_gallery?.reels || []} 
-        onSave={handleSaveBanner} 
-      />
+      <UpdateImageModal isOpen={isPosterModalOpen} onClose={() => setIsPosterModalOpen(false)} libraryImages={data?.photo_albums?.headshots || []} mode="user" onSave={handleSaveHeadshot} />
+      <UpdateBannerModal isOpen={isBannerModalOpen} onClose={() => setIsBannerModalOpen(false)} libraryItems={data?.video_gallery?.reels || []} onSave={handleSaveBanner} />
     </>
   );
 }
