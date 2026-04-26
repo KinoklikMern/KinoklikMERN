@@ -38,8 +38,10 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
 
   const matchFilmmaker = useMatch("/epk/*");
   const matchActor = useMatch("/actor/*");
+  const matchFilmmakerProfile = useMatch("/filmmaker/*");
   const isFilmmaker = !!matchFilmmaker;
   const isActor = !!matchActor;
+  const isFilmmakerProfile = !!matchFilmmakerProfile;
   const isActorRole = user?.role === "Actor";
   const isOwner = user?.id === fepkMaker?._id;
   const isCollaborator = epkCollaborators?.some(
@@ -49,6 +51,7 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   // Check if current user is the owner of the EPK or Actor profile
   const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
   const canEditActor = isActor && isActorRole && user?.id === actorId;
+  const canEditFilmmakerProfile = isFilmmakerProfile && user?.id === actorId;
   
   const isCurrentlyEditing = new URLSearchParams(location.search).get("edit") === "true";
   const isEpkViewPage = location.pathname.startsWith('/epk/');
@@ -112,6 +115,17 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
              </Link>
             )}
             
+            {/* EDIT FILMMAKER PROFILE BUTTON */}
+            {canEditFilmmakerProfile && !isCurrentlyEditing && (
+              <Link
+                to={`/filmmaker/${actorId}?edit=true`}
+                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-no-underline"
+              >
+                <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
+                <span className="tw-hidden md:tw-inline">Edit Profile</span>
+              </Link>
+            )}
+
             {/* ACTOR EDIT ICON */}
             {canEditActor && (
               <Link to="/userdashboard/actor">

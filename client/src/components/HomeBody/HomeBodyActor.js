@@ -5,8 +5,8 @@ import { FepkContext } from "../../context/FepkContext.js";
 import ListItem from "../ListItem/ListItemActor";
 
 const HomeBodyActor = ({ role }) => {
-  // eslint-disable-next-line no-unused-vars
-  const {filterQuery, setFilterQuery} = React.useContext(FepkContext);
+// eslint-disable-next-line no-unused-vars
+const {filterQuery, setFilterQuery} = React.useContext(FepkContext);
 
   return (
     <>
