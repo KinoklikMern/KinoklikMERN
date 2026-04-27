@@ -61,60 +61,55 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
     <>
       <div className="tw-w-full">
 
-        {/*
-          Outer wrapper is tw-relative so the photo can be absolutely positioned
-          against it. The inner banner div handles its own overflow-hidden for
-          the image crop — the photo lives OUTSIDE that div so it is never clipped.
-        */}
-        <div className="tw-relative" style={{ paddingBottom: PHOTO_OVERLAP }}>
+        {/* ── Banner ── */}
+        <div className="tw-relative tw-w-full tw-h-[280px] md:tw-h-[360px] tw-overflow-hidden tw-bg-[#280D41]">
+          {isBannerVideo ? (
+            <video
+              src={bannerSrc}
+              muted
+              playsInline
+              preload="metadata"
+              className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+            />
+          ) : (
+            <img
+              src={bannerSrc}
+              alt="Filmmaker banner"
+              className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+            />
+          )}
+          <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039] tw-via-transparent tw-to-transparent" />
 
-          {/* ── Banner ── */}
-          <div className="tw-relative tw-w-full tw-h-[280px] md:tw-h-[360px] tw-overflow-hidden tw-bg-[#280D41]">
-            {isBannerVideo ? (
-              <video
-                src={bannerSrc}
-                muted
-                playsInline
-                preload="metadata"
-                className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
-              />
-            ) : (
-              <img
-                src={bannerSrc}
-                alt="Filmmaker banner"
-                className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
-              />
-            )}
-            <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039] tw-via-transparent tw-to-transparent" />
+          {/* Play button — only on video banners when not editing */}
+          {isBannerVideo && !isEditMode && (
+            <button
+              onClick={() => setIsVideoModalOpen(true)}
+              className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-transparent tw-border-none tw-cursor-pointer tw-group"
+            >
+              <div className="tw-flex tw-h-16 tw-w-16 tw-items-center tw-justify-center tw-rounded-full tw-bg-white/20 tw-backdrop-blur-sm tw-border tw-border-white/30 tw-transition-all tw-duration-200 group-hover:tw-scale-110 group-hover:tw-bg-white/30">
+                <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-xl tw-ml-1" />
+              </div>
+            </button>
+          )}
 
-            {/* Play button — only on video banners when not editing */}
-            {isBannerVideo && !isEditMode && (
-              <button
-                onClick={() => setIsVideoModalOpen(true)}
-                className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-transparent tw-border-none tw-cursor-pointer tw-group"
-              >
-                <div className="tw-flex tw-h-16 tw-w-16 tw-items-center tw-justify-center tw-rounded-full tw-bg-white/20 tw-backdrop-blur-sm tw-border tw-border-white/30 tw-transition-all tw-duration-200 group-hover:tw-scale-110 group-hover:tw-bg-white/30">
-                  <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-xl tw-ml-1" />
-                </div>
-              </button>
-            )}
+          {isEditMode && (
+            <button
+              onClick={() => setIsBannerModalOpen(true)}
+              className="tw-absolute tw-top-4 tw-right-4 tw-flex tw-items-center tw-gap-2 tw-bg-black/60 hover:tw-bg-black/80 tw-text-white tw-text-xs tw-font-bold tw-uppercase tw-px-4 tw-py-2 tw-rounded-lg tw-border tw-border-white/20 tw-transition-colors tw-cursor-pointer"
+            >
+              <FontAwesomeIcon icon={faCamera} />
+              <span className="tw-hidden sm:tw-inline">Change Banner</span>
+            </button>
+          )}
+        </div>
 
-            {isEditMode && (
-              <button
-                onClick={() => setIsBannerModalOpen(true)}
-                className="tw-absolute tw-top-4 tw-right-4 tw-flex tw-items-center tw-gap-2 tw-bg-black/60 hover:tw-bg-black/80 tw-text-white tw-text-xs tw-font-bold tw-uppercase tw-px-4 tw-py-2 tw-rounded-lg tw-border tw-border-white/20 tw-transition-colors tw-cursor-pointer"
-              >
-                <FontAwesomeIcon icon={faCamera} />
-                <span className="tw-hidden sm:tw-inline">Change Banner</span>
-              </button>
-            )}
-          </div>
-
-          {/* ── Profile photo — outside the overflow-hidden banner ── */}
-          <div
-            className="tw-absolute tw-left-6 md:tw-left-12 tw-group"
-            style={{ bottom: 0 }}
-          >
+        {/* ── Photo + Name row — photo bleeds into banner via negative margin ── */}
+        <div
+          className="tw-flex tw-flex-row tw-items-center tw-px-6 md:tw-px-12 tw-gap-4 md:tw-gap-6 tw-pb-8"
+          style={{ marginTop: `-${PHOTO_OVERLAP}px` }}
+        >
+          {/* Profile photo */}
+          <div className="tw-relative tw-shrink-0 tw-z-10 tw-group">
             <img
               src={photoSrc}
               alt={`${filmmakerInfo?.firstName} ${filmmakerInfo?.lastName}`}
@@ -129,29 +124,32 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
               </div>
             )}
           </div>
-        </div>
 
-        {/* ── Name / role / location — always fully below the banner ── */}
-        <div className="tw-px-6 md:tw-px-12 tw-pt-4 tw-pb-8"
-             style={{ paddingLeft: `calc(1.5rem + 112px + 1.5rem)` }}>
-          <div className="tw-flex tw-flex-col tw-gap-2">
+          {/* Name / role / location */}
+          <div className="tw-flex tw-flex-col tw-gap-2 tw-pt-[56px]">
 
             {isEditMode ? (
               <div className="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3">
-                <input
-                  type="text"
-                  value={filmmakerInfo?.firstName || ''}
-                  onChange={(e) => onChange('firstName', e.target.value)}
-                  placeholder="First name"
-                  className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors"
-                />
-                <input
-                  type="text"
-                  value={filmmakerInfo?.lastName || ''}
-                  onChange={(e) => onChange('lastName', e.target.value)}
-                  placeholder="Last name"
-                  className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors"
-                />
+                <div className="tw-flex tw-flex-col tw-gap-1">
+                  <input
+                    type="text"
+                    value={filmmakerInfo?.firstName || ''}
+                    onChange={(e) => onChange('firstName', e.target.value)}
+                    placeholder="First name"
+                    className={`tw-bg-[#280D41] tw-border ${errors?.firstName ? 'tw-border-red-500' : 'tw-border-[#5A3F49]'} focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors`}
+                  />
+                  {errors?.firstName && <p className="tw-text-red-400 tw-text-xs tw-m-0">{errors.firstName}</p>}
+                </div>
+                <div className="tw-flex tw-flex-col tw-gap-1">
+                  <input
+                    type="text"
+                    value={filmmakerInfo?.lastName || ''}
+                    onChange={(e) => onChange('lastName', e.target.value)}
+                    placeholder="Last name"
+                    className={`tw-bg-[#280D41] tw-border ${errors?.lastName ? 'tw-border-red-500' : 'tw-border-[#5A3F49]'} focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors`}
+                  />
+                  {errors?.lastName && <p className="tw-text-red-400 tw-text-xs tw-m-0">{errors.lastName}</p>}
+                </div>
               </div>
             ) : (
               <h1 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">
@@ -165,21 +163,27 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
               </span>
 
               {isEditMode ? (
-                <div className="tw-flex tw-gap-2">
-                  <input
-                    type="text"
-                    value={filmmakerInfo?.city || ''}
-                    onChange={(e) => onChange('city', e.target.value)}
-                    placeholder="City"
-                    className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28"
-                  />
-                  <input
-                    type="text"
-                    value={filmmakerInfo?.country || ''}
-                    onChange={(e) => onChange('country', e.target.value)}
-                    placeholder="Country"
-                    className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28"
-                  />
+                <div className="tw-flex tw-gap-2 tw-items-start">
+                  <div className="tw-flex tw-flex-col tw-gap-1">
+                    <input
+                      type="text"
+                      value={filmmakerInfo?.city || ''}
+                      onChange={(e) => onChange('city', e.target.value)}
+                      placeholder="City"
+                      className={`tw-bg-[#280D41] tw-border ${errors?.city ? 'tw-border-red-500' : 'tw-border-[#5A3F49]'} focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28`}
+                    />
+                    {errors?.city && <p className="tw-text-red-400 tw-text-xs tw-m-0">{errors.city}</p>}
+                  </div>
+                  <div className="tw-flex tw-flex-col tw-gap-1">
+                    <input
+                      type="text"
+                      value={filmmakerInfo?.country || ''}
+                      onChange={(e) => onChange('country', e.target.value)}
+                      placeholder="Country"
+                      className={`tw-bg-[#280D41] tw-border ${errors?.country ? 'tw-border-red-500' : 'tw-border-[#5A3F49]'} focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28`}
+                    />
+                    {errors?.country && <p className="tw-text-red-400 tw-text-xs tw-m-0">{errors.country}</p>}
+                  </div>
                 </div>
               ) : location ? (
                 <span className="tw-flex tw-items-center tw-gap-1.5 tw-text-[#E2BDC9] tw-text-sm">

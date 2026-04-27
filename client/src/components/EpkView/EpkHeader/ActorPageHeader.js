@@ -29,10 +29,11 @@ export default function ActorPageHeader({ epkInfo, id }) {
 
   return (
     <div className="tw-container tw-mx-auto tw-my-16 tw-w-full">
-      <SocialMedia 
-        socials={socialMediaData} 
+      <SocialMedia
+        socials={socialMediaData}
         totalReachNum={socialMediafollowerTotalNum}
         viewCount={epkInfo?.profileViews || 0}
+        split
       />
     </div>
   );
