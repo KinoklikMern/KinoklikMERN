@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { ETHNICITY_OPTIONS } from "../../../constants/EthnicityOptions";
 import { GENDER_OPTIONS } from "../../../constants/GenderOptions";
 import { AGE_OPTIONS } from "../../../constants/AgeOptions";
+import { getUserById } from "../../../api/users";
 
 export default function UserEditor({ user }) {
     const { t } = useTranslation();
@@ -39,13 +40,13 @@ export default function UserEditor({ user }) {
     });
 
     useEffect(() => {
-        http.get(`users/getuser/${user.id}`).then((res) => {
+        getUserById(user.id).then((data) => {
             setForm(prev => ({
                 ...prev,
-                ...res.data,
-                gender: res.data.gender || "", 
-                aboutMe: res.data.aboutMe || "",
-                profiles: res.data.profiles || ["", "", ""],
+                ...data,
+                gender: data.gender || "", 
+                aboutMe: data.aboutMe || "",
+                profiles: data.profiles || ["", "", ""],
             }));
             setLoading(false);
         });

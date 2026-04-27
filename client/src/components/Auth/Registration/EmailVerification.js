@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 
-import { resendEmailVerificationToken, verifyUserEmail } from "../../../api/user";
+import { resendEmailVerificationToken, verifyUserEmail } from "../../../api/users";
 import EmailCss from "./emailVerification.module.css";
 
 const OTP_LENGTH = 6;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from "../../images/icons/SearchIcon.svg";
 import { getAllFepks } from "../../api/epks";
-import { getAllUsers } from "../../api/user";
+import { getAllUsers } from "../../api/users";
 import emptyBanner from "../../images/empty_banner.jpeg";
 
 export default function SearchBar() {

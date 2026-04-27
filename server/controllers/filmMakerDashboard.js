@@ -4,6 +4,7 @@
 // On Jan 20, 2023
 ////////////////////////////////////////////////
 
+//TODO How much of this can be put through generric user because it's the same?
 import fepk from "../models/fepk.js";
 import User from "../models/User.js";
 

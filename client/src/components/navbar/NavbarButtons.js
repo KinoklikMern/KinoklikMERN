@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Link, useMatch, useParams, useLocation} from "react-router-dom";
 import { SideProfileMenu } from "./SideMenu";
@@ -5,18 +6,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FepkContext } from "../../context/FepkContext";
 import { useTranslation } from "react-i18next";
-import { getUserById } from "../../api/user";
+import { getUserById } from "../../api/users";
 import LanguageToggle from "../LanguageToggle";
 import "./NavbarToggle.css";
 
 // Import the new Wizard!
 import CreateEpkWizard from "../Dashboard/Epks/CreateEpkWizard/CreateEpkWizard"; 
-
+ 
 function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   const { t } = useTranslation();
   const { fepkId, fepkMaker, epkCollaborators } = React.useContext(FepkContext);
   const [picture, setPicture] = useState("");
-  const { id: actorId } = useParams();
+  const { id: profileId } = useParams();
   const location = useLocation();
 
   // Wizard State
@@ -36,32 +37,36 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
     }
   }, [user]);
 
-  const matchFilmmaker = useMatch("/epk/*");
-  const matchActor = useMatch("/actor/*");
-  const matchFilmmakerProfile = useMatch("/filmmaker/*");
-  const isFilmmaker = !!matchFilmmaker;
-  const isActor = !!matchActor;
-  const isFilmmakerProfile = !!matchFilmmakerProfile;
-  const isActorRole = user?.role === "Actor";
-  const isOwner = user?.id === fepkMaker?._id;
-  const isCollaborator = epkCollaborators?.some(
-    (c) => c.user === user?.id || c.user?._id === user?.id
-  );
-
-  // Check if current user is the owner of the EPK or Actor profile
-  const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
-  const canEditActor = isActor && isActorRole && user?.id === actorId;
-  const canEditFilmmakerProfile = isFilmmakerProfile && user?.id === actorId;
-  
-  const isCurrentlyEditing = new URLSearchParams(location.search).get("edit") === "true";
+    // --- 1. PAGE TYPE DETECTION ---
   const isEpkViewPage = location.pathname.startsWith('/epk/');
+  const isUserViewPage = location.pathname.startsWith('/user/');
+  const isCurrentlyEditing = new URLSearchParams(location.search).get("edit") === "true";
+
+  // EPK Permissions: User is the Maker OR is in the Collaborators array
+  const isOwner = user?.id === fepkMaker?._id || user?.id === fepkMaker;
+  const isCollaborator = epkCollaborators?.some(
+    (c) => (c.user?._id || c.user || c) === user?.id
+  );
+  const canEditEPK = isEpkViewPage && (isOwner || isCollaborator) && fepkId;
+
+  // User Profile Permissions: Logged in user ID matches the URL ID
+  const canEditProfile = isUserViewPage && user?.id === profileId;
+
+  //const matchFilmmaker = useMatch("/epk/*");
+  //const matchActor = useMatch("/actor/*");
+  //const matchFilmmakerProfile = useMatch("/filmmaker/*");
+  //const isFilmmaker = !!matchFilmmaker;
+  //const isActor = !!matchActor;
+  //const isFilmmakerProfile = !!matchFilmmakerProfile;
+  //const isActorRole = user?.role === "Actor";
+  //const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
+  //const canEditActor = isActor && isActorRole && user?.id === actorId;
 
   return (
     <>
       {!user ? (
         <div className="tw-flex tw-items-center">
           <div className='tw-hidden md:tw-flex tw-items-center'>
-            <LanguageToggle />
             <Link
               to='/login'
               className='md:tw-ml-10 tw-mr-4 tw-rounded-lg tw-border-2 tw-bg-transparent tw-px-4 tw-font-bold tw-text-white tw-shadow-[1px_1px_3px_0px_rgba(255,255,255)] tw-drop-shadow-lg hover:tw-text-gray-400'
@@ -75,6 +80,7 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
             >
               {t("CREATE")}
             </Link>
+            <LanguageToggle />
           </div>
 
           {/* Mobile Hamburger Icon */}
@@ -104,34 +110,19 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
               </button>
             )}
 
-            {/* EDIT EPK BUTTON (Hot Pink) */}
-            {canEditFilmmaker && !isCurrentlyEditing && (
+            {/* EDIT BUTTON (Dynamic for both EPK and User Profile) */}
+            {(canEditEPK || canEditProfile) && !isCurrentlyEditing && (
              <Link 
-               to={`/epk/${fepkId}?edit=true`}
+               to={`${location.pathname}?edit=true`}
                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-no-underline"
              >
                <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
-               <span className="tw-hidden md:tw-inline">Edit EPK</span>
+               <span className="tw-hidden md:tw-inline">
+                 {isEpkViewPage ? "Edit EPK" : "Edit Profile"}
+               </span>
              </Link>
             )}
-            
-            {/* EDIT FILMMAKER PROFILE BUTTON */}
-            {canEditFilmmakerProfile && !isCurrentlyEditing && (
-              <Link
-                to={`/filmmaker/${actorId}?edit=true`}
-                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-[#FF00A0] hover:tw-bg-[#cc0080] tw-text-white tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-no-underline"
-              >
-                <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
-                <span className="tw-hidden md:tw-inline">Edit Profile</span>
-              </Link>
-            )}
-
-            {/* ACTOR EDIT ICON */}
-            {canEditActor && (
-              <Link to="/userdashboard/actor">
-                <FontAwesomeIcon icon={faPen} color='white' />
-              </Link>
-            )}
+             <LanguageToggle />
           </div>
 
           <div className={`tw-group tw-mx-4 tw-inline-block tw-rounded-full ${ismobile ? 'tw-p-[1px] tw-bg-gradient-to-r tw-from-[#FF00A0] tw-to-[#1E0039]' : ''}`}>
@@ -140,6 +131,7 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
               alt='User Avatar'
               className='tw-h-14 tw-w-14 tw-rounded-full tw-object-cover'
             />
+           
             <SideProfileMenu />
           </div>
         </div>

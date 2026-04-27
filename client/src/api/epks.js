@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import http from "./../http-common";
 
 export const getAllFepks = () => {
   try {
@@ -70,18 +70,16 @@ export const getActorFollowersNumber = async (id) => {
   }
 };
 
-export const getUserById = (userId) => {
+export const getUserById = async (userId) => {
   try {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getuser/${userId}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    }).then((res) => res.json());
+    const response = await http.get(`/users/getuser/${userId}`);
+    return response.data;
   } catch (error) {
-    console.log(error.message);
+    console.error("Error fetching user:", error.response?.data || error.message);
+    throw error;
   }
-};
+}
+
 // api for user is added to request list
 export function addToRequests(message, epkId, userId) {
   try {
