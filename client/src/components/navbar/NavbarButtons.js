@@ -94,7 +94,7 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
           <div className='tw-mx-4 md:tw-mx-8 tw-flex tw-items-center tw-justify-center'>
             
             {/* CREATE EPK BUTTON (White & Pink) */}
-            {isEpkViewPage && (
+            {isEpkViewPage && !isCollaborator && (
               <button
                 onClick={() => setIsWizardOpen(true)}
                 className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-white hover:tw-bg-gray-100 tw-text-[#FF00A0] tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-border-none tw-cursor-pointer"

@@ -33,10 +33,19 @@ export default function EpkPage() {
     });
   }, [user.id]);
 
+  const handleDelete = (deletedId) => {
+    const epk = epkList.find((e) => e._id === deletedId);
+    setEpkList((prev) => prev.filter((e) => e._id !== deletedId));
+    if (epk) {
+      setDeletedEpkList((prev) => [{ ...epk, deleted: true }, ...prev]);
+      setShowDeleted(true);
+    }
+  };
+
   const handleRestore = (restoredId) => {
-    setDeletedEpkList((prev) => prev.filter((epk) => epk._id !== restoredId));
-    // Optionally re-fetch active EPKs to reflect restored entry
-    getFepksByFilmmakerId(user.id).then((res) => setEpkList(res));
+    const epk = deletedEpkList.find((e) => e._id === restoredId);
+    setDeletedEpkList((prev) => prev.filter((e) => e._id !== restoredId));
+    if (epk) setEpkList((prev) => [{ ...epk, deleted: false }, ...prev]);
   };
 
   return (
@@ -62,9 +71,13 @@ export default function EpkPage() {
                 <div className="tw-mb-4 tw-flex tw-cursor-pointer tw-justify-center">
                   <NewEpkBtn />
                 </div>
-                <div className="tw-mx-auto tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4">
+                <div className="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-justify-items-start">
                   {epkList.map((epk) => (
-                    <EpkCard key={epk._id} EpkInfo={epk} />
+                    <EpkCard
+                      key={epk._id}
+                      EpkInfo={epk}
+                      onDelete={handleDelete}
+                    />
                   ))}
                 </div>
               </>
@@ -93,7 +106,7 @@ export default function EpkPage() {
                 </button>
 
                 {showDeleted && (
-                  <div className="tw-mt-4 tw-mx-auto tw-grid tw-grid-cols-1 tw-gap-2 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4">
+                  <div className="tw-mt-4 tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-justify-items-start">
                     {deletedEpkList.map((epk) => (
                       <ArchivedEpkCard
                         key={epk._id}

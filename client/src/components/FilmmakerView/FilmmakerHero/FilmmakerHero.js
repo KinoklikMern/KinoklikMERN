@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faMapMarkerAlt, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from '../../../images/empty_banner.jpeg';
 import UpdateProfilePhotoModal from './UpdateProfilePhotoModal';
 import UpdateBannerModal from '../../EpkView/EpkCover/UpdateBannerModal';
 
 const S3 = process.env.REACT_APP_AWS_URL;
 const PHOTO_OVERLAP = 56; // px the photo bleeds below the banner bottom
+const VIDEO_EXTS = ['.mp4', '.mov', '.avi', '.wmv', '.flv', '.webm', '.m4v'];
 
 function resolveUrl(key, fallback) {
   if (!key || key === '') return fallback || emptyBanner;
@@ -14,16 +15,24 @@ function resolveUrl(key, fallback) {
   return `${S3}/${key}`;
 }
 
+function isVideoKey(key) {
+  if (!key) return false;
+  return VIDEO_EXTS.some(ext => key.toLowerCase().includes(ext));
+}
+
 export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, errors, clearError }) {
   const [isPhotoModalOpen, setIsPhotoModalOpen]   = useState(false);
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen]   = useState(false);
 
+  const bannerFile = filmmakerInfo?.new_banner_file;
   const bannerSrc = resolveUrl(
-    filmmakerInfo?.new_banner_file
-      ? URL.createObjectURL(filmmakerInfo.new_banner_file)
-      : filmmakerInfo?.bannerImg,
+    bannerFile ? URL.createObjectURL(bannerFile) : filmmakerInfo?.bannerImg,
     emptyBanner
   );
+  const isBannerVideo =
+    filmmakerInfo?.new_banner_type === 'video' ||
+    (!bannerFile && isVideoKey(filmmakerInfo?.bannerImg));
 
   const photoSrc = resolveUrl(
     filmmakerInfo?.new_picture_file
@@ -37,9 +46,10 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
     setIsPhotoModalOpen(false);
   };
 
-  const handleBannerSave = ({ file }) => {
+  const handleBannerSave = ({ file, type }) => {
     if (clearError) clearError('bannerImg');
     onChange('new_banner_file', file);
+    onChange('new_banner_type', type);
     setIsBannerModalOpen(false);
   };
 
@@ -60,12 +70,34 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
 
           {/* ── Banner ── */}
           <div className="tw-relative tw-w-full tw-h-[280px] md:tw-h-[360px] tw-overflow-hidden tw-bg-[#280D41]">
-            <img
-              src={bannerSrc}
-              alt="Filmmaker banner"
-              className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
-            />
+            {isBannerVideo ? (
+              <video
+                src={bannerSrc}
+                muted
+                playsInline
+                preload="metadata"
+                className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+              />
+            ) : (
+              <img
+                src={bannerSrc}
+                alt="Filmmaker banner"
+                className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+              />
+            )}
             <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039] tw-via-transparent tw-to-transparent" />
+
+            {/* Play button — only on video banners when not editing */}
+            {isBannerVideo && !isEditMode && (
+              <button
+                onClick={() => setIsVideoModalOpen(true)}
+                className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-transparent tw-border-none tw-cursor-pointer tw-group"
+              >
+                <div className="tw-flex tw-h-16 tw-w-16 tw-items-center tw-justify-center tw-rounded-full tw-bg-white/20 tw-backdrop-blur-sm tw-border tw-border-white/30 tw-transition-all tw-duration-200 group-hover:tw-scale-110 group-hover:tw-bg-white/30">
+                  <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-xl tw-ml-1" />
+                </div>
+              </button>
+            )}
 
             {isEditMode && (
               <button
@@ -172,6 +204,28 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
         onClose={() => setIsBannerModalOpen(false)}
         onSave={handleBannerSave}
       />
+
+      {/* ── Video lightbox modal ── */}
+      {isVideoModalOpen && (
+        <div
+          className="tw-fixed tw-inset-0 tw-z-[1000] tw-flex tw-items-center tw-justify-center tw-bg-black/90 tw-backdrop-blur-sm"
+          onClick={() => setIsVideoModalOpen(false)}
+        >
+          <button
+            onClick={() => setIsVideoModalOpen(false)}
+            className="tw-absolute tw-top-4 tw-right-4 tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded-full tw-bg-white/10 hover:tw-bg-white/20 tw-border-none tw-text-white tw-cursor-pointer tw-transition-colors tw-z-10"
+          >
+            <FontAwesomeIcon icon={faXmark} className="tw-text-lg" />
+          </button>
+          <video
+            src={bannerSrc}
+            controls
+            autoPlay
+            className="tw-max-w-[90vw] tw-max-h-[90vh] tw-rounded-lg tw-shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </>
   );
 }
