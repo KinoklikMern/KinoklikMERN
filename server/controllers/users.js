@@ -373,16 +373,6 @@ export const logout = async (req, res) => {
   return res.status(200).json({ message: 'Successfully Logged Out' });
 };
 
-export const getUser = async (req, res) => {
-  const id = req.body.id;
-  try {
-    const user = await User.findOne({ _id: id }).where('deleted').equals(false);
-    res.send(user);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 export const getProfile = async (req, res) => {
   try {
     const { email } = req.params;
@@ -515,23 +505,54 @@ export const resetPassword = async (req, res) => {
 };
 
 export const updateProfile = async (req, res) => {
-  const id = req.params.userId;
+  const userId = req.params.userId;
   try {
-    const userOne = await User.findOne({ _id: id });
-    if (!userOne) {
-      res.json({ error: 'No User was found!' });
-    } else {
-      const updatedProfile = req.body;
+    if (req.user.id !== userId) {
+      return res.status(403).json({ 
+        message: 'Unauthorized: You can only update your own profile' 
+      });
+    }
 
-      await userOne.updateOne({
-      ...updatedProfile,
+    const userOne = await User.findOne({ _id: userId, deleted: false });
+    if (!userOne) {
+      return res.status(404).json({ error: 'User not found or has been deleted' });
+    } 
+
+    const restrictedFields = ['_id', 'email', 'password', 'deleted', 'otp', 'isVerified', 'createdAt'];
+    const updateData = { ...req.body };  // ← Now defined
+    
+    restrictedFields.forEach(field => {
+      delete updateData[field];
+    });
+
+    if (updateData.photo_albums) {
+      updateData.photo_albums = {
+        headshots: updateData.photo_albums.headshots || [],
+        media: updateData.photo_albums.media || [],
+        behind: updateData.photo_albums.behind || [],
+        premieres: updateData.photo_albums.premieres || []
+      };
+    }
+
+    if (updateData.video_gallery) {
+      updateData.video_gallery = {
+        reels: updateData.video_gallery.reels || [],
+        media: updateData.video_gallery.media || [],
+        behind: updateData.video_gallery.behind || [],
+        premieres: updateData.video_gallery.premieres || []
+      };
+    }
+
+    await userOne.updateOne({
+      ...updateData,
       updatedAt: new Date()
     });
-      const userUpdated = await User.findOne({ _id: id });
+
+    const userUpdated = await User.findOne({ _id: userId }).select('-password -otp');
       res.status(200).json(userUpdated);
-    }
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    console.error('updateProfile error:', error);
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -713,21 +734,24 @@ export const changePassword = async (req, res) => {
 
 export const deleteAccount = async (req, res) => {
   const id = req.params.userId;
-  // console.log(id);
   try {
-    const userToDelete = await User.findOne({ _id: id })
-      .where('deleted')
-      .equals(false);
-    //console.log(userToDelete);
+    const userToDelete = await User.findOne({ _id: id, deleted: false });
+
     if (!userToDelete) {
-      res.json({ error: 'No User was found!' });
-    } else {
-      await userToDelete.updateOne({ deleted: true }, { where: { _id: id } });
-      //console.log(userToDelete);
-      res.status(200).json({ message: 'Account was deleted!' });
+      return res.status(404).json({ error: 'User not found or already deleted' });
     }
+
+    const deletionTime = Date.now();
+    await userToDelete.updateOne({ 
+      deleted: true,
+      email: `${userToDelete.email}-deleted-${deletionTime}`,
+      updatedAt: new Date()
+    });
+    
+    res.cookie('token', '', { expires: new Date(0) });
+    res.status(200).json({ message: 'Account was successfully deactivated.' });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -1079,15 +1103,31 @@ export const uploadActorThumbnail = async (req, res) => {
   }
 };
 
-// Yeming added
 export const getUserById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const user = await User.findById(req.params.id).select('-password');
+    const user = await User.findOne({ _id: id, deleted: false })
+      .select("-password -__v")
+      .lean();
+
     if (user) {
-      res.json(user);
+      res.status(200).json(user);
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'User not found or has been deleted' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Dedicated route for Admin/System use
+export const getDeletedUserById = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id, deleted: true })
+      .select("-password");
+    
+    if (!user) return res.status(404).json({ message: "No deleted user found with this ID" });
+    res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

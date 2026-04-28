@@ -213,8 +213,8 @@ export default function Actor(props) {
       return console.error('No filmmakers selected for recommendation');
     }
 
-    console.log('User Role:', user.role); // Add this
-    console.log('Selected Filmmakers:', selectedFilmmakers); // Add this
+    console.log('User Role:', user.role);
+    console.log('Selected Filmmakers:', selectedFilmmakers);
 
     const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}" target="_blank" rel="noopener noreferrer">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
 
@@ -269,12 +269,10 @@ export default function Actor(props) {
 
   const handleClick = (direction) => {
     if (direction === 'left') {
-      // Move to the previous image
       setPicIndex((prevIndex) =>
         prevIndex > 0 ? prevIndex - 1 : pics.length - 1
       );
     } else if (direction === 'right') {
-      // Move to the next image
       setPicIndex((prevIndex) =>
         prevIndex < pics.length - 1 ? prevIndex + 1 : 0
       );

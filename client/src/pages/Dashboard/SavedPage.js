@@ -45,7 +45,7 @@ export default function SavedPage() {
     Promise.all([
       http.get(`/fepks/getStarredFepksByUser/${userId}`),
       http.get(`/fepks/getFollowingFepksByUser/${userId}`),
-      http.get(`/fepks/getWishToBuyByUser/${userId}`),
+      http.get(`/fepks/getWishTobuyByUser/${userId}`),
       http.get(`/users/followed/${userId}`),
       http.get(`/users/starred/${userId}`),
     ])
@@ -244,7 +244,7 @@ export default function SavedPage() {
                         ? `${process.env.REACT_APP_AWS_URL}/${epk.banner_url}`
                         : moviePic;
                       return (
-                        <a key={epk._id} href={`/editFepk/${epk._id}`} className="tw-transition-transform hover:tw-scale-105">
+                        <a key={epk._id} href={`/epk/${epk._id}?edit=true`} className="tw-transition-transform hover:tw-scale-105">
                           <img src={imgSrc} alt={epk.title} className="tw-aspect-square tw-w-full tw-rounded-lg tw-object-cover" />
                           <p className="tw-mt-1 tw-truncate tw-text-center tw-text-xs tw-text-[#1E0039]">{epk.title}</p>
                         </a>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Actor from './pages/Actor/Actor';
@@ -15,6 +16,7 @@ import CheckEmailPage from './components/Auth/Registration/CheckEmail';
 import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
 import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
+import Filmmaker from './pages/FilmMaker/Filmmaker.js';
 import FepkUploadDashboard from './pages/FepkUploadDashboard';
 import FepkEditDashboard from './pages/FepkEditDashboard';
 
@@ -39,8 +41,10 @@ import CatalogPage from './pages/CatalogPage.js';
 import EpkViewPage from './pages/EpkViewPage';
 import UploadUserPicCon from './components/UserDashboard/Upload/UploadUserPicCon';
 import EditFepkLayout from './layouts/EditFepkLayout';
+import EditUserLayout from './layouts/EditUserLayout.js';
 
 import FilmmakerPage from './pages/FilmMaker/FilmmakerPage.js';
+import ProfileViewPage from './pages/User/ProfileViewPage.js';
 
 import KinoToastContainer from './components/common/KinoToastContainer';
 
@@ -78,8 +82,6 @@ function App() {
           <Route index element={<Home role="actor" />} />
         </Route>
 
-        <Route path="/actor/:id" element={<Actor />} />
-
         <Route element={<AuthRoutes />}>
           <Route path="/" element={<DashboardLayout className={className} />}>
 
@@ -96,6 +98,9 @@ function App() {
             <Route path="admindashboard/users" element={<AdminDashboardUsers />} />
             <Route path="admindashboard/analytics" element={<AdminDashboardAnalytics />} />
             <Route path="admindashboard/epks" element={<AdminDashboardEPKs />} />
+
+            <Route path="uploadFepk" element={<FepkUploadDashboard />} />
+
           </Route>
         </Route>
 
@@ -103,7 +108,9 @@ function App() {
           {/* <Route index element={<Home />} /> */}
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="epk/:id" element={<EpkViewPage />} />
-          <Route path="filmmaker/:id" element={<FilmmakerPage />} />
+          <Route path="/user/:id" element={<ProfileViewPage />} />
+           <Route path="/actor/:id" element={<ProfileViewPage />} />
+          <Route path="filmmaker/:id" element={<ProfileViewPage />} />
           <Route path="signup" element={<RegistrationForm />} />
 
           <Route path="verification" element={<EmailVerification />} />
@@ -120,12 +127,10 @@ function App() {
             element={<ResetPasswordSuccessPage />}
           />
 
-          <Route element={<AuthRoutes />}>
-            <Route path="uploadFepk" element={<FepkUploadDashboard />} />
-          </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
-        <Route element={<EditFepkLayout title="Edit EPK" />}>
+
+        <Route element={<EditFepkLayout title="Edit EPK" />} >
           <Route path="editFepk/:id" element={<FepkEditDashboard />} />
         </Route>
       </Routes>

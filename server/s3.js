@@ -27,10 +27,11 @@ const checkMimeType = (type) => {
   if (type === "video/mp4") ext = ".mp4";
   else if (type === "video/mpeg") ext = ".mpeg";
   else if (type === "video/quicktime") ext = ".mov";
+  else if (type === "video/webm") ext = ".webm";
   else if (type === "video/x-ms-wmv") ext = ".wmv";
   else if (type === "video/ogg") ext = ".ogg";
   else if (type === "video/3gpp") ext = ".3gp";
-  else if (type === "video/x-msvideo") ext = ".avi"; 
+  else if (type === "video/x-msvideo") ext = ".avi";
   else if (type === "image/png") ext = ".png";
   else if (type === "image/gif") ext = ".gif";
   else if (type === "image/jpg" || type === "image/jpeg") ext = ".jpg";

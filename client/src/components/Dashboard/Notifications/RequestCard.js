@@ -7,8 +7,10 @@ export default function RequestCard(props) {
   // eslint-disable-next-line no-unused-vars
   const [picture, setPicture] = useState();
   useEffect(() => {
+    if (!user) return;
+
     getUserById(user).then((res) => {
-      // console.info("res", res)
+
       setUserInfo(res);
       setPicture(
         userInfo?.picture ===
