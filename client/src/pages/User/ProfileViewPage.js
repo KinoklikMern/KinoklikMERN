@@ -81,6 +81,10 @@ function ProfileViewPage() {
   }, [id]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [id]);
+
+  useEffect(() => {
     if(!isEditMode) return;
 
     const handleScroll = () => {
@@ -92,11 +96,9 @@ function ProfileViewPage() {
         { id: 'summary', ref: summaryRef },
         { id: 'details', ref: detailsRef },
         { id: 'biography', ref: bioRef },
-        //{ id: 'prodCredits', ref: prodCreditsRef },
         { id: 'media', ref: mediaRef },
         { id: 'filmography', ref: filmographyRef },
         { id: 'socials', ref: socialsRef },
-        //{ id: 'buzz', ref: buzzRef },
       ];
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -191,11 +193,14 @@ function ProfileViewPage() {
     return `${process.env.REACT_APP_AWS_URL}/${img}`;
   }, [activeData?.photo_albums?.headshots]);
 
-  useEffect(() => {
-    if (id && user?.id !== id) {
-      AnalyticsDataService.trackView(id, 'User').catch(err => console.log("Analytics failed", err));
-    }
-  }, [id, user?.id]);
+useEffect(() => {
+  if (id && user?.id !== id && activeData?.role) {
+    AnalyticsDataService.trackView(id, activeData.role)
+      .catch(err => {
+        console.error("Analytics Error:", err.response?.data || err.message);
+      });
+  }
+}, [id, user?.id, activeData]);
 
   const handleDiscard = () => {
     setDraftUser(null);

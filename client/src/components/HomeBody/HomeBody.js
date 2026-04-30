@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
-import "../List/List.css";
-import "../ListItem/ListItem.css";
+//import "../List/List.css";
 import EPKFilter from "../Filter/EPKFilter";
 import FilterButton from "../Filter/FilterButton";
 import http from "../../http-common";
@@ -45,10 +44,6 @@ const HomeBody = ({ role }) => {
       setFilteredEPKs(response.data);
     });
   }, []);
-
-    useEffect(() => {
-     console.log(fepks)
-    }, [fepks]);
 
   const { filterQuery, clickHandler } = EPKFilter(
     fepks,
@@ -109,11 +104,11 @@ const HomeBody = ({ role }) => {
             }
             return (
               <React.Fragment key={fepk._id}>
-                <div className="listItem tw-my-8 tw-p-3 md:tw-my-24">
+                 <div className="tw-w-full tw-h-[450px] max-[700px]:tw-w-[80%] max-[700px]:tw-mx-auto tw-my-4 tw-p-3">
                   <a
                     href={
                       role === "actor"
-                        ? `/actor/${fepk._id}`
+                        ? `/user/${fepk._id}`
                         : fepk.title
                         ? `epk/${fepk._id}`
                         : "/"
@@ -122,7 +117,7 @@ const HomeBody = ({ role }) => {
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                       alt=""
-                      className="tw-w-full"
+                      className="tw-w-full tw-h-full tw-object-cover tw-transition-all tw-duration-1000 hover:tw-scale-[1.05]"
                     />
                   </a>
                 </div>

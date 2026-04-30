@@ -267,7 +267,7 @@ export default function SavedPage() {
                     <div className="tw-grid tw-grid-cols-2 tw-gap-4 tw-p-2 md:tw-grid-cols-4 lg:tw-grid-cols-6 xl:tw-grid-cols-8">
                       {(itemFilter === 0 ? filteredEpkList : filteredActorList).map((item) => {
                         const isEpk = itemFilter === 0;
-                        const linkPath = isEpk ? `/epk/${item._id}` : `/actor/${item._id}`;
+                        const linkPath = isEpk ? `/epk/${item._id}` : `/user/${item._id}`;
                         const imgSrc = isEpk
                           ? (item.banner_url ? `${process.env.REACT_APP_AWS_URL}/${item.banner_url}` : moviePic)
                           : (item.picture?.startsWith("https") ? item.picture : `${process.env.REACT_APP_AWS_URL}/${item.picture}`);

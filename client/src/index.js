@@ -7,9 +7,7 @@ import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { BrowserRouter } from "react-router-dom";
-//import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-//import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import reducers from "./reducers";
 
@@ -19,7 +17,6 @@ import { NotificationProvider } from "./context/NotificationContext";
 import { SocketProvider } from "./context/SocketProvider";
 
 import './i18n';
-
 
 const persistConfig = {
   key: "root",

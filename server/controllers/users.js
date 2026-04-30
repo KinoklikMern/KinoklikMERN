@@ -403,11 +403,9 @@ export const updateLastActive = async (req, res) => {
         { lastActive: new Date() },
         { where: { _id: userId } }
       );
-      //console.log("User last active time was updated!");
       res.status(200).json({ message: 'LastActive field was updated!' });
     }
   } catch (error) {
-    //console.log("UpdateLastActive Error: " + error.message);
     res.status(500).json({ message: error.message });
   }
 };
@@ -597,7 +595,6 @@ export const uploadUserAvatar = async (req, res) => {
   if (!result) {
     res.status(406).send({ message: 'File extention not supported!' });
   } else {
-    //console.log(result);
     res.status(200).send({ key: result.Key });
   }
 };
@@ -645,51 +642,6 @@ export const uploadUserMedia = async (req, res) => {
   }
 }; 
 
-//TODO Delete when profile editor is up
-// upload profiles 
-/*export const uploadActorProfiles = async (req, res) => {
-  let totalResult = {};
-  console.log('here');
-  console.log(req.files);
-  if ('file1' in req.files) {
-    const file1 = req.files.file1[0];
-    const result1 = await uploadFileToS3(file1);
-    if (!result1) {
-      res.status(406).send({ message: 'File extention not supported!' });
-    } else {
-      console.log(result1);
-      totalResult['file1'] = result1.Key;
-    }
-  }
-
-  console.log('file2' in req.files);
-  if ('file2' in req.files) {
-    const file2 = req.files.file2[0];
-    const result2 = await uploadFileToS3(file2);
-    if (!result2) {
-      res.status(406).send({ message: 'File extention not supported!' });
-    } else {
-      console.log(totalResult);
-      totalResult['file2'] = result2.Key;
-    }
-  }
-
-  console.log('file3' in req.files);
-  if ('file3' in req.files) {
-    const file3 = req.files.file3[0];
-    const result3 = await uploadFileToS3(file3);
-    if (!result3) {
-      res.status(406).send({ message: 'File extention not supported!' });
-    } else {
-      console.log(totalResult);
-      totalResult['file3'] = result3.Key;
-    }
-  }
-
-  console.log(totalResult);
-  res.send(totalResult);
-};*/
-
 //update user studio
 export const updateStudio = async (req, res) => {
   const id = req.params.userId;
@@ -699,7 +651,6 @@ export const updateStudio = async (req, res) => {
       res.json({ error: 'No User was found!' });
     } else {
       const updatedProfile = req.body;
-      //console.log(updatedProfile);
       await userOne.updateOne(updatedProfile);
       await userOne.updateOne(
         { updatedAt: new Date() },
@@ -715,7 +666,6 @@ export const updateStudio = async (req, res) => {
 
 export const changePassword = async (req, res) => {
   const { newPassword, confirmPassword, userId } = req.body;
-  //console.log(req.body);
   const user = await User.findById(userId);
   const matched = await user.comparePassword(newPassword);
   if (matched)
@@ -982,7 +932,6 @@ export const getFollowers = async (req, res) => {
   const id = req.params.id;
   try {
     const fepkOne = await User.findOne({ _id: id });
-    console.log(fepkOne);
 
     let facebooks = fepkOne.facebook_followers
       ? parseInt(fepkOne.facebook_followers)
@@ -1070,14 +1019,10 @@ export const getActorLikes = async (req, res) => {
 // Increment the recommendation count for an actor on KinoKlik
 export const getActorRecommendations = async (req, res) => {
   try {
-    console.log('Actor ID:', req.params.actorid);
-    console.log('Count:', req.body.count);
 
     const actorId = req.params.actorid;
     const count = req.body.count; // The count of selected filmmakers
     const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
-
-    console.log('Actor Profile:', actorProfile);
 
     if (!actorProfile) {
       return res.status(404).json({ error: 'No Actor was found!' });

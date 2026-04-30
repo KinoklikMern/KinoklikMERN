@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect, useRef } from 'react';
-import './Actor.css';
 import { ReactComponent as WorldIcon } from '../../images/icons/world-icon.svg';
 import { ReactComponent as ActorIcon } from '../../images/icons/actor-icon.svg';
 import { ReactComponent as HeartIcon } from '../../images/icons/heart-icon.svg';
@@ -216,9 +215,9 @@ export default function Actor(props) {
     console.log('User Role:', user.role);
     console.log('Selected Filmmakers:', selectedFilmmakers);
 
-    const message1 = `Hey, check out this Actor: <a href="/actor/${epkInfo._id}" target="_blank" rel="noopener noreferrer">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
+    const message1 = `Hey, check out this Actor: <a href="/user/${epkInfo._id}" target="_blank" rel="noopener noreferrer">${epkInfo.firstName} ${epkInfo.lastName}</a>`;
 
-    const message2 = `<a href="/actor/${epkInfo._id}" target="_blank" rel="noopener noreferrer"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
+    const message2 = `<a href="/user/${epkInfo._id}" target="_blank" rel="noopener noreferrer"><img src="${process.env.REACT_APP_AWS_URL}/${pics[indexPic]}" alt="${epkInfo.firstName}" style="width: 60px; height: 70px;" /></a>`;
 
     Promise.all(
       selectedFilmmakers.map((filmmaker) => {

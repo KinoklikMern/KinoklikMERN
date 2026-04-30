@@ -210,7 +210,7 @@ export default function EpkCast({ epkInfo, isEditMode, onChange }) {
                 bio={cast.aboutMe}
                 castName={`${cast.firstName} ${cast.lastName}`}
                 epkRole={cast.role}
-                actorUrl={`/actor/${cast._id}`}
+                actorUrl={`/user/${cast._id}`}
                 isDarkTheme={false} 
               />
             ))}

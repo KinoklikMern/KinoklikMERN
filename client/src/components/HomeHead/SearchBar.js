@@ -72,7 +72,7 @@ export default function SearchBar() {
                   href={
                     item.title
                       ? `/epk/${item.title.replace(/ /g, "-").trim()}`
-                      : `/actor/${item._id}`
+                      : `/user/${item._id}`
                   }
                   className="tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105"
                 >
