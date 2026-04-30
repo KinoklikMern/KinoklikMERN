@@ -680,150 +680,83 @@ export default function Actor(props) {
   );
 }
 
+// ... keep existing imports ...
 
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-  faCamera, faVideo, faPlay, faImages, faXmark, 
-  faChevronLeft, faChevronRight 
-} from "@fortawesome/free-solid-svg-icons";
-import emptyBanner from '../../../images/empty_banner.jpeg';
-
-import UpdateImageModal from "../../UpdateImageModal";
-import UpdateBannerModal from "../../UpdateBannerModal"; 
-
-export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
+export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMediaForDeletion }) {
   // ... existing states ...
-  const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
-  const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
-  const [playingView, setPlayingView] = useState(null);
-  
-  // NEW: State for carousel index and lightbox
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState(null); // Changed to index
 
-  // ... existing local states ...
-  const [localHeadshot, setLocalHeadshot] = useState(null);
-  // ... (keep other local states) ...
+  // ... (albums, handleFileUpload, etc. remain the same) ...
 
-  const AWS_URL = process.env.REACT_APP_AWS_URL;
-  
-  // Define available headshots list
-  const headshots = data?.photo_albums?.headshots || [];
-  const hasMultiple = headshots.length > 1;
-
-  // Navigation Logic
-  const nextImage = (e) => {
-    e?.stopPropagation();
-    setCurrentIndex((prev) => (prev + 1) % headshots.length);
-  };
-
-  const prevImage = (e) => {
-    e?.stopPropagation();
-    setCurrentIndex((prev) => (prev - 1 + headshots.length) % headshots.length);
-  };
-
-  // Touch/Swipe Logic
-  const handleTouchStart = (e) => setTouchStart(e.targetTouches[0].clientX);
-  const handleTouchEnd = (e) => {
-    const touchEnd = e.changedTouches[0].clientX;
-    if (touchStart - touchEnd > 50) nextImage();
-    if (touchEnd - touchStart > 50) prevImage();
-  };
-
-  // Resolve Image URL
-  const getImageUrl = (imgObj) => {
-    if (!imgObj) return emptyBanner;
-    const path = typeof imgObj === 'string' ? imgObj : imgObj.image;
-    return path.startsWith("http") ? path : `${AWS_URL}/${path}`;
-  };
-
-  const displayHeadshot = localHeadshot || getImageUrl(headshots[currentIndex]);
-
-  // ... (keep existing handleSave logic and banner calculation) ...
+  const currentCategoryImages = albums[activeCategory] || [];
 
   return (
-    <>
-      <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-pb-10">
-        
-        {/* DESKTOP VIEW */}
-        <div className="tw-hidden md:tw-flex tw-w-full tw-h-[515px] xl:tw-h-[600px] tw-gap-8 tw-relative">
-          
-          {/* Headshot Container */}
-          <div 
-            className={`tw-relative tw-w-[343px] tw-h-full tw-shrink-0 tw-rounded-[10px] tw-overflow-hidden tw-bg-black group tw-cursor-pointer ${
-              errors.image_details ? 'tw-border-[3px] tw-border-red-500' : 'tw-shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
-            }`}
-            onClick={() => !isEditMode && setIsExpanded(true)}
-          >
-            <img src={displayHeadshot} alt="Headshot" className="tw-w-full tw-h-full tw-object-cover" />
-            
-            {/* Arrows for Desktop */}
-            {hasMultiple && !isEditMode && (
-              <>
-                <button onClick={prevImage} className="tw-absolute tw-left-2 tw-top-1/2 tw-bg-black/50 hover:tw-bg-black/80 tw-text-white tw-w-8 tw-h-8 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                <button onClick={nextImage} className="tw-absolute tw-right-2 tw-top-1/2 tw-bg-black/50 hover:tw-bg-black/80 tw-text-white tw-w-8 tw-h-8 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
-              </>
-            )}
+    <section className="tw-bg-transparent tw-w-full tw-py-12 tw-border-[#5A3F49]/30">
+      {/* ... (Header and Category Tabs remain the same) ... */}
 
-            {isEditMode && ( /* ... Edit Mode Buttons ... */ )}
-          </div>
+      {/* Slider Area */}
+      <div className="tw-relative">
+        <div 
+          ref={sliderRef}
+          className="tw-flex tw-items-stretch tw-gap-4 md:tw-gap-6 tw-overflow-x-auto tw-snap-x tw-pb-4 custom-scrollbar"
+        >
+          {/* ... (Upload logic stays same) ... */}
 
-          {/* ... (Banner Section remains unchanged) ... */}
-        </div>
-
-        {/* MOBILE VIEW */}
-        <div className="tw-flex md:tw-hidden tw-flex-col tw-gap-4">
-          {/* ... (Banner/Reel Section unchanged) ... */}
-          
-          <div className="tw-flex tw-flex-row tw-w-full tw-gap-4 tw-items-stretch">
+          {currentCategoryImages.map((item, idx) => (
             <div 
-              className="tw-relative tw-w-1/2 tw-min-h-[220px] tw-rounded-[10px] tw-overflow-hidden tw-bg-black tw-shadow-lg"
-              onClick={() => !isEditMode && setIsExpanded(true)}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
+              key={idx} 
+              // Set the index instead of the string
+              onClick={() => !isEditMode && setExpandedIndex(idx)}
+              className="tw-shrink-0 tw-snap-center tw-relative tw-w-[140px] md:tw-w-[240px] tw-h-[210px] md:tw-h-[360px] tw-bg-[#1F0439] tw-rounded-xl tw-overflow-hidden tw-group tw-cursor-pointer tw-shadow-lg"
             >
-              <img src={displayHeadshot} alt="Mobile Headshot" className="tw-w-full tw-h-full tw-object-cover" />
-              {isEditMode && ( /* ... Edit Button ... */ )}
+               <img 
+                src={item.image?.startsWith('http') ? item.image : `${process.env.REACT_APP_AWS_URL}/${item.image}`} 
+                alt="Gallery" 
+                className="tw-w-full tw-h-full tw-object-cover group-hover:tw-scale-105 tw-transition-transform tw-duration-500"
+              />
+              {/* ... (Delete button remains same) ... */}
             </div>
-            {/* ... (Video/Picture buttons) ... */}
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Lightbox / Expanded View */}
-      {isExpanded && (
-        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4" 
-             onClick={() => setIsExpanded(false)}
-             onTouchStart={handleTouchStart}
-             onTouchEnd={handleTouchEnd}
-        >
-          <button className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-z-50" onClick={() => setIsExpanded(false)}>
+      {/* LIGHTBOX MODAL */}
+      {expandedIndex !== null && (
+        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4">
+          <button 
+            className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-z-50" 
+            onClick={() => setExpandedIndex(null)}
+          >
             <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
           </button>
-          
-          {hasMultiple && (
+
+          {/* Navigation Arrows */}
+          {currentCategoryImages.length > 1 && (
             <>
-              <button onClick={prevImage} className="tw-absolute tw-left-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl">
+              <button 
+                onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev - 1 + currentCategoryImages.length) % currentCategoryImages.length); }}
+                className="tw-absolute tw-left-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl"
+              >
                 <FontAwesomeIcon icon={faChevronLeft} />
               </button>
-              <button onClick={nextImage} className="tw-absolute tw-right-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl">
+              <button 
+                onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev + 1) % currentCategoryImages.length); }}
+                className="tw-absolute tw-right-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl"
+              >
                 <FontAwesomeIcon icon={faChevronRight} />
               </button>
             </>
           )}
 
-          <img src={displayHeadshot} alt="Fullscreen" className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg shadow-2xl" />
+          <img 
+            src={currentCategoryImages[expandedIndex].image?.startsWith('http') ? currentCategoryImages[expandedIndex].image : `${process.env.REACT_APP_AWS_URL}/${currentCategoryImages[expandedIndex].image}`} 
+            alt="Expanded" 
+            className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg shadow-2xl" 
+          />
         </div>
       )}
 
-      {/* ... (Modals) ... */}
-    </>
+      {/* ... (Delete Modal and other code remains) ... */}
+    </section>
   );
 }
