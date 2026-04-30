@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../HomeBody/HomeBody.css';
-//import '../List/List.css';
 import './DropDown.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';

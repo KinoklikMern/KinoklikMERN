@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
-//import "../List/List.css";
 import EPKFilter from "../Filter/EPKFilter";
 import FilterButton from "../Filter/FilterButton";
 import http from "../../http-common";

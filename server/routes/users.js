@@ -90,7 +90,6 @@ router.delete('/deleteAccount/:userId', authUser, deleteAccount);
 router.get('/getactors', getProfileActor);
 router.get('/starred/:id', getActoStarred);
 router.get('/followed/:id', getActorFollowing);
-router.get('/getactor/:id', getUserById);
 router.get('/getfollower/:id', getFollowers);
 router.get('/getfollowing/:id', getFollowingActor);
 router.get('/likes/:id', getLikes);

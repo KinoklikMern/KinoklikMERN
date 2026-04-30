@@ -25,7 +25,7 @@ export default function UserBio({ data, isEditMode, onChange }) {
           {!isEditMode ? (
             /* ---------------- READ ONLY ---------------- */
             data?.aboutMe ? (
-              <p className="tw-text-[#E2BDC9] tw-text-base md:tw-text-lg tw-leading-relaxed tw-max-w-4xl tw-m-0 tw-whitespace-pre-wrap">
+              <p className="tw-text-[#E2BDC9] tw-text-base md:tw-text-lg tw-leading-relaxed tw-m-0 tw-whitespace-pre-wrap">
                 {data.aboutMe}
               </p>
             ) : (

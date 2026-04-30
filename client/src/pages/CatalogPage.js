@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../components/HomeBody/HomeBody.css";
-//import "../components/List/List.css";
 import EPKFilter from "../components/Filter/EPKFilter.js";
 import FilterButton from "../components/Filter/FilterButton.js";
 import StatusBtn from "../components/SwitchStatusBtn/Status.js";

@@ -84,7 +84,7 @@ const HomeHead = (props) => {
               <a
                   href={
                     props.role === 'actor'
-                        ? `actor/${actor._id}`
+                        ? `user/${actor._id}`
                         : fepk && fepk.title
                             ? `epk/${fepk._id}`
                             : '/'
@@ -104,7 +104,7 @@ const HomeHead = (props) => {
                   className="tw-mx-auto"
                   href={
                     props.role === 'actor'
-                        ? `actor/${actor._id}`
+                        ? `user/${actor._id}`
                         : fepk && fepk.title
                             ? `epk/${fepk._id}`
                             : '/'
