@@ -681,63 +681,149 @@ export default function Actor(props) {
 }
 
 
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { 
+  faCamera, faVideo, faPlay, faImages, faXmark, 
+  faChevronLeft, faChevronRight 
+} from "@fortawesome/free-solid-svg-icons";
+import emptyBanner from '../../../images/empty_banner.jpeg';
 
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import UserSummaryEdit from './UserSummaryEdit';
-import UserSocialAction from '../UserSocialAction/UserSocialAction';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import UpdateImageModal from "../../UpdateImageModal";
+import UpdateBannerModal from "../../UpdateBannerModal"; 
 
-export default function UserSummary({ data, isEditMode, onChange, openRecommendModal }) {
-  const { t } = useTranslation();
-  const location = data?.city && data?.country ? `${data.city}, ${data.country}` : data?.city || data?.country || '';
+export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
+  // ... existing states ...
+  const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
+  const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
+  const [playingView, setPlayingView] = useState(null);
+  
+  // NEW: State for carousel index and lightbox
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+
+  // ... existing local states ...
+  const [localHeadshot, setLocalHeadshot] = useState(null);
+  // ... (keep other local states) ...
+
+  const AWS_URL = process.env.REACT_APP_AWS_URL;
+  
+  // Define available headshots list
+  const headshots = data?.photo_albums?.headshots || [];
+  const hasMultiple = headshots.length > 1;
+
+  // Navigation Logic
+  const nextImage = (e) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % headshots.length);
+  };
+
+  const prevImage = (e) => {
+    e?.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + headshots.length) % headshots.length);
+  };
+
+  // Touch/Swipe Logic
+  const handleTouchStart = (e) => setTouchStart(e.targetTouches[0].clientX);
+  const handleTouchEnd = (e) => {
+    const touchEnd = e.changedTouches[0].clientX;
+    if (touchStart - touchEnd > 50) nextImage();
+    if (touchEnd - touchStart > 50) prevImage();
+  };
+
+  // Resolve Image URL
+  const getImageUrl = (imgObj) => {
+    if (!imgObj) return emptyBanner;
+    const path = typeof imgObj === 'string' ? imgObj : imgObj.image;
+    return path.startsWith("http") ? path : `${AWS_URL}/${path}`;
+  };
+
+  const displayHeadshot = localHeadshot || getImageUrl(headshots[currentIndex]);
+
+  // ... (keep existing handleSave logic and banner calculation) ...
 
   return (
-    <div className="tw-bg-[#1E0039] tw-w-full tw-pt-6 tw-pb-8">
-      <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-px-4 md:tw-px-0">
+    <>
+      <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-pb-10">
         
-        <div className="tw-pl-0 md:tw-pl-10">
-          {isEditMode ? (
-            <UserSummaryEdit data={data} onChange={onChange} />
-          ) : (
-            <div className="tw-flex tw-flex-col tw-gap-6">
-              
-              {/* Profile Header: Name, Role, Location, Socials */}
-              <div className="tw-flex tw-flex-col md:tw-flex-row tw-w-full tw-justify-between tw-items-center md:tw-items-end">
-                <div className="tw-flex tw-flex-col tw-items-center md:tw-items-start">
-                  <h1 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">
-                    {data?.firstName} {data?.lastName}
-                  </h1>
+        {/* DESKTOP VIEW */}
+        <div className="tw-hidden md:tw-flex tw-w-full tw-h-[515px] xl:tw-h-[600px] tw-gap-8 tw-relative">
+          
+          {/* Headshot Container */}
+          <div 
+            className={`tw-relative tw-w-[343px] tw-h-full tw-shrink-0 tw-rounded-[10px] tw-overflow-hidden tw-bg-black group tw-cursor-pointer ${
+              errors.image_details ? 'tw-border-[3px] tw-border-red-500' : 'tw-shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
+            }`}
+            onClick={() => !isEditMode && setIsExpanded(true)}
+          >
+            <img src={displayHeadshot} alt="Headshot" className="tw-w-full tw-h-full tw-object-cover" />
+            
+            {/* Arrows for Desktop */}
+            {hasMultiple && !isEditMode && (
+              <>
+                <button onClick={prevImage} className="tw-absolute tw-left-2 tw-top-1/2 tw-bg-black/50 hover:tw-bg-black/80 tw-text-white tw-w-8 tw-h-8 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                <button onClick={nextImage} className="tw-absolute tw-right-2 tw-top-1/2 tw-bg-black/50 hover:tw-bg-black/80 tw-text-white tw-w-8 tw-h-8 tw-rounded-full tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </>
+            )}
 
-                  <div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center md:tw-justify-start tw-gap-3 tw-mt-2">
-                    <span className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-bg-[#FF43A7]/10 tw-px-3 tw-py-1 tw-rounded-full">
-                      {t(data?.role) || t('Cinephile')}
-                    </span>
-                    {location && (
-                      <span className="tw-flex tw-items-center tw-gap-1.5 tw-text-[#E2BDC9] tw-text-sm">
-                        <FontAwesomeIcon icon={faMapMarkerAlt} className="tw-text-[#FF43A7] tw-text-xs" />
-                        {location}
-                      </span>
-                    )}
-                  </div>
-                </div>
+            {isEditMode && ( /* ... Edit Mode Buttons ... */ )}
+          </div>
 
-                <div className="tw-mt-6 md:tw-mt-0">
-                  <UserSocialAction data={data} openRecommendModal={openRecommendModal} />
-                </div>
-              </div>
+          {/* ... (Banner Section remains unchanged) ... */}
+        </div>
 
-              {/* Bio Quote (Directly below info) */}
-              {data?.summary && (
-                <p className="tw-text-[#E2BDC9] tw-text-2xl md:tw-text-3xl tw-italic tw-m-0 tw-leading-relaxed tw-opacity-90 tw-max-w-4xl">
-                  {`"${data.summary}"`}
-                </p>
-              )}
+        {/* MOBILE VIEW */}
+        <div className="tw-flex md:tw-hidden tw-flex-col tw-gap-4">
+          {/* ... (Banner/Reel Section unchanged) ... */}
+          
+          <div className="tw-flex tw-flex-row tw-w-full tw-gap-4 tw-items-stretch">
+            <div 
+              className="tw-relative tw-w-1/2 tw-min-h-[220px] tw-rounded-[10px] tw-overflow-hidden tw-bg-black tw-shadow-lg"
+              onClick={() => !isEditMode && setIsExpanded(true)}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              <img src={displayHeadshot} alt="Mobile Headshot" className="tw-w-full tw-h-full tw-object-cover" />
+              {isEditMode && ( /* ... Edit Button ... */ )}
             </div>
-          )}
+            {/* ... (Video/Picture buttons) ... */}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Lightbox / Expanded View */}
+      {isExpanded && (
+        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4" 
+             onClick={() => setIsExpanded(false)}
+             onTouchStart={handleTouchStart}
+             onTouchEnd={handleTouchEnd}
+        >
+          <button className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-z-50" onClick={() => setIsExpanded(false)}>
+            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
+          </button>
+          
+          {hasMultiple && (
+            <>
+              <button onClick={prevImage} className="tw-absolute tw-left-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl">
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+              <button onClick={nextImage} className="tw-absolute tw-right-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl">
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            </>
+          )}
+
+          <img src={displayHeadshot} alt="Fullscreen" className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg shadow-2xl" />
+        </div>
+      )}
+
+      {/* ... (Modals) ... */}
+    </>
   );
 }
