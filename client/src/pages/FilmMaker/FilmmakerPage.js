@@ -64,7 +64,7 @@ export default function FilmmakerPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await http.get(`/users/getfilmmaker/${id}`);
+        const res = await http.get(`/users/getuser/${id}`);
         const data = res.data;
         setFilmmakerInfo(data);
 
@@ -115,7 +115,7 @@ export default function FilmmakerPage() {
   const handleDiscard = () => {
     setDraftFilmmaker(null);
     setErrors({});
-    navigate(`/filmmaker/${id}`, { replace: true });
+    navigate(`/user/${id}`, { replace: true });
   };
 
   const handleSaveAndExit = async () => {
@@ -158,11 +158,11 @@ export default function FilmmakerPage() {
         headers: { Authorization: `Bearer ${user?.token}` },
       });
 
-      const refreshed = await http.get(`/users/getfilmmaker/${id}`);
+      const refreshed = await http.get(`/users/getuser/${id}`);
       setFilmmakerInfo(refreshed.data);
       setDraftFilmmaker(null);
       setIsEditMode(false);
-      navigate(`/filmmaker/${id}`, { replace: true });
+      navigate(`/user/${id}`, { replace: true });
     } catch (err) {
       console.error('Save failed:', err);
       alert('Failed to save changes. Please try again.');

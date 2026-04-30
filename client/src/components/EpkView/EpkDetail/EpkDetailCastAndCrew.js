@@ -183,7 +183,7 @@ export default function EpkDetailCastAndCrew({ epkInfo, isEditMode, onChange }) 
 
     return (
       <a 
-        href={`/${person.role.toLowerCase() === 'actor' ? 'actor' : 'filmmaker'}/${person.id}`} 
+        href={`/user/${person.id}`} 
         className="tw-flex tw-flex-col tw-items-center tw-shrink-0 tw-no-underline hover:tw-opacity-80 tw-cursor-pointer tw-transition-opacity"
       >
         {innerContent}

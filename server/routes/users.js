@@ -123,9 +123,6 @@ router.post('/user/deleteMediaBatch', authUser, deleteUserMediaBatch);
 // final save in actor profiles
 router.put('/actor/files/:id', actorUploadFiles);
 
-// get filmmaker
-router.get('/getfilmmaker/:id', getUserById);
-
 router.put('/lastactive/:id', updateLastActive);
 router.put('/signupfornewsletter', signupForNewsletter);
 

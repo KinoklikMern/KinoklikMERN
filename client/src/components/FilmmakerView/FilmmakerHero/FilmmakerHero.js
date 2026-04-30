@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faMapMarkerAlt, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faPlay, faXmark } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from '../../../images/empty_banner.jpeg';
 import UpdateProfilePhotoModal from './UpdateProfilePhotoModal';
 import UpdateBannerModal from '../../EpkView/EpkCover/UpdateBannerModal';
@@ -24,6 +24,7 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
   const [isPhotoModalOpen, setIsPhotoModalOpen]   = useState(false);
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen]   = useState(false);
+  const [expandedImage, setExpandedImage] = useState(null);
 
   const bannerFile = filmmakerInfo?.new_banner_file;
   const bannerSrc = resolveUrl(
@@ -52,10 +53,6 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
     onChange('new_banner_type', type);
     setIsBannerModalOpen(false);
   };
-
-  const location = [filmmakerInfo?.city, filmmakerInfo?.province, filmmakerInfo?.country]
-    .filter(Boolean)
-    .join(', ');
 
   return (
     <>
@@ -114,6 +111,7 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
           <div
             className="tw-absolute tw-left-6 md:tw-left-12 tw-group"
             style={{ bottom: 0 }}
+            onClick={() => !isEditMode && setExpandedImage(photoSrc)}
           >
             <img
               src={photoSrc}
@@ -130,67 +128,6 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
             )}
           </div>
         </div>
-
-        {/* ── Name / role / location — always fully below the banner ── */}
-        <div className="tw-px-6 md:tw-px-12 tw-pt-4 tw-pb-8"
-             style={{ paddingLeft: `calc(1.5rem + 112px + 1.5rem)` }}>
-          <div className="tw-flex tw-flex-col tw-gap-2">
-
-            {isEditMode ? (
-              <div className="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3">
-                <input
-                  type="text"
-                  value={filmmakerInfo?.firstName || ''}
-                  onChange={(e) => onChange('firstName', e.target.value)}
-                  placeholder="First name"
-                  className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors"
-                />
-                <input
-                  type="text"
-                  value={filmmakerInfo?.lastName || ''}
-                  onChange={(e) => onChange('lastName', e.target.value)}
-                  placeholder="Last name"
-                  className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-font-bold tw-text-xl tw-outline-none tw-transition-colors"
-                />
-              </div>
-            ) : (
-              <h1 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">
-                {filmmakerInfo?.firstName} {filmmakerInfo?.lastName}
-              </h1>
-            )}
-
-            <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-3">
-              <span className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-bg-[#FF43A7]/10 tw-px-3 tw-py-1 tw-rounded-full">
-                {filmmakerInfo?.role || 'Filmmaker'}
-              </span>
-
-              {isEditMode ? (
-                <div className="tw-flex tw-gap-2">
-                  <input
-                    type="text"
-                    value={filmmakerInfo?.city || ''}
-                    onChange={(e) => onChange('city', e.target.value)}
-                    placeholder="City"
-                    className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28"
-                  />
-                  <input
-                    type="text"
-                    value={filmmakerInfo?.country || ''}
-                    onChange={(e) => onChange('country', e.target.value)}
-                    placeholder="Country"
-                    className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-2 tw-py-1 tw-text-[#E2BDC9] tw-text-sm tw-outline-none tw-transition-colors tw-w-28"
-                  />
-                </div>
-              ) : location ? (
-                <span className="tw-flex tw-items-center tw-gap-1.5 tw-text-[#E2BDC9] tw-text-sm">
-                  <FontAwesomeIcon icon={faMapMarkerAlt} className="tw-text-[#FF43A7] tw-text-xs" />
-                  {location}
-                </span>
-              ) : null}
-            </div>
-
-          </div>
-        </div>
       </div>
 
       <UpdateProfilePhotoModal
@@ -204,6 +141,26 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
         onClose={() => setIsBannerModalOpen(false)}
         onSave={handleBannerSave}
       />
+
+      {/* ──  expanded profile  ── */}
+      {expandedImage && (
+        <div 
+          className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4" 
+          onClick={() => setExpandedImage(null)}
+        >
+          <button 
+            className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-flex tw-items-center tw-justify-center"
+            onClick={() => setExpandedImage(null)}
+          >
+            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
+          </button>
+          <img 
+            src={expandedImage} 
+            alt="Fullscreen profile" 
+            className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg tw-shadow-2xl" 
+          />
+        </div>
+      )}
 
       {/* ── Video lightbox modal ── */}
       {isVideoModalOpen && (

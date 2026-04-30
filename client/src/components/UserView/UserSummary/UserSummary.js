@@ -10,20 +10,17 @@ export default function UserSummary({ data, isEditMode, onChange, openRecommendM
   const location = data?.city && data?.country ? `${data.city}, ${data.country}` : data?.city || data?.country || '';
 
   return (
-    <div className="tw-bg-[#1E0039] tw-w-full tw-pt-10 tw-pb-8">
+    <div className="tw-bg-[#1E0039] tw-w-full tw-pt-6 tw-pb-8">
       <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-px-4 md:tw-px-0">
         
-        <h2 className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-6">
-          {t('Summary')}
-        </h2>
-
         <div className="tw-pl-0 md:tw-pl-10">
           {isEditMode ? (
             <UserSummaryEdit data={data} onChange={onChange} />
           ) : (
             <div className="tw-flex tw-flex-col tw-gap-6">
-              {/* Top Section: Name and Socials */}
-              <div className="tw-flex tw-flex-col md:tw-flex-row tw-w-full tw-justify-between tw-items-center md:tw-items-end">
+              
+              {/* Profile Header: Name, Role, Location, Socials */}
+              <div className="tw-flex tw-flex-col md:tw-flex-row tw-w-full tw-justify-between tw-items-center md:tw-items-start">
                 <div className="tw-flex tw-flex-col tw-items-center md:tw-items-start">
                   <h1 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">
                     {data?.firstName} {data?.lastName}
@@ -47,7 +44,7 @@ export default function UserSummary({ data, isEditMode, onChange, openRecommendM
                 </div>
               </div>
 
-              {/* Bottom Section: Bio Quote */}
+              {/* Bio Quote (Directly below info) */}
               {data?.summary && (
                 <p className="tw-text-[#E2BDC9] tw-text-2xl md:tw-text-3xl tw-italic tw-m-0 tw-leading-relaxed tw-opacity-90 tw-max-w-4xl">
                   {`"${data.summary}"`}
