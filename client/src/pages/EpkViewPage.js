@@ -25,10 +25,13 @@ import EpkSalesCalculator from '../components/EpkView/EpkSalesCalculator/EpkSale
 import EpkPhotoGallery from '../components/EpkView/EpkPhotoGallery/EpkPhotoGallery';
 import AnalyticsDataService from "../api/analytics";
 import EditNavBar from '../components/navbar/EditNavBar';
+import { useTranslation } from 'react-i18next';
+
 
 function EpkViewPage() {
   const { fepkId, setFepkId, fepkMaker, setFepkMaker, setEpkCollaborators } = React.useContext(FepkContext);
   const user = useSelector((state) => state.user);
+  const { t } = useTranslation();
   
   // States
   const [epkInfo, setEpkInfo] = useState();
@@ -328,7 +331,7 @@ function EpkViewPage() {
       
     } catch (error) {
       console.error("Save process failed:", error);
-      alert("Failed to save changes. Please try again.");
+      alert(t("Failed to save changes. Please try again."));
     } finally {
       setIsSaving(false);
     }
@@ -434,20 +437,20 @@ function EpkViewPage() {
           <div className="tw-fixed tw-inset-0 tw-z-[1060] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
             <div className="tw-bg-[#280D41] tw-border tw-border-red-500/50 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(239,68,68,0.2)]">
               <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">
-                Missing Information
+                {t("Missing Information")}
               </h3>
               <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-6 tw-leading-relaxed">
-                Please complete the following required fields before publishing your EPK:
+                {t("Please complete the following required fields before publishing your EPK:")}
               </p>
               
               <ul className="tw-list-disc tw-list-inside tw-text-white tw-font-bold tw-text-sm tw-mb-8 tw-space-y-2 tw-bg-[#1E0039] tw-p-4 tw-rounded-xl">
-                {errors.logLine_short && <li className="tw-text-red-400">Logline <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Cover Section)</span></li>}
-                {errors.image_details && <li className="tw-text-red-400">Cover Poster <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Cover Section)</span></li>}
-                {errors.trailerOrBanner && <li className="tw-text-red-400">Trailer or Banner <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Cover Section)</span></li>}
-                {errors.productionYear && <li className="tw-text-red-400">Production Year <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
-                {errors.language && <li className="tw-text-red-400">Language <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
-                {errors.budget && <li className="tw-text-red-400">Budget <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
-                {errors.status && <li className="tw-text-red-400">Status <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">(Details Section)</span></li>}
+                {errors.logLine_short && <li className="tw-text-red-400">{t("Logline")} <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">({t("Cover Section")})</span></li>}
+                {errors.image_details && <li className="tw-text-red-400">{t("Cover Poster")} <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">({t("Cover Section")})</span></li>}
+                {errors.trailerOrBanner && <li className="tw-text-red-400">{t("Trailer or Banner")} <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">({t("Details Section")})</span></li>}
+                {errors.productionYear && <li className="tw-text-red-400">{t("Production Year")} <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">({t("Details Section")})</span></li>}
+                {errors.language && <li className="tw-text-red-400">{t("Language")} <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">({t("Details Section")})</span></li>}
+                {errors.budget && <li className="tw-text-red-400">{t("Budget")} <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">({t("Details Section")})</span></li>}
+                {errors.status && <li className="tw-text-red-400">{t("Status")} <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal">({t("Details Section")})</span></li>}
               </ul>
 
               <div className="tw-flex tw-justify-end">
@@ -458,7 +461,7 @@ function EpkViewPage() {
                   }}
                   className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer"
                 >
-                  Review Fields
+                  {t("Review Fields")}
                 </button>
               </div>
             </div>

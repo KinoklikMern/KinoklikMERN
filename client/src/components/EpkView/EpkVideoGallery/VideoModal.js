@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import  { useState, useEffect, useRef, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faUpload, faFilm, faCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,6 +10,7 @@ export default function VideoModal({
   epkInfo, 
   onSave 
 }) {
+  const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [isTrailer, setIsTrailer] = useState(false);
   const [activeCategory, setActiveCategory] = useState("trailers");
@@ -195,9 +197,9 @@ export default function VideoModal({
     if (!isChecking && isCurrentlyMain) {
       const trailerCount = epkInfo?.video_gallery?.trailers?.length || 0;
       if (trailerCount <= 1) {
-        setTrailerError("This is your only trailer. You must upload another video before you can unset this as the Main Trailer.");
+        setTrailerError(t("This is your only trailer. You must upload another video before you can unset this as the Main Trailer."));
       } else {
-        setTrailerError("To swap out the Main Trailer, edit the new video you want to use and check 'Set as Main Trailer'.");
+        setTrailerError(t("To swap out the Main Trailer, edit the new video you want to use and check 'Set as Main Trailer'."));
       }
       return; 
     }
@@ -234,7 +236,7 @@ export default function VideoModal({
         <div className="tw-px-8 tw-py-6 tw-border-b tw-border-[#5A3F49]/40 tw-bg-[#1E0039]/50 tw-flex tw-justify-between tw-items-center tw-shrink-0">
           <h3 className="tw-text-white tw-text-[22px] tw-font-bold tw-font-['Plus_Jakarta_Sans'] tw-flex tw-items-center tw-gap-3 tw-m-0">
             <FontAwesomeIcon icon={faFilm} className="tw-text-[#FF43A7]" />
-            {video.isNewUpload && !videoUrl ? "Upload New Video" : "Video Details"}
+            {video.isNewUpload && !videoUrl ? t("Upload New Video") : t("Video Details")}
           </h3>
           <button 
             onClick={handleCloseAttempt}
@@ -254,7 +256,7 @@ export default function VideoModal({
               {/* TITLE INPUT WITH MOBILE INLINE BUTTONS */}
               <div className="tw-flex tw-flex-col tw-gap-2 tw-flex-1">
                 <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-font-['Space_Grotesk']">
-                  Video Title
+                  {t("Video Title")}
                 </label>
                 <div className="tw-relative tw-w-full">
                   <input 
@@ -262,7 +264,7 @@ export default function VideoModal({
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="e.g. Official Teaser Trailer"
+                    placeholder={t("e.g. Official Teaser Trailer")}
                     className={`tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-4 tw-py-3 tw-text-white tw-font-bold focus:tw-outline-none focus:tw-border-[#FF43A7] tw-transition-colors ${title !== localTitleSaved ? 'md:tw-pr-4 tw-pr-[80px]' : ''}`}
                   />
                   
@@ -288,17 +290,17 @@ export default function VideoModal({
               {/* CATEGORY SELECTOR */}
               <div className="tw-flex tw-flex-col tw-gap-2 tw-w-full md:tw-w-48">
                 <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-font-['Space_Grotesk']">
-                  Category
+                  {t("Category")}
                 </label>
                 <select 
                   value={activeCategory}
                   onChange={(e) => setActiveCategory(e.target.value)}
                   className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-4 tw-py-3 tw-text-white tw-font-bold focus:tw-outline-none focus:tw-border-[#FF43A7] tw-transition-colors tw-cursor-pointer"
                 >
-                  <option value="trailers">Trailers</option>
-                  <option value="behind">Behind The Scene</option>
-                  <option value="interviews">Interviews</option>
-                  <option value="premieres">Premieres</option>
+                  <option value="trailers">{t("Trailers")}</option>
+                  <option value="behind">{t("Behind The Scene")}</option>
+                  <option value="interviews">{t("Interviews")}</option>
+                  <option value="premieres">{t("Premieres")}</option>
                 </select>
               </div>
             </div>
@@ -308,8 +310,8 @@ export default function VideoModal({
               <div className="tw-flex tw-flex-col tw-gap-2">
                 <div className="tw-flex tw-items-center tw-justify-between tw-bg-[#1E0039] tw-border tw-border-[#5A3F49]/50 tw-rounded-lg tw-p-4">
                   <div className="tw-flex tw-flex-col">
-                    <span className="tw-text-white tw-font-bold tw-text-sm">Set as Main Trailer</span>
-                    <span className="tw-text-[#E2BDC9] tw-text-xs tw-mt-1">This will display the video at the very top of your EPK.</span>
+                    <span className="tw-text-white tw-font-bold tw-text-sm">{t("Set as Main Trailer")}</span>
+                    <span className="tw-text-[#E2BDC9] tw-text-xs tw-mt-1">{t("This will display the video at the very top of your EPK.")}</span>
                   </div>
                   <label className="tw-relative tw-inline-flex tw-items-center tw-cursor-pointer">
                     <input type="checkbox" checked={isTrailer} onChange={handleTrailerToggle} className="tw-sr-only tw-peer" />
@@ -339,17 +341,17 @@ export default function VideoModal({
                 <FontAwesomeIcon icon={faFilm} className="tw-text-[#FF43A7] tw-text-2xl" />
               </div>
               <h3 className="tw-font-['Plus_Jakarta_Sans'] tw-font-bold tw-text-xl tw-text-[#F0DBFF] tw-m-0 tw-z-10 tw-text-center">
-                Drag and drop your cinematic file here
+                {t("Drag and drop your cinematic file here")}
               </h3>
               <p className="tw-font-['Inter'] tw-text-sm tw-text-[#DDB7FF]/60 tw-m-0 tw-z-10">
-                or click to browse from your computer
+                {t("or click to browse from your computer")}
               </p>
               
               <input type="file" accept="video/*" ref={fileInputRef} onChange={handleFileSelect} className="tw-hidden" />
               <button 
                 className="tw-mt-4 tw-px-6 tw-py-2.5 tw-bg-[#42295C] tw-border tw-border-[#5A3F49]/30 tw-rounded-full tw-font-['Space_Grotesk'] tw-text-xs tw-text-[#F0DBFF] tw-tracking-[1.4px] hover:tw-bg-[#5A3F49] tw-transition-colors tw-z-10 tw-cursor-pointer"
               >
-                BROWSE FILES
+                {t("BROWSE FILES")}
               </button>
             </div>
           ) : (
@@ -370,14 +372,14 @@ export default function VideoModal({
             <div className="tw-flex tw-flex-col tw-gap-4">
               <div className="tw-flex tw-items-center tw-justify-between">
                  <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-font-['Space_Grotesk']">
-                   Video Thumbnail
+                   {t("Video Thumbnail")}
                  </label>
               </div>
 
               <div className="tw-flex tw-gap-4 tw-overflow-x-auto custom-scrollbar tw-pb-2">
                 {thumbnails.length === 0 && selectedThumbnail && (
                   <div className="tw-shrink-0 tw-relative tw-w-[140px] md:tw-w-[170px] tw-aspect-video tw-rounded-lg tw-overflow-hidden tw-border-2 tw-border-[#FF43A7]">
-                     <img src={selectedThumbnail?.startsWith('http') || selectedThumbnail?.startsWith('blob:') || selectedThumbnail?.startsWith('data:') ? selectedThumbnail : `${process.env.REACT_APP_AWS_URL}/${selectedThumbnail}`} alt="Current" className="tw-w-full tw-h-full tw-object-cover" />
+                     <img src={selectedThumbnail?.startsWith('http') || selectedThumbnail?.startsWith('blob:') || selectedThumbnail?.startsWith('data:') ? selectedThumbnail : `${process.env.REACT_APP_AWS_URL}/${selectedThumbnail}`} alt={t("Current")} className="tw-w-full tw-h-full tw-object-cover" />
                      <div className="tw-absolute tw-inset-0 tw-bg-black/20 tw-flex tw-items-center tw-justify-center">
                        <div className="tw-w-6 tw-h-6 tw-bg-[#FF43A7] tw-rounded-full tw-flex tw-items-center tw-justify-center tw-shadow-lg">
                          <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />
@@ -392,7 +394,7 @@ export default function VideoModal({
                     onClick={() => { setSelectedThumbnail(thumb); setCustomThumbnailFile(null); }}
                     className={`tw-shrink-0 tw-relative tw-w-[140px] md:tw-w-[170px] tw-aspect-video tw-rounded-lg tw-overflow-hidden tw-cursor-pointer tw-transition-all tw-box-border ${selectedThumbnail === thumb ? 'tw-border-[1.5px] tw-border-[#FF43A7] tw-opacity-100' : 'tw-border tw-border-[#5A3F49]/50 tw-opacity-60 hover:tw-opacity-100'}`}
                   >
-                     <img src={thumb} alt={`Extracted ${idx + 1}`} className="tw-w-full tw-h-full tw-object-cover" />
+                     <img src={thumb} alt={`${t("Extracted")} ${idx + 1}`} className="tw-w-full tw-h-full tw-object-cover" />
                      {selectedThumbnail === thumb && (
                        <div className="tw-absolute tw-inset-0 tw-bg-black/20 tw-flex tw-items-center tw-justify-center">
                          <div className="tw-w-6 tw-h-6 tw-bg-[#FF43A7] tw-rounded-full tw-flex tw-items-center tw-justify-center tw-shadow-lg">
@@ -409,7 +411,7 @@ export default function VideoModal({
                   className="tw-shrink-0 tw-w-[140px] md:tw-w-[170px] tw-aspect-video tw-bg-[#1E0039] tw-border tw-border-dashed tw-border-[#5A3F49] tw-rounded-lg tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-cursor-pointer hover:tw-bg-[#371E51] tw-transition-colors"
                 >
                   <FontAwesomeIcon icon={faUpload} className="tw-text-[#DDB7FF] tw-text-lg tw-mb-1" />
-                  <span className="tw-font-['Space_Grotesk'] tw-text-[9px] tw-text-[#DDB7FF] tw-tracking-[1px] tw-uppercase tw-font-bold">Upload Custom</span>
+                  <span className="tw-font-['Space_Grotesk'] tw-text-[9px] tw-text-[#DDB7FF] tw-tracking-[1px] tw-uppercase tw-font-bold">{t("Upload Custom")}</span>
                   <input type="file" accept="image/*" ref={customThumbRef} onChange={handleCustomThumbUpload} className="tw-hidden" />
                 </div>
               </div>
@@ -423,14 +425,14 @@ export default function VideoModal({
             onClick={handleCloseAttempt}
             className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border-none tw-text-[#E2BDC9] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-text-white tw-transition-colors tw-cursor-pointer tw-m-0 tw-p-0"
           >
-            Cancel
+            {t("Cancel")}
           </button>
           <button 
             onClick={handleSave}
             disabled={!videoUrl || isExtracting}
             className="tw-px-8 tw-py-3 tw-bg-[#FF43A7] tw-rounded-lg tw-text-white tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-colors hover:tw-bg-[#ff5cac] tw-cursor-pointer disabled:tw-opacity-50 disabled:tw-cursor-not-allowed disabled:tw-shadow-none"
           >
-            {isExtracting ? "Extracting..." : "Save Media"}
+            {isExtracting ? t("Extracting...") : t("Save Media")}
           </button>
         </div>
 
@@ -440,22 +442,22 @@ export default function VideoModal({
       {showDiscardModal && (
         <div className="tw-fixed tw-inset-0 tw-z-[1060] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
           <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">Discard Changes?</h3>
+            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">{t("Discard Changes?")}</h3>
             <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8 tw-leading-relaxed">
-              You have unsaved changes. Are you sure you want to discard them? All your progress will be lost.
+              {t("You have unsaved changes. Are you sure you want to discard them? All your progress will be lost.")}
             </p>
             <div className="tw-flex tw-justify-end tw-gap-4">
               <button 
                 onClick={() => setShowDiscardModal(false)}
                 className="tw-px-6 tw-py-2.5 tw-bg-[#FF43A7] hover:tw-bg-[#FF00A0] tw-rounded-lg tw-text-[#570033] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-colors tw-cursor-pointer"
               >
-                Keep Editing
+                {t("Keep Editing")}
               </button>
               <button 
                 onClick={confirmDiscard}
                 className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-red-500 tw-rounded-lg tw-text-red-500 tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-bg-red-500 hover:tw-text-white tw-transition-colors tw-cursor-pointer"
               >
-                Discard
+                {t("Discard")}
               </button>
             </div>
           </div>

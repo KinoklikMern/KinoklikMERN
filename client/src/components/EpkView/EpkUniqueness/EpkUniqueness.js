@@ -1,12 +1,14 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faSpinner, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { uploadSingleFile } from "../../../api/epks";
+import { useTranslation } from "react-i18next";
 
 export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const { t } = useTranslation();
   
   // Track original text for the mobile Cancel button to revert to
   const [originalTitle, setOriginalTitle] = useState("");
@@ -38,7 +40,7 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
       onChange("image_uniqueness", uploadedKey);
     } catch (error) {
       console.error("Failed to upload uniqueness image:", error);
-      alert("Failed to upload image. Please try again.");
+      alert(t("Failed to upload image. Please try again."));
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -51,14 +53,14 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
       {/* HEADER */}
       <div className="tw-max-w-[1200px] tw-mx-auto tw-flex tw-flex-col tw-mb-10 md:tw-mb-16 tw-px-4 md:tw-px-0">
         <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-1">
-          Our originality
+          {t("Our originality")}
         </span>
         <h2 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-tracking-tight tw-mb-2">
-          {isEditMode ? "Edit Uniqueness" : "Uniqueness"}
+          {isEditMode ? t("Edit Uniqueness") : t("Uniqueness")}
         </h2>
         {isEditMode && (
           <p className="tw-text-[#DDB7FF] tw-text-sm md:tw-text-base tw-leading-relaxed tw-max-w-[672px] tw-mt-2 tw-mb-0">
-            Highlight what makes your project stand out. Upload a defining image and describe the unique elements, themes, or vision that make your film truly one-of-a-kind.
+            {t("Highlight what makes your project stand out. Upload a defining image and describe the unique elements, themes, or vision that make your film truly one-of-a-kind.")}
           </p>
         )}
       </div>
@@ -83,7 +85,7 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
             {isUploading ? (
               <div className="tw-w-full tw-max-w-[500px] tw-aspect-[4/3] tw-bg-[#280D41] tw-border-2 tw-border-dashed tw-border-[#FF43A7]/40 tw-rounded-[24px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4">
                 <FontAwesomeIcon icon={faSpinner} className="tw-text-[#FF43A7] tw-text-3xl tw-animate-spin" />
-                <span className="tw-text-[#FF43A7] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">Uploading Image...</span>
+                <span className="tw-text-[#FF43A7] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">{t("Uploading Image...")}</span>
               </div>
             ) : image_uniqueness ? (
               <div className="tw-relative tw-w-full tw-max-w-[500px] tw-group">
@@ -100,7 +102,7 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
                     className="tw-absolute tw-inset-0 tw-bg-black/60 tw-rounded-[24px] tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity tw-flex tw-flex-col tw-items-center tw-justify-center tw-cursor-pointer"
                   >
                     <FontAwesomeIcon icon={faCamera} className="tw-text-white tw-text-3xl tw-mb-2" />
-                    <span className="tw-text-white tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">Change Image</span>
+                    <span className="tw-text-white tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">{t("Change Image")}</span>
                   </div>
                 )}
               </div>
@@ -113,8 +115,8 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
                   <div className="tw-w-16 tw-h-16 tw-bg-[#371E51] tw-rounded-full tw-flex tw-items-center tw-justify-center tw-mb-4">
                     <FontAwesomeIcon icon={faCamera} className="tw-text-[#FF43A7] tw-text-2xl" />
                   </div>
-                  <h4 className="tw-text-white tw-text-lg tw-font-bold tw-mb-1 tw-font-['Plus_Jakarta_Sans']">Upload Image</h4>
-                  <p className="tw-text-[#DDB7FF]/60 tw-text-sm tw-font-['Inter']">Recommended size: 1000x800</p>
+                  <h4 className="tw-text-white tw-text-lg tw-font-bold tw-mb-1 tw-font-['Plus_Jakarta_Sans']">{t("Upload Image")}</h4>
+                  <p className="tw-text-[#DDB7FF]/60 tw-text-sm tw-font-['Inter']">{t("Recommended size: 1000x800")}</p>
                 </div>
               )
             )}
@@ -137,7 +139,7 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
                       setOriginalTitle(e.target.value);
                       onChange("title_uniqueness", "");
                     }}
-                    placeholder="Enter Uniqueness Title..."
+                    placeholder={t("Enter Uniqueness Title...")}
                     className="tw-w-full tw-text-center tw-text-xl md:tw-text-2xl tw-font-semibold tw-text-[#FF00A0] tw-bg-transparent tw-border-2 tw-border-dashed tw-border-[#FF00A0]/40 tw-rounded-xl tw-p-3 focus:tw-outline-none focus:tw-border-[#FF00A0] tw-transition-colors placeholder:tw-text-[#FF00A0]/30"
                   />
                 </div>
@@ -153,7 +155,7 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
                       setOriginalDesc(e.target.value);
                       onChange("description_uniqueness", "");
                     }}
-                    placeholder="Describe what makes your film unique..."
+                    placeholder={t("Describe what makes your film unique...")}
                     className="tw-w-full tw-min-h-[160px] tw-text-center tw-text-base md:tw-text-lg tw-text-white tw-leading-relaxed tw-bg-transparent tw-border-2 tw-border-dashed tw-border-white/30 tw-rounded-xl tw-p-4 focus:tw-outline-none focus:tw-border-white/60 tw-transition-colors tw-resize-none custom-scrollbar placeholder:tw-text-white/30"
                   />
                 </div>
@@ -169,13 +171,13 @@ export default function EpkUniqueness({ epkInfo, isEditMode, onChange }) {
                     }}
                     className="tw-px-4 tw-py-2 tw-bg-transparent tw-border tw-border-[#5A3F49] tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-xs tw-uppercase"
                   >
-                    Cancel
+                    {t("Cancel")}
                   </button>
                   <button 
                     onClick={() => document.activeElement.blur()} // Drops keyboard
                     className="tw-px-4 tw-py-2 tw-bg-[#FF43A7] tw-text-[#570033] tw-rounded-lg tw-font-bold tw-text-xs tw-uppercase tw-border-none"
                   >
-                    Save Edits
+                    {t("Save Edits")}
                   </button>
                 </div>
 

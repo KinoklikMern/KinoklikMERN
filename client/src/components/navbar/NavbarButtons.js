@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Link, useMatch, useParams, useLocation} from "react-router-dom";
+import { Link, useParams, useLocation} from "react-router-dom";
 import { SideProfileMenu } from "./SideMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -106,7 +106,7 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
                 className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-white hover:tw-bg-gray-100 tw-text-[#FF00A0] tw-font-bold tw-py-2 tw-px-4 md:tw-px-6 tw-rounded-full tw-shadow-lg tw-transition-all tw-mr-2 md:tw-mr-4 tw-border-none tw-cursor-pointer"
               >
                 <FontAwesomeIcon icon={faPlus} className="tw-text-sm" />
-                <span className="tw-hidden md:tw-inline">Create EPK</span>
+                <span className="tw-hidden md:tw-inline">{t("Create EPK")}</span>
               </button>
             )}
 
@@ -118,7 +118,7 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
              >
                <FontAwesomeIcon icon={faPen} className="tw-text-sm" />
                <span className="tw-hidden md:tw-inline">
-                 {isEpkViewPage ? "Edit EPK" : "Edit Profile"}
+                 {isEpkViewPage ? t("Edit EPK") : t("Edit Profile")}
                </span>
              </Link>
             )}

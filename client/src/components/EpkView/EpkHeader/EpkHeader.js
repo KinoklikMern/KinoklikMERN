@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import SocialMedia from "./SocialMedia";
 import { formatCompactNumber } from "../../../utils/numberFormatters";
 import { fetchAndSumFollowers } from "../../../utils/followersHelper";
@@ -6,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 export default function EpkHeader({ epkInfo,setGlobalTotalReach,isEditMode,onChange }) {
+  const { t } = useTranslation();
   const [socialMediafollowerTotalNum, setSocialMediaFollowerTotalNum] = useState(0);
   const [platformFollowers, setPlatformFollowers] = useState({ facebook: 0, instagram: 0, twitter: 0, tiktok: 0, linkedin: 0, youtube: 0, newsletter: 0 });
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -75,19 +77,19 @@ export default function EpkHeader({ epkInfo,setGlobalTotalReach,isEditMode,onCha
               onKeyDown={(e) => { if (e.key === 'Enter') handleTitleSubmit(); }}
               autoFocus
               className="tw-flex-1 tw-w-full tw-bg-[#1F0439] tw-text-white tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-py-3 tw-px-4 tw-rounded-xl tw-border-2 tw-border-[#FF43A7] tw-outline-none tw-shadow-lg"
-              placeholder="Enter EPK Title"
+              placeholder={t("Enter EPK Title")}
             />
             <button 
               onClick={handleTitleSubmit} 
               className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-8 tw-py-3 tw-rounded-lg tw-font-bold tw-text-sm hover:tw-bg-[#ff5cac] tw-transition-colors tw-shadow-lg tw-cursor-pointer tw-shrink-0"
             >
-              Save Title
+              {t("Save Title")}
             </button>
           </div>
         ) : (
           <div className="tw-flex tw-items-center tw-gap-4">
             <h1 className="tw-px-4 tw-text-center tw-text-3xl md:tw-text-5xl tw-font-bold tw-tracking-wide tw-text-[#C4C4C4] tw-drop-shadow-md">
-              {epkInfo?.title || "Untitled EPK"}
+              {epkInfo?.title || t("Untitled EPK")}
             </h1>
             {isEditMode && (
               <button 

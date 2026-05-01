@@ -1,23 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faChevronDown, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import KinoKlikIcon from "../../images/logo.png"; 
 
 export default function EditNavBar({ activeSection, onSectionClick, onDiscard, onSave, isSaving }) {
+  const { t } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   // Unified Sections matching the exact page flow
   const SECTIONS = [
-    { id: 'cover', label: 'Cover & Banners' },
-    { id: 'details', label: 'Production Details' },
-    { id: 'synopsis', label: 'Synopsis' },
-    { id: 'uniqueness', label: 'Uniqueness' }, // 🛑 ADDED UNIQUENESS HERE
-    { id: 'casts', label: 'Casts' },
-    { id: 'crews', label: 'Crews' },
-    { id: 'media', label: 'Media' },
-    { id: 'resources', label: 'Resources' },
-    { id: 'buzz', label: 'Buzz' }
+    { id: 'cover', label: t('Cover & Banners') },
+    { id: 'details', label: t('Production Details') },
+    { id: 'synopsis', label: t('Synopsis') },
+    { id: 'uniqueness', label: t('Uniqueness') }, // 🛑 ADDED UNIQUENESS HERE
+    { id: 'casts', label: t('Casts') },
+    { id: 'crews', label: t('Crews') },
+    { id: 'media', label: t('Media') },
+    { id: 'resources', label: t('Resources') },
+    { id: 'buzz', label: t('Buzz') }
   ];
 
   useEffect(() => {
@@ -111,18 +113,18 @@ export default function EditNavBar({ activeSection, onSectionClick, onDiscard, o
         <button
           onClick={onDiscard}
           disabled={isSaving}
-          title="Discard Changes"
+          title={t("Discard Changes")}
           className="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 md:tw-w-auto md:tw-px-4 md:tw-gap-2 tw-bg-[#4B4B4B] hover:tw-bg-[#5A5A5A] tw-text-white tw-rounded-lg tw-transition-colors tw-border-none tw-outline-none tw-cursor-pointer disabled:tw-opacity-50 disabled:tw-cursor-not-allowed tw-shrink-0"
         >
           <FontAwesomeIcon icon={faXmark} className="tw-text-lg" />
-          <span className="tw-hidden md:tw-inline tw-text-sm tw-font-bold">Discard</span>
+          <span className="tw-hidden md:tw-inline tw-text-sm tw-font-bold">{t("Discard")}</span>
         </button>
 
         {/* SAVE BUTTON  */}
         <button 
           onClick={onSave}
           disabled={isSaving}
-          title="Save Changes"
+          title={t("Save Changes")}
           className={`tw-flex tw-items-center tw-justify-center tw-gap-2 tw-px-5 md:tw-px-6 tw-h-10 tw-rounded-lg tw-font-bold tw-text-sm tw-tracking-widest tw-transition-all tw-border-none tw-outline-none tw-shrink-0 ${
             isSaving 
               ? "tw-bg-[#5A3F49] tw-text-white/50 tw-cursor-not-allowed" 
@@ -132,13 +134,13 @@ export default function EditNavBar({ activeSection, onSectionClick, onDiscard, o
           {isSaving ? (
             <>
               <FontAwesomeIcon icon={faSpinner} className="tw-animate-spin" />
-              <span className="tw-hidden md:tw-inline">UPLOADING ASSETS...</span>
-              <span className="md:tw-hidden">SAVING...</span>
+              <span className="tw-hidden md:tw-inline">{t("UPLOADING ASSETS...")}</span>
+              <span className="md:tw-hidden">{t("SAVING...")}</span>
             </>
           ) : (
             <>
-              <span className="tw-hidden md:tw-inline">SAVE AND EXIT</span>
-              <span className="md:tw-hidden">SAVE</span>
+              <span className="tw-hidden md:tw-inline">{t("SAVE AND EXIT")}</span>
+              <span className="md:tw-hidden">{t("SAVE")}</span>
             </>
           )}
         </button>

@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import CastCard from './CastCard';
 import ActionPlaceholder from '../../common/ActionPlaceholder';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import AddCastCrewModal from '../EpkDetail/AddCastCrewModal';
 import http from '../../../http-common';
+import { useTranslation } from "react-i18next";
 
 const getSafeId = (obj) => {
   if (!obj) return "null";
@@ -19,6 +20,7 @@ export default function EpkCast({ epkInfo, isEditMode, onChange }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [invitations, setInvitations] = useState([]);
+  const { t } = useTranslation();
 
   const IMAGE_URL_PREFIX = `${process.env.REACT_APP_AWS_URL}`;
   
@@ -116,11 +118,11 @@ export default function EpkCast({ epkInfo, isEditMode, onChange }) {
     http.get('/invitations/get-invitation-by-filmmaker-movie-email', {
       params: { movie: epkInfo._id, invitedBy: epkInfo.film_maker._id, email: inviteData.email }
     }).then((response) => {
-      if (response.data && response.data.length > 0) alert("An invitation for that project was already sent to this person.");
+      if (response.data && response.data.length > 0) alert(t("An invitation for that project was already sent to this person."));
       else {
         http.post('/invitations/send-invitation', updatedInvitationData).then((res) => {
            setInvitations(prev => [...prev, { _id: res.data._id, ...updatedInvitationData }]);
-           alert("Invitation sent successfully!");
+           alert(t("Invitation sent successfully!"));
         }).catch(err => console.error("Error sending invite:", err));
       }
     }).catch(err => console.error("Error checking existing invites:", err));
@@ -167,14 +169,14 @@ export default function EpkCast({ epkInfo, isEditMode, onChange }) {
         
         <div className="tw-flex tw-flex-col tw-mb-8 md:tw-mb-10">
           <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-1">
-            Principal Cast
+            {t("Principal Cast")}
           </span>
           <h2 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-tracking-tight tw-mb-2">
-            {isEditMode ? "Edit Cast" : "Starring"}
+            {isEditMode ? t("Edit Cast") : t("Starring")}
           </h2>
           {isEditMode && (
             <p className="tw-text-[#DDB7FF] tw-text-sm md:tw-text-base tw-leading-relaxed tw-max-w-[672px] tw-mt-2 tw-mb-0">
-              Manage your principal cast members. Click "Add New Talent" to search your network or invite external actors via email.
+              {t('Manage your principal cast members. Click "Add New Talent" to search your network or invite external actors via email.')}
             </p>
           )}
         </div>
@@ -197,8 +199,8 @@ export default function EpkCast({ epkInfo, isEditMode, onChange }) {
               <ActionPlaceholder 
                 variant="castCard" 
                 onClick={() => setIsModalOpen(true)}
-                title="Add New Talent"
-                subtitle="Upload Headshot & Bio"
+                title={t("Add New Talent")}
+                subtitle={t("Upload Headshot & Bio")}
                 className="tw-shrink-0 tw-w-[260px] md:tw-w-[280px] tw-snap-center"
               />
             )}

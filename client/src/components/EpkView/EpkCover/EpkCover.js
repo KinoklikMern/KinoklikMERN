@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faVideo, faPlay, faImages, faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from '../../../images/empty_banner.jpeg';
-
+import { useTranslation } from "react-i18next";
 import UpdatePosterModal from "./UpdatePosterModal";
 import UpdateBannerModal from "./UpdateBannerModal";
 
 export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
+  const { t } = useTranslation();
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [playingView, setPlayingView] = useState(null);
@@ -172,13 +173,13 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
             {/* Validation Badge */}
             {errors.image_details && isEditMode && (
               <div className="tw-absolute tw-top-4 tw-left-4 tw-bg-red-500 tw-text-white tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-3 tw-py-1.5 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
-                Cover Required
+                {t("Cover Required")}
               </div>
             )}
 
             {!isEditMode && (
               <div className="tw-absolute tw-inset-0 tw-bg-black/0 hover:tw-bg-black/20 tw-transition-colors tw-flex tw-items-center tw-justify-center tw-opacity-0 hover:tw-opacity-100">
-                <span className="tw-bg-[#1F0439]/80 tw-backdrop-blur-sm tw-text-white tw-px-4 tw-py-2 tw-rounded-full tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">View Full Poster</span>
+                <span className="tw-bg-[#1F0439]/80 tw-backdrop-blur-sm tw-text-white tw-px-4 tw-py-2 tw-rounded-full tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">{t("View Full Poster")}</span>
               </div>
             )}
 
@@ -195,7 +196,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                   <div className="tw-w-[59px] tw-h-[56px] tw-bg-[#371E51]/80 tw-backdrop-blur-md tw-border tw-border-[#FFB0CF]/20 tw-rounded-full tw-flex tw-items-center tw-justify-center">
                     <FontAwesomeIcon icon={faCamera} className="tw-text-[#FFB0CF] tw-text-xl" />
                   </div>
-                  <span className="tw-text-[#F0DBFF] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-text-center">Update Poster</span>
+                  <span className="tw-text-[#F0DBFF] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest tw-text-center">{t("Update Poster")}</span>
                 </button>
               </div>
             )}
@@ -209,7 +210,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
             {/* Validation Badge */}
             {errors.trailerOrBanner && isEditMode && (
               <div className="tw-absolute tw-top-4 tw-right-4 tw-bg-red-500 tw-text-white tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-3 tw-py-1.5 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
-                Banner/Trailer Required
+                {t("Banner/Trailer Required")}
               </div>
             )}
 
@@ -243,10 +244,10 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                         autoFocus
                         className="tw-w-full tw-bg-[#1F0439]/90 tw-backdrop-blur-md tw-text-white tw-text-xl tw-p-4 tw-rounded-xl tw-border-2 tw-border-[#FF43A7] tw-outline-none tw-resize-none tw-shadow-xl"
                         rows="3"
-                        placeholder="Write a compelling short logline (Required)..."
+                        placeholder={t("Write a compelling short logline (Required)...")}
                       />
                       <button onClick={handleLoglineSubmit} className="tw-self-start tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-8 tw-py-2 tw-rounded-lg tw-font-bold tw-text-sm hover:tw-bg-[#ff5cac] tw-transition-colors tw-shadow-lg tw-cursor-pointer">
-                        Save Logline
+                        {t("Save Logline")}
                       </button>
                     </div>
                   ) : (
@@ -254,7 +255,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                       errors.logLine_short ? 'tw-p-3 -tw-ml-3 tw-border-2 tw-border-dashed tw-border-red-500 tw-bg-red-500/10' : ''
                     }`}>
                       <p className="tw-text-xl tw-font-medium tw-leading-relaxed tw-text-white tw-drop-shadow-md">
-                        {epkInfo?.logLine_short || (isEditMode ? "No logline provided. A short logline is required." : "")}
+                        {epkInfo?.logLine_short || (isEditMode ? t("No logline provided. A short logline is required.") : "")}
                       </p>
                       {isEditMode && (
                         <button 
@@ -284,7 +285,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                       <div className="tw-w-[72px] tw-h-[66px] tw-bg-[#371E51]/80 tw-backdrop-blur-md tw-border tw-border-[#FFB0CF]/20 tw-rounded-full tw-flex tw-items-center tw-justify-center">
                         <FontAwesomeIcon icon={faVideo} className="tw-text-[#FFB0CF] tw-text-2xl" />
                       </div>
-                      <span className="tw-text-[#F0DBFF] tw-text-sm tw-font-bold tw-uppercase tw-tracking-widest tw-text-center">Update Trailer Banner</span>
+                      <span className="tw-text-[#F0DBFF] tw-text-sm tw-font-bold tw-uppercase tw-tracking-widest tw-text-center">{t("Update Trailer Banner")}</span>
                     </button>
                   </div>
                 )}
@@ -303,7 +304,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
               {/* Validation Badge */}
               {errors.trailerOrBanner && isEditMode && (
                 <div className="tw-absolute tw-top-4 tw-right-4 tw-bg-red-500 tw-text-white tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-3 tw-py-1.5 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
-                  Required
+                  {t("Required")}
                 </div>
               )}
 
@@ -336,7 +337,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                         className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-6 tw-py-2 tw-rounded-full tw-font-bold tw-text-sm shadow-lg tw-cursor-pointer"
                       >
                         <FontAwesomeIcon icon={faVideo} className="tw-mr-2" />
-                        Update Banner
+                        {t("Update Banner")}
                       </button>
                     </div>
                   )}
@@ -356,7 +357,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
               {/* Validation Badge */}
               {errors.image_details && isEditMode && (
                 <div className="tw-absolute tw-top-2 tw-left-2 tw-bg-red-500 tw-text-white tw-text-[9px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-2 tw-py-1 tw-rounded-full tw-z-30 tw-shadow-lg tw-animate-pulse">
-                  Required
+                  {t("Required")}
                 </div>
               )}
 
@@ -372,7 +373,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                     }} 
                     className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-4 tw-py-2 tw-rounded-lg tw-font-bold tw-text-xs shadow-lg tw-cursor-pointer"
                   >
-                    Edit Poster
+                    {t("Edit Poster")}
                   </button>
                 </div>
              )}
@@ -381,11 +382,11 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
             <div className="tw-w-1/2 tw-flex tw-flex-col tw-justify-center tw-gap-4">
               <button onClick={scrollToVideos} className="tw-flex tw-flex-row tw-items-center tw-justify-center tw-gap-3 tw-w-full tw-py-4 tw-rounded-[8px] tw-bg-transparent tw-border-[1.5px] tw-border-[#FF43A7] hover:tw-bg-[#FF43A7]/10 tw-transition-colors tw-shadow-md tw-cursor-pointer">
                 <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-lg" />
-                <span className="tw-text-white tw-font-bold tw-text-base">Videos</span>
+                <span className="tw-text-white tw-font-bold tw-text-base">{t("Videos")}</span>
               </button>
               <button onClick={scrollToPhotos} className="tw-flex tw-flex-row tw-items-center tw-justify-center tw-gap-3 tw-w-full tw-py-4 tw-rounded-[8px] tw-bg-transparent tw-border-[1.5px] tw-border-[#FF43A7] hover:tw-bg-[#FF43A7]/10 tw-transition-colors tw-shadow-md tw-cursor-pointer">
                 <FontAwesomeIcon icon={faImages} className="tw-text-white tw-text-lg" />
-                <span className="tw-text-white tw-font-bold tw-text-base">Pictures</span>
+                <span className="tw-text-white tw-font-bold tw-text-base">{t("Pictures")}</span>
               </button>
             </div>
           </div>
@@ -403,7 +404,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                     placeholder="Write a compelling short logline (Required)..."
                   />
                   <button onClick={handleLoglineSubmit} className="tw-w-full tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-6 tw-py-3 tw-rounded-lg tw-font-bold tw-text-sm hover:tw-bg-[#ff5cac] tw-transition-colors tw-shadow-lg tw-cursor-pointer">
-                    Save Logline
+                    {t("Save Logline")}
                   </button>
                 </div>
               ) : (
@@ -411,7 +412,7 @@ export default function EpkCover({ epkInfo, scrollToPhotos, scrollToVideos, isEd
                    errors.logLine_short ? 'tw-p-3 tw-border-2 tw-border-dashed tw-border-red-500 tw-bg-red-500/10' : ''
                 }`}>
                   <p className="tw-text-base tw-font-medium tw-leading-relaxed tw-text-white tw-text-justify tw-opacity-90">
-                    {epkInfo?.logLine_short || (isEditMode ? "No logline provided. A short logline is required." : "")}
+                    {epkInfo?.logLine_short || (isEditMode ? t("No logline provided. A short logline is required.") : "")}
                   </p>
                   {isEditMode && (
                     <button 

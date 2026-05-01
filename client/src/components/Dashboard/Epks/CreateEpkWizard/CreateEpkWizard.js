@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import  { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faChevronRight, faChevronLeft, faCamera, faCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -78,11 +78,11 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
 
   const handleNext = () => {
     if (step === 1 && !formData.title.trim()) {
-      setError("Please enter a project title.");
+      setError(t("Please enter a project title."));
       return;
     }
     if (step === 2 && !formData.logLine_short.trim()) {
-      setError("Please enter a short logline.");
+      setError(t("Please enter a short logline."));
       return;
     }
     setStep(prev => prev + 1);
@@ -100,7 +100,7 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
 
   const handleSubmit = async () => {
     if (!user || !user.token) {
-      setError("Your session has expired or you are not logged in. Please log out and log back in.");
+      setError(t("Your session has expired or you are not logged in. Please log out and log back in."));
       return;
     }
     setIsSubmitting(true);
@@ -136,7 +136,7 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
       const newEpkId = response.data._id;
       
       if (!newEpkId) {
-         throw new Error("Creation failed: Database did not return a valid ID.");
+         throw new Error(t("Creation failed: Database did not return a valid ID."));
       }
 
       onClose();
@@ -151,12 +151,12 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
         const backendMessage = err.response.data.message || err.response.data.error || JSON.stringify(err.response.data);
         
         if (err.response.status === 409) {
-          setError("An EPK with this title already exists.");
+          setError(t("An EPK with this title already exists."));
         } else {
-          setError(`Server Error: ${backendMessage}`);
+          setError(`${t("Server Error:")} ${backendMessage}`);
         }
       } else {
-        setError(err.message || "Failed to create EPK. Please try again.");
+        setError(err.message || t("Failed to create EPK. Please try again."));
       }
       
     } finally {
@@ -168,12 +168,12 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
   const renderStep1 = () => (
     <div className="tw-flex tw-flex-col tw-gap-6 tw-animate-fade-in">
       <div className="tw-flex tw-flex-col tw-gap-2">
-        <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">Project Title *</label>
+        <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">{t("Project Title")} *</label>
         <input 
           type="text" 
           value={formData.title} 
           onChange={(e) => handleChange("title", e.target.value)}
-          placeholder="Enter your film's title..."
+          placeholder={t("Enter your film's title...")}
           autoFocus
           className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-4 tw-py-4 tw-text-white tw-text-lg tw-font-bold focus:tw-outline-none focus:tw-border-[#FF43A7] tw-transition-colors"
         />
@@ -181,23 +181,23 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
       
       <div className="tw-grid tw-grid-cols-2 tw-gap-4">
         <div className="tw-flex tw-flex-col tw-gap-2">
-          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Format *</label>
+          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Format")} *</label>
           <select value={formData.production_type} onChange={(e) => handleChange("production_type", e.target.value)} className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-3 tw-py-3 tw-text-white focus:tw-outline-none focus:tw-border-[#FF43A7] tw-appearance-none">
-            {movieType.map(m => <option key={m} value={m}>{m}</option>)}
+            {movieType.map(m => <option key={m} value={m}>{t(m)}</option>)}
           </select>
         </div>
 
         <div className="tw-flex tw-flex-col tw-gap-2">
-          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Year *</label>
+          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Year")} *</label>
           <select value={formData.productionYear} onChange={(e) => handleChange("productionYear", e.target.value)} className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-3 tw-py-3 tw-text-white focus:tw-outline-none focus:tw-border-[#FF43A7] tw-appearance-none">
             {years.map(y => <option key={y} value={y}>{y}</option>)}
           </select>
         </div>
 
         <div className="tw-flex tw-flex-col tw-gap-2 tw-col-span-2">
-          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Current Status *</label>
+          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Current Status")} *</label>
           <select value={formData.status} onChange={(e) => handleChange("status", e.target.value)} className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-3 tw-py-3 tw-text-white focus:tw-outline-none focus:tw-border-[#FF43A7] tw-appearance-none">
-            {movieStatus.map(s => <option key={s} value={s}>{s}</option>)}
+            {movieStatus.map(s => <option key={s} value={s}>{t(s)}</option>)}
           </select>
         </div>
       </div>
@@ -207,12 +207,12 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
   const renderStep2 = () => (
     <div className="tw-flex tw-flex-col tw-gap-6 tw-animate-fade-in">
       <div className="tw-flex tw-flex-col tw-gap-2">
-        <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">The Logline *</label>
-        <p className="tw-text-[#E2BDC9] tw-text-[10px] tw-mb-1 tw-m-0">Provide a one or two sentence summary of your project's plot.</p>
+        <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">{t("The Logline")} *</label>
+        <p className="tw-text-[#E2BDC9] tw-text-[10px] tw-mb-1 tw-m-0">{t("Provide a one or two sentence summary of your project's plot.")}</p>
         <textarea 
           value={formData.logLine_short} 
           onChange={(e) => handleChange("logLine_short", e.target.value)}
-          placeholder="When a former assassin is pulled back into the underworld..."
+          placeholder={t("When a former assassin is pulled back into the underworld...")}
           autoFocus
           className="tw-w-full tw-h-[100px] tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-4 tw-py-3 tw-text-white tw-italic focus:tw-outline-none focus:tw-border-[#FF43A7] tw-transition-colors tw-resize-none custom-scrollbar"
         />
@@ -220,21 +220,21 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
 
       <div className="tw-grid tw-grid-cols-2 tw-gap-4">
         <div className="tw-flex tw-flex-col tw-gap-2 tw-col-span-2">
-          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Primary Genre *</label>
+          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Primary Genre")} *</label>
           <select value={formData.genre} onChange={(e) => handleChange("genre", e.target.value)} className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-3 tw-py-3 tw-text-white focus:tw-outline-none focus:tw-border-[#FF43A7] tw-appearance-none">
             {movieGenre.map(g => <option key={g} value={g}>{t(g)}</option>)}
           </select>
         </div>
 
         <div className="tw-flex tw-flex-col tw-gap-2">
-          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Language *</label>
+          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Language")} *</label>
           <select value={formData.language} onChange={(e) => handleChange("language", e.target.value)} className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-3 tw-py-3 tw-text-white focus:tw-outline-none focus:tw-border-[#FF43A7] tw-appearance-none">
             {languageType.map(l => <option key={l} value={l}>{t(l)}</option>)}
           </select>
         </div>
 
         <div className="tw-flex tw-flex-col tw-gap-2">
-          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Budget *</label>
+          <label className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Budget")} *</label>
           <select value={formData.budget} onChange={(e) => handleChange("budget", e.target.value)} className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-3 tw-py-3 tw-text-white focus:tw-outline-none focus:tw-border-[#FF43A7] tw-appearance-none">
             {budgetRanges.map(b => <option key={b} value={b}>{b}</option>)}
           </select>
@@ -246,8 +246,8 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
   const renderStep3 = () => (
     <div className="tw-flex tw-flex-col tw-gap-6 tw-animate-fade-in">
       <div className="tw-flex tw-flex-col tw-gap-2 tw-items-center">
-        <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">Main Cover Poster (Optional)</label>
-        <p className="tw-text-[#E2BDC9] tw-text-xs tw-mb-4 tw-m-0 tw-text-center">You can skip this and upload it later in the editor.</p>
+        <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">{t("Main Cover Poster (Optional)")}</label>
+        <p className="tw-text-[#E2BDC9] tw-text-xs tw-mb-4 tw-m-0 tw-text-center">{t("You can skip this and upload it later in the editor.")}</p>
         
         <input 
           type="file" 
@@ -265,13 +265,13 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
               <div className="tw-w-14 tw-h-14 tw-bg-[#371E51] tw-rounded-full tw-flex tw-items-center tw-justify-center">
                 <FontAwesomeIcon icon={faCamera} className="tw-text-[#FF43A7] tw-text-xl" />
               </div>
-              <span className="tw-font-bold tw-text-xs tw-text-[#F0DBFF] tw-uppercase">Upload Poster</span>
+              <span className="tw-font-bold tw-text-xs tw-text-[#F0DBFF] tw-uppercase">{t("Upload Poster")}</span>
           </div>
         ) : (
           <div className="tw-w-full tw-max-w-[240px] tw-aspect-[2/3] tw-relative tw-group tw-rounded-xl tw-overflow-hidden tw-border tw-border-[#5A3F49]">
             <img 
               src={previewUrl} 
-              alt="Poster preview" 
+              alt={t("Poster preview")} 
               className="tw-w-full tw-h-full tw-object-cover"
             />
             <div 
@@ -279,7 +279,7 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
               className="tw-absolute tw-inset-0 tw-bg-black/60 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity tw-duration-300 tw-flex tw-flex-col tw-items-center tw-justify-center tw-cursor-pointer"
             >
               <FontAwesomeIcon icon={faCamera} className="tw-text-white tw-text-2xl tw-mb-2" />
-              <span className="tw-font-bold tw-text-xs tw-text-white tw-uppercase">Change Poster</span>
+              <span className="tw-font-bold tw-text-xs tw-text-white tw-uppercase">{t("Change Poster")}</span>
             </div>
           </div>
         )}
@@ -298,7 +298,7 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
         {/* HEADER */}
         <div className="tw-px-8 tw-py-6 tw-border-b tw-border-[#5A3F49]/40 tw-bg-[#1E0039]/50 tw-flex tw-justify-between tw-items-center">
           <h3 className="tw-text-white tw-text-xl md:tw-text-[22px] tw-font-bold tw-m-0">
-            Create New EPK
+            {t("Create New EPK")}
           </h3>
           <button 
             onClick={onClose}
@@ -338,7 +338,7 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
                 onClick={handleBack}
                 className="tw-px-4 tw-py-2.5 tw-bg-transparent tw-border tw-border-[#5A3F49] tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-sm tw-uppercase tw-cursor-pointer hover:tw-bg-white/5 tw-transition-colors tw-flex tw-items-center tw-gap-2"
               >
-                <FontAwesomeIcon icon={faChevronLeft} className="tw-text-[10px]" /> Back
+                <FontAwesomeIcon icon={faChevronLeft} className="tw-text-[10px]" /> {t("Back")}
               </button>
             ) : (
               <div />
@@ -351,7 +351,7 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
                  onClick={handleNext}
                  className="tw-px-8 tw-py-3 tw-bg-[#FF43A7] tw-rounded-lg tw-text-[#570033] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] hover:tw-bg-[#ff5cac] tw-transition-colors tw-cursor-pointer tw-flex tw-items-center tw-gap-2"
                >
-                 Next <FontAwesomeIcon icon={faChevronRight} className="tw-text-[10px]" />
+                 {t("Next")} <FontAwesomeIcon icon={faChevronRight} className="tw-text-[10px]" />
                </button>
              ) : (
                <button 
@@ -360,9 +360,9 @@ export default function CreateEpkWizard({ isOpen, onClose }) {
                  className="tw-px-8 tw-py-3 tw-bg-[#FF43A7] tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] hover:tw-bg-[#ff5cac] tw-transition-colors disabled:tw-opacity-50 disabled:tw-cursor-not-allowed disabled:tw-shadow-none tw-flex tw-items-center tw-gap-2 tw-cursor-pointer"
                >
                  {isSubmitting ? (
-                    <><FontAwesomeIcon icon={faSpinner} className="tw-animate-spin" /> Creating...</>
+                    <><FontAwesomeIcon icon={faSpinner} className="tw-animate-spin" /> {t("Creating...")}</>
                  ) : (
-                    <><FontAwesomeIcon icon={faCheck} /> Finish & Edit</>
+                    <><FontAwesomeIcon icon={faCheck} /> {t("Finish & Edit")}</>
                  )}
                </button>
              )}

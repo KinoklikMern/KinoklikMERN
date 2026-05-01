@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import ActionPlaceholder from '../../common/ActionPlaceholder';
 import AddCastCrewModal from './AddCastCrewModal';
 import http from '../../../http-common';
+import { useTranslation } from 'react-i18next';
 
 export default function EpkDetailCastAndCrew({ epkInfo, isEditMode, onChange }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [invitations, setInvitations] = useState([]);
+  const { t } = useTranslation();
   
   useEffect(() => {
     if (epkInfo?._id && epkInfo?.film_maker?._id) {
@@ -129,12 +131,12 @@ export default function EpkDetailCastAndCrew({ epkInfo, isEditMode, onChange }) 
     })
     .then((response) => {
       if (response.data && response.data.length > 0) {
-        alert("An invitation for that project was already sent to this person.");
+        alert(t("An invitation for that project was already sent to this person."));
       } else {
         http.post('/invitations/send-invitation', updatedInvitationData)
         .then((res) => {
            setInvitations(prev => [...prev, { _id: res.data._id, ...updatedInvitationData }]);
-           alert("Invitation sent successfully!");
+           alert(t("Invitation sent successfully!"));
         })
         .catch(err => console.error("Error sending invite:", err));
       }
@@ -168,7 +170,7 @@ export default function EpkDetailCastAndCrew({ epkInfo, isEditMode, onChange }) 
         </div>
         <div className="tw-text-center tw-mt-2 tw-max-w-[90px] md:tw-max-w-[100px]">
           <h3 className={`tw-text-xs md:tw-text-sm tw-font-bold tw-leading-tight tw-tracking-tight tw-truncate ${person.name === 'Refresh Required' ? 'tw-text-red-400' : 'tw-text-white'}`} title={person.name}>{person.name}</h3>
-          <p className={`tw-text-[10px] md:tw-text-xs tw-mt-1 tw-uppercase tw-tracking-wider ${person.isOwner ? 'tw-text-[#FFB0CF]' : 'tw-text-[#AA8894]'}`}>{formatChars(person.role)}</p>
+          <p className={`tw-text-[10px] md:tw-text-xs tw-mt-1 tw-uppercase tw-tracking-wider ${person.isOwner ? 'tw-text-[#FFB0CF]' : 'tw-text-[#AA8894]'}`}>{t(person.role?.toLowerCase()) || formatChars(person.role)}</p>
         </div>
       </>
     );
@@ -193,7 +195,7 @@ export default function EpkDetailCastAndCrew({ epkInfo, isEditMode, onChange }) 
 
   return (
     <div className="tw-w-full tw-flex tw-flex-col tw-gap-4">
-      <h2 className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-2 md:tw-px-0">Production Team</h2>
+      <h2 className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-px-2 md:tw-px-0">{t("Production Team")}</h2>
       
       <div className="tw-flex tw-flex-row tw-items-center tw-p-6 md:tw-p-[40px] tw-gap-4 md:tw-gap-[32px] tw-bg-[#280D41] tw-shadow-[inset_0px_2px_4px_rgba(0,0,0,0.05)] tw-rounded-[24px] tw-w-full">
         
@@ -211,7 +213,7 @@ export default function EpkDetailCastAndCrew({ epkInfo, isEditMode, onChange }) 
             <ActionPlaceholder 
               variant="detailCircle" 
               onClick={() => setIsModalOpen(true)}
-              title="Add Cast"
+              title={t("Add Cast")}
               className="tw-shrink-0"
             />
           )}
@@ -220,7 +222,7 @@ export default function EpkDetailCastAndCrew({ epkInfo, isEditMode, onChange }) 
           
           {scrollableCast.length === 0 && !isEditMode && (
             <div className="tw-flex tw-h-16 md:tw-h-20 tw-items-center tw-text-[#AA8894] tw-text-sm tw-italic">
-              No additional team members added yet.
+              {t("No additional team members added yet.")}
             </div>
           )}
         </div>

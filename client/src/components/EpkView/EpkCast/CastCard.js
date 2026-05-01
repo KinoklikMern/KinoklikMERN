@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CastCard({
   image,
@@ -10,6 +11,7 @@ export default function CastCard({
   isDarkTheme = false
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   // --- FORMATTER FOR ROLES ---
   const formatChars = (chars) => {
@@ -59,7 +61,7 @@ export default function CastCard({
             </Link>
             {/* Formatter applied here: */}
             <p className="tw-text-sm tw-font-medium tw-opacity-80 tw-mt-1">
-              {formatChars(epkRole)}
+               {t(epkRole?.toLowerCase()) || formatChars(epkRole)}
             </p>
           </div>
 
@@ -70,7 +72,7 @@ export default function CastCard({
 
           {/* Read More */}
           <Link to={actorUrl} className={`tw-mt-4 tw-text-sm tw-font-bold tw-underline tw-underline-offset-4 hover:tw-text-[#FF00A0] tw-transition-colors ${textColor}`}>
-            Read More
+            {t("Read More")}
           </Link>
         </div>
       </div>

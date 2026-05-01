@@ -48,7 +48,7 @@ const EpkSalesCalculator = ({ epkInfo, globalTotalReach }) => {
                     {/* 1. Total Audience Reach */}
                     <div className="tw-flex tw-flex-col tw-items-center tw-w-full lg:tw-w-auto">
                         <label className="tw-text-[#1E0039] tw-font-medium tw-mb-2 tw-text-sm md:tw-text-base tw-whitespace-nowrap">
-                            TAR (Total Audience Reach)
+                            {t("TAR (Total Audience Reach)")}
                         </label>
                         <input
                             type="number"
@@ -65,7 +65,7 @@ const EpkSalesCalculator = ({ epkInfo, globalTotalReach }) => {
                     {/* 2. Film Price */}
                     <div className="tw-flex tw-flex-col tw-items-center tw-w-full lg:tw-w-auto">
                         <label className="tw-text-[#1E0039] tw-font-medium tw-mb-2 tw-text-sm md:tw-text-base tw-whitespace-nowrap">
-                            Film Price ($)
+                          {t("Film Price ($)")}
                         </label>
                         <input
                             type="number"
@@ -82,7 +82,7 @@ const EpkSalesCalculator = ({ epkInfo, globalTotalReach }) => {
                     {/* 3. Possible Sales */}
                     <div className="tw-flex tw-flex-col tw-items-center tw-w-full lg:tw-w-auto">
                         <label className="tw-text-[#1E0039] tw-font-medium tw-mb-2 tw-text-sm md:tw-text-base tw-whitespace-nowrap">
-                            Possible Sales
+                            {t("Possible Sales")}
                         </label>
                         <div className="tw-w-full lg:tw-w-44 tw-py-2 lg:tw-py-0 tw-rounded-full lg:tw-rounded-none tw-border tw-border-gray-200 lg:tw-border-none tw-shadow-sm lg:tw-shadow-none tw-text-center tw-text-[#1E0039] tw-font-bold tw-text-xl">
                             {possibleSales.toLocaleString()}$
@@ -94,7 +94,7 @@ const EpkSalesCalculator = ({ epkInfo, globalTotalReach }) => {
                     {/* 4. Engagement Rate */}
                     <div className="tw-flex tw-flex-col tw-items-center tw-w-full lg:tw-w-auto">
                         <label className="tw-text-[#1E0039] tw-font-medium tw-mb-2 tw-text-sm md:tw-text-base tw-whitespace-nowrap">
-                            Engagement Rate (%)
+                            {t("Engagement Rate (%)")}
                         </label>
                         
                         {/* Desktop Input */}
@@ -152,7 +152,7 @@ const EpkSalesCalculator = ({ epkInfo, globalTotalReach }) => {
                     {/* 6. Potential Sales Result */}
                     <div className="tw-flex tw-flex-col tw-items-center tw-w-full lg:tw-w-auto tw-mt-6 lg:tw-mt-0">
                         <label className="tw-text-[#1E0039] tw-font-medium tw-mb-2 tw-text-sm md:tw-text-base tw-whitespace-nowrap">
-                            Potential Sales
+                            {t("Potential Sales")}
                         </label>
                         <div className="tw-w-full lg:tw-w-44 tw-py-2.5 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-bg-white tw-text-[#1E0039] tw-font-bold tw-text-xl tw-border-[2.5px] tw-border-[#1E0039]">
                             {Math.floor(potentialSales).toLocaleString()}$

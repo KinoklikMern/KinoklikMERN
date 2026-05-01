@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import  { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCheck, faXmark, faFilm } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
+  const { t } = useTranslation();
   const [mediaType, setMediaType] = useState("image"); // 'image' or 'video'
   
   // Local File States
@@ -139,7 +141,7 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
         
         {/* Header */}
         <div className="tw-px-8 tw-pt-8 tw-pb-4 tw-flex tw-justify-between tw-items-center tw-shrink-0">
-          <h1 className="tw-text-white tw-text-[22px] tw-font-bold tw-tracking-tight">Update Banner or Trailer</h1>
+          <h1 className="tw-text-white tw-text-[22px] tw-font-bold tw-tracking-tight">{t("Update Banner or Trailer")}</h1>
           
           <button 
             onClick={handleClose} 
@@ -154,7 +156,7 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
           
           {/* --- FORMAT SELECTION --- */}
           <div className="tw-flex tw-flex-col tw-gap-4">
-            <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Select Format</span>
+            <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Select Format")}</span>
             <div className="tw-flex tw-flex-col md:tw-flex-row tw-gap-4">
               
               {/* Image Card */}
@@ -170,8 +172,8 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
                   </div>
                 </div>
                 <div>
-                  <h3 className="tw-text-white tw-text-sm tw-font-bold">Upload Static Banner Image</h3>
-                  <p className="tw-text-[#AA8894] tw-text-xs tw-mt-0.5">Recommended for film posters or key art</p>
+                  <h3 className="tw-text-white tw-text-sm tw-font-bold">{t("Upload Static Banner Image")}</h3>
+                  <p className="tw-text-[#AA8894] tw-text-xs tw-mt-0.5">{t("Recommended for film posters or key art")}</p>
                 </div>
               </div>
 
@@ -188,8 +190,8 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
                   </div>
                 </div>
                 <div>
-                  <h3 className="tw-text-white tw-text-sm tw-font-bold">Upload Cinematic Video Trailer</h3>
-                  <p className="tw-text-[#AA8894] tw-text-xs tw-mt-0.5">Full cinematic experience for viewers</p>
+                  <h3 className="tw-text-white tw-text-sm tw-font-bold">{t("Upload Cinematic Video Trailer")}</h3>
+                  <p className="tw-text-[#AA8894] tw-text-xs tw-mt-0.5">{t("Full cinematic experience for viewers")}</p>
                 </div>
               </div>
             </div>
@@ -200,14 +202,14 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
             
             <div className="tw-flex tw-justify-between tw-items-end">
               <h3 className="tw-text-[#FF43A7] tw-text-2xl tw-font-bold tw-uppercase tw-tracking-wider">
-                {mediaType === 'video' ? 'Video Assets' : 'Banner Assets'}
+                {mediaType === 'video' ? t('Video Assets') : t('Banner Assets')}
               </h3>
               
               {mediaType === 'video' && (
                 <div className="tw-flex tw-flex-col tw-gap-1.5">
-                  <span className="tw-text-[#AA8894] tw-text-[10px] tw-uppercase tw-tracking-widest tw-font-semibold">Save To</span>
+                  <span className="tw-text-[#AA8894] tw-text-[10px] tw-uppercase tw-tracking-widest tw-font-semibold">{t("Save To")}</span>
                   <select className="tw-bg-[#2C1246] tw-text-white tw-border tw-border-[#371E51] tw-rounded-md tw-px-4 tw-py-2 tw-text-sm tw-outline-none tw-w-[140px] tw-appearance-none">
-                    <option>Trailer</option>
+                    <option>{t("Trailer")}</option>
                   </select>
                 </div>
               )}
@@ -221,19 +223,19 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
                 <FontAwesomeIcon icon={mediaType === 'video' ? faFilm : faCamera} className="tw-text-[#FF43A7] tw-text-xl" />
               </div>
               <h4 className="tw-text-white tw-text-base tw-font-bold tw-mb-1">
-                Drag and drop your {mediaType === 'video' ? 'trailer' : 'banner image'} here
+                {t("Drag and drop your")} {mediaType === 'video' ? t('trailer') : t('banner image')} {t("here")}
               </h4>
               <p className="tw-text-[#AA8894] tw-text-xs tw-mb-6">
-                Supports {mediaType === 'video' ? 'MP4, MOV, or ProRes (Max 2GB)' : 'JPG, PNG, or WEBP (Max 10MB)'}
+                {t("Supports")} {mediaType === 'video' ? 'MP4, MOV, or ProRes (Max 2GB)' : 'JPG, PNG, or WEBP (Max 10MB)'}
               </p>
               
               {selectedFile ? (
                  <div className="tw-px-6 tw-py-2 tw-border tw-border-[#FF43A7] tw-bg-[#FF43A7]/10 tw-rounded-md tw-text-[#FF43A7] tw-text-sm tw-font-bold">
-                    Selected: {selectedFile.name}
+                    {t("Selected:")} {selectedFile.name}
                  </div>
               ) : (
                 <div className="tw-px-6 tw-py-2 tw-border tw-border-[#5A3F49] tw-rounded-md tw-text-[#E2BDC9] tw-text-sm tw-pointer-events-none">
-                  Browse Files
+                  {t("Browse Files")}
                 </div>
               )}
             </div>
@@ -242,7 +244,7 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
             {selectedFile && (
                <div className="tw-w-full tw-mt-4">
                  <div className="tw-flex tw-justify-between tw-items-end tw-mb-4">
-                   <h3 className="tw-text-[#FF43A7] tw-text-xl tw-font-bold tw-uppercase tw-tracking-wider">Preview</h3>
+                   <h3 className="tw-text-[#FF43A7] tw-text-xl tw-font-bold tw-uppercase tw-tracking-wider">{t("Preview")}</h3>
                    <button 
                      onClick={(e) => { 
                        e.stopPropagation(); 
@@ -253,7 +255,7 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
                      }} 
                      className="tw-bg-transparent tw-border-none tw-outline-none tw-shadow-none tw-p-0 tw-m-0 tw-text-[#E2BDC9] hover:tw-text-white tw-text-sm tw-underline tw-underline-offset-4 tw-cursor-pointer"
                    >
-                     Remove File
+                     {t("Remove File")}
                    </button>
                  </div>
                  
@@ -274,12 +276,12 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
                    <div className="tw-flex tw-flex-col tw-gap-5 tw-mt-4">
                       
                       <div className="tw-flex tw-justify-between tw-items-end">
-                        <h4 className="tw-text-white tw-text-sm tw-font-bold">Select Thumbnail</h4>
+                        <h4 className="tw-text-white tw-text-sm tw-font-bold">{t("Select Thumbnail")}</h4>
                         <button 
                           onClick={() => customThumbInputRef.current.click()} 
                           className="tw-bg-transparent tw-border-none tw-outline-none tw-shadow-none tw-p-0 tw-m-0 tw-text-[#E2BDC9] hover:tw-text-white tw-text-xs tw-flex tw-items-center tw-gap-2 tw-cursor-pointer"
                         >
-                            <FontAwesomeIcon icon={faCamera} /> Upload Custom
+                            <FontAwesomeIcon icon={faCamera} /> {t("Upload Custom")}
                         </button>
                       </div>
 
@@ -344,7 +346,7 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
                           ) : (
                             <>
                               <FontAwesomeIcon icon={faCamera} className="tw-text-[#E2BDC9] tw-text-lg tw-mb-2" />
-                              <span className="tw-text-[#E2BDC9] tw-text-[10px] tw-uppercase tw-tracking-widest tw-font-bold">Upload Custom</span>
+                              <span className="tw-text-[#E2BDC9] tw-text-[10px] tw-uppercase tw-tracking-widest tw-font-bold">{t("Upload Custom")}</span>
                             </>
                           )}
                         </div>
@@ -363,7 +365,7 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
             onClick={handleClose} 
             className="tw-bg-transparent tw-border-none tw-outline-none tw-shadow-none tw-p-0 tw-m-0 tw-text-[#E2BDC9] tw-text-sm tw-font-bold tw-uppercase tw-tracking-widest hover:tw-text-white tw-transition-colors tw-cursor-pointer"
           >
-            Cancel
+            {t("Cancel")}
           </button>
 
           <button 
@@ -371,7 +373,7 @@ export default function UpdateBannerModal({ isOpen, onClose, onSave }) {
             disabled={!selectedFile || isExtracting}
             className="tw-px-8 tw-py-3 tw-bg-[#FF43A7] tw-border-none tw-rounded-lg tw-text-white tw-font-bold tw-uppercase tw-text-xs tw-tracking-widest disabled:tw-opacity-50 disabled:tw-cursor-not-allowed hover:tw-bg-[#ff5cac] tw-transition-colors tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] disabled:tw-shadow-none"
           >
-            {isExtracting ? "Processing..." : "Save and Publish"}
+            {isExtracting ? t("Processing...") : t("Save and Publish")}
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useTranslation } from 'react-i18next';
 import CustomSelect from './CustomSelect';
 
@@ -31,7 +31,7 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, cl
   ].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
   const languageType = [t("English"), t("French"), t("Spanish")];
-  const movieStatus = [t("Preproduction"), "Production", t("Postproduction"), "Completed", "Released"];
+  const movieStatus = [t("Preproduction"), t("Production"), t("Postproduction"), t("Completed"), t("Released")];
   const movieType = [
     { key: "Movie", label: t("Movie") },
     { key: "Documentary", label: t("Documentary") },
@@ -74,7 +74,7 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, cl
           type="text" 
           value={epkInfo?.productionCo || ''} 
           onChange={(e) => onChange('productionCo', e.target.value)} 
-          placeholder="Production Company" 
+          placeholder={t("Production Company")}
           className="tw-w-full tw-bg-[#190033] tw-border tw-border-[#5A3F49]/40 tw-rounded-lg tw-px-4 tw-py-3 tw-text-white tw-text-sm tw-outline-none focus:tw-border-[#FF43A7] tw-transition-colors" 
         />
       </div>
@@ -92,7 +92,7 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, cl
             value={epkInfo?.language || ''} 
             onChange={(val) => onChange('language', val)} 
             options={languageType.map(l => ({ value: l, label: l }))}
-            placeholder="Select Language"
+           placeholder={t("Select Language")}
           />
         </div>
       </div>
@@ -110,7 +110,7 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, cl
             value={epkInfo?.budget || ''} 
             onChange={(val) => onChange('budget', val)} 
             options={budgetRanges.map(b => ({ value: b, label: b }))}
-            placeholder="Select Budget"
+            placeholder={t("Select Budget")}
           />
         </div>
       </div>
@@ -133,7 +133,7 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, cl
           value={epkInfo?.production_type || ''} 
           onChange={(val) => onChange('production_type', val)} 
           options={movieType.map(m => ({ value: m.key, label: m.label }))}
-          placeholder="Select Type"
+          placeholder={t("Select Type")}
         />
       </div>
 
@@ -145,7 +145,7 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, cl
           value={epkInfo?.genre || ''} 
           onChange={(val) => onChange('genre', val)} 
           options={movieGenre.map(g => ({ value: g, label: g }))}
-          placeholder="Select Genre"
+          placeholder={t("Select Genre")}
         />
       </div>
 
@@ -162,7 +162,7 @@ export default function EpkProductionDetailsEdit({ epkInfo, onChange, errors, cl
             value={epkInfo?.status || ''} 
             onChange={(val) => onChange('status', val)} 
             options={movieStatus.map(s => ({ value: s, label: s }))}
-            placeholder="Select Status"
+            placeholder={t("Select Status")}
           />
         </div>
       </div>

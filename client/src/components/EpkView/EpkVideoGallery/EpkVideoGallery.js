@@ -45,10 +45,10 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
     const trailers = [...(vg.trailers || [])];
     
     if (epkInfo?.trailer_url && !trailers.some(t => t.url === epkInfo.trailer_url)) {
-        trailers.unshift({ url: epkInfo.trailer_url, title: "Official Trailer", thumbnail: epkInfo?.banner_url || '', blur: false });
+        trailers.unshift({ url: epkInfo.trailer_url, title: t("Official Trailer"), thumbnail: epkInfo?.banner_url || '', blur: false });
     }
     if (epkInfo?.trailer && !trailers.some(t => t.url === epkInfo.trailer)) {
-        trailers.unshift({ url: epkInfo.trailer, title: "Legacy Trailer", thumbnail: '', blur: false });
+        trailers.unshift({ url: epkInfo.trailer, title: t("Legacy Trailer"), thumbnail: '', blur: false });
     }
 
     return {
@@ -126,7 +126,7 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
 
     } catch (err) {
       console.error("Failed to save video assets:", err);
-      setErrorMessage("There was an error saving your video. Please check your connection and try again.");
+     setErrorMessage(t("There was an error saving your video. Please check your connection and try again."));
       setErrorModalOpen(true);
     } finally {
       setIsUploading(false);
@@ -137,8 +137,7 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
     e.stopPropagation();
 
     if (item.url === epkInfo.trailer_url || item.url === epkInfo.trailer) {
-      setErrorMessage("This video is currently set as your Main Trailer! You must set a different video as your main trailer before you can delete this file.");
-      setErrorModalOpen(true);
+      setErrorMessage(t("This video is currently set as your Main Trailer! You must set a different video as your main trailer before you can delete this file."));      setErrorModalOpen(true);
       return; 
     }
 
@@ -216,12 +215,12 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
                   {isUploading ? (
                     <div className="tw-w-[260px] md:tw-w-[420px] tw-h-full tw-min-h-[146px] md:tw-min-h-[240px] tw-bg-[#FF43A7]/5 tw-border-2 tw-border-dashed tw-border-[#FF43A7]/40 tw-rounded-[16px] md:tw-rounded-[12px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4">
                       <FontAwesomeIcon icon={faSpinner} className="tw-text-[#FF43A7] tw-text-2xl tw-animate-spin" />
-                      <span className="tw-text-[#FF43A7] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">Uploading Video...</span>
+                      <span className="tw-text-[#FF43A7] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest">{t("Uploading Video...")}</span>
                     </div>
                   ) : (
                     <ActionPlaceholder 
                       variant="video" 
-                      title={`Add ${CATEGORIES.find(c=>c.key===activeCategory).mobileLabel}`}
+                      title={`${t("Add")} ${t(CATEGORIES.find(c=>c.key===activeCategory).mobileLabel)}`}
                       onClick={() => setModalVideo({ isNewUpload: true, category: activeCategory })}
                     />
                   )}
@@ -255,14 +254,14 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
                       <div className="tw-hidden md:tw-flex tw-absolute tw-top-3 tw-right-3 tw-gap-2 tw-z-20 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity tw-duration-300">
                         <button 
                           onClick={(e) => { e.stopPropagation(); setModalVideo(item); setActiveOverlay(null); }}
-                          title="Edit Video Details"
+                          title={t("Edit Video Details")}
                           className="tw-w-10 tw-h-10 tw-bg-black/80 hover:tw-bg-[#FF43A7] tw-rounded-full tw-flex tw-items-center tw-justify-center tw-text-white tw-border-none tw-cursor-pointer tw-transition-colors tw-shadow-lg"
                         >
                           <FontAwesomeIcon icon={faPenToSquare} className="tw-text-sm" />
                         </button>
                         <button 
                           onClick={(e) => { e.stopPropagation(); handleDeleteClick(e, item); setActiveOverlay(null); }}
-                          title="Delete Video"
+                          title={t("Delete Video")}
                           className="tw-w-10 tw-h-10 tw-bg-black/80 hover:tw-bg-red-600 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-text-red-500 hover:tw-text-white tw-border-none tw-cursor-pointer tw-transition-colors tw-shadow-lg"
                         >
                           <FontAwesomeIcon icon={faTrashCan} className="tw-text-sm" />
@@ -276,14 +275,14 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
                           className="tw-flex-1 tw-h-full tw-bg-black/70 tw-backdrop-blur-sm tw-border-none tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-text-white tw-border-r tw-border-white/10 active:tw-bg-[#FF43A7]/80 tw-transition-colors tw-cursor-pointer"
                         >
                           <FontAwesomeIcon icon={faPenToSquare} className="tw-text-2xl tw-mb-1" />
-                          <span className="tw-font-['Space_Grotesk'] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Edit</span>
+                          <span className="tw-font-['Space_Grotesk'] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Edit")}</span>
                         </button>
                         <button 
                           onClick={(e) => { e.stopPropagation(); handleDeleteClick(e, item); setActiveOverlay(null); }}
                           className="tw-flex-1 tw-h-full tw-bg-red-500/80 tw-backdrop-blur-sm tw-border-none tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-text-white active:tw-bg-red-600 tw-transition-colors tw-cursor-pointer"
                         >
                           <FontAwesomeIcon icon={faTrashCan} className="tw-text-2xl tw-mb-1" />
-                          <span className="tw-font-['Space_Grotesk'] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">Delete</span>
+                          <span className="tw-font-['Space_Grotesk'] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest">{t("Delete")}</span>
                         </button>
                       </div>
                     </>
@@ -298,8 +297,8 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
                   )}
 
                   <div className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-h-[60px] md:tw-h-[76px] tw-bg-gradient-to-t tw-from-[#1E0039] tw-to-transparent tw-p-4 md:tw-p-6 tw-flex tw-items-center tw-gap-2 md:tw-gap-3 tw-pointer-events-none">
-                    <span className="tw-bg-[#FF43A7] tw-text-[#570033] tw-text-[8px] md:tw-text-[10px] tw-font-bold tw-uppercase tw-px-2 tw-py-0.5 tw-rounded">{activeCategory}</span>
-                    <span className="tw-text-white tw-font-bold tw-sm md:tw-text-lg tw-truncate">{item.title || "Video Clip"}</span>
+                    <span className="tw-bg-[#FF43A7] tw-text-[#570033] tw-text-[8px] md:tw-text-[10px] tw-font-bold tw-uppercase tw-px-2 tw-py-0.5 tw-rounded">{t(activeCategory)}</span>
+                    <span className="tw-text-white tw-font-bold tw-sm md:tw-text-lg tw-truncate">{t(item.title) || t("Video Clip")}</span>
                   </div>
                 </div>
               ))}
@@ -321,22 +320,22 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
       {deleteModalOpen && (
         <div className="tw-fixed tw-inset-0 tw-z-[10000] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
           <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">Delete Video?</h3>
+            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">{t("Delete Video?")}</h3>
             <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8 tw-leading-relaxed">
-              Are you sure you want to remove <strong className="tw-text-white">{videoToDelete?.title || "this video"}</strong> from your EPK? It will be permanently deleted when you save your changes.
+              {t("Are you sure you want to remove")} <strong className="tw-text-white">{videoToDelete?.title || t("this video")}</strong> {t("from your EPK? It will be permanently deleted when you save your changes.")}
             </p>
             <div className="tw-flex tw-justify-end tw-gap-4">
               <button 
                 onClick={cancelDelete}
                 className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-[#5A3F49] tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-bg-white/5 tw-transition-colors tw-cursor-pointer"
               >
-                Cancel
+               {t("Cancel")}
               </button>
               <button 
                 onClick={confirmDelete}
                 className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer"
               >
-                Delete
+                {t("Delete")}
               </button>
             </div>
           </div>
@@ -347,7 +346,7 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
       {errorModalOpen && (
         <div className="tw-fixed tw-inset-0 tw-z-[10000] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
           <div className="tw-bg-[#280D41] tw-border tw-border-[#FF43A7]/40 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(255,67,167,0.2)]">
-            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">Action Blocked</h3>
+            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4 tw-font-['Plus_Jakarta_Sans']">{t("Action Blocked")}</h3>
             <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8 tw-leading-relaxed">
               {errorMessage}
             </p>
@@ -356,7 +355,7 @@ export default function EpkVideoGallery({ epkInfo, isEditMode, onChange, onMarkM
                 onClick={() => setErrorModalOpen(false)}
                 className="tw-px-6 tw-py-2.5 tw-bg-[#FF43A7] hover:tw-bg-[#FF00A0] tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-colors tw-cursor-pointer"
               >
-                Understood
+                {t("Understood")}
               </button>
             </div>
           </div>

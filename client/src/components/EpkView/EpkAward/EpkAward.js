@@ -90,7 +90,7 @@ export default function EpkAward({ epkInfo, isEditMode, onChange }) {
         </h2>
         {isEditMode && (
           <p className="tw-text-[#DDB7FF] tw-text-sm md:tw-text-base tw-leading-relaxed tw-max-w-[672px] tw-mt-2 tw-mb-0">
-            Highlight your best press coverage, awards, and reviews. Adding prestigious logos builds instant credibility.
+          {t("Highlight your best press coverage, awards, and reviews. Adding prestigious logos builds instant credibility.")}
           </p>
         )}
       </div>
@@ -117,7 +117,7 @@ export default function EpkAward({ epkInfo, isEditMode, onChange }) {
             <div className="tw-shrink-0 tw-snap-center">
               <ActionPlaceholder 
                 variant="press" 
-                title="Add New Press" 
+                title={t("Add New Press")}
                 onClick={handleOpenCreate} 
               />
             </div>

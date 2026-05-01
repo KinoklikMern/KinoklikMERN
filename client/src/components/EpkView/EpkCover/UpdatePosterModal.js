@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCloudArrowUp, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) {
+  const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState("library"); // 'library' or 'local'
   const [selectedLibraryImage, setSelectedLibraryImage] = useState(null);
   
@@ -64,9 +66,9 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
         
         {/* Header */}
         <div className="tw-p-8 tw-pb-4">
-          <p className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-2">Visual Assets</p>
-          <h2 className="tw-text-[#F0DBFF] tw-text-2xl tw-font-bold tw-mb-2">Update Film Cover</h2>
-          <p className="tw-text-[#E2BDC9] tw-text-sm tw-m-0">Select how you want to refresh your project's visual identity.</p>
+          <p className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-2">{t("Visual Assets")}</p>
+          <h2 className="tw-text-[#F0DBFF] tw-text-2xl tw-font-bold tw-mb-2">{t("Update Film Cover")}</h2>
+          <p className="tw-text-[#E2BDC9] tw-text-sm tw-m-0">{t("Select how you want to refresh your project's visual identity.")}</p>
         </div>
 
         {/* Body */}
@@ -82,8 +84,8 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
                 {selectedOption === "library" && <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />}
               </div>
               <div>
-                <h3 className={`tw-font-bold tw-text-sm tw-m-0 ${selectedOption === "library" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>Choose from existing cover image</h3>
-                <p className="tw-text-[11px] tw-text-[#E2BDC9] tw-uppercase tw-mt-1 tw-mb-0">Browse Studio Library</p>
+                <h3 className={`tw-font-bold tw-text-sm tw-m-0 ${selectedOption === "library" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>{t("Choose from existing cover image")}</h3>
+                <p className="tw-text-[11px] tw-text-[#E2BDC9] tw-uppercase tw-mt-1 tw-mb-0">{t("Browse Studio Library")}</p>
               </div>
             </div>
 
@@ -109,7 +111,7 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
                     );
                   }) : (
                     <div className="tw-w-full tw-h-[106px] tw-flex tw-items-center tw-justify-center tw-bg-[#1F0439]/50 tw-rounded-lg tw-border tw-border-dashed tw-border-[#5A3F49]">
-                      <span className="tw-text-xs tw-text-[#E2BDC9]">No existing posters</span>
+                      <span className="tw-text-xs tw-text-[#E2BDC9]">{t("No existing posters")}</span>
                     </div>
                   )}
                 </div>
@@ -127,8 +129,8 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
                 {selectedOption === "local" && <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />}
               </div>
               <div>
-                <h3 className={`tw-font-bold tw-text-sm tw-m-0 ${selectedOption === "local" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>Update new cover image</h3>
-                <p className="tw-text-[11px] tw-text-[#E2BDC9] tw-uppercase tw-mt-1 tw-mb-0">Upload Local File</p>
+                <h3 className={`tw-font-bold tw-text-sm tw-m-0 ${selectedOption === "local" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>{t("Update new cover image")}</h3>
+                <p className="tw-text-[11px] tw-text-[#E2BDC9] tw-uppercase tw-mt-1 tw-mb-0">{t("Upload Local File")}</p>
               </div>
             </div>
 
@@ -139,7 +141,7 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
                      <div className="tw-w-12 tw-h-12 tw-bg-[#FF43A7]/20 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-mb-4">
                        <FontAwesomeIcon icon={faCloudArrowUp} className="tw-text-[#FF43A7] tw-text-xl" />
                      </div>
-                     <p className="tw-text-sm tw-text-[#E2BDC9] tw-text-center tw-px-8 tw-m-0">Drag and drop your cover image here, or <span className="tw-text-[#FF43A7] tw-font-bold">click to browse files</span></p>
+                     <p className="tw-text-sm tw-text-[#E2BDC9] tw-text-center tw-px-8 tw-m-0">{t("Drag and drop your cover image here, or")} <span className="tw-text-[#FF43A7] tw-font-bold">{t("click to browse files")}</span></p>
                    </div>
                 ) : (
                    <div className="tw-relative tw-w-full tw-h-[250px] tw-rounded-xl tw-overflow-hidden tw-border tw-border-[#FF43A7]">
@@ -166,14 +168,14 @@ export default function UpdatePosterModal({ isOpen, onClose, epkInfo, onSave }) 
             disabled={(selectedOption === 'library' && !selectedLibraryImage) || (selectedOption === 'local' && !localFile)}
             className="tw-relative tw-z-10 tw-w-[184px] tw-py-3 tw-bg-[#FF43A7] tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] hover:tw-shadow-[0_0_20px_rgba(255,67,167,0.7)] tw-rounded-lg tw-text-[#570033] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest disabled:tw-opacity-50 disabled:tw-cursor-not-allowed tw-border-none tw-cursor-pointer tw-transition-all"
           >
-            Save
+            {t("Save")}
           </button>
           
           <button 
             onClick={handleClose} 
             className="tw-relative tw-z-10 tw-w-[186px] tw-py-3 tw-bg-transparent tw-border tw-border-[#5A3F49] hover:tw-bg-white/5 tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-xs tw-uppercase tw-tracking-widest tw-cursor-pointer tw-transition-colors"
           >
-            Cancel
+            {t("Cancel")}
           </button>
         </div>
 

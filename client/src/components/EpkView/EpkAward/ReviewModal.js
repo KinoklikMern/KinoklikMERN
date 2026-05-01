@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCamera, faTrashCan, faSpinner, faLink } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,6 +10,7 @@ export default function ReviewModal({
   onSave,
   onDelete
 }) {
+  const { t } = useTranslation();
   const [magazine, setMagazine] = useState("");
   const [text, setText] = useState("");
   const [reviewsUrl, setReviewsUrl] = useState(""); 
@@ -125,7 +127,7 @@ export default function ReviewModal({
       onClose();
     } catch (error) {
       console.error("Error saving review:", error);
-      alert("Failed to save. Please try again.");
+      alert(t("Failed to save. Please try again."));
     } finally {
       setIsUploading(false);
     }
@@ -149,7 +151,7 @@ export default function ReviewModal({
         {/* HEADER */}
         <div className="tw-px-8 tw-py-6 tw-border-b tw-border-[#5A3F49]/40 tw-bg-[#1E0039]/50 tw-flex tw-justify-between tw-items-center tw-shrink-0">
           <h3 className="tw-text-white tw-text-[22px] tw-font-bold tw-flex tw-items-center tw-gap-3 tw-m-0">
-            {isEditMode ? "Edit Buzz" : "Create Buzz"}
+            {isEditMode ? t("Edit Buzz") : t("Create Buzz")}
           </h3>
           <button 
             onClick={handleCloseAttempt}
@@ -162,24 +164,24 @@ export default function ReviewModal({
         {/* BODY */}
         <div className="tw-px-8 tw-py-6 tw-flex tw-flex-col tw-gap-6 tw-overflow-y-auto custom-scrollbar">
           
-          {/* Top Row: Media Source & Logo Upload */}
+          {/* Top Row: {t("Media Source")} & Logo Upload */}
           <div className="tw-flex tw-flex-col md:tw-flex-row tw-gap-6 tw-items-start">
              
-             {/* Media Source Input */}
+             {/* {t("Media Source")} Input */}
              <div className="tw-flex tw-flex-col tw-gap-2 tw-w-full md:tw-w-1/2">
-                <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">Media Source</label>
+                <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">{t("Media Source")}</label>
                 <input 
                   type="text"
                   value={magazine}
                   onChange={(e) => setMagazine(e.target.value)}
-                  placeholder="e.g. IndieWire"
+                  placeholder={t("e.g. IndieWire")}
                   className="tw-w-full tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-4 tw-py-3 tw-text-white tw-font-bold focus:tw-outline-none focus:tw-border-[#FF43A7] tw-transition-colors" 
                 />
              </div>
 
-             {/* Source Logo Upload Box */}
+             {/* {t("Source Logo")} Upload Box */}
              <div className="tw-flex tw-flex-col tw-gap-2 tw-w-full md:tw-w-1/2">
-                <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">Source Logo</label>
+                <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">{t("Source Logo")}</label>
                 
                 <input 
                   type="file" 
@@ -203,7 +205,7 @@ export default function ReviewModal({
                      )}
                   </div>
                   <span className="tw-font-bold tw-text-xs tw-text-[#F0DBFF] tw-uppercase tw-tracking-wider group-hover:tw-text-white tw-transition-colors">
-                     {previewUrl ? "Change Logo" : "Upload Image"}
+                     {previewUrl ? t("Change Logo") : t("Upload Image")}
                   </span>
                 </div>
              </div>
@@ -213,7 +215,7 @@ export default function ReviewModal({
           {/* Quote / Description Textarea */}
           <div className="tw-flex tw-flex-col tw-gap-2">
              <div className="tw-flex tw-justify-between tw-items-center">
-               <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">Short Description</label>
+               <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">{t("Short Description")}</label>
                <span className={`tw-text-xs tw-font-bold ${text.length >= 160 ? 'tw-text-red-400' : 'tw-text-[#E2BDC9]'}`}>
                  {text.length}/160
                </span>
@@ -222,14 +224,14 @@ export default function ReviewModal({
                value={text}
                onChange={(e) => setText(e.target.value)}
                maxLength={160}
-               placeholder='"One of the most violent fighting movies in ages."'
+               placeholder={t("One of the most violent fighting movies in ages.")}
                className="tw-w-full tw-h-[120px] tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] tw-rounded-lg tw-px-4 tw-py-3 tw-text-white tw-italic tw-leading-relaxed focus:tw-outline-none focus:tw-border-[#FF43A7] tw-transition-colors tw-resize-none custom-scrollbar" 
              />
           </div>
 
           {/* URL Input */}
           <div className="tw-flex tw-flex-col tw-gap-2">
-             <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">Article URL</label>
+             <label className="tw-text-[#FF43A7] tw-text-xs tw-font-bold tw-uppercase tw-tracking-widest">{t("Article URL")}</label>
              <div className="tw-relative">
                 <FontAwesomeIcon icon={faLink} className="tw-absolute tw-left-4 tw-top-1/2 tw--translate-y-1/2 tw-text-[#AA8894]" />
                 <input 
@@ -254,7 +256,7 @@ export default function ReviewModal({
                   className="tw-px-4 md:tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-red-500 tw-rounded-lg tw-text-red-500 tw-font-bold tw-text-sm tw-uppercase hover:tw-bg-red-500 hover:tw-text-white tw-transition-colors tw-flex tw-items-center tw-gap-2 tw-cursor-pointer"
                 >
                   <FontAwesomeIcon icon={faTrashCan} />
-                  <span className="tw-hidden md:tw-inline">Delete</span>
+                  <span className="tw-hidden md:tw-inline">{t("Delete")}</span>
                 </button>
              )}
           </div>
@@ -264,7 +266,7 @@ export default function ReviewModal({
                onClick={handleCloseAttempt}
                className="tw-px-4 md:tw-px-6 tw-py-2.5 tw-bg-transparent tw-border-none tw-text-[#E2BDC9] tw-font-bold tw-text-sm tw-uppercase tw-cursor-pointer hover:tw-text-white tw-transition-colors"
              >
-               Cancel
+               {t("Cancel")}
              </button>
              <button 
                onClick={handleSaveClick}
@@ -274,10 +276,10 @@ export default function ReviewModal({
                {isUploading ? (
                   <>
                     <FontAwesomeIcon icon={faSpinner} className="tw-animate-spin" />
-                    <span>Saving...</span>
+                    <span>{t("Saving...")}</span>
                   </>
                 ) : (
-                  <span>Save Changes</span>
+                  <span>{t("Save Changes")}</span>
                 )}
              </button>
           </div>
@@ -289,13 +291,13 @@ export default function ReviewModal({
       {showDiscardModal && (
         <div className="tw-fixed tw-inset-0 tw-z-[1060] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
           <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4">Discard Changes?</h3>
+            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4">{t("Discard Changes?")}</h3>
             <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8 tw-leading-relaxed">
-              You have unsaved changes. Are you sure you want to discard them? All your progress will be lost.
+              {t("You have unsaved changes. Are you sure you want to discard them? All your progress will be lost.")}
             </p>
             <div className="tw-flex tw-justify-end tw-gap-4">
-              <button onClick={() => setShowDiscardModal(false)} className="tw-px-6 tw-py-2.5 tw-bg-[#FF43A7] hover:tw-bg-[#FF00A0] tw-rounded-lg tw-text-[#570033] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-colors tw-cursor-pointer">Keep Editing</button>
-              <button onClick={confirmDiscard} className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-red-500 tw-rounded-lg tw-text-red-500 tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-bg-red-500 hover:tw-text-white tw-transition-colors tw-cursor-pointer">Discard</button>
+              <button onClick={() => setShowDiscardModal(false)} className="tw-px-6 tw-py-2.5 tw-bg-[#FF43A7] hover:tw-bg-[#FF00A0] tw-rounded-lg tw-text-[#570033] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-colors tw-cursor-pointer">{t("Keep Editing")}</button>
+              <button onClick={confirmDiscard} className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-red-500 tw-rounded-lg tw-text-red-500 tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-bg-red-500 hover:tw-text-white tw-transition-colors tw-cursor-pointer">{t("Discard")}</button>
             </div>
           </div>
         </div>
@@ -305,13 +307,13 @@ export default function ReviewModal({
       {showDeleteModal && (
         <div className="tw-fixed tw-inset-0 tw-z-[1060] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
           <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/40 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4">Delete Press Feature?</h3>
+            <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4">{t("Delete Press Feature?")}</h3>
             <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-8 tw-leading-relaxed">
-              Are you sure you want to remove <strong className="tw-text-white">{originalState.magazine || "this article"}</strong> from your EPK? It will be permanently deleted when you save your changes.
+              {t("Are you sure you want to remove")} <strong className="tw-text-white">{originalState.magazine || t("this article")}</strong> {t("from your EPK? It will be permanently deleted when you save your changes.")}
             </p>
             <div className="tw-flex tw-justify-end tw-gap-4">
-              <button onClick={() => setShowDeleteModal(false)} className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-[#5A3F49] tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-bg-white/5 tw-transition-colors tw-cursor-pointer">Cancel</button>
-              <button onClick={confirmDelete} className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer">Delete</button>
+              <button onClick={() => setShowDeleteModal(false)} className="tw-px-6 tw-py-2.5 tw-bg-transparent tw-border tw-border-[#5A3F49] tw-rounded-lg tw-text-[#E2BDC9] tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest hover:tw-bg-white/5 tw-transition-colors tw-cursor-pointer">{t("Cancel")}</button>
+              <button onClick={confirmDelete} className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer">{t("Delete")}</button>
             </div>
           </div>
         </div>

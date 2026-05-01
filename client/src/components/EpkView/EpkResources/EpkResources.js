@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import ResourceCard from "./ResourceCard";
 import ActionPlaceholder from "../../common/ActionPlaceholder";
 import ResourceModal from "./ResourceModal";
@@ -82,8 +82,7 @@ export default function EpkResources({ epkInfo, isEditMode, onChange }) {
         </h2>
         {isEditMode && (
           <p className="tw-text-[#DDB7FF] tw-text-sm md:tw-text-base tw-leading-relaxed tw-max-w-[672px] tw-mt-2 tw-mb-0">
-            Tell the world what unique resources you need to make your film (e.g. a red Ferrari, an outdoor boxing gym, a Penthouse pool). Use these cards to ask people for help, as it doubles as free ads for your film!
-          </p>
+            {t('Tell the world what unique resources you need to make your film (e.g. a red Ferrari, an outdoor boxing gym, a Penthouse pool). Use these cards to ask people for help, as it doubles as free ads for your film!')}          </p>
         )}
       </div>
 
@@ -107,7 +106,7 @@ export default function EpkResources({ epkInfo, isEditMode, onChange }) {
             <div className="tw-w-[85vw] sm:tw-w-[400px] md:tw-w-full tw-shrink-0 md:tw-shrink tw-snap-center md:tw-snap-align-none">
               <ActionPlaceholder 
                 variant="resource" 
-                title="Add New Resource" 
+                title={t('Add New Resource')}
                 onClick={handleOpenCreate} 
               />
             </div>

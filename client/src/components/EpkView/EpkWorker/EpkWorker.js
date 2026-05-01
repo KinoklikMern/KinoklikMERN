@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import AddCastCrewModal from '../EpkDetail/AddCastCrewModal';
 import http from '../../../http-common';
+import { useTranslation } from 'react-i18next';
 
 const getSafeId = (obj) => {
   if (!obj) return "null";
@@ -15,6 +16,7 @@ const getSafeId = (obj) => {
 };
 
 export default function EpkWorker({ epkInfo, isEditMode, onChange }) {
+    const { t } = useTranslation();
   const sliderRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -195,14 +197,14 @@ export default function EpkWorker({ epkInfo, isEditMode, onChange }) {
         
         <div className="tw-flex tw-flex-col tw-mb-8 md:tw-mb-10">
           <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-1">
-            Key Creatives
+            {t("Key Creatives")}
           </span>
           <h2 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-tracking-tight tw-mb-2">
-            {isEditMode ? "Edit Crew" : "Crew"}
+            {isEditMode ? t("Edit Crew") : t("Crew")}
           </h2>
           {isEditMode && (
             <p className="tw-text-[#DDB7FF] tw-text-sm md:tw-text-base tw-leading-relaxed tw-max-w-[672px] tw-mt-2 tw-mb-0">
-              Manage your key crew members and production staff. Click "Add New Crew" to search your network or invite external staff via email.
+              {t("Manage your key crew members and production staff. Click \"Add New Crew\" to search your network or invite external staff via email.")}
             </p>
           )}
         </div>
@@ -225,7 +227,7 @@ export default function EpkWorker({ epkInfo, isEditMode, onChange }) {
               <ActionPlaceholder 
                 variant="crewCard" 
                 onClick={() => setIsModalOpen(true)}
-                title="Add New Crew"
+                title={t("Add New Crew")}
                 subtitle="Assign Role & Bio"
                 className="tw-shrink-0 tw-w-[260px] md:tw-w-[280px] tw-snap-center"
               />
