@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import SocialMedia from '../../EpkView/EpkHeader/SocialMedia';
 import { formatCompactNumber } from '../../../utils/numberFormatters';
 import { fetchAndSumFollowers } from '../../../utils/followersHelper';
@@ -12,11 +12,10 @@ const PLATFORMS = [
   { key: 'linkedin',  label: 'LinkedIn',  urlField: 'linkedin_url',  followersField: 'linkedin_followers' },
 ];
 
-export default function FilmmakerSocial({ filmmakerInfo, isEditMode, onChange }) {
+export default function FilmmakerSocial({ filmmakerInfo, isEditMode, onChange, errors }) {
   const [platformFollowers, setPlatformFollowers] = useState({});
   const [totalReachNum, setTotalReachNum] = useState(0);
 
-  // Mirror EpkHeader: fetch followers whenever the filmmaker data changes
   useEffect(() => {
     const filmakerId = filmmakerInfo?._id;
     if (!filmakerId) return;
@@ -47,7 +46,7 @@ export default function FilmmakerSocial({ filmmakerInfo, isEditMode, onChange })
       </h2>
 
       <div className="tw-mb-8">
-        <SocialMedia socials={socialMediaData} totalReachNum={totalReachNum} />
+        <SocialMedia socials={socialMediaData} totalReachNum={totalReachNum} split />
       </div>
 
       {isEditMode && (
@@ -62,15 +61,21 @@ export default function FilmmakerSocial({ filmmakerInfo, isEditMode, onChange })
                 value={filmmakerInfo?.[urlField] || ''}
                 onChange={(e) => onChange(urlField, e.target.value)}
                 placeholder={`https://${key}.com/yourprofile`}
-                className="tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2.5 tw-text-white tw-text-sm tw-outline-none tw-transition-colors"
+                className={`tw-bg-[#1E0039] tw-border ${errors?.[urlField] ? 'tw-border-red-500' : 'tw-border-[#5A3F49]'} focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2.5 tw-text-white tw-text-sm tw-outline-none tw-transition-colors`}
               />
+              {errors?.[urlField] && (
+                <p className="tw-text-red-400 tw-text-xs tw-m-0 tw-mt-0.5">{errors[urlField]}</p>
+              )}
               <input
                 type="text"
                 value={filmmakerInfo?.[followersField] || ''}
                 onChange={(e) => onChange(followersField, e.target.value)}
                 placeholder="Follower count (e.g. 12500)"
-                className="tw-bg-[#1E0039] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-[#E2BDC9] tw-text-xs tw-outline-none tw-transition-colors"
+                className={`tw-bg-[#1E0039] tw-border ${errors?.[followersField] ? 'tw-border-red-500' : 'tw-border-[#5A3F49]'} focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-[#E2BDC9] tw-text-xs tw-outline-none tw-transition-colors`}
               />
+              {errors?.[followersField] && (
+                <p className="tw-text-red-400 tw-text-xs tw-m-0 tw-mt-0.5">{errors[followersField]}</p>
+              )}
             </div>
           ))}
         </div>
