@@ -2,18 +2,21 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 
-function ContactField({ icon, href, value, isEditMode, field, placeholder, type = 'text', onChange }) {
+function ContactField({ icon, href, value, isEditMode, field, placeholder, type = 'text', onChange, error }) {
   if (isEditMode) {
     return (
-      <div className="tw-flex tw-items-center tw-gap-3">
-        <FontAwesomeIcon icon={icon} className="tw-text-[#FF43A7] tw-text-sm tw-w-4 tw-shrink-0" />
-        <input
-          type={type}
-          value={value || ''}
-          onChange={(e) => onChange(field, e.target.value)}
-          placeholder={placeholder}
-          className="tw-flex-1 tw-bg-[#280D41] tw-border tw-border-[#5A3F49] focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-text-sm tw-outline-none tw-transition-colors"
-        />
+      <div className="tw-flex tw-flex-col tw-gap-1">
+        <div className="tw-flex tw-items-center tw-gap-3">
+          <FontAwesomeIcon icon={icon} className="tw-text-[#FF43A7] tw-text-sm tw-w-4 tw-shrink-0" />
+          <input
+            type={type}
+            value={value || ''}
+            onChange={(e) => onChange(field, e.target.value)}
+            placeholder={placeholder}
+            className={`tw-flex-1 tw-bg-[#280D41] tw-border ${error ? 'tw-border-red-500' : 'tw-border-[#5A3F49]'} focus:tw-border-[#FF43A7] tw-rounded-lg tw-px-3 tw-py-2 tw-text-white tw-text-sm tw-outline-none tw-transition-colors`}
+          />
+        </div>
+        {error && <p className="tw-text-red-400 tw-text-xs tw-m-0 tw-pl-7">{error}</p>}
       </div>
     );
   }
@@ -32,7 +35,7 @@ function ContactField({ icon, href, value, isEditMode, field, placeholder, type 
     : content;
 }
 
-export default function FilmmakerContact({ filmmakerInfo, isEditMode, onChange }) {
+export default function FilmmakerContact({ filmmakerInfo, isEditMode, onChange, errors }) {
   const hasAnyContact = filmmakerInfo?.website || filmmakerInfo?.email || filmmakerInfo?.phone;
 
   if (!isEditMode && !hasAnyContact) return null;
@@ -53,6 +56,7 @@ export default function FilmmakerContact({ filmmakerInfo, isEditMode, onChange }
           placeholder="https://yourwebsite.com"
           type="url"
           onChange={onChange}
+          error={errors?.website}
         />
         <ContactField
           icon={faEnvelope}
@@ -63,6 +67,7 @@ export default function FilmmakerContact({ filmmakerInfo, isEditMode, onChange }
           placeholder="contact@email.com"
           type="email"
           onChange={onChange}
+          error={errors?.email}
         />
         <ContactField
           icon={faPhone}
@@ -72,6 +77,7 @@ export default function FilmmakerContact({ filmmakerInfo, isEditMode, onChange }
           placeholder="+1 (555) 000-0000"
           type="tel"
           onChange={onChange}
+          error={errors?.phone}
         />
       </div>
     </div>
