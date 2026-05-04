@@ -20,7 +20,6 @@ import UserSocials from '../../components/UserView/UserSocials/UserSocials';
 import Banner from '../../components/EpkView/EpkBanner/EpkBanner';
 import LoginModal from '../../components/common/Modals/LoginModal';
 import AnalyticsDataService from "../../api/analytics";
-import NewMessageModal from '../../components/common/Modals/NewMessageModal';
 import UserEditNavBar from '../../components/UserView/UserEditNavBar';
 import emptyBanner from '../../images/empty_banner.jpeg';
 import ActionIcon from '../../components/EpkView/EpkSocialAction/ActionIcon';
@@ -39,7 +38,6 @@ function ProfileViewPage() {
   const [activeSection, setActiveSection] = useState('hero');
   const [refresh, setRefresh] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showMessageModal, setShowMessageModal] = useState(false);
   const [TotalReach, setTotalReach] = useState(0);
   const [pendingDeletes, setPendingDeletes] = useState([]);
     
@@ -138,25 +136,13 @@ function ProfileViewPage() {
   };
 
   const handleClose = (modalType) => {
-    if (user) {
-      switch (modalType) {
-        case 'message': setShowMessageModal(false); break;
-        default: break;
-      }
-    } else {
+    if (modalType === 'login' || !user) {
       setShowLoginModal(false);
     }
   };
 
   const handleShow = (modalType) => {
-    if (modalType === 'login') {
-      setShowLoginModal(true);
-    } else if (user) {
-      switch (modalType) {
-        case 'message': setShowMessageModal(true); break;
-        default: break;
-      }
-    } else {
+    if (modalType === 'login' || !user) {
       setShowLoginModal(true);
     }
   };
@@ -480,7 +466,6 @@ function ProfileViewPage() {
             )}
           </div>
           {showLoginModal && <LoginModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
-          {showMessageModal && <NewMessageModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
         </div>
       </div>
     

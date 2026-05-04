@@ -26,6 +26,7 @@ import { addToChat } from '../../api/epks';
 import { useTranslation } from 'react-i18next';
 import { getMoviesByActors } from '../../api/epks';
 import emptyBanner from '../../images/empty_banner.jpeg';
+import NewMessageModal from '../../components/common/Modals/NewMessageModal';
 import { AGE_OPTIONS } from '../../constants/AgeOptions';
 
 export default function Actor(props) {
@@ -50,6 +51,7 @@ export default function Actor(props) {
   const [studioData, setStudioData] = useState(null);
   const [epksList, setEpksList] = useState([]);
   const [showVideoErrorMsg, setShowVideoErrorMsg] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -426,12 +428,7 @@ export default function Actor(props) {
             </button>
             {!isOwnActorPage && (
               <button className='tw-p-[3px] tw-rounded-[90px] tw-bg-gradient-to-r tw-from-[#E938C2] tw-to-midnight'
-                onClick={() => {
-                  const chatUrl = userIsFilmmaker
-                    ? `/dashboard/chat/${id}`
-                    : `/userdashboard/chat/${id}`;
-                  navigate(chatUrl);
-                }}>
+                onClick={() => setShowMessageModal(true)}>
                 <div className='tw-flex tw-gap-2 sm:tw-gap-3 tw-bg-white  tw-py-2 tw-px-2 md:tw-px-4  tw-rounded-[90px] tw-items-center'>
                   <MessageIcon />
                   <span>{t('Message')}</span>
@@ -676,6 +673,15 @@ export default function Actor(props) {
         }
       </div >
       {/*end main container */}
+      {showMessageModal && (
+        <NewMessageModal 
+          close={() => setShowMessageModal(false)} 
+          open={() => setShowMessageModal(true)} 
+          actorId={id} 
+          user={user} 
+          setRefresh={() => {}}
+        />
+      )}
       <Footer />
     </div >
   );

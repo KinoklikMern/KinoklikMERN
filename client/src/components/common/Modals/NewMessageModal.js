@@ -27,12 +27,13 @@ export default function NewMessageModal(props) {
 
   const handleSubmit = () => {
     if (msg.length > 0) {
+      const targetId = props.actorId || props.filmmakerId;
       try {
-        addToChat(msg, props.user, props.filmmakerId).then((res) => {
+        addToChat(msg, props.user, targetId).then((res) => {
           if (res.status === 200) {
             // Yeming added
             incrementMessage();
-            setUserInfo(props.filmmakerId);
+            setUserInfo(targetId);
             socket.emit("new message", res.data);
             toast.success(t("Message sent successfully!"));
             setTimeout(() => props.close("message"), 100);

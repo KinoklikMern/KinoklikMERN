@@ -15,6 +15,8 @@ const accessChat = async (req, res) => {
   // }
   if (!userId || !chatName) {
     console.log("UserId or chatName not sent with request");
+  if (!userId) {
+    console.log("UserId param not sent with request");
     return res.sendStatus(400);
   }
   let isChat = await Chat.find({
@@ -37,6 +39,7 @@ const accessChat = async (req, res) => {
   } else {
     var chatData = {
       chatName: chatName,
+      chatName: chatName || "sender",
       isGroupChat: false,
       users: [req.user.id, userId],
     };
@@ -54,7 +57,7 @@ const accessChat = async (req, res) => {
       // throw new Error(error.message);
       return res.status(400).json({ error: error.message });
     }
-  }
+  }}
 };
 
 //@description     fetch all chat
