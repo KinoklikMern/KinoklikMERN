@@ -21,6 +21,7 @@ import Banner from '../../components/EpkView/EpkBanner/EpkBanner';
 import LoginModal from '../../components/common/Modals/LoginModal';
 import AnalyticsDataService from "../../api/analytics";
 import NewMessageModal from '../../components/common/Modals/NewMessageModal';
+import RecommendUserModal from '../../components/common/Modals/RecommendUserModal';
 import UserEditNavBar from '../../components/UserView/UserEditNavBar';
 import emptyBanner from '../../images/empty_banner.jpeg';
 import ActionIcon from '../../components/EpkView/EpkSocialAction/ActionIcon';
@@ -40,6 +41,7 @@ function ProfileViewPage() {
   const [refresh, setRefresh] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [showRecommendModal, setShowRecommendModal] = useState(false);
   const [TotalReach, setTotalReach] = useState(0);
   const [pendingDeletes, setPendingDeletes] = useState([]);
     
@@ -151,12 +153,12 @@ function ProfileViewPage() {
   };
 
   const handleShow = (modalType) => {
+    console.log("handleShow triggered for:", modalType);
     if (modalType === 'login') {
       setShowLoginModal(true);
     } else if (user) {
       switch (modalType) {
         case 'message': setShowMessageModal(true); break;
-        default: break;
       }
     } else {
       setShowLoginModal(true);
@@ -426,8 +428,9 @@ useEffect(() => {
             onChange={handleFieldChange} 
             errors={errors} 
             clearError={clearError}
-            //openRecommendModal={() => setShowRecommendModal(true)} 
-            //openMessageModal={() => setShowMessageModal(true)}
+            openLoginModal={() => setShowLoginModal(true)}
+            openRecommendModal={() => setShowRecommendModal(true)} 
+            openMessageModal={() => handleShow('message')}
           />
         </div>
 
@@ -486,8 +489,25 @@ useEffect(() => {
               </div>
             )}
           </div>
-          {showLoginModal && <LoginModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
-          {showMessageModal && <NewMessageModal close={handleClose} open={handleShow} actorId={id} user={user} setRefresh={setRefresh}/>}
+          {showLoginModal && <LoginModal close={handleClose} open={handleShow} setRefresh={setRefresh}/>}
+          {showMessageModal && (
+            <NewMessageModal 
+              open={handleShow}
+              close={handleClose} 
+              userId={id} 
+              user={user} 
+              setRefresh={setRefresh}
+            />
+          )}
+          {showRecommendModal && (
+            <RecommendUserModal 
+              close={() => setShowRecommendModal(false)}
+              userId={id}
+              user={user}
+              epkInfo={userData} 
+              setRefresh={setRefresh}
+            />
+          )}
         </div>
       </div>
     

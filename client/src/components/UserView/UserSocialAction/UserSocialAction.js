@@ -10,7 +10,7 @@ import StarBlackIcon from '../../../images/icons/StarBlack.svg';
 import RecommendIcon from '../../../images/icons/recommend-icon.svg';
 import MessageIcon from '../../../images/icons/messages.svg'; 
 
-export default function UserSocialAction({ data, isEditMode, openRecommendModal }) {
+export default function UserSocialAction({ data, isEditMode, openLoginModal, openRecommendModal, openMessageModal }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const userId = user?.id || '0';
@@ -25,11 +25,10 @@ export default function UserSocialAction({ data, isEditMode, openRecommendModal 
   const handleAction = (type) => {
     if (isEditMode) return;
 
-    // Block interactions with your own profile EXCEPT for recommending
     if (isOwnPage && type !== 'recommend') return;
 
     if (userId === '0') {
-      alert("Please log in to interact.");
+      openLoginModal(); 
       return;
     }
 
@@ -45,7 +44,7 @@ export default function UserSocialAction({ data, isEditMode, openRecommendModal 
         });
         break;
       case 'message':
-        //openMessageModal();
+        openMessageModal();
         break;
       case 'recommend':
         openRecommendModal(); 

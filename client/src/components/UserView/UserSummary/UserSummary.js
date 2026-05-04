@@ -5,7 +5,14 @@ import UserSocialAction from '../UserSocialAction/UserSocialAction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
-export default function UserSummary({ data, isEditMode, onChange, openRecommendModal }) {
+export default function UserSummary({ 
+  data, 
+  isEditMode, 
+  onChange, 
+  openMessageModal,
+  openLoginModal, 
+  openRecommendModal 
+}) {
   const { t } = useTranslation();
   const location = data?.city && data?.country ? `${data.city}, ${data.country}` : data?.city || data?.country || '';
 
@@ -19,7 +26,6 @@ export default function UserSummary({ data, isEditMode, onChange, openRecommendM
           ) : (
             <div className="tw-flex tw-flex-col tw-gap-6">
               
-              {/* Profile Header: Name, Role, Location, Socials */}
               <div className="tw-flex tw-flex-col md:tw-flex-row tw-w-full tw-justify-between tw-items-center md:tw-items-start">
                 <div className="tw-flex tw-flex-col tw-items-center md:tw-items-start">
                   <h1 className="tw-text-white tw-text-3xl md:tw-text-4xl tw-font-bold tw-m-0">
@@ -42,13 +48,13 @@ export default function UserSummary({ data, isEditMode, onChange, openRecommendM
                 <div className="tw-mt-6 md:tw-mt-0">
                   <UserSocialAction
                     data={data} 
-                    //openRecommendModal={openRecommendModal}
-                    //openMessageModal={openMessageModal}
+                    openRecommendModal={openRecommendModal}
+                    openMessageModal={openMessageModal}
+                    openLoginModal={openLoginModal}
                   />
                 </div>
               </div>
 
-              {/* Bio Quote (Directly below info) */}
               {data?.summary && (
                 <p className="tw-text-[#E2BDC9] tw-text-2xl md:tw-text-3xl tw-italic tw-m-0 tw-leading-relaxed tw-opacity-90 tw-max-w-4xl">
                   {`"${data.summary}"`}

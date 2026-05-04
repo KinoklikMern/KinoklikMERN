@@ -1,118 +1,96 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext } from "react";
-//import "bootstrap/dist/css/bootstrap.min.css"
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import React, { useEffect, useState, useContext } from "react";
+import { io } from "socket.io-client";
 import { toast } from "react-toastify";
 import { ChatState } from "../../../context/ChatProvider";
-import { addToChat } from "../../../api/epks";
-import { io } from "socket.io-client";
 import { NotificationContext } from "../../../context/NotificationContext";
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { addToChat } from "../../../api/epks";
 
 let socket;
-export default function NewMessageModal(props) {
+
+export default function NewMessageModal({ close, user, userId, setRefresh }) {
   const { notification, setNotification } = ChatState();
-  const [socketConnected, setSocketConnected] = useState(false);
   const [msg, setMsg] = useState("");
   const { t } = useTranslation();
-
-  const { incrementMessage, messageCount, setMessageCount, setUserInfo } =
-    useContext(NotificationContext);
-
-  const handleChange = (e) => {
-    setMsg(e.target.value);
-  };
+  const { incrementMessage, setUserInfo } = useContext(NotificationContext);
 
   const handleSubmit = () => {
-    if (msg.length > 0) {
+    if (msg.trim().length > 0) {
       try {
-        addToChat(msg, props.user, props.filmmakerId).then((res) => {
+        addToChat(msg, user, userId).then((res) => {
           if (res.status === 200) {
-            // Yeming added
             incrementMessage();
-            setUserInfo(props.filmmakerId);
+            setUserInfo(userId);
             socket.emit("new message", res.data);
-            toast.success(t("Message sent successfully!"));
-            setTimeout(() => props.close("message"), 100);
+            toast.success(t("Message sent!"));
+            
+            setTimeout(() => close("message"), 100);
           } else {
             toast.error(t("Message could not be sent. Please try again."));
-            setTimeout(() => props.close("message"), 100);
+            setTimeout(() => close("message"), 100);
           }
         });
       } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         toast.error(t("Message could not be sent. Please try again."));
-        setTimeout(() => props.close("message"), 100);
+        setTimeout(() => close("message"), 100);
       }
     }
   };
 
   useEffect(() => {
-    console.log("messageCount updated: ", messageCount);
-  }, [messageCount]);
-
-  useEffect(() => {
     socket = io(process.env.REACT_APP_BACKEND_URL);
-    socket.emit("setup", props.user);
-    socket.on("connection", () => setSocketConnected(true));
-  }, [props.user]);
+    socket.emit("setup", user);
+    
+    return () => {
+      if (socket) socket.disconnect();
+    };
+  }, [user]);
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
-      if (!notification.includes(newMessageRecieved)) {
-        setNotification([newMessageRecieved, ...notification]);
-      }
-    });
+    if (socket) {
+      socket.on("message recieved", (newMessageRecieved) => {
+        if (!notification.includes(newMessageRecieved)) {
+          setNotification([newMessageRecieved, ...notification]);
+        }
+      });
+    }
   }, [notification, setNotification]);
 
   return (
-    <Modal
-      show={() => props.open("message")}
-      onHide={() => props.close("message")}
-      centered
-      className="p-3"
-    >
-      <Modal.Header className="border-0">
-        <Modal.Title className="text-center px-3">
-          {t('Please type your message to the Filmmaker EPK Owner')}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group
-            className="my-3"
-            controlId="exampleForm.ControlTextarea1"
+    <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-flex tw-items-center tw-justify-center tw-bg-[#190033]/90 tw-backdrop-blur-md tw-p-4">
+      <div className="tw-relative tw-w-full tw-max-w-md tw-bg-[#280D41] tw-border tw-border-[#5A3F49]/30 tw-rounded-2xl tw-p-6 tw-shadow-2xl">
+        
+        <button 
+          onClick={() => close("message")} 
+          className="tw-absolute tw-top-4 tw-right-4 tw-w-8 tw-h-8 tw-flex tw-items-center tw-justify-center tw-bg-black/20 hover:tw-bg-[#FF43A7] tw-text-white tw-rounded-full tw-transition-colors tw-border-none tw-cursor-pointer"
+        >
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
+
+        <h2 className="tw-text-white tw-text-xl tw-font-bold tw-mb-6 tw-text-center">
+          {t('Reach out to this user')}
+        </h2>
+
+        <div className="tw-mb-6">
+          <textarea
             value={msg}
-            onChange={handleChange}
-          >
-            <Form.Control
-              style={{ height: "200px", resize: "none" }}
-              as="textarea"
-              rows={4}
-              placeholder={t("eg. Hello Filmmaker, I'm interested to see your film EPK and possibly purchase the rights. Let's connect and talk! ")}
-            />
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer
-        style={{ border: "none", display: "flex", justifyContent: "center" }}
-      >
-        <Button
-          style={{
-            backgroundColor: "#fff",
-            border: "none",
-            color: "#1E0039",
-            boxShadow: "3px 3px 10px #712CB0",
-            width: "25%",
-            padding: "0",
-          }}
+            onChange={(e) => setMsg(e.target.value)}
+            placeholder={t("Say hello, ask a question, or start a conversation...")}
+            className="tw-w-full tw-h-48 tw-bg-[#190033] tw-border tw-border-[#5A3F49]/40 tw-rounded-xl tw-p-4 tw-text-white tw-text-sm tw-outline-none focus:tw-border-[#FF43A7] tw-resize-none placeholder:tw-text-[#AA8894]/60"
+          />
+        </div>
+
+        <button
           onClick={handleSubmit}
+          disabled={!msg.trim()}
+          className="tw-w-full tw-bg-[#FF43A7] hover:tw-bg-[#ff5cac] tw-text-[#570033] tw-font-bold tw-py-3 tw-rounded-xl tw-shadow-[0_0_15px_rgba(255,67,167,0.4)] tw-transition-all tw-border-none tw-cursor-pointer disabled:tw-opacity-50 disabled:tw-cursor-not-allowed"
         >
           {t('Send')}
-        </Button>
-      </Modal.Footer>
-    </Modal>
+        </button>
+      </div>
+    </div>
   );
 }
