@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import SignupCss from "./signup.module.css";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { options } from "./RoleChoice";
 import { GENDER_OPTIONS } from "../../../constants/GenderOptions"
@@ -25,10 +23,11 @@ function RegistrationPersonalInfo({
   setAgreeToTerms,
   gender,
   setGender,
+  birthDate, 
+  setBirthDate
 }) {
   // For Translation
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [fontColor, setFontColor] = useState(0);
 
   // Set initial selectedAdditionalRole based on the role
@@ -56,6 +55,9 @@ function RegistrationPersonalInfo({
     }
     if (id === "confirmPassword") {
       setConfirmPassword(value);
+    }
+    if (id === "birthDate") {
+      setBirthDate(value);
     }
   };
 
@@ -169,6 +171,22 @@ function RegistrationPersonalInfo({
             placeholder={t("Email")}
           />
         </div>
+
+        <div className="tw-w-96 tw-mb-4">
+          <label className="tw-text-sm tw-font-medium tw-text-purple-800 tw-mb-1 tw-block">
+            {t("Date of Birth")}
+          </label>
+          <input
+            className="tw-focus:border-purple-700 tw-w-full tw-rounded-lg tw-border-purple-500 tw-bg-white tw-text-xl tw-font-semibold tw-text-purple-800 tw-shadow-lg tw-outline-none tw-ring-2 tw-ring-purple-300"
+            type="date"
+            id="birthDate"
+            value={birthDate}
+            onChange={handleInputChange}
+          />
+          <small className="tw-text-xs tw-text-purple-600 tw-mt-1 tw-block">
+            {t("Format: YYYY-MM-DD")}
+          </small>
+        </div>    
 
         <div>
           <input

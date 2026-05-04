@@ -14,6 +14,7 @@ function RegistrationForm() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
+  const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
@@ -46,6 +47,7 @@ function RegistrationForm() {
       !email ||
       !password ||
       !confirmPassword ||
+      !birthDate ||
       !role
     ) {
       setError(t('All fields are required.'));
@@ -75,6 +77,18 @@ function RegistrationForm() {
       return;
     }
 
+    if (!birthDate) {
+      setError(t('Please select your birth date.'));
+      return;
+    }
+
+    const selectedDate = new Date(birthDate);
+    const today = new Date();
+    if (selectedDate > today) {
+      setError(t('Birth date cannot be in the future.'));
+      return;
+    }
+
     if (password.length < 8) {
       setError(t('Password must be at least 8 characters long!'));
       return;
@@ -92,6 +106,7 @@ function RegistrationForm() {
           password: password,
           firstName: firstName,
           lastName: lastName,
+          birthDate: birthDate,
           role: role.value,
           receiveNewsletter: receiveNewsletter,
           gender: gender,
@@ -147,6 +162,8 @@ function RegistrationForm() {
                 email={email}
                 password={password}
                 confirmPassword={confirmPassword}
+                birthDate={birthDate}
+                setBirthDate={setBirthDate}
                 setFirstName={setFirstName}
                 setLastName={setLastName}
                 setEmail={setEmail}
