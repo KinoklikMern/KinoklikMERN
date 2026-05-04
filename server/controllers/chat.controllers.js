@@ -5,20 +5,14 @@ import Chat from "../models/chatModel.js";
 //@route           post /chat
 //@access          Protected
 const accessChat = async (req, res) => {
-  const { userId } = req.body;
-  const { chatName } = req.body;
+  const { userId, chatName } = req.body;
   console.log("req", req.user);
 
-  // if (!userId) {
-  //   console.log("UserId param not sent with request");
-  //   return res.sendStatus(400);
-  // }
   if (!userId || !chatName) {
     console.log("UserId or chatName not sent with request");
-  if (!userId) {
-    console.log("UserId param not sent with request");
     return res.sendStatus(400);
   }
+
   let isChat = await Chat.find({
     isGroupChat: false,
     $and: [
@@ -39,7 +33,6 @@ const accessChat = async (req, res) => {
   } else {
     var chatData = {
       chatName: chatName,
-      chatName: chatName || "sender",
       isGroupChat: false,
       users: [req.user.id, userId],
     };
@@ -53,11 +46,9 @@ const accessChat = async (req, res) => {
 
       res.status(200).send(FullChat);
     } catch (error) {
-      // res.status(400);
-      // throw new Error(error.message);
       return res.status(400).json({ error: error.message });
     }
-  }}
+  }
 };
 
 //@description     fetch all chat
