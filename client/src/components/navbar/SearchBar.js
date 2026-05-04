@@ -9,21 +9,20 @@ export default function SearchBar() {
   const [searchList, setSearchList] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [searchChar, setSearchChar] = useState("");
+  
 
   useEffect(() => {
-    getAllFepks().then((res) => {
-      setFinalSearchList((prevFinalSearchList) => [
-        ...prevFinalSearchList,
-        ...res,
-      ]);
-    });
+    const fetchAllData = async () => {
+      try {
+        const [fepks, users] = await Promise.all([getAllFepks(), getAllUsers()]);
+        
+        setFinalSearchList([...fepks, ...users]);
+      } catch (error) {
+        console.error("Error fetching search data:", error);
+      }
+    };
 
-    getAllUsers().then((res) => {
-      setFinalSearchList((prevFinalSearchList) => [
-        ...prevFinalSearchList,
-        ...res,
-      ]);
-    });
+    fetchAllData();
   }, []);
 
   const searchHandler = (e) => {
@@ -31,16 +30,13 @@ export default function SearchBar() {
     const searchString = e.target.value.toLowerCase();
 
     if (!searchString.trim()) {
-      // If the search input is empty, set searchList to an empty array
       setSearchList([]);
     } else {
       setSearchList(
         finalSearchList?.filter((item) => {
-          // Check if the item is an epk (movie) and includes the search string in its title
           if (item.title && item.title.toLowerCase().includes(searchString)) {
             return true;
           }
-          // Check if the item is an actor and includes the search string in firstName or lastName
           else if (
             (item.firstName &&
               item.firstName.toLowerCase().includes(searchString)) ||
@@ -65,7 +61,7 @@ export default function SearchBar() {
             onChange={searchHandler}
           />
           {searchList.length !== 0 && (
-            <div className="tw-max-h-56 tw-divide-y  tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039]">
+            <div className="tw-absolute tw-z-[9999] tw-top-full tw-right-0 tw-w-64 tw-max-h-56 tw-divide-y tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039] tw-shadow-2xl">
               {searchList?.map((item) => (
                 <a
                   key={item._id}

@@ -40,7 +40,11 @@ export default function UserSummary({ data, isEditMode, onChange, openRecommendM
                 </div>
 
                 <div className="tw-mt-6 md:tw-mt-0">
-                  <UserSocialAction data={data} openRecommendModal={openRecommendModal} />
+                  <UserSocialAction
+                    data={data} 
+                    //openRecommendModal={openRecommendModal}
+                    //openMessageModal={openMessageModal}
+                  />
                 </div>
               </div>
 

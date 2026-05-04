@@ -45,13 +45,10 @@ export default function UserSocialAction({ data, isEditMode, openRecommendModal 
         });
         break;
       case 'message':
-        const chatUrl = user?.role === 'Filmmaker'
-          ? `/dashboard/chat/${data._id}`
-          : `/userdashboard/chat/${data._id}`;
-        navigate(chatUrl);
+        //openMessageModal();
         break;
       case 'recommend':
-        openRecommendModal(); // Now allowed for everyone
+        openRecommendModal(); 
         break;
       default:
         break;

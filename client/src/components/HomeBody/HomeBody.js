@@ -6,13 +6,12 @@ import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
 //import { useTranslation } from "react-i18next";
 
-const HomeBody = ({ role }) => {
+const HomeBody = ({ role, data }) => {
   // const { t } = useTranslation();
 
   const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
-  //For Translation
 
   const [filterTags, setFilterTags] = useState([
     {
@@ -37,15 +36,8 @@ const HomeBody = ({ role }) => {
     },
   ]);
 
-  useEffect(() => {
-    http.get(`fepks/`).then((response) => {
-      setFepks(response.data);
-      setFilteredEPKs(response.data);
-    });
-  }, []);
-
   const { filterQuery, clickHandler } = EPKFilter(
-    fepks,
+    data, // Pass data directly here
     filterTags,
     setFilterTags
   );
@@ -53,16 +45,16 @@ const HomeBody = ({ role }) => {
   const handleStatusChange = (status) => {
     if (currentStatus === status) {
       setCurrentStatus("All");
-      setFilteredEPKs(fepks);
+      setFilteredEPKs(data);
     } else {
       setCurrentStatus(status);
-      const filtered = fepks.filter((fepk) => fepk.status === status);
+      const filtered = data.filter((fepk) => fepk.status === status);
       setFilteredEPKs(filtered);
     }
   };
 
   useEffect(() => {
-    let filtered = fepks;
+    let filtered = data || [];
 
     // Filter by status if not 'All'
     if (currentStatus !== "All") {
@@ -77,7 +69,7 @@ const HomeBody = ({ role }) => {
     }
 
     setFilteredEPKs(filtered);
-  }, [fepks, currentStatus, filterQuery]);
+  }, [data, currentStatus, filterQuery]);
 
   return (
     <>

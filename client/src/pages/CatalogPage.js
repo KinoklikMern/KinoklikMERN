@@ -4,7 +4,6 @@ import EPKFilter from "../components/Filter/EPKFilter.js";
 import FilterButton from "../components/Filter/FilterButton.js";
 import StatusBtn from "../components/SwitchStatusBtn/Status.js";
 import http from "../http-common.js";
-import SearchBar from "../components/HomeHead/SearchBar.js";
 import { useTranslation } from "react-i18next";
 import "../components/SwitchBtn/SwitchBtn.css";
 import FilterTag from "../components/Filter/FilterTag.js";
@@ -124,7 +123,6 @@ function CatalogPage() {
   return (
     <>
       <div className="tw-flex tw-items-end tw-justify-end tw-bg-[#1e0039]">
-        <SearchBar />
       </div>
       <div className="switch-container">
         <div className="switch-btn">

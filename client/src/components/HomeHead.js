@@ -3,23 +3,10 @@ import { React, useState, useEffect } from 'react';
 import '../styles/Homehead.css';
 import http from '../http-common';
 import { useSelector } from 'react-redux';
-import SearchBar from './HomeHead/SearchBar';
 
 const HomeHead = (props) => {
   const [fepk, setFepk] = useState({});
   const [actor, setActor] = useState({});
-
-  // fetching user
-  const user = useSelector((state) => state.user);
-  let userId;
-  let userRole;
-  if (!user) {
-    userId = '0';
-    userRole = 'noUser';
-  } else {
-    userId = user.id;
-    userRole = user.role;
-  }
 
   //showing the latest added movie
   useEffect(() => {
@@ -71,7 +58,7 @@ const HomeHead = (props) => {
            }}
       >
         <div className="tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end">
-          <SearchBar/>
+  
         </div>
 
         <section
@@ -84,7 +71,7 @@ const HomeHead = (props) => {
               <a
                   href={
                     props.role === 'actor'
-                        ? `user/${actor._id}`
+                        ? `actor/${actor._id}`
                         : fepk && fepk.title
                             ? `epk/${fepk._id}`
                             : '/'
@@ -104,7 +91,7 @@ const HomeHead = (props) => {
                   className="tw-mx-auto"
                   href={
                     props.role === 'actor'
-                        ? `user/${actor._id}`
+                        ? `actor/${actor._id}`
                         : fepk && fepk.title
                             ? `epk/${fepk._id}`
                             : '/'

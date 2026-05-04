@@ -426,6 +426,8 @@ useEffect(() => {
             onChange={handleFieldChange} 
             errors={errors} 
             clearError={clearError}
+            //openRecommendModal={() => setShowRecommendModal(true)} 
+            //openMessageModal={() => setShowMessageModal(true)}
           />
         </div>
 
