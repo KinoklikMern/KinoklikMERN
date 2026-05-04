@@ -523,6 +523,10 @@ export const updateProfile = async (req, res) => {
       delete updateData[field];
     });
 
+    if (updateData.picture) {
+      userOne.picture = updateData.picture;
+    }
+
     if (updateData.photo_albums) {
       updateData.photo_albums = {
         headshots: updateData.photo_albums.headshots || [],

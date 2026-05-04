@@ -8,8 +8,8 @@ import emptyBanner from '../../../images/empty_banner.jpeg';
 import UpdateImageModal from "../../UpdateImageModal";
 import UpdateBannerModal from "../../UpdateBannerModal"; 
 
-export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
-  const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
+export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
+  const [isHeadshotModalOpen, setIsHeadshotModalOpen] = useState(false);
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [playingView, setPlayingView] = useState(null);
 
@@ -34,6 +34,15 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
     }
   }, [isEditMode]);
 
+  useEffect(() => {
+    if (headshots.length > 0) {
+      const mainIndex = headshots.findIndex(img => img.isMain);
+      if (mainIndex !== -1) {
+        setCurrentIndex(mainIndex);
+      }
+    }
+  }, [headshots]);
+
   const nextImage = (e) => {
     e?.stopPropagation();
     setCurrentIndex((prev) => (prev + 1) % headshots.length);
@@ -57,26 +66,26 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
     return path.startsWith("http") ? path : `${AWS_URL}/${path}`;
   };
 
-  const mainHeadshot = data?.photo_albums?.headshots?.find(img => img.isMain)?.image;
-  const rawHeadshot = data?.picture || mainHeadshot;
-  const dbHeadshotUrl = !rawHeadshot ? "" : rawHeadshot.startsWith("http") ? rawHeadshot : `${AWS_URL}/${rawHeadshot}`;
+  const mainHeadshotPath = headshots.find(img => img.isMain)?.image;
+  const activeImgObj = headshots[currentIndex] || mainHeadshotPath || data?.picture;
 
   const mainReelObj = data?.video_gallery?.reels?.find(vid => vid.isMain);
   const dbReelSrc = !mainReelObj?.url ? "" : mainReelObj.url.startsWith("http") ? mainReelObj.url : `${AWS_URL}/${mainReelObj.url}`;
   const dbBannerUrl = !mainReelObj?.thumbnail ? emptyBanner : mainReelObj.thumbnail.startsWith("http") ? mainReelObj.thumbnail : `${AWS_URL}/${mainReelObj.thumbnail}`;
-  const displayHeadshot = localHeadshot || getImageUrl(headshots[currentIndex]);
+
+  const displayHeadshot = localHeadshot || getImageUrl(activeImgObj);
   const displayBanner = localBanner || dbBannerUrl;
   const displayReel = localReel || dbReelSrc;
   const hasReel = Boolean(displayReel);
 
   const handleSaveHeadshot = (res) => {
-    setIsPosterModalOpen(false);
+    setIsHeadshotModalOpen(false);
     if (res.type === "local") {
       setLocalHeadshot(URL.createObjectURL(res.file));
       onChange("new_headshot_file", res.file); 
     } else {
       setLocalHeadshot(`${AWS_URL}/${res.data.image}`);
-      onChange("picture", res.data.image); 
+      onChange("add_to_gallery", { type: "headshot", url: res.data.image });
     }
   };
 
@@ -103,6 +112,22 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
       onChange("new_reel_file", res.file);
       onChange("new_reel_thumbnail", thumbFile);
     }
+  };
+
+  const handleSetMain = (imageKey) => {
+    const newHeadshots = (data?.photo_albums?.headshots || []).map((img) => ({
+      ...img,
+      isMain: img.image === imageKey 
+    }));
+
+    const newAlbums = {
+      ...data.photo_albums,
+      headshots: newHeadshots
+    };
+
+    onChange("photo_albums", newAlbums);
+    
+    setIsHeadshotModalOpen(false);
   };
 
   return (
@@ -139,7 +164,7 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
 
             {isEditMode && (
               <div className="tw-absolute tw-inset-0 tw-bg-[#1F0439]/40 tw-backdrop-blur-[1px] tw-flex tw-flex-col tw-items-center tw-justify-center">
-                <button onClick={(e) => { e.stopPropagation(); setIsPosterModalOpen(true); }} className="tw-bg-transparent tw-border-none tw-flex tw-flex-col tw-items-center tw-gap-3 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer">
+                <button onClick={(e) => { e.stopPropagation(); setIsHeadshotModalOpen(true); }} className="tw-bg-transparent tw-border-none tw-flex tw-flex-col tw-items-center tw-gap-3 hover:tw-scale-105 tw-transition-transform tw-cursor-pointer">
                   <div className="tw-w-[59px] tw-h-[56px] tw-bg-[#371E51]/80 tw-rounded-full tw-flex tw-items-center tw-justify-center">
                     <FontAwesomeIcon icon={faCamera} className="tw-text-[#FFB0CF] tw-text-xl" />
                   </div>
@@ -217,7 +242,7 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
               <img src={displayHeadshot} alt="Mobile Headshot" className="tw-w-full tw-h-full tw-object-cover" />
               {isEditMode && (
                 <div className="tw-absolute tw-inset-0 tw-bg-black/50 tw-flex tw-items-center tw-justify-center">
-                  <button onClick={(e) => { e.stopPropagation(); setIsPosterModalOpen(true); }} className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-4 tw-py-2 tw-rounded-lg tw-font-bold tw-text-xs">
+                  <button onClick={(e) => { e.stopPropagation(); setIsHeadshotModalOpen(true); }} className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-4 tw-py-2 tw-rounded-lg tw-font-bold tw-text-xs">
                     Edit Photo
                   </button>
                 </div>
@@ -261,7 +286,7 @@ export default function UserCover({ data, scrollToPhotos, scrollToVideos, isEdit
         </div>
       )}
 
-      <UpdateImageModal isOpen={isPosterModalOpen} onClose={() => setIsPosterModalOpen(false)} libraryImages={data?.photo_albums?.headshots || []} mode="user" onSave={handleSaveHeadshot} />
+      <UpdateImageModal isOpen={isHeadshotModalOpen} onClose={() => setIsHeadshotModalOpen(false)} libraryImages={data?.photo_albums?.headshots || []} mode="user" onSave={handleSaveHeadshot} onSetMain={handleSetMain}/>
       <UpdateBannerModal isOpen={isBannerModalOpen} onClose={() => setIsBannerModalOpen(false)} libraryItems={data?.video_gallery?.reels || []} onSave={handleSaveBanner} />
     </>
   );

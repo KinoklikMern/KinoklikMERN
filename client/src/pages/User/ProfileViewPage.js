@@ -297,11 +297,6 @@ useEffect(() => {
         };
         finalDraft.picture = headshotKey;
         delete finalDraft.new_headshot_file;
-      } else if (finalDraft.picture && finalDraft.photo_albums.headshots) {
-        finalDraft.photo_albums.headshots = finalDraft.photo_albums.headshots.map(h => ({
-          ...h,
-          isMain: h.image === finalDraft.picture
-        }));
       }
 
       /**
@@ -401,7 +396,7 @@ useEffect(() => {
           />
        
           {activeData?.role === "Actor" ? (
-                   <UserHero 
+              <UserHero 
               data={activeData} 
               scrollToPhotos={scrollToPhotos} 
               scrollToVideos={scrollToVideos}
