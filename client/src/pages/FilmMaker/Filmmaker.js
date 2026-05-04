@@ -251,9 +251,10 @@ export default function Filmmaker(props) {
 
       {/* Social Media Total Audience Reach Section */}
       <div className="tw-mx-auto tw-my-8 tw-max-w-[100rem] tw-rounded-2xl tw-bg-[#1E0039] tw-p-6">
-        <SocialMedia 
-          socials={socialMediaData} 
+        <SocialMedia
+          socials={socialMediaData}
           totalReachNum={socialMediafollowerTotalNum}
+          split
         />
       </div>
 

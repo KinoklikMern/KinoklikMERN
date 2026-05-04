@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import SocialMedia from "./SocialMedia";
 import { formatCompactNumber } from "../../../utils/numberFormatters";
 import { fetchAndSumFollowers } from "../../../utils/followersHelper";
@@ -57,7 +57,7 @@ export default function EpkHeader({ epkInfo,setGlobalTotalReach,isEditMode,onCha
     { platform: 'instagram', followers: formatCompactNumber(platformFollowers.instagram), url: epkInfo?.film_maker?.instagram_url || epkInfo?.film_maker?.instagram },
     { platform: 'twitter', followers: formatCompactNumber(platformFollowers.twitter), url: epkInfo?.film_maker?.twitter_url || epkInfo?.film_maker?.twitter },
     { platform: 'tiktok', followers: formatCompactNumber(platformFollowers.tiktok), url: epkInfo?.film_maker?.tiktok_url || epkInfo?.film_maker?.tiktok },
-    { platform: 'linkedin', followers: formatCompactNumber(platformFollowers.linkedin || platformFollowers.linkedIn), url: epkInfo?.film_maker?.linkedin_url || epkInfo?.film_maker?.linkedin },
+    { platform: 'linkedin', followers: formatCompactNumber(platformFollowers.linkedin), url: epkInfo?.film_maker?.linkedin_url || epkInfo?.film_maker?.linkedin },
     { platform: 'youtube', followers: formatCompactNumber(platformFollowers.youtube), url: epkInfo?.film_maker?.youtube_url || epkInfo?.film_maker?.youtube }
   ];
 
@@ -103,10 +103,12 @@ export default function EpkHeader({ epkInfo,setGlobalTotalReach,isEditMode,onCha
 
       {/* 2. SOCIAL MEDIA BAR (Stacked directly underneath the title) */}
       <div className="tw-flex tw-w-full tw-items-center tw-justify-evenly tw-gap-5 tw-py-4">
-        <SocialMedia 
-          socials={socialMediaData} 
+        <SocialMedia
+          socials={socialMediaData}
           totalReachNum={socialMediafollowerTotalNum}
           viewCount={epkInfo?.viewCount || 0}
+          split
+          coverLayout
         />
       </div>
       

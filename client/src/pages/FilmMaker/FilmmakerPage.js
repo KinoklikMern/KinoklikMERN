@@ -5,6 +5,7 @@ import http from '../../http-common';
 import { uploadSingleFile, getFepksByFilmmakerId } from '../../api/epks';
 
 import FilmmakerEditNavBar from '../../components/FilmmakerView/FilmmakerEditNavBar';
+import { validateFilmmakerDraft, ERROR_LABELS, firstErrorSection } from '../../utils/validateFilmmakerDraft';
 import FilmmakerHero from '../../components/FilmmakerView/FilmmakerHero/FilmmakerHero';
 import FilmmakerBio from '../../components/FilmmakerView/FilmmakerBio/FilmmakerBio';
 import FilmmakerSocial from '../../components/FilmmakerView/FilmmakerSocial/FilmmakerSocial';
@@ -119,9 +120,7 @@ export default function FilmmakerPage() {
   };
 
   const handleSaveAndExit = async () => {
-    const newErrors = {};
-    if (!draftFilmmaker?.firstName?.trim()) newErrors.firstName = true;
-    if (!draftFilmmaker?.lastName?.trim())  newErrors.lastName  = true;
+    const newErrors = validateFilmmakerDraft(draftFilmmaker);
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -212,6 +211,7 @@ export default function FilmmakerPage() {
             filmmakerInfo={activeData}
             isEditMode={isEditMode}
             onChange={handleFieldChange}
+            errors={errors}
           />
         </div>
 
@@ -220,6 +220,7 @@ export default function FilmmakerPage() {
             filmmakerInfo={activeData}
             isEditMode={isEditMode}
             onChange={handleFieldChange}
+            errors={errors}
           />
         </div>
 
@@ -232,6 +233,7 @@ export default function FilmmakerPage() {
             filmmakerInfo={activeData}
             isEditMode={isEditMode}
             onChange={handleFieldChange}
+            errors={errors}
           />
         </div>
 
@@ -244,18 +246,18 @@ export default function FilmmakerPage() {
         <div className="tw-fixed tw-inset-0 tw-z-[1060] tw-flex tw-items-center tw-justify-center tw-bg-[#0a0014]/90 tw-backdrop-blur-sm tw-p-4">
           <div className="tw-bg-[#280D41] tw-border tw-border-red-500/50 tw-rounded-2xl tw-p-6 md:tw-p-8 tw-max-w-md tw-w-full tw-shadow-[0_20px_50px_rgba(239,68,68,0.2)]">
             <h3 className="tw-text-white tw-text-xl md:tw-text-2xl tw-font-bold tw-mb-4">
-              Missing Information
+              Fix the following before saving
             </h3>
-            <p className="tw-text-[#E2BDC9] tw-text-sm tw-mb-6 tw-leading-relaxed">
-              Please complete the following required fields before saving your profile:
-            </p>
-            <ul className="tw-list-disc tw-list-inside tw-text-white tw-font-bold tw-text-sm tw-mb-8 tw-space-y-2 tw-bg-[#1E0039] tw-p-4 tw-rounded-xl">
-              {errors.firstName && <li className="tw-text-red-400">First Name</li>}
-              {errors.lastName  && <li className="tw-text-red-400">Last Name</li>}
+            <ul className="tw-list-none tw-p-0 tw-m-0 tw-mb-8 tw-space-y-2 tw-bg-[#1E0039] tw-p-4 tw-rounded-xl">
+              {Object.entries(errors).map(([field, message]) => (
+                <li key={field} className="tw-text-red-400 tw-text-sm">
+                  <span className="tw-font-bold">{ERROR_LABELS[field] ?? field}:</span> {message}
+                </li>
+              ))}
             </ul>
             <div className="tw-flex tw-justify-end">
               <button
-                onClick={() => { setShowValidationModal(false); scrollToSection('hero'); }}
+                onClick={() => { setShowValidationModal(false); scrollToSection(firstErrorSection(errors)); }}
                 className="tw-px-6 tw-py-2.5 tw-bg-red-500 hover:tw-bg-red-600 tw-rounded-lg tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-widest tw-border-none tw-shadow-[0_0_15px_rgba(239,68,68,0.4)] tw-transition-colors tw-cursor-pointer"
               >
                 Review Fields

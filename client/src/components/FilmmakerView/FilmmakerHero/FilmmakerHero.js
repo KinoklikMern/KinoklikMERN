@@ -58,61 +58,56 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
     <>
       <div className="tw-w-full">
 
-        {/*
-          Outer wrapper is tw-relative so the photo can be absolutely positioned
-          against it. The inner banner div handles its own overflow-hidden for
-          the image crop — the photo lives OUTSIDE that div so it is never clipped.
-        */}
-        <div className="tw-relative" style={{ paddingBottom: PHOTO_OVERLAP }}>
+        {/* ── Banner ── */}
+        <div className="tw-relative tw-w-full tw-h-[280px] md:tw-h-[360px] tw-overflow-hidden tw-bg-[#280D41]">
+          {isBannerVideo ? (
+            <video
+              src={bannerSrc}
+              muted
+              playsInline
+              preload="metadata"
+              className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+            />
+          ) : (
+            <img
+              src={bannerSrc}
+              alt="Filmmaker banner"
+              className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+            />
+          )}
+          <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039] tw-via-transparent tw-to-transparent" />
 
-          {/* ── Banner ── */}
-          <div className="tw-relative tw-w-full tw-h-[280px] md:tw-h-[360px] tw-overflow-hidden tw-bg-[#280D41]">
-            {isBannerVideo ? (
-              <video
-                src={bannerSrc}
-                muted
-                playsInline
-                preload="metadata"
-                className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
-              />
-            ) : (
-              <img
-                src={bannerSrc}
-                alt="Filmmaker banner"
-                className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
-              />
-            )}
-            <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039] tw-via-transparent tw-to-transparent" />
+          {/* Play button — only on video banners when not editing */}
+          {isBannerVideo && !isEditMode && (
+            <button
+              onClick={() => setIsVideoModalOpen(true)}
+              className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-transparent tw-border-none tw-cursor-pointer tw-group"
+            >
+              <div className="tw-flex tw-h-16 tw-w-16 tw-items-center tw-justify-center tw-rounded-full tw-bg-white/20 tw-backdrop-blur-sm tw-border tw-border-white/30 tw-transition-all tw-duration-200 group-hover:tw-scale-110 group-hover:tw-bg-white/30">
+                <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-xl tw-ml-1" />
+              </div>
+            </button>
+          )}
 
-            {/* Play button — only on video banners when not editing */}
-            {isBannerVideo && !isEditMode && (
-              <button
-                onClick={() => setIsVideoModalOpen(true)}
-                className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-transparent tw-border-none tw-cursor-pointer tw-group"
-              >
-                <div className="tw-flex tw-h-16 tw-w-16 tw-items-center tw-justify-center tw-rounded-full tw-bg-white/20 tw-backdrop-blur-sm tw-border tw-border-white/30 tw-transition-all tw-duration-200 group-hover:tw-scale-110 group-hover:tw-bg-white/30">
-                  <FontAwesomeIcon icon={faPlay} className="tw-text-white tw-text-xl tw-ml-1" />
-                </div>
-              </button>
-            )}
+          {isEditMode && (
+            <button
+              onClick={() => setIsBannerModalOpen(true)}
+              className="tw-absolute tw-top-4 tw-right-4 tw-flex tw-items-center tw-gap-2 tw-bg-black/60 hover:tw-bg-black/80 tw-text-white tw-text-xs tw-font-bold tw-uppercase tw-px-4 tw-py-2 tw-rounded-lg tw-border tw-border-white/20 tw-transition-colors tw-cursor-pointer"
+            >
+              <FontAwesomeIcon icon={faCamera} />
+              <span className="tw-hidden sm:tw-inline">Change Banner</span>
+            </button>
+          )}
+        </div>
 
-            {isEditMode && (
-              <button
-                onClick={() => setIsBannerModalOpen(true)}
-                className="tw-absolute tw-top-4 tw-right-4 tw-flex tw-items-center tw-gap-2 tw-bg-black/60 hover:tw-bg-black/80 tw-text-white tw-text-xs tw-font-bold tw-uppercase tw-px-4 tw-py-2 tw-rounded-lg tw-border tw-border-white/20 tw-transition-colors tw-cursor-pointer"
-              >
-                <FontAwesomeIcon icon={faCamera} />
-                <span className="tw-hidden sm:tw-inline">Change Banner</span>
-              </button>
-            )}
-          </div>
-
-          {/* ── Profile photo — outside the overflow-hidden banner ── */}
-          <div
-            className="tw-absolute tw-left-6 md:tw-left-12 tw-group"
-            style={{ bottom: 0 }}
-            onClick={() => !isEditMode && setExpandedImage(photoSrc)}
-          >
+        {/* ── Photo + Name row — photo bleeds into banner via negative margin ── */}
+        <div
+          className="tw-flex tw-flex-row tw-items-center tw-px-6 md:tw-px-12 tw-gap-4 md:tw-gap-6 tw-pb-8"
+          style={{ marginTop: `-${PHOTO_OVERLAP}px` }}
+          onClick={() => !isEditMode && setExpandedImage(photoSrc)}
+        >
+          {/* Profile photo */}
+          <div className="tw-relative tw-shrink-0 tw-z-10 tw-group">
             <img
               src={photoSrc}
               alt={`${filmmakerInfo?.firstName} ${filmmakerInfo?.lastName}`}
