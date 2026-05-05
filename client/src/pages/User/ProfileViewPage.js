@@ -153,15 +153,20 @@ function ProfileViewPage() {
   };
 
   const handleShow = (modalType) => {
-    console.log("handleShow triggered for:", modalType);
-    if (modalType === 'login') {
+    if (!user) {
       setShowLoginModal(true);
-    } else if (user) {
-      switch (modalType) {
-        case 'message': setShowMessageModal(true); break;
-      }
-    } else {
-      setShowLoginModal(true);
+      return;
+    }
+ 
+    switch (modalType) {
+      case 'message':
+        setShowMessageModal(true);
+        break;
+      case 'recommend':
+        setShowRecommendModal(true);
+        break;
+      default:
+        break;
     }
   };
 

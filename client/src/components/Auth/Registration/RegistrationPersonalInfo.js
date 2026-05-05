@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import SignupCss from "./signup.module.css";
 import { useTranslation } from "react-i18next";

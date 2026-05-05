@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faVideo, faPlay, faImages, faXmark, 
   faChevronLeft, faChevronRight  } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +16,7 @@ export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditM
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
-  const headshots = data?.photo_albums?.headshots || [];
+  const headshots = useMemo(() => data?.photo_albums?.headshots || [], [data?.photo_albums?.headshots]);
   const hasMultiple = headshots.length > 1;
 
   const [localHeadshot, setLocalHeadshot] = useState(null);

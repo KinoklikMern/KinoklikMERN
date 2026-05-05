@@ -15,13 +15,11 @@ import Landing10 from "../components/LandingPage/Landing10";
 import { FepkContext } from "../context/FepkContext";
 import FilterTag from "../components/Filter/FilterTag";
 import Landing11 from "../components/LandingPage/Landing11";
-import http from "../http-common";
+import http from "../http-common"; 
 
 function Home() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
   // eslint-disable-next-line no-unused-vars
   const {fepkMaker, setFepkMaker} = React.useContext(FepkContext);
@@ -33,14 +31,19 @@ function Home() {
   useEffect(() => {
     if (!user) return;
     
-    const isActorView = location.pathname === '/actors';
-    const endpoint = isActorView ? 'users/getactors/' : 'fepks/';
-    
-    setIsLoading(true);      
-      http.get(endpoint).then((response) => {
+    const fetchData = async () => {
+      try {
+        const isActorView = location.pathname === '/actors';
+        const endpoint = isActorView ? 'users/getactors/' : 'fepks/';
+        
+        const response = await http.get(endpoint);
         setData(response.data);
-        setIsLoading(false);
-      });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+      
+    fetchData();
   }, [location.pathname, user]); 
 
   return (

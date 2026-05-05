@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
 import EPKFilter from "../Filter/EPKFilter";
 import FilterButton from "../Filter/FilterButton";
-import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
 //import { useTranslation } from "react-i18next";
 
 const HomeBody = ({ role, data }) => {
   // const { t } = useTranslation();
 
-  const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
 
