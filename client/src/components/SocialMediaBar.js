@@ -47,6 +47,9 @@ export default function SocialMediaBar({ socials, iconColor = "#C4C4C4" }) {
       return (number / 1_000_000_000_000).toFixed(1).replace(/\.0$/, '') + 'T';
     }
 
+    return number;
+  };
+
   if (!socials || socials.length === 0) return null;
 
   return (
@@ -77,5 +80,5 @@ export default function SocialMediaBar({ socials, iconColor = "#C4C4C4" }) {
     </div>
   );
 }
-};
+;
 //

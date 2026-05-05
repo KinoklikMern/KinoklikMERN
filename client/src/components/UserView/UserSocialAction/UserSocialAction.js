@@ -9,12 +9,14 @@ import PlusBlackIcon from '../../../images/icons/PlusBlack.svg';
 import StarBlackIcon from '../../../images/icons/StarBlack.svg';
 import RecommendIcon from '../../../images/icons/recommend-icon.svg';
 import MessageIcon from '../../../images/icons/messages.svg'; 
+import NewMessageModal from '../../common/Modals/NewMessageModal';
 
 export default function UserSocialAction({ data, isEditMode, openRecommendModal }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const userId = user?.id || '0';
   const [profileData, setProfileData] = useState(data);
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
   useEffect(() => {
     setProfileData(data);
@@ -45,10 +47,7 @@ export default function UserSocialAction({ data, isEditMode, openRecommendModal 
         });
         break;
       case 'message':
-        const chatUrl = user?.role === 'Filmmaker'
-          ? `/dashboard/chat/${data._id}`
-          : `/userdashboard/chat/${data._id}`;
-        navigate(chatUrl);
+        setShowMessageModal(true);
         break;
       case 'recommend':
         openRecommendModal(); // Now allowed for everyone
@@ -90,26 +89,37 @@ export default function UserSocialAction({ data, isEditMode, openRecommendModal 
   ];
 
   return (
-    <div className="tw-flex tw-flex-row tw-items-center tw-gap-6">
-      {actionList.map((action, index) => (
-        !action.hide && (
-          <div 
-            key={index} 
-            className={`tw-flex tw-flex-col tw-items-center ${
-              action.isDisabled ? "tw-opacity-50 tw-cursor-default" : "tw-cursor-pointer"
-            }`}
-          >
-            <ActionIcon
-              name={action.name}
-              icon={action.icon}
-              number={action.number}
-              handlers={{ clickHandler: () => handleAction(action.name) }}
-              title={action.hover}
-              isActive={false} 
-            />
-          </div>
-        )
-      ))}
-    </div>
+    <>
+      <div className="tw-flex tw-flex-row tw-items-center tw-gap-6">
+        {actionList.map((action, index) => (
+          !action.hide && (
+            <div 
+              key={index} 
+              className={`tw-flex tw-flex-col tw-items-center ${
+                action.isDisabled ? "tw-opacity-50 tw-cursor-default" : "tw-cursor-pointer"
+              }`}
+            >
+              <ActionIcon
+                name={action.name}
+                icon={action.icon}
+                number={action.number}
+                handlers={{ clickHandler: () => handleAction(action.name) }}
+                title={action.hover}
+                isActive={false} 
+              />
+            </div>
+          )
+        ))}
+      </div>
+      {showMessageModal && (
+        <NewMessageModal 
+          close={() => setShowMessageModal(false)} 
+          open={() => setShowMessageModal(true)} 
+          actorId={data?._id} 
+          user={user} 
+          setRefresh={() => {}}
+        />
+      )}
+    </>
   );
 }
