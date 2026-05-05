@@ -142,12 +142,7 @@ function ProfileViewPage() {
   };
 
   const handleClose = (modalType) => {
-    if (user) {
-      switch (modalType) {
-        case 'message': setShowMessageModal(false); break;
-        default: break;
-      }
-    } else {
+    if (modalType === 'login' || !user) {
       setShowLoginModal(false);
     }
   };
