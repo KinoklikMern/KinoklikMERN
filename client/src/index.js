@@ -47,9 +47,9 @@ root.render(
       <SocketProvider>
         <BrowserRouter>
           <ChatProvider>
-              <NotificationProvider>
-                <App />
-              </NotificationProvider>
+            <NotificationProvider>
+              <App />
+            </NotificationProvider>
           </ChatProvider>
         </BrowserRouter>
       </SocketProvider>

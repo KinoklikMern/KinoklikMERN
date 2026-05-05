@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCloudArrowUp, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], onSave, mode = "epk" }) {
+export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], onSave, onSetMain, mode = "epk" }) {
   const [selectedOption, setSelectedOption] = useState("library");
   const [selectedLibraryImage, setSelectedLibraryImage] = useState(null);
   const [localFile, setLocalFile] = useState(null);
@@ -75,9 +75,27 @@ export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], 
             {selectedOption === "library" && (
               <div className="tw-mt-6 tw-flex tw-gap-3 tw-overflow-x-auto custom-scrollbar tw-pb-2">
                 {libraryImages?.length > 0 ? libraryImages.map((img, idx) => (
-                  <div key={idx} onClick={(e) => { e.stopPropagation(); setSelectedLibraryImage(img); }} className={`tw-relative tw-shrink-0 tw-w-[106px] tw-h-[106px] tw-rounded-lg tw-overflow-hidden ${selectedLibraryImage === img ? "tw-border-2 tw-border-[#FF43A7]" : "tw-opacity-60"}`}>
+                  <div key={idx} 
+                  onClick={(e) => { 
+                    e.stopPropagation(); setSelectedLibraryImage(img); }} className={`tw-relative tw-shrink-0 tw-w-[106px] tw-h-[106px] tw-rounded-lg tw-overflow-hidden ${selectedLibraryImage === img ? "tw-border-2 tw-border-[#FF43A7]" : "tw-opacity-60"}`}
+                  >
                     <img src={img.image?.startsWith('http') ? img.image : `${process.env.REACT_APP_AWS_URL}/${img.image}`} alt="option" className="tw-w-full tw-h-full tw-object-cover" />
-                  </div>
+
+                    {selectedLibraryImage === img && (
+                      <div className="tw-absolute tw-inset-0 tw-flex tw-items-end tw-justify-center tw-p-1 tw-bg-black/40">
+                        {img.isMain ? (
+                          <span className="tw-bg-[#FF43A7] tw-text-white tw-text-[9px] tw-font-bold tw-px-2 tw-py-1 tw-rounded">MAIN</span>
+                        ) : (
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); onSetMain(img.image); }}
+                            className="tw-bg-white/90 tw-text-[#570033] tw-text-[9px] tw-font-bold tw-px-2 tw-py-1 tw-rounded hover:tw-bg-white"
+                          >
+                            Set as Main
+                          </button>
+                        )}
+                      </div>
+                    )}
+                 </div>
                 )) : <span className="tw-text-xs tw-text-[#E2BDC9]">Library is empty</span>}
               </div>
             )}

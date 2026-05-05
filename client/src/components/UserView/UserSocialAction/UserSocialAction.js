@@ -11,7 +11,7 @@ import RecommendIcon from '../../../images/icons/recommend-icon.svg';
 import MessageIcon from '../../../images/icons/messages.svg'; 
 import NewMessageModal from '../../common/Modals/NewMessageModal';
 
-export default function UserSocialAction({ data, isEditMode, openRecommendModal }) {
+export default function UserSocialAction({ data, isEditMode, openLoginModal, openRecommendModal, openMessageModal }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const userId = user?.id || '0';
@@ -27,11 +27,10 @@ export default function UserSocialAction({ data, isEditMode, openRecommendModal 
   const handleAction = (type) => {
     if (isEditMode) return;
 
-    // Block interactions with your own profile EXCEPT for recommending
     if (isOwnPage && type !== 'recommend') return;
 
     if (userId === '0') {
-      alert("Please log in to interact.");
+      openLoginModal(); 
       return;
     }
 
@@ -47,10 +46,10 @@ export default function UserSocialAction({ data, isEditMode, openRecommendModal 
         });
         break;
       case 'message':
-        setShowMessageModal(true);
+        openMessageModal();
         break;
       case 'recommend':
-        openRecommendModal(); // Now allowed for everyone
+        openRecommendModal(); 
         break;
       default:
         break;

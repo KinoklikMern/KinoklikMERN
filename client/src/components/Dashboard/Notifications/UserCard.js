@@ -10,7 +10,6 @@ export default function UserCard(props) {
   const { role, firstName, lastName, email, phone, website, id } =
     props.UserInfo;
 
-  // console.log(props.UserInfo);
   const picture =
     props.UserInfo.picture ===
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png"
@@ -20,10 +19,9 @@ export default function UserCard(props) {
   return (
     <>
       {/* mobile version */}
-
       <div className=" tw-flex md:tw-hidden  tw-px-6 tw-py-6 tw-gap-6 tw-rounded-md tw-bg-[#ECF0F1]/75
       tw-shadow-multiSoft">
-        <Link to={`/actor/${id}`}>
+        <Link to={`/user/${id}`}>
           <div className="tw-relative tw-h-20 tw-w-20  tw-overflow-hidden !tw-rounded-md">
             <img className="tw-w-full tw-h-full tw-object-cover !tw-rounded-none !tw-m-0 "
               src={picture} alt={`${firstName} ${lastName} `} />
@@ -31,7 +29,7 @@ export default function UserCard(props) {
           </div>
         </Link>
         <div className="sm:tw-text-md tw-flex tw-flex-col  tw-justify-end tw-gap-1 tw-text-[#1E0039] tw-text-lg ">
-          <Link to={`/actor/${id}`}>
+          <Link to={`/user/${id}`}>
             <div >{`${firstName} ${lastName}`}</div>
           </Link>
           <div className="tw-min-h-[20px]">
@@ -50,7 +48,7 @@ export default function UserCard(props) {
       <div className="tw-hidden md:tw-block tw-py-2 sm:tw-py-3">
         <div className="tw-flex tw-items-center tw-border-b-2 md:tw-gap-8">
           <div className="tw-relative tw-m-3 tw-flex-shrink-0">
-            <Link to={`/actor/${props.UserInfo.id}`}>
+            <Link to={`/user/${props.UserInfo.id}`}>
               <div
                 className="tw-h-20 tw-w-20 tw-rounded-lg tw-bg-cover tw-bg-center tw-bg-no-repeat"
                 style={{ backgroundImage: `url(${picture})` }}
@@ -69,7 +67,7 @@ export default function UserCard(props) {
             style={{ maxWidth: "30%" }}
           >
             <div>
-              <Link to={`/actor/${id}`}>
+              <Link to={`/user/${id}`}>
                 <p className="tw-truncate tw-text-lg tw-font-medium tw-text-gray-900">
                   {firstName} {lastName}
                 </p>

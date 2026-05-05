@@ -36,7 +36,7 @@ export default function RequestCardMobile({ request, filter, onMessageIconClick,
       tw-bg-[#ECF0F1]/75
       tw-shadow-multiSoft">
         <div className="tw-flex tw-gap-6">
-          <Link to={`/actor/${user._id}`}>
+          <Link to={`/user/${user._id}`}>
             <div className="
         tw-relative 
         tw-h-20 
@@ -68,7 +68,7 @@ export default function RequestCardMobile({ request, filter, onMessageIconClick,
         tw-gap-1
         tw-text-[#1E0039] 
         tw-text-md ">
-            <Link to={`/actor/${user._id}`}>
+            <Link to={`/user/${user._id}`}>
               <div >{`${user.firstName} ${user.lastName}`}</div>
             </Link>
             <div className="tw-min-h-[20px]">

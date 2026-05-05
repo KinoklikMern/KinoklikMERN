@@ -22,7 +22,8 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
   const sliderRef = useRef(null);
   const fileInputRef = useRef(null);
 
-  const [expandedImage, setExpandedImage] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [photoToDelete, setPhotoToDelete] = useState(null);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
@@ -39,7 +40,7 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
     };
   }, [data]);
 
-  const images = albums[activeCategory] || [];
+  const currentCategoryImages = albums[activeCategory] || [];
 
   const handleScroll = (dir) => {
     if (sliderRef.current) {
@@ -164,17 +165,17 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
                   </div>
                 )}
 
-                {images.map((item, idx) => (
+                {currentCategoryImages.map((item, idx) => (
                   <div 
                     key={idx} 
-                    onClick={() => !isEditMode && setExpandedImage(item.image?.startsWith('http') ? item.image : `${process.env.REACT_APP_AWS_URL}/${item.image}`)}
+                    onClick={() => !isEditMode && setExpandedIndex(idx)}
                     className="tw-shrink-0 tw-snap-center tw-relative tw-w-[140px] md:tw-w-[240px] tw-h-[210px] md:tw-h-[360px] tw-bg-[#1F0439] tw-rounded-xl tw-overflow-hidden tw-group tw-cursor-pointer tw-shadow-lg"
-                  >
-                    <img 
-                      src={item.image?.startsWith('http') ? item.image : `${process.env.REACT_APP_AWS_URL}/${item.image}`} 
-                      alt="Gallery" 
-                      className="tw-w-full tw-h-full tw-object-cover group-hover:tw-scale-105 tw-transition-transform tw-duration-500"
-                    />
+                   >
+                      <img 
+                       src={item.image?.startsWith('http') ? item.image : `${process.env.REACT_APP_AWS_URL}/${item.image}`} 
+                        alt="Gallery" 
+                        className="tw-w-full tw-h-full tw-object-cover group-hover:tw-scale-105 tw-transition-transform tw-duration-500"
+                      />
                     
                     {isEditMode && (
                       <div className="tw-absolute tw-top-3 tw-right-3 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
@@ -193,6 +194,43 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
           </div>
         </div>
       </div>
+
+      {/* LIGHTBOX MODAL */}
+      {expandedIndex !== null && (
+        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4">
+          <button 
+            className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-z-50" 
+            onClick={() => setExpandedIndex(null)}
+          >
+            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
+          </button>
+
+          {/* Navigation Arrows */}
+          {currentCategoryImages.length > 1 && (
+            <>
+              <button 
+                onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev - 1 + currentCategoryImages.length) % currentCategoryImages.length); }}
+                className="tw-absolute tw-left-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl"
+              >
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+              <button 
+                onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev + 1) % currentCategoryImages.length); }}
+                className="tw-absolute tw-right-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl"
+              >
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            </>
+          )}
+
+          <img 
+            src={currentCategoryImages[expandedIndex].image?.startsWith('http') ? currentCategoryImages[expandedIndex].image : `${process.env.REACT_APP_AWS_URL}/${currentCategoryImages[expandedIndex].image}`} 
+            alt="Expanded" 
+            className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg shadow-2xl" 
+          />
+        </div>
+      )}
+
       {deleteModalOpen && (
         <div className="tw-fixed tw-inset-0 tw-z-[1100] tw-flex tw-items-center tw-justify-center tw-bg-black/80 tw-backdrop-blur-sm">
           <div className="tw-bg-[#280D41] tw-border tw-border-[#5A3F49] tw-p-8 tw-rounded-2xl tw-max-w-sm tw-w-full tw-text-center">

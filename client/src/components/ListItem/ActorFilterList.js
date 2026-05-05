@@ -1,24 +1,20 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useMemo } from "react";
-import http from "../../http-common";
-import "./ListItemActor.css";
+import http from "../../http-common.js";
+import "./ActorFilterList.css";
 import { AGE_OPTIONS } from '../../constants/AgeOptions.js';
 import { Link } from "react-router-dom";
 
-export default function ListItem({ title, type }) {
-  //const { user } = useSelector(({ user }) => ({ user }));
-
+export default function ActorFilterList({ title, type }) {
   const selectUserData = useMemo(() => (state) => state.user, []);
-  const user = useSelector(selectUserData);
+  //const user = useSelector(selectUserData);
 
   const titleToEndpoint = {
     all_actors: "users/getactors",
-    // Add more titles and corresponding endpoints as needed
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const id = user?.id || "0";
+  //const id = user?.id || "0";
   const [actors, setActors] = useState([]);
 
   useEffect(() => {
@@ -95,7 +91,7 @@ export default function ListItem({ title, type }) {
     <>
       {actors?.map((actor) => (
         <div className="listItemactor" key={actor._id}>
-          <Link to={`/actor/${actor._id}`}>
+          <Link to={`/user/${actor._id}`}>
             <img
               className="actor-image"
               src={
