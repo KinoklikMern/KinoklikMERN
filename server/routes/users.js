@@ -38,6 +38,8 @@ import {
   getGenericFollowers,
   getGenericLikes,
   getGenericRecommendations,
+  searchUsers,
+  getFeaturedActor,
 } from '../controllers/users.js';
 import {
   validate,
@@ -103,6 +105,8 @@ router.post('/recommend/:targetid', getGenericRecommendations);
 //router.post('/actorthumbnail', upload.single('file'), uploadActorThumbnail);
 
 router.get('/getallusers', getAllUsers);
+router.get('/search', searchUsers);
+router.get('/featured-actor', getFeaturedActor);
 
 //TODO: Delete?
 //router.post('/actorbanner', upload.single('file'), uploadActorBanner);

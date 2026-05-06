@@ -50,11 +50,11 @@ export default function SavedPage() {
       http.get(`/users/starred/${userId}`),
     ])
       .then(([starFepk, followFepk, buyFepk, actorsFollowed, actorsStarred]) => {
-        setStarEpkList(starFepk.data);
-        setFollowEpkList(followFepk.data);
-        setBuyEpkList(buyFepk.data);
-        setActorFollowedList(actorsFollowed.data);
-        setActorStarredList(actorsStarred.data);
+        setStarEpkList(Array.isArray(starFepk.data) ? starFepk.data : []);
+        setFollowEpkList(Array.isArray(followFepk.data) ? followFepk.data : []);
+        setBuyEpkList(Array.isArray(buyFepk.data) ? buyFepk.data : []);
+        setActorFollowedList(Array.isArray(actorsFollowed.data) ? actorsFollowed.data : []);
+        setActorStarredList(Array.isArray(actorsStarred.data) ? actorsStarred.data : []);
         setLoading(false);
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ export default function SavedPage() {
 
     if (user?.token) {
       getMyCollaborations(user.token)
-        .then((res) => setCollaborationList(res))
+        .then((res) => setCollaborationList(Array.isArray(res) ? res : []))
         .catch((err) => console.error("Collaborations fetch error:", err));
     }
   }, [userId, user?.token]);
@@ -233,7 +233,7 @@ export default function SavedPage() {
             <>
               {itemFilter === 2 ? (
                 /* SHARED WITH ME */
-                collaborationList.length === 0 ? (
+                !Array.isArray(collaborationList) || collaborationList.length === 0 ? (
                   <div className="tw-flex tw-h-full tw-items-center tw-justify-center tw-py-20">
                     <p className="tw-text-2xl tw-font-light tw-text-gray-600">{t("No EPKs shared with you yet.")}</p>
                   </div>

@@ -1,6 +1,9 @@
 import axios from "axios";
 import http from "./../http-common";
 
+export const searchFepks = (q) =>
+  http.get(`/fepks/search?q=${encodeURIComponent(q)}&limit=10`).then((r) => r.data);
+
 export const getAllFepks = () => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/fepks`, {
