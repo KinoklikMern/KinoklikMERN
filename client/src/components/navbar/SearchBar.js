@@ -1,54 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import SearchIcon from "../../images/icons/SearchIcon.svg";
-import { getAllFepks } from "../../api/epks";
-import { getAllUsers } from "../../api/users";
+import { searchUsers } from "../../api/users";
+import { searchFepks } from "../../api/epks";
 import emptyBanner from "../../images/empty_banner.jpeg";
 
 export default function SearchBar() {
-  const [finalSearchList, setFinalSearchList] = useState([]);
   const [searchList, setSearchList] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [searchChar, setSearchChar] = useState("");
-  
-
-  useEffect(() => {
-    const fetchAllData = async () => {
-      try {
-        const [fepks, users] = await Promise.all([getAllFepks(), getAllUsers()]);
-        
-        setFinalSearchList([...fepks, ...users]);
-      } catch (error) {
-        console.error("Error fetching search data:", error);
-      }
-    };
-
-    fetchAllData();
-  }, []);
+  const debounceRef = useRef(null);
 
   const searchHandler = (e) => {
-    setSearchChar(e.target.value);
-    const searchString = e.target.value.toLowerCase();
+    const query = e.target.value;
 
-    if (!searchString.trim()) {
+    clearTimeout(debounceRef.current);
+
+    if (!query.trim() || query.trim().length < 2) {
       setSearchList([]);
-    } else {
-      setSearchList(
-        finalSearchList?.filter((item) => {
-          if (item.title && item.title.toLowerCase().includes(searchString)) {
-            return true;
-          }
-          else if (
-            (item.firstName &&
-              item.firstName.toLowerCase().includes(searchString)) ||
-            (item.lastName &&
-              item.lastName.toLowerCase().includes(searchString))
-          ) {
-            return true;
-          }
-          return false;
-        })
-      );
+      return;
     }
+
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const [users, fepks] = await Promise.all([
+          searchUsers(query.trim()),
+          searchFepks(query.trim()),
+        ]);
+        setSearchList([...(fepks || []), ...(users || [])]);
+      } catch (err) {
+        console.error("Search failed:", err);
+      }
+    }, 300);
   };
 
   return (
@@ -62,14 +42,10 @@ export default function SearchBar() {
           />
           {searchList.length !== 0 && (
             <div className="tw-absolute tw-z-[9999] tw-top-full tw-right-0 tw-w-64 tw-max-h-56 tw-divide-y tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039] tw-shadow-2xl">
-              {searchList?.map((item) => (
+              {searchList.map((item) => (
                 <a
                   key={item._id}
-                  href={
-                    item.title
-                      ? `/epk/${item.title.replace(/ /g, "-").trim()}`
-                      : `/user/${item._id}`
-                  }
+                  href={item.title ? `/epk/${item._id}` : `/user/${item._id}`}
                   className="tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105"
                 >
                   <p>{item.title || `${item.firstName} ${item.lastName}`}</p>

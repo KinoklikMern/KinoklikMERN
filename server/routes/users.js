@@ -40,6 +40,8 @@ import {
   getGenericFollowers,
   getGenericLikes,
   getGenericRecommendations,
+  searchUsers,
+  getFeaturedActor,
 } from '../controllers/users.js';
 import {
   validate,
@@ -107,6 +109,8 @@ router.post('/recommend/:targetid', getGenericRecommendations);
 // upload actor thumbnail
 router.post('/actorthumbnail', upload.single('file'), uploadActorThumbnail);
 router.get('/getallusers', getAllUsers);
+router.get('/search', searchUsers);
+router.get('/featured-actor', getFeaturedActor);
 
 // upload actor banner
 router.post('/actorbanner', upload.single('file'), uploadActorBanner);

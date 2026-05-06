@@ -41,7 +41,9 @@ import {
   removeCollaborator,
   listCollaborators,
   getMyCollaborations,
-  deleteFepkMediaBatch
+  deleteFepkMediaBatch,
+  searchFepks,
+  getFeaturedFepk,
 } from "../controllers/fepk.js";
 import { canEditEpk } from "../middleware/canEditEpk.js";
 import { authUser } from "../middleware/auth.js";
@@ -117,6 +119,8 @@ router.delete("/:epkId/collaborators/:userId", authUser, canEditEpk, removeColla
 router.get("/byTitle/:title", getFepkByTitle);
 
 // Gets FEPK by FEPK's id — keep this late to avoid swallowing other routes
+router.get("/search", searchFepks);
+router.get("/featured", getFeaturedFepk);
 router.get("/:id", getFepkbyId);
 
 // Create FEPK

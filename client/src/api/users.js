@@ -15,6 +15,9 @@ export const login = async (email, password) => {
   }
 };
 
+export const searchUsers = (q) =>
+  http.get(`/users/search?q=${encodeURIComponent(q)}&limit=10`).then((r) => r.data);
+
 export const getAllUsers = () => {
   try {
     return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getactors`, {

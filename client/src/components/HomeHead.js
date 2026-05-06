@@ -8,36 +8,14 @@ const HomeHead = (props) => {
   const [fepk, setFepk] = useState({});
   const [actor, setActor] = useState({});
 
-  //showing the latest added movie
   useEffect(() => {
     if (props.role === 'actor') {
-      http.get(`users/getactors/`).then((response) => {
-        // Find the most recent actor with a bannerImg and picture
-        const validActor = response.data
-          .slice()
-          .reverse()
-          .find(
-            (actor) =>
-              // actor.bannerImg &&
-              // !actor.bannerImg.startsWith("https") &&
-              actor.thumbnail &&
-              !actor.thumbnail.startsWith('https') &&
-              actor.picture &&
-              !actor.picture.startsWith('https')
-          );
-        if (validActor) {
-          setActor(validActor);
-        }
+      http.get('users/featured-actor').then((response) => {
+        if (response.data) setActor(response.data);
       });
     } else {
-      http.get(`fepks/`).then((response) => {
-        // Find the most recent fepk with both banner_url and image_details
-        const validFepk = response.data
-          .slice()
-          .find((fepk) => fepk.banner_url && fepk.image_details);
-        if (validFepk) {
-          setFepk(validFepk);
-        }
+      http.get('fepks/featured').then((response) => {
+        if (response.data) setFepk(response.data);
       });
     }
   }, [props.role]);
