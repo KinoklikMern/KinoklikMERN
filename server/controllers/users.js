@@ -558,7 +558,8 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-export const actorUploadFiles = async (req, res) => {
+// TODO - delete?
+/*export const actorUploadFiles = async (req, res) => {
   const id = req.params.id;
   try {
     const userOne = await User.findOne({ _id: id });
@@ -591,6 +592,7 @@ export const actorUploadFiles = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+*/
 
 // upload user avatar file to S3
 export const uploadUserAvatar = async (req, res) => {
@@ -817,9 +819,12 @@ export const getGenericRecommendations = async (req, res) => {
 //  }
 //};
 
-export const getProfileActor = async (req, res) => {
+export const getAllActors = async (req, res) => {
   try {
-    const profile = await User.find({ role: 'Actor' })
+    const profile = await User.find({ 
+      role: 'Actor', 
+      deleted: false 
+    })
       .select('-password')
       .sort({ createdAt: 1 });
     if (!profile.length) {
@@ -831,7 +836,6 @@ export const getProfileActor = async (req, res) => {
   }
 };
 
-//get all users
 export const getAllUsers = async (req, res) => {
   try {
     const profile = await User.find().select('-password');
@@ -845,7 +849,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 // get starred actor
-export const getActoStarred = async (req, res) => {
+export const getActorStarred = async (req, res) => {
   try {
     const profile = await User.find({ role: 'Actor' })
       .where({ likes: { $in: [req.params.id] } })
@@ -1020,29 +1024,10 @@ export const getActorLikes = async (req, res) => {
   }
 };
 
-// Increment the recommendation count for an actor on KinoKlik
-export const getActorRecommendations = async (req, res) => {
-  try {
-
-    const actorId = req.params.actorid;
-    const count = req.body.count; // The count of selected filmmakers
-    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
-
-    if (!actorProfile) {
-      return res.status(404).json({ error: 'No Actor was found!' });
-    }
-
-    actorProfile.recommendations = (actorProfile.recommendations || 0) + count;
-    await actorProfile.save();
-
-    res.json({ recommendations: actorProfile.recommendations });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 // upload user(actor) thumbnail of the demo reel
-export const uploadActorThumbnail = async (req, res) => {
+//TODO: delete?
+/*export const uploadActorThumbnail = async (req, res) => {
   const file = req.file;
   const result = await uploadFileToS3(file);
   if (!result) {
@@ -1050,7 +1035,7 @@ export const uploadActorThumbnail = async (req, res) => {
   } else {
     res.status(200).send({ key: result.Key });
   }
-};
+};*/
 
 export const getUserById = async (req, res) => {
   const { id } = req.params;

@@ -11,7 +11,7 @@ const HomeHead = (props) => {
   //showing the latest added movie
   useEffect(() => {
     if (props.role === 'actor') {
-      http.get(`users/getactors/`).then((response) => {
+      http.get(`users/getallactors/`).then((response) => {
         // Find the most recent actor with a bannerImg and picture
         const validActor = response.data
           .slice()

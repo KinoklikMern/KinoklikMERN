@@ -15,9 +15,19 @@ export const login = async (email, password) => {
   }
 };
 
+export const getAllActors = () => {
+  try {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getallactors`, {
+      method: "GET",
+    }).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getAllUsers = () => {
   try {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getactors`, {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getusers`, {
       method: "GET",
     }).then((res) => res.json());
   } catch (error) {

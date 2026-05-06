@@ -5,7 +5,7 @@ import multer from 'multer';
 import {
   deleteUserMediaBatch,
   uploadUserMedia,
-  actorUploadFiles,
+  //actorUploadFiles,
   register,
   verifyEmail,
   resendEmailVerificationToken,
@@ -19,21 +19,20 @@ import {
   uploadUserAvatar,
   changePassword,
   deleteAccount,
-  getProfileActor,
-  getActoStarred,
+  getAllActors,
+  getActorStarred,
   getActorFollowing,
   getFollowers,
-  uploadActorBanner,
+  //uploadActorBanner,
   getLikes,
   getFollowingActor,
   getMostLikes,
   getMostFollowed,
   getActorFollowers,
   getActorLikes,
-  uploadActorThumbnail,
+  //uploadActorThumbnail,
   getAllUsers,
   getUserById,
-  getActorRecommendations,
   updateLastActive,
   signupForNewsletter,
   getGenericFollowers,
@@ -85,8 +84,8 @@ router.put('/changePassword', authUser, changePassword);
 router.delete('/deleteAccount/:userId', authUser, deleteAccount);
 
 // actor routes
-router.get('/getactors', getProfileActor);
-router.get('/starred/:id', getActoStarred);
+router.get('/getallactors', getAllActors);
+router.get('/starred/:id', getActorStarred);
 router.get('/followed/:id', getActorFollowing);
 router.get('/getfollower/:id', getFollowers);
 router.get('/getfollowing/:id', getFollowingActor);
@@ -99,24 +98,23 @@ router.post('/like/:targetid/:userid', getGenericLikes);
 router.post('/recommend/:targetid', getGenericRecommendations);
 
 // Calling these APIs will add user to the appropriate list of likes(star), favourites,
-// upload actor thumbnail
-router.post('/actorthumbnail', upload.single('file'), uploadActorThumbnail);
+
+//TODO: Delete?
+//router.post('/actorthumbnail', upload.single('file'), uploadActorThumbnail);
+
 router.get('/getallusers', getAllUsers);
 
-// upload actor banner
-router.post('/actorbanner', upload.single('file'), uploadActorBanner);
+//TODO: Delete?
+//router.post('/actorbanner', upload.single('file'), uploadActorBanner);
 
-router.post(
-  '/user/uploadFiles',
-  upload.array('portfolio', 10), // Allow up to 10 files under the name 'portfolio'
-  uploadUserMedia,
-);
+//TODO: delete?
+//router.post( '/user/uploadFiles', upload.array('portfolio', 10), uploadUserMedia,);
 
 //delete media from S3
 router.post('/user/deleteMediaBatch', authUser, deleteUserMediaBatch);
 
-// final save in actor profiles
-router.put('/actor/files/:id', actorUploadFiles);
+//TODO: delete?
+//router.put('/actor/files/:id', actorUploadFiles);
 
 router.put('/lastactive/:id', updateLastActive);
 router.put('/signupfornewsletter', signupForNewsletter);
