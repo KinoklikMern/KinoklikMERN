@@ -373,7 +373,7 @@ export const logout = async (req, res) => {
   return res.status(200).json({ message: 'Successfully Logged Out' });
 };
 
-export const getProfile = async (req, res) => {
+export const getUserByEmail = async (req, res) => {
   try {
     const { email } = req.params;
     const profile = await User.findOne({ email }).select('-password');
@@ -803,22 +803,6 @@ export const getGenericRecommendations = async (req, res) => {
   }
 };
 
-//**************************************************************************/
-//TODO Do we need get actor by name?
-//export const getActor = async (req, res) => {
-//  try {
-//    const actorFind = await User.findOne({
-//      role: 'Actor',
-//      firstName: req.body.firstName,
-//      lastName: req.body.lastName,
-//    });
-
-//    res.json(actorFind);
-//  } catch (error) {
-//    res.status(404).json({ message: error.message });
-//  }
-//};
-
 export const getAllActors = async (req, res) => {
   try {
     const profile = await User.find({ 
@@ -971,72 +955,6 @@ export const getFollowers = async (req, res) => {
   }
 };
 
-// ----- CHIHYIN -----
-// adding user who followed the actor on KinoKlik
-export const getActorFollowers = async (req, res) => {
-  try {
-    const actorId = req.params.actorid;
-    const userId = req.params.userid;
-    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
-    if (!actorProfile) {
-      return res.status(404).json({ error: 'No Actor was found!' });
-    }
-    let iskkFollowed = actorProfile.kkFollowers.includes(userId);
-    if (!iskkFollowed) {
-      actorProfile.kkFollowers.push(userId);
-    } else {
-      actorProfile.kkFollowers.pull(userId);
-    }
-    await actorProfile.save();
-    const updatedActorProfile = await User.findOne({
-      role: 'Actor',
-      _id: actorId,
-    }).select({ kkFollowers: 1 });
-    res.json({ ...updatedActorProfile.toObject() });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// adding user who liked the actor on KinoKlik
-export const getActorLikes = async (req, res) => {
-  try {
-    const actorId = req.params.actorid;
-    const userId = req.params.userid;
-    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
-    if (!actorProfile) {
-      return res.status(404).json({ error: 'No Actor was found!' });
-    }
-    let isLiked = actorProfile.likes.includes(userId);
-    if (!isLiked) {
-      actorProfile.likes.push(userId);
-    } else {
-      actorProfile.likes.pull(userId);
-    }
-    await actorProfile.save();
-    const updatedActorProfile = await User.findOne({
-      role: 'Actor',
-      _id: actorId,
-    }).select({ likes: 1 });
-    res.json({ ...updatedActorProfile.toObject() });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-
-// upload user(actor) thumbnail of the demo reel
-//TODO: delete?
-/*export const uploadActorThumbnail = async (req, res) => {
-  const file = req.file;
-  const result = await uploadFileToS3(file);
-  if (!result) {
-    res.status(406).send({ message: 'File extention not supported!' });
-  } else {
-    res.status(200).send({ key: result.Key });
-  }
-};*/
-
 export const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -1054,7 +972,6 @@ export const getUserById = async (req, res) => {
   }
 };
 
-// Dedicated route for Admin/System use
 export const getDeletedUserById = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id, deleted: true })
