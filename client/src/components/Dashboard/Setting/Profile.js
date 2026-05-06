@@ -2,7 +2,6 @@ import Axios from 'axios';
 import { useSelector, shallowEqual } from 'react-redux';
 import { React, useEffect, useState } from 'react';
 import {
-  validatename,
   validatePhone,
   validateWebsite,
   validateFollowers,
@@ -21,29 +20,14 @@ export default function Profile() {
   const [isUploading, setIsUploading] = useState(false);
 
   const [userProfileData, setUserProfileData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     phone: '',
     website: '',
     city: '',
     province: '',
     country: '',
-    facebook_url: '',
-    facebook_followers: '',
-    instagram_url: '',
-    instagram_followers: '',
     role: '',
     specialization: '',
-    twitter_url: '',
-    twitter_followers: '',
-    youtube_subs: '',
-    youtube_url: '',
-    linkedin_followers: '',
-    linkedin_url: '',
-    tiktok_url: '',
-    tiktok_followers: '',
-    newsletter_subs: '',
     picture: '',
   });
   
@@ -103,9 +87,7 @@ export default function Profile() {
     const { name, value } = event.target;
     let error = '';
   
-      if (name === 'firstName' || name === 'lastName') {
-        error = validatename(value) ? '' : t('Required field (min 3 chars)');
-      } else if (name === 'phone') {
+      if (name === 'phone') {
         error = validatePhone(value) ? '' : t('Invalid phone number');
       } else if (name.includes('url') || name === 'website') {
         error = validateWebsite(value) ? '' : t('Invalid URL');
@@ -134,6 +116,7 @@ export default function Profile() {
     setDisabled(false);
   };
 
+
   async function saveUserProfile() {
     if (Object.values(validationErrors).some((error) => error)) {
       toast.warning(t('Please fix the validation errors before saving.'));
@@ -161,29 +144,6 @@ export default function Profile() {
 
       <div className="tw-flex tw-h-full tw-flex-col lg:tw-flex-row">
         <div className="tw-mx-4 tw-my-8 tw-flex tw-flex-col lg:tw-w-1/3">
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            value={userProfileData.firstName}
-            onChange={handleProfileChange}
-            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-          />
-          {validationErrors.firstName && (
-            <div className="tw-text-red-500">{validationErrors.firstName}</div>
-          )}
-
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            value={userProfileData.lastName}
-            onChange={handleProfileChange}
-            className="tw-my-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] placeholder:tw-text-slate-400 lg:tw-w-3/4"
-          />
-          {validationErrors.lastName && (
-            <div className="tw-text-red-500">{validationErrors.lastName}</div>
-          )}
 
           <input
             type="text"
@@ -295,187 +255,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <hr className="tw-my-4 tw-border-gray-400" />
-      <div className="tw-mx-auto tw-my-8 tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
-        <div className="tw-mx-auto tw-flex tw-items-center">
-          <i className="fa-brands fa-facebook tw-text-4xl"></i>
-          <input
-            type="text"
-            name="facebook_url"
-            placeholder="URL"
-            value={userProfileData.facebook_url}
-            onChange={handleProfileChange}
-            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44_176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.facebook_url && (
-            <div className="tw-text-red-500">
-              {validationErrors.facebook_url}
-            </div>
-          )}
-          <input
-            type="text"
-            name="facebook_followers"
-            placeholder={t('Followers')}
-            value={userProfileData.facebook_followers}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-        </div>
-        {validationErrors.facebook_followers && (
-          <div className="tw-text-red-500">
-            {validationErrors.facebook_followers}
-          </div>
-        )}
-
-        <div className="tw-mx-auto tw-flex tw-items-center">
-          <i className="fa-brands fa-instagram tw-text-4xl"></i>
-          <input
-            type="text"
-            name="instagram_url"
-            placeholder="URL"
-            value={userProfileData.instagram_url}
-            onChange={handleProfileChange}
-            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.instagram_url && (
-            <div className="tw-text-red-500">
-              {validationErrors.instagram_url}
-            </div>
-          )}
-          <input
-            type="text"
-            name="instagram_followers"
-            placeholder={t('Followers')}
-            value={userProfileData.instagram_followers}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.instagram_followers && (
-            <div className="tw-text-red-500">
-              {validationErrors.instagram_followers}
-            </div>
-          )}
-        </div>
-
-        <div className="tw-mx-auto tw-flex tw-items-center">
-          <i className="fa-brands fa-twitter tw-text-4xl"></i>
-          <input
-            type="text"
-            name="twitter_url"
-            placeholder="URL"
-            value={userProfileData.twitter_url}
-            onChange={handleProfileChange}
-            className="tw-ml-3 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.twitter_url && (
-            <div className="tw-text-red-500">
-              {validationErrors.twitter_url}
-            </div>
-          )}
-          <input
-            type="text"
-            name="twitter_followers"
-            placeholder={t('Followers')}
-            value={userProfileData.twitter_followers}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.twitter_followers && (
-            <div className="tw-text-red-500">
-              {validationErrors.twitter_followers}
-            </div>
-          )}
-        </div>
-
-        <div className="tw-mx-auto tw-flex tw-items-center">
-          <i className="fa-brands fa-youtube tw-text-4xl"></i>
-          <input
-            type="text"
-            name="youtube_url"
-            placeholder="URL"
-            value={userProfileData.youtube_url}
-            onChange={handleProfileChange}
-            className="tw-ml-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.youtube_url && (
-            <div className="tw-text-red-500">
-              {validationErrors.youtube_url}
-            </div>
-          )}
-          <input
-            type="text"
-            name="youtube_subs"
-            placeholder={t('Subscriptions')}
-            value={userProfileData.youtube_subs}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.youtube_subs && (
-            <div className="tw-text-red-500">
-              {validationErrors.youtube_subs}
-            </div>
-          )}
-        </div>
-
-        <div className="tw-mx-auto tw-flex tw-items-center">
-          <i className="fa-brands fa-linkedin tw-text-4xl"></i>
-          <input
-            type="text"
-            name="linkedin_url"
-            placeholder="URL"
-            value={userProfileData.linkedin_url}
-            onChange={handleProfileChange}
-            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.linkedin_url && (
-            <div className="tw-text-red-500">
-              {validationErrors.linkedin_url}
-            </div>
-          )}
-          <input
-            type="text"
-            name="linkedin_followers"
-            placeholder={t('Followers')}
-            value={userProfileData.linkedin_followers}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.linkedin_followers && (
-            <div className="tw-text-red-500">
-              {validationErrors.linkedin_followers}
-            </div>
-          )}
-        </div>
-
-        <div className="tw-mx-auto tw-flex tw-items-center">
-          <i className="fa-brands fa-tiktok tw-text-4xl"></i>
-          <input
-            type="text"
-            name="tiktok_url"
-            placeholder="URL"
-            value={userProfileData.tiktok_url}
-            onChange={handleProfileChange}
-            className="tw-ml-4 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.tiktok_url && (
-            <div className="tw-text-red-500">
-              {validationErrors.tiktok_url}
-            </div>
-          )}
-          <input
-            type="text"
-            name="tiktok_followers"
-            placeholder={t('Followers')}
-            value={userProfileData.tiktok_followers}
-            onChange={handleProfileChange}
-            className="tw-m-2 tw-h-10 tw-w-full tw-rounded-lg tw-border-2 tw-px-8 tw-text-[#1E0039] tw-placeholder-slate-400 tw-drop-shadow-[3px_3px_10px_rgba(113,44,176,0.25)] placeholder:tw-text-slate-400 "
-          />
-          {validationErrors.tiktok_followers && (
-            <div className="tw-text-red-500">
-              {validationErrors.tiktok_followers}
-            </div>
-          )}
-        </div>
+      
           <div className="tw-mx-auto tw-flex tw-items-center">
           <i className="fa-solid fa-envelope tw-text-4xl"></i>
           <input
@@ -493,6 +273,5 @@ export default function Profile() {
           )}
         </div>
       </div>
-    </div>
   );
 }

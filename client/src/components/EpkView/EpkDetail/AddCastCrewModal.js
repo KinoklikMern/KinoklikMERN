@@ -69,7 +69,6 @@ export default function AddCastCrewModal({
     });
 
     const formattedResults = filtered.map((u) => {
-      // THE FIX: Strict String Matches
       const isCast = currentCast.some(c => String(c.id || c._id) === String(u._id));
       const isCrew = currentCrew.some(c => String(c.id || c._id) === String(u._id));
       const isInvitedCast = invitedCast.some(c => c.email === u.email);

@@ -5,6 +5,7 @@ import NavbarBrand from "./NavbarBrand.js";
 import NavbarButtons from "./NavbarButtons.js";
 import NavbarMenu from "./NavbarMenu.js";
 import BasicMenu from "../Epk/Input/fepkMenu";
+import SearchBar from "./SearchBar.js";
 
 function Navbar(props) {
     const [toggle, setToggle] = useState(false);
@@ -40,6 +41,7 @@ function Navbar(props) {
                         </div>
                     </div>
                 )}
+                <SearchBar/>
 
                 {/* Buttons */}
                 <NavbarButtons user={user} toggle={toggle} setToggle={setToggle}/>

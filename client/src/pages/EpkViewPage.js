@@ -13,7 +13,7 @@ import EpkResources from '../components/EpkView/EpkResources/EpkResources';
 import EpkVideoGallery from '../components/EpkView/EpkVideoGallery/EpkVideoGallery';
 import EpkAward from '../components/EpkView/EpkAward/EpkAward';
 import DonationModal from '../components/donate/DonationModal';
-import RequestModal from '../components/common/Modals/RequestModal';
+import RequestAccessModal from '../components/common/Modals/RequestAccessModal';
 import LoginModal from '../components/common/Modals/LoginModal';
 import NewMessageModal from '../components/common/Modals/NewMessageModal';
 import { getFepksById, updateFepk, uploadSingleFile, deleteS3MediaBatch } from '../api/epks';
@@ -34,7 +34,7 @@ function EpkViewPage() {
   const [epkInfo, setEpkInfo] = useState();
   const [requestStatus, setRequestStatus] = useState();
   const [refresh, setRefresh] = useState(false);
-  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [showRequestAccessModal, setShowRequestAccessModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
@@ -139,7 +139,7 @@ function EpkViewPage() {
     if (user) {
       switch (modalType) {
         case 'message': setShowMessageModal(false); break;
-        case 'request': setShowRequestModal(false); break;
+        case 'request': setShowRequestAccessModal(false); break;
         case 'wish_to_donate': setShowDonationModal(false); break;
         default: break;
       }
@@ -154,7 +154,7 @@ function EpkViewPage() {
     } else if (user) {
       switch (modalType) {
         case 'message': setShowMessageModal(true); break;
-        case 'request': setShowRequestModal(true); break;
+        case 'request': setShowRequestAccessModal(true); break;
         case 'wish_to_donate': setShowDonationModal(true); break;
         default: break;
       }
@@ -420,10 +420,10 @@ function EpkViewPage() {
             <EpkAward epkInfo={activeData} isEditMode={isEditMode} onChange={handleFieldChange} />
           </div>
           
-          {showRequestModal && <RequestModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>}
+          {showRequestAccessModal && <RequestAccessModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>}
           {showLoginModal && <LoginModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>}
           {showMessageModal && <NewMessageModal close={handleClose} open={handleShow} epkId={epkInfo._id} filmmakerId={epkInfo.film_maker._id} user={user} setRefresh={setRefresh}/>}
-          {showDonationModal && <DonationModal isOpen={showDonationModal} onRequestClose={() => setShowDonationModal(false)} epkId={epkInfo._id} userId={user.id} epkImage={posterImage} epkDonatePayPal={epkInfo.DonatePayPal_url} epkDonateStripe={epkInfo.DonateStripe_url} />}
+          {showDonationModal && <DonationModal isOpen={showDonationModal} onRequestAccessClose={() => setShowDonationModal(false)} epkId={epkInfo._id} userId={user.id} epkImage={posterImage} epkDonatePayPal={epkInfo.DonatePayPal_url} epkDonateStripe={epkInfo.DonateStripe_url} />}
 
           <EpkSalesCalculator globalTotalReach={globalTotalReach} />
           <Banner />

@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./HomeBody.css";
-import "../List/List.css";
-import "../ListItem/ListItem.css";
 import EPKFilter from "../Filter/EPKFilter";
 import FilterButton from "../Filter/FilterButton";
-import http from "../../http-common";
 import StatusBtn from "../SwitchStatusBtn/Status";
 //import { useTranslation } from "react-i18next";
 
-const HomeBody = ({ role }) => {
+const HomeBody = ({ role, data }) => {
   // const { t } = useTranslation();
 
-  const [fepks, setFepks] = useState([]);
   const [filteredEPKs, setFilteredEPKs] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("All");
-  //For Translation
 
   const [filterTags, setFilterTags] = useState([
     {
@@ -39,19 +34,8 @@ const HomeBody = ({ role }) => {
     },
   ]);
 
-  useEffect(() => {
-    http.get(`fepks/`).then((response) => {
-      setFepks(response.data);
-      setFilteredEPKs(response.data);
-    });
-  }, []);
-
-    useEffect(() => {
-     console.log(fepks)
-    }, [fepks]);
-
   const { filterQuery, clickHandler } = EPKFilter(
-    fepks,
+    data, // Pass data directly here
     filterTags,
     setFilterTags
   );
@@ -59,16 +43,16 @@ const HomeBody = ({ role }) => {
   const handleStatusChange = (status) => {
     if (currentStatus === status) {
       setCurrentStatus("All");
-      setFilteredEPKs(fepks);
+      setFilteredEPKs(data);
     } else {
       setCurrentStatus(status);
-      const filtered = fepks.filter((fepk) => fepk.status === status);
+      const filtered = data.filter((fepk) => fepk.status === status);
       setFilteredEPKs(filtered);
     }
   };
 
   useEffect(() => {
-    let filtered = fepks;
+    let filtered = data || [];
 
     // Filter by status if not 'All'
     if (currentStatus !== "All") {
@@ -83,7 +67,7 @@ const HomeBody = ({ role }) => {
     }
 
     setFilteredEPKs(filtered);
-  }, [fepks, currentStatus, filterQuery]);
+  }, [data, currentStatus, filterQuery]);
 
   return (
     <>
@@ -109,11 +93,11 @@ const HomeBody = ({ role }) => {
             }
             return (
               <React.Fragment key={fepk._id}>
-                <div className="listItem tw-my-8 tw-p-3 md:tw-my-24">
+                 <div className="tw-w-full tw-h-[450px] max-[700px]:tw-w-[80%] max-[700px]:tw-mx-auto tw-my-4 tw-p-3">
                   <a
                     href={
                       role === "actor"
-                        ? `/actor/${fepk._id}`
+                        ? `/user/${fepk._id}`
                         : fepk.title
                         ? `epk/${fepk._id}`
                         : "/"
@@ -122,7 +106,7 @@ const HomeBody = ({ role }) => {
                     <img
                       src={`${process.env.REACT_APP_AWS_URL}/${fepk.image_details}`}
                       alt=""
-                      className="tw-w-full"
+                      className="tw-w-full tw-h-full tw-object-cover tw-transition-all tw-duration-1000 hover:tw-scale-[1.05]"
                     />
                   </a>
                 </div>

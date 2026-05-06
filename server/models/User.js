@@ -148,6 +148,11 @@ const UserSchema = mongoose.Schema({
   },
   birthDate: {
     type: Date,
+    required: function() {
+      return this.isNew;
+    },
+    min: '1926-01-01',
+    max: Date.now
   },
   age: {
     type: Number,

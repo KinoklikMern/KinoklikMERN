@@ -10,8 +10,8 @@ const viewTrackerSchema = new mongoose.Schema({
         type: String,
         enum: [
             'EPK',
-            'ACTOR',
-            'FILMMAKER'
+            'Actor',
+            'Filmmaker'
         ],
         required: true,
     },

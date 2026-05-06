@@ -44,7 +44,7 @@ export const trackUniversalView = async (req, res) => {
       if (targetType === 'EPK') {
         await fepk.findByIdAndUpdate(targetId, { $inc: { viewCount: 1 } });
         //TODO: add view tracking for others profile types if needed
-      } else if (targetType === 'ACTOR' || targetType === 'FILMMAKER') {
+      } else if (targetType === 'Actor' || targetType === 'Filmmaker') {
         await User.findByIdAndUpdate(targetId, { $inc: { profileViews: 1 } });
       }
       //  Drop the 24-hour cookie on user browser

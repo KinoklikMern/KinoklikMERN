@@ -3,23 +3,10 @@ import { React, useState, useEffect } from 'react';
 import '../styles/Homehead.css';
 import http from '../http-common';
 import { useSelector } from 'react-redux';
-import SearchBar from './HomeHead/SearchBar';
 
 const HomeHead = (props) => {
   const [fepk, setFepk] = useState({});
   const [actor, setActor] = useState({});
-
-  // fetching user
-  const user = useSelector((state) => state.user);
-  let userId;
-  let userRole;
-  if (!user) {
-    userId = '0';
-    userRole = 'noUser';
-  } else {
-    userId = user.id;
-    userRole = user.role;
-  }
 
   useEffect(() => {
     if (props.role === 'actor') {
@@ -49,7 +36,7 @@ const HomeHead = (props) => {
            }}
       >
         <div className="tw-mx-16 tw-mt-6 tw-flex tw-items-end tw-justify-end">
-          <SearchBar/>
+  
         </div>
 
         <section

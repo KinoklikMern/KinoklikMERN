@@ -41,7 +41,7 @@ export default function SearchBar() {
             onChange={searchHandler}
           />
           {searchList.length !== 0 && (
-            <div className="tw-max-h-56 tw-divide-y tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039]">
+            <div className="tw-absolute tw-z-[9999] tw-top-full tw-right-0 tw-w-64 tw-max-h-56 tw-divide-y tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039] tw-shadow-2xl">
               {searchList.map((item) => (
                 <a
                   key={item._id}

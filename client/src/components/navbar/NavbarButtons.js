@@ -49,18 +49,7 @@ function NavbarButtons({ user, setToggle, toggle, ismobile = false }) {
   );
   const canEditEPK = isEpkViewPage && (isOwner || isCollaborator) && fepkId;
 
-  // User Profile Permissions: Logged in user ID matches the URL ID
   const canEditProfile = isUserViewPage && user?.id === profileId;
-
-  //const matchFilmmaker = useMatch("/epk/*");
-  //const matchActor = useMatch("/actor/*");
-  //const matchFilmmakerProfile = useMatch("/filmmaker/*");
-  //const isFilmmaker = !!matchFilmmaker;
-  //const isActor = !!matchActor;
-  //const isFilmmakerProfile = !!matchFilmmakerProfile;
-  //const isActorRole = user?.role === "Actor";
-  //const canEditFilmmaker = isFilmmaker && (isOwner || isCollaborator) && fepkId;
-  //const canEditActor = isActor && isActorRole && user?.id === actorId;
 
   return (
     <>

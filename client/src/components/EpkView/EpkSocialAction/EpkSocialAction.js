@@ -37,6 +37,8 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
   const currentDonateLink = epkInfo?.DonatePayPal_url || epkInfo?.DonateStripe_url || "";
   const hasDonateLinks = Boolean(currentDonateLink);
 
+  const isOwnEpk = String(userId) === String(epkInfo?.film_maker?._id || epkInfo?.film_maker);
+
   const [usersWishesToDonate, setUsersWishesToDonate] = useState(epkInfo.wishes_to_donate?.length || 0);
   const [usersWishesToBuy, setUsersWishesToBuy] = useState(epkInfo.wishes_to_buy?.length || 0);
   const [usersFavourites, setUsersFavourites] = useState(epkInfo.favourites?.length || 0);
@@ -61,7 +63,7 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
   useEffect(() => {
     try {
       if (!isEditMode && epkInfo._id) {
-        http.get(`fepks/${epkInfo._id}`).then((response) => {
+        http.get(`/fepks/${epkInfo._id}`).then((response) => {
           setFepkInfo(response.data);
           setUsersWishesToDonate(response.data.wishes_to_donate?.length || 0);
           setUsersWishesToBuy(response.data.wishes_to_buy?.length || 0);
@@ -128,10 +130,14 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
         return; 
       }
 
+      if (isOwnEpk && name !== 'share') {
+        return; // Prevent interacting with own EPK (except sharing)
+      }
+
       if (name === 'share') {
         setIsShareModalOpen(prev => !prev);
         if (user && userId !== '0') {
-          http.get(`fepks/sharing/${epkInfo._id}/${userId}`)
+          http.get(`/fepks/sharing/${epkInfo._id}/${userId}`)
             .then((response) => {
               setFepkInfo(response.data);
               setUsersSharings(response.data.sharings?.length || 0);
@@ -145,7 +151,7 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
         switch (name) {
           case 'wish_to_donate':
             handler('wish_to_donate'); 
-            http.get(`fepks/wishestodonate/${epkInfo._id}/${userId}`)
+            http.get(`/fepks/wishestodonate/${epkInfo._id}/${userId}`)
               .then((response) => {
                 setFepkInfo(response.data);
                 setUsersWishesToDonate(response.data.wishes_to_donate.length);
@@ -155,7 +161,7 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
 
           case 'wish_to_buy':
             incrementValue = checkActive(fepkInfo?.wishes_to_buy) ? 0 : 1;
-            http.get(`fepks/wishestobuy/${epkInfo._id}/${userId}`)
+            http.get(`/fepks/wishestobuy/${epkInfo._id}/${userId}`)
               .then((response) => {
                 setFepkInfo(response.data);
                 setUserInfo(response.data.film_maker);
@@ -167,7 +173,7 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
 
           case 'favorites':
             incrementValue = checkActive(fepkInfo?.favourites) ? 0 : 1;
-            http.get(`fepks/favourite/${epkInfo._id}/${userId}`)
+            http.get(`/fepks/favourite/${epkInfo._id}/${userId}`)
               .then((response) => {
                 setFepkInfo(response.data);
                 setUserInfo(response.data.film_maker);
@@ -179,7 +185,7 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
 
           case 'likes':
             incrementValue = checkActive(fepkInfo?.likes) ? 0 : 1;
-            http.get(`fepks/like/${epkInfo._id}/${userId}`)
+            http.get(`/fepks/like/${epkInfo._id}/${userId}`)
               .then((response) => {
                 setFepkInfo(response.data);
                 setUserInfo(response.data.film_maker);
@@ -211,12 +217,13 @@ export default function EpkSocialAction({ epkInfo, handler, isEditMode, onChange
           if (action.icon === null) return null;
 
           const isInactiveInEditMode = isEditMode && action.name !== 'wish_to_donate';
+          const isInactiveForOwner = isOwnEpk && !isEditMode && action.name !== 'share';
 
           return (
             <div
               key={index}
               className={`tw-relative tw-flex tw-justify-center tw-transition-all ${
-                isInactiveInEditMode ? 'tw-opacity-40 tw-grayscale tw-pointer-events-none' : ''
+                isInactiveInEditMode || isInactiveForOwner ? 'tw-opacity-40 tw-grayscale tw-pointer-events-none' : ''
               }`}
             >
               {action.name === 'share' && !isEditMode && (

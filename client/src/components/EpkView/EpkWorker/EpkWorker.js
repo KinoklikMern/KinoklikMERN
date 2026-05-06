@@ -238,7 +238,7 @@ export default function EpkWorker({ epkInfo, isEditMode, onChange }) {
                 bio={crew.aboutMe}
                 castName={`${crew.firstName} ${crew.lastName}`}
                 epkRole={crew.epkRole} 
-                actorUrl={`/filmmaker/${crew._id}`}
+                actorUrl={`/user/${crew._id}`}
                 isDarkTheme={true} 
               />
             ))}

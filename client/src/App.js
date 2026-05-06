@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Actor from './pages/Actor/Actor';
-
 import './styles/tailwind.css';
 
 import MainLayout from './layouts/MainLayout';
@@ -16,7 +14,7 @@ import CheckEmailPage from './components/Auth/Registration/CheckEmail';
 import ResetPasswordPage from './components/Auth/Registration/ResetPassword';
 import ResetPasswordSuccessPage from './components/Auth/Registration/ResetPasswordSuccess';
 
-import Filmmaker from './pages/FilmMaker/Filmmaker.js';
+
 import FepkUploadDashboard from './pages/FepkUploadDashboard';
 import FepkEditDashboard from './pages/FepkEditDashboard';
 
@@ -39,11 +37,9 @@ import AccessDeniedPage from './pages/AccessDeniedPage';
 import { FepkContext } from './context/FepkContext';
 import CatalogPage from './pages/CatalogPage.js';
 import EpkViewPage from './pages/EpkViewPage';
-import UploadUserPicCon from './components/UserDashboard/Upload/UploadUserPicCon';
 import EditFepkLayout from './layouts/EditFepkLayout';
 import EditUserLayout from './layouts/EditUserLayout.js';
 
-import FilmmakerPage from './pages/FilmMaker/FilmmakerPage.js';
 import ProfileViewPage from './pages/User/ProfileViewPage.js';
 
 import KinoToastContainer from './components/common/KinoToastContainer';
@@ -92,7 +88,6 @@ function App() {
             <Route path="dashboard/settings" element={<DashboardSettings />} />
 
             <Route path="dashboard/requests" element={<DashboardRequests />} />
-            <Route path="dashboard/user" element={<UploadUserPicCon />} />
 
             <Route path="admindashboard/main" element={<AdminDashboardMain />} />
             <Route path="admindashboard/users" element={<AdminDashboardUsers />} />
@@ -109,10 +104,8 @@ function App() {
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="epk/:id" element={<EpkViewPage />} />
           <Route path="/user/:id" element={<ProfileViewPage />} />
-           <Route path="/actor/:id" element={<ProfileViewPage />} />
-          <Route path="filmmaker/:id" element={<ProfileViewPage />} />
-          <Route path="signup" element={<RegistrationForm />} />
 
+          <Route path="signup" element={<RegistrationForm />} />
           <Route path="verification" element={<EmailVerification />} />
           <Route path="success" element={<RegistrationSuccess />} />
           <Route path="login" element={<LoginForm />} />
