@@ -3,7 +3,6 @@ import { authUser } from '../middleware/auth.js';
 import { isValidPassResetToken } from '../middleware/user.js';
 import multer from 'multer';
 import {
-  //uploadActorProfiles,
   deleteUserMediaBatch,
   uploadUserMedia,
   actorUploadFiles,
@@ -55,7 +54,6 @@ const router = express.Router();
 router.post('/register', register);
 router.post('/verify-email', verifyEmail);
 router.post('/resend-email-verification-token', resendEmailVerificationToken);
-// router.post("/login", login);
 router.post('/login', loginValidator, login);
 router.get('/login', logout);
 router.get('/getProfile/:email', authUser, getProfile);
@@ -103,9 +101,6 @@ router.post('/like/:targetid/:userid', getGenericLikes);
 router.post('/recommend/:targetid', getGenericRecommendations);
 
 // Calling these APIs will add user to the appropriate list of likes(star), favourites,
-//router.post('/follow/:actorid/:userid', getActorFollowers);
-//router.post('/like/:actorid/:userid', getActorLikes);
-//router.post('/recommend/:actorid', getActorRecommendations);
 // upload actor thumbnail
 router.post('/actorthumbnail', upload.single('file'), uploadActorThumbnail);
 router.get('/getallusers', getAllUsers);
