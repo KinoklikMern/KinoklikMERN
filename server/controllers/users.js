@@ -1225,3 +1225,36 @@ export const setReelThumbnail = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const searchUsers = async (req, res) => {
+  const { q, limit = 10 } = req.query;
+  if (!q || q.trim().length < 2) return res.json([]);
+  try {
+    const users = await User.find({
+      $or: [
+        { firstName: { $regex: q.trim(), $options: 'i' } },
+        { lastName: { $regex: q.trim(), $options: 'i' } },
+      ],
+    })
+      .select('firstName lastName picture role')
+      .limit(Math.min(Number(limit), 20));
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getFeaturedActor = async (req, res) => {
+  try {
+    const actor = await User.findOne({
+      role: 'Actor',
+      thumbnail: { $exists: true, $not: /^https/ },
+      picture: { $exists: true, $not: /^https/ },
+    })
+      .select('firstName lastName picture thumbnail _id')
+      .sort({ createdAt: -1 });
+    if (!actor) return res.json(null);
+    res.json(actor);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

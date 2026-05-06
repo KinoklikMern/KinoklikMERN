@@ -1,58 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import SearchIcon from "../../images/icons/SearchIcon.svg";
-import { getAllFepks } from "../../api/epks";
-import { getAllUsers } from "../../api/users";
+import { searchUsers } from "../../api/users";
+import { searchFepks } from "../../api/epks";
 import emptyBanner from "../../images/empty_banner.jpeg";
 
 export default function SearchBar() {
-  const [finalSearchList, setFinalSearchList] = useState([]);
   const [searchList, setSearchList] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [searchChar, setSearchChar] = useState("");
-
-  useEffect(() => {
-    getAllFepks().then((res) => {
-      setFinalSearchList((prevFinalSearchList) => [
-        ...prevFinalSearchList,
-        ...res,
-      ]);
-    });
-
-    getAllUsers().then((res) => {
-      setFinalSearchList((prevFinalSearchList) => [
-        ...prevFinalSearchList,
-        ...res,
-      ]);
-    });
-  }, []);
+  const debounceRef = useRef(null);
 
   const searchHandler = (e) => {
-    setSearchChar(e.target.value);
-    const searchString = e.target.value.toLowerCase();
+    const query = e.target.value;
 
-    if (!searchString.trim()) {
-      // If the search input is empty, set searchList to an empty array
+    clearTimeout(debounceRef.current);
+
+    if (!query.trim() || query.trim().length < 2) {
       setSearchList([]);
-    } else {
-      setSearchList(
-        finalSearchList?.filter((item) => {
-          // Check if the item is an epk (movie) and includes the search string in its title
-          if (item.title && item.title.toLowerCase().includes(searchString)) {
-            return true;
-          }
-          // Check if the item is an actor and includes the search string in firstName or lastName
-          else if (
-            (item.firstName &&
-              item.firstName.toLowerCase().includes(searchString)) ||
-            (item.lastName &&
-              item.lastName.toLowerCase().includes(searchString))
-          ) {
-            return true;
-          }
-          return false;
-        })
-      );
+      return;
     }
+
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const [users, fepks] = await Promise.all([
+          searchUsers(query.trim()),
+          searchFepks(query.trim()),
+        ]);
+        setSearchList([...(fepks || []), ...(users || [])]);
+      } catch (err) {
+        console.error("Search failed:", err);
+      }
+    }, 300);
   };
 
   return (
@@ -65,15 +41,11 @@ export default function SearchBar() {
             onChange={searchHandler}
           />
           {searchList.length !== 0 && (
-            <div className="tw-max-h-56 tw-divide-y  tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039]">
-              {searchList?.map((item) => (
+            <div className="tw-max-h-56 tw-divide-y tw-divide-dashed tw-overflow-auto tw-rounded-xl tw-bg-white tw-text-[#1E0039]">
+              {searchList.map((item) => (
                 <a
                   key={item._id}
-                  href={
-                    item.title
-                      ? `/epk/${item.title.replace(/ /g, "-").trim()}`
-                      : `/actor/${item._id}`
-                  }
+                  href={item.title ? `/epk/${item._id}` : `/user/${item._id}`}
                   className="tw-flex tw-items-center tw-justify-between tw-px-6 tw-py-3 hover:tw-scale-105"
                 >
                   <p>{item.title || `${item.firstName} ${item.lastName}`}</p>
