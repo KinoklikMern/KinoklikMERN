@@ -5,7 +5,7 @@ import { faCamera, faVideo, faPlay, faImages, faXmark,
   faChevronLeft, faChevronRight  } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from '../../../images/empty_banner.jpeg';
 
-import UpdateImageModal from "../../UpdateImageModal";
+import UpdateActorHeadshotModal from "../../UpdateActorHeadshotModal";
 import UpdateBannerModal from "../../UpdateBannerModal"; 
 
 export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
@@ -286,7 +286,7 @@ export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditM
         </div>
       )}
 
-      <UpdateImageModal isOpen={isHeadshotModalOpen} onClose={() => setIsHeadshotModalOpen(false)} libraryImages={data?.photo_albums?.headshots || []} mode="user" onSave={handleSaveHeadshot} onSetMain={handleSetMain}/>
+      <UpdateActorHeadshotModal isOpen={isHeadshotModalOpen} onClose={() => setIsHeadshotModalOpen(false)} libraryImages={data?.photo_albums?.headshots || []} mode="user" onSave={handleSaveHeadshot} onSetMain={handleSetMain}/>
       <UpdateBannerModal isOpen={isBannerModalOpen} onClose={() => setIsBannerModalOpen(false)} libraryItems={data?.video_gallery?.reels || []} onSave={handleSaveBanner} />
     </>
   );
