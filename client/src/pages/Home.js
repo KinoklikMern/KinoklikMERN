@@ -5,16 +5,16 @@ import SwitchBtn from "../components/SwitchBtn/Switch";
 import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBodyActor from "../components/HomeBody/HomeBodyActor";
-import Landing1 from "../components/LandingPage/Landing1";
-import Landing2 from "../components/LandingPage/Landing2";
-import Landing3 from "../components/LandingPage/Landing3";
-import Landing5 from "../components/LandingPage/Landing5";
-import Landing8 from "../components/LandingPage/Landing8";
-import Landing9 from "../components/LandingPage/Landing9";
-import Landing10 from "../components/LandingPage/Landing10";
+import LandingHero from "../components/LandingPage/LandingHero";
+import LandingEpkExample from "../components/LandingPage/LandingEpkExample";
+import LandingEpkIntroductions from "../components/LandingPage/LandingEpkIntroductions";
+import LandingIntroductions from "../components/LandingPage/LandingIntroductions";
+import LandingFilmCarousels from "../components/LandingPage/LandingFilmCarousels";
+import LandingInstructions from "../components/LandingPage/LandingInstructions";
+import LandingFaq from "../components/LandingPage/LandingFaq";
 import { FepkContext } from "../context/FepkContext";
 import FilterTag from "../components/Filter/FilterTag";
-import Landing11 from "../components/LandingPage/Landing11";
+import LandingNewsletter from "../components/LandingPage/LandingNewsletter";
 import http from "../http-common"; 
 
 function Home() {
@@ -64,14 +64,14 @@ function Home() {
         )}
         {!user && (
           <>
-            <Landing1 />
-            <Landing2 />
-            <Landing3 />
-            <Landing5 />
-            <Landing8 />
-            <Landing9 />
-            <Landing10 />
-            <Landing11 />
+            <LandingHero />
+            <LandingEpkExample />
+            <LandingEpkIntroductions />
+            <LandingIntroductions />
+            <LandingFilmCarousels />
+            <LandingInstructions />
+            <LandingFaq />
+            <LandingNewsletter />
           </>
         )}
       </div>

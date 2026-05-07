@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Landing8.css";
+import "./LandingFilmCarousels.css";
 import http from "../../http-common";
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 
-const Landing8 = () => {
+const LandingFilmCarousels = () => {
   const { t } = useTranslation();
 
   const [fepksNew, setFepks] = useState([]);
@@ -140,4 +140,4 @@ const Landing8 = () => {
   );
 };
 
-export default Landing8;
+export default LandingFilmCarousels;

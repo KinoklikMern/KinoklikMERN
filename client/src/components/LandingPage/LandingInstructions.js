@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const Landing9 = () => {
+const LandingInstructions = () => {
   const { t } = useTranslation();
   const step1Ref = useRef(null);
   const step2Ref = useRef(null);
@@ -86,7 +86,7 @@ const Landing9 = () => {
   return (
     <>
       <div>
-        <div className='landing9 tw-mt-20 tw-flex tw-items-center tw-justify-center'>
+        <div className='LandingInstructions tw-mt-20 tw-flex tw-items-center tw-justify-center'>
           <p className='tw-text-center tw-text-2xl tw-font-bold tw-text-midnight md:tw-text-3xl'>
             {t(
               "Present and promote your film's vision to industry professionals"
@@ -161,4 +161,4 @@ const Landing9 = () => {
     </>
   );
 };
-export default Landing9;
+export default LandingInstructions;

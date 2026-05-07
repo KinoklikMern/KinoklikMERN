@@ -3,7 +3,7 @@ import image1 from "../../images/LandingPage/Avatar1.png";
 import image2 from "../../images/LandingPage/ActorPageScreenShot.png";
 import { useTranslation } from "react-i18next";
 
-const Landing3 = () => {
+const LandingEpkIntroductions = () => {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("Filmmakers");
   const titleRef = useRef(null);
@@ -310,4 +310,4 @@ const Landing3 = () => {
     </>
   );
 };
-export default Landing3;
+export default LandingEpkIntroductions;

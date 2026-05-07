@@ -3,7 +3,7 @@ import heroImage from '../../images/LandingPage_Hero.png';
 import { useTranslation } from 'react-i18next';
 import { gsap } from 'gsap';
 
-const Landing1 = () => {
+const LandingHero = () => {
   const { t } = useTranslation();
   const headingRef = useRef(null);
   const subHeadingRef = useRef(null);
@@ -73,4 +73,4 @@ const Landing1 = () => {
     </>
   );
 };
-export default Landing1;
+export default LandingHero;

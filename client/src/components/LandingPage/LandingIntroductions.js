@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const Landing5 = () => {
+const LandingIntroductions = () => {
   const { t } = useTranslation();
   const sectionsRef = useRef([]);
   sectionsRef.current = [];
@@ -200,4 +200,4 @@ const Landing5 = () => {
   );
 };
 
-export default Landing5;
+export default LandingIntroductions;
