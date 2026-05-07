@@ -119,7 +119,7 @@ export const uploadSingleFile = async (file, token) => {
   formData.append("file", file); 
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/fepks/uploadFile`, 
+      `${process.env.REACT_APP_BACKEND_URL}/users/uploadFile`, 
       formData,
       {
         headers: {
