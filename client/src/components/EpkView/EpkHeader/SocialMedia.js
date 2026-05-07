@@ -178,6 +178,13 @@ export default function SocialMedia({ socials, totalReachNum, viewCount, feature
                     textClass="tw-text-[10px] md:tw-text-xs tw-font-bold tw-mt-2"
                   />
                 ))}
+                <SocialMediaIcon
+                  platform="views"
+                  followerNum={viewCount}
+                  containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[50px] md:tw-w-[60px]"
+                  iconClass="tw-h-6 tw-w-6 md:tw-h-7 md:tw-w-7"
+                  textClass="tw-text-[10px] md:tw-text-xs tw-font-bold tw-mt-2"
+                />
               </div>
             </div>
           )}
@@ -217,22 +224,16 @@ export default function SocialMedia({ socials, totalReachNum, viewCount, feature
                     textClass="tw-text-[10px] md:tw-text-xs tw-font-bold tw-mt-2"
                   />
                 ))}
+                <SocialMediaIcon
+                  platform="views"
+                  followerNum={viewCount}
+                  containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[50px] md:tw-w-[60px]"
+                  iconClass="tw-h-6 tw-w-6 md:tw-h-7 md:tw-w-7"
+                  textClass="tw-text-[10px] md:tw-text-xs tw-font-bold tw-mt-2"
+                />
               </div>
             </div>
           )}
-        </div>
-      )}
-
-      {/* VIEWS STAT */}
-      {!featured && (
-        <div className="tw-flex tw-flex-row tw-items-center tw-justify-center tw-gap-2">
-          <SocialMediaIcon
-            platform="views"
-            followerNum={viewCount}
-            containerClass="tw-flex tw-flex-row tw-items-center tw-gap-1.5"
-            iconClass="tw-h-6 tw-w-6 md:tw-h-8 md:tw-w-8"
-            textClass="tw-text-base md:tw-text-xl tw-font-semibold"
-          />
         </div>
       )}
 

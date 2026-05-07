@@ -56,26 +56,26 @@ export default function FilmmakerHero({ filmmakerInfo, isEditMode, onChange, err
 
   return (
     <>
-      <div className="tw-w-full">
+      <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto">
 
         {/* ── Banner ── */}
-        <div className="tw-relative tw-w-full tw-h-[280px] md:tw-h-[360px] tw-overflow-hidden tw-bg-[#280D41]">
+        <div className="tw-relative tw-w-full tw-h-[280px] md:tw-h-[360px] tw-overflow-hidden tw-bg-[#280D41] tw-rounded-2xl tw-border tw-border-[#FF43A7]/50">
           {isBannerVideo ? (
             <video
               src={bannerSrc}
               muted
               playsInline
               preload="metadata"
-              className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+              className="tw-w-full tw-h-full tw-object-cover"
             />
           ) : (
             <img
               src={bannerSrc}
               alt="Filmmaker banner"
-              className="tw-w-full tw-h-full tw-object-cover tw-opacity-60"
+              className="tw-w-full tw-h-full tw-object-cover"
             />
           )}
-          <div className="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#1E0039] tw-via-transparent tw-to-transparent" />
+          <div className="tw-absolute tw-inset-0 tw-bg-black/25" />
 
           {/* Play button — only on video banners when not editing */}
           {isBannerVideo && !isEditMode && (
