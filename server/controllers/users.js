@@ -517,7 +517,7 @@ export const updateProfile = async (req, res) => {
     } 
 
     const restrictedFields = ['_id', 'email', 'password', 'deleted', 'otp', 'isVerified', 'createdAt'];
-    const updateData = { ...req.body };  // ← Now defined
+    const updateData = { ...req.body };
     
     restrictedFields.forEach(field => {
       delete updateData[field];
@@ -558,42 +558,6 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// TODO - delete?
-/*export const actorUploadFiles = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const userOne = await User.findOne({ _id: id });
-    if (!userOne) {
-      res.json({ error: 'No User was found!' });
-    } else {
-      const updatedProfile = {
-        //...userOne,
-        bannerImg: req.body.bannerImg,
-        thumbnail: req.body.thumbnail,
-        picture: req.body.picture,
-        profiles: req.body.profiles,
-      };
-
-      await userOne.updateOne({
-        bannerImg: req.body.bannerImg,
-        thumbnail: req.body.thumbnail,
-        picture: req.body.picture,
-        profiles: req.body.profiles,
-      });
-      await userOne.updateOne(
-        { updatedAt: new Date() },
-        { where: { _id: id } }
-      );
-      await userOne.save();
-      const userUpdated = await User.findOne({ _id: id });
-      res.status(200).json(userUpdated);
-    }
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-*/
-
 // upload user avatar file to S3
 export const uploadUserAvatar = async (req, res) => {
   const file = req.file;
@@ -613,38 +577,6 @@ export const uploadActorBanner = async (req, res) => {
     res.status(406).send({ message: 'File extention not supported!' });
   } else {
     res.status(200).send({ key: result.Key });
-  }
-};
-
-// New uploadactorprofiles that handles any number of files
-export const uploadUserMedia = async (req, res) => {
-  try {
-    let totalResult = {};
-    
-    const fileKeys = Object.keys(req.files);
-
-    if (fileKeys.length === 0) {
-      return res.status(400).send({ message: 'No files uploaded' });
-    }
-
-    // Use Promise.all to upload everything in parallel (much faster!)
-    await Promise.all(
-      fileKeys.map(async (key) => {
-        const file = req.files[key][0];
-        const result = await uploadFileToS3(file);
-        
-        if (result) {
-          totalResult[key] = result.Key;
-        }
-      })
-    );
-
-    console.log('Upload complete:', totalResult);
-    res.send(totalResult);
-    
-  } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).send({ message: 'Internal server error during upload' });
   }
 }; 
 
@@ -1107,5 +1039,17 @@ export const getFeaturedActor = async (req, res) => {
     res.json(actor);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const uploadUserFile = async (req, res) => {
+  const file = req.file;
+  const result = await uploadFileToS3(file);
+  if (!result) {
+    res.status(406).send({ message: "File extention not supported!" });
+  } else {
+    console.log(result);
+    res.status(200).send({ key: result.Key });
+    //res.status(200).send({ Location: result.Location });
   }
 };

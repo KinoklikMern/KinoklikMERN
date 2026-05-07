@@ -15,6 +15,7 @@ import {
   resetPassword,
   updateProfile,
   uploadUserAvatar,
+  uploadUserFile,
   changePassword,
   deleteAccount,
   getAllActors,
@@ -95,6 +96,9 @@ router.get('/mostfollowed', getMostFollowed);
 
 //delete media from S3
 router.post('/user/deleteMediaBatch', authUser, deleteUserMediaBatch);
+
+// Uploads 1 file to AWS S3
+router.post("/uploadFile", upload.single("file"), uploadUserFile);
 
 router.put('/lastactive/:id', updateLastActive);
 router.put('/signupfornewsletter', signupForNewsletter);
