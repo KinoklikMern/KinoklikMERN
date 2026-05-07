@@ -41,10 +41,10 @@ export default function UserHeader({ data, setGlobalTotalReach }) {
   return (
     <div className="tw-flex tw-w-full tw-flex-col tw-items-center">
       <div className="tw-flex tw-w-full tw-items-center tw-justify-evenly tw-gap-5 tw-py-4">
-        <SocialMedia 
-          socials={socialMediaData} 
+        <SocialMedia
+          socials={socialMediaData}
           totalReachNum={socialMediafollowerTotalNum}
-          viewCount={data?.viewCount || 0}
+          viewCount={data?.profileViews || 0}
         />
       </div>
     </div>

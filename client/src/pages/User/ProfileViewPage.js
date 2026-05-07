@@ -340,7 +340,25 @@ useEffect(() => {
       if (finalDraft.new_banner_file) {
         const bannerKey = await uploadSingleFile(finalDraft.new_banner_file, user?.token);
         finalDraft.banners = [{ url: bannerKey, is_thumbnail: true }];
+
+        if (finalDraft.new_banner_type === 'video') {
+          if (!finalDraft.video_gallery) {
+            finalDraft.video_gallery = { reels: [], media: [], behind: [], premieres: [] };
+          }
+          const alreadyInReels = (finalDraft.video_gallery.reels || []).some(r => r.url === bannerKey);
+          if (!alreadyInReels) {
+            finalDraft.video_gallery = {
+              ...finalDraft.video_gallery,
+              reels: [
+                ...(finalDraft.video_gallery.reels || []),
+                { url: bannerKey, title: '', thumbnail: '', isMain: true },
+              ],
+            };
+          }
+        }
+
         delete finalDraft.new_banner_file;
+        delete finalDraft.new_banner_type;
       }
 
       // 7. API Call
@@ -416,6 +434,16 @@ useEffect(() => {
           )}
           </div>
 
+          {isEditMode && (
+            <div ref={socialsRef}>
+              <UserSocials
+                userInfo={activeData}
+                isEditMode={isEditMode}
+                onChange={handleFieldChange}
+              />
+            </div>
+          )}
+
           <div ref={summaryRef}>
           <UserSummary 
             data={activeData}
@@ -474,15 +502,6 @@ useEffect(() => {
             isEditMode={isEditMode} 
             onChange={handleFieldChange} 
             />
-          </div>
-          <div>
-            {isEditMode && (
-              <div ref={socialsRef}> 
-                <UserSocials data={activeData}
-                isEditMode={isEditMode}            
-                onChange={handleFieldChange} />
-              </div>
-            )}
           </div>
           {showLoginModal && <LoginModal close={handleClose} open={handleShow} setRefresh={setRefresh}/>}
           {showMessageModal && (
