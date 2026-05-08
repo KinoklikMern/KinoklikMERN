@@ -241,12 +241,11 @@ useEffect(() => {
     if (!hasExistingImage && !hasNewImage) {
       newErrors.image_details = true;
     }
-    if (!draftUser.summary || draftUser.summary.trim() === "") newErrors.summary = true;
     if (!draftUser.aboutMe || draftUser.aboutMe.trim() === "") newErrors.aboutMe = true;
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // If summary/bio is missing, scroll to summary. Otherwise, scroll to Hero.
+      // If summary is missing, scroll to summary. Otherwise, scroll to Hero.
       if (newErrors.summary || newErrors.aboutMe) {
         setValidationTarget('summary'); 
       } else {

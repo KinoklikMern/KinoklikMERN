@@ -53,6 +53,14 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setPlayingVideo(null);
+    };
+    if (playingVideo) window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [playingVideo]);
+
   const handleModalSave = async (editData) => {
     setModalVideo(null); 
       if (editData.videoFile || editData.customThumbnailFile || editData.extractedBase64) setIsUploading(true);
@@ -108,6 +116,7 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
       setIsUploading(false);
     }
   };
+
 
   const confirmDelete = () => {
     const newGallery = { ...data.video_gallery };
@@ -224,17 +233,31 @@ export default function UserVideoGallery({ data, isEditMode, onChange, onMarkMed
 
       {/* Fullscreen Player */}
       {playingVideo && (
-        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-black/95 tw-flex tw-items-center tw-justify-center p-4" onClick={() => setPlayingVideo(null)}>
-          <button className="tw-absolute tw-top-6 tw-right-6 tw-text-white tw-bg-transparent tw-border-none tw-text-3xl tw-cursor-pointer">
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-          <video 
-            src={playingVideo.url?.startsWith('http') ? playingVideo.url : `${process.env.REACT_APP_AWS_URL}/${playingVideo.url}`} 
-            className="tw-w-full tw-max-w-[1200px] tw-aspect-video" 
-            controls 
-            autoPlay 
+        <div 
+          className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center md:tw-p-12 tw-overflow-hidden" 
+          onClick={() => setPlayingVideo(null)}
+        >
+          <div 
+            className="tw-relative tw-w-full md:tw-max-w-[900px] tw-flex tw-items-center tw-justify-center" 
             onClick={(e) => e.stopPropagation()} 
-          />
+          >
+            <button 
+              className="tw-fixed tw-top-6 tw-right-6 md:tw-absolute md:tw-top-0 md:tw--right-16 tw-w-10 tw-h-10 tw-z-[120] tw-flex tw-items-center tw-justify-center 
+              tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 tw-rounded-full tw-text-white 
+              tw-drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:tw-text-[#FF00A0] hover:tw-bg-white/20 
+              tw-transition-all tw-cursor-pointer"
+              onClick={() => setPlayingVideo(null)}
+            >
+              <FontAwesomeIcon icon={faXmark} className="tw-text-xl" />
+            </button>
+
+            <video 
+              src={playingVideo.url?.startsWith('http') ? playingVideo.url : `${process.env.REACT_APP_AWS_URL}/${playingVideo.url}`} 
+              className="tw-w-full tw-max-h-[80vh] md:tw-max-h-[75vh] tw-aspect-video md:tw-rounded-xl tw-shadow-2xl tw-bg-black tw-object-contain" 
+              controls 
+              autoPlay 
+            />
+          </div>
         </div>
       )}
     </section>
