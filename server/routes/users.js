@@ -4,36 +4,30 @@ import { isValidPassResetToken } from '../middleware/user.js';
 import multer from 'multer';
 import {
   deleteUserMediaBatch,
-  uploadUserMedia,
-  actorUploadFiles,
   register,
   verifyEmail,
   resendEmailVerificationToken,
   login,
-  getProfile,
+  getUserByEmail,
   logout,
   forgetPassword,
   sendResetPasswordTokenStatus,
   resetPassword,
   updateProfile,
   uploadUserAvatar,
+  uploadUserFile,
   changePassword,
   deleteAccount,
-  getProfileActor,
-  getActoStarred,
+  getAllActors,
+  getActorStarred,
   getActorFollowing,
   getFollowers,
-  uploadActorBanner,
   getLikes,
   getFollowingActor,
   getMostLikes,
   getMostFollowed,
-  getActorFollowers,
-  getActorLikes,
-  uploadActorThumbnail,
   getAllUsers,
   getUserById,
-  getActorRecommendations,
   updateLastActive,
   signupForNewsletter,
   getGenericFollowers,
@@ -56,13 +50,9 @@ router.post('/verify-email', verifyEmail);
 router.post('/resend-email-verification-token', resendEmailVerificationToken);
 router.post('/login', loginValidator, login);
 router.get('/login', logout);
-router.get('/getProfile/:email', authUser, getProfile);
+router.get('/getProfile/:email', authUser, getUserByEmail);
 
-// get user by id
 router.get('/getuser/:id', getUserById);
-
-// get actor by name
-//router.post('/getactor', getActor);
 
 router.post('/forget-password', forgetPassword);
 router.post(
@@ -87,8 +77,16 @@ router.put('/changePassword', authUser, changePassword);
 router.delete('/deleteAccount/:userId', authUser, deleteAccount);
 
 // actor routes
-router.get('/getactors', getProfileActor);
-router.get('/starred/:id', getActoStarred);
+router.get('/getallactors', getAllActors);
+router.get('/getallusers', getAllUsers);
+router.get('/search', searchUsers);
+router.get('/featured-actor', getFeaturedActor);
+
+router.post('/follow/:targetid/:userid', getGenericFollowers);
+router.post('/like/:targetid/:userid', getGenericLikes);
+router.post('/recommend/:targetid', getGenericRecommendations);
+
+router.get('/starred/:id', getActorStarred);
 router.get('/followed/:id', getActorFollowing);
 router.get('/getfollower/:id', getFollowers);
 router.get('/getfollowing/:id', getFollowingActor);
@@ -96,31 +94,11 @@ router.get('/likes/:id', getLikes);
 router.get('/mostlikes', getMostLikes);
 router.get('/mostfollowed', getMostFollowed);
 
-router.post('/follow/:targetid/:userid', getGenericFollowers);
-router.post('/like/:targetid/:userid', getGenericLikes);
-router.post('/recommend/:targetid', getGenericRecommendations);
-
-// Calling these APIs will add user to the appropriate list of likes(star), favourites,
-// upload actor thumbnail
-router.post('/actorthumbnail', upload.single('file'), uploadActorThumbnail);
-router.get('/getallusers', getAllUsers);
-router.get('/search', searchUsers);
-router.get('/featured-actor', getFeaturedActor);
-
-// upload actor banner
-router.post('/actorbanner', upload.single('file'), uploadActorBanner);
-
-router.post(
-  '/user/uploadFiles',
-  upload.array('portfolio', 10), // Allow up to 10 files under the name 'portfolio'
-  uploadUserMedia,
-);
-
 //delete media from S3
 router.post('/user/deleteMediaBatch', authUser, deleteUserMediaBatch);
 
-// final save in actor profiles
-router.put('/actor/files/:id', actorUploadFiles);
+// Uploads 1 file to AWS S3
+router.post("/uploadFile", upload.single("file"), uploadUserFile);
 
 router.put('/lastactive/:id', updateLastActive);
 router.put('/signupfornewsletter', signupForNewsletter);

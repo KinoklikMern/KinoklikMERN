@@ -197,37 +197,77 @@ export default function UserPhotoGallery({ data, isEditMode, onChange, onMarkMed
 
       {/* LIGHTBOX MODAL */}
       {expandedIndex !== null && (
-        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4">
-          <button 
-            className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-z-50" 
-            onClick={() => setExpandedIndex(null)}
-          >
-            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
-          </button>
-
-          {/* Navigation Arrows */}
+        <div 
+          className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-overflow-hidden"
+          onClick={() => setExpandedIndex(null)}
+        >
+          {/* MOBILE ONLY ARROWS: Pinned to viewport edges */}
           {currentCategoryImages.length > 1 && (
             <>
               <button 
                 onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev - 1 + currentCategoryImages.length) % currentCategoryImages.length); }}
-                className="tw-absolute tw-left-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl"
+                className="md:tw-hidden tw-absolute tw-left-4 tw-top-1/2 tw--translate-y-1/2 tw-z-[130] tw-text-white tw-bg-transparent tw-border-none tw-drop-shadow-[0_2px_8px_rgba(0,0,0,1)]"
               >
-                <FontAwesomeIcon icon={faChevronLeft} />
+                <FontAwesomeIcon icon={faChevronLeft} className="tw-text-4xl" />
               </button>
+
               <button 
                 onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev + 1) % currentCategoryImages.length); }}
-                className="tw-absolute tw-right-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl"
+                className="md:tw-hidden tw-absolute tw-right-4 tw-top-1/2 tw--translate-y-1/2 tw-z-[130] tw-text-white tw-bg-transparent tw-border-none tw-drop-shadow-[0_2px_8px_rgba(0,0,0,1)]"
               >
-                <FontAwesomeIcon icon={faChevronRight} />
+                <FontAwesomeIcon icon={faChevronRight} className="tw-text-4xl" />
               </button>
             </>
           )}
 
-          <img 
-            src={currentCategoryImages[expandedIndex].image?.startsWith('http') ? currentCategoryImages[expandedIndex].image : `${process.env.REACT_APP_AWS_URL}/${currentCategoryImages[expandedIndex].image}`} 
-            alt="Expanded" 
-            className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg shadow-2xl" 
-          />
+          {/* Image & Desktop Navigation Container */}
+          <div 
+            className="tw-relative tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center" 
+            onClick={(e) => e.stopPropagation()} 
+          >
+            <div className="tw-relative">
+              
+              {/* The X-Mark Button: Mobile Fixed to Corner | Desktop Absolute above Arrow */}
+              <button 
+                className="tw-fixed tw-top-6 tw-right-6 md:tw-absolute md:tw-top-0 md:tw--right-24 tw-w-12 tw-h-12 tw-z-[120] tw-flex tw-items-center tw-justify-center 
+                 tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 tw-rounded-full tw-text-white 
+                 tw-drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:tw-text-[#FF00A0] hover:tw-bg-white/20 
+                 tw-transition-all tw-cursor-pointer"
+                onClick={() => setExpandedIndex(null)}
+              >
+                <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
+              </button>
+
+              <img 
+                src={currentCategoryImages[expandedIndex].image?.startsWith('http') ? currentCategoryImages[expandedIndex].image : `${process.env.REACT_APP_AWS_URL}/${currentCategoryImages[expandedIndex].image}`} 
+                alt="Expanded" 
+                className="tw-max-w-[95vw] md:tw-max-w-[80vw] tw-max-h-[90vh] tw-object-contain tw-rounded-lg tw-shadow-2xl" 
+              />
+
+              {/* DESKTOP ONLY ARROWS: Pinned to Image edges */}
+              {currentCategoryImages.length > 1 && (
+                <>
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev - 1 + currentCategoryImages.length) % currentCategoryImages.length); }}
+                    className="tw-hidden md:tw-flex tw-absolute md:-tw-left-24 tw-top-1/2 tw--translate-y-1/2 tw-z-[100] tw-items-center tw-justify-center 
+                    tw-w-16 tw-h-16 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 
+                    tw-text-white hover:tw-text-[#FF00A0] md:hover:tw-bg-white/20 tw-transition-all tw-cursor-pointer"
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} className="tw-text-4xl" />
+                  </button>
+
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); setExpandedIndex((prev) => (prev + 1) % currentCategoryImages.length); }}
+                    className="tw-hidden md:tw-flex tw-absolute md:-tw-right-24 tw-top-1/2 tw--translate-y-1/2 tw-z-[100] tw-items-center tw-justify-center 
+                    tw-w-16 tw-h-16 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 
+                    tw-text-white hover:tw-text-[#FF00A0] md:hover:tw-bg-white/20 tw-transition-all tw-cursor-pointer"
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} className="tw-text-4xl" />
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       )}
 

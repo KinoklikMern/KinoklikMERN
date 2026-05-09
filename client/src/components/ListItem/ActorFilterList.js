@@ -11,7 +11,7 @@ export default function ActorFilterList({ title, type }) {
   //const user = useSelector(selectUserData);
 
   const titleToEndpoint = {
-    all_actors: "users/getactors",
+    all_actors: "users/getallactors",
   };
 
   //const id = user?.id || "0";
