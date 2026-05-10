@@ -354,7 +354,7 @@ function EpkViewPage() {
 
   return (
     epkInfo && (
-      <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039] tw-relative">
+      <div className="tw-flex tw-justify-center tw-overflow-x-hidden tw-bg-[#1E0039] tw-relative">
         
         {isEditMode && (
           <EditNavBar

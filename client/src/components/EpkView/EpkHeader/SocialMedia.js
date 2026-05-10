@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import SocialMediaIcon from "./SocialMediaIcon";
 import { useTranslation } from 'react-i18next';
 
 export default function SocialMedia({ socials, totalReachNum, viewCount, featured = false, split = false, coverLayout = false, className = "" }) {
   const { t } = useTranslation();
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [showIcons, setShowIcons] = useState(false);
   const tooltipRef = useRef(null);
 
   // Click-outside listener to close the tooltip
@@ -23,14 +25,14 @@ export default function SocialMedia({ socials, totalReachNum, viewCount, feature
   // ── Split layout: card left + icons right (desktop) / card → expand (mobile) ──
   if (split) {
     const desktopCard = (
-      <div className="tw-flex tw-flex-col tw-items-center tw-gap-1 tw-px-8 tw-py-5 tw-rounded-2xl tw-bg-[#280D41] tw-border tw-border-[#FF43A7]/30 tw-shadow-[0_0_30px_rgba(255,67,167,0.15)]">
-        <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-[0.2em]">
+      <div className="tw-flex tw-flex-row tw-items-center tw-gap-3 tw-px-5 tw-py-2.5 tw-rounded-xl tw-bg-[#280D41] tw-border tw-border-[#FF43A7]/30 tw-shadow-[0_0_30px_rgba(255,67,167,0.15)]">
+        <span className="tw-text-[#FF43A7] tw-text-[9px] tw-font-bold tw-uppercase tw-tracking-[0.15em] tw-leading-snug">
           {t('Total Audience Reach')}
         </span>
-        <span className="tw-text-4xl md:tw-text-5xl tw-font-black tw-bg-gradient-to-r tw-from-[#FF43A7] tw-to-[#c026d3] tw-bg-clip-text tw-text-transparent tw-leading-tight">
+        <div className="tw-w-px tw-self-stretch tw-bg-[#FF43A7]/30" />
+        <span className="tw-text-2xl tw-font-black tw-bg-gradient-to-r tw-from-[#FF43A7] tw-to-[#c026d3] tw-bg-clip-text tw-text-transparent tw-leading-tight tw-whitespace-nowrap">
           {totalReachNum}
         </span>
-        <span className="tw-text-[#E2BDC9]/60 tw-text-xs tw-mt-0.5">across all platforms</span>
       </div>
     );
 
@@ -61,52 +63,64 @@ export default function SocialMedia({ socials, totalReachNum, viewCount, feature
       </div>
     );
 
-    // Mobile: clickable card that expands the icon list — shared by all split variants
-    const mobileSection = (
-      <div className="tw-flex sm:tw-hidden tw-flex-col tw-items-center tw-gap-4 tw-w-full" ref={tooltipRef}>
-        <div
-          onClick={() => setIsTooltipOpen(!isTooltipOpen)}
-          className="tw-flex tw-flex-col tw-items-center tw-gap-1 tw-px-8 tw-py-5 tw-rounded-2xl tw-bg-[#280D41] tw-border tw-border-[#FF43A7]/30 tw-shadow-[0_0_30px_rgba(255,67,167,0.15)] tw-cursor-pointer tw-transition-all tw-duration-200 hover:tw-border-[#FF43A7]/60 hover:tw-shadow-[0_0_40px_rgba(255,67,167,0.25)] tw-select-none"
-        >
-          <span className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-[0.2em]">
-            {t('Total Audience Reach')}
-          </span>
-          <span className="tw-text-4xl tw-font-black tw-bg-gradient-to-r tw-from-[#FF43A7] tw-to-[#c026d3] tw-bg-clip-text tw-text-transparent tw-leading-tight">
-            {totalReachNum}
-          </span>
-          <span className="tw-text-[#E2BDC9]/60 tw-text-xs tw-mt-0.5">
-            across all platforms {isTooltipOpen ? '▴' : '▾'}
-          </span>
-        </div>
+    const slideTransition = { type: "spring", damping: 28, stiffness: 300 };
 
-        {isTooltipOpen && (
-          <div className="tw-w-full tw-rounded-xl tw-bg-[#30134A] tw-border tw-border-white/20 tw-shadow-xl tw-p-5">
-            <div className="tw-grid tw-grid-cols-4 tw-gap-x-2 tw-gap-y-6 tw-justify-items-center">
-              {socials.map((social, index) => (
-                <SocialMediaIcon
-                  key={index}
-                  platform={social.platform}
-                  followerNum={social.followers}
-                  url={social.url}
-                  color={social.url ? "#E81A84" : "#868585"}
-                  textColor="white"
-                  containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[50px]"
-                  iconClass="tw-h-6 tw-w-6"
-                  textClass="tw-text-[10px] tw-font-bold tw-mt-2"
-                />
-              ))}
-              {!!viewCount && (
-                <SocialMediaIcon
-                  platform="views"
-                  followerNum={viewCount}
-                  containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-[50px]"
-                  iconClass="tw-h-6 tw-w-6"
-                  textClass="tw-text-[10px] tw-font-bold tw-mt-2"
-                />
-              )}
-            </div>
+    // Mobile: card panel slides left, icons panel slides in from right
+    const mobileSection = (
+      <div className="sm:tw-hidden tw-w-full tw-relative tw-overflow-hidden tw-h-16">
+        {/* Card panel */}
+        <motion.div
+          animate={{ x: showIcons ? "-100%" : "0%" }}
+          transition={slideTransition}
+          onPanEnd={(_, info) => {
+            if (info.velocity.x < -300 || info.offset.x < -60) setShowIcons(true);
+          }}
+          className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-cursor-pointer"
+          onClick={() => setShowIcons(true)}
+        >
+          {desktopCard}
+        </motion.div>
+
+        {/* Icons panel */}
+        <motion.div
+          animate={{ x: showIcons ? "0%" : "100%" }}
+          transition={slideTransition}
+          onPanEnd={(_, info) => {
+            if (info.velocity.x > 300 || info.offset.x > 60) setShowIcons(false);
+          }}
+          className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-px-2 tw-gap-x-1"
+        >
+          <button
+            onClick={() => setShowIcons(false)}
+            className="tw-shrink-0 tw-bg-transparent tw-border-none tw-cursor-pointer tw-text-[#FF43A7] tw-text-xl tw-leading-none tw-p-1"
+          >
+            ‹
+          </button>
+          <div className="tw-flex tw-flex-1 tw-justify-evenly tw-items-center">
+            {socials.map((social, index) => (
+              <SocialMediaIcon
+                key={index}
+                platform={social.platform}
+                followerNum={social.followers}
+                url={social.url}
+                color={social.url ? "#E81A84" : "#868585"}
+                textColor="white"
+                containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center"
+                iconClass="tw-h-5 tw-w-5"
+                textClass="tw-text-[9px] tw-font-bold tw-mt-1"
+              />
+            ))}
+            {!!viewCount && (
+              <SocialMediaIcon
+                platform="views"
+                followerNum={viewCount}
+                containerClass="tw-flex tw-flex-col tw-items-center tw-justify-center"
+                iconClass="tw-h-5 tw-w-5"
+                textClass="tw-text-[9px] tw-font-bold tw-mt-1"
+              />
+            )}
           </div>
-        )}
+        </motion.div>
       </div>
     );
 
