@@ -241,12 +241,11 @@ useEffect(() => {
     if (!hasExistingImage && !hasNewImage) {
       newErrors.image_details = true;
     }
-    if (!draftUser.summary || draftUser.summary.trim() === "") newErrors.summary = true;
     if (!draftUser.aboutMe || draftUser.aboutMe.trim() === "") newErrors.aboutMe = true;
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // If summary/bio is missing, scroll to summary. Otherwise, scroll to Hero.
+      // If summary is missing, scroll to summary. Otherwise, scroll to Hero.
       if (newErrors.summary || newErrors.aboutMe) {
         setValidationTarget('summary'); 
       } else {
@@ -392,7 +391,7 @@ useEffect(() => {
 
   return (
     id && (
-      <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039] tw-relative">
+      <div className="tw-flex tw-flex-col tw-items-center tw-w-full tw-max-w-[100vw] tw-overflow-x-hidden tw-bg-[#1E0039] tw-relative">
         
         {isEditMode && (
           <UserEditNavBar
@@ -405,7 +404,7 @@ useEffect(() => {
           />
         )}
 
-        <div className={`tw-w-11/12 ${isEditMode ? 'tw-pt-[110px]' : ''}`}>
+        <div className={`tw-w-full tw-max-w-[1280px] tw-px-4 md:tw-px-0 ${isEditMode ? 'tw-pt-[110px]' : ''}`}>
 
         <div ref={heroRef}>
           <UserHeader 

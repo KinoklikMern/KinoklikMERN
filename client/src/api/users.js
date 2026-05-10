@@ -18,9 +18,19 @@ export const login = async (email, password) => {
 export const searchUsers = (q) =>
   http.get(`/users/search?q=${encodeURIComponent(q)}&limit=10`).then((r) => r.data);
 
+export const getAllActors = () => {
+  try {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getallactors`, {
+      method: "GET",
+    }).then((res) => res.json());
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getAllUsers = () => {
   try {
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getactors`, {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/users/getusers`, {
       method: "GET",
     }).then((res) => res.json());
   } catch (error) {
@@ -109,7 +119,7 @@ export const uploadSingleFile = async (file, token) => {
   formData.append("file", file); 
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/fepks/uploadFile`, 
+      `${process.env.REACT_APP_BACKEND_URL}/users/uploadFile`, 
       formData,
       {
         headers: {

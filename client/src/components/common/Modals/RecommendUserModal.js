@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { addToChat } from '../../../api/epks'; 
+import { getAllUsers } from '../../../api/users';
 import emptyBanner from '../../../images/empty_banner.jpeg'; 
 
 export default function RecommendUserModal({ close, userId, user, epkInfo, setRefresh }) {
@@ -14,9 +15,21 @@ export default function RecommendUserModal({ close, userId, user, epkInfo, setRe
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/getallusers`)
-      .then(res => setAllUsers(res.data))
-      .catch(err => console.error(err));
+    const fetchAllUsers = async () => {
+      setLoading(true);
+      try {
+        const [users] = await getAllUsers();
+        
+        if (Array.isArray(users)) {
+          setAllUsers(users);
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAllUsers();
   }, []);
 
   const handleSearch = (e) => {

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCloudArrowUp, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], onSave, onSetMain, mode = "epk" }) {
+export default function UpdateActorHeadshotModal({ isOpen, onClose, libraryImages = [], onSave, onSetMain, mode = "epk" }) {
   const [selectedOption, setSelectedOption] = useState("library");
   const [selectedLibraryImage, setSelectedLibraryImage] = useState(null);
   const [localFile, setLocalFile] = useState(null);
@@ -51,12 +51,12 @@ export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], 
 
       <div className="tw-relative tw-w-full tw-max-w-[448px] tw-bg-[#280D41] tw-border tw-border-[#FFB0CF]/10 tw-shadow-2xl tw-rounded-xl tw-overflow-hidden">
         <div className="tw-p-8 tw-pb-4">
-          <p className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-2">Visual Assets</p>
+          <p className="tw-text-[#FF43A7] tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-widest tw-mb-2">Photos</p>
           <h2 className="tw-text-[#F0DBFF] tw-text-2xl tw-font-bold tw-mb-2">
-            {isUser ? "Update Headshot" : "Update Film Cover"}
+            {"Update Headshot"}
           </h2>
           <p className="tw-text-[#E2BDC9] tw-text-sm tw-m-0">
-            {isUser ? "Choose a primary profile photo." : "Refresh your project's visual identity."}
+            {"Choose a primary profile photo."}
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], 
                 {selectedOption === "library" && <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />}
               </div>
               <h3 className={`tw-font-bold tw-text-sm ${selectedOption === "library" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>
-                {isUser ? "Choose from existing headshots" : "Choose from existing covers"}
+                {"Choose from existing headshots"}
               </h3>
             </div>
 
@@ -102,26 +102,41 @@ export default function UpdateImageModal({ isOpen, onClose, libraryImages = [], 
           </div>
 
           {/* Local Upload */}
-          <div onClick={() => setSelectedOption("local")} className={`tw-cursor-pointer tw-border-2 tw-rounded-xl tw-p-4 ${selectedOption === "local" ? "tw-bg-[#FF43A7]/10 tw-border-[#FF43A7]" : "tw-bg-[#2C1246] tw-border-[#5A3F49]/50"}`}>
-             <h3 className={`tw-font-bold tw-text-sm ${selectedOption === "local" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>Upload New File</h3>
-             {selectedOption === "local" && (
-                <div className="tw-mt-4">
-                  {!localFile ? (
-                    <div onClick={(e) => { e.stopPropagation(); fileInputRef.current.click(); }} className="tw-w-full tw-h-[120px] tw-border-2 tw-border-dashed tw-border-[#FF00A0] tw-rounded-xl tw-flex tw-flex-col tw-items-center tw-justify-center">
-                      <FontAwesomeIcon icon={faCloudArrowUp} className="tw-text-[#FF43A7] tw-mb-2" />
-                      <span className="tw-text-xs tw-text-[#E2BDC9]">Click to browse</span>
-                    </div>
-                  ) : (
-                    <img 
-                      src={localPreviewUrl} 
-                      alt="Selection preview" 
-                      className="tw-w-full tw-h-[120px] tw-object-contain tw-bg-black tw-rounded-lg" 
-                    />
-                  )}
-                </div>
-             )}
+          <div 
+            onClick={() => setSelectedOption("local")} 
+            className={`tw-cursor-pointer tw-border-2 tw-rounded-xl tw-p-4 ${selectedOption === "local" ? "tw-bg-[#FF43A7]/10 tw-border-[#FF43A7]" : "tw-bg-[#2C1246] tw-border-[#5A3F49]/50"}`}
+          >
+            <div className="tw-flex tw-items-start tw-gap-4">
+              <div className={`tw-w-5 tw-h-5 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-border-2 ${selectedOption === "local" ? "tw-bg-[#FF43A7] tw-border-[#FF43A7]" : "tw-border-[#5A3F49]"}`}>
+                {selectedOption === "local" && <FontAwesomeIcon icon={faCheck} className="tw-text-[#570033] tw-text-[10px]" />}
+              </div>
+              
+              <h3 className={`tw-font-bold tw-text-sm ${selectedOption === "local" ? "tw-text-[#FF43A7]" : "tw-text-[#F0DBFF]"}`}>
+                Upload New File
+              </h3>
+            </div>
+
+            {selectedOption === "local" && (
+              <div className="tw-mt-4">
+                {!localFile ? (
+                  <div 
+                    onClick={(e) => { e.stopPropagation(); fileInputRef.current.click(); }} 
+                    className="tw-w-full tw-h-[120px] tw-border-2 tw-border-dashed tw-border-[#FF00A0] tw-rounded-xl tw-flex tw-flex-col tw-items-center tw-justify-center"
+                  >
+                    <FontAwesomeIcon icon={faCloudArrowUp} className="tw-text-[#FF43A7] tw-mb-2" />
+                    <span className="tw-text-xs tw-text-[#E2BDC9]">Click to browse</span>
+                  </div>
+                ) : (
+                  <img 
+                    src={localPreviewUrl} 
+                    alt="Selection preview" 
+                    className="tw-w-full tw-h-[120px] tw-object-contain tw-bg-black tw-rounded-lg" 
+                  />
+                )}
+              </div>
+            )}
           </div>
-        </div>
+      </div>
 
         <div className="tw-px-8 tw-py-6 tw-flex tw-justify-center tw-gap-4">
           <button onClick={handleSave} disabled={!selectedLibraryImage && !localFile} className="tw-w-1/2 tw-py-3 tw-bg-[#FF43A7] tw-text-[#570033] tw-font-bold tw-rounded-lg tw-border-none tw-cursor-pointer disabled:tw-opacity-50">Save</button>
