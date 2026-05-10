@@ -46,7 +46,7 @@ export default function UserSocials({ userInfo, isEditMode, onChange }) {
 
       {/* The Display View (Always visible) */}
       <div className={isEditMode ? "tw-mb-12" : "tw-mb-0"}>
-        <SocialMedia socials={socialMediaData} totalReachNum={totalReachNum} />
+        <SocialMedia socials={socialMediaData} totalReachNum={totalReachNum} split />
       </div>
 
       {/* The Edit View (Conditional) */}

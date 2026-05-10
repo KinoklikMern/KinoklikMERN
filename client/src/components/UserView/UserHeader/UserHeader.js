@@ -45,6 +45,7 @@ export default function UserHeader({ data, setGlobalTotalReach }) {
           socials={socialMediaData}
           totalReachNum={socialMediafollowerTotalNum}
           viewCount={data?.profileViews || 0}
+          split
         />
       </div>
     </div>
