@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import EpkHeader from '../components/EpkView/EpkHeader/EpkHeader';
 import EpkCover from '../components/EpkView/EpkCover/EpkCover';
 import EpkSocialAction from '../components/EpkView/EpkSocialAction/EpkSocialAction';
@@ -321,14 +322,15 @@ function EpkViewPage() {
       }
       
       const freshEpkData = await getFepksById(epkInfo._id);
-      setEpkInfo(freshEpkData); 
+      setEpkInfo(freshEpkData);
       setDraftEpk(null);
-      setIsEditMode(false); 
+      setIsEditMode(false);
+      toast.success("EPK saved successfully!");
       navigate(`/epk/${epkInfo._id}`, { replace: true });
-      
+
     } catch (error) {
       console.error("Save process failed:", error);
-      alert("Failed to save changes. Please try again.");
+      toast.error("Failed to save changes. Please try again.");
     } finally {
       setIsSaving(false);
     }

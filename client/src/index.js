@@ -14,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import reducers from "./reducers";
 
 import App from "./App";
+import ErrorBoundary from "./components/common/ErrorBoundary";
 import ChatProvider from "./context/ChatProvider";
 import { NotificationProvider } from "./context/NotificationContext";
 import { SocketProvider } from "./context/SocketProvider";
@@ -46,11 +47,13 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <SocketProvider>
         <BrowserRouter>
-          <ChatProvider>
-            <NotificationProvider>
-              <App />
-            </NotificationProvider>
-          </ChatProvider>
+          <ErrorBoundary>
+            <ChatProvider>
+              <NotificationProvider>
+                <App />
+              </NotificationProvider>
+            </ChatProvider>
+          </ErrorBoundary>
         </BrowserRouter>
       </SocketProvider>
     </PersistGate>
