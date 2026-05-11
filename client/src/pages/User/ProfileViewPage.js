@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
 
 import { getUserById, updateUserProfile, uploadSingleFile, deleteS3MediaBatch } from '../../api/users';
 import FilmmakerHero from '../../components/FilmmakerView/FilmmakerHero/FilmmakerHero';
@@ -377,11 +378,12 @@ useEffect(() => {
       setUserData(updatedUser);
       setDraftUser(null);
       setIsEditMode(false);
+      toast.success("Profile saved successfully!");
       navigate(`/user/${id}`, { replace: true });
 
     } catch (error) {
       console.error("Save process failed:", error);
-      alert("Error saving profile changes. Please try again.");
+      toast.error("Error saving profile changes. Please try again.");
     } finally {
       setIsSaving(false);
     }
