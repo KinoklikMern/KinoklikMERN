@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './styles/tailwind.css';
 
 import MainLayout from './layouts/MainLayout';
@@ -34,6 +34,7 @@ import AdminDashboardEPKs from './pages/AdminDashboard/EPKsPage';
 
 import AuthRoutes from './utils/AuthRoutes';
 import AccessDeniedPage from './pages/AccessDeniedPage';
+import ErrorPage from './pages/ErrorPage';
 import { FepkContext } from './context/FepkContext';
 import CatalogPage from './pages/CatalogPage.js';
 import EpkViewPage from './pages/EpkViewPage';
@@ -121,7 +122,7 @@ function App() {
           />
 
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<ErrorPage code={404} />} />
 
         <Route element={<EditFepkLayout title="Edit EPK" />} >
           <Route path="editFepk/:id" element={<FepkEditDashboard />} />
