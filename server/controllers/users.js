@@ -158,9 +158,6 @@ export const verifyEmail = async (req, res) => {
   const { userId, OTP } = req.body;
 
   try {
-    // console.log("Received userId:", userId);
-    // console.log("Received OTP:", OTP);
-
     if (!isValidObjectId(userId)) return sendError(res, 'Invalid user!');
 
     const user = await User.findById(userId);
@@ -168,22 +165,17 @@ export const verifyEmail = async (req, res) => {
 
     if (user.isVerified) return sendError(res, 'User is already verified!');
 
-    // console.log("UserId" + userId);
-    // const token = await EmailVerificationToken.findOne({ owner: userId });
-    //if (!token) return sendError(res, "token not found!");
-
     if (user.otp === '') {
       return sendError(res, 'Token not found!');
     }
     if (user.otp !== OTP) return sendError(res, 'Please submit a valid OTP!');
 
-    // const isMatched = await token.compareToken(OTP);
-    // if (!isMatched) return sendError(res, "Please submit a valid OTP!");
+    const wasDeleted = user.deleted;
+
     user.isVerified = true;
+    user.deleted = false;
     user.otp = "";
     await user.save();
-
-    //await EmailVerificationToken.findByIdAndDelete(token._id);
 
     // Send email using SendGrid's Web API
     const templateId = 'd-5022ad5499dc45c9a152ec0f22d2aa1d';
@@ -204,7 +196,9 @@ export const verifyEmail = async (req, res) => {
       secure: true,
     });
     res.json({
-      message: 'Your email is verified and you are logged in.',
+      message: wasDeleted 
+        ? 'Welcome back! Your account has been reactivated.' 
+        : 'Your email is verified and you are logged in.',
       user: {
         id: user._id,
         firstName: user.firstName,
@@ -637,6 +631,15 @@ export const deleteAccount = async (req, res) => {
     });
     
     res.cookie('token', '', { expires: new Date(0) });
+
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Session destruction error:", err);
+        }
+      });
+    }
+
     res.status(200).json({ message: 'Account was successfully deactivated.' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -754,7 +757,10 @@ export const getAllActors = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    const profile = await User.find().select('-password');
+    const profile = await User.find({
+      deleted: false,
+    })
+      .select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -1013,6 +1019,7 @@ export const searchUsers = async (req, res) => {
   if (!q || q.trim().length < 2) return res.json([]);
   try {
     const users = await User.find({
+      deleted: false,
       $or: [
         { firstName: { $regex: q.trim(), $options: 'i' } },
         { lastName: { $regex: q.trim(), $options: 'i' } },
@@ -1051,5 +1058,31 @@ export const uploadUserFile = async (req, res) => {
     console.log(result);
     res.status(200).send({ key: result.Key });
     //res.status(200).send({ Location: result.Location });
+  }
+};
+
+export const requestReactivation = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email, deleted: true });
+    if (!user) return res.status(404).json({ message: "No deactivated account found with this email." });
+
+    // Generate a 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    user.otp = otp;
+    await user.save();
+
+    const templateId = 'YOUR_REACTIVATION_TEMPLATE_ID'; 
+    const sender = 'info@kinoklik.ca';
+    const dynamicTemplateData = {
+      name: user.firstName,
+      otp: otp,
+    };
+
+    await sendEmail(templateId, sender, user.email, dynamicTemplateData);
+
+    res.json({ message: "Reactivation code sent to your email.", userId: user._id });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

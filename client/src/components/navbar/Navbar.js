@@ -18,12 +18,11 @@ function Navbar(props) {
                     props.isGrayBackground ? 'tw-bg-backgroundGray' : 'tw-bg-gradient-to-b tw-from-[#000]/70 tw-to-transparent'
                 }`}
             >
-                {/* LEFT: Logo - Added shrink-0 so the logo doesn't disappear on desktop */}
+
                 <div className="tw-flex-shrink-0 tw-z-30">
                     <NavbarBrand title={props.title} isGrayBackground={props.isGrayBackground}/>
                 </div>
 
-                {/* CENTER: Film Link - sm:flex ensures it only shows on tablet/desktop */}
                 {props.filmName && props.filmLink && (
                     <div
                         className="tw-hidden sm:tw-flex tw-absolute tw-left-1/2 tw-transform -tw-translate-x-1/2 tw-items-center tw-z-10"
@@ -39,14 +38,11 @@ function Navbar(props) {
                     </div>
                 )}
 
-                {/* RIGHT: Search, Toggle, Profile */}
                 <div className="tw-flex tw-items-center tw-justify-end tw-gap-2 tw-pr-2 tw-z-30">
-                    {/* Only show SearchBar on Desktop */}
                     <div className="tw-hidden lg:tw-block">
                         <SearchBar/>
                     </div>
                     
-                    {/* The profile pic and language toggle wrapper */}
                     <div className="tw-flex-shrink-0">
                         <NavbarButtons user={user} toggle={toggle} setToggle={setToggle}/>
                     </div>

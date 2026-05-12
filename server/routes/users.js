@@ -35,6 +35,8 @@ import {
   getGenericRecommendations,
   searchUsers,
   getFeaturedActor,
+  getDeletedUserById,
+  requestReactivation,
 } from '../controllers/users.js';
 import {
   validate,
@@ -60,6 +62,7 @@ router.post(
   isValidPassResetToken,
   sendResetPasswordTokenStatus,
 );
+router.post("/request-reactivation", requestReactivation);
 
 //router.post('/send-invitation', sendInvitation)
 
@@ -102,5 +105,7 @@ router.post("/uploadFile", upload.single("file"), uploadUserFile);
 
 router.put('/lastactive/:id', updateLastActive);
 router.put('/signupfornewsletter', signupForNewsletter);
+
+router.get("/deleted-user/:id", getDeletedUserById);
 
 export default router;
