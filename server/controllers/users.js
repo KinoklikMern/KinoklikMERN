@@ -720,19 +720,20 @@ export const getGenericLikes = async (req, res) => {
 // Generic recommendation function
 export const getGenericRecommendations = async (req, res) => {
   try {
-    const targetId = req.params.targetid;
-    const count = req.body.count;
-    const targetProfile = await User.findOne({ _id: targetId });
+    const targetId = req.params.targetId;
+    const count = parseInt(req.body.count) || 1;
 
-    if (!targetProfile) {
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: targetId },
+      { $inc: { recommendations: count } },
+      { new: true, runValidators: false }
+    );    
+
+    if (!updatedUser) {
       return res.status(404).json({ error: 'User not found!' });
     }
 
-    targetProfile.recommendations =
-      (targetProfile.recommendations || 0) + count;
-    await targetProfile.save();
-
-    res.json({ recommendations: targetProfile.recommendations });
+    res.json({ recommendations: updatedUser.recommendations });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

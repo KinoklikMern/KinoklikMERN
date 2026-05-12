@@ -57,6 +57,12 @@ export default function UserSocialAction({ data, isEditMode, openLoginModal, ope
         break;
     }
   };
+  const handleRecommendSuccess = () => {
+    setProfileData(prev => ({
+      ...prev,
+      recommendations: (prev.recommendations || 0) + 1
+    }));
+  };
 
   const actionList = [
     {
@@ -76,7 +82,7 @@ export default function UserSocialAction({ data, isEditMode, openLoginModal, ope
     {
       name: 'recommend',
       icon: RecommendIcon,
-      number: profileData?.recommendations?.length || 0,
+      number: profileData?.recommendations || 0,
       hover: 'Recommend to Someone',
       isDisabled: false
     },
@@ -126,6 +132,8 @@ export default function UserSocialAction({ data, isEditMode, openLoginModal, ope
           close={() => setShowRecommendUserModal(false)} 
           userId={data?._id}
           user={user}
+          targetUser={data}
+          onSuccess={handleRecommendSuccess}
         />
       )}
     </>
