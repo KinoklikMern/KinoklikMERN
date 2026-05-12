@@ -243,11 +243,19 @@ useEffect(() => {
     }
     if (!draftUser.aboutMe || draftUser.aboutMe.trim() === "") newErrors.aboutMe = true;
 
+    if (!draftUser.summary || draftUser.summary.trim() === "") {
+      newErrors.summary = "required";
+    } else if (draftUser.summary.length > 100) {
+      newErrors.summary = "too_long";
+    }    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // If summary is missing, scroll to summary. Otherwise, scroll to Hero.
-      if (newErrors.summary || newErrors.aboutMe) {
+
+      if (newErrors.summary) {
         setValidationTarget('summary'); 
+      } else if (newErrors.aboutMe) {
+        setValidationTarget('bio');
       } else {
         setValidationTarget('hero');
       }
@@ -541,7 +549,16 @@ useEffect(() => {
                   Summary <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal tw-ml-1">(Summary Section)</span>
                 </li>
               )}
-              
+
+              {!!errors.summary && (
+                <li className="tw-text-red-400">
+                  {errors.summary === "too_long" 
+                    ? `Summary is too long (Max 100 characters. Currently: ${draftUser.summary.length})` 
+                    : "Summary Section is required"}
+                  <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal tw-ml-1">(Summary Section)</span>
+                </li>
+              )} 
+                           
               {!!errors.aboutMe && (
                 <li className="tw-text-red-400">
                   Biography <span className="tw-text-xs tw-text-[#E2BDC9] tw-font-normal tw-ml-1">(Bio Section)</span>
