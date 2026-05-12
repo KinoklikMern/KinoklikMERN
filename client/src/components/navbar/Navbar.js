@@ -11,28 +11,27 @@ function Navbar(props) {
     const [toggle, setToggle] = useState(false);
     const user = useSelector((state) => state.user);
 
-    const gradientStyle = {
-        background: props.isGrayBackground 
-            ? 'var(--backgroundGray, #808080)' 
-            : 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)'
-    };
-
     return (
-        <nav 
-            className={`tw-w-full tw-fixed tw-top-0 tw-left-0 tw-z-[1000] ${props.className}`}
-            style={gradientStyle}
-        >
-            <div className="tw-relative tw-flex tw-h-16 md:tw-h-20 tw-items-center tw-justify-between tw-px-2 md:tw-px-6 tw-mt-2 tw-max-w-full">
-                
-                <div className="tw-flex-none tw-z-30">
+        <nav className={`tw-w-full ${props.className}`}>
+            <div
+                className={`tw-mx-auto tw-flex tw-max-w-full tw-items-center tw-justify-between tw-pt-2 tw-relative ${
+                    props.isGrayBackground ? 'tw-bg-backgroundGray' : 'tw-bg-gradient-to-b tw-from-[#000]/70 tw-to-transparent'
+                }`}
+            >
+                {/* LEFT: Logo - Added shrink-0 so the logo doesn't disappear on desktop */}
+                <div className="tw-flex-shrink-0 tw-z-30">
                     <NavbarBrand title={props.title} isGrayBackground={props.isGrayBackground}/>
                 </div>
 
+                {/* CENTER: Film Link - sm:flex ensures it only shows on tablet/desktop */}
                 {props.filmName && props.filmLink && (
-                    <div className="tw-absolute tw-left-1/2 tw-top-1/2 tw-transform -tw-translate-x-1/2 -tw-translate-y-1/2 tw-hidden sm:tw-flex tw-items-center tw-z-10">
+                    <div
+                        className="tw-hidden sm:tw-flex tw-absolute tw-left-1/2 tw-transform -tw-translate-x-1/2 tw-items-center tw-z-10"
+                        style={{ maxWidth: "calc(100% - 20rem)" }}
+                    >
                         <Link
                             to={props.filmLink}
-                            className="tw-bg-customColor tw-text-white tw-font-bold tw-rounded-full tw-px-3 tw-py-1 tw-text-xs md:tw-text-base tw-truncate tw-max-w-[150px]"
+                            className="tw-bg-customColor tw-text-white tw-font-bold tw-rounded-full tw-shadow-md hover:tw-bg-opacity-90 tw-px-4 tw-py-2 tw-text-sm md:tw-text-base lg:tw-text-lg tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis"
                         >
                             {props.filmName}
                         </Link>
@@ -40,17 +39,20 @@ function Navbar(props) {
                     </div>
                 )}
 
-                <div className="tw-flex tw-items-center tw-justify-end tw-gap-1 sm:tw-gap-3 tw-z-30">
-                    <div className="tw-hidden sm:tw-block tw-flex-none">
-                        <SearchBar />
+                {/* RIGHT: Search, Toggle, Profile */}
+                <div className="tw-flex tw-items-center tw-justify-end tw-gap-2 tw-pr-2 tw-z-30">
+                    {/* Only show SearchBar on Desktop */}
+                    <div className="tw-hidden lg:tw-block">
+                        <SearchBar/>
                     </div>
                     
-                    <div className="tw-flex-none">
+                    {/* The profile pic and language toggle wrapper */}
+                    <div className="tw-flex-shrink-0">
                         <NavbarButtons user={user} toggle={toggle} setToggle={setToggle}/>
                     </div>
 
                     {!user && (
-                        <div className="tw-flex-none">
+                        <div className="tw-flex-shrink-0">
                             <NavbarMenu toggle={toggle} setToggle={setToggle}/>
                         </div>
                     )}
