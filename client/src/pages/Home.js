@@ -6,8 +6,8 @@ import HomeHead from "../components/HomeHead";
 import HomeBody from "../components/HomeBody/HomeBody";
 import HomeBodyActor from "../components/HomeBody/HomeBodyActor";
 import LandingHero from "../components/LandingPage/LandingHero";
-import LandingEpkExample from "../components/LandingPage/LandingEpkExample";
-import LandingEpkIntroductions from "../components/LandingPage/LandingEpkIntroductions";
+// import LandingEpkExample from "../components/LandingPage/LandingEpkExample";
+// import LandingEpkIntroductions from "../components/LandingPage/LandingEpkIntroductions";
 import LandingIntroductions from "../components/LandingPage/LandingIntroductions";
 import LandingFilmCarousels from "../components/LandingPage/LandingFilmCarousels";
 import LandingInstructions from "../components/LandingPage/LandingInstructions";
@@ -48,7 +48,7 @@ function Home() {
 
   return (
     <>
-      <div className='tw-overflow-hidden'>
+      <div className='tw-w-full'>
         {user && (
           <>
             <HomeHead role={location.pathname === '/actors' ? 'actor' : 'epk'} data={data} />
@@ -65,8 +65,9 @@ function Home() {
         {!user && (
           <>
             <LandingHero />
+            {/*
             <LandingEpkExample />
-            <LandingEpkIntroductions />
+            <LandingEpkIntroductions />*/}
             <LandingIntroductions />
             <LandingFilmCarousels />
             <LandingInstructions />
