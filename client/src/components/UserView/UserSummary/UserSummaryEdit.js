@@ -11,8 +11,6 @@ export default function UserSummaryEdit({ data, onChange, errors = {}, clearErro
   };
 
   const summaryLength = data?.summary?.length || 0;
-  const hasSummaryError = !!errors.summary;
-  const isTooLong = errors.summary === "too_long" || summaryLength > 100;
 
   return (
     <div className="tw-flex tw-flex-col tw-gap-6 tw-w-full">

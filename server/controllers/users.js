@@ -26,6 +26,7 @@ export const register = async (req, res) => {
       headImg,
       receiveNewsletter,
       gender,
+      birthDate
     } = req.body;
 
     // Normalize the email to lowercase
@@ -34,11 +35,47 @@ export const register = async (req, res) => {
     if (!validateEmail(normalizedEmail)) {
       return sendError(res, 'Invalid email address');
     }
+
     const emailCheck = await User.findOne({ email: normalizedEmail });
+
     if (emailCheck) {
+      // WORKFLOW: Reinstate Soft-Deleted Account Securely
+      if (emailCheck.deleted === true) {
+        
+        const isPasswordCorrect = await emailCheck.comparePassword(password);
+
+        if (!isPasswordCorrect) {
+          return res.status(401).json({
+            message: 'Invalid credentials or account status.',
+            emailExists: true
+          });
+        }
+
+        await User.updateOne(
+          { _id: emailCheck._id },
+          { 
+            $set: { 
+              deleted: false, 
+              updatedAt: new Date() 
+            } 
+          }
+        );
+
+        return res.status(200).json({
+          reinstated: true,
+          message: 'Welcome back! Your account has been successfully reinstated.',
+          user: {
+            id: emailCheck._id,
+            firstName: emailCheck.firstName,
+            lastName: emailCheck.lastName,
+            role: emailCheck.role,
+            email: emailCheck.email,
+          }
+        });
+      }
+
       return res.status(409).json({
-        message:
-          'This email address already exists. Try with a different email address',
+        message: 'This email address already exists. Try with a different email address',
         emailExists: true,
       });
     }
@@ -92,6 +129,7 @@ export const register = async (req, res) => {
       isVerified: false,
       receiveNewsletter,
       gender,
+      birthDate,
       otp: OTP,
     }).save();
 
@@ -620,13 +658,12 @@ export const deleteAccount = async (req, res) => {
     const userToDelete = await User.findOne({ _id: id, deleted: false });
 
     if (!userToDelete) {
-      return res.status(404).json({ error: 'User not found or already deleted' });
+      return res.status(404).json({ message: 'User not found or already deleted' });
     }
 
     const deletionTime = Date.now();
     await userToDelete.updateOne({ 
       deleted: true,
-      email: `${userToDelete.email}-deleted-${deletionTime}`,
       updatedAt: new Date()
     });
     
@@ -636,13 +673,15 @@ export const deleteAccount = async (req, res) => {
       req.session.destroy((err) => {
         if (err) {
           console.error("Session destruction error:", err);
+          return res.status(500).json({ message: "Account deactivated, but session cleanup failed." });
         }
       });
+    } else {
+      return res.status(200).json({ message: 'Account was successfully deactivated.' });
     }
 
-    res.status(200).json({ message: 'Account was successfully deactivated.' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
