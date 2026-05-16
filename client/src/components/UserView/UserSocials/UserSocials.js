@@ -44,10 +44,10 @@ export default function UserSocials({ userInfo, isEditMode, onChange }) {
         Social Media &amp; Reach
       </h2>
 
-      {/* The Display View (Always visible) */}
-      <div className={isEditMode ? "tw-mb-12" : "tw-mb-0"}>
-        <SocialMedia socials={socialMediaData} totalReachNum={totalReachNum} />
-      </div>
+      {/* The Display View (hidden in edit mode — UserHeader already shows it at the top) */}
+      {!isEditMode && (
+        <SocialMedia socials={socialMediaData} totalReachNum={totalReachNum} split />
+      )}
 
       {/* The Edit View (Conditional) */}
       {isEditMode && (
