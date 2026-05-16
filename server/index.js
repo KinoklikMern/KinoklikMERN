@@ -23,6 +23,7 @@ import filmMakerDashboard from "./routes/filmMakerDashboard.js";
 
 // Adding view tracking for EPK, Actor, and Filmmaker profiles
 import analyticsRoutes from "./routes/analytics.js";
+import userReportRoutes from "./routes/userReports.js";
 import cookieParser from "cookie-parser";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -75,6 +76,7 @@ app.use("/company", companyRoutes);
 app.use("/filmmaker", filmMakerDashboard);
 // end ////
 app.use("/analytics", analyticsRoutes); // Add this line to include the analytics routes
+app.use("/userreports", userReportRoutes);
 
 // rucheng edit
 app.use("/chat", chatRoutes);

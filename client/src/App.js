@@ -31,6 +31,7 @@ import AdminDashboardMain from './pages/AdminDashboard/MainPage';
 import AdminDashboardUsers from './pages/AdminDashboard/UsersPage';
 import AdminDashboardAnalytics from './pages/AdminDashboard/AnalyticsPage';
 import AdminDashboardEPKs from './pages/AdminDashboard/EPKsPage';
+import AdminDashboardReports from './pages/AdminDashboard/UserReportsPage';
 
 import AuthRoutes from './utils/AuthRoutes';
 import AccessDeniedPage from './pages/AccessDeniedPage';
@@ -94,6 +95,7 @@ function App() {
             <Route path="admindashboard/users" element={<AdminDashboardUsers />} />
             <Route path="admindashboard/analytics" element={<AdminDashboardAnalytics />} />
             <Route path="admindashboard/epks" element={<AdminDashboardEPKs />} />
+            <Route path="admindashboard/reports" element={<AdminDashboardReports />} />
 
             <Route path="uploadFepk" element={<FepkUploadDashboard />} />
 

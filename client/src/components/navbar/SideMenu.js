@@ -1,4 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
+import UserReportModal from "../common/Modals/UserReportModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as SettingDefaultIcon } from "../../images/icons/Settings-full-white.svg";
 import { ReactComponent as SettingPurpleIcon } from "../../images/icons/Settings-full-purple.svg";
@@ -27,6 +30,7 @@ export const SideProfileMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [hoveredMenu, setHoveredMenu] = useState("");
+  const [showReportModal, setShowReportModal] = useState(false);
   const user = useSelector((state) => state.user);
   const [picture, setPicture] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -78,6 +82,13 @@ export const SideProfileMenu = () => {
       defaultIcon: <DashbordDefaultIcon />,
       hoverIcon: <DashbordPurpleIcon />,
       display: user.role === "Admin",
+    },
+    {
+      name: t("Report / Feedback"),
+      url: "report",
+      defaultIcon: <FontAwesomeIcon icon={faFlag} style={{ color: "white" }} />,
+      hoverIcon: <FontAwesomeIcon icon={faFlag} style={{ color: "#712CB0" }} />,
+      display: true,
     },
     {
       name: t("Logout"),
@@ -156,6 +167,9 @@ export const SideProfileMenu = () => {
 
   return (
     <>
+      {showReportModal && (
+        <UserReportModal onClose={() => setShowReportModal(false)} />
+      )}
       <div
         className="tw-invisible tw-absolute tw-inset-y-0 tw-right-0 tw-z-40 tw-flex tw-h-screen tw-flex-col tw-bg-[#1C0039] tw-duration-300 group-hover:tw-visible"
         style={{
@@ -183,7 +197,9 @@ export const SideProfileMenu = () => {
                   } else if (menu.name === "Messages") {
                     clearMessageCount();
                   }
-                  menu.url !== "logout" ? navigate(menu.url) : logout();
+                  if (menu.url === "logout") logout();
+                  else if (menu.url === "report") setShowReportModal(true);
+                  else navigate(menu.url);
                 }}
                 onMouseOver={() => setHoveredMenu(menu.name)}
                 onMouseOut={() => setHoveredMenu("")}
