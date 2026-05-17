@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toast } from "react-toastify";
 import http from "../../http-common";
 
-const Landing11 = () => {
+const LandingNewsletter = () => {
   const { t } = useTranslation();
   const inputRef = useRef(null);
 
@@ -68,4 +68,4 @@ const Landing11 = () => {
   );
 };
 
-export default Landing11;
+export default LandingNewsletter;

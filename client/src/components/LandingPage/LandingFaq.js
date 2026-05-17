@@ -6,7 +6,7 @@ import { data } from "./data";
 import {useTranslation} from 'react-i18next';
 //import "./Landing6.css";
 
-const Landing10 = () => {
+const LandingFaq = () => {
   const { t } = useTranslation();
   const [questions, setQuestions] = useState(data);
   return (
@@ -24,4 +24,4 @@ const Landing10 = () => {
     </>
   );
 };
-export default Landing10;
+export default LandingFaq;

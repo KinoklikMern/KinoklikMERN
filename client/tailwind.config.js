@@ -4,6 +4,15 @@ module.exports = {
   prefix: "tw-",
   theme: {
     extend: {
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0.5', transform: 'scale(0.98)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        }
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.4s ease-out forwards',
+      },
       boxShadow: {
         multiSoft: `
           4px 4px 8px 0px #BDC3C7BF,
