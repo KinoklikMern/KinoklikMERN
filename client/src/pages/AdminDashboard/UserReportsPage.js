@@ -125,6 +125,7 @@ const TicketDetail = ({ report, onUpdated, onDeleted, onBack }) => {
     setPriority(report.priority);
     setAdminNotes(report.adminNotes || "");
     setReplyMsg("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [report._id]);
 
   const handleStatusChange = async (val) => {
