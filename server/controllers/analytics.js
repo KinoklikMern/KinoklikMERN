@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import User from "../models/User.js";
-import fepk from "../models/fepk.js"; 
+import fepk from "../models/fepk.js";
 import ViewTracker from "../models/ViewTracker.js";
 
 /**
@@ -59,5 +59,54 @@ export const trackUniversalView = async (req, res) => {
   } catch (error) {
     console.error("Tracking error:", error);
     res.status(200).json({ success: false, message: "Tracked silently failed" });
+  }
+};
+
+export const getAdminAnalytics = async (req, res) => {
+  try {
+    const requestingUser = await User.findById(req.user.id).select("role").lean();
+    if (!requestingUser || requestingUser.role !== "Admin") {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    const [epkAgg, userAgg, topEPKs, topProfiles, roleBreakdown] = await Promise.all([
+      fepk.aggregate([{
+        $group: {
+          _id: null,
+          totalViews: { $sum: "$viewCount" },
+          totalLikes: { $sum: { $size: "$likes" } },
+          totalFavourites: { $sum: { $size: "$favourites" } },
+          totalWishesToBuy: { $sum: { $size: "$wishes_to_buy" } },
+        }
+      }]),
+      User.aggregate([{
+        $group: {
+          _id: null,
+          totalProfileViews: { $sum: "$profileViews" },
+          totalLikes: { $sum: { $size: "$likes" } },
+          totalFollowers: { $sum: { $size: "$followers" } },
+        }
+      }]),
+      fepk.find({}, { title: 1, viewCount: 1, likes: 1, favourites: 1, image_details: 1, status: 1 })
+        .sort({ viewCount: -1 })
+        .limit(8)
+        .lean(),
+      User.find({}, { firstName: 1, lastName: 1, role: 1, profileViews: 1, likes: 1, followers: 1, picture: 1 })
+        .sort({ profileViews: -1 })
+        .limit(8)
+        .lean(),
+      User.aggregate([{ $group: { _id: "$role", count: { $sum: 1 } } }, { $sort: { count: -1 } }]),
+    ]);
+
+    res.json({
+      epkStats: epkAgg[0] || { totalViews: 0, totalLikes: 0, totalFavourites: 0, totalWishesToBuy: 0 },
+      userStats: userAgg[0] || { totalProfileViews: 0, totalLikes: 0, totalFollowers: 0 },
+      topEPKs,
+      topProfiles,
+      roleBreakdown,
+    });
+  } catch (error) {
+    console.error("Admin analytics error:", error);
+    res.status(500).json({ message: "Failed to fetch analytics" });
   }
 };

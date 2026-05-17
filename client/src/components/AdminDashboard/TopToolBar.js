@@ -1,36 +1,22 @@
 import React, { useRef, useEffect, useState } from "react";
-
-import Triangle from "../../images/icons/triangle.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from 'react-i18next';
 
 export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
   const { t } = useTranslation();
-  const [roleFilter, setRoleFilter] = useState(5); //Select 'All Users' by default
-  const [productionFilter, setProductionFilter] = useState(3); //Select 'All EPKs' by default
-  //const [searchKeyWord, setSearchKeyWord] = useState("");
+  const [roleFilter, setRoleFilter] = useState(5);
+  const [productionFilter, setProductionFilter] = useState(3);
   const [sum, setSum] = useState(0);
   const inputRef = useRef(null);
 
   const currentDate = () => {
-    const options = {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    };
-    const dateFormatter = new Intl.DateTimeFormat("en-US", options);
-    const formattedString = dateFormatter.format(new Date());
-    return formattedString;
-  };
-  const handleSearchClick = () => {
-    //Search users based on the selected filter
+    const options = { weekday: "short", month: "short", day: "numeric", year: "numeric" };
+    return new Intl.DateTimeFormat("en-US", options).format(new Date());
   };
 
   const handleKeywordChanged = (e) => {
     if (selectedTab === "Users") {
-      //Search users based on the selected filter
       const filterRes = getFilteredUsers(roleFilter).filter(
         (user) =>
           user.firstName.toLowerCase().includes(e.target.value.toLowerCase()) ||
@@ -39,7 +25,6 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
       setSum(filterRes.length);
       setFilteredData(filterRes);
     } else {
-      //Search EPKs based on the selected filter
       setFilteredData(
         getFilteredEPKs(productionFilter).filter((epk) =>
           epk.title.toLowerCase().includes(e.target.value.toLowerCase())
@@ -50,75 +35,44 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
 
   const handleRoleClick = (index) => {
     setRoleFilter(index);
-
-    //Filter Users based on the selected filter
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
+    if (inputRef.current) inputRef.current.value = "";
     const filterRes = getFilteredUsers(index);
     setSum(filterRes.length);
     setFilteredData(filterRes);
   };
+
   const getFilteredUsers = (index) => {
     switch (index) {
-      case 0:
-        return dataInfo.filter(
-          (user) => user.role === "Filmmaker" || user.role === "FILM_MAKER"
-        );
-      case 1:
-        return dataInfo.filter((user) => user.role === "Distributor");
-      case 2:
-        return dataInfo.filter((user) => user.role === "Film Festival");
-      case 3:
-        return dataInfo.filter(
-          (user) => user.role === "Sales Agent" || user.role === "Sales_Agent"
-        );
-      case 4:
-        return dataInfo.filter((user) => user.role === "Investor");
-      case 5:
-        return dataInfo;
-      case 6:
-        return dataInfo.filter((user) => user.role === "Actor");
-      case 7:
-        return dataInfo.filter((user) => user.role === "Editor");
-      case 8:
-        return dataInfo.filter((user) => user.role === "Writer");
-      case 9:
-        return dataInfo.filter((user) => user.role === "Cinematographer"); //tbd
-      case 10:
-        return dataInfo.filter((user) => user.role === "Producer"); //
-      case 11:
-        return dataInfo.filter((user) => user.role === "Sound"); //
-      case 12:
-        return dataInfo.filter((user) => user.role === "Viewer");
-      case 13:
-        return dataInfo.filter((user) => user.role === "Admin");
-      case 14:
-        return dataInfo.filter((user) => user.role === "Director");
-      default:
-        return dataInfo;
+      case 0:  return dataInfo.filter((u) => u.role === "Filmmaker" || u.role === "FILM_MAKER");
+      case 1:  return dataInfo.filter((u) => u.role === "Distributor");
+      case 2:  return dataInfo.filter((u) => u.role === "Film Festival");
+      case 3:  return dataInfo.filter((u) => u.role === "Sales Agent" || u.role === "Sales_Agent");
+      case 4:  return dataInfo.filter((u) => u.role === "Investor");
+      case 5:  return dataInfo;
+      case 6:  return dataInfo.filter((u) => u.role === "Actor");
+      case 7:  return dataInfo.filter((u) => u.role === "Editor");
+      case 8:  return dataInfo.filter((u) => u.role === "Writer");
+      case 9:  return dataInfo.filter((u) => u.role === "Cinematographer");
+      case 10: return dataInfo.filter((u) => u.role === "Producer");
+      case 11: return dataInfo.filter((u) => u.role === "Sound");
+      case 12: return dataInfo.filter((u) => u.role === "Viewer");
+      case 13: return dataInfo.filter((u) => u.role === "Admin");
+      case 14: return dataInfo.filter((u) => u.role === "Director");
+      default: return dataInfo;
     }
   };
 
   const handleBtnClick = (index) => {
     setProductionFilter(index);
-
-    //Filter EPKs based on the selected filter
     setFilteredData(getFilteredEPKs(index));
   };
+
   const getFilteredEPKs = (index) => {
     switch (index) {
-      case 0:
-        return dataInfo.filter((epk) => epk.status === "Preproduction");
-
-      case 1:
-        return dataInfo.filter((epk) => epk.status === "Production");
-
-      case 2:
-        return dataInfo.filter((epk) => epk.status === "Postproduction");
-
-      default:
-        return dataInfo;
+      case 0:  return dataInfo.filter((epk) => epk.status === "Preproduction");
+      case 1:  return dataInfo.filter((epk) => epk.status === "Production");
+      case 2:  return dataInfo.filter((epk) => epk.status === "Postproduction");
+      default: return dataInfo;
     }
   };
 
@@ -128,274 +82,107 @@ export default function TopToolBar({ selectedTab, setFilteredData, dataInfo }) {
       setSum(dataInfo.length);
     }
   }, [dataInfo, roleFilter]);
+
+  const roleOptions = [
+    { label: t("All Users"),       value: 5  },
+    { label: t("Filmmakers"),      value: 0  },
+    { label: t("Distributors"),    value: 1  },
+    { label: t("Film Festivals"),  value: 2  },
+    { label: t("Sales Agents"),    value: 3  },
+    { label: t("Investors"),       value: 4  },
+    { label: t("Admins"),          value: 13 },
+    { label: t("Directors"),       value: 14 },
+    { label: t("Actors"),          value: 6  },
+    { label: t("Editors"),         value: 7  },
+    { label: t("Writers"),         value: 8  },
+    { label: t("Cinematographers"),value: 9  },
+    { label: t("Producers"),       value: 10 },
+    { label: t("Sound"),           value: 11 },
+    { label: t("Viewers"),         value: 12 },
+  ];
+
+  const epkStatusOptions = [
+    { label: t("All EPKs"),        value: 3 },
+    { label: t("Pre-Production"),  value: 0 },
+    { label: t("Production"),      value: 1 },
+    { label: t("Post-Production"), value: 2 },
+  ];
+
+  const showFilters = selectedTab !== "Main Metrics" && selectedTab !== "Analytics";
+  const total = selectedTab === "Users"
+    ? sum
+    : dataInfo === undefined ? 0 : dataInfo.length;
+
   return (
-    <>
-      <header className="tw-mt-[5px] tw-flex tw-w-full tw-flex-col tw-justify-end tw-rounded-xl tw-bg-gray-300">
-        <div
-          className={`${
-            selectedTab === "Main Metrics" || selectedTab === "Analytics"
-              ? "tw-justify-end"
-              : "tw-justify-between"
-          } tw-md:flex-col tw-md:gap-5 tw-flex tw-h-[60px] tw-w-full tw-flex-row tw-items-center  tw-pr-10`}
-        >
-          {selectedTab === "Main Metrics" ||
-          selectedTab === "Analytics" ? null : (
-            <div className=" tw-relative tw-ml-6 tw-flex">
-              <input
-                type="text"
-                placeholder="Search name..."
-                className="tw-h-[20px] tw-w-56 tw-rounded-xl tw-border  tw-border-gray-300 tw-bg-gray-100 tw-text-xs  focus:tw-border-[#1E0039]"
-                onChange={handleKeywordChanged}
-                ref={inputRef}
-              />
-              <div className="tw-absolute  tw-bottom-1.5 tw-right-3 tw-h-[16px] tw-text-gray-300">
-                <FontAwesomeIcon
-                  className="tw-cursor-pointer"
-                  icon={faMagnifyingGlass}
-                  size="sm"
-                  onClick={handleSearchClick}
-                />
-              </div>
-            </div>
-          )}
-          <div className="tw-flex ">
-            <p className="tw-md:ml-[0] tw-md:mt-0 mt-0.5 tw-md:text-base  tw-pr-8  tw-text-gray-700">
-              {currentDate()}
-            </p>
-            {selectedTab === "Main Metrics" ||
-            selectedTab === "Analytics" ? null : (
-              <img
-                className="tw-md:ml-[0] tw-ml-2.5 tw-h-[16px] tw-rounded-none"
-                src={Triangle}
-                alt="polygonThree"
-              />
-            )}
-          </div>
-        </div>
+    <header className="tw-flex tw-items-start sm:tw-items-center tw-justify-between tw-w-full tw-px-4 tw-py-3 tw-mb-4 tw-bg-[#280D41] tw-rounded-xl tw-border tw-border-white/10">
 
-        {selectedTab === "Users" ? (
-          <div className="tw-md:flex-col tw-md:gap-5  tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-pr-10">
-            <div>
-              <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
-                <button
-                  className={`${
-                    roleFilter === 0
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(0)}
-                >
-                  {t("Filmmakers")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 1
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(1)}
-                >
-                  {t("Distributors")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 2
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(2)}
-                >
-                  {t("Film Festivals")}
-                </button>
-
-                <button
-                  className={`${
-                    roleFilter === 3
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(3)}
-                >
-                  {t("Sales Agents")}
-                </button>
-
-                <button
-                  className={`${
-                    roleFilter === 4
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(4)}
-                >
-                  {t("Investors")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 13
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(13)}
-                >
-                  {t("Admins")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 5
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(5)}
-                >
-                  {t("All Users")}
-                </button>
-              </div>
-              <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
-                <button
-                  className={`${
-                    roleFilter === 14
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(14)}
-                >
-                 {t("Directors")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 6
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(6)}
-                >
-                  {t("Actors")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 7
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(7)}
-                >
-                  {t("Editors")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 8
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(8)}
-                >
-                  {t("Writers")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 9
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(9)}
-                >
-                  {t("Cinematographers")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 10
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(10)}
-                >
-                  {t("Producers")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 11
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(11)}
-                >
-                  {t("Sounds")}
-                </button>
-                <button
-                  className={`${
-                    roleFilter === 12
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleRoleClick(12)}
-                >
-                  {t("Viewers")}
-                </button>
-              </div>
-            </div>
-            <div className="tw-flex tw-items-center">
-              <p className="tw-mr-32">Total</p>
-              <div className="tw-flex tw-h-[30px] tw-w-[30px] tw-items-center tw-justify-center tw-rounded-lg tw-bg-midnight tw-text-center tw-text-white">
-                {sum}
-              </div>
-            </div>
+      {/* Left: search + filter */}
+      <div className="tw-flex tw-items-center tw-gap-2 tw-min-w-0 tw-flex-wrap">
+        {showFilters && (
+          <div className="tw-relative">
+            <input
+              type="text"
+              placeholder={t("Search name...")}
+              className="tw-h-9 tw-w-48 tw-rounded-lg tw-border tw-border-white/20 tw-bg-[#190033] tw-pl-3 tw-pr-8 tw-text-sm tw-text-white focus:tw-border-[#712CB0] tw-outline-none placeholder:tw-text-white/40"
+              onChange={handleKeywordChanged}
+              ref={inputRef}
+            />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="tw-pointer-events-none tw-absolute tw-right-3 tw-top-2.5 tw-text-xs tw-text-white/40"
+            />
           </div>
-        ) : null}
-        {selectedTab === "EPKs" ? (
-          <div className="tw-md:flex-col tw-md:gap-5  tw-mb-2 tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-pr-10">
-            <div>
-              <div className="tw-mb-2 tw-ml-6 tw-flex tw-h-4 tw-justify-between tw-rounded-xl tw-bg-white tw-text-xs tw-shadow-[3px_5px_10px_1px_rgba(30,0,57,0.8)] ">
-                <button
-                  className={`${
-                    productionFilter === 0
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleBtnClick(0)}
-                >
-                  {t("Pre-Production")}
-                </button>
-                <button
-                  className={`${
-                    productionFilter === 1
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleBtnClick(1)}
-                >
-                  {t("Production")}
-                </button>
-                <button
-                  className={`${
-                    productionFilter === 2
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleBtnClick(2)}
-                >
-                  {t("Post-Production")}
-                </button>
-                <button
-                  className={`${
-                    productionFilter === 3
-                      ? "tw-bg-midnight tw-text-white"
-                      : "tw-bg-white tw-text-midnight"
-                  } tw-rounded-lg  tw-px-2 hover:tw-bg-midnight hover:tw-text-white`}
-                  onClick={() => handleBtnClick(3)}
-                >
-                  {t("All EPKs")}
-                </button>
-              </div>
-            </div>
-            <div className="tw-flex tw-items-center">
-              <p className="tw-mr-32">Total</p>
-              <div className="tw-flex tw-h-[30px] tw-w-[30px] tw-items-center tw-justify-center tw-rounded-lg tw-bg-midnight tw-text-center tw-text-white">
-                {dataInfo === undefined ? 0 : dataInfo.length}
-              </div>
-            </div>
+        )}
+
+        {selectedTab === "Users" && (
+          <div className="tw-relative">
+            <select
+              value={roleFilter}
+              onChange={(e) => handleRoleClick(Number(e.target.value))}
+              className="tw-h-9 tw-max-w-[148px] tw-appearance-none tw-rounded-lg tw-border tw-border-white/20 tw-bg-[#190033] tw-pl-3 tw-pr-8 tw-text-sm tw-text-white focus:tw-border-[#712CB0] tw-outline-none tw-cursor-pointer"
+            >
+              {roleOptions.map(({ label, value }) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className="tw-pointer-events-none tw-absolute tw-right-3 tw-top-2.5 tw-text-xs tw-text-white/60"
+            />
           </div>
-        ) : null}
-      </header>
-    </>
+        )}
+
+        {selectedTab === "EPKs" && (
+          <div className="tw-flex tw-gap-2">
+            {epkStatusOptions.map(({ label, value }) => (
+              <button
+                key={value}
+                onClick={() => handleBtnClick(value)}
+                className={`tw-px-3 tw-py-1.5 tw-rounded-lg tw-text-xs tw-font-medium tw-transition-all tw-border-none tw-cursor-pointer ${
+                  productionFilter === value
+                    ? "tw-bg-[#712CB0] tw-text-white"
+                    : "tw-bg-white/10 tw-text-white/70 hover:tw-bg-white/20 hover:tw-text-white"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Right: total + date */}
+      <div className="tw-flex tw-items-center tw-gap-4">
+        {showFilters && (
+          <div className="tw-flex tw-items-center tw-gap-2">
+            <span className="tw-text-sm tw-text-white/50">{t("Total")}</span>
+            <span className="tw-flex tw-h-7 tw-min-w-[28px] tw-items-center tw-justify-center tw-rounded-lg tw-bg-[#712CB0] tw-px-2 tw-text-xs tw-font-bold tw-text-white">
+              {total}
+            </span>
+          </div>
+        )}
+        <p className="tw-hidden sm:tw-block tw-text-sm tw-text-white/50">{currentDate()}</p>
+      </div>
+    </header>
   );
 }

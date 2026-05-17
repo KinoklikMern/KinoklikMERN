@@ -162,6 +162,41 @@ export async function getFileStreamFromS3(fileKey) {
   }
 }
 
+// upload a report screenshot to s3 under the user-reports/ folder
+export async function uploadReportScreenshotToS3(fileObj) {
+  const fileStream = fs.createReadStream(fileObj.path);
+  const mimetype = fileObj.mimetype;
+
+  let ext = "";
+  if (mimetype === "image/png") ext = ".png";
+  else if (mimetype === "image/gif") ext = ".gif";
+  else if (["image/jpg", "image/jpeg", "image/JPEG", "image/JPG"].includes(mimetype)) ext = ".jpg";
+  else if (mimetype === "image/webp") ext = ".webp";
+  else throw new Error("File extension not supported");
+
+  const uploadParams = {
+    Bucket: bucketName,
+    Body: fileStream,
+    Key: "user-reports/" + fileObj.filename + ext,
+  };
+
+  try {
+    const command = new PutObjectCommand(uploadParams);
+    const uploadData = await s3.send(command);
+
+    try {
+      fs.unlinkSync("./images/" + fileObj.filename);
+    } catch (err) {
+      console.error("Local file cleanup error:", err);
+    }
+
+    return { ...uploadData, Key: uploadParams.Key };
+  } catch (err) {
+    console.error("S3 Report Screenshot Upload Error:", err);
+    return null;
+  }
+}
+
 // batch delete files from s3
 export async function deleteFilesFromS3(keys) {
   if (!keys || keys.length === 0) return { Deleted: [] };

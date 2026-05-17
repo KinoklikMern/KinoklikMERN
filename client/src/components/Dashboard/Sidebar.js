@@ -12,6 +12,8 @@ import AnalyticsIcon from "../../images/icons/analytics-white.svg";
 import AnalyticsActiveIcon from "../../images/icons/analytics.svg";
 import StarIcon from "../../images/icons/star.svg";
 import StartWhiteIcon from "../../images/icons/star-file-white.svg";
+import FlagIcon from "../../images/icons/flag.svg";
+import FlagWhiteIcon from "../../images/icons/flagFull.svg";
 import BellIcon from "../../images/icons/bellEmpty.svg";
 import BellWhiteIcon from "../../images/icons/bellFull.svg";
 import SettingsIcon from "../../images/icons/settings.svg";
@@ -34,6 +36,7 @@ export default function Sidebar({ role }) {
       USERS: { Title: t("Users"), to: "/admindashboard/users", DefaultIcon: UsersIcon, ActiveIcon: UsersActiveIcon },
       ANALYTICS: { Title: t("Analytics"), to: "/admindashboard/analytics", DefaultIcon: AnalyticsIcon, ActiveIcon: AnalyticsActiveIcon },
       ADMIN_EPKS: { Title: t("EPKs"), to: "/admindashboard/epks", DefaultIcon: StartWhiteIcon, ActiveIcon: StarIcon },
+      REPORTS: { Title: t("Reports"), to: "/admindashboard/reports", DefaultIcon: FlagWhiteIcon, ActiveIcon: FlagIcon },
 
       EDIT_USER_PAGE: { Title: t("Your Profile"), to: `/user/${userId}`, DefaultIcon: ActorPage, ActiveIcon: ActorPageWhite },
       SAVED: { Title: t("Saved"), to: "/dashboard/saved", DefaultIcon: SavedIcon, ActiveIcon: SavedWhiteIcon },
@@ -47,11 +50,13 @@ export default function Sidebar({ role }) {
 
     const tabs = TABS(t, userId);
     switch (role) {
-      case "Admin": return [tabs.METRICS, tabs.USERS, tabs.ANALYTICS, tabs.ADMIN_EPKS];
+      case "Admin": return [tabs.METRICS, tabs.USERS, tabs.ANALYTICS, tabs.ADMIN_EPKS, tabs.REPORTS];
       case "Actor": return [tabs.EDIT_USER_PAGE, tabs.REQUESTS, tabs.MESSAGES, tabs.SAVED, tabs.SETTINGS];
       default: return [tabs.EPKS, tabs.EDIT_USER_PAGE, tabs.NOTIFICATIONS, tabs.REQUESTS, tabs.MESSAGES, tabs.SAVED, tabs.SETTINGS];
     }
   }, [role, t, userId]);
+
+  const isAdmin = role === "Admin";
 
   const NavItem = ({ item, isMobile = false }) => (
     <NavLink
@@ -59,19 +64,29 @@ export default function Sidebar({ role }) {
       onClick={item.Title === t("Messages") ? clearMessageCount : undefined}
       className={({ isActive }) => `
         tw-group tw-relative tw-flex tw-flex-col tw-items-center tw-justify-center tw-transition-all
-        ${isMobile ? "tw-flex-1 tw-py-2" : "tw-w-full tw-py-4"}
-        ${isActive ? "tw-bg-[#1E0039] tw-text-white" : "tw-text-[#1E0039]"}
-        ${!isMobile && isActive ? "tw-rounded-xl" : ""} 
+        ${isMobile ? "tw-flex-1 tw-py-2" : "tw-w-full tw-py-3"}
+        ${isAdmin
+          ? isActive
+            ? "tw-bg-[#712CB0] tw-rounded-xl tw-text-white"
+            : "tw-text-white/70"
+          : isActive
+            ? "tw-bg-[#1E0039] tw-rounded-xl tw-text-white"
+            : "tw-text-[#1E0039]"
+        }
       `}
     >
       {({ isActive }) => (
         <>
           <img
-            src={isActive ? item.ActiveIcon : item.DefaultIcon}
+            src={isAdmin ? item.DefaultIcon : (isActive ? item.ActiveIcon : item.DefaultIcon)}
             alt={item.Title}
-            className={isMobile ? "tw-h-8 tw-w-8" : "tw-h-10 tw-w-10"}
+            className={`${isMobile ? "tw-h-8 tw-w-8" : "tw-h-8 tw-w-8"} ${isAdmin ? "tw-brightness-0 tw-invert" : ""}`}
           />
-          <p className={`tw-text-xs ${isActive ? "tw-text-white" : "tw-text-[#1E0039]"}`}>
+          <p className={`tw-text-xs tw-mt-1 ${
+            isAdmin
+              ? isActive ? "tw-text-white" : "tw-text-white/60"
+              : isActive ? "tw-text-white" : "tw-text-[#1E0039]"
+          }`}>
             {item.Title}
           </p>
 
@@ -87,18 +102,22 @@ export default function Sidebar({ role }) {
     </NavLink>
   );
 
-  const renderNavItems = (isMobile) => 
+  const renderNavItems = (isMobile) =>
     sideBarList.map((item, index) => <NavItem key={index} item={item} isMobile={isMobile} />);
 
   return (
     <>
       {/* Desktop Sidebar (Left) */}
-      <nav className="tw-hidden md:tw-flex tw-h-full tw-w-20 tw-flex-col tw-justify-between tw-rounded-lg tw-bg-white tw-border-r tw-py-4">
+      <nav className={`tw-hidden md:tw-flex tw-h-full tw-w-20 tw-flex-col tw-items-stretch tw-rounded-lg tw-border-r tw-py-4 tw-gap-1 ${
+        isAdmin ? "tw-bg-[#280D41] tw-border-white/10" : "tw-bg-white tw-border-r"
+      }`}>
         {renderNavItems(false)}
       </nav>
 
       {/* Mobile Bottom Bar */}
-      <div className="tw-fixed tw-bottom-0 tw-left-0 tw-right-0 tw-z-50 tw-flex tw-w-full tw-bg-white tw-shadow-md md:tw-hidden">
+      <div className={`tw-fixed tw-bottom-0 tw-left-0 tw-right-0 tw-z-50 tw-flex tw-w-full tw-shadow-md md:tw-hidden ${
+        isAdmin ? "tw-bg-[#280D41]" : "tw-bg-white"
+      }`}>
         <nav className="tw-flex tw-w-full">
           {renderNavItems(true)}
         </nav>
