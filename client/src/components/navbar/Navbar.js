@@ -12,20 +12,25 @@ function Navbar(props) {
     const user = useSelector((state) => state.user);
 
     return (
-        <nav className={`tw-w-full tw-relative tw-z-[1000] ${props.className}`}>
-            <div className={`tw-mx-auto tw-flex tw-max-w-full tw-items-center tw-justify-between tw-px-4 tw-h-20 ${
-                props.isGrayBackground ? 'tw-bg-backgroundGray' : 'tw-bg-gradient-to-b tw-from-[#000]/70 tw-to-transparent'
-            }`}>
-                
-                <div className="tw-flex-shrink-0 tw-z-20">
+        <nav className={`tw-w-full ${props.className}`}>
+            <div
+                className={`tw-mx-auto tw-flex tw-max-w-full tw-items-center tw-justify-between tw-pt-2 tw-relative ${
+                    props.isGrayBackground ? 'tw-bg-backgroundGray' : 'tw-bg-gradient-to-b tw-from-[#000]/70 tw-to-transparent'
+                }`}
+            >
+
+                <div className="tw-flex-shrink-0 tw-z-30">
                     <NavbarBrand title={props.title} isGrayBackground={props.isGrayBackground}/>
                 </div>
 
                 {props.filmName && props.filmLink && (
-                    <div className="tw-hidden lg:tw-flex tw-absolute tw-left-1/2 tw-transform -tw-translate-x-1/2 tw-items-center tw-z-10">
+                    <div
+                        className="tw-hidden sm:tw-flex tw-absolute tw-left-1/2 tw-transform -tw-translate-x-1/2 tw-items-center tw-z-10"
+                        style={{ maxWidth: "calc(100% - 20rem)" }}
+                    >
                         <Link
                             to={props.filmLink}
-                            className="tw-bg-customColor tw-text-white tw-font-bold tw-rounded-full tw-px-4 tw-py-2 tw-text-base tw-whitespace-nowrap tw-max-w-[200px] tw-truncate"
+                            className="tw-bg-customColor tw-text-white tw-font-bold tw-rounded-full tw-shadow-md hover:tw-bg-opacity-90 tw-px-4 tw-py-2 tw-text-sm md:tw-text-base lg:tw-text-lg tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis"
                         >
                             {props.filmName}
                         </Link>
@@ -33,19 +38,23 @@ function Navbar(props) {
                     </div>
                 )}
 
-                <div className="tw-flex tw-items-center tw-justify-end tw-flex-1 md:tw-flex-none tw-gap-2 tw-z-20">
-                    <div className="tw-hidden sm:tw-block">
+                <div className="tw-flex tw-items-center tw-justify-end tw-gap-2 tw-pr-2 tw-z-30">
+                    <div className="tw-hidden lg:tw-block">
                         <SearchBar/>
                     </div>
+                    
                     <div className="tw-flex-shrink-0">
                         <NavbarButtons user={user} toggle={toggle} setToggle={setToggle}/>
                     </div>
-                    
-                    {!user && <NavbarMenu toggle={toggle} setToggle={setToggle}/>}
+
+                    {!user && (
+                        <div className="tw-flex-shrink-0">
+                            <NavbarMenu toggle={toggle} setToggle={setToggle}/>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>
-
     );
 }
 

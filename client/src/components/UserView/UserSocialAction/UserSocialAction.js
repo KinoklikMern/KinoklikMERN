@@ -10,13 +10,15 @@ import StarBlackIcon from '../../../images/icons/StarBlack.svg';
 import RecommendIcon from '../../../images/icons/recommend-icon.svg';
 import MessageIcon from '../../../images/icons/messages.svg'; 
 import NewMessageModal from '../../common/Modals/NewMessageModal';
+import RecommendUserModal from '../../common/Modals/RecommendUserModal';
 
-export default function UserSocialAction({ data, isEditMode, openLoginModal, openRecommendModal, openMessageModal }) {
+export default function UserSocialAction({ data, isEditMode, openLoginModal, openRecommendUserModal, openMessageModal }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const userId = user?.id || '0';
   const [profileData, setProfileData] = useState(data);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [ShowRecommendUserModal, setShowRecommendUserModal] = useState(false);
 
   useEffect(() => {
     setProfileData(data);
@@ -46,14 +48,20 @@ export default function UserSocialAction({ data, isEditMode, openLoginModal, ope
         });
         break;
       case 'message':
-        openMessageModal();
+        setShowMessageModal(true);
         break;
       case 'recommend':
-        openRecommendModal(); 
+        setShowRecommendUserModal(true); 
         break;
       default:
         break;
     }
+  };
+  const handleRecommendSuccess = () => {
+    setProfileData(prev => ({
+      ...prev,
+      recommendations: (prev.recommendations || 0) + 1
+    }));
   };
 
   const actionList = [
@@ -74,8 +82,8 @@ export default function UserSocialAction({ data, isEditMode, openLoginModal, ope
     {
       name: 'recommend',
       icon: RecommendIcon,
-      number: profileData?.recommendations?.length || 0,
-      hover: 'Recommend to Filmmakers',
+      number: profileData?.recommendations || 0,
+      hover: 'Recommend to Someone',
       isDisabled: false
     },
     {
@@ -113,10 +121,19 @@ export default function UserSocialAction({ data, isEditMode, openLoginModal, ope
       {showMessageModal && (
         <NewMessageModal 
           close={() => setShowMessageModal(false)} 
-          open={() => setShowMessageModal(true)} 
-          actorId={data?._id} 
+          userId={data?._id}
+          userFirstName={data?.firstName} 
           user={user} 
           setRefresh={() => {}}
+        />
+      )}
+      {ShowRecommendUserModal && (
+        <RecommendUserModal 
+          close={() => setShowRecommendUserModal(false)} 
+          userId={data?._id}
+          user={user}
+          targetUser={data}
+          onSuccess={handleRecommendSuccess}
         />
       )}
     </>

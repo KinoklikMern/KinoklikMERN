@@ -148,3 +148,20 @@ export const updateUserProfile = async (userId, updatePayload, token) => {
     throw error;
   }
 };
+
+export const deleteAccount = async (userId, token) => {
+  try {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/users/deleteAccount/${userId}`,
+      {
+        headers: { 
+          Authorization: `Bearer ${token}` 
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    throw error;
+  }
+};

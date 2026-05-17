@@ -28,6 +28,10 @@ const sendMessage = async (req, res) => {
     console.log("Invalid data passed into request");
     return res.sendStatus(400);
   }
+  
+  if (content.trim().length === 0) {
+    return res.status(400).json({ message: "Message content cannot be empty" });
+  }
 
   let newMessage = {
     sender: req.user.id,
@@ -36,9 +40,14 @@ const sendMessage = async (req, res) => {
   };
 
   try {
+    const chatInstance = await Chat.findOne({ _id: chatId, users: req.user.id });
+    if (!chatInstance) {
+      return res.status(403).json({ message: "You are not authorized to send messages in this chat" });
+    }
+
     let message = await Message.create(newMessage);
 
-    message = await message.populate("sender", "name picture");
+    message = await message.populate("sender", "firstName picture");
     message = await message.populate("chat");
 
     message = await User.populate(message, {
@@ -47,11 +56,8 @@ const sendMessage = async (req, res) => {
     });
 
     await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
-    // console.log("message", message);
     res.json(message);
   } catch (error) {
-    // res.status(400);
-    // throw new Error(error.message);
     return res.status(400).json({ error: error.message });
   }
 };

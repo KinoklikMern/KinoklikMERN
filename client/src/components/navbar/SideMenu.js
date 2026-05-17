@@ -125,14 +125,12 @@ export const SideProfileMenu = () => {
     const currentUser = JSON.parse(Cookies.get("user") || "null");
 
     if (currentUser && currentUser.id && socket) {
-      socket.emit("logout", currentUser.id); // Notify server of intent to logout
-      // Delay the disconnection slightly to ensure the logout event is processed
+      socket.emit("logout", currentUser.id); 
       setTimeout(() => {
-        socket.disconnect(); // Disconnect the socket
+        socket.disconnect();
       }, 1000);
     }
 
-    // Clear user data from cookies
     Cookies.remove("user");
 
     dispatch({
