@@ -1,7 +1,7 @@
 import React from "react";
 import image from "../../images/LandingPage/DeadEndEPKScreenshot.png";
 
-const Landing2 = () => {
+const LandingEpkExample = () => {
   // const imageRef = useRef(null);
 
   // useEffect(() => {
@@ -33,4 +33,4 @@ const Landing2 = () => {
     </>
   );
 };
-export default Landing2;
+export default LandingEpkExample;

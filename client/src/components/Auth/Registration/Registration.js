@@ -8,6 +8,7 @@ import RoleChoice from './RoleChoice';
 import RegistrationPersonalInfo from './RegistrationPersonalInfo';
 import filmmakerIcon from '../../../images/icons/filmmakerIcon.svg';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState('');
@@ -118,17 +119,31 @@ function RegistrationForm() {
         return;
       }
 
+      if (data.reinstated) {
+        toast.success(t("Welcome back! Your account has been reactivated. Please log in."));
+        setError('');
+        setSuccess(data.message);
+        
+        navigate('/login', { replace: true });
+        return;
+      }
+
       setError('');
       setSuccess(data.message);
       // eslint-disable-next-line no-unused-vars
       const { message, ...rest } = data;
       navigate('/verification', {
         state: { user: data.user },
-        replace: true, // prevent user go back to the previous page
+        replace: true,
       });
     } catch (error) {
       setSuccess('');
-      const errorMessage = error.response?.data?.message || error.response?.data?.error || t("An error occurred during registration.");
+      let errorMessage = error.response?.data?.message || error.response?.data?.error || t("An error occurred during registration.");
+      
+      if (errorMessage.includes("validation failed") || errorMessage.includes("birthDate")) {
+        errorMessage = t("Please provide a valid birth date.");
+      }
+      
       setError(errorMessage);
     }
   };

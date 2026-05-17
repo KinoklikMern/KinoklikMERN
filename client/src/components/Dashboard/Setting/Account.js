@@ -1,33 +1,38 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { deleteAccount } from "../../../api/users";
 
 export default function Account() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const token = user?.token || Cookies.get("token"); 
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDeleteClick = () => {
-    // Using a native confirm for now - it's accessible and zero-code. 
     if (window.confirm(t("Are you sure you want to delete your account? This action is permanent."))) {
       performDelete();
     }
   };
 
   const performDelete = () => {
+    if (!user?.id) {
+      toast.error(t("User session not found. Please log in again."));
+      return;
+    }
+
     setIsDeleting(true);
-    Axios.delete(`${process.env.REACT_APP_BACKEND_URL}/users/deleteAccount/${user?.id}`)
+
+    deleteAccount(user.id, token)
       .then((res) => {
         toast.success(t("Account deleted successfully"));
-        
         Cookies.remove("user");
-        dispatch({ type: "LOGOUT" });
+        dispatch({ type: "LOGOUT", payload: null});
         navigate("/");
       })
       .catch((err) => {

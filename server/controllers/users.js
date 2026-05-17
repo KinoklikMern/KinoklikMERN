@@ -26,6 +26,7 @@ export const register = async (req, res) => {
       headImg,
       receiveNewsletter,
       gender,
+      birthDate
     } = req.body;
 
     // Normalize the email to lowercase
@@ -34,11 +35,47 @@ export const register = async (req, res) => {
     if (!validateEmail(normalizedEmail)) {
       return sendError(res, 'Invalid email address');
     }
+
     const emailCheck = await User.findOne({ email: normalizedEmail });
+
     if (emailCheck) {
+      // WORKFLOW: Reinstate Soft-Deleted Account Securely
+      if (emailCheck.deleted === true) {
+        
+        const isPasswordCorrect = await emailCheck.comparePassword(password);
+
+        if (!isPasswordCorrect) {
+          return res.status(401).json({
+            message: 'Invalid credentials or account status.',
+            emailExists: true
+          });
+        }
+
+        await User.updateOne(
+          { _id: emailCheck._id },
+          { 
+            $set: { 
+              deleted: false, 
+              updatedAt: new Date() 
+            } 
+          }
+        );
+
+        return res.status(200).json({
+          reinstated: true,
+          message: 'Welcome back! Your account has been successfully reinstated.',
+          user: {
+            id: emailCheck._id,
+            firstName: emailCheck.firstName,
+            lastName: emailCheck.lastName,
+            role: emailCheck.role,
+            email: emailCheck.email,
+          }
+        });
+      }
+
       return res.status(409).json({
-        message:
-          'This email address already exists. Try with a different email address',
+        message: 'This email address already exists. Try with a different email address',
         emailExists: true,
       });
     }
@@ -92,6 +129,7 @@ export const register = async (req, res) => {
       isVerified: false,
       receiveNewsletter,
       gender,
+      birthDate,
       otp: OTP,
     }).save();
 
@@ -158,9 +196,6 @@ export const verifyEmail = async (req, res) => {
   const { userId, OTP } = req.body;
 
   try {
-    // console.log("Received userId:", userId);
-    // console.log("Received OTP:", OTP);
-
     if (!isValidObjectId(userId)) return sendError(res, 'Invalid user!');
 
     const user = await User.findById(userId);
@@ -168,22 +203,17 @@ export const verifyEmail = async (req, res) => {
 
     if (user.isVerified) return sendError(res, 'User is already verified!');
 
-    // console.log("UserId" + userId);
-    // const token = await EmailVerificationToken.findOne({ owner: userId });
-    //if (!token) return sendError(res, "token not found!");
-
     if (user.otp === '') {
       return sendError(res, 'Token not found!');
     }
     if (user.otp !== OTP) return sendError(res, 'Please submit a valid OTP!');
 
-    // const isMatched = await token.compareToken(OTP);
-    // if (!isMatched) return sendError(res, "Please submit a valid OTP!");
+    const wasDeleted = user.deleted;
+
     user.isVerified = true;
+    user.deleted = false;
     user.otp = "";
     await user.save();
-
-    //await EmailVerificationToken.findByIdAndDelete(token._id);
 
     // Send email using SendGrid's Web API
     const templateId = 'd-5022ad5499dc45c9a152ec0f22d2aa1d';
@@ -204,7 +234,9 @@ export const verifyEmail = async (req, res) => {
       secure: true,
     });
     res.json({
-      message: 'Your email is verified and you are logged in.',
+      message: wasDeleted 
+        ? 'Welcome back! Your account has been reactivated.' 
+        : 'Your email is verified and you are logged in.',
       user: {
         id: user._id,
         firstName: user.firstName,
@@ -626,20 +658,30 @@ export const deleteAccount = async (req, res) => {
     const userToDelete = await User.findOne({ _id: id, deleted: false });
 
     if (!userToDelete) {
-      return res.status(404).json({ error: 'User not found or already deleted' });
+      return res.status(404).json({ message: 'User not found or already deleted' });
     }
 
     const deletionTime = Date.now();
     await userToDelete.updateOne({ 
       deleted: true,
-      email: `${userToDelete.email}-deleted-${deletionTime}`,
       updatedAt: new Date()
     });
     
     res.cookie('token', '', { expires: new Date(0) });
-    res.status(200).json({ message: 'Account was successfully deactivated.' });
+
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Session destruction error:", err);
+          return res.status(500).json({ message: "Account deactivated, but session cleanup failed." });
+        }
+      });
+    } else {
+      return res.status(200).json({ message: 'Account was successfully deactivated.' });
+    }
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -717,19 +759,20 @@ export const getGenericLikes = async (req, res) => {
 // Generic recommendation function
 export const getGenericRecommendations = async (req, res) => {
   try {
-    const targetId = req.params.targetid;
-    const count = req.body.count;
-    const targetProfile = await User.findOne({ _id: targetId });
+    const targetId = req.params.targetId;
+    const count = parseInt(req.body.count) || 1;
 
-    if (!targetProfile) {
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: targetId },
+      { $inc: { recommendations: count } },
+      { new: true, runValidators: false }
+    );    
+
+    if (!updatedUser) {
       return res.status(404).json({ error: 'User not found!' });
     }
 
-    targetProfile.recommendations =
-      (targetProfile.recommendations || 0) + count;
-    await targetProfile.save();
-
-    res.json({ recommendations: targetProfile.recommendations });
+    res.json({ recommendations: updatedUser.recommendations });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -754,7 +797,10 @@ export const getAllActors = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    const profile = await User.find().select('-password');
+    const profile = await User.find({
+      deleted: false,
+    })
+      .select('-password');
     if (!profile) {
       return res.json({ ok: false });
     }
@@ -1013,6 +1059,7 @@ export const searchUsers = async (req, res) => {
   if (!q || q.trim().length < 2) return res.json([]);
   try {
     const users = await User.find({
+      deleted: false,
       $or: [
         { firstName: { $regex: q.trim(), $options: 'i' } },
         { lastName: { $regex: q.trim(), $options: 'i' } },
@@ -1051,5 +1098,31 @@ export const uploadUserFile = async (req, res) => {
     console.log(result);
     res.status(200).send({ key: result.Key });
     //res.status(200).send({ Location: result.Location });
+  }
+};
+
+export const requestReactivation = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email, deleted: true });
+    if (!user) return res.status(404).json({ message: "No deactivated account found with this email." });
+
+    // Generate a 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    user.otp = otp;
+    await user.save();
+
+    const templateId = 'YOUR_REACTIVATION_TEMPLATE_ID'; 
+    const sender = 'info@kinoklik.ca';
+    const dynamicTemplateData = {
+      name: user.firstName,
+      otp: otp,
+    };
+
+    await sendEmail(templateId, sender, user.email, dynamicTemplateData);
+
+    res.json({ message: "Reactivation code sent to your email.", userId: user._id });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

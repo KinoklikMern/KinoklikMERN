@@ -10,6 +10,8 @@ export default function UserSummaryEdit({ data, onChange, errors = {}, clearErro
     }
   };
 
+  const summaryLength = data?.summary?.length || 0;
+
   return (
     <div className="tw-flex tw-flex-col tw-gap-6 tw-w-full">
       {/* NAME INPUTS */}
@@ -46,7 +48,7 @@ export default function UserSummaryEdit({ data, onChange, errors = {}, clearErro
         <textarea
           value={data?.summary || ""}
           onChange={(e) => handleChange("summary", e.target.value)}
-          maxLength={150}
+          maxLength={100}
           placeholder="Professional tagline or summary..."
           className={`tw-w-full tw-bg-transparent tw-border-l-2 tw-pl-6 tw-py-1 tw-text-[#E2BDC9] tw-text-xl md:tw-text-2xl tw-italic tw-outline-none tw-resize-none ${
             errors.summary ? 'tw-border-red-500' : 'tw-border-[#FF43A7]/30 focus:tw-border-[#FF43A7]'
@@ -57,8 +59,10 @@ export default function UserSummaryEdit({ data, onChange, errors = {}, clearErro
           {errors.summary ? (
             <p className="tw-text-red-500 tw-text-[10px] tw-uppercase tw-font-bold">Invalid Summary</p>
           ) : <span />}
-          <span className="tw-text-[10px] tw-text-[#5A3F49] tw-uppercase">
-            {data?.summary?.length || 0} / 150
+          <span className={`tw-text-[10px] tw-uppercase tw-font-bold ${
+            summaryLength >= 100 ? 'tw-text-red-500' : 'tw-text-[#5A3F49]'
+          }`}>
+            {summaryLength} / 100
           </span>
         </div>
       </div>
