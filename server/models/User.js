@@ -70,12 +70,6 @@ const UserSchema = mongoose.Schema({
     default:
       "https://res.cloudinary.com/dmhcnhtng/image/upload/v1643844376/avatars/default_pic_jeaybr.png",
   },
-  profiles: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
   city: {
     type: String,
     default: "",
@@ -265,33 +259,53 @@ const UserSchema = mongoose.Schema({
   }
 });
 
+UserSchema.pre('save', function(next) {
+  if (this.role === 'Actor') {
+    if (!this.photo_albums) this.photo_albums = { headshots: [], behind: [], media: [], premieres: [] };
+    if (!this.video_gallery) this.video_gallery = { reels: [], behind: [], media: [], premieres: [] };
+
+    // Migrate old picture to headshots if empty
+    if (this.picture && this.photo_albums.headshots.length === 0) {
+      this.photo_albums.headshots = [{ image: this.picture, isMain: true }];
+    }
+
+    // Sync 'picture' with isMain headshot
+    const mainHeadshot = this.photo_albums.headshots.find(h => h.isMain);
+    if (mainHeadshot) this.picture = mainHeadshot.image;
+  }
+  next();
+});
+
+
 // Backward compatibility for users w/o gallery or summary
 UserSchema.post(['find', 'findOne'], function(docs) {
   if (!docs) return;
 
-  const migrateActorData = (doc) => {
-    const rawDoc = doc._doc || doc; 
+  const sanitizeActor = (doc) => {
+    if (doc.role !== 'Actor') return;
 
-    // 1. Safety check for photo_albums
+    const rawDoc = doc._doc || doc;
+
+    // Ensure photo_albums exists
     if (!rawDoc.photo_albums) {
-      rawDoc.photo_albums = { headshots: [], behind: [], media: [] };
+      rawDoc.photo_albums = { headshots: [], behind: [], media: [], premieres: [] };
     }
-
-    // 2. Migrate picture to headshots if headshots is empty
-    if (rawDoc.picture && rawDoc.photo_albums.headshots.length === 0) {
-      rawDoc.photo_albums.headshots = [{ image: rawDoc.picture }];
-    }
-
-    // 4. Safety check for video_gallery
+    
+    // Ensure video_gallery exists
     if (!rawDoc.video_gallery) {
       rawDoc.video_gallery = { reels: [], behind: [], media: [], premieres: [] };
+    }
+
+    // Ensure at least one headshot if legacy picture exists
+    if (rawDoc.picture && rawDoc.photo_albums.headshots.length === 0) {
+      rawDoc.photo_albums.headshots = [{ image: rawDoc.picture, isMain: true }];
     }
   };
 
   if (Array.isArray(docs)) {
-    docs.forEach(migrateActorData);
+    docs.forEach(sanitizeActor);
   } else {
-    migrateActorData(docs);
+    sanitizeActor(docs);
   } 
 });
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
 
 import { getUserById, updateUserProfile, uploadSingleFile, deleteS3MediaBatch } from '../../api/users';
 import FilmmakerHero from '../../components/FilmmakerView/FilmmakerHero/FilmmakerHero';
@@ -241,12 +242,11 @@ useEffect(() => {
     if (!hasExistingImage && !hasNewImage) {
       newErrors.image_details = true;
     }
-    if (!draftUser.summary || draftUser.summary.trim() === "") newErrors.summary = true;
     if (!draftUser.aboutMe || draftUser.aboutMe.trim() === "") newErrors.aboutMe = true;
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // If summary/bio is missing, scroll to summary. Otherwise, scroll to Hero.
+      // If summary is missing, scroll to summary. Otherwise, scroll to Hero.
       if (newErrors.summary || newErrors.aboutMe) {
         setValidationTarget('summary'); 
       } else {
@@ -340,7 +340,25 @@ useEffect(() => {
       if (finalDraft.new_banner_file) {
         const bannerKey = await uploadSingleFile(finalDraft.new_banner_file, user?.token);
         finalDraft.banners = [{ url: bannerKey, is_thumbnail: true }];
+
+        if (finalDraft.new_banner_type === 'video') {
+          if (!finalDraft.video_gallery) {
+            finalDraft.video_gallery = { reels: [], media: [], behind: [], premieres: [] };
+          }
+          const alreadyInReels = (finalDraft.video_gallery.reels || []).some(r => r.url === bannerKey);
+          if (!alreadyInReels) {
+            finalDraft.video_gallery = {
+              ...finalDraft.video_gallery,
+              reels: [
+                ...(finalDraft.video_gallery.reels || []),
+                { url: bannerKey, title: '', thumbnail: '', isMain: true },
+              ],
+            };
+          }
+        }
+
         delete finalDraft.new_banner_file;
+        delete finalDraft.new_banner_type;
       }
 
       // 7. API Call
@@ -360,11 +378,12 @@ useEffect(() => {
       setUserData(updatedUser);
       setDraftUser(null);
       setIsEditMode(false);
+      toast.success("Profile saved successfully!");
       navigate(`/user/${id}`, { replace: true });
 
     } catch (error) {
       console.error("Save process failed:", error);
-      alert("Error saving profile changes. Please try again.");
+      toast.error("Error saving profile changes. Please try again.");
     } finally {
       setIsSaving(false);
     }
@@ -374,7 +393,7 @@ useEffect(() => {
 
   return (
     id && (
-      <div className="tw-flex tw-justify-center tw-overflow-hidden tw-bg-[#1E0039] tw-relative">
+      <div className="tw-flex tw-flex-col tw-items-center tw-w-full tw-max-w-[100vw] tw-overflow-x-hidden tw-bg-[#1E0039] tw-relative">
         
         {isEditMode && (
           <UserEditNavBar
@@ -387,7 +406,7 @@ useEffect(() => {
           />
         )}
 
-        <div className={`tw-w-11/12 ${isEditMode ? 'tw-pt-[110px]' : ''}`}>
+        <div className={`tw-w-full tw-max-w-[1280px] tw-px-4 md:tw-px-0 ${isEditMode ? 'tw-pt-[110px]' : ''}`}>
 
         <div ref={heroRef}>
           <UserHeader 
@@ -415,6 +434,16 @@ useEffect(() => {
             />
           )}
           </div>
+
+          {isEditMode && (
+            <div ref={socialsRef}>
+              <UserSocials
+                userInfo={activeData}
+                isEditMode={isEditMode}
+                onChange={handleFieldChange}
+              />
+            </div>
+          )}
 
           <div ref={summaryRef}>
           <UserSummary 
@@ -474,15 +503,6 @@ useEffect(() => {
             isEditMode={isEditMode} 
             onChange={handleFieldChange} 
             />
-          </div>
-          <div>
-            {isEditMode && (
-              <div ref={socialsRef}> 
-                <UserSocials data={activeData}
-                isEditMode={isEditMode}            
-                onChange={handleFieldChange} />
-              </div>
-            )}
           </div>
           {showLoginModal && <LoginModal close={handleClose} open={handleShow} setRefresh={setRefresh}/>}
           {showMessageModal && (

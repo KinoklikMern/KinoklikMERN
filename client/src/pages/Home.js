@@ -34,7 +34,7 @@ function Home() {
     const fetchData = async () => {
       try {
         const isActorView = location.pathname === '/actors';
-        const endpoint = isActorView ? 'users/getactors/' : 'fepks/';
+        const endpoint = isActorView ? 'users/getallactors/' : 'fepks/';
         
         const response = await http.get(endpoint);
         setData(response.data);

@@ -373,7 +373,7 @@ export const logout = async (req, res) => {
   return res.status(200).json({ message: 'Successfully Logged Out' });
 };
 
-export const getProfile = async (req, res) => {
+export const getUserByEmail = async (req, res) => {
   try {
     const { email } = req.params;
     const profile = await User.findOne({ email }).select('-password');
@@ -517,7 +517,7 @@ export const updateProfile = async (req, res) => {
     } 
 
     const restrictedFields = ['_id', 'email', 'password', 'deleted', 'otp', 'isVerified', 'createdAt'];
-    const updateData = { ...req.body };  // ← Now defined
+    const updateData = { ...req.body };
     
     restrictedFields.forEach(field => {
       delete updateData[field];
@@ -558,40 +558,6 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-export const actorUploadFiles = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const userOne = await User.findOne({ _id: id });
-    if (!userOne) {
-      res.json({ error: 'No User was found!' });
-    } else {
-      const updatedProfile = {
-        //...userOne,
-        bannerImg: req.body.bannerImg,
-        thumbnail: req.body.thumbnail,
-        picture: req.body.picture,
-        profiles: req.body.profiles,
-      };
-
-      await userOne.updateOne({
-        bannerImg: req.body.bannerImg,
-        thumbnail: req.body.thumbnail,
-        picture: req.body.picture,
-        profiles: req.body.profiles,
-      });
-      await userOne.updateOne(
-        { updatedAt: new Date() },
-        { where: { _id: id } }
-      );
-      await userOne.save();
-      const userUpdated = await User.findOne({ _id: id });
-      res.status(200).json(userUpdated);
-    }
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
 // upload user avatar file to S3
 export const uploadUserAvatar = async (req, res) => {
   const file = req.file;
@@ -611,38 +577,6 @@ export const uploadActorBanner = async (req, res) => {
     res.status(406).send({ message: 'File extention not supported!' });
   } else {
     res.status(200).send({ key: result.Key });
-  }
-};
-
-// New uploadactorprofiles that handles any number of files
-export const uploadUserMedia = async (req, res) => {
-  try {
-    let totalResult = {};
-    
-    const fileKeys = Object.keys(req.files);
-
-    if (fileKeys.length === 0) {
-      return res.status(400).send({ message: 'No files uploaded' });
-    }
-
-    // Use Promise.all to upload everything in parallel (much faster!)
-    await Promise.all(
-      fileKeys.map(async (key) => {
-        const file = req.files[key][0];
-        const result = await uploadFileToS3(file);
-        
-        if (result) {
-          totalResult[key] = result.Key;
-        }
-      })
-    );
-
-    console.log('Upload complete:', totalResult);
-    res.send(totalResult);
-    
-  } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).send({ message: 'Internal server error during upload' });
   }
 }; 
 
@@ -801,25 +735,12 @@ export const getGenericRecommendations = async (req, res) => {
   }
 };
 
-//**************************************************************************/
-//TODO Do we need get actor by name?
-//export const getActor = async (req, res) => {
-//  try {
-//    const actorFind = await User.findOne({
-//      role: 'Actor',
-//      firstName: req.body.firstName,
-//      lastName: req.body.lastName,
-//    });
-
-//    res.json(actorFind);
-//  } catch (error) {
-//    res.status(404).json({ message: error.message });
-//  }
-//};
-
-export const getProfileActor = async (req, res) => {
+export const getAllActors = async (req, res) => {
   try {
-    const profile = await User.find({ role: 'Actor' })
+    const profile = await User.find({ 
+      role: 'Actor', 
+      deleted: false 
+    })
       .select('-password')
       .sort({ createdAt: 1 });
     if (!profile.length) {
@@ -831,7 +752,6 @@ export const getProfileActor = async (req, res) => {
   }
 };
 
-//get all users
 export const getAllUsers = async (req, res) => {
   try {
     const profile = await User.find().select('-password');
@@ -845,7 +765,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 // get starred actor
-export const getActoStarred = async (req, res) => {
+export const getActorStarred = async (req, res) => {
   try {
     const profile = await User.find({ role: 'Actor' })
       .where({ likes: { $in: [req.params.id] } })
@@ -967,91 +887,6 @@ export const getFollowers = async (req, res) => {
   }
 };
 
-// ----- CHIHYIN -----
-// adding user who followed the actor on KinoKlik
-export const getActorFollowers = async (req, res) => {
-  try {
-    const actorId = req.params.actorid;
-    const userId = req.params.userid;
-    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
-    if (!actorProfile) {
-      return res.status(404).json({ error: 'No Actor was found!' });
-    }
-    let iskkFollowed = actorProfile.kkFollowers.includes(userId);
-    if (!iskkFollowed) {
-      actorProfile.kkFollowers.push(userId);
-    } else {
-      actorProfile.kkFollowers.pull(userId);
-    }
-    await actorProfile.save();
-    const updatedActorProfile = await User.findOne({
-      role: 'Actor',
-      _id: actorId,
-    }).select({ kkFollowers: 1 });
-    res.json({ ...updatedActorProfile.toObject() });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// adding user who liked the actor on KinoKlik
-export const getActorLikes = async (req, res) => {
-  try {
-    const actorId = req.params.actorid;
-    const userId = req.params.userid;
-    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
-    if (!actorProfile) {
-      return res.status(404).json({ error: 'No Actor was found!' });
-    }
-    let isLiked = actorProfile.likes.includes(userId);
-    if (!isLiked) {
-      actorProfile.likes.push(userId);
-    } else {
-      actorProfile.likes.pull(userId);
-    }
-    await actorProfile.save();
-    const updatedActorProfile = await User.findOne({
-      role: 'Actor',
-      _id: actorId,
-    }).select({ likes: 1 });
-    res.json({ ...updatedActorProfile.toObject() });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Increment the recommendation count for an actor on KinoKlik
-export const getActorRecommendations = async (req, res) => {
-  try {
-
-    const actorId = req.params.actorid;
-    const count = req.body.count; // The count of selected filmmakers
-    const actorProfile = await User.findOne({ role: 'Actor', _id: actorId });
-
-    if (!actorProfile) {
-      return res.status(404).json({ error: 'No Actor was found!' });
-    }
-
-    actorProfile.recommendations = (actorProfile.recommendations || 0) + count;
-    await actorProfile.save();
-
-    res.json({ recommendations: actorProfile.recommendations });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// upload user(actor) thumbnail of the demo reel
-export const uploadActorThumbnail = async (req, res) => {
-  const file = req.file;
-  const result = await uploadFileToS3(file);
-  if (!result) {
-    res.status(406).send({ message: 'File extention not supported!' });
-  } else {
-    res.status(200).send({ key: result.Key });
-  }
-};
-
 export const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -1069,7 +904,6 @@ export const getUserById = async (req, res) => {
   }
 };
 
-// Dedicated route for Admin/System use
 export const getDeletedUserById = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id, deleted: true })
@@ -1172,5 +1006,50 @@ export const setReelThumbnail = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+export const searchUsers = async (req, res) => {
+  const { q, limit = 10 } = req.query;
+  if (!q || q.trim().length < 2) return res.json([]);
+  try {
+    const users = await User.find({
+      $or: [
+        { firstName: { $regex: q.trim(), $options: 'i' } },
+        { lastName: { $regex: q.trim(), $options: 'i' } },
+      ],
+    })
+      .select('firstName lastName picture role')
+      .limit(Math.min(Number(limit), 20));
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getFeaturedActor = async (req, res) => {
+  try {
+    const actor = await User.findOne({
+      role: 'Actor',
+      thumbnail: { $exists: true, $not: /^https/ },
+      picture: { $exists: true, $not: /^https/ },
+    })
+      .select('firstName lastName picture thumbnail _id')
+      .sort({ createdAt: -1 });
+    if (!actor) return res.json(null);
+    res.json(actor);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const uploadUserFile = async (req, res) => {
+  const file = req.file;
+  const result = await uploadFileToS3(file);
+  if (!result) {
+    res.status(406).send({ message: "File extention not supported!" });
+  } else {
+    console.log(result);
+    res.status(200).send({ key: result.Key });
+    //res.status(200).send({ Location: result.Location });
   }
 };

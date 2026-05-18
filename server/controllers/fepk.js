@@ -1246,3 +1246,34 @@ export const deleteFepkMediaBatch = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const searchFepks = async (req, res) => {
+  const { q, limit = 10 } = req.query;
+  if (!q || q.trim().length < 2) return res.json([]);
+  try {
+    const results = await fepk.find({
+      title: { $regex: q.trim(), $options: 'i' },
+      deleted: false,
+    })
+      .select('title banner_url image_details')
+      .limit(Math.min(Number(limit), 20));
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getFeaturedFepk = async (req, res) => {
+  try {
+    const result = await fepk.findOne({
+      deleted: false,
+      banner_url: { $exists: true, $nin: ['', null] },
+      image_details: { $exists: true, $nin: ['', null] },
+    })
+      .select('title banner_url image_details logLine_short _id')
+      .sort({ createdAt: -1 });
+    if (!result) return res.json(null);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

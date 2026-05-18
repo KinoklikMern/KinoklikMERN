@@ -5,7 +5,7 @@ import { faCamera, faVideo, faPlay, faImages, faXmark,
   faChevronLeft, faChevronRight  } from "@fortawesome/free-solid-svg-icons";
 import emptyBanner from '../../../images/empty_banner.jpeg';
 
-import UpdateImageModal from "../../UpdateImageModal";
+import UpdateActorHeadshotModal from "../../UpdateActorHeadshotModal";
 import UpdateBannerModal from "../../UpdateBannerModal"; 
 
 export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditMode, onChange, errors = {}, clearError }) {
@@ -134,7 +134,7 @@ export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditM
     <>
       <div className="tw-w-full tw-max-w-[1280px] tw-mx-auto tw-pb-10">
         
-        {/* ================= DESKTOP VIEW ================= */}
+        {/* DESKTOP VIEW */}
         <div className="tw-hidden md:tw-flex tw-w-full tw-h-[515px] xl:tw-h-[600px] tw-gap-8 tw-relative">
           
           <div 
@@ -148,16 +148,14 @@ export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditM
             {hasMultiple && !isEditMode && (
               <>
                 <button 
-                  onClick={prevImage} 
-                  className="tw-absolute tw-left-2 tw-top-1/2 -tw-translate-y-1/2 tw-bg-black/60 hover:tw-bg-black/90 tw-backdrop-blur-sm tw-text-white tw-w-9 tw-h-9 tw-rounded-full tw-opacity-20 group-hover:tw-opacity-100 tw-transition-all tw-shadow-md tw-flex tw-items-center tw-justify-center"
+                  onClick={prevImage} className="tw-absolute tw-left-2 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-bg-transparent tw-border-none tw-text-white tw-drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:tw-text-[#FF00A0] tw-transition-all tw-cursor-pointer"
                 >
-                  <FontAwesomeIcon icon={faChevronLeft} />
+                  <FontAwesomeIcon icon={faChevronLeft} className="tw-text-2xl" />
                 </button>
                 <button 
-                  onClick={nextImage} 
-                  className="tw-absolute tw-right-2 tw-top-1/2 -tw-translate-y-1/2 tw-bg-black/60 hover:tw-bg-black/90 tw-backdrop-blur-sm tw-text-white tw-w-9 tw-h-9 tw-rounded-full tw-opacity-20 group-hover:tw-opacity-100 tw-transition-all tw-shadow-md tw-flex tw-items-center tw-justify-center"
+                  onClick={nextImage} className="tw-absolute tw-right-2 tw-top-1/2 tw--translate-y-1/2 tw-z-20 tw-bg-transparent tw-border-none tw-text-white tw-drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:tw-text-[#FF00A0] tw-transition-all tw-cursor-pointer"
                 >
-                  <FontAwesomeIcon icon={faChevronRight} />
+                  <FontAwesomeIcon icon={faChevronRight} className="tw-text-2xl" />
                 </button>
               </>
             )}
@@ -205,7 +203,7 @@ export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditM
           </div>
         </div>
 
-        {/* ================= MOBILE VIEW (MATCHING EPK) ================= */}
+        {/*  MOBILE VIEW */}
         <div className="tw-flex md:tw-hidden tw-flex-col tw-gap-4">
           
           <div className="tw-relative tw-w-full tw-h-[250px] tw-rounded-[10px] tw-overflow-hidden tw-bg-black tw-shadow-lg">
@@ -240,6 +238,21 @@ export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditM
               onTouchEnd={handleTouchEnd}
             >
               <img src={displayHeadshot} alt="Mobile Headshot" className="tw-w-full tw-h-full tw-object-cover" />
+              
+              {hasMultiple && (
+                <>
+                  <button 
+                    onClick={prevImage} className="tw-hidden">
+                    <FontAwesomeIcon icon={faChevronLeft} className="tw-text-4xl" />
+                  </button>
+
+                  <button 
+                    onClick={nextImage} 
+                   className="tw-hidden">
+                    <FontAwesomeIcon icon={faChevronRight} className="tw-text-4xl" />
+                  </button>
+                </>
+              )}
               {isEditMode && (
                 <div className="tw-absolute tw-inset-0 tw-bg-black/50 tw-flex tw-items-center tw-justify-center">
                   <button onClick={(e) => { e.stopPropagation(); setIsHeadshotModalOpen(true); }} className="tw-bg-[#FF43A7] tw-border-none tw-text-[#570033] tw-px-4 tw-py-2 tw-rounded-lg tw-font-bold tw-text-xs">
@@ -262,31 +275,82 @@ export default function UserHero({ data, scrollToPhotos, scrollToVideos, isEditM
       </div>
 
       {isExpanded && (
-        <div className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-p-4" 
-             onClick={() => setIsExpanded(false)}
-             onTouchStart={handleTouchStart}
-             onTouchEnd={handleTouchEnd}
+  <div 
+    className="tw-fixed tw-inset-0 tw-z-[9999] tw-bg-[#0a0014]/95 tw-backdrop-blur-md tw-flex tw-items-center tw-justify-center tw-overflow-hidden" 
+    onClick={() => setIsExpanded(false)}
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd}
+  >
+
+    {hasMultiple && (
+      <>
+        <button 
+          onClick={prevImage} 
+          className="md:tw-hidden tw-absolute tw-left-4 tw-top-1/2 tw--translate-y-1/2 tw-z-[130] 
+                     tw-text-white tw-bg-transparent tw-border-none tw-drop-shadow-[0_2px_8px_rgba(0,0,0,1)]"
         >
-          <button className="tw-absolute tw-top-6 tw-right-6 tw-w-12 tw-h-12 tw-bg-black/50 tw-rounded-full tw-text-white tw-border-none tw-cursor-pointer tw-z-50" onClick={() => setIsExpanded(false)}>
-            <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
-          </button>
-          
-          {hasMultiple && (
-            <>
-              <button onClick={prevImage} className="tw-absolute tw-left-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl">
-                <FontAwesomeIcon icon={faChevronLeft} />
-              </button>
-              <button onClick={nextImage} className="tw-absolute tw-right-4 tw-z-50 tw-text-white/70 hover:tw-text-white tw-text-4xl">
-                <FontAwesomeIcon icon={faChevronRight} />
-              </button>
-            </>
-          )}
+          <FontAwesomeIcon icon={faChevronLeft} className="tw-text-4xl" />
+        </button>
 
-          <img src={displayHeadshot} alt="Fullscreen" className="tw-max-w-full tw-max-h-full tw-object-contain tw-rounded-lg shadow-2xl" />
-        </div>
-      )}
+        <button 
+          onClick={nextImage} 
+          className="md:tw-hidden tw-absolute tw-right-4 tw-top-1/2 tw--translate-y-1/2 tw-z-[130] 
+                     tw-text-white tw-bg-transparent tw-border-none tw-drop-shadow-[0_2px_8px_rgba(0,0,0,1)]"
+        >
+          <FontAwesomeIcon icon={faChevronRight} className="tw-text-4xl" />
+        </button>
+      </>
+    )}
 
-      <UpdateImageModal isOpen={isHeadshotModalOpen} onClose={() => setIsHeadshotModalOpen(false)} libraryImages={data?.photo_albums?.headshots || []} mode="user" onSave={handleSaveHeadshot} onSetMain={handleSetMain}/>
+    <div 
+      className="tw-relative tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center" 
+      onClick={(e) => e.stopPropagation()} 
+    >
+      <div className="tw-relative">
+        
+        <button 
+          className="tw-fixed tw-top-6 tw-right-6 md:tw-absolute md:tw-top-0 md:tw--right-24 tw-w-12 tw-h-12 tw-z-[120] tw-flex tw-items-center tw-justify-center 
+           tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 tw-rounded-full tw-text-white 
+           tw-drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:tw-text-[#FF00A0] hover:tw-bg-white/20 
+           tw-transition-all tw-cursor-pointer"
+          onClick={() => setIsExpanded(false)}
+        >
+          <FontAwesomeIcon icon={faXmark} className="tw-text-2xl" />
+        </button>
+
+        <img 
+          src={displayHeadshot} 
+          alt="Fullscreen" 
+          className="tw-max-w-[95vw] md:tw-max-w-[80vw] tw-max-h-[90vh] tw-object-contain tw-rounded-lg tw-shadow-2xl" 
+        />
+
+        {hasMultiple && (
+          <>
+            <button 
+              onClick={prevImage} 
+              className="tw-hidden md:tw-flex tw-absolute md:-tw-left-24 tw-top-1/2 tw--translate-y-1/2 tw-z-[100] tw-items-center tw-justify-center 
+              tw-w-16 tw-h-16 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 
+              tw-text-white hover:tw-text-[#FF00A0] md:hover:tw-bg-white/20 tw-transition-all tw-cursor-pointer"
+            >
+              <FontAwesomeIcon icon={faChevronLeft} className="tw-text-4xl" />
+            </button>
+
+            <button 
+              onClick={nextImage} 
+              className="tw-hidden md:tw-flex tw-absolute md:-tw-right-24 tw-top-1/2 tw--translate-y-1/2 tw-z-[100] tw-items-center tw-justify-center 
+              tw-w-16 tw-h-16 tw-rounded-full tw-bg-white/10 tw-backdrop-blur-md tw-border tw-border-white/20 
+              tw-text-white hover:tw-text-[#FF00A0] md:hover:tw-bg-white/20 tw-transition-all tw-cursor-pointer"
+            >
+              <FontAwesomeIcon icon={faChevronRight} className="tw-text-4xl" />
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
+      <UpdateActorHeadshotModal isOpen={isHeadshotModalOpen} onClose={() => setIsHeadshotModalOpen(false)} libraryImages={data?.photo_albums?.headshots || []} mode="user" onSave={handleSaveHeadshot} onSetMain={handleSetMain}/>
       <UpdateBannerModal isOpen={isBannerModalOpen} onClose={() => setIsBannerModalOpen(false)} libraryItems={data?.video_gallery?.reels || []} onSave={handleSaveBanner} />
     </>
   );
